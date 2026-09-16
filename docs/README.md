@@ -16,6 +16,8 @@ AGENTS.md
 
 Do not scan the whole repository by default.
 
+For agent-operated workflows, use [`../harness/README.md`](../harness/README.md) as the operational harness entrypoint after the global rules in `AGENTS.md`.
+
 ## Artifact routing
 
 | Information | Authoritative location | Question answered |
@@ -38,6 +40,7 @@ Start with:
 - [`architecture/overview.md`](architecture/overview.md) — DDD + Clean/Hexagonal architecture;
 - [`architecture/context-map.md`](architecture/context-map.md) — bounded contexts and external systems;
 - [`architecture/dependency-rules.md`](architecture/dependency-rules.md) — dependency and port/adapter rules;
+- [`architecture/agent-harness.md`](architecture/agent-harness.md) — single-agent harness, context minimization, tools and human gates;
 - [`domain/interview-preparation.md`](domain/interview-preparation.md) — Interview Preparation domain;
 - [`domain/english-listening.md`](domain/english-listening.md) — English Listening domain.
 

@@ -22,6 +22,17 @@ Before substantive work:
 
 Use progressive disclosure. Do not scan all docs/code by default.
 
+For agent-operated user workflows, [`harness/README.md`](harness/README.md) is the harness entrypoint. The accepted interaction model is documented in [`docs/architecture/agent-harness.md`](docs/architecture/agent-harness.md).
+
+### Context minimization
+
+Each task or workflow stage must use the smallest practical task-relevant context:
+
+- load only canonical rules and artifacts needed for the current stage;
+- do not preload unrelated bounded contexts, completed plans, research, code, or adapters;
+- when one stage feeds another, prefer persisted repository artifacts over carrying the full previous reasoning trace;
+- if a workflow/skill is introduced, document its required inputs/context rather than relying on repository-wide context.
+
 Use-case entrypoints:
 
 - `use-cases/interview-preparation/README.md`;
@@ -31,7 +42,8 @@ Architecture entrypoints:
 
 - `docs/architecture/overview.md`;
 - `docs/architecture/context-map.md`;
-- `docs/architecture/dependency-rules.md`.
+- `docs/architecture/dependency-rules.md`;
+- `docs/architecture/agent-harness.md`.
 
 ## Source-of-truth priority
 
@@ -75,6 +87,23 @@ All repository changes after bootstrap:
 8. Merge only with squash so one task becomes one commit in `main`.
 
 Do not push feature work directly to `main`.
+
+## Agent execution model
+
+Harness v0.1 uses one ChatGPT chat agent as the coordinator. Do not introduce specialist/supervisor agents unless a concrete workflow demonstrates that one agent is insufficient.
+
+Responsibility split:
+
+```text
+agent/model       -> semantic interpretation, research, proposals, generation, critique
+scripts/validators -> IDs, schemas, provenance mechanics, validation, migration, synchronization, deterministic writes
+```
+
+A model-driven skill may call a deterministic tool, but the tool remains a tool rather than becoming a skill by naming convention.
+
+Human approval points are workflow gates for meaningful judgment, not separate agents.
+
+Local Anki publication remains a deterministic local-tool boundary: repository artifacts are prepared by the agent; local sync scripts communicate with AnkiConnect.
 
 ## Architecture model
 
