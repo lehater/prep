@@ -35,7 +35,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     objects = load_prototypes(args.data, DEFAULT_TAXONOMY)
-    anki = AnkiConnect(endpoint=args.endpoint)
+    anki = AnkiConnect(url=args.endpoint)
     system = PrototypeAnkiStudySystem(anki, deck_name=args.deck)
     results = system.reconcile(objects, dry_run=not args.apply)
 
