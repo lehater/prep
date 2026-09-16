@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 TAXONOMY_PATH = ROOT / "model" / "question-taxonomy.json"
 QUESTIONS_DIR = ROOT / "questions"
+MACHINE_ID_RE = re.compile(r"^[a-z0-9]+(?:[.-][a-z0-9]+)*$")
 
 
 class ValidationError(Exception):
@@ -36,6 +38,15 @@ def non_empty_string(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
 
+def require_machine_id(value: Any, message: str) -> str:
+    require(non_empty_string(value), message)
+    require(
+        bool(MACHINE_ID_RE.fullmatch(value)),
+        f"{message}; expected lowercase English/ASCII id using letters, digits, '.' or '-'",
+    )
+    return value
+
+
 def validate_taxonomy(data: Any) -> tuple[set[str], dict[str, str]]:
     require(isinstance(data, dict), "taxonomy root must be an object")
     require(data.get("version") == "0.1", "taxonomy version must be '0.1'")
@@ -53,7 +64,7 @@ def validate_taxonomy(data: Any) -> tuple[set[str], dict[str, str]]:
 
     task_ids = set(learning_tasks)
     for task_id, spec in learning_tasks.items():
-        require(non_empty_string(task_id), "learning task id must be non-empty")
+        require_machine_id(task_id, "learning task id is required")
         require(isinstance(spec, dict), f"learning task {task_id!r} must be an object")
         require(
             non_empty_string(spec.get("description")),
@@ -62,7 +73,7 @@ def validate_taxonomy(data: Any) -> tuple[set[str], dict[str, str]]:
 
     type_to_task: dict[str, str] = {}
     for question_type, spec in question_types.items():
-        require(non_empty_string(question_type), "question type id must be non-empty")
+        require_machine_id(question_type, "question type id is required")
         require(
             isinstance(spec, dict),
             f"question type {question_type!r} must be an object",
@@ -85,7 +96,7 @@ def validate_bank(path: Path, data: Any, known_question_types: set[str]) -> set[
     rel = path.relative_to(ROOT)
     require(isinstance(data, dict), f"{rel}: root must be an object")
     require(data.get("version") == "0.1", f"{rel}: version must be '0.1'")
-    require(non_empty_string(data.get("bank_id")), f"{rel}: bank_id is required")
+    require_machine_id(data.get("bank_id"), f"{rel}: bank_id is required")
     require(non_empty_string(data.get("title")), f"{rel}: title is required")
 
     concepts = data.get("concepts")
@@ -102,8 +113,9 @@ def validate_bank(path: Path, data: Any, known_question_types: set[str]) -> set[
     concept_ids: set[str] = set()
     for concept in concepts:
         require(isinstance(concept, dict), f"{rel}: each concept must be an object")
-        concept_id = concept.get("id")
-        require(non_empty_string(concept_id), f"{rel}: concept id is required")
+        concept_id = require_machine_id(
+            concept.get("id"), f"{rel}: concept id is required"
+        )
         require(
             concept_id not in concept_ids,
             f"{rel}: duplicate concept id {concept_id!r}",
@@ -118,18 +130,27 @@ def validate_bank(path: Path, data: Any, known_question_types: set[str]) -> set[
     covered_types: set[str] = set()
     for question in questions:
         require(isinstance(question, dict), f"{rel}: each question must be an object")
-        question_id = question.get("id")
+        question_id = require_machine_id(
+            question.get("id"), f"{rel}: question id is required"
+        )
         concept_id = question.get("concept_id")
         question_type = question.get("question_type")
 
-        require(non_empty_string(question_id), f"{rel}: question id is required")
         require(
             question_id not in question_ids,
             f"{rel}: duplicate question id {question_id!r}",
         )
+        require_machine_id(
+            concept_id,
+            f"{rel}: question {question_id!r} concept_id is required",
+        )
         require(
             concept_id in concept_ids,
             f"{rel}: question {question_id!r} references unknown concept {concept_id!r}",
+        )
+        require_machine_id(
+            question_type,
+            f"{rel}: question {question_id!r} question_type is required",
         )
         require(
             question_type in known_question_types,

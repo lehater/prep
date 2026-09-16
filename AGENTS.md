@@ -112,6 +112,17 @@ infrastructure -> application ports
 - `src/prep/infrastructure/anki/` must not acquire Interview Preparation or English Listening policy.
 - Anki Note/Card/Deck structures never define bounded-context domain models.
 
+## Interview content language
+
+For Interview Preparation learning content, follow `docs/guides/interview-question-authoring.md`:
+
+- stable IDs and machine-readable values are lowercase English/ASCII;
+- technical terms, established names, product/protocol/API/library/framework names, code identifiers, and abbreviations remain English-first;
+- learner-facing explanatory prose is Russian;
+- a Russian translation may optionally follow an English term in parentheses, but never replace the canonical English term.
+
+This is a bounded-context content policy, not a repository-wide documentation-language rule and not an English Listening rule.
+
 ## Identity and provenance
 
 Stable learning-object identity is owned by the bounded context/repository, never derived from mutable display text.
