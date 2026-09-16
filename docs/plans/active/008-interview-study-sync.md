@@ -11,13 +11,28 @@ Implement the first Clean/Hexagonal vertical slice from canonical Interview Prep
 - define an application-owned outbound study-system port;
 - implement the port with an Interview-specific Anki adapter built on shared `prep.infrastructure.anki` primitives;
 - add JSON question-bank/taxonomy loading at the infrastructure boundary;
-- add a CLI composition root with `--dry-run` and write modes;
+- add a CLI composition root with safe dry-run and explicit write mode;
 - classify sync outcomes as `created`, `updated`, `unchanged`, `conflict`, or `error`;
 - add executable architecture-boundary validation;
 - cover use case and adapter behavior with standard-library tests;
 - do not add review-history ingestion or assessment-run semantics yet.
 
+## Implemented
+
+- Interview domain package with `Question`, `QuestionAssessment`, `Concept`, and `QuestionBank`;
+- application-owned `StudySystem` port and `SyncInterviewQuestions` use case;
+- JSON adapters for canonical question/taxonomy files;
+- `InterviewAnkiStudySystem` mapping adapter over shared Anki primitives;
+- safe-by-default CLI (`dry-run`; `--apply` enables writes);
+- deterministic generated fields/tags and content version;
+- exact QuestionId reconciliation with created/updated/unchanged/conflict/error outcomes;
+- generated-tag cleanup while preserving user tags;
+- AST-based architecture boundary validator wired into CI;
+- fake-Anki vertical-slice tests.
+
 ## Validation
+
+Required CI checks:
 
 - interview domain/application packages do not import `prep.infrastructure`;
 - shared Anki infrastructure remains free of Interview vocabulary;
@@ -25,7 +40,7 @@ Implement the first Clean/Hexagonal vertical slice from canonical Interview Prep
 - first write creates canonical notes and a second equivalent write reports `unchanged` without duplicates;
 - changed canonical content updates the existing note and preserves its identity/scheduling state;
 - existing question/docs validators and shared Anki tests remain green;
-- new architecture check runs in CI.
+- new architecture check passes.
 
 ## Environment limitation
 
@@ -33,4 +48,4 @@ CI and this agent environment cannot access the user's local Anki Desktop endpoi
 
 ## Status
 
-In progress.
+Implementation complete; CI validation pending.
