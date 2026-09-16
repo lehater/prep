@@ -21,6 +21,9 @@ jobs:
       - name: Validate documentation links
         run: python tools/validate_docs.py
 
+      - name: Validate architecture boundaries
+        run: python tools/validate_architecture.py
+
       - name: Validate question model and banks
         run: python tools/validate_questions.py
 

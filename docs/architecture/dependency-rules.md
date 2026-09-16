@@ -154,14 +154,21 @@ Persisted structural truth must be validated deterministically before external s
 
 ## Enforcement strategy
 
-Initially enforce through:
+The first executable import-boundary check is:
 
-- code review/agent rules;
-- package boundaries;
-- focused tests;
-- architecture docs.
+```bash
+python tools/validate_architecture.py
+```
 
-When the package structure stabilizes, add executable architecture checks (for example import-boundary tests) instead of relying permanently on prose.
+It currently enforces the boundaries that exist in code:
+
+- Interview domain cannot import Interview application/infrastructure or shared infrastructure;
+- Interview application cannot import concrete infrastructure;
+- shared infrastructure cannot import Interview Preparation.
+
+The check runs in CI together with docs/question validation and unit tests. Extend it as new bounded-context packages become executable; do not rely permanently on prose-only architecture rules.
+
+Focused tests still verify behavioral boundaries such as dry-run side-effect freedom and adapter idempotency.
 
 ## Change test
 
