@@ -19,6 +19,7 @@ Repository-centered system for adaptive technical interview preparation.
 - `docs/domain-model.md` — current domain model.
 - `docs/question-types.md` — LearningTask and QuestionType semantics.
 - `docs/question-bank-format.md` — machine-readable question authoring format.
+- `docs/anki-adapter.md` — initial canonical Question → Anki mapping and live adapter boundary.
 - `docs/process.md` — preparation feedback loop.
 - `ARCHITECTURE.md` — architectural boundaries.
 - `docs/decisions/` — accepted architectural decisions.
