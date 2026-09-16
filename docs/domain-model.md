@@ -1,6 +1,6 @@
-# Domain Model
+# Interview Preparation Domain Model
 
-This document defines the current preparation-domain entities and their responsibilities. Details should evolve through evidence from vertical slices rather than speculative platform design.
+This document defines the current **Interview Preparation** bounded-context entities and their responsibilities. It is not a universal learning-domain model. Details should evolve through evidence from vertical slices rather than speculative platform design.
 
 ## Competency
 
@@ -65,9 +65,11 @@ Important attributes will likely include:
 - attempt kind (baseline or learning/review);
 - response time when available.
 
+This entity remains local to Interview Preparation until another use case demonstrates equivalent semantics.
+
 ## Assessment
 
-Represents the interpretation of an Attempt. Anki review buttons may be one input, but assessment semantics belong to this domain.
+Represents the interpretation of an Attempt. Anki review buttons may be one input, but assessment semantics belong to this bounded context.
 
 QuestionType defines the kind of evidence expected; a later slice will define reusable rubrics or assessment levels.
 
@@ -96,3 +98,7 @@ Represents a response to an observed Gap, such as study, targeted retrieval prac
 Oral answer, text answer, code, and diagram describe *how evidence is produced*, not *what cognitive operation is tested*.
 
 `ResponseMode` should become a first-class entity only when the Anki adapter or a non-Anki exercise requires this distinction. Until then, response modality remains adapter/exercise metadata rather than another LearningTask.
+
+## Cross-context rule
+
+Do not reuse these entities in English Listening solely because both use cases involve learning. Shared domain concepts should be extracted only after equivalent responsibilities and invariants are observed in both contexts.
