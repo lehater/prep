@@ -11,6 +11,7 @@ This directory contains accepted durable decisions. Research notes are evidence;
 | [`ADR-003`](ADR-003-ankiconnect-primary-live-adapter.md) | AnkiConnect is the primary live Anki integration |
 | [`ADR-004`](ADR-004-multi-use-case-learning-workspace.md) | Repository hosts multiple bounded learning use cases |
 | [`ADR-005`](ADR-005-ddd-clean-hexagonal-architecture.md) | Use DDD + Clean/Hexagonal Architecture |
+| [`ADR-006`](ADR-006-single-chat-agent-repository-harness.md) | Operate v0.1 through one ChatGPT agent following a repository harness |
 
 ## When to add an ADR
 
