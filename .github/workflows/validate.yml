@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  question-model:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -20,3 +20,6 @@ jobs:
 
       - name: Validate question model and banks
         run: python tools/validate_questions.py
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
