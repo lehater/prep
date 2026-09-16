@@ -1,36 +1,41 @@
 # prep
 
-Repository-centered system for adaptive technical interview preparation.
+Repository-centered workspace for adaptive learning workflows.
 
 ## Purpose
 
-`prep` is the durable source of truth for:
-- competency and concept models;
-- learning tasks and question types;
-- canonical question data;
-- baseline assessment and gap analysis;
-- mappings to Anki and future execution adapters;
-- research, decisions, plans, and validation rules.
+`prep` is the durable source of truth for learning use cases, their domain models, execution adapters, research, decisions, plans, and validation rules.
+
+Initial bounded contexts:
+
+- `use-cases/interview-preparation/` — technical interview preparation through competency/question diagnostics and gap-driven learning;
+- `use-cases/english-listening/` — spoken-English listening practice from authentic film/TV audio.
+
+Shared infrastructure is extracted only when it is demonstrably domain-independent. Anki/AnkiConnect is the first shared execution adapter.
 
 ## Start here
 
 - `AGENTS.md` — agent workflow and repository rules.
-- `docs/vision.md` — project goal and initial scope.
-- `docs/domain-model.md` — current domain model.
-- `docs/question-types.md` — LearningTask and QuestionType semantics.
-- `docs/question-bank-format.md` — machine-readable question authoring format.
-- `docs/anki-adapter.md` — initial canonical Question → Anki mapping and live adapter boundary.
-- `docs/process.md` — preparation feedback loop.
-- `ARCHITECTURE.md` — architectural boundaries.
+- `docs/vision.md` — project goal and scope.
+- `ARCHITECTURE.md` — bounded contexts and shared infrastructure.
 - `docs/decisions/` — accepted architectural decisions.
+- `docs/research/` — evidence, source reviews, and migration assessments.
+- `docs/anki-adapter.md` — Anki mapping and live adapter boundary.
 
-## Executable model
+Interview-preparation artifacts currently remain at their established root paths:
 
-- `model/question-taxonomy.json` — canonical machine-readable LearningTask/QuestionType registry.
-- `questions/` — canonical question banks.
-- `tools/validate_questions.py` — structural and project-invariant validation.
+- `docs/domain-model.md` — interview domain model;
+- `docs/question-types.md` — LearningTask and QuestionType semantics;
+- `docs/question-bank-format.md` — machine-readable question authoring format;
+- `model/question-taxonomy.json` — executable taxonomy registry;
+- `questions/` — canonical interview question banks;
+- `tools/validate_questions.py` — structural/project-invariant validation.
 
-Run validation with:
+They are not moved merely for directory symmetry.
+
+## Validation
+
+Run current executable validation with:
 
 ```bash
 python tools/validate_questions.py
