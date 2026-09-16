@@ -16,10 +16,26 @@ Repository-centered system for adaptive technical interview preparation.
 
 - `AGENTS.md` — agent workflow and repository rules.
 - `docs/vision.md` — project goal and initial scope.
-- `docs/domain-model.md` — candidate domain model.
+- `docs/domain-model.md` — current domain model.
+- `docs/question-types.md` — LearningTask and QuestionType semantics.
+- `docs/question-bank-format.md` — machine-readable question authoring format.
 - `docs/process.md` — preparation feedback loop.
 - `ARCHITECTURE.md` — architectural boundaries.
 - `docs/decisions/` — accepted architectural decisions.
+
+## Executable model
+
+- `model/question-taxonomy.json` — canonical machine-readable LearningTask/QuestionType registry.
+- `questions/` — canonical question banks.
+- `tools/validate_questions.py` — structural and project-invariant validation.
+
+Run validation with:
+
+```bash
+python tools/validate_questions.py
+```
+
+The validator uses only the Python standard library. The same check runs in GitHub Actions for pull requests and `main`.
 
 ## Development workflow
 
