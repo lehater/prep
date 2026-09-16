@@ -1,0 +1,534 @@
+{
+  "version": "0.1",
+  "objects": [
+    {
+      "prototype_id": "backend.idempotency.proto.001",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "recall",
+      "question_type": "direct-recall",
+      "guidance_level": "independent",
+      "stimulus_format": "none",
+      "response_format": "free-recall",
+      "context": "",
+      "prompt": "Что означает свойство idempotency для операции или API request?",
+      "stimulus": "",
+      "feedback": {
+        "short_answer": "Повтор одного и того же logical operation не должен умножать его intended effect.",
+        "explanation": "Idempotency описывает наблюдаемый смысл операции: повторное выполнение должно приводить к тому же intended effect, что и одно выполнение. Это не означает, что response bytes, timestamps или logging обязаны быть идентичными.",
+        "reasoning_steps": [],
+        "key_points": [
+          "повтор не умножает intended effect",
+          "идентичность transport-level response не является требованием"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Не путать idempotency с буквальным повторением того же response или с отсутствием любых дополнительных side effects вроде logging.",
+        "alternatives": [],
+        "sources": [
+          "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.002",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "apply",
+      "question_type": "scenario-apply",
+      "guidance_level": "independent",
+      "stimulus_format": "scenario",
+      "response_format": "free-recall",
+      "context": "Payment API",
+      "prompt": "Как сделать retry безопасным в этой ситуации?",
+      "stimulus": "Client отправил POST /payments. Server создал payment и сделал commit, но response потерялся. Client не знает результат и повторяет request.",
+      "feedback": {
+        "short_answer": "Нужен стабильный idempotency key для одного logical payment attempt и атомарное сохранение связи key → result.",
+        "explanation": "Server должен распознавать повтор того же logical operation. Idempotency key сохраняется вместе с созданным result под uniqueness/concurrency guarantee. Retry с тем же key возвращает или восстанавливает уже существующий result вместо создания второго payment.",
+        "reasoning_steps": [
+          "Client генерирует один idempotency key на logical operation.",
+          "Server атомарно резервирует key и создаёт payment/result.",
+          "Concurrent или поздний retry находит существующий operation.",
+          "Повтор возвращает существующий result, а не создаёт новый payment."
+        ],
+        "key_points": [
+          "stable idempotency key",
+          "database uniqueness или эквивалентная concurrency guarantee",
+          "reuse existing result",
+          "конфликтующие parameters с тем же key не принимаются молча"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Сначала выполнить business side effect, а потом отдельно записать idempotency key — опасно: crash между этими действиями снова открывает путь к duplicate payment.",
+        "alternatives": [],
+        "sources": [
+          "https://docs.stripe.com/api/idempotent_requests"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.003",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "compare",
+      "question_type": "compare",
+      "guidance_level": "independent",
+      "stimulus_format": "prose",
+      "response_format": "comparison",
+      "context": "",
+      "prompt": "Чем idempotency отличается от deduplication и почему эти понятия нельзя считать синонимами?",
+      "stimulus": "Сравни semantic guarantee и implementation technique.",
+      "feedback": {
+        "short_answer": "Idempotency — semantic property операции; deduplication — один из способов реализации защиты от повторной обработки.",
+        "explanation": "Idempotency описывает требуемое поведение при повторе. Deduplication обнаруживает повторные requests/events и подавляет или переиспользует обработку. Deduplication сама по себе не гарантирует idempotency, если защищаемый side effect не входит в атомарную границу.",
+        "reasoning_steps": [],
+        "key_points": [
+          "idempotency = behavioral/semantic property",
+          "deduplication = implementation technique",
+          "deduplication должна быть согласована с side effect и concurrency boundary"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Таблица processed_keys не делает flow idempotent автоматически, если check и side effect выполняются раздельно и допускают race condition.",
+        "alternatives": [],
+        "sources": [
+          "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.004",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "analyze",
+      "question_type": "diagnose",
+      "guidance_level": "independent",
+      "stimulus_format": "scenario",
+      "response_format": "free-recall",
+      "context": "Concurrent requests",
+      "prompt": "Где defect и какой invariant должен устранить duplicate payment?",
+      "stimulus": "Два concurrent request приходят с одним idempotency key. Оба выполняют SELECT и получают 'not found', после чего оба создают payment.",
+      "feedback": {
+        "short_answer": "Это check-then-act race; uniqueness/reservation должна обеспечиваться атомарно на concurrency-safe boundary, обычно в database.",
+        "explanation": "Application-level SELECT перед INSERT не сериализует concurrent requests. Оба request успевают увидеть отсутствие key. Нужен database-enforced unique constraint и transactional insert/upsert/locking semantics, чтобы только один request стал owner logical operation.",
+        "reasoning_steps": [
+          "Оба transaction читают состояние до появления записи другого transaction.",
+          "Оба проходят application check.",
+          "Без database invariant оба могут выполнить side effect.",
+          "Unique reservation делает один request победителем, а второй переводит в reuse/wait path."
+        ],
+        "key_points": [
+          "race condition в check-then-act",
+          "database unique constraint или эквивалент",
+          "atomic reservation",
+          "losing request не выполняет новый side effect"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Mutex внутри одного process не является достаточной гарантией для нескольких application instances.",
+        "alternatives": [
+          "INSERT ... ON CONFLICT с последующим чтением существующего operation",
+          "row/advisory locking при корректно определённой transaction boundary"
+        ],
+        "sources": [
+          "https://www.postgresql.org/docs/current/ddl-constraints.html"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.005",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "explain",
+      "question_type": "explain",
+      "guidance_level": "worked",
+      "stimulus_format": "prose",
+      "response_format": "self-explanation",
+      "context": "Worked example",
+      "prompt": "Объясни, почему приведённая последовательность сохраняет один logical payment при retry.",
+      "stimulus": "1. BEGIN transaction\n2. INSERT idempotency_key ... UNIQUE\n3. INSERT payment ...\n4. UPDATE idempotency record with result\n5. COMMIT\n6. Retry читает сохранённый result",
+      "feedback": {
+        "short_answer": "Ключевой эффект даёт единая transaction boundary плюс uniqueness: reservation и создание payment либо фиксируются вместе, либо не фиксируются.",
+        "explanation": "Worked flow сначала закрепляет ownership logical operation через unique key, затем создаёт payment и сохраняет result в той же transaction. Concurrent duplicate не может независимо зарезервировать тот же key. После commit retry находит canonical operation/result.",
+        "reasoning_steps": [
+          "UNIQUE делает identity logical operation concurrency-safe.",
+          "Одна transaction связывает reservation и business write.",
+          "Rollback не оставляет частично зафиксированный successful operation.",
+          "Retry использует persisted result как источник истины."
+        ],
+        "key_points": [
+          "identity reservation",
+          "transactional atomicity",
+          "persisted result",
+          "retry reuse"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Worked example не доказывает универсальность конкретной schema; важно понять invariants, а не запомнить названия таблиц.",
+        "alternatives": [],
+        "sources": [
+          "https://www.postgresql.org/docs/current/ddl-constraints.html"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.006",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "apply",
+      "question_type": "scenario-apply",
+      "guidance_level": "faded",
+      "stimulus_format": "code",
+      "stimulus_language": "sql",
+      "response_format": "code-completion",
+      "context": "Faded example",
+      "prompt": "Дополни SQL так, чтобы database не позволяла двум concurrent requests зарезервировать один idempotency key.",
+      "stimulus": "CREATE TABLE idempotency_records (\n    key text NOT NULL,\n    request_hash text NOT NULL,\n    payment_id bigint,\n    status text NOT NULL\n    -- missing invariant\n);",
+      "feedback": {
+        "short_answer": "Нужен UNIQUE constraint (или PRIMARY KEY) на `key`.",
+        "explanation": "Application check недостаточен при concurrency. Database uniqueness превращает identity logical operation в enforceable invariant и даёт deterministic conflict для проигравшего transaction.",
+        "reasoning_steps": [
+          "Определи поле, которое представляет identity logical operation.",
+          "Перенеси invariant на database boundary.",
+          "Обработай uniqueness conflict как duplicate/retry path, а не как повод создать второй payment."
+        ],
+        "key_points": [
+          "UNIQUE(key) или PRIMARY KEY(key)",
+          "конфликт обрабатывается явно",
+          "constraint не заменяет transaction boundary вокруг business side effect"
+        ],
+        "correct_artifact": "CREATE TABLE idempotency_records (\n    key text PRIMARY KEY,\n    request_hash text NOT NULL,\n    payment_id bigint,\n    status text NOT NULL\n);",
+        "correct_artifact_format": "code",
+        "correct_artifact_language": "sql",
+        "pitfall": "UNIQUE constraint предотвращает duplicate reservation, но сам по себе не решает database-to-broker atomicity.",
+        "alternatives": [
+          "UNIQUE (key) вместо PRIMARY KEY (key)"
+        ],
+        "sources": [
+          "https://www.postgresql.org/docs/current/ddl-constraints.html"
+        ]
+      }
+    },
+    {
+      "prototype_id": "backend.idempotency.proto.007",
+      "concept_id": "backend.idempotency",
+      "concept_title": "Idempotency",
+      "knowledge_kind": "property",
+      "learning_task": "design",
+      "question_type": "design",
+      "guidance_level": "independent",
+      "stimulus_format": "scenario",
+      "response_format": "architecture-sketch",
+      "context": "Architecture case",
+      "prompt": "Спроектируй idempotent payment creation flow и объясни database-to-broker boundary.",
+      "stimulus": "API пишет payment в PostgreSQL, а затем должна опубликовать PaymentCreated в broker. Возможны client retries, concurrent duplicate requests, process crash и at-least-once delivery.",
+      "feedback": {
+        "short_answer": "Нужны stable idempotency key, transactional uniqueness/result persistence и Outbox для атомарной связи payment write с будущей публикацией event.",
+        "explanation": "Payment, idempotency state и Outbox record сохраняются в одной database transaction. Retry сходится к тому же logical operation через unique key. Отдельный publisher читает Outbox и отправляет event с retry; downstream consumer также должен учитывать возможные duplicate delivery.",
+        "reasoning_steps": [
+          "Определи identity входного logical operation.",
+          "Сделай reservation и payment write одной transaction.",
+          "Запиши Outbox event в той же transaction.",
+          "Публикуй Outbox асинхронно с retry.",
+          "Сохрани idempotent/deduplicated обработку downstream."
+        ],
+        "key_points": [
+          "stable idempotency key",
+          "database uniqueness/concurrency control",
+          "persisted operation result/status",
+          "Transactional Outbox",
+          "consumer-side duplicate handling"
+        ],
+        "correct_artifact": "Client -> API -> PostgreSQL transaction\n                  |-- idempotency record\n                  |-- payment\n                  `-- outbox event\n\nOutbox Publisher -> Broker -> Consumer",
+        "correct_artifact_format": "diagram",
+        "correct_artifact_language": "text",
+        "pitfall": "Схема `COMMIT payment` → `publish broker` без Outbox оставляет dual-write failure window.",
+        "alternatives": [
+          "Broker/database integration с эквивалентной atomic handoff guarantee, если она реально предоставляется инфраструктурой"
+        ],
+        "sources": [
+          "https://microservices.io/patterns/data/transactional-outbox.html"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.001",
+      "concept_id": "python.asyncio.create-task",
+      "concept_title": "asyncio.create_task",
+      "knowledge_kind": "technology",
+      "learning_task": "explain",
+      "question_type": "explain",
+      "guidance_level": "worked",
+      "stimulus_format": "code",
+      "stimulus_language": "python",
+      "response_format": "self-explanation",
+      "context": "Worked code example",
+      "prompt": "Объясни, зачем здесь используется `asyncio.create_task()` и где появляется concurrency.",
+      "stimulus": "async def main():\n    task = asyncio.create_task(fetch_data())\n    prepare_request()\n    result = await task\n    return result",
+      "feedback": {
+        "short_answer": "`create_task()` планирует coroutine как Task, поэтому `main()` может продолжить работу до точки, где ей действительно нужен result.",
+        "explanation": "После `create_task(fetch_data())` event loop получает отдельный Task. Текущая coroutine продолжает `prepare_request()`. На `await task` она приостанавливается, если Task ещё не завершён. Это concurrency внутри event loop, а не автоматический parallel execution на нескольких CPU cores.",
+        "reasoning_steps": [
+          "Создаётся coroutine object `fetch_data()`.",
+          "`create_task()` оборачивает его в Task и scheduling передаётся event loop.",
+          "`main()` продолжает выполнять синхронный участок `prepare_request()`.",
+          "`await task` получает result или suspends `main()` до завершения Task."
+        ],
+        "key_points": [
+          "Task scheduling",
+          "current coroutine продолжает выполнение",
+          "`await task` является synchronization point",
+          "concurrency не равна CPU parallelism"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Если `prepare_request()` выполняет длительную blocking operation, она всё равно блокирует event loop.",
+        "alternatives": [],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-task.html#creating-tasks"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.002",
+      "concept_id": "python.asyncio.task",
+      "concept_title": "asyncio.Task",
+      "knowledge_kind": "technology",
+      "learning_task": "analyze",
+      "question_type": "predict",
+      "guidance_level": "independent",
+      "stimulus_format": "code",
+      "stimulus_language": "python",
+      "response_format": "trace-table",
+      "context": "Code trace",
+      "prompt": "Какой порядок вывода гарантирован этим кодом и где coroutine может быть suspended?",
+      "stimulus": "async def worker():\n    print('W1')\n    await asyncio.sleep(0)\n    print('W2')\n\nasync def main():\n    task = asyncio.create_task(worker())\n    print('M1')\n    await task\n    print('M2')",
+      "feedback": {
+        "short_answer": "`M1` выводится до того, как `main()` начнёт ждать Task; внутри worker `W1` предшествует `W2`, а `M2` всегда после завершения worker. Точный момент старта worker определяется scheduling event loop.",
+        "explanation": "`create_task()` делает worker runnable, но не означает немедленный synchronous call. `main()` продолжает до `await task`. Event loop переключается между runnable tasks в yield points. `asyncio.sleep(0)` явно отдаёт управление, поэтому `W2` идёт после suspension/resume worker.",
+        "reasoning_steps": [
+          "Task создаётся и становится runnable.",
+          "`main()` печатает `M1` до `await task`.",
+          "worker печатает `W1` и yield на `sleep(0)`.",
+          "worker возобновляется и печатает `W2`.",
+          "Только после завершения Task `main()` печатает `M2`."
+        ],
+        "key_points": [
+          "program order внутри каждой coroutine сохраняется между yield points",
+          "scheduling происходит через event loop",
+          "`await task` гарантирует `M2` после завершения worker"
+        ],
+        "correct_artifact": "Guaranteed partial order:\nM1 < M2\nW1 < W2 < M2\n\n`M1` и `W1` могут зависеть от scheduling до первого suspension point.",
+        "correct_artifact_format": "diagram",
+        "correct_artifact_language": "text",
+        "pitfall": "Не выводить полный global order только из порядка строк исходного кода разных Tasks.",
+        "alternatives": [],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-task.html"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.003",
+      "concept_id": "python.asyncio.taskgroup",
+      "concept_title": "asyncio.TaskGroup",
+      "knowledge_kind": "technology",
+      "learning_task": "apply",
+      "question_type": "scenario-apply",
+      "guidance_level": "faded",
+      "stimulus_format": "code",
+      "stimulus_language": "python",
+      "response_format": "code-completion",
+      "context": "Faded example",
+      "prompt": "Дополни код так, чтобы обе coroutine выполнялись concurrently, а выход из блока ждал их завершения.",
+      "stimulus": "async def load_all():\n    async with asyncio.TaskGroup() as tg:\n        user_task = ________\n        orders_task = ________\n    return user_task.result(), orders_task.result()",
+      "feedback": {
+        "short_answer": "Нужно создать обе Task через `tg.create_task(...)`.",
+        "explanation": "`TaskGroup` предоставляет structured concurrency boundary: Tasks создаются внутри группы, а выход из `async with` ожидает их завершения и применяет определённую failure/cancellation semantics для группы.",
+        "reasoning_steps": [
+          "Создай Task для `load_user()` через group.",
+          "Создай Task для `load_orders()` через ту же group.",
+          "Результаты безопасно читаются после выхода из `async with`."
+        ],
+        "key_points": [
+          "`tg.create_task()`",
+          "structured lifetime",
+          "group waits before leaving context"
+        ],
+        "correct_artifact": "async def load_all():\n    async with asyncio.TaskGroup() as tg:\n        user_task = tg.create_task(load_user())\n        orders_task = tg.create_task(load_orders())\n    return user_task.result(), orders_task.result()",
+        "correct_artifact_format": "code",
+        "correct_artifact_language": "python",
+        "pitfall": "Создание bare coroutine objects без `await` или Task не запускает их как concurrent Tasks.",
+        "alternatives": [],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-task.html#task-groups"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.004",
+      "concept_id": "python.asyncio.coroutine",
+      "concept_title": "Coroutine",
+      "knowledge_kind": "construct",
+      "learning_task": "analyze",
+      "question_type": "diagnose",
+      "guidance_level": "independent",
+      "stimulus_format": "mixed",
+      "stimulus_language": "python",
+      "response_format": "code-repair",
+      "context": "Bug diagnosis",
+      "prompt": "Почему возникает warning и как исправить code, сохранив нужную semantics?",
+      "stimulus": "async def save():\n    ...\n\nasync def handler():\n    save()\n    return {'ok': True}\n\nRuntimeWarning: coroutine 'save' was never awaited",
+      "feedback": {
+        "short_answer": "`save()` возвращает coroutine object, но его никто не await-ит и не планирует как Task.",
+        "explanation": "Вызов `async def` не выполняет тело функции сразу. Он создаёт coroutine object. Если `handler()` должен дождаться сохранения, нужен `await save()`. Если работа сознательно должна жить как concurrent Task, требуется явный lifecycle через `create_task()`/`TaskGroup`, причём fire-and-forget semantics должна быть обоснована.",
+        "reasoning_steps": [
+          "Определи результат вызова `save()` — coroutine object.",
+          "Проверь, кто отвечает за его execution/lifetime.",
+          "Выбери `await` для обязательного завершения до response или structured Task для concurrency."
+        ],
+        "key_points": [
+          "calling async function != executing coroutine",
+          "`await` или scheduling обязательны",
+          "lifecycle Task должен быть явным"
+        ],
+        "correct_artifact": "async def handler():\n    await save()\n    return {'ok': True}",
+        "correct_artifact_format": "code",
+        "correct_artifact_language": "python",
+        "pitfall": "Автоматически заменить всё на `asyncio.create_task(save())` опасно: response может завершиться раньше side effect, а failure Task потеряется без ownership/error handling.",
+        "alternatives": [
+          "Использовать TaskGroup, если `save()` является частью набора concurrent child operations."
+        ],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-task.html#coroutines"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.005",
+      "concept_id": "python.asyncio.gather",
+      "concept_title": "asyncio.gather / TaskGroup",
+      "knowledge_kind": "technology",
+      "learning_task": "compare",
+      "question_type": "compare",
+      "guidance_level": "independent",
+      "stimulus_format": "prose",
+      "response_format": "comparison",
+      "context": "Structured concurrency",
+      "prompt": "Сравни `asyncio.gather()` и `asyncio.TaskGroup`: что общего и где различается failure/lifecycle model?",
+      "stimulus": "Оба инструмента позволяют организовать несколько awaitable operations, но дают разные guarantees при failure одного child task.",
+      "feedback": {
+        "short_answer": "Оба помогают дождаться concurrent operations, но `TaskGroup` задаёт structured concurrency boundary и более сильную связанную failure/cancellation semantics для sibling Tasks.",
+        "explanation": "`gather()` агрегирует awaitables и результаты, а его поведение при exception зависит от parameters/semantics вызова. `TaskGroup` управляет lifetime группы как scope: failure child task приводит к coordinated cancellation остальных и exceptions собираются при выходе из context. Выбор зависит от требуемой ownership/failure model.",
+        "reasoning_steps": [],
+        "key_points": [
+          "оба инструмента организуют concurrent awaitables",
+          "TaskGroup = scoped ownership/lifetime",
+          "failure propagation/cancellation semantics различаются",
+          "выбор делается по semantics, а не по краткости syntax"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "Не сводить различие к 'новый API против старого API': важен contract управления child Tasks.",
+        "alternatives": [],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently",
+          "https://docs.python.org/3/library/asyncio-task.html#task-groups"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.006",
+      "concept_id": "python.asyncio.semaphore",
+      "concept_title": "asyncio.Semaphore",
+      "knowledge_kind": "technology",
+      "learning_task": "apply",
+      "question_type": "scenario-apply",
+      "guidance_level": "independent",
+      "stimulus_format": "scenario",
+      "response_format": "code-writing",
+      "context": "Bounded concurrency",
+      "prompt": "Напиши минимальный async pattern, который запускает обработку многих items, но допускает не более 10 concurrent calls к external API.",
+      "stimulus": "Есть `async def call_api(item)` и список `items`. Нельзя запускать все requests без ограничения concurrency.",
+      "feedback": {
+        "short_answer": "Общий concurrency limiter можно реализовать через `asyncio.Semaphore(10)` и `async with semaphore` вокруг `call_api()`.",
+        "explanation": "Semaphore ограничивает число coroutine, одновременно находящихся внутри защищённого участка. При большом числе items Tasks могут существовать, но только 10 одновременно выполняют ограниченный external call. В production также нужны timeout, cancellation и backpressure considerations.",
+        "reasoning_steps": [
+          "Создай один shared Semaphore с capacity 10.",
+          "Оберни external call в helper, который захватывает Semaphore.",
+          "Организуй lifecycle child Tasks через TaskGroup или другой осознанный scope."
+        ],
+        "key_points": [
+          "shared limiter",
+          "capacity = 10",
+          "limiter защищает именно scarce operation",
+          "Task lifecycle остаётся явным"
+        ],
+        "correct_artifact": "async def process(items):\n    limit = asyncio.Semaphore(10)\n\n    async def one(item):\n        async with limit:\n            return await call_api(item)\n\n    async with asyncio.TaskGroup() as tg:\n        tasks = [tg.create_task(one(item)) for item in items]\n\n    return [task.result() for task in tasks]",
+        "correct_artifact_format": "code",
+        "correct_artifact_language": "python",
+        "pitfall": "Semaphore ограничивает concurrency внутри process, но сам по себе не реализует distributed rate limit между несколькими service instances.",
+        "alternatives": [
+          "Worker pool/queue, если важно ограничить не только concurrent calls, но и число одновременно созданных Tasks."
+        ],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-sync.html#asyncio.Semaphore"
+        ]
+      }
+    },
+    {
+      "prototype_id": "python.asyncio.proto.007",
+      "concept_id": "python.asyncio",
+      "concept_title": "asyncio",
+      "knowledge_kind": "technology",
+      "learning_task": "evaluate",
+      "question_type": "choose-justify",
+      "guidance_level": "independent",
+      "stimulus_format": "scenario",
+      "response_format": "free-recall",
+      "context": "Architecture choice",
+      "prompt": "Подходит ли `asyncio` для этой workload и чем обосновать выбор?",
+      "stimulus": "Service делает тысячи независимых network I/O calls, но каждый response затем требует тяжёлого CPU-bound image transform на несколько сотен миллисекунд.",
+      "feedback": {
+        "short_answer": "`asyncio` хорошо подходит для network I/O concurrency, но CPU-bound transform нельзя оставлять длительно выполняться внутри event loop.",
+        "explanation": "Event loop эффективен, когда coroutine часто yield на non-blocking I/O. Длительный CPU-bound Python code блокирует loop и увеличивает latency остальных Tasks. Архитектура должна отделить I/O concurrency от CPU work — например process pool/worker service, а конкретный выбор зависит от GIL, library implementation и deployment constraints.",
+        "reasoning_steps": [
+          "Раздели workload на I/O-bound и CPU-bound части.",
+          "Проверь, где event loop получает yield points.",
+          "Вынеси длительный CPU work за event-loop execution path.",
+          "Оцени overhead и deployment model выбранного executor/worker решения."
+        ],
+        "key_points": [
+          "asyncio хорошо для I/O-bound concurrency",
+          "CPU-bound work блокирует event loop",
+          "нужна отдельная execution strategy для CPU work",
+          "решение зависит от реальных constraints"
+        ],
+        "correct_artifact": "",
+        "correct_artifact_format": "none",
+        "correct_artifact_language": "",
+        "pitfall": "`async def` не делает CPU-heavy function неблокирующей автоматически.",
+        "alternatives": [
+          "ProcessPoolExecutor для локального CPU work",
+          "отдельный worker/service для тяжёлой обработки"
+        ],
+        "sources": [
+          "https://docs.python.org/3/library/asyncio-eventloop.html#executing-code-in-thread-or-process-pools"
+        ]
+      }
+    }
+  ]
+}
