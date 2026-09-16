@@ -2,102 +2,164 @@
 
 ## Purpose
 
-This repository is the system of record for adaptive learning workflows.
-Agents use repository artifacts as durable project state; chat history is not authoritative.
+This repository is the system of record for adaptive learning workflows. Chat history is working context, not authoritative project state.
 
-The repository currently contains two bounded learning use cases:
+Current bounded contexts:
 
-- technical interview preparation;
-- English listening from authentic media.
+- Interview Preparation;
+- English Listening.
 
-## Read order
+## Required read order
 
 Before substantive work:
-1. Read this file.
-2. Read `docs/vision.md`.
-3. Read `ARCHITECTURE.md` when the task crosses use-case or infrastructure boundaries.
-4. Read the landing page and domain/process documents for the affected use case.
-5. Check applicable ADRs under `docs/decisions/`.
-6. For multi-step work, create or update a plan under `docs/plans/active/`.
 
-Use progressive disclosure: read only the context needed for the task.
+1. Read this file.
+2. Read `docs/README.md` to route the task to the correct artifact class.
+3. Identify the affected bounded context(s).
+4. Read only the relevant vision/domain/architecture/guide documents.
+5. Check applicable ADRs under `docs/decisions/`.
+6. For multi-step work, create/update a plan under `docs/plans/active/`.
+
+Use progressive disclosure. Do not scan all docs/code by default.
 
 Use-case entrypoints:
 
 - `use-cases/interview-preparation/README.md`;
 - `use-cases/english-listening/README.md`.
 
-## Source of truth
+Architecture entrypoints:
 
-Priority order for project decisions and constraints:
-1. Executable schemas, tests, and validators.
+- `docs/architecture/overview.md`;
+- `docs/architecture/context-map.md`;
+- `docs/architecture/dependency-rules.md`.
+
+## Source-of-truth priority
+
+1. Executable schemas, tests, validators, and accepted code invariants.
 2. Accepted ADRs.
-3. Bounded-context domain/process documentation.
+3. Canonical domain/architecture documentation.
 4. This file.
-5. Active implementation plans.
+5. Active execution plans.
 6. Current task instructions.
 7. Agent assumptions.
 
-If a current task intentionally changes an accepted decision, update the corresponding ADR or create a superseding ADR in the same pull request.
+If a task intentionally changes an accepted decision, update/supersede the ADR in the same pull request.
 
-## Workflow
+## Documentation routing
 
-All repository changes after the bootstrap commit follow this workflow:
+Persist durable outcomes according to `docs/README.md`:
+
+```text
+finding/evidence -> docs/research/
+durable decision -> docs/decisions/
+domain meaning   -> docs/domain/
+system structure -> docs/architecture/
+goal/scope        -> docs/vision/
+current work      -> docs/plans/
+how-to            -> docs/guides/
+```
+
+Do not copy the same authoritative statement into multiple locations. Link to its canonical artifact.
+
+## Development workflow
+
+All repository changes after bootstrap:
+
 1. Start from current `main`.
 2. Create a dedicated branch for one coherent task.
-3. Make the smallest end-to-end change that proves value.
-4. Validate affected artifacts.
-5. Update documentation when behavior, domain model, process, or constraints change.
-6. Open a pull request into `main`.
-7. Merge only with squash so one task becomes one commit in `main`.
+3. Create/update an active plan for multi-step work.
+4. Make the smallest end-to-end change that proves value.
+5. Validate affected artifacts.
+6. Update durable documentation when behavior/domain/architecture changes.
+7. Open a pull request into `main`.
+8. Merge only with squash so one task becomes one commit in `main`.
 
 Do not push feature work directly to `main`.
 
-## Project invariants
+## Architecture model
 
-- Each learning use case keeps its own domain vocabulary and invariants.
-- Do not introduce a universal learning-domain abstraction only to make use cases look structurally similar.
-- Shared components must be demonstrably domain-independent before extraction.
-- Anki is an execution adapter for presenting practice, scheduling reviews, recording review state, and storing media when needed.
-- Anki note/card structures do not define bounded-context domain models.
-- Stable learning-object identity must be repository/use-case owned rather than derived from mutable presentation text.
-- Diagnostic baseline data must remain distinguishable from later learning/review data where the use case uses baseline assessment.
-- Important decisions must be persisted in repository artifacts; do not leave them only in chat.
-- Prefer machine-checkable constraints over prose-only rules when feasible.
-- Keep structures simple and evolve them only after confirmed need.
+Use:
 
-## Agent vs deterministic code
+- DDD for bounded-context decomposition and ubiquitous language;
+- Clean Architecture for inward dependency direction;
+- Hexagonal Architecture for ports/adapters around external systems.
+
+Primary dependency rule:
+
+```text
+interface -> application -> domain
+infrastructure -> application ports
+```
+
+### Domain invariants
+
+- Each bounded context owns its own vocabulary/invariants.
+- Do not import another bounded context's domain entities directly.
+- Domain code must not depend on Anki, HTTP, filesystem implementations, ffmpeg, Whisper, UI frameworks, or provider SDKs.
+- Do not introduce a universal learning-domain abstraction merely to make use cases structurally similar.
+
+### Application invariants
+
+- Application owns use-case orchestration.
+- Application defines outbound ports from the consumer/core perspective.
+- Application must not import concrete infrastructure adapters.
+- Prefer capability names (`StudySystem`, `MediaProcessor`, `Transcriber`) over technology-driven names (`AnkiPort`, `FfmpegService`) unless technology is genuinely domain language.
+
+### Infrastructure invariants
+
+- Infrastructure implements ports and external-system mechanics.
+- Shared infrastructure must remain domain-independent.
+- `src/prep/infrastructure/anki/` must not acquire Interview Preparation or English Listening policy.
+- Anki Note/Card/Deck structures never define bounded-context domain models.
+
+## Identity and provenance
+
+Stable learning-object identity is owned by the bounded context/repository, never derived from mutable display text.
 
 Use the boundary proven by the English-listening pipeline:
 
-- agent/LLM owns semantic decisions that require interpretation;
-- deterministic code owns structural truth, stable identifiers, source coordinates, validation, migrations, and external side effects.
+```text
+agent/LLM       -> semantic interpretation/proposals
+code/validators -> IDs, coordinates, provenance, schemas, migration, writes
+```
 
-Do not let an agent invent or silently repair deterministic provenance such as IDs, timestamps, source references, or persisted mappings.
+Agents must not invent or silently repair deterministic provenance such as IDs, timestamps, source references, or persisted mappings.
 
-## Change discipline
+## Research and decisions
 
-For architecture or domain changes, record:
-- problem,
-- decision,
-- alternatives considered when relevant,
+Research is evidence, not policy.
+
+Preferred lifecycle:
+
+```text
+research
+  -> ADR/domain/architecture acceptance
+  -> implementation plan
+  -> implementation + executable checks
+```
+
+For architecture/domain changes record:
+
+- problem/context;
+- decision;
+- alternatives when relevant;
 - consequences.
 
-For research, separate evidence from accepted project decisions:
-- `docs/research/` = findings, sources, experiments, migration assessments, hypotheses;
-- ADR/domain docs = accepted decisions.
+## Legacy migration
 
-For legacy migration:
-- preserve the old behavior as a testable baseline;
+- preserve old behavior as a testable baseline;
 - move one vertical slice at a time;
-- extract shared infrastructure before copying duplicate implementations;
-- do not retire the legacy behavior until equivalent validation passes.
+- extract shared infrastructure only where responsibilities match;
+- do not retire legacy behavior until equivalent validation passes.
 
 ## Completion checks
 
 Before marking work complete:
-- confirm the branch differs from `main` only by task-related changes;
-- validate links/schemas/tests that exist for the affected area;
-- ensure bounded-context ownership is clear;
-- ensure durable decisions are documented;
-- ensure the pull request explains purpose, scope, validation, and consequences.
+
+- branch differs from `main` only by task-related changes;
+- bounded-context ownership is explicit;
+- dependency direction follows `docs/architecture/dependency-rules.md`;
+- durable outcomes are persisted in the correct docs artifact class;
+- relative Markdown links pass `python tools/validate_docs.py`;
+- affected validators/tests pass;
+- PR explains purpose, scope, validation, and consequences.

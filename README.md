@@ -4,55 +4,67 @@ Repository-centered workspace for adaptive learning workflows.
 
 ## Purpose
 
-`prep` is the durable source of truth for learning use cases, their domain models, execution adapters, research, decisions, plans, and validation rules.
+`prep` is the durable source of truth for learning use cases, their domain models, application workflows, execution adapters, research, decisions, plans, and validation rules.
 
-Initial bounded contexts:
+Current bounded contexts:
 
-- `use-cases/interview-preparation/` — technical interview preparation through competency/question diagnostics and gap-driven learning;
-- `use-cases/english-listening/` — spoken-English listening practice from authentic film/TV audio.
+- `Interview Preparation` — technical-interview diagnostics and gap-driven learning;
+- `English Listening` — listening practice from authentic film/TV audio.
 
-Shared infrastructure is extracted only when it is demonstrably domain-independent. Anki/AnkiConnect is the first shared execution adapter.
+Shared technical infrastructure is extracted only when domain-independent. Anki/AnkiConnect is the first shared external-system adapter.
 
 ## Start here
 
-- `AGENTS.md` — agent workflow and repository rules.
-- `docs/vision.md` — project goal and scope.
-- `ARCHITECTURE.md` — bounded contexts and shared infrastructure.
-- `docs/decisions/` — accepted architectural decisions.
-- `docs/research/` — evidence, source reviews, and migration assessments.
-- `docs/anki-infrastructure.md` — shared AnkiConnect transport and reconciliation primitives.
-- `docs/anki-adapter.md` — Interview Preparation Question → Anki mapping.
+1. [`AGENTS.md`](AGENTS.md) — agent workflow and repository rules.
+2. [`docs/README.md`](docs/README.md) — documentation map and artifact routing.
+3. [`docs/vision/vision.md`](docs/vision/vision.md) — project intent.
+4. [`docs/architecture/overview.md`](docs/architecture/overview.md) — DDD + Clean/Hexagonal architecture.
+5. [`docs/architecture/context-map.md`](docs/architecture/context-map.md) — bounded contexts.
 
-Interview-preparation artifacts currently remain at their established root paths:
+Use-case entrypoints:
 
-- `docs/domain-model.md` — interview domain model;
-- `docs/question-types.md` — LearningTask and QuestionType semantics;
-- `docs/question-bank-format.md` — machine-readable question authoring format;
-- `model/question-taxonomy.json` — executable taxonomy registry;
-- `questions/` — canonical interview question banks;
-- `tools/validate_questions.py` — structural/project-invariant validation.
+- [`use-cases/interview-preparation/README.md`](use-cases/interview-preparation/README.md);
+- [`use-cases/english-listening/README.md`](use-cases/english-listening/README.md).
 
-They are not moved merely for directory symmetry.
+## Architecture
 
-## Shared Python infrastructure
+Core policy points inward:
+
+```text
+interface -> application -> domain
+infrastructure -> application ports
+```
+
+Anki, ffmpeg, Whisper, filesystems, UIs, and LLM providers are external mechanisms. They must not define bounded-context domain models.
+
+See [`docs/architecture/dependency-rules.md`](docs/architecture/dependency-rules.md).
+
+## Executable artifacts
+
+Interview Preparation currently uses:
+
+- `model/question-taxonomy.json` — machine-readable LearningTask/QuestionType registry;
+- `questions/` — canonical question banks;
+- `tools/validate_questions.py` — question-model validation.
+
+Shared Python infrastructure:
 
 ```text
 src/prep/infrastructure/anki/
 ```
-
-This package contains the dependency-free AnkiConnect client and domain-independent reconciliation helpers used by future use-case adapters.
 
 ## Validation
 
 Run:
 
 ```bash
+python tools/validate_docs.py
 python tools/validate_questions.py
 python -m unittest discover -s tests -v
 ```
 
-The current validator and shared-infrastructure tests use only the Python standard library. Both run in GitHub Actions for pull requests and `main`.
+The same checks run in GitHub Actions for pull requests and `main`.
 
 ## Development workflow
 
-After the initial bootstrap commit, all changes are made on dedicated branches and merged into `main` through pull requests using squash merge.
+All feature/architecture work uses a dedicated branch and pull request into `main`; merge with squash so one coherent task becomes one commit in `main`.

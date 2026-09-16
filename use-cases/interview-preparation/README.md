@@ -1,35 +1,24 @@
 # Interview Preparation
 
-## Purpose
+Purpose: prepare for technical interviews through competency modeling, diagnostic questions, retrieval practice, reassessment, and gap-driven learning.
 
-Prepare for technical interviews through explicit competency modeling, diagnostic questions, retrieval practice, reassessment, and gap-driven learning.
+## Canonical documentation
 
-## Domain vocabulary
+- domain model and process: [`../../docs/domain/interview-preparation.md`](../../docs/domain/interview-preparation.md)
+- LearningTask / QuestionType semantics: [`../../docs/domain/interview-question-types.md`](../../docs/domain/interview-question-types.md)
+- question authoring: [`../../docs/guides/interview-question-authoring.md`](../../docs/guides/interview-question-authoring.md)
+- Interview → Anki mapping: [`../../docs/guides/anki-interview-adapter.md`](../../docs/guides/anki-interview-adapter.md)
 
-This bounded context owns:
-
-- `Competency`;
-- `Concept`;
-- `LearningTask`;
-- `QuestionType`;
-- `Question`;
-- interview-specific assessment and gap semantics.
-
-## Current canonical artifacts
-
-The implementation predates the `use-cases/` directory, so current artifacts remain at their existing paths until a later migration is justified:
+## Executable artifacts
 
 ```text
-docs/domain-model.md
-docs/question-types.md
-docs/question-bank-format.md
 model/question-taxonomy.json
 questions/
 tools/validate_questions.py
 ```
 
-Do not move them only for directory symmetry. Migration should happen when it improves executable boundaries or packaging.
+## Architecture boundary
 
-## Execution
+This bounded context owns `Competency`, `Concept`, `LearningTask`, `QuestionType`, `Question`, and interview-specific assessment/gap semantics.
 
-Anki is the initial execution adapter for question practice. The bounded context maps its canonical `Question` objects to shared Anki infrastructure; Anki note/card types do not define the interview domain.
+Application use cases depend on capability ports; concrete Anki infrastructure remains outside the bounded-context core.
