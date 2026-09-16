@@ -20,7 +20,8 @@ Shared infrastructure is extracted only when it is demonstrably domain-independe
 - `ARCHITECTURE.md` — bounded contexts and shared infrastructure.
 - `docs/decisions/` — accepted architectural decisions.
 - `docs/research/` — evidence, source reviews, and migration assessments.
-- `docs/anki-adapter.md` — Anki mapping and live adapter boundary.
+- `docs/anki-infrastructure.md` — shared AnkiConnect transport and reconciliation primitives.
+- `docs/anki-adapter.md` — Interview Preparation Question → Anki mapping.
 
 Interview-preparation artifacts currently remain at their established root paths:
 
@@ -33,15 +34,24 @@ Interview-preparation artifacts currently remain at their established root paths
 
 They are not moved merely for directory symmetry.
 
+## Shared Python infrastructure
+
+```text
+src/prep/infrastructure/anki/
+```
+
+This package contains the dependency-free AnkiConnect client and domain-independent reconciliation helpers used by future use-case adapters.
+
 ## Validation
 
-Run current executable validation with:
+Run:
 
 ```bash
 python tools/validate_questions.py
+python -m unittest discover -s tests -v
 ```
 
-The validator uses only the Python standard library. The same check runs in GitHub Actions for pull requests and `main`.
+The current validator and shared-infrastructure tests use only the Python standard library. Both run in GitHub Actions for pull requests and `main`.
 
 ## Development workflow
 
