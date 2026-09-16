@@ -1,0 +1,133 @@
+{
+  "version": "0.1",
+  "bank_id": "backend.idempotency",
+  "title": "Idempotency",
+  "concepts": [
+    {
+      "id": "backend.idempotency",
+      "title": "Idempotency",
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2",
+        "https://docs.stripe.com/api/idempotent_requests"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "backend.idempotency.direct-recall.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "direct-recall",
+      "prompt": "What does idempotency mean for an operation or API request?",
+      "assessment": {
+        "reference_answer": "Repeating the same operation should have the same intended effect as performing it once, even if individual responses or incidental side effects such as logging can differ.",
+        "required_points": [
+          "repeating the same operation does not multiply the intended effect",
+          "the property concerns intended effect rather than identical response bytes"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.explain.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "explain",
+      "prompt": "Why is idempotency especially important when a client retries a request after a timeout or connection failure?",
+      "assessment": {
+        "reference_answer": "After a timeout the client may not know whether the server committed the first attempt. A retry can therefore duplicate a side effect. Idempotent semantics let the retry be recognized or safely repeated so the intended effect is not applied twice.",
+        "required_points": [
+          "client may be uncertain whether the first attempt succeeded",
+          "retry can duplicate a side effect",
+          "idempotency makes retry safe with respect to the intended effect"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.compare.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "compare",
+      "prompt": "How is idempotency different from deduplication?",
+      "assessment": {
+        "reference_answer": "Idempotency is a semantic property: repeated execution has the same intended effect as one execution. Deduplication is one implementation technique that detects repeated requests or events and suppresses or reuses processing. An operation can be idempotent without a deduplication table, and deduplication alone is not sufficient if the protected side effect is not covered atomically.",
+        "required_points": [
+          "idempotency is a behavioral or semantic property",
+          "deduplication is an implementation technique",
+          "deduplication is neither the definition nor automatically sufficient"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.scenario-apply.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "scenario-apply",
+      "prompt": "A client calls POST /payments, the server commits the payment, but the response is lost and the client retries. How would you make this operation safe to retry?",
+      "assessment": {
+        "reference_answer": "Require a stable idempotency key for the logical payment attempt, persist that key with the created result under a uniqueness or equivalent atomicity guarantee, and on a retry with the same key return the previously recorded result instead of creating another payment. Reject incompatible reuse of the same key with different request parameters.",
+        "required_points": [
+          "stable key identifies the logical operation across retries",
+          "server persists key and result with a uniqueness or equivalent concurrency guarantee",
+          "retry returns or reuses the existing result instead of duplicating the payment",
+          "same key should not silently accept conflicting request parameters"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.predict.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "predict",
+      "prompt": "The first POST /payments succeeded, but its response was lost. The client retries with the same idempotency key and identical parameters. What should an idempotent implementation do?",
+      "assessment": {
+        "reference_answer": "It should avoid creating a second payment and return or reconstruct the result associated with the original logical operation. The exact response representation can vary by implementation, but the intended payment effect must not be applied again.",
+        "required_points": [
+          "no second payment is created",
+          "the retry resolves to the already completed logical operation",
+          "idempotency guarantees the intended effect, not necessarily byte-identical responses"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.diagnose.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "diagnose",
+      "prompt": "An API uses idempotency keys, but rare duplicate payments still appear. Logs show two concurrent requests with the same key both observed 'key not found' before inserting a result. What is the likely defect and how would you fix it?",
+      "assessment": {
+        "reference_answer": "The check-then-insert path is racy: both requests can pass the existence check before either persists the key. Enforce uniqueness and make reservation or creation atomic, for example with a database unique constraint plus transactional insert, upsert, or locking semantics. Treat a uniqueness conflict as evidence that another request owns or completed the same logical operation.",
+        "required_points": [
+          "identify a race in the check-then-act sequence",
+          "enforce uniqueness at a concurrency-safe boundary such as the database",
+          "make key reservation and result creation atomic or otherwise serialized",
+          "handle the losing concurrent request by reusing or waiting for the existing operation rather than creating another side effect"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.choose-justify.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "choose-justify",
+      "prompt": "For a payment creation API, would you prefer a client-generated idempotency key or deducing idempotency only from payment fields such as amount and recipient? Justify the choice and name a case where the alternative could be appropriate.",
+      "assessment": {
+        "reference_answer": "Prefer an explicit client-generated key for retrying one logical request because legitimate distinct payments can share amount, recipient, and other business fields. A natural or business key can be appropriate when the domain already has a true unique operation identifier, such as an immutable upstream transaction ID. The choice depends on whether the identifier represents operation identity rather than coincidental field equality.",
+        "required_points": [
+          "explicit key avoids conflating distinct operations with identical business fields",
+          "a true domain-level unique operation identifier can serve as a natural key",
+          "choice is based on operation identity and constraints, not convenience alone"
+        ]
+      }
+    },
+    {
+      "id": "backend.idempotency.design.001",
+      "concept_id": "backend.idempotency",
+      "question_type": "design",
+      "prompt": "Design an idempotent payment-creation flow for an API that writes a payment to PostgreSQL and later publishes an event to a broker. Cover retries, concurrent duplicate requests, and the database-to-broker boundary.",
+      "assessment": {
+        "reference_answer": "Use a stable idempotency key per logical payment request. In one database transaction reserve or enforce uniqueness for the key, create or reuse the payment, and persist the result or status. Concurrent duplicates must converge on that single record through a unique constraint and transactional handling. Persist an outbox event in the same transaction as the payment, then publish it asynchronously with retry and consumer-side idempotency or deduplication as needed. A retry returns the recorded operation result or current status rather than creating another payment.",
+        "required_points": [
+          "stable logical-operation idempotency key",
+          "database uniqueness or concurrency control for duplicate requests",
+          "payment result or status persisted transactionally with idempotency state",
+          "outbox or equivalent atomic database-to-message handoff",
+          "retry path reuses the existing logical operation",
+          "downstream event handling considers at-least-once delivery duplicates"
+        ]
+      }
+    }
+  ]
+}
