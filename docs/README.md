@@ -108,3 +108,19 @@ research
 ```
 
 Research is evidence, not policy.
+
+
+## Implementation design path
+
+- [`implementation/database-schema.md`](implementation/database-schema.md) — exact table/key/index/transaction contract;
+- [`implementation/api-contract.md`](implementation/api-contract.md) — endpoint/DTO/error/idempotency contract;
+- [`implementation/job-protocol.md`](implementation/job-protocol.md) — durable worker job state machine;
+- [`implementation/anki-bridge-contract.md`](implementation/anki-bridge-contract.md) — local bridge protocol/state machine;
+- [`implementation/auth-session-contract.md`](implementation/auth-session-contract.md) — session/CSRF/bridge-token flow;
+- [`implementation/frontend-contract.md`](implementation/frontend-contract.md) — routes, server/view state and graph-renderer boundary;
+- [`implementation/deployment-config.md`](implementation/deployment-config.md) — Compose/process/configuration contract;
+- [`implementation/backend-components.md`](implementation/backend-components.md) — Python stack and package/composition rules;
+- [`implementation/acceptance-contracts.md`](implementation/acceptance-contracts.md) — executable acceptance fixtures;
+- [`implementation/implementation-design.md`](implementation/implementation-design.md) — repository realization and coding freedoms.
+
+Harness consumer `IMPLEMENTATION-DESIGN` is the final design closure before production feature implementation.
