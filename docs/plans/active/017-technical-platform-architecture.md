@@ -8,51 +8,36 @@ Harness consumer: `TECHNICAL-DESIGN`.
 
 ## Required breadth
 
-- [ ] persistence architecture for semantic graph, provenance, plans, evidence and derived views
-- [ ] data lifecycle: migrations, backup/restore, retention and historical revisions
-- [ ] external-dependency design: Anki/AnkiConnect, model providers, media/ASR and frontend/runtime libraries
-- [ ] concrete machine-interface/API design
-- [ ] presentation-system architecture for the graph-first application
-- [ ] screen/view design for graph exploration, node detail, curation, plans and progress
-- [ ] concrete security architecture
-- [ ] performance/capacity model and budgets
-- [ ] reliability architecture and retry/recovery mechanisms
-- [ ] deployable/runtime topology
-- [ ] component/module design and dependency/composition boundaries
-- [ ] operability implementation architecture
-- [ ] executable test design
+- [x] persistence architecture for semantic graph, provenance, plans, evidence and derived views
+- [x] data lifecycle: migrations, backup/restore, retention and historical revisions
+- [x] external-dependency design: Anki/AnkiConnect, model providers, media/ASR and frontend/runtime libraries
+- [x] concrete machine-interface/API design
+- [x] presentation-system architecture for the graph-first application
+- [x] screen/view design for graph exploration, node detail, curation, plans and progress
+- [x] concrete security architecture
+- [x] performance/capacity model and benchmark envelopes
+- [x] reliability architecture and retry/recovery mechanisms
+- [x] deployable/runtime topology
+- [x] component/module design and dependency/composition boundaries
+- [x] operability implementation architecture
+- [x] executable test design
 
-## Method
+## Accepted foundation
 
-For each area:
+- PostgreSQL 18+ primary authoritative persistence; relational graph representation + pgvector.
+- Modular-monolith Python application + PostgreSQL-backed worker queue; no broker/microservices initially.
+- Browser React/TypeScript UI using react-force-graph-3d.
+- Purpose-built versioned HTTP JSON API; bounded graph queries; no GraphQL in v1.
+- Local Python bridge to localhost AnkiConnect; AnkiWeb remains Anki's device-sync mechanism.
+- Docker Compose reference central deployment; local bridge outside central container topology.
 
-1. derive decision criteria from accepted logical contracts;
-2. research realistic current alternatives where technology is involved;
-3. record trade-offs and rejected alternatives;
-4. make a decision only when enough adjacent areas are visible;
-5. update Harness Core only for accepted canonical design artifacts.
+## Remaining review
 
-Do not implement a proof-of-concept unless a specific unresolved decision cannot be responsibly made without one.
-
-## Key cross-cutting decisions
-
-The following must be made together rather than independently:
-
-- graph persistence vs query/read-model strategy;
-- web/API style vs interactive graph query shapes;
-- browser 3D rendering limits vs server-side graph bounding/clustering;
-- central service vs local bridge responsibilities for Anki;
-- authentication/privacy vs personal learning evidence;
-- revision/history model vs storage/migration strategy;
-- idempotent runtime synchronization vs deployment/recovery topology.
-
-## Explicit non-goals
-
-- production implementation;
-- implementation tickets for individual vertical slices;
-- premature microservice decomposition;
-- database/library selection based only on familiarity.
+- [ ] run technical cross-artifact consistency/dependency review
+- [ ] validate TECHNICAL-DESIGN in Harness
+- [ ] record any blocking Questions rather than inventing implementation decisions
+- [ ] decide whether implementation design may open
 
 ## Stop rule
 
-Do not open an IMPLEMENTATION consumer until `TECHNICAL-DESIGN` is coherent across the full breadth and its verification/test contracts are explicit.
+No production implementation or vertical implementation plan begins until this technical layer passes the breadth review.
