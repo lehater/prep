@@ -104,11 +104,11 @@ authorities:
           - capability: prep.learning-state-model
 
   - id: APPLICATION-DESIGN
-    responsibility: Own top-level learner and operator journeys without deciding screens or implementation.
+    responsibility: Own learner/operator journeys and logical application workflows without deciding concrete interfaces or implementation.
     boundary:
-      semantic_cohesion: Goal-oriented application flows across graph exploration, planning, study publication and progress review.
-      independent_change: Journey composition can evolve without changing graph identity or external adapter mechanics.
-      public_contract: Provides top-level user journeys.
+      semantic_cohesion: Goal-oriented application behavior and orchestration across graph curation, planning, publication and evidence ingestion.
+      independent_change: Application workflow contracts can evolve without selecting storage, transport or deployment technology.
+      public_contract: Provides top-level journeys and next-depth logical use-case/workflow boundaries.
     produces:
       - capability: prep.user-journeys
         knowledge_kind: user-journey-design
@@ -119,26 +119,89 @@ authorities:
           - capability: prep.learning-state-model
           - capability: prep.graph-subject-integration
           - capability: prep.learner-boundary
+      - capability: prep.logical-use-case-boundaries
+        knowledge_kind: application-design
+        requires:
+          - capability: prep.user-journeys
+          - capability: prep.graph-subject-integration
+          - capability: prep.learner-boundary
+      - capability: prep.logical-knowledge-ingestion
+        knowledge_kind: application-design
+        requires:
+          - capability: prep.logical-use-case-boundaries
+          - capability: prep.graph-admission-policy
+          - capability: prep.source-evidence-model
+      - capability: prep.logical-study-runtime
+        knowledge_kind: application-design
+        requires:
+          - capability: prep.logical-use-case-boundaries
+          - capability: prep.learning-plan-model
+          - capability: prep.learning-state-model
+          - capability: prep.graph-subject-integration
+          - capability: prep.learner-boundary
 
   - id: QUALITY-DESIGN
-    responsibility: Own architecture-significant quality drivers for semantic correctness, evolvability, observability and interaction scale.
+    responsibility: Own architecture-significant quality drivers and logical consistency/reliability expectations.
     boundary:
-      semantic_cohesion: Cross-cutting quality expectations that constrain later architecture.
-      independent_change: Quality priorities can evolve without directly selecting components or technologies.
-      public_contract: Provides top-level quality drivers.
+      semantic_cohesion: Cross-cutting quality expectations that constrain architecture without owning implementation.
+      independent_change: Quality policy can evolve without directly selecting components or technologies.
+      public_contract: Provides top-level quality drivers and next-depth consistency/reliability constraints.
     produces:
       - capability: prep.quality-drivers
         knowledge_kind: quality-design
         requires:
           - capability: prep.product-intent
           - capability: prep.product-capabilities
+      - capability: prep.logical-consistency-reliability
+        knowledge_kind: quality-design
+        requires:
+          - capability: prep.quality-drivers
+          - capability: prep.graph-lifecycle
+          - capability: prep.learning-state-model
+
+  - id: DATA-DESIGN
+    responsibility: Own logical data ownership, consistency boundaries and graph-oriented read requirements without choosing a database technology.
+    boundary:
+      semantic_cohesion: Logical information ownership and query needs across semantic graph, provenance, plans and learner evidence.
+      independent_change: Logical data boundaries can evolve before selecting physical schemas/databases.
+      public_contract: Provides logical data ownership and graph read-model requirements.
+    produces:
+      - capability: prep.logical-data-ownership
+        knowledge_kind: data-design
+        requires:
+          - capability: prep.knowledge-graph-model
+          - capability: prep.source-evidence-model
+          - capability: prep.graph-lifecycle
+          - capability: prep.learning-plan-model
+          - capability: prep.learning-state-model
+          - capability: prep.learner-boundary
+      - capability: prep.logical-graph-read-model
+        knowledge_kind: data-design
+        requires:
+          - capability: prep.logical-data-ownership
+          - capability: prep.product-capabilities
+          - capability: prep.relation-registry
+
+  - id: SECURITY-DESIGN
+    responsibility: Own logical access/privacy boundaries for personal learning state and administrative curation without selecting identity-provider technology.
+    boundary:
+      semantic_cohesion: Trust, access and privacy decisions at logical responsibility boundaries.
+      independent_change: Security policy can evolve before concrete authn/authz implementation.
+      public_contract: Provides logical access/privacy constraints.
+    produces:
+      - capability: prep.logical-access-privacy
+        knowledge_kind: security-architecture
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.learner-boundary
+          - capability: prep.graph-admission-policy
 
   - id: INTERFACE-DESIGN
-    responsibility: Own the primary human interaction model centered on an explorable graph.
+    responsibility: Own human interaction and logical external interface responsibilities without selecting transport/framework technology.
     boundary:
-      semantic_cohesion: User-visible interaction semantics, navigation, graph selection and information overlays.
-      independent_change: Interaction design can evolve without redefining graph semantic truth.
-      public_contract: Provides the graph-first interface concept.
+      semantic_cohesion: User-visible interaction plus logical request/query/command contract boundaries.
+      independent_change: Interface contracts can evolve without redefining semantic graph truth or concrete deployment.
+      public_contract: Provides graph-first interaction and next-depth logical interface boundaries.
     produces:
       - capability: prep.graph-interface-concept
         knowledge_kind: human-interface-design
@@ -149,13 +212,23 @@ authorities:
           - capability: prep.learning-plan-model
           - capability: prep.learning-state-model
           - capability: prep.quality-drivers
+      - capability: prep.logical-interface-boundaries
+        knowledge_kind: interface-contract
+        requires:
+          - capability: prep.graph-interface-concept
+          - capability: prep.logical-use-case-boundaries
+          - capability: prep.logical-knowledge-ingestion
+          - capability: prep.logical-study-runtime
+          - capability: prep.logical-data-ownership
+          - capability: prep.logical-graph-read-model
+          - capability: prep.logical-access-privacy
 
   - id: SYSTEM-ARCHITECTURE
-    responsibility: Own the top-level system landscape and responsibility boundaries without selecting lower-level implementation structure.
+    responsibility: Own the top-level system landscape and next-depth logical runtime/module responsibility boundaries.
     boundary:
-      semantic_cohesion: Black-box system responsibilities, external systems and information flows.
-      independent_change: Top-level structure can be refined before component, persistence and deployment design.
-      public_contract: Provides the system landscape consumed by later detailed design.
+      semantic_cohesion: System responsibilities, logical runtime collaboration and dependency topology.
+      independent_change: Logical architecture can evolve before selecting deployable processes or concrete technology.
+      public_contract: Provides black-box landscape and logical system boundaries.
     produces:
       - capability: prep.system-landscape
         knowledge_kind: system-architecture
@@ -170,6 +243,53 @@ authorities:
           - capability: prep.learner-boundary
           - capability: prep.graph-interface-concept
           - capability: prep.quality-drivers
+      - capability: prep.logical-system-boundaries
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.system-landscape
+          - capability: prep.logical-use-case-boundaries
+          - capability: prep.logical-knowledge-ingestion
+          - capability: prep.logical-study-runtime
+          - capability: prep.logical-data-ownership
+          - capability: prep.logical-graph-read-model
+          - capability: prep.logical-interface-boundaries
+          - capability: prep.logical-access-privacy
+          - capability: prep.logical-consistency-reliability
+
+  - id: OPERABILITY-DESIGN
+    responsibility: Own logical diagnostics and observability expectations for graph admission, synchronization and evidence ingestion.
+    boundary:
+      semantic_cohesion: Information required to understand failures/conflicts and operational health.
+      independent_change: Diagnostic requirements can evolve before logging/metrics stack selection.
+      public_contract: Provides logical operability requirements.
+    produces:
+      - capability: prep.logical-operability
+        knowledge_kind: operability-design
+        requires:
+          - capability: prep.logical-system-boundaries
+          - capability: prep.logical-consistency-reliability
+
+  - id: VERIFICATION-DESIGN
+    responsibility: Own verification obligations proving logical platform boundaries satisfy accepted semantics.
+    boundary:
+      semantic_cohesion: Evidence strategy across application/data/interface/security/system/operability contracts.
+      independent_change: Verification design can evolve independently of production implementation mechanics.
+      public_contract: Provides logical verification strategy.
+    produces:
+      - capability: prep.logical-verification-strategy
+        knowledge_kind: verification-strategy
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.logical-use-case-boundaries
+          - capability: prep.logical-knowledge-ingestion
+          - capability: prep.logical-study-runtime
+          - capability: prep.logical-data-ownership
+          - capability: prep.logical-graph-read-model
+          - capability: prep.logical-interface-boundaries
+          - capability: prep.logical-access-privacy
+          - capability: prep.logical-consistency-reliability
+          - capability: prep.logical-system-boundaries
+          - capability: prep.logical-operability
 
 consumers:
   - id: TOP-LEVEL-DESIGN
@@ -193,3 +313,18 @@ consumers:
       - capability: prep.quality-drivers
       - capability: prep.graph-interface-concept
       - capability: prep.system-landscape
+
+  - id: LOGICAL-DESIGN
+    purpose: Complete one breadth-first logical design layer before choosing concrete technologies or implementation decomposition.
+    requires:
+      - capability: prep.logical-use-case-boundaries
+      - capability: prep.logical-knowledge-ingestion
+      - capability: prep.logical-study-runtime
+      - capability: prep.logical-data-ownership
+      - capability: prep.logical-graph-read-model
+      - capability: prep.logical-interface-boundaries
+      - capability: prep.logical-access-privacy
+      - capability: prep.logical-consistency-reliability
+      - capability: prep.logical-system-boundaries
+      - capability: prep.logical-operability
+      - capability: prep.logical-verification-strategy

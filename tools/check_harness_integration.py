@@ -38,16 +38,25 @@ def main() -> int:
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
 
-    result = evaluate_engineering_target(graph, "TOP-LEVEL-DESIGN", core)
-    if result.get("status") != "COMPLETE":
+    top = evaluate_engineering_target(graph, "TOP-LEVEL-DESIGN", core)
+    if top.get("status") != "COMPLETE":
         raise SystemExit(
             "TOP-LEVEL-DESIGN must be structurally COMPLETE; "
-            f"got {result.get('status')}: create={result.get('create')} "
-            f"wait={result.get('wait')} pending={result.get('pending')}"
+            f"got {top.get('status')}: create={top.get('create')} "
+            f"wait={top.get('wait')} pending={top.get('pending')}"
         )
+
+    logical = evaluate_engineering_target(graph, "LOGICAL-DESIGN", core)
 
     print("Prep pinned Harness integration PASS")
     print("TOP-LEVEL-DESIGN: COMPLETE (structural coverage only)")
+    print(
+        "LOGICAL-DESIGN: "
+        f"{logical.get('status')} "
+        f"(create={len(logical.get('create', []))}, "
+        f"wait={len(logical.get('wait', []))}, "
+        f"pending={len(logical.get('pending', []))})"
+    )
     return 0
 
 

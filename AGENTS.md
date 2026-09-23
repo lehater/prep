@@ -38,11 +38,11 @@ python tools/check_harness_integration.py
 
 ## Current design strategy
 
-ADR-008 is authoritative for the current phase: **breadth-first top-level design before deep slices**.
+ADR-008 remains authoritative: complete breadth at one design depth before descending.
 
-Do not descend into database selection, API contracts, component design, deployment topology or implementation tasks while unresolved top-level product/domain/architecture semantics can materially change them.
+`TOP-LEVEL-DESIGN` is now structurally complete. The active phase is Plan 016 and Harness consumer `LOGICAL-DESIGN`.
 
-Current top-level closure is the Harness `TOP-LEVEL-DESIGN` consumer.
+Work horizontally across application workflows, logical data/read models, interfaces, privacy, consistency, logical system boundaries, operability and verification. Do not select database/API/framework/deployment technology or create implementation tickets until that logical layer is coherent.
 
 ## Source-of-truth priority
 
@@ -110,9 +110,9 @@ infrastructure -> application ports
 
 ## Identity and provenance
 
-Stable semantic/learning-object identity is repository-owned and never derived from mutable display text.
+Semantic identity is distinct from storage/display identifiers. Stable canonical NodeId/learning-object identifiers are system-owned and never derived from mutable display text.
 
-Agents may propose semantic graph changes. Deterministic code must own stable IDs, structural graph validation, source coordinates and persistence.
+Agents may propose semantic graph changes. Deterministic code owns stable representation IDs, structural graph validation, source coordinates and persistence.
 
 ## Completion checks
 

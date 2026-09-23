@@ -20,7 +20,7 @@ python tools/bootstrap_harness.py
 python tools/check_harness_integration.py
 ```
 
-The integration currently evaluates `TOP-LEVEL-DESIGN`. It intentionally does not define component, persistence, API, deployment or implementation consumers.
+`TOP-LEVEL-DESIGN` is the completed semantic/black-box baseline. `LOGICAL-DESIGN` is the active next-depth consumer and intentionally exposes missing logical design capabilities as Harness CREATE work. Concrete database/API/framework/deployment/implementation consumers remain out of scope.
 
 ## Agent operation
 

@@ -4,6 +4,8 @@
 
 Descend exactly one design level while preserving breadth-first coverage. Define logical responsibilities/contracts across the whole platform before choosing concrete technology or implementing one deep slice.
 
+Harness consumer: `LOGICAL-DESIGN`.
+
 ## Required breadth
 
 - [ ] application/use-case responsibility map
