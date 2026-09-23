@@ -52,6 +52,8 @@ def main() -> int:
     require_complete(graph, core, "TOP-LEVEL-DESIGN")
     require_complete(graph, core, "LOGICAL-DESIGN")
 
+    require_complete(graph, core, "TECHNICAL-DESIGN")
+
     print("Prep pinned Harness integration PASS")
     return 0
 

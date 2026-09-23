@@ -174,4 +174,82 @@ artifacts:
     provides: [prep.logical-verification-strategy]
     depends_on: [PRODUCT-CAPABILITIES, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-INTERFACES, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY, LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-OPERABILITY]
 
+  - id: PERSISTENCE-ARCHITECTURE
+    authority: DATA-DESIGN
+    path: docs/architecture/persistence-architecture.md
+    provides: [prep.persistence-architecture]
+    depends_on: [LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-CONSISTENCY-RELIABILITY, LOGICAL-ACCESS-PRIVACY]
+
+  - id: DATA-LIFECYCLE-DESIGN
+    authority: DATA-DESIGN
+    path: docs/architecture/data-lifecycle.md
+    provides: [prep.data-lifecycle-design]
+    depends_on: [PERSISTENCE-ARCHITECTURE, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY]
+
+  - id: EXTERNAL-DEPENDENCY-DESIGN
+    authority: EXTERNAL-DEPENDENCY-DESIGN
+    path: docs/architecture/external-dependencies.md
+    provides: [prep.external-dependency-design]
+    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-STUDY-RUNTIME, LOGICAL-INTERFACES, GRAPH-INTERFACE]
+
+  - id: MACHINE-INTERFACE-DESIGN
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/machine-interface.md
+    provides: [prep.machine-interface-design]
+    depends_on: [LOGICAL-INTERFACES, LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-ACCESS-PRIVACY]
+
+  - id: PERFORMANCE-CAPACITY-DESIGN
+    authority: QUALITY-DESIGN
+    path: docs/architecture/performance-capacity.md
+    provides: [prep.performance-capacity-design]
+    depends_on: [QUALITY-DRIVERS, LOGICAL-GRAPH-READ-MODEL, LOGICAL-SYSTEM-BOUNDARIES]
+
+  - id: RELIABILITY-ARCHITECTURE
+    authority: QUALITY-DESIGN
+    path: docs/architecture/reliability-architecture.md
+    provides: [prep.reliability-architecture]
+    depends_on: [LOGICAL-CONSISTENCY-RELIABILITY, PERSISTENCE-ARCHITECTURE, EXTERNAL-DEPENDENCY-DESIGN]
+
+  - id: SECURITY-ARCHITECTURE
+    authority: SECURITY-DESIGN
+    path: docs/architecture/security-architecture.md
+    provides: [prep.security-architecture]
+    depends_on: [LOGICAL-ACCESS-PRIVACY, LOGICAL-SYSTEM-BOUNDARIES, EXTERNAL-DEPENDENCY-DESIGN]
+
+  - id: PRESENTATION-SYSTEM-DESIGN
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/presentation-system.md
+    provides: [prep.presentation-system-design]
+    depends_on: [GRAPH-INTERFACE, LOGICAL-GRAPH-READ-MODEL, MACHINE-INTERFACE-DESIGN, PERFORMANCE-CAPACITY-DESIGN]
+
+  - id: SCREEN-VIEW-DESIGN
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/screen-view-design.md
+    provides: [prep.screen-view-design]
+    depends_on: [PRESENTATION-SYSTEM-DESIGN, USER-JOURNEYS, GRAPH-INTERFACE]
+
+  - id: RUNTIME-TOPOLOGY
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/runtime-topology.md
+    provides: [prep.runtime-topology]
+    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, PERSISTENCE-ARCHITECTURE, MACHINE-INTERFACE-DESIGN, EXTERNAL-DEPENDENCY-DESIGN, SECURITY-ARCHITECTURE, PERFORMANCE-CAPACITY-DESIGN, RELIABILITY-ARCHITECTURE]
+
+  - id: COMPONENT-DESIGN
+    authority: COMPONENT-DESIGN
+    path: docs/architecture/component-design.md
+    provides: [prep.component-design]
+    depends_on: [RUNTIME-TOPOLOGY, PERSISTENCE-ARCHITECTURE, MACHINE-INTERFACE-DESIGN, PRESENTATION-SYSTEM-DESIGN, SCREEN-VIEW-DESIGN, SECURITY-ARCHITECTURE, EXTERNAL-DEPENDENCY-DESIGN]
+
+  - id: OPERABILITY-ARCHITECTURE
+    authority: OPERABILITY-DESIGN
+    path: docs/architecture/operability-architecture.md
+    provides: [prep.operability-architecture]
+    depends_on: [LOGICAL-OPERABILITY, RUNTIME-TOPOLOGY, RELIABILITY-ARCHITECTURE, SECURITY-ARCHITECTURE]
+
+  - id: TEST-DESIGN
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/test-design.md
+    provides: [prep.test-design]
+    depends_on: [LOGICAL-VERIFICATION, COMPONENT-DESIGN, MACHINE-INTERFACE-DESIGN, PERSISTENCE-ARCHITECTURE, RUNTIME-TOPOLOGY, OPERABILITY-ARCHITECTURE]
+
 questions: []

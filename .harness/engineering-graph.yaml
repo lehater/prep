@@ -161,9 +161,21 @@ authorities:
           - capability: prep.logical-knowledge-ingestion
           - capability: prep.logical-study-runtime
           - capability: prep.logical-data-ownership
+      - capability: prep.performance-capacity-design
+        knowledge_kind: performance-capacity-analysis
+        requires:
+          - capability: prep.quality-drivers
+          - capability: prep.logical-graph-read-model
+          - capability: prep.logical-system-boundaries
+      - capability: prep.reliability-architecture
+        knowledge_kind: reliability-analysis
+        requires:
+          - capability: prep.logical-consistency-reliability
+          - capability: prep.persistence-architecture
+          - capability: prep.external-dependency-design
 
   - id: DATA-DESIGN
-    responsibility: Own logical data ownership, consistency boundaries and graph-oriented read requirements without choosing a database technology.
+    responsibility: Own logical data ownership and progressively refine it into physical persistence/lifecycle design.
     boundary:
       semantic_cohesion: Logical information ownership and query needs across semantic graph, provenance, plans and learner evidence.
       independent_change: Logical data boundaries can evolve before selecting physical schemas/databases.
@@ -185,9 +197,22 @@ authorities:
           - capability: prep.product-capabilities
           - capability: prep.relation-registry
           - capability: prep.graph-interface-concept
+      - capability: prep.persistence-architecture
+        knowledge_kind: data-design
+        requires:
+          - capability: prep.logical-data-ownership
+          - capability: prep.logical-graph-read-model
+          - capability: prep.logical-consistency-reliability
+          - capability: prep.logical-access-privacy
+      - capability: prep.data-lifecycle-design
+        knowledge_kind: data-governance-lifecycle-analysis
+        requires:
+          - capability: prep.persistence-architecture
+          - capability: prep.logical-access-privacy
+          - capability: prep.logical-consistency-reliability
 
   - id: SECURITY-DESIGN
-    responsibility: Own logical access/privacy boundaries for personal learning state and administrative curation without selecting identity-provider technology.
+    responsibility: Own access/privacy semantics and their concrete technical security architecture.
     boundary:
       semantic_cohesion: Trust, access and privacy decisions at logical responsibility boundaries.
       independent_change: Security policy can evolve before concrete authn/authz implementation.
@@ -200,6 +225,12 @@ authorities:
           - capability: prep.learner-boundary
           - capability: prep.graph-admission-policy
           - capability: prep.logical-use-case-boundaries
+      - capability: prep.security-architecture
+        knowledge_kind: security-architecture
+        requires:
+          - capability: prep.logical-access-privacy
+          - capability: prep.logical-system-boundaries
+          - capability: prep.external-dependency-design
 
   - id: INTERFACE-DESIGN
     responsibility: Own human interaction and logical external interface responsibilities without selecting transport/framework technology.
@@ -227,6 +258,25 @@ authorities:
           - capability: prep.logical-data-ownership
           - capability: prep.logical-graph-read-model
           - capability: prep.logical-access-privacy
+      - capability: prep.machine-interface-design
+        knowledge_kind: interface-contract
+        requires:
+          - capability: prep.logical-interface-boundaries
+          - capability: prep.logical-system-boundaries
+          - capability: prep.logical-access-privacy
+      - capability: prep.presentation-system-design
+        knowledge_kind: presentation-system-design
+        requires:
+          - capability: prep.graph-interface-concept
+          - capability: prep.logical-graph-read-model
+          - capability: prep.machine-interface-design
+          - capability: prep.performance-capacity-design
+      - capability: prep.screen-view-design
+        knowledge_kind: screen-view-design
+        requires:
+          - capability: prep.presentation-system-design
+          - capability: prep.user-journeys
+          - capability: prep.graph-interface-concept
 
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own the top-level system landscape and next-depth logical runtime/module responsibility boundaries.
@@ -260,6 +310,49 @@ authorities:
           - capability: prep.logical-interface-boundaries
           - capability: prep.logical-access-privacy
           - capability: prep.logical-consistency-reliability
+      - capability: prep.runtime-topology
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.logical-system-boundaries
+          - capability: prep.persistence-architecture
+          - capability: prep.machine-interface-design
+          - capability: prep.external-dependency-design
+          - capability: prep.security-architecture
+          - capability: prep.performance-capacity-design
+          - capability: prep.reliability-architecture
+
+  - id: EXTERNAL-DEPENDENCY-DESIGN
+    responsibility: Own concrete integration constraints and selected external dependencies without letting them redefine domain semantics.
+    boundary:
+      semantic_cohesion: Capabilities, limits, versioning and failure modes of Anki/AnkiConnect, model providers, media/ASR and selected UI/runtime dependencies.
+      independent_change: External providers/libraries may change behind accepted internal contracts.
+      public_contract: Provides the concrete external-dependency design consumed by security, reliability, runtime topology and components.
+    produces:
+      - capability: prep.external-dependency-design
+        knowledge_kind: external-dependency-analysis
+        requires:
+          - capability: prep.logical-system-boundaries
+          - capability: prep.logical-study-runtime
+          - capability: prep.logical-interface-boundaries
+          - capability: prep.graph-interface-concept
+
+  - id: COMPONENT-DESIGN
+    responsibility: Own implementation-facing component responsibilities and dependency/composition boundaries after runtime and technology architecture are selected.
+    boundary:
+      semantic_cohesion: Stable module/component contracts and dependency direction.
+      independent_change: Internal component decomposition may evolve behind accepted external/domain contracts.
+      public_contract: Provides code-facing component design without writing implementation.
+    produces:
+      - capability: prep.component-design
+        knowledge_kind: component-design
+        requires:
+          - capability: prep.runtime-topology
+          - capability: prep.persistence-architecture
+          - capability: prep.machine-interface-design
+          - capability: prep.presentation-system-design
+          - capability: prep.screen-view-design
+          - capability: prep.security-architecture
+          - capability: prep.external-dependency-design
 
   - id: OPERABILITY-DESIGN
     responsibility: Own logical diagnostics and observability expectations for graph admission, synchronization and evidence ingestion.
@@ -273,6 +366,13 @@ authorities:
         requires:
           - capability: prep.logical-system-boundaries
           - capability: prep.logical-consistency-reliability
+      - capability: prep.operability-architecture
+        knowledge_kind: operability-design
+        requires:
+          - capability: prep.logical-operability
+          - capability: prep.runtime-topology
+          - capability: prep.reliability-architecture
+          - capability: prep.security-architecture
 
   - id: VERIFICATION-DESIGN
     responsibility: Own verification obligations proving logical platform boundaries satisfy accepted semantics.
@@ -295,6 +395,15 @@ authorities:
           - capability: prep.logical-consistency-reliability
           - capability: prep.logical-system-boundaries
           - capability: prep.logical-operability
+      - capability: prep.test-design
+        knowledge_kind: test-design
+        requires:
+          - capability: prep.logical-verification-strategy
+          - capability: prep.component-design
+          - capability: prep.machine-interface-design
+          - capability: prep.persistence-architecture
+          - capability: prep.runtime-topology
+          - capability: prep.operability-architecture
 
 consumers:
   - id: TOP-LEVEL-DESIGN
@@ -333,3 +442,20 @@ consumers:
       - capability: prep.logical-system-boundaries
       - capability: prep.logical-operability
       - capability: prep.logical-verification-strategy
+
+  - id: TECHNICAL-DESIGN
+    purpose: Select concrete technologies and implementation-facing architecture breadth-first before implementation slicing begins.
+    requires:
+      - capability: prep.persistence-architecture
+      - capability: prep.data-lifecycle-design
+      - capability: prep.external-dependency-design
+      - capability: prep.machine-interface-design
+      - capability: prep.presentation-system-design
+      - capability: prep.screen-view-design
+      - capability: prep.security-architecture
+      - capability: prep.performance-capacity-design
+      - capability: prep.reliability-architecture
+      - capability: prep.runtime-topology
+      - capability: prep.component-design
+      - capability: prep.operability-architecture
+      - capability: prep.test-design
