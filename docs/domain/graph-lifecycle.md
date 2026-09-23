@@ -2,44 +2,56 @@
 
 ## Responsibility
 
-Preserve semantic identity and historical interpretability as graph knowledge changes.
+Preserve semantic identity, accepted claim history and historical interpretability as graph knowledge changes.
 
-## Identity versus revision
+## Semantic identity versus canonical representation
 
-A node's canonical ID represents semantic continuity. Metadata/content revisions do not create a new identity merely because wording, evidence or classification changed.
+A semantic entity can retain identity while labels, assertions, evidence and classification evolve.
 
-A relation likewise has its own identity as an accepted semantic assertion between endpoints and may evolve in status/evidence without changing its endpoint identities.
+Its stable NodeId identifies the canonical graph representation; it is not the philosophical definition of semantic identity.
 
 ## Graph revision
 
 Accepted semantic mutations produce an ordered graph revision history sufficient to identify the graph state used by a curriculum, learning plan or generated learning artifact.
 
-This is a semantic requirement, not a commitment to event sourcing or a particular persistence mechanism.
+This is a semantic requirement, not a commitment to event sourcing.
 
 ## Rename
 
-Rename preserves node identity. Former names may remain aliases when supported.
+Rename preserves semantic identity and NodeId. Former names may remain aliases when supported.
+
+## Assertion evolution
+
+KnowledgeAssertions can be added, refined in representation, marked non-current/obsolete, or challenged without silently rewriting what was previously accepted.
+
+Historical claim content/evidence required by existing learning artifacts remains interpretable.
+
+## Relation evolution
+
+A Relation has identity as an accepted typed assertion between endpoints. Its lifecycle/evidence may evolve without changing endpoint identities.
+
+If relation meaning/endpoints materially change, treat that as a different relation rather than silently reusing identity.
 
 ## Merge
 
 Merge is allowed only after semantic equivalence is established.
 
-The surviving canonical ID becomes authoritative, while historical references to merged IDs must remain resolvable through an auditable redirect/mapping. Existing learning evidence must not become orphaned.
+The surviving canonical NodeId becomes authoritative. Historical references to merged IDs remain resolvable through auditable redirects/mappings so learning evidence is not orphaned.
 
 ## Retirement
 
-A node/relation may become non-current without being physically erased.
+A node, assertion or relation may become non-current without physical erasure.
 
 Retirement:
 
-- preserves historical identity and evidence;
+- preserves historical identity/content/evidence;
 - prevents silent ID reuse;
 - may name a replacement/successor only when separately supported;
-- does not imply that the referent never existed or was always wrong.
+- does not imply the historical referent/claim never existed.
 
 ## Obsolescence and conflict
 
-Keep these distinct:
+Keep distinct:
 
 ```text
 obsolete   -> was supported in an earlier context, no longer current/applicable
@@ -48,10 +60,10 @@ error      -> claim is asserted to have been wrong in its original context
 successor  -> distinct identity that replaces another for some use
 ```
 
-Newer evidence alone does not prove obsolescence or supersession.
+Newer evidence alone proves none of these.
 
 ## Historical consumers
 
-Learning plans, generated exercises and learner evidence may refer to older graph states. They must remain explainable even after the current graph changes.
+Learning plans, generated exercises and learner evidence may refer to older graph revisions. They remain explainable after current graph changes.
 
-Current views may resolve redirects/replacements, but historical records keep the original subject/revision references needed for auditability.
+Current views may resolve redirects/replacements, while historical records retain original subject/revision references.

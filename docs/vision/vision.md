@@ -20,41 +20,43 @@ Knowledge Sources
 
 ## Product principles
 
-- The Knowledge Graph is the semantic source of truth for reusable knowledge identities and relations.
+- The Knowledge Graph is semantic authority for reusable knowledge identities, assertions and relations.
 - Cards are learning projections, not units of canonical knowledge.
-- Learning plans and learner progress are overlays/references to graph knowledge rather than mutations of semantic truth.
-- Subject domains keep their own learning-object semantics; common platform abstractions are extracted only when meaning is genuinely shared.
-- Anki is an execution and spaced-repetition runtime, not the architectural center of Prep.
-- Agents may perform semantic interpretation and propose changes; deterministic code owns stable identity, validation, persistence and external reconciliation.
+- Learning plans and learner progress are references/overlays over graph knowledge rather than semantic mutations.
+- Subject domains keep their own learning-object semantics; common platform abstractions are extracted only when meaning is shared.
+- Anki is an execution/spaced-repetition runtime, not the architectural center.
+- Agents may interpret/propose semantics; deterministic code owns stable representation IDs, structural validation, persistence and external reconciliation.
 
 ## Initial learning domains
 
 ### Interview Preparation
 
-Prepare for technical interviews through competency/concept coverage, questions, scenarios, code tasks, assessment evidence and gap-driven learning.
+Technical-interview competencies, elicitation, assessment and gap-driven learning over canonical graph subjects.
 
 ### English Listening
 
-Train recognition and understanding of authentic spoken English through source-backed lexical targets and stable acoustic listening segments.
+Recognition and understanding of authentic spoken English through source-backed lexical targets and stable acoustic segments.
 
-Future domains such as mathematics may add their own learning-object models without changing the graph and learning-coordination foundations.
+Future domains such as mathematics may add their own learning-object models.
 
-## Operating principle
+## Engineering source of truth
 
-The repository is the system of record for accepted engineering and learning artifacts. Chat sessions and agents operate on repository truth but do not replace it.
+The Git repository is authoritative for **project engineering knowledge**: accepted design, schemas, executable invariants, migrations and implementation.
+
+The future runtime system will own operational canonical graph/learner state through a persistence design not yet selected. The architecture must not assume Git files remain the production database.
 
 ## Design principle
 
-Use DDD for semantic ownership, Clean Architecture for dependency direction, and Hexagonal Architecture for external systems.
+Use DDD for semantic ownership, Clean Architecture for dependency direction, Hexagonal Architecture for external systems, and the pinned Harness for engineering-knowledge coverage.
 
 ## Current delivery principle
 
-During the graph-centered platform design phase, establish broad top-level closure before deep implementation slices. Cover problem, product capabilities, contexts, graph/learning semantics, journeys, interface concept, quality drivers and system landscape first. After that boundary is coherent, implementation returns to small coherent slices.
+During graph-centered platform design, establish broad closure at each design depth before descending further. Current depth covers product/domain/black-box architecture; implementation slices resume only after this layer is coherent.
 
 ## Current non-goals
 
-- choosing the graph database or persistence technology;
-- defining detailed APIs, deployment topology or component boundaries;
-- forcing all learning domains into one Question/Exercise schema;
+- choosing graph/persistence technology;
+- detailed APIs, deployment or components;
+- forcing all domains into one Question/Exercise schema;
 - replacing Anki scheduling;
 - building a full LMS.

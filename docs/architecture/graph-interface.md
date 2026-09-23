@@ -4,6 +4,21 @@
 
 The semantic graph is the main exploratory surface of Prep. The default rich view is an interactive 3D graph whose nodes and edges can be rotated, zoomed, dragged and inspected.
 
+## Node detail/card
+
+Selecting a KnowledgeNode opens a persistent detail surface while keeping graph context visible.
+
+The detail surface is a projection of canonical node semantics:
+
+- canonical label/aliases;
+- kind/areas/facets;
+- current accepted KnowledgeAssertions;
+- important typed Relations/neighborhood;
+- evidence/provenance access;
+- selected learning/content overlays.
+
+It is not an Anki card.
+
 ## Visual semantic modes
 
 One visual channel must not encode two meanings simultaneously.
@@ -18,47 +33,38 @@ One visual channel must not encode two meanings simultaneously.
 ### Learning mode
 
 - node/edge appearance encodes learner-state overlay (`not_started`, `active`, `weak`, `stable`, `stale`);
-- semantic kind remains available through shape/icon/detail/legend rather than competing color;
-- plan membership/content coverage can be switched as separate overlays.
+- semantic kind remains available through another visual channel/detail/legend;
+- plan membership/content coverage are separate overlays.
 
-Exact colors/styles are presentation-system decisions. The semantic mapping above is the contract.
+Exact colors/styles are later presentation-system decisions.
 
 ## Selection meanings
-
-The UI must distinguish:
 
 - `Area` — canonical classification;
 - `DerivedCluster` — computed grouping;
 - `SavedView` — stored inspection/filter state;
 - `TargetScope` — explicit learning scope.
 
-A visible filtered cluster does not become learning intent until the user explicitly creates/selects a TargetScope.
+A visible cluster/filter does not become learning intent until explicitly converted/selected as TargetScope.
 
 ## Core interactions
 
-- search for a node;
-- filter by areas, facets, node kinds and relation types;
-- select/isolate derived clusters or arbitrary subgraphs;
-- click a node or relation to open detail while preserving graph context;
-- switch among semantic, content-coverage, plan and learner-state overlays;
-- create a TargetScope/LearningPlan from the current selection;
-- save useful views independently from learning intent.
+- search;
+- filter by areas/facets/kinds/relation types;
+- isolate derived clusters/arbitrary subgraphs;
+- inspect node/relation details;
+- switch semantic/content/plan/learning overlays;
+- create TargetScope/LearningPlan from selection;
+- save views independently from learning intent.
 
 ## Relation interaction
 
-Relations are first-class selectable objects. The UI can:
-
-- toggle entire relation types;
-- inspect direction and semantic definition;
-- show local neighborhoods limited to selected types;
-- display relation learning state when exercises explicitly test that relation.
+Relations are first-class selectable objects: relation-type toggles, direction/meaning inspection, typed neighborhood exploration and relation learning overlays are supported conceptually.
 
 ## Companion surfaces
 
-A 3D graph is not sufficient for precise operation on large datasets. Search/list/filter and detail views are required companion surfaces over the same graph/view selection.
+3D is insufficient for precision on large datasets. Search/list/filter/detail remain first-class companion surfaces over the same selection model.
 
 ## Mutation rule
 
-The interface may collect feedback/change requests, but direct visual editing does not bypass graph admission.
-
-Dragging, layout, coloring, filtering and cluster isolation change view state only.
+UI feedback/change requests enter graph admission. Dragging, layout, coloring, filtering and cluster isolation mutate ViewState only.

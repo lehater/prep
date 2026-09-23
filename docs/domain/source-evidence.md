@@ -8,54 +8,52 @@ Define the minimum shared provenance contract needed to explain where graph know
 
 ```text
 Source
-  -> an identifiable origin
+  -> identifiable origin
 
 SourceRevision / Observation
-  -> the concrete state/version of that origin that was observed
+  -> concrete state/version of that origin that was observed
 
 EvidenceRef
-  -> a bounded reference to support used for one semantic proposal/assertion
+  -> bounded reference to support used for one semantic claim/decision
 ```
 
-A URL string alone is not sufficient evidence identity because mutable sources can change.
+A URL string alone is insufficient evidence identity because mutable sources can change.
 
 ## Source identity
 
-A source identity represents continuity of an origin, for example:
+A source identity represents continuity of an origin, for example an RFC, repository document, book/article, film/episode or imported corpus.
 
-- an RFC/specification;
-- a repository/document;
-- a book/article;
-- a film/episode;
-- an imported question corpus.
-
-Domain-specific contexts may own richer source entities. For example, English Listening keeps `MediaSource` and transcript/acoustic provenance. The shared boundary requires only that such sources can expose a stable reference when their evidence supports cross-context semantic knowledge.
+Domain-specific contexts may own richer source entities. English Listening keeps `MediaSource` and transcript/acoustic provenance; it exposes a stable reference only when that evidence supports cross-context semantic knowledge.
 
 ## Revision / observation
 
-When reproducibility matters, evidence identifies the observed source state by whatever immutable/versioned coordinates the source can provide:
+When reproducibility matters, evidence identifies the observed source state by immutable/versioned coordinates where available:
 
 ```text
 commit/revision
 publication/version
 content fingerprint/snapshot
-retrieved-at + preserved excerpt when no immutable revision exists
+retrieved-at + preserved support when no immutable revision exists
 media/transcript version
 ```
 
-The exact representation is adapter/source-specific and deferred.
+Representation remains source/adapter-specific.
 
-## Evidence reference
+## EvidenceRef
 
-Evidence is an association between a semantic proposal/assertion and source support.
+An EvidenceRef supports a specific semantic use:
 
-At minimum it must preserve enough context to answer:
+- identity resolution/classification;
+- one KnowledgeAssertion;
+- one Relation;
+- retirement/obsolescence decision;
+- generated learning material.
+
+It preserves enough context to answer:
 
 - which source/revision was used;
-- what part/occurrence supports the claim;
-- what semantic claim the support was used for.
-
-Evidence may support node identity, classification, relation admission, retirement/obsolescence or learning-content generation.
+- which part/occurrence was relied upon;
+- which semantic claim/decision it supported.
 
 ## Invariants
 
@@ -63,5 +61,5 @@ Evidence may support node identity, classification, relation admission, retireme
 - Model confidence is not evidence.
 - Arrival order does not establish supersession.
 - Conflicting evidence is preserved for review rather than silently overwritten.
-- Evidence must remain traceable after node rename/merge/retirement.
-- Subject-specific provenance remains owned by its bounded context; the shared contract is an integration reference, not a replacement domain model.
+- Evidence remains traceable after rename/merge/retirement.
+- Subject-specific provenance stays owned by its bounded context; the shared contract is an integration reference, not a replacement domain model.

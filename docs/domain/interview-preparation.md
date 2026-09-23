@@ -4,14 +4,14 @@
 
 Prepare a learner for a target technical interview by modeling expected competencies, collecting diagnostic evidence, identifying gaps, and driving targeted learning/reassessment.
 
-This bounded context owns the meaning of interview knowledge and assessment. It does not own Anki scheduling semantics.
+This context owns interview-specific elicitation, assessment and remediation semantics. Canonical reusable knowledge semantics belong to the Knowledge Graph.
 
 ## Core flow
 
 ```text
 TargetRole
   -> Competency model
-  -> Concepts
+  -> GraphSubjectRefs
   -> Questions
   -> Baseline Attempts
   -> Assessments
@@ -26,34 +26,38 @@ TargetRole
 
 An interview-relevant capability expected for a target role.
 
-Input: target-role/interview expectations.
-Output: scoped capability decomposable into concepts and tasks.
+### Concept compatibility boundary
 
-### Concept
+The existing executable question-bank model uses local `Concept` identifiers such as `backend.idempotency`. This remains a compatibility artifact until graph integration is migrated.
 
-A unit of knowledge or mechanism that can be understood and tested from multiple angles.
+Target ownership:
 
-Examples: MVCC, event loop, idempotency.
+```text
+Knowledge Graph -> canonical semantic definition/identity
+Interview       -> GraphSubjectRef + interview relevance/assessment semantics
+```
+
+Interview Preparation must not become a second semantic source of truth for Idempotency, MVCC, asyncio, etc.
+
+Migration of existing `concept_id` fields is a later executable change; this document does not silently invalidate current question banks.
 
 ### LearningTask
 
-The cognitive operation the learner is expected to demonstrate.
+Canonical interview cognitive operation:
 
-Canonical v0.1 values:
-
-- `recall`;
-- `explain`;
-- `compare`;
-- `apply`;
-- `analyze`;
-- `evaluate`;
-- `design`.
+```text
+recall
+explain
+compare
+apply
+analyze
+evaluate
+design
+```
 
 ### QuestionType
 
-A reusable elicitation pattern for a LearningTask. It describes prompt intent, expected answer shape, and minimum evidence of success.
-
-Canonical v0.1:
+Reusable elicitation pattern for a LearningTask:
 
 ```text
 direct-recall  -> recall
@@ -66,86 +70,63 @@ choose-justify -> evaluate
 design         -> design
 ```
 
-Detailed semantics: [`interview-question-types.md`](interview-question-types.md).
+See [interview-question-types.md](interview-question-types.md).
 
 ### Question
 
-A concrete prompt tied to a `Concept` and `QuestionType`.
+A concrete interview prompt tied to one or more graph subjects (currently via compatibility `concept_id`) and a QuestionType.
 
-Its stable identifier is domain identity. Presentation wording may evolve without creating a new Question identity.
+Question identity is interview-domain identity; wording may evolve without changing it.
 
 ### Attempt
 
-An observed response event for a Question.
-
-Important dimensions include:
-
-- question ID;
-- timestamp;
-- assessment-run context;
-- baseline vs later practice/reassessment;
-- response time when available;
-- raw execution-system observation where useful.
+Observed response event for a Question.
 
 ### Assessment
 
-Interpretation of Attempt evidence. Execution-system buttons or scheduler state may be evidence but do not define domain correctness or mastery.
+Interview interpretation of Attempt evidence. Execution-system ratings/scheduler state are inputs, not the definition of correctness/mastery.
 
 ### Gap
 
-Evidence that a concept/task combination requires remediation.
-
-Primary analysis unit:
-
-```text
-Concept × LearningTask
-```
+Evidence that a required graph subject × LearningTask needs remediation.
 
 ### Mastery
 
-An inferred state derived from repeated evidence. The formula remains intentionally deferred until real attempt data exists.
+Derived interview-specific interpretation from repeated evidence. Cross-platform learner-state projection is owned by Learning Coordination.
 
 ### LearningAction
 
-A response to a Gap, for example:
-
-- study/clarification;
-- targeted retrieval practice;
-- new scenario/diagnostic question;
-- mock interview exercise;
-- communication/time-box training.
+Interview-specific remediation such as study/clarification, targeted retrieval, scenario practice, code exercise or mock interview.
 
 ## Process invariants
 
 ### Baseline
 
-The first diagnostic pass occurs before targeted study for the selected scope. Baseline attempts remain distinguishable from later reviews.
+Initial diagnostic attempts stay distinguishable from later practice/reassessment.
 
 ### Gap-driven loop
 
 ```text
 observed failure
-  -> classify affected Concept × LearningTask
-  -> choose remediation
+  -> classify affected GraphSubjectRef × LearningTask
+  -> remediation
   -> practice
   -> spaced reassessment
   -> update evidence
 ```
 
-### Question bank is not the domain hierarchy
+### Question bank is not the knowledge hierarchy
 
-Questions are probes. Concepts/competencies are the knowledge model. Multiple Questions can contribute evidence about one capability.
+Questions are probes. Canonical semantic topology belongs to the Knowledge Graph. Multiple Questions may test one graph subject; one scenario may test several subjects/relations.
 
 ### Anki boundary
 
-The bounded context does not know about Anki Note/Card/Deck structures.
+The bounded context does not know Anki Note/Card/Deck structures. Application code projects Questions through a study-system port; infrastructure maps them to Anki.
 
-Application code projects canonical Questions through a study-system port. Infrastructure maps that projection to Anki.
+## Executable current sources
 
-## Executable sources of truth
+- `model/question-taxonomy.json`;
+- `questions/*.json`;
+- `tools/validate_questions.py`.
 
-- `model/question-taxonomy.json` — machine-readable LearningTask/QuestionType registry;
-- `questions/*.json` — canonical question banks;
-- `tools/validate_questions.py` — structural/project invariant validation.
-
-Authoring guidance: [`../guides/interview-question-authoring.md`](../guides/interview-question-authoring.md).
+These are current executable Interview artifacts and will be migrated deliberately when GraphSubjectRef becomes executable.

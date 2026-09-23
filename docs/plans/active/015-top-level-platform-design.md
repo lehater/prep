@@ -4,39 +4,36 @@
 
 Establish a coherent breadth-first top-level design for Prep before deeper implementation work.
 
-## Scope
+## Completed foundation
 
-Cover the full product/domain/architecture surface at black-box/semantic level while keeping physical storage, APIs, components, deployment and detailed implementation below the current boundary.
+- [x] pinned universal Harness integration
+- [x] problem/product capability baseline
+- [x] strategic bounded-context map
+- [x] Knowledge Graph semantic model
+- [x] node kind and relation registries
+- [x] evidence/provenance and controlled admission
+- [x] KnowledgeAssertion content boundary
+- [x] graph lifecycle/history rules
+- [x] Learning Coordination boundary
+- [x] TargetScope / Curriculum / LearningPlan
+- [x] learner-state overlays
+- [x] subject-context graph integration
+- [x] learner/personal-state separation
+- [x] graph-first interface and cluster/view semantics
+- [x] quality drivers and black-box landscape
+- [x] cross-artifact semantic consistency review
+- [x] no blocking TOP-LEVEL-DESIGN Questions remain
 
-## Completed top-level foundation
+## Result
 
-- [x] Harness direct-declaration integration and immutable pin
-- [x] problem-space and product-capability baseline
-- [x] strategic context map
-- [x] Knowledge Graph and Learning Coordination boundaries
-- [x] top-level user journeys and graph-first interface
-- [x] quality drivers and black-box system landscape
-- [x] node-kind vocabulary
-- [x] controlled relation registry
-- [x] learner-state aggregation semantics
-- [x] graph admission/curation policy
-- [x] Source/Evidence provenance boundary
-- [x] TargetScope / Curriculum / LearningPlan semantics
-- [x] graph revision/rename/merge/retirement guarantees
-- [x] subject-context -> canonical graph identity integration
-- [x] learner/personal-state boundary
-- [x] Area / DerivedCluster / SavedView / TargetScope distinction
+The top-level baseline is coherent enough to open the next design depth.
 
-## Remaining breadth review
+Evidence: [top-level-design-consistency-review.md](../../research/top-level-design-consistency-review.md).
 
-- [ ] run a cross-artifact semantic consistency review over all TOP-LEVEL-DESIGN providers
-- [ ] identify unresolved top-level Questions; add Harness blockers instead of inventing answers
-- [ ] decide whether the top-level baseline is coherent enough to open the next design depth
+## Boundary preserved
 
-## Next depth only after review
+No persistence technology, API style, component decomposition, deployment topology or implementation plan was selected in this phase.
 
-Candidates for the next design depth include persistence representation, graph/query API, component/module boundaries, ingestion workflow mechanics, sync/runtime topology and executable verification. None is authorized by this plan until the breadth review is complete.
+## Status
 
-## Stop rule
-
-Do not descend while unresolved top-level semantics can materially change lower-level choices.
+Complete pending repository validation/CI.
