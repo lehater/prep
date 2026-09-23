@@ -20,8 +20,11 @@ AGENTS.md
 - [`vision/vision.md`](vision/vision.md) — product intent;
 - [`vision/product-capabilities.md`](vision/product-capabilities.md) — product capability surface;
 - [`architecture/context-map.md`](architecture/context-map.md) — bounded-context ownership;
-- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic graph boundary;
+- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic nodes/classification;
+- [`domain/relation-registry.md`](domain/relation-registry.md) — controlled edge semantics;
+- [`domain/graph-admission.md`](domain/graph-admission.md) — semantic mutation/admission policy;
 - [`domain/learning-platform.md`](domain/learning-platform.md) — shared learning-coordination boundary;
+- [`domain/learning-state.md`](domain/learning-state.md) — learner evidence and graph overlays;
 - [`architecture/user-journeys.md`](architecture/user-journeys.md) — top-level learner/operator journeys;
 - [`architecture/quality-drivers.md`](architecture/quality-drivers.md) — architecture-significant qualities;
 - [`architecture/graph-interface.md`](architecture/graph-interface.md) — graph-first interaction concept;

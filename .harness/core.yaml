@@ -30,17 +30,35 @@ artifacts:
     provides: [prep.knowledge-graph-model]
     depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
+  - id: RELATION-REGISTRY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/relation-registry.md
+    provides: [prep.relation-registry]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+
+  - id: GRAPH-ADMISSION
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-admission.md
+    provides: [prep.graph-admission-policy]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY]
+
   - id: LEARNING-PLATFORM-BOUNDARY
     authority: DOMAIN-MODEL-DESIGN
     path: docs/domain/learning-platform.md
     provides: [prep.learning-platform-boundary]
     depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
+  - id: LEARNING-STATE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-state.md
+    provides: [prep.learning-state-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
+
   - id: USER-JOURNEYS
     authority: APPLICATION-DESIGN
     path: docs/architecture/user-journeys.md
     provides: [prep.user-journeys]
-    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, LEARNING-PLATFORM-BOUNDARY, LEARNING-STATE]
 
   - id: QUALITY-DRIVERS
     authority: QUALITY-DESIGN
@@ -52,12 +70,12 @@ artifacts:
     authority: INTERFACE-DESIGN
     path: docs/architecture/graph-interface.md
     provides: [prep.graph-interface-concept]
-    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY, QUALITY-DRIVERS]
+    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, LEARNING-STATE, QUALITY-DRIVERS]
 
   - id: SYSTEM-LANDSCAPE
     authority: SYSTEM-ARCHITECTURE
     path: docs/architecture/system-landscape.md
     provides: [prep.system-landscape]
-    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY, GRAPH-INTERFACE, QUALITY-DRIVERS]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, LEARNING-PLATFORM-BOUNDARY, LEARNING-STATE, GRAPH-INTERFACE, QUALITY-DRIVERS]
 
 questions: []

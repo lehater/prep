@@ -15,7 +15,7 @@ Establish a coherent breadth-first top-level design for Prep before deeper imple
 - define the black-box system landscape and quality drivers;
 - keep physical storage, APIs, components, deployment and detailed exercise generation below the current design boundary.
 
-## Current work items
+## Completed top-level foundation
 
 - [x] Harness direct-declaration integration and immutable pin
 - [x] problem-space baseline
@@ -27,10 +27,19 @@ Establish a coherent breadth-first top-level design for Prep before deeper imple
 - [x] graph-first interface concept
 - [x] quality drivers
 - [x] black-box system landscape
-- [ ] review node-kind vocabulary against real graph ingestion cases
-- [ ] review relation registry against interview/payment/distributed-systems corpus
-- [ ] define the minimum learner-state aggregation semantics needed for graph overlays
-- [ ] define graph admission/curation acceptance rules at the next level
+- [x] review node-kind vocabulary against current interview/learning cases
+- [x] define controlled relation registry and extension rules
+- [x] define minimum learner-state aggregation semantics for graph overlays
+- [x] define graph admission/curation acceptance rules
+
+## Next top-level questions
+
+- [ ] define canonical Source/Evidence identity and provenance boundary for imported knowledge
+- [ ] define Target Scope / Curriculum / Learning Plan semantics and their differences
+- [ ] define semantic graph versioning, retirement and historical-reference guarantees
+- [ ] define integration identity between subject-context concepts/targets and canonical graph nodes
+- [ ] define learner/account boundary for personal evidence, saved views and plans
+- [ ] review whether knowledge clusters are canonical semantics, derived graph analytics or user-saved views
 
 ## Stop rule
 

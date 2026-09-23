@@ -14,6 +14,7 @@ This directory contains accepted durable decisions.
 | [`ADR-006`](ADR-006-single-chat-agent-repository-harness.md) | Use one ChatGPT agent with repository-backed operating rules |
 | [`ADR-007`](ADR-007-pinned-universal-harness.md) | Use the pinned universal Harness for engineering-knowledge control |
 | [`ADR-008`](ADR-008-breadth-first-design-before-deep-slices.md) | Establish top-level design breadth before deep implementation slices |
+| [`ADR-009`](ADR-009-controlled-semantic-graph.md) | Use uniform semantic nodes, first-class typed relations and controlled graph admission |
 
 ## When to add an ADR
 
