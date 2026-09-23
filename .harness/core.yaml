@@ -136,13 +136,13 @@ artifacts:
     authority: DATA-DESIGN
     path: docs/data/graph-read-model.md
     provides: [prep.logical-graph-read-model]
-    depends_on: [LOGICAL-DATA-OWNERSHIP, PRODUCT-CAPABILITIES, RELATION-REGISTRY]
+    depends_on: [LOGICAL-DATA-OWNERSHIP, PRODUCT-CAPABILITIES, RELATION-REGISTRY, GRAPH-INTERFACE]
 
   - id: LOGICAL-ACCESS-PRIVACY
     authority: SECURITY-DESIGN
     path: docs/architecture/access-privacy.md
     provides: [prep.logical-access-privacy]
-    depends_on: [PRODUCT-CAPABILITIES, LEARNER-BOUNDARY, GRAPH-ADMISSION]
+    depends_on: [PRODUCT-CAPABILITIES, LEARNER-BOUNDARY, GRAPH-ADMISSION, LOGICAL-USE-CASES]
 
   - id: LOGICAL-INTERFACES
     authority: INTERFACE-DESIGN
@@ -154,7 +154,7 @@ artifacts:
     authority: QUALITY-DESIGN
     path: docs/architecture/consistency-reliability.md
     provides: [prep.logical-consistency-reliability]
-    depends_on: [QUALITY-DRIVERS, GRAPH-LIFECYCLE, LEARNING-STATE]
+    depends_on: [QUALITY-DRIVERS, GRAPH-LIFECYCLE, LEARNING-STATE, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP]
 
   - id: LOGICAL-SYSTEM-BOUNDARIES
     authority: SYSTEM-ARCHITECTURE

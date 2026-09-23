@@ -158,6 +158,9 @@ authorities:
           - capability: prep.quality-drivers
           - capability: prep.graph-lifecycle
           - capability: prep.learning-state-model
+          - capability: prep.logical-knowledge-ingestion
+          - capability: prep.logical-study-runtime
+          - capability: prep.logical-data-ownership
 
   - id: DATA-DESIGN
     responsibility: Own logical data ownership, consistency boundaries and graph-oriented read requirements without choosing a database technology.
@@ -181,6 +184,7 @@ authorities:
           - capability: prep.logical-data-ownership
           - capability: prep.product-capabilities
           - capability: prep.relation-registry
+          - capability: prep.graph-interface-concept
 
   - id: SECURITY-DESIGN
     responsibility: Own logical access/privacy boundaries for personal learning state and administrative curation without selecting identity-provider technology.
@@ -195,6 +199,7 @@ authorities:
           - capability: prep.product-capabilities
           - capability: prep.learner-boundary
           - capability: prep.graph-admission-policy
+          - capability: prep.logical-use-case-boundaries
 
   - id: INTERFACE-DESIGN
     responsibility: Own human interaction and logical external interface responsibilities without selecting transport/framework technology.

@@ -32,7 +32,7 @@ They exchange stable GraphSubjectRefs and publication projections, not internal 
 
 ### Study Runtime Integration
 
-Owns external runtime transport, PublicationBindings, observed runtime state and reconciliation mechanics.
+Owns external runtime transport, PublicationBindings/RuntimeBindings, observed runtime state and reconciliation mechanics. Learning Coordination supplies desired publication intent; Runtime Integration owns the mapping and convergence state.
 
 It does not own learning-object semantics or mastery.
 

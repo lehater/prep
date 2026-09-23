@@ -8,17 +8,21 @@ Define authoritative state owners and atomic consistency boundaries before choos
 
 | State | Logical owner | Authority |
 |---|---|---|
-| KnowledgeNode, KnowledgeAssertion, Relation, classification | Knowledge Graph Core | canonical |
-| Source/SourceRevision/EvidenceRef used by graph | provenance boundary / Graph Core | canonical support |
-| candidate extraction, unresolved identity, proposed GraphChangeSet | Knowledge Curation | staged, non-canonical |
-| TargetScope, Curriculum | Learning Coordination | canonical learning intent/design |
-| LearningPlan | Learning Coordination / learner | canonical personal intent |
+| KnowledgeNode, KnowledgeAssertion, Relation, classification | Knowledge Graph Core | canonical semantic truth |
+| accepted EvidenceRef associations on graph claims | Knowledge Graph Core | canonical support links |
+| Source/SourceRevision observations used for curation | Knowledge Curation | canonical provenance input |
+| candidate extraction, unresolved identity, proposed GraphChangeSet | Knowledge Curation | staged, non-canonical semantics |
+| TargetScope, Curriculum | Learning Coordination | canonical learning design |
+| LearningPlan | Learning Coordination, scoped by LearnerId | canonical personal intent |
 | Question, ListeningSegment, future subject objects | subject bounded context | canonical inside that context |
-| PublicationBinding / RuntimeBinding | Learning Coordination + runtime integration | canonical integration state |
+| desired publication set | Learning Coordination | canonical learner intent |
+| PublicationBinding / RuntimeBinding / observed runtime state | Study Runtime Integration | canonical integration state |
 | raw review/attempt evidence | Learning Coordination | canonical learner evidence |
 | LearnerState / progress aggregates | Learning Coordination | derived |
-| graph exploration/read projection | read-model owner | derived |
-| SavedView/layout/camera/filter state | learner/interface state | personal, non-semantic |
+| graph exploration/read projection | Graph Read Projection | derived |
+| SavedView/layout/camera/filter state | personal interface state | personal, non-semantic |
+
+No row has two semantic owners. Integration contracts connect owners through stable IDs.
 
 ## Atomic consistency boundaries
 
@@ -36,17 +40,18 @@ One accepted runtime/assessment observation is atomic by its event identity. Der
 
 ### Publication binding
 
-Mapping one Prep learning-object identity to an external representation is durable integration state. Batch synchronization need not be globally atomic.
+Mapping one Prep learning-object identity to an external representation is durable state owned by Study Runtime Integration. Batch synchronization need not be globally atomic.
 
 ## Cross-boundary rule
 
 Do not create a transaction boundary spanning:
 
+- Knowledge Curation + canonical graph commit before admission;
 - Knowledge Graph + external Study Runtime;
 - LearningPlan + external Study Runtime;
 - raw evidence + all derived read models.
 
-Use durable intent/evidence plus reconciliation instead.
+Use durable intent/evidence plus explicit reconciliation.
 
 ## Derived data
 
