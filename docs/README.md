@@ -37,6 +37,22 @@ AGENTS.md
 
 These artifacts are wired into `.harness/core.yaml`; `.harness/engineering-graph.yaml` derives the `TOP-LEVEL-DESIGN` closure.
 
+## Logical design path
+
+- [`application/logical-use-cases.md`](application/logical-use-cases.md) — application command/query responsibilities;
+- [`application/knowledge-ingestion.md`](application/knowledge-ingestion.md) — staged ingestion/admission workflow;
+- [`application/study-runtime.md`](application/study-runtime.md) — publication/reconciliation/evidence workflow;
+- [`data/logical-data-ownership.md`](data/logical-data-ownership.md) — authoritative state owners and atomic boundaries;
+- [`data/graph-read-model.md`](data/graph-read-model.md) — bounded graph query/read requirements;
+- [`architecture/access-privacy.md`](architecture/access-privacy.md) — logical access/privacy policy;
+- [`architecture/logical-interfaces.md`](architecture/logical-interfaces.md) — command/query/port boundaries;
+- [`architecture/consistency-reliability.md`](architecture/consistency-reliability.md) — consistency/failure semantics;
+- [`architecture/logical-system-boundaries.md`](architecture/logical-system-boundaries.md) — logical module responsibilities;
+- [`architecture/operability.md`](architecture/operability.md) — diagnostic/operational semantics;
+- [`verification/logical-verification-strategy.md`](verification/logical-verification-strategy.md) — evidence obligations.
+
+Harness consumer `LOGICAL-DESIGN` requires this layer to remain structurally complete.
+
 ## Artifact routing
 
 | Information | Authoritative location |

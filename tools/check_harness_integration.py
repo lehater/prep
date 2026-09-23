@@ -27,6 +27,17 @@ def load(path: str) -> dict:
     return value
 
 
+def require_complete(graph: dict, core: dict, target: str) -> None:
+    result = evaluate_engineering_target(graph, target, core)
+    if result.get("status") != "COMPLETE":
+        raise SystemExit(
+            f"{target} must be structurally COMPLETE; "
+            f"got {result.get('status')}: create={result.get('create')} "
+            f"wait={result.get('wait')} pending={result.get('pending')}"
+        )
+    print(f"{target}: COMPLETE (structural coverage only)")
+
+
 def main() -> int:
     graph = load(".harness/engineering-graph.yaml")
     core = load(".harness/core.yaml")
@@ -38,25 +49,10 @@ def main() -> int:
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
 
-    top = evaluate_engineering_target(graph, "TOP-LEVEL-DESIGN", core)
-    if top.get("status") != "COMPLETE":
-        raise SystemExit(
-            "TOP-LEVEL-DESIGN must be structurally COMPLETE; "
-            f"got {top.get('status')}: create={top.get('create')} "
-            f"wait={top.get('wait')} pending={top.get('pending')}"
-        )
-
-    logical = evaluate_engineering_target(graph, "LOGICAL-DESIGN", core)
+    require_complete(graph, core, "TOP-LEVEL-DESIGN")
+    require_complete(graph, core, "LOGICAL-DESIGN")
 
     print("Prep pinned Harness integration PASS")
-    print("TOP-LEVEL-DESIGN: COMPLETE (structural coverage only)")
-    print(
-        "LOGICAL-DESIGN: "
-        f"{logical.get('status')} "
-        f"(create={len(logical.get('create', []))}, "
-        f"wait={len(logical.get('wait', []))}, "
-        f"pending={len(logical.get('pending', []))})"
-    )
     return 0
 
 
