@@ -36,11 +36,23 @@ artifacts:
     provides: [prep.relation-registry]
     depends_on: [KNOWLEDGE-GRAPH-MODEL]
 
+  - id: SOURCE-EVIDENCE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/source-evidence.md
+    provides: [prep.source-evidence-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+
   - id: GRAPH-ADMISSION
     authority: DOMAIN-MODEL-DESIGN
     path: docs/domain/graph-admission.md
     provides: [prep.graph-admission-policy]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, SOURCE-EVIDENCE]
+
+  - id: GRAPH-LIFECYCLE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-lifecycle.md
+    provides: [prep.graph-lifecycle]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, SOURCE-EVIDENCE]
 
   - id: LEARNING-PLATFORM-BOUNDARY
     authority: DOMAIN-MODEL-DESIGN
@@ -48,17 +60,35 @@ artifacts:
     provides: [prep.learning-platform-boundary]
     depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
+  - id: LEARNING-TARGETS-PLANS
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-targets-plans.md
+    provides: [prep.learning-plan-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, GRAPH-LIFECYCLE, LEARNING-PLATFORM-BOUNDARY]
+
   - id: LEARNING-STATE
     authority: DOMAIN-MODEL-DESIGN
     path: docs/domain/learning-state.md
     provides: [prep.learning-state-model]
     depends_on: [KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
 
+  - id: GRAPH-SUBJECT-INTEGRATION
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-subject-integration.md
+    provides: [prep.graph-subject-integration]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION]
+
+  - id: LEARNER-BOUNDARY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learner-boundary.md
+    provides: [prep.learner-boundary]
+    depends_on: [LEARNING-PLATFORM-BOUNDARY, LEARNING-TARGETS-PLANS, LEARNING-STATE]
+
   - id: USER-JOURNEYS
     authority: APPLICATION-DESIGN
     path: docs/architecture/user-journeys.md
     provides: [prep.user-journeys]
-    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, LEARNING-PLATFORM-BOUNDARY, LEARNING-STATE]
+    depends_on: [PRODUCT-CAPABILITIES, GRAPH-ADMISSION, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
 
   - id: QUALITY-DRIVERS
     authority: QUALITY-DESIGN
@@ -70,12 +100,12 @@ artifacts:
     authority: INTERFACE-DESIGN
     path: docs/architecture/graph-interface.md
     provides: [prep.graph-interface-concept]
-    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, LEARNING-STATE, QUALITY-DRIVERS]
+    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, LEARNING-TARGETS-PLANS, LEARNING-STATE, QUALITY-DRIVERS]
 
   - id: SYSTEM-LANDSCAPE
     authority: SYSTEM-ARCHITECTURE
     path: docs/architecture/system-landscape.md
     provides: [prep.system-landscape]
-    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, LEARNING-PLATFORM-BOUNDARY, LEARNING-STATE, GRAPH-INTERFACE, QUALITY-DRIVERS]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, GRAPH-LIFECYCLE, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY, GRAPH-INTERFACE, QUALITY-DRIVERS]
 
 questions: []

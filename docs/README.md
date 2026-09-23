@@ -20,11 +20,16 @@ AGENTS.md
 - [`vision/vision.md`](vision/vision.md) — product intent;
 - [`vision/product-capabilities.md`](vision/product-capabilities.md) — product capability surface;
 - [`architecture/context-map.md`](architecture/context-map.md) — bounded-context ownership;
-- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic nodes/classification;
+- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic nodes/classification/cluster boundary;
 - [`domain/relation-registry.md`](domain/relation-registry.md) — controlled edge semantics;
+- [`domain/source-evidence.md`](domain/source-evidence.md) — provenance integration contract;
 - [`domain/graph-admission.md`](domain/graph-admission.md) — semantic mutation/admission policy;
+- [`domain/graph-lifecycle.md`](domain/graph-lifecycle.md) — revision/rename/merge/retirement guarantees;
 - [`domain/learning-platform.md`](domain/learning-platform.md) — shared learning-coordination boundary;
+- [`domain/learning-targets-plans.md`](domain/learning-targets-plans.md) — TargetScope/Curriculum/LearningPlan semantics;
 - [`domain/learning-state.md`](domain/learning-state.md) — learner evidence and graph overlays;
+- [`domain/graph-subject-integration.md`](domain/graph-subject-integration.md) — subject-context to canonical graph mapping;
+- [`domain/learner-boundary.md`](domain/learner-boundary.md) — personal/shared state separation;
 - [`architecture/user-journeys.md`](architecture/user-journeys.md) — top-level learner/operator journeys;
 - [`architecture/quality-drivers.md`](architecture/quality-drivers.md) — architecture-significant qualities;
 - [`architecture/graph-interface.md`](architecture/graph-interface.md) — graph-first interaction concept;

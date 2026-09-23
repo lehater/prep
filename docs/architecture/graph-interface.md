@@ -13,7 +13,7 @@ One visual channel must not encode two meanings simultaneously.
 - node appearance encodes `kind`;
 - edge appearance encodes relation `type`;
 - relation types can be independently enabled/disabled;
-- selected areas/facets/clusters reduce the visible graph.
+- selected areas/facets/derived clusters reduce the visible graph.
 
 ### Learning mode
 
@@ -23,15 +23,26 @@ One visual channel must not encode two meanings simultaneously.
 
 Exact colors/styles are presentation-system decisions. The semantic mapping above is the contract.
 
+## Selection meanings
+
+The UI must distinguish:
+
+- `Area` — canonical classification;
+- `DerivedCluster` — computed grouping;
+- `SavedView` — stored inspection/filter state;
+- `TargetScope` — explicit learning scope.
+
+A visible filtered cluster does not become learning intent until the user explicitly creates/selects a TargetScope.
+
 ## Core interactions
 
 - search for a node;
 - filter by areas, facets, node kinds and relation types;
-- select one or more clusters/subgraphs;
+- select/isolate derived clusters or arbitrary subgraphs;
 - click a node or relation to open detail while preserving graph context;
 - switch among semantic, content-coverage, plan and learner-state overlays;
-- create a learning target/plan from the current selection;
-- save useful filtered views.
+- create a TargetScope/LearningPlan from the current selection;
+- save useful views independently from learning intent.
 
 ## Relation interaction
 
@@ -40,7 +51,7 @@ Relations are first-class selectable objects. The UI can:
 - toggle entire relation types;
 - inspect direction and semantic definition;
 - show local neighborhoods limited to selected types;
-- later display relation learning state when exercises explicitly test that relation.
+- display relation learning state when exercises explicitly test that relation.
 
 ## Companion surfaces
 

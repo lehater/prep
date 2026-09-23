@@ -46,9 +46,9 @@ authorities:
   - id: DOMAIN-MODEL-DESIGN
     responsibility: Own Knowledge Graph semantics and shared learning-coordination semantics independently of external runtimes and presentation technology.
     boundary:
-      semantic_cohesion: Stable identity, graph relations/admission and learner-state projections over canonical knowledge.
+      semantic_cohesion: Stable identity, graph relations/admission/lifecycle, provenance, learning plans and learner-state projections over canonical knowledge.
       independent_change: These semantics can evolve behind stable adapters without selecting storage, API or UI implementation.
-      public_contract: Provides graph, admission and learning-state models to application/interface/architecture design.
+      public_contract: Provides graph and learning semantic contracts to application/interface/architecture design.
     produces:
       - capability: prep.knowledge-graph-model
         knowledge_kind: domain-model
@@ -59,21 +59,49 @@ authorities:
         knowledge_kind: domain-model
         requires:
           - capability: prep.knowledge-graph-model
+      - capability: prep.source-evidence-model
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.knowledge-graph-model
       - capability: prep.graph-admission-policy
         knowledge_kind: domain-model
         requires:
           - capability: prep.knowledge-graph-model
           - capability: prep.relation-registry
+          - capability: prep.source-evidence-model
+      - capability: prep.graph-lifecycle
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.knowledge-graph-model
+          - capability: prep.source-evidence-model
       - capability: prep.learning-platform-boundary
         knowledge_kind: domain-model
         requires:
           - capability: prep.domain-context-map
           - capability: prep.product-capabilities
+      - capability: prep.learning-plan-model
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.knowledge-graph-model
+          - capability: prep.graph-lifecycle
+          - capability: prep.learning-platform-boundary
       - capability: prep.learning-state-model
         knowledge_kind: domain-model
         requires:
           - capability: prep.knowledge-graph-model
           - capability: prep.learning-platform-boundary
+      - capability: prep.graph-subject-integration
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.domain-context-map
+          - capability: prep.knowledge-graph-model
+          - capability: prep.graph-admission-policy
+      - capability: prep.learner-boundary
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.learning-platform-boundary
+          - capability: prep.learning-plan-model
+          - capability: prep.learning-state-model
 
   - id: APPLICATION-DESIGN
     responsibility: Own top-level learner and operator journeys without deciding screens or implementation.
@@ -86,10 +114,11 @@ authorities:
         knowledge_kind: user-journey-design
         requires:
           - capability: prep.product-capabilities
-          - capability: prep.knowledge-graph-model
           - capability: prep.graph-admission-policy
-          - capability: prep.learning-platform-boundary
+          - capability: prep.learning-plan-model
           - capability: prep.learning-state-model
+          - capability: prep.graph-subject-integration
+          - capability: prep.learner-boundary
 
   - id: QUALITY-DESIGN
     responsibility: Own architecture-significant quality drivers for semantic correctness, evolvability, observability and interaction scale.
@@ -107,7 +136,7 @@ authorities:
   - id: INTERFACE-DESIGN
     responsibility: Own the primary human interaction model centered on an explorable graph.
     boundary:
-      semantic_cohesion: User-visible interaction semantics, navigation and information overlays.
+      semantic_cohesion: User-visible interaction semantics, navigation, graph selection and information overlays.
       independent_change: Interaction design can evolve without redefining graph semantic truth.
       public_contract: Provides the graph-first interface concept.
     produces:
@@ -117,6 +146,7 @@ authorities:
           - capability: prep.user-journeys
           - capability: prep.knowledge-graph-model
           - capability: prep.relation-registry
+          - capability: prep.learning-plan-model
           - capability: prep.learning-state-model
           - capability: prep.quality-drivers
 
@@ -133,8 +163,11 @@ authorities:
           - capability: prep.domain-context-map
           - capability: prep.knowledge-graph-model
           - capability: prep.graph-admission-policy
-          - capability: prep.learning-platform-boundary
+          - capability: prep.graph-lifecycle
+          - capability: prep.learning-plan-model
           - capability: prep.learning-state-model
+          - capability: prep.graph-subject-integration
+          - capability: prep.learner-boundary
           - capability: prep.graph-interface-concept
           - capability: prep.quality-drivers
 
@@ -148,9 +181,14 @@ consumers:
       - capability: prep.domain-context-map
       - capability: prep.knowledge-graph-model
       - capability: prep.relation-registry
+      - capability: prep.source-evidence-model
       - capability: prep.graph-admission-policy
+      - capability: prep.graph-lifecycle
       - capability: prep.learning-platform-boundary
+      - capability: prep.learning-plan-model
       - capability: prep.learning-state-model
+      - capability: prep.graph-subject-integration
+      - capability: prep.learner-boundary
       - capability: prep.user-journeys
       - capability: prep.quality-drivers
       - capability: prep.graph-interface-concept

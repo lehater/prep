@@ -6,13 +6,15 @@ Define the smallest shared learning-coordination semantics that can span multipl
 
 ## Shared responsibilities
 
-### Target scope
+### Target, curriculum and plan
 
-A learner can select a graph/subgraph, curriculum or saved scope as the knowledge target for a learning effort.
+The canonical distinctions are defined in [learning-targets-plans.md](learning-targets-plans.md):
 
-### Learning plan
-
-A plan references canonical knowledge identities and records intended coverage, prioritization/order and domain-specific generation policy. It is not a copy of the Knowledge Graph.
+```text
+TargetScope  -> what knowledge is in scope
+Curriculum   -> reusable learning structure over that scope
+LearningPlan -> learner-specific execution intent
+```
 
 ### Publication state
 
@@ -22,9 +24,11 @@ The platform tracks which domain learning objects are intended/published in an e
 
 Review/attempt events from execution systems are retained as evidence and aggregated into learner-specific state. Anki scheduler state is evidence, not the definition of domain mastery.
 
+The learner/personal-state boundary is defined by [learner-boundary.md](learner-boundary.md).
+
 ### Learning overlay
 
-Progress is projected back onto graph identities so the same semantic graph can be viewed as not-started, active, weak, stable or otherwise derived by an accepted learning-state model.
+Progress is projected back onto graph identities according to [learning-state.md](learning-state.md).
 
 ## Bounded-context rule
 
@@ -36,7 +40,7 @@ English Listening:     ListeningSegment / lexical target / audio policy
 Future Mathematics:    problem / proof / derivation forms
 ```
 
-These contexts may publish through shared technical infrastructure while preserving their own domain invariants.
+Cross-context references to reusable semantic knowledge use the boundary in [graph-subject-integration.md](graph-subject-integration.md).
 
 ## Anki boundary
 

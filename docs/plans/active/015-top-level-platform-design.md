@@ -6,41 +6,37 @@ Establish a coherent breadth-first top-level design for Prep before deeper imple
 
 ## Scope
 
-- connect Prep to the pinned universal Harness;
-- capture the problem space and product capability map;
-- make Knowledge Graph and Learning Coordination explicit platform responsibilities;
-- preserve Interview Preparation and English Listening as separate bounded contexts;
-- define top-level learner/operator journeys;
-- define the graph-first UI concept;
-- define the black-box system landscape and quality drivers;
-- keep physical storage, APIs, components, deployment and detailed exercise generation below the current design boundary.
+Cover the full product/domain/architecture surface at black-box/semantic level while keeping physical storage, APIs, components, deployment and detailed implementation below the current boundary.
 
 ## Completed top-level foundation
 
 - [x] Harness direct-declaration integration and immutable pin
-- [x] problem-space baseline
-- [x] product-capability baseline
-- [x] strategic context-map update
-- [x] Knowledge Graph domain boundary
-- [x] Learning Platform boundary
-- [x] top-level user journeys
-- [x] graph-first interface concept
-- [x] quality drivers
-- [x] black-box system landscape
-- [x] review node-kind vocabulary against current interview/learning cases
-- [x] define controlled relation registry and extension rules
-- [x] define minimum learner-state aggregation semantics for graph overlays
-- [x] define graph admission/curation acceptance rules
+- [x] problem-space and product-capability baseline
+- [x] strategic context map
+- [x] Knowledge Graph and Learning Coordination boundaries
+- [x] top-level user journeys and graph-first interface
+- [x] quality drivers and black-box system landscape
+- [x] node-kind vocabulary
+- [x] controlled relation registry
+- [x] learner-state aggregation semantics
+- [x] graph admission/curation policy
+- [x] Source/Evidence provenance boundary
+- [x] TargetScope / Curriculum / LearningPlan semantics
+- [x] graph revision/rename/merge/retirement guarantees
+- [x] subject-context -> canonical graph identity integration
+- [x] learner/personal-state boundary
+- [x] Area / DerivedCluster / SavedView / TargetScope distinction
 
-## Next top-level questions
+## Remaining breadth review
 
-- [ ] define canonical Source/Evidence identity and provenance boundary for imported knowledge
-- [ ] define Target Scope / Curriculum / Learning Plan semantics and their differences
-- [ ] define semantic graph versioning, retirement and historical-reference guarantees
-- [ ] define integration identity between subject-context concepts/targets and canonical graph nodes
-- [ ] define learner/account boundary for personal evidence, saved views and plans
-- [ ] review whether knowledge clusters are canonical semantics, derived graph analytics or user-saved views
+- [ ] run a cross-artifact semantic consistency review over all TOP-LEVEL-DESIGN providers
+- [ ] identify unresolved top-level Questions; add Harness blockers instead of inventing answers
+- [ ] decide whether the top-level baseline is coherent enough to open the next design depth
+
+## Next depth only after review
+
+Candidates for the next design depth include persistence representation, graph/query API, component/module boundaries, ingestion workflow mechanics, sync/runtime topology and executable verification. None is authorized by this plan until the breadth review is complete.
 
 ## Stop rule
 
-Do not descend into database choice, API contracts, component design, deployment topology or implementation tickets while unresolved top-level semantics can still change those choices materially.
+Do not descend while unresolved top-level semantics can materially change lower-level choices.

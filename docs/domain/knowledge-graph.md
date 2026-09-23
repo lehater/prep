@@ -23,6 +23,8 @@ Identity is an immutable repository-owned ID. Names, aliases, wording, source lo
 
 Two records with similar labels are not the same node until identity resolution establishes semantic equivalence. A rename does not create a new node.
 
+Historical continuity/retirement is defined by [graph-lifecycle.md](graph-lifecycle.md).
+
 ## Node kind
 
 All semantic nodes use one structural entity, `KnowledgeNode`. `kind` classifies what sort of referent the node denotes; it does not create a class hierarchy or different persistence model.
@@ -49,7 +51,7 @@ Rules:
 - `kind` answers “what sort of referent is this?”, not “how should it be learned?”.
 - Do not create `question`, `exercise`, `card` or `review` kinds in the semantic graph; those belong to learning/runtime contexts.
 - Do not create a generic `solution` kind when a more informative form such as `pattern`, `mechanism`, `practice` or `technology` is known.
-- `construct` is the narrow fallback for legitimate semantic referents that do not yet fit a more useful kind. It must not become an unreviewed dumping category.
+- `construct` is the narrow fallback for legitimate semantic referents that do not yet fit a more useful kind.
 - Extending the registry requires a demonstrated recurring referent form and a clear boundary from existing kinds.
 
 ## Classification
@@ -64,6 +66,21 @@ facets  -> controlled area-specific dimensions
 
 The same node may belong to several areas. Area/facet membership does not create duplicate semantic identities.
 
+## Cluster boundary
+
+`cluster` is not a canonical semantic node type by default.
+
+Keep these meanings distinct:
+
+```text
+Area           -> accepted classification
+DerivedCluster -> computed grouping from topology/embedding/analytics
+SavedView      -> user-selected/filter/layout projection
+TargetScope    -> explicit learning intent over graph subjects
+```
+
+A derived cluster becomes canonical knowledge only if it represents an independently meaningful semantic referent and passes ordinary graph admission.
+
 ## Relations
 
 Relations are first-class directional assertions with a controlled extensible type registry. Their canonical semantics are owned by [relation-registry.md](relation-registry.md).
@@ -72,7 +89,9 @@ A free-form `related_to` relation is intentionally absent because it hides meani
 
 ## Evidence
 
-Concept and relation admission retains sufficient provenance to answer why the semantic fact entered the graph and which sources/observations support it.
+Concept and relation admission retains sufficient provenance to answer why the semantic fact entered the graph and which source observations support it.
+
+The shared provenance boundary is defined by [source-evidence.md](source-evidence.md).
 
 Evidence is not itself truth: source popularity, embedding similarity or model confidence cannot silently establish identity or relations.
 
