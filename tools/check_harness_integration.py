@@ -52,6 +52,15 @@ def main() -> int:
     require_complete(graph, core, "TOP-LEVEL-DESIGN")
     require_complete(graph, core, "LOGICAL-DESIGN")
 
+    technical = evaluate_engineering_target(graph, "TECHNICAL-DESIGN", core)
+    print(
+        "TECHNICAL-DESIGN: "
+        f"{technical.get('status')} "
+        f"(create={len(technical.get('create', []))}, "
+        f"wait={len(technical.get('wait', []))}, "
+        f"pending={len(technical.get('pending', []))})"
+    )
+
     print("Prep pinned Harness integration PASS")
     return 0
 

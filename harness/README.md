@@ -20,7 +20,7 @@ python tools/bootstrap_harness.py
 python tools/check_harness_integration.py
 ```
 
-`TOP-LEVEL-DESIGN` is the completed semantic/black-box baseline. `LOGICAL-DESIGN` is the active next-depth consumer and intentionally exposes missing logical design capabilities as Harness CREATE work. Concrete database/API/framework/deployment/implementation consumers remain out of scope.
+`TOP-LEVEL-DESIGN` and `LOGICAL-DESIGN` are completed baselines. `TECHNICAL-DESIGN` is the active frontier and intentionally exposes concrete persistence, dependency, interface, presentation, security, quality, topology, component, operability and test-design work as Harness CREATE/WAIT state. Implementation remains out of scope until that frontier closes.
 
 ## Agent operation
 
