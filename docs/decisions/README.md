@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-This directory contains accepted durable decisions. Research notes are evidence; ADRs record what the project actually chose.
+This directory contains accepted durable decisions.
 
 ## Current decisions
 
@@ -11,26 +11,13 @@ This directory contains accepted durable decisions. Research notes are evidence;
 | [`ADR-003`](ADR-003-ankiconnect-primary-live-adapter.md) | AnkiConnect is the primary live Anki integration |
 | [`ADR-004`](ADR-004-multi-use-case-learning-workspace.md) | Repository hosts multiple bounded learning use cases |
 | [`ADR-005`](ADR-005-ddd-clean-hexagonal-architecture.md) | Use DDD + Clean/Hexagonal Architecture |
-| [`ADR-006`](ADR-006-single-chat-agent-repository-harness.md) | Operate v0.1 through one ChatGPT agent following a repository harness |
+| [`ADR-006`](ADR-006-single-chat-agent-repository-harness.md) | Use one ChatGPT agent with repository-backed operating rules |
+| [`ADR-007`](ADR-007-pinned-universal-harness.md) | Use the pinned universal Harness for engineering-knowledge control |
+| [`ADR-008`](ADR-008-breadth-first-design-before-deep-slices.md) | Establish top-level design breadth before deep implementation slices |
+| [`ADR-009`](ADR-009-controlled-semantic-graph.md) | Use uniform semantic nodes, first-class typed relations and controlled graph admission |
 
 ## When to add an ADR
 
-Create or supersede an ADR when a change:
+Create or supersede an ADR when a change establishes a durable architectural/process constraint, changes bounded-context ownership, selects/replaces a foundational integration, changes dependency direction/shared-kernel policy, or intentionally reverses an accepted decision.
 
-- establishes a durable architectural constraint;
-- changes bounded-context ownership;
-- selects/replaces a foundational external integration;
-- changes dependency direction or shared-kernel policy;
-- intentionally reverses an accepted decision.
-
-Do not create ADRs for routine implementation details that can be changed locally without architectural consequences.
-
-## Required content
-
-An ADR should capture:
-
-- context/problem;
-- decision;
-- alternatives when relevant;
-- consequences;
-- supersession relationship when replacing an older ADR.
+Routine implementation details do not require ADRs.

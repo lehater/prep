@@ -4,15 +4,12 @@
 
 `prep` uses:
 
-- **DDD** to discover and protect bounded-context domain models;
-- **Clean Architecture** to keep policy independent from frameworks and external systems;
-- **Hexagonal Architecture** to express external interaction through ports and adapters.
+- **DDD** to protect semantic ownership and bounded-context language;
+- **Clean Architecture** to keep policy independent from frameworks/external systems;
+- **Hexagonal Architecture** to express external interaction through ports/adapters;
+- the pinned universal **Harness** to make top-level engineering knowledge ownership and coverage machine-checkable.
 
-These are complementary views, not competing directory templates.
-
-## Primary rule
-
-Dependencies point inward toward business policy.
+## Primary dependency rule
 
 ```text
 Interfaces / delivery
@@ -26,160 +23,62 @@ Domain
 Infrastructure implements outward-facing ports required by the core.
 ```
 
-Anki, AnkiConnect, ffmpeg, Whisper, file systems, databases, CLIs, web APIs, and LLM providers are external mechanisms. They do not define domain concepts.
+Anki, AnkiConnect, ffmpeg, Whisper, filesystems, databases, web frameworks and LLM SDKs are external mechanisms.
 
-## Logical layers
-
-### Domain
-
-Owns business meaning and invariants inside one bounded context.
-
-Examples:
-
-- Interview Preparation: `Competency`, `Concept`, `Question`, `LearningTask`;
-- English Listening: `MediaSource`, `LexicalTarget`, `ListeningSegment`.
-
-Domain code must not import Anki, HTTP, filesystem, subprocess, SDK, or presentation concepts.
-
-### Application
-
-Owns use cases and orchestration. It decides *what must happen* without knowing *how an external mechanism performs it*.
-
-Examples:
+## Product-level semantic structure
 
 ```text
-SyncInterviewQuestions
-BuildBaselineAssessment
-PublishListeningExercise
-ExtractListeningSegment
+Knowledge Graph        -> reusable semantic truth
+Learning Coordination -> learner intent/evidence over graph truth
+Subject contexts      -> domain-specific learning semantics
+Study adapters         -> external execution mechanisms
+UI                     -> graph exploration and overlays
 ```
 
-Application defines outbound ports when a use case needs an external capability.
+See [`context-map.md`](context-map.md), [`../domain/knowledge-graph.md`](../domain/knowledge-graph.md) and [`../domain/learning-platform.md`](../domain/learning-platform.md).
 
-### Interface / delivery
+## Knowledge Graph boundary
 
-Translates an external request into an application use case and presents its result.
+The graph owns semantic nodes/relations/classification/evidence. It does not absorb Anki state, learner mastery, view layout or subject-specific exercise objects.
 
-Possible adapters:
+## Learning Coordination boundary
 
-- CLI;
-- web/API;
-- agent command;
-- scheduled job.
-
-Delivery does not contain domain policy.
-
-### Infrastructure
-
-Implements technical capabilities required through ports.
-
-Examples:
-
-- `AnkiConnectAdapter`;
-- ffmpeg media adapter;
-- Whisper/ASR adapter;
-- filesystem/JSON repositories.
-
-Infrastructure may depend on application/domain contracts. Application/domain must not depend on infrastructure implementations.
-
-## Port ownership
-
-A port belongs conceptually to the core that needs the capability.
-
-Do not create a global interface merely because two adapters look similar.
-
-Preferred evolution:
-
-```text
-use case needs capability
-  -> define local application port
-  -> implement adapter
-  -> observe repeated equivalent semantics
-  -> extract shared port only when proven
-```
-
-This prevents an external system such as Anki from dictating the internal model.
-
-## Bounded contexts
-
-Current bounded contexts:
-
-1. **Interview Preparation**
-2. **English Listening**
-
-They may share infrastructure while retaining different domain models. There is intentionally no universal `LearningItem` or `Exercise` shared kernel yet.
-
-See [`context-map.md`](context-map.md).
+Learning Coordination owns target scopes, plans, publication intent, review/attempt evidence and derived learner overlays. It references domain learning objects and graph identities but does not redefine them.
 
 ## Shared infrastructure
 
-Shared infrastructure is permitted when the responsibility is demonstrably domain-independent.
-
-Current example:
+Shared infrastructure is allowed only for domain-independent mechanics. Current example:
 
 ```text
 src/prep/infrastructure/anki/
 ```
 
-It owns AnkiConnect transport and generic reconciliation mechanics. It must not know about `Question`, `ListeningSegment`, competency semantics, lexical selection, or mastery.
+It owns AnkiConnect transport and generic reconciliation, not Interview or Listening semantics.
 
-Each bounded context/application layer owns its mapping into the shared infrastructure.
+## Design progression
 
-## Target code shape
-
-The exact package tree may evolve, but dependency ownership should converge toward:
+Current platform work is breadth-first:
 
 ```text
-src/prep/
-├── interview/
-│   ├── domain/
-│   ├── application/
-│   │   └── ports/
-│   └── interface/
-├── listening/
-│   ├── domain/
-│   ├── application/
-│   │   └── ports/
-│   └── interface/
-└── infrastructure/
-    ├── anki/
-    ├── media/
-    └── asr/
+problem
+-> product capabilities
+-> strategic contexts
+-> graph + learning semantics
+-> user journeys
+-> quality drivers
+-> graph-first interface
+-> black-box system landscape
 ```
 
-Do not perform a directory-only refactor before use cases require these packages. Structure should follow stable responsibilities, not precede them.
+Only after this top-level model is coherent should work descend into persistence, API, components, deployment, detailed verification and implementation slices.
 
-## Vertical-slice rule
-
-Architecture is validated by working slices, not diagrams alone.
-
-Preferred order:
-
-```text
-Domain invariant
-  -> application use case
-  -> port
-  -> adapter
-  -> executable validation/test
-```
-
-For example, Interview Preparation should next prove:
-
-```text
-canonical Question
-  -> SyncInterviewQuestions
-  -> study-system port
-  -> AnkiConnect adapter
-  -> stable upsert in Anki
-```
+Existing executable vertical slices remain valid evidence; this rule changes design sequencing, not the value of executable validation.
 
 ## Agent boundary
 
-Agents may make semantic proposals and transformations. Deterministic code owns structural truth and external side effects.
-
 ```text
-Agent / LLM: interpretation, generation, critique
-Code: IDs, schemas, provenance, validation, migration, writes
+Agent / LLM -> interpretation, semantic proposals, generation, critique
+Code        -> IDs, schemas, structural validation, persistence, migration, external writes
 ```
 
-An agent must not silently invent stable identifiers, source coordinates, persisted mappings, or migration state.
+Agents must not silently invent stable identifiers, source coordinates, persisted mappings or accepted graph relations.

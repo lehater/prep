@@ -8,75 +8,85 @@ Use progressive disclosure:
 
 ```text
 AGENTS.md
+  -> .harness/core.yaml when engineering ownership/coverage matters
   -> docs/README.md
-  -> relevant artifact class
-  -> specific document / ADR / plan
-  -> executable code or data
+  -> relevant canonical artifact
+  -> code/data only when the task requires it
 ```
 
-Do not scan the whole repository by default.
+## Top-level design path
 
-For agent-operated workflows, use [`../harness/README.md`](../harness/README.md) as the operational harness entrypoint after the global rules in `AGENTS.md`.
+- [`vision/problem-space.md`](vision/problem-space.md) — problems and constraints;
+- [`vision/vision.md`](vision/vision.md) — product intent;
+- [`vision/product-capabilities.md`](vision/product-capabilities.md) — product capability surface;
+- [`architecture/context-map.md`](architecture/context-map.md) — bounded-context ownership;
+- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic nodes/classification/cluster boundary;
+- [`domain/relation-registry.md`](domain/relation-registry.md) — controlled edge semantics;
+- [`domain/source-evidence.md`](domain/source-evidence.md) — provenance integration contract;
+- [`domain/graph-admission.md`](domain/graph-admission.md) — semantic mutation/admission policy;
+- [`domain/graph-lifecycle.md`](domain/graph-lifecycle.md) — revision/rename/merge/retirement guarantees;
+- [`domain/learning-platform.md`](domain/learning-platform.md) — shared learning-coordination boundary;
+- [`domain/learning-targets-plans.md`](domain/learning-targets-plans.md) — TargetScope/Curriculum/LearningPlan semantics;
+- [`domain/learning-state.md`](domain/learning-state.md) — learner evidence and graph overlays;
+- [`domain/graph-subject-integration.md`](domain/graph-subject-integration.md) — subject-context to canonical graph mapping;
+- [`domain/learner-boundary.md`](domain/learner-boundary.md) — personal/shared state separation;
+- [`architecture/user-journeys.md`](architecture/user-journeys.md) — top-level learner/operator journeys;
+- [`architecture/quality-drivers.md`](architecture/quality-drivers.md) — architecture-significant qualities;
+- [`architecture/graph-interface.md`](architecture/graph-interface.md) — graph-first interaction concept;
+- [`architecture/system-landscape.md`](architecture/system-landscape.md) — black-box system landscape.
+
+These artifacts are wired into `.harness/core.yaml`; `.harness/engineering-graph.yaml` derives the `TOP-LEVEL-DESIGN` closure.
+
+## Logical design path
+
+- [`application/logical-use-cases.md`](application/logical-use-cases.md) — application command/query responsibilities;
+- [`application/knowledge-ingestion.md`](application/knowledge-ingestion.md) — staged ingestion/admission workflow;
+- [`application/study-runtime.md`](application/study-runtime.md) — publication/reconciliation/evidence workflow;
+- [`data/logical-data-ownership.md`](data/logical-data-ownership.md) — authoritative state owners and atomic boundaries;
+- [`data/graph-read-model.md`](data/graph-read-model.md) — bounded graph query/read requirements;
+- [`architecture/access-privacy.md`](architecture/access-privacy.md) — logical access/privacy policy;
+- [`architecture/logical-interfaces.md`](architecture/logical-interfaces.md) — command/query/port boundaries;
+- [`architecture/consistency-reliability.md`](architecture/consistency-reliability.md) — consistency/failure semantics;
+- [`architecture/logical-system-boundaries.md`](architecture/logical-system-boundaries.md) — logical module responsibilities;
+- [`architecture/operability.md`](architecture/operability.md) — diagnostic/operational semantics;
+- [`verification/logical-verification-strategy.md`](verification/logical-verification-strategy.md) — evidence obligations.
+
+Harness consumer `LOGICAL-DESIGN` requires this layer to remain structurally complete.
 
 ## Artifact routing
 
-| Information | Authoritative location | Question answered |
-|---|---|---|
-| purpose, scope, direction | `docs/vision/` | Why does the system exist? |
-| system structure and boundaries | `docs/architecture/` | How is the system decomposed? |
-| bounded-context concepts/invariants | `docs/domain/` | What does the domain mean? |
-| durable architectural decisions | `docs/decisions/` | Why was this choice made? |
-| evidence, experiments, source reviews | `docs/research/` | What did we learn? |
-| active/completed execution state | `docs/plans/` | What are we changing now? |
-| operational/authoring instructions | `docs/guides/` | How do I perform this task? |
+| Information | Authoritative location |
+|---|---|
+| purpose, problem, scope, product capabilities | `docs/vision/` |
+| system structure, journeys, UI/quality boundaries | `docs/architecture/` |
+| bounded-context concepts/invariants | `docs/domain/` |
+| durable architectural decisions | `docs/decisions/` |
+| evidence/experiments/source reviews | `docs/research/` |
+| active/completed execution state | `docs/plans/` |
+| operational/authoring instructions | `docs/guides/` |
 
-A durable fact should have one authoritative home. Other documents link to it instead of copying it.
+One durable fact has one authoritative home; other artifacts link to it.
 
-## Current architecture
+## Harness
 
-Start with:
-
-- [`vision/vision.md`](vision/vision.md) — product/workspace intent;
-- [`architecture/overview.md`](architecture/overview.md) — DDD + Clean/Hexagonal architecture;
-- [`architecture/context-map.md`](architecture/context-map.md) — bounded contexts and external systems;
-- [`architecture/dependency-rules.md`](architecture/dependency-rules.md) — dependency and port/adapter rules;
-- [`architecture/agent-harness.md`](architecture/agent-harness.md) — single-agent harness, context minimization, tools and human gates;
-- [`domain/interview-preparation.md`](domain/interview-preparation.md) — Interview Preparation domain;
-- [`domain/english-listening.md`](domain/english-listening.md) — English Listening domain.
-
-## Decisions
-
-Accepted ADRs live under [`decisions/`](decisions/). An ADR is required when a change creates a durable architectural constraint, changes bounded-context ownership, or supersedes an accepted decision.
-
-## Research → decision → implementation
-
-Preferred lifecycle:
+`lehater/harness` is pinned by `.harness-version`. Prep uses direct declaration because it does not currently have another canonical machine-readable artifact graph.
 
 ```text
-research/
-  -> accepted ADR or domain/architecture update
+.harness/engineering-graph.yaml -> producer/consumer engineering policy
+.harness/core.yaml              -> accepted canonical artifact realization
+docs/**                         -> semantic truth
+```
+
+See [`architecture/agent-harness.md`](architecture/agent-harness.md) and [`../harness/README.md`](../harness/README.md).
+
+## Research → decision → design/implementation
+
+```text
+research
+  -> ADR/domain/architecture acceptance
+  -> Harness-visible canonical artifact when applicable
   -> active plan
-  -> implementation + executable checks
-  -> completed plan
+  -> lower-level design/implementation only when upstream knowledge is sufficient
 ```
 
-Research is evidence, not policy. A research conclusion becomes authoritative only when accepted into an ADR, domain model, architecture rule, or executable invariant.
-
-## Chat-to-repository rule
-
-Do not preserve conversations verbatim. Persist only durable outcomes:
-
-```text
-finding/evidence -> research/
-durable choice   -> decisions/
-domain meaning   -> domain/
-system rule      -> architecture/
-current work     -> plans/
-how-to           -> guides/
-```
-
-Discard conversational branches that did not produce durable knowledge.
-
-## Executable artifacts
-
-Documentation does not replace executable truth. Schemas, validators, tests, and code override prose when they intentionally encode an accepted invariant. If prose and executable behavior diverge, reconcile them in the same pull request.
+Research is evidence, not policy.

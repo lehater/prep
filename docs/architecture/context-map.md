@@ -2,136 +2,62 @@
 
 ## Purpose
 
-Make bounded-context ownership and integration direction explicit.
+Define semantic ownership for the graph-centered multi-domain learning platform without implying service/process boundaries.
 
-## Current bounded contexts
+## Platform bounded contexts
+
+### Knowledge Graph
+
+Owns canonical knowledge identity, first-class semantic relations, classification and supporting evidence. It controls semantic admission and does not own learner progress or UI layout.
+
+### Learning Coordination
+
+Owns learner target scopes, learning plans, desired publication state, imported learning evidence and learner-specific progress/gap projections onto graph identities.
+
+Learning Coordination does not define subject-specific Question, ListeningSegment or future mathematics exercise semantics.
+
+## Subject bounded contexts
 
 ### Interview Preparation
 
-Owns the model for technical-interview preparation:
+Owns technical-interview semantics including competencies, concepts as interview targets, LearningTasks, QuestionTypes, Questions, Attempts, Assessments and interview gaps.
 
-```text
-Competency
-Concept
-LearningTask
-QuestionType
-Question
-Attempt
-Assessment
-Gap
-LearningAction
-```
-
-It decides what should be learned/tested and how interview evidence is interpreted.
+Where interview concepts correspond to canonical Knowledge Graph nodes, integration uses stable identities rather than copying semantic truth.
 
 ### English Listening
 
-Owns the model for listening practice from authentic media:
+Owns media provenance, transcript occurrences, lexical targets, ASR/alignment policy, ListeningSegments and playback/audio policy.
 
-```text
-MediaSource
-TranscriptOccurrence
-LexicalTarget
-ASR/alignment result
-ListeningSegment
-playback/audio policy
-```
-
-It decides what spoken-language evidence is useful and how stable listening material is derived from source media.
-
-## External systems
-
-The following are not bounded contexts of the learning domain:
-
-- Anki / AnkiConnect;
-- ffmpeg;
-- Whisper / ASR providers;
-- filesystem / JSON persistence;
-- future web/CLI UI;
-- LLM providers.
-
-They are external mechanisms integrated through adapters.
-
-## Context map
-
-```plantuml
-@startuml
-left to right direction
-skinparam componentStyle rectangle
-
-rectangle "Interview Preparation\nBounded Context" as Interview
-rectangle "English Listening\nBounded Context" as Listening
-
-hexagon "Study System Port" as StudyPort
-hexagon "Media Port" as MediaPort
-hexagon "ASR Port" as AsrPort
-
-rectangle "AnkiConnect Adapter" as AnkiAdapter
-rectangle "ffmpeg Adapter" as FfmpegAdapter
-rectangle "Whisper Adapter" as WhisperAdapter
-
-cloud "Anki Desktop" as Anki
-cloud "ffmpeg" as Ffmpeg
-cloud "Whisper / ASR" as Whisper
-
-Interview --> StudyPort : application need
-Listening --> StudyPort : application need
-Listening --> MediaPort : application need
-Listening --> AsrPort : application need
-
-AnkiAdapter ..|> StudyPort : implements
-FfmpegAdapter ..|> MediaPort : implements
-WhisperAdapter ..|> AsrPort : implements
-
-AnkiAdapter --> Anki
-FfmpegAdapter --> Ffmpeg
-WhisperAdapter --> Whisper
-@enduml
-```
-
-The diagram is conceptual. A shared `StudySystemPort` should only exist in code after equivalent semantics are proven in both use cases. Until then, bounded contexts may own separate ports implemented by the same infrastructure package.
+Lexical concepts may reference graph knowledge where useful; acoustic segments and source coordinates remain local to English Listening.
 
 ## Relationship rules
 
-### Between bounded contexts
-
-There is no direct domain dependency between Interview Preparation and English Listening.
-
-Allowed:
-
 ```text
-Interview application -> shared technical capability
-Listening application -> shared technical capability
+Knowledge Graph
+    ^
+    | canonical knowledge references
+    |
+Interview Preparation ----\
+                           > Learning Coordination -> Study-system adapters
+English Listening --------/
 ```
 
-Not allowed:
+- Subject contexts do not import each other's domain entities.
+- Learning Coordination integrates through explicit references/projections rather than owning subject learning objects.
+- Knowledge Graph semantic truth is independent of Anki note/card/deck structures.
+- A bounded context is not automatically a deployable service.
 
-```text
-Interview domain -> Listening domain
-Listening domain -> Interview domain
-```
+## External systems
 
-If future analytics genuinely requires cross-context concepts, define an explicit integration model rather than importing one domain model into the other.
+- Anki / AnkiConnect;
+- ffmpeg;
+- Whisper / other ASR providers;
+- source files/documents and future connected sources;
+- LLM/model providers;
+- future web/desktop delivery mechanisms.
 
-### Bounded context → Anki
+These are external mechanisms accessed through ports/adapters where the application needs them.
 
-Each bounded context/application layer owns its semantic projection.
+## Shared-abstraction rule
 
-Examples:
-
-```text
-Question -> interview-specific study projection
-ListeningSegment -> listening-specific study projection
-```
-
-The shared Anki infrastructure owns only generic transport/reconciliation behavior.
-
-### English Listening → media/ASR
-
-`MediaSource`, source provenance, transcript occurrences, alignment policy, and segment identity remain inside English Listening. ffmpeg/Whisper adapters execute capabilities but do not own these meanings.
-
-## No universal learning context yet
-
-Do not create a shared `Learning`, `Exercise`, `StudyItem`, or `Mastery` bounded context solely because both workflows use Anki.
-
-Extraction requires demonstrated shared semantics, not shared tooling.
+Do not create a universal Exercise/StudyItem merely because multiple contexts publish to Anki. Shared learning semantics are limited to target scope, plan, publication intent/evidence and graph-level progress until further equivalence is demonstrated.

@@ -1,82 +1,62 @@
 # Vision
 
-## Problem
+## Product intent
 
-Learning workflows easily fragment across chats, notes, media-processing scripts, ad-hoc question lists, and Anki decks. The durable model of what is being learned, how it is practiced, and what evidence exists about progress becomes scattered or implicit.
+Build a graph-centered adaptive learning platform that maintains a trustworthy semantic model of knowledge, lets a learner select meaningful knowledge scopes, turns them into learning plans and domain-specific practice, executes repetition through external study systems, and projects learning evidence back onto the graph.
 
-Two concrete use cases already demonstrate the problem:
+## Core model
 
-- technical interview preparation from competencies, concepts, and diagnostic questions;
-- English listening practice from authentic film/TV audio and lexical targets.
+```text
+Knowledge Sources
+      -> controlled semantic curation
+      -> Knowledge Graph
+      -> target subgraph / curriculum
+      -> Learning Plan
+      -> domain-specific learning objects
+      -> Study System (initially Anki)
+      -> review / attempt evidence
+      -> learner-specific graph overlay
+```
 
-They share execution and lifecycle concerns, but have different domain vocabularies.
+## Product principles
 
-## Goal
+- The Knowledge Graph is semantic authority for reusable knowledge identities, assertions and relations.
+- Cards are learning projections, not units of canonical knowledge.
+- Learning plans and learner progress are references/overlays over graph knowledge rather than semantic mutations.
+- Subject domains keep their own learning-object semantics; common platform abstractions are extracted only when meaning is shared.
+- Anki is an execution/spaced-repetition runtime, not the architectural center.
+- Agents may interpret/propose semantics; deterministic code owns stable representation IDs, structural validation, persistence and external reconciliation.
 
-Build a repository-centered adaptive learning workspace that:
-
-- keeps each learning use case in its own bounded context;
-- preserves domain-specific source data and learning objects;
-- uses explicit diagnostic/practice artifacts instead of relying on chat history;
-- integrates with Anki as an initial execution and spaced-repetition environment;
-- records attempts/reviews as evidence that can later drive diagnostics and learning actions;
-- shares infrastructure only when it is truly domain-independent;
-- keeps research, decisions, data, automation, and migration rules reproducible and versioned.
-
-## Initial bounded contexts
+## Initial learning domains
 
 ### Interview Preparation
 
-Purpose: prepare for technical interviews through competency modeling, question banks, baseline assessment, retrieval practice, and gap-driven learning.
-
-Current direction:
-
-```text
-question taxonomy
-  -> canonical question
-  -> application use case
-  -> study-system port
-  -> Anki adapter
-  -> attempt/review evidence
-  -> gap analysis
-```
+Technical-interview competencies, elicitation, assessment and gap-driven learning over canonical graph subjects.
 
 ### English Listening
 
-Purpose: train recognition and understanding of authentic spoken English from film/TV media.
+Recognition and understanding of authentic spoken English through source-backed lexical targets and stable acoustic segments.
 
-Existing behavioral slice from the legacy pipeline:
+Future domains such as mathematics may add their own learning-object models.
 
-```text
-media/transcript
-  -> lexical target selection
-  -> ASR/alignment
-  -> stable ListeningSegment
-  -> normalized audio
-  -> application use case
-  -> study-system adapter
-```
+## Engineering source of truth
 
-## Operating principle
+The Git repository is authoritative for **project engineering knowledge**: accepted design, schemas, executable invariants, migrations and implementation.
 
-The repository is the system of record. Chat sessions and agents operate on repository artifacts but do not replace them.
+The future runtime system will own operational canonical graph/learner state through a persistence design not yet selected. The architecture must not assume Git files remain the production database.
 
-## Architecture principle
+## Design principle
 
-DDD protects bounded-context language. Clean/Hexagonal Architecture keeps business policy independent from external mechanisms.
+Use DDD for semantic ownership, Clean Architecture for dependency direction, Hexagonal Architecture for external systems, and the pinned Harness for engineering-knowledge coverage.
 
-Do not invent a universal learning domain prematurely. Interview `Question` and English `ListeningSegment` remain separate concepts until repeated behavior demonstrates a useful common abstraction.
+## Current delivery principle
 
-Anki is an external execution system, not an architectural center of the product.
+During graph-centered platform design, establish broad closure at each design depth before descending further. Current depth covers product/domain/black-box architecture; implementation slices resume only after this layer is coherent.
 
-## Delivery principle
+## Current non-goals
 
-Prefer small end-to-end vertical slices over broad speculative platform work. New abstractions should follow demonstrated duplication or a concrete failure mode.
-
-## Non-goals for the current stage
-
-- building a full LMS;
-- forcing every learning activity into one `Question`/`Exercise` schema;
-- migrating the entire legacy English project in one change;
-- coupling domain models to Anki internals;
-- generating large content banks before vertical slices are validated.
+- choosing graph/persistence technology;
+- detailed APIs, deployment or components;
+- forcing all domains into one Question/Exercise schema;
+- replacing Anki scheduling;
+- building a full LMS.

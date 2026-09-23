@@ -1,0 +1,177 @@
+authorities: []
+artifacts:
+  - id: PROBLEM-SPACE
+    authority: DISCOVERY
+    path: docs/vision/problem-space.md
+    provides: [prep.problem-evidence]
+    depends_on: []
+
+  - id: PRODUCT-VISION
+    authority: PRODUCT-REQUIREMENTS
+    path: docs/vision/vision.md
+    provides: [prep.product-intent]
+    depends_on: [PROBLEM-SPACE]
+
+  - id: PRODUCT-CAPABILITIES
+    authority: PRODUCT-REQUIREMENTS
+    path: docs/vision/product-capabilities.md
+    provides: [prep.product-capabilities]
+    depends_on: [PRODUCT-VISION]
+
+  - id: CONTEXT-MAP
+    authority: STRATEGIC-DOMAIN-DESIGN
+    path: docs/architecture/context-map.md
+    provides: [prep.domain-context-map]
+    depends_on: [PRODUCT-CAPABILITIES]
+
+  - id: KNOWLEDGE-GRAPH-MODEL
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/knowledge-graph.md
+    provides: [prep.knowledge-graph-model]
+    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
+
+  - id: RELATION-REGISTRY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/relation-registry.md
+    provides: [prep.relation-registry]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+
+  - id: SOURCE-EVIDENCE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/source-evidence.md
+    provides: [prep.source-evidence-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+
+  - id: GRAPH-ADMISSION
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-admission.md
+    provides: [prep.graph-admission-policy]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, SOURCE-EVIDENCE]
+
+  - id: GRAPH-LIFECYCLE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-lifecycle.md
+    provides: [prep.graph-lifecycle]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, SOURCE-EVIDENCE]
+
+  - id: LEARNING-PLATFORM-BOUNDARY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-platform.md
+    provides: [prep.learning-platform-boundary]
+    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
+
+  - id: LEARNING-TARGETS-PLANS
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-targets-plans.md
+    provides: [prep.learning-plan-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, GRAPH-LIFECYCLE, LEARNING-PLATFORM-BOUNDARY]
+
+  - id: LEARNING-STATE
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-state.md
+    provides: [prep.learning-state-model]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
+
+  - id: GRAPH-SUBJECT-INTEGRATION
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/graph-subject-integration.md
+    provides: [prep.graph-subject-integration]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION]
+
+  - id: LEARNER-BOUNDARY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learner-boundary.md
+    provides: [prep.learner-boundary]
+    depends_on: [LEARNING-PLATFORM-BOUNDARY, LEARNING-TARGETS-PLANS, LEARNING-STATE]
+
+  - id: USER-JOURNEYS
+    authority: APPLICATION-DESIGN
+    path: docs/architecture/user-journeys.md
+    provides: [prep.user-journeys]
+    depends_on: [PRODUCT-CAPABILITIES, GRAPH-ADMISSION, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
+
+  - id: QUALITY-DRIVERS
+    authority: QUALITY-DESIGN
+    path: docs/architecture/quality-drivers.md
+    provides: [prep.quality-drivers]
+    depends_on: [PRODUCT-VISION, PRODUCT-CAPABILITIES]
+
+  - id: GRAPH-INTERFACE
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/graph-interface.md
+    provides: [prep.graph-interface-concept]
+    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, LEARNING-TARGETS-PLANS, LEARNING-STATE, QUALITY-DRIVERS]
+
+  - id: SYSTEM-LANDSCAPE
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/system-landscape.md
+    provides: [prep.system-landscape]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, GRAPH-LIFECYCLE, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY, GRAPH-INTERFACE, QUALITY-DRIVERS]
+
+  - id: LOGICAL-USE-CASES
+    authority: APPLICATION-DESIGN
+    path: docs/application/logical-use-cases.md
+    provides: [prep.logical-use-case-boundaries]
+    depends_on: [USER-JOURNEYS, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
+
+  - id: LOGICAL-KNOWLEDGE-INGESTION
+    authority: APPLICATION-DESIGN
+    path: docs/application/knowledge-ingestion.md
+    provides: [prep.logical-knowledge-ingestion]
+    depends_on: [LOGICAL-USE-CASES, GRAPH-ADMISSION, SOURCE-EVIDENCE]
+
+  - id: LOGICAL-STUDY-RUNTIME
+    authority: APPLICATION-DESIGN
+    path: docs/application/study-runtime.md
+    provides: [prep.logical-study-runtime]
+    depends_on: [LOGICAL-USE-CASES, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
+
+  - id: LOGICAL-DATA-OWNERSHIP
+    authority: DATA-DESIGN
+    path: docs/data/logical-data-ownership.md
+    provides: [prep.logical-data-ownership]
+    depends_on: [KNOWLEDGE-GRAPH-MODEL, SOURCE-EVIDENCE, GRAPH-LIFECYCLE, LEARNING-TARGETS-PLANS, LEARNING-STATE, LEARNER-BOUNDARY]
+
+  - id: LOGICAL-GRAPH-READ-MODEL
+    authority: DATA-DESIGN
+    path: docs/data/graph-read-model.md
+    provides: [prep.logical-graph-read-model]
+    depends_on: [LOGICAL-DATA-OWNERSHIP, PRODUCT-CAPABILITIES, RELATION-REGISTRY, GRAPH-INTERFACE]
+
+  - id: LOGICAL-ACCESS-PRIVACY
+    authority: SECURITY-DESIGN
+    path: docs/architecture/access-privacy.md
+    provides: [prep.logical-access-privacy]
+    depends_on: [PRODUCT-CAPABILITIES, LEARNER-BOUNDARY, GRAPH-ADMISSION, LOGICAL-USE-CASES]
+
+  - id: LOGICAL-INTERFACES
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/logical-interfaces.md
+    provides: [prep.logical-interface-boundaries]
+    depends_on: [GRAPH-INTERFACE, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-ACCESS-PRIVACY]
+
+  - id: LOGICAL-CONSISTENCY-RELIABILITY
+    authority: QUALITY-DESIGN
+    path: docs/architecture/consistency-reliability.md
+    provides: [prep.logical-consistency-reliability]
+    depends_on: [QUALITY-DRIVERS, GRAPH-LIFECYCLE, LEARNING-STATE, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP]
+
+  - id: LOGICAL-SYSTEM-BOUNDARIES
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/logical-system-boundaries.md
+    provides: [prep.logical-system-boundaries]
+    depends_on: [SYSTEM-LANDSCAPE, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-INTERFACES, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY]
+
+  - id: LOGICAL-OPERABILITY
+    authority: OPERABILITY-DESIGN
+    path: docs/architecture/operability.md
+    provides: [prep.logical-operability]
+    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-CONSISTENCY-RELIABILITY]
+
+  - id: LOGICAL-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/logical-verification-strategy.md
+    provides: [prep.logical-verification-strategy]
+    depends_on: [PRODUCT-CAPABILITIES, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-INTERFACES, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY, LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-OPERABILITY]
+
+questions: []
