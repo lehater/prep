@@ -53,6 +53,24 @@ These artifacts are wired into `.harness/core.yaml`; `.harness/engineering-graph
 
 Harness consumer `LOGICAL-DESIGN` requires this layer to remain structurally complete.
 
+## Technical design path
+
+- [`architecture/persistence-architecture.md`](architecture/persistence-architecture.md) — PostgreSQL graph/history/personal-state persistence;
+- [`architecture/data-lifecycle.md`](architecture/data-lifecycle.md) — migrations/backups/history lifecycle;
+- [`architecture/external-dependencies.md`](architecture/external-dependencies.md) — Anki/model/media/rendering dependencies;
+- [`architecture/machine-interface.md`](architecture/machine-interface.md) — HTTP command/query API;
+- [`architecture/presentation-system.md`](architecture/presentation-system.md) — React/3D graph presentation architecture;
+- [`architecture/screen-view-design.md`](architecture/screen-view-design.md) — primary product surfaces;
+- [`architecture/security-architecture.md`](architecture/security-architecture.md) — concrete security posture;
+- [`architecture/performance-capacity.md`](architecture/performance-capacity.md) — capacity envelopes/benchmark gates;
+- [`architecture/reliability-architecture.md`](architecture/reliability-architecture.md) — transactional/retry/recovery mechanisms;
+- [`architecture/runtime-topology.md`](architecture/runtime-topology.md) — deployable process topology;
+- [`architecture/component-design.md`](architecture/component-design.md) — code-facing component boundaries;
+- [`architecture/operability-architecture.md`](architecture/operability-architecture.md) — concrete diagnostics/operations;
+- [`verification/test-design.md`](verification/test-design.md) — executable test strategy.
+
+Harness consumer `TECHNICAL-DESIGN` requires this layer to remain structurally complete.
+
 ## Artifact routing
 
 | Information | Authoritative location |

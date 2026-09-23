@@ -12,6 +12,7 @@ Contract assumptions:
 - API version negotiation/permission check;
 - note/card/media operations;
 - review-history retrieval;
+- review observations are deduplicated using the scoped runtime/profile binding plus Anki review/revlog identity;
 - Anki may be unavailable at any time.
 
 Prep never exposes AnkiConnect directly to the network; the Local Bridge owns it.

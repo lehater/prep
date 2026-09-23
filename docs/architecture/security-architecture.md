@@ -2,12 +2,13 @@
 
 ## Initial deployment posture
 
-v1 is single-user/self-hosted-first while preserving LearnerId and authorization boundaries so multi-user hosting is not encoded out of the domain.
+v1 is single-user/self-hosted-first while preserving LearnerId and authorization boundaries so multi-user hosting is not encoded out of the domain. See ADR-015.
 
 ## Web access
 
 - authenticate the application user before personal/admin endpoints;
 - use secure HTTP-only session cookies for browser sessions;
+- unsafe cookie-authenticated HTTP operations require CSRF protection (same-site cookie policy plus an explicit anti-CSRF mechanism);
 - password credentials, when locally managed, are stored only as modern password hashes;
 - deployments exposed beyond localhost require TLS, typically at the deployment/reverse-proxy boundary.
 

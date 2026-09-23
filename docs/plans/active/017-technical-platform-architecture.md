@@ -31,13 +31,23 @@ Harness consumer: `TECHNICAL-DESIGN`.
 - Local Python bridge to localhost AnkiConnect; AnkiWeb remains Anki's device-sync mechanism.
 - Docker Compose reference central deployment; local bridge outside central container topology.
 
-## Remaining review
+## Review
 
-- [ ] run technical cross-artifact consistency/dependency review
-- [ ] validate TECHNICAL-DESIGN in Harness
-- [ ] record any blocking Questions rather than inventing implementation decisions
-- [ ] decide whether implementation design may open
+- [x] technical cross-artifact consistency/dependency review
+- [x] TECHNICAL-DESIGN validated COMPLETE by pinned Harness
+- [x] blocking Questions reviewed; none blocks this depth
+- [x] implementation design may open
 
 ## Stop rule
 
 No production implementation or vertical implementation plan begins until this technical layer passes the breadth review.
+
+
+## Evidence
+
+- [Technical Design Consistency Review](../../research/technical-design-consistency-review.md)
+- GitHub Actions run `35886821812`
+
+## Status
+
+Complete.
