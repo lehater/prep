@@ -1,0 +1,63 @@
+authorities: []
+artifacts:
+  - id: PROBLEM-SPACE
+    authority: DISCOVERY
+    path: docs/vision/problem-space.md
+    provides: [prep.problem-evidence]
+    depends_on: []
+
+  - id: PRODUCT-VISION
+    authority: PRODUCT-REQUIREMENTS
+    path: docs/vision/vision.md
+    provides: [prep.product-intent]
+    depends_on: [PROBLEM-SPACE]
+
+  - id: PRODUCT-CAPABILITIES
+    authority: PRODUCT-REQUIREMENTS
+    path: docs/vision/product-capabilities.md
+    provides: [prep.product-capabilities]
+    depends_on: [PRODUCT-VISION]
+
+  - id: CONTEXT-MAP
+    authority: STRATEGIC-DOMAIN-DESIGN
+    path: docs/architecture/context-map.md
+    provides: [prep.domain-context-map]
+    depends_on: [PRODUCT-CAPABILITIES]
+
+  - id: KNOWLEDGE-GRAPH-MODEL
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/knowledge-graph.md
+    provides: [prep.knowledge-graph-model]
+    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
+
+  - id: LEARNING-PLATFORM-BOUNDARY
+    authority: DOMAIN-MODEL-DESIGN
+    path: docs/domain/learning-platform.md
+    provides: [prep.learning-platform-boundary]
+    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
+
+  - id: USER-JOURNEYS
+    authority: APPLICATION-DESIGN
+    path: docs/architecture/user-journeys.md
+    provides: [prep.user-journeys]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
+
+  - id: QUALITY-DRIVERS
+    authority: QUALITY-DESIGN
+    path: docs/architecture/quality-drivers.md
+    provides: [prep.quality-drivers]
+    depends_on: [PRODUCT-VISION, PRODUCT-CAPABILITIES]
+
+  - id: GRAPH-INTERFACE
+    authority: INTERFACE-DESIGN
+    path: docs/architecture/graph-interface.md
+    provides: [prep.graph-interface-concept]
+    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY, QUALITY-DRIVERS]
+
+  - id: SYSTEM-LANDSCAPE
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/system-landscape.md
+    provides: [prep.system-landscape]
+    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY, GRAPH-INTERFACE, QUALITY-DRIVERS]
+
+questions: []

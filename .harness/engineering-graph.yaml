@@ -1,0 +1,135 @@
+version: 1
+kind: harness-engineering-graph
+id: PREP-TOP-LEVEL-DESIGN
+default_subject: PREP
+
+authorities:
+  - id: DISCOVERY
+    responsibility: Own accepted problem-space evidence and learning-system pain points without deciding solution structure.
+    boundary:
+      semantic_cohesion: Evidence about fragmented learning workflows, knowledge duplication, progress visibility and cross-domain learning needs.
+      independent_change: Problem evidence may evolve before product or architecture decisions change.
+      public_contract: Provides accepted problem evidence to product design.
+    produces:
+      - capability: prep.problem-evidence
+        knowledge_kind: problem-evidence
+        requires: []
+
+  - id: PRODUCT-REQUIREMENTS
+    responsibility: Own accepted product intent, scope and top-level product capabilities.
+    boundary:
+      semantic_cohesion: Decisions about what Prep must provide to the learner and operator.
+      independent_change: Product scope can change without selecting technical realization.
+      public_contract: Provides product intent and capability boundaries.
+    produces:
+      - capability: prep.product-intent
+        knowledge_kind: product-requirements
+        requires:
+          - capability: prep.problem-evidence
+      - capability: prep.product-capabilities
+        knowledge_kind: product-requirements
+        requires:
+          - capability: prep.product-intent
+
+  - id: STRATEGIC-DOMAIN-DESIGN
+    responsibility: Own bounded-context decomposition and relationships for the multi-domain learning platform.
+    boundary:
+      semantic_cohesion: Strategic ownership boundaries and integration directions.
+      independent_change: Context decomposition can evolve without choosing storage, UI framework or deployment topology.
+      public_contract: Provides the platform context map.
+    produces:
+      - capability: prep.domain-context-map
+        knowledge_kind: strategic-domain-design
+        requires:
+          - capability: prep.product-capabilities
+
+  - id: DOMAIN-MODEL-DESIGN
+    responsibility: Own the semantic model of the Knowledge Graph and the shared learning-coordination boundary.
+    boundary:
+      semantic_cohesion: Core semantic concepts that are independent of Anki, UI technology and subject-specific exercise formats.
+      independent_change: Graph and learning-coordination semantics can evolve behind stable external adapters.
+      public_contract: Provides graph semantics and shared learning-platform boundaries.
+    produces:
+      - capability: prep.knowledge-graph-model
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.domain-context-map
+          - capability: prep.product-capabilities
+      - capability: prep.learning-platform-boundary
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.domain-context-map
+          - capability: prep.product-capabilities
+
+  - id: APPLICATION-DESIGN
+    responsibility: Own top-level learner and operator journeys without deciding screens or implementation.
+    boundary:
+      semantic_cohesion: Goal-oriented application flows across graph exploration, planning, study publication and progress review.
+      independent_change: Journey composition can evolve without changing graph identity or external adapter mechanics.
+      public_contract: Provides top-level user journeys.
+    produces:
+      - capability: prep.user-journeys
+        knowledge_kind: user-journey-design
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.knowledge-graph-model
+          - capability: prep.learning-platform-boundary
+
+  - id: QUALITY-DESIGN
+    responsibility: Own architecture-significant quality drivers for semantic correctness, evolvability, observability and interaction scale.
+    boundary:
+      semantic_cohesion: Cross-cutting quality expectations that constrain later architecture.
+      independent_change: Quality priorities can evolve without directly selecting components or technologies.
+      public_contract: Provides top-level quality drivers.
+    produces:
+      - capability: prep.quality-drivers
+        knowledge_kind: quality-design
+        requires:
+          - capability: prep.product-intent
+          - capability: prep.product-capabilities
+
+  - id: INTERFACE-DESIGN
+    responsibility: Own the primary human interaction model centered on an explorable graph.
+    boundary:
+      semantic_cohesion: User-visible interaction semantics, navigation and information overlays.
+      independent_change: Interaction design can evolve without redefining graph semantic truth.
+      public_contract: Provides the graph-first interface concept.
+    produces:
+      - capability: prep.graph-interface-concept
+        knowledge_kind: human-interface-design
+        requires:
+          - capability: prep.user-journeys
+          - capability: prep.knowledge-graph-model
+          - capability: prep.learning-platform-boundary
+          - capability: prep.quality-drivers
+
+  - id: SYSTEM-ARCHITECTURE
+    responsibility: Own the top-level system landscape and responsibility boundaries without selecting lower-level implementation structure.
+    boundary:
+      semantic_cohesion: Black-box system responsibilities, external systems and information flows.
+      independent_change: Top-level structure can be refined before component, persistence and deployment design.
+      public_contract: Provides the system landscape consumed by later detailed design.
+    produces:
+      - capability: prep.system-landscape
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.domain-context-map
+          - capability: prep.knowledge-graph-model
+          - capability: prep.learning-platform-boundary
+          - capability: prep.graph-interface-concept
+          - capability: prep.quality-drivers
+
+consumers:
+  - id: TOP-LEVEL-DESIGN
+    purpose: Establish broad product/domain/architecture coverage before detailed slices or implementation design.
+    requires:
+      - capability: prep.problem-evidence
+      - capability: prep.product-intent
+      - capability: prep.product-capabilities
+      - capability: prep.domain-context-map
+      - capability: prep.knowledge-graph-model
+      - capability: prep.learning-platform-boundary
+      - capability: prep.user-journeys
+      - capability: prep.quality-drivers
+      - capability: prep.graph-interface-concept
+      - capability: prep.system-landscape
