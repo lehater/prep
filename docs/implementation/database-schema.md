@@ -29,7 +29,8 @@ Identity tables:
 
 Version tables:
 
-- `graph_node_version(node_id, valid_from_seq, valid_to_seq, canonical_label, kind, status, areas jsonb, facets jsonb, aliases jsonb)`;
+- `graph_node_version(node_id, valid_from_seq, valid_to_seq, canonical_label, kind, status, areas jsonb, facets jsonb)`;
+- `node_alias(alias_id uuid PK default uuidv7(), node_id FK, alias_text, normalized_alias, created_seq, retired_seq nullable)`;
 - `knowledge_assertion_version(assertion_id, valid_from_seq, valid_to_seq, statement, applicability jsonb, status)`;
 - `graph_relation_version(relation_id, valid_from_seq, valid_to_seq, relation_type, status, applicability jsonb)`.
 
@@ -48,9 +49,16 @@ Required constraints/indexes:
 - `source(source_id uuid PK, source_type, canonical_ref, title, visibility)`;
 - `source_revision(source_revision_id uuid PK, source_id FK, immutable_ref nullable, content_hash, observed_at, metadata jsonb)`;
 - `evidence_ref(evidence_id uuid PK, source_revision_id FK, locator jsonb, excerpt_hash nullable, purpose)`;
-- association tables `node_evidence`, `assertion_evidence`, `relation_evidence`.
+- association tables `node_evidence`, `alias_evidence`, `assertion_evidence`, `relation_evidence`.
 
 Evidence rows are append-oriented. A semantic retirement does not delete supporting provenance.
+
+## Authentication state
+
+- `app_user(user_id uuid PK default uuidv7(), username text unique, password_hash text, learner_id uuid FK, capabilities text[], status, password_changed_at, created_at)`;
+- `auth_session(session_id uuid PK default uuidv7(), user_id FK, session_token_hash bytea unique, csrf_token_hash bytea, created_at, last_seen_at, idle_expires_at, absolute_expires_at, revoked_at nullable)`.
+
+Raw session/CSRF secrets are never persisted.
 
 ## Learning/personal state
 

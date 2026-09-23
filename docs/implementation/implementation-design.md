@@ -12,8 +12,8 @@ Backend:
 Python 3.13
 FastAPI
 Pydantic v2
-SQLAlchemy 2.x
-psycopg 3
+SQLAlchemy 2.x (synchronous sessions)
+psycopg 3 (synchronous driver)
 Alembic
 PostgreSQL 18 + pgvector
 pytest + Hypothesis

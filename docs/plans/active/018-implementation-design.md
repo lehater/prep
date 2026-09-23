@@ -19,13 +19,23 @@ Harness consumer: `IMPLEMENTATION-DESIGN`.
 - [x] executable acceptance fixtures
 - [x] implementation-ready repository shape and first skeleton milestone
 
-## Remaining
+## Review
 
-- [ ] run cross-contract consistency review
-- [ ] validate IMPLEMENTATION-DESIGN through pinned Harness
-- [ ] register any blocking Questions
-- [ ] close design phase and authorize platform-skeleton coding only
+- [x] cross-contract consistency review
+- [x] implementation freedoms separated from architecture decisions
+- [x] no blocking semantic Question found
+- [ ] validate IMPLEMENTATION-DESIGN through pinned Harness on final branch
+- [ ] authorize platform-skeleton coding only after CI
 
 ## Stop rule
 
 Do not implement production feature slices until this plan closes.
+
+
+## Evidence
+
+- [Implementation Design Consistency Review](../../research/implementation-design-consistency-review.md)
+
+## Status
+
+Pending final Harness/CI validation.
