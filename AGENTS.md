@@ -40,9 +40,9 @@ python tools/check_harness_integration.py
 
 ADR-008 remains authoritative: complete breadth at one design depth before descending.
 
-`TOP-LEVEL-DESIGN` and `LOGICAL-DESIGN` are complete. The active phase is Plan 017 and Harness consumer `TECHNICAL-DESIGN`.
+`TOP-LEVEL-DESIGN`, `LOGICAL-DESIGN` and `TECHNICAL-DESIGN` are complete. The active phase is Plan 018 and Harness consumer `IMPLEMENTATION-DESIGN`.
 
-Work horizontally across persistence/data lifecycle, external dependencies, machine/UI interfaces, security, performance/reliability, runtime topology, components, operability and test design. Do not start implementation slices until this whole technical layer is coherent.
+Work horizontally across exact database, API, job, bridge, auth, frontend, deployment, component and acceptance-test contracts. Do not write production feature code until the implementation-design closure is complete.
 
 ## Source-of-truth priority
 

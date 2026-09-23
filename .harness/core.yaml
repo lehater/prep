@@ -252,4 +252,64 @@ artifacts:
     provides: [prep.test-design]
     depends_on: [LOGICAL-VERIFICATION, COMPONENT-DESIGN, MACHINE-INTERFACE-DESIGN, PERSISTENCE-ARCHITECTURE, RUNTIME-TOPOLOGY, OPERABILITY-ARCHITECTURE]
 
+  - id: JOB-PROTOCOL
+    authority: APPLICATION-DESIGN
+    path: docs/implementation/job-protocol.md
+    provides: [prep.job-protocol]
+    depends_on: [LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, PERSISTENCE-ARCHITECTURE, RELIABILITY-ARCHITECTURE]
+
+  - id: PHYSICAL-SCHEMA-CONTRACT
+    authority: DATA-DESIGN
+    path: docs/implementation/database-schema.md
+    provides: [prep.physical-schema-contract]
+    depends_on: [PERSISTENCE-ARCHITECTURE, DATA-LIFECYCLE-DESIGN, JOB-PROTOCOL]
+
+  - id: AUTH-SESSION-CONTRACT
+    authority: SECURITY-DESIGN
+    path: docs/implementation/auth-session-contract.md
+    provides: [prep.auth-session-contract]
+    depends_on: [SECURITY-ARCHITECTURE, MACHINE-INTERFACE-DESIGN]
+
+  - id: API-CONTRACT
+    authority: INTERFACE-DESIGN
+    path: docs/implementation/api-contract.md
+    provides: [prep.api-contract]
+    depends_on: [MACHINE-INTERFACE-DESIGN, AUTH-SESSION-CONTRACT, PHYSICAL-SCHEMA-CONTRACT, JOB-PROTOCOL]
+
+  - id: ANKI-BRIDGE-CONTRACT
+    authority: EXTERNAL-DEPENDENCY-DESIGN
+    path: docs/implementation/anki-bridge-contract.md
+    provides: [prep.anki-bridge-contract]
+    depends_on: [EXTERNAL-DEPENDENCY-DESIGN, LOGICAL-STUDY-RUNTIME, AUTH-SESSION-CONTRACT, JOB-PROTOCOL]
+
+  - id: FRONTEND-CONTRACT
+    authority: INTERFACE-DESIGN
+    path: docs/implementation/frontend-contract.md
+    provides: [prep.frontend-contract]
+    depends_on: [PRESENTATION-SYSTEM-DESIGN, SCREEN-VIEW-DESIGN, API-CONTRACT]
+
+  - id: DEPLOYMENT-CONFIG-CONTRACT
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/implementation/deployment-config.md
+    provides: [prep.deployment-config-contract]
+    depends_on: [RUNTIME-TOPOLOGY, PHYSICAL-SCHEMA-CONTRACT, AUTH-SESSION-CONTRACT, ANKI-BRIDGE-CONTRACT]
+
+  - id: BACKEND-COMPONENT-CONTRACT
+    authority: COMPONENT-DESIGN
+    path: docs/implementation/backend-components.md
+    provides: [prep.backend-component-contract]
+    depends_on: [COMPONENT-DESIGN, PHYSICAL-SCHEMA-CONTRACT, API-CONTRACT, JOB-PROTOCOL, AUTH-SESSION-CONTRACT, ANKI-BRIDGE-CONTRACT]
+
+  - id: ACCEPTANCE-CONTRACTS
+    authority: VERIFICATION-DESIGN
+    path: docs/implementation/acceptance-contracts.md
+    provides: [prep.acceptance-contracts]
+    depends_on: [TEST-DESIGN, API-CONTRACT, PHYSICAL-SCHEMA-CONTRACT, ANKI-BRIDGE-CONTRACT, FRONTEND-CONTRACT, DEPLOYMENT-CONFIG-CONTRACT]
+
+  - id: IMPLEMENTATION-DESIGN
+    authority: REALIZATION-DESIGN
+    path: docs/implementation/implementation-design.md
+    provides: [prep.implementation-design]
+    depends_on: [PHYSICAL-SCHEMA-CONTRACT, API-CONTRACT, JOB-PROTOCOL, ANKI-BRIDGE-CONTRACT, AUTH-SESSION-CONTRACT, FRONTEND-CONTRACT, DEPLOYMENT-CONFIG-CONTRACT, BACKEND-COMPONENT-CONTRACT, ACCEPTANCE-CONTRACTS]
+
 questions: []

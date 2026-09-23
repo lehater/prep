@@ -20,7 +20,7 @@ python tools/bootstrap_harness.py
 python tools/check_harness_integration.py
 ```
 
-`TOP-LEVEL-DESIGN` and `LOGICAL-DESIGN` are completed baselines. `TECHNICAL-DESIGN` is the active frontier and intentionally exposes concrete persistence, dependency, interface, presentation, security, quality, topology, component, operability and test-design work as Harness CREATE/WAIT state. Implementation remains out of scope until that frontier closes.
+`TOP-LEVEL-DESIGN`, `LOGICAL-DESIGN` and `TECHNICAL-DESIGN` are completed baselines. `IMPLEMENTATION-DESIGN` is the active final design frontier. Production feature code remains out of scope until its exact schema/protocol/component/deployment/acceptance contracts close.
 
 ## Agent operation
 

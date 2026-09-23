@@ -21,6 +21,7 @@ This directory contains accepted durable decisions.
 | [`ADR-013`](ADR-013-modular-monolith-runtime.md) | Start as a modular monolith with worker and local bridge |
 | [`ADR-014`](ADR-014-web-graph-interface-stack.md) | Use a browser React/TypeScript graph-first interface |
 | [`ADR-015`](ADR-015-single-user-self-hosted-v1.md) | Use a single-user self-hosted-first v1 deployment posture |
+| [`ADR-016`](ADR-016-sync-first-python-stack.md) | Use a sync-first FastAPI + SQLAlchemy + psycopg application stack |
 
 ## When to add an ADR
 

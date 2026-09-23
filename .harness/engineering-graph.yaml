@@ -139,6 +139,13 @@ authorities:
           - capability: prep.learning-state-model
           - capability: prep.graph-subject-integration
           - capability: prep.learner-boundary
+      - capability: prep.job-protocol
+        knowledge_kind: application-design
+        requires:
+          - capability: prep.logical-knowledge-ingestion
+          - capability: prep.logical-study-runtime
+          - capability: prep.persistence-architecture
+          - capability: prep.reliability-architecture
 
   - id: QUALITY-DESIGN
     responsibility: Own architecture-significant quality drivers and logical consistency/reliability expectations.
@@ -210,6 +217,12 @@ authorities:
           - capability: prep.persistence-architecture
           - capability: prep.logical-access-privacy
           - capability: prep.logical-consistency-reliability
+      - capability: prep.physical-schema-contract
+        knowledge_kind: data-design
+        requires:
+          - capability: prep.persistence-architecture
+          - capability: prep.data-lifecycle-design
+          - capability: prep.job-protocol
 
   - id: SECURITY-DESIGN
     responsibility: Own access/privacy semantics and their concrete technical security architecture.
@@ -231,6 +244,11 @@ authorities:
           - capability: prep.logical-access-privacy
           - capability: prep.logical-system-boundaries
           - capability: prep.external-dependency-design
+      - capability: prep.auth-session-contract
+        knowledge_kind: security-architecture
+        requires:
+          - capability: prep.security-architecture
+          - capability: prep.machine-interface-design
 
   - id: INTERFACE-DESIGN
     responsibility: Own human interaction and logical external interface responsibilities without selecting transport/framework technology.
@@ -277,6 +295,19 @@ authorities:
           - capability: prep.presentation-system-design
           - capability: prep.user-journeys
           - capability: prep.graph-interface-concept
+      - capability: prep.api-contract
+        knowledge_kind: interface-contract
+        requires:
+          - capability: prep.machine-interface-design
+          - capability: prep.auth-session-contract
+          - capability: prep.physical-schema-contract
+          - capability: prep.job-protocol
+      - capability: prep.frontend-contract
+        knowledge_kind: presentation-system-design
+        requires:
+          - capability: prep.presentation-system-design
+          - capability: prep.screen-view-design
+          - capability: prep.api-contract
 
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own the top-level system landscape and next-depth logical runtime/module responsibility boundaries.
@@ -320,6 +351,13 @@ authorities:
           - capability: prep.security-architecture
           - capability: prep.performance-capacity-design
           - capability: prep.reliability-architecture
+      - capability: prep.deployment-config-contract
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.runtime-topology
+          - capability: prep.physical-schema-contract
+          - capability: prep.auth-session-contract
+          - capability: prep.anki-bridge-contract
 
   - id: EXTERNAL-DEPENDENCY-DESIGN
     responsibility: Own concrete integration constraints and selected external dependencies without letting them redefine domain semantics.
@@ -335,6 +373,13 @@ authorities:
           - capability: prep.logical-study-runtime
           - capability: prep.logical-interface-boundaries
           - capability: prep.graph-interface-concept
+      - capability: prep.anki-bridge-contract
+        knowledge_kind: interface-contract
+        requires:
+          - capability: prep.external-dependency-design
+          - capability: prep.logical-study-runtime
+          - capability: prep.auth-session-contract
+          - capability: prep.job-protocol
 
   - id: COMPONENT-DESIGN
     responsibility: Own implementation-facing component responsibilities and dependency/composition boundaries after runtime and technology architecture are selected.
@@ -353,6 +398,15 @@ authorities:
           - capability: prep.screen-view-design
           - capability: prep.security-architecture
           - capability: prep.external-dependency-design
+      - capability: prep.backend-component-contract
+        knowledge_kind: component-design
+        requires:
+          - capability: prep.component-design
+          - capability: prep.physical-schema-contract
+          - capability: prep.api-contract
+          - capability: prep.job-protocol
+          - capability: prep.auth-session-contract
+          - capability: prep.anki-bridge-contract
 
   - id: OPERABILITY-DESIGN
     responsibility: Own logical diagnostics and observability expectations for graph admission, synchronization and evidence ingestion.
@@ -404,6 +458,35 @@ authorities:
           - capability: prep.persistence-architecture
           - capability: prep.runtime-topology
           - capability: prep.operability-architecture
+      - capability: prep.acceptance-contracts
+        knowledge_kind: test-design
+        requires:
+          - capability: prep.test-design
+          - capability: prep.api-contract
+          - capability: prep.physical-schema-contract
+          - capability: prep.anki-bridge-contract
+          - capability: prep.frontend-contract
+          - capability: prep.deployment-config-contract
+
+  - id: REALIZATION-DESIGN
+    responsibility: Own the implementation-ready repository contract and slicing rules after all implementation-facing contracts are accepted.
+    boundary:
+      semantic_cohesion: Exact technology usage, composition, repository layout and bounded implementation freedoms.
+      independent_change: Implementation sequencing can evolve without redefining upstream product/domain/architecture contracts.
+      public_contract: Provides one implementation-ready design consumed by coding work.
+    produces:
+      - capability: prep.implementation-design
+        knowledge_kind: implementation-design
+        requires:
+          - capability: prep.physical-schema-contract
+          - capability: prep.api-contract
+          - capability: prep.job-protocol
+          - capability: prep.anki-bridge-contract
+          - capability: prep.auth-session-contract
+          - capability: prep.frontend-contract
+          - capability: prep.deployment-config-contract
+          - capability: prep.backend-component-contract
+          - capability: prep.acceptance-contracts
 
 consumers:
   - id: TOP-LEVEL-DESIGN
@@ -459,3 +542,8 @@ consumers:
       - capability: prep.component-design
       - capability: prep.operability-architecture
       - capability: prep.test-design
+
+  - id: IMPLEMENTATION-DESIGN
+    purpose: Make coding possible without inventing schema, protocol, component, security, deployment or acceptance-test decisions inside feature slices.
+    requires:
+      - capability: prep.implementation-design
