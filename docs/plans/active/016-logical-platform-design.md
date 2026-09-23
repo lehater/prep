@@ -8,19 +8,26 @@ Harness consumer: `LOGICAL-DESIGN`.
 
 ## Required breadth
 
-- [ ] application/use-case responsibility map
-- [ ] logical data ownership and aggregate/repository boundaries
-- [ ] graph query/read-model requirements for interactive exploration
-- [ ] knowledge ingestion/admission workflow contract
-- [ ] subject-context learning-material publication contract
-- [ ] study-runtime synchronization and evidence-ingestion contract
-- [ ] learner/personal-state access/privacy boundary
-- [ ] logical interface/API responsibilities
-- [ ] reliability/consistency expectations across graph, plans and external runtimes
-- [ ] operability/diagnostic requirements
-- [ ] verification strategy for the logical boundaries
+- [x] application/use-case responsibility map
+- [x] logical data ownership and atomic consistency boundaries
+- [x] graph query/read-model requirements for interactive exploration
+- [x] knowledge ingestion/admission workflow contract
+- [x] subject-context learning-material/publication responsibility boundary
+- [x] study-runtime synchronization and evidence-ingestion contract
+- [x] learner/personal-state access/privacy boundary
+- [x] logical interface responsibilities
+- [x] reliability/consistency expectations across graph, plans and external runtimes
+- [x] logical system/module responsibility map
+- [x] operability/diagnostic requirements
+- [x] verification strategy for logical boundaries
 
-## Explicit non-goals until breadth is complete
+## Remaining review
+
+- [ ] run cross-artifact consistency/dependency review for all LOGICAL-DESIGN providers
+- [ ] identify unresolved logical Questions and register blockers instead of guessing
+- [ ] decide whether this layer is coherent enough to open concrete technology/component design
+
+## Explicit non-goals
 
 - choosing Neo4j/PostgreSQL/RDF/document storage;
 - choosing REST/GraphQL/gRPC;
@@ -28,10 +35,6 @@ Harness consumer: `LOGICAL-DESIGN`.
 - deployable service/process decomposition;
 - implementation tickets/code.
 
-## Method
-
-Move horizontally across all listed responsibilities. Record unresolved semantic questions as Harness Questions instead of filling gaps with technology choices.
-
 ## Stop rule
 
-Do not start detailed persistence/API/component implementation design until the logical responsibility map is coherent across the full platform.
+Do not start concrete persistence/API/component implementation design until the logical responsibility map passes breadth review.
