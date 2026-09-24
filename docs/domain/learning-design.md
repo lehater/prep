@@ -36,13 +36,25 @@ A target-relative difference between required capability and the evidence-backed
 
 A gap is not intrinsic to subject knowledge and cannot exist without both a target requirement and learner-state evidence or explicit uncertainty.
 
+### Readiness
+
+A target-relative judgment about whether the learner's current evidence-backed state supports productive work on a requirement. Readiness may depend on prerequisite or enabling knowledge but is not itself mastery of the requirement.
+
 ### Priority
 
-A decision about which gaps deserve attention next under constraints such as importance, dependency, uncertainty, time and retention risk.
+A decision about what deserves attention next under constraints such as target importance, gap size, readiness, dependency, state uncertainty, time and retention risk.
 
-### Learning / Evidence Intent
+Priority is not restricted to known gaps: reducing important uncertainty may itself deserve priority.
 
-The kind of learning, practice or evidence sought to address or reassess a gap. Concrete execution may occur inside Prep or in an external runtime.
+### Learning Intent
+
+An intent to change learner capability through learning or practice.
+
+### Diagnostic Intent
+
+An intent to reduce material uncertainty about learner state by eliciting evidence. A diagnostic action may be valuable even when it is not the highest-priority content to learn.
+
+Concrete execution of either intent may occur inside Prep or in an external runtime.
 
 ## Ownership
 
@@ -65,7 +77,9 @@ It does not own reusable subject truth or raw learner observations.
 
 - a gap is always relative to a target;
 - activity completion alone cannot close a gap without sufficient evidence;
-- priority is a decision derived from target importance and current evidence, not a property of knowledge itself;
+- priority is a decision derived from target importance, current evidence, readiness and uncertainty, not a property of knowledge itself;
+- a learning intent aims to change learner capability; a diagnostic intent aims to reduce uncertainty about learner state;
+- an unknown state is not automatically a learning gap;
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
 - changing a target, criterion or required performance level may change gaps without changing learner observations;
 - Requirement != Criterion != Performance Level != Evidence;
