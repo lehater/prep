@@ -2,38 +2,62 @@
 
 ## Purpose
 
-Define the problems Prep exists to solve before choosing detailed implementation.
+Define the learner problems Prep exists to address before selecting product, domain, interface, or implementation solutions.
 
 ## Problem
 
-Learning state is fragmented across source material, chats, notes, generated files, Anki decks and domain-specific pipelines. This creates several coupled problems:
+A learner preparing for a target outcome such as a technical interview or acquiring a new skill has to turn a large, uncertain body of knowledge into effective study under limited time and attention.
 
-- the same knowledge is imported repeatedly under different wording and becomes semantically duplicated;
-- cards become accidental units of knowledge even when several cards test the same concept;
-- there is no stable semantic denominator for questions such as "what exists", "what is covered", "what remains" and "where are the gaps";
-- Anki contains valuable review history, but that state is hard to aggregate into a domain-level picture across topics and devices;
-- different learning domains need different source and exercise models, while still sharing planning, publication and progress concerns;
-- users cannot easily see the structure of their target knowledge space or how progress is distributed across it;
-- manual graph editing would make identity and relation quality depend on ad-hoc user input rather than controlled semantic rules.
+This creates several coupled problems:
+
+- the required knowledge scope and expected depth are often unclear;
+- relevant material is fragmented across sources, notes, conversations, question lists and study tools;
+- equivalent or overlapping knowledge appears under different wording, making coverage difficult to judge;
+- study artifacts such as notes, questions and flashcards do not by themselves provide a reliable picture of what knowledge they cover;
+- the learner lacks a stable way to compare the target knowledge with their current state and identify gaps;
+- gaps differ in importance, dependency and urgency, so deciding what to study next is non-trivial;
+- exposure to material is weak evidence of understanding, recall or ability to apply knowledge;
+- evidence from study, practice and review is fragmented, making progress difficult to assess;
+- as evidence changes, priorities need to be revised rather than following a static curriculum;
+- different subjects require different forms of explanation, practice and assessment;
+- the learner needs to understand both local topics and how relevant knowledge relates as a whole.
 
 ## Desired outcome
 
-Prep should maintain a trustworthy semantic knowledge space, let a learner select meaningful subgraphs as learning targets, derive learning plans and domain-specific practice from those targets, publish practice to execution systems such as Anki, and project returned evidence back onto the knowledge space.
+The learner can:
 
-## Core distinction
+1. define or obtain a meaningful target for learning;
+2. understand what knowledge the target requires and at what depth;
+3. determine their current state relative to that target;
+4. identify and prioritize meaningful gaps;
+5. study and practise the right material;
+6. obtain evidence of recall, understanding and application;
+7. see progress and remaining uncertainty;
+8. continuously adapt what to learn next.
 
-Prep must keep these concerns separate:
+## Problem dimensions
+
+The problem therefore spans:
 
 ```text
-knowledge truth   -> what concepts and relations exist
-learning intent   -> what the learner plans to learn
-learning evidence -> what study/review activity has happened
-presentation      -> how the graph and overlays are shown
+target
+  -> required knowledge
+  -> current state
+  -> gaps
+  -> priorities
+  -> learning / practice
+  -> evidence
+  -> progress
+  -> adaptation
 ```
+
+These are problem dimensions, not prescribed product components. A product or technical design must justify how it addresses them.
 
 ## Constraints
 
-- Knowledge identity and graph relations require controlled admission; the ordinary user does not directly mutate semantic truth.
-- Anki remains an external spaced-repetition runtime, not the owner of Prep domain semantics.
-- Subject-specific learning objects remain inside their bounded contexts until genuinely shared semantics are demonstrated.
-- The current design phase is breadth-first: establish the whole top-level responsibility map before deep implementation slices.
+- learner time and attention are limited;
+- available source material can be incomplete, inconsistent or redundant;
+- evidence of learning has different strengths and can become stale;
+- expected knowledge and depth depend on the learner's target;
+- useful practice formats differ by subject and learning objective;
+- existing study history may have value and should not be assumed disposable.
