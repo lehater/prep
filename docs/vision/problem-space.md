@@ -2,66 +2,71 @@
 
 ## Purpose
 
-Define the learner problems Prep exists to address before selecting product, domain, interface, or implementation solutions.
+Define the learner problem Prep exists to address before selecting product, domain, interface, or implementation solutions.
 
 ## Problem
 
-A learner preparing for a target outcome such as a technical interview or acquiring a new skill has to turn a large, uncertain body of knowledge into effective study under limited time and attention.
+A person needs to move from their current state of knowledge or ability to a desired state, but does not have a sufficiently reliable way to manage that transition.
 
-This creates several coupled problems:
+The transition is difficult because:
 
-- the required knowledge scope and expected depth are often unclear;
-- relevant material is fragmented across sources, notes, conversations, question lists and study tools;
-- equivalent or overlapping knowledge appears under different wording, making coverage difficult to judge;
-- study artifacts such as notes, questions and flashcards do not by themselves provide a reliable picture of what knowledge they cover;
-- the learner lacks a stable way to compare the target knowledge with their current state and identify gaps;
-- gaps differ in importance, dependency and urgency, so deciding what to study next is non-trivial;
-- exposure to material is weak evidence of understanding, recall or ability to apply knowledge;
-- knowledge demonstrated now may not remain available when it is needed later;
-- recall in a study setting does not guarantee transfer to explanation, reasoning or performance in the target context;
-- evidence from study, practice and review is fragmented, making progress difficult to assess;
-- as evidence changes, priorities need to be revised rather than following a static curriculum;
-- different subjects require different forms of explanation, practice and assessment;
-- the learner needs to understand both local topics and how relevant knowledge relates as a whole.
+- the desired state can require an uncertain scope of knowledge and different depths of mastery;
+- the person's current state is only partially observable;
+- relevant information can be fragmented, incomplete, inconsistent, redundant or expressed in different terms;
+- encountering information is not the same as being able to recall, explain, reason about or apply it;
+- different knowledge may require different forms of learning and practice;
+- evidence of learning has different strengths and can become stale;
+- knowledge available now may no longer be available when it is needed later;
+- successful recall in one setting does not guarantee understanding, application or transfer to another setting;
+- limited time and attention require choices about what to learn next;
+- as the person's state changes, those choices need to change as well.
 
 ## Desired outcome
 
-The learner can:
+The person can reliably progress toward a chosen learning outcome by being able to:
 
-1. define or obtain a meaningful target for learning;
-2. understand what knowledge the target requires and at what depth;
-3. determine their current state relative to that target;
-4. identify and prioritize meaningful gaps;
-5. study and practise the right material;
-6. obtain evidence of recall, understanding and application;
-7. retain relevant knowledge until it is needed and transfer it to the target context;
-8. see progress and remaining uncertainty;
-9. continuously adapt what to learn next.
+1. establish the desired state and relevant scope/depth;
+2. establish enough of the current state to identify meaningful differences;
+3. decide what requires attention next;
+4. learn or practise it in a form appropriate to the required outcome;
+5. obtain evidence that their state has changed;
+6. preserve relevant knowledge or ability until it is needed;
+7. use new evidence to continue adapting the learning process.
 
 ## Problem dimensions
 
-The problem therefore spans:
-
 ```text
-target
-  -> required knowledge
+desired state
+  -> required knowledge / ability
   -> current state
-  -> gaps
-  -> priorities
+  -> difference
+  -> priority
   -> learning / practice
   -> evidence
   -> retention / transfer
-  -> progress
-  -> adaptation
+  -> updated state
 ```
 
-These are problem dimensions, not prescribed product components. A product or technical design must justify how it addresses them.
+These are problem dimensions, not prescribed product components. Their technical or product realization is intentionally outside this artifact.
 
 ## Constraints
 
-- learner time and attention are limited;
-- available source material can be incomplete, inconsistent or redundant;
-- evidence of learning has different strengths and can become stale;
-- expected knowledge and depth depend on the learner's target;
-- useful practice formats differ by subject and learning objective;
-- existing study history may have value and should not be assumed disposable.
+- time and attention are limited;
+- the desired depth depends on the learning purpose;
+- source material may be incomplete, inconsistent or redundant;
+- learner state cannot be observed directly and must be inferred from imperfect evidence;
+- learning evidence can decay in relevance over time;
+- appropriate learning and evidence differ by the kind of knowledge or ability being developed.
+
+## Non-decisions
+
+This problem statement does not choose:
+
+- a knowledge representation;
+- a graph or graph visualization;
+- cards, questions or another learning-object format;
+- a scheduling or repetition mechanism;
+- an external study system;
+- a subject domain or motivating use case.
+
+Those belong to downstream research and design.
