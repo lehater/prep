@@ -14,9 +14,21 @@ A desired future state with enough purpose, scope and depth to evaluate what is 
 
 A requirement applicable to a particular target. It may reference a reusable competency/requirement definition from Knowledge Model or be specific to the target.
 
-### Required Depth / Criterion
+### Requirement Framework
 
-The level or form of capability required for a target requirement, such as retrieval, explanation, reasoning or application where meaningful.
+An organized, reusable or target-specific set of requirements used to describe what a target expects. A framework groups requirements but does not imply that its structure is the structure of subject knowledge.
+
+### Criterion
+
+A statement of what must be demonstrated for a target requirement to count as satisfied. Criteria make the expected form of capability explicit rather than hiding it in a generic depth value.
+
+### Performance Level
+
+A meaningful level of performance against one or more criteria. Levels describe quality or degree of demonstrated capability; they are not learner observations themselves.
+
+### Alignment
+
+An explicit semantic correspondence between a target requirement and reusable subject knowledge or reusable competency definitions. Alignment preserves separate identities rather than collapsing requirements into knowledge units.
 
 ### Gap
 
@@ -37,7 +49,9 @@ The kind of learning, practice or evidence sought to address or reassess a gap. 
 Learning Design owns:
 
 - learning targets;
-- target-specific requirements and required depth;
+- requirement frameworks and target-specific requirements;
+- criteria and performance levels;
+- alignments between target requirements and reusable knowledge/competency definitions;
 - target-relative gaps;
 - prioritization policy and decisions;
 - learning/practice intent;
@@ -53,11 +67,14 @@ It does not own reusable subject truth or raw learner observations.
 - activity completion alone cannot close a gap without sufficient evidence;
 - priority is a decision derived from target importance and current evidence, not a property of knowledge itself;
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
-- changing a target may change required depth and gaps without changing learner observations.
+- changing a target, criterion or required performance level may change gaps without changing learner observations;
+- Requirement != Criterion != Performance Level != Evidence;
+- alignment does not merge the identities of a requirement and the knowledge it references.
 
 ## Open questions
 
 - whether learning-material design develops independent invariants requiring a later context split;
-- how target requirements align to reusable competency frameworks;
+- when requirement frameworks should be reusable versus target-specific;
+- which criteria/performance-level structures are useful without importing a generic rubric system;
 - how dependencies between requirements affect priority;
 - how evidence strength required for a target should be expressed.
