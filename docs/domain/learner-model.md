@@ -22,6 +22,12 @@ The current evidence-backed estimate of a learner's state with respect to knowle
 
 The state may include uncertainty; absence of evidence is not automatically evidence of absence.
 
+### State Uncertainty
+
+The explicit uncertainty of an inferred learner state. Uncertainty is first-class domain information: the system may know that it does not yet know whether a learner can satisfy a requirement.
+
+Reducing uncertainty can therefore be a legitimate reason to request new evidence independently of a learning intervention.
+
 ### Retention / Decay
 
 The degree to which older evidence remains predictive of present availability. This affects confidence in inferred state rather than rewriting historical observations.
@@ -32,7 +38,8 @@ Learner Model owns:
 
 - learner-specific observations;
 - evidence derived from observations;
-- inferred state and uncertainty;
+- inferred state;
+- explicit state uncertainty;
 - retention/decay interpretation;
 - evidence history needed to explain current state.
 
@@ -53,7 +60,8 @@ xAPI and 1EdTech Caliper provide precedents for treating learning interactions a
 - Observation != Evidence != Inferred State.
 - historical observations are not rewritten when an inference changes;
 - inferred state must be traceable to evidence;
-- uncertainty must be representable;
+- uncertainty must be representable independently of positive or negative capability estimates;
+- unknown != not known / not capable;
 - evidence may become less predictive with time without deleting the underlying observation;
 - learner state cannot redefine reusable subject semantics.
 
