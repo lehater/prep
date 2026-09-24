@@ -17,6 +17,8 @@ This creates several coupled problems:
 - the learner lacks a stable way to compare the target knowledge with their current state and identify gaps;
 - gaps differ in importance, dependency and urgency, so deciding what to study next is non-trivial;
 - exposure to material is weak evidence of understanding, recall or ability to apply knowledge;
+- knowledge demonstrated now may not remain available when it is needed later;
+- recall in a study setting does not guarantee transfer to explanation, reasoning or performance in the target context;
 - evidence from study, practice and review is fragmented, making progress difficult to assess;
 - as evidence changes, priorities need to be revised rather than following a static curriculum;
 - different subjects require different forms of explanation, practice and assessment;
@@ -32,8 +34,9 @@ The learner can:
 4. identify and prioritize meaningful gaps;
 5. study and practise the right material;
 6. obtain evidence of recall, understanding and application;
-7. see progress and remaining uncertainty;
-8. continuously adapt what to learn next.
+7. retain relevant knowledge until it is needed and transfer it to the target context;
+8. see progress and remaining uncertainty;
+9. continuously adapt what to learn next.
 
 ## Problem dimensions
 
@@ -47,6 +50,7 @@ target
   -> priorities
   -> learning / practice
   -> evidence
+  -> retention / transfer
   -> progress
   -> adaptation
 ```
