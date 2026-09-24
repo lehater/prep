@@ -2,61 +2,50 @@
 
 ## Product intent
 
-Build a graph-centered adaptive learning platform that maintains a trustworthy semantic model of knowledge, lets a learner select meaningful knowledge scopes, turns them into learning plans and domain-specific practice, executes repetition through external study systems, and projects learning evidence back onto the graph.
+Prep helps a person move from their current state of knowledge toward a chosen target state by making the required knowledge understandable and learnable, supporting deliberate learning and practice, and using evidence to guide what needs attention next.
 
-## Core model
+The product is primarily concerned with acquiring and maintaining usable knowledge. It may support abilities that depend on knowledge, but it does not attempt to become a universal system for teaching every kind of skill.
 
-```text
-Knowledge Sources
-      -> controlled semantic curation
-      -> Knowledge Graph
-      -> target subgraph / curriculum
-      -> Learning Plan
-      -> domain-specific learning objects
-      -> Study System (initially Anki)
-      -> review / attempt evidence
-      -> learner-specific graph overlay
-```
+## Product outcome
+
+A learner should be able to:
+
+1. establish what they want to know or be able to do and the relevant depth;
+2. obtain a coherent view of the knowledge relevant to that target;
+3. learn and revisit that knowledge in forms appropriate to the intended outcome;
+4. get useful evidence of what is available from memory, understood or usable;
+5. focus effort on meaningful gaps as that evidence changes;
+6. keep important knowledge available for later use.
 
 ## Product principles
 
-- The Knowledge Graph is semantic authority for reusable knowledge identities, assertions and relations.
-- Cards are learning projections, not units of canonical knowledge.
-- Learning plans and learner progress are references/overlays over graph knowledge rather than semantic mutations.
-- Subject domains keep their own learning-object semantics; common platform abstractions are extracted only when meaning is shared.
-- Anki is an execution/spaced-repetition runtime, not the architectural center.
-- Agents may interpret/propose semantics; deterministic code owns stable representation IDs, structural validation, persistence and external reconciliation.
+- **Learning outcome before representation.** The product model should be driven by what the learner needs to know or do, not by a preferred storage or visualization technology.
+- **Knowledge and learner state are distinct.** A representation of subject knowledge must not be conflated with evidence about one person's current state.
+- **Different depths are meaningful.** Recall, understanding, application and deeper performance are not assumed equivalent.
+- **Structure is instrumental.** Information should be structured when doing so improves learning, navigation, comparison, reuse or another justified operation; maximum formalization is not itself a goal.
+- **Evidence over exposure.** Reading or encountering material is not sufficient evidence that it will be available when needed.
+- **Retention matters.** Learning is not complete merely because knowledge can be demonstrated immediately after study.
+- **Subject differences remain explicit.** Different subjects and outcomes may require different learning and evidence forms rather than one universal exercise model.
+- **Existing learning ecosystems are potential collaborators.** External tools may execute parts of the learning process without defining Prep's product semantics.
 
-## Initial learning domains
+## Initial product focus
 
-### Interview Preparation
+The first practical focus is building familiarity with a technical subject: acquiring its terminology and concepts, understanding how important concepts relate, and making enough of that knowledge retrievable to discuss the subject coherently.
 
-Technical-interview competencies, elicitation, assessment and gap-driven learning over canonical graph subjects.
+Technical-interview preparation is an important motivating use case because it provides concrete subject scopes and a need for accessible knowledge, but it does not define the product problem.
 
-### English Listening
+Deeper understanding, application, procedural skill and richer assessment are legitimate extensions where required by a learning target; they are not prerequisites for proving the initial product value.
 
-Recognition and understanding of authentic spoken English through source-backed lexical targets and stable acoustic segments.
+## Current non-decisions
 
-Future domains such as mathematics may add their own learning-object models.
+This vision does not choose:
 
-## Engineering source of truth
+- a graph, ontology or other canonical knowledge representation;
+- a graph-first, card-first or other user interface;
+- a particular learning-object or question schema;
+- Anki or another study runtime;
+- a scheduling algorithm;
+- storage, API, deployment or component technology;
+- the eventual bounded-context decomposition.
 
-The Git repository is authoritative for **project engineering knowledge**: accepted design, schemas, executable invariants, migrations and implementation.
-
-The future runtime system will own operational canonical graph/learner state through a persistence design not yet selected. The architecture must not assume Git files remain the production database.
-
-## Design principle
-
-Use DDD for semantic ownership, Clean Architecture for dependency direction, Hexagonal Architecture for external systems, and the pinned Harness for engineering-knowledge coverage.
-
-## Current delivery principle
-
-During graph-centered platform design, establish broad closure at each design depth before descending further. Current depth covers product/domain/black-box architecture; implementation slices resume only after this layer is coherent.
-
-## Current non-goals
-
-- choosing graph/persistence technology;
-- detailed APIs, deployment or components;
-- forcing all domains into one Question/Exercise schema;
-- replacing Anki scheduling;
-- building a full LMS.
+Those decisions belong to downstream product, domain and architecture design.
