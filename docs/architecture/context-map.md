@@ -74,6 +74,8 @@ Prep must be able to accept knowledge inputs needed by the product, but current 
 
 Source parsing, import, extraction or LLM-assisted structuring may exist as application/integration capabilities around Knowledge Model. They become a bounded context only if future work reveals a stable independent language and business invariants for acquisition itself.
 
+Source validation, provenance assessment, disagreement resolution and conflicting-input handling belong on this input side of the boundary rather than to Knowledge Model. They remain deferred until a concrete product use case justifies modeling them.
+
 ### Learning / practice execution
 
 Actual learning activity may be executed inside Prep or delegated to external systems. Anki, assessment engines and other study runtimes are mechanisms outside the strategic core unless future evidence establishes product-owned semantics that require another bounded context.
