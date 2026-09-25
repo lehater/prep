@@ -272,7 +272,7 @@ export function KnowledgeExplorer({
       <Box
         sx={{
           "--knowledge-workspace-height":
-            "clamp(520px, calc(100dvh - 320px), 820px)",
+            "clamp(500px, calc(100dvh - 420px), 820px)",
           display: "grid",
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
@@ -339,7 +339,7 @@ export function KnowledgeExplorer({
             p: 1.5,
             minWidth: 0,
             height: {
-              xs: "clamp(460px, 62dvh, 620px)",
+              xs: "clamp(420px, 55dvh, 560px)",
               md: "var(--knowledge-workspace-height)",
             },
             display: "flex",
