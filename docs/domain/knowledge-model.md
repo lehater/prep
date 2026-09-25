@@ -180,29 +180,49 @@ These are explanatory roles and forms, not mandatory layers for every subject.
 
 ## Question boundary
 
-Questions, exercises and cards are not canonical Knowledge Model entities merely because they refer to knowledge.
+Questions are not canonical Knowledge Model entities. Learning Design owns question/answer learning artifacts and references reusable subject knowledge from this model.
 
-Learning Design may map a question to the knowledge required to answer it:
+The Knowledge Model deliberately does **not** model a question's short answer as a knowledge node, literal node or proposition solely to make the question answerable. Concrete facts, values and examples may remain inside the explanatory content of the reusable knowledge object that gives them meaning.
+
+Learning Design may map a question to the reusable knowledge required to answer it:
 
 ```text
 Question
   prompt
+  answer
   requires: KnowledgeNode[]
 ```
 
 The semantic meaning of `requires` is:
 
-> Which reusable knowledge must a learner command to answer this question substantively and correctly?
+> Which reusable knowledge should a learner command to understand and answer this question substantively?
 
-It does **not** mean:
+It does **not** identify the literal answer.
 
-> Which minimal atomic fact is the literal answer?
+For example:
 
-Therefore a question such as “What does 7 mean in Unix permissions?” may require the reusable knowledge object `Unix permission representation`; the model need not create a canonical node whose identity is the literal value `7`.
+```text
+Question:
+  prompt: "What does 7 mean in Unix permissions?"
+  answer: "read + write + execute (4 + 2 + 1)"
+  requires:
+    - Unix permission representation
+```
+
+The reusable object `Unix permission representation` explains the notation, including the 4/2/1 weights and representative combinations. The literal value `7` does not need its own canonical node.
+
+Similarly, a factual question such as "Which file descriptor number is stdin?" may carry the concise answer `0` while requiring the reusable object `Standard streams`, whose explanatory content supplies the theory and surrounding facts.
 
 A broad question may require several knowledge objects. A personal or meta interview question may require no subject-knowledge node.
 
-Questions do not reference `KnowledgeRelation` by default. Relations remain internal subject semantics; Learning Design depends on them only when a learning requirement genuinely concerns the relationship itself.
+Questions do not reference `KnowledgeRelation` by default. Relations remain internal subject semantics.
+
+This boundary keeps two responsibilities separate:
+
+- Knowledge Model owns reusable explanatory subject knowledge;
+- Learning Design owns a concrete question, its concise reference answer, and the mapping to knowledge needed to understand that answer.
+
+No separate `KnowledgeStatement` / proposition entity is currently justified. It should be introduced only if a demonstrated product operation requires structured addressable assertions beyond knowledge-object content and object-to-object semantic relations.
 
 ## Requirement / competency boundary
 
@@ -239,6 +259,8 @@ It does not own:
 - learner observations cannot directly mutate subject truth;
 - semantic identity is independent of presentation, target and external study-system identity;
 - node admission must not force every literal answer fragment into an artificial knowledge atom;
+- a question's concise answer remains a learning artifact and does not become canonical subject knowledge merely because it is correct;
+- `requires` references reusable explanatory knowledge, not the literal answer;
 - semantic form and relational role are distinct dimensions;
 - `realizes` establishes abstraction/implementation roles relative to a pair of knowledge objects; neither role is a permanent global level;
 - `addresses` establishes solution/problem roles relative to a pair of knowledge objects; neither role is a permanent global type;
@@ -282,4 +304,5 @@ The previous Knowledge Graph project provides implementation evidence for stable
 - which additional relation types have genuine recurring subject semantics;
 - whether reusable competency definitions have enough target-independent identity to remain in Knowledge Model;
 - how provenance, disagreement and conflicting claims affect acceptance of reusable knowledge;
-- what exact admission test determines when explanatory material deserves an independent KnowledgeNode.
+- what exact admission test determines when explanatory material deserves an independent KnowledgeNode;
+- whether a future demonstrated product operation requires structured addressable propositions (`KnowledgeStatement`) in addition to object content and object-to-object relations.
