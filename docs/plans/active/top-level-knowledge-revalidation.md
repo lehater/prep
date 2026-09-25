@@ -92,7 +92,7 @@ Current constraints:
 - no scalar coverage percentage is accepted;
 - curator/human semantic judgment remains authoritative until an automated model is validated.
 
-This question does not block the current Question-first learner slice.
+This question does not block the current Knowledge inspection / graph prototype.
 
 ### Learner state / graph overlay
 
@@ -110,65 +110,227 @@ The prototype must preserve list/search/detail alternatives and test whether 3D 
 
 Do not start production backend implementation merely because machine contracts exist.
 
-The next implementation work should use static/mock data to exercise:
+The immediate implementation goal is **not** end-to-end Learning -> Study Set -> Anki closure. The current prototype should first make the accepted Knowledge model and representative corpus directly inspectable so model/data defects and graph UX assumptions can be evaluated before downstream study/export work receives implementation effort.
 
-- Learning/Curation mode separation;
-- target selection and the four-section learner workspace;
-- Knowledge list/search/detail + 3D graph coordination;
-- Question → Knowledge Map transition;
-- Study Set preview/export states;
-- Statistics presentation.
+Use static/mock or repository-derived representative data. The prototype remains evidence: it does not redefine canonical domain/interface semantics.
 
-Backend production implementation follows after material frontend interaction choices have been exercised and accepted.
+Keep a non-graph baseline for every core Knowledge inspection task. The question is not whether a 3D graph can be rendered, but whether it makes specific relational tasks or model/data defects easier to understand than list/search/detail.
 
 ## Current frontier
 
-Use canonical Interface Topology and `docs/interface/site-map.md` as the prototype skeleton.
+The current frontier is:
 
-Implement frame shells with mock/static data first, then deepen the Knowledge / 3D graph frame and Question → Knowledge Map transition while leaving non-critical frames skeletal.
+> **Knowledge visualization as model/data inspection and UX-validation prototype.**
+
+Two distinct uses must remain explicit:
+
+1. **Curation / global Knowledge inspection** — inspect the reusable Knowledge corpus and reveal suspicious structure, relations, isolation, excessive connectivity, duplication candidates or granularity problems.
+2. **Learning / target-scoped Knowledge exploration** — inspect the Knowledge projection relevant to one LearningTarget and evaluate whether the 3D representation improves relational understanding.
+
+The 3D graph is therefore the primary research surface for the next implementation work, but not a product invariant and not the sole Knowledge access mechanism.
+
+Study Set export, full Statistics realization and end-to-end Anki integration are intentionally deferred until Knowledge data/model quality and the graph interaction model have been exercised.
 
 The active branch remains a revalidation/development line; it is not yet a project-wide `main` canonicalization candidate while open domain/interface research remains.
 
+## Frontend code audit
 
-## Frontend code audit and first prototype slice
+Audit against the accepted Interface Topology found no current frontend application in `research/problem-space-revalidation`: the branch contains no React/Vite/Storybook package or screen/component implementation.
 
-Audit against the accepted Interface Topology found no current frontend application in `research/problem-space-revalidation`: the branch contains no React/Vite/Storybook package or screen/component implementation. Therefore current topology coverage in executable frontend code is 0/19 material view/frame subjects.
+The previous `experiments/knowledge-representation-3d` branch remains implementation evidence. It contains useful renderer and interaction mechanics, but also stale graph-first product semantics. Reuse must therefore be selective.
 
-The previous `experiments/knowledge-representation-3d` branch is retained as evidence. It contains useful 3D renderer/interaction experiments, but it covers only Knowledge-oriented behavior and carries stale graph-first semantics. It is not a base application to merge wholesale.
+Potentially reusable mechanics:
 
-Before prototype code is added, current repository guidance is aligned as follows:
+- click-without-drag versus node dragging;
+- orbit/pan/zoom and inertial camera behavior;
+- node search/focus;
+- detail overlay without losing graph context;
+- renderer idle/pause optimization;
+- performance instrumentation;
+- graph fit/reset behavior.
 
-- the mock frontend is explicitly a prototype/evidence surface, not production frontend closure;
-- canonical semantics remain in Interface Topology, Presentation System and Screen/View Design;
-- old graph-first routes/auth/settings/progress assumptions are retired from the active prototype realization note.
+Do not inherit from that experiment:
 
-### Slice 1 — navigable mock skeleton
+- old route structure;
+- graph-first whole-product composition;
+- old relation taxonomy;
+- old authentication/settings/progress assumptions;
+- Storybook tuning controls as product UI;
+- any semantic meaning implied by geometry.
+
+## Graph-first research implementation plan
+
+### G0 — Minimal Knowledge prototype shell
+
+Purpose:
+
+Establish only the minimum product context needed to keep the graph connected to accepted interface semantics.
 
 Input:
 
-- accepted 19-subject Interface Topology;
-- Screen/View responsibilities;
+- Interface Topology;
 - Presentation System;
-- static/mock canonical identities.
+- Screen/View Design;
+- representative Knowledge data.
 
 Output:
 
-- one browser prototype that can traverse the whole accepted product topology;
-- a complete Learning path from Target Selection through Overview, Knowledge, Study and Statistics;
-- skeletal Curation collections/editors and contextual Import;
-- runtime-status surface;
-- Question -> Knowledge navigation preserving target context.
+- Application Shell with explicit Learning / Curation mode context;
+- Curation / Knowledge entry;
+- Learning / Knowledge entry with one selectable mock LearningTarget;
+- shared canonical Knowledge identities across both contexts;
+- list/search/detail baseline beside the graph surface.
 
 Acceptance:
 
-- every topology subject is represented by a reachable view or structural layout;
-- Learning and Curation are explicit task contexts;
-- LearningTarget scope is read-only in Learning;
-- Knowledge has non-graph list/search/detail access;
-- Study can navigate a Question to related Knowledge;
-- Statistics use factual observation language only;
-- no auth/multi-user, backup/HA, mastery/readiness/coverage percentage, browser AnkiConnect call or production backend dependency is introduced.
+- the graph is not a detached demo;
+- global and target-scoped Knowledge are visibly different contexts;
+- Knowledge remains accessible without graph manipulation;
+- no Study/Anki/backend implementation is required.
 
-### Slice 2 — Knowledge hypothesis
+### G1 — Global Knowledge inspection graph
 
-After Slice 1 is navigable, deepen `L-03-TARGET-KNOWLEDGE` with coordinated list/search/detail plus the 3D graph projection. Reuse only compatible renderer mechanics from the old experiment, then exercise `Q-KNOWLEDGE-GRAPH-3D-VALUE` with the accepted task scenarios.
+Purpose:
+
+Make the canonical Knowledge corpus visually inspectable for model/data validation.
+
+Required interactions:
+
+- search KnowledgeNodes;
+- select node by click without accidental drag;
+- drag node independently from click selection;
+- orbit, pan and zoom;
+- open readable node detail without discarding graph state;
+- filter by Knowledge kind;
+- filter by accepted relation type;
+- inspect relation type and direction explicitly;
+- focus a selected node with bounded neighborhood;
+- reset/home/fit graph;
+- preserve camera/filter/focus state while inspecting detail.
+
+Inspection diagnostics should make it practical to notice at least:
+
+- isolated nodes/components;
+- unexpectedly high-degree nodes;
+- suspiciously dense clusters;
+- relation-direction anomalies;
+- duplicate/granularity candidates;
+- unexpected cross-area connections.
+
+These are inspection aids, not automatic semantic judgments.
+
+Acceptance:
+
+- a curator can inspect structure without reading raw source files;
+- geometry is never treated as semantic truth;
+- relation semantics remain explicit;
+- the graph stays usable when the representative dataset becomes materially larger than a toy fixture.
+
+### G2 — Representative data validation
+
+Purpose:
+
+Test the graph against data realistic enough to expose model and visualization problems.
+
+Data should include:
+
+- multiple Knowledge kinds;
+- multiple accepted relation types;
+- connected and disconnected regions;
+- nodes with low, medium and high degree;
+- at least one dense neighborhood;
+- enough nodes to reveal occlusion/performance/navigation problems;
+- canonical identities reused by Questions and target projections where available.
+
+The preferred source is current/reusable Prep Knowledge data. Previous experiment fixtures may fill gaps only where they can be mapped to current canonical semantics.
+
+Acceptance:
+
+- obvious fixture artifacts do not dominate conclusions;
+- performance and readability problems can be observed at realistic density;
+- model/data anomalies discovered during inspection are recorded separately from renderer defects.
+
+### G3 — Target-scoped Knowledge projection
+
+Purpose:
+
+Verify that LearningTarget scope produces a coherent learner-facing Knowledge projection.
+
+Output:
+
+- select one LearningTarget;
+- derive/show its target-relevant Knowledge subset;
+- preserve target context while searching, focusing and opening detail;
+- distinguish global Curation graph from target Learning graph;
+- provide a clear way to return from focused/local neighborhood to the whole target scope.
+
+Acceptance:
+
+- target graph contains only the intended target-derived Knowledge projection;
+- canonical Knowledge identity is preserved between global and target views;
+- user can understand current scope without inferring semantics from coordinates.
+
+### G4 — Question -> Knowledge Map bridge
+
+Purpose:
+
+Verify the most important cross-representation transition before implementing the whole Study workflow.
+
+Output:
+
+- minimal representative Question detail/list;
+- `Show in Knowledge Map`;
+- navigation to the current target Knowledge graph;
+- all aligned KnowledgeNodes highlighted/focused;
+- target/filter/camera context handled predictably.
+
+Acceptance:
+
+- the user can answer "what Knowledge supports this Question?";
+- multiple aligned nodes remain distinguishable;
+- the transition does not require Question editing or Study Set export.
+
+### G5 — Task-based 3D value evaluation
+
+Purpose:
+
+Collect evidence for `Q-KNOWLEDGE-GRAPH-3D-VALUE`.
+
+Compare 3D graph with the list/search/detail baseline on the same tasks:
+
+1. find a known KnowledgeNode;
+2. identify its direct neighbors and relation directions/types;
+3. explain the local relational context of one node;
+4. detect an isolated or unexpectedly connected node;
+5. move from a Question to supporting Knowledge;
+6. filter to one Knowledge kind/relation type and recover the intended structure;
+7. return to a previously inspected area without excessive disorientation.
+
+Observe:
+
+- correctness;
+- completion effort/time;
+- navigation errors;
+- loss of orientation;
+- information missed because of occlusion/clutter;
+- cases where list/search/detail is clearly simpler;
+- cases where 3D exposes structure materially better.
+
+Result:
+
+- retain, narrow or demote the 3D graph based on observed task value;
+- record any required changes to Knowledge data/model separately from presentation findings.
+
+## Deferred until graph/data validation
+
+The following work remains accepted but is not the immediate implementation priority:
+
+- complete Target Selection / Overview polish;
+- full Study Set preview/build/export states;
+- end-to-end Anki handoff;
+- detailed Statistics presentation;
+- broad Curation editor completion;
+- production browser/backend integration;
+- production frontend architecture/component/test/implementation closure.
+
+After G5, use the collected evidence to decide whether to continue with the broader Learning slice, revise Knowledge semantics/data, or change the graph interaction approach.
