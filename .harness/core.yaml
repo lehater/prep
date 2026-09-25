@@ -131,3 +131,8 @@ questions:
   - id: Q-QUESTION-COVERAGE-ADEQUACY
     authority: TACTICAL-DOMAIN-DESIGN
     text: What semantic model should determine whether the Questions aligned to a KnowledgeNode adequately cover the knowledge that should be tested or retrieved, including whether adequacy is target-independent or depth-relative and how human versus automated judgment is represented?
+
+  - id: Q-TARGET-SCOPE-AUTHORSHIP
+    authority: APPLICATION-DESIGN
+    text: In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?
+    blocks: [USER-JOURNEYS]

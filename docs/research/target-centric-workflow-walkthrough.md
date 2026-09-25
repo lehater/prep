@@ -4,37 +4,45 @@ Status: UX evidence for Human Interface revalidation. This document does not def
 
 ## Purpose
 
-Stress-test the accepted **target-centric workflow + global reusable Library** against one concrete end-to-end learning-preparation scenario before frontend/component design.
+Stress-test the accepted **target-centric learner workflow + global reusable Library curation** against one concrete end-to-end scenario before frontend/component design.
 
 The example target name and subject examples are illustrative; they do not become canonical subject data.
 
 ## Scenario
 
-User goal: prepare for a **Python Backend Interview** using reusable Prep knowledge, requirements and questions, study the resulting Questions in Anki, and later inspect recorded review facts.
+Learner goal: prepare for a **Python Backend Interview** using the reusable material currently available in Prep, study the resulting Questions in Anki, and later inspect recorded review facts.
 
-## Walkthrough
+A separate curation task may maintain the reusable corpus. In v1 the same physical person may perform both tasks, but they are not one workflow.
 
-| Step | User intent | Interaction context | Canonical effect / output | UX finding |
+## Learner walkthrough
+
+| Step | Learner intent | Interaction context | Canonical effect / output | UX finding |
 |---|---|---|---|---|
-| 1 | Start preparing for the interview | Targets | Create/open LearningTarget Python Backend Interview | Target is the natural persistent work context. |
-| 2 | Define what the target requires | Target -> Scope | Select reusable Requirements/RequirementSets; create a missing reusable Requirement when necessary | Requirements must remain global/reusable even when created from target context. |
-| 3 | See what knowledge supports the scope | Target -> Knowledge | Resolve Requirement-to-Knowledge alignments | Missing alignments should be shown as factual preparation gaps, not hidden behind another workspace. |
-| 4 | Inspect/complete subject knowledge | Target -> Knowledge / canonical Knowledge detail | Edit/create reusable KnowledgeNodes and KnowledgeRelations; align them to Requirements | Target-specific projection and global canonical detail must coexist. |
-| 5 | Check question coverage | Target -> Questions | Resolve Questions through Knowledge alignments; create/align missing reusable Questions | Questions remain a global corpus; target context explains why a subset is relevant. |
-| 6 | Inspect relationships when useful | Target -> Knowledge -> graph projection | No domain mutation from navigation/layout | A target-scoped graph has a concrete task: understand relationships inside the current target without loading the whole corpus. Dimensionality remains unproven. |
-| 7 | Prepare material for learning | Target -> Study | Build/inspect Study Set from target -> requirements -> knowledge -> questions | Study naturally belongs to the target workflow rather than global navigation. Exact incomplete-preparation gate is not currently defined. |
-| 8 | Send material to Anki | Target -> Study | Backend exports/reconciles each Study Set Question through ExternalStudyRuntimePort/AnkiConnectAdapter | Runtime status and per-Question result belong in Study context; browser never talks to AnkiConnect directly. |
-| 9 | Study in Anki | External runtime | External learning activity | Prep does not need to mimic Anki study UI. |
-| 10 | Bring back review facts | Target -> Statistics / Question detail | Record Question-level ReviewObservations | Statistics can be viewed in target context but remain Question-attributable facts, not inferred target mastery. |
-| 11 | Maintain reusable material outside one goal | Library | Search/edit/import Knowledge, Requirements and Questions independently | A global Library is necessary because reusable knowledge has future use cases beyond any current LearningTarget. |
+| 1 | Start preparing for the interview | Targets | Create/open LearningTarget Python Backend Interview | Target is the natural persistent learner context. |
+| 2 | Establish/use target scope | Target -> Scope | Use selected reusable Requirements/RequirementSets | Who establishes this scope is still unresolved; do not force raw Requirement curation onto a novice learner. |
+| 3 | Understand relevant subject structure | Target -> Knowledge | Project currently aligned KnowledgeNodes | Learner reads/explores reusable knowledge; missing semantic maintenance is not an implicit learner task. |
+| 4 | Explore relationships when useful | Target -> Knowledge -> graph | Presentation-only navigation | Target-scoped graph has a concrete structural-exploration task. 2D/3D remains unproven. |
+| 5 | See available retrieval material | Target -> Questions | Project currently aligned Questions | Learner consumes the available corpus; semantic coverage adequacy is a separate curation concern. |
+| 6 | Prepare material for learning | Target -> Study | Build Study Set from all currently resolvable Questions | Incomplete curation does not block learning; empty is a valid explicit result and non-empty does not claim completeness. |
+| 7 | Send material to Anki | Target -> Study | Backend exports/reconciles each Study Set Question through ExternalStudyRuntimePort/AnkiConnectAdapter | Runtime status and per-Question result belong in Study context; browser never talks to AnkiConnect directly. |
+| 8 | Study in Anki | External runtime | External learning activity | Prep does not need to mimic Anki study UI. |
+| 9 | Bring back review facts | Target -> Statistics / Question detail | Record Question-level ReviewObservations | Statistics remain Question-attributable facts, not inferred target mastery. |
+
+## Separate curation walkthrough
+
+| Curator intent | Context | Result |
+|---|---|---|
+| Maintain subject truth | Library -> Knowledge | Create/edit KnowledgeNodes and KnowledgeRelations |
+| Maintain target requirements | Library -> Requirements | Create/edit Requirements/RequirementSets and Knowledge alignments |
+| Maintain retrieval material | Library -> Questions | Create/edit Questions and Knowledge alignments |
+| Inspect structural incompleteness | Library | Find missing alignments / Knowledge with no Questions where supported |
+| Judge semantic Question coverage | Library/future quality surface | Future capability; exact semantics unresolved by Q-QUESTION-COVERAGE-ADEQUACY |
 
 ## Resulting IA evidence
 
-The scenario supports two primary global locations:
-
 ~~~text
 Prep
-├── Targets
+├── Targets                       learner context
 │   └── Target workspace
 │       ├── Overview
 │       ├── Scope
@@ -42,7 +50,7 @@ Prep
 │       ├── Questions
 │       ├── Study
 │       └── Statistics
-└── Library
+└── Library                       curation context
     ├── Knowledge
     ├── Requirements
     └── Questions
@@ -50,26 +58,42 @@ Prep
 
 Import is contextual to Library data kinds. External-runtime configuration/status is a secondary application concern.
 
-The six Target workspace items are semantic sections. This walkthrough does not prove that they require six routes or six separate screens.
+The Target workspace items are semantic sections, not proof that six routes/screens are required.
+
+## Knowledge Graph hypotheses
+
+Current supported use case:
+
+- target-scoped or global structural exploration of KnowledgeNodes/KnowledgeRelations.
+
+Future hypothesis:
+
+- overlay evidence-backed learner state on the target-scoped graph so required knowledge and learned/uncertain areas can be compared visually.
+
+The future overlay is blocked by missing Question -> KnowledgeNode learner-state inference semantics. It must not be approximated by raw review counts presented as mastery.
 
 ## Important interaction invariants
 
-- A Target selects/references reusable Requirements; it does not own private copies.
-- Target Knowledge and Questions are projections through accepted alignments, not target-owned duplicates.
-- Creating Knowledge/Requirement/Question from target context creates a reusable canonical Library object.
-- Canonical detail is shared across Target, Library and graph entry points.
-- Navigation may preserve Target context without changing canonical object identity.
-- Study Set is target-derived application materialization, not reusable domain truth.
-- Target statistics are current projections over Question-level observations, not historical target-state evidence.
-- Graph manipulation is presentation-only and all core tasks have non-graph paths.
+- learner Target flow consumes reusable corpus; Library curates it;
+- same v1 user may switch contexts, but curation is not an implicit learner step;
+- Target Knowledge and Questions are projections through accepted alignments, not target-owned copies;
+- canonical identity is shared across learner and Library contexts;
+- Study Set is target-derived application materialization of the currently resolvable subset;
+- a Study Set does not assert semantic completeness;
+- Question-set coverage adequacy is curation quality, not learner progress;
+- target statistics are current projections over Question-level observations, not historical target-state evidence;
+- graph manipulation is presentation-only and all core tasks have non-graph paths.
 
 ## Unresolved decision discovered by the walkthrough
 
-Current upstream semantics say Study Set construction requires sufficient preparation and that missing alignment must be reported, but do not define the exact gate.
+A learner may know the desired outcome without knowing the correct reusable Requirements that define it.
 
-Before final Screen/View acceptance, Application Design must decide:
+Current domain/application semantics allow a LearningTarget to select Requirements/RequirementSets, but the interaction owner of that selection is not sufficiently established.
 
-1. What exact condition makes a target sufficiently prepared to build a Study Set?
-2. If preparation is incomplete, is Build Study Set disabled, or can the user build the resolvable subset while Prep reports explicit missing-preparation diagnostics?
+Before final Target -> Scope design, decide whether:
 
-This is a product/application behavior decision, not a visual-component decision.
+1. the learner directly selects reusable Requirements;
+2. the learner selects a curated target/profile whose Requirement scope is prepared by curation;
+3. another hybrid/system-assisted model is needed.
+
+This is an Application Design / journey decision, not a component-layout choice.

@@ -41,15 +41,27 @@ Human Interface revalidation has accepted:
 
 The decision was stress-tested with the Python Backend Interview walkthrough in docs/research/target-centric-workflow-walkthrough.md.
 
+## Accepted learner/curation separation
+
+The hybrid IA is refined into two task contexts:
+
+- **Targets** — learner workflow;
+- **Library** — reusable corpus curation.
+
+They are not authentication roles in v1; one person may perform both.
+
+Study Set construction now uses all currently resolvable Questions and is not blocked by incomplete semantic coverage. Q-STUDY-SET-PREPARATION-GATE is resolved in APPLICATION-DESIGN.
+
+Question-set coverage adequacy is a separate curation/learning-material quality concern. Exact semantics remain unresolved as Q-QUESTION-COVERAGE-ADEQUACY and do not block the initial learner workflow.
+
+The future target-scoped Knowledge Graph learner-state overlay is recorded in docs/research/learner-state-graph-overlay.md and remains blocked by deferred learner-state inference semantics.
+
 ## Current frontier
 
-HUMAN-INTERFACE and PRESENTATION-SYSTEM have been revalidated against the hybrid interaction model.
+Q-TARGET-SCOPE-AUTHORSHIP now blocks final USER-JOURNEYS / Target Scope interaction:
 
-SCREEN-VIEW-DESIGN has been reworked to that model but final acceptance is blocked by Q-STUDY-SET-PREPARATION-GATE.
+- does the learner directly select reusable Requirements/RequirementSets;
+- does the learner choose a curated target/profile whose scope is prepared by curation;
+- or is another system-assisted composition model required?
 
-The blocking Application Design question is:
-
-- what exact condition makes a LearningTarget sufficiently prepared to build a Study Set;
-- when preparation is incomplete, whether Study Set construction is blocked or allowed for the resolvable subset with explicit diagnostics.
-
-Do not descend into final frontend/component implementation until this upstream behavior is resolved and Screen/View Design is revalidated against it.
+Do not finalize Target Scope screen composition or descend into frontend implementation until this application-level behavior is resolved.
