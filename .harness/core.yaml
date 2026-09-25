@@ -131,7 +131,7 @@ artifacts:
     authority: VERIFICATION-DESIGN
     path: docs/verification/presentation-verification.md
     provides: [prep.presentation-verification]
-    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN]
+    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: SYSTEM-ARCHITECTURE
     authority: SYSTEM-ARCHITECTURE
