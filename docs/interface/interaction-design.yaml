@@ -1,0 +1,16 @@
+version: 1
+kind: interaction-design
+id: PREP-INTERACTION-DESIGN
+contexts:
+  - {id: I-L-SELECT-TARGET, task_refs: [TASK-L-SELECT-TARGET], location_ref: LEARNING-TARGETS, actions: [search-targets, select-target]}
+  - {id: I-L-OVERVIEW, task_refs: [TASK-L-UNDERSTAND-TARGET], location_ref: TARGET-OVERVIEW, actions: [inspect-scope, navigate-related-context]}
+  - {id: I-L-KNOWLEDGE, task_refs: [TASK-L-EXPLORE-KNOWLEDGE], location_ref: TARGET-KNOWLEDGE, actions: [search-knowledge, switch-list-graph, filter-kind, filter-relation, focus-node, inspect-detail]}
+  - {id: I-L-STUDY, task_refs: [TASK-L-STUDY-QUESTIONS, TASK-L-EXPORT-STUDY], location_ref: TARGET-STUDY, actions: [inspect-question, build-study-preview, show-in-knowledge-map, export-preview, rebuild-stale-preview]}
+  - {id: I-L-STATISTICS, task_refs: [TASK-L-REVIEW-FACTS], location_ref: TARGET-STATISTICS, actions: [sync-reviews, inspect-aggregates, inspect-review-history]}
+  - {id: I-C-TARGETS, task_refs: [TASK-C-MAINTAIN-TARGETS], location_ref: CURATION-TARGETS, actions: [search-targets, create-target, edit-target, compose-scope]}
+  - {id: I-C-KNOWLEDGE, task_refs: [TASK-C-MAINTAIN-KNOWLEDGE], location_ref: CURATION-KNOWLEDGE, actions: [search-knowledge, inspect-global-graph, create-knowledge, edit-knowledge, add-relation, remove-relation]}
+  - {id: I-C-REQUIREMENTS, task_refs: [TASK-C-MAINTAIN-REQUIREMENTS], location_ref: CURATION-REQUIREMENTS, actions: [search-requirements, create-requirement, edit-requirement, maintain-set-membership, align-knowledge]}
+  - {id: I-C-QUESTIONS, task_refs: [TASK-C-MAINTAIN-QUESTIONS], location_ref: CURATION-QUESTIONS, actions: [search-questions, create-question, edit-question, align-knowledge]}
+  - {id: I-C-IMPORT, task_refs: [TASK-C-IMPORT-DATA], location_ref: CURATION-IMPORT, actions: [select-prepared-document, apply-import, inspect-item-outcomes]}
+  - {id: I-RUNTIME-STATUS, task_refs: [TASK-I-CHECK-RUNTIME], location_ref: RUNTIME-STATUS, actions: [inspect-runtime-status]}
+task_dispositions: []

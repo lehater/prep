@@ -1,0 +1,23 @@
+version: 1
+kind: information-architecture-design
+id: PREP-INFORMATION-ARCHITECTURE
+locations:
+  - {id: LEARNING-TARGETS, purpose: Choose a prepared target., concept_refs: [LEARNING, LEARNING-TARGET], scope: global}
+  - {id: TARGET-OVERVIEW, purpose: Understand the active target, scope and material availability., concept_refs: [LEARNING-TARGET, TARGET-SCOPE, REQUIREMENT], scope: target}
+  - {id: TARGET-KNOWLEDGE, purpose: Read/search/explore target-relevant knowledge and relations., concept_refs: [KNOWLEDGE, KNOWLEDGE-RELATION], scope: target}
+  - {id: TARGET-STUDY, purpose: Inspect Questions/Study Set and hand the preview to the external runtime., concept_refs: [QUESTION, STUDY-SET, EXTERNAL-RUNTIME], scope: target}
+  - {id: TARGET-STATISTICS, purpose: Inspect factual review evidence., concept_refs: [REVIEW-FACTS, QUESTION], scope: target}
+  - {id: CURATION-TARGETS, purpose: Maintain prepared LearningTargets and scope., concept_refs: [CURATION, LEARNING-TARGET, REQUIREMENT], scope: global}
+  - {id: CURATION-KNOWLEDGE, purpose: Maintain reusable Knowledge and semantic relations., concept_refs: [CURATION, KNOWLEDGE, KNOWLEDGE-RELATION], scope: global}
+  - {id: CURATION-REQUIREMENTS, purpose: Maintain Requirements/RequirementSets and Knowledge alignment., concept_refs: [CURATION, REQUIREMENT, KNOWLEDGE], scope: global}
+  - {id: CURATION-QUESTIONS, purpose: Maintain Questions and Knowledge alignment., concept_refs: [CURATION, QUESTION, KNOWLEDGE], scope: global}
+  - {id: CURATION-IMPORT, purpose: Import supported prepared data in its curation context., concept_refs: [CURATION], scope: contextual}
+  - {id: RUNTIME-STATUS, purpose: Inspect external-runtime status., concept_refs: [EXTERNAL-RUNTIME], scope: secondary}
+relationships:
+  - {source: LEARNING-TARGETS, target: TARGET-OVERVIEW, relation: enter-target}
+  - {source: TARGET-OVERVIEW, target: TARGET-KNOWLEDGE, relation: target-section}
+  - {source: TARGET-OVERVIEW, target: TARGET-STUDY, relation: target-section}
+  - {source: TARGET-OVERVIEW, target: TARGET-STATISTICS, relation: target-section}
+  - {source: CURATION-TARGETS, target: CURATION-REQUIREMENTS, relation: composes-from}
+  - {source: CURATION-REQUIREMENTS, target: CURATION-KNOWLEDGE, relation: aligns-to}
+  - {source: CURATION-QUESTIONS, target: CURATION-KNOWLEDGE, relation: aligns-to}
