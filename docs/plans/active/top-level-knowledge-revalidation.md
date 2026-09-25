@@ -344,3 +344,28 @@ The following work remains accepted but is not the immediate implementation prio
 Frontend System Architecture refinement and Component Design are no longer deferred because the current prototype intends to reuse non-trivial renderer mechanics and therefore must not invent those boundaries inside experimental code.
 
 After G5, use the collected evidence to decide whether to continue with the broader Learning slice, revise Knowledge semantics/data, or change the graph interaction approach.
+
+
+## Downstream reconciliation after frontend Engineering Policy canonicalization
+
+The Harness engineering-policy guidance was canonicalized and Prep was repinned to Harness `92ea428780b3df284d1f3937c937aa859b3eda48`.
+
+Impact closure was traced from the changed `PRESENTATION-SYSTEM` capability and the new `FRONTEND-ENGINEERING-POLICY` capability through declared Core/Engineering Graph dependencies.
+
+Revalidation result:
+
+- **Presentation System — revised/accepted baseline.** Added the rule that recurring presentation roles map through one coherent provider/theme/token boundary without requiring one wrapper per provider primitive.
+- **Screen/View Design — revalidated, no semantic change required.** Existing view responsibilities are provider-neutral and do not depend on a concrete UI library or style token syntax.
+- **Presentation Verification — revised.** The previous artifact only proved topology -> Screen/View subject coverage. It now also defines evidence obligations for reusable presentation-pattern consistency, provider-neutral semantic fidelity, coherent theme/token roles, accessibility/non-graph access and 3D task-value evaluation.
+- **Frontend System Architecture — revalidated, no semantic change required.** Existing module topology, state ownership, DTO boundary and replaceable renderer/provider direction remain compatible with the revised Presentation System.
+- **Frontend Engineering Policy — current by construction against the revised Presentation System + Frontend System Architecture.**
+- **Frontend Component Design — revalidated/revised against Engineering Policy.** It already contains reusable UI/provider boundaries, consumer-owned contracts and explicit non-rules preventing one-to-one provider wrappers.
+- **Legacy ADR/solution residue — corrected.** ADR index no longer labels every historical ADR as current, and ADR-014 is explicitly historical/superseded as normative frontend authority.
+
+No change propagates into Problem Space, Product Requirements, Domain models, Application semantics, Machine Interface, Import Consistency or Data Design because the revised knowledge adds realization discipline without changing their owned semantics.
+
+### Currentness limitation and coding boundary
+
+Prep does not yet persist strict semantic-admission evaluations and Capability Lifecycle assertions for the existing canonical closure. Therefore structural target status is not full lifecycle/currentness proof.
+
+Before `FRONTEND-IMPLEMENTATION` can be treated as implementation-documentation complete, Prep integration must fail closed unless strict semantic/currentness closure is present and `CURRENT`. This is integration evidence work, not a new semantic Authority or workflow stage.

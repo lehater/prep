@@ -18,35 +18,59 @@ The current canonical artifact inventory is defined by `.harness/core.yaml`. Fil
 
 ## Current canonical dependency path
 
+The exact normative topology is `.harness/engineering-graph.yaml` + `.harness/core.yaml`. A useful frontend-oriented projection is:
+
 ```text
-docs/vision/problem-space.md
-  -> docs/vision/vision.md
-  -> docs/vision/product-capabilities.md
-  -> docs/architecture/context-map.md
-  -> docs/architecture/model-context-map.md
-  -> docs/domain/knowledge-model.md
-  -> docs/domain/learning-design.md
-  -> docs/domain/learner-model.md
-  -> docs/application/application-design.md
-  -> docs/application/user-journeys.md
-  -> docs/interface/human-interface.md
-     -> docs/interface/presentation-system.md
-     -> docs/interface/screen-view-design.md
-  -> docs/interface/machine-interface.md
-  -> docs/architecture/import-consistency.md
-  -> docs/architecture/system-architecture.md
-  -> docs/architecture/data-design.md
+Problem / Product
+  -> Domain Strategy / Model Context
+  -> Knowledge + Learning + Learner models
+  -> Application Design
+  -> Task Model
+  -> User Journeys
+  -> Conceptual Interface Model
+       -> Information Architecture
+       -> Interaction Design <--- Machine Interface
+            -> Interface Topology
+                 -> Presentation System
+                      -> Screen/View Design
+                           -> Frontend System Architecture
+                                -> Frontend Engineering Policy
+                                     -> Frontend Component Design
+
+Interface Topology + Interaction
+  -> Interface Verification
+Presentation System + Screen/View
+  -> Presentation Verification
+
+Application + Machine Interface
+  -> Import Consistency
+       -> System Architecture
+            -> Data Design
 ```
 
 This is an engineering-knowledge dependency graph, not a project-management stage sequence.
 
-## Current interface frontier
+## Current interface/frontend frontier
 
-`docs/interface/human-interface.md` contains the accepted task and interaction baseline.
+Current human-interface truth is granular rather than owned by the legacy broad `human-interface.md` document:
 
-`docs/interface/presentation-system.md` and `docs/interface/screen-view-design.md` are current canonical artifacts under active revalidation. Their existing navigation decomposition, catalogue/detail/editor assumptions and graph role must not be treated as final UX decisions until task-first IA is confirmed.
+- `docs/interface/conceptual-interface-model.yaml`;
+- `docs/interface/information-architecture.yaml`;
+- `docs/interface/interaction-design.yaml`;
+- `docs/interface/interface-topology.yaml`;
+- `docs/interface/presentation-system.md`;
+- `docs/interface/screen-view-design.md`.
 
-Do not use legacy React/3D-graph technical documents as authority for the current frontend.
+Current frontend realization constraints additionally include:
+
+- `docs/architecture/frontend-system-architecture.md`;
+- `docs/engineering/frontend-engineering-policy.md`;
+- `docs/implementation/frontend-component-design.md`;
+- `docs/verification/presentation-verification.md`.
+
+The 3D graph remains a first-class prototype hypothesis, not a graph-first whole-product invariant. UI providers/renderers are downstream replaceable dependencies and may not redefine product/interface semantics.
+
+Do not use legacy React/3D-graph technical documents as authority for the current frontend merely because their historical ADR/status text says "Accepted".
 
 ## Current product slice
 

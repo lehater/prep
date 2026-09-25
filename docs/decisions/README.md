@@ -1,8 +1,10 @@
 # Architecture Decision Records
 
-This directory contains accepted durable decisions.
+This directory contains historical ADRs produced across several solution hypotheses.
 
-## Current decisions
+**Current canonicality is not determined by the status text inside an ADR.** During the current Harness revalidation, an ADR constrains current work only when a canonical artifact in `.harness/core.yaml` explicitly depends on/adopts that decision. Otherwise it is evidence/history.
+
+## Historical decision index
 
 | ADR | Decision |
 |---|---|
@@ -28,3 +30,8 @@ This directory contains accepted durable decisions.
 Create or supersede an ADR when a change establishes a durable architectural/process constraint, changes bounded-context ownership, selects/replaces a foundational integration, changes dependency direction/shared-kernel policy, or intentionally reverses an accepted decision.
 
 Routine implementation details do not require ADRs.
+
+
+## Current-use rule
+
+Before using an ADR as a premise, trace it from the selected canonical artifact/Engineering Graph closure. In particular, earlier graph-first frontend/runtime/storage ADRs must not override the current revalidated Product, Interface, System Architecture, Engineering Policy or Component Design artifacts.
