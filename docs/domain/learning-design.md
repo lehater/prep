@@ -56,6 +56,36 @@ An intent to reduce material uncertainty about learner state by eliciting eviden
 
 Concrete execution of either intent may occur inside Prep or in an external runtime.
 
+### Question
+
+A concrete learning or diagnostic artifact may pair a prompt with a concise reference answer and map the question to reusable subject knowledge:
+
+```text
+Question
+  id
+  prompt
+  answer
+  requires: KnowledgeNode[]
+```
+
+`answer` is the concise reference answer for this concrete question. It belongs to the question artifact; it is not promoted into Knowledge Model merely because it states a correct fact.
+
+`requires` references the reusable explanatory knowledge a learner should command to understand and answer the question. It does not point to an answer literal or require Knowledge Model to atomize every fact.
+
+Example:
+
+```text
+Question:
+  prompt: "What does 7 mean in Unix permissions?"
+  answer: "read + write + execute (4 + 2 + 1)"
+  requires:
+    - Unix permission representation
+```
+
+The referenced knowledge object may explain the complete notation and surrounding theory. The question remains a focused retrieval/check artifact over that theory.
+
+The mapping is many-to-many: several questions may require the same knowledge object, and one question may require several knowledge objects.
+
 ## Ownership
 
 Learning Design owns:
@@ -67,7 +97,8 @@ Learning Design owns:
 - target-relative gaps;
 - prioritization policy and decisions;
 - learning/practice intent;
-- evidence requirements used to reassess progress.
+- evidence requirements used to reassess progress;
+- question/answer learning artifacts and their mapping to reusable subject knowledge.
 
 It consumes reusable subject semantics from Knowledge Model and evidence-backed state from Learner Model.
 
@@ -83,7 +114,9 @@ It does not own reusable subject truth or raw learner observations.
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
 - changing a target, criterion or required performance level may change gaps without changing learner observations;
 - Requirement != Criterion != Performance Level != Evidence;
-- alignment does not merge the identities of a requirement and the knowledge it references.
+- alignment does not merge the identities of a requirement and the knowledge it references;
+- a question's concise answer is distinct from the reusable explanatory knowledge referenced by `requires`;
+- `requires` identifies supporting subject knowledge, not a literal answer.
 
 ## Open questions
 
