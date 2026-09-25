@@ -58,9 +58,11 @@ export function CurationWorkspace({
     <Stack spacing={{ xs: 2, md: 2.5 }}>
       <Stack
         direction={{ xs: "column", lg: "row" }}
-        alignItems={{ xs: "flex-start", lg: "flex-end" }}
-        justifyContent="space-between"
         spacing={1.5}
+        sx={{
+          alignItems: { xs: "flex-start", lg: "flex-end" },
+          justifyContent: "space-between",
+        }}
       >
         <header>
           <Typography component="p" color="text.secondary">

@@ -31,10 +31,12 @@ export function AppShell({
       <Stack
         component="header"
         direction={{ xs: "column", sm: "row" }}
-        alignItems={{ xs: "flex-start", sm: "center" }}
-        justifyContent="space-between"
         spacing={1}
-        sx={{ mb: { xs: 2, md: 2.5 } }}
+        sx={{
+          mb: { xs: 2, md: 2.5 },
+          alignItems: { xs: "flex-start", sm: "center" },
+          justifyContent: "space-between",
+        }}
       >
         <Typography component="h1" variant="h4">
           Prep
