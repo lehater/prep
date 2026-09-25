@@ -14,10 +14,6 @@ A desired future state with enough purpose, scope and depth to evaluate what is 
 
 A requirement applicable to a particular target. It may specialize or select a reusable requirement or competency owned by Learning Design and may align to reusable subject knowledge from Knowledge Model.
 
-### Requirement Framework
-
-An organized, reusable or target-specific set of requirements used to describe what a target expects. A framework groups requirements but does not imply that its structure is the structure of subject knowledge.
-
 ### Criterion
 
 A statement of what must be demonstrated for a target requirement to count as satisfied. Criteria make the expected form of capability explicit rather than hiding it in a generic depth value.
@@ -93,8 +89,7 @@ Question organization remains deliberately minimal. Classification, collections,
 Learning Design owns:
 
 - learning targets;
-- reusable requirements and competencies;
-- requirement frameworks and target-specific requirements;
+- target-specific requirements and competencies;
 - criteria and performance levels;
 - alignments between requirements/competencies and reusable subject knowledge;
 - target-relative gaps;
@@ -124,7 +119,6 @@ It does not own reusable subject truth or raw learner observations.
 ## Open questions
 
 - whether learning-material design develops independent invariants requiring a later context split;
-- when requirement frameworks should be reusable versus target-specific;
 - which criteria/performance-level structures are useful without importing a generic rubric system;
 - how dependencies between requirements affect priority;
 - how evidence strength required for a target should be expressed.
