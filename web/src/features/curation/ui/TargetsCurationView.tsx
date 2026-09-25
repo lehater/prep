@@ -235,7 +235,7 @@ export function TargetsCurationView({
               <Stack component="ul">
                 {selected.scopeItems.map((item) => (
                   <li key={item.id}>
-                    {item.title} ({item.kind}){" "}
+                    {item.label} ({item.kind}){" "}
                     <Button size="small" onClick={() => void changeScope(item.id, false)}>
                       Remove
                     </Button>
@@ -254,7 +254,7 @@ export function TargetsCurationView({
                   <option value="">Select</option>
                   {requirements.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.title} ({item.kind})
+                      {item.label} ({item.kind})
                     </option>
                   ))}
                 </select>

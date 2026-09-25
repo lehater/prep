@@ -89,7 +89,7 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
       return this.store.knowledgeNodes;
     }
 
-    const ids = new Set(this.store.targetKnowledgeIds[scope.targetId] ?? []);
+    const ids = new Set(this.store.knowledgeIdsForTarget(scope.targetId));
     return this.store.knowledgeNodes.filter((node) => ids.has(node.id));
   }
 

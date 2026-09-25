@@ -101,8 +101,6 @@ export class MockCurationTargetAdapter implements TargetCurationPort {
       scopeItems: [],
     };
     this.store.targets.push(target);
-    this.store.targetKnowledgeIds[target.id] = [];
-    this.store.targetQuestionIds[target.id] = [];
     return { status: "success" as const, value: target };
   }
 
@@ -304,7 +302,7 @@ export class MockRequirementAdapter implements RequirementCurationPort {
     const items = this.store.requirements.filter(
       (item) =>
         search.length === 0 ||
-        item.title.toLocaleLowerCase().includes(search) ||
+        item.label.toLocaleLowerCase().includes(search) ||
         item.definition.toLocaleLowerCase().includes(search),
     );
     return { status: "success" as const, value: { items, totalCount: items.length } };
@@ -319,24 +317,24 @@ export class MockRequirementAdapter implements RequirementCurationPort {
       : { status: "not_found" as const, message: "Requirement or RequirementSet not found." };
   }
 
-  async createRequirement(input: { readonly title: string; readonly definition: string }) {
+  async createRequirement(input: { readonly definition: string }) {
     return this.create("requirement", input);
   }
 
-  async createSet(input: { readonly title: string; readonly definition: string }) {
+  async createSet(input: { readonly definition: string }) {
     return this.create("requirement-set", input);
   }
 
   async updateRequirement(
     requirementId: string,
-    input: { readonly title: string; readonly definition: string },
+    input: { readonly definition: string },
   ) {
     return this.update(requirementId, "requirement", input);
   }
 
   async updateSet(
     requirementSetId: string,
-    input: { readonly title: string; readonly definition: string },
+    input: { readonly definition: string },
   ) {
     return this.update(requirementSetId, "requirement-set", input);
   }
@@ -419,20 +417,21 @@ export class MockRequirementAdapter implements RequirementCurationPort {
 
   private create(
     kind: "requirement" | "requirement-set",
-    input: { readonly title: string; readonly definition: string },
+    input: { readonly definition: string },
   ): Promise<CurationOutcome<CurationRequirementEntity>> {
     const issue = problem<CurationRequirementEntity>(this.mode, "Requirement creation");
     if (issue) return Promise.resolve(issue);
-    if (!input.title.trim() || !input.definition.trim()) {
+    if (!input.definition.trim()) {
       return Promise.resolve({
         status: "validation_rejected",
-        message: "Title and definition are required.",
+        message: "Requirement definition is required.",
       });
     }
+    const definition = input.definition.trim();
     const base = {
       id: this.store.nextId(kind === "requirement" ? "requirement" : "requirement-set"),
-      title: input.title.trim(),
-      definition: input.definition.trim(),
+      label: titleFromContent(definition),
+      definition,
     };
     const entity: CurationRequirementEntity =
       kind === "requirement"
@@ -445,14 +444,14 @@ export class MockRequirementAdapter implements RequirementCurationPort {
   private update(
     id: string,
     kind: "requirement" | "requirement-set",
-    input: { readonly title: string; readonly definition: string },
+    input: { readonly definition: string },
   ): Promise<CurationOutcome<CurationRequirementEntity>> {
     const issue = problem<CurationRequirementEntity>(this.mode, "Requirement update");
     if (issue) return Promise.resolve(issue);
-    if (!input.title.trim() || !input.definition.trim()) {
+    if (!input.definition.trim()) {
       return Promise.resolve({
         status: "validation_rejected",
-        message: "Title and definition are required.",
+        message: "Requirement definition is required.",
       });
     }
     const item = this.store.requirements.find((candidate) => candidate.id === id);
@@ -462,10 +461,11 @@ export class MockRequirementAdapter implements RequirementCurationPort {
         message: "Requirement or RequirementSet not found.",
       });
     }
+    const definition = input.definition.trim();
     const updated = {
       ...item,
-      title: input.title.trim(),
-      definition: input.definition.trim(),
+      label: titleFromContent(definition),
+      definition,
     };
     this.replace(updated);
     return Promise.resolve({ status: "success", value: updated });
@@ -714,17 +714,61 @@ export class MockImportAdapter implements CurationImportPort {
     const updateId = id || knownId;
     let outcome: CurationOutcome<unknown>;
     if (kind === "knowledge") {
+      const relationType = text(item.relation_type);
+      const sourceReference = text(item.source);
+      const targetReference = text(item.target);
+      if (relationType || sourceReference || targetReference) {
+        const type = KNOWLEDGE_RELATION_TYPES.find((value) => value === relationType);
+        const sourceId = this.store.resolveKnowledgeReference(sourceReference);
+        const targetId = this.store.resolveKnowledgeReference(targetReference);
+        if (!type || !sourceId || !targetId) {
+          return {
+            item: stableKey || id || itemLabel,
+            status: "rejected",
+            reason: !sourceId || !targetId
+              ? "unresolved reference"
+              : "representation/schema rejection",
+          };
+        }
+        const duplicate = this.store.knowledgeRelations.some(
+          (relation) =>
+            relation.sourceId === sourceId &&
+            relation.targetId === targetId &&
+            relation.type === type,
+        );
+        if (duplicate) {
+          return {
+            item: stableKey || id || itemLabel,
+            status: "duplicate_skipped",
+          };
+        }
+        const relationOutcome = await this.knowledge.addRelation({
+          sourceId,
+          targetId,
+          type,
+        });
+        return relationOutcome.status === "success"
+          ? { item: stableKey || id || itemLabel, status: "created" }
+          : {
+              item: stableKey || id || itemLabel,
+              status: "rejected",
+              reason: relationOutcome.message,
+            };
+      }
+
       const semanticKind = text(item.semantic_kind);
       const content = text(item.content);
-      const draft = {
-        semanticKind:
-          KNOWLEDGE_SEMANTIC_KINDS.find((value) => value === semanticKind) ??
-          "concept",
-        content,
-      } as const;
-      if (!semanticKind || !KNOWLEDGE_SEMANTIC_KINDS.includes(draft.semanticKind)) {
-        return { item: itemLabel, status: "rejected", reason: "representation/schema rejection" };
+      const acceptedKind = KNOWLEDGE_SEMANTIC_KINDS.find(
+        (value) => value === semanticKind,
+      );
+      if (!acceptedKind || !content) {
+        return {
+          item: stableKey || id || itemLabel,
+          status: "rejected",
+          reason: "representation/schema rejection",
+        };
       }
+      const draft = { semanticKind: acceptedKind, content };
       outcome = updateId
         ? await this.knowledge.update(updateId, draft)
         : await this.knowledge.create(draft);
@@ -758,10 +802,7 @@ export class MockImportAdapter implements CurationImportPort {
         : await this.targets.create(input);
     } else {
       const definition = text(item.definition) || text(item.content);
-      const input = {
-        title: text(item.title) || titleFromContent(definition),
-        definition,
-      };
+      const input = { definition };
       const entityKind = text(item.kind);
       if (updateId) {
         const current = await this.requirements.get(updateId);

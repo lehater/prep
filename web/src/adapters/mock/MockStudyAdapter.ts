@@ -36,7 +36,7 @@ export class MockStudyAdapter implements StudyPort {
       };
     }
 
-    const ids = new Set(this.store.targetQuestionIds[targetId] ?? []);
+    const ids = new Set(this.store.questionIdsForTarget(targetId));
     const questions = this.store.questions.filter((question) => ids.has(question.id));
     return {
       status: "success",
@@ -52,7 +52,7 @@ export class MockStudyAdapter implements StudyPort {
     targetId: string,
     materializationToken: string,
   ): Promise<StudyExportOutcome> {
-    const ids = this.store.targetQuestionIds[targetId] ?? [];
+    const ids = this.store.questionIdsForTarget(targetId);
     const expectedToken = this.token(targetId, ids);
     if (materializationToken !== expectedToken) {
       return {

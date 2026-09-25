@@ -22,7 +22,7 @@ export class MockQuestionAdapter implements QuestionQueryPort {
       return problem;
     }
 
-    const ids = new Set(this.store.targetQuestionIds[targetId] ?? []);
+    const ids = new Set(this.store.questionIdsForTarget(targetId));
     const search = query.search?.trim().toLocaleLowerCase() ?? "";
     const items = this.store.questions.filter(
       (question) =>

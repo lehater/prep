@@ -30,9 +30,7 @@ export function RequirementsCurationView({
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [draftQuery, setDraftQuery] = useState("");
-  const [newTitle, setNewTitle] = useState("");
   const [newDefinition, setNewDefinition] = useState("");
-  const [editTitle, setEditTitle] = useState("");
   const [editDefinition, setEditDefinition] = useState("");
   const [candidate, setCandidate] = useState("");
   const [message, setMessage] = useState<string>();
@@ -68,7 +66,6 @@ export function RequirementsCurationView({
 
   useEffect(() => {
     if (!selected) return;
-    setEditTitle(selected.title);
     setEditDefinition(selected.definition);
   }, [selected]);
 
@@ -81,16 +78,13 @@ export function RequirementsCurationView({
     const outcome =
       kind === "requirement"
         ? await requirementPort.createRequirement({
-            title: newTitle,
             definition: newDefinition,
           })
         : await requirementPort.createSet({
-            title: newTitle,
             definition: newDefinition,
           });
     if (outcome.status === "success") {
       setSelected(outcome.value);
-      setNewTitle("");
       setNewDefinition("");
       setMessage(kind === "requirement" ? "Requirement created." : "RequirementSet created.");
       setReloadVersion((value) => value + 1);
@@ -105,11 +99,9 @@ export function RequirementsCurationView({
     const outcome =
       selected.kind === "requirement"
         ? await requirementPort.updateRequirement(selected.id, {
-            title: editTitle,
             definition: editDefinition,
           })
         : await requirementPort.updateSet(selected.id, {
-            title: editTitle,
             definition: editDefinition,
           });
     if (outcome.status === "success") {
@@ -170,7 +162,7 @@ export function RequirementsCurationView({
               {items.map((item) => (
                 <li key={item.id}>
                   <Button onClick={() => setSelected(item)}>
-                    {item.title} ({item.kind})
+                    {item.label} ({item.kind})
                   </Button>
                 </li>
               ))}
@@ -186,11 +178,6 @@ export function RequirementsCurationView({
             New reusable requirement
           </Typography>
           <Stack spacing={1}>
-            <TextField
-              label="Requirement title"
-              value={newTitle}
-              onChange={(event) => setNewTitle(event.target.value)}
-            />
             <TextField
               label="Requirement definition"
               multiline
@@ -221,11 +208,6 @@ export function RequirementsCurationView({
               {selected.kind === "requirement" ? "Requirement editor" : "RequirementSet editor"}
             </Typography>
             <Stack component="form" spacing={1} onSubmit={save}>
-              <TextField
-                label="Title"
-                value={editTitle}
-                onChange={(event) => setEditTitle(event.target.value)}
-              />
               <TextField
                 label="Definition"
                 multiline
@@ -268,7 +250,7 @@ export function RequirementsCurationView({
                   <option value="">Select</option>
                   {(selected.kind === "requirement" ? knowledge : items).map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.title}
+                      {item.label}
                     </option>
                   ))}
                 </select>

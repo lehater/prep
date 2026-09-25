@@ -51,7 +51,7 @@ export class MockTargetAdapter implements TargetQueryPort {
     readonly scopeItems: readonly {
       readonly id: string;
       readonly kind: "requirement" | "requirement-set";
-      readonly title: string;
+      readonly label: string;
     }[];
   }): LearningTargetModel {
     return {
@@ -64,7 +64,9 @@ export class MockTargetAdapter implements TargetQueryPort {
           (candidate) => candidate.id === item.id,
         );
         return {
-          ...item,
+          id: item.id,
+          kind: item.kind,
+          title: item.label,
           summary: source?.definition ?? "Curated scope item",
         };
       }),

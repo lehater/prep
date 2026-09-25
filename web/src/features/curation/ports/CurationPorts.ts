@@ -28,15 +28,13 @@ export interface KnowledgeCurationPort {
   removeRelation(relationId: string): Promise<CurationOutcome<null>>;
 }
 
-export type RequirementAlignmentFilter = "all" | "aligned" | "unaligned";
-
 export interface RequirementCurationPort {
   list(query: { readonly search?: string }): Promise<CurationOutcome<CurationCollection<CurationRequirementEntity>>>;
   get(requirementId: string): Promise<CurationOutcome<CurationRequirementEntity>>;
-  createRequirement(input: { readonly title: string; readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
-  createSet(input: { readonly title: string; readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
-  updateRequirement(requirementId: string, input: { readonly title: string; readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
-  updateSet(requirementSetId: string, input: { readonly title: string; readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
+  createRequirement(input: { readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
+  createSet(input: { readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
+  updateRequirement(requirementId: string, input: { readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
+  updateSet(requirementSetId: string, input: { readonly definition: string }): Promise<CurationOutcome<CurationRequirementEntity>>;
   addMember(requirementSetId: string, memberId: string): Promise<CurationOutcome<CurationRequirementEntity>>;
   removeMember(requirementSetId: string, memberId: string): Promise<CurationOutcome<CurationRequirementEntity>>;
   alignKnowledge(requirementId: string, knowledgeId: string): Promise<CurationOutcome<CurationRequirementEntity>>;

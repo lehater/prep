@@ -23,7 +23,7 @@ export type CurationScopeItemKind = "requirement" | "requirement-set";
 export interface CurationScopeItemModel {
   readonly id: string;
   readonly kind: CurationScopeItemKind;
-  readonly title: string;
+  readonly label: string;
 }
 
 export interface CurationTargetModel {
@@ -36,7 +36,7 @@ export interface CurationTargetModel {
 export interface CurationRequirementModel {
   readonly id: string;
   readonly kind: "requirement";
-  readonly title: string;
+  readonly label: string;
   readonly definition: string;
   readonly knowledgeIds: readonly string[];
 }
@@ -44,7 +44,7 @@ export interface CurationRequirementModel {
 export interface CurationRequirementSetModel {
   readonly id: string;
   readonly kind: "requirement-set";
-  readonly title: string;
+  readonly label: string;
   readonly definition: string;
   readonly memberIds: readonly string[];
 }
