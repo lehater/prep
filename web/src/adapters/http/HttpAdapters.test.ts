@@ -16,7 +16,8 @@ type QueuedResponse =
   | unknown;
 
 function createQueuedFetch(responses: QueuedResponse[]) {
-  const fetchFn = vi.fn(async () => {
+  const fetchFn = vi.fn(
+    async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     const next = responses.shift();
     if (
       next &&
@@ -30,11 +31,12 @@ function createQueuedFetch(responses: QueuedResponse[]) {
         headers: { "content-type": "application/json" },
       });
     }
-    return new Response(JSON.stringify(next), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
-  });
+      return new Response(JSON.stringify(next), {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      });
+    },
+  );
   return fetchFn;
 }
 
