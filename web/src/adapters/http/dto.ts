@@ -55,6 +55,7 @@ export interface LearningTargetDto {
   readonly id: string;
   readonly name: string;
   readonly definition: string;
+  readonly scope_summary?: string;
   readonly scope_items: readonly TargetScopeItemDto[];
 }
 

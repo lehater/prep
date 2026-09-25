@@ -1,11 +1,16 @@
 import { describe, expect, test, vi } from "vitest";
 
 import { MockKnowledgeAdapter } from "../mock/MockKnowledgeAdapter";
+import { MockQuestionAdapter } from "../mock/MockQuestionAdapter";
+import { MockRuntimeStatusAdapter } from "../mock/MockRuntimeStatusAdapter";
+import { MockTargetAdapter } from "../mock/MockTargetAdapter";
 import {
   HttpCurationTargetAdapter,
 } from "./HttpCurationAdapters";
 import {
   HttpKnowledgeAdapter,
+  HttpQuestionAdapter,
+  HttpStudyAdapter,
   HttpTargetAdapter,
 } from "./HttpLearningAdapters";
 import { HttpOperationClient } from "./HttpOperationClient";
@@ -128,6 +133,131 @@ describe("FI-06 HTTP adapters", () => {
         { search: "Linux cgroups", semanticKind: "concept" },
       ),
     ).resolves.toEqual(expected);
+  });
+
+  test("returns equivalent Target, Question and runtime-status models through mock and HTTP providers", async () => {
+    const mockTargets = new MockTargetAdapter();
+    const mockQuestions = new MockQuestionAdapter();
+    const mockRuntime = new MockRuntimeStatusAdapter();
+
+    const targetExpected = await mockTargets.list({});
+    expect(targetExpected.status).toBe("success");
+    if (targetExpected.status !== "success") return;
+
+    const targetId = targetExpected.value.items[0]?.id;
+    expect(targetId).toBeTruthy();
+    if (!targetId) return;
+
+    const questionExpected = await mockQuestions.list(targetId, {});
+    const runtimeExpected = await mockRuntime.get();
+    expect(questionExpected.status).toBe("success");
+    expect(runtimeExpected.status).toBe("success");
+    if (
+      questionExpected.status !== "success" ||
+      runtimeExpected.status !== "success"
+    ) {
+      return;
+    }
+
+    const fetchFn = createQueuedFetch([
+      {
+        outcome: "success",
+        result: {
+          items: targetExpected.value.items.map((target) => ({
+            id: target.id,
+            name: target.name,
+            definition: target.definition,
+            scope_summary: target.scopeSummary,
+            scope_items: target.scopeItems.map((item) => ({
+              id: item.id,
+              kind: item.kind,
+              display_content: item.title,
+              content: item.summary,
+            })),
+          })),
+          total_count: targetExpected.value.totalCount,
+        },
+      },
+      {
+        outcome: "success",
+        result: {
+          items: questionExpected.value.items.map((question) => ({
+            id: question.id,
+            question_text: question.questionText,
+            answer_text: question.answerText,
+            knowledge_ids: question.knowledgeIds,
+          })),
+          total_count: questionExpected.value.totalCount,
+        },
+      },
+      {
+        outcome: "success",
+        result: {
+          reachable: runtimeExpected.value.reachable,
+          compatible: runtimeExpected.value.compatible,
+          endpoint_summary: runtimeExpected.value.endpointSummary,
+          profile_summary: runtimeExpected.value.profileSummary,
+        },
+      },
+    ]);
+
+    const client = new HttpOperationClient("/api", { fetchFn });
+    await expect(new HttpTargetAdapter(client).list({})).resolves.toEqual(
+      targetExpected,
+    );
+    await expect(
+      new HttpQuestionAdapter(client).list(targetId, {}),
+    ).resolves.toEqual(questionExpected);
+    await expect(new HttpRuntimeStatusAdapter(client).get()).resolves.toEqual(
+      runtimeExpected,
+    );
+  });
+
+  test("maps partial external export failure without losing per-Question outcomes", async () => {
+    const fetchFn = createQueuedFetch([
+      {
+        status: 502,
+        body: {
+          outcome: "partial_external_failure",
+          result: {
+            items: [
+              {
+                question_id: "question-1",
+                status: "success",
+                message: "Reconciled.",
+              },
+              {
+                question_id: "question-2",
+                status: "rejected",
+                message: "External runtime rejected this item.",
+              },
+            ],
+          },
+        },
+      },
+    ]);
+
+    const study = new HttpStudyAdapter(
+      new HttpOperationClient("/api", { fetchFn }),
+    );
+
+    await expect(study.export("target-1", "token-1")).resolves.toEqual({
+      status: "partial",
+      value: {
+        items: [
+          {
+            questionId: "question-1",
+            status: "success",
+            message: "Reconciled.",
+          },
+          {
+            questionId: "question-2",
+            status: "rejected",
+            message: "External runtime rejected this item.",
+          },
+        ],
+      },
+    });
   });
 
   test("maps accepted validation, conflict, unavailable and operational outcomes without transport leakage", async () => {
