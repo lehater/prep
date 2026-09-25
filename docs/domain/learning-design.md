@@ -116,8 +116,11 @@ It does not own reusable subject truth or raw learner observations.
 - a Question owns its `question_text` and direct `answer_text`;
 - a Question's `knowledge` references reusable subject knowledge without taking ownership of it.
 
+## Deferred prioritization semantics
+
+How dependencies between requirements should affect learning priority is intentionally left undefined. The model should not prescribe dependency-driven ordering or priority until experience with real use provides evidence for useful semantics.
+
 ## Open questions
 
 - whether learning-material design develops independent invariants requiring a later context split;
-- how dependencies between requirements affect priority;
 - how evidence strength required for a target should be expressed.
