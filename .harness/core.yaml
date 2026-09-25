@@ -49,11 +49,17 @@ artifacts:
     provides: [prep.learner-model]
     depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
+  - id: TASK-MODEL
+    authority: APPLICATION-DESIGN
+    path: docs/application/task-model.yaml
+    provides: [prep.task-model]
+    depends_on: [APPLICATION-DESIGN, PRODUCT-CAPABILITIES]
+
   - id: USER-JOURNEYS
     authority: APPLICATION-DESIGN
     path: docs/application/user-journeys.md
     provides: [prep.user-journeys]
-    depends_on: [APPLICATION-DESIGN]
+    depends_on: [APPLICATION-DESIGN, TASK-MODEL]
 
   - id: APPLICATION-DESIGN
     authority: APPLICATION-DESIGN
@@ -61,23 +67,47 @@ artifacts:
     provides: [prep.application-design]
     depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
+  - id: CONCEPTUAL-INTERFACE-MODEL
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/conceptual-interface-model.yaml
+    provides: [prep.conceptual-interface-model]
+    depends_on: [TASK-MODEL, USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: INFORMATION-ARCHITECTURE
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/information-architecture.yaml
+    provides: [prep.information-architecture]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, TASK-MODEL, USER-JOURNEYS]
+
+  - id: INTERACTION-DESIGN
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/interaction-design.yaml
+    provides: [prep.interaction-design]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, TASK-MODEL, USER-JOURNEYS, APPLICATION-DESIGN, MACHINE-INTERFACES]
+
+  - id: INTERFACE-TOPOLOGY
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/interface-topology.yaml
+    provides: [prep.interface-topology]
+    depends_on: [INFORMATION-ARCHITECTURE, INTERACTION-DESIGN]
+
   - id: HUMAN-INTERFACE
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/human-interface.md
     provides: [prep.human-interface]
-    depends_on: [USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERACTION-DESIGN, INTERFACE-TOPOLOGY]
 
   - id: PRESENTATION-SYSTEM
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/presentation-system.md
     provides: [prep.presentation-system]
-    depends_on: [HUMAN-INTERFACE]
+    depends_on: [HUMAN-INTERFACE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN]
 
   - id: SCREEN-VIEW-DESIGN
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/screen-view-design.md
     provides: [prep.screen-view-design]
-    depends_on: [HUMAN-INTERFACE, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
+    depends_on: [HUMAN-INTERFACE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
 
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN
@@ -90,6 +120,18 @@ artifacts:
     path: docs/architecture/import-consistency.md
     provides: [prep.import-consistency]
     depends_on: [APPLICATION-DESIGN, MACHINE-INTERFACES]
+
+  - id: INTERFACE-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/interface-verification.md
+    provides: [prep.interface-verification]
+    depends_on: [TASK-MODEL, INFORMATION-ARCHITECTURE, INTERACTION-DESIGN, INTERFACE-TOPOLOGY]
+
+  - id: PRESENTATION-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/presentation-verification.md
+    provides: [prep.presentation-verification]
+    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN]
 
   - id: SYSTEM-ARCHITECTURE
     authority: SYSTEM-ARCHITECTURE

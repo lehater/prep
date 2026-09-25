@@ -1,8 +1,10 @@
 # Prep Site Map and Low-Fidelity Frame Inventory
 
-Status: canonical low-fidelity projection of accepted Screen/View Design for the current frontend-first slice.
+Status: human review projection of the canonical Interface Topology and accepted Screen/View Design for the current frontend-first slice.
 
-This document defines page/view responsibilities and major transitions. It intentionally does not define visual style, exact routes, component library, responsive breakpoints or production frontend structure.
+Canonical view/context identity, responsibility and navigation relationships are owned by `docs/interface/interface-topology.yaml`. This document visualizes that knowledge together with coarse Screen/View frames; it is not a second source of semantic truth.
+
+It intentionally does not define visual style, exact routes, component library, responsive breakpoints or production frontend structure.
 
 ## 1. Whole-product map
 

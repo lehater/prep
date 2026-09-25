@@ -18,6 +18,7 @@ if not (HARNESS_ROOT / "engineering_graph.py").exists():
 
 sys.path.insert(0, str(HARNESS_ROOT))
 from engineering_graph import evaluate_engineering_target, validate_engineering_graph  # noqa: E402
+from frontend_interface_knowledge import evaluate_frontend_ux_closure, required_screen_ids  # noqa: E402
 
 
 def load(path: str) -> dict:
@@ -48,6 +49,26 @@ def main() -> int:
         path = artifact.get("path")
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
+
+    ux = evaluate_frontend_ux_closure(
+        load("docs/application/task-model.yaml"),
+        load("docs/interface/conceptual-interface-model.yaml"),
+        load("docs/interface/information-architecture.yaml"),
+        load("docs/interface/interaction-design.yaml"),
+        load("docs/interface/interface-topology.yaml"),
+    )
+    if ux.get("status") != "ACCEPTED":
+        raise SystemExit(f"Frontend UX closure rejected: {ux.get('findings')}")
+
+    expected = set(required_screen_ids(load("docs/interface/interface-topology.yaml")))
+    coverage = load("docs/verification/screen-view-subject-coverage.yaml")
+    actual = set(coverage.get("views", []) or [])
+    if expected != actual:
+        raise SystemExit(
+            "Screen/View subject coverage mismatch: "
+            f"missing={sorted(expected-actual)} extra={sorted(actual-expected)}"
+        )
+    print(f"Frontend UX closure: ACCEPTED ({len(expected)} topology views covered)")
 
     require_complete(graph, core, "CURRENT-REVALIDATION")
 
