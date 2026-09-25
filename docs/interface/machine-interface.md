@@ -71,17 +71,23 @@ A target item represents:
 - accepted target definition/content;
 - selected Requirement/RequirementSet references.
 
-### Import outcomes
+### Bulk import processing and outcomes
 
-The interface distinguishes:
+The bulk document is a transport container. Each item in `items[]` is an independent import unit.
 
-- accepted document;
-- representation/schema rejection;
-- unresolved reference;
-- domain-invariant rejection;
-- application conflict with existing canonical identity.
+Processing semantics:
 
-The exact partial-application policy is not yet defined. Until concurrency/consistency semantics establish otherwise, implementations must not invent a consumer-visible promise of partial success or all-or-nothing behavior.
+1. Decode and validate the document envelope. If the envelope cannot be interpreted, reject the request.
+2. Validate each item independently against representation, reference and accepted domain/application rules.
+3. Apply every item that passes validation.
+4. Reject an invalid item without rolling back other valid items in the same bulk request.
+5. Return aggregate statistics and item-level failure information sufficient to identify rejected units.
+
+The response reports at least total items received, successfully applied items, rejected items, rejected item identity/import-local key or position, and rejection reason/category.
+
+Item rejection categories include representation/schema rejection, unresolved reference, domain-invariant rejection, and conflict with existing canonical identity.
+
+A failed item does not make the whole bulk request fail after the envelope has been accepted. The bulk container has no cross-item atomicity guarantee. References must still resolve; failure of a referenced peer cannot silently make a dependent item valid.
 
 ## External learning runtime: Anki
 
