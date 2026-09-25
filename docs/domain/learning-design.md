@@ -120,7 +120,10 @@ It does not own reusable subject truth or raw learner observations.
 
 How dependencies between requirements should affect learning priority is intentionally left undefined. The model should not prescribe dependency-driven ordering or priority until experience with real use provides evidence for useful semantics.
 
+## Deferred evidence-threshold semantics
+
+How much or what kind of learning evidence is sufficient for a Learning Target is intentionally left undefined. Evidence thresholds, repeated demonstrations, delayed retrieval, explanation quality, and practical performance should be modeled only after experience with real questions and system use provides evidence for useful semantics.
+
 ## Open questions
 
 - whether learning-material design develops independent invariants requiring a later context split;
-- how evidence strength required for a target should be expressed.
