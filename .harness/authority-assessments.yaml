@@ -100,7 +100,11 @@ assessments:
     applicability: UNASSESSED
 
   - authority_id: ENGINEERING-POLICY
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/engineering/frontend-engineering-policy.md]
+    rationale: Frontend realization must apply consistent cross-cutting rules for provider isolation, dependency direction, reuse, composition, state ownership and representation boundaries across multiple feature/implementation slices.
+    depends_on_evidence: [docs/architecture/frontend-system-architecture.md, docs/interface/presentation-system.md, docs/engineering/frontend-engineering-policy.md]
+    reopening_conditions: [frontend architecture, provider strategy or project-wide engineering discipline changes materially]
 
   - authority_id: COMPONENT-DESIGN
     applicability: REQUIRED

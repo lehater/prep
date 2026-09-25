@@ -130,4 +130,6 @@ Any future state overlay must use a non-color-only redundant encoding.
 
 ## Deliberately unconstrained
 
-Color palette, typography family, spacing scale, icon set, component library, animation language, exact responsive breakpoints, exact visual density, route structure, exact Target workspace navigation widget and future learner-state overlay encoding remain downstream choices.
+Color palette, typography family, concrete spacing values, icon set, concrete component library/provider, animation language, exact responsive breakpoints, exact visual density, route structure, exact Target workspace navigation widget and future learner-state overlay encoding remain downstream choices.
+
+Repeated presentation roles must nevertheless remain coherent across the product. Downstream realization should map reusable semantic presentation roles/patterns through one provider/theme/token boundary rather than allowing each feature to invent an unrelated visual system. This does not require wrapping every provider primitive.

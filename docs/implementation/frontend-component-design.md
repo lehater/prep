@@ -4,7 +4,7 @@
 
 Define implementation-facing frontend component, port, mapping and dependency boundaries for the current Prep frontend scope so coding can begin without inventing major structure.
 
-This artifact consumes the accepted frontend System Architecture, Screen/View Design and Machine Interface. It does not redefine product, domain, application or interface semantics.
+This artifact consumes the accepted frontend System Architecture, Frontend Engineering Policy, Screen/View Design and Machine Interface. It does not redefine product, domain, application or interface semantics.
 
 The immediate detailed scope is the Knowledge visualization prototype plus the stable seams it shares with later production frontend realization. Other feature internals may remain private until their implementation slice is selected, but they must obey the same public dependency rules.
 
@@ -392,6 +392,42 @@ Forbidden dependencies:
 - presentation components -> backend/domain persistence structures;
 - shared UI primitives -> feature stores or canonical business state.
 
+## Reusable UI and provider boundary
+
+Reusable UI code is organized around stable project presentation patterns rather than one-to-one wrappers around a concrete UI library.
+
+Current reusable pattern responsibilities include:
+
+- shell/mode framing;
+- collection search/filter controls;
+- detail framing;
+- loading/empty/failure feedback;
+- form action framing;
+- confirmation treatment when accepted actions require it;
+- shared focus/accessibility presentation behavior.
+
+These contracts must remain provider-neutral at their public boundary when provider types would otherwise leak across features.
+
+A concrete UI provider may implement those patterns using its own primitives, theme and composition internally. Local feature code may also use provider primitives directly when the use is private/local and does not create a cross-feature public contract.
+
+Do not create wrappers such as one project component per provider `Box`, `Stack`, `Typography` or equivalent primitive solely for theoretical replaceability.
+
+If MUI is selected downstream, it is treated as one concrete provider implementation under these rules rather than as the owner of Prep UI semantics.
+
+Shared style roles that recur across features map through one provider/theme/token boundary. Exact palette, fonts, spacing values and provider token syntax remain downstream until explicitly selected.
+
+## Engineering Policy compliance
+
+This design applies the accepted Frontend Engineering Policy:
+
+- abstractions exist only for current public responsibilities, multiple consumers or meaningful replacement seams;
+- composition is preferred for assembling independent responsibilities;
+- provider and transport APIs terminate at their adapters;
+- shared presentation code does not own feature state or canonical business truth;
+- no global mutable store is introduced by default;
+- public contracts are consumer-shaped rather than vendor-shaped;
+- reusable UI contracts represent stable product presentation patterns, not vendor primitive aliases.
+
 ## View/component boundaries
 
 Screen/View contracts map to feature-owned view compositions.
@@ -442,4 +478,4 @@ Left intentionally open to coding/Implementation Design:
 The artifact satisfies the required `component-design` review intent:
 
 - **component-not-upstream-owner** — all public components/ports consume accepted upstream semantics and do not redefine them;
-- **implementation-facing-boundaries-complete-for-scope** — the selected prototype can be implemented without inventing module ownership, DTO/model mapping, renderer abstraction, state ownership or mock/API dependency direction.
+- **implementation-facing-boundaries-complete-for-scope** — the selected prototype can be implemented without inventing module ownership, DTO/model mapping, renderer abstraction, state ownership, mock/API dependency direction or the reusable UI/provider boundary.

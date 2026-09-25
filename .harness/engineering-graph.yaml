@@ -253,6 +253,19 @@ authorities:
           - capability: prep.import-consistency
           - capability: prep.system-architecture
 
+  - id: ENGINEERING-POLICY
+    responsibility: Own project-selected cross-cutting frontend engineering obligations that constrain realization without owning product, domain, interface or architecture semantics.
+    boundary:
+      semantic_cohesion: Normative frontend rules for dependency direction, ownership, reuse, composition, provider isolation, representation and state discipline.
+      independent_change: Engineering discipline can evolve without redefining accepted product/domain semantics, while downstream component/implementation knowledge may require revalidation.
+      public_contract: Provides reviewable frontend engineering obligations to Component and Implementation Design.
+    produces:
+      - capability: prep.frontend-engineering-policy
+        knowledge_kind: engineering-policy
+        requires:
+          - capability: prep.frontend-system-architecture
+          - capability: prep.presentation-system
+
   - id: COMPONENT-DESIGN
     responsibility: Own implementation-facing frontend component, port, mapping and dependency boundaries without redefining accepted interface or architecture semantics.
     boundary:
@@ -264,6 +277,7 @@ authorities:
         knowledge_kind: component-design
         requires:
           - capability: prep.frontend-system-architecture
+          - capability: prep.frontend-engineering-policy
           - capability: prep.screen-view-design
           - capability: prep.machine-interfaces
 
