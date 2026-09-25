@@ -347,13 +347,17 @@ export function Rfg3dGraphRenderer({
         scheduleIdlePause();
       }
     };
+    const onWindowFocus = () => {
+      resumeRenderer();
+      scheduleIdlePause();
+    };
     document.addEventListener("visibilitychange", onVisibilityChange);
     window.addEventListener("blur", pauseRenderer);
-    window.addEventListener("focus", resumeRenderer);
+    window.addEventListener("focus", onWindowFocus);
     return () => {
       document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("blur", pauseRenderer);
-      window.removeEventListener("focus", resumeRenderer);
+      window.removeEventListener("focus", onWindowFocus);
       clearIdleTimer();
     };
   }, [
