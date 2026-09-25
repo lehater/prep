@@ -16,12 +16,12 @@ Owns learning requirements and competencies, target-relative interpretation of r
 
 ### Learner Model
 
-Owns learner-specific observations, evidence-backed inferred state, uncertainty, retention and progress. Current revalidation preserves this boundary but intentionally postpones deeper Learner Model development.
+Owns learner-specific learning observations and statistics. For the current slice, the model records Question-level review history; interpretation into inferred state, uncertainty, retention or progress is intentionally deferred.
 
 ## Relationships
 
-- Knowledge Model provides reusable subject semantics to Learning Design and Learner Model.
-- Learner Model provides evidence-backed learner state to Learning Design.
+- Knowledge Model provides reusable subject semantics to Learning Design.
+- Learner Model provides recorded Question-level learning observations/statistics that Learning Design may consume when applicable; semantics for interpreting them into learner state or planning decisions are deferred.
 - Learning Design may define concrete learning or diagnostic artifacts, including prompt/reference-answer questions, when their meaning is target-relative learning or evidence intent; those artifacts do not become reusable subject truth.
 - Learning Design may reference Knowledge Model identities but does not mutate reusable subject truth.
 - A Gap exists only relative to a learning target and learner evidence or explicit uncertainty; it is not a property of subject knowledge.
@@ -48,4 +48,4 @@ The name **Learning Design** is therefore intentional: unlike Knowledge Model an
 ## Deferred questions
 
 - what concrete evidence would establish independently changing learning-material or assessment language/invariants and therefore trigger a later split;
-- whether Learner Model needs further decomposition when its development resumes.
+- whether Learner Model needs further decomposition when interpretation beyond recorded Question-level statistics is introduced.
