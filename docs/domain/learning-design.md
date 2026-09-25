@@ -86,6 +86,8 @@ Question
 
 The mapping is many-to-many: one question may reference several knowledge objects and one knowledge object may support many questions.
 
+Question organization remains deliberately minimal. Classification, collections, difficulty, tags, duplicate/variant relationships and dedicated corpus-navigation structures are not part of the current model. They should be introduced only when a demonstrated use case requires semantics beyond `knowledge` references and ordinary retrieval.
+
 ## Ownership
 
 Learning Design owns:
