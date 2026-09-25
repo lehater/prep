@@ -119,3 +119,7 @@ reviews:
   - capability: prep.frontend-test-design
     revision: 1
     basis: Frontend Test Design refines accepted FV verification obligations into observable precondition/operation/oracle contracts, prefers public boundaries over implementation internals and leaves test-framework mechanics free.
+
+  - capability: prep.frontend-implementation-design
+    revision: 1
+    basis: Frontend Implementation Design defines explicit bounded slices, repository/module realization, MUI and renderer provider placement, deterministic boundary/test/release enforcement, legacy experiment reuse dispositions and rollback/completion criteria derived from accepted frontend contracts.

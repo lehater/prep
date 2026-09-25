@@ -169,6 +169,12 @@ artifacts:
     provides: [prep.frontend-test-design]
     depends_on: [FRONTEND-VERIFICATION, INTERACTION-DESIGN, SCREEN-VIEW-DESIGN]
 
+  - id: FRONTEND-IMPLEMENTATION-DESIGN
+    authority: IMPLEMENTATION-DESIGN
+    path: docs/implementation/frontend-implementation-design.md
+    provides: [prep.frontend-implementation-design]
+    depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY

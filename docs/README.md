@@ -68,7 +68,8 @@ Current frontend realization constraints additionally include:
 - `docs/implementation/frontend-component-design.md`;
 - `docs/verification/presentation-verification.md`;
 - `docs/verification/frontend-verification.md`;
-- `docs/verification/frontend-test-design.yaml`.
+- `docs/verification/frontend-test-design.yaml`;
+- `docs/implementation/frontend-implementation-design.md`.
 
 The 3D graph remains a first-class prototype hypothesis, not a graph-first whole-product invariant. UI providers/renderers are downstream replaceable dependencies and may not redefine product/interface semantics.
 

@@ -464,3 +464,25 @@ The contracts cover navigation/context preservation, Question -> Knowledge navig
 Framework/test-file/fixture mechanics remain implementation freedom. Exact renderer coordinates, private component state, provider component trees and pixel snapshots are explicitly forbidden as semantic oracles.
 
 Prep CI now validates the Harness schema and verifies that every TEST-bearing Frontend Verification id has at least one Test Design contract.
+
+
+### Frontend Implementation Design
+
+After Frontend Test Design was accepted, `prep.frontend-implementation-design` became the sole actionable production frontend CREATE.
+
+`docs/implementation/frontend-implementation-design.md` now fixes the implementation-level decisions that must not be invented during coding:
+
+- fresh production `web/` package;
+- React 19 / TypeScript 6 / Vite 8;
+- npm + committed lockfile and `npm ci`;
+- React Router + TanStack Query;
+- MUI Material community/free as the replaceable initial UI provider;
+- `react-force-graph-3d` + Three.js only inside `adapters/graph-rfg3d`;
+- Vitest / Playwright / oxlint;
+- physical frontend module roots and deterministic import-boundary rules;
+- FI-01..FI-07 implementation slices;
+- explicit reuse/adapt/discard matrix for the historical 3D experiment;
+- authoritative CI/release gate and image rollback semantics;
+- complete coding completion criteria.
+
+The historical broad `docs/implementation/implementation-design.md` is now explicitly labeled noncanonical to prevent stale whole-platform assumptions from being treated as current Prep implementation authority.
