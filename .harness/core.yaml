@@ -67,6 +67,18 @@ artifacts:
     provides: [prep.human-interface]
     depends_on: [USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
+  - id: PRESENTATION-SYSTEM
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/presentation-system.md
+    provides: [prep.presentation-system]
+    depends_on: [HUMAN-INTERFACE]
+
+  - id: SCREEN-VIEW-DESIGN
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/screen-view-design.md
+    provides: [prep.screen-view-design]
+    depends_on: [HUMAN-INTERFACE, PRESENTATION-SYSTEM]
+
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN
     path: docs/interface/machine-interface.md
