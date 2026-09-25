@@ -69,9 +69,6 @@ export class HttpOperationClient {
     return envelope;
   }
 
-  clearCache(): void {
-    this.queryClient.clear();
-  }
 
   private async send(
     operationId: string,

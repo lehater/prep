@@ -22,7 +22,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 - [x] FI-03 — 3D renderer adapter.
 - [x] FI-04 — Learning workspace.
 - [x] FI-05 — Curation workspace.
-- [ ] FI-06 — HTTP adapters and query cache.
+- [x] FI-06 — HTTP adapters and query cache.
 - [ ] FI-07 — verification evidence and deployable frontend.
 
 ## FI-01 scope
@@ -156,3 +156,34 @@ FI-05 used tiered validation so expensive proof was not repeated after every imp
 - final frontend recheck `f28791c82332b36e49c91add3fb52315cd770c04` passed typecheck, oxlint, deterministic boundary checks, 10 Vitest files / 25 tests, production Vite build, all 15 Playwright browser tests, Docker build and npm audit with zero vulnerabilities.
 
 Semantic audit before completion corrected three implementation defects rather than promoting them into authority: lost operation feedback after Knowledge detail refresh, frozen learner material that ignored Curation scope/alignment changes, and an independently editable Requirement title absent from the accepted Requirement contract.
+
+## FI-06 scope
+
+- pinned `@tanstack/react-query@5.103.2` behind the HTTP data-access boundary, with query keys based on Machine Interface operation identity plus semantic input;
+- versioned `HttpOperationClient` that executes accepted Machine Interface operation IDs while keeping concrete HTTP path/verb and cache mechanics implementation-local;
+- adapter-private DTO definitions and runtime-validating DTO -> frontend-model mappers; incompatible enum/relationship representation becomes frontend failure rather than silent coercion;
+- exact collection `total_count` preserved as consumer-owned `totalCount`, while opaque `next_cursor` is validated and terminated inside the HTTP boundary;
+- production HTTP implementations for Learning Target, Knowledge, Question, Study, Statistics, Curation Target/Knowledge/Requirement/Question/Import and external-runtime status ports;
+- accepted machine outcomes translated into existing frontend-owned success/not-found/validation/conflict/unavailable/partial/failure states, including semantic envelopes returned with non-2xx HTTP status;
+- successful mutations invalidate cached machine reads coarsely and safely; recoverable non-success query outcomes are not retained as reusable cached success;
+- composition-root-only provider selection between mock and HTTP implementations through `VITE_PREP_DATA_PROVIDER` / `VITE_PREP_API_BASE_URL`;
+- shell runtime-status affordance backed by the accepted `integration.external_runtime.status.get` operation;
+- production Docker build defaults to the HTTP provider while deterministic host/browser evidence retains the mock provider;
+- Knowledge list input narrowed to the already-accepted single active `semantic_kind`, avoiding client-side union/filtering of arbitrary partial server pages.
+
+## FI-06 validation
+
+The coherent FI-06 checkpoint at `6447acd92ef0fecd26a0f69f5a6b18b8fca8ab75` passed:
+
+- TypeScript, oxlint and deterministic source-boundary checks;
+- 11 Vitest files / 32 tests, including DTO identity/`total_count`, cursor isolation, mock/HTTP substitutability for Knowledge/Target/Question/runtime status, cache invalidation, accepted machine-outcome translation, partial external failure and incompatible-semantic rejection;
+- production Vite build;
+- all 15 Playwright browser tests, including the shell external-runtime status affordance;
+- production Docker image build with the HTTP provider as the container-build default;
+- npm audit: zero vulnerabilities;
+- strict semantic baseline: 29/29 CURRENT-capable;
+- pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE, Engineering Coverage `completion_ready=true`, zero remaining work/questions, and strict semantic/currentness COMPLETE;
+- Frontend UX closure ACCEPTED with 19 topology views and Frontend Test Design ACCEPTED with 13 executable contracts;
+- documentation, architecture, question-bank validators and all 28 Python tests.
+
+The FI-06 implementation did not change canonical product/domain/interface/architecture meaning. Concrete HTTP serialization/routing, query-key construction and coarse cache invalidation remained implementation freedoms; the single-kind Knowledge query shape was aligned to the existing Machine Interface rather than reopening that Authority.
