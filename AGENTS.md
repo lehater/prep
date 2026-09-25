@@ -44,7 +44,7 @@ python tools/check_harness_integration.py
 
 Harness-guided revalidation and production frontend knowledge closure are complete for the `FRONTEND-IMPLEMENTATION` Consumer at the pinned Harness revision.
 
-Production frontend coding follows the dependency-ordered slices in `docs/implementation/frontend-implementation-design.md`. FI-01 established the fresh `web/` foundation without inventing product/domain behavior. FI-02 now proves the minimum end-to-end Knowledge path against consumer-owned ports and mock adapters. The next implementation frontier is FI-03: adapt renderer-local mechanics from the historical 3D experiment behind the accepted `GraphRenderer -> graph-rfg3d` boundary without importing its product semantics.
+Production frontend coding follows the dependency-ordered slices in `docs/implementation/frontend-implementation-design.md`. FI-01 established the fresh `web/` foundation without inventing product/domain behavior. FI-02 now proves the minimum end-to-end Knowledge path against consumer-owned ports and mock adapters. FI-03 now provides the production `GraphRenderer -> graph-rfg3d` adapter without importing experiment product semantics. The next implementation frontier is FI-04: realize the accepted Learning workspace behavior on top of the existing Knowledge path and renderer.
 
 The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
 

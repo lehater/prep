@@ -19,7 +19,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 
 - [x] FI-01 — production frontend foundation.
 - [x] FI-02 — minimum vertical Knowledge path.
-- [ ] FI-03 — 3D renderer adapter.
+- [x] FI-03 — 3D renderer adapter.
 - [ ] FI-04 — Learning workspace.
 - [ ] FI-05 — Curation workspace.
 - [ ] FI-06 — HTTP adapters and query cache.
@@ -80,3 +80,33 @@ The coherent FI-02 checkpoint at `16325a898233a8eeea32449accee167a2eb8b690` pass
 - documentation, architecture, question-bank validators and 28 Python unit tests.
 
 No frontend semantic/ownership/dependency change was required during implementation, so no upstream Authority was reopened.
+
+## FI-03 scope
+
+- pinned `react-force-graph-3d@1.29.1`, `three@0.180.0` and matching `@types/three`;
+- concrete provider imports confined to `src/adapters/graph-rfg3d/**`;
+- renderer-private graph-data mapping so provider coordinates/forces/Three.js objects cannot mutate or escape into `GraphScene`;
+- explicit relation direction/type through directional arrows and relation labels;
+- semantic node identity preserved while layout geometry remains adapter-owned;
+- deterministic click-without-drag versus drag gesture boundary using the experiment's proven pointer-threshold approach;
+- drag mutates presentation coordinates only and never emits semantic activation;
+- WebGL2 preflight and runtime error boundary with list/search/detail still available;
+- opaque renderer-family viewport snapshots represented only as numeric camera/target data;
+- trackball damping plus idle/visibility pause behavior adapted from experiment evidence to avoid permanent rendering load;
+- no experimental PaymentGraph fixtures, routes, Storybook state ownership, instanced nodes or batched-link layers imported into production.
+
+## FI-03 validation
+
+The coherent FI-03 checkpoint at `6750bb491013f90dee2c78cc44ce1c9054ac6354` passed:
+
+- TypeScript, oxlint and deterministic provider-boundary checks;
+- 6 Vitest files / 12 tests, including renderer semantic-isolation and click-vs-drag contracts;
+- production Vite build;
+- 4 Playwright browser tests with the real RFG3D adapter or its WebGL fallback while non-graph Knowledge access remains usable;
+- production Docker image build;
+- npm audit: 0 vulnerabilities;
+- strict semantic baseline: 29/29 CURRENT-capable;
+- pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE, Engineering Coverage `completion_ready=true`, zero remaining work/questions, and strict semantic/currentness COMPLETE;
+- documentation, architecture, question-bank validators and 28 Python unit tests.
+
+No upstream Authority was reopened. The historical experiment remains implementation evidence only.
