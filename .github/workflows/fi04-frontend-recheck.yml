@@ -1,0 +1,51 @@
+name: FI-04 frontend recheck
+
+on:
+  push:
+    branches:
+      - research/problem-space-revalidation
+    paths:
+      - ".github/workflows/fi04-frontend-recheck.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fi04-frontend-recheck
+  cancel-in-progress: true
+
+jobs:
+  frontend-full:
+    name: Frontend full
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run deterministic frontend checks
+        run: npm run verify
+
+      - name: Build production frontend
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run frontend browser tests
+        run: npm run test:e2e
+
+      - name: Build frontend container
+        run: docker build --tag prep-web-fi04 .
