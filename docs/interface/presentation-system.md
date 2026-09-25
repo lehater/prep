@@ -1,42 +1,117 @@
 # Presentation System Design
 
 ## Purpose
-Define the shared visual and interaction language for the current Prep human interface without choosing a frontend framework or encoding domain semantics in styling.
+
+Define shared presentation and interaction conventions for the accepted target-centric workflow plus global reusable Library without choosing frontend framework mechanics or encoding domain semantics in styling.
 
 ## Interaction principles
-- Collection-first maintenance: canonical objects are primarily found through catalogues/lists and opened into detail/edit contexts.
-- Detail before manipulation: relationships, alignments and composition are inspectable as explicit data rather than requiring graph gestures.
-- Graph is an optional Knowledge exploration projection, never the only navigation or editing path.
-- Stable semantic state is communicated by text/structure as well as any visual treatment.
-- Destructive or invariant-sensitive actions expose their consequence and validation result.
-- External-runtime availability/failure is visually distinct from empty canonical data.
 
-## Shared composition
-The application shell provides persistent access to Knowledge, Requirements, Questions, Targets, Study, Statistics and Import.
+- **Task context first.** The selected LearningTarget remains visible while the user moves through scope, knowledge, questions, study and statistics.
+- **Reuse is explicit.** Target views project and link reusable canonical objects; they do not visually imply that Knowledge, Requirements or Questions are owned by the target.
+- **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
+- **One canonical detail.** The same object identity/detail is reached from Target, Library, graph or cross-reference navigation.
+- **Preparation facts before inferred status.** Missing alignments, coverage counts and external-runtime outcomes are shown as facts rather than invented readiness/mastery labels.
+- **Graph is optional.** Spatial exploration supplements list/search/detail interaction and never becomes the only way to complete a core task.
+- **Recoverability is visible.** Validation and external-integration failures retain context/input and expose a retry or correction path.
 
-Collection surfaces share page/area identity, primary create/import action when applicable, search/filter controls when useful, collection results, and empty/loading/error states.
+## Shared application composition
 
-Detail/editor surfaces share object identity and primary content, editable canonical fields, related-object sections using identity-preserving links/selectors, explicit edit completion, and inline validation with entered values preserved after recoverable rejection.
+The application shell provides persistent access to:
 
-## Collection and relationship language
-The default collection representation is a catalogue/table/list suited to scanning, filtering and opening one object. Cards or graph projections may supplement it when they improve a concrete task but do not replace the canonical collection path.
+- **Targets**;
+- **Library**.
 
-Unaligned or incomplete preparation state is shown as an explicit textual status/filterable attribute where required.
+A compact global integration/status/settings surface may expose external-runtime connectivity/configuration.
 
-Relations and alignments are explicit structures exposing endpoint identity and relation meaning. Cross-reference selection uses searchable canonical-object selectors; raw IDs are not the normal interaction mechanism.
+Study, Statistics and Import are contextual capabilities, not default peer destinations in the primary navigation.
 
-## Feedback language
-Common patterns distinguish loading, valid empty state, validation rejection, successful completion, recoverable failure, and unavailable/degraded external integration. Recoverable failures retain user input and a retry path.
+### Target context pattern
 
-Bulk import reports accepted/rejected counts and rejected-item identity plus reason without treating partial success as total failure.
+When a target is open, the presentation preserves:
 
-## Study and statistics language
-Study Set presentation emphasizes target context and selected Questions without inventing mastery, priority or recommended order.
+- target identity and concise target definition;
+- local navigation or disclosure for Overview, Scope, Knowledge, Questions, Study and Statistics;
+- factual preparation diagnostics relevant to the current section;
+- a stable way back to Targets and into the global Library.
 
-Statistics use factual labels for recorded reviews and aggregates and must not imply mastery/readiness/retention states absent from the accepted model.
+The exact tab/route/sidebar mechanics are downstream choices.
+
+### Library pattern
+
+Library exposes Knowledge, Requirements/RequirementSets and Questions as reusable collections.
+
+Each collection may provide supported search/filter controls, creation, canonical detail/edit access and contextual Import.
+
+## Canonical object pattern
+
+Knowledge, Requirement/RequirementSet and Question detail contexts share:
+
+- stable object identity and primary content;
+- editable canonical fields;
+- related-object/alignment sections;
+- searchable canonical-object selectors where assignment/alignment is allowed;
+- explicit completion/cancel behavior;
+- inline validation while preserving recoverable input.
+
+When detail is opened from a Target context, the UI preserves the target return context without creating a second target-owned copy of the object.
+
+## Contextual creation pattern
+
+Creating reusable data from inside a Target flow communicates two effects separately:
+
+1. create the global reusable canonical object;
+2. perform the target assignment/alignment requested by the user.
+
+Failure of the second operation must not be disguised as failure to create the canonical object when the first operation already succeeded.
+
+## Preparation diagnostics
+
+Target preparation uses factual labels and actionable navigation.
+
+Examples include:
+
+- Requirement has no Knowledge alignment;
+- KnowledgeNode has no aligned Questions;
+- Study Set contains N Questions;
+- Question export succeeded/failed;
+- external runtime unavailable.
+
+The presentation does not collapse these into mastery/readiness/priority semantics absent from accepted upstream models.
+
+## Knowledge exploration
+
+Knowledge collections may switch between list/search and graph projection when the graph improves relationship exploration.
+
+A Target Knowledge context may request a target-scoped graph projection; the global Library may request broader Knowledge exploration.
+
+Node selection opens canonical Knowledge detail. Graph layout/camera state remains presentation state unless a future accepted contract says otherwise.
+
+2D versus 3D is deliberately unconstrained until comparative task evidence justifies a choice.
+
+## Study and external runtime
+
+Study Set presentation keeps the LearningTarget identity and selected Questions visible.
+
+External-study actions show runtime availability and per-Question outcome. An unavailable runtime is distinct from an empty Study Set or missing preparation.
+
+The exact enable/disable rule for Study Set construction remains blocked on the Application Design decision about sufficient preparation.
+
+## Statistics
+
+Statistics use factual ReviewObservation language and factual aggregates.
+
+Target-context statistics are presented as observations for Questions currently relevant to the target, not as historical target-level mastery/readiness.
+
+## Import
+
+Import is presented from the relevant Library data kind rather than as a required global workspace.
+
+Bulk import reports total/applied/rejected outcomes plus rejected-item identity and reason without representing partial success as total failure.
 
 ## Accessibility baseline
-Core navigation/actions are keyboard accessible, focus is visible, labels do not depend on placeholders, semantic state does not depend on color alone, and every core graph task has a non-graph equivalent.
+
+Core navigation/actions are keyboard accessible; focus is visible; labels do not depend on placeholders; semantic state does not depend on color alone; every graph task needed for core operation has a non-graph equivalent.
 
 ## Deliberately unconstrained
-Color palette, typography family, spacing scale, icon set, component library, animation language, exact responsive breakpoints and exact visual density remain downstream choices.
+
+Color palette, typography family, spacing scale, icon set, component library, animation language, exact responsive breakpoints, exact visual density, route structure and exact Target workspace navigation widget remain downstream choices.

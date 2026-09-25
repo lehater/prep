@@ -28,26 +28,28 @@ Canonical knowledge has been re-established for:
 
 The Harness realization has been reconciled against the current Harness Authority catalog and current canonical artifacts.
 
+## Accepted interaction direction
+
+Human Interface revalidation has accepted:
+
+- **target-centric workflow + global reusable Library**;
+- primary global locations are Targets and Library;
+- Study and target-context Statistics continue the selected Target workflow;
+- Import is contextual to the relevant Library data kind;
+- Target-derived Knowledge/Requirements/Questions remain reusable global canonical objects;
+- Knowledge Graph is an optional projection, with target-scoped exploration now having a concrete use case; 2D versus 3D remains unproven.
+
+The decision was stress-tested with the Python Backend Interview walkthrough in docs/research/target-centric-workflow-walkthrough.md.
+
 ## Current frontier
 
-Revalidate:
+HUMAN-INTERFACE and PRESENTATION-SYSTEM have been revalidated against the hybrid interaction model.
 
-- `docs/interface/presentation-system.md`;
-- `docs/interface/screen-view-design.md`.
+SCREEN-VIEW-DESIGN has been reworked to that model but final acceptance is blocked by Q-STUDY-SET-PREPARATION-GATE.
 
-The current documents are structural hypotheses, not permission to proceed directly to final frontend/component design.
+The blocking Application Design question is:
 
-The revalidation must start from concrete user tasks and information needs, then decide:
+- what exact condition makes a LearningTarget sufficiently prepared to build a Study Set;
+- when preparation is incomplete, whether Study Set construction is blocked or allowed for the resolvable subset with explicit diagnostics.
 
-- primary workspace/IA;
-- required views and transitions;
-- where creation/editing/linking/search belong;
-- how Knowledge, Requirements, Questions, Targets, Study and Statistics relate in the user's workflow;
-- the role of catalogues, detail contexts and editors;
-- the concrete task served by Knowledge Graph and whether 3D adds enough value;
-- Study Set preparation and Anki interaction;
-- representation of alignment/incomplete/error/statistics states.
-
-## Stop condition
-
-Continue autonomously until a material UX/product choice cannot be derived from accepted canonical truth. Represent that choice explicitly rather than selecting it from legacy UI assumptions.
+Do not descend into final frontend/component implementation until this upstream behavior is resolved and Screen/View Design is revalidated against it.

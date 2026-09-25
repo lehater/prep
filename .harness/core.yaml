@@ -120,3 +120,8 @@ questions:
     text: What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?
     blocks: [LEARNER-MODEL]
     resolution: LEARNER-MODEL
+
+  - id: Q-STUDY-SET-PREPARATION-GATE
+    authority: APPLICATION-DESIGN
+    text: What exact condition makes a LearningTarget sufficiently prepared to build a Study Set, and when preparation is incomplete should construction be blocked or should Prep build the resolvable subset while reporting explicit missing-preparation diagnostics?
+    blocks: [SCREEN-VIEW-DESIGN]
