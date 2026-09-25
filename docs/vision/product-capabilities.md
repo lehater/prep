@@ -10,9 +10,9 @@ Define the top-level capabilities Prep needs in order to deliver the accepted pr
 
 Establish a learning outcome with enough scope and depth to determine what knowledge is relevant and what kind of learner capability is expected.
 
-### Knowledge input
+### Knowledge authoring and input
 
-Accept already prepared knowledge through a defined input contract. Preparing source material, extracting or deriving knowledge, validating sources, and resolving uncertainty or conflicts are outside the current product scope.
+Enable a person to create and maintain the product's modeled data through user-facing interfaces, including subject knowledge and learning requirements, and to load prepared data when useful. The product does not currently prepare, extract, derive or validate that content automatically.
 
 ### Knowledge organization
 
@@ -60,7 +60,7 @@ For the initial product focus, the minimum coherent slice is:
 
 ```text
 learning target
-  -> accept prepared subject knowledge
+  -> author or load subject knowledge and requirements
   -> organize concepts and important relationships
   -> derive material for familiarity and retrieval
   -> learn / retrieve
