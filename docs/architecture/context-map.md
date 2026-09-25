@@ -58,8 +58,8 @@ Learner Model ---------------------------------> learning / practice execution
       |                                                | observations / results
       +------------------------------------------------+
 
-Learner Model -------- evidence-backed state --------> Learning Design
-Learning Design ------ target/evidence context ------> Learner Model
+Learner Model -------- recorded observations/statistics --------> Learning Design
+Learning Design ------ learning-artifact identity/context ------> Learner Model
 ```
 
 The diagram shows semantic information flow, not a required runtime pipeline.
@@ -89,7 +89,7 @@ Quality rules remain with the context whose truth they protect: knowledge qualit
 - Knowledge Model owns reusable subject semantics; learner evidence cannot redefine them.
 - Learner Model owns learner-specific learning observations and statistics; study activity is not automatically proof of knowledge.
 - Learning Design owns target-relative gaps, priorities and next-learning decisions.
-- A gap exists only relative to a target and learner-state evidence; it is not intrinsic subject knowledge.
+- A gap exists only relative to a target and learner evidence or explicit uncertainty; it is not intrinsic subject knowledge. The current slice does not yet define how recorded review statistics become such interpreted evidence.
 - Learning Design references Knowledge Model rather than copying ownership of subject knowledge.
 - Learner Model records observations against stable learning-artifact references but does not own those definitions.
 - Input mechanisms may propose or import knowledge but do not gain semantic ownership by doing so.

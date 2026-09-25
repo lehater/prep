@@ -64,9 +64,10 @@ learning target
   -> organize concepts and important relationships
   -> derive material for familiarity and retrieval
   -> learn / retrieve
-  -> collect evidence
-  -> update priorities
+  -> collect review observations/statistics
 ```
+
+Interpretation of those observations into learner state, gaps, priorities or automatic replanning is explicitly deferred; therefore the initial slice does not claim evidence-driven priority updates yet.
 
 The first slice may intentionally exercise only a subset of the full depth spectrum. In particular, proving useful terminology/concept familiarity and retrievability does not require solving every form of application, procedural performance or assessment.
 
