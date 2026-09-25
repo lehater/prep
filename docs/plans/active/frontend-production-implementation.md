@@ -21,7 +21,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 - [x] FI-02 — minimum vertical Knowledge path.
 - [x] FI-03 — 3D renderer adapter.
 - [x] FI-04 — Learning workspace.
-- [ ] FI-05 — Curation workspace.
+- [x] FI-05 — Curation workspace.
 - [ ] FI-06 — HTTP adapters and query cache.
 - [ ] FI-07 — verification evidence and deployable frontend.
 
@@ -132,3 +132,27 @@ FI-04 completion evidence is intentionally split to avoid repeating expensive ch
 - lifecycle recheck `66628a1c261a9ee17ddce11299c14f447f76b03b` passed strict semantic baseline with 29/29 CURRENT-capable lifecycle assertions, pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE and `completion_ready=true`, documentation/architecture/question validators and all 28 Python tests.
 
 No Learning implementation exposes Curation mutation behavior. The only upstream semantic change was the accepted collection-count contract needed by the already-canonical Overview responsibility; dependent capabilities were revalidated rather than silently left current.
+
+## FI-05 scope
+
+- dedicated Curation-owned frontend models and consumer ports for LearningTargets, Knowledge mutation, Requirements/RequirementSets, Questions and prepared-data Import; no Curation dependency on Learning internals;
+- one composition-root mock state shared by Curation and learner/query adapters so accepted Curation mutations are observable through the same canonical Learning/Knowledge identities;
+- learner material is derived from the current target -> Requirement/RequirementSet -> Knowledge -> Question chain rather than frozen target fixture lists;
+- Targets collection/editor with search, create/update, Requirement/RequirementSet scope composition and Preview in Learning;
+- Knowledge collection/graph plus create/update, semantic-kind editing, typed relation add/remove and contextual Import;
+- Requirements/RequirementSets collection/editors with definition/content ownership, deterministic display labels, Requirement-to-Knowledge alignment and acyclic RequirementSet membership;
+- Questions collection/editor with accepted structural aligned/unaligned filtering, direct-answer editing and explicit Knowledge alignment;
+- contextual prepared-data document intake with aggregate/item outcomes, validation preservation and representative typed KnowledgeRelation import behavior;
+- recoverable validation/operation feedback preserves current input/editor context;
+- no mastery/readiness/coverage-grade semantics introduced by Curation.
+
+## FI-05 validation
+
+FI-05 used tiered validation so expensive proof was not repeated after every implementation commit:
+
+- data-boundary and UI iterations used the permanent `frontend-fast` path; the final semantic-alignment fast run passed after deriving learner material from current Curation state and removing the unaccepted independent Requirement title field;
+- repository/Harness checkpoint `846307c5b1c0719536b3c3e4769364ec9c73eea8` passed strict semantic baseline with 29/29 CURRENT-capable lifecycle assertions, pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE and `completion_ready=true`, documentation/architecture/question validators and all 28 Python tests;
+- no canonical product/domain/interface/architecture knowledge changed during the later code-only FI-05 fixes, so the repository/Harness semantic checkpoint remained applicable and was not rerun;
+- final frontend recheck `f28791c82332b36e49c91add3fb52315cd770c04` passed typecheck, oxlint, deterministic boundary checks, 10 Vitest files / 25 tests, production Vite build, all 15 Playwright browser tests, Docker build and npm audit with zero vulnerabilities.
+
+Semantic audit before completion corrected three implementation defects rather than promoting them into authority: lost operation feedback after Knowledge detail refresh, frozen learner material that ignored Curation scope/alignment changes, and an independently editable Requirement title absent from the accepted Requirement contract.
