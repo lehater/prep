@@ -23,7 +23,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 - [x] FI-04 — Learning workspace.
 - [x] FI-05 — Curation workspace.
 - [x] FI-06 — HTTP adapters and query cache.
-- [ ] FI-07 — verification evidence and deployable frontend.
+- [x] FI-07 — verification evidence and deployable frontend.
 
 ## FI-01 scope
 
@@ -198,3 +198,21 @@ The FI-06 implementation did not change canonical product/domain/interface/archi
 - record neutral 3D-vs-list task evidence, explicitly separating automated correctness/action-count proxies from unmeasured human time/disorientation;
 - audit and remove prototype-only diagnostics/settings/Storybook/PaymentGraph/snapshot-sync residue from the production module inventory;
 - keep `Q-KNOWLEDGE-GRAPH-3D-VALUE` unresolved because current evidence does not establish a human task-performance advantage.
+
+## FI-07 validation
+
+The final FI-07 checkpoint at `260a614df945164f51f7f72474e9007a99339412` (workflow run `36197719886`) passed:
+
+- permanent `frontend-fast` on the same commit passed reproducible install, typecheck, oxlint, deterministic source-boundary checks and Vitest;
+- 11 Vitest files / 32 tests passed;
+- npm audit reported zero vulnerabilities;
+- production Vite build passed;
+- 17/17 Playwright browser tests passed across mock-provider and production-HTTP-provider projects, including real Tab/Enter-only Knowledge access with `:focus-visible` assertions and deterministic server-backed loading/loaded/failure-retry/empty/runtime-unavailable states;
+- digest-pinned production Docker image built successfully and embedded OCI revision `260a614df945164f51f7f72474e9007a99339412`; built image id was `sha256:3c3d1e4fafbfbaa4a28705e95e6a9bd89ef77d42851664ae99fee215180d3d7a`;
+- strict semantic baseline passed with 29/29 CURRENT-capable lifecycle assertions;
+- Frontend UX closure remained ACCEPTED with 19 topology views and Frontend Test Design remained ACCEPTED with 13 executable contracts;
+- pinned Harness integration reported `CURRENT-REVALIDATION`, `FRONTEND-PROTOTYPE` and `FRONTEND-IMPLEMENTATION` COMPLETE; `FRONTEND-IMPLEMENTATION` Engineering Coverage remained `completion_ready=true`, `remaining_work=0`, `questions=0`, with strict semantic/currentness COMPLETE;
+- documentation validation passed for 158 Markdown files, architecture validation passed, question-bank validation passed, and all 28 Python tests passed;
+- production-tree residue audit found no PaymentGraph, KnowledgeGraphSnapshot/source-sync, Storybook tuning, diagnostics/settings workspace or experiment-named production module.
+
+FI-01 through FI-07 are complete on this branch. The 3D renderer remains a first-class but non-exclusive presentation hypothesis: current automated evidence proves semantic correctness and equivalent canonical access, but does not establish a human task-performance advantage, so `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains intentionally unresolved.

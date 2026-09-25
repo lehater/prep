@@ -135,4 +135,20 @@ The renderer provider remains confined to `adapters/graph-rfg3d/**`; transport D
 
 ## Final checkpoint
 
-The final FI-07 full repository/frontend checkpoint is recorded in the active implementation plan after the authoritative run completes.
+FI-07 was verified at commit `260a614df945164f51f7f72474e9007a99339412` by workflow run `36197719886`:
+
+- repository/Harness validation: PASS;
+- strict semantic baseline: 29/29 CURRENT-capable;
+- Frontend UX closure: 19 topology views ACCEPTED;
+- Frontend Test Design: 13 executable contracts ACCEPTED;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE, `completion_ready=true`, no remaining work/questions, strict semantic/currentness COMPLETE;
+- frontend deterministic checks: PASS, 11 Vitest files / 32 tests;
+- dependency audit: zero vulnerabilities;
+- production build: PASS;
+- browser verification: 17/17 Playwright tests;
+- digest-pinned Docker build: PASS;
+- OCI image revision check: PASS, revision `260a614df945164f51f7f72474e9007a99339412`;
+- Docker image id: `sha256:3c3d1e4fafbfbaa4a28705e95e6a9bd89ef77d42851664ae99fee215180d3d7a`;
+- repository validators: 158 Markdown files, architecture/question validation and 28 Python tests PASS.
+
+This evidence closes FI-07 implementation verification. It does not convert `Q-KNOWLEDGE-GRAPH-3D-VALUE` into an answered semantic decision.

@@ -44,7 +44,9 @@ python tools/check_harness_integration.py
 
 Harness-guided revalidation and production frontend knowledge closure are complete for the `FRONTEND-IMPLEMENTATION` Consumer at the pinned Harness revision.
 
-Production frontend coding follows the dependency-ordered slices in `docs/implementation/frontend-implementation-design.md`. FI-01 through FI-06 are complete: foundation, minimum Knowledge path, production 3D renderer adapter, Learning workspace, Curation workspace, and production HTTP/query-cache integration are realized against the accepted frontend contracts. The next implementation frontier is FI-07: complete authoritative verification/presentation evidence, deployable-frontend evidence, and final prototype-only cleanup without adding new product semantics.
+Production frontend coding follows the dependency-ordered slices in `docs/implementation/frontend-implementation-design.md`. FI-01 through FI-07 are complete: foundation, minimum Knowledge path, production 3D renderer adapter, Learning workspace, Curation workspace, production HTTP/query-cache integration, and verification/deployable-frontend evidence are realized against the accepted frontend contracts.
+
+There is no further frontend implementation slice implied by this plan. Select the next engineering frontier from current Harness/project priorities and its owning Consumer/Authority rather than extending frontend behavior opportunistically. `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
 
 The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
 
