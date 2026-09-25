@@ -54,4 +54,5 @@ questions:
     authority: MODEL-CONTEXT-STRATEGY
     text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
     blocks: [LEARNING-DESIGN]
+    resolution: MODEL-CONTEXT-MAP
 
