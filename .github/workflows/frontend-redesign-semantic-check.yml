@@ -37,3 +37,5 @@ jobs:
       - run: python tools/validate_architecture.py
       - run: python tools/validate_questions.py
       - run: python -m unittest discover -s tests -v
+
+# rerun after explicit quality coverage ownership
