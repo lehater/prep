@@ -68,13 +68,11 @@ The diagram shows semantic information flow, not a required runtime pipeline.
 
 ## Supporting and external boundaries
 
-### Knowledge input / ingestion
+### Knowledge input
 
-Prep must be able to accept knowledge inputs needed by the product, but current evidence does not justify a separate Knowledge Acquisition bounded context.
+Prep accepts already prepared knowledge through a defined input contract. Preparing source material, parsing or extracting knowledge, LLM-assisted structuring, source validation, provenance assessment, disagreement resolution and conflicting-input handling are outside the current product scope.
 
-Source parsing, import, extraction or LLM-assisted structuring may exist as application/integration capabilities around Knowledge Model. They become a bounded context only if future work reveals a stable independent language and business invariants for acquisition itself.
-
-Source validation, provenance assessment, disagreement resolution and conflicting-input handling belong on this input side of the boundary rather than to Knowledge Model. They remain deferred until a concrete product use case justifies modeling them.
+Current evidence does not justify a separate Knowledge Acquisition bounded context. The input boundary remains an application/integration concern unless a future product use case establishes independent domain semantics.
 
 ### Learning / practice execution
 
@@ -108,7 +106,7 @@ The following remain explicit questions for Domain Model Design:
 - how learner-state uncertainty and evidence strength should be represented;
 - how retention and evidence decay affect inferred learner state;
 - which subject-specific semantics justify specialization or an additional bounded context;
-- what minimum import contract is required without promoting knowledge acquisition into the core domain.
+- what minimum knowledge-input contract the current product requires.
 
 ## Research references
 
