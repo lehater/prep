@@ -124,6 +124,7 @@ authorities:
         requires:
           - capability: prep.human-interface
           - capability: prep.presentation-system
+          - capability: prep.machine-interfaces
 
   - id: MACHINE-INTERFACE-DESIGN
     responsibility: Own supported machine-consumed interaction and representation contracts for browser/backend and external-runtime boundaries.

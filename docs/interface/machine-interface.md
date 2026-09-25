@@ -2,7 +2,124 @@
 
 ## Purpose
 
-Define supported machine-consumed representation and interaction contracts for prepared-data import and the first external learning runtime. These contracts preserve accepted domain/application semantics without becoming domain, persistence or component design.
+Define supported machine-consumed interaction and representation contracts for the browser/backend boundary, prepared-data import and the first external learning runtime. These contracts preserve accepted domain/application semantics without becoming domain, persistence or component design.
+
+## Browser/backend application boundary
+
+The browser frontend consumes backend application behavior through a versioned machine boundary. This section defines stable semantic operation IDs and payload/outcome meaning; concrete HTTP paths, verbs, framework controllers and generated client structure remain implementation choices as long as they preserve these operations.
+
+### Common conventions
+
+Canonical identities cross the boundary as Prep IDs. Human-facing selectors use compact references containing at least `id` plus readable display content; the browser is not expected to type or reconstruct raw IDs.
+
+Collection operations support:
+
+```text
+text_query?
+cursor?
+limit?
+```
+
+where applicable. `text_query` is evaluated by the backend over the primary human-readable canonical content of the requested collection. Exact indexing and ranking are implementation freedoms. Search/filtering must not be implemented by downloading an arbitrary partial page and filtering only in the browser.
+
+Pagination cursors are opaque implementation tokens and are not canonical identity.
+
+Common semantic outcomes are:
+
+- `success`;
+- `not_found`;
+- `validation_rejected`;
+- `conflict` when current canonical state no longer matches the submitted operation context;
+- `external_runtime_unavailable` for operations requiring the configured learning runtime;
+- `partial_external_failure` when a multi-item external operation succeeds only for some items;
+- `operational_failure` for recoverable backend/infrastructure failure that does not redefine domain meaning.
+
+Transport status codes are downstream mappings of these outcomes.
+
+### Learning-mode operations
+
+| Operation ID | Intent | Minimum input | Result |
+|---|---|---|---|
+| `learning.targets.list` | Browse/search prepared learning targets | `text_query?, cursor?, limit?` | target summaries |
+| `learning.targets.get` | Open one prepared target | `target_id` | target definition plus read-only Requirement/RequirementSet scope |
+| `learning.target.knowledge.list` | Browse/search target-relevant knowledge | `target_id, text_query?, semantic_kind?, cursor?, limit?` | KnowledgeNode summaries |
+| `learning.target.knowledge.graph` | Read target-scoped Knowledge graph projection | `target_id` | canonical KnowledgeNode refs/content plus accepted KnowledgeRelations among the projected nodes |
+| `learning.target.questions.list` | Browse/search currently resolvable Questions | `target_id, text_query?, cursor?, limit?` | Question summaries |
+| `learning.target.study_set.build` | Materialize the current Study Set preview | `target_id` | target id, ordered-for-presentation Question refs/content, `materialization_token` |
+| `learning.target.study_set.export` | Export exactly the inspected Study Set | `target_id, materialization_token` | per-Question export/reconciliation outcomes |
+| `learning.target.statistics.get` | Read factual target-context review statistics | `target_id` | aggregates and Question-attributable ReviewObservation facts |
+| `learning.question.reviews.get` | Read one Question's review history | `question_id, cursor?, limit?` | ReviewObservations |
+| `learning.reviews.sync` | Pull supported review facts from the configured external runtime | optional runtime cursor/time boundary | import summary and item-level failures |
+
+`learning.target.study_set.build` resolves the current target -> requirements -> knowledge -> questions chain and may return an empty Question list.
+
+The `materialization_token` is an opaque technical fingerprint of the previewed target/question materialization, not a canonical Study Set identity. `learning.target.study_set.export` re-resolves current state. If the materialization no longer matches the inspected preview, it returns `conflict` with a stale-materialization reason rather than silently exporting a different set. The user can then rebuild/reinspect.
+
+`learning.reviews.sync` is the explicit v1 trigger for review ingestion because the accepted architecture has no background-worker requirement. It records supported ReviewObservations but does not infer mastery or KnowledgeNode state.
+
+### Curation-mode operations
+
+#### LearningTargets
+
+| Operation ID | Intent |
+|---|---|
+| `curation.targets.list` | Browse/search curated targets |
+| `curation.targets.get` | Retrieve target definition and scope |
+| `curation.targets.create` | Create a reusable LearningTarget |
+| `curation.targets.update` | Edit target definition |
+| `curation.targets.scope.add` | Add an existing Requirement/RequirementSet to target scope |
+| `curation.targets.scope.remove` | Remove a Requirement/RequirementSet from target scope |
+
+#### Knowledge
+
+| Operation ID | Intent |
+|---|---|
+| `curation.knowledge.list` | Browse/search KnowledgeNodes, optionally by semantic kind |
+| `curation.knowledge.get` | Retrieve one KnowledgeNode plus accepted incoming/outgoing relations |
+| `curation.knowledge.create` | Create a KnowledgeNode |
+| `curation.knowledge.update` | Edit KnowledgeNode semantic kind/content |
+| `curation.knowledge.relation.add` | Create a typed KnowledgeRelation |
+| `curation.knowledge.relation.remove` | Remove a KnowledgeRelation |
+| `curation.knowledge.graph` | Retrieve a global/filterable Knowledge graph projection |
+
+#### Requirements
+
+| Operation ID | Intent |
+|---|---|
+| `curation.requirements.list` | Browse/search Requirements and RequirementSets |
+| `curation.requirements.get` | Retrieve a Requirement |
+| `curation.requirements.create` | Create a Requirement |
+| `curation.requirements.update` | Edit a Requirement |
+| `curation.requirement_sets.get` | Retrieve a RequirementSet and membership |
+| `curation.requirement_sets.create` | Create a RequirementSet |
+| `curation.requirement_sets.update` | Edit RequirementSet definition |
+| `curation.requirement_sets.member.add` | Add Requirement/RequirementSet membership subject to acyclicity |
+| `curation.requirement_sets.member.remove` | Remove membership |
+| `curation.requirements.knowledge.align` | Add Requirement-to-Knowledge alignment |
+| `curation.requirements.knowledge.unalign` | Remove Requirement-to-Knowledge alignment |
+
+#### Questions
+
+| Operation ID | Intent |
+|---|---|
+| `curation.questions.list` | Browse/search Questions; optionally request structural aligned/unaligned filtering |
+| `curation.questions.get` | Retrieve Question, answer and Knowledge alignments |
+| `curation.questions.create` | Create a Question |
+| `curation.questions.update` | Edit question/direct answer |
+| `curation.questions.knowledge.align` | Add Question-to-Knowledge alignment |
+| `curation.questions.knowledge.unalign` | Remove Question-to-Knowledge alignment |
+
+Question filtering may expose only accepted structural facts such as aligned/unaligned. It does not expose semantic coverage grades while Q-LEARNING-COVERAGE-MODEL remains unresolved.
+
+### Import operation
+
+`curation.import.apply` accepts the prepared-data envelope defined below and returns its defined aggregate/item outcomes.
+
+### External-runtime status
+
+`integration.external_runtime.status.get` returns whether the configured external runtime is reachable/compatible enough for supported operations, plus a non-secret endpoint/profile summary where available.
+
+Endpoint, bind address and API key remain deployment configuration in v1. This contract does not add product-level browser editing of deployment secrets/configuration.
 
 ## Prepared-data exchange
 
@@ -186,13 +303,13 @@ File exchange remains a compatible future/manual transport profile rather than t
 
 ## Compatibility
 
-Both prepared-data documents and the Anki representation require explicit contract/version compatibility. A newer producer must not silently reinterpret an older field with different semantics.
+The browser/backend operation contract, prepared-data documents and the Anki representation require explicit contract/version compatibility. A newer producer must not silently reinterpret an older field with different semantics.
 
 ## Not part of this contract
 
 - database tables;
 - UI forms or upload widgets;
-- HTTP routes internal to Prep;
+- exact HTTP route/verb mapping for browser/backend operation IDs;
 - component boundaries;
 - Anki scheduling policy;
 - FSRS interpretation;

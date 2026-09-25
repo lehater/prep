@@ -73,6 +73,31 @@ The same person may perform both in v1. The distinction is semantic/task-oriente
 
 A learning workflow consumes the currently curated reusable corpus. It is not responsible for repairing semantic completeness of that corpus before useful study can proceed.
 
+## Browser-facing queries
+
+The browser frontend needs stable application queries in addition to mutation/use-case commands.
+
+Learning-mode queries:
+
+- list/search existing curated LearningTargets;
+- retrieve one LearningTarget with its read-only Requirement/RequirementSet scope;
+- project KnowledgeNodes currently relevant to a LearningTarget;
+- project the accepted KnowledgeRelations among a selected global or target-relevant node set;
+- project Questions currently relevant to a LearningTarget;
+- retrieve Question-level ReviewObservations/statistics in target or Question context.
+
+Curation-mode queries:
+
+- list/search and retrieve LearningTargets;
+- list/search and retrieve KnowledgeNodes;
+- list/search and retrieve Requirements/RequirementSets;
+- list/search and retrieve Questions;
+- retrieve structural alignment facts needed by curation, including unaligned Questions and KnowledgeNodes with no aligned Questions where requested.
+
+These queries expose current canonical state. They do not infer mastery, coverage adequacy, readiness or priority.
+
+Text search is an application query capability over human-readable canonical content. Exact indexing/ranking technology is not application semantics.
+
 ## Learning preparation
 
 ### Build Study Set
@@ -80,6 +105,8 @@ A learning workflow consumes the currently curated reusable corpus. It is not re
 Resolve a LearningTarget through its selected Requirements/RequirementSets and their existing knowledge alignments to relevant KnowledgeNodes, then select all currently resolvable Questions aligned to that knowledge.
 
 The resulting Study Set is an application-level materialization: a selected set of canonical Questions for a particular learning preparation flow. It does not become reusable subject truth and does not introduce a new tactical domain entity.
+
+A Study Set preview is a current-state materialization rather than a durable canonical object. When a user exports a previously previewed set, the application must detect if target/question resolution changed since that preview rather than silently exporting a different set.
 
 Study Set construction does **not** require proof that the reusable question corpus completely covers every KnowledgeNode or every aspect of a target. Question-coverage adequacy is a separate curation/learning-material quality concern.
 

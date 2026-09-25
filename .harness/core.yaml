@@ -77,7 +77,7 @@ artifacts:
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/screen-view-design.md
     provides: [prep.screen-view-design]
-    depends_on: [HUMAN-INTERFACE, PRESENTATION-SYSTEM]
+    depends_on: [HUMAN-INTERFACE, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
 
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN

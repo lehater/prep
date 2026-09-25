@@ -11,7 +11,7 @@ The shell provides an explicit way to enter/switch between:
 - **Learning**;
 - **Curation**.
 
-A secondary integration/status/settings affordance may expose configured external-runtime state.
+A secondary integration/status affordance may expose configured external-runtime state via `integration.external_runtime.status.get`.
 
 Study and Statistics remain inside Learning target context. Import is entered from Curation/Library context.
 
@@ -171,11 +171,40 @@ Import begins from the relevant Library data kind.
 
 It accepts the supported prepared-data document and reports total/applied/rejected outcomes, per-item rejection identity/reason and created/updated/duplicate-skipped/rejected outcomes where supplied by the machine contract.
 
-## Integration/configuration
+## Integration status
 
-A compact status/settings view may expose configured external-runtime endpoint/status for the single-user deployment. Secrets are not echoed after entry.
+A compact status view may expose reachability/compatibility and a non-secret summary of the configured external-runtime endpoint/profile.
+
+Endpoint/bind/API-key editing remains deployment configuration in v1 and is not invented as a browser product workflow.
 
 Infrastructure-specific diagnostics remain downstream.
+
+## Machine-operation bindings
+
+Concrete browser/server views bind to the accepted operation IDs below.
+
+| View/context | Read operations | Command operations |
+|---|---|---|
+| Learning target selection | `learning.targets.list` | — |
+| Target Overview / Scope | `learning.targets.get`, `learning.target.statistics.get` | `learning.reviews.sync` when the user explicitly refreshes review facts |
+| Target Knowledge list | `learning.target.knowledge.list` | — |
+| Target Knowledge graph | `learning.target.knowledge.graph` | — |
+| Target Questions | `learning.target.questions.list` | — |
+| Target Study | `learning.target.study_set.build` | `learning.target.study_set.export` |
+| Target Statistics | `learning.target.statistics.get` | `learning.reviews.sync` |
+| Question review history | `learning.question.reviews.get` | — |
+| Curation Targets | `curation.targets.list`, `curation.targets.get` | `curation.targets.create`, `curation.targets.update`, `curation.targets.scope.add`, `curation.targets.scope.remove` |
+| Curation Knowledge | `curation.knowledge.list`, `curation.knowledge.get`, `curation.knowledge.graph` | `curation.knowledge.create`, `curation.knowledge.update`, relation add/remove |
+| Curation Requirements | `curation.requirements.list`, requirement/set get | requirement/set create/update, membership add/remove, Knowledge align/unalign |
+| Curation Questions | `curation.questions.list`, `curation.questions.get` | create/update, Knowledge align/unalign |
+| Curation Import | — | `curation.import.apply` |
+| Runtime status | `integration.external_runtime.status.get` | — |
+
+Search/filter controls on server-backed collections use the corresponding backend collection operation. Client-only filtering over an arbitrary partial page is not a supported primary catalogue behavior.
+
+Study Set preview uses `materialization_token`; stale preview at export maps to a visible recoverable conflict state requiring rebuild/reinspection.
+
+Review ingestion is explicitly user-triggerable via `learning.reviews.sync` in v1; the UI must not imply continuous/background synchronization that the accepted architecture does not provide.
 
 ## Common states and navigation invariants
 

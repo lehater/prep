@@ -81,10 +81,26 @@ Current direction from research:
 
 The unresolved semantic question is now Q-LEARNING-COVERAGE-MODEL. It does not block the current Question-first learner slice.
 
+## Browser/backend contract closure
+
+The browser/backend machine boundary is now explicitly defined with stable operation IDs for:
+
+- Learning target selection and read-only target scope;
+- target Knowledge/graph/Questions projections;
+- Study Set build/export with stale-preview detection;
+- factual statistics and explicit v1 review sync;
+- Curation CRUD/alignment/composition operations;
+- contextual bulk import;
+- external-runtime status.
+
+SCREEN-VIEW-DESIGN now directly depends on MACHINE-INTERFACES and binds server-backed views to these operations.
+
+Anki endpoint/API-key remain deployment configuration; v1 UI exposes status rather than inventing a secret/config editor.
+
 ## Current frontier
 
-Human Interface, Presentation System and Screen/View Design have been reconciled to the Learning/Curation mode split.
+The canonical revalidation closure required before frontend realization is now structurally complete for the current Question-first slice: Data Design and Screen/View Design both have their required upstream contracts.
 
-Do not implement learner-state graph coverage or learning-material completeness percentages until their upstream semantic models exist.
+Q-LEARNING-COVERAGE-MODEL and the future learner-state graph overlay remain deliberate non-blocking research/deferred semantics.
 
-The next domain/product expansion around learning material types should be driven by Q-LEARNING-COVERAGE-MODEL research rather than by UI convenience.
+The next useful activity is **low-fidelity interface validation**: reduce the accepted semantic view inventory into the smallest practical Learning and Curation screen flows, then test them against the Python Backend Interview scenario before choosing visual styling/components or implementing frontend code.
