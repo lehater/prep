@@ -18,7 +18,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 ## Execution
 
 - [x] FI-01 — production frontend foundation.
-- [ ] FI-02 — minimum vertical Knowledge path.
+- [x] FI-02 — minimum vertical Knowledge path.
 - [ ] FI-03 — 3D renderer adapter.
 - [ ] FI-04 — Learning workspace.
 - [ ] FI-05 — Curation workspace.
@@ -53,3 +53,30 @@ Implementation feedback is intentionally tiered to avoid repeating expensive pro
 - `test:e2e` assumes an already-built frontend so the host production build is not repeated inside the same full check.
 
 During an FI slice, use targeted local tests while coding, rely on `frontend-fast` for branch-level feedback, and run the full merge-candidate validation only at a coherent slice checkpoint or before integration.
+
+## FI-02 scope
+
+- explicit Learning/Curation shell switch with one prepared LearningTarget context;
+- target-scoped and global `KnowledgeScope` realization without changing canonical Knowledge identity;
+- frontend-owned Knowledge models plus `KnowledgeQueryPort` and `TargetQueryPort`;
+- `MockKnowledgeAdapter` / `MockTargetAdapter` as composition-root providers;
+- server-style list/search by explicit scope, readable detail and non-graph keyboard access;
+- loading, empty, unavailable and recoverable-failure presentation paths;
+- URL-owned search/filter/selection/focus state so readable detail open/close preserves exploration context;
+- renderer-neutral `GraphScene` / `buildGraphScene` projection and injected `GraphRenderer` contract;
+- non-3D placeholder renderer only; no `react-force-graph-3d` or Three.js adoption before FI-03.
+
+## FI-02 validation
+
+The coherent FI-02 checkpoint at `16325a898233a8eeea32449accee167a2eb8b690` passed:
+
+- TypeScript, oxlint and deterministic source-boundary checks;
+- 4 Vitest files / 7 tests, including mock-port, route-context and graph-projection contracts;
+- production Vite build;
+- 4 Playwright browser tests covering shell boot, mode switching, target-context preservation, keyboard list/detail access, empty state and renderer-neutral fallback;
+- production Docker image build;
+- strict semantic baseline: 29/29 CURRENT-capable;
+- pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE, Engineering Coverage `completion_ready=true`, zero remaining work/questions, and strict semantic/currentness COMPLETE;
+- documentation, architecture, question-bank validators and 28 Python unit tests.
+
+No frontend semantic/ownership/dependency change was required during implementation, so no upstream Authority was reopened.
