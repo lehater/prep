@@ -260,6 +260,7 @@ export function Rfg3dGraphRenderer({
       return;
     }
 
+    const viewportValue = viewport.value;
     let cancelled = false;
     let frame = 0;
     const restore = () => {
@@ -271,8 +272,8 @@ export function Rfg3dGraphRenderer({
         frame = requestAnimationFrame(restore);
         return;
       }
-      const [x, y, z] = viewport.value.camera;
-      const [tx, ty, tz] = viewport.value.target;
+      const [x, y, z] = viewportValue.camera;
+      const [tx, ty, tz] = viewportValue.target;
       graph.cameraPosition({ x, y, z }, { x: tx, y: ty, z: tz }, 0);
     };
     frame = requestAnimationFrame(restore);
