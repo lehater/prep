@@ -229,9 +229,9 @@ These are experiment inputs, not permanent product limits.
 
 ## Validation stages
 
-Detailed task definitions: [knowledge-representation-test-battery.md](knowledge-representation-test-battery.md).
+Detailed task definitions: the historical Plan 019 test battery (not carried forward as canonical design).
 
-Candidate interaction contract: [knowledge-representation-interaction-model.md](../ux/knowledge-representation-interaction-model.md).
+Candidate interaction contract: the historical Plan 019 interaction model (not carried forward as canonical design).
 
 ### Stage A — representation mechanics
 
