@@ -67,6 +67,12 @@ artifacts:
     provides: [prep.human-interface]
     depends_on: [USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
+  - id: MACHINE-INTERFACES
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/interface/machine-interface.md
+    provides: [prep.machine-interfaces]
+    depends_on: [APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
