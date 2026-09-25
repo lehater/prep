@@ -27,7 +27,8 @@ Prep owns:
 - project semantic truth in current canonical `docs/**` artifacts;
 - project-specific Authority/Capability/Consumer topology in `.harness/engineering-graph.yaml`;
 - canonical artifact realization and unresolved Questions in `.harness/core.yaml`;
-- project Authority applicability evidence in `.harness/authority-assessments.yaml`.
+- project Authority applicability evidence in `.harness/authority-assessments.yaml`;
+- capability-level strict semantic revalidation identities and review basis in `.harness/semantic-baseline.yaml`.
 
 Harness owns generic graph/core validation, applicability semantics, routing and target-state evaluation. Do not create project-specific stages, gates or a second Harness evaluator.
 
@@ -35,6 +36,7 @@ Bootstrap/validate:
 
 ```text
 python tools/bootstrap_harness.py
+python tools/semantic_baseline.py
 python tools/check_harness_integration.py
 ```
 

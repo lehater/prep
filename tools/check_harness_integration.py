@@ -26,6 +26,8 @@ from frontend_interface_knowledge import (  # noqa: E402
     evaluate_topology_screen_subject_coverage,
 )
 
+from semantic_baseline import build_strict_semantic_baseline  # noqa: E402
+
 
 def load(path: str) -> dict:
     value = yaml.safe_load((ROOT / path).read_text(encoding="utf-8"))
@@ -110,6 +112,7 @@ def main() -> int:
     core = load(".harness/core.yaml")
 
     validate_engineering_graph(graph)
+    semantic_evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
 
     for artifact in core.get("artifacts", []):
         path = artifact.get("path")
@@ -146,12 +149,32 @@ def main() -> int:
         "CURRENT-REVALIDATION",
         implementation_consumer=False,
     )
-    report_target(
+    require_complete(
         graph,
         core,
         "FRONTEND-PROTOTYPE",
         implementation_consumer=False,
     )
+
+    for target in ("CURRENT-REVALIDATION", "FRONTEND-PROTOTYPE"):
+        closure = evaluate_semantic_closure(
+            graph=graph,
+            model=core,
+            target=target,
+            skill_registry=load_harness(
+                "skills/artifact-skill-registry-v0.yaml"
+            ),
+            semantic_evaluations=semantic_evaluations,
+            lifecycle=lifecycle,
+        )
+        if closure.get("status") != "COMPLETE":
+            raise SystemExit(
+                f"{target} strict semantic/currentness closure is "
+                f"{closure.get('status')}: "
+                f"semantic_gaps={closure.get('semantic_gaps')} "
+                f"currentness_gaps={closure.get('currentness_gaps')}"
+            )
+        print(f"{target} strict semantic/currentness: COMPLETE")
     production = report_target(
         graph,
         core,
@@ -165,7 +188,7 @@ def main() -> int:
         consumer="FRONTEND-IMPLEMENTATION",
         scope="frontend",
         project_overlay=load(".harness/engineering-coverage.yaml"),
-        semantic_evaluations=load(".harness/semantic-evaluations.yaml"),
+        semantic_evaluations=semantic_evaluations,
     )
     print(
         "FRONTEND-IMPLEMENTATION Engineering Coverage: "
@@ -191,27 +214,6 @@ def main() -> int:
                 "Engineering Coverage is not completion-ready"
             )
 
-        semantic_path = ROOT / ".harness/semantic-evaluations.yaml"
-        lifecycle_path = ROOT / ".harness/capability-lifecycle.yaml"
-        missing = [
-            str(path.relative_to(ROOT))
-            for path in (semantic_path, lifecycle_path)
-            if not path.is_file()
-        ]
-        if missing:
-            raise SystemExit(
-                "FRONTEND-IMPLEMENTATION is structurally COMPLETE but strict "
-                "semantic/currentness evidence is missing: "
-                f"{missing}"
-            )
-
-        semantic = yaml.safe_load(semantic_path.read_text(encoding="utf-8"))
-        lifecycle = yaml.safe_load(lifecycle_path.read_text(encoding="utf-8"))
-        if not isinstance(semantic, dict) or not isinstance(lifecycle, dict):
-            raise SystemExit(
-                "Strict semantic/currentness evidence files must contain mappings"
-            )
-
         closure = evaluate_semantic_closure(
             graph=graph,
             model=core,
@@ -219,7 +221,7 @@ def main() -> int:
             skill_registry=load_harness(
                 "skills/artifact-skill-registry-v0.yaml"
             ),
-            semantic_evaluations=semantic,
+            semantic_evaluations=semantic_evaluations,
             lifecycle=lifecycle,
         )
         if closure.get("status") != "COMPLETE":

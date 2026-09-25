@@ -407,3 +407,26 @@ Migration-mode semantic evaluations are now recorded in `.harness/semantic-evalu
 - Presentation Verification.
 
 These evaluations are intentionally **not** strict semantic admission. They let Engineering Coverage distinguish "semantically reviewed" from "missing claim evidence" during migration, while the production fail-closed check still requires strict admission metadata plus Capability Lifecycle currentness before implementation-documentation closure can be claimed.
+
+
+### Strict semantic/currentness baseline migration
+
+Prep now persists one project-owned capability-level semantic baseline in `.harness/semantic-baseline.yaml`.
+
+For every current Core provider it records:
+
+- an explicit human/agent semantic revalidation basis;
+- a capability-local revision number;
+- an opaque acceptance identity derived from baseline + CapabilityId + that revision.
+
+`tools/semantic_baseline.py` uses the pinned Harness strict-admission contract to derive, in dependency order:
+
+- strict semantic-admission evaluations;
+- exact prerequisite acceptance baselines;
+- Capability Lifecycle assertions.
+
+The derivation uses current Core providers and direct Engineering Graph prerequisites as the canonical read boundary, performs the knowledge-kind required semantic-review checks and uses `changed_paths=[]` because migration revalidation does not rewrite the accepted artifact.
+
+The generated evidence is deliberately derived rather than persisted as a second truth. Adding/removing a Core provider without adding/removing its baseline review is a hard failure. Revalidating one capability requires bumping only that capability's semantic revision.
+
+The integration check now requires strict semantic/currentness `COMPLETE` for both `CURRENT-REVALIDATION` and `FRONTEND-PROTOTYPE`. Production frontend will use the same evidence and remains fail-closed until its future capabilities are strictly admitted as they are created.

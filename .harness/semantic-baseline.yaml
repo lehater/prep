@@ -1,0 +1,113 @@
+version: 1
+kind: prep-strict-semantic-baseline
+baseline_id: prep-strict-semantic-baseline-v1
+purpose: >-
+  Record explicit capability-level semantic revalidation decisions for the
+  current accepted Prep Core. The revision number is human-controlled semantic
+  acceptance identity, not a file timestamp or content hash. Bump only the
+  affected capability when its accepted semantics are revalidated or replaced.
+
+reviews:
+  - capability: prep.problem-evidence
+    revision: 1
+    basis: Problem observations, desired outcomes and evidence were revalidated as problem truth without importing product or solution choices.
+
+  - capability: prep.product-intent
+    revision: 1
+    basis: Product intent was revalidated at observable scope/outcome level without promoting downstream domain, interface or architecture decisions.
+
+  - capability: prep.product-capabilities
+    revision: 1
+    basis: Product capabilities remain externally meaningful product behavior and do not prescribe technical realization.
+
+  - capability: prep.domain-strategy
+    revision: 1
+    basis: Strategic domain responsibilities remain investment/responsibility boundaries rather than tactical model or context-internal design.
+
+  - capability: prep.model-context-strategy
+    revision: 1
+    basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
+
+  - capability: prep.knowledge-model
+    revision: 1
+    basis: Knowledge identity, kinds and relations remain canonical domain semantics independent of persistence, renderer and user-interface realization.
+
+  - capability: prep.learning-design
+    revision: 1
+    basis: LearningTarget, Requirement and Question semantics remain target-relative learning-design truth without importing learner-state inference or UI mechanics.
+
+  - capability: prep.learner-model
+    revision: 1
+    basis: Learner evidence remains factual Question-level ReviewObservation/statistics semantics and does not invent mastery, readiness or retention inference.
+
+  - capability: prep.application-design
+    revision: 1
+    basis: Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports.
+
+  - capability: prep.task-model
+    revision: 1
+    basis: The task model expresses user goals/tasks and dependencies rather than screens, routes or component structure.
+
+  - capability: prep.user-journeys
+    revision: 1
+    basis: Journeys express task progression and context transitions without turning current screen decomposition into product semantics.
+
+  - capability: prep.conceptual-interface-model
+    revision: 1
+    basis: User-facing concepts were revalidated against tasks and domain/application sources without becoming a duplicate domain model.
+
+  - capability: prep.information-architecture
+    revision: 1
+    basis: Information organization and findability were revalidated independently of concrete screen layout or UI provider.
+
+  - capability: prep.machine-interfaces
+    revision: 1
+    basis: Browser/backend and external-runtime contracts preserve accepted application/domain semantics and make transport errors/compatibility explicit without redefining them.
+
+  - capability: prep.interaction-design
+    revision: 1
+    basis: Interaction semantics were revalidated against journeys, application behavior and machine contracts without introducing new product requirements.
+
+  - capability: prep.interface-topology
+    revision: 1
+    basis: Material views/frames and navigation topology were revalidated without owning detailed screen composition or router implementation.
+
+  - capability: prep.presentation-system
+    revision: 1
+    basis: Presentation roles, accessibility/non-graph access and reusable visual-role discipline are provider-neutral and do not own domain semantics.
+
+  - capability: prep.screen-view-design
+    revision: 1
+    basis: Screen/View responsibilities were revalidated against topology, interaction and Presentation System without adding product semantics or provider-specific structure.
+
+  - capability: prep.import-consistency
+    revision: 1
+    basis: Import/external-operation atomicity, partial-result and retry/idempotency semantics remain correctness policy rather than domain or runtime-topology ownership.
+
+  - capability: prep.interface-verification
+    revision: 1
+    basis: Interface verification defines evidence for accepted task/IA/interaction/topology contracts and does not introduce interface semantics.
+
+  - capability: prep.presentation-verification
+    revision: 1
+    basis: Presentation verification was revised to prove shared pattern consistency, provider neutrality, theme-role coherence, accessibility and 3D task-value without owning presentation semantics.
+
+  - capability: prep.system-architecture
+    revision: 1
+    basis: Runtime/deployment boundaries and dependency topology remain architecture decisions derived from accepted application/interface/consistency knowledge rather than product requirements.
+
+  - capability: prep.data-design
+    revision: 1
+    basis: Durable representation and storage constraints were revalidated as physical persistence design and do not redefine domain/application semantics.
+
+  - capability: prep.frontend-system-architecture
+    revision: 1
+    basis: Frontend module topology, state ownership and adapter/renderer boundaries were revalidated as architecture-significant structure with explicit dependency direction.
+
+  - capability: prep.frontend-engineering-policy
+    revision: 1
+    basis: Frontend engineering obligations are concrete and reviewable while optional abstractions/patterns remain evidence-driven rather than universal defaults.
+
+  - capability: prep.frontend-component-design
+    revision: 1
+    basis: Frontend components, ports, model mappings, provider seams and renderer contracts are implementation-facing boundaries complete for the selected prototype scope without re-owning upstream semantics.
