@@ -20,7 +20,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 - [x] FI-01 — production frontend foundation.
 - [x] FI-02 — minimum vertical Knowledge path.
 - [x] FI-03 — 3D renderer adapter.
-- [ ] FI-04 — Learning workspace.
+- [x] FI-04 — Learning workspace.
 - [ ] FI-05 — Curation workspace.
 - [ ] FI-06 — HTTP adapters and query cache.
 - [ ] FI-07 — verification evidence and deployable frontend.
@@ -110,3 +110,25 @@ The coherent FI-03 checkpoint at `6750bb491013f90dee2c78cc44ce1c9054ac6354` pass
 - documentation, architecture, question-bank validators and 28 Python unit tests.
 
 No upstream Authority was reopened. The historical experiment remains implementation evidence only.
+
+## FI-04 scope
+
+- prepared LearningTarget search/selection with no Learning-side target mutation;
+- persistent target context with Overview, Knowledge, Study and Statistics sections;
+- read-only Requirement/RequirementSet scope plus exact current Knowledge/Question material counts;
+- consumer-owned Target, Question, Study and Learning Statistics ports with mock adapters;
+- target Question browse/detail plus Question -> Knowledge navigation preserving the target and focusing every aligned canonical Knowledge id;
+- Study Set build, exact inspected preview, materialization-token export, partial/conflict/unavailable/failure outcomes and retry/rebuild context preservation;
+- factual ReviewObservation aggregates/history plus explicit user-triggered review sync, with no mastery/readiness/retention inference;
+- Machine Interface collection result refinement to expose exact `total_count` for the current semantic query/scope while keeping opaque cursor representation transport-private.
+
+## FI-04 validation
+
+FI-04 completion evidence is intentionally split to avoid repeating expensive checks after a selector-only browser-test repair:
+
+- repository/Harness checkpoint `2107fef0360532393c4f33623086990c274bcc32` proved the implementation and the initial Machine Interface refinement against repository validators;
+- frontend recheck `0b2277ff8c979efb6f42c6d83dbfa38b88654f3f` passed typecheck, oxlint, deterministic boundary checks, 9 Vitest files / 19 tests, production Vite build, 9 Playwright browser tests, Docker build and npm audit with zero vulnerabilities;
+- the Machine Interface acceptance identity change was propagated through its Engineering Graph dependency frontier: 16 affected capability reviews were explicitly revalidated, with downstream Verification/Test/Implementation contracts clarified where `total_count` crosses the adapter boundary;
+- lifecycle recheck `66628a1c261a9ee17ddce11299c14f447f76b03b` passed strict semantic baseline with 29/29 CURRENT-capable lifecycle assertions, pinned Harness integration with `FRONTEND-IMPLEMENTATION` COMPLETE and `completion_ready=true`, documentation/architecture/question validators and all 28 Python tests.
+
+No Learning implementation exposes Curation mutation behavior. The only upstream semantic change was the accepted collection-count contract needed by the already-canonical Overview responsibility; dependent capabilities were revalidated rather than silently left current.
