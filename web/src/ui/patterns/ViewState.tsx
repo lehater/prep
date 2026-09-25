@@ -14,7 +14,7 @@ interface StateNoticeProps {
 
 export function LoadingState({ label = "Loading" }: { readonly label?: string }) {
   return (
-    <Stack direction="row" spacing={1} alignItems="center" role="status">
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }} role="status">
       <CircularProgress size={20} />
       <Typography>{label}</Typography>
     </Stack>

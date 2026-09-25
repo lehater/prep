@@ -284,7 +284,7 @@ export function KnowledgeExplorer({
                     onClick={() => openDetail(node.id)}
                     sx={{ justifyContent: "flex-start", textAlign: "left" }}
                   >
-                    <Stack alignItems="flex-start">
+                    <Stack sx={{ alignItems: "flex-start" }}>
                       <span>{node.title}</span>
                       <Chip label={node.semanticKind} size="small" />
                     </Stack>
