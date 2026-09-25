@@ -124,7 +124,7 @@ The current frontier is no longer direct frontend coding. Harness reconciliation
 - `FRONTEND-PROTOTYPE` — the noncanonical Knowledge-visualization experiment; because this prototype intends to reuse non-trivial 3D renderer mechanics, its closure includes frontend System Architecture and Component Design so experimental structure does not become accidental production architecture;
 - `FRONTEND-IMPLEMENTATION` — the production coding target; it additionally requires frontend Verification Design, Test Design and Implementation Design.
 
-Frontend-scoped System Architecture is now accepted in `docs/architecture/frontend-system-architecture.md`. The immediate engineering-knowledge frontier is therefore Component Design. G0 code work starts only after the `FRONTEND-PROTOTYPE` Consumer exposes no missing architecture/component knowledge.
+Frontend-scoped System Architecture is accepted in `docs/architecture/frontend-system-architecture.md`, and frontend Component Design is accepted in `docs/implementation/frontend-component-design.md`. The `FRONTEND-PROTOTYPE` Consumer therefore has the architecture/component knowledge needed for G0 without requiring production Test/Implementation Design. Production frontend closure continues independently through frontend Verification Design, Test Design and Implementation Design.
 
 The research/code frontier after that closure remains:
 

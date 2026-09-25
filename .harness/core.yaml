@@ -145,6 +145,12 @@ artifacts:
     provides: [prep.frontend-system-architecture]
     depends_on: [SYSTEM-ARCHITECTURE, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES]
 
+  - id: FRONTEND-COMPONENT-DESIGN
+    authority: COMPONENT-DESIGN
+    path: docs/implementation/frontend-component-design.md
+    provides: [prep.frontend-component-design]
+    depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
