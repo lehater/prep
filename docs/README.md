@@ -31,8 +31,8 @@ Problem / Product
        -> Information Architecture
        -> Interaction Design <--- Machine Interface
             -> Interface Topology
-                 -> Presentation System
-                      -> Screen/View Design
+                 -> Presentation System <--- Frontend Performance/Capacity (Quality Design)
+                      -> Screen/View Design <--- Frontend Performance/Capacity
                            -> Frontend System Architecture
                                 -> Frontend Engineering Policy
                                      -> Frontend Component Design
@@ -63,6 +63,7 @@ Current human-interface truth is granular rather than owned by the legacy broad 
 
 Current frontend realization constraints additionally include:
 
+- `docs/architecture/performance-capacity.md` — registered Quality Design for graph scale/responsiveness/degradation;
 - `docs/architecture/frontend-system-architecture.md`;
 - `docs/engineering/frontend-engineering-policy.md`;
 - `docs/implementation/frontend-component-design.md`;
@@ -71,7 +72,7 @@ Current frontend realization constraints additionally include:
 - `docs/verification/frontend-test-design.yaml`;
 - `docs/implementation/frontend-implementation-design.md`.
 
-Current noncanonical production evidence is recorded in `docs/verification/frontend-release-evidence.md`; it proves the accepted contracts but does not redefine them.
+Historical noncanonical production evidence is recorded in `docs/verification/frontend-release-evidence.md`. After the responsive/performance redesign it no longer proves current frontend closure; FRC-01 must renew the affected evidence.
 
 The 3D graph remains a first-class prototype hypothesis, not a graph-first whole-product invariant. UI providers/renderers are downstream replaceable dependencies and may not redefine product/interface semantics.
 

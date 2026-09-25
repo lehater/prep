@@ -1,8 +1,10 @@
 # Frontend Release Evidence
 
+> **Status: historical evidence for the pre-FRC-01 frontend baseline.** Manual UI review and the subsequent responsive/performance design revalidation changed accepted Presentation, Screen/View and Quality prerequisites. The FI-07 checks below remain useful evidence for the prior realization but do not prove current `FRONTEND-IMPLEMENTATION` closure. Renewed evidence is required by FRC-01.
+
 ## Status and role
 
-This document is implementation/release evidence for FI-07. It is not a canonical semantic artifact and is intentionally not registered in `.harness/core.yaml`.
+This document records implementation/release evidence originally produced for FI-07. It is not a canonical semantic artifact and is intentionally not registered in `.harness/core.yaml`.
 
 The accepted obligations remain owned by:
 

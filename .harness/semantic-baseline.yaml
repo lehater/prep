@@ -32,6 +32,10 @@ reviews:
     revision: 1
     basis: Knowledge identity, kinds and relations remain canonical domain semantics independent of persistence, renderer and user-interface realization.
 
+  - capability: prep.frontend-performance-capacity
+    revision: 1
+    basis: Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics.
+
   - capability: prep.learning-design
     revision: 1
     basis: LearningTarget, Requirement and Question semantics remain target-relative learning-design truth without importing learner-state inference or UI mechanics.
@@ -73,12 +77,12 @@ reviews:
     basis: Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology.
 
   - capability: prep.presentation-system
-    revision: 2
-    basis: Revalidated against current interaction/topology prerequisites; collection count availability introduces no new presentation role or accessibility semantics.
+    revision: 3
+    basis: Responsive wide/compact/narrow presentation roles, graph-primary spatial hierarchy and accepted graph performance/degradation controls were revalidated against the newly registered Frontend Performance/Capacity contract.
 
   - capability: prep.screen-view-design
-    revision: 2
-    basis: Revalidated against Machine Interface revision 2; existing Overview Knowledge/Question count responsibilities are now explicitly supported without changing view ownership or learner behavior.
+    revision: 3
+    basis: Knowledge Screen/View composition now explicitly constrains graph-primary wide/compact/narrow frames, focus/read-order consequences, toolbar controls and semantic-preserving performance profiles while leaving CSS mechanics and renderer internals downstream.
 
   - capability: prep.import-consistency
     revision: 2
@@ -89,8 +93,8 @@ reviews:
     basis: Revalidated against the current interaction/topology prerequisite baseline; existing task and navigation evidence obligations remain sufficient.
 
   - capability: prep.presentation-verification
-    revision: 2
-    basis: Revalidated against current interface/presentation/screen prerequisites; existing presentation evidence obligations remain sufficient.
+    revision: 3
+    basis: Presentation verification now requires rendered spatial/responsive closure plus deterministic semantic-preservation and hardware-accelerated 1k/2k/5k graph performance evidence.
 
   - capability: prep.system-architecture
     revision: 2
@@ -101,25 +105,25 @@ reviews:
     basis: Revalidated after Machine Interface revision 2 through current consistency/system-architecture prerequisites; exact query result counts add no new durable representation or storage semantics.
 
   - capability: prep.frontend-system-architecture
-    revision: 2
-    basis: Revalidated against Machine Interface revision 2; exact accepted collection metadata may cross the data-access boundary while cursor/status/serialization details remain adapter-private, with module and state ownership unchanged.
+    revision: 3
+    basis: Frontend architecture was revalidated against the graph performance/capacity prerequisite; Knowledge Exploration owns user presentation intent while the renderer adapter owns private optimization strategy and semantic-preserving degradation.
 
   - capability: prep.frontend-engineering-policy
-    revision: 2
-    basis: Revalidated against frontend architecture revision 2; collection metadata refinement preserves the existing DTO-boundary, ownership and replaceability policy.
+    revision: 3
+    basis: Engineering policy now requires bounded graph work, demand-driven idle rendering, semantic-preserving degradation and hardware performance evidence while keeping renderer optimization internals isolated.
 
   - capability: prep.frontend-component-design
-    revision: 2
-    basis: Frontend query ports were revalidated and refined so accepted collection results preserve exact total_count while cursor representation remains adapter-private; component, provider and ownership boundaries remain unchanged.
+    revision: 3
+    basis: Graph component contracts now separate user-visible performance profiles/preferences from renderer-private instancing, batching, pixel-ratio, physics and diagnostics strategies.
 
   - capability: prep.frontend-verification
-    revision: 2
-    basis: Frontend verification was revalidated against Machine Interface revision 2 and now explicitly proves preservation of accepted collection metadata while transport cursor representation remains isolated.
+    revision: 3
+    basis: Frontend verification now consumes Frontend Performance/Capacity and proves responsive graph primacy, semantic-preserving degradation, private renderer strategy isolation and representative hardware stress behavior.
 
   - capability: prep.frontend-test-design
-    revision: 2
-    basis: Frontend Test Design was revalidated and DTO mapping coverage now distinguishes accepted exact total_count from opaque cursor/status/serialization representation.
+    revision: 3
+    basis: Frontend Test Design now includes responsive workspace, graph-control, performance-profile semantic-preservation and hardware 1k/2k/5k stress evidence contracts.
 
   - capability: prep.frontend-implementation-design
-    revision: 2
-    basis: Frontend Implementation Design was revalidated against current component/verification/test contracts; FI-06 now explicitly preserves exact total_count while keeping cursor mechanics adapter/query-cache private.
+    revision: 3
+    basis: Implementation Design reopens frontend completion through FRC-01 so graph-primary responsive composition, accepted controls and benchmark-backed performance/degradation mechanics are realized before current completion is reclaimed.

@@ -85,7 +85,11 @@ assessments:
     reopening_conditions: [persistence ownership, schema constraints or durable representation change materially]
 
   - authority_id: QUALITY-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/architecture/performance-capacity.md]
+    rationale: The interactive Knowledge graph has architecture-significant measurable scale, frame-rate, idle-resource and graceful-degradation constraints that are independently consumed by interface, architecture, component and verification work.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/architecture/performance-capacity.md]
+    reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
 
   - authority_id: SECURITY-ANALYSIS
     applicability: UNASSESSED
