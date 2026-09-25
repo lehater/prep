@@ -3,6 +3,9 @@ kind: screen-view-subject-coverage
 id: PREP-SCREEN-VIEW-SUBJECT-COVERAGE
 source: docs/interface/screen-view-design.md
 views:
+  - F-00-APPLICATION-SHELL
+  - F-LT-TARGET-WORKSPACE
+  - F-C-CURATION-WORKSPACE
   - L-01-TARGET-SELECTION
   - L-02-TARGET-OVERVIEW
   - L-03-TARGET-KNOWLEDGE

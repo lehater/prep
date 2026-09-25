@@ -2,6 +2,9 @@ version: 1
 kind: information-architecture-design
 id: PREP-INFORMATION-ARCHITECTURE
 locations:
+  - {id: APP-SHELL, purpose: Preserve explicit Learning/Curation mode switching and global runtime status., concept_refs: [LEARNING, CURATION, EXTERNAL-RUNTIME], scope: global}
+  - {id: TARGET-WORKSPACE, purpose: Preserve the selected LearningTarget while moving between learner tasks., concept_refs: [LEARNING, LEARNING-TARGET], scope: target}
+  - {id: CURATION-WORKSPACE, purpose: Preserve the authoring context while moving between reusable learning-system areas., concept_refs: [CURATION], scope: global}
   - {id: LEARNING-TARGETS, purpose: Choose a prepared target., concept_refs: [LEARNING, LEARNING-TARGET], scope: global}
   - {id: TARGET-OVERVIEW, purpose: Understand the active target, scope and material availability., concept_refs: [LEARNING-TARGET, TARGET-SCOPE, REQUIREMENT], scope: target}
   - {id: TARGET-KNOWLEDGE, purpose: Read/search/explore target-relevant knowledge and relations., concept_refs: [KNOWLEDGE, KNOWLEDGE-RELATION], scope: target}
@@ -14,6 +17,17 @@ locations:
   - {id: CURATION-IMPORT, purpose: Import supported prepared data in its curation context., concept_refs: [CURATION], scope: contextual}
   - {id: RUNTIME-STATUS, purpose: Inspect external-runtime status., concept_refs: [EXTERNAL-RUNTIME], scope: secondary}
 relationships:
+  - {source: APP-SHELL, target: LEARNING-TARGETS, relation: mode-entry}
+  - {source: APP-SHELL, target: CURATION-WORKSPACE, relation: mode-entry}
+  - {source: LEARNING-TARGETS, target: TARGET-WORKSPACE, relation: select-target}
+  - {source: TARGET-WORKSPACE, target: TARGET-OVERVIEW, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-KNOWLEDGE, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-STUDY, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-STATISTICS, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-TARGETS, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-KNOWLEDGE, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-REQUIREMENTS, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-QUESTIONS, relation: contains}
   - {source: LEARNING-TARGETS, target: TARGET-OVERVIEW, relation: enter-target}
   - {source: TARGET-OVERVIEW, target: TARGET-KNOWLEDGE, relation: target-section}
   - {source: TARGET-OVERVIEW, target: TARGET-STUDY, relation: target-section}
