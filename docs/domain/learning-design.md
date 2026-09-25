@@ -90,7 +90,6 @@ Learning Design owns:
 
 - learning targets;
 - target-specific requirements and competencies;
-- criteria and performance levels;
 - alignments between requirements/competencies and reusable subject knowledge;
 - target-relative gaps;
 - prioritization policy and decisions;
@@ -111,7 +110,7 @@ It does not own reusable subject truth or raw learner observations.
 - an unknown state is not automatically a learning gap;
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
 - changing a target, criterion or required performance level may change gaps without changing learner observations;
-- Requirement != Requirement Set != Criterion != Performance Level != Evidence;
+- Requirement != Requirement Set != Evidence;
 - Requirement Set composition is acyclic;
 - alignment does not merge the identities of a requirement and the knowledge it references;
 - a Question owns its `question_text` and direct `answer_text`;
@@ -120,6 +119,5 @@ It does not own reusable subject truth or raw learner observations.
 ## Open questions
 
 - whether learning-material design develops independent invariants requiring a later context split;
-- which criteria/performance-level structures are useful without importing a generic rubric system;
 - how dependencies between requirements affect priority;
 - how evidence strength required for a target should be expressed.
