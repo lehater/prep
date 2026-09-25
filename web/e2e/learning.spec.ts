@@ -27,9 +27,16 @@ test("overview shows read-only scope and factual material counts", async ({ page
 
   await expect(page.getByRole("heading", { name: "Scope" })).toBeVisible();
   await expect(page.getByText("Linux resource management")).toBeVisible();
-  await expect(page.getByText("Knowledge").locator("..")).toContainText("5");
-  await expect(page.getByText("Questions").locator("..")).toContainText("3");
-  await expect(page.getByText("Study Set").locator("..")).toContainText("Available");
+  const material = page.getByRole("region", { name: "Available material" });
+  await expect(
+    material.getByText("Knowledge", { exact: true }).locator(".."),
+  ).toContainText("5");
+  await expect(
+    material.getByText("Questions", { exact: true }).locator(".."),
+  ).toContainText("3");
+  await expect(
+    material.getByText("Study Set", { exact: true }).locator(".."),
+  ).toContainText("Available");
   await expect(page.getByText(/recorded reviews/)).toContainText("4");
   await expect(page.getByText(/mastery/i)).toHaveCount(0);
   await expect(page.getByText(/readiness/i)).toHaveCount(0);
