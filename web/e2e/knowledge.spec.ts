@@ -44,13 +44,13 @@ test("preserves target search context while readable detail opens and closes", a
   await expect(page).toHaveURL(/q=cgroups/);
 });
 
-test("keeps a non-graph empty-state path and renderer-neutral graph access", async ({
+test("keeps a non-graph empty-state path when the 3D renderer is present or unavailable", async ({
   page,
 }) => {
   await page.goto("/");
 
   await expect(
-    page.getByRole("region", { name: "Knowledge graph placeholder" }),
+    page.getByRole("region", { name: "3D Knowledge graph" }),
   ).toBeVisible();
 
   const search = page.getByRole("textbox", { name: "Search Knowledge" });
@@ -59,6 +59,6 @@ test("keeps a non-graph empty-state path and renderer-neutral graph access", asy
 
   await expect(page.getByText("No Knowledge found")).toBeVisible();
   await expect(
-    page.getByRole("region", { name: "Knowledge graph placeholder" }),
+    page.getByRole("region", { name: "3D Knowledge graph" }),
   ).toBeVisible();
 });
