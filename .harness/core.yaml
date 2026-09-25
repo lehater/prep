@@ -55,4 +55,7 @@ questions:
     text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
     blocks: [LEARNING-DESIGN]
     resolution: MODEL-CONTEXT-MAP
-
+  - id: Q-QUESTION-CORPUS-ORGANIZATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should a large corpus of Questions be organized so thousands of questions remain navigable and usable, including identity, classification, grouping, filtering, difficulty, provenance, duplication or variants, and which organization should be derived from Knowledge Model rather than duplicated on Question?
+    blocks: [LEARNING-DESIGN]
