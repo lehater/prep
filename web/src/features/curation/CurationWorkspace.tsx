@@ -1,37 +1,107 @@
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
-import { KnowledgeExplorer } from "../knowledge-explorer/ui/KnowledgeExplorer";
+import type {
+  CurationImportPort,
+  KnowledgeCurationPort,
+  QuestionCurationPort,
+  RequirementCurationPort,
+  TargetCurationPort,
+} from "./ports/CurationPorts";
+import { ImportCurationView } from "./ui/ImportCurationView";
+import { KnowledgeCurationView } from "./ui/KnowledgeCurationView";
+import { QuestionsCurationView } from "./ui/QuestionsCurationView";
+import { RequirementsCurationView } from "./ui/RequirementsCurationView";
+import { TargetsCurationView } from "./ui/TargetsCurationView";
+
+export type CurationSection =
+  | "targets"
+  | "knowledge"
+  | "requirements"
+  | "questions"
+  | "import";
 
 interface CurationWorkspaceProps {
+  readonly section: CurationSection;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
+  readonly targetPort: TargetCurationPort;
+  readonly knowledgePort: KnowledgeCurationPort;
+  readonly requirementPort: RequirementCurationPort;
+  readonly questionPort: QuestionCurationPort;
+  readonly importPort: CurationImportPort;
   readonly Renderer: GraphRenderer;
 }
 
+const LABELS: Readonly<Record<CurationSection, string>> = {
+  targets: "Targets",
+  knowledge: "Knowledge",
+  requirements: "Requirements",
+  questions: "Questions",
+  import: "Import",
+};
+
 export function CurationWorkspace({
+  section,
   knowledgeQueryPort,
+  targetPort,
+  knowledgePort,
+  requirementPort,
+  questionPort,
+  importPort,
   Renderer,
 }: CurationWorkspaceProps) {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       <header>
         <Typography component="p" color="text.secondary">
           Curation
         </Typography>
         <Typography component="h2" variant="h5">
-          Curation Knowledge
+          Curation {LABELS[section]}
         </Typography>
         <Typography color="text.secondary">
-          Reusable Library context with global canonical Knowledge identity.
+          Maintain prepared profiles and reusable canonical learning data outside the learner workflow.
         </Typography>
       </header>
-      <KnowledgeExplorer
-        scope={{ kind: "global" }}
-        queryPort={knowledgeQueryPort}
-        Renderer={Renderer}
-      />
+
+      <Stack component="nav" aria-label="Curation sections" direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
+        {(["targets", "knowledge", "requirements", "questions"] as const).map((item) => (
+          <Button
+            key={item}
+            component={Link}
+            to={`/curation/${item}`}
+            variant={section === item ? "contained" : "text"}
+          >
+            {LABELS[item]}
+          </Button>
+        ))}
+      </Stack>
+
+      {section === "targets" ? (
+        <TargetsCurationView targetPort={targetPort} requirementPort={requirementPort} />
+      ) : section === "knowledge" ? (
+        <KnowledgeCurationView
+          queryPort={knowledgeQueryPort}
+          curationPort={knowledgePort}
+          Renderer={Renderer}
+        />
+      ) : section === "requirements" ? (
+        <RequirementsCurationView
+          requirementPort={requirementPort}
+          knowledgeQueryPort={knowledgeQueryPort}
+        />
+      ) : section === "questions" ? (
+        <QuestionsCurationView
+          questionPort={questionPort}
+          knowledgeQueryPort={knowledgeQueryPort}
+        />
+      ) : (
+        <ImportCurationView importPort={importPort} />
+      )}
     </Stack>
   );
 }

@@ -2,7 +2,17 @@ import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-
 
 import type { GraphRenderer } from "../../features/knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeQueryPort } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
-import { CurationWorkspace } from "../../features/curation/CurationWorkspace";
+import {
+  CurationWorkspace,
+  type CurationSection,
+} from "../../features/curation/CurationWorkspace";
+import type {
+  CurationImportPort,
+  KnowledgeCurationPort,
+  QuestionCurationPort,
+  RequirementCurationPort,
+  TargetCurationPort,
+} from "../../features/curation/ports/CurationPorts";
 import {
   LearningWorkspace,
   type LearningSection,
@@ -20,6 +30,11 @@ interface AppRouterProps {
   readonly questionQueryPort: QuestionQueryPort;
   readonly studyPort: StudyPort;
   readonly statisticsPort: LearningStatisticsPort;
+  readonly curationTargetPort: TargetCurationPort;
+  readonly curationKnowledgePort: KnowledgeCurationPort;
+  readonly curationRequirementPort: RequirementCurationPort;
+  readonly curationQuestionPort: QuestionCurationPort;
+  readonly curationImportPort: CurationImportPort;
   readonly Renderer: GraphRenderer;
 }
 
@@ -51,6 +66,23 @@ function LearningRoute({
   );
 }
 
+function CurationRoute(
+  props: AppRouterProps & { readonly section: CurationSection },
+) {
+  return (
+    <CurationWorkspace
+      section={props.section}
+      knowledgeQueryPort={props.knowledgeQueryPort}
+      targetPort={props.curationTargetPort}
+      knowledgePort={props.curationKnowledgePort}
+      requirementPort={props.curationRequirementPort}
+      questionPort={props.curationQuestionPort}
+      importPort={props.curationImportPort}
+      Renderer={props.Renderer}
+    />
+  );
+}
+
 export function AppRouter(props: AppRouterProps) {
   return (
     <BrowserRouter>
@@ -70,15 +102,16 @@ export function AppRouter(props: AppRouterProps) {
               />
             ),
           )}
-          <Route
-            path="curation/knowledge"
-            element={
-              <CurationWorkspace
-                knowledgeQueryPort={props.knowledgeQueryPort}
-                Renderer={props.Renderer}
+          {(["targets", "knowledge", "requirements", "questions", "import"] as const).map(
+            (section) => (
+              <Route
+                key={section}
+                path={`curation/${section}`}
+                element={<CurationRoute {...props} section={section} />}
               />
-            }
-          />
+            ),
+          )}
+          <Route path="curation" element={<Navigate to="/curation/knowledge" replace />} />
           <Route path="*" element={<Navigate to="/learning" replace />} />
         </Route>
       </Routes>
