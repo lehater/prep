@@ -250,6 +250,6 @@ Knowledge-component and Q-matrix research supports many-to-many mapping between 
 
 The previous Knowledge Graph project provides implementation evidence for stable semantic identity, explanatory responsibility, lightweight classification and questions derived from explanatory knowledge. Its graph-centered architecture is not treated as a premise of this model.
 
-## Open questions
+## Deferred input concerns
 
-- how provenance, disagreement and conflicting claims affect acceptance of reusable knowledge;
+Source validation, provenance assessment, disagreement resolution and conflicting-input handling are outside Knowledge Model. Knowledge Model stores accepted subject semantics supplied to it; a future Knowledge Input / Acquisition context may own these concerns if a concrete product use case justifies that context.
