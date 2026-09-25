@@ -21,19 +21,19 @@ These precedents are evidence for separation of responsibilities, not prescribed
 
 ### Knowledge Model
 
-Owns the reusable representation of subject knowledge and knowledge-based competencies independently of any particular learner or learning mechanism.
+Owns the reusable representation of subject knowledge independently of any particular learner, learning target or learning mechanism.
 
-Its language concerns knowledge identity, concepts or other knowledge units, distinctions, relationships, requirements, explanatory meaning and coherence of the represented subject.
+Its language concerns knowledge identity, concepts or other knowledge units, distinctions, relationships, explanatory meaning and coherence of the represented subject.
 
-It may represent target-relevant standards or competencies, but it does not decide what a particular learner should do next and does not own learner state.
+It does not own learning requirements or competencies, decide what a particular learner should do next, or own learner state.
 
 The representation is deliberately undecided. This context is not synonymous with a graph, ontology, hierarchy or document model.
 
 ### Learning Design
 
-Owns target-specific interpretation and adaptation: what the learner is trying to achieve, what depth or evidence is required, which gaps matter for that target, and what learning or practice should be selected next.
+Owns learning requirements and competencies together with target-specific interpretation and adaptation: what the learner is trying to achieve, what depth or evidence is required, which gaps matter for that target, and what learning or practice should be selected next.
 
-Its language concerns learning target, required depth, target scope, gap, priority, learning intent, learning material, practice intent and evidence requirement.
+Its language concerns reusable and target-specific requirements or competencies, learning target, required depth, target scope, gap, priority, learning intent, learning material, practice intent and evidence requirement.
 
 It consumes reusable subject knowledge from Knowledge Model and learner-state information from Learner Model. It does not redefine subject knowledge or own observations about the learner.
 
@@ -102,7 +102,6 @@ Quality rules remain with the context whose truth they protect: knowledge qualit
 
 The following remain explicit questions for Domain Model Design:
 
-- whether target requirements belong entirely to Learning Design or some reusable requirement frameworks belong to Knowledge Model;
 - whether Learning Design later needs separation between target/planning semantics and learning-material/practice design;
 - how learner-state uncertainty and evidence strength should be represented;
 - how retention and evidence decay affect inferred learner state;
