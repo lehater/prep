@@ -52,7 +52,7 @@ They are not authentication roles in v1; one person may perform both.
 
 Study Set construction now uses all currently resolvable Questions and is not blocked by incomplete semantic coverage. Q-STUDY-SET-PREPARATION-GATE is resolved in APPLICATION-DESIGN.
 
-Question-set coverage adequacy is a separate curation/learning-material quality concern. Exact semantics remain unresolved as Q-QUESTION-COVERAGE-ADEQUACY and do not block the initial learner workflow.
+Learning-material/evidence coverage is a separate curation quality concern. Exact semantics remain unresolved as Q-LEARNING-COVERAGE-MODEL and do not block the initial learner workflow.
 
 The future target-scoped Knowledge Graph learner-state overlay is recorded in docs/research/learner-state-graph-overlay.md and remains blocked by deferred learner-state inference semantics.
 
@@ -97,10 +97,29 @@ SCREEN-VIEW-DESIGN now directly depends on MACHINE-INTERFACES and binds server-b
 
 Anki endpoint/API-key remain deployment configuration; v1 UI exposes status rather than inventing a secret/config editor.
 
+## Low-fidelity interface validation
+
+A task-first low-fidelity pass is captured in `docs/research/low-fidelity-interface-validation.md`.
+
+It reduces Learning-mode local navigation to:
+
+- Overview;
+- Knowledge;
+- Study;
+- Statistics.
+
+Rationale:
+
+- read-only Target scope has no independent learner action and is folded into Overview;
+- currently resolvable target Questions and the v1 Study Set have the same membership, so learner Question browsing is folded into Study;
+- Curation retains separate Targets, Knowledge, Requirements and Questions because each has independent authoring/maintenance tasks.
+
 ## Current frontier
 
-The canonical revalidation closure required before frontend realization is now structurally complete for the current Question-first slice: Data Design and Screen/View Design both have their required upstream contracts.
+The next interface decision is no longer entity inventory. It is **interaction composition**:
 
-Q-LEARNING-COVERAGE-MODEL and the future learner-state graph overlay remain deliberate non-blocking research/deferred semantics.
+- whether the four Learning sections should be realized as persistent tabs/sidebar destinations or a more continuous task-oriented workspace;
+- how Knowledge list/graph/detail coexist without making graph mandatory;
+- whether canonical detail opens as in-context panel/drawer or full-page navigation while preserving return context.
 
-The next useful activity is **low-fidelity interface validation**: reduce the accepted semantic view inventory into the smallest practical Learning and Curation screen flows, then test them against the Python Backend Interview scenario before choosing visual styling/components or implementing frontend code.
+These choices can now be prototyped without changing domain/application semantics. Visual style, component library and production frontend implementation remain downstream.

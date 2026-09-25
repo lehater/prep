@@ -7,7 +7,7 @@ Define shared presentation and interaction conventions for the accepted two-mode
 ## Interaction principles
 
 - **Mode is explicit.** Learning and Curation are visibly different task contexts even when the same physical user performs both.
-- **Learner context first.** Inside Learning, the selected curated LearningTarget remains visible while the learner moves through knowledge, questions, study and statistics.
+- **Learner context first.** Inside Learning, the selected curated LearningTarget remains visible while the learner moves through Overview, Knowledge, Study and Statistics.
 - **Curation is explicit.** Editing target scope, reusable Knowledge/Requirements/Questions and corpus quality belongs to Curation rather than appearing as implicit learner chores.
 - **Reuse is explicit.** Target views project reusable canonical objects; they do not imply that Knowledge, Requirements or Questions are owned by the target.
 - **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
@@ -36,10 +36,12 @@ Learning starts with selection of an existing curated LearningTarget. Learning m
 When a target is open, presentation preserves:
 
 - target identity and concise definition;
-- local learner navigation for Overview, Scope, Knowledge, Questions, Study and Statistics;
+- minimal local learner navigation for Overview, Knowledge, Study and Statistics;
 - available-material facts relevant to the current section;
 - a stable way back to target selection;
 - an explicit switch to Curation when the same v1 user chooses to author or repair reusable material/target structure.
+
+Scope is presented inside Overview because it is read-only in Learning. Target Questions are presented inside Study because the current Study Set and currently resolvable Question collection have the same membership.
 
 Detailed structural/semantic curation diagnostics should not dominate learner surfaces.
 

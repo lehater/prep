@@ -30,16 +30,14 @@ External-runtime status/configuration is a secondary application concern. Study 
 
 ### Target workspace
 
-Opening a target establishes a persistent learner context. The workspace exposes these semantic sections:
+Opening a target establishes a persistent learner context. The smallest current learner navigation has four semantic sections:
 
-- **Overview** — target identity/definition and concise current learning-material availability;
-- **Scope** — the target's selected Requirements/RequirementSets;
+- **Overview** — target identity/definition, read-only curated scope and concise current material availability;
 - **Knowledge** — target-relevant Knowledge projection for reading/exploration;
-- **Questions** — currently available target-relevant Questions;
-- **Study** — Study Set construction/inspection and external-study action;
+- **Study** — currently resolvable Questions, Study Set inspection and external-study action;
 - **Statistics** — factual ReviewObservations/statistics for currently relevant Questions.
 
-These sections define interaction responsibilities, not mandatory routes, tabs or separate pages.
+Read-only Scope is folded into Overview because the learner has no scope-authoring task. Target Questions are folded into Study because the current v1 Study Set is exactly the currently resolvable target Question set; a separate learner Questions destination would duplicate the same collection without a distinct task.
 
 The learner workflow does not require repairing reusable corpus quality. If curation is needed, the same v1 user may deliberately switch to Library context; that is a different task, not an implicit step of studying.
 
@@ -89,28 +87,22 @@ The exact future mechanism for Question-set coverage adequacy may be human, auto
 
 ### Overview
 
-Overview answers: **what am I preparing for, and what study material is currently available?**
+Overview answers: **what am I preparing for, what does this prepared target require, and what study material is currently available?**
 
 It may show factual information such as:
 
 - target identity/definition;
-- selected Requirements/RequirementSets;
+- the curated Requirements/RequirementSets as read-only scope;
 - count/list of currently resolved KnowledgeNodes;
 - count of currently resolvable Questions;
 - whether the current Study Set is empty/non-empty;
 - factual ReviewObservation aggregates for currently relevant Questions when available.
 
-Detailed corpus-quality diagnostics belong to Library/curation context, not the learner workflow.
+The learner may inspect/navigate the scope but cannot add/remove Requirements or edit RequirementSets in Learning mode. Changing target scope requires an explicit switch to Curation mode.
+
+Detailed corpus-quality diagnostics belong to Curation, not the learner workflow.
 
 These facts are not learner mastery, readiness, retention or automatically computed priority.
-
-### Scope
-
-Scope exposes the reusable Requirements/RequirementSets already curated for the selected LearningTarget.
-
-In Learning mode this composition is read-only. The learner may inspect what the target requires but does not add/remove Requirements or edit RequirementSets.
-
-Changing target scope requires an explicit switch to Curation mode and uses the canonical target-composition operations there.
 
 ### Knowledge
 
@@ -125,15 +117,11 @@ The learner can:
 
 Creation, editing, relation maintenance and alignment repair belong to Library curation. The same single-user person may explicitly switch context to perform those tasks.
 
-### Questions
-
-The target Questions section projects currently available reusable Questions reached through the target's resolved KnowledgeNodes.
-
-The learner can inspect/open Questions and their direct answers according to the learning interaction design. Question creation, editing, alignment and coverage-quality work belong to Library curation.
-
 ### Study
 
-The Study section builds and displays the currently resolvable Study Set for the selected target.
+The Study section owns the learner's target-relevant Question collection and the currently resolvable Study Set for the selected target.
+
+Because the current v1 Study Set contains all currently resolvable target Questions, Study provides the learner's browse/inspect Question path as well as build/export actions. Question creation, editing, alignment and coverage-quality work remain Curation tasks.
 
 Study Set construction:
 

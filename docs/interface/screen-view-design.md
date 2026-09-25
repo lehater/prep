@@ -40,23 +40,17 @@ The workspace contains semantic sections below. They may be realized as tabs, ne
 Shows:
 
 - target identity/definition;
-- selected scope summary;
+- curated Requirements/RequirementSets as inspectable read-only scope;
 - currently resolved Knowledge count/summary;
 - currently resolvable Question count;
 - Study Set empty/non-empty state;
 - factual ReviewObservation summary for currently relevant Questions when available.
 
-It does not show inferred mastery, readiness, retention, automatic priority or Question-coverage percentage.
+The learner may navigate from scope entries to readable related context but cannot mutate target composition.
 
-Detailed curation-quality diagnostics belong to Library.
+It does not show inferred mastery, readiness, retention, automatic priority or learning-material coverage percentage.
 
-### Scope
-
-Shows the target's curated Requirements/RequirementSets as read-only learner scope.
-
-The learner may inspect and navigate the scope but cannot add/remove Requirements or edit RequirementSets in Learning mode.
-
-A deliberate switch to Curation opens the canonical target-profile editing context when the same v1 user wants to change scope.
+Detailed curation-quality diagnostics belong to Curation.
 
 ### Knowledge
 
@@ -71,28 +65,19 @@ Learner capabilities:
 
 Knowledge creation/editing, relation maintenance and alignment repair are Library curation capabilities.
 
-### Questions
-
-Shows currently available Questions reached through target-resolved KnowledgeNodes.
-
-Learner capabilities:
-
-- browse/open target-relevant Questions;
-- inspect question/direct-answer content according to the learning interaction;
-- navigate to relevant Knowledge.
-
-Question creation/editing, alignment and semantic coverage-quality work are Library curation capabilities.
-
 ### Study
 
-Builds and shows the Study Set derived from all currently resolvable Questions for the current target.
+Owns the learner-facing target Question collection and builds/shows the Study Set derived from all currently resolvable Questions for the current target.
 
-Capabilities:
+Regions/capabilities:
 
+- Question/material summary for the current target;
+- browse/open the currently resolvable Questions;
+- inspect question/direct-answer content and navigate to relevant Knowledge;
 - request/build Study Set without a corpus-completeness gate;
 - represent valid empty result when no Questions resolve;
-- inspect resulting Questions;
-- export/reconcile Questions through the configured external runtime;
+- inspect the exact previewed Question set;
+- export/reconcile that preview through the configured external runtime;
 - display per-Question export/reconciliation outcomes;
 - retry recoverable external-runtime failures without losing target context.
 
@@ -186,11 +171,10 @@ Concrete browser/server views bind to the accepted operation IDs below.
 | View/context | Read operations | Command operations |
 |---|---|---|
 | Learning target selection | `learning.targets.list` | — |
-| Target Overview / Scope | `learning.targets.get`, `learning.target.statistics.get` | `learning.reviews.sync` when the user explicitly refreshes review facts |
+| Target Overview | `learning.targets.get`, `learning.target.statistics.get` | `learning.reviews.sync` when the user explicitly refreshes review facts |
 | Target Knowledge list | `learning.target.knowledge.list` | — |
 | Target Knowledge graph | `learning.target.knowledge.graph` | — |
-| Target Questions | `learning.target.questions.list` | — |
-| Target Study | `learning.target.study_set.build` | `learning.target.study_set.export` |
+| Target Study | `learning.target.questions.list`, `learning.target.study_set.build` | `learning.target.study_set.export` |
 | Target Statistics | `learning.target.statistics.get` | `learning.reviews.sync` |
 | Question review history | `learning.question.reviews.get` | — |
 | Curation Targets | `curation.targets.list`, `curation.targets.get` | `curation.targets.create`, `curation.targets.update`, `curation.targets.scope.add`, `curation.targets.scope.remove` |
@@ -218,7 +202,9 @@ No learner operation requires raw IDs, semantic curation or graph manipulation.
 
 ## Current status
 
-The current v1 Screen/View responsibilities are revalidated against the explicit Learning/Curation mode split.
+Low-fidelity task validation reduced learner navigation to four sections: Overview, Knowledge, Study and Statistics.
+
+Scope is part of Overview; Questions are part of Study. This removes two learner destinations that had no independent v1 task while preserving all accepted semantics.
 
 The broader learning-material/evidence coverage research does not block the current Question-first learner slice and must not be represented as a fake completeness percentage.
 
