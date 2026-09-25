@@ -268,7 +268,7 @@ export function RequirementsCurationView({
                   <option value="">Select</option>
                   {(selected.kind === "requirement" ? knowledge : items).map((item) => (
                     <option key={item.id} value={item.id}>
-                      {"title" in item ? item.title : item.id}
+                      {item.title}
                     </option>
                   ))}
                 </select>
