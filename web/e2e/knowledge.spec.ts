@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+const targetKnowledgePath = "/learning/linux-backend-interview/knowledge";
+
 test("switches explicit Learning and Curation Knowledge contexts", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(targetKnowledgePath);
 
   await expect(
     page.getByRole("heading", { name: "Linux backend interview" }),
@@ -12,14 +14,14 @@ test("switches explicit Learning and Curation Knowledge contexts", async ({ page
   ).toBeVisible();
   await page.getByRole("link", { name: "Learning" }).click();
   await expect(
-    page.getByRole("heading", { name: "Linux backend interview" }),
+    page.getByRole("heading", { name: "Choose a learning target" }),
   ).toBeVisible();
 });
 
 test("preserves target search context while readable detail opens and closes", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto(targetKnowledgePath);
 
   const search = page.getByRole("textbox", { name: "Search Knowledge" });
   await search.fill("cgroups");
@@ -47,7 +49,7 @@ test("preserves target search context while readable detail opens and closes", a
 test("keeps a non-graph empty-state path when the 3D renderer is present or unavailable", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto(targetKnowledgePath);
 
   await expect(
     page.getByRole("region", { name: "3D Knowledge graph" }),

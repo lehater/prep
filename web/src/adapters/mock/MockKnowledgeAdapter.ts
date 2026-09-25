@@ -4,6 +4,7 @@ import type {
   KnowledgeScope,
 } from "../../features/knowledge-explorer/model/knowledge";
 import type {
+  KnowledgeCollection,
   KnowledgeListQuery,
   KnowledgeQueryOutcome,
   KnowledgeQueryPort,
@@ -22,24 +23,25 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
   async list(
     scope: KnowledgeScope,
     query: KnowledgeListQuery,
-  ): Promise<KnowledgeQueryOutcome<readonly KnowledgeNodeModel[]>> {
-    const problem = this.problem<readonly KnowledgeNodeModel[]>();
+  ): Promise<KnowledgeQueryOutcome<KnowledgeCollection>> {
+    const problem = this.problem<KnowledgeCollection>();
     if (problem) {
       return problem;
     }
 
     const search = query.search?.trim().toLocaleLowerCase() ?? "";
     const allowedKinds = new Set(query.semanticKinds ?? []);
+    const items = this.nodesForScope(scope).filter(
+      (node) =>
+        (allowedKinds.size === 0 || allowedKinds.has(node.semanticKind)) &&
+        (search.length === 0 ||
+          node.title.toLocaleLowerCase().includes(search) ||
+          node.summary.toLocaleLowerCase().includes(search)),
+    );
 
     return {
       status: "success",
-      value: this.nodesForScope(scope).filter(
-        (node) =>
-          (allowedKinds.size === 0 || allowedKinds.has(node.semanticKind)) &&
-          (search.length === 0 ||
-            node.title.toLocaleLowerCase().includes(search) ||
-            node.summary.toLocaleLowerCase().includes(search)),
-      ),
+      value: { items, totalCount: items.length },
     };
   }
 
@@ -107,5 +109,4 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
     }
     return null;
   }
-
 }

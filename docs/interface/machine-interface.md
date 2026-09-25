@@ -22,7 +22,15 @@ limit?
 
 where applicable. `text_query` is evaluated by the backend over the primary human-readable canonical content of the requested collection. Exact indexing and ranking are implementation freedoms. Search/filtering must not be implemented by downloading an arbitrary partial page and filtering only in the browser.
 
-Pagination cursors are opaque implementation tokens and are not canonical identity.
+Browser collection results expose:
+
+```text
+items[]
+next_cursor?
+total_count
+```
+
+`total_count` is the exact count for the same semantic scope/filter/query before pagination. It exists so accepted views can show material/collection counts without downloading every page. Pagination cursors are opaque implementation tokens and are not canonical identity.
 
 Common semantic outcomes are:
 

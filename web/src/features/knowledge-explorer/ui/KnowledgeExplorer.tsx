@@ -56,7 +56,7 @@ export function KnowledgeExplorer({
   const routeState = useMemo(() => parseExplorerRouteState(params), [params]);
   const [searchDraft, setSearchDraft] = useState(routeState.query);
   const [listState, setListState] = useState<
-    AsyncValue<readonly KnowledgeNodeModel[]>
+    AsyncValue<{ readonly items: readonly KnowledgeNodeModel[]; readonly totalCount: number }>
   >({ status: "loading" });
   const [graphState, setGraphState] = useState<AsyncValue<KnowledgeGraphModel>>({
     status: "loading",
@@ -277,14 +277,14 @@ export function KnowledgeExplorer({
           </Typography>
           {listState.status === "loading" ? (
             <LoadingState label="Loading Knowledge list" />
-          ) : listState.status === "ready" && listState.value.length === 0 ? (
+          ) : listState.status === "ready" && listState.value.items.length === 0 ? (
             <StateNotice
               title="No Knowledge found"
               message="Change the current search or semantic-kind filter."
             />
           ) : listState.status === "ready" ? (
             <Stack component="ul" spacing={1} sx={{ listStyle: "none", p: 0 }}>
-              {listState.value.map((node) => (
+              {listState.value.items.map((node) => (
                 <li key={node.id}>
                   <Button
                     onClick={() => openDetail(node.id)}

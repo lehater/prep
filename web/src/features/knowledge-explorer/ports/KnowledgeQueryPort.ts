@@ -10,6 +10,11 @@ export interface KnowledgeListQuery {
   readonly semanticKinds?: readonly KnowledgeSemanticKind[];
 }
 
+export interface KnowledgeCollection {
+  readonly items: readonly KnowledgeNodeModel[];
+  readonly totalCount: number;
+}
+
 export type KnowledgeQueryOutcome<T> =
   | { readonly status: "success"; readonly value: T }
   | { readonly status: "unavailable"; readonly message: string }
@@ -19,7 +24,7 @@ export interface KnowledgeQueryPort {
   list(
     scope: KnowledgeScope,
     query: KnowledgeListQuery,
-  ): Promise<KnowledgeQueryOutcome<readonly KnowledgeNodeModel[]>>;
+  ): Promise<KnowledgeQueryOutcome<KnowledgeCollection>>;
 
   get(
     scope: KnowledgeScope,

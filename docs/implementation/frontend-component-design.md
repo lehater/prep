@@ -72,7 +72,7 @@ Required semantic operations for the current scope:
 - load one canonical Knowledge item/detail;
 - load the accepted Knowledge graph projection for an explicit global or target scope.
 
-Inputs/outputs use frontend-owned models defined below. Concrete transport method/path/pagination representation is adapter-private.
+Collection results preserve frontend-owned items plus the exact machine-contract `total_count` for the same scope/query; cursor representation remains adapter-private. Inputs/outputs use frontend-owned models defined below. Concrete transport method/path/pagination representation is adapter-private.
 
 ### TargetQueryPort
 
@@ -80,7 +80,7 @@ Consumer-owned data-access contract needed by the prototype shell/learner contex
 
 Required operations:
 
-- list/search prepared LearningTargets;
+- list/search prepared LearningTargets with exact result count for the current query;
 - load one target summary/detail sufficient to establish learner workspace context.
 
 The port does not expose target mutation in Learning.
@@ -91,7 +91,7 @@ Consumer-owned read contract used by the Question -> Knowledge Map prototype bri
 
 Required operation:
 
-- load representative/current Questions with canonical Knowledge references needed for navigation into KnowledgeExplorer.
+- load representative/current Questions with canonical Knowledge references needed for navigation into KnowledgeExplorer, preserving the exact result count for the current target/query.
 
 Full Study Set behavior remains outside the immediate prototype slice, but later production realization may extend this port or introduce narrower Study ports when the corresponding slice is selected.
 

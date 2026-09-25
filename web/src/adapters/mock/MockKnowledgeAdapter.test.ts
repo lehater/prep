@@ -12,18 +12,19 @@ describe("MockKnowledgeAdapter", () => {
       { search: "cgroups" },
     );
 
-    expect(outcome).toEqual({
-      status: "success",
-      value: expect.arrayContaining([
-        expect.objectContaining({
-          id: "linux-cgroups",
-          semanticKind: "concept",
-        }),
-      ]),
-    });
+    expect(outcome.status).toBe("success");
     if (outcome.status === "success") {
+      expect(outcome.value.totalCount).toBeGreaterThan(0);
+      expect(outcome.value.items).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "linux-cgroups",
+            semanticKind: "concept",
+          }),
+        ]),
+      );
       expect(
-        outcome.value.some((node) => node.id === "linux-server-hardening"),
+        outcome.value.items.some((node) => node.id === "linux-server-hardening"),
       ).toBe(false);
     }
   });
