@@ -129,9 +129,9 @@ assessments:
 
   - authority_id: VERIFICATION-DESIGN
     applicability: REQUIRED
-    evidence: [docs/verification/interface-verification.md, docs/verification/presentation-verification.md]
-    rationale: Current canonical frontend knowledge already has independent interface and presentation verification obligations, and production realization requires architecture-aware frontend verification before test design.
-    depends_on_evidence: [docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    evidence: [docs/verification/interface-verification.md, docs/verification/presentation-verification.md, docs/verification/frontend-verification.md]
+    rationale: Current canonical frontend knowledge has independent interface, presentation and production architecture/machine-contract verification obligations before test design.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/interface/machine-interface.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/architecture/frontend-system-architecture.md]
     reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
 
 migration_conflicts:

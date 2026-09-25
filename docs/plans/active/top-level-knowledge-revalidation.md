@@ -430,3 +430,19 @@ The derivation uses current Core providers and direct Engineering Graph prerequi
 The generated evidence is deliberately derived rather than persisted as a second truth. Adding/removing a Core provider without adding/removing its baseline review is a hard failure. Revalidating one capability requires bumping only that capability's semantic revision.
 
 The integration check now requires strict semantic/currentness `COMPLETE` for both `CURRENT-REVALIDATION` and `FRONTEND-PROTOTYPE`. Production frontend will use the same evidence and remains fail-closed until its future capabilities are strictly admitted as they are created.
+
+
+### Frontend Verification Design
+
+After strict semantic/currentness baseline migration, `prep.frontend-verification` became the sole actionable production frontend CREATE.
+
+The production contract was corrected before acceptance to include direct inputs required by its claims:
+
+- `prep.product-capabilities` for product/requirement traceability;
+- `prep.presentation-verification` for accepted presentation evidence obligations;
+- `prep.frontend-system-architecture` for architecture/dependency/state boundaries;
+- `prep.machine-interfaces` for machine-contract verification.
+
+`docs/verification/frontend-verification.md` now defines evidence obligations for product traceability, functional/view behavior, machine-contract mapping, dependency direction, DTO isolation, renderer isolation, mock/HTTP substitutability, state ownership, presentation evidence closure and upstream-change revalidation.
+
+The artifact owns verification requirements only. Executable test preconditions/actions/oracles remain Frontend Test Design work.

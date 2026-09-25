@@ -157,6 +157,12 @@ artifacts:
     provides: [prep.frontend-component-design]
     depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, FRONTEND-ENGINEERING-POLICY, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES]
 
+  - id: FRONTEND-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/frontend-verification.md
+    provides: [prep.frontend-verification]
+    depends_on: [PRODUCT-CAPABILITIES, PRESENTATION-VERIFICATION, FRONTEND-SYSTEM-ARCHITECTURE, MACHINE-INTERFACES]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY

@@ -239,8 +239,10 @@ authorities:
           - engineering.verification.interface.machine
           - engineering.transition.revalidation
         requires:
+          - capability: prep.product-capabilities
           - capability: prep.presentation-verification
           - capability: prep.frontend-system-architecture
+          - capability: prep.machine-interfaces
 
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.

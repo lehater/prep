@@ -111,3 +111,7 @@ reviews:
   - capability: prep.frontend-component-design
     revision: 1
     basis: Frontend components, ports, model mappings, provider seams and renderer contracts are implementation-facing boundaries complete for the selected prototype scope without re-owning upstream semantics.
+
+  - capability: prep.frontend-verification
+    revision: 1
+    basis: Frontend Verification defines traceable evidence obligations for accepted product behavior, machine-contract mapping, frontend architecture boundaries, presentation evidence and prerequisite revalidation without becoming a semantic owner.
