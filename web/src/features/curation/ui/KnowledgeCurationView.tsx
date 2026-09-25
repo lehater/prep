@@ -71,7 +71,6 @@ export function KnowledgeCurationView({
         setDetail(outcome.value);
         setSemanticKind(outcome.value.node.semanticKind);
         setContent(outcome.value.node.summary);
-        setMessage(undefined);
       } else {
         setMessage(outcome.message);
       }
