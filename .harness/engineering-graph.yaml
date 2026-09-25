@@ -111,7 +111,7 @@ authorities:
     boundary:
       semantic_cohesion: Human tasks, navigation/information structure, shared interaction language and concrete view composition.
       independent_change: Human interface design can evolve behind stable product/domain/application contracts.
-      public_contract: Provides accepted human-interface and presentation/view contracts to architecture and later frontend realization.
+      public_contract: Provides independently addressable conceptual, information-architecture, interaction, topology, presentation and screen/view contracts to downstream consumers.
     produces:
       - capability: prep.conceptual-interface-model
         knowledge_kind: conceptual-interface-model
@@ -145,23 +145,16 @@ authorities:
         requires:
           - capability: prep.information-architecture
           - capability: prep.interaction-design
-      - capability: prep.human-interface
-        knowledge_kind: human-interface-design
-        requires:
-          - capability: prep.conceptual-interface-model
-          - capability: prep.information-architecture
-          - capability: prep.interaction-design
-          - capability: prep.interface-topology
       - capability: prep.presentation-system
         knowledge_kind: presentation-system-design
         requires:
-          - capability: prep.human-interface
+          - capability: prep.conceptual-interface-model
+          - capability: prep.information-architecture
           - capability: prep.interface-topology
           - capability: prep.interaction-design
       - capability: prep.screen-view-design
         knowledge_kind: screen-view-design
         requires:
-          - capability: prep.human-interface
           - capability: prep.interface-topology
           - capability: prep.interaction-design
           - capability: prep.presentation-system
@@ -227,7 +220,8 @@ authorities:
         knowledge_kind: system-architecture
         requires:
           - capability: prep.application-design
-          - capability: prep.human-interface
+          - capability: prep.interaction-design
+          - capability: prep.interface-topology
           - capability: prep.machine-interfaces
           - capability: prep.import-consistency
 

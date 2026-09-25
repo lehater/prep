@@ -91,23 +91,17 @@ artifacts:
     provides: [prep.interface-topology]
     depends_on: [INFORMATION-ARCHITECTURE, INTERACTION-DESIGN]
 
-  - id: HUMAN-INTERFACE
-    authority: HUMAN-INTERFACE-DESIGN
-    path: docs/interface/human-interface.md
-    provides: [prep.human-interface]
-    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERACTION-DESIGN, INTERFACE-TOPOLOGY]
-
   - id: PRESENTATION-SYSTEM
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/presentation-system.md
     provides: [prep.presentation-system]
-    depends_on: [HUMAN-INTERFACE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN]
 
   - id: SCREEN-VIEW-DESIGN
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/screen-view-design.md
     provides: [prep.screen-view-design]
-    depends_on: [HUMAN-INTERFACE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
+    depends_on: [INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
 
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN
@@ -137,7 +131,7 @@ artifacts:
     authority: SYSTEM-ARCHITECTURE
     path: docs/architecture/system-architecture.md
     provides: [prep.system-architecture]
-    depends_on: [APPLICATION-DESIGN, HUMAN-INTERFACE, MACHINE-INTERFACES, IMPORT-CONSISTENCY]
+    depends_on: [APPLICATION-DESIGN, INTERACTION-DESIGN, INTERFACE-TOPOLOGY, MACHINE-INTERFACES, IMPORT-CONSISTENCY]
 
   - id: DATA-DESIGN
     authority: DATA-DESIGN
