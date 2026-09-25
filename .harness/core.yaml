@@ -73,6 +73,12 @@ artifacts:
     provides: [prep.machine-interfaces]
     depends_on: [APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
+  - id: IMPORT-CONSISTENCY
+    authority: CONCURRENCY-CONSISTENCY-DESIGN
+    path: docs/architecture/import-consistency.md
+    provides: [prep.import-consistency]
+    depends_on: [APPLICATION-DESIGN, MACHINE-INTERFACES]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY

@@ -89,6 +89,26 @@ Item rejection categories include representation/schema rejection, unresolved re
 
 A failed item does not make the whole bulk request fail after the envelope has been accepted. The bulk container has no cross-item atomicity guarantee. References must still resolve; failure of a referenced peer cannot silently make a dependent item valid.
 
+### Import identity and technical deduplication
+
+Bulk import is idempotent at item level.
+
+Identity resolution is attempted in this order:
+
+1. canonical Prep ID, when supplied;
+2. stable import key, when supplied by a producer;
+3. deterministic technical fingerprint when neither stable identity is available.
+
+A stable import key identifies the logical import unit independently of mutable content. Re-importing the same key updates/reconciles that unit rather than creating a duplicate.
+
+The fingerprint fallback detects syntactically equivalent content only. It is computed from a documented canonicalized representation of identity-bearing fields and a stable hash algorithm. For Questions, the current minimum identity-bearing content is normalized `question_text`; normalization may include Unicode normalization, trimming and whitespace normalization. The fingerprint is not semantic identity and does not claim that differently worded questions are equivalent.
+
+Changing fingerprint-bearing content without a canonical ID or stable import key creates a distinct import unit. Corrected re-imports should therefore provide stable import keys.
+
+Import outcomes distinguish `created`, `updated`, `duplicate_skipped`, and `rejected`.
+
+Semantic duplicate detection is outside bulk import. Similar/paraphrased Questions may coexist and can later be inspected through corpus-maintenance tooling and knowledge alignments.
+
 ## External learning runtime: Anki
 
 Anki is the first supported external learning runtime. Its contract is an adapter-facing machine boundary; Anki concepts do not become Prep domain concepts.
