@@ -60,3 +60,8 @@ questions:
     text: How should a large corpus of Questions be organized so thousands of questions remain navigable and usable, including identity, classification, grouping, filtering, difficulty, provenance, duplication or variants, and which organization should be derived from Knowledge Model rather than duplicated on Question?
     blocks: [LEARNING-DESIGN]
     resolution: LEARNING-DESIGN
+
+  - id: Q-LEARNER-STATE-SUBJECT
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?
+    blocks: [LEARNER-MODEL]
