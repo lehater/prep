@@ -81,15 +81,112 @@ authorities:
           - capability: prep.knowledge-model
           - capability: prep.product-capabilities
 
+  - id: APPLICATION-DESIGN
+    responsibility: Own application-level composition of accepted product and domain behavior without re-owning domain semantics or technical realization.
+    boundary:
+      semantic_cohesion: Canonical-data maintenance, learning preparation, external-study orchestration and user task flow.
+      independent_change: Application orchestration can evolve while domain semantics and technical transports remain stable.
+      public_contract: Provides accepted application operations and user journeys to interface and architecture design.
+    produces:
+      - capability: prep.application-design
+        knowledge_kind: application-design
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.knowledge-model
+          - capability: prep.learning-design
+          - capability: prep.learner-model
+      - capability: prep.user-journeys
+        knowledge_kind: user-journey-design
+        requires:
+          - capability: prep.application-design
+
+  - id: HUMAN-INTERFACE-DESIGN
+    responsibility: Own human interaction semantics, information architecture and presentation/view composition without re-owning product or domain truth.
+    boundary:
+      semantic_cohesion: Human tasks, navigation/information structure, shared interaction language and concrete view composition.
+      independent_change: Human interface design can evolve behind stable product/domain/application contracts.
+      public_contract: Provides accepted human-interface and presentation/view contracts to architecture and later frontend realization.
+    produces:
+      - capability: prep.human-interface
+        knowledge_kind: human-interface-design
+        requires:
+          - capability: prep.user-journeys
+          - capability: prep.application-design
+          - capability: prep.knowledge-model
+          - capability: prep.learning-design
+          - capability: prep.learner-model
+      - capability: prep.presentation-system
+        knowledge_kind: presentation-system-design
+        requires:
+          - capability: prep.human-interface
+      - capability: prep.screen-view-design
+        knowledge_kind: screen-view-design
+        requires:
+          - capability: prep.human-interface
+          - capability: prep.presentation-system
+
+  - id: MACHINE-INTERFACE-DESIGN
+    responsibility: Own supported machine-consumed interaction and representation contracts for browser/backend and external-runtime boundaries.
+    boundary:
+      semantic_cohesion: API, external-runtime port and representation semantics.
+      independent_change: Machine interfaces can evolve while preserving product/domain and human-interface semantics.
+      public_contract: Provides accepted machine interaction contracts to architecture and integration realization.
+    produces:
+      - capability: prep.machine-interfaces
+        knowledge_kind: interface-contract
+        requires:
+          - capability: prep.application-design
+          - capability: prep.knowledge-model
+          - capability: prep.learning-design
+          - capability: prep.learner-model
+
+  - id: CONCURRENCY-CONSISTENCY-DESIGN
+    responsibility: Own correctness semantics for interacting import and external-runtime operations where atomicity, partial application, retry or consistency matters.
+    boundary:
+      semantic_cohesion: Atomicity, partial-result, retry/idempotency and consistency semantics.
+      independent_change: Consistency policy can change without redefining domain meaning or system topology.
+      public_contract: Provides accepted import/external-operation consistency constraints to data, architecture and implementation consumers.
+    produces:
+      - capability: prep.import-consistency
+        knowledge_kind: concurrency-consistency-design
+        requires:
+          - capability: prep.application-design
+          - capability: prep.machine-interfaces
+
+  - id: SYSTEM-ARCHITECTURE
+    responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.
+    boundary:
+      semantic_cohesion: Browser/backend/external-runtime structure, container topology and technical dependency placement.
+      independent_change: Runtime topology can evolve behind stable application and interface semantics.
+      public_contract: Provides accepted system structure and runtime constraints to persistence and later realization.
+    produces:
+      - capability: prep.system-architecture
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.application-design
+          - capability: prep.human-interface
+          - capability: prep.machine-interfaces
+          - capability: prep.import-consistency
+
+  - id: DATA-DESIGN
+    responsibility: Own durable physical representation and persistence constraints for accepted Prep state.
+    boundary:
+      semantic_cohesion: Persistence ownership, schema-level representation and durable data constraints.
+      independent_change: Storage representation can evolve behind stable domain/application/interface semantics.
+      public_contract: Provides accepted persistence design to later implementation and verification work.
+    produces:
+      - capability: prep.data-design
+        knowledge_kind: data-design
+        requires:
+          - capability: prep.knowledge-model
+          - capability: prep.learning-design
+          - capability: prep.learner-model
+          - capability: prep.import-consistency
+          - capability: prep.system-architecture
+
 consumers:
   - id: CURRENT-REVALIDATION
-    purpose: Re-establish canonical product and domain knowledge before any downstream architecture or implementation is reconsidered.
+    purpose: Re-establish and revalidate the current accepted engineering knowledge needed before downstream implementation/frontend design is allowed to proceed.
     requires:
-      - capability: prep.problem-evidence
-      - capability: prep.product-intent
-      - capability: prep.product-capabilities
-      - capability: prep.domain-strategy
-      - capability: prep.model-context-strategy
-      - capability: prep.knowledge-model
-      - capability: prep.learning-design
-      - capability: prep.learner-model
+      - capability: prep.data-design
+      - capability: prep.screen-view-design
