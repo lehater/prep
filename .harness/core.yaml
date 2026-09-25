@@ -137,3 +137,7 @@ questions:
     text: In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?
     blocks: [USER-JOURNEYS]
     resolution: APPLICATION-DESIGN
+
+  - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
+    authority: HUMAN-INTERFACE-DESIGN
+    text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?

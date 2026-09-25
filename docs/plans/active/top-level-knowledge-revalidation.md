@@ -114,12 +114,41 @@ Rationale:
 - currently resolvable target Questions and the v1 Study Set have the same membership, so learner Question browsing is folded into Study;
 - Curation retains separate Targets, Knowledge, Requirements and Questions because each has independent authoring/maintenance tasks.
 
+## 3D Knowledge Graph research
+
+A dedicated research artifact is captured in `docs/research/3d-knowledge-graph-learning-research.md`.
+
+Accepted direction for frontend experimentation:
+
+- 3D Knowledge Graph is promoted from incidental visualization to a first-class **prototype** representation for relational learning and exploration;
+- it remains non-exclusive: list/search/detail are required baselines and accessibility paths;
+- Learning uses a target-scoped graph;
+- Curation may use a broader/global graph;
+- Study Questions can deep-link to their aligned Knowledge in the map;
+- relation-type and semantic-kind filters are first-class controls;
+- focus/local-neighborhood interaction is required to control complexity;
+- graph geometry/layout is presentation, never domain meaning;
+- inferred learner-state overlay remains future work.
+
+Research does not justify treating 3D as intrinsically superior to 2D. The prototype must gather task evidence.
+
+## Frontend-first development rule
+
+Do not start production backend implementation merely because machine contracts now exist.
+
+The next implementation work should be a frontend prototype driven by static/mock data sufficient to validate:
+
+- Learning/Curation mode separation;
+- target selection and four-section learner workspace;
+- 3D Knowledge graph + list/search/detail coordination;
+- Study Question -> Knowledge Map transition;
+- Study Set preview/export interaction states;
+- Statistics presentation.
+
+Backend implementation should follow after material frontend interaction choices have been exercised and accepted.
+
 ## Current frontier
 
-The next interface decision is no longer entity inventory. It is **interaction composition**:
+Build and evaluate a **frontend-only low-fidelity/functional prototype with mock data**, with the 3D Knowledge Graph as the main experimental area.
 
-- whether the four Learning sections should be realized as persistent tabs/sidebar destinations or a more continuous task-oriented workspace;
-- how Knowledge list/graph/detail coexist without making graph mandatory;
-- whether canonical detail opens as in-context panel/drawer or full-page navigation while preserving return context.
-
-These choices can now be prototyped without changing domain/application semantics. Visual style, component library and production frontend implementation remain downstream.
+The next substantive product decision should come from prototype evidence: whether 3D materially improves relational-understanding tasks and what screen composition best preserves orientation. Do not choose production visual styling or backend implementation first.

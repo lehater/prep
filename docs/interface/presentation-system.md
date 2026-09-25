@@ -13,7 +13,7 @@ Define shared presentation and interaction conventions for the accepted two-mode
 - **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
 - **One canonical identity, contextual capabilities.** The same canonical object may be viewed from learner or curation context while edit capabilities remain context-specific.
 - **No fake completeness.** The learner sees available material; semantic Question-set coverage quality belongs to curation and has no current numeric score.
-- **Graph is optional.** Spatial exploration supplements list/search/detail interaction and never becomes the only way to complete a core task.
+- **Graph is first-class but non-exclusive.** The frontend prototype gives spatial Knowledge exploration a prominent role for relational learning, while list/search/detail remain equivalent canonical access paths.
 - **Recoverability is visible.** Validation and external-integration failures retain context/input and expose a retry or correction path.
 
 ## Shared application composition
@@ -96,15 +96,25 @@ Target-context statistics are observations for Questions currently relevant to t
 
 ## Knowledge exploration
 
-Knowledge may switch between list/search and graph projection when graph structure improves exploration.
+Knowledge provides coordinated list/search, graph and detail representations over the same canonical identities.
 
-A Target Knowledge context may request a target-scoped graph; the global Library may request broader Knowledge exploration.
+For the frontend prototype:
 
-Node selection resolves to canonical Knowledge detail. Graph layout/camera state remains presentation state.
+- a 3D node-link graph is implemented as an experimental first-class Knowledge view;
+- Target Knowledge defaults the graph scope to nodes relevant to the selected LearningTarget;
+- Curation may expose a broader/global graph;
+- relation-type filters control accepted semantic relation types, initially `addresses` and `realizes`;
+- semantic-kind filters control Concept / Mechanism / Procedure / Strategy visibility;
+- focus mode reduces clutter to a selected node and a bounded neighborhood;
+- relation direction and type remain legible without relying on geometry alone;
+- node selection opens readable canonical detail without discarding graph state;
+- Study Questions can deep-link into the graph focused on their aligned KnowledgeNodes.
 
-2D versus 3D is deliberately unconstrained until comparative task evidence justifies a choice.
+Graph layout/camera state remains presentation state. Geometric proximity is not itself semantic meaning.
 
-A future learner-state overlay may use visual properties such as opacity, size or other redundant encodings, but only after accepted learner-state semantics exist. Current review facts must not be converted into pseudo-mastery by visualization code.
+The 3D prototype is compared with 2D/list baselines on concrete relational-learning tasks. Research shows potential value of node-link representations and, in some settings, 3D/immersive depth, but also known viewpoint, occlusion and disorientation costs; therefore 3D is not promoted to a product invariant before task evidence.
+
+A future learner-state overlay may use opacity, size or other redundant encodings, but only after accepted learner-state semantics exist. Current review facts must not be converted into pseudo-mastery by visualization code.
 
 ## Import presentation
 

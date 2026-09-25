@@ -110,10 +110,15 @@ The target Knowledge section projects reusable KnowledgeNodes reached through cu
 
 The learner can:
 
-- browse/read target-relevant Knowledge;
+- browse/search target-relevant Knowledge;
+- explore a first-class interactive graph projection of the same target-relevant Knowledge set;
 - open canonical Knowledge detail in learner context;
 - navigate accepted KnowledgeRelations;
-- optionally switch to a target-scoped graph projection.
+- focus a selected node and its local relational neighborhood;
+- filter visible accepted relations by relation type and visible nodes by semantic kind;
+- enter the Knowledge map from a Study Question focused on that Question's aligned KnowledgeNodes.
+
+The frontend prototype should include a 3D graph implementation so its learning value can be tested directly. This is a prototype commitment, not evidence that 3D is superior to 2D or that graph interaction should become mandatory.
 
 Creation, editing, relation maintenance and alignment repair belong to Library curation. The same single-user person may explicitly switch context to perform those tasks.
 
@@ -122,6 +127,8 @@ Creation, editing, relation maintenance and alignment repair belong to Library c
 The Study section owns the learner's target-relevant Question collection and the currently resolvable Study Set for the selected target.
 
 Because the current v1 Study Set contains all currently resolvable target Questions, Study provides the learner's browse/inspect Question path as well as build/export actions. Question creation, editing, alignment and coverage-quality work remain Curation tasks.
+
+From a Question, the learner may invoke **Show in Knowledge Map** to open the target-scoped Knowledge graph focused on all KnowledgeNodes aligned to that Question. This is a learning navigation action; it creates no new alignment or semantic relation.
 
 Study Set construction:
 
@@ -160,16 +167,26 @@ Exact server-backed search/filter fields remain constrained by accepted applicat
 
 ## Knowledge Graph
 
-Graph visualization is an optional Knowledge projection for relationship exploration.
+Graph visualization is a first-class **exploration and learning representation** in the frontend prototype, while remaining non-mandatory for core access.
 
 It may be entered from:
 
-- the global Knowledge Library, for broader corpus exploration;
-- a Target Knowledge context, for a target-scoped projection of currently relevant KnowledgeNodes.
+- the global Knowledge Library, for broader corpus exploration and curation;
+- a Target Knowledge context, for target-scoped relational learning;
+- a Study Question, focused on that Question's aligned KnowledgeNodes and nearby accepted relations.
 
-Selecting a graph node opens the same canonical Knowledge identity/detail as list/search selection. Graph movement, layout and camera manipulation do not mutate domain semantics.
+Supported graph tasks include:
 
-Every core Knowledge task remains available without graph manipulation. Whether the useful projection is 2D, 3D or omitted is downstream of demonstrated task value; 3D is not a product invariant.
+- understand which reusable knowledge objects are semantically connected;
+- inspect the meaning/direction of visible relation types;
+- focus one node and reduce the visible graph to a local neighborhood;
+- toggle accepted relation types such as `addresses` and `realizes`;
+- filter by semantic kind (Concept, Mechanism, Procedure, Strategy);
+- move between graph and canonical readable detail without losing graph context.
+
+Selecting a graph node opens the same canonical Knowledge identity/detail as list/search selection. Graph movement, layout, camera position and apparent geometric distance do not mutate or imply domain semantics.
+
+The prototype specifically includes 3D to test whether depth and spatial manipulation improve these tasks. Current research does not establish a general desktop-3D advantage, so 2D/list alternatives remain comparison baselines and every core task remains possible without 3D manipulation.
 
 ### Future learner-state overlay
 

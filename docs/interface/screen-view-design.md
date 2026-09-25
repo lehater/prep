@@ -58,10 +58,14 @@ Shows KnowledgeNodes reached from the target's current Requirement-to-Knowledge 
 
 Learner capabilities:
 
-- browse/read target-derived Knowledge;
+- browse/search target-derived Knowledge;
+- explore the same nodes in an interactive target-scoped graph;
 - open canonical Knowledge detail in learner context;
 - navigate accepted relations;
-- optionally switch to a target-scoped graph projection.
+- filter graph nodes by semantic kind;
+- toggle accepted relation types;
+- focus a node/local neighborhood;
+- preserve graph camera/filter/focus state while opening and closing readable detail.
 
 Knowledge creation/editing, relation maintenance and alignment repair are Library curation capabilities.
 
@@ -74,6 +78,7 @@ Regions/capabilities:
 - Question/material summary for the current target;
 - browse/open the currently resolvable Questions;
 - inspect question/direct-answer content and navigate to relevant Knowledge;
+- **Show in Knowledge Map** for a Question, opening Target Knowledge with all aligned KnowledgeNodes focused/highlighted and current target scope preserved;
 - request/build Study Set without a corpus-completeness gate;
 - represent valid empty result when no Questions resolve;
 - inspect the exact previewed Question set;
@@ -138,11 +143,51 @@ Future semantic learning-material/evidence coverage belongs to Curation, but no 
 
 ## Knowledge graph projection
 
-Graph is a projection of accepted KnowledgeNodes/KnowledgeRelations in either global-Library or target-derived scope.
+Graph is a projection of accepted KnowledgeNodes/KnowledgeRelations in either Curation-global or Learning-target scope.
 
-Selecting a node opens the same canonical Knowledge identity used by list/search. Dragging, camera movement or layout manipulation changes presentation state only.
+### Prototype composition
 
-All core maintenance/navigation remains possible without the graph. 2D versus 3D remains deliberately unresolved pending demonstrated task benefit.
+The frontend prototype includes a 3D graph canvas with coordinated supporting regions:
+
+```text
+Knowledge
+┌─────────────────────────────────────────────────────────────┐
+│ Search   [semantic kinds]   [relation types]   [reset/focus]│
+├───────────────────────────────────────┬─────────────────────┤
+│                                       │ selected Knowledge  │
+│              3D graph                 │ readable detail     │
+│                                       │ relations           │
+│                                       │ [open full detail]  │
+└───────────────────────────────────────┴─────────────────────┘
+```
+
+Required interactions:
+
+- orbit/pan/zoom the 3D projection;
+- click without drag selects a node and opens in-context detail;
+- drag/rotate manipulates presentation only;
+- focus selected node and a bounded local neighborhood;
+- toggle accepted relation types, initially `addresses` and `realizes`;
+- filter semantic kinds Concept / Mechanism / Procedure / Strategy;
+- preserve graph state while inspecting detail;
+- restore target/global scope after focus;
+- enter from Study Question with all aligned KnowledgeNodes focused/highlighted.
+
+Relation type/direction must remain inspectable via labels, legend, interaction or another explicit encoding; geometric position alone is insufficient.
+
+All core access remains possible through list/search/detail. The prototype must compare 3D against a simpler baseline for the same tasks rather than assuming visual appeal implies learning value.
+
+### Evaluation tasks
+
+At minimum test:
+
+1. identify what is directly connected to a concept and by what relation;
+2. explain the relational context of one selected KnowledgeNode;
+3. move from a Study Question to the supporting Knowledge and describe its neighborhood;
+4. filter the graph to one relation type and recover the intended structure;
+5. return to a previously inspected node without excessive disorientation.
+
+Observe task correctness, completion time, navigation errors/disorientation and qualitative usefulness. 3D remains a product hypothesis until this evidence is collected.
 
 ### Future learner-state overlay
 
@@ -174,7 +219,7 @@ Concrete browser/server views bind to the accepted operation IDs below.
 | Target Overview | `learning.targets.get`, `learning.target.statistics.get` | `learning.reviews.sync` when the user explicitly refreshes review facts |
 | Target Knowledge list | `learning.target.knowledge.list` | — |
 | Target Knowledge graph | `learning.target.knowledge.graph` | — |
-| Target Study | `learning.target.questions.list`, `learning.target.study_set.build` | `learning.target.study_set.export` |
+| Target Study | `learning.target.questions.list`, `learning.target.study_set.build` | `learning.target.study_set.export`; Question -> Knowledge Map is local navigation using existing question knowledge references |
 | Target Statistics | `learning.target.statistics.get` | `learning.reviews.sync` |
 | Question review history | `learning.question.reviews.get` | — |
 | Curation Targets | `curation.targets.list`, `curation.targets.get` | `curation.targets.create`, `curation.targets.update`, `curation.targets.scope.add`, `curation.targets.scope.remove` |
