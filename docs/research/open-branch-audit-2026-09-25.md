@@ -26,7 +26,7 @@ The following evidence is retained because it can inform future work without ass
 
 ## Explicitly not carried forward
 
-The old 3D/graph prototype, graph-centered UX specifications, old implementation contracts, and old ADR claims are not imported into main. They were built against a solution hypothesis that the current revalidation deliberately removed as a premise. If similar implementation is needed later, it must be justified from the current Knowledge Model, Learning Design and validated UX needs.
+The old graph-centered UX specifications, old implementation contracts, and old ADR claims are not imported as canonical product knowledge. The working 3D/graph visualization prototype itself is preserved under `experiments/knowledge_representation/` as implementation evidence and a future technical foundation. Its existence does not make the graph or 3D representation a product premise; future product use must still be justified from the current Knowledge Model, Learning Design and validated UX needs.
 
 The old bootstrap/process/domain files are likewise not imported because the current Harness realization and current canonical artifacts supersede them.
 
