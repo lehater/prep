@@ -49,11 +49,23 @@ artifacts:
     provides: [prep.learner-model]
     depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
+  - id: USER-JOURNEYS
+    authority: APPLICATION-DESIGN
+    path: docs/application/user-journeys.md
+    provides: [prep.user-journeys]
+    depends_on: [APPLICATION-DESIGN]
+
   - id: APPLICATION-DESIGN
     authority: APPLICATION-DESIGN
     path: docs/application/application-design.md
     provides: [prep.application-design]
     depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: HUMAN-INTERFACE
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/human-interface.md
+    provides: [prep.human-interface]
+    depends_on: [USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
