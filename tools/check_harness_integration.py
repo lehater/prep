@@ -41,7 +41,13 @@ def extract_screen_subjects(path: str) -> list[str]:
     return subjects
 
 
-def require_complete(graph: dict, core: dict, target: str) -> None:
+def require_complete(
+    graph: dict,
+    core: dict,
+    target: str,
+    *,
+    implementation_consumer: bool,
+) -> dict:
     result = evaluate_engineering_target(graph, target, core)
     if result.get("status") != "COMPLETE":
         raise SystemExit(
@@ -49,7 +55,44 @@ def require_complete(graph: dict, core: dict, target: str) -> None:
             f"got {result.get('status')}: create={result.get('create')} "
             f"wait={result.get('wait')} pending={result.get('pending')}"
         )
-    print(f"{target}: COMPLETE (structural coverage only)")
+    if result.get("implementation_consumer") is not implementation_consumer:
+        raise SystemExit(
+            f"{target} implementation classification mismatch: "
+            f"expected {implementation_consumer}, "
+            f"got {result.get('implementation_consumer')}"
+        )
+    print(
+        f"{target}: COMPLETE (structural coverage only; "
+        f"implementation_consumer={implementation_consumer})"
+    )
+    return result
+
+
+def report_target(
+    graph: dict,
+    core: dict,
+    target: str,
+    *,
+    implementation_consumer: bool,
+) -> dict:
+    result = evaluate_engineering_target(graph, target, core)
+    if result.get("implementation_consumer") is not implementation_consumer:
+        raise SystemExit(
+            f"{target} implementation classification mismatch: "
+            f"expected {implementation_consumer}, "
+            f"got {result.get('implementation_consumer')}"
+        )
+
+    def caps(key: str) -> list[str]:
+        return [item["capability"] for item in result.get(key, [])]
+
+    print(
+        f"{target}: {result.get('status')} "
+        f"(implementation_consumer={implementation_consumer}; "
+        f"create={caps('create')} wait={caps('wait')} "
+        f"pending={caps('pending')})"
+    )
+    return result
 
 
 def main() -> int:
@@ -87,7 +130,24 @@ def main() -> int:
         f"({len(subject_coverage['expected_subjects'])} topology views covered)"
     )
 
-    require_complete(graph, core, "CURRENT-REVALIDATION")
+    require_complete(
+        graph,
+        core,
+        "CURRENT-REVALIDATION",
+        implementation_consumer=False,
+    )
+    report_target(
+        graph,
+        core,
+        "FRONTEND-PROTOTYPE",
+        implementation_consumer=False,
+    )
+    report_target(
+        graph,
+        core,
+        "FRONTEND-IMPLEMENTATION",
+        implementation_consumer=True,
+    )
 
     print("Prep pinned Harness integration PASS")
     return 0
