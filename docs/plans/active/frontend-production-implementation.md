@@ -216,3 +216,17 @@ The final FI-07 checkpoint at `260a614df945164f51f7f72474e9007a99339412` (workfl
 - production-tree residue audit found no PaymentGraph, KnowledgeGraphSnapshot/source-sync, Storybook tuning, diagnostics/settings workspace or experiment-named production module.
 
 FI-01 through FI-07 are complete on this branch. The 3D renderer remains a first-class but non-exclusive presentation hypothesis: current automated evidence proves semantic correctness and equivalent canonical access, but does not establish a human task-performance advantage, so `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains intentionally unresolved.
+
+## Reopened frontend correction — spatial/performance closure
+
+Manual review of the running frontend exposed an upstream design defect rather than a local CSS defect:
+
+- low-fidelity frames visually suggested a dominant graph, but Screen/View Design explicitly left responsive layout unconstrained;
+- the Harness Screen/View skill required responsive transformations, while machine validation did not enforce them;
+- `docs/architecture/performance-capacity.md` contained valuable graph scale/degradation targets but was not registered in Core/Engineering Graph, so downstream frontend knowledge could remain COMPLETE without consuming it.
+
+The canonical frontend closure has therefore been reopened. FI-01..FI-07 remain historical implementation evidence against the previous baseline; they are not the current completion frontier.
+
+- [ ] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence.
+
+FRC-01 must implement the revised dominant-graph frames, graph control surface and semantic-preserving performance profiles; adapt eligible renderer mechanics from `experiments/knowledge-representation-3d`; and record hardware-accelerated 1k/2k/5k evidence before production frontend closure is claimed again.

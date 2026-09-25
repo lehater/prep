@@ -42,11 +42,13 @@ python tools/check_harness_integration.py
 
 ## Current engineering frontier
 
-Harness-guided revalidation and production frontend knowledge closure are complete for the `FRONTEND-IMPLEMENTATION` Consumer at the pinned Harness revision.
+The production frontend closure is **reopened** after manual UI review exposed missing responsive/spatial Screen/View knowledge and an orphaned graph Performance/Capacity contract.
 
-Production frontend coding follows the dependency-ordered slices in `docs/implementation/frontend-implementation-design.md`. FI-01 through FI-07 are complete: foundation, minimum Knowledge path, production 3D renderer adapter, Learning workspace, Curation workspace, production HTTP/query-cache integration, and verification/deployable-frontend evidence are realized against the accepted frontend contracts.
+Current authority work has revised the Presentation System, Screen/View Design and Frontend Performance/Capacity knowledge so the active graph is the dominant Knowledge workspace, wide/compact/narrow transformations are explicit, and user-visible performance degradation preserves canonical semantics.
 
-There is no further frontend implementation slice implied by this plan. Select the next engineering frontier from current Harness/project priorities and its owning Consumer/Authority rather than extending frontend behavior opportunistically. `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
+FI-01 through FI-07 remain historical realization evidence against the previous baseline. The current implementation frontier is **FRC-01 — Knowledge workspace spatial/performance correction** in `docs/implementation/frontend-implementation-design.md`. Do not claim `FRONTEND-IMPLEMENTATION` current-complete again until downstream architecture/component/verification/test knowledge is revalidated and FRC-01 plus 1k/2k/5k hardware renderer evidence are complete.
+
+`Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
 
 The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
 

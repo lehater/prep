@@ -290,6 +290,33 @@ Completes:
 
 Completion is the full checklist in the final section below.
 
+### FRC-01 — Knowledge workspace spatial/performance correction
+
+This is a revalidation/correction slice, **not FI-08** and not new product scope. It exists because the previous Screen/View closure left responsive spatial hierarchy materially unconstrained and the graph performance/capacity artifact was outside the Harness dependency graph.
+
+Depends on the revised Presentation System, Screen/View Design, Frontend Performance/Capacity, Frontend Architecture, Component Design, Verification and Test Design.
+
+Creates/adapts:
+
+- graph-primary responsive Knowledge workspace for wide / compact / narrow compositions;
+- compact Knowledge toolbar with Search, semantic-kind filter, relation-type multi-select, focus/clear, Fit, Reset and Graph settings;
+- Curation New/Import as focused actions instead of permanent large panels above the graph;
+- renderer-neutral Auto / Quality / Performance profile state and accepted advanced rendering preferences;
+- donor adaptation of instanced-node, batched-link, demand-driven idle rendering and semantic-preserving visual/physics degradation;
+- renderer-private diagnostics suitable for hardware benchmark evidence;
+- synthetic renderer-neutral 1k / 2k / 5k stress fixtures;
+- renewed Presentation/Frontend Verification evidence.
+
+Completion:
+
+- FTD-RESPONSIVE-GRAPH-WORKSPACE, FTD-GRAPH-CONTROL-SURFACE and FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS are green;
+- hardware FTD-GRAPH-STRESS-EVIDENCE is recorded for 1k/2k/5k workloads;
+- ordinary 2k/10k interaction meets the accepted approximately-30-FPS target under an appropriate supported profile on the reference desktop class;
+- idle renderer does not maintain avoidable continuous RAF work after settling;
+- graph remains the dominant active workspace on wide/compact layouts and usable full-width primary surface on narrow layouts;
+- private renderer strategies do not leak into feature/domain contracts;
+- old PaymentGraph/routes/snapshot-sync/Storybook product semantics remain absent.
+
 ## Experimental 3D reuse policy
 
 The branch `experiments/knowledge-representation-3d` is evidence/donor code only.
@@ -344,7 +371,7 @@ npm run test:e2e
 
 A convenience `npm run check` may compose the fast deterministic subset, but the authoritative PR/release gate remains CI.
 
-Storybook build and renderer performance diagnostics may be additional evidence. They are not correctness gates unless a later accepted verification obligation makes them mandatory.
+Storybook remains an optional carrier for rendered scenarios, but the accepted Frontend Performance/Capacity contract now makes representative hardware-accelerated renderer measurement mandatory evidence. Developer diagnostics may supply RAF/FPS, settle, draw-call and triangle evidence without becoming product UI.
 
 ## Build and delivery
 
@@ -401,6 +428,9 @@ Production frontend implementation is complete only when all of the following ho
 16. No old graph-first routes, PaymentGraph semantics, Storybook tuning controls or legacy source-sync machinery enters production behavior.
 17. Frontend Docker image builds reproducibly and rollback to the prior image is possible without data migration.
 18. Any implementation-discovered semantic gap has been routed back to its owning Authority rather than silently decided in code.
+19. Revised wide/compact/narrow Knowledge spatial contracts are proven, with graph-primary composition and no required horizontal overflow.
+20. Accepted graph controls and Auto/Quality/Performance profiles preserve canonical semantics.
+21. Hardware-accelerated 1k/2k/5k stress evidence satisfies the Frontend Performance/Capacity verification obligations, including demand-driven idle behavior.
 
 ## Explicit implementation freedoms
 

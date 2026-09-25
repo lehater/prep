@@ -93,6 +93,38 @@ Task evidence comparing graph and non-graph representations for the same represe
 
 This check may lead to retaining, narrowing or demoting 3D without changing Knowledge semantics.
 
+### PV-SPATIAL-RESPONSIVE-CLOSURE — primary workspace survives reflow
+
+**Verifies**
+
+- wide Knowledge composition gives the active graph the clear majority of flexible workspace while list/detail remain supporting regions;
+- compact composition preserves graph primacy while detail moves below/drawer and list may collapse;
+- narrow composition uses one usable content width with graph primary and supporting list/detail disclosures;
+- Curation New/Import actions do not permanently consume a large row above the graph;
+- responsive transformation preserves meaningful focus/read order and does not introduce horizontal page overflow.
+
+**Method:** DEMONSTRATION + TEST.
+
+**Evidence requirement**
+
+Rendered browser evidence at representative wide, compact and narrow viewport classes. Exact CSS breakpoint numbers/pixels are not canonical; spatial role/priority and reflow outcome are.
+
+### PV-GRAPH-PERFORMANCE-DEGRADATION — scale without semantic loss
+
+**Verifies**
+
+- Auto / Quality / Performance profiles and accepted advanced visual settings change presentation cost only;
+- canonical Knowledge identity, scope, relation type/direction, focus/selection and list/search/detail access remain unchanged across profiles;
+- relation direction remains inspectable if directional arrowheads are disabled;
+- renderer becomes demand-driven when idle after active simulation/camera transitions settle;
+- representative hardware-accelerated graph workloads satisfy the accepted ordinary envelope and produce recorded stress evidence.
+
+**Method:** TEST + DEMONSTRATION + MEASUREMENT.
+
+**Evidence requirement**
+
+Deterministic semantic-preservation tests plus hardware-accelerated 1k / 2k / 5k graph runs recording active RAF/FPS, idle renderer activity, layout/force settle behavior, interaction responsiveness and available draw-call/triangle diagnostics. Headless evidence alone cannot satisfy the performance measurement.
+
 ## Current evidence state
 
 Available now:
@@ -100,15 +132,18 @@ Available now:
 - topology -> Screen/View subject coverage;
 - canonical traceability of the verification obligations above to Presentation System and Screen/View Design.
 
-Requires frontend prototype/rendered evidence later:
+Requires renewed rendered evidence after the responsive/performance redesign:
 
 - reusable-pattern consistency;
 - provider-neutral presentation fidelity;
 - theme/token coherence;
 - accessibility walkthroughs;
-- 3D task-value evidence.
+- 3D task-value evidence;
+- wide/compact/narrow spatial hierarchy and focus/read-order behavior;
+- semantic-preserving graph performance/degradation profiles;
+- hardware-accelerated 1k/2k/5k renderer measurements.
 
-Absence of rendered evidence before the prototype exists is implementation/evidence lag, not permission to invent new interface semantics.
+Previous rendered evidence against the older unconstrained layout is historical evidence only. It cannot close the revised Presentation Verification obligations.
 
 ## Out of scope
 

@@ -13,6 +13,7 @@ This verification design is derived from:
 - `docs/vision/product-capabilities.md`;
 - `docs/verification/presentation-verification.md`;
 - `docs/architecture/frontend-system-architecture.md`;
+- `docs/architecture/performance-capacity.md`;
 - `docs/interface/machine-interface.md`.
 
 The downstream Test Design may refine TEST obligations into executable preconditions, actions and observable oracles. Implementation code remains evidence, not semantic authority.
@@ -112,15 +113,18 @@ The graph renderer remains a replaceable presentation adapter:
 - concrete renderer/Three.js objects stay inside the renderer adapter;
 - coordinates, camera, physics and drag state never become canonical Knowledge fields;
 - feature code consumes renderer-neutral GraphScene / GraphRenderer contracts;
-- click-without-drag activation and other renderer mechanics cannot mutate Knowledge semantics directly.
+- click-without-drag activation and other renderer mechanics cannot mutate Knowledge semantics directly;
+- Auto / Quality / Performance and accepted advanced rendering preferences cross the renderer boundary only as presentation intent;
+- private instancing/batching/pixel-ratio/force/idle strategies remain adapter-owned;
+- semantic-preserving degradation and demand-driven idle behavior satisfy the accepted performance/capacity contract.
 
 **Method:** TEST + INSPECTION.
 
 **Evidence requirement**
 
-Boundary/import evidence plus renderer contract tests using renderer-neutral scenes/events.
+Boundary/import evidence plus renderer contract tests using renderer-neutral scenes/events, profile/degradation semantic-preservation tests, and representative 1k/2k/5k hardware-accelerated stress evidence.
 
-Exact layout coordinates are never verification oracles.
+Exact layout coordinates are never semantic verification oracles. Performance measurements are evidence against the accepted quality envelope, not canonical geometry.
 
 ### FV-07 — Mock / HTTP contract substitutability
 
@@ -165,7 +169,9 @@ All applicable obligations in `docs/verification/presentation-verification.md` h
 - provider-neutral semantic fidelity;
 - coherent theme/token roles;
 - accessibility/non-graph access;
-- 3D task-value evaluation where the 3D projection is included.
+- 3D task-value evaluation where the 3D projection is included;
+- graph-primary wide/compact/narrow spatial composition;
+- semantic-preserving graph performance/degradation profiles and hardware stress evidence.
 
 **Method:** ANALYSIS.
 
@@ -195,6 +201,7 @@ This check proves revalidation discipline; it is not a project-management gate.
 | Presentation Verification | FV-02, FV-09 |
 | Machine Interface | FV-03, FV-05 |
 | Frontend System Architecture | FV-04, FV-05, FV-06, FV-07, FV-08 |
+| Frontend Performance/Capacity | FV-06, FV-09 |
 | prerequisite-baseline currentness | FV-10 |
 
 ## Completion meaning

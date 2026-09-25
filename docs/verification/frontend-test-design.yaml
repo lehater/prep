@@ -89,6 +89,30 @@ content:
       operation: Present each applicable state through the same view responsibility.
       oracle: Each state remains distinguishable with consistent presentation semantics and does not expose actions invalid for that state.
 
+    - id: FTD-RESPONSIVE-GRAPH-WORKSPACE
+      verification_refs: [FV-02, FV-09]
+      precondition: The same representative Knowledge workspace is available at wide, compact and narrow viewport classes.
+      operation: Render the workspace in each viewport class and inspect region ordering, graph/list/detail availability and keyboard continuation.
+      oracle: Wide composition gives the graph the flexible majority of the workspace; compact keeps the graph primary while supporting detail/list reflow; narrow uses one content width without horizontal overflow; focus/read order remains usable and required controls remain reachable.
+
+    - id: FTD-GRAPH-CONTROL-SURFACE
+      verification_refs: [FV-02, FV-06, FV-09]
+      precondition: A representative graph contains multiple semantic kinds and relation types and exposes the accepted graph toolbar.
+      operation: Change relation-type multi-selection and semantic-kind filtering, focus/clear focus, fit the graph, reset camera and open graph settings.
+      oracle: Visible topology follows semantic filters without inventing relations; fit/reset affect viewport only; focus is reversible; accepted controls remain available without exposing private renderer strategy names.
+
+    - id: FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS
+      verification_refs: [FV-06, FV-09]
+      precondition: The same renderer-neutral GraphScene can be rendered under Auto, Quality and Performance profiles plus accepted advanced visual preferences.
+      operation: Switch profiles and toggle labels, arrowheads, decorative particles, live physics and node visual detail where supported.
+      oracle: Canonical node ids, visible semantic membership, relation source/target/type, current scope, selection/focus and equivalent list/detail access remain unchanged; if arrowheads are disabled, direction remains explicitly inspectable by another accepted encoding.
+
+    - id: FTD-GRAPH-STRESS-EVIDENCE
+      verification_refs: [FV-06, FV-09]
+      precondition: Synthetic renderer-neutral stress fixtures exist for approximately 1k, 2k and 5k visible nodes with proportionate typed relations and no product/domain meaning.
+      operation: Run the production renderer in a hardware-accelerated desktop browser for each fixture/profile and record active RAF/FPS, idle activity, settle behavior, orbit/zoom/drag/search-focus/filter responsiveness and available draw-call/triangle diagnostics.
+      oracle: The ordinary 2k/10k envelope is approximately 30 FPS or better under an appropriate supported profile on the reference desktop class; idle rendering stops avoidable continuous animation work after settling; 5k stress behavior and any required degradation are recorded; no benchmark profile changes canonical graph semantics. Headless execution may validate fixture/configuration semantics but cannot satisfy this performance oracle.
+
   implementation_freedoms:
     - exact test runner and browser/component-test framework
     - fixture/helper/mocking syntax
