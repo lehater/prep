@@ -1,26 +1,26 @@
 version: 1
 kind: harness-engineering-graph
-id: PREP-TOP-LEVEL-DESIGN
+id: PREP-REVALIDATION
 default_subject: PREP
 
 authorities:
   - id: DISCOVERY
-    responsibility: Own accepted problem-space evidence and learning-system pain points without deciding solution structure.
+    responsibility: Own accepted problem observations, desired outcomes and motivating evidence without deciding product or solution semantics.
     boundary:
-      semantic_cohesion: Evidence about fragmented learning workflows, knowledge duplication, progress visibility and cross-domain learning needs.
-      independent_change: Problem evidence may evolve before product or architecture decisions change.
-      public_contract: Provides accepted problem evidence to product design.
+      semantic_cohesion: Evidence and observations about the learning problem.
+      independent_change: Problem evidence can be refined before accepted product requirements change.
+      public_contract: Provides accepted problem evidence to product requirements.
     produces:
       - capability: prep.problem-evidence
         knowledge_kind: problem-evidence
         requires: []
 
   - id: PRODUCT-REQUIREMENTS
-    responsibility: Own accepted product intent, scope and top-level product capabilities.
+    responsibility: Own accepted product intent, scope and externally observable product capabilities.
     boundary:
-      semantic_cohesion: Decisions about what Prep must provide to the learner and operator.
-      independent_change: Product scope can change without selecting technical realization.
-      public_contract: Provides product intent and capability boundaries.
+      semantic_cohesion: Decisions about what Prep must achieve for the learner.
+      independent_change: Product intent can change without deciding domain or technical realization.
+      public_contract: Provides accepted product intent and capability semantics downstream.
     produces:
       - capability: prep.product-intent
         knowledge_kind: product-requirements
@@ -31,519 +31,65 @@ authorities:
         requires:
           - capability: prep.product-intent
 
-  - id: STRATEGIC-DOMAIN-DESIGN
-    responsibility: Own bounded-context decomposition and relationships for the multi-domain learning platform.
+  - id: DOMAIN-STRATEGY
+    responsibility: Own strategic decomposition of Prep's domain responsibilities without deciding model-language internals.
     boundary:
-      semantic_cohesion: Strategic ownership boundaries and integration directions.
-      independent_change: Context decomposition can evolve without choosing storage, UI framework or deployment topology.
-      public_contract: Provides the platform context map.
+      semantic_cohesion: Strategic responsibility boundaries and investment focus.
+      independent_change: Strategic classification can change without redefining tactical models.
+      public_contract: Provides accepted strategic domain decomposition.
     produces:
-      - capability: prep.domain-context-map
-        knowledge_kind: strategic-domain-design
+      - capability: prep.domain-strategy
+        knowledge_kind: domain-strategy
         requires:
           - capability: prep.product-capabilities
 
-  - id: DOMAIN-MODEL-DESIGN
-    responsibility: Own Knowledge Graph semantics and shared learning-coordination semantics independently of external runtimes and presentation technology.
+  - id: MODEL-CONTEXT-STRATEGY
+    responsibility: Own applicability and relationships of independently modeled semantic contexts.
     boundary:
-      semantic_cohesion: Stable identity, graph relations/admission/lifecycle, provenance, learning plans and learner-state projections over canonical knowledge.
-      independent_change: These semantics can evolve behind stable adapters without selecting storage, API or UI implementation.
-      public_contract: Provides graph and learning semantic contracts to application/interface/architecture design.
+      semantic_cohesion: Model-language applicability and context relationships.
+      independent_change: Context relationships can change without redefining strategic investment classification.
+      public_contract: Provides accepted model-context boundaries to tactical modeling.
     produces:
-      - capability: prep.knowledge-graph-model
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.domain-context-map
-          - capability: prep.product-capabilities
-      - capability: prep.relation-registry
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-      - capability: prep.source-evidence-model
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-      - capability: prep.graph-admission-policy
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-          - capability: prep.relation-registry
-          - capability: prep.source-evidence-model
-      - capability: prep.graph-lifecycle
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-          - capability: prep.source-evidence-model
-      - capability: prep.learning-platform-boundary
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.domain-context-map
-          - capability: prep.product-capabilities
-      - capability: prep.learning-plan-model
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-          - capability: prep.graph-lifecycle
-          - capability: prep.learning-platform-boundary
-      - capability: prep.learning-state-model
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.knowledge-graph-model
-          - capability: prep.learning-platform-boundary
-      - capability: prep.graph-subject-integration
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.domain-context-map
-          - capability: prep.knowledge-graph-model
-          - capability: prep.graph-admission-policy
-      - capability: prep.learner-boundary
-        knowledge_kind: domain-model
-        requires:
-          - capability: prep.learning-platform-boundary
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-
-  - id: APPLICATION-DESIGN
-    responsibility: Own learner/operator journeys and logical application workflows without deciding concrete interfaces or implementation.
-    boundary:
-      semantic_cohesion: Goal-oriented application behavior and orchestration across graph curation, planning, publication and evidence ingestion.
-      independent_change: Application workflow contracts can evolve without selecting storage, transport or deployment technology.
-      public_contract: Provides top-level journeys and next-depth logical use-case/workflow boundaries.
-    produces:
-      - capability: prep.user-journeys
-        knowledge_kind: user-journey-design
+      - capability: prep.model-context-strategy
+        knowledge_kind: model-context-strategy
         requires:
           - capability: prep.product-capabilities
-          - capability: prep.graph-admission-policy
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-          - capability: prep.graph-subject-integration
-          - capability: prep.learner-boundary
-      - capability: prep.logical-use-case-boundaries
-        knowledge_kind: application-design
-        requires:
-          - capability: prep.user-journeys
-          - capability: prep.graph-subject-integration
-          - capability: prep.learner-boundary
-      - capability: prep.logical-knowledge-ingestion
-        knowledge_kind: application-design
-        requires:
-          - capability: prep.logical-use-case-boundaries
-          - capability: prep.graph-admission-policy
-          - capability: prep.source-evidence-model
-      - capability: prep.logical-study-runtime
-        knowledge_kind: application-design
-        requires:
-          - capability: prep.logical-use-case-boundaries
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-          - capability: prep.graph-subject-integration
-          - capability: prep.learner-boundary
-      - capability: prep.job-protocol
-        knowledge_kind: application-design
-        requires:
-          - capability: prep.logical-knowledge-ingestion
-          - capability: prep.logical-study-runtime
-          - capability: prep.persistence-architecture
-          - capability: prep.reliability-architecture
+          - capability: prep.domain-strategy
 
-  - id: QUALITY-DESIGN
-    responsibility: Own architecture-significant quality drivers and logical consistency/reliability expectations.
+  - id: TACTICAL-DOMAIN-DESIGN
+    responsibility: Own accepted domain concepts, identities, semantic relationships and invariants inside the selected Prep model contexts.
     boundary:
-      semantic_cohesion: Cross-cutting quality expectations that constrain architecture without owning implementation.
-      independent_change: Quality policy can evolve without directly selecting components or technologies.
-      public_contract: Provides top-level quality drivers and next-depth consistency/reliability constraints.
+      semantic_cohesion: Reusable knowledge semantics, target-relative learning semantics and learner-evidence semantics.
+      independent_change: Tactical semantics can evolve behind accepted product and model-context boundaries without selecting persistence, UI or runtime technology.
+      public_contract: Provides accepted Knowledge Model, Learning Design and Learner Model semantics to later design.
     produces:
-      - capability: prep.quality-drivers
-        knowledge_kind: quality-design
+      - capability: prep.knowledge-model
+        knowledge_kind: domain-model
         requires:
-          - capability: prep.product-intent
+          - capability: prep.model-context-strategy
           - capability: prep.product-capabilities
-      - capability: prep.logical-consistency-reliability
-        knowledge_kind: quality-design
+      - capability: prep.learning-design
+        knowledge_kind: domain-model
         requires:
-          - capability: prep.quality-drivers
-          - capability: prep.graph-lifecycle
-          - capability: prep.learning-state-model
-          - capability: prep.logical-knowledge-ingestion
-          - capability: prep.logical-study-runtime
-          - capability: prep.logical-data-ownership
-      - capability: prep.performance-capacity-design
-        knowledge_kind: performance-capacity-analysis
-        requires:
-          - capability: prep.quality-drivers
-          - capability: prep.logical-graph-read-model
-          - capability: prep.logical-system-boundaries
-      - capability: prep.reliability-architecture
-        knowledge_kind: reliability-analysis
-        requires:
-          - capability: prep.logical-consistency-reliability
-          - capability: prep.persistence-architecture
-          - capability: prep.external-dependency-design
-
-  - id: DATA-DESIGN
-    responsibility: Own logical data ownership and progressively refine it into physical persistence/lifecycle design.
-    boundary:
-      semantic_cohesion: Logical information ownership and query needs across semantic graph, provenance, plans and learner evidence.
-      independent_change: Logical data boundaries can evolve before selecting physical schemas/databases.
-      public_contract: Provides logical data ownership and graph read-model requirements.
-    produces:
-      - capability: prep.logical-data-ownership
-        knowledge_kind: data-design
-        requires:
-          - capability: prep.knowledge-graph-model
-          - capability: prep.source-evidence-model
-          - capability: prep.graph-lifecycle
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-          - capability: prep.learner-boundary
-      - capability: prep.logical-graph-read-model
-        knowledge_kind: data-design
-        requires:
-          - capability: prep.logical-data-ownership
+          - capability: prep.model-context-strategy
+          - capability: prep.knowledge-model
           - capability: prep.product-capabilities
-          - capability: prep.relation-registry
-          - capability: prep.graph-interface-concept
-      - capability: prep.persistence-architecture
-        knowledge_kind: data-design
+      - capability: prep.learner-model
+        knowledge_kind: domain-model
         requires:
-          - capability: prep.logical-data-ownership
-          - capability: prep.logical-graph-read-model
-          - capability: prep.logical-consistency-reliability
-          - capability: prep.logical-access-privacy
-      - capability: prep.data-lifecycle-design
-        knowledge_kind: data-governance-lifecycle-analysis
-        requires:
-          - capability: prep.persistence-architecture
-          - capability: prep.logical-access-privacy
-          - capability: prep.logical-consistency-reliability
-      - capability: prep.physical-schema-contract
-        knowledge_kind: data-design
-        requires:
-          - capability: prep.persistence-architecture
-          - capability: prep.data-lifecycle-design
-          - capability: prep.job-protocol
-
-  - id: SECURITY-DESIGN
-    responsibility: Own access/privacy semantics and their concrete technical security architecture.
-    boundary:
-      semantic_cohesion: Trust, access and privacy decisions at logical responsibility boundaries.
-      independent_change: Security policy can evolve before concrete authn/authz implementation.
-      public_contract: Provides logical access/privacy constraints.
-    produces:
-      - capability: prep.logical-access-privacy
-        knowledge_kind: security-architecture
-        requires:
+          - capability: prep.model-context-strategy
+          - capability: prep.knowledge-model
           - capability: prep.product-capabilities
-          - capability: prep.learner-boundary
-          - capability: prep.graph-admission-policy
-          - capability: prep.logical-use-case-boundaries
-      - capability: prep.security-architecture
-        knowledge_kind: security-architecture
-        requires:
-          - capability: prep.logical-access-privacy
-          - capability: prep.logical-system-boundaries
-          - capability: prep.external-dependency-design
-      - capability: prep.auth-session-contract
-        knowledge_kind: security-architecture
-        requires:
-          - capability: prep.security-architecture
-          - capability: prep.machine-interface-design
-
-  - id: INTERFACE-DESIGN
-    responsibility: Own human interaction and logical external interface responsibilities without selecting transport/framework technology.
-    boundary:
-      semantic_cohesion: User-visible interaction plus logical request/query/command contract boundaries.
-      independent_change: Interface contracts can evolve without redefining semantic graph truth or concrete deployment.
-      public_contract: Provides graph-first interaction and next-depth logical interface boundaries.
-    produces:
-      - capability: prep.graph-interface-concept
-        knowledge_kind: human-interface-design
-        requires:
-          - capability: prep.user-journeys
-          - capability: prep.knowledge-graph-model
-          - capability: prep.relation-registry
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-          - capability: prep.quality-drivers
-      - capability: prep.logical-interface-boundaries
-        knowledge_kind: interface-contract
-        requires:
-          - capability: prep.graph-interface-concept
-          - capability: prep.logical-use-case-boundaries
-          - capability: prep.logical-knowledge-ingestion
-          - capability: prep.logical-study-runtime
-          - capability: prep.logical-data-ownership
-          - capability: prep.logical-graph-read-model
-          - capability: prep.logical-access-privacy
-      - capability: prep.machine-interface-design
-        knowledge_kind: interface-contract
-        requires:
-          - capability: prep.logical-interface-boundaries
-          - capability: prep.logical-system-boundaries
-          - capability: prep.logical-access-privacy
-      - capability: prep.presentation-system-design
-        knowledge_kind: presentation-system-design
-        requires:
-          - capability: prep.graph-interface-concept
-          - capability: prep.logical-graph-read-model
-          - capability: prep.machine-interface-design
-          - capability: prep.performance-capacity-design
-      - capability: prep.screen-view-design
-        knowledge_kind: screen-view-design
-        requires:
-          - capability: prep.presentation-system-design
-          - capability: prep.user-journeys
-          - capability: prep.graph-interface-concept
-      - capability: prep.api-contract
-        knowledge_kind: interface-contract
-        requires:
-          - capability: prep.machine-interface-design
-          - capability: prep.auth-session-contract
-          - capability: prep.physical-schema-contract
-          - capability: prep.job-protocol
-      - capability: prep.frontend-contract
-        knowledge_kind: presentation-system-design
-        requires:
-          - capability: prep.presentation-system-design
-          - capability: prep.screen-view-design
-          - capability: prep.api-contract
-
-  - id: SYSTEM-ARCHITECTURE
-    responsibility: Own the top-level system landscape and next-depth logical runtime/module responsibility boundaries.
-    boundary:
-      semantic_cohesion: System responsibilities, logical runtime collaboration and dependency topology.
-      independent_change: Logical architecture can evolve before selecting deployable processes or concrete technology.
-      public_contract: Provides black-box landscape and logical system boundaries.
-    produces:
-      - capability: prep.system-landscape
-        knowledge_kind: system-architecture
-        requires:
-          - capability: prep.domain-context-map
-          - capability: prep.knowledge-graph-model
-          - capability: prep.graph-admission-policy
-          - capability: prep.graph-lifecycle
-          - capability: prep.learning-plan-model
-          - capability: prep.learning-state-model
-          - capability: prep.graph-subject-integration
-          - capability: prep.learner-boundary
-          - capability: prep.graph-interface-concept
-          - capability: prep.quality-drivers
-      - capability: prep.logical-system-boundaries
-        knowledge_kind: system-architecture
-        requires:
-          - capability: prep.system-landscape
-          - capability: prep.logical-use-case-boundaries
-          - capability: prep.logical-knowledge-ingestion
-          - capability: prep.logical-study-runtime
-          - capability: prep.logical-data-ownership
-          - capability: prep.logical-graph-read-model
-          - capability: prep.logical-interface-boundaries
-          - capability: prep.logical-access-privacy
-          - capability: prep.logical-consistency-reliability
-      - capability: prep.runtime-topology
-        knowledge_kind: system-architecture
-        requires:
-          - capability: prep.logical-system-boundaries
-          - capability: prep.persistence-architecture
-          - capability: prep.machine-interface-design
-          - capability: prep.external-dependency-design
-          - capability: prep.security-architecture
-          - capability: prep.performance-capacity-design
-          - capability: prep.reliability-architecture
-      - capability: prep.deployment-config-contract
-        knowledge_kind: system-architecture
-        requires:
-          - capability: prep.runtime-topology
-          - capability: prep.physical-schema-contract
-          - capability: prep.auth-session-contract
-          - capability: prep.anki-bridge-contract
-
-  - id: EXTERNAL-DEPENDENCY-DESIGN
-    responsibility: Own concrete integration constraints and selected external dependencies without letting them redefine domain semantics.
-    boundary:
-      semantic_cohesion: Capabilities, limits, versioning and failure modes of Anki/AnkiConnect, model providers, media/ASR and selected UI/runtime dependencies.
-      independent_change: External providers/libraries may change behind accepted internal contracts.
-      public_contract: Provides the concrete external-dependency design consumed by security, reliability, runtime topology and components.
-    produces:
-      - capability: prep.external-dependency-design
-        knowledge_kind: external-dependency-analysis
-        requires:
-          - capability: prep.logical-system-boundaries
-          - capability: prep.logical-study-runtime
-          - capability: prep.logical-interface-boundaries
-          - capability: prep.graph-interface-concept
-      - capability: prep.anki-bridge-contract
-        knowledge_kind: interface-contract
-        requires:
-          - capability: prep.external-dependency-design
-          - capability: prep.logical-study-runtime
-          - capability: prep.auth-session-contract
-          - capability: prep.job-protocol
-
-  - id: COMPONENT-DESIGN
-    responsibility: Own implementation-facing component responsibilities and dependency/composition boundaries after runtime and technology architecture are selected.
-    boundary:
-      semantic_cohesion: Stable module/component contracts and dependency direction.
-      independent_change: Internal component decomposition may evolve behind accepted external/domain contracts.
-      public_contract: Provides code-facing component design without writing implementation.
-    produces:
-      - capability: prep.component-design
-        knowledge_kind: component-design
-        requires:
-          - capability: prep.runtime-topology
-          - capability: prep.persistence-architecture
-          - capability: prep.machine-interface-design
-          - capability: prep.presentation-system-design
-          - capability: prep.screen-view-design
-          - capability: prep.security-architecture
-          - capability: prep.external-dependency-design
-      - capability: prep.backend-component-contract
-        knowledge_kind: component-design
-        requires:
-          - capability: prep.component-design
-          - capability: prep.physical-schema-contract
-          - capability: prep.api-contract
-          - capability: prep.job-protocol
-          - capability: prep.auth-session-contract
-          - capability: prep.anki-bridge-contract
-
-  - id: OPERABILITY-DESIGN
-    responsibility: Own logical diagnostics and observability expectations for graph admission, synchronization and evidence ingestion.
-    boundary:
-      semantic_cohesion: Information required to understand failures/conflicts and operational health.
-      independent_change: Diagnostic requirements can evolve before logging/metrics stack selection.
-      public_contract: Provides logical operability requirements.
-    produces:
-      - capability: prep.logical-operability
-        knowledge_kind: operability-design
-        requires:
-          - capability: prep.logical-system-boundaries
-          - capability: prep.logical-consistency-reliability
-      - capability: prep.operability-architecture
-        knowledge_kind: operability-design
-        requires:
-          - capability: prep.logical-operability
-          - capability: prep.runtime-topology
-          - capability: prep.reliability-architecture
-          - capability: prep.security-architecture
-
-  - id: VERIFICATION-DESIGN
-    responsibility: Own verification obligations proving logical platform boundaries satisfy accepted semantics.
-    boundary:
-      semantic_cohesion: Evidence strategy across application/data/interface/security/system/operability contracts.
-      independent_change: Verification design can evolve independently of production implementation mechanics.
-      public_contract: Provides logical verification strategy.
-    produces:
-      - capability: prep.logical-verification-strategy
-        knowledge_kind: verification-strategy
-        requires:
-          - capability: prep.product-capabilities
-          - capability: prep.logical-use-case-boundaries
-          - capability: prep.logical-knowledge-ingestion
-          - capability: prep.logical-study-runtime
-          - capability: prep.logical-data-ownership
-          - capability: prep.logical-graph-read-model
-          - capability: prep.logical-interface-boundaries
-          - capability: prep.logical-access-privacy
-          - capability: prep.logical-consistency-reliability
-          - capability: prep.logical-system-boundaries
-          - capability: prep.logical-operability
-      - capability: prep.test-design
-        knowledge_kind: test-design
-        requires:
-          - capability: prep.logical-verification-strategy
-          - capability: prep.component-design
-          - capability: prep.machine-interface-design
-          - capability: prep.persistence-architecture
-          - capability: prep.runtime-topology
-          - capability: prep.operability-architecture
-      - capability: prep.acceptance-contracts
-        knowledge_kind: test-design
-        requires:
-          - capability: prep.test-design
-          - capability: prep.api-contract
-          - capability: prep.physical-schema-contract
-          - capability: prep.anki-bridge-contract
-          - capability: prep.frontend-contract
-          - capability: prep.deployment-config-contract
-
-  - id: REALIZATION-DESIGN
-    responsibility: Own the implementation-ready repository contract and slicing rules after all implementation-facing contracts are accepted.
-    boundary:
-      semantic_cohesion: Exact technology usage, composition, repository layout and bounded implementation freedoms.
-      independent_change: Implementation sequencing can evolve without redefining upstream product/domain/architecture contracts.
-      public_contract: Provides one implementation-ready design consumed by coding work.
-    produces:
-      - capability: prep.implementation-design
-        knowledge_kind: implementation-design
-        requires:
-          - capability: prep.physical-schema-contract
-          - capability: prep.api-contract
-          - capability: prep.job-protocol
-          - capability: prep.anki-bridge-contract
-          - capability: prep.auth-session-contract
-          - capability: prep.frontend-contract
-          - capability: prep.deployment-config-contract
-          - capability: prep.backend-component-contract
-          - capability: prep.acceptance-contracts
 
 consumers:
-  - id: TOP-LEVEL-DESIGN
-    purpose: Establish broad product/domain/architecture coverage before detailed slices or implementation design.
+  - id: CURRENT-REVALIDATION
+    purpose: Re-establish canonical product and domain knowledge before any downstream architecture or implementation is reconsidered.
     requires:
       - capability: prep.problem-evidence
       - capability: prep.product-intent
       - capability: prep.product-capabilities
-      - capability: prep.domain-context-map
-      - capability: prep.knowledge-graph-model
-      - capability: prep.relation-registry
-      - capability: prep.source-evidence-model
-      - capability: prep.graph-admission-policy
-      - capability: prep.graph-lifecycle
-      - capability: prep.learning-platform-boundary
-      - capability: prep.learning-plan-model
-      - capability: prep.learning-state-model
-      - capability: prep.graph-subject-integration
-      - capability: prep.learner-boundary
-      - capability: prep.user-journeys
-      - capability: prep.quality-drivers
-      - capability: prep.graph-interface-concept
-      - capability: prep.system-landscape
-
-  - id: LOGICAL-DESIGN
-    purpose: Complete one breadth-first logical design layer before choosing concrete technologies or implementation decomposition.
-    requires:
-      - capability: prep.logical-use-case-boundaries
-      - capability: prep.logical-knowledge-ingestion
-      - capability: prep.logical-study-runtime
-      - capability: prep.logical-data-ownership
-      - capability: prep.logical-graph-read-model
-      - capability: prep.logical-interface-boundaries
-      - capability: prep.logical-access-privacy
-      - capability: prep.logical-consistency-reliability
-      - capability: prep.logical-system-boundaries
-      - capability: prep.logical-operability
-      - capability: prep.logical-verification-strategy
-
-  - id: TECHNICAL-DESIGN
-    purpose: Select concrete technologies and implementation-facing architecture breadth-first before implementation slicing begins.
-    requires:
-      - capability: prep.persistence-architecture
-      - capability: prep.data-lifecycle-design
-      - capability: prep.external-dependency-design
-      - capability: prep.machine-interface-design
-      - capability: prep.presentation-system-design
-      - capability: prep.screen-view-design
-      - capability: prep.security-architecture
-      - capability: prep.performance-capacity-design
-      - capability: prep.reliability-architecture
-      - capability: prep.runtime-topology
-      - capability: prep.component-design
-      - capability: prep.operability-architecture
-      - capability: prep.test-design
-
-  - id: IMPLEMENTATION-DESIGN
-    purpose: Make coding possible without inventing schema, protocol, component, security, deployment or acceptance-test decisions inside feature slices.
-    requires:
-      - capability: prep.implementation-design
+      - capability: prep.domain-strategy
+      - capability: prep.model-context-strategy
+      - capability: prep.knowledge-model
+      - capability: prep.learning-design
+      - capability: prep.learner-model
