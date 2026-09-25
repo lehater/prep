@@ -144,7 +144,9 @@ export function mapKnowledgeNode(value: unknown): KnowledgeNodeModel {
   return {
     id: stringField(dto, "id", "KnowledgeNode"),
     semanticKind: semanticKind as KnowledgeNodeModel["semanticKind"],
-    title: titleFromContent(content),
+    title:
+      optionalStringField(dto, "display_content", "KnowledgeNode") ??
+      titleFromContent(content),
     summary: content,
   };
 }
@@ -208,7 +210,9 @@ function mapScopeItem(value: unknown) {
   return {
     id: stringField(dto, "id", "TargetScopeItem"),
     kind,
-    label: titleFromContent(content),
+    label:
+      optionalStringField(dto, "display_content", "TargetScopeItem") ??
+      titleFromContent(content),
     content,
   } as const;
 }

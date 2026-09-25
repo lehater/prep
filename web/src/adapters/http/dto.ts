@@ -22,6 +22,7 @@ export interface CollectionDto<T> {
 export interface KnowledgeNodeDto {
   readonly id: string;
   readonly semantic_kind: string;
+  readonly display_content?: string;
   readonly content: string;
 }
 
@@ -46,6 +47,7 @@ export interface KnowledgeDetailDto {
 export interface TargetScopeItemDto {
   readonly id: string;
   readonly kind: string;
+  readonly display_content?: string;
   readonly content: string;
 }
 
