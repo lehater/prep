@@ -68,11 +68,11 @@ The diagram shows semantic information flow, not a required runtime pipeline.
 
 ## Supporting and external boundaries
 
-### Knowledge input
+### Authoring and input
 
-Prep accepts already prepared knowledge through a defined input contract. Preparing source material, parsing or extracting knowledge, LLM-assisted structuring, source validation, provenance assessment, disagreement resolution and conflicting-input handling are outside the current product scope.
+People create and maintain Prep's modeled data through user-facing interfaces. This includes subject knowledge owned by Knowledge Model and requirements or other learning-design data owned by Learning Design. Prepared data may also be loaded through an input interface.
 
-Current evidence does not justify a separate Knowledge Acquisition bounded context. The input boundary remains an application/integration concern unless a future product use case establishes independent domain semantics.
+Authoring and loading do not create new semantic ownership: each bounded context continues to own the data defined by its model. Automatic source preparation, extraction, derivation, validation and conflict resolution are outside the current product scope. No separate acquisition bounded context is justified.
 
 ### Learning / practice execution
 
@@ -106,7 +106,6 @@ The following remain explicit questions for Domain Model Design:
 - how learner-state uncertainty and evidence strength should be represented;
 - how retention and evidence decay affect inferred learner state;
 - which subject-specific semantics justify specialization or an additional bounded context;
-- what minimum knowledge-input contract the current product requires.
 
 ## Research references
 
