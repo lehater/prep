@@ -1,0 +1,20 @@
+version: 1
+kind: conceptual-interface-model
+id: PREP-CONCEPTUAL-INTERFACE
+concepts:
+  - {id: LEARNING-TARGET, meaning: A prepared outcome/profile selected by the learner.}
+  - {id: TARGET-SCOPE, meaning: Read-only Requirement/RequirementSet composition of the active target in Learning mode.}
+  - {id: KNOWLEDGE, meaning: Reusable subject knowledge available for reading and relational exploration.}
+  - {id: KNOWLEDGE-RELATION, meaning: Accepted typed semantic relation between KnowledgeNodes.}
+  - {id: REQUIREMENT, meaning: Reusable learning requirement used by curated target scope.}
+  - {id: QUESTION, meaning: Reusable retrieval/diagnostic artifact aligned to Knowledge.}
+  - {id: STUDY-SET, meaning: Current application materialization of resolvable Questions for one target.}
+  - {id: REVIEW-FACTS, meaning: Recorded factual ReviewObservations/statistics without mastery inference.}
+  - {id: EXTERNAL-RUNTIME, meaning: Configured external study runtime such as Anki.}
+modes:
+  - {id: LEARNING, purpose: Consume prepared learning structure without semantic authoring.}
+  - {id: CURATION, purpose: Author and maintain prepared targets and reusable learning knowledge/material.}
+state_vocabulary:
+  - {id: RUNTIME-REACHABLE, meaning: Supported external-runtime operations are currently reachable.}
+  - {id: RUNTIME-UNAVAILABLE, meaning: External runtime cannot currently perform supported operations.}
+  - {id: STUDY-PREVIEW-STALE, meaning: Canonical target/question resolution changed after Study Set preview.}

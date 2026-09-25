@@ -95,34 +95,68 @@ authorities:
           - capability: prep.knowledge-model
           - capability: prep.learning-design
           - capability: prep.learner-model
+      - capability: prep.task-model
+        knowledge_kind: task-model
+        requires:
+          - capability: prep.application-design
+          - capability: prep.product-capabilities
       - capability: prep.user-journeys
         knowledge_kind: user-journey-design
         requires:
           - capability: prep.application-design
+          - capability: prep.task-model
 
   - id: HUMAN-INTERFACE-DESIGN
     responsibility: Own human interaction semantics, information architecture and presentation/view composition without re-owning product or domain truth.
     boundary:
       semantic_cohesion: Human tasks, navigation/information structure, shared interaction language and concrete view composition.
       independent_change: Human interface design can evolve behind stable product/domain/application contracts.
-      public_contract: Provides accepted human-interface and presentation/view contracts to architecture and later frontend realization.
+      public_contract: Provides independently addressable conceptual, information-architecture, interaction, topology, presentation and screen/view contracts to downstream consumers.
     produces:
-      - capability: prep.human-interface
-        knowledge_kind: human-interface-design
+      - capability: prep.conceptual-interface-model
+        knowledge_kind: conceptual-interface-model
+        semantic_claims: [engineering.interface.human.conceptual-model]
         requires:
+          - capability: prep.task-model
           - capability: prep.user-journeys
           - capability: prep.application-design
           - capability: prep.knowledge-model
           - capability: prep.learning-design
           - capability: prep.learner-model
+      - capability: prep.information-architecture
+        knowledge_kind: information-architecture-design
+        semantic_claims: [engineering.interface.human.information-architecture]
+        requires:
+          - capability: prep.conceptual-interface-model
+          - capability: prep.task-model
+          - capability: prep.user-journeys
+      - capability: prep.interaction-design
+        knowledge_kind: interaction-design
+        semantic_claims: [engineering.interface.human.interaction]
+        requires:
+          - capability: prep.conceptual-interface-model
+          - capability: prep.task-model
+          - capability: prep.user-journeys
+          - capability: prep.application-design
+          - capability: prep.machine-interfaces
+      - capability: prep.interface-topology
+        knowledge_kind: interface-topology-design
+        semantic_claims: [engineering.interface.human.navigation-topology]
+        requires:
+          - capability: prep.information-architecture
+          - capability: prep.interaction-design
       - capability: prep.presentation-system
         knowledge_kind: presentation-system-design
         requires:
-          - capability: prep.human-interface
+          - capability: prep.conceptual-interface-model
+          - capability: prep.information-architecture
+          - capability: prep.interface-topology
+          - capability: prep.interaction-design
       - capability: prep.screen-view-design
         knowledge_kind: screen-view-design
         requires:
-          - capability: prep.human-interface
+          - capability: prep.interface-topology
+          - capability: prep.interaction-design
           - capability: prep.presentation-system
           - capability: prep.machine-interfaces
 
@@ -154,6 +188,27 @@ authorities:
           - capability: prep.application-design
           - capability: prep.machine-interfaces
 
+  - id: VERIFICATION-DESIGN
+    responsibility: Own evidence obligations proving accepted frontend interaction/topology and later screen/presentation realization.
+    boundary:
+      semantic_cohesion: Verification objectives and evidence for accepted interface knowledge.
+      independent_change: Verification strategy can evolve without owning interface semantics.
+      public_contract: Provides early interface and later presentation verification knowledge while routing design gaps to their owners.
+    produces:
+      - capability: prep.interface-verification
+        knowledge_kind: verification-strategy
+        requires:
+          - capability: prep.task-model
+          - capability: prep.information-architecture
+          - capability: prep.interaction-design
+          - capability: prep.interface-topology
+      - capability: prep.presentation-verification
+        knowledge_kind: verification-strategy
+        requires:
+          - capability: prep.interface-verification
+          - capability: prep.presentation-system
+          - capability: prep.screen-view-design
+
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.
     boundary:
@@ -165,7 +220,8 @@ authorities:
         knowledge_kind: system-architecture
         requires:
           - capability: prep.application-design
-          - capability: prep.human-interface
+          - capability: prep.interaction-design
+          - capability: prep.interface-topology
           - capability: prep.machine-interfaces
           - capability: prep.import-consistency
 
@@ -190,4 +246,4 @@ consumers:
     purpose: Re-establish and revalidate the current accepted engineering knowledge needed before downstream implementation/frontend design is allowed to proceed.
     requires:
       - capability: prep.data-design
-      - capability: prep.screen-view-design
+      - capability: prep.presentation-verification

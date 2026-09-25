@@ -2,170 +2,129 @@
 
 ## Goal
 
-Re-establish Prep's canonical engineering knowledge from the accepted problem space downward, without carrying previous graph-centered, Anki-centered or implementation-centered assumptions into new design unless current evidence supports them.
+Re-establish Prep's canonical engineering knowledge from the accepted problem space downward, without carrying earlier graph-centered, Anki-centered or implementation-centered assumptions forward unless current evidence supports them.
 
 ## Working rule
 
-Follow the current `Lehater/harness` dependency graph. A changed upstream capability requires downstream revalidation/reconciliation before later design is treated as current.
+Follow the pinned canonical `Lehater/harness` dependency model. Upstream changes require downstream revalidation/reconciliation before later design is treated as current.
 
-Legacy artifacts remain evidence unless explicitly accepted into the current Core realization.
+Historical artifacts are not canonical merely because they remain in Git history.
 
-## Completed current revalidation
+## Current canonical knowledge
 
-Canonical knowledge has been re-established for:
+Revalidated project knowledge currently includes:
 
-- Problem Space;
-- Product Vision and Product Capabilities;
+- Problem Space, Product Vision and Product Capabilities;
 - Domain Strategy and Model Context Strategy;
 - Knowledge Model, Learning Design and Learner Model;
-- Application Design and User Journeys;
-- Human Interface baseline;
+- Application Design, Task Model and User Journeys;
+- Conceptual Interface Model;
+- Information Architecture;
+- Interaction Design;
+- Interface Topology;
+- Presentation System and Screen/View Design;
 - Machine Interface;
 - Import Consistency;
-- System Architecture;
-- Data Design;
-- Architecture Driver Closure for the current scope.
+- Interface/Presentation Verification;
+- System Architecture and Data Design.
 
-The Harness realization has been reconciled against the current Harness Authority catalog and current canonical artifacts.
+The broad `prep.human-interface` capability is no longer part of the project Engineering Graph. Human-interface knowledge is represented by the granular contracts above.
 
-## Accepted interaction direction
+## Accepted product / interaction direction
 
-Human Interface revalidation has accepted:
-
-- **target-centric workflow + global reusable Library**;
-- primary global locations are Targets and Library;
-- Study and target-context Statistics continue the selected Target workflow;
-- Import is contextual to the relevant Library data kind;
-- Target-derived Knowledge/Requirements/Questions remain reusable global canonical objects;
-- Knowledge Graph is an optional projection, with target-scoped exploration now having a concrete use case; 2D versus 3D remains unproven.
-
-The decision was stress-tested with the Python Backend Interview walkthrough in docs/research/target-centric-workflow-walkthrough.md.
-
-## Accepted learner/curation separation
-
-The hybrid IA is refined into two task contexts:
-
-- **Targets** — learner workflow;
-- **Library** — reusable corpus curation.
-
-They are not authentication roles in v1; one person may perform both.
-
-Study Set construction now uses all currently resolvable Questions and is not blocked by incomplete semantic coverage. Q-STUDY-SET-PREPARATION-GATE is resolved in APPLICATION-DESIGN.
-
-Learning-material/evidence coverage is a separate curation quality concern. Exact semantics remain unresolved as Q-LEARNING-COVERAGE-MODEL and do not block the initial learner workflow.
-
-The future target-scoped Knowledge Graph learner-state overlay is recorded in docs/research/learner-state-graph-overlay.md and remains blocked by deferred learner-state inference semantics.
-
-## Accepted mode separation
-
-Prep now has two explicit task modes:
+Prep has two explicit task modes:
 
 - **Learning** — select an existing curated LearningTarget/profile and learn; target scope is read-only.
-- **Curation** — create/edit LearningTargets and compose their scopes; maintain reusable Knowledge, Requirements/RequirementSets, Questions and alignments.
+- **Curation** — create/edit LearningTargets and their Requirement scope; maintain reusable Knowledge, Requirements/RequirementSets, Questions and alignments.
 
-They are not authentication roles in v1; the same physical person may switch modes.
+These are task contexts, not authentication roles in v1.
 
-Q-TARGET-SCOPE-AUTHORSHIP is resolved in APPLICATION-DESIGN: learner selects a prepared target/profile and does not edit its Requirement composition.
+Learning uses a target-scoped workflow. Curation owns reusable corpus and target composition.
 
-## Coverage research
+Study Set construction uses all currently resolvable Questions and is not blocked by incomplete semantic coverage.
 
-The earlier Question-only coverage framing was too narrow. Dedicated research is captured in `docs/research/learning-coverage-research.md`.
+## Interface structure
 
-Current direction from research:
+Canonical interface completeness is owned by:
 
-- do not equate coverage with Question count;
-- distinguish learning-support coverage from assessment/evidence coverage;
-- consider content breadth, cognitive/performance depth and transfer/context variability;
-- keep human/curator semantic judgment authoritative until an accepted automated inference model exists;
-- do not broaden the v1 domain beyond Question solely because the research identifies future material/activity types.
+```text
+Task Model
+  -> User Journeys
+      -> Conceptual Interface Model
+          -> Information Architecture
+          -> Interaction Design
+              -> Interface Topology
+                  -> Presentation System
+                      -> Screen/View Design
+```
 
-The unresolved semantic question is now Q-LEARNING-COVERAGE-MODEL. It does not block the current Question-first learner slice.
+Information Architecture and Interaction Design are independently addressable and are mapped together by Interface Topology.
+
+`docs/interface/site-map.md` is a human review projection of the canonical topology and Screen/View knowledge. It does not own interface semantics.
+
+The current topology includes shared structural frames plus Learning, Curation and secondary views. Stable Screen/View subject ids are embedded in `docs/interface/screen-view-design.md` and are checked against topology by the pinned Harness integration.
 
 ## Browser/backend contract closure
 
-The browser/backend machine boundary is now explicitly defined with stable operation IDs for:
+The browser/backend machine boundary defines stable operations for:
 
-- Learning target selection and read-only target scope;
-- target Knowledge/graph/Questions projections;
+- LearningTarget selection and read-only scope;
+- target Knowledge/graph/Question projections;
 - Study Set build/export with stale-preview detection;
-- factual statistics and explicit v1 review sync;
-- Curation CRUD/alignment/composition operations;
+- factual statistics and explicit review sync;
+- Curation CRUD/alignment/composition;
 - contextual bulk import;
 - external-runtime status.
 
-SCREEN-VIEW-DESIGN now directly depends on MACHINE-INTERFACES and binds server-backed views to these operations.
+Anki endpoint/API-key remain deployment configuration; v1 UI exposes runtime status rather than a secret/config editor.
 
-Anki endpoint/API-key remain deployment configuration; v1 UI exposes status rather than inventing a secret/config editor.
+## Active research
 
-## Low-fidelity interface validation
+### Learning/evidence coverage
 
-A task-first low-fidelity pass is captured in `docs/research/low-fidelity-interface-validation.md`.
+`docs/research/learning-coverage-research.md` remains active evidence for `Q-LEARNING-COVERAGE-MODEL`.
 
-It reduces Learning-mode local navigation to:
+Current constraints:
 
-- Overview;
-- Knowledge;
-- Study;
-- Statistics.
+- coverage is not Question count;
+- learning-support coverage and assessment/evidence coverage are distinct;
+- content breadth, cognitive/performance depth and context/transfer variability may matter;
+- no scalar coverage percentage is accepted;
+- curator/human semantic judgment remains authoritative until an automated model is validated.
 
-Rationale:
+This question does not block the current Question-first learner slice.
 
-- read-only Target scope has no independent learner action and is folded into Overview;
-- currently resolvable target Questions and the v1 Study Set have the same membership, so learner Question browsing is folded into Study;
-- Curation retains separate Targets, Knowledge, Requirements and Questions because each has independent authoring/maintenance tasks.
+### Learner state / graph overlay
 
-## 3D Knowledge Graph research
+`docs/research/learner-state-graph-overlay.md` remains active future work.
 
-A dedicated research artifact is captured in `docs/research/3d-knowledge-graph-learning-research.md`.
+A target-scoped Knowledge Graph may eventually visualize learner state, but ReviewObservation → Question → Knowledge/Requirement inference semantics are not accepted yet.
 
-Accepted direction for frontend experimentation:
+### 3D Knowledge Graph
 
-- 3D Knowledge Graph is promoted from incidental visualization to a first-class **prototype** representation for relational learning and exploration;
-- it remains non-exclusive: list/search/detail are required baselines and accessibility paths;
-- Learning uses a target-scoped graph;
-- Curation may use a broader/global graph;
-- Study Questions can deep-link to their aligned Knowledge in the map;
-- relation-type and semantic-kind filters are first-class controls;
-- focus/local-neighborhood interaction is required to control complexity;
-- graph geometry/layout is presentation, never domain meaning;
-- inferred learner-state overlay remains future work.
+`docs/research/3d-knowledge-graph-learning-research.md` supports 3D as a first-class **prototype hypothesis**, not as a proven superior representation.
 
-Research does not justify treating 3D as intrinsically superior to 2D. The prototype must gather task evidence.
+The prototype must preserve list/search/detail alternatives and test whether 3D materially improves relational learning/exploration tasks.
 
 ## Frontend-first development rule
 
-Do not start production backend implementation merely because machine contracts now exist.
+Do not start production backend implementation merely because machine contracts exist.
 
-The next implementation work should be a frontend prototype driven by static/mock data sufficient to validate:
+The next implementation work should use static/mock data to exercise:
 
 - Learning/Curation mode separation;
-- target selection and four-section learner workspace;
-- 3D Knowledge graph + list/search/detail coordination;
-- Study Question -> Knowledge Map transition;
-- Study Set preview/export interaction states;
+- target selection and the four-section learner workspace;
+- Knowledge list/search/detail + 3D graph coordination;
+- Question → Knowledge Map transition;
+- Study Set preview/export states;
 - Statistics presentation.
 
-Backend implementation should follow after material frontend interaction choices have been exercised and accepted.
-
-## Site map / frame inventory
-
-The whole product is now mapped before detailed frontend prototyping in `docs/interface/site-map.md`.
-
-The map defines:
-
-- shared shell and Learning/Curation mode boundary;
-- Learning target selection;
-- four learner frames: Overview, Knowledge, Study, Statistics;
-- Curation collections and detail/edit frames for Targets, Knowledge, Requirements/RequirementSets and Questions;
-- contextual Import and runtime-status secondary surfaces;
-- coarse frame skeletons;
-- cross-frame transitions;
-- explicit responsibility boundaries.
-
-This map intentionally does not decide styling, exact routes, component library or detailed graph mechanics.
+Backend production implementation follows after material frontend interaction choices have been exercised and accepted.
 
 ## Current frontier
 
-Use the site map as the frontend prototype skeleton. Implement frame shells with mock/static data first, then deepen the **Knowledge / 3D graph** frame and Question -> Knowledge Map transition while keeping the remaining frames intentionally skeletal.
+Use canonical Interface Topology and `docs/interface/site-map.md` as the prototype skeleton.
 
-Backend production implementation remains deferred until the frontend responsibility map and principal interaction flows have been exercised.
+Implement frame shells with mock/static data first, then deepen the Knowledge / 3D graph frame and Question → Knowledge Map transition while leaving non-critical frames skeletal.
+
+The active branch remains a revalidation/development line; it is not yet a project-wide `main` canonicalization candidate while open domain/interface research remains.

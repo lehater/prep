@@ -6,7 +6,7 @@ Define the minimum implementation-independent view responsibilities for the acce
 
 The whole-product page/frame topology and coarse low-fidelity frames are maintained in `docs/interface/site-map.md`. That map is a projection of this contract and exists to keep screen responsibilities and transitions explicit before visual design or frontend implementation.
 
-## Application shell
+## [F-00-APPLICATION-SHELL] Application shell
 
 The shell provides an explicit way to enter/switch between:
 
@@ -17,7 +17,7 @@ A secondary integration/status affordance may expose configured external-runtime
 
 Study and Statistics remain inside Learning target context. Import is entered from Curation/Library context.
 
-## Learning target selection
+## [L-01-TARGET-SELECTION] Learning target selection
 
 Purpose: choose the prepared learning profile to study.
 
@@ -31,13 +31,13 @@ Learning mode does not create, edit or recompose LearningTargets.
 
 Opening a target enters the learner Target workspace.
 
-## Target workspace
+## [F-LT-TARGET-WORKSPACE] Target workspace
 
 Purpose: keep one LearningTarget as the learner's working context while available material is explored, sent to the external runtime and later reviewed through factual statistics.
 
 The workspace contains semantic sections below. They may be realized as tabs, nested routes, panels or another accessible composition.
 
-### Overview
+### [L-02-TARGET-OVERVIEW] Overview
 
 Shows:
 
@@ -54,7 +54,7 @@ It does not show inferred mastery, readiness, retention, automatic priority or l
 
 Detailed curation-quality diagnostics belong to Curation.
 
-### Knowledge
+### [L-03-TARGET-KNOWLEDGE] Knowledge
 
 Shows KnowledgeNodes reached from the target's current Requirement-to-Knowledge alignments.
 
@@ -71,7 +71,7 @@ Learner capabilities:
 
 Knowledge creation/editing, relation maintenance and alignment repair are Library curation capabilities.
 
-### Study
+### [L-04-TARGET-STUDY] Study
 
 Owns the learner-facing target Question collection and builds/shows the Study Set derived from all currently resolvable Questions for the current target.
 
@@ -90,7 +90,7 @@ Regions/capabilities:
 
 The view must not claim that a non-empty Study Set completely covers the target.
 
-### Statistics
+### [L-05-TARGET-STATISTICS] Statistics
 
 Shows Question-level ReviewObservations and factual aggregates for Questions currently resolved into the target context.
 
@@ -98,7 +98,7 @@ It provides navigation to canonical Question detail/history and does not label o
 
 If target composition later changes, this remains a current projection rather than immutable historical target attribution.
 
-## Curation workspace
+## [F-C-CURATION-WORKSPACE] Curation workspace
 
 Purpose: maintain prepared target profiles and reusable canonical learning data independently of the learner workflow.
 
@@ -109,35 +109,45 @@ Curation provides contexts for:
 - Requirements/RequirementSets;
 - Questions.
 
-### LearningTarget collection/detail
+### [C-11-TARGET-COLLECTION] LearningTarget collection
 
-Collection: browse/search/create prepared LearningTargets.
+Browse/search/create prepared LearningTargets.
 
-Detail/editor: edit target definition and compose its scope from reusable Requirements/RequirementSets. These operations define what Learning mode later exposes as a selectable prepared target/profile.
+### [C-12-TARGET-EDITOR] LearningTarget detail / editor
+
+Edit target definition and compose its scope from reusable Requirements/RequirementSets. These operations define what Learning mode later exposes as a selectable prepared target/profile.
 
 ### Library
 
 Knowledge, Requirements/RequirementSets and Questions form the reusable Library within Curation. They are semantic subareas, not necessarily peer global destinations.
 
-### Knowledge collection/detail
+### [C-21-KNOWLEDGE-WORKSPACE] Knowledge workspace
 
-Collection: browse/search/create KnowledgeNodes, access contextual Knowledge import and optionally switch to a broader graph projection.
+Browse/search/create KnowledgeNodes, access contextual Knowledge import and optionally switch to a broader graph projection.
 
-Curation detail/editor: inspect/edit semantic kind/content and manage typed incoming/outgoing KnowledgeRelations through canonical selection.
+### [C-22-KNOWLEDGE-EDITOR] Knowledge detail / editor
 
-### Requirements collection/detail
+Inspect/edit semantic kind/content and manage typed incoming/outgoing KnowledgeRelations through canonical selection.
 
-Collection: browse/search/create Requirements and RequirementSets and access contextual requirements import.
+### [C-31-REQUIREMENTS-COLLECTION] Requirements collection
 
-Requirement detail/editor: edit accepted content and Knowledge alignments.
+Browse/search/create Requirements and RequirementSets and access contextual requirements import.
 
-RequirementSet detail/editor: edit accepted content and membership; cycle rejection remains visible and preserves editing state.
+### [C-32-REQUIREMENT-EDITOR] Requirement detail / editor
 
-### Questions collection/detail
+Edit accepted content and Knowledge alignments.
 
-Collection: browse/search Questions using only query semantics actually supported upstream, create/open Questions and access contextual question import.
+### [C-33-REQUIREMENTSET-EDITOR] RequirementSet detail / editor
 
-Question detail/editor: edit question/direct answer, Knowledge alignments and factual review history when available.
+Edit accepted content and membership; cycle rejection remains visible and preserves editing state.
+
+### [C-41-QUESTIONS-COLLECTION] Questions collection
+
+Browse/search Questions using only query semantics actually supported upstream, create/open Questions and access contextual question import.
+
+### [C-42-QUESTION-EDITOR] Question detail / editor
+
+Edit question/direct answer, Knowledge alignments and factual review history when available.
 
 Structural diagnostics such as unaligned Questions or Knowledge with no Questions may be shown when backed by accepted queries.
 
@@ -197,13 +207,13 @@ A target-scoped graph may later visualize inferred KnowledgeNode state so the le
 
 This view is not currently implementable as learner-state truth because no accepted Question -> KnowledgeNode state inference exists. Raw review counts/ratings must not be encoded as "degree learned."
 
-## Import flow
+## [S-02-IMPORT-FLOW] Import flow
 
 Import begins from the relevant Library data kind.
 
 It accepts the supported prepared-data document and reports total/applied/rejected outcomes, per-item rejection identity/reason and created/updated/duplicate-skipped/rejected outcomes where supplied by the machine contract.
 
-## Integration status
+## [S-01-RUNTIME-STATUS] Integration status
 
 A compact status view may expose reachability/compatibility and a non-secret summary of the configured external-runtime endpoint/profile.
 
