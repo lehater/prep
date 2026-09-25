@@ -12,7 +12,7 @@ A desired future state with enough purpose, scope and depth to evaluate what is 
 
 ### Target Requirement
 
-A requirement applicable to a particular target. It may reference a reusable competency/requirement definition from Knowledge Model or be specific to the target.
+A requirement applicable to a particular target. It may specialize or select a reusable requirement or competency owned by Learning Design and may align to reusable subject knowledge from Knowledge Model.
 
 ### Requirement Framework
 
@@ -58,47 +58,48 @@ Concrete execution of either intent may occur inside Prep or in an external runt
 
 ### Question
 
-A concrete learning or diagnostic artifact may pair a prompt with a concise reference answer and map the question to reusable subject knowledge:
+A concrete learning or diagnostic artifact:
 
 ```text
 Question
   id
-  prompt
-  answer
-  requires: KnowledgeNode[]
+  question_text
+  answer_text
+  knowledge: KnowledgeNode[]
 ```
 
-`answer` is the concise reference answer for this concrete question. It belongs to the question artifact; it is not promoted into Knowledge Model merely because it states a correct fact.
+`question_text` is the text of the question.
 
-`requires` references the reusable explanatory knowledge a learner should command to understand and answer the question. It does not point to an answer literal or require Knowledge Model to atomize every fact.
+`answer_text` is the direct answer to that question.
+
+`knowledge` contains references to one or more reusable Knowledge Model objects that provide the subject knowledge behind the question and answer.
 
 Example:
 
 ```text
-Question:
-  prompt: "What does 7 mean in Unix permissions?"
-  answer: "read + write + execute (4 + 2 + 1)"
-  requires:
-    - Unix permission representation
+Question
+  question_text: "Which file descriptor number is stdin?"
+  answer_text: "0"
+  knowledge:
+    - Standard streams
 ```
 
-The referenced knowledge object may explain the complete notation and surrounding theory. The question remains a focused retrieval/check artifact over that theory.
-
-The mapping is many-to-many: several questions may require the same knowledge object, and one question may require several knowledge objects.
+The mapping is many-to-many: one question may reference several knowledge objects and one knowledge object may support many questions.
 
 ## Ownership
 
 Learning Design owns:
 
 - learning targets;
+- reusable requirements and competencies;
 - requirement frameworks and target-specific requirements;
 - criteria and performance levels;
-- alignments between target requirements and reusable knowledge/competency definitions;
+- alignments between requirements/competencies and reusable subject knowledge;
 - target-relative gaps;
 - prioritization policy and decisions;
 - learning/practice intent;
 - evidence requirements used to reassess progress;
-- question/answer learning artifacts and their mapping to reusable subject knowledge.
+- questions, their direct answers, and their references to reusable subject knowledge.
 
 It consumes reusable subject semantics from Knowledge Model and evidence-backed state from Learner Model.
 
@@ -115,8 +116,8 @@ It does not own reusable subject truth or raw learner observations.
 - changing a target, criterion or required performance level may change gaps without changing learner observations;
 - Requirement != Criterion != Performance Level != Evidence;
 - alignment does not merge the identities of a requirement and the knowledge it references;
-- a question's concise answer is distinct from the reusable explanatory knowledge referenced by `requires`;
-- `requires` identifies supporting subject knowledge, not a literal answer.
+- a Question owns its `question_text` and direct `answer_text`;
+- a Question's `knowledge` references reusable subject knowledge without taking ownership of it.
 
 ## Open questions
 
