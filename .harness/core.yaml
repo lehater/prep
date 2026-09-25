@@ -65,3 +65,4 @@ questions:
     authority: TACTICAL-DOMAIN-DESIGN
     text: What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?
     blocks: [LEARNER-MODEL]
+    resolution: LEARNER-MODEL
