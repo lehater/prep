@@ -26,8 +26,7 @@ test("preserves target search context while readable detail opens and closes", a
   await page.getByRole("button", { name: "Search", exact: true }).click();
 
   const item = page
-    .getByRole("list")
-    .filter({ has: page.getByText("Linux cgroups", { exact: true }) })
+    .getByRole("region", { name: "Knowledge list" })
     .getByRole("button", { name: /Linux cgroups/ });
   await expect(item).toBeVisible();
   await item.focus();

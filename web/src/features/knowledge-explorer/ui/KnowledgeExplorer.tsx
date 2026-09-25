@@ -5,7 +5,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../../ui/patterns/ViewState";
@@ -265,7 +266,12 @@ export function KnowledgeExplorer({
       </Stack>
 
       <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-        <Paper component="section" variant="outlined" sx={{ p: 2, flex: 1 }}>
+        <Paper
+          component="section"
+          aria-label="Knowledge list"
+          variant="outlined"
+          sx={{ p: 2, flex: 1 }}
+        >
           <Typography component="h3" variant="h6" gutterBottom>
             Knowledge list
           </Typography>
@@ -295,7 +301,12 @@ export function KnowledgeExplorer({
           ) : null}
         </Paper>
 
-        <Paper component="section" variant="outlined" sx={{ p: 2, flex: 2 }}>
+        <Paper
+          component="section"
+          aria-label="Knowledge graph"
+          variant="outlined"
+          sx={{ p: 2, flex: 2 }}
+        >
           <Typography component="h3" variant="h6" gutterBottom>
             Knowledge graph
           </Typography>

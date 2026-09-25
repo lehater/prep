@@ -3,7 +3,6 @@ import type {
   KnowledgeNodeModel,
   KnowledgeScope,
 } from "../../features/knowledge-explorer/model/knowledge";
-import { knowledgeScopeKey } from "../../features/knowledge-explorer/model/knowledge";
 import type {
   KnowledgeListQuery,
   KnowledgeQueryOutcome,
@@ -109,7 +108,4 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
     return null;
   }
 
-  toString(): string {
-    return `MockKnowledgeAdapter(${this.mode}, ${knowledgeScopeKey({ kind: "global" })})`;
-  }
 }
