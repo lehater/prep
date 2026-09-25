@@ -10,9 +10,9 @@ Define the top-level capabilities Prep needs in order to deliver the accepted pr
 
 Establish a learning outcome with enough scope and depth to determine what knowledge is relevant and what kind of learner capability is expected.
 
-### Knowledge acquisition
+### Knowledge input
 
-Accept relevant source material or other inputs and derive usable knowledge from them while preserving enough source context to review uncertainty and conflicting information.
+Accept already prepared knowledge through a defined input contract. Preparing source material, extracting or deriving knowledge, validating sources, and resolving uncertainty or conflicts are outside the current product scope.
 
 ### Knowledge organization
 
@@ -52,7 +52,7 @@ Show the learner their current evidence-backed position relative to the target a
 
 ### Knowledge and learning quality control
 
-Surface uncertainty, conflicting or weakly supported knowledge, problematic learning material and other quality issues that can undermine the learning process.
+Detect structural or semantic problems in accepted knowledge and problematic learning material that can undermine the learning process. Source validation, provenance assessment and conflicting-input resolution are outside the current product scope.
 
 ## Initial capability slice
 
@@ -60,7 +60,7 @@ For the initial product focus, the minimum coherent slice is:
 
 ```text
 learning target
-  -> acquire subject knowledge
+  -> accept prepared subject knowledge
   -> organize concepts and important relationships
   -> derive material for familiarity and retrieval
   -> learn / retrieve
