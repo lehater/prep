@@ -1,0 +1,115 @@
+import type {
+  KnowledgeGraphModel,
+  KnowledgeNodeModel,
+  KnowledgeScope,
+} from "../../features/knowledge-explorer/model/knowledge";
+import { knowledgeScopeKey } from "../../features/knowledge-explorer/model/knowledge";
+import type {
+  KnowledgeListQuery,
+  KnowledgeQueryOutcome,
+  KnowledgeQueryPort,
+} from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
+import {
+  mockKnowledgeNodes,
+  mockKnowledgeRelations,
+  mockTargetKnowledgeIds,
+} from "./mockFixtures";
+
+export type MockKnowledgeMode = "success" | "unavailable" | "failure";
+
+export class MockKnowledgeAdapter implements KnowledgeQueryPort {
+  constructor(private readonly mode: MockKnowledgeMode = "success") {}
+
+  async list(
+    scope: KnowledgeScope,
+    query: KnowledgeListQuery,
+  ): Promise<KnowledgeQueryOutcome<readonly KnowledgeNodeModel[]>> {
+    const problem = this.problem<readonly KnowledgeNodeModel[]>();
+    if (problem) {
+      return problem;
+    }
+
+    const search = query.search?.trim().toLocaleLowerCase() ?? "";
+    const allowedKinds = new Set(query.semanticKinds ?? []);
+
+    return {
+      status: "success",
+      value: this.nodesForScope(scope).filter(
+        (node) =>
+          (allowedKinds.size === 0 || allowedKinds.has(node.semanticKind)) &&
+          (search.length === 0 ||
+            node.title.toLocaleLowerCase().includes(search) ||
+            node.summary.toLocaleLowerCase().includes(search)),
+      ),
+    };
+  }
+
+  async get(
+    scope: KnowledgeScope,
+    knowledgeId: string,
+  ): Promise<KnowledgeQueryOutcome<KnowledgeNodeModel | null>> {
+    const problem = this.problem<KnowledgeNodeModel | null>();
+    if (problem) {
+      return problem;
+    }
+
+    return {
+      status: "success",
+      value:
+        this.nodesForScope(scope).find((node) => node.id === knowledgeId) ?? null,
+    };
+  }
+
+  async graph(
+    scope: KnowledgeScope,
+  ): Promise<KnowledgeQueryOutcome<KnowledgeGraphModel>> {
+    const problem = this.problem<KnowledgeGraphModel>();
+    if (problem) {
+      return problem;
+    }
+
+    const nodes = this.nodesForScope(scope);
+    const nodeIds = new Set(nodes.map((node) => node.id));
+
+    return {
+      status: "success",
+      value: {
+        scope,
+        nodes,
+        relations: mockKnowledgeRelations.filter(
+          (relation) =>
+            nodeIds.has(relation.sourceId) && nodeIds.has(relation.targetId),
+        ),
+      },
+    };
+  }
+
+  private nodesForScope(scope: KnowledgeScope): readonly KnowledgeNodeModel[] {
+    if (scope.kind === "global") {
+      return mockKnowledgeNodes;
+    }
+
+    const ids = new Set(mockTargetKnowledgeIds[scope.targetId] ?? []);
+    return mockKnowledgeNodes.filter((node) => ids.has(node.id));
+  }
+
+  private problem<T>(): KnowledgeQueryOutcome<T> | null {
+    if (this.mode === "unavailable") {
+      return {
+        status: "unavailable",
+        message: "Knowledge data is temporarily unavailable.",
+      };
+    }
+    if (this.mode === "failure") {
+      return {
+        status: "failure",
+        message: "Knowledge data could not be loaded. Retry the operation.",
+      };
+    }
+    return null;
+  }
+
+  toString(): string {
+    return `MockKnowledgeAdapter(${this.mode}, ${knowledgeScopeKey({ kind: "global" })})`;
+  }
+}
