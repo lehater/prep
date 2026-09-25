@@ -248,11 +248,17 @@ export function RequirementsCurationView({
                   onChange={(event) => setCandidate(event.target.value)}
                 >
                   <option value="">Select</option>
-                  {(selected.kind === "requirement" ? knowledge : items).map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.label}
-                    </option>
-                  ))}
+                  {selected.kind === "requirement"
+                    ? knowledge.map((node) => (
+                        <option key={node.id} value={node.id}>
+                          {node.title}
+                        </option>
+                      ))
+                    : items.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.label}
+                        </option>
+                      ))}
                 </select>
               </label>
               <Button
