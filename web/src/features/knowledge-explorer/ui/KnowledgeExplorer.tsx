@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
@@ -190,18 +191,23 @@ export function KnowledgeExplorer({
   }
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={2}>
       <Stack
         component="form"
         direction={{ xs: "column", md: "row" }}
         spacing={1}
         onSubmit={submitSearch}
+        sx={{
+          alignItems: { md: "center" },
+          flexWrap: { md: "wrap" },
+        }}
       >
         <TextField
           label="Search Knowledge"
           value={searchDraft}
           onChange={(event) => setSearchDraft(event.target.value)}
           size="small"
+          sx={{ width: { xs: "100%", md: 320 } }}
         />
         <Button type="submit" variant="contained">
           Search
@@ -263,12 +269,37 @@ export function KnowledgeExplorer({
         ) : null}
       </Stack>
 
-      <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+      <Box
+        sx={{
+          "--knowledge-workspace-height":
+            "clamp(520px, calc(100dvh - 320px), 820px)",
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "minmax(0, 1fr)",
+            md: "minmax(220px, 280px) minmax(0, 1fr)",
+            lg: "minmax(220px, 280px) minmax(0, 1fr) minmax(280px, 360px)",
+          },
+          gridTemplateAreas: {
+            xs: `"list" "graph" "detail"`,
+            md: `"list graph" "detail detail"`,
+            lg: `"list graph detail"`,
+          },
+          gap: 2,
+          minWidth: 0,
+          alignItems: "stretch",
+        }}
+      >
         <Paper
           component="section"
           aria-label="Knowledge list"
           variant="outlined"
-          sx={{ p: 2, flex: 1 }}
+          sx={{
+            gridArea: "list",
+            p: 2,
+            minWidth: 0,
+            height: { md: "var(--knowledge-workspace-height)" },
+            overflow: "auto",
+          }}
         >
           <Typography component="h3" variant="h6" gutterBottom>
             Knowledge list
@@ -303,25 +334,44 @@ export function KnowledgeExplorer({
           component="section"
           aria-label="Knowledge graph"
           variant="outlined"
-          sx={{ p: 2, flex: 2 }}
+          sx={{
+            gridArea: "graph",
+            p: 1.5,
+            minWidth: 0,
+            height: {
+              xs: "clamp(460px, 62dvh, 620px)",
+              md: "var(--knowledge-workspace-height)",
+            },
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+          }}
         >
           <Typography component="h3" variant="h6" gutterBottom>
             Knowledge graph
           </Typography>
-          {graphState.status === "loading" || scene === null ? (
-            <LoadingState label="Loading Knowledge graph" />
-          ) : (
-            <Renderer
-              scene={scene}
-              onNodeActivate={(knowledgeId) => openDetail(knowledgeId, true)}
-            />
-          )}
+          <Box sx={{ flex: 1, minHeight: 0 }}>
+            {graphState.status === "loading" || scene === null ? (
+              <LoadingState label="Loading Knowledge graph" />
+            ) : (
+              <Renderer
+                scene={scene}
+                onNodeActivate={(knowledgeId) => openDetail(knowledgeId, true)}
+              />
+            )}
+          </Box>
         </Paper>
 
         <Paper
           component="aside"
           variant="outlined"
-          sx={{ p: 2, flex: 1, minWidth: 260 }}
+          sx={{
+            gridArea: "detail",
+            p: 2,
+            minWidth: 0,
+            height: { lg: "var(--knowledge-workspace-height)" },
+            overflow: "auto",
+          }}
         >
           <Typography component="h3" variant="h6" gutterBottom>
             Knowledge detail
@@ -393,7 +443,7 @@ export function KnowledgeExplorer({
             </Stack>
           )}
         </Paper>
-      </Stack>
+      </Box>
     </Stack>
   );
 }

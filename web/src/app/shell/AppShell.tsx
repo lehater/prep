@@ -20,8 +20,22 @@ export function AppShell({
   const inCuration = location.pathname.startsWith("/curation");
 
   return (
-    <Container maxWidth="xl" sx={{ py: 3 }}>
-      <Stack component="header" spacing={2} sx={{ mb: 3 }}>
+    <Container
+      maxWidth={false}
+      sx={{
+        minHeight: "100dvh",
+        px: { xs: 2, sm: 3, lg: 4 },
+        py: { xs: 1.5, md: 2 },
+      }}
+    >
+      <Stack
+        component="header"
+        direction={{ xs: "column", sm: "row" }}
+        alignItems={{ xs: "flex-start", sm: "center" }}
+        justifyContent="space-between"
+        spacing={1}
+        sx={{ mb: { xs: 2, md: 2.5 } }}
+      >
         <Typography component="h1" variant="h4">
           Prep
         </Typography>
@@ -30,6 +44,7 @@ export function AppShell({
           aria-label="Primary"
           direction="row"
           spacing={1}
+          sx={{ flexWrap: "wrap" }}
         >
           <Button
             component={Link}

@@ -55,34 +55,52 @@ export function CurationWorkspace({
   Renderer,
 }: CurationWorkspaceProps) {
   return (
-    <Stack spacing={3}>
-      <header>
-        <Typography component="p" color="text.secondary">
-          Curation
-        </Typography>
-        <Typography component="h2" variant="h5">
-          Curation {LABELS[section]}
-        </Typography>
-        <Typography color="text.secondary">
-          Maintain prepared profiles and reusable canonical learning data outside the learner workflow.
-        </Typography>
-      </header>
+    <Stack spacing={{ xs: 2, md: 2.5 }}>
+      <Stack
+        direction={{ xs: "column", lg: "row" }}
+        alignItems={{ xs: "flex-start", lg: "flex-end" }}
+        justifyContent="space-between"
+        spacing={1.5}
+      >
+        <header>
+          <Typography component="p" color="text.secondary">
+            Curation
+          </Typography>
+          <Typography component="h2" variant="h5">
+            Curation {LABELS[section]}
+          </Typography>
+          <Typography color="text.secondary">
+            Maintain prepared profiles and reusable canonical learning data outside the learner workflow.
+          </Typography>
+        </header>
 
-      <Stack component="nav" aria-label="Curation sections" direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
-        {(["targets", "knowledge", "requirements", "questions"] as const).map((item) => (
-          <Button
-            key={item}
-            component={Link}
-            to={`/curation/${item}`}
-            variant={section === item ? "contained" : "text"}
-          >
-            {LABELS[item]}
-          </Button>
-        ))}
+        <Stack
+          component="nav"
+          aria-label="Curation sections"
+          direction="row"
+          spacing={1}
+          sx={{ flexWrap: "wrap" }}
+        >
+          {(["targets", "knowledge", "requirements", "questions"] as const).map(
+            (item) => (
+              <Button
+                key={item}
+                component={Link}
+                to={`/curation/${item}`}
+                variant={section === item ? "contained" : "text"}
+              >
+                {LABELS[item]}
+              </Button>
+            ),
+          )}
+        </Stack>
       </Stack>
 
       {section === "targets" ? (
-        <TargetsCurationView targetPort={targetPort} requirementPort={requirementPort} />
+        <TargetsCurationView
+          targetPort={targetPort}
+          requirementPort={requirementPort}
+        />
       ) : section === "knowledge" ? (
         <KnowledgeCurationView
           queryPort={knowledgeQueryPort}

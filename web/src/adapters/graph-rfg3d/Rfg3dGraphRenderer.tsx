@@ -162,7 +162,7 @@ export function Rfg3dGraphRenderer({
   const idleTimerRef = useRef<number | null>(null);
   const unavailableReportedRef = useRef(false);
   const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null);
-  const [size, setSize] = useState({ width: 720, height: 520 });
+  const [size, setSize] = useState({ width: 960, height: 600 });
 
   const dataKey = rendererGraphDataKey(scene);
   const graphData = useMemo(() => toRendererGraphData(scene), [dataKey]);
@@ -226,7 +226,7 @@ export function Rfg3dGraphRenderer({
     const observer = new ResizeObserver(([entry]) => {
       setSize({
         width: Math.max(320, Math.floor(entry.contentRect.width)),
-        height: Math.max(420, Math.floor(entry.contentRect.height)),
+        height: Math.max(360, Math.floor(entry.contentRect.height)),
       });
     });
     observer.observe(element);
@@ -578,7 +578,7 @@ export function Rfg3dGraphRenderer({
   }
 
   return (
-    <section aria-label="3D Knowledge graph">
+    <section aria-label="3D Knowledge graph" style={{ height: "100%", minHeight: 360 }}>
       <div
         ref={containerRef}
         role="application"
@@ -587,8 +587,8 @@ export function Rfg3dGraphRenderer({
         onWheelCapture={resumeRenderer}
         style={{
           width: "100%",
-          height: "min(62vh, 720px)",
-          minHeight: 420,
+          height: "100%",
+          minHeight: 360,
           overflow: "hidden",
           borderRadius: 8,
         }}

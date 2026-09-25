@@ -146,9 +146,13 @@ export function KnowledgeCurationView({
   };
 
   return (
-    <Stack spacing={3}>
-      <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-        <Paper variant="outlined" sx={{ p: 2, flex: 1 }}>
+    <Stack spacing={2}>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={2}
+        sx={{ alignItems: "stretch" }}
+      >
+        <Paper variant="outlined" sx={{ p: 1.5, flex: 1, minWidth: 0 }}>
           <Typography component="h3" variant="h6">
             New KnowledgeNode
           </Typography>
@@ -172,7 +176,7 @@ export function KnowledgeCurationView({
             <TextField
               label="Knowledge content"
               multiline
-              minRows={3}
+              minRows={2}
               value={newContent}
               onChange={(event) => setNewContent(event.target.value)}
             />
@@ -181,7 +185,7 @@ export function KnowledgeCurationView({
             </Button>
           </Stack>
         </Paper>
-        <Paper variant="outlined" sx={{ p: 2, flex: 1 }}>
+        <Paper variant="outlined" sx={{ p: 1.5, flex: 1, minWidth: 0 }}>
           <Typography component="h3" variant="h6">
             Contextual import
           </Typography>
