@@ -1,4 +1,3 @@
-import type { QuestionModel } from "../../features/learning/model/question";
 import type {
   QuestionCollection,
   QuestionQueryPort,
