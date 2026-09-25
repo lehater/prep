@@ -160,7 +160,7 @@ questions:
 
   - id: Q-LEARNER-STATE-SUBJECT
     authority: TACTICAL-DOMAIN-DESIGN
-    text: What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?
+    text: "What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?"
     blocks: [LEARNER-MODEL]
     resolution: LEARNER-MODEL
 
@@ -176,7 +176,7 @@ questions:
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
-    text: In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?
+    text: "In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?"
     blocks: [USER-JOURNEYS]
     resolution: APPLICATION-DESIGN
 
