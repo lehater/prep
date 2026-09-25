@@ -113,6 +113,23 @@ authorities:
           - capability: prep.application-design
           - capability: prep.task-model
 
+  - id: QUALITY-DESIGN
+    responsibility: Own measurable architecture-significant frontend performance, capacity and graceful-degradation constraints without selecting renderer implementation.
+    boundary:
+      semantic_cohesion: Visible graph scale, interaction responsiveness, idle-resource behavior and semantic-preserving degradation.
+      independent_change: Quality targets may be refined from benchmark evidence while product/domain semantics and renderer technology remain independently changeable.
+      public_contract: Provides accepted graph performance/capacity constraints to presentation, screen, architecture, component, verification, test and implementation knowledge.
+    produces:
+      - capability: prep.frontend-performance-capacity
+        knowledge_kind: quality-design
+        semantic_claims:
+          - engineering.quality.performance.latency
+          - engineering.quality.performance.resource-efficiency
+          - engineering.quality.performance.capacity
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.knowledge-model
+
   - id: HUMAN-INTERFACE-DESIGN
     responsibility: Own human interaction semantics, information architecture and presentation/view composition without re-owning product or domain truth.
     boundary:
@@ -163,6 +180,7 @@ authorities:
           - capability: prep.information-architecture
           - capability: prep.interface-topology
           - capability: prep.interaction-design
+          - capability: prep.frontend-performance-capacity
       - capability: prep.screen-view-design
         knowledge_kind: screen-view-design
         semantic_claims: [engineering.interface.human.screen-composition]
@@ -171,6 +189,7 @@ authorities:
           - capability: prep.interaction-design
           - capability: prep.presentation-system
           - capability: prep.machine-interfaces
+          - capability: prep.frontend-performance-capacity
 
   - id: MACHINE-INTERFACE-DESIGN
     responsibility: Own supported machine-consumed interaction and representation contracts for browser/backend and external-runtime boundaries.
@@ -243,6 +262,7 @@ authorities:
           - capability: prep.presentation-verification
           - capability: prep.frontend-system-architecture
           - capability: prep.machine-interfaces
+          - capability: prep.frontend-performance-capacity
 
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.
@@ -269,6 +289,7 @@ authorities:
           - capability: prep.presentation-system
           - capability: prep.screen-view-design
           - capability: prep.machine-interfaces
+          - capability: prep.frontend-performance-capacity
 
   - id: DATA-DESIGN
     responsibility: Own durable physical representation and persistence constraints for accepted Prep state.
@@ -336,6 +357,7 @@ authorities:
           - capability: prep.frontend-verification
           - capability: prep.interaction-design
           - capability: prep.screen-view-design
+          - capability: prep.frontend-performance-capacity
 
   - id: IMPLEMENTATION-DESIGN
     responsibility: Own bounded frontend realization slicing, repository/module realization and completion criteria after accepted design exists.

@@ -37,6 +37,12 @@ artifacts:
     provides: [prep.knowledge-model]
     depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
+  - id: FRONTEND-PERFORMANCE-CAPACITY
+    authority: QUALITY-DESIGN
+    path: docs/architecture/performance-capacity.md
+    provides: [prep.frontend-performance-capacity]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL]
+
   - id: LEARNING-DESIGN
     authority: TACTICAL-DOMAIN-DESIGN
     path: docs/domain/learning-design.md
@@ -95,13 +101,13 @@ artifacts:
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/presentation-system.md
     provides: [prep.presentation-system]
-    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: SCREEN-VIEW-DESIGN
     authority: HUMAN-INTERFACE-DESIGN
     path: docs/interface/screen-view-design.md
     provides: [prep.screen-view-design]
-    depends_on: [INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES]
+    depends_on: [INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN
@@ -143,7 +149,7 @@ artifacts:
     authority: SYSTEM-ARCHITECTURE
     path: docs/architecture/frontend-system-architecture.md
     provides: [prep.frontend-system-architecture]
-    depends_on: [SYSTEM-ARCHITECTURE, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES]
+    depends_on: [SYSTEM-ARCHITECTURE, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: FRONTEND-ENGINEERING-POLICY
     authority: ENGINEERING-POLICY
@@ -155,19 +161,19 @@ artifacts:
     authority: COMPONENT-DESIGN
     path: docs/implementation/frontend-component-design.md
     provides: [prep.frontend-component-design]
-    depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, FRONTEND-ENGINEERING-POLICY, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES]
+    depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, FRONTEND-ENGINEERING-POLICY, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: FRONTEND-VERIFICATION
     authority: VERIFICATION-DESIGN
     path: docs/verification/frontend-verification.md
     provides: [prep.frontend-verification]
-    depends_on: [PRODUCT-CAPABILITIES, PRESENTATION-VERIFICATION, FRONTEND-SYSTEM-ARCHITECTURE, MACHINE-INTERFACES]
+    depends_on: [PRODUCT-CAPABILITIES, PRESENTATION-VERIFICATION, FRONTEND-SYSTEM-ARCHITECTURE, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: FRONTEND-TEST-DESIGN
     authority: TEST-DESIGN
     path: docs/verification/frontend-test-design.yaml
     provides: [prep.frontend-test-design]
-    depends_on: [FRONTEND-VERIFICATION, INTERACTION-DESIGN, SCREEN-VIEW-DESIGN]
+    depends_on: [FRONTEND-VERIFICATION, INTERACTION-DESIGN, SCREEN-VIEW-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: FRONTEND-IMPLEMENTATION-DESIGN
     authority: IMPLEMENTATION-DESIGN
