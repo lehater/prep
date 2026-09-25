@@ -41,11 +41,9 @@ This context currently keeps target interpretation, prioritization and learning/
 
 ### Learner Model
 
-Owns evidence about an individual learner and the changing interpretation of that evidence over time.
+Owns learner-specific learning observations and statistics. In the current slice these are Question-level review observations; interpretation into inferred state, confidence/uncertainty, retention, decay or demonstrated progress is deferred.
 
-Its language concerns observation, attempt, retrieval/performance evidence, inferred state, confidence/uncertainty, retention, decay and demonstrated progress.
-
-It references modeled knowledge and learning targets so evidence can be interpreted against them, but it does not mutate subject truth or decide target-specific learning policy.
+It references learning artifacts needed to identify what was reviewed, but it does not mutate subject truth or decide target-specific learning policy.
 
 ## Context relationships
 
@@ -89,11 +87,11 @@ Quality rules remain with the context whose truth they protect: knowledge qualit
 ## Relationship rules
 
 - Knowledge Model owns reusable subject semantics; learner evidence cannot redefine them.
-- Learner Model owns learner-specific evidence and inferred state; study activity is not automatically proof of knowledge.
+- Learner Model owns learner-specific learning observations and statistics; study activity is not automatically proof of knowledge.
 - Learning Design owns target-relative gaps, priorities and next-learning decisions.
 - A gap exists only relative to a target and learner-state evidence; it is not intrinsic subject knowledge.
 - Learning Design references Knowledge Model rather than copying ownership of subject knowledge.
-- Learner Model identifies evidence against stable knowledge/target references but does not own those definitions.
+- Learner Model records observations against stable learning-artifact references but does not own those definitions.
 - Input mechanisms may propose or import knowledge but do not gain semantic ownership by doing so.
 - External learning runtimes do not define Prep's domain semantics.
 - No bounded context is automatically a deployable service.
@@ -103,7 +101,8 @@ Quality rules remain with the context whose truth they protect: knowledge qualit
 The following remain explicit questions for Domain Model Design:
 
 - whether Learning Design later needs separation between target/planning semantics and learning-material/practice design;
-- how learner-state uncertainty and evidence strength should be represented;
+- how recorded learner statistics should later be interpreted into learner state and evidence strength;
+- how learner-state uncertainty should be represented;
 - how retention and evidence decay affect inferred learner state;
 - which subject-specific semantics justify specialization or an additional bounded context;
 
