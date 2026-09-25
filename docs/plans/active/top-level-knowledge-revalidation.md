@@ -118,7 +118,15 @@ Keep a non-graph baseline for every core Knowledge inspection task. The question
 
 ## Current frontier
 
-The current frontier is:
+The current frontier is no longer direct frontend coding. Harness reconciliation after the implementation-consumer investigation separates three targets:
+
+- `CURRENT-REVALIDATION` — the accepted top-level design baseline; its completion does not authorize coding;
+- `FRONTEND-PROTOTYPE` — the noncanonical Knowledge-visualization experiment; because this prototype intends to reuse non-trivial 3D renderer mechanics, its closure includes frontend System Architecture and Component Design so experimental structure does not become accidental production architecture;
+- `FRONTEND-IMPLEMENTATION` — the production coding target; it additionally requires frontend Verification Design, Test Design and Implementation Design.
+
+The immediate engineering-knowledge frontier is therefore frontend-scoped System Architecture, followed by Component Design. G0 code work starts only after the `FRONTEND-PROTOTYPE` Consumer exposes no missing architecture/component knowledge.
+
+The research/code frontier after that closure remains:
 
 > **Knowledge visualization as model/data inspection and UX-validation prototype.**
 
@@ -331,6 +339,8 @@ The following work remains accepted but is not the immediate implementation prio
 - detailed Statistics presentation;
 - broad Curation editor completion;
 - production browser/backend integration;
-- production frontend architecture/component/test/implementation closure.
+- production frontend Test Design and Implementation Design closure.
+
+Frontend System Architecture refinement and Component Design are no longer deferred because the current prototype intends to reuse non-trivial renderer mechanics and therefore must not invent those boundaries inside experimental code.
 
 After G5, use the collected evidence to decide whether to continue with the broader Learning slice, revise Knowledge semantics/data, or change the graph interaction approach.

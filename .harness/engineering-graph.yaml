@@ -208,6 +208,11 @@ authorities:
           - capability: prep.interface-verification
           - capability: prep.presentation-system
           - capability: prep.screen-view-design
+      - capability: prep.frontend-verification
+        knowledge_kind: verification-strategy
+        requires:
+          - capability: prep.presentation-verification
+          - capability: prep.frontend-system-architecture
 
   - id: SYSTEM-ARCHITECTURE
     responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.
@@ -224,6 +229,13 @@ authorities:
           - capability: prep.interface-topology
           - capability: prep.machine-interfaces
           - capability: prep.import-consistency
+      - capability: prep.frontend-system-architecture
+        knowledge_kind: system-architecture
+        requires:
+          - capability: prep.system-architecture
+          - capability: prep.presentation-system
+          - capability: prep.screen-view-design
+          - capability: prep.machine-interfaces
 
   - id: DATA-DESIGN
     responsibility: Own durable physical representation and persistence constraints for accepted Prep state.
@@ -241,9 +253,62 @@ authorities:
           - capability: prep.import-consistency
           - capability: prep.system-architecture
 
+  - id: COMPONENT-DESIGN
+    responsibility: Own implementation-facing frontend component, port, mapping and dependency boundaries without redefining accepted interface or architecture semantics.
+    boundary:
+      semantic_cohesion: Frontend component responsibilities, renderer/provider seams, semantic/view-model mappings and dependency direction.
+      independent_change: Component decomposition can evolve behind stable interface and system-architecture contracts.
+      public_contract: Provides code-facing frontend structural contracts to prototype and production realization.
+    produces:
+      - capability: prep.frontend-component-design
+        knowledge_kind: component-design
+        requires:
+          - capability: prep.frontend-system-architecture
+          - capability: prep.screen-view-design
+          - capability: prep.machine-interfaces
+
+  - id: TEST-DESIGN
+    responsibility: Own executable frontend behavioral test contracts derived from accepted interaction, view and verification knowledge.
+    boundary:
+      semantic_cohesion: Preconditions, operations, observable UI oracles and structural test boundaries.
+      independent_change: Test contracts can evolve with accepted verification knowledge while remaining independent of concrete test framework code.
+      public_contract: Provides executable frontend test semantics to production implementation design.
+    produces:
+      - capability: prep.frontend-test-design
+        knowledge_kind: test-design
+        requires:
+          - capability: prep.frontend-verification
+          - capability: prep.interaction-design
+          - capability: prep.screen-view-design
+
+  - id: IMPLEMENTATION-DESIGN
+    responsibility: Own bounded frontend realization slicing, repository/module realization and completion criteria after accepted design exists.
+    boundary:
+      semantic_cohesion: Implementation slices, physical repository realization and deterministic completion criteria.
+      independent_change: Realization sequencing and file/module placement can change behind stable architecture/component contracts.
+      public_contract: Provides implementation-ready frontend work definition without re-owning upstream semantics.
+    produces:
+      - capability: prep.frontend-implementation-design
+        knowledge_kind: implementation-design
+        requires:
+          - capability: prep.frontend-component-design
+          - capability: prep.frontend-verification
+          - capability: prep.frontend-test-design
+
 consumers:
   - id: CURRENT-REVALIDATION
-    purpose: Re-establish and revalidate the current accepted engineering knowledge needed before downstream implementation/frontend design is allowed to proceed.
+    purpose: Re-establish and revalidate the current accepted engineering knowledge baseline.
     requires:
       - capability: prep.data-design
       - capability: prep.presentation-verification
+
+  - id: FRONTEND-PROTOTYPE
+    purpose: Build the current Knowledge visualization prototype as noncanonical evidence without inventing frontend architecture or component boundaries.
+    requires:
+      - capability: prep.frontend-component-design
+      - capability: prep.presentation-verification
+
+  - id: FRONTEND-IMPLEMENTATION
+    purpose: Implement the production frontend without inventing user-visible, architectural, component, test or realization decisions.
+    requires:
+      - capability: prep.frontend-implementation-design

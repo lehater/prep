@@ -103,16 +103,32 @@ assessments:
     applicability: UNASSESSED
 
   - authority_id: COMPONENT-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/system-architecture.md]
+    rationale: The selected frontend prototype and production consumers require explicit code-facing module/component, renderer, mapping, adapter and dependency boundaries so implementation does not promote experimental structure into architecture by accident.
+    depends_on_evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/system-architecture.md]
+    reopening_conditions: [frontend architecture, screen/view responsibilities or machine-interface contracts change materially]
 
   - authority_id: TEST-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/verification/presentation-verification.md, docs/interface/screen-view-design.md, .harness/engineering-graph.yaml]
+    rationale: The production frontend consumer requires executable observable contracts for accepted frontend behavior before concrete production test code is treated as evidence.
+    depends_on_evidence: [docs/verification/presentation-verification.md, docs/interface/screen-view-design.md]
+    reopening_conditions: [frontend verification obligations or production frontend scope change materially]
 
   - authority_id: IMPLEMENTATION-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [.harness/engineering-graph.yaml, docs/architecture/system-architecture.md, docs/interface/screen-view-design.md]
+    rationale: The production frontend consumer requires bounded implementation slices and repository realization derived from accepted architecture and component boundaries.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/screen-view-design.md]
+    reopening_conditions: [selected production frontend scope or accepted implementation-facing boundaries change materially]
 
   - authority_id: VERIFICATION-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/verification/interface-verification.md, docs/verification/presentation-verification.md]
+    rationale: Current canonical frontend knowledge already has independent interface and presentation verification obligations, and production realization requires architecture-aware frontend verification before test design.
+    depends_on_evidence: [docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
 
 migration_conflicts:
   - retired_authority: STRATEGIC-DOMAIN-DESIGN
