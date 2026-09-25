@@ -8,9 +8,9 @@ Define learner-specific evidence and inferred state independently of reusable su
 
 ### Question Evidence Subject
 
-Question is the canonical subject of directly imported or recorded learning evidence. External learning items such as Anki cards are bound to Prep Questions, and their review history or externally computed statistics are recorded as facts about those Questions.
+Question is the canonical subject of directly recorded learning observations and evidence.
 
-KnowledgeNode and Requirement state are not direct imports from an external card. Any state attributed to them is a later inference derived from evidence about related Questions.
+KnowledgeNode and Requirement state are not direct observations. Any state attributed to them is a later inference derived from evidence about related Questions.
 
 ### Observation
 
