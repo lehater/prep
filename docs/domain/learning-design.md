@@ -10,17 +10,21 @@ Define target-relative learning semantics: what outcome is sought, what is requi
 
 A desired future state with enough purpose, scope and depth to evaluate what is required.
 
+### Requirement
+
+A reusable statement of capability that may be required by one or more learning targets. It preserves the capability actually demanded in the real world—for example, explaining a concept, diagnosing a situation, choosing an approach or performing an operation—rather than reducing that demand to a topic label.
+
+A Requirement has stable identity and may align to reusable subject knowledge from Knowledge Model.
+
+### Requirement Set
+
+A reusable composition of Requirements and other Requirement Sets. Composition is recursive but acyclic, so larger requirement profiles can be assembled from smaller reusable groups without duplicating their members.
+
+Its structure exists for learning-design composition and does not imply the structure of subject knowledge.
+
 ### Target Requirement
 
-A requirement applicable to a particular target. It may specialize or select a reusable requirement or competency owned by Learning Design and may align to reusable subject knowledge from Knowledge Model.
-
-### Criterion
-
-A statement of what must be demonstrated for a target requirement to count as satisfied. Criteria make the expected form of capability explicit rather than hiding it in a generic depth value.
-
-### Performance Level
-
-A meaningful level of performance against one or more criteria. Levels describe quality or degree of demonstrated capability; they are not learner observations themselves.
+A Requirement or Requirement Set selected for a particular Learning Target. Additional criterion, rubric or performance-level semantics are introduced only when a concrete real-world requirement needs them; they are not mandatory structure of every Requirement.
 
 ### Alignment
 
@@ -89,7 +93,9 @@ Question organization remains deliberately minimal. Classification, collections,
 Learning Design owns:
 
 - learning targets;
-- target-specific requirements and competencies;
+- reusable requirements and competencies;
+- reusable Requirement Sets and their acyclic composition;
+- target-specific selection of Requirements and Requirement Sets;
 - alignments between requirements/competencies and reusable subject knowledge;
 - target-relative gaps;
 - prioritization policy and decisions;
@@ -109,7 +115,7 @@ It does not own reusable subject truth or raw learner observations.
 - a learning intent aims to change learner capability; a diagnostic intent aims to reduce uncertainty about learner state;
 - an unknown state is not automatically a learning gap;
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
-- changing a target, criterion or required performance level may change gaps without changing learner observations;
+- changing a target or its requirements may change gaps without changing learner observations;
 - Requirement != Requirement Set != Evidence;
 - Requirement Set composition is acyclic;
 - alignment does not merge the identities of a requirement and the knowledge it references;
