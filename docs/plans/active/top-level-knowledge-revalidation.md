@@ -128,3 +128,47 @@ Use canonical Interface Topology and `docs/interface/site-map.md` as the prototy
 Implement frame shells with mock/static data first, then deepen the Knowledge / 3D graph frame and Question → Knowledge Map transition while leaving non-critical frames skeletal.
 
 The active branch remains a revalidation/development line; it is not yet a project-wide `main` canonicalization candidate while open domain/interface research remains.
+
+
+## Frontend code audit and first prototype slice
+
+Audit against the accepted Interface Topology found no current frontend application in `research/problem-space-revalidation`: the branch contains no React/Vite/Storybook package or screen/component implementation. Therefore current topology coverage in executable frontend code is 0/19 material view/frame subjects.
+
+The previous `experiments/knowledge-representation-3d` branch is retained as evidence. It contains useful 3D renderer/interaction experiments, but it covers only Knowledge-oriented behavior and carries stale graph-first semantics. It is not a base application to merge wholesale.
+
+Before prototype code is added, current repository guidance is aligned as follows:
+
+- the mock frontend is explicitly a prototype/evidence surface, not production frontend closure;
+- canonical semantics remain in Interface Topology, Presentation System and Screen/View Design;
+- old graph-first routes/auth/settings/progress assumptions are retired from the active prototype realization note.
+
+### Slice 1 — navigable mock skeleton
+
+Input:
+
+- accepted 19-subject Interface Topology;
+- Screen/View responsibilities;
+- Presentation System;
+- static/mock canonical identities.
+
+Output:
+
+- one browser prototype that can traverse the whole accepted product topology;
+- a complete Learning path from Target Selection through Overview, Knowledge, Study and Statistics;
+- skeletal Curation collections/editors and contextual Import;
+- runtime-status surface;
+- Question -> Knowledge navigation preserving target context.
+
+Acceptance:
+
+- every topology subject is represented by a reachable view or structural layout;
+- Learning and Curation are explicit task contexts;
+- LearningTarget scope is read-only in Learning;
+- Knowledge has non-graph list/search/detail access;
+- Study can navigate a Question to related Knowledge;
+- Statistics use factual observation language only;
+- no auth/multi-user, backup/HA, mastery/readiness/coverage percentage, browser AnkiConnect call or production backend dependency is introduced.
+
+### Slice 2 — Knowledge hypothesis
+
+After Slice 1 is navigable, deepen `L-03-TARGET-KNOWLEDGE` with coordinated list/search/detail plus the 3D graph projection. Reuse only compatible renderer mechanics from the old experiment, then exercise `Q-KNOWLEDGE-GRAPH-3D-VALUE` with the accepted task scenarios.

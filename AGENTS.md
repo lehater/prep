@@ -40,13 +40,15 @@ python tools/check_harness_integration.py
 
 ## Current engineering frontier
 
-Current canonical knowledge has been re-established through Product, strategic/tactical domain design, Application Design, Human/Machine Interface, Import Consistency, System Architecture and Data Design.
+Current canonical knowledge has been re-established through Product, strategic/tactical domain design, Application Design, granular Human/Machine Interface, Import Consistency, Interface/Presentation Verification, System Architecture and Data Design.
 
-The current frontier is Human Interface revalidation, specifically `PRESENTATION-SYSTEM` and `SCREEN-VIEW-DESIGN`.
+The current frontier is a **mock/static frontend prototype** used to exercise the accepted Interface Topology and Screen/View contracts before production backend/frontend implementation is committed.
 
-Treat the current navigation decomposition and `catalogue -> detail -> editor` pattern as hypotheses until task-first information architecture and interaction choices are revalidated. Do not descend into final frontend architecture/component implementation while those choices remain unresolved.
+Use `docs/interface/interface-topology.yaml`, `docs/interface/screen-view-design.md` and `docs/interface/presentation-system.md` as semantic inputs. The prototype must cover the accepted Learning/Curation task contexts and material view/frame subjects, but prototype routing, component structure and provider/library choices remain downstream realization details.
 
-Knowledge Graph and 3D visualization are optional projections. They are accepted only when they improve a concrete user task; core tasks and KnowledgeNode access must remain possible without graph manipulation.
+This prototype is evidence, not a substitute for a production frontend implementation Consumer. Before treating frontend code as production closure, declare the appropriate implementation Consumer and satisfy the applicable Harness frontend architecture/component/verification/test/implementation-design dependencies.
+
+Knowledge Graph and 3D visualization remain optional projections. They are accepted only when they improve a concrete user task; core tasks and KnowledgeNode access must remain possible without graph manipulation. Existing graph experiments are implementation evidence only and may be reused selectively when they conform to current canonical semantics.
 
 ## Current product constraints
 
