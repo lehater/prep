@@ -1,0 +1,41 @@
+name: FI-03 dependencies
+
+on:
+  push:
+    branches:
+      - research/problem-space-revalidation
+    paths:
+      - ".github/workflows/fi03-dependencies.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  pin-graph-renderer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Pin production graph renderer dependencies
+        working-directory: web
+        run: |
+          npm install --save-exact react-force-graph-3d@1.29.1 three@0.180.0
+          npm install --save-dev --save-exact @types/three@0.180.0
+          npm ci
+
+      - name: Commit lockfile and remove bootstrap workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/fi03-dependencies.yml
+          git add web/package.json web/package-lock.json
+          git commit -m "Pin FI-03 graph renderer dependencies [skip ci]"
+          git push
