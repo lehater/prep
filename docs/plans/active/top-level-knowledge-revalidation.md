@@ -147,8 +147,25 @@ The next implementation work should be a frontend prototype driven by static/moc
 
 Backend implementation should follow after material frontend interaction choices have been exercised and accepted.
 
+## Site map / frame inventory
+
+The whole product is now mapped before detailed frontend prototyping in `docs/interface/site-map.md`.
+
+The map defines:
+
+- shared shell and Learning/Curation mode boundary;
+- Learning target selection;
+- four learner frames: Overview, Knowledge, Study, Statistics;
+- Curation collections and detail/edit frames for Targets, Knowledge, Requirements/RequirementSets and Questions;
+- contextual Import and runtime-status secondary surfaces;
+- coarse frame skeletons;
+- cross-frame transitions;
+- explicit responsibility boundaries.
+
+This map intentionally does not decide styling, exact routes, component library or detailed graph mechanics.
+
 ## Current frontier
 
-Build and evaluate a **frontend-only low-fidelity/functional prototype with mock data**, with the 3D Knowledge Graph as the main experimental area.
+Use the site map as the frontend prototype skeleton. Implement frame shells with mock/static data first, then deepen the **Knowledge / 3D graph** frame and Question -> Knowledge Map transition while keeping the remaining frames intentionally skeletal.
 
-The next substantive product decision should come from prototype evidence: whether 3D materially improves relational-understanding tasks and what screen composition best preserves orientation. Do not choose production visual styling or backend implementation first.
+Backend production implementation remains deferred until the frontend responsibility map and principal interaction flows have been exercised.

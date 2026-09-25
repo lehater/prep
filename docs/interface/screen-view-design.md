@@ -4,6 +4,8 @@
 
 Define the minimum implementation-independent view responsibilities for the accepted two-mode product: target-centric Learning and reusable-data/target-profile Curation.
 
+The whole-product page/frame topology and coarse low-fidelity frames are maintained in `docs/interface/site-map.md`. That map is a projection of this contract and exists to keep screen responsibilities and transitions explicit before visual design or frontend implementation.
+
 ## Application shell
 
 The shell provides an explicit way to enter/switch between:
