@@ -85,6 +85,12 @@ artifacts:
     provides: [prep.system-architecture]
     depends_on: [APPLICATION-DESIGN, HUMAN-INTERFACE, MACHINE-INTERFACES, IMPORT-CONSISTENCY]
 
+  - id: DATA-DESIGN
+    authority: DATA-DESIGN
+    path: docs/architecture/data-design.md
+    provides: [prep.data-design]
+    depends_on: [KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL, IMPORT-CONSISTENCY, SYSTEM-ARCHITECTURE]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
