@@ -123,6 +123,9 @@ jobs:
       - name: Run deterministic frontend checks
         run: npm run verify
 
+      - name: Audit frontend dependencies
+        run: npm audit --audit-level=high
+
       - name: Build production frontend
         run: npm run build
 
@@ -133,4 +136,17 @@ jobs:
         run: npm run test:e2e
 
       - name: Build frontend container
-        run: docker build --tag prep-web-ci .
+        env:
+          FRONTEND_IMAGE: prep-web-ci:${{ github.sha }}
+        run: |
+          docker build \
+            --build-arg PREP_FRONTEND_VERSION="${GITHUB_SHA}" \
+            --tag "${FRONTEND_IMAGE}" \
+            .
+
+      - name: Verify frontend image identity
+        env:
+          FRONTEND_IMAGE: prep-web-ci:${{ github.sha }}
+        run: |
+          test "$(docker image inspect "${FRONTEND_IMAGE}" --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')" = "${GITHUB_SHA}"
+          docker image inspect "${FRONTEND_IMAGE}" --format 'image={{.Id}} revision={{ index .Config.Labels "org.opencontainers.image.revision" }}'

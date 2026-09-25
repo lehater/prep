@@ -1,6 +1,23 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const targetKnowledgePath = "/learning/linux-backend-interview/knowledge";
+
+async function tabUntilFocused(page: Page, target: Locator) {
+  for (let index = 0; index < 30; index += 1) {
+    await page.keyboard.press("Tab");
+    if (
+      await target.evaluate((element) => document.activeElement === element)
+    ) {
+      await expect(target).toBeFocused();
+      expect(
+        await target.evaluate((element) => element.matches(":focus-visible")),
+      ).toBe(true);
+      return;
+    }
+  }
+  throw new Error("Keyboard focus did not reach the expected control.");
+}
+
 
 test("switches explicit Learning and Curation Knowledge contexts", async ({ page }) => {
   await page.goto(targetKnowledgePath);
@@ -63,4 +80,36 @@ test("keeps a non-graph empty-state path when the 3D renderer is present or unav
   await expect(
     page.getByRole("region", { name: "3D Knowledge graph" }),
   ).toBeVisible();
+});
+
+test("completes core Knowledge access with keyboard interaction only", async ({
+  page,
+}) => {
+  await page.goto(targetKnowledgePath);
+
+  const search = page.getByRole("textbox", { name: "Search Knowledge" });
+  await tabUntilFocused(page, search);
+  await page.keyboard.type("cgroups");
+  await page.keyboard.press("Enter");
+
+  const item = page
+    .getByRole("region", { name: "Knowledge list" })
+    .getByRole("button", { name: /Linux cgroups/ });
+  await expect(item).toBeVisible();
+  await tabUntilFocused(page, item);
+  await page.keyboard.press("Enter");
+
+  await expect(
+    page.getByRole("heading", { name: "Linux cgroups", level: 4 }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(/linux-cgroups —realizes→ resource-isolation/),
+  ).toBeVisible();
+
+  const close = page.getByRole("button", { name: "Close detail" });
+  await tabUntilFocused(page, close);
+  await page.keyboard.press("Enter");
+
+  await expect(search).toHaveValue("cgroups");
+  await expect(page).toHaveURL(/q=cgroups/);
 });
