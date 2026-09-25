@@ -1,4 +1,5 @@
 name: FI-05 frontend recheck
+# final rerun after semantic-alignment fixes
 
 on:
   push:
