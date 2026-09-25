@@ -49,11 +49,7 @@ def main() -> int:
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
 
-    require_complete(graph, core, "TOP-LEVEL-DESIGN")
-    require_complete(graph, core, "LOGICAL-DESIGN")
-
-    require_complete(graph, core, "TECHNICAL-DESIGN")
-    require_complete(graph, core, "IMPLEMENTATION-DESIGN")
+    require_complete(graph, core, "CURRENT-REVALIDATION")
 
     print("Prep pinned Harness integration PASS")
     return 0
