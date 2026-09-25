@@ -48,10 +48,10 @@ assessments:
 
   - authority_id: SYSTEM-ARCHITECTURE
     applicability: REQUIRED
-    evidence: [docs/architecture/system-architecture.md]
-    rationale: Current canonical knowledge contains material runtime boundaries, deployment topology and technical dependency decisions.
-    depends_on_evidence: [docs/application/application-design.md, docs/interface/human-interface.md, docs/interface/machine-interface.md, docs/architecture/import-consistency.md]
-    reopening_conditions: [runtime boundaries, deployment constraints or technical topology change materially]
+    evidence: [docs/architecture/system-architecture.md, docs/architecture/frontend-system-architecture.md]
+    rationale: Current canonical knowledge contains material runtime boundaries, deployment topology and frontend module/dependency/state-ownership decisions.
+    depends_on_evidence: [docs/application/application-design.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/import-consistency.md]
+    reopening_conditions: [runtime boundaries, frontend module/dependency topology, deployment constraints or technical topology change materially]
 
   - authority_id: CONCURRENCY-CONSISTENCY-DESIGN
     applicability: REQUIRED
@@ -104,9 +104,9 @@ assessments:
 
   - authority_id: COMPONENT-DESIGN
     applicability: REQUIRED
-    evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/system-architecture.md]
+    evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/frontend-system-architecture.md]
     rationale: The selected frontend prototype and production consumers require explicit code-facing module/component, renderer, mapping, adapter and dependency boundaries so implementation does not promote experimental structure into architecture by accident.
-    depends_on_evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/system-architecture.md]
+    depends_on_evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/frontend-system-architecture.md]
     reopening_conditions: [frontend architecture, screen/view responsibilities or machine-interface contracts change materially]
 
   - authority_id: TEST-DESIGN
