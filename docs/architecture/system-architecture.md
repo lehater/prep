@@ -22,6 +22,25 @@ The current data/trust boundary is one user's Prep installation and its configur
 
 No accepted driver currently requires microservices, distributed domain ownership, queues, asynchronous workers, or independent scaling of model contexts.
 
+### Driver classification
+
+| Concern | State | Current decision / rationale |
+|---|---|---|
+| execution-mode | RESOLVED | Browser frontend and backend are separate Docker runtime boundaries. |
+| consumers | RESOLVED | First version serves one Prep user/data scope; multi-user operation is future scope. |
+| load-volume-frequency | DEFERRED | No accepted scale/load target currently changes the single-backend topology; measure before introducing scaling machinery. |
+| latency-freshness | DEFERRED | No accepted latency or freshness SLO currently changes topology; interactions are ordinary user-driven web/application operations. |
+| availability | DEFERRED | Local single-user early versions have no HA/failover/uptime requirement; adding availability machinery now would not satisfy an accepted need. |
+| recovery-durability | RESOLVED | Canonical data survives ordinary restarts; backup/restore and long-term recovery are deliberately deferred. |
+| growth-horizon | DEFERRED | Later remote/multi-user use is anticipated, but no accepted growth target justifies speculative scaling topology now. |
+| deployment-environment | RESOLVED | Initial local Docker deployment with separate frontend/backend; boundaries must remain usable for later remote deployment. |
+| concurrency | RESOLVED | Current material concurrency is repeated/concurrent import identity handling defined by Import Consistency; no multi-user concurrency semantics are required. |
+| integration-boundaries | RESOLVED | Prepared-data exchange is versioned; automated Anki v1 uses backend-to-AnkiConnect behind a transport-independent external-runtime boundary. |
+| persistence-history | RESOLVED | Canonical model data and append-oriented ReviewObservations are durable; broader audit/version history is not required. |
+| security-trust-boundary | RESOLVED | Current trust scope is one local user/deployment plus configured Anki endpoint; no tenant authorization boundary exists in v1. Network exposure remains deployment configuration and must not broaden this trust assumption silently. |
+
+All baseline concerns are classified for the current scope. Deferred concerns are non-material to the selected topology until a corresponding requirement is accepted.
+
 ## Runtime topology
 
 ```text
