@@ -111,7 +111,8 @@ It does not own reusable subject truth or raw learner observations.
 - an unknown state is not automatically a learning gap;
 - changing learner evidence may change gaps and priorities without changing subject knowledge;
 - changing a target, criterion or required performance level may change gaps without changing learner observations;
-- Requirement != Criterion != Performance Level != Evidence;
+- Requirement != Requirement Set != Criterion != Performance Level != Evidence;
+- Requirement Set composition is acyclic;
 - alignment does not merge the identities of a requirement and the knowledge it references;
 - a Question owns its `question_text` and direct `answer_text`;
 - a Question's `knowledge` references reusable subject knowledge without taking ownership of it.
