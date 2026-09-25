@@ -40,3 +40,16 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 ## FI-01 validation
 
 Verified by the FI-01 bootstrap workflow with Node 24, frontend unit/browser/build/container checks, Prep validators, strict semantic baseline and pinned Harness integration.
+
+## CI cadence
+
+Implementation feedback is intentionally tiered to avoid repeating expensive proof on every commit:
+
+- non-`main` pushes that touch `web/**` run `frontend-fast`: reproducible install + typecheck + lint + boundary checks + Vitest;
+- a newer push cancels an obsolete in-progress fast run for the same branch;
+- pull requests to `main`, pushes to `main`, and manual validation are merge-candidate checkpoints;
+- merge-candidate validation always runs repository/Harness checks;
+- `frontend-full` runs at a merge-candidate checkpoint only when `web/**` or frontend CI rules changed, and adds production build + Playwright + Docker evidence;
+- `test:e2e` assumes an already-built frontend so the host production build is not repeated inside the same full check.
+
+During an FI slice, use targeted local tests while coding, rely on `frontend-fast` for branch-level feedback, and run the full merge-candidate validation only at a coherent slice checkpoint or before integration.

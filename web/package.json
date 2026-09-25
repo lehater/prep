@@ -14,9 +14,10 @@
     "lint": "oxlint src scripts e2e vite.config.ts vitest.config.ts playwright.config.ts",
     "check:boundaries": "node --test scripts/check-boundaries.test.mjs && node scripts/check-boundaries.mjs",
     "test": "vitest run",
-    "test:e2e": "npm run build && playwright test",
+    "test:e2e": "playwright test",
     "verify": "npm run typecheck && npm run lint && npm run check:boundaries && npm run test",
-    "ci": "npm run verify && npm run test:e2e"
+    "ci": "npm run verify:full",
+    "verify:full": "npm run verify && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
