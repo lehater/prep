@@ -17,7 +17,7 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 
 ## Execution
 
-- [ ] FI-01 — production frontend foundation.
+- [x] FI-01 — production frontend foundation.
 - [ ] FI-02 — minimum vertical Knowledge path.
 - [ ] FI-03 — 3D renderer adapter.
 - [ ] FI-04 — Learning workspace.
@@ -39,4 +39,4 @@ Authority: `docs/implementation/frontend-implementation-design.md` plus its decl
 
 ## FI-01 validation
 
-Pending bootstrap runner verification.
+Verified by the FI-01 bootstrap workflow with Node 24, frontend unit/browser/build/container checks, Prep validators, strict semantic baseline and pinned Harness integration.
