@@ -1,0 +1,116 @@
+name: Bootstrap FI-01 frontend lockfile
+
+on:
+  push:
+    branches: [research/problem-space-revalidation]
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out implementation branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/problem-space-revalidation
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package.json
+
+      - name: Generate production lockfile
+        working-directory: web
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Install frontend dependencies reproducibly
+        working-directory: web
+        run: npm ci
+
+      - name: Run deterministic frontend checks
+        working-directory: web
+        run: npm run verify
+
+      - name: Install Playwright Chromium
+        working-directory: web
+        run: npx playwright install --with-deps chromium
+
+      - name: Run frontend browser smoke test
+        working-directory: web
+        run: npm run test:e2e
+
+      - name: Build frontend container
+        run: docker build --tag prep-web-fi01 ./web
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Read pinned Harness version
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out pinned Harness
+        uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+
+      - name: Install Harness runtime dependency
+        run: python -m pip install PyYAML
+
+      - name: Validate Prep after FI-01
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: |
+          python tools/semantic_baseline.py
+          python tools/check_harness_integration.py
+          python tools/validate_docs.py
+          python tools/validate_architecture.py
+          python tools/validate_questions.py
+          python -m unittest discover -s tests -v
+
+      - name: Record FI-01 verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("docs/plans/active/frontend-production-implementation.md")
+          text = path.read_text(encoding="utf-8")
+          text = text.replace(
+              "- [ ] FI-01 — production frontend foundation.",
+              "- [x] FI-01 — production frontend foundation.",
+          )
+          text = text.replace(
+              "Pending bootstrap runner verification.",
+              """Verified on GitHub Actions with Node 24:
+- `npm ci`;
+- TypeScript typecheck;
+- oxlint;
+- deterministic boundary checker and checker self-tests;
+- Vitest smoke test;
+- Vite production build;
+- Playwright Chromium smoke test;
+- frontend Docker build;
+- Prep strict semantic baseline;
+- Prep Harness integration;
+- documentation/architecture/question validators;
+- Python unit tests.""",
+          )
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit verified lockfile and evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/package-lock.json docs/plans/active/frontend-production-implementation.md
+          git rm .github/workflows/bootstrap-web-fi01.yml
+          git commit -m "Complete FI-01 frontend foundation"
+          git push origin HEAD:research/problem-space-revalidation

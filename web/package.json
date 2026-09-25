@@ -1,0 +1,40 @@
+{
+  "name": "prep-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "oxlint src scripts e2e vite.config.ts vitest.config.ts playwright.config.ts",
+    "check:boundaries": "node --test scripts/check-boundaries.test.mjs && node scripts/check-boundaries.mjs",
+    "test": "vitest run",
+    "test:e2e": "npm run build && playwright test",
+    "verify": "npm run typecheck && npm run lint && npm run check:boundaries && npm run test",
+    "ci": "npm run verify && npm run test:e2e"
+  },
+  "dependencies": {
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@mui/material": "9.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "7.18.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.13.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "oxlint": "1.85.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  }
+}

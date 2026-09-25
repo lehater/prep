@@ -48,3 +48,34 @@ jobs:
 
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run deterministic frontend checks
+        run: npm run verify
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run frontend browser smoke test
+        run: npm run test:e2e
+
+      - name: Build frontend container
+        run: docker build --tag prep-web-ci .
