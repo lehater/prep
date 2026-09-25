@@ -76,9 +76,7 @@ export function KnowledgeExplorer({
     void queryPort
       .list(scope, {
         search: routeState.query || undefined,
-        semanticKinds: routeState.semanticKind
-          ? [routeState.semanticKind]
-          : undefined,
+        semanticKind: routeState.semanticKind,
       })
       .then((outcome) => {
         if (active) {

@@ -7,7 +7,7 @@ import type {
 
 export interface KnowledgeListQuery {
   readonly search?: string;
-  readonly semanticKinds?: readonly KnowledgeSemanticKind[];
+  readonly semanticKind?: KnowledgeSemanticKind;
 }
 
 export interface KnowledgeCollection {

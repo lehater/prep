@@ -29,10 +29,9 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
     }
 
     const search = query.search?.trim().toLocaleLowerCase() ?? "";
-    const allowedKinds = new Set(query.semanticKinds ?? []);
     const items = this.nodesForScope(scope).filter(
       (node) =>
-        (allowedKinds.size === 0 || allowedKinds.has(node.semanticKind)) &&
+        (!query.semanticKind || node.semanticKind === query.semanticKind) &&
         (search.length === 0 ||
           node.title.toLocaleLowerCase().includes(search) ||
           node.summary.toLocaleLowerCase().includes(search)),
