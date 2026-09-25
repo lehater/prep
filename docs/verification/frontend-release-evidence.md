@@ -44,7 +44,7 @@ This evidence records how the production `web/` realization satisfies those obli
 | FTD-MOCK-HTTP-SUBSTITUTABILITY | `HttpAdapters.test.ts` equivalence cases for Knowledge/Target/Question/runtime status. |
 | FTD-KEYBOARD-KNOWLEDGE-ACCESS | `knowledge.spec.ts: completes core Knowledge access with keyboard interaction only`; it reaches Search, list item and Close detail via Tab/Enter and asserts `:focus-visible`. |
 | FTD-GRAPH-FALLBACK-EQUIVALENCE | `knowledge.spec.ts: keeps a non-graph empty-state path...`; `graphScene.test.ts` preserves the same canonical node/relation identity independently of geometry. |
-| FTD-COMMON-VIEW-STATES | `http-states.spec.ts` renders loading, loaded, operational failure + retry/context preservation, empty and external-runtime unavailable/recovered states through the production HTTP provider; Curation browser tests cover validation-rejected and cycle conflict/recovery. |
+| FTD-COMMON-VIEW-STATES | `http-states.spec.ts` renders Target Selection loading, loaded, operational failure + retry/context preservation, empty and external-runtime unavailable/recovered states through the production HTTP provider; Curation browser tests cover validation-rejected and cycle conflict/recovery. |
 
 ## Presentation Verification evidence
 
@@ -56,7 +56,7 @@ Rendered browser coverage includes:
 
 - Learning: Target selection/Overview/Knowledge/Study/Statistics;
 - Curation: Targets/Knowledge/Requirements/Questions/Import;
-- HTTP-rendered Knowledge: loading, loaded, failure/retry and empty;
+- HTTP-rendered Target Selection: loading, loaded, failure/retry and empty;
 - global external runtime: unavailable -> retry -> reachable.
 
 The obligation is consistency of role meaning, not pixel identity.

@@ -1,41 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-const targetPath = "/learning/linux-backend-interview/knowledge";
-
 const target = {
   id: "linux-backend-interview",
   name: "Linux backend interview",
   definition: "Prepared target context for backend interview knowledge.",
   scope_summary: "Prepared Linux scope.",
   scope_items: [],
-};
-
-const nodes = [
-  {
-    id: "linux-cgroups",
-    semantic_kind: "concept",
-    display_content: "Linux cgroups",
-    content:
-      "A Linux mechanism family for organizing processes and controlling resource usage.",
-  },
-  {
-    id: "resource-isolation",
-    semantic_kind: "concept",
-    display_content: "Resource isolation",
-    content: "A system property that separates resource consumption between workloads.",
-  },
-];
-
-const graph = {
-  nodes,
-  relations: [
-    {
-      id: "relation-cgroups-realizes-isolation",
-      source_id: "linux-cgroups",
-      target_id: "resource-isolation",
-      relation_type: "realizes",
-    },
-  ],
 };
 
 function operationId(url: string): string {
@@ -78,23 +48,7 @@ test("renders accepted server-backed states through the HTTP provider", async ({
       return;
     }
 
-    if (operation === "learning.targets.get") {
-      await route.fulfill({
-        contentType: "application/json",
-        body: JSON.stringify({ outcome: "success", result: target }),
-      });
-      return;
-    }
-
-    if (operation === "learning.target.knowledge.graph") {
-      await route.fulfill({
-        contentType: "application/json",
-        body: JSON.stringify({ outcome: "success", result: graph }),
-      });
-      return;
-    }
-
-    if (operation === "learning.target.knowledge.list") {
+    if (operation === "learning.targets.list") {
       if (delayNextList) {
         delayNextList = false;
         await new Promise((resolve) => setTimeout(resolve, 750));
@@ -107,13 +61,13 @@ test("renders accepted server-backed states through the HTTP provider", async ({
           contentType: "application/json",
           body: JSON.stringify({
             outcome: "operational_failure",
-            message: "Temporary Knowledge service failure.",
+            message: "Temporary target service failure.",
           }),
         });
         return;
       }
 
-      const items = input.text_query === "missing" ? [] : [nodes[0]];
+      const items = input.text_query === "missing" ? [] : [target];
       await route.fulfill({
         contentType: "application/json",
         body: JSON.stringify({
@@ -138,19 +92,12 @@ test("renders accepted server-backed states through the HTTP provider", async ({
     });
   });
 
-  await page.goto(targetPath);
+  await page.goto("/learning");
 
-  const listItem = page
-    .getByRole("region", { name: "Knowledge list" })
-    .getByRole("button", { name: /Linux cgroups/ });
-  await expect(listItem).toBeVisible();
-
-  const search = page.getByRole("textbox", { name: "Search Knowledge" });
-  delayNextList = true;
-  await search.fill("cgroups");
-  await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByText("Loading Knowledge list")).toBeVisible();
-  await expect(listItem).toBeVisible();
+  const targetHeading = page.getByRole("heading", {
+    name: "Linux backend interview",
+  });
+  await expect(targetHeading).toBeVisible();
 
   const runtime = page.getByRole("button", {
     name: "Refresh Anki runtime status",
@@ -160,22 +107,26 @@ test("renders accepted server-backed states through the HTTP provider", async ({
   await runtime.click();
   await expect(runtime).toContainText("Anki: reachable");
 
-  failNextList = true;
-  await search.fill("cgroups");
-  await page.getByRole("button", { name: "Search", exact: true }).click();
+  const search = page.getByRole("textbox", { name: "Search targets" });
 
-  await expect(page.getByText("Knowledge could not be loaded")).toBeVisible();
-  await expect(page).toHaveURL(/q=cgroups/);
+  delayNextList = true;
+  await search.fill("Linux");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(page.getByText("Loading learning targets")).toBeVisible();
+  await expect(targetHeading).toBeVisible();
+
+  failNextList = true;
+  await search.fill("backend");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(
+    page.getByText("Learning targets could not be loaded"),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Retry" }).click();
 
-  await expect(search).toHaveValue("cgroups");
-  await expect(
-    page
-      .getByRole("region", { name: "Knowledge list" })
-      .getByRole("button", { name: /Linux cgroups/ }),
-  ).toBeVisible();
+  await expect(search).toHaveValue("backend");
+  await expect(targetHeading).toBeVisible();
 
   await search.fill("missing");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByText("No Knowledge found")).toBeVisible();
+  await expect(page.getByText("No learning targets found")).toBeVisible();
 });
