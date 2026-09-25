@@ -95,6 +95,14 @@ Exact palette, font family, spacing values and provider token syntax remain down
 - Canonical business truth remains backend/domain owned.
 - Renderer geometry/camera/physics state remains presentation state.
 
+### Error handling discipline
+
+- Preserve accepted failure/outcome distinctions across boundaries; do not collapse validation, conflict, unavailability and unexpected operational faults into one generic success/failure shape.
+- Provider/transport-specific exceptions or error payloads terminate at their adapters and are translated into frontend-owned outcomes before reaching feature contracts.
+- Recoverable failures must retain enough context for the accepted retry/correction path; do not silently discard user input or current task context.
+- Do not swallow unexpected failures to keep the UI apparently successful. Surface them through the owning feature's failure state and preserve diagnostic context for downstream operability when such evidence is available.
+- Shared error helpers may normalize representation, but they must not become owners of product/domain failure semantics.
+
 ### Testability
 
 - Prefer public/consumer-owned contracts and observable behavior as test boundaries.

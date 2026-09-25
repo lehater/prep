@@ -369,3 +369,26 @@ No change propagates into Problem Space, Product Requirements, Domain models, Ap
 Prep does not yet persist strict semantic-admission evaluations and Capability Lifecycle assertions for the existing canonical closure. Therefore structural target status is not full lifecycle/currentness proof.
 
 Before `FRONTEND-IMPLEMENTATION` can be treated as implementation-documentation complete, Prep integration must fail closed unless strict semantic/currentness closure is present and `CURRENT`. This is integration evidence work, not a new semantic Authority or workflow stage.
+
+
+### Engineering Coverage reconciliation
+
+Canonical Harness Engineering Coverage was run for `FRONTEND-IMPLEMENTATION/frontend` after repinning.
+
+The initial diagnostic exposed 40 work items. Most were not missing engineering documents; they were missing semantic-claim bindings because Prep's graph predated the canonical concern/proof model.
+
+Reconciliation therefore:
+
+- maps accepted Product Requirements to `intent.scope` / `intent.behavior`;
+- maps Application Design to use-case/orchestration/failure concerns;
+- maps User Journeys and granular Human Interface providers to the corresponding human-interface claims;
+- maps Machine Interface to contract/error/compatibility claims;
+- maps Import Consistency to consistency/idempotency claims;
+- maps System Architecture to structure/boundary claims;
+- maps Engineering Policy and Component Design to engineering-principle/component/code-quality/maintainability/error-handling claims;
+- maps existing Interface/Presentation Verification to their verification concerns;
+- declares the future Frontend Verification and Implementation Design production contracts for the verification/delivery concerns they must satisfy;
+- explicitly defers i18n and multi-breakpoint responsiveness because no current product requirement makes them normative;
+- declares subject inventory NOT_APPLICABLE for this frontend scope because completeness is already partitioned by explicit canonical view/module/capability contracts.
+
+These mappings do not make strict semantic admission unnecessary. Claims that Harness marks as requiring semantic evaluation remain unresolved until strict semantic/currentness evidence is produced.

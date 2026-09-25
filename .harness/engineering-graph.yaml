@@ -24,10 +24,12 @@ authorities:
     produces:
       - capability: prep.product-intent
         knowledge_kind: product-requirements
+        semantic_claims: [engineering.intent.scope]
         requires:
           - capability: prep.problem-evidence
       - capability: prep.product-capabilities
         knowledge_kind: product-requirements
+        semantic_claims: [engineering.intent.behavior]
         requires:
           - capability: prep.product-intent
 
@@ -90,6 +92,10 @@ authorities:
     produces:
       - capability: prep.application-design
         knowledge_kind: application-design
+        semantic_claims:
+          - engineering.application.use-cases
+          - engineering.application.orchestration
+          - engineering.application.failures
         requires:
           - capability: prep.product-capabilities
           - capability: prep.knowledge-model
@@ -102,6 +108,7 @@ authorities:
           - capability: prep.product-capabilities
       - capability: prep.user-journeys
         knowledge_kind: user-journey-design
+        semantic_claims: [engineering.interface.human.journeys]
         requires:
           - capability: prep.application-design
           - capability: prep.task-model
@@ -147,6 +154,10 @@ authorities:
           - capability: prep.interaction-design
       - capability: prep.presentation-system
         knowledge_kind: presentation-system-design
+        semantic_claims:
+          - engineering.interface.human.presentation-system
+          - engineering.interface.human.usability
+          - engineering.interface.human.accessibility
         requires:
           - capability: prep.conceptual-interface-model
           - capability: prep.information-architecture
@@ -154,6 +165,7 @@ authorities:
           - capability: prep.interaction-design
       - capability: prep.screen-view-design
         knowledge_kind: screen-view-design
+        semantic_claims: [engineering.interface.human.screen-composition]
         requires:
           - capability: prep.interface-topology
           - capability: prep.interaction-design
@@ -169,6 +181,10 @@ authorities:
     produces:
       - capability: prep.machine-interfaces
         knowledge_kind: interface-contract
+        semantic_claims:
+          - engineering.interface.machine.contract
+          - engineering.interface.machine.errors
+          - engineering.interface.machine.compatibility
         requires:
           - capability: prep.application-design
           - capability: prep.knowledge-model
@@ -184,6 +200,9 @@ authorities:
     produces:
       - capability: prep.import-consistency
         knowledge_kind: concurrency-consistency-design
+        semantic_claims:
+          - engineering.reliability.consistency
+          - engineering.reliability.retry-idempotency
         requires:
           - capability: prep.application-design
           - capability: prep.machine-interfaces
@@ -197,6 +216,7 @@ authorities:
     produces:
       - capability: prep.interface-verification
         knowledge_kind: verification-strategy
+        semantic_claims: [engineering.verification.interface.human]
         requires:
           - capability: prep.task-model
           - capability: prep.information-architecture
@@ -204,12 +224,20 @@ authorities:
           - capability: prep.interface-topology
       - capability: prep.presentation-verification
         knowledge_kind: verification-strategy
+        semantic_claims: [engineering.verification.interface.presentation]
         requires:
           - capability: prep.interface-verification
           - capability: prep.presentation-system
           - capability: prep.screen-view-design
       - capability: prep.frontend-verification
         knowledge_kind: verification-strategy
+        semantic_claims:
+          - engineering.verification.strategy
+          - engineering.verification.requirement-traceability
+          - engineering.verification.functional
+          - engineering.verification.architecture
+          - engineering.verification.interface.machine
+          - engineering.transition.revalidation
         requires:
           - capability: prep.presentation-verification
           - capability: prep.frontend-system-architecture
@@ -223,6 +251,9 @@ authorities:
     produces:
       - capability: prep.system-architecture
         knowledge_kind: system-architecture
+        semantic_claims:
+          - engineering.architecture.structure
+          - engineering.architecture.boundaries
         requires:
           - capability: prep.application-design
           - capability: prep.interaction-design
@@ -262,6 +293,14 @@ authorities:
     produces:
       - capability: prep.frontend-engineering-policy
         knowledge_kind: engineering-policy
+        semantic_claims:
+          - engineering.engineering.principles
+          - engineering.engineering.code-quality
+          - engineering.engineering.error-handling
+          - engineering.quality.maintainability.modularity
+          - engineering.quality.maintainability.analysability
+          - engineering.quality.maintainability.modifiability
+          - engineering.quality.maintainability.testability
         requires:
           - capability: prep.frontend-system-architecture
           - capability: prep.presentation-system
@@ -275,6 +314,7 @@ authorities:
     produces:
       - capability: prep.frontend-component-design
         knowledge_kind: component-design
+        semantic_claims: [engineering.engineering.components]
         requires:
           - capability: prep.frontend-system-architecture
           - capability: prep.frontend-engineering-policy
@@ -304,6 +344,9 @@ authorities:
     produces:
       - capability: prep.frontend-implementation-design
         knowledge_kind: implementation-design
+        semantic_claims:
+          - engineering.delivery.release
+          - engineering.delivery.rollback
         requires:
           - capability: prep.frontend-component-design
           - capability: prep.frontend-verification

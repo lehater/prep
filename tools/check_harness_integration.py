@@ -164,6 +164,7 @@ def main() -> int:
         realization=core,
         consumer="FRONTEND-IMPLEMENTATION",
         scope="frontend",
+        project_overlay=load(".harness/engineering-coverage.yaml"),
     )
     print(
         "FRONTEND-IMPLEMENTATION Engineering Coverage: "

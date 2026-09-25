@@ -1,0 +1,19 @@
+version: 1
+kind: prep-engineering-coverage-overlay
+project: PREP
+subject_inventory:
+  state: NOT_APPLICABLE
+  rationale: The selected frontend implementation scope is already explicitly partitioned by canonical view/module/capability contracts; no independent subject inventory is required to prove per-subject engineering coverage.
+decisions:
+  - concern: interface.human.responsiveness
+    state: DEFERRED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The current local browser/frontend scope has no accepted mobile or multi-breakpoint responsiveness target. Responsive behavior beyond ordinary usable browser layout will be specified only when a concrete device/viewport requirement is accepted.
+    evidence: [PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN]
+  - concern: interface.human.i18n
+    state: DEFERRED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: No multi-locale or localization requirement is accepted for the current single-user v1. Internationalization remains future scope and must be reopened if product requirements introduce locale/language obligations.
+    evidence: [PRODUCT-VISION, PRESENTATION-SYSTEM]
