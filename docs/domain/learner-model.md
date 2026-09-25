@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define learner-specific evidence and inferred state independently of reusable subject knowledge and target-specific learning policy.
+Define the minimal learner-specific record of learning statistics independently of reusable subject knowledge and target-specific learning policy.
 
 ## Core distinctions
 
@@ -18,38 +18,17 @@ A record that something relevant occurred: an answer, retrieval, explanation, so
 
 An observation is historical fact about an interaction, not by itself a claim that knowledge is mastered.
 
-### Evidence
-
-An interpretation of one or more observations for a particular knowledge/requirement claim, including relevance, strength and context.
-
-### Inferred State
-
-The current evidence-backed estimate of a learner's state with respect to knowledge or a requirement.
-
-The state may include uncertainty; absence of evidence is not automatically evidence of absence.
-
-### State Uncertainty
-
-The explicit uncertainty of an inferred learner state. Uncertainty is first-class domain information: the system may know that it does not yet know whether a learner can satisfy a requirement.
-
-Reducing uncertainty can therefore be a legitimate reason to request new evidence independently of a learning intervention.
-
-### Retention / Decay
-
-The degree to which older evidence remains predictive of present availability. This affects confidence in inferred state rather than rewriting historical observations.
 
 ## Ownership
 
 Learner Model owns:
 
-- learner-specific observations;
-- evidence derived from observations;
-- inferred state;
-- explicit state uncertainty;
-- retention/decay interpretation;
-- evidence history needed to explain current state.
+- learner-specific historical observations and statistics about Questions;
+- evidence history needed to reproduce those statistics.
 
-It references Questions from Learning Design as the canonical subjects of direct learning evidence. Knowledge Model identities and Requirements may receive derived interpretations only through analysis of evidence from their related Questions.
+Interpretation of those statistics into evidence strength, inferred learner state, uncertainty, retention/decay, knowledge state or requirement state is deferred.
+
+It references Questions from Learning Design as the canonical subjects of recorded learning observations and statistics. Knowledge Model identities and Requirements may receive derived interpretations later, but such interpretation is outside the current model.
 
 It does not own subject meaning, target policy, gaps or learning priorities.
 
@@ -63,18 +42,16 @@ xAPI and 1EdTech Caliper provide precedents for treating learning interactions a
 
 ## Invariants
 
-- Observation != Evidence != Inferred State.
-- historical observations are not rewritten when an inference changes;
-- inferred state must be traceable to evidence;
-- uncertainty must be representable independently of positive or negative capability estimates;
-- unknown != not known / not capable;
-- evidence may become less predictive with time without deleting the underlying observation;
-- learner state cannot redefine reusable subject semantics;
-- directly imported learning evidence is attached to Question identity;
-- state about KnowledgeNode or Requirement is derived rather than treated as a direct external observation.
+- historical observations are not rewritten;
+- absence of observations is not a negative learning result;
+- recorded statistics remain attributable to Question identity;
+- learner statistics cannot redefine reusable subject semantics;
+- interpretation of statistics into learner, KnowledgeNode or Requirement state is not part of the current model.
 
-## Open questions
+## Deferred questions
 
-- what evidence-strength model is sufficient for the initial product;
+- what evidence-strength model should interpret recorded statistics;
+- whether and how statistics should produce inferred learner state;
+- how inferred state may propagate from Questions to KnowledgeNodes or Requirements;
 - how context and transfer limitations affect evidence reuse;
 - what decay/retention model is justified before sufficient empirical data exists.
