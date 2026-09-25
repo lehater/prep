@@ -9,16 +9,15 @@ import type {
   KnowledgeQueryOutcome,
   KnowledgeQueryPort,
 } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
-import {
-  mockKnowledgeNodes,
-  mockKnowledgeRelations,
-  mockTargetKnowledgeIds,
-} from "./mockFixtures";
+import { createMockCurationStore, type MockCurationStore } from "./MockCurationStore";
 
 export type MockKnowledgeMode = "success" | "unavailable" | "failure";
 
 export class MockKnowledgeAdapter implements KnowledgeQueryPort {
-  constructor(private readonly mode: MockKnowledgeMode = "success") {}
+  constructor(
+    private readonly mode: MockKnowledgeMode = "success",
+    private readonly store: MockCurationStore = createMockCurationStore(),
+  ) {}
 
   async list(
     scope: KnowledgeScope,
@@ -77,7 +76,7 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
       value: {
         scope,
         nodes,
-        relations: mockKnowledgeRelations.filter(
+        relations: this.store.knowledgeRelations.filter(
           (relation) =>
             nodeIds.has(relation.sourceId) && nodeIds.has(relation.targetId),
         ),
@@ -87,11 +86,11 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
 
   private nodesForScope(scope: KnowledgeScope): readonly KnowledgeNodeModel[] {
     if (scope.kind === "global") {
-      return mockKnowledgeNodes;
+      return this.store.knowledgeNodes;
     }
 
-    const ids = new Set(mockTargetKnowledgeIds[scope.targetId] ?? []);
-    return mockKnowledgeNodes.filter((node) => ids.has(node.id));
+    const ids = new Set(this.store.targetKnowledgeIds[scope.targetId] ?? []);
+    return this.store.knowledgeNodes.filter((node) => ids.has(node.id));
   }
 
   private problem<T>(): KnowledgeQueryOutcome<T> | null {

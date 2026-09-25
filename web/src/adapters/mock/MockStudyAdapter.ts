@@ -4,7 +4,7 @@ import type {
 } from "../../features/learning/model/study";
 import type { LearningOutcome } from "../../features/learning/ports/learningOutcome";
 import type { StudyPort } from "../../features/learning/ports/StudyPort";
-import { mockQuestions, mockTargetQuestionIds } from "./mockFixtures";
+import { createMockCurationStore, type MockCurationStore } from "./MockCurationStore";
 
 export type MockStudyBuildMode = "success" | "unavailable" | "failure";
 export type MockStudyExportMode =
@@ -17,6 +17,7 @@ export class MockStudyAdapter implements StudyPort {
   constructor(
     private readonly buildMode: MockStudyBuildMode = "success",
     private readonly exportMode: MockStudyExportMode = "success",
+    private readonly store: MockCurationStore = createMockCurationStore(),
   ) {}
 
   async build(
@@ -35,8 +36,8 @@ export class MockStudyAdapter implements StudyPort {
       };
     }
 
-    const ids = new Set(mockTargetQuestionIds[targetId] ?? []);
-    const questions = mockQuestions.filter((question) => ids.has(question.id));
+    const ids = new Set(this.store.targetQuestionIds[targetId] ?? []);
+    const questions = this.store.questions.filter((question) => ids.has(question.id));
     return {
       status: "success",
       value: {
@@ -51,7 +52,7 @@ export class MockStudyAdapter implements StudyPort {
     targetId: string,
     materializationToken: string,
   ): Promise<StudyExportOutcome> {
-    const ids = mockTargetQuestionIds[targetId] ?? [];
+    const ids = this.store.targetQuestionIds[targetId] ?? [];
     const expectedToken = this.token(targetId, ids);
     if (materializationToken !== expectedToken) {
       return {

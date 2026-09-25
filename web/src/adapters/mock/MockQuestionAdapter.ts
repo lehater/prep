@@ -3,12 +3,15 @@ import type {
   QuestionQueryPort,
 } from "../../features/learning/ports/QuestionQueryPort";
 import type { LearningOutcome } from "../../features/learning/ports/learningOutcome";
-import { mockQuestions, mockTargetQuestionIds } from "./mockFixtures";
+import { createMockCurationStore, type MockCurationStore } from "./MockCurationStore";
 
 export type MockQuestionMode = "success" | "unavailable" | "failure";
 
 export class MockQuestionAdapter implements QuestionQueryPort {
-  constructor(private readonly mode: MockQuestionMode = "success") {}
+  constructor(
+    private readonly mode: MockQuestionMode = "success",
+    private readonly store: MockCurationStore = createMockCurationStore(),
+  ) {}
 
   async list(
     targetId: string,
@@ -19,9 +22,9 @@ export class MockQuestionAdapter implements QuestionQueryPort {
       return problem;
     }
 
-    const ids = new Set(mockTargetQuestionIds[targetId] ?? []);
+    const ids = new Set(this.store.targetQuestionIds[targetId] ?? []);
     const search = query.search?.trim().toLocaleLowerCase() ?? "";
-    const items = mockQuestions.filter(
+    const items = this.store.questions.filter(
       (question) =>
         ids.has(question.id) &&
         (search.length === 0 ||
