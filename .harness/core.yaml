@@ -49,4 +49,9 @@ artifacts:
     provides: [prep.learner-model]
     depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
-questions: []
+questions:
+  - id: Q-LEARNING-DESIGN-BOUNDARY
+    authority: MODEL-CONTEXT-STRATEGY
+    text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
+    blocks: [LEARNING-DESIGN]
+
