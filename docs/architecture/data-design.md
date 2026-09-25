@@ -10,6 +10,8 @@ The backend owns access to one logical durable store for the current scope. Mode
 
 No accepted driver requires a database per bounded context.
 
+The first version has one user/data scope. Canonical records therefore do not require user/tenant ownership columns or tenant-scoped uniqueness. This is an explicit current-scope decision, not an assumption that the product will remain single-user.
+
 ## Durable records
 
 ### Knowledge Model
@@ -101,4 +103,4 @@ The following remain downstream implementation choices unless later requirements
 
 ## Reopening conditions
 
-Revisit Data Design when multi-user/tenant ownership, retention/deletion obligations, audit requirements, offline synchronization, multiple durable stores, semantic version history, or asynchronous import processing becomes accepted scope.
+Revisit Data Design before introducing multiple users/tenants; ownership scope, tenant-scoped uniqueness, authorization references and migration of existing single-user data must then be designed explicitly. Also revisit when retention/deletion obligations, retention/deletion obligations, audit requirements, offline synchronization, multiple durable stores, semantic version history, or asynchronous import processing becomes accepted scope.

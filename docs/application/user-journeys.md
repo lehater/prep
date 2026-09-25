@@ -6,7 +6,7 @@ Define task-oriented interaction before screen or navigation decisions. These jo
 
 ## Actor
 
-Current scope assumes an authenticated or local Prep user who maintains learning data and prepares their own study. Identity/authentication semantics are not introduced here.
+The first version has one Prep user/data scope. The user maintains learning data and prepares their own study; multi-user identity, authentication, authorization and tenant separation are not part of the current journeys. They are expected future scope and must be introduced explicitly before multiple independent users share a backend.
 
 ## Maintain knowledge
 

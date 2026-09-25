@@ -7,6 +7,7 @@ Accepted drivers for the current scope:
 - Prep is a browser-based web application.
 - Frontend and backend run as separate Docker containers.
 - Initial deployment is local.
+- The first version is single-user. User/tenant isolation and multi-user authentication are intentionally deferred, while later introduction of users must remain possible without changing domain meaning.
 - The architecture must not depend on local-only assumptions that prevent later remote deployment.
 - Canonical domain/application behavior executes behind the backend boundary.
 - Human interaction is delivered by the browser frontend.
@@ -14,6 +15,8 @@ Accepted drivers for the current scope:
 - The first automated Anki integration is backend-to-AnkiConnect HTTP; endpoint location is deployment configuration.
 - Local development may run Anki Desktop on the Docker host while the Prep backend runs in a container; the container-to-host route is infrastructure configuration, not application semantics.
 - Import idempotency and item-level consistency follow Import Consistency.
+
+The current data/trust boundary is one user's Prep installation and its configured external learning runtime. The backend does not need tenant-aware authorization or row-level ownership in the first version.
 
 No accepted driver currently requires microservices, distributed domain ownership, queues, asynchronous workers, or independent scaling of model contexts.
 
@@ -110,7 +113,8 @@ Current architecture does not introduce:
 - background job infrastructure;
 - independent frontend ownership of canonical business state;
 - direct browser access to persistence;
-- direct UI-to-Anki integration bypassing backend application semantics.
+- direct UI-to-Anki integration bypassing backend application semantics;
+- multi-user/tenant isolation or user-owned partition keys in canonical records.
 
 ## Reopening conditions
 
