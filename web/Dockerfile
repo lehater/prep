@@ -3,6 +3,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+ARG VITE_PREP_DATA_PROVIDER=http
+ARG VITE_PREP_API_BASE_URL=/api
+ENV VITE_PREP_DATA_PROVIDER=${VITE_PREP_DATA_PROVIDER}
+ENV VITE_PREP_API_BASE_URL=${VITE_PREP_API_BASE_URL}
 RUN npm run build
 
 FROM nginx:alpine AS runtime

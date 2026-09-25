@@ -90,21 +90,25 @@ export class HttpOperationClient {
         },
       );
 
-      if (!response.ok) {
+      let body: unknown;
+      try {
+        body = await response.json();
+      } catch {
         return {
           outcome: "operational_failure",
-          message: `HTTP ${response.status} while executing ${operationId}.`,
+          message: `HTTP ${response.status} returned no valid machine response for ${operationId}.`,
         };
       }
 
-      const body: unknown = await response.json();
-      if (!isMachineEnvelope(body)) {
-        return {
-          outcome: "operational_failure",
-          message: `Invalid machine response for ${operationId}.`,
-        };
+      if (isMachineEnvelope(body)) {
+        return body;
       }
-      return body;
+      return {
+        outcome: "operational_failure",
+        message: response.ok
+          ? `Invalid machine response for ${operationId}.`
+          : `HTTP ${response.status} while executing ${operationId}.`,
+      };
     } catch {
       return {
         outcome: "operational_failure",

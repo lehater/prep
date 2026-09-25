@@ -17,7 +17,7 @@ type QueuedResponse =
 
 function createQueuedFetch(responses: QueuedResponse[]) {
   const fetchFn = vi.fn(
-    async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    async (_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> => {
     const next = responses.shift();
     if (
       next &&
@@ -133,16 +133,25 @@ describe("FI-06 HTTP adapters", () => {
   test("maps accepted validation, conflict, unavailable and operational outcomes without transport leakage", async () => {
     const fetchFn = createQueuedFetch([
       {
-        outcome: "validation_rejected",
-        message: "Target definition is required.",
+        status: 400,
+        body: {
+          outcome: "validation_rejected",
+          message: "Target definition is required.",
+        },
       },
       {
-        outcome: "conflict",
-        message: "Target changed since it was opened.",
+        status: 409,
+        body: {
+          outcome: "conflict",
+          message: "Target changed since it was opened.",
+        },
       },
       {
-        outcome: "external_runtime_unavailable",
-        message: "Anki is unreachable.",
+        status: 503,
+        body: {
+          outcome: "external_runtime_unavailable",
+          message: "Anki is unreachable.",
+        },
       },
       {
         status: 503,
