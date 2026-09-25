@@ -4,11 +4,18 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
+import type { RuntimeStatusPort } from "./RuntimeStatusPort";
+import { RuntimeStatusEntry } from "./RuntimeStatusEntry";
+
 interface AppShellProps {
   readonly learningEntryPath: string;
+  readonly runtimeStatusPort: RuntimeStatusPort;
 }
 
-export function AppShell({ learningEntryPath }: AppShellProps) {
+export function AppShell({
+  learningEntryPath,
+  runtimeStatusPort,
+}: AppShellProps) {
   const location = useLocation();
   const inCuration = location.pathname.startsWith("/curation");
 
@@ -38,6 +45,7 @@ export function AppShell({ learningEntryPath }: AppShellProps) {
           >
             Curation
           </Button>
+          <RuntimeStatusEntry port={runtimeStatusPort} />
         </Stack>
       </Stack>
       <Container component="main" disableGutters maxWidth={false}>

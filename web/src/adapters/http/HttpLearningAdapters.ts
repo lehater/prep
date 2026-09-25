@@ -10,6 +10,7 @@ import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryP
 import { HttpOperationClient } from "./HttpOperationClient";
 import {
   mapKnowledgeCollection,
+  mapKnowledgeDetail,
   mapKnowledgeGraph,
   mapLearningStatistics,
   mapLearningTarget,
@@ -87,13 +88,7 @@ export class HttpKnowledgeAdapter implements KnowledgeQueryPort {
     if (envelope.outcome === "not_found") {
       return { status: "success" as const, value: null };
     }
-    return toKnowledgeOutcome(envelope, (value) => {
-      const mapped = mapKnowledgeGraph(
-        { kind: "global" },
-        { nodes: [(value as { node?: unknown }).node], relations: [] },
-      );
-      return mapped.nodes[0] ?? null;
-    });
+    return toKnowledgeOutcome(envelope, (value) => mapKnowledgeDetail(value).node);
   }
 
   async graph(scope: KnowledgeScope) {

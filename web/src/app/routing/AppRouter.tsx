@@ -23,6 +23,7 @@ import type { StudyPort } from "../../features/learning/ports/StudyPort";
 import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryPort";
 import { TargetSelectionView } from "../../features/learning/ui/TargetSelectionView";
 import { AppShell } from "../shell/AppShell";
+import type { RuntimeStatusPort } from "../shell/RuntimeStatusPort";
 
 interface AppRouterProps {
   readonly targetQueryPort: TargetQueryPort;
@@ -35,6 +36,7 @@ interface AppRouterProps {
   readonly curationRequirementPort: RequirementCurationPort;
   readonly curationQuestionPort: QuestionCurationPort;
   readonly curationImportPort: CurationImportPort;
+  readonly runtimeStatusPort: RuntimeStatusPort;
   readonly Renderer: GraphRenderer;
 }
 
@@ -87,7 +89,14 @@ export function AppRouter(props: AppRouterProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AppShell learningEntryPath="/learning" />}>
+        <Route
+          element={
+            <AppShell
+              learningEntryPath="/learning"
+              runtimeStatusPort={props.runtimeStatusPort}
+            />
+          }
+        >
           <Route index element={<Navigate to="/learning" replace />} />
           <Route
             path="learning"

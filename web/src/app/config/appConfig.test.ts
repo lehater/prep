@@ -7,6 +7,8 @@ describe("frontend foundation", () => {
     expect(appConfig).toEqual({
       name: "Prep",
       documentTitle: "Prep",
+      dataProvider: "mock",
+      apiBaseUrl: "/api",
     });
   });
 });

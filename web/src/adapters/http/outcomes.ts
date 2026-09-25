@@ -1,8 +1,12 @@
 import type { CurationOutcome } from "../../features/curation/model/curationModels";
 import type { KnowledgeQueryOutcome } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
-import type { StudyExportOutcome } from "../../features/learning/model/study";
+import type {
+  StudyExportOutcome,
+  StudyExportResultModel,
+} from "../../features/learning/model/study";
 import type { LearningOutcome } from "../../features/learning/ports/learningOutcome";
 import type {
+  RuntimeStatusModel,
   RuntimeStatusOutcome,
 } from "../../app/shell/RuntimeStatusPort";
 import type { MachineEnvelopeDto } from "./dto";
@@ -120,7 +124,7 @@ export function toCurationOutcome<T>(
 
 export function toStudyExportOutcome(
   envelope: MachineEnvelopeDto,
-  mapper: Mapper<StudyExportOutcome extends { value: infer T } ? T : never>,
+  mapper: Mapper<StudyExportResultModel>,
 ): StudyExportOutcome {
   if (
     envelope.outcome === "success" ||
@@ -155,7 +159,7 @@ export function toStudyExportOutcome(
 
 export function toRuntimeStatusOutcome(
   envelope: MachineEnvelopeDto,
-  mapper: Mapper<RuntimeStatusOutcome extends { value: infer T } ? T : never>,
+  mapper: Mapper<RuntimeStatusModel>,
 ): RuntimeStatusOutcome {
   if (envelope.outcome === "success") {
     const result = mapped(envelope, mapper);
