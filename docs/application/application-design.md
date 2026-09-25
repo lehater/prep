@@ -42,11 +42,19 @@ Question import does not require alignment to be known at import time. Alignment
 
 ### Learning targets
 
-Application operations:
+LearningTarget composition is a **curation operation**.
+
+Curation operations:
 
 - create and edit a LearningTarget;
-- assign or remove Requirements and RequirementSets for a LearningTarget;
+- assign or remove reusable Requirements and RequirementSets for a LearningTarget;
 - optionally load prepared target definitions and assignments when a machine interface supports them.
+
+Learning-mode operation:
+
+- select/open an existing curated LearningTarget for study.
+
+Learning mode does not create, edit or recompose the selected target scope. A target is consumed as a prepared learning profile; changing its Requirements/RequirementSets requires an explicit switch to curation work.
 
 ### Learner statistics
 
@@ -58,8 +66,8 @@ The current application contract provides recording and retrieval of Question-le
 
 The current single-user product supports two different classes of work without introducing authentication roles:
 
-- **learning workflow** — choose/work within a LearningTarget, build study material, study externally and inspect recorded review facts;
-- **curation workflow** — maintain reusable Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
+- **learning workflow** — choose an existing curated LearningTarget, build study material, study externally and inspect recorded review facts;
+- **curation workflow** — maintain reusable LearningTargets and their scopes, Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
 
 The same person may perform both in v1. The distinction is semantic/task-oriented, not a user/permission model.
 
@@ -126,8 +134,8 @@ Bulk prepared input ----+--> application use cases
 
 Learning preparation
 
-LearningTarget
-  -> Requirements / RequirementSets
+selected curated LearningTarget
+  -> its Requirements / RequirementSets
   -> currently aligned KnowledgeNodes
   -> currently aligned Questions
   -> Study Set (resolvable subset)
@@ -153,7 +161,8 @@ Application Design owns:
 - bulk-input orchestration after an input representation has been decoded;
 - RequirementSet composition operations;
 - Requirement-to-Knowledge and Question-to-Knowledge alignment operations;
-- LearningTarget composition operations;
+- curation of LearningTarget composition;
+- selection of an existing curated LearningTarget for the learner workflow;
 - target-to-requirement-to-knowledge-to-question traversal used to prepare study;
 - Study Set materialization from the currently resolvable corpus;
 - orchestration of export and result-import flows;
@@ -172,7 +181,7 @@ Application Design does not own:
 
 ## Downstream interface needs
 
-Human Interface Design must distinguish learner-target work from reusable-corpus curation without requiring different authenticated users in v1.
+Human Interface Design must distinguish Learning mode from Curation mode without requiring different authenticated users in v1. Learning mode selects prepared LearningTargets and must not expose target-scope editing as part of the learner workflow.
 
 Machine Interface Design must define representation contracts for supported bulk input and external-learning-system interaction. The initial format is not selected by Application Design.
 

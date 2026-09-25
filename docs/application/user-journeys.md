@@ -8,12 +8,14 @@ Define task-oriented interaction before screen or navigation decisions. These jo
 
 The first version has one Prep user/data scope. Multi-user identity, authentication, authorization and tenant separation are not part of the current journeys.
 
-Within that single-user scope, Prep distinguishes two task contexts:
+Within that single-user scope, Prep distinguishes two task modes:
 
-- **learner context** — the person chooses or works within a LearningTarget, studies available material and inspects recorded review facts;
-- **curation context** — the person maintains reusable Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
+- **Learning mode** — the person acts as learner: selects an existing curated LearningTarget, studies available material and inspects recorded review facts;
+- **Curation mode** — the person acts as curator/teacher: maintains reusable LearningTargets and their scopes, Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
 
-These are not security roles. In v1 the same person may perform both. Future multi-user operation may assign such responsibilities to different people, but that requires explicit later product/security design.
+These are not security roles in v1. The same physical person may switch modes. Future multi-user operation may assign such responsibilities to different people, but that requires explicit later product/security design.
+
+Mode boundaries are intentional: Learning mode consumes prepared learning structure; it does not expose semantic authoring as part of the learning task.
 
 ## Maintain knowledge
 
@@ -63,20 +65,35 @@ Interactions:
 
 Completion: Questions and their accepted knowledge alignments are available for Study Set construction.
 
-## Define learning target
+## Curate learning target
+
+Context: curation.
+
+Goal: define a reusable prepared learning target/profile that a learner can later choose without understanding or editing its internal Requirement composition.
+
+Interactions:
+1. Curator creates/edits a LearningTarget.
+2. Curator selects reusable Requirements and/or RequirementSets that define its scope.
+3. System records target-requirement selection without changing reusable Requirement semantics.
+4. Curator may revise the target composition later through Curation mode.
+
+Completion: an existing LearningTarget has a prepared scope available to Learning mode.
+
+## Choose learning target
 
 Context: learner.
 
-Goal: describe what the learner intends to become capable of.
+Goal: choose the prepared outcome/profile to study.
 
 Interactions:
-1. Learner creates/edits a LearningTarget.
-2. Learner selects from reusable Requirements and/or RequirementSets available to the target.
-3. System records target-requirement selection without changing reusable Requirement semantics.
+1. Learner browses/searches available curated LearningTargets.
+2. Learner opens/selects one target.
+3. System establishes that target as the active learning context.
+4. Learner can inspect the target's intended scope but cannot edit its Requirement/RequirementSet composition from Learning mode.
 
-Completion: target has an accepted scope that can be used for learning preparation.
+Completion: an existing curated target is active for learning preparation.
 
-This journey does not require the learner to repair missing reusable Knowledge or Question coverage. In the current single-user product the same person may later switch to curation work when desired.
+If the same physical user wants to change target semantics or composition, they explicitly switch to Curation mode; that work is not folded into the learner journey.
 
 ## Prepare study
 

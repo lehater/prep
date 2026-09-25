@@ -136,3 +136,4 @@ questions:
     authority: APPLICATION-DESIGN
     text: In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?
     blocks: [USER-JOURNEYS]
+    resolution: APPLICATION-DESIGN
