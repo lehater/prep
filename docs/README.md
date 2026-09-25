@@ -71,6 +71,8 @@ Current frontend realization constraints additionally include:
 - `docs/verification/frontend-test-design.yaml`;
 - `docs/implementation/frontend-implementation-design.md`.
 
+Current noncanonical production evidence is recorded in `docs/verification/frontend-release-evidence.md`; it proves the accepted contracts but does not redefine them.
+
 The 3D graph remains a first-class prototype hypothesis, not a graph-first whole-product invariant. UI providers/renderers are downstream replaceable dependencies and may not redefine product/interface semantics.
 
 Do not use legacy React/3D-graph technical documents as authority for the current frontend merely because their historical ADR/status text says "Accepted".

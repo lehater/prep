@@ -187,3 +187,14 @@ The coherent FI-06 checkpoint at `6447acd92ef0fecd26a0f69f5a6b18b8fca8ab75` pass
 - documentation, architecture, question-bank validators and all 28 Python tests.
 
 The FI-06 implementation did not change canonical product/domain/interface/architecture meaning. Concrete HTTP serialization/routing, query-key construction and coarse cache invalidation remained implementation freedoms; the single-kind Knowledge query shape was aligned to the existing Machine Interface rather than reopening that Authority.
+
+## FI-07 scope
+
+- close every applicable Frontend Verification / Frontend Test Design / Presentation Verification obligation with concrete implementation evidence rather than new semantics;
+- add a real Tab/Enter-only Knowledge browser scenario with visible-focus assertions;
+- add an HTTP-provider browser scenario for loading, loaded, empty, recoverable operational failure/retry/context preservation and external-runtime unavailable/recovery states;
+- preserve the permanent authoritative release gate while adding dependency audit and image identity verification;
+- pin Node/nginx container bases by immutable digest and record the frontend commit identity in an OCI image label;
+- record neutral 3D-vs-list task evidence, explicitly separating automated correctness/action-count proxies from unmeasured human time/disorientation;
+- audit and remove prototype-only diagnostics/settings/Storybook/PaymentGraph/snapshot-sync residue from the production module inventory;
+- keep `Q-KNOWLEDGE-GRAPH-3D-VALUE` unresolved because current evidence does not establish a human task-performance advantage.
