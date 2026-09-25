@@ -11,6 +11,8 @@ Accepted drivers for the current scope:
 - Canonical domain/application behavior executes behind the backend boundary.
 - Human interaction is delivered by the browser frontend.
 - Bulk prepared-data exchange and Anki integration follow accepted Machine Interface contracts.
+- The first automated Anki integration is backend-to-AnkiConnect HTTP; endpoint location is deployment configuration.
+- Local development may run Anki Desktop on the Docker host while the Prep backend runs in a container; the container-to-host route is infrastructure configuration, not application semantics.
 - Import idempotency and item-level consistency follow Import Consistency.
 
 No accepted driver currently requires microservices, distributed domain ownership, queues, asynchronous workers, or independent scaling of model contexts.
@@ -63,6 +65,12 @@ Internal modules preserve model-context dependency boundaries without network se
 
 Anki interaction is isolated behind an adapter implementing the accepted external-learning-runtime contract.
 
+The first concrete adapter is AnkiConnect. The backend, not the browser, invokes it. In the local development topology Anki Desktop may run on the Docker host and the backend container reaches the configured host endpoint. Docker host-gateway naming, AnkiConnect bind address, port and API key are deployment configuration.
+
+AnkiConnect is not the architectural identity of the external-learning-runtime boundary. File exchange and a future local bridge/add-on remain possible alternative adapters when deployment constraints require them.
+
+Anki's native sync service, including a self-hosted sync server, may be used to support the Anki environment but is not Prep's machine API: Prep does not couple application behavior to the Anki sync protocol.
+
 Anki identifiers, schemas and transport behavior do not leak into canonical domain models.
 
 ## Dependency direction
@@ -106,4 +114,4 @@ Current architecture does not introduce:
 
 ## Reopening conditions
 
-Revisit topology if accepted requirements introduce multiple users/tenants, independent scaling, long-running/asynchronous work, offline-first synchronization, stronger availability targets, remote Anki interaction constraints, or materially different trust/security boundaries.
+Revisit topology if accepted requirements introduce multiple users/tenants, independent scaling, long-running/asynchronous work, offline-first synchronization, stronger availability targets, remote Anki interaction constraints, a requirement to automate against Anki without a reachable AnkiConnect endpoint, or materially different trust/security boundaries.

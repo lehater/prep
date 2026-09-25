@@ -167,6 +167,23 @@ The boundary distinguishes at least:
 
 Transport-specific codes remain implementation details unless required for interoperability.
 
+## Anki transport profile
+
+The external-learning-runtime contract is transport-independent. The first automated integration profile uses AnkiConnect because development and repeated testing require low-friction bidirectional exchange without manual file transfer.
+
+For the AnkiConnect profile:
+
+- the Prep backend is the API client; the browser does not call AnkiConnect directly;
+- the endpoint and optional API key are deployment configuration, not domain/application data;
+- the adapter targets AnkiConnect API version 6 and must surface runtime/API incompatibility rather than silently reinterpret responses;
+- export/reconciliation uses stable Prep Question references in the Anki representation;
+- review ingestion may use AnkiConnect review-history operations such as card-scoped review retrieval or deck review retrieval after a cursor/time boundary, while translating Anki fields into the accepted ReviewObservation contract;
+- AnkiConnect availability depends on a running Anki Desktop process with the add-on loaded.
+
+For local Docker development, the backend container may reach AnkiConnect on the host through a host-gateway address such as `host.docker.internal`. Because AnkiConnect binds to `127.0.0.1` by default, a bridge-network deployment requires AnkiConnect to bind to an address reachable from the container. Network exposure and API-key configuration are deployment/security concerns and must not be hidden inside the adapter contract.
+
+File exchange remains a compatible future/manual transport profile rather than the primary v1 development path. A future remote deployment may introduce another adapter/bridge without changing Prep domain semantics.
+
 ## Compatibility
 
 Both prepared-data documents and the Anki representation require explicit contract/version compatibility. A newer producer must not silently reinterpret an older field with different semantics.

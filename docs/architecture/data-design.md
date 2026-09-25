@@ -76,7 +76,11 @@ Persist a technical mapping sufficient to reconcile external Anki study/review i
 
 The mapping belongs to integration persistence, not Question semantics. External identifiers never replace Prep IDs.
 
-The exact Anki note/card identifier set is determined by the concrete adapter contract/implementation.
+The first concrete adapter is AnkiConnect. Persist only the Anki note/card identifiers and synchronization cursor/checkpoint data actually required to reconcile exported Questions and ingest review history without replaying the same event as a new observation.
+
+Endpoint, bind address, port and API key are deployment configuration and are not canonical learning data.
+
+The exact identifier/cursor representation remains an implementation decision constrained by the AnkiConnect adapter contract.
 
 ## Bulk outcome durability
 
