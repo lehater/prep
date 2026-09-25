@@ -38,7 +38,7 @@ Application operations:
 - align or unalign a Question with one or more KnowledgeNodes;
 - load prepared Questions and, when supplied, their knowledge alignments in bulk.
 
-Question import does not require alignment to be known at import time. Alignment can be completed as a separate preparation activity.
+Question import does not require alignment to be known at import time. Alignment can be completed as a separate curation activity.
 
 ### Learning targets
 
@@ -54,13 +54,30 @@ ReviewObservations are normally recorded from learning-runtime results rather th
 
 The current application contract provides recording and retrieval of Question-level review history/statistics. It does not interpret those statistics into learner state.
 
+## Task-context distinction
+
+The current single-user product supports two different classes of work without introducing authentication roles:
+
+- **learning workflow** — choose/work within a LearningTarget, build study material, study externally and inspect recorded review facts;
+- **curation workflow** — maintain reusable Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
+
+The same person may perform both in v1. The distinction is semantic/task-oriented, not a user/permission model.
+
+A learning workflow consumes the currently curated reusable corpus. It is not responsible for repairing semantic completeness of that corpus before useful study can proceed.
+
 ## Learning preparation
 
 ### Build Study Set
 
-Resolve a LearningTarget through its selected Requirements/RequirementSets and their knowledge alignments to relevant KnowledgeNodes, then select Questions aligned to that knowledge.
+Resolve a LearningTarget through its selected Requirements/RequirementSets and their existing knowledge alignments to relevant KnowledgeNodes, then select all currently resolvable Questions aligned to that knowledge.
 
 The resulting Study Set is an application-level materialization: a selected set of canonical Questions for a particular learning preparation flow. It does not become reusable subject truth and does not introduce a new tactical domain entity.
+
+Study Set construction does **not** require proof that the reusable question corpus completely covers every KnowledgeNode or every aspect of a target. Question-coverage adequacy is a separate curation/learning-material quality concern.
+
+Incomplete reusable material therefore does not create a learner-facing preparation gate. The application builds the currently resolvable subset. Missing Requirement-to-Knowledge alignment, Knowledge with no Questions and any future question-coverage quality assessment may be exposed as curation diagnostics, but they do not redefine the Study Set as complete.
+
+A target with no currently resolvable Questions yields an explicit empty Study Set/result rather than an invented semantic rejection.
 
 For the current slice, dependency-sensitive ordering, automatic prioritization from learner statistics and evidence-based filtering are deferred.
 
@@ -93,7 +110,7 @@ The current flow stops at recording statistics. Interpretation into learner stat
 ## Composition
 
 ```text
-Canonical data maintenance
+Canonical data maintenance / curation
 
 Human authoring --------+
                         |
@@ -111,9 +128,9 @@ Learning preparation
 
 LearningTarget
   -> Requirements / RequirementSets
-  -> aligned KnowledgeNodes
-  -> aligned Questions
-  -> Study Set
+  -> currently aligned KnowledgeNodes
+  -> currently aligned Questions
+  -> Study Set (resolvable subset)
 
 
 External study
@@ -126,7 +143,7 @@ Study Set
   -> record Question-level ReviewObservations
 ```
 
-Canonical-data maintenance flows are independent. A user may author individual objects, perform alignment later, or bulk-load prepared data.
+Canonical-data maintenance flows are independent. Curation may happen before, after or separately from a learner's target workflow.
 
 ## Ownership boundaries
 
@@ -138,13 +155,14 @@ Application Design owns:
 - Requirement-to-Knowledge and Question-to-Knowledge alignment operations;
 - LearningTarget composition operations;
 - target-to-requirement-to-knowledge-to-question traversal used to prepare study;
-- Study Set materialization;
+- Study Set materialization from the currently resolvable corpus;
 - orchestration of export and result-import flows;
 - coordination of accepted domain models without redefining them.
 
 Application Design does not own:
 
 - KnowledgeNode, KnowledgeRelation, Requirement, RequirementSet, LearningTarget, Question or ReviewObservation semantics;
+- semantic judgment of whether a Question set fully covers a KnowledgeNode;
 - forms, screens, graph editors or other human interaction design;
 - file/API/message representation contracts;
 - external-runtime card schemas or API semantics;
@@ -154,7 +172,7 @@ Application Design does not own:
 
 ## Downstream interface needs
 
-Human Interface Design must provide interaction paths for the human-authoring and maintenance operations that are in product scope.
+Human Interface Design must distinguish learner-target work from reusable-corpus curation without requiring different authenticated users in v1.
 
 Machine Interface Design must define representation contracts for supported bulk input and external-learning-system interaction. The initial format is not selected by Application Design.
 
@@ -165,7 +183,9 @@ Data Design must preserve accepted domain identities, relationships, composition
 - interpretation of review statistics into learner state;
 - evidence-strength/confidence models;
 - retention/decay interpretation;
+- propagation of inferred learner state onto KnowledgeNodes/Requirements;
 - automatic reprioritization or replanning from review statistics;
 - dependency-aware question ordering;
+- semantic assessment of Question-set coverage adequacy for a KnowledgeNode;
 - generalized study representations beyond requirements demonstrated by concrete learning runtimes;
 - automatic extraction, generation or semantic validation of imported source content.
