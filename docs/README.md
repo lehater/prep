@@ -1,6 +1,6 @@
 # Project knowledge base
 
-`docs/` is the durable knowledge base for `prep`. Chat history is working context, not project state.
+`docs/` is the durable knowledge base for Prep. Chat history is working context, not project state.
 
 ## Read path
 
@@ -8,119 +8,83 @@ Use progressive disclosure:
 
 ```text
 AGENTS.md
-  -> .harness/core.yaml when engineering ownership/coverage matters
+  -> .harness/core.yaml / engineering-graph.yaml / authority-assessments.yaml
   -> docs/README.md
-  -> relevant canonical artifact
-  -> code/data only when the task requires it
+  -> smallest relevant current canonical artifact set
+  -> legacy evidence/code only when the task requires it
 ```
 
-## Top-level design path
+The current canonical artifact inventory is defined by `.harness/core.yaml`. Files outside that inventory may still contain useful evidence, previous decisions or implementation experiments, but they are not automatically current truth.
 
-- [`vision/problem-space.md`](vision/problem-space.md) — problems and constraints;
-- [`vision/vision.md`](vision/vision.md) — product intent;
-- [`vision/product-capabilities.md`](vision/product-capabilities.md) — product capability surface;
-- [`architecture/context-map.md`](architecture/context-map.md) — bounded-context ownership;
-- [`domain/knowledge-graph.md`](domain/knowledge-graph.md) — semantic nodes/classification/cluster boundary;
-- [`domain/relation-registry.md`](domain/relation-registry.md) — controlled edge semantics;
-- [`domain/source-evidence.md`](domain/source-evidence.md) — provenance integration contract;
-- [`domain/graph-admission.md`](domain/graph-admission.md) — semantic mutation/admission policy;
-- [`domain/graph-lifecycle.md`](domain/graph-lifecycle.md) — revision/rename/merge/retirement guarantees;
-- [`domain/learning-platform.md`](domain/learning-platform.md) — shared learning-coordination boundary;
-- [`domain/learning-targets-plans.md`](domain/learning-targets-plans.md) — TargetScope/Curriculum/LearningPlan semantics;
-- [`domain/learning-state.md`](domain/learning-state.md) — learner evidence and graph overlays;
-- [`domain/graph-subject-integration.md`](domain/graph-subject-integration.md) — subject-context to canonical graph mapping;
-- [`domain/learner-boundary.md`](domain/learner-boundary.md) — personal/shared state separation;
-- [`architecture/user-journeys.md`](architecture/user-journeys.md) — top-level learner/operator journeys;
-- [`architecture/quality-drivers.md`](architecture/quality-drivers.md) — architecture-significant qualities;
-- [`architecture/graph-interface.md`](architecture/graph-interface.md) — graph-first interaction concept;
-- [`architecture/system-landscape.md`](architecture/system-landscape.md) — black-box system landscape.
+## Current canonical dependency path
 
-These artifacts are wired into `.harness/core.yaml`; `.harness/engineering-graph.yaml` derives the `TOP-LEVEL-DESIGN` closure.
+```text
+docs/vision/problem-space.md
+  -> docs/vision/vision.md
+  -> docs/vision/product-capabilities.md
+  -> docs/architecture/context-map.md
+  -> docs/architecture/model-context-map.md
+  -> docs/domain/knowledge-model.md
+  -> docs/domain/learning-design.md
+  -> docs/domain/learner-model.md
+  -> docs/application/application-design.md
+  -> docs/application/user-journeys.md
+  -> docs/interface/human-interface.md
+     -> docs/interface/presentation-system.md
+     -> docs/interface/screen-view-design.md
+  -> docs/interface/machine-interface.md
+  -> docs/architecture/import-consistency.md
+  -> docs/architecture/system-architecture.md
+  -> docs/architecture/data-design.md
+```
 
-## Logical design path
+This is an engineering-knowledge dependency graph, not a project-management stage sequence.
 
-- [`application/logical-use-cases.md`](application/logical-use-cases.md) — application command/query responsibilities;
-- [`application/knowledge-ingestion.md`](application/knowledge-ingestion.md) — staged ingestion/admission workflow;
-- [`application/study-runtime.md`](application/study-runtime.md) — publication/reconciliation/evidence workflow;
-- [`data/logical-data-ownership.md`](data/logical-data-ownership.md) — authoritative state owners and atomic boundaries;
-- [`data/graph-read-model.md`](data/graph-read-model.md) — bounded graph query/read requirements;
-- [`architecture/access-privacy.md`](architecture/access-privacy.md) — logical access/privacy policy;
-- [`architecture/logical-interfaces.md`](architecture/logical-interfaces.md) — command/query/port boundaries;
-- [`architecture/consistency-reliability.md`](architecture/consistency-reliability.md) — consistency/failure semantics;
-- [`architecture/logical-system-boundaries.md`](architecture/logical-system-boundaries.md) — logical module responsibilities;
-- [`architecture/operability.md`](architecture/operability.md) — diagnostic/operational semantics;
-- [`verification/logical-verification-strategy.md`](verification/logical-verification-strategy.md) — evidence obligations.
+## Current interface frontier
 
-Harness consumer `LOGICAL-DESIGN` requires this layer to remain structurally complete.
+`docs/interface/human-interface.md` contains the accepted task and interaction baseline.
 
-## Technical design path
+`docs/interface/presentation-system.md` and `docs/interface/screen-view-design.md` are current canonical artifacts under active revalidation. Their existing navigation decomposition, catalogue/detail/editor assumptions and graph role must not be treated as final UX decisions until task-first IA is confirmed.
 
-- [`architecture/persistence-architecture.md`](architecture/persistence-architecture.md) — PostgreSQL graph/history/personal-state persistence;
-- [`architecture/data-lifecycle.md`](architecture/data-lifecycle.md) — migrations/backups/history lifecycle;
-- [`architecture/external-dependencies.md`](architecture/external-dependencies.md) — Anki/model/media/rendering dependencies;
-- [`architecture/machine-interface.md`](architecture/machine-interface.md) — HTTP command/query API;
-- [`architecture/presentation-system.md`](architecture/presentation-system.md) — React/3D graph presentation architecture;
-- [`architecture/screen-view-design.md`](architecture/screen-view-design.md) — primary product surfaces;
-- [`architecture/security-architecture.md`](architecture/security-architecture.md) — concrete security posture;
-- [`architecture/performance-capacity.md`](architecture/performance-capacity.md) — capacity envelopes/benchmark gates;
-- [`architecture/reliability-architecture.md`](architecture/reliability-architecture.md) — transactional/retry/recovery mechanisms;
-- [`architecture/runtime-topology.md`](architecture/runtime-topology.md) — deployable process topology;
-- [`architecture/component-design.md`](architecture/component-design.md) — code-facing component boundaries;
-- [`architecture/operability-architecture.md`](architecture/operability-architecture.md) — concrete diagnostics/operations;
-- [`verification/test-design.md`](verification/test-design.md) — executable test strategy.
+Do not use legacy React/3D-graph technical documents as authority for the current frontend.
 
-Harness consumer `TECHNICAL-DESIGN` requires this layer to remain structurally complete.
+## Current product slice
+
+```text
+learning target
+  -> author/load subject knowledge and requirements
+  -> organize concepts/relationships
+  -> derive/use questions
+  -> learn/retrieve through external runtime
+  -> collect review observations/statistics
+```
+
+Statistics are recorded facts. Automatic `statistics -> learner state -> gaps -> priorities -> replanning` remains deferred.
 
 ## Artifact routing
 
-| Information | Authoritative location |
+| Information | Current authoritative location |
 |---|---|
-| purpose, problem, scope, product capabilities | `docs/vision/` |
-| system structure, journeys, UI/quality boundaries | `docs/architecture/` |
-| bounded-context concepts/invariants | `docs/domain/` |
-| durable architectural decisions | `docs/decisions/` |
-| evidence/experiments/source reviews | `docs/research/` |
-| active/completed execution state | `docs/plans/` |
-| operational/authoring instructions | `docs/guides/` |
+| problem, product intent, capabilities | `docs/vision/` canonical files in Core |
+| strategic/model-context boundaries | `docs/architecture/context-map.md`, `model-context-map.md` |
+| tactical domain semantics | `docs/domain/knowledge-model.md`, `learning-design.md`, `learner-model.md` |
+| application orchestration and journeys | `docs/application/application-design.md`, `user-journeys.md` |
+| human/machine interfaces | `docs/interface/` |
+| consistency, system and persistence design | current canonical files under `docs/architecture/` |
+| evidence/experiments/legacy solution material | `docs/research/`, non-Core legacy docs, code and experiments |
+| current execution context | `docs/plans/active/` |
 
-One durable fact has one authoritative home; other artifacts link to it.
+One durable fact should have one authoritative home; other artifacts should reference it rather than restating it.
 
 ## Harness
 
-`lehater/harness` is pinned by `.harness-version`. Prep uses direct declaration because it does not currently have another canonical machine-readable artifact graph.
+`lehater/harness` is pinned by `.harness-version`.
 
 ```text
-.harness/engineering-graph.yaml -> producer/consumer engineering policy
-.harness/core.yaml              -> accepted canonical artifact realization
-docs/**                         -> semantic truth
+.harness/engineering-graph.yaml   -> project producer/consumer engineering topology
+.harness/core.yaml                -> current canonical artifact realization and Questions
+.harness/authority-assessments.yaml -> Authority applicability evidence
+docs/**                           -> project-owned semantic truth/evidence
 ```
 
-See [`architecture/agent-harness.md`](architecture/agent-harness.md) and [`../harness/README.md`](../harness/README.md).
-
-## Research → decision → design/implementation
-
-```text
-research
-  -> ADR/domain/architecture acceptance
-  -> Harness-visible canonical artifact when applicable
-  -> active plan
-  -> lower-level design/implementation only when upstream knowledge is sufficient
-```
-
-Research is evidence, not policy.
-
-
-## Implementation design path
-
-- [`implementation/database-schema.md`](implementation/database-schema.md) — exact table/key/index/transaction contract;
-- [`implementation/api-contract.md`](implementation/api-contract.md) — endpoint/DTO/error/idempotency contract;
-- [`implementation/job-protocol.md`](implementation/job-protocol.md) — durable worker job state machine;
-- [`implementation/anki-bridge-contract.md`](implementation/anki-bridge-contract.md) — local bridge protocol/state machine;
-- [`implementation/auth-session-contract.md`](implementation/auth-session-contract.md) — session/CSRF/bridge-token flow;
-- [`implementation/frontend-contract.md`](implementation/frontend-contract.md) — routes, server/view state and graph-renderer boundary;
-- [`implementation/deployment-config.md`](implementation/deployment-config.md) — Compose/process/configuration contract;
-- [`implementation/backend-components.md`](implementation/backend-components.md) — Python stack and package/composition rules;
-- [`implementation/acceptance-contracts.md`](implementation/acceptance-contracts.md) — executable acceptance fixtures;
-- [`implementation/implementation-design.md`](implementation/implementation-design.md) — repository realization and coding freedoms.
-
-Harness consumer `IMPLEMENTATION-DESIGN` is the final design closure before production feature implementation.
+When accepted upstream truth changes, use Harness impact/revalidation semantics before trusting downstream artifacts.

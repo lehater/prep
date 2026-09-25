@@ -1,23 +1,53 @@
-# Plan: Re-establish top-level product knowledge
+# Plan: Harness-guided Prep revalidation
 
 ## Goal
 
-Re-establish Prep's canonical knowledge from the top of the Harness without repairing downstream artifacts prematurely.
+Re-establish Prep's canonical engineering knowledge from the accepted problem space downward, without carrying previous graph-centered, Anki-centered or implementation-centered assumptions into new design unless current evidence supports them.
 
 ## Working rule
 
-Validate one upstream artifact at a time. Downstream artifacts may remain stale or invalidated until their turn. Do not preserve lower-level consistency by importing solution assumptions upward.
+Follow the current `Lehater/harness` dependency graph. A changed upstream capability requires downstream revalidation/reconciliation before later design is treated as current.
 
-## Sequence
+Legacy artifacts remain evidence unless explicitly accepted into the current Core realization.
 
-1. Capture research evidence relevant to the learning problem and knowledge representation.
-2. Validate `PROBLEM-SPACE` against that evidence while keeping it solution-neutral.
-3. Stop. Review `PRODUCT-VISION` only after `PROBLEM-SPACE` is accepted.
-4. Continue downward one Harness artifact at a time.
+## Completed current revalidation
 
-## Current scope
+Canonical knowledge has been re-established for:
 
-- `docs/research/learning-and-knowledge-representation-synthesis.md`
-- `docs/vision/problem-space.md`
+- Problem Space;
+- Product Vision and Product Capabilities;
+- Domain Strategy and Model Context Strategy;
+- Knowledge Model, Learning Design and Learner Model;
+- Application Design and User Journeys;
+- Human Interface baseline;
+- Machine Interface;
+- Import Consistency;
+- System Architecture;
+- Data Design;
+- Architecture Driver Closure for the current scope.
 
-Explicitly out of scope: Product Vision, Product Capabilities, Context Map, domain models, architecture, UI, Anki and implementation contracts.
+The Harness realization has been reconciled against the current Harness Authority catalog and current canonical artifacts.
+
+## Current frontier
+
+Revalidate:
+
+- `docs/interface/presentation-system.md`;
+- `docs/interface/screen-view-design.md`.
+
+The current documents are structural hypotheses, not permission to proceed directly to final frontend/component design.
+
+The revalidation must start from concrete user tasks and information needs, then decide:
+
+- primary workspace/IA;
+- required views and transitions;
+- where creation/editing/linking/search belong;
+- how Knowledge, Requirements, Questions, Targets, Study and Statistics relate in the user's workflow;
+- the role of catalogues, detail contexts and editors;
+- the concrete task served by Knowledge Graph and whether 3D adds enough value;
+- Study Set preparation and Anki interaction;
+- representation of alignment/incomplete/error/statistics states.
+
+## Stop condition
+
+Continue autonomously until a material UX/product choice cannot be derived from accepted canonical truth. Represent that choice explicitly rather than selecting it from legacy UI assumptions.

@@ -2,32 +2,34 @@
 
 ## Purpose
 
-This repository is the system of record for the Prep learning platform. Chat history is working context, not authoritative project state.
+This repository is the system of record for Prep. Chat history is working context, not authoritative project state.
+
+Prep is currently undergoing Harness-guided revalidation. Legacy graph-centered, Anki-centered and implementation-first artifacts may be retained as evidence, but they are not premises for current canonical design unless they are explicitly wired into `.harness/core.yaml`.
 
 ## Required read order
 
 Before substantive engineering work:
 
 1. Read this file.
-2. Read `.harness/core.yaml` and `.harness/engineering-graph.yaml` when the task creates/changes top-level engineering knowledge or crosses an Authority boundary.
-3. Read `docs/README.md` and route to the smallest relevant canonical artifact set.
-4. Read applicable ADRs.
-5. For multi-step work, create/update an active plan under `docs/plans/active/`.
+2. Read `.harness-version`, `.harness/core.yaml`, `.harness/engineering-graph.yaml` and `.harness/authority-assessments.yaml` when work creates or changes engineering knowledge or crosses an Authority boundary.
+3. Read `docs/README.md` and the smallest relevant current canonical artifact set.
+4. Read applicable current ADRs only when the canonical artifact depends on them.
+5. For multi-step work, create or update the active plan under `docs/plans/active/`.
 
-Use progressive disclosure; do not scan all docs/code by default.
+Use progressive disclosure. Do not recover old solution assumptions merely because legacy files or code still exist.
 
 ## Canonical Harness
 
-`lehater/harness` is the engineering-knowledge evaluator. `.harness-version` pins the immutable runtime used locally and in CI.
+`lehater/harness` is the normative engineering-knowledge process. `.harness-version` pins the immutable Harness revision used locally and in CI.
 
 Prep owns:
 
-- product/domain/architecture semantic truth in `docs/**`;
-- project-specific Authorities/Capabilities/Consumer topology in `.harness/engineering-graph.yaml`;
-- artifact realization in `.harness/core.yaml`;
-- project-specific integration assertions.
+- project semantic truth in current canonical `docs/**` artifacts;
+- project-specific Authority/Capability/Consumer topology in `.harness/engineering-graph.yaml`;
+- canonical artifact realization and unresolved Questions in `.harness/core.yaml`;
+- project Authority applicability evidence in `.harness/authority-assessments.yaml`.
 
-Harness owns generic graph/core validation and target-state evaluation. Do not implement a second Harness evaluator inside Prep.
+Harness owns generic graph/core validation, applicability semantics, routing and target-state evaluation. Do not create project-specific stages, gates or a second Harness evaluator.
 
 Bootstrap/validate:
 
@@ -36,56 +38,39 @@ python tools/bootstrap_harness.py
 python tools/check_harness_integration.py
 ```
 
-## Current design strategy
+## Current engineering frontier
 
-ADR-008 remains authoritative: complete breadth at one design depth before descending.
+Current canonical knowledge has been re-established through Product, strategic/tactical domain design, Application Design, Human/Machine Interface, Import Consistency, System Architecture and Data Design.
 
-`TOP-LEVEL-DESIGN`, `LOGICAL-DESIGN` and `TECHNICAL-DESIGN` are complete. The active phase is Plan 018 and Harness consumer `IMPLEMENTATION-DESIGN`.
+The current frontier is Human Interface revalidation, specifically `PRESENTATION-SYSTEM` and `SCREEN-VIEW-DESIGN`.
 
-Work horizontally across exact database, API, job, bridge, auth, frontend, deployment, component and acceptance-test contracts. Do not write production feature code until the implementation-design closure is complete.
+Treat the current navigation decomposition and `catalogue -> detail -> editor` pattern as hypotheses until task-first information architecture and interaction choices are revalidated. Do not descend into final frontend architecture/component implementation while those choices remain unresolved.
 
-## Source-of-truth priority
+Knowledge Graph and 3D visualization are optional projections. They are accepted only when they improve a concrete user task; core tasks and KnowledgeNode access must remain possible without graph manipulation.
 
-1. Executable schemas/tests/validators and accepted code invariants.
-2. Accepted ADRs.
-3. Canonical domain/architecture/vision documentation.
-4. `.harness/engineering-graph.yaml` and `.harness/core.yaml` for engineering ownership/routing.
-5. This file.
-6. Active plans.
-7. Agent assumptions.
+## Current product constraints
 
-If a task changes an accepted decision, update/supersede the ADR in the same PR.
+- first version is a browser-based single-user application;
+- frontend and backend are separate Docker containers;
+- canonical data survive ordinary restarts;
+- multi-user/auth/tenant isolation, backup/restore/PITR and HA/failover are future scope;
+- automatic interpretation of review statistics into mastery, gaps, priorities or replanning is deferred;
+- Anki is the first external study runtime;
+- backend integrates through `ExternalStudyRuntimePort -> AnkiConnectAdapter`; browser does not call AnkiConnect directly.
 
-## Documentation routing
+## Source-of-truth rules
 
-Persist durable outcomes according to `docs/README.md`. Do not copy the same authoritative statement into several files.
+1. `.harness/core.yaml` identifies current canonical artifacts and unresolved semantic Questions.
+2. Current canonical artifacts own product/domain/application/interface/architecture semantics.
+3. Current accepted ADRs may constrain those artifacts where explicitly referenced.
+4. Legacy docs, code, tests, screenshots and experiments are evidence unless current canonical truth explicitly adopts them.
+5. Active plans describe current work but do not override canonical semantic truth.
 
-## Development workflow
+When upstream canonical knowledge changes, use Harness dependency/lifecycle rules to revalidate affected downstream knowledge rather than preserving consistency by importing old assumptions upward.
 
-1. Start from current `main`.
-2. Create a dedicated branch for one coherent task.
-3. Update the relevant Harness-visible canonical artifact(s) or plan.
-4. Work at the current permitted design depth.
-5. Validate affected artifacts and Harness closure.
-6. Open a pull request into `main`.
-7. Merge with squash.
+## Architecture discipline
 
-Do not push feature/design work directly to `main`.
-
-## Agent execution model
-
-ADR-006 remains active: one ChatGPT chat agent coordinates work unless a demonstrated workflow requires more.
-
-```text
-agent/model        -> semantic interpretation, research, proposals, generation, critique
-scripts/validators -> IDs, schemas, validation, migration, synchronization, deterministic writes
-```
-
-Human approval protects meaningful decisions, not routine workflow ceremony.
-
-## Architecture model
-
-Use DDD, Clean Architecture and Hexagonal Architecture.
+Use DDD, Clean Architecture and Hexagonal Architecture where applicable.
 
 Primary dependency rule:
 
@@ -94,32 +79,15 @@ interface -> application -> domain
 infrastructure -> application ports
 ```
 
-### Domain invariants
+Current semantic boundaries include:
 
-- Each bounded context owns its vocabulary/invariants.
-- Subject contexts do not import each other's domain entities.
-- Knowledge Graph semantic truth is independent of Anki/UI/learner state.
-- Learning Coordination may reference graph/domain identities but must not absorb subject-specific exercise semantics.
-- Domain code does not depend on concrete external systems/frameworks.
+- Knowledge Model owns reusable subject semantics;
+- Learning Design owns Requirements, LearningTargets, Questions and target-relative learning design;
+- Learner Model owns Question-level ReviewObservations/statistics only;
+- external runtimes and UI projections do not define canonical domain semantics.
 
-### Infrastructure invariants
+## Development workflow
 
-- Shared infrastructure remains domain-independent.
-- Anki Note/Card/Deck structures never define bounded-context domain models.
-- External synchronization preserves repository-owned stable identity and surfaces conflicts.
+Work only on the branch explicitly selected by the user/task. Do not merge or squash into `main` without explicit user authorization.
 
-## Identity and provenance
-
-Semantic identity is distinct from storage/display identifiers. Stable canonical NodeId/learning-object identifiers are system-owned and never derived from mutable display text.
-
-Agents may propose semantic graph changes. Deterministic code owns stable representation IDs, structural graph validation, source coordinates and persistence.
-
-## Completion checks
-
-Before marking work complete:
-
-- changed artifacts have explicit Authority ownership;
-- work stays at or above the currently authorized design depth;
-- Harness integration validation passes;
-- documentation links and affected validators/tests pass;
-- the PR explains purpose, scope, validation and consequences.
+Commit coherent semantic blocks. Validate Harness realization and affected project checks after material changes.
