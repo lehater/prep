@@ -1,5 +1,7 @@
 # Knowledge Representation Experiment
 
+> Preserved implementation evidence. Restored from the former `design/task-centered-ux` line at commit `2d51c98912f15c48194d641150389bf60cc2ff2e` after branch retirement. This code is retained as a technical foundation for future product implementation; its product/UX assumptions are not canonical unless revalidated against the current model.
+
 Disposable frontend-only prototype for Plan 019. It validates the Payment Processing knowledge workspace and the R2 3D renderer capability without introducing backend dependencies.
 
 ## Run
