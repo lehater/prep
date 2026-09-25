@@ -6,6 +6,12 @@ Define learner-specific evidence and inferred state independently of reusable su
 
 ## Core distinctions
 
+### Question Evidence Subject
+
+Question is the canonical subject of directly imported or recorded learning evidence. External learning items such as Anki cards are bound to Prep Questions, and their review history or externally computed statistics are recorded as facts about those Questions.
+
+KnowledgeNode and Requirement state are not direct imports from an external card. Any state attributed to them is a later inference derived from evidence about related Questions.
+
 ### Observation
 
 A record that something relevant occurred: an answer, retrieval, explanation, solution, implementation, assessment result or other performance event.
@@ -43,7 +49,7 @@ Learner Model owns:
 - retention/decay interpretation;
 - evidence history needed to explain current state.
 
-It references Knowledge Model identities and target/evidence context from Learning Design.
+It references Questions from Learning Design as the canonical subjects of direct learning evidence. Knowledge Model identities and Requirements may receive derived interpretations only through analysis of evidence from their related Questions.
 
 It does not own subject meaning, target policy, gaps or learning priorities.
 
@@ -63,11 +69,12 @@ xAPI and 1EdTech Caliper provide precedents for treating learning interactions a
 - uncertainty must be representable independently of positive or negative capability estimates;
 - unknown != not known / not capable;
 - evidence may become less predictive with time without deleting the underlying observation;
-- learner state cannot redefine reusable subject semantics.
+- learner state cannot redefine reusable subject semantics;
+- directly imported learning evidence is attached to Question identity;
+- state about KnowledgeNode or Requirement is derived rather than treated as a direct external observation.
 
 ## Open questions
 
 - what evidence-strength model is sufficient for the initial product;
-- whether state should be modeled per knowledge unit, requirement, capability dimension or a combination;
 - how context and transfer limitations affect evidence reuse;
 - what decay/retention model is justified before sufficient empirical data exists.
