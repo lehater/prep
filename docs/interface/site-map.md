@@ -157,22 +157,24 @@ Owns target identity/purpose, read-only curated scope, material availability sum
 
 Responsibility: help the learner understand the knowledge structure relevant to the active target.
 
+### Wide frame
+
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ Knowledge                                                              │
-│ Search [................] [Kind ▼] [Relation ▼] [Focus] [Reset]         │
-├───────────────┬──────────────────────────────────────┬─────────────────┤
-│ optional list │                                      │ Knowledge detail│
-│ / search hits │             3D GRAPH                 │                 │
-│               │                                      │ content         │
-│               │                                      │ relations       │
-│               │                                      │ context         │
-├───────────────┴──────────────────────────────────────┴─────────────────┤
-│ active filters / focused nodes / target scope                           │
-└────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│ Knowledge  Search […] [Kind] [Relations] [Focus] [Fit] [Reset] [Settings]          │
+├──────────────┬───────────────────────────────────────────────────┬─────────────────┤
+│ optional     │                                                   │ selected detail │
+│ list/hits    │                  3D GRAPH                         │ content         │
+│              │               PRIMARY AREA                        │ relations       │
+│              │                                                   │ context         │
+└──────────────┴───────────────────────────────────────────────────┴─────────────────┘
 ```
 
-Owns target-scoped Knowledge search/list, experimental 3D graph, semantic-kind filters, relation-type filters, focus/local-neighborhood exploration, readable Knowledge detail, and preservation of graph state during inspection.
+### Compact / narrow transformation
+
+Compact keeps list + graph if useful and moves detail below/drawer. Narrow makes the graph full-width and exposes list/detail through supporting disclosures. The graph never collapses into a small equal-weight card while active.
+
+Owns target-scoped Knowledge search/list, experimental 3D graph, semantic-kind filters, relation-type multi-select, focus/local-neighborhood exploration, fit/reset camera controls, presentation-only performance profile/settings, readable Knowledge detail, and preservation of graph state during inspection.
 
 It does not own Knowledge editing, relation editing, graph geometry as semantic truth, or learner-state coloring before the upstream learner-state model exists.
 
@@ -287,18 +289,22 @@ Owns target definition and Requirement/RequirementSet composition. It does not o
 
 Responsibility: maintain and inspect the global reusable Knowledge corpus.
 
+Wide composition keeps the graph dominant:
+
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ Knowledge                            [+ New] [Import]                    │
-│ Search [........] [Kind ▼] [Relation ▼] [List | 3D Graph]              │
-├─────────────────────────────────────────────────┬──────────────────────┤
-│ collection / global 3D graph                    │ selected detail      │
-│                                                 │                      │
-│                                                 │ [Edit]               │
-└─────────────────────────────────────────────────┴──────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│ Knowledge  [+ New] [Import] Search […] [Kind] [Relations] [Fit] [Reset] [Settings]│
+├──────────────┬───────────────────────────────────────────────────┬─────────────────┤
+│ list / hits  │                  GLOBAL 3D GRAPH                  │ detail/editor   │
+│ optional     │                   PRIMARY AREA                    │ selected item   │
+└──────────────┴───────────────────────────────────────────────────┴─────────────────┘
 ```
 
-Owns collection/search, global graph exploration, access to create/edit, and structural navigation.
+New/Import open focused authoring/import surfaces; they do not permanently consume a large row above the graph.
+
+Compact/narrow transformations follow the shared Knowledge spatial contract: graph remains primary, detail moves below/drawer, and list/detail become collapsible/disclosed as width decreases.
+
+Owns collection/search, global graph exploration, access to create/edit, relation/semantic filters, graph fit/reset/performance controls and structural navigation.
 
 ## 13. C-22 — Knowledge Detail / Editor
 

@@ -157,21 +157,72 @@ Future semantic learning-material/evidence coverage belongs to Curation, but no 
 
 Graph is a projection of accepted KnowledgeNodes/KnowledgeRelations in either Curation-global or Learning-target scope.
 
-### Prototype composition
+The graph is a primary interactive work surface, not a card embedded between equally weighted sibling panels. List/search/detail remain equivalent canonical access and supporting inspection paths.
 
-The frontend prototype includes a 3D graph canvas with coordinated supporting regions:
+### Wide frame
 
 ```text
-Knowledge
-┌─────────────────────────────────────────────────────────────┐
-│ Search   [semantic kinds]   [relation types]   [reset/focus]│
-├───────────────────────────────────────┬─────────────────────┤
-│                                       │ selected Knowledge  │
-│              3D graph                 │ readable detail     │
-│                                       │ relations           │
-│                                       │ [open full detail]  │
-└───────────────────────────────────────┴─────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Knowledge   Search […] [Kind] [Relations] [Focus] [Fit] [Reset] [Graph settings]          │
+├───────────────┬──────────────────────────────────────────────────────────┬─────────────────┤
+│ Knowledge     │                                                          │ Knowledge detail│
+│ list / hits   │                                                          │                 │
+│ optional      │                     3D GRAPH                             │ content         │
+│ collapsible   │                PRIMARY WORKSPACE                         │ relations       │
+│               │                                                          │ context/actions │
+│               │                                                          │                 │
+└───────────────┴──────────────────────────────────────────────────────────┴─────────────────┘
 ```
+
+Spatial contract:
+
+- graph receives the flexible majority of workspace width and useful viewport height;
+- list is supporting and may collapse;
+- detail is supporting and bounded in width;
+- toolbar/header height stays compact;
+- Curation New/Import are toolbar actions opening focused surfaces rather than permanent top cards.
+
+### Compact frame
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ Search / filters / focus / fit / reset / settings                    │
+├───────────────┬──────────────────────────────────────────────────────┤
+│ optional list │                    3D GRAPH                          │
+│               │                 PRIMARY WORKSPACE                    │
+├───────────────┴──────────────────────────────────────────────────────┤
+│ selected detail / editor (below or drawer)                           │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Narrow frame
+
+```text
+┌──────────────────────────────────────┐
+│ Search / filters / graph controls    │
+├──────────────────────────────────────┤
+│              3D GRAPH                │
+│           full content width         │
+├──────────────────────────────────────┤
+│ [List] [Detail] supporting disclosure│
+└──────────────────────────────────────┘
+```
+
+Focus/read order remains toolbar -> primary graph/list access -> selected detail; reflow must not create a keyboard trap or horizontal page overflow.
+
+### Graph settings
+
+Stable graph controls:
+
+- relation-type multi-select;
+- semantic-kind filter;
+- focus/clear focus;
+- fit graph;
+- reset camera;
+- performance profile Auto / Quality / Performance.
+
+Advanced presentation-only settings may expose labels, arrowheads, decorative particles, live physics and reduced node detail as defined by the frontend performance/capacity contract.
+
 
 Required interactions:
 
@@ -179,10 +230,12 @@ Required interactions:
 - click without drag selects a node and opens in-context detail;
 - drag/rotate manipulates presentation only;
 - focus selected node and a bounded local neighborhood;
-- toggle accepted relation types, initially `addresses` and `realizes`;
+- toggle accepted relation types, initially `addresses` and `realizes`, through a multi-select relation checklist/legend;
 - filter semantic kinds Concept / Mechanism / Procedure / Strategy;
 - preserve graph state while inspecting detail;
 - restore target/global scope after focus;
+- fit the visible graph to the viewport and reset camera without changing semantic selection/filter state;
+- select a performance profile and optional advanced presentation degradations without changing canonical Knowledge/relation semantics;
 - enter from Study Question with all aligned KnowledgeNodes focused/highlighted.
 
 Relation type/direction must remain inspectable via labels, legend, interaction or another explicit encoding; geometric position alone is insufficient.
@@ -267,4 +320,6 @@ The broader learning-material/evidence coverage research does not block the curr
 
 ## Deliberately unconstrained
 
-Exact routes, tab/sidebar/panel mechanics, modal versus page editors, responsive layouts, table columns, graph library/physics, component library, typography, colors, animation and future progress-overlay encoding remain downstream.
+Exact routes, CSS breakpoint numbers, tab/sidebar implementation mechanics, modal versus drawer implementation, exact panel pixel widths, table columns, concrete graph library, exact force constants, batching/instancing implementation, component library, typography, colors, animation and future progress-overlay encoding remain downstream.
+
+Responsive **semantic transformations**, graph spatial priority, accepted graph controls and user-visible performance/degradation behavior are constrained above and must not be invented by implementation.

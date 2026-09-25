@@ -94,9 +94,68 @@ Statistics use factual ReviewObservation language and factual aggregates.
 
 Target-context statistics are observations for Questions currently relevant to the target, not target mastery/readiness.
 
+## Responsive spatial system
+
+All material views must define how hierarchy survives reduced available width. Exact CSS breakpoints remain implementation details; the semantic transformations are not.
+
+Shared layout classes:
+
+- **wide workspace** — enough width for a dominant primary work surface plus persistent supporting regions;
+- **compact workspace** — primary work surface remains dominant while secondary detail/list regions move below, collapse or become drawers;
+- **narrow workspace** — one primary reading/interaction column; secondary regions become explicit disclosures/drawers and must not cause horizontal overflow.
+
+Responsive reflow preserves keyboard/focus order and does not hide required actions.
+
+For canvas/map/graph workspaces, the primary interactive surface receives the flexible remainder of available width/height. Supporting list/detail panes must not consume equal visual weight merely because they are sibling regions.
+
 ## Knowledge exploration
 
 Knowledge provides coordinated list/search, graph and detail representations over the same canonical identities.
+
+### Spatial priority
+
+The 3D graph is the **primary workspace** whenever graph mode is active. List/search and detail are supporting access/inspection regions.
+
+Wide composition:
+
+- compact workspace header and toolbar;
+- optional/collapsible Knowledge list at the left;
+- flexible central graph occupying the clear majority of remaining workspace;
+- selected Knowledge detail at the right;
+- graph workspace uses the available viewport height after shell/header/toolbars rather than a small fixed canvas.
+
+Compact composition:
+
+- list remains narrow/collapsible beside the graph when useful;
+- graph remains primary;
+- detail moves below the graph or opens as a drawer/overlay;
+- no supporting pane may force the graph into a small card.
+
+Narrow composition:
+
+- graph uses full available content width;
+- list and detail are explicit drawers/disclosures or ordered supporting sections;
+- search/filter/settings remain reachable without horizontal overflow;
+- non-graph list/search/detail remains fully usable.
+
+In Curation Knowledge, **New Knowledge** and **Import** are toolbar actions that open focused authoring/import surfaces. They must not permanently occupy a large row above the graph.
+
+### Graph control surface
+
+Primary toolbar:
+
+- Knowledge search;
+- semantic-kind filter;
+- relation-type filter;
+- focus/clear focus;
+- **Fit graph**;
+- **Reset camera**;
+- compact **Graph settings**.
+
+Relation filtering uses a multi-select checklist/legend so several accepted relation types can be visible simultaneously; color may support but never replace the textual relation type.
+
+Graph settings expose the accepted performance profiles and presentation-only controls from `docs/architecture/performance-capacity.md`. Expensive visual effects may be disabled without losing semantic access.
+
 
 For the frontend prototype:
 
@@ -110,7 +169,7 @@ For the frontend prototype:
 - node selection opens readable canonical detail without discarding graph state;
 - Study Questions can deep-link into the graph focused on their aligned KnowledgeNodes.
 
-Graph layout/camera state remains presentation state. Geometric proximity is not itself semantic meaning.
+Graph layout/camera state and performance-profile state remain presentation state. Geometric proximity and renderer quality settings are not semantic meaning.
 
 The 3D prototype is compared with 2D/list baselines on concrete relational-learning tasks. Research shows potential value of node-link representations and, in some settings, 3D/immersive depth, but also known viewpoint, occlusion and disorientation costs; therefore 3D is not promoted to a product invariant before task evidence.
 
