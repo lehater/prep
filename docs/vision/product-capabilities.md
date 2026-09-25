@@ -2,46 +2,82 @@
 
 ## Purpose
 
-Define the top-level capabilities Prep is expected to provide without committing to implementation technology.
+Define the top-level capabilities Prep needs in order to deliver the accepted product vision, without choosing domain boundaries, knowledge representation, interface form, study runtime or implementation technology.
 
 ## Capability map
 
-### Knowledge acquisition and curation
-
-Accept source material or structured imports, extract semantic candidates, reconcile identity, validate relations and publish only accepted graph changes.
-
-### Knowledge graph exploration
-
-Search, filter and explore the semantic graph by node type, relation type, area, facet, cluster and selected subgraph.
-
 ### Learning target definition
 
-Allow a learner to define a target knowledge scope as a selected graph/subgraph, curriculum or saved view without copying the underlying knowledge.
+Establish a learning outcome with enough scope and depth to determine what knowledge is relevant and what kind of learner capability is expected.
 
-### Learning planning
+### Knowledge acquisition
 
-Turn a target scope into an ordered/prioritized learning plan while preserving references to canonical knowledge identities.
+Accept relevant source material or other inputs and derive usable knowledge from them while preserving enough source context to review uncertainty and conflicting information.
 
-### Domain-specific learning material
+### Knowledge organization
 
-Let bounded contexts generate suitable learning objects from canonical knowledge and domain evidence: technical questions/code/scenarios, listening segments, and future domain-specific forms.
+Turn fragmented knowledge into a coherent representation that makes important concepts, distinctions and relationships understandable, navigable and reusable.
 
-### Study-system publication
+This capability does not prescribe a graph, ontology, hierarchy or other representation.
 
-Project learning objects to external study systems, initially Anki/AnkiConnect, with stable external identity and non-destructive reconciliation.
+### Learning material derivation
 
-### Learning evidence and progress
+Produce learner-facing explanations, prompts, examples, questions, exercises or other learning forms appropriate to the knowledge and intended depth.
 
-Ingest study/review evidence, aggregate it by learning object and knowledge identity, identify weak/unstarted/stable areas, and support progress/gap analysis.
+No single learning-object format is assumed to fit every subject or learning outcome.
 
-### Graph-based visualization
+### Learning prioritization
 
-Use the semantic graph as the primary exploratory surface and overlay target scope, plan state and learning state without mutating graph truth.
+Use the target and available evidence about the learner to identify meaningful gaps and decide what deserves attention next under limited time and attention.
 
-### Content and graph quality control
+### Learning and practice
 
-Expose semantic conflicts, duplicate candidates, unsupported relations, problematic learning material and synchronization conflicts for controlled repair.
+Support deliberate interaction with the material so that relevant knowledge can be acquired, reconstructed, retrieved and, where required, applied.
+
+This capability may collaborate with external study systems rather than executing every learning mechanism itself.
+
+### Learning evidence
+
+Capture evidence from retrieval, practice or other relevant performance and relate it to the learning target without treating simple exposure as proof of learning.
+
+### Retention support
+
+Support keeping important knowledge available over time and detecting when earlier evidence is no longer sufficient to rely on.
+
+This capability does not prescribe a particular repetition or scheduling algorithm.
+
+### Progress and adaptation
+
+Show the learner their current evidence-backed position relative to the target and use changing evidence to revise gaps, priorities and subsequent learning activity.
+
+### Knowledge and learning quality control
+
+Surface uncertainty, conflicting or weakly supported knowledge, problematic learning material and other quality issues that can undermine the learning process.
+
+## Initial capability slice
+
+For the initial product focus, the minimum coherent slice is:
+
+```text
+learning target
+  -> acquire subject knowledge
+  -> organize concepts and important relationships
+  -> derive material for familiarity and retrieval
+  -> learn / retrieve
+  -> collect evidence
+  -> update priorities
+```
+
+The first slice may intentionally exercise only a subset of the full depth spectrum. In particular, proving useful terminology/concept familiarity and retrievability does not require solving every form of application, procedural performance or assessment.
 
 ## Current boundary
 
-Prep is not currently a full LMS, a replacement for Anki scheduling, or a universal schema for every exercise type. Detailed storage, deployment, API and component design are intentionally deferred until top-level design coverage is stable.
+Prep is not currently defined as:
+
+- a universal learning-management system;
+- a universal system for teaching every kind of skill;
+- a particular knowledge representation or visualization;
+- a replacement for every external study tool;
+- a universal exercise schema.
+
+Bounded contexts, domain models, interfaces and technical realization are downstream decisions.

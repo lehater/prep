@@ -2,62 +2,116 @@
 
 ## Purpose
 
-Define semantic ownership for the graph-centered multi-domain learning platform without implying service/process boundaries.
+Define the strategic domain decomposition for Prep from the accepted Problem Space, Product Vision and Product Capabilities.
 
-## Platform bounded contexts
+This map owns semantic boundaries and relationships. It does not imply services, processes, databases, UI surfaces, storage models or deployment units.
 
-### Knowledge Graph
+## Research basis
 
-Owns canonical knowledge identity, first-class semantic relations, classification and supporting evidence. It controls semantic admission and does not own learner progress or UI layout.
+The decomposition is informed by established adaptive-learning and competency-modeling patterns:
 
-### Learning Coordination
+- adaptive-learning literature commonly separates a domain model, learner model and instructional/adaptation responsibility;
+- Knowledge Space Theory separates discipline knowledge structure from an individual's knowledge state;
+- 1EdTech CASE models reusable competencies, learning outcomes, relationships and rubrics independently of learner records and delivery systems;
+- learner-model research treats the learner model as a distinct representation of learner-specific state used by adaptive behavior.
 
-Owns learner target scopes, learning plans, desired publication state, imported learning evidence and learner-specific progress/gap projections onto graph identities.
+These precedents are evidence for separation of responsibilities, not prescribed implementation models.
 
-Learning Coordination does not define subject-specific Question, ListeningSegment or future mathematics exercise semantics.
+## Core bounded contexts
 
-## Subject bounded contexts
+### Knowledge Model
 
-### Interview Preparation
+Owns the reusable representation of subject knowledge and knowledge-based competencies independently of any particular learner or learning mechanism.
 
-Owns technical-interview semantics including competencies, concepts as interview targets, LearningTasks, QuestionTypes, Questions, Attempts, Assessments and interview gaps.
+Its language concerns knowledge identity, concepts or other knowledge units, distinctions, relationships, requirements, explanatory meaning and coherence of the represented subject.
 
-Where interview concepts correspond to canonical Knowledge Graph nodes, integration uses stable identities rather than copying semantic truth.
+It may represent target-relevant standards or competencies, but it does not decide what a particular learner should do next and does not own learner state.
 
-### English Listening
+The representation is deliberately undecided. This context is not synonymous with a graph, ontology, hierarchy or document model.
 
-Owns media provenance, transcript occurrences, lexical targets, ASR/alignment policy, ListeningSegments and playback/audio policy.
+### Learning Design
 
-Lexical concepts may reference graph knowledge where useful; acoustic segments and source coordinates remain local to English Listening.
+Owns target-specific interpretation and adaptation: what the learner is trying to achieve, what depth or evidence is required, which gaps matter for that target, and what learning or practice should be selected next.
+
+Its language concerns learning target, required depth, target scope, gap, priority, learning intent, learning material, practice intent and evidence requirement.
+
+It consumes reusable subject knowledge from Knowledge Model and learner-state information from Learner Model. It does not redefine subject knowledge or own observations about the learner.
+
+This context currently keeps target interpretation, prioritization and learning/practice design together because they participate in one decision: what should the learner work on next and why. A later split requires evidence of independently changing language or invariants.
+
+### Learner Model
+
+Owns evidence about an individual learner and the changing interpretation of that evidence over time.
+
+Its language concerns observation, attempt, retrieval/performance evidence, inferred state, confidence/uncertainty, retention, decay and demonstrated progress.
+
+It references modeled knowledge and learning targets so evidence can be interpreted against them, but it does not mutate subject truth or decide target-specific learning policy.
+
+## Context relationships
+
+```text
+                    reusable subject knowledge
+Knowledge Model -------------------------------> Learning Design
+      |                                                |
+      | knowledge identity                             | learning / evidence intent
+      v                                                v
+Learner Model ---------------------------------> learning / practice execution
+      ^                                                |
+      |                                                | observations / results
+      +------------------------------------------------+
+
+Learner Model -------- evidence-backed state --------> Learning Design
+Learning Design ------ target/evidence context ------> Learner Model
+```
+
+The diagram shows semantic information flow, not a required runtime pipeline.
+
+## Supporting and external boundaries
+
+### Knowledge input / ingestion
+
+Prep must be able to accept knowledge inputs needed by the product, but current evidence does not justify a separate Knowledge Acquisition bounded context.
+
+Source parsing, import, extraction or LLM-assisted structuring may exist as application/integration capabilities around Knowledge Model. They become a bounded context only if future work reveals a stable independent language and business invariants for acquisition itself.
+
+### Learning / practice execution
+
+Actual learning activity may be executed inside Prep or delegated to external systems. Anki, assessment engines and other study runtimes are mechanisms outside the strategic core unless future evidence establishes product-owned semantics that require another bounded context.
+
+### Subject specialization
+
+Technical subjects and future domains may require specialized vocabulary or invariants. They remain specializations/subdomains until such differences cannot be expressed cleanly within the core contexts.
+
+### Quality
+
+Quality rules remain with the context whose truth they protect: knowledge quality with Knowledge Model, learning-design quality with Learning Design, and evidence/state quality with Learner Model. No independent Quality bounded context is currently justified.
 
 ## Relationship rules
 
-```text
-Knowledge Graph
-    ^
-    | canonical knowledge references
-    |
-Interview Preparation ----\
-                           > Learning Coordination -> Study-system adapters
-English Listening --------/
-```
+- Knowledge Model owns reusable subject semantics; learner evidence cannot redefine them.
+- Learner Model owns learner-specific evidence and inferred state; study activity is not automatically proof of knowledge.
+- Learning Design owns target-relative gaps, priorities and next-learning decisions.
+- A gap exists only relative to a target and learner-state evidence; it is not intrinsic subject knowledge.
+- Learning Design references Knowledge Model rather than copying ownership of subject knowledge.
+- Learner Model identifies evidence against stable knowledge/target references but does not own those definitions.
+- Input mechanisms may propose or import knowledge but do not gain semantic ownership by doing so.
+- External learning runtimes do not define Prep's domain semantics.
+- No bounded context is automatically a deployable service.
 
-- Subject contexts do not import each other's domain entities.
-- Learning Coordination integrates through explicit references/projections rather than owning subject learning objects.
-- Knowledge Graph semantic truth is independent of Anki note/card/deck structures.
-- A bounded context is not automatically a deployable service.
+## Strategic uncertainties
 
-## External systems
+The following remain explicit questions for Domain Model Design:
 
-- Anki / AnkiConnect;
-- ffmpeg;
-- Whisper / other ASR providers;
-- source files/documents and future connected sources;
-- LLM/model providers;
-- future web/desktop delivery mechanisms.
+- whether target requirements belong entirely to Learning Design or some reusable requirement frameworks belong to Knowledge Model;
+- whether Learning Design later needs separation between target/planning semantics and learning-material/practice design;
+- how learner-state uncertainty and evidence strength should be represented;
+- how retention and evidence decay affect inferred learner state;
+- which subject-specific semantics justify specialization or an additional bounded context;
+- what minimum import contract is required without promoting knowledge acquisition into the core domain.
 
-These are external mechanisms accessed through ports/adapters where the application needs them.
+## Research references
 
-## Shared-abstraction rule
-
-Do not create a universal Exercise/StudyItem merely because multiple contexts publish to Anki. Shared learning semantics are limited to target scope, plan, publication intent/evidence and graph-level progress until further equivalence is demonstrated.
+- ALEKS, Knowledge Space Theory: https://www.aleks.com/about_aleks/knowledge_space_theory
+- 1EdTech, Competencies and Academic Standards Exchange (CASE): https://www.1edtech.org/standards/case
+- Böck et al., "Learner models: design, components, structure, and modelling", systematic literature review, 2025: https://link.springer.com/article/10.1007/s11257-025-09434-4
+- Normadhi et al., "Identification of personal traits in adaptive learning environment: Systematic literature review", Computers & Education 130 (2019): https://www.sciencedirect.com/science/article/pii/S0360131518303026

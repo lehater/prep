@@ -1,0 +1,128 @@
+version: 1
+kind: harness-project-authority-assessments
+assessments:
+  - authority_id: DISCOVERY
+    applicability: REQUIRED
+    evidence: [core:authority:DISCOVERY]
+    rationale: Accepted current problem-space evidence is canonical project knowledge.
+    depends_on_evidence: [docs/vision/problem-space.md]
+    reopening_conditions: [accepted problem-space evidence changes]
+
+  - authority_id: PRODUCT-REQUIREMENTS
+    applicability: REQUIRED
+    evidence: [core:authority:PRODUCT-REQUIREMENTS]
+    rationale: Accepted current product vision and product capabilities are canonical project knowledge.
+    depends_on_evidence: [docs/vision/vision.md, docs/vision/product-capabilities.md]
+    reopening_conditions: [accepted product intent or capabilities change]
+
+  - authority_id: DOMAIN-STRATEGY
+    applicability: REQUIRED
+    evidence: [docs/architecture/context-map.md]
+    rationale: The accepted context map contains material strategic decomposition of Prep domain responsibilities.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/context-map.md]
+    reopening_conditions: [product capability scope or strategic domain decomposition changes]
+
+  - authority_id: MODEL-CONTEXT-STRATEGY
+    applicability: REQUIRED
+    evidence: [docs/architecture/context-map.md]
+    rationale: Knowledge Model, Learning Design and Learner Model have independently modeled languages and explicit semantic information-flow boundaries.
+    depends_on_evidence: [docs/architecture/context-map.md]
+    reopening_conditions: [model-context boundaries or translation relationships cease to be independently material]
+
+  - authority_id: DOMAIN-USE-CASE-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: TACTICAL-DOMAIN-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
+    depends_on_evidence: [docs/architecture/context-map.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [accepted context boundaries or tactical domain semantics change]
+
+  - authority_id: APPLICATION-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: SYSTEM-ARCHITECTURE
+    applicability: UNASSESSED
+
+  - authority_id: CONCURRENCY-CONSISTENCY-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: SECURITY-ARCHITECTURE
+    applicability: UNASSESSED
+
+  - authority_id: MACHINE-INTERFACE-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: HUMAN-INTERFACE-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: DATA-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: QUALITY-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: SECURITY-ANALYSIS
+    applicability: UNASSESSED
+
+  - authority_id: OBLIGATION-ANALYSIS
+    applicability: UNASSESSED
+
+  - authority_id: CHANGE-TRANSITION-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: OPERABILITY-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: ENGINEERING-POLICY
+    applicability: UNASSESSED
+
+  - authority_id: COMPONENT-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: TEST-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: IMPLEMENTATION-DESIGN
+    applicability: UNASSESSED
+
+  - authority_id: VERIFICATION-DESIGN
+    applicability: UNASSESSED
+
+migration_conflicts:
+  - retired_authority: STRATEGIC-DOMAIN-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile, docs/architecture/context-map.md]
+    replacements: [DOMAIN-STRATEGY, MODEL-CONTEXT-STRATEGY]
+    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
+    rationale: The current context map contains independently material evidence for both replacement ownership families; applicability was reassessed from artifact semantics rather than copied.
+
+  - retired_authority: INTERFACE-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile]
+    replacements: [MACHINE-INTERFACE-DESIGN, HUMAN-INTERFACE-DESIGN]
+    resolution: DEFERRED-REASSESSMENT
+    rationale: Legacy machine and human interface artifacts belong to the superseded solution hypothesis and are not current canonical evidence during top-level revalidation.
+
+  - retired_authority: DOMAIN-MODEL-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile]
+    replacements: [TACTICAL-DOMAIN-DESIGN]
+    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
+    rationale: Current Knowledge Model, Learning Design and Learner Model artifacts contain tactical domain semantics; legacy graph-centered artifacts were not carried forward.
+
+  - retired_authority: SECURITY-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile]
+    replacements: [SECURITY-ARCHITECTURE, SECURITY-ANALYSIS]
+    resolution: DEFERRED-REASSESSMENT
+    rationale: Legacy security artifacts are downstream of the superseded solution hypothesis and do not prove current applicability.
+
+  - retired_authority: EXTERNAL-DEPENDENCY-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile]
+    replacements: []
+    resolution: RETIRED-NON-AUTHORITY
+    rationale: Current Harness treats external-dependency work as cross-Authority analysis rather than a standalone Authority.
+
+  - retired_authority: REALIZATION-DESIGN
+    previous_evidence: [.harness/core.yaml@pre-reconcile]
+    replacements: [IMPLEMENTATION-DESIGN]
+    resolution: DEFERRED-REASSESSMENT
+    rationale: Legacy implementation design is downstream of superseded architecture and cannot establish current applicability.
