@@ -26,10 +26,15 @@ The following evidence is retained because it can inform future work without ass
 
 ## Explicitly not carried forward
 
-The old 3D/graph prototype, graph-centered UX specifications, old implementation contracts, and old ADR claims are not imported into main. They were built against a solution hypothesis that the current revalidation deliberately removed as a premise. If similar implementation is needed later, it must be justified from the current Knowledge Model, Learning Design and validated UX needs.
+The old graph-centered UX specifications, old implementation contracts, and old ADR claims are not imported as canonical product knowledge. The working 3D/graph visualization prototype itself is preserved under `experiments/knowledge_representation/` as implementation evidence and a future technical foundation. Its existence does not make the graph or 3D representation a product premise; future product use must still be justified from the current Knowledge Model, Learning Design and validated UX needs.
 
 The old bootstrap/process/domain files are likewise not imported because the current Harness realization and current canonical artifacts supersede them.
 
 ## Retirement criterion
 
 After this audit is merged, each audited branch contains no unique knowledge that must remain authoritative. The branch refs may be deleted. Git history is not a source of current project truth.
+
+
+## Preserved executable experiment
+
+The complete runnable knowledge-representation prototype is preserved at branch `experiments/knowledge-representation-3d`, rooted at commit `45c193ac0a50b6023a29e9a87f404b794a24a955`. It contains the Storybook/pages, 3D renderer, interaction/physics/camera behavior, card detail, graph fixtures, density fixture including the large-node stress path, instanced rendering helpers, and Knowledge Graph synchronization tooling. This branch is deliberately not merged into main until current product/domain/UX evidence justifies adopting some or all of it.
