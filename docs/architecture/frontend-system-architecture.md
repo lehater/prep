@@ -16,7 +16,8 @@ The selected frontend scope must satisfy these accepted constraints:
 - the current Knowledge graph is an experimental projection whose 3D renderer may be replaced or demoted;
 - canonical mutations remain behind backend machine contracts;
 - the immediate prototype may use mock/static data, while production uses the same frontend-facing boundaries with an HTTP/API adapter;
-- graph camera, layout, focus, filters and selection are presentation state and must not leak into canonical Knowledge semantics.
+- graph camera, layout, focus, filters and selection are presentation state and must not leak into canonical Knowledge semantics;
+- the accepted graph quality envelope requires bounded 2k/10k ordinary and 5k/25k stress views, approximately 30 FPS ordinary interaction on the reference desktop class, demand-driven idle rendering and semantic-preserving degradation under load.
 
 No accepted driver requires a frontend microfrontend topology, plugin system, event bus or global application store.
 
@@ -69,9 +70,9 @@ The supplied scope may be:
 - global/reusable Knowledge for Curation;
 - target-derived Knowledge for Learning.
 
-This module owns interaction/presentation state needed for exploration, but not canonical Knowledge truth.
+This module owns interaction/presentation state needed for exploration, including the user-selected Auto / Quality / Performance profile and accepted advanced presentation preferences, but not canonical Knowledge truth.
 
-It contains a renderer-neutral graph projection boundary. Concrete 3D/2D renderer libraries remain downstream adapters.
+It contains a renderer-neutral graph projection boundary. The graph is the primary work surface when graph mode is active; supporting list/detail regions may reflow/collapse without transferring semantic ownership. Concrete 3D/2D renderer libraries remain downstream adapters.
 
 ### Frontend Data Access
 
@@ -169,7 +170,9 @@ Architectural state ownership is:
 | collection/editor draft state | owning Curation feature |
 | server/query state and cache | owning feature data-access boundary |
 | Knowledge search/filter/selected-node/focus scope | Knowledge Exploration |
+| selected graph performance profile and accepted advanced rendering preferences | Knowledge Exploration presentation state |
 | graph camera/layout/drag/hover state | renderer adapter / Knowledge Exploration presentation state |
+| resolved renderer strategy, batching/instancing, pixel ratio, force-engine and idle-loop state | renderer adapter |
 | canonical Knowledge/Requirement/Question/Target truth | backend/domain, never frontend presentation state |
 | external-runtime reachability projection | data-access query result, displayed by the relevant feature/shell surface |
 
@@ -199,6 +202,13 @@ accepted Knowledge semantics
 
 Renderer library objects, callbacks, physics state and coordinates must not cross back into canonical frontend models.
 
+The renderer boundary also isolates performance realization:
+
+- Knowledge Exploration may request accepted presentation profiles/preferences;
+- the adapter chooses private tactics such as instanced nodes, batched links, lower pixel ratio, reduced geometry, demand-driven rendering and physics settling;
+- any degradation must preserve canonical node/relation identity, relation direction/type, current scope, selection/focus and the equivalent list/search/detail path;
+- automatic profile thresholds and concrete optimization algorithms remain renderer-private.
+
 Old experimental renderer code may be reused only below this boundary after Component/Implementation Design verifies that it does not import stale routing, state ownership or graph-first product semantics.
 
 ## Composition and navigation
@@ -222,7 +232,10 @@ Later Verification/Component Design must make it possible to check at least:
 - Learning and Curation internals do not depend on each other;
 - renderer objects/coordinates do not enter canonical frontend models;
 - mock and HTTP adapters satisfy the same frontend-facing data contracts;
-- graph/list/detail resolve the same canonical Knowledge identities.
+- graph/list/detail resolve the same canonical Knowledge identities;
+- wide/compact/narrow Knowledge compositions preserve the graph's primary-workspace role without breaking focus/read order;
+- Auto/Quality/Performance and accepted advanced degradation settings cannot change Knowledge/relation semantics;
+- renderer stress evidence can exercise 1k/2k/5k representative scenes without exposing private renderer objects to feature code.
 
 The concrete lint/test mechanisms are downstream.
 

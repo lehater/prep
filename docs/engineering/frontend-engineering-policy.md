@@ -103,6 +103,19 @@ Exact palette, font family, spacing values and provider token syntax remain down
 - Do not swallow unexpected failures to keep the UI apparently successful. Surface them through the owning feature's failure state and preserve diagnostic context for downstream operability when such evidence is available.
 - Shared error helpers may normalize representation, but they must not become owners of product/domain failure semantics.
 
+### Performance degradation preserves semantics
+
+The accepted graph quality contract is normative for production realization.
+
+- visible graph work is bounded; the frontend must not require rendering the full canonical corpus merely because the backend can store it;
+- Auto / Quality / Performance are presentation profiles, not domain/application state;
+- user-visible degradation may reduce labels, arrowheads, decorative particles, pixel ratio, node detail or live-physics work only while canonical identity, relation type/direction, current scope, selection/focus and readable list/search/detail access remain intact;
+- relation direction may not become unknowable merely because arrowheads are disabled;
+- renderer optimization mechanics such as instancing, batching, buffer layout and shader/object choices stay inside the renderer adapter;
+- the renderer must become demand-driven when idle rather than consuming continuous RAF/CPU solely to preserve a static scene;
+- performance evidence must use representative hardware-accelerated 1k/2k/5k stress workloads; headless tests may verify semantics/configuration but must not claim GPU/frame-rate performance;
+- developer diagnostics may expose RAF/FPS, settle time, draw calls, triangles, buffer size and pixel ratio as engineering evidence without becoming product semantics.
+
 ### Testability
 
 - Prefer public/consumer-owned contracts and observable behavior as test boundaries.

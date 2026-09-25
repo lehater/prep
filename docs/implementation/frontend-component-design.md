@@ -214,6 +214,32 @@ An edge projection contains at least:
 
 It does not contain concrete Three.js/renderer object references.
 
+## Graph presentation/performance settings
+
+KnowledgeExplorer owns renderer-neutral presentation intent.
+
+### GraphPerformanceProfile
+
+Accepted values:
+
+- `auto` — renderer resolves an appropriate strategy from scene/device conditions;
+- `quality` — prefer richer presentation while interaction remains responsive;
+- `performance` — prefer responsive interaction for large/stress scenes.
+
+### GraphRenderPreferences
+
+The renderer-neutral preference contract may express:
+
+- labels: normal / focused-only / off;
+- directional arrowheads: on/off;
+- decorative particles: on/off;
+- live physics: on / settle-and-pause / off;
+- node visual detail: normal / reduced.
+
+These values are presentation state only. They cannot alter canonical node/relation membership, identity, type/direction, scope or list/detail availability.
+
+The public contract does **not** expose implementation tactics such as standard-vs-instanced nodes, standard-vs-batched links, internal buffer strategy, shader/material implementation, renderer object count or automatic threshold values.
+
 ## GraphRenderer contract
 
 ### Responsibility
@@ -226,7 +252,8 @@ The logical contract accepts:
 
 - current GraphScene;
 - optional opaque viewport snapshot previously emitted by the same renderer family;
-- presentation commands such as fit/reset/focus when requested by KnowledgeExplorer.
+- presentation commands such as fit/reset/focus when requested by KnowledgeExplorer;
+- current GraphPerformanceProfile and accepted GraphRenderPreferences.
 
 Exact synchronous/reactive method shape is an implementation choice.
 
@@ -246,6 +273,10 @@ The renderer owns:
 
 - coordinates;
 - force simulation state;
+- resolved automatic performance strategy;
+- batching/instancing/object/buffer strategy;
+- render pixel-ratio/detail strategy;
+- demand-driven idle/pause lifecycle;
 - camera/orbit state;
 - drag gesture tracking;
 - hover/transient visual state;
@@ -255,6 +286,8 @@ KnowledgeExplorer owns:
 
 - selected canonical Knowledge id;
 - semantic kind/relation filters;
+- selected Auto / Quality / Performance profile;
+- accepted advanced GraphRenderPreferences;
 - focus/neighborhood intent;
 - current KnowledgeScope;
 - decision to open/close readable detail.
@@ -282,7 +315,10 @@ The current experiment may adapt mechanics from the historical 3D prototype, but
 - inertial camera behavior;
 - focus/fit/reset mechanics;
 - idle/pause optimization;
-- renderer performance instrumentation.
+- renderer performance instrumentation;
+- instanced-node and batched-link rendering where benchmark evidence supports them;
+- semantic-preserving effect/label/physics degradation;
+- demand-driven renderer pause/resume after force/camera settling.
 
 The adapter must translate those mechanics into the current GraphRenderer contract.
 
@@ -341,14 +377,18 @@ Equivalent contract expectations apply to Target, Question and RuntimeStatus ada
 - selected Knowledge id;
 - focused Knowledge ids/neighborhood intent;
 - readable-detail open/closed state;
-- opaque renderer viewport snapshot only when preservation across remounts requires it.
+- opaque renderer viewport snapshot only when preservation across remounts requires it;
+- selected graph performance profile and accepted advanced rendering preferences.
 
 ### Renderer adapter state
 
 - camera;
 - coordinates;
 - physics;
-- drag/hover/transient renderer interaction.
+- drag/hover/transient renderer interaction;
+- auto-profile thresholds and resolved strategy;
+- instancing/batching and render-buffer internals;
+- renderer pause/resume and engineering diagnostics.
 
 ### Feature data state
 
@@ -455,6 +495,9 @@ Later test/verification work should be able to prove:
 - GraphProjectionBuilder preserves canonical ids and relation direction/type;
 - GraphRenderer emits activation only for click-without-drag;
 - renderer viewport state can be preserved without entering canonical frontend models;
+- wide/compact/narrow workspace composition keeps the graph primary while supporting regions reflow;
+- performance-profile changes preserve canonical GraphScene identity/relation semantics;
+- 1k/2k/5k stress fixtures can exercise renderer strategies without becoming production Knowledge truth;
 - Learning and Curation do not import each other's internal modules.
 
 Contract tests should target public ports/models rather than concrete provider internals.
