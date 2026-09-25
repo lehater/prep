@@ -29,6 +29,12 @@ decisions:
     scopes: [frontend]
     rationale: Visible-graph validation envelopes are approximately 2k nodes/10k edges ordinary and 5k nodes/25k edges stress, with larger corpora requiring bounded exploration instead of unbounded live rendering.
     evidence: [FRONTEND-PERFORMANCE-CAPACITY]
+  - concern: quality.performance.throughput
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The current frontend graph quality contract has no independent throughput objective. Its material behavior is interactive latency/frame behavior, renderer resource efficiency and visible-graph capacity; inventing a nodes-per-second target would not represent a user or architecture requirement.
+    evidence: [FRONTEND-PERFORMANCE-CAPACITY]
   - concern: interface.human.i18n
     state: DEFERRED
     consumers: [FRONTEND-IMPLEMENTATION]

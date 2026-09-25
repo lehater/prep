@@ -123,6 +123,7 @@ authorities:
       - capability: prep.frontend-performance-capacity
         knowledge_kind: quality-design
         semantic_claims:
+          - engineering.intent.quality-targets
           - engineering.quality.performance.latency
           - engineering.quality.performance.resource-efficiency
           - engineering.quality.performance.capacity
@@ -175,6 +176,7 @@ authorities:
           - engineering.interface.human.presentation-system
           - engineering.interface.human.usability
           - engineering.interface.human.accessibility
+          - engineering.interface.human.responsiveness
         requires:
           - capability: prep.conceptual-interface-model
           - capability: prep.information-architecture
@@ -256,6 +258,7 @@ authorities:
           - engineering.verification.requirement-traceability
           - engineering.verification.functional
           - engineering.verification.architecture
+          - engineering.verification.quality
           - engineering.verification.interface.machine
           - engineering.transition.revalidation
         requires:
