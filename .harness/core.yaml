@@ -79,6 +79,12 @@ artifacts:
     provides: [prep.import-consistency]
     depends_on: [APPLICATION-DESIGN, MACHINE-INTERFACES]
 
+  - id: SYSTEM-ARCHITECTURE
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/system-architecture.md
+    provides: [prep.system-architecture]
+    depends_on: [APPLICATION-DESIGN, HUMAN-INTERFACE, MACHINE-INTERFACES, IMPORT-CONSISTENCY]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
