@@ -8,11 +8,11 @@ Define where Prep's independently modeled domain languages apply and how they re
 
 ### Knowledge Model
 
-Owns reusable subject knowledge and knowledge-based competency semantics independent of one learner, target, learning mechanism or presentation.
+Owns reusable subject knowledge semantics independent of one learner, target, learning mechanism or presentation.
 
 ### Learning Design
 
-Owns target-relative learning design over reusable knowledge: target requirements, scope and depth, gaps, priorities, learning/diagnostic intent, and concrete learning or diagnostic artifacts such as questions when those artifacts exist to serve that target-relative intent.
+Owns learning requirements and competencies, target-relative interpretation of reusable knowledge, scope and depth, gaps, priorities, learning/diagnostic intent, and concrete learning or diagnostic artifacts such as questions.
 
 ### Learner Model
 
@@ -48,5 +48,4 @@ The name **Learning Design** is therefore intentional: unlike Knowledge Model an
 ## Deferred questions
 
 - what concrete evidence would establish independently changing learning-material or assessment language/invariants and therefore trigger a later split;
-- whether reusable competency definitions belong fully to Knowledge Model or require a distinct model context;
 - whether Learner Model needs further decomposition when its development resumes.
