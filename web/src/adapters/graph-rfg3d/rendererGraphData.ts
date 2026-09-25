@@ -41,12 +41,26 @@ export function rendererGraphDataKey(scene: GraphScene): string {
   return `${nodes}\u0002${edges}`;
 }
 
+function initialPosition(index: number, count: number) {
+  const normalized = count <= 1 ? 0 : index / (count - 1);
+  const y = 1 - normalized * 2;
+  const radiusAtY = Math.sqrt(Math.max(0, 1 - y * y));
+  const theta = index * Math.PI * (3 - Math.sqrt(5));
+  const radius = 28 + Math.cbrt(Math.max(1, count)) * 8;
+  return {
+    x: Math.cos(theta) * radiusAtY * radius,
+    y: y * radius,
+    z: Math.sin(theta) * radiusAtY * radius,
+  };
+}
+
 export function toRendererGraphData(scene: GraphScene): Rfg3dGraphData {
   return {
-    nodes: scene.nodes.map((node) => ({
+    nodes: scene.nodes.map((node, index) => ({
       id: node.knowledgeId,
       label: node.label,
       semanticKind: node.semanticKind,
+      ...initialPosition(index, scene.nodes.length),
     })),
     links: scene.edges.map((edge) => ({
       id: edge.relationId,
