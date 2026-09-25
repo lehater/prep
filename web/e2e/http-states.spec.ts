@@ -45,7 +45,7 @@ function operationId(url: string): string {
 test("renders accepted server-backed states through the HTTP provider", async ({
   page,
 }) => {
-  let delayInitialList = true;
+  let delayNextList = false;
   let failNextList = false;
   let runtimeReachable = false;
 
@@ -95,8 +95,8 @@ test("renders accepted server-backed states through the HTTP provider", async ({
     }
 
     if (operation === "learning.target.knowledge.list") {
-      if (delayInitialList) {
-        delayInitialList = false;
+      if (delayNextList) {
+        delayNextList = false;
         await new Promise((resolve) => setTimeout(resolve, 750));
       }
 
@@ -140,12 +140,17 @@ test("renders accepted server-backed states through the HTTP provider", async ({
 
   await page.goto(targetPath);
 
+  const listItem = page
+    .getByRole("region", { name: "Knowledge list" })
+    .getByRole("button", { name: /Linux cgroups/ });
+  await expect(listItem).toBeVisible();
+
+  const search = page.getByRole("textbox", { name: "Search Knowledge" });
+  delayNextList = true;
+  await search.fill("cgroups");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByText("Loading Knowledge list")).toBeVisible();
-  await expect(
-    page
-      .getByRole("region", { name: "Knowledge list" })
-      .getByRole("button", { name: /Linux cgroups/ }),
-  ).toBeVisible();
+  await expect(listItem).toBeVisible();
 
   const runtime = page.getByRole("button", {
     name: "Refresh Anki runtime status",
@@ -155,7 +160,6 @@ test("renders accepted server-backed states through the HTTP provider", async ({
   await runtime.click();
   await expect(runtime).toContainText("Anki: reachable");
 
-  const search = page.getByRole("textbox", { name: "Search Knowledge" });
   failNextList = true;
   await search.fill("cgroups");
   await page.getByRole("button", { name: "Search", exact: true }).click();

@@ -75,3 +75,5 @@ jobs:
         run: |
           test "$(docker image inspect "${FRONTEND_IMAGE}" --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')" = "${GITHUB_SHA}"
           docker image inspect "${FRONTEND_IMAGE}" --format 'image={{.Id}} revision={{ index .Config.Labels "org.opencontainers.image.revision" }}'
+
+# Retry after deterministic HTTP loading-state trigger.
