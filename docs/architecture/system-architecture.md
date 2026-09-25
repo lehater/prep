@@ -15,6 +15,8 @@ Accepted drivers for the current scope:
 - The first automated Anki integration is backend-to-AnkiConnect HTTP; endpoint location is deployment configuration.
 - Local development may run Anki Desktop on the Docker host while the Prep backend runs in a container; the container-to-host route is infrastructure configuration, not application semantics.
 - Import idempotency and item-level consistency follow Import Consistency.
+- Canonical data must survive ordinary process/container restarts through durable persistence.
+- Backup/restore and long-term recovery are deliberately deferred for the early architecture-evolution period; no current requirement justifies a backup subsystem.
 
 The current data/trust boundary is one user's Prep installation and its configured external learning runtime. The backend does not need tenant-aware authorization or row-level ownership in the first version.
 
@@ -114,8 +116,9 @@ Current architecture does not introduce:
 - independent frontend ownership of canonical business state;
 - direct browser access to persistence;
 - direct UI-to-Anki integration bypassing backend application semantics;
-- multi-user/tenant isolation or user-owned partition keys in canonical records.
+- multi-user/tenant isolation or user-owned partition keys in canonical records;
+- backup scheduling, backup retention, point-in-time recovery, or restore workflows.
 
 ## Reopening conditions
 
-Revisit topology if accepted requirements introduce multiple users/tenants, independent scaling, long-running/asynchronous work, offline-first synchronization, stronger availability targets, remote Anki interaction constraints, a requirement to automate against Anki without a reachable AnkiConnect endpoint, or materially different trust/security boundaries.
+Revisit topology if accepted requirements introduce backup/recovery objectives, multiple users/tenants, independent scaling, long-running/asynchronous work, offline-first synchronization, stronger availability targets, remote Anki interaction constraints, a requirement to automate against Anki without a reachable AnkiConnect endpoint, or materially different trust/security boundaries.

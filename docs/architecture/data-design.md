@@ -10,6 +10,8 @@ The backend owns access to one logical durable store for the current scope. Mode
 
 No accepted driver requires a database per bounded context.
 
+Durability currently means canonical data survives ordinary backend/container restarts. Backup/restore, backup retention and point-in-time recovery are intentionally deferred while the data model is still expected to change rapidly; they are not current persistence obligations.
+
 The first version has one user/data scope. Canonical records therefore do not require user/tenant ownership columns or tenant-scoped uniqueness. This is an explicit current-scope decision, not an assumption that the product will remain single-user.
 
 ## Durable records
@@ -99,8 +101,9 @@ The following remain downstream implementation choices unless later requirements
 - table/column names;
 - ORM;
 - index implementation beyond required uniqueness;
-- migration tooling.
+- migration tooling;
+- backup format/tooling and restore automation.
 
 ## Reopening conditions
 
-Revisit Data Design before introducing multiple users/tenants; ownership scope, tenant-scoped uniqueness, authorization references and migration of existing single-user data must then be designed explicitly. Also revisit when retention/deletion obligations, retention/deletion obligations, audit requirements, offline synchronization, multiple durable stores, semantic version history, or asynchronous import processing becomes accepted scope.
+Revisit Data Design before introducing multiple users/tenants; ownership scope, tenant-scoped uniqueness, authorization references and migration of existing single-user data must then be designed explicitly. Also revisit when backup/recovery objectives become accepted, retention/deletion obligations, retention/deletion obligations, audit requirements, offline synchronization, multiple durable stores, semantic version history, or asynchronous import processing becomes accepted scope.
