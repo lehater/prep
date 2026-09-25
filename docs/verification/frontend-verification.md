@@ -63,6 +63,7 @@ Frontend adapters preserve the accepted Machine Interface contract:
 
 - requests use only accepted operations/inputs;
 - response identity/semantics survive transport mapping;
+- accepted collection metadata such as exact `total_count` survives mapping when required by the accepted view, while opaque cursors remain transport/query mechanics;
 - validation/conflict/unavailable/recoverable outcomes map to corresponding frontend states;
 - provider/transport-specific failures do not leak as product semantics;
 - the browser does not invent unsupported backend query/filter behavior.
@@ -100,7 +101,7 @@ Raw browser/backend DTOs terminate inside the HTTP adapter boundary and are mapp
 
 **Evidence requirement**
 
-Import-boundary evidence and mapper/adapter tests proving canonical Prep identities and accepted distinctions are preserved across representative operations.
+Import-boundary evidence and mapper/adapter tests proving canonical Prep identities, accepted distinctions and accepted collection metadata are preserved across representative operations while raw DTO/cursor representation remains adapter-private.
 
 ### FV-06 — Renderer isolation
 

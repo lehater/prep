@@ -135,7 +135,7 @@ Rules:
 
 Machine-interface DTOs terminate at the Frontend Data Access boundary.
 
-Adapters translate transport representation into frontend-owned models shaped for accepted UI tasks. Transport-specific pagination tokens, status-code mappings and serialization details do not leak into feature state.
+Adapters translate transport representation into frontend-owned models shaped for accepted UI tasks. Accepted collection metadata required by views, such as an exact `total_count` for the current query/scope, may cross the adapter as part of a frontend-owned collection result. Transport-specific pagination tokens, status-code mappings and serialization details do not leak into feature state.
 
 Frontend models preserve canonical Prep identities and accepted semantic distinctions. They may omit data irrelevant to the selected UI task but must not invent new domain meaning.
 

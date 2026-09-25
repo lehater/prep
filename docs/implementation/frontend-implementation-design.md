@@ -270,6 +270,7 @@ Mock adapters remain available for deterministic tests and local evidence.
 Completion:
 
 - mock/HTTP substitutability and machine-outcome mapping FTD contracts pass;
+- exact collection `total_count` is preserved in consumer-owned collection results while opaque cursor representation remains adapter/query-cache private;
 - feature modules are unchanged by provider selection except composition wiring;
 - no client-only filtering over arbitrary partial server pages is introduced.
 

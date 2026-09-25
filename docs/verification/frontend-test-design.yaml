@@ -49,9 +49,9 @@ content:
 
     - id: FTD-DTO-MAPPING-IDENTITY
       verification_refs: [FV-05]
-      precondition: A representative Machine Interface DTO graph/list/detail response contains known canonical Prep ids, semantic kinds and relation source/target/type values.
-      operation: Map the DTO through the HTTP adapter into frontend semantic/read models.
-      oracle: Canonical ids and accepted semantic distinctions are preserved exactly; transport-only pagination/status/serialization fields do not appear in feature-facing semantic models.
+      precondition: A representative Machine Interface DTO graph/list/detail response contains known canonical Prep ids, semantic kinds, relation source/target/type values, an exact collection total_count and an opaque next_cursor.
+      operation: Map the DTO through the HTTP adapter into frontend semantic/read models and frontend-owned collection results.
+      oracle: Canonical ids, accepted semantic distinctions and exact total_count are preserved exactly; opaque cursor/status/serialization representation does not enter semantic entities or feature-owned task state.
 
     - id: FTD-RENDERER-CLICK-VS-DRAG
       verification_refs: [FV-06]

@@ -61,65 +61,65 @@ reviews:
     basis: Information organization and findability were revalidated independently of concrete screen layout or UI provider.
 
   - capability: prep.machine-interfaces
-    revision: 1
-    basis: Browser/backend and external-runtime contracts preserve accepted application/domain semantics and make transport errors/compatibility explicit without redefining them.
+    revision: 2
+    basis: Browser collection contracts now explicitly expose exact total_count for the current scope/query while opaque cursors remain transport mechanics; all other browser/backend and external-runtime semantics were revalidated unchanged.
 
   - capability: prep.interaction-design
-    revision: 1
-    basis: Interaction semantics were revalidated against journeys, application behavior and machine contracts without introducing new product requirements.
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; accepted browse/search interactions remain unchanged and the previously required material counts now have an explicit machine-contract source.
 
   - capability: prep.interface-topology
-    revision: 1
-    basis: Material views/frames and navigation topology were revalidated without owning detailed screen composition or router implementation.
+    revision: 2
+    basis: Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology.
 
   - capability: prep.presentation-system
-    revision: 1
-    basis: Presentation roles, accessibility/non-graph access and reusable visual-role discipline are provider-neutral and do not own domain semantics.
+    revision: 2
+    basis: Revalidated against current interaction/topology prerequisites; collection count availability introduces no new presentation role or accessibility semantics.
 
   - capability: prep.screen-view-design
-    revision: 1
-    basis: Screen/View responsibilities were revalidated against topology, interaction and Presentation System without adding product semantics or provider-specific structure.
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; existing Overview Knowledge/Question count responsibilities are now explicitly supported without changing view ownership or learner behavior.
 
   - capability: prep.import-consistency
-    revision: 1
-    basis: Import/external-operation atomicity, partial-result and retry/idempotency semantics remain correctness policy rather than domain or runtime-topology ownership.
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics.
 
   - capability: prep.interface-verification
-    revision: 1
-    basis: Interface verification defines evidence for accepted task/IA/interaction/topology contracts and does not introduce interface semantics.
+    revision: 2
+    basis: Revalidated against the current interaction/topology prerequisite baseline; existing task and navigation evidence obligations remain sufficient.
 
   - capability: prep.presentation-verification
-    revision: 1
-    basis: Presentation verification was revised to prove shared pattern consistency, provider neutrality, theme-role coherence, accessibility and 3D task-value without owning presentation semantics.
+    revision: 2
+    basis: Revalidated against current interface/presentation/screen prerequisites; existing presentation evidence obligations remain sufficient.
 
   - capability: prep.system-architecture
-    revision: 1
-    basis: Runtime/deployment boundaries and dependency topology remain architecture decisions derived from accepted application/interface/consistency knowledge rather than product requirements.
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; collection count metadata does not change runtime, trust, deployment or external-integration topology.
 
   - capability: prep.data-design
-    revision: 1
-    basis: Durable representation and storage constraints were revalidated as physical persistence design and do not redefine domain/application semantics.
+    revision: 2
+    basis: Revalidated after Machine Interface revision 2 through current consistency/system-architecture prerequisites; exact query result counts add no new durable representation or storage semantics.
 
   - capability: prep.frontend-system-architecture
-    revision: 1
-    basis: Frontend module topology, state ownership and adapter/renderer boundaries were revalidated as architecture-significant structure with explicit dependency direction.
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; exact accepted collection metadata may cross the data-access boundary while cursor/status/serialization details remain adapter-private, with module and state ownership unchanged.
 
   - capability: prep.frontend-engineering-policy
-    revision: 1
-    basis: Frontend engineering obligations are concrete and reviewable while optional abstractions/patterns remain evidence-driven rather than universal defaults.
+    revision: 2
+    basis: Revalidated against frontend architecture revision 2; collection metadata refinement preserves the existing DTO-boundary, ownership and replaceability policy.
 
   - capability: prep.frontend-component-design
-    revision: 1
-    basis: Frontend components, ports, model mappings, provider seams and renderer contracts are implementation-facing boundaries complete for the selected prototype scope without re-owning upstream semantics.
+    revision: 2
+    basis: Frontend query ports were revalidated and refined so accepted collection results preserve exact total_count while cursor representation remains adapter-private; component, provider and ownership boundaries remain unchanged.
 
   - capability: prep.frontend-verification
-    revision: 1
-    basis: Frontend Verification defines traceable evidence obligations for accepted product behavior, machine-contract mapping, frontend architecture boundaries, presentation evidence and prerequisite revalidation without becoming a semantic owner.
+    revision: 2
+    basis: Frontend verification was revalidated against Machine Interface revision 2 and now explicitly proves preservation of accepted collection metadata while transport cursor representation remains isolated.
 
   - capability: prep.frontend-test-design
-    revision: 1
-    basis: Frontend Test Design refines accepted FV verification obligations into observable precondition/operation/oracle contracts, prefers public boundaries over implementation internals and leaves test-framework mechanics free.
+    revision: 2
+    basis: Frontend Test Design was revalidated and DTO mapping coverage now distinguishes accepted exact total_count from opaque cursor/status/serialization representation.
 
   - capability: prep.frontend-implementation-design
-    revision: 1
-    basis: Frontend Implementation Design defines explicit bounded slices, repository/module realization, MUI and renderer provider placement, deterministic boundary/test/release enforcement, legacy experiment reuse dispositions and rollback/completion criteria derived from accepted frontend contracts.
+    revision: 2
+    basis: Frontend Implementation Design was revalidated against current component/verification/test contracts; FI-06 now explicitly preserves exact total_count while keeping cursor mechanics adapter/query-cache private.
