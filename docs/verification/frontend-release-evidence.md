@@ -152,3 +152,22 @@ FI-07 was verified at commit `260a614df945164f51f7f72474e9007a99339412` by workf
 - repository validators: 158 Markdown files, architecture/question validation and 28 Python tests PASS.
 
 This evidence closes FI-07 implementation verification. It does not convert `Q-KNOWLEDGE-GRAPH-3D-VALUE` into an answered semantic decision.
+
+## Post-FI-07 responsive workspace evidence
+
+Manual interface evaluation exposed an implementation-only presentation defect: the production shell retained a maximum container width, the Knowledge workspace distributed width too evenly across list/graph/detail, and the renderer imposed its own viewport-relative height. The result under wide desktop viewports was excessive unused horizontal space, an undersized graph canvas and unnecessary vertical extension.
+
+The correction keeps accepted view semantics unchanged:
+
+- the application shell now consumes the available viewport width with responsive edge padding;
+- primary and Curation navigation collapse vertically only when the viewport requires it;
+- the Knowledge workspace uses explicit responsive grid areas rather than equal flex columns;
+- on wide desktop, list/detail remain bounded side regions and the graph consumes the remaining width;
+- on tablet, list + graph remain side-by-side while detail moves below;
+- on mobile, list -> graph -> detail becomes one column with no horizontal overflow;
+- the graph renderer fills the layout area assigned by its consumer instead of imposing its own fixed `62vh` window;
+- Curation Knowledge authoring/import controls were compacted without changing their responsibilities.
+
+Executable evidence lives in `web/e2e/responsive-layout.spec.ts`. It verifies a 1920x1080 wide layout, a 1024x768 tablet reflow, a 390x844 mobile stack, graph/list/detail width relationships and absence of horizontal overflow.
+
+Responsive browser checkpoint workflow run `36199163419` passed production Vite build and all 19 Playwright tests.
