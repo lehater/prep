@@ -1,4 +1,5 @@
 authorities: []
+
 artifacts:
   - id: PROBLEM-SPACE
     authority: DISCOVERY
@@ -19,297 +20,33 @@ artifacts:
     depends_on: [PRODUCT-VISION]
 
   - id: CONTEXT-MAP
-    authority: STRATEGIC-DOMAIN-DESIGN
+    authority: DOMAIN-STRATEGY
     path: docs/architecture/context-map.md
-    provides: [prep.domain-context-map]
+    provides: [prep.domain-strategy]
     depends_on: [PRODUCT-CAPABILITIES]
 
-  - id: KNOWLEDGE-GRAPH-MODEL
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/knowledge-graph.md
-    provides: [prep.knowledge-graph-model]
-    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
+  - id: MODEL-CONTEXT-MAP
+    authority: MODEL-CONTEXT-STRATEGY
+    path: docs/architecture/context-map.md
+    provides: [prep.model-context-strategy]
+    depends_on: [PRODUCT-CAPABILITIES, CONTEXT-MAP]
 
-  - id: RELATION-REGISTRY
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/relation-registry.md
-    provides: [prep.relation-registry]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+  - id: KNOWLEDGE-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    path: docs/domain/knowledge-model.md
+    provides: [prep.knowledge-model]
+    depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
-  - id: SOURCE-EVIDENCE
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/source-evidence.md
-    provides: [prep.source-evidence-model]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL]
+  - id: LEARNING-DESIGN
+    authority: TACTICAL-DOMAIN-DESIGN
+    path: docs/domain/learning-design.md
+    provides: [prep.learning-design]
+    depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
-  - id: GRAPH-ADMISSION
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/graph-admission.md
-    provides: [prep.graph-admission-policy]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, SOURCE-EVIDENCE]
-
-  - id: GRAPH-LIFECYCLE
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/graph-lifecycle.md
-    provides: [prep.graph-lifecycle]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, SOURCE-EVIDENCE]
-
-  - id: LEARNING-PLATFORM-BOUNDARY
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/learning-platform.md
-    provides: [prep.learning-platform-boundary]
-    depends_on: [CONTEXT-MAP, PRODUCT-CAPABILITIES]
-
-  - id: LEARNING-TARGETS-PLANS
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/learning-targets-plans.md
-    provides: [prep.learning-plan-model]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, GRAPH-LIFECYCLE, LEARNING-PLATFORM-BOUNDARY]
-
-  - id: LEARNING-STATE
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/learning-state.md
-    provides: [prep.learning-state-model]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, LEARNING-PLATFORM-BOUNDARY]
-
-  - id: GRAPH-SUBJECT-INTEGRATION
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/graph-subject-integration.md
-    provides: [prep.graph-subject-integration]
-    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION]
-
-  - id: LEARNER-BOUNDARY
-    authority: DOMAIN-MODEL-DESIGN
-    path: docs/domain/learner-boundary.md
-    provides: [prep.learner-boundary]
-    depends_on: [LEARNING-PLATFORM-BOUNDARY, LEARNING-TARGETS-PLANS, LEARNING-STATE]
-
-  - id: USER-JOURNEYS
-    authority: APPLICATION-DESIGN
-    path: docs/architecture/user-journeys.md
-    provides: [prep.user-journeys]
-    depends_on: [PRODUCT-CAPABILITIES, GRAPH-ADMISSION, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
-
-  - id: QUALITY-DRIVERS
-    authority: QUALITY-DESIGN
-    path: docs/architecture/quality-drivers.md
-    provides: [prep.quality-drivers]
-    depends_on: [PRODUCT-VISION, PRODUCT-CAPABILITIES]
-
-  - id: GRAPH-INTERFACE
-    authority: INTERFACE-DESIGN
-    path: docs/architecture/graph-interface.md
-    provides: [prep.graph-interface-concept]
-    depends_on: [USER-JOURNEYS, KNOWLEDGE-GRAPH-MODEL, RELATION-REGISTRY, LEARNING-TARGETS-PLANS, LEARNING-STATE, QUALITY-DRIVERS]
-
-  - id: SYSTEM-LANDSCAPE
-    authority: SYSTEM-ARCHITECTURE
-    path: docs/architecture/system-landscape.md
-    provides: [prep.system-landscape]
-    depends_on: [CONTEXT-MAP, KNOWLEDGE-GRAPH-MODEL, GRAPH-ADMISSION, GRAPH-LIFECYCLE, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY, GRAPH-INTERFACE, QUALITY-DRIVERS]
-
-  - id: LOGICAL-USE-CASES
-    authority: APPLICATION-DESIGN
-    path: docs/application/logical-use-cases.md
-    provides: [prep.logical-use-case-boundaries]
-    depends_on: [USER-JOURNEYS, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
-
-  - id: LOGICAL-KNOWLEDGE-INGESTION
-    authority: APPLICATION-DESIGN
-    path: docs/application/knowledge-ingestion.md
-    provides: [prep.logical-knowledge-ingestion]
-    depends_on: [LOGICAL-USE-CASES, GRAPH-ADMISSION, SOURCE-EVIDENCE]
-
-  - id: LOGICAL-STUDY-RUNTIME
-    authority: APPLICATION-DESIGN
-    path: docs/application/study-runtime.md
-    provides: [prep.logical-study-runtime]
-    depends_on: [LOGICAL-USE-CASES, LEARNING-TARGETS-PLANS, LEARNING-STATE, GRAPH-SUBJECT-INTEGRATION, LEARNER-BOUNDARY]
-
-  - id: LOGICAL-DATA-OWNERSHIP
-    authority: DATA-DESIGN
-    path: docs/data/logical-data-ownership.md
-    provides: [prep.logical-data-ownership]
-    depends_on: [KNOWLEDGE-GRAPH-MODEL, SOURCE-EVIDENCE, GRAPH-LIFECYCLE, LEARNING-TARGETS-PLANS, LEARNING-STATE, LEARNER-BOUNDARY]
-
-  - id: LOGICAL-GRAPH-READ-MODEL
-    authority: DATA-DESIGN
-    path: docs/data/graph-read-model.md
-    provides: [prep.logical-graph-read-model]
-    depends_on: [LOGICAL-DATA-OWNERSHIP, PRODUCT-CAPABILITIES, RELATION-REGISTRY, GRAPH-INTERFACE]
-
-  - id: LOGICAL-ACCESS-PRIVACY
-    authority: SECURITY-DESIGN
-    path: docs/architecture/access-privacy.md
-    provides: [prep.logical-access-privacy]
-    depends_on: [PRODUCT-CAPABILITIES, LEARNER-BOUNDARY, GRAPH-ADMISSION, LOGICAL-USE-CASES]
-
-  - id: LOGICAL-INTERFACES
-    authority: INTERFACE-DESIGN
-    path: docs/architecture/logical-interfaces.md
-    provides: [prep.logical-interface-boundaries]
-    depends_on: [GRAPH-INTERFACE, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-ACCESS-PRIVACY]
-
-  - id: LOGICAL-CONSISTENCY-RELIABILITY
-    authority: QUALITY-DESIGN
-    path: docs/architecture/consistency-reliability.md
-    provides: [prep.logical-consistency-reliability]
-    depends_on: [QUALITY-DRIVERS, GRAPH-LIFECYCLE, LEARNING-STATE, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP]
-
-  - id: LOGICAL-SYSTEM-BOUNDARIES
-    authority: SYSTEM-ARCHITECTURE
-    path: docs/architecture/logical-system-boundaries.md
-    provides: [prep.logical-system-boundaries]
-    depends_on: [SYSTEM-LANDSCAPE, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-INTERFACES, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY]
-
-  - id: LOGICAL-OPERABILITY
-    authority: OPERABILITY-DESIGN
-    path: docs/architecture/operability.md
-    provides: [prep.logical-operability]
-    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-CONSISTENCY-RELIABILITY]
-
-  - id: LOGICAL-VERIFICATION
-    authority: VERIFICATION-DESIGN
-    path: docs/verification/logical-verification-strategy.md
-    provides: [prep.logical-verification-strategy]
-    depends_on: [PRODUCT-CAPABILITIES, LOGICAL-USE-CASES, LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-INTERFACES, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY, LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-OPERABILITY]
-
-  - id: PERSISTENCE-ARCHITECTURE
-    authority: DATA-DESIGN
-    path: docs/architecture/persistence-architecture.md
-    provides: [prep.persistence-architecture]
-    depends_on: [LOGICAL-DATA-OWNERSHIP, LOGICAL-GRAPH-READ-MODEL, LOGICAL-CONSISTENCY-RELIABILITY, LOGICAL-ACCESS-PRIVACY]
-
-  - id: DATA-LIFECYCLE-DESIGN
-    authority: DATA-DESIGN
-    path: docs/architecture/data-lifecycle.md
-    provides: [prep.data-lifecycle-design]
-    depends_on: [PERSISTENCE-ARCHITECTURE, LOGICAL-ACCESS-PRIVACY, LOGICAL-CONSISTENCY-RELIABILITY]
-
-  - id: EXTERNAL-DEPENDENCY-DESIGN
-    authority: EXTERNAL-DEPENDENCY-DESIGN
-    path: docs/architecture/external-dependencies.md
-    provides: [prep.external-dependency-design]
-    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-STUDY-RUNTIME, LOGICAL-INTERFACES, GRAPH-INTERFACE]
-
-  - id: MACHINE-INTERFACE-DESIGN
-    authority: INTERFACE-DESIGN
-    path: docs/architecture/machine-interface.md
-    provides: [prep.machine-interface-design]
-    depends_on: [LOGICAL-INTERFACES, LOGICAL-SYSTEM-BOUNDARIES, LOGICAL-ACCESS-PRIVACY]
-
-  - id: PERFORMANCE-CAPACITY-DESIGN
-    authority: QUALITY-DESIGN
-    path: docs/architecture/performance-capacity.md
-    provides: [prep.performance-capacity-design]
-    depends_on: [QUALITY-DRIVERS, LOGICAL-GRAPH-READ-MODEL, LOGICAL-SYSTEM-BOUNDARIES]
-
-  - id: RELIABILITY-ARCHITECTURE
-    authority: QUALITY-DESIGN
-    path: docs/architecture/reliability-architecture.md
-    provides: [prep.reliability-architecture]
-    depends_on: [LOGICAL-CONSISTENCY-RELIABILITY, PERSISTENCE-ARCHITECTURE, EXTERNAL-DEPENDENCY-DESIGN]
-
-  - id: SECURITY-ARCHITECTURE
-    authority: SECURITY-DESIGN
-    path: docs/architecture/security-architecture.md
-    provides: [prep.security-architecture]
-    depends_on: [LOGICAL-ACCESS-PRIVACY, LOGICAL-SYSTEM-BOUNDARIES, EXTERNAL-DEPENDENCY-DESIGN]
-
-  - id: PRESENTATION-SYSTEM-DESIGN
-    authority: INTERFACE-DESIGN
-    path: docs/architecture/presentation-system.md
-    provides: [prep.presentation-system-design]
-    depends_on: [GRAPH-INTERFACE, LOGICAL-GRAPH-READ-MODEL, MACHINE-INTERFACE-DESIGN, PERFORMANCE-CAPACITY-DESIGN]
-
-  - id: SCREEN-VIEW-DESIGN
-    authority: INTERFACE-DESIGN
-    path: docs/architecture/screen-view-design.md
-    provides: [prep.screen-view-design]
-    depends_on: [PRESENTATION-SYSTEM-DESIGN, USER-JOURNEYS, GRAPH-INTERFACE]
-
-  - id: RUNTIME-TOPOLOGY
-    authority: SYSTEM-ARCHITECTURE
-    path: docs/architecture/runtime-topology.md
-    provides: [prep.runtime-topology]
-    depends_on: [LOGICAL-SYSTEM-BOUNDARIES, PERSISTENCE-ARCHITECTURE, MACHINE-INTERFACE-DESIGN, EXTERNAL-DEPENDENCY-DESIGN, SECURITY-ARCHITECTURE, PERFORMANCE-CAPACITY-DESIGN, RELIABILITY-ARCHITECTURE]
-
-  - id: COMPONENT-DESIGN
-    authority: COMPONENT-DESIGN
-    path: docs/architecture/component-design.md
-    provides: [prep.component-design]
-    depends_on: [RUNTIME-TOPOLOGY, PERSISTENCE-ARCHITECTURE, MACHINE-INTERFACE-DESIGN, PRESENTATION-SYSTEM-DESIGN, SCREEN-VIEW-DESIGN, SECURITY-ARCHITECTURE, EXTERNAL-DEPENDENCY-DESIGN]
-
-  - id: OPERABILITY-ARCHITECTURE
-    authority: OPERABILITY-DESIGN
-    path: docs/architecture/operability-architecture.md
-    provides: [prep.operability-architecture]
-    depends_on: [LOGICAL-OPERABILITY, RUNTIME-TOPOLOGY, RELIABILITY-ARCHITECTURE, SECURITY-ARCHITECTURE]
-
-  - id: TEST-DESIGN
-    authority: VERIFICATION-DESIGN
-    path: docs/verification/test-design.md
-    provides: [prep.test-design]
-    depends_on: [LOGICAL-VERIFICATION, COMPONENT-DESIGN, MACHINE-INTERFACE-DESIGN, PERSISTENCE-ARCHITECTURE, RUNTIME-TOPOLOGY, OPERABILITY-ARCHITECTURE]
-
-  - id: JOB-PROTOCOL
-    authority: APPLICATION-DESIGN
-    path: docs/implementation/job-protocol.md
-    provides: [prep.job-protocol]
-    depends_on: [LOGICAL-KNOWLEDGE-INGESTION, LOGICAL-STUDY-RUNTIME, PERSISTENCE-ARCHITECTURE, RELIABILITY-ARCHITECTURE]
-
-  - id: PHYSICAL-SCHEMA-CONTRACT
-    authority: DATA-DESIGN
-    path: docs/implementation/database-schema.md
-    provides: [prep.physical-schema-contract]
-    depends_on: [PERSISTENCE-ARCHITECTURE, DATA-LIFECYCLE-DESIGN, JOB-PROTOCOL]
-
-  - id: AUTH-SESSION-CONTRACT
-    authority: SECURITY-DESIGN
-    path: docs/implementation/auth-session-contract.md
-    provides: [prep.auth-session-contract]
-    depends_on: [SECURITY-ARCHITECTURE, MACHINE-INTERFACE-DESIGN]
-
-  - id: API-CONTRACT
-    authority: INTERFACE-DESIGN
-    path: docs/implementation/api-contract.md
-    provides: [prep.api-contract]
-    depends_on: [MACHINE-INTERFACE-DESIGN, AUTH-SESSION-CONTRACT, PHYSICAL-SCHEMA-CONTRACT, JOB-PROTOCOL]
-
-  - id: ANKI-BRIDGE-CONTRACT
-    authority: EXTERNAL-DEPENDENCY-DESIGN
-    path: docs/implementation/anki-bridge-contract.md
-    provides: [prep.anki-bridge-contract]
-    depends_on: [EXTERNAL-DEPENDENCY-DESIGN, LOGICAL-STUDY-RUNTIME, AUTH-SESSION-CONTRACT, JOB-PROTOCOL]
-
-  - id: FRONTEND-CONTRACT
-    authority: INTERFACE-DESIGN
-    path: docs/implementation/frontend-contract.md
-    provides: [prep.frontend-contract]
-    depends_on: [PRESENTATION-SYSTEM-DESIGN, SCREEN-VIEW-DESIGN, API-CONTRACT]
-
-  - id: DEPLOYMENT-CONFIG-CONTRACT
-    authority: SYSTEM-ARCHITECTURE
-    path: docs/implementation/deployment-config.md
-    provides: [prep.deployment-config-contract]
-    depends_on: [RUNTIME-TOPOLOGY, PHYSICAL-SCHEMA-CONTRACT, AUTH-SESSION-CONTRACT, ANKI-BRIDGE-CONTRACT]
-
-  - id: BACKEND-COMPONENT-CONTRACT
-    authority: COMPONENT-DESIGN
-    path: docs/implementation/backend-components.md
-    provides: [prep.backend-component-contract]
-    depends_on: [COMPONENT-DESIGN, PHYSICAL-SCHEMA-CONTRACT, API-CONTRACT, JOB-PROTOCOL, AUTH-SESSION-CONTRACT, ANKI-BRIDGE-CONTRACT]
-
-  - id: ACCEPTANCE-CONTRACTS
-    authority: VERIFICATION-DESIGN
-    path: docs/implementation/acceptance-contracts.md
-    provides: [prep.acceptance-contracts]
-    depends_on: [TEST-DESIGN, API-CONTRACT, PHYSICAL-SCHEMA-CONTRACT, ANKI-BRIDGE-CONTRACT, FRONTEND-CONTRACT, DEPLOYMENT-CONFIG-CONTRACT]
-
-  - id: IMPLEMENTATION-DESIGN
-    authority: REALIZATION-DESIGN
-    path: docs/implementation/implementation-design.md
-    provides: [prep.implementation-design]
-    depends_on: [PHYSICAL-SCHEMA-CONTRACT, API-CONTRACT, JOB-PROTOCOL, ANKI-BRIDGE-CONTRACT, AUTH-SESSION-CONTRACT, FRONTEND-CONTRACT, DEPLOYMENT-CONFIG-CONTRACT, BACKEND-COMPONENT-CONTRACT, ACCEPTANCE-CONTRACTS]
+  - id: LEARNER-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    path: docs/domain/learner-model.md
+    provides: [prep.learner-model]
+    depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
 questions: []
