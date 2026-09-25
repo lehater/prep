@@ -396,17 +396,7 @@ These mappings do not make strict semantic admission unnecessary. Claims that Ha
 
 ### Semantic revalidation evidence
 
-Migration-mode semantic evaluations are now recorded in `.harness/semantic-evaluations.yaml` for the granular frontend capabilities that have been explicitly revalidated:
-
-- Conceptual Interface Model;
-- Information Architecture;
-- Interaction Design;
-- Interface Topology;
-- Presentation System;
-- Screen/View Design;
-- Presentation Verification.
-
-These evaluations are intentionally **not** strict semantic admission. They let Engineering Coverage distinguish "semantically reviewed" from "missing claim evidence" during migration, while the production fail-closed check still requires strict admission metadata plus Capability Lifecycle currentness before implementation-documentation closure can be claimed.
+The temporary migration-only semantic-evaluation bundle was removed after strict baseline migration completed. Semantic revalidation evidence is now recorded only through `.harness/semantic-baseline.yaml` and is re-derived through the pinned Harness strict-admission/lifecycle contracts.
 
 
 ### Strict semantic/currentness baseline migration
