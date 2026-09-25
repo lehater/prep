@@ -165,6 +165,7 @@ def main() -> int:
         consumer="FRONTEND-IMPLEMENTATION",
         scope="frontend",
         project_overlay=load(".harness/engineering-coverage.yaml"),
+        semantic_evaluations=load(".harness/semantic-evaluations.yaml"),
     )
     print(
         "FRONTEND-IMPLEMENTATION Engineering Coverage: "

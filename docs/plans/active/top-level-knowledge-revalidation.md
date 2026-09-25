@@ -392,3 +392,18 @@ Reconciliation therefore:
 - declares subject inventory NOT_APPLICABLE for this frontend scope because completeness is already partitioned by explicit canonical view/module/capability contracts.
 
 These mappings do not make strict semantic admission unnecessary. Claims that Harness marks as requiring semantic evaluation remain unresolved until strict semantic/currentness evidence is produced.
+
+
+### Semantic revalidation evidence
+
+Migration-mode semantic evaluations are now recorded in `.harness/semantic-evaluations.yaml` for the granular frontend capabilities that have been explicitly revalidated:
+
+- Conceptual Interface Model;
+- Information Architecture;
+- Interaction Design;
+- Interface Topology;
+- Presentation System;
+- Screen/View Design;
+- Presentation Verification.
+
+These evaluations are intentionally **not** strict semantic admission. They let Engineering Coverage distinguish "semantically reviewed" from "missing claim evidence" during migration, while the production fail-closed check still requires strict admission metadata plus Capability Lifecycle currentness before implementation-documentation closure can be claimed.
