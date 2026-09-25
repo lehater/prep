@@ -27,7 +27,7 @@ artifacts:
 
   - id: MODEL-CONTEXT-MAP
     authority: MODEL-CONTEXT-STRATEGY
-    path: docs/architecture/context-map.md
+    path: docs/architecture/model-context-map.md
     provides: [prep.model-context-strategy]
     depends_on: [PRODUCT-CAPABILITIES, CONTEXT-MAP]
 
