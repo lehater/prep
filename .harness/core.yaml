@@ -49,6 +49,12 @@ artifacts:
     provides: [prep.learner-model]
     depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
+  - id: APPLICATION-DESIGN
+    authority: APPLICATION-DESIGN
+    path: docs/application/application-design.md
+    provides: [prep.application-design]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
