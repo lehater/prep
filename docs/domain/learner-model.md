@@ -12,19 +12,36 @@ Question is the canonical subject of directly recorded learning observations and
 
 KnowledgeNode and Requirement state are not direct observations. Any state attributed to them is a later inference derived from evidence about related Questions.
 
-### Observation
+### Review Observation
 
-A record that something relevant occurred: an answer, retrieval, explanation, solution, implementation, assessment result or other performance event.
+For the first integration-driven slice, the recorded statistics follow the semantics of an Anki review log while remaining source-neutral in the Learner Model.
 
-An observation is historical fact about an interaction, not by itself a claim that knowledge is mastered.
+A Review Observation records one answering of a Question:
+
+```text
+ReviewObservation
+  question: Question
+  occurred_at
+  rating: Again | Hard | Good | Easy
+  previous_interval
+  next_interval
+  duration
+  review_phase: Learning | Review | Relearning | Early
+```
+
+The rating semantics follow the initial integration contract: Again means failed recall; Hard, Good and Easy mean successful recall with different self-reported difficulty. Intervals record the scheduling interval before and after the review. Duration records time spent before choosing the rating. Review phase records the scheduling context in which the answer occurred.
+
+These fields are recorded facts/statistics. Prep does not currently interpret them as mastery, proficiency, confidence or knowledge state.
+
+This vocabulary is intentionally integration-driven rather than claimed as a universal learning model. A later integration may demonstrate that the model must be generalized or revised.
 
 
 ## Ownership
 
 Learner Model owns:
 
-- learner-specific historical observations and statistics about Questions;
-- evidence history needed to reproduce those statistics.
+- learner-specific Review Observations about Questions;
+- review history and statistics reproducible from those observations.
 
 Interpretation of those statistics into evidence strength, inferred learner state, uncertainty, retention/decay, knowledge state or requirement state is deferred.
 
@@ -34,21 +51,19 @@ It does not own subject meaning, target policy, gaps or learning priorities.
 
 ## Research influence
 
-ALEKS / Knowledge Space Theory supports the distinction between observable responses and latent knowledge state.
-
-Moodle Competencies separates activities/evidence from competency proficiency and supports evidence from multiple sources, including prior learning.
-
-xAPI and 1EdTech Caliper provide precedents for treating learning interactions as typed event records rather than direct mastery claims. Prep adopts this evidence-layer separation without adopting either event schema at this stage.
+The initial Review Observation vocabulary is deliberately shaped by the first planned learning-system integration. It preserves review-history facts without importing that system's scheduler or inferred memory model into Prep.
 
 ## Invariants
 
-- historical observations are not rewritten;
+- historical Review Observations are not rewritten;
 - absence of observations is not a negative learning result;
-- recorded statistics remain attributable to Question identity;
+- every Review Observation remains attributable to Question identity;
 - learner statistics cannot redefine reusable subject semantics;
 - interpretation of statistics into learner, KnowledgeNode or Requirement state is not part of the current model.
 
 ## Deferred questions
+
+- whether later integrations require a more general observation vocabulary;
 
 - what evidence-strength model should interpret recorded statistics;
 - whether and how statistics should produce inferred learner state;
