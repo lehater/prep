@@ -115,3 +115,7 @@ reviews:
   - capability: prep.frontend-verification
     revision: 1
     basis: Frontend Verification defines traceable evidence obligations for accepted product behavior, machine-contract mapping, frontend architecture boundaries, presentation evidence and prerequisite revalidation without becoming a semantic owner.
+
+  - capability: prep.frontend-test-design
+    revision: 1
+    basis: Frontend Test Design refines accepted FV verification obligations into observable precondition/operation/oracle contracts, prefers public boundaries over implementation internals and leaves test-framework mechanics free.

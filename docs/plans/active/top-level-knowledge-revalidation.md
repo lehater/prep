@@ -446,3 +446,21 @@ The production contract was corrected before acceptance to include direct inputs
 `docs/verification/frontend-verification.md` now defines evidence obligations for product traceability, functional/view behavior, machine-contract mapping, dependency direction, DTO isolation, renderer isolation, mock/HTTP substitutability, state ownership, presentation evidence closure and upstream-change revalidation.
 
 The artifact owns verification requirements only. Executable test preconditions/actions/oracles remain Frontend Test Design work.
+
+
+### Frontend Test Design
+
+`prep.frontend-test-design` became actionable after Frontend Verification was accepted.
+
+The canonical `docs/verification/frontend-test-design.yaml` uses Harness `test-design/v1` and refines the TEST-bearing `FV-02..FV-09` obligations into executable contracts with explicit:
+
+- preconditions;
+- controlled operations;
+- observable oracles;
+- verification references.
+
+The contracts cover navigation/context preservation, Question -> Knowledge navigation, recoverable-failure behavior, machine-outcome mapping, forbidden dependency edges, DTO identity mapping, renderer click-vs-drag and semantic isolation, mock/HTTP substitutability, keyboard/non-graph Knowledge access, graph/list semantic equivalence and common view states.
+
+Framework/test-file/fixture mechanics remain implementation freedom. Exact renderer coordinates, private component state, provider component trees and pixel snapshots are explicitly forbidden as semantic oracles.
+
+Prep CI now validates the Harness schema and verifies that every TEST-bearing Frontend Verification id has at least one Test Design contract.

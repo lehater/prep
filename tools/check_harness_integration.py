@@ -21,6 +21,7 @@ sys.path.insert(0, str(HARNESS_ROOT))
 from engineering_graph import evaluate_engineering_target, validate_engineering_graph  # noqa: E402
 from engineering_coverage import evaluate_with_repository_policy  # noqa: E402
 from semantic_closure import evaluate_semantic_closure  # noqa: E402
+from workspace import validate_knowledge_document  # noqa: E402
 from frontend_interface_knowledge import (  # noqa: E402
     evaluate_frontend_ux_closure,
     evaluate_topology_screen_subject_coverage,
@@ -141,6 +142,37 @@ def main() -> int:
     print(
         "Frontend UX closure: ACCEPTED "
         f"({len(subject_coverage['expected_subjects'])} topology views covered)"
+    )
+
+    test_design = load("docs/verification/frontend-test-design.yaml")
+    validate_knowledge_document(test_design)
+    verification_ids = set(
+        re.findall(
+            r"(?m)^###\s+(FV-[0-9]+)\s+",
+            (ROOT / "docs/verification/frontend-verification.md").read_text(
+                encoding="utf-8"
+            ),
+        )
+    )
+    test_refs = {
+        ref
+        for item in test_design["content"]["tests"]
+        for ref in item["verification_refs"]
+    }
+    unknown_refs = sorted(test_refs - verification_ids)
+    required_test_refs = {
+        "FV-02", "FV-03", "FV-04", "FV-05",
+        "FV-06", "FV-07", "FV-08", "FV-09",
+    }
+    missing_test_refs = sorted(required_test_refs - test_refs)
+    if unknown_refs or missing_test_refs:
+        raise SystemExit(
+            "Frontend Test Design verification trace invalid: "
+            f"unknown={unknown_refs} missing_test_obligations={missing_test_refs}"
+        )
+    print(
+        "Frontend Test Design: ACCEPTED "
+        f"({len(test_design['content']['tests'])} executable contracts)"
     )
 
     require_complete(

@@ -163,6 +163,12 @@ artifacts:
     provides: [prep.frontend-verification]
     depends_on: [PRODUCT-CAPABILITIES, PRESENTATION-VERIFICATION, FRONTEND-SYSTEM-ARCHITECTURE, MACHINE-INTERFACES]
 
+  - id: FRONTEND-TEST-DESIGN
+    authority: TEST-DESIGN
+    path: docs/verification/frontend-test-design.yaml
+    provides: [prep.frontend-test-design]
+    depends_on: [FRONTEND-VERIFICATION, INTERACTION-DESIGN, SCREEN-VIEW-DESIGN]
+
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
     authority: MODEL-CONTEXT-STRATEGY
