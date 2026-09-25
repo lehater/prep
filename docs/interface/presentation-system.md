@@ -2,12 +2,13 @@
 
 ## Purpose
 
-Define shared presentation and interaction conventions for the accepted target-centric learner workflow plus global reusable Library curation without choosing frontend framework mechanics or encoding domain semantics in styling.
+Define shared presentation and interaction conventions for the accepted two-mode product: target-centric Learning plus reusable-data/target-profile Curation, without choosing frontend framework mechanics or encoding domain semantics in styling.
 
 ## Interaction principles
 
-- **Learner context first in Targets.** The selected LearningTarget remains visible while the learner moves through knowledge, questions, study and statistics.
-- **Curation is explicit.** Editing reusable Knowledge/Requirements/Questions and repairing corpus quality belong to Library context rather than appearing as implicit learner chores.
+- **Mode is explicit.** Learning and Curation are visibly different task contexts even when the same physical user performs both.
+- **Learner context first.** Inside Learning, the selected curated LearningTarget remains visible while the learner moves through knowledge, questions, study and statistics.
+- **Curation is explicit.** Editing target scope, reusable Knowledge/Requirements/Questions and corpus quality belongs to Curation rather than appearing as implicit learner chores.
 - **Reuse is explicit.** Target views project reusable canonical objects; they do not imply that Knowledge, Requirements or Questions are owned by the target.
 - **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
 - **One canonical identity, contextual capabilities.** The same canonical object may be viewed from learner or curation context while edit capabilities remain context-specific.
@@ -17,32 +18,41 @@ Define shared presentation and interaction conventions for the accepted target-c
 
 ## Shared application composition
 
-The application shell provides persistent access to:
+The application shell provides an explicit way to enter/switch between:
 
-- **Targets**;
-- **Library**.
+- **Learning**;
+- **Curation**.
+
+The exact switcher/navigation mechanism is downstream.
 
 A compact global integration/status/settings surface may expose external-runtime connectivity/configuration.
 
-Study and Statistics are contextual learner capabilities. Import is a contextual Library capability.
+Study and Statistics are contextual Learning capabilities. Import is a contextual Curation/Library capability.
 
-## Targets presentation pattern
+## Learning presentation pattern
+
+Learning starts with selection of an existing curated LearningTarget. Learning mode provides no create/edit/recompose actions for target scope.
 
 When a target is open, presentation preserves:
 
 - target identity and concise definition;
 - local learner navigation for Overview, Scope, Knowledge, Questions, Study and Statistics;
 - available-material facts relevant to the current section;
-- a stable way back to Targets;
-- an explicit switch to Library when the same v1 user chooses to curate reusable material.
+- a stable way back to target selection;
+- an explicit switch to Curation when the same v1 user chooses to author or repair reusable material/target structure.
 
 Detailed structural/semantic curation diagnostics should not dominate learner surfaces.
 
 The exact tab/route/sidebar mechanics are downstream choices.
 
-## Library presentation pattern
+## Curation presentation pattern
 
-Library exposes Knowledge, Requirements/RequirementSets and Questions as reusable collections.
+Curation exposes:
+
+- prepared LearningTargets and their Requirement/RequirementSet composition;
+- the reusable Library of Knowledge, Requirements/RequirementSets and Questions.
+
+Library collections remain collection-first.
 
 Each collection may provide supported search/filter controls, creation, canonical detail/edit access, alignments and contextual Import.
 

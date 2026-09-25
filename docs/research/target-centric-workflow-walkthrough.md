@@ -4,7 +4,7 @@ Status: UX evidence for Human Interface revalidation. This document does not def
 
 ## Purpose
 
-Stress-test the accepted **target-centric learner workflow + global reusable Library curation** against one concrete end-to-end scenario before frontend/component design.
+Stress-test the accepted **Learning mode + Curation mode** split against one concrete end-to-end scenario before frontend/component design.
 
 The example target name and subject examples are illustrative; they do not become canonical subject data.
 
@@ -18,8 +18,8 @@ A separate curation task may maintain the reusable corpus. In v1 the same physic
 
 | Step | Learner intent | Interaction context | Canonical effect / output | UX finding |
 |---|---|---|---|---|
-| 1 | Start preparing for the interview | Targets | Create/open LearningTarget Python Backend Interview | Target is the natural persistent learner context. |
-| 2 | Establish/use target scope | Target -> Scope | Use selected reusable Requirements/RequirementSets | Who establishes this scope is still unresolved; do not force raw Requirement curation onto a novice learner. |
+| 1 | Start preparing for the interview | Learning -> target selection | Select existing curated LearningTarget Python Backend Interview | Target is the natural persistent learner context; learner does not author it. |
+| 2 | Understand target scope | Target -> Scope | Read curated reusable Requirements/RequirementSets | Scope is prepared in Curation and read-only in Learning. |
 | 3 | Understand relevant subject structure | Target -> Knowledge | Project currently aligned KnowledgeNodes | Learner reads/explores reusable knowledge; missing semantic maintenance is not an implicit learner task. |
 | 4 | Explore relationships when useful | Target -> Knowledge -> graph | Presentation-only navigation | Target-scoped graph has a concrete structural-exploration task. 2D/3D remains unproven. |
 | 5 | See available retrieval material | Target -> Questions | Project currently aligned Questions | Learner consumes the available corpus; semantic coverage adequacy is a separate curation concern. |
@@ -42,18 +42,21 @@ A separate curation task may maintain the reusable corpus. In v1 the same physic
 
 ~~~text
 Prep
-├── Targets                       learner context
-│   └── Target workspace
+├── Learning
+│   └── select curated Target
+│       └── Target workspace
 │       ├── Overview
 │       ├── Scope
 │       ├── Knowledge
 │       ├── Questions
 │       ├── Study
 │       └── Statistics
-└── Library                       curation context
-    ├── Knowledge
-    ├── Requirements
-    └── Questions
+└── Curation
+    ├── Targets
+    └── Library
+        ├── Knowledge
+        ├── Requirements
+        └── Questions
 ~~~
 
 Import is contextual to Library data kinds. External-runtime configuration/status is a secondary application concern.
@@ -84,16 +87,10 @@ The future overlay is blocked by missing Question -> KnowledgeNode learner-state
 - target statistics are current projections over Question-level observations, not historical target-state evidence;
 - graph manipulation is presentation-only and all core tasks have non-graph paths.
 
-## Unresolved decision discovered by the walkthrough
+## Resolved target-scope decision
 
-A learner may know the desired outcome without knowing the correct reusable Requirements that define it.
+The learner selects an existing curated LearningTarget/profile and does not edit its Requirement/RequirementSet composition in Learning mode.
 
-Current domain/application semantics allow a LearningTarget to select Requirements/RequirementSets, but the interaction owner of that selection is not sufficiently established.
+Target creation and scope composition belong to Curation mode.
 
-Before final Target -> Scope design, decide whether:
-
-1. the learner directly selects reusable Requirements;
-2. the learner selects a curated target/profile whose Requirement scope is prepared by curation;
-3. another hybrid/system-assisted model is needed.
-
-This is an Application Design / journey decision, not a component-layout choice.
+This keeps learner interaction focused on learning while preserving the ability for the same single-user operator to switch into curation when they intentionally want to author the learning structure.

@@ -128,9 +128,9 @@ questions:
     blocks: [SCREEN-VIEW-DESIGN]
     resolution: APPLICATION-DESIGN
 
-  - id: Q-QUESTION-COVERAGE-ADEQUACY
+  - id: Q-LEARNING-COVERAGE-MODEL
     authority: TACTICAL-DOMAIN-DESIGN
-    text: What semantic model should determine whether the Questions aligned to a KnowledgeNode adequately cover the knowledge that should be tested or retrieved, including whether adequacy is target-independent or depth-relative and how human versus automated judgment is represented?
+    text: What semantic model should determine whether learning support and assessment/evidence adequately cover a KnowledgeNode, Requirement or target capability, including artifact/activity kinds beyond Questions, cognitive/performance depth, context/transfer breadth, target dependence, and human versus automated judgment?
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN

@@ -2,30 +2,30 @@
 
 ## Purpose
 
-Define the minimum implementation-independent view responsibilities for the accepted target-centric learner workflow and global reusable Library curation.
-
-Target-scope authorship remains unresolved by Q-TARGET-SCOPE-AUTHORSHIP; therefore the Scope interaction contract is intentionally incomplete while the rest of the view model is revalidated.
+Define the minimum implementation-independent view responsibilities for the accepted two-mode product: target-centric Learning and reusable-data/target-profile Curation.
 
 ## Application shell
 
-Primary global navigation exposes:
+The shell provides an explicit way to enter/switch between:
 
-- **Targets**;
-- **Library**.
+- **Learning**;
+- **Curation**.
 
 A secondary integration/status/settings affordance may expose configured external-runtime state.
 
-Study and Statistics are not primary global destinations. Import is entered from Library context.
+Study and Statistics remain inside Learning target context. Import is entered from Curation/Library context.
 
-## Targets workspace
+## Learning target selection
 
-Purpose: find, create and resume LearningTargets.
+Purpose: choose the prepared learning profile to study.
 
 Capabilities:
 
-- browse/open existing targets;
-- create a target;
-- expose enough target identity/definition to choose the intended work context.
+- browse/search existing curated LearningTargets;
+- open/select one target;
+- expose enough target identity/definition/scope summary to choose the intended learning context.
+
+Learning mode does not create, edit or recompose LearningTargets.
 
 Opening a target enters the learner Target workspace.
 
@@ -52,13 +52,11 @@ Detailed curation-quality diagnostics belong to Library.
 
 ### Scope
 
-Shows the target's selected Requirements/RequirementSets.
+Shows the target's curated Requirements/RequirementSets as read-only learner scope.
 
-Exactly how scope is established is blocked by Q-TARGET-SCOPE-AUTHORSHIP. The view must not yet assume one of these alternatives:
+The learner may inspect and navigate the scope but cannot add/remove Requirements or edit RequirementSets in Learning mode.
 
-- learner directly selects individual reusable Requirements;
-- learner selects a curated target/profile whose scope is predefined;
-- curation/system logic establishes scope through another accepted operation.
+A deliberate switch to Curation opens the canonical target-profile editing context when the same v1 user wants to change scope.
 
 ### Knowledge
 
@@ -108,17 +106,26 @@ It provides navigation to canonical Question detail/history and does not label o
 
 If target composition later changes, this remains a current projection rather than immutable historical target attribution.
 
-## Library workspace
+## Curation workspace
 
-Purpose: maintain reusable canonical corpora independently of any target.
+Purpose: maintain prepared target profiles and reusable canonical learning data independently of the learner workflow.
 
-Library provides curation contexts for:
+Curation provides contexts for:
 
+- LearningTargets;
 - Knowledge;
 - Requirements/RequirementSets;
 - Questions.
 
-These are semantic subareas of one reusable Library; they are not required to be three peer global destinations.
+### LearningTarget collection/detail
+
+Collection: browse/search/create prepared LearningTargets.
+
+Detail/editor: edit target definition and compose its scope from reusable Requirements/RequirementSets. These operations define what Learning mode later exposes as a selectable prepared target/profile.
+
+### Library
+
+Knowledge, Requirements/RequirementSets and Questions form the reusable Library within Curation. They are semantic subareas, not necessarily peer global destinations.
 
 ### Knowledge collection/detail
 
@@ -142,7 +149,7 @@ Question detail/editor: edit question/direct answer, Knowledge alignments and fa
 
 Structural diagnostics such as unaligned Questions or Knowledge with no Questions may be shown when backed by accepted queries.
 
-Future semantic Question-set coverage adequacy belongs to curation, but no numeric/graded UI is defined until Q-QUESTION-COVERAGE-ADEQUACY is resolved.
+Future semantic learning-material/evidence coverage belongs to Curation, but no numeric/graded UI is defined until Q-LEARNING-COVERAGE-MODEL is resolved.
 
 ## Knowledge graph projection
 
@@ -180,11 +187,11 @@ Target-derived references and Library entries preserve canonical object identity
 
 No learner operation requires raw IDs, semantic curation or graph manipulation.
 
-## Current unresolved screen contract
+## Current status
 
-Q-TARGET-SCOPE-AUTHORSHIP blocks final composition of Target -> Scope and potentially the first-use Target workflow.
+The current v1 Screen/View responsibilities are revalidated against the explicit Learning/Curation mode split.
 
-All other current Screen/View responsibilities are revalidated against the learner/curator separation.
+The broader learning-material/evidence coverage research does not block the current Question-first learner slice and must not be represented as a fake completeness percentage.
 
 ## Deliberately unconstrained
 

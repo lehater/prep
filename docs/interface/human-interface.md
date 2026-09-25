@@ -6,26 +6,27 @@ Define implementation-independent human interaction for current Prep journeys. T
 
 ## Primary interaction model
 
-Prep uses a **target-centric learner workflow with a global reusable Library for curation**.
+Prep exposes two explicit task modes:
 
-A LearningTarget is the primary context for learning: choose or work within the intended outcome, inspect the currently available knowledge/questions for that target, build a Study Set, export it to the external study runtime and inspect returned review facts.
+- **Learning** — target-centric learner workflow over prepared LearningTargets;
+- **Curation** — authoring and quality-control workflow for reusable Targets, Knowledge, Requirements/RequirementSets, Questions and alignments.
 
-The Library is the primary context for maintaining reusable Knowledge, Requirements/RequirementSets, Questions, alignments and future learning-material quality diagnostics.
+A LearningTarget is the primary context inside Learning mode. The learner selects an existing curated target/profile, explores its currently available material, builds a Study Set, exports it to the external study runtime and inspects returned review facts.
 
-These are task contexts, not authentication roles. In the first single-user version the same person may switch between learner and curation work.
+These are interaction modes, not authentication roles. In the first single-user version the same physical person may switch between them.
 
 ## Information architecture
 
 ### Global locations
 
-The primary application locations are:
+The primary application modes are:
 
-- **Targets** — learner-oriented target selection and learning workflow;
-- **Library** — curator-oriented reusable knowledge/material maintenance.
+- **Learning** — choose a prepared target/profile and work through its learner workflow;
+- **Curation** — manage prepared target profiles and the reusable Library.
 
-External-runtime status/configuration is a secondary application concern rather than a peer learning workspace.
+Within Curation, the reusable Library includes Knowledge, Requirements/RequirementSets and Questions; curated LearningTargets are maintained alongside that Library because their scope is assembled from reusable requirements.
 
-Study and Statistics are reached through the selected Target context. Import is a contextual Library action for supported prepared-data kinds.
+External-runtime status/configuration is a secondary application concern. Study and Statistics remain inside the selected LearningTarget. Import is contextual to Curation/Library data kinds.
 
 ### Target workspace
 
@@ -56,8 +57,8 @@ Library work is valid without a selected target. Canonical objects remain global
 
 For a concrete target such as **Python Backend Interview**, the learner flow is:
 
-1. User creates or opens the LearningTarget.
-2. User works with the target's selected reusable Requirements/RequirementSets.
+1. Learner browses/searches available prepared LearningTargets and selects one.
+2. The selected target's curated Requirements/RequirementSets become read-only scope in Learning mode.
 3. Prep resolves currently available KnowledgeNodes from accepted alignments.
 4. User reads/explores that target-relevant Knowledge, optionally through a graph projection.
 5. Prep resolves currently available Questions from that Knowledge.
@@ -71,8 +72,9 @@ The learner is not asked to judge whether the Question set semantically covers e
 
 ## Curation workflow
 
-Library curation covers:
+Curation covers:
 
+- creating/editing reusable LearningTargets and composing each target from Requirements/RequirementSets;
 - authoring/editing reusable Knowledge;
 - authoring/editing Requirements/RequirementSets;
 - authoring/editing Questions;
@@ -104,9 +106,11 @@ These facts are not learner mastery, readiness, retention or automatically compu
 
 ### Scope
 
-Scope exposes the reusable Requirements/RequirementSets selected for the LearningTarget.
+Scope exposes the reusable Requirements/RequirementSets already curated for the selected LearningTarget.
 
-Selection/authorship policy for target scope remains unresolved by Q-TARGET-SCOPE-AUTHORSHIP. The interface must not assume whether the learner chooses individual Requirements directly, chooses a curated target/profile, or receives scope from curation/system logic until Application Design resolves that question.
+In Learning mode this composition is read-only. The learner may inspect what the target requires but does not add/remove Requirements or edit RequirementSets.
+
+Changing target scope requires an explicit switch to Curation mode and uses the canonical target-composition operations there.
 
 ### Knowledge
 
@@ -150,7 +154,9 @@ This is a current projection through reusable Question identities. It must not b
 
 Question detail may also expose its own review history independently of a target.
 
-## Library interaction
+## Curation interaction
+
+Curation contains target-profile maintenance plus reusable Library maintenance.
 
 Reusable corpus maintenance is collection-oriented:
 
@@ -204,8 +210,8 @@ Recoverable curation failures preserve entered data.
 
 - target-derived Knowledge/Requirement/Question references preserve canonical identity;
 - learner views may navigate to canonical detail in learner context;
-- editing/semantic maintenance is entered deliberately through Library curation;
-- Library navigation does not require a current target;
+- editing/semantic maintenance is entered deliberately through Curation mode;
+- Curation does not require an active learner target;
 - switching to curation must not silently mutate learner target semantics.
 
 ## Accessibility/usability baseline

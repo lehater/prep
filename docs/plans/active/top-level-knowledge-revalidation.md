@@ -56,12 +56,35 @@ Question-set coverage adequacy is a separate curation/learning-material quality 
 
 The future target-scoped Knowledge Graph learner-state overlay is recorded in docs/research/learner-state-graph-overlay.md and remains blocked by deferred learner-state inference semantics.
 
+## Accepted mode separation
+
+Prep now has two explicit task modes:
+
+- **Learning** — select an existing curated LearningTarget/profile and learn; target scope is read-only.
+- **Curation** — create/edit LearningTargets and compose their scopes; maintain reusable Knowledge, Requirements/RequirementSets, Questions and alignments.
+
+They are not authentication roles in v1; the same physical person may switch modes.
+
+Q-TARGET-SCOPE-AUTHORSHIP is resolved in APPLICATION-DESIGN: learner selects a prepared target/profile and does not edit its Requirement composition.
+
+## Coverage research
+
+The earlier Question-only coverage framing was too narrow. Dedicated research is captured in `docs/research/learning-coverage-research.md`.
+
+Current direction from research:
+
+- do not equate coverage with Question count;
+- distinguish learning-support coverage from assessment/evidence coverage;
+- consider content breadth, cognitive/performance depth and transfer/context variability;
+- keep human/curator semantic judgment authoritative until an accepted automated inference model exists;
+- do not broaden the v1 domain beyond Question solely because the research identifies future material/activity types.
+
+The unresolved semantic question is now Q-LEARNING-COVERAGE-MODEL. It does not block the current Question-first learner slice.
+
 ## Current frontier
 
-Q-TARGET-SCOPE-AUTHORSHIP now blocks final USER-JOURNEYS / Target Scope interaction:
+Human Interface, Presentation System and Screen/View Design have been reconciled to the Learning/Curation mode split.
 
-- does the learner directly select reusable Requirements/RequirementSets;
-- does the learner choose a curated target/profile whose scope is prepared by curation;
-- or is another system-assisted composition model required?
+Do not implement learner-state graph coverage or learning-material completeness percentages until their upstream semantic models exist.
 
-Do not finalize Target Scope screen composition or descend into frontend implementation until this application-level behavior is resolved.
+The next domain/product expansion around learning material types should be driven by Q-LEARNING-COVERAGE-MODEL research rather than by UI convenience.
