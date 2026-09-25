@@ -33,3 +33,8 @@ The old bootstrap/process/domain files are likewise not imported because the cur
 ## Retirement criterion
 
 After this audit is merged, each audited branch contains no unique knowledge that must remain authoritative. The branch refs may be deleted. Git history is not a source of current project truth.
+
+
+## Preserved executable experiment
+
+The complete runnable knowledge-representation prototype is preserved at branch `experiments/knowledge-representation-3d`, rooted at commit `45c193ac0a50b6023a29e9a87f404b794a24a955`. It contains the Storybook/pages, 3D renderer, interaction/physics/camera behavior, card detail, graph fixtures, density fixture including the large-node stress path, instanced rendering helpers, and Knowledge Graph synchronization tooling. This branch is deliberately not merged into main until current product/domain/UX evidence justifies adopting some or all of it.
