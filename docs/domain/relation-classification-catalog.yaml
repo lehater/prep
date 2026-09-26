@@ -1,0 +1,546 @@
+version: 1
+kind: prep-relation-classification-catalog
+status: research-candidate
+
+purpose:
+  statement: >
+    Machine-readable guidance for classifying semantic relations between
+    Knowledge nodes without forcing assertions into an underspecified flat enum.
+  governing_principles:
+    - prefer_semantic_precision_over_small_vocabulary
+    - choose_the_most_specific_supported_leaf_predicate
+    - never_invent_an_edge_when_evidence_is_insufficient
+    - never_use_inverse_wording_as_a_second_independent_fact
+    - broad_families_are_for_classification_and_filtering_not_visible_leaf_edges
+    - propose_a_new_leaf_when_a_real_relation_exists_but_no_registered_leaf_fits
+
+classification_outcomes:
+  matched:
+    meaning: Existing leaf predicate fits the source assertion exactly enough.
+    required_output:
+      - predicate
+      - source_id
+      - target_id
+      - evidence
+      - confidence
+  candidate_needed:
+    meaning: >
+      A meaningful directional relation is supported, but no registered leaf
+      predicate captures it without semantic loss.
+    required_output:
+      - family
+      - proposed_predicate
+      - proposed_definition
+      - source_role
+      - target_role
+      - direction
+      - inverse_label
+      - evidence
+      - nearest_existing_predicates
+      - why_existing_predicates_fail
+  insufficient_evidence:
+    meaning: >
+      The texts do not support a precise semantic assertion between the nodes.
+      No edge must be created.
+    required_output:
+      - reason
+      - evidence_considered
+
+classification_algorithm:
+  - step: extract_proposition
+    instruction: >
+      Rewrite the asserted relation as one concrete sentence:
+      "<source> <verb phrase> <target>". Do not classify before this sentence
+      is meaningful on its own.
+  - step: identify_family
+    instruction: >
+      Choose the narrowest relation family whose role pattern fits the proposition.
+  - step: test_registered_leaves
+    instruction: >
+      Evaluate candidate leaf predicates using definition, source_role,
+      target_role, positive_tests, negative_tests and contrast_with.
+  - step: choose_most_specific
+    instruction: >
+      Select the most specific leaf fully supported by evidence. Never choose a
+      broader leaf merely because it is registered.
+  - step: inverse_check
+    instruction: >
+      If the apparent relation is only the inverse reading of an existing
+      canonical predicate, store one canonical edge and derive the inverse label.
+  - step: unresolved
+    instruction: >
+      If a real relation is supported but no leaf fits, return candidate_needed.
+      If the relation itself is not supported precisely, return insufficient_evidence.
+
+relation_families:
+  - id: taxonomic
+    basis: ISO_704_generic_relation
+    meaning: Kind/subkind organization.
+  - id: partitive
+    basis: ISO_704_partitive_relation
+    meaning: Whole/part organization.
+  - id: realization
+    basis: ArchiMate_realization_plus_Prep_semantics
+    meaning: Concrete realization of an abstraction.
+  - id: problem_response
+    basis: Prep_domain_extension
+    meaning: Problem and solution/mitigation roles.
+  - id: causal_temporal_developmental
+    basis: ISO_704_sequential_associative_relations
+    meaning: Cause, temporal order, triggering and development.
+  - id: activity_participation_instrument
+    basis: ISO_704_activity_and_instrumental_relations
+    meaning: Agent, object, tool, method and participation roles around activity.
+  - id: production_origination_transformation
+    basis: ISO_704_origination_plus_PROV_O
+    meaning: Production, generation and transformation of outputs/entities.
+  - id: interaction_control
+    basis: ISO_704_interactional_plus_ArchiMate_behavior
+    meaning: Control, evaluation, enforcement and service interaction.
+  - id: transmission_information_flow
+    basis: ISO_704_transmission_plus_ArchiMate_flow_access
+    meaning: Information/data/value transfer and access.
+  - id: representation_provenance
+    basis: ISO_704_representational_plus_PROV_O
+    meaning: Representation, provenance, lineage and derivation.
+  - id: contrast_opposition
+    basis: ISO_704_opposite_relations
+    meaning: Contrary or contradictory concepts.
+
+leaf_predicates:
+  - id: addresses
+    status: preferred
+    family: problem_response
+    label: addresses
+    inverse_label: addressed_by
+    definition: Source solves, mitigates, handles or responds to the target problem.
+    source_role: solution_or_response
+    target_role: problem
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Removing source would remove or weaken a documented response to target problem.
+      - The proposition "source addresses target" is useful without extra guessing.
+    negative_tests:
+      - Do not use for implementation_of_abstraction; use realizes.
+      - Do not use merely because source is related to the problem domain.
+    basis:
+      - Prep_domain_model
+
+  - id: realizes
+    status: preferred
+    family: realization
+    label: realizes
+    inverse_label: realized_by
+    definition: Source is a concrete realization, embodiment or implementation of target abstraction.
+    source_role: concrete_realization
+    target_role: abstraction
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Target can be understood independently as a more abstract idea/model/capability.
+      - Source is one concrete way that target exists or is implemented.
+    negative_tests:
+      - Do not use merely for taxonomic specialization.
+      - Do not import BFO process-realizes-role semantics by name alone.
+    basis:
+      - Prep_domain_model
+      - ArchiMate_Realization
+
+  - id: specializes
+    status: preferred
+    family: taxonomic
+    label: specializes
+    inverse_label: generalized_by
+    definition: Source is a narrower kind or specialization of target.
+    source_role: narrower_kind
+    target_role: broader_kind
+    direction: source_to_target
+    symmetric: false
+    transitive: true
+    positive_tests:
+      - Every instance/example of source is also a valid instance/example of target kind.
+    negative_tests:
+      - Do not use for part-whole.
+      - Do not use for implementation-abstraction unless source is genuinely a subtype.
+    basis:
+      - ISO_704_generic_relation
+      - ArchiMate_Specialization
+
+  - id: part_of
+    status: preferred
+    family: partitive
+    label: part_of
+    inverse_label: has_part
+    definition: Source is a constituent component or part of target whole.
+    source_role: part
+    target_role: whole
+    direction: source_to_target
+    symmetric: false
+    transitive: context_dependent
+    positive_tests:
+      - Source contributes to composition of target rather than being a subtype of it.
+    negative_tests:
+      - Do not use for membership in an arbitrary set unless set-membership semantics are intended.
+    basis:
+      - ISO_704_partitive_relation
+      - RO_parthood
+
+  - id: represents
+    status: candidate
+    family: representation_provenance
+    label: represents
+    inverse_label: represented_by
+    definition: Source symbolically, structurally or informationally stands for target.
+    source_role: representation
+    target_role: represented_entity
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Source can be interpreted as a model, symbol, encoding or representation of target.
+    negative_tests:
+      - Do not use for realization/implementation.
+    basis:
+      - ISO_704_representational_relation
+
+  - id: requires
+    status: candidate
+    family: interaction_control
+    label: requires
+    inverse_label: required_by
+    definition: >
+      Source cannot function, be valid, or achieve the asserted behavior without
+      target in the stated context. This is strict prerequisite semantics.
+    source_role: dependent
+    target_role: strict_prerequisite
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Evidence explicitly supports necessity, not convenience or ordinary use.
+      - Removing target makes the asserted source behavior impossible or invalid in context.
+    negative_tests:
+      - Do not use merely because source interacts with target.
+      - Do not use where a more precise mechanism such as reads_from, schedules, evaluates or serves is known.
+    contrast_with:
+      - serves
+      - supplies
+      - schedules
+      - executes
+      - reads_from
+      - evaluates
+    basis:
+      - Prep_narrow_prerequisite_semantics
+
+  - id: causes
+    status: candidate
+    family: causal_temporal_developmental
+    label: causes
+    inverse_label: caused_by
+    definition: Source causally brings about target.
+    source_role: cause
+    target_role: effect
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Evidence states a causal mechanism or causal assertion, not just correlation or temporal order.
+    negative_tests:
+      - Do not infer causality from precedes.
+    basis:
+      - ISO_704_causal_relation
+
+  - id: precedes
+    status: candidate
+    family: causal_temporal_developmental
+    label: precedes
+    inverse_label: follows
+    definition: Source intrinsically occurs before target in the modeled process or lifecycle.
+    source_role: earlier_stage_or_event
+    target_role: later_stage_or_event
+    direction: source_to_target
+    symmetric: false
+    transitive: context_dependent
+    positive_tests:
+      - Ordering is part of domain meaning, not an incidental example sequence.
+    negative_tests:
+      - Do not use for causality unless causal evidence exists.
+    basis:
+      - ISO_704_temporal_relation
+
+  - id: triggers
+    status: candidate
+    family: causal_temporal_developmental
+    label: triggers
+    inverse_label: triggered_by
+    definition: Occurrence or completion of source initiates target behavior or event.
+    source_role: triggering_event_or_behavior
+    target_role: initiated_behavior_or_event
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Target starts because source event/behavior occurs.
+    negative_tests:
+      - Do not use for mere temporal precedence.
+    contrast_with:
+      - precedes
+      - causes
+    basis:
+      - ArchiMate_Triggering
+
+  - id: produces
+    status: preferred
+    family: production_origination_transformation
+    label: produces
+    inverse_label: produced_by
+    definition: Source creates target as an output or result.
+    source_role: producer_activity_or_mechanism
+    target_role: output_or_result
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Target is an output/result attributable to source.
+    negative_tests:
+      - Do not use for transmission of a pre-existing target; use flows_to/supplies.
+    basis:
+      - ISO_704_originator_product
+      - PROV_O_generation
+
+  - id: serves
+    status: candidate
+    family: interaction_control
+    label: serves
+    inverse_label: served_by
+    definition: Source provides functionality or capability for target to consume.
+    source_role: provider
+    target_role: consumer
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Provider/consumer roles are explicit.
+    negative_tests:
+      - Do not use when the actual relation is data transfer, execution or strict prerequisite.
+    basis:
+      - ArchiMate_Serving
+
+  - id: flows_to
+    status: candidate
+    family: transmission_information_flow
+    label: flows_to
+    inverse_label: receives_flow_from
+    definition: Information, data, value or another transferable item moves from source to target.
+    source_role: sender_or_origin
+    target_role: receiver_or_destination
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - A transferable thing moves across the relation.
+    negative_tests:
+      - Do not use merely because target reads source without modeled transfer.
+    basis:
+      - ISO_704_transmission
+      - ArchiMate_Flow
+
+  - id: reads_from
+    status: candidate
+    family: transmission_information_flow
+    label: reads_from
+    inverse_label: read_by
+    definition: Source obtains data or information by reading target.
+    source_role: reader
+    target_role: data_source_or_passive_object
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Read/access mode is supported by evidence.
+    negative_tests:
+      - Do not use for write or generic service consumption.
+    basis:
+      - ArchiMate_Access_read
+
+  - id: writes_to
+    status: candidate
+    family: transmission_information_flow
+    label: writes_to
+    inverse_label: written_by
+    definition: Source writes data or information into target.
+    source_role: writer
+    target_role: data_sink_or_passive_object
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Write/access mode is supported by evidence.
+    negative_tests:
+      - Do not use for read or generic flow without persistence/update semantics.
+    basis:
+      - ArchiMate_Access_write
+
+  - id: evaluates
+    status: candidate
+    family: interaction_control
+    label: evaluates
+    inverse_label: evaluated_by
+    definition: Source determines a result, decision or applicability by evaluating target.
+    source_role: evaluator
+    target_role: evaluated_policy_rule_expression_or_input
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Source performs interpretation/checking/computation over target to determine an outcome.
+    negative_tests:
+      - Do not use for enforcement of an already-made decision.
+    contrast_with:
+      - enforces
+    basis:
+      - Prep_technical_domain_candidate
+
+  - id: enforces
+    status: candidate
+    family: interaction_control
+    label: enforces
+    inverse_label: enforced_by
+    definition: Source makes a policy, decision, constraint or rule effective in operation.
+    source_role: enforcement_mechanism
+    target_role: enforced_policy_decision_constraint_or_rule
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Source applies or prevents behavior according to target.
+    negative_tests:
+      - Do not use for deciding/evaluating target.
+    contrast_with:
+      - evaluates
+    basis:
+      - Prep_technical_domain_candidate
+      - ArchiMate_behavioral_semantics
+
+  - id: supplies
+    status: candidate
+    family: transmission_information_flow
+    label: supplies
+    inverse_label: supplied_by
+    definition: Source provides target with information or input that target consumes.
+    source_role: information_or_input_provider
+    target_role: consumer
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - The supplied information/input is identifiable from evidence.
+    negative_tests:
+      - Do not use if source merely makes target possible in an unspecified way.
+    basis:
+      - ISO_704_transmission_roles
+      - Prep_technical_domain_candidate
+
+  - id: schedules
+    status: candidate
+    family: activity_participation_instrument
+    label: schedules
+    inverse_label: scheduled_by
+    definition: Source plans, queues or selects target work for execution.
+    source_role: scheduler
+    target_role: schedulable_work
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Source controls when/which target work becomes runnable or selected.
+    negative_tests:
+      - Do not use for direct execution when scheduling is not asserted.
+    contrast_with:
+      - executes
+    basis:
+      - Prep_technical_domain_candidate
+
+  - id: executes
+    status: candidate
+    family: activity_participation_instrument
+    label: executes
+    inverse_label: executed_by
+    definition: Source directly performs or runs target work.
+    source_role: executor
+    target_role: executable_work
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Evidence indicates source advances/performs target execution.
+    negative_tests:
+      - Do not use for merely scheduling or containing target.
+    contrast_with:
+      - schedules
+    basis:
+      - Prep_technical_domain_candidate
+
+  - id: organizes
+    status: candidate
+    family: activity_participation_instrument
+    label: organizes
+    inverse_label: organized_by
+    definition: Source structures target units according to an organizing model, scope or rule.
+    source_role: organizing_model_strategy_or_structure
+    target_role: organized_unit
+    direction: source_to_target
+    symmetric: false
+    transitive: false
+    positive_tests:
+      - Source determines meaningful grouping/lifetime/structure of target units.
+    negative_tests:
+      - Do not use for generic containment or part_of.
+    basis:
+      - Prep_technical_domain_candidate
+
+deprecated_broad_leaf_predicates:
+  - id: uses
+    disposition: family_or_legacy_only
+    reason: >
+      Too broad: may hide invocation, scheduling, execution, evaluation,
+      access, instrumentation, enforcement, organization or other interactions.
+  - id: depends_on
+    disposition: legacy_only
+    reason: >
+      Too broad and often duplicates an inverse view of another relation.
+      Replace with the actual prerequisite or mechanism.
+  - id: enables
+    disposition: family_or_legacy_only
+    reason: >
+      Causal contribution without an explicit mechanism is too weak for a
+      visible leaf edge.
+  - id: derives_from
+    disposition: provenance_family_or_qualified_subtype_only
+    reason: >
+      Derivation can mean computation, transformation, revision, quotation,
+      historical lineage or design influence; classify the subtype.
+
+proposal_policy:
+  allow_new_candidate: true
+  requirements:
+    - concrete_definition
+    - source_role
+    - target_role
+    - canonical_direction
+    - inverse_label_if_useful
+    - positive_example
+    - counterexample_or_negative_test
+    - nearest_existing_predicates
+    - reason_existing_predicates_do_not_fit
+    - evidence_from_source_content
+  promotion_to_preferred:
+    requires:
+      - repeated_independent_corpus_examples
+      - clear_boundary_from_sibling_predicates
+      - theory_or_standard_anchor_when_available
+      - successful_human_readable_proposition_test
+      - no_material_semantic_loss_from_classification
