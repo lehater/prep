@@ -9,6 +9,15 @@ ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 FENCED_BLOCK = re.compile(r"```.*?```", re.DOTALL)
 IGNORED_SCHEMES = {"http", "https", "mailto", "tel", "data"}
+IGNORED_PATH_PARTS = {
+    ".git",
+    ".harness-tool",
+    "node_modules",
+    "dist",
+    "coverage",
+    "playwright-report",
+    "test-results",
+}
 
 
 def _target_from_markdown(raw: str) -> str:
@@ -18,6 +27,11 @@ def _target_from_markdown(raw: str) -> str:
     # Markdown permits an optional title after the URL. Repository paths in this
     # project do not contain spaces, so the first token is the target.
     return raw.split(maxsplit=1)[0]
+
+
+def _is_repository_owned(path: Path) -> bool:
+    relative = path.relative_to(ROOT)
+    return not any(part in IGNORED_PATH_PARTS for part in relative.parts)
 
 
 def validate_file(path: Path) -> list[str]:
@@ -52,11 +66,11 @@ def validate_file(path: Path) -> list[str]:
 
 def main() -> int:
     errors: list[str] = []
-    markdown_files = sorted(ROOT.rglob("*.md"))
+    markdown_files = [
+        path for path in sorted(ROOT.rglob("*.md")) if _is_repository_owned(path)
+    ]
 
     for path in markdown_files:
-        if ".git" in path.parts:
-            continue
         errors.extend(validate_file(path))
 
     if errors:

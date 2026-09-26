@@ -1,6 +1,10 @@
-# Implementation Design
+# Legacy Implementation Design
 
-## Purpose
+Status: historical pre-revalidation solution artifact; not current canonical implementation authority.
+
+Current production frontend implementation design is `docs/implementation/frontend-implementation-design.md` and is registered through `.harness/core.yaml`.
+
+## Historical purpose
 
 Define the repository state from which coding agents may implement without inventing architecture-significant decisions.
 

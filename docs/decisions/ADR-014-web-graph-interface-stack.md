@@ -1,6 +1,9 @@
 # ADR-014 — Use a browser React/TypeScript graph-first interface
 
-Status: Accepted
+Historical status: Accepted under the previous graph-first solution hypothesis
+Current canonicality: Superseded as normative frontend authority by the current Harness Core artifacts
+
+The React/TypeScript and renderer choices below remain useful implementation evidence, but they no longer authorize a graph-first whole-product composition or a specific current provider/renderer choice. Current frontend semantics and structural boundaries are owned by `docs/interface/**`, `docs/architecture/frontend-system-architecture.md`, `docs/engineering/frontend-engineering-policy.md` and `docs/implementation/frontend-component-design.md`.
 
 ## Context
 

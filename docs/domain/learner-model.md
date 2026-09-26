@@ -2,72 +2,71 @@
 
 ## Purpose
 
-Define learner-specific evidence and inferred state independently of reusable subject knowledge and target-specific learning policy.
+Define the minimal learner-specific record of learning statistics independently of reusable subject knowledge and target-specific learning policy.
 
 ## Core distinctions
 
-### Observation
+### Question Evidence Subject
 
-A record that something relevant occurred: an answer, retrieval, explanation, solution, implementation, assessment result or other performance event.
+Question is the canonical subject of directly recorded learning observations and evidence.
 
-An observation is historical fact about an interaction, not by itself a claim that knowledge is mastered.
+KnowledgeNode and Requirement state are not direct observations. Any state attributed to them is a later inference derived from evidence about related Questions.
 
-### Evidence
+### Review Observation
 
-An interpretation of one or more observations for a particular knowledge/requirement claim, including relevance, strength and context.
+For the first integration-driven slice, the recorded statistics follow the semantics of an Anki review log while remaining source-neutral in the Learner Model.
 
-### Inferred State
+A Review Observation records one answering of a Question:
 
-The current evidence-backed estimate of a learner's state with respect to knowledge or a requirement.
+```text
+ReviewObservation
+  question: Question
+  occurred_at
+  rating: Again | Hard | Good | Easy
+  previous_interval
+  next_interval
+  duration
+  review_phase: Learning | Review | Relearning | Early
+```
 
-The state may include uncertainty; absence of evidence is not automatically evidence of absence.
+The rating semantics follow the initial integration contract: Again means failed recall; Hard, Good and Easy mean successful recall with different self-reported difficulty. Intervals record the scheduling interval before and after the review. Duration records time spent before choosing the rating. Review phase records the scheduling context in which the answer occurred.
 
-### State Uncertainty
+These fields are recorded facts/statistics. Prep does not currently interpret them as mastery, proficiency, confidence or knowledge state.
 
-The explicit uncertainty of an inferred learner state. Uncertainty is first-class domain information: the system may know that it does not yet know whether a learner can satisfy a requirement.
+This vocabulary is intentionally integration-driven rather than claimed as a universal learning model. A later integration may demonstrate that the model must be generalized or revised.
 
-Reducing uncertainty can therefore be a legitimate reason to request new evidence independently of a learning intervention.
-
-### Retention / Decay
-
-The degree to which older evidence remains predictive of present availability. This affects confidence in inferred state rather than rewriting historical observations.
 
 ## Ownership
 
 Learner Model owns:
 
-- learner-specific observations;
-- evidence derived from observations;
-- inferred state;
-- explicit state uncertainty;
-- retention/decay interpretation;
-- evidence history needed to explain current state.
+- learner-specific Review Observations about Questions;
+- review history and statistics reproducible from those observations.
 
-It references Knowledge Model identities and target/evidence context from Learning Design.
+Interpretation of those statistics into evidence strength, inferred learner state, uncertainty, retention/decay, knowledge state or requirement state is deferred.
+
+It references Questions from Learning Design as the canonical subjects of recorded learning observations and statistics. Knowledge Model identities and Requirements may receive derived interpretations later, but such interpretation is outside the current model.
 
 It does not own subject meaning, target policy, gaps or learning priorities.
 
 ## Research influence
 
-ALEKS / Knowledge Space Theory supports the distinction between observable responses and latent knowledge state.
-
-Moodle Competencies separates activities/evidence from competency proficiency and supports evidence from multiple sources, including prior learning.
-
-xAPI and 1EdTech Caliper provide precedents for treating learning interactions as typed event records rather than direct mastery claims. Prep adopts this evidence-layer separation without adopting either event schema at this stage.
+The initial Review Observation vocabulary is deliberately shaped by the first planned learning-system integration. It preserves review-history facts without importing that system's scheduler or inferred memory model into Prep.
 
 ## Invariants
 
-- Observation != Evidence != Inferred State.
-- historical observations are not rewritten when an inference changes;
-- inferred state must be traceable to evidence;
-- uncertainty must be representable independently of positive or negative capability estimates;
-- unknown != not known / not capable;
-- evidence may become less predictive with time without deleting the underlying observation;
-- learner state cannot redefine reusable subject semantics.
+- historical Review Observations are not rewritten;
+- absence of observations is not a negative learning result;
+- every Review Observation remains attributable to Question identity;
+- learner statistics cannot redefine reusable subject semantics;
+- interpretation of statistics into learner, KnowledgeNode or Requirement state is not part of the current model.
 
-## Open questions
+## Deferred questions
 
-- what evidence-strength model is sufficient for the initial product;
-- whether state should be modeled per knowledge unit, requirement, capability dimension or a combination;
+- whether later integrations require a more general observation vocabulary;
+
+- what evidence-strength model should interpret recorded statistics;
+- whether and how statistics should produce inferred learner state;
+- how inferred state may propagate from Questions to KnowledgeNodes or Requirements;
 - how context and transfer limitations affect evidence reuse;
 - what decay/retention model is justified before sufficient empirical data exists.
