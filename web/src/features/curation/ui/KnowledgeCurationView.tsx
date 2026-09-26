@@ -45,6 +45,7 @@ export function KnowledgeCurationView({
   const [relationType, setRelationType] =
     useState<KnowledgeRelationType>("addresses");
   const [message, setMessage] = useState<string>();
+  const [showCreate, setShowCreate] = useState(false);
   const [reloadVersion, setReloadVersion] = useState(0);
 
   useEffect(() => {
@@ -94,6 +95,7 @@ export function KnowledgeCurationView({
     });
     if (outcome.status === "success") {
       setNewContent("");
+      setShowCreate(false);
       setMessage("KnowledgeNode created.");
       setReloadVersion((value) => value + 1);
       selectKnowledge(outcome.value.node.id);
@@ -148,11 +150,34 @@ export function KnowledgeCurationView({
   return (
     <Stack spacing={2}>
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={2}
-        sx={{ alignItems: "stretch" }}
+        component="section"
+        aria-label="Knowledge authoring actions"
+        direction="row"
+        spacing={1}
+        sx={{ alignItems: "center", flexWrap: "wrap" }}
       >
-        <Paper variant="outlined" sx={{ p: 1.5, flex: 1, minWidth: 0 }}>
+        <Button
+          variant={showCreate ? "contained" : "outlined"}
+          onClick={() => setShowCreate((value) => !value)}
+          aria-expanded={showCreate}
+        >
+          New Knowledge
+        </Button>
+        <Button component={Link} to="/curation/import?kind=knowledge">
+          Import Knowledge
+        </Button>
+        <Typography variant="body2" color="text.secondary">
+          Create or import only when needed; graph exploration remains the primary workspace.
+        </Typography>
+      </Stack>
+
+      {showCreate ? (
+        <Paper
+          component="section"
+          aria-label="New Knowledge"
+          variant="outlined"
+          sx={{ p: 1.5, maxWidth: 760 }}
+        >
           <Typography component="h3" variant="h6">
             New KnowledgeNode
           </Typography>
@@ -180,23 +205,15 @@ export function KnowledgeCurationView({
               value={newContent}
               onChange={(event) => setNewContent(event.target.value)}
             />
-            <Button type="submit" variant="contained" sx={{ alignSelf: "flex-start" }}>
-              Create Knowledge
-            </Button>
+            <Stack direction="row" spacing={1}>
+              <Button type="submit" variant="contained">
+                Create Knowledge
+              </Button>
+              <Button onClick={() => setShowCreate(false)}>Cancel</Button>
+            </Stack>
           </Stack>
         </Paper>
-        <Paper variant="outlined" sx={{ p: 1.5, flex: 1, minWidth: 0 }}>
-          <Typography component="h3" variant="h6">
-            Contextual import
-          </Typography>
-          <Typography color="text.secondary">
-            Apply a prepared Knowledge document without introducing source-extraction behavior.
-          </Typography>
-          <Button component={Link} to="/curation/import?kind=knowledge">
-            Import Knowledge
-          </Button>
-        </Paper>
-      </Stack>
+      ) : null}
 
       {message ? <Alert severity="info">{message}</Alert> : null}
 
