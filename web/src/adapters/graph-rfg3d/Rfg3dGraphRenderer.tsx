@@ -979,9 +979,7 @@ export function Rfg3dGraphRenderer({
             }
             linkDirectionalParticleWidth={1.5}
             linkDirectionalParticleColor={linkColor}
-            linkLabel={(link) =>
-              `${link.relationType}: ${endpointId(link.source)} → ${endpointId(link.target)}`
-            }
+            linkLabel={(link) => link.relationType}
             onEngineTick={handleEngineTick}
             onEngineStop={handleEngineStop}
           />
