@@ -572,7 +572,7 @@ export function Rfg3dGraphRenderer({
           { x: 0, y: 0, z: 0 },
           450,
         );
-      } else {
+      } else if (command.type === "focus-node") {
         const node = graphData.nodes.find(
           (candidate) => candidate.id === command.knowledgeId,
         );
