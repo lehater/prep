@@ -38,6 +38,29 @@ describe("Knowledge explorer route context", () => {
     expect(parsed.relationTypes).toEqual(["addresses", "realizes"]);
   });
 
+  test("preserves an explicit empty relation selection", () => {
+    const parsed = parseExplorerRouteState(
+      serializeExplorerRouteState({
+        query: "",
+        relationTypes: [],
+        focusedKnowledgeIds: [],
+      }),
+    );
+
+    expect(parsed.relationTypes).toEqual([]);
+  });
+
+  test("omits the relation parameter when all relation types are visible", () => {
+    const params = serializeExplorerRouteState({
+      query: "",
+      relationTypes: undefined,
+      focusedKnowledgeIds: [],
+    });
+
+    expect(params.has("relation")).toBe(false);
+    expect(parseExplorerRouteState(params).relationTypes).toBeUndefined();
+  });
+
   test("serializes accepted relation multi-selection as one stable route value", () => {
     const parsed = parseExplorerRouteState(
       serializeExplorerRouteState({
