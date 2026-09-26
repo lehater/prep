@@ -71,7 +71,7 @@ test("selecting Knowledge preserves the live graph renderer", async ({ page }) =
   const graphHandle = await graph.elementHandle();
   expect(graphHandle).not.toBeNull();
 
-  await page.getByRole("button", { name: "Browse Knowledge" }).click();
+  await page.getByRole("button", { name: "Browse" }).click();
   await page
     .getByRole("region", { name: "Knowledge list" })
     .getByRole("button", { name: /Linux server hardening/ })
@@ -86,7 +86,7 @@ test("selecting Knowledge preserves the live graph renderer", async ({ page }) =
 test("Knowledge authoring adds an accepted typed relation", async ({ page }) => {
   await page.goto("/curation/knowledge");
 
-  await page.getByRole("button", { name: "Browse Knowledge" }).click();
+  await page.getByRole("button", { name: "Browse" }).click();
   await page
     .getByRole("region", { name: "Knowledge list" })
     .getByRole("button", { name: /Linux server hardening/ })
