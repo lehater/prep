@@ -74,6 +74,20 @@ describe("buildGraphScene", () => {
     expect(scene.edges).toEqual([]);
   });
 
+  test("relation filters do not remove focused neighbor nodes", () => {
+    const scene = buildGraphScene(graph, {
+      focusedKnowledgeIds: ["idea"],
+      relationTypes: [],
+    });
+
+    expect(scene.nodes.map((node) => node.knowledgeId).sort()).toEqual([
+      "idea",
+      "implementation",
+      "problem",
+    ]);
+    expect(scene.edges).toEqual([]);
+  });
+
   test("focus is a bounded one-hop projection and relation filters remain semantic", () => {
     const scene = buildGraphScene(graph, {
       focusedKnowledgeIds: ["idea"],
