@@ -1,0 +1,36 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.information-architecture
+acceptance_id: frontend-decision-rebuild::prep.information-architecture::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: INFORMATION-ARCHITECTURE
+  path: docs/interface/information-architecture.yaml
+  capability: prep.information-architecture
+  changed_paths:
+    - docs/interface/information-architecture.yaml
+  canonical_references:
+    - referenced_path: docs/application/application-design.md
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/application/task-model.yaml
+    - referenced_path: docs/application/user-journeys.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - information-structure-not-screen-layout
+    basis: >-
+      Rebuilt only from the Harness read set. Information is grouped by user
+      intent into Learning, shared Knowledge and Curation, with explicit
+      contextual scope and semantic cross-links. Backend entity shape is not
+      used as the top-level organizing principle and routes/screens/layout
+      remain unconstrained.
