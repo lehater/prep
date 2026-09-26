@@ -162,7 +162,8 @@ Use:
 - React/router state for navigation and shareable route context;
 - local React state/reducer state for feature-local transient UI state;
 - TanStack Query for server/query-cache state once the HTTP adapter is active;
-- renderer-local refs/state for camera, force simulation, drag and hover mechanics.
+- renderer-local refs/state for camera, force simulation, drag and hover mechanics;
+- server/query effects keyed by semantic scope/query identity rather than incidental object identity, so selection/detail changes do not invalidate unchanged graph data.
 
 Do not add a general-purpose global client store in the initial production frontend.
 
@@ -309,7 +310,7 @@ Creates/adapts:
 
 Completion:
 
-- FTD-RESPONSIVE-GRAPH-WORKSPACE, FTD-GRAPH-CONTROL-SURFACE and FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS are green;
+- FTD-RESPONSIVE-GRAPH-WORKSPACE, FTD-KNOWLEDGE-SELECTION-RENDERER-CONTINUITY, FTD-GRAPH-CONTROL-SURFACE and FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS are green;
 - hardware FTD-GRAPH-STRESS-EVIDENCE is recorded for 1k/2k/5k workloads;
 - ordinary 2k/10k interaction meets the accepted approximately-30-FPS target under an appropriate supported profile on the reference desktop class;
 - idle renderer does not maintain avoidable continuous RAF work after settling;
@@ -431,6 +432,7 @@ Production frontend implementation is complete only when all of the following ho
 19. Revised wide/compact/narrow Knowledge spatial contracts are proven, with graph-primary composition and no required horizontal overflow.
 20. Accepted graph controls and Auto/Quality/Performance profiles preserve canonical semantics.
 21. Hardware-accelerated 1k/2k/5k stress evidence satisfies the Frontend Performance/Capacity verification obligations, including demand-driven idle behavior.
+22. Selecting Knowledge within an unchanged scope preserves graph-query/renderer lifetime and does not reset renderer-owned camera/layout merely because detail selection changed.
 
 ## Explicit implementation freedoms
 

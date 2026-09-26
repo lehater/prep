@@ -1,6 +1,6 @@
 # Frontend Release Evidence
 
-> **Status: FRC-01 COMPLETE.** The pre-FRC-01 FI-07 material below remains historical context. Current code/CI evidence plus physical GPU qualification satisfy the revised responsive, graph-control, semantic-preservation, stress, idle-resource and ordinary 2k/10k performance obligations.
+> **Status: FRC-01 REOPENED.** Physical GPU/performance evidence remains valid, but post-qualification live review found a Knowledge-selection renderer-lifetime regression and ordinary-desktop spatial-evidence gap. Correction is committed and fast deterministic checks pass; browser/full requalification is pending.
 
 ## Status and role
 
@@ -36,6 +36,7 @@ This evidence records how the production `web/` realization satisfies those obli
 |---|---|
 | FTD-MODE-WORKSPACE-NAVIGATION | `learning.spec.ts: selects a prepared target and preserves it across learner sections`; `knowledge.spec.ts: switches explicit Learning and Curation Knowledge contexts`; `curation.spec.ts: Curation exposes accepted sections without Learning editing internals`. |
 | FTD-TARGET-CONTEXT-PRESERVATION | `knowledge.spec.ts: preserves target search context while readable detail opens and closes`; `explorerRouteState.test.ts`. |
+| FTD-KNOWLEDGE-SELECTION-RENDERER-CONTINUITY | `curation.spec.ts: selecting Knowledge preserves the live graph renderer` verifies that ordinary detail selection does not disconnect/replace the active renderer for an unchanged global Knowledge scope. |
 | FTD-QUESTION-TO-KNOWLEDGE | `learning.spec.ts: Question to Knowledge navigation preserves target and focuses all alignments`; `learningRoutes.test.ts`. |
 | FTD-RECOVERABLE-FAILURE-PRESERVES-CONTEXT | `curation.spec.ts` validation/cycle cases; `studyFlow.test.ts`; HTTP-rendered retry in `http-states.spec.ts`. |
 | FTD-MACHINE-OUTCOME-MAPPING | `HttpAdapters.test.ts: maps accepted validation, conflict, unavailable and operational outcomes...` plus partial-external-failure case. |
@@ -170,7 +171,7 @@ The correction keeps accepted view semantics unchanged:
 - the graph renderer fills the layout area assigned by its consumer instead of imposing its own fixed `62vh` window;
 - Curation Knowledge authoring/import controls were compacted without changing their responsibilities.
 
-Executable evidence lives in `web/e2e/responsive-layout.spec.ts`. It verifies a 1920x1080 wide layout, a 1024x768 tablet reflow, a 390x844 mobile stack, graph/list/detail width relationships and absence of horizontal overflow.
+Executable evidence lives in `web/e2e/responsive-layout.spec.ts`. The current correction verifies a 1366x768 ordinary-desktop wide layout, a 1024x768 tablet reflow, a 390x844 mobile stack, graph/list/detail width relationships and absence of horizontal overflow.
 
 Responsive browser checkpoint workflow run `36199163419` passed production Vite build and all 19 Playwright tests.
 
@@ -247,3 +248,16 @@ Observed renderer:
 The accepted ordinary 2k/10k hardware target of approximately 30 FPS or better is satisfied. The 5k/25k result is retained as stress evidence and does not violate the ordinary-envelope requirement.
 
 FRC-01 physical qualification is complete.
+
+
+## Post-qualification live-review correction
+
+Live use after the previous FRC-01 qualification exposed a gap not covered by the accepted evidence:
+
+- Curation selection changed router state and re-rendered the parent with a new object instance for the same global Knowledge scope;
+- KnowledgeExplorer query effects depended on scope object identity, so list/graph data re-entered loading and the renderer was replaced even though semantic scope/topology had not changed;
+- the wide spatial test used only 1920x1080, which was too weak to represent ordinary desktop widths where supporting panes could still consume too much space.
+
+Correction commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes Knowledge scope by semantic value, keeps the live renderer connected across ordinary selection/detail changes, tightens wide side-pane bounds, reduces wide shell padding and moves the wide layout test to 1366x768. Permanent `Frontend fast` workflow run `36207434077` passes.
+
+The new Playwright regression and full release/browser gate have not yet been executed for this correction commit. Therefore the earlier FRC-01 COMPLETE claim is withdrawn until that evidence and manual running-UI review pass. Hardware benchmark results above remain valid for renderer throughput/resource behavior only.

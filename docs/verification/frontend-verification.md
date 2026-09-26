@@ -149,6 +149,7 @@ Frontend state follows accepted ownership:
 - shell owns top-level mode/navigation context;
 - Learning owns selected target/workspace context;
 - KnowledgeExplorer owns semantic filters/selection/focus intent;
+- semantically unchanged Knowledge scope does not invalidate graph query/renderer lifetime merely because selection/detail intent changes; renderer-local camera/layout remains continuous unless accepted focus/fit/reset/topology changes require otherwise;
 - renderer owns camera/layout/physics/transient gesture state;
 - server query/cache state remains in the feature/data-access boundary;
 - canonical business truth is not promoted into a global frontend mutable store.
@@ -157,7 +158,7 @@ Frontend state follows accepted ownership:
 
 **Evidence requirement**
 
-Source-structure review plus focused component/integration tests proving representative ownership boundaries and context preservation.
+Source-structure review plus focused component/integration tests proving representative ownership boundaries, context preservation and stable graph-query/renderer lifetime across selection/detail transitions that do not change semantic scope or topology.
 
 ### FV-09 — Presentation evidence closure
 

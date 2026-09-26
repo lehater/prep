@@ -42,11 +42,13 @@ python tools/check_harness_integration.py
 
 ## Current engineering frontier
 
-The frontend responsive/spatial/performance correction FRC-01 is complete and revalidated against canonical Harness `dd74a4876886beb134dedbb133974f765896db8e`.
+FRC-01 is reopened after live interface review found an implementation/state-lifetime defect that previous automated evidence did not cover.
 
-Graph-primary wide/compact/narrow composition, graph controls, semantic-preserving Auto/Quality/Performance degradation, optimized instanced/batched rendering, demand-driven idle pause, deterministic/CI verification, software stress evidence and physical GPU qualification all pass. The real-GPU ordinary 2k/10k Performance-profile benchmark measured approximately 57 FPS against the accepted ~30-FPS target.
+Commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes semantic Knowledge scope so ordinary selection/detail changes do not reload graph/list data or replace the live renderer, and tightens graph-primary proportions for ordinary 1366px-class desktop widths. Permanent `Frontend fast` run `36207434077` passes.
 
-There is no further frontend implementation slice implied by FRC-01. Select the next engineering frontier from current Harness/project priorities and its owning Consumer/Authority rather than extending frontend behavior opportunistically.
+The previous physical-GPU qualification remains valid renderer-performance evidence: ordinary 2k/10k measured approximately 57 FPS against the accepted ~30-FPS target. It does not prove interaction stability or spatial usability. Browser/full requalification plus manual confirmation of stable selection/layout are required before FRC-01 is COMPLETE again.
+
+Do not advance to a new non-frontend implementation frontier until this implementation-only correction is requalified.
 
 `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; successful renderer performance does not by itself prove that 3D improves user task outcomes.
 

@@ -23,6 +23,12 @@ content:
       operation: Open readable Knowledge detail and then close/return to the target Knowledge view.
       oracle: The same LearningTarget scope and accepted search/filter/focus intent remain active; renderer-only camera/layout state may change only within its presentation ownership.
 
+    - id: FTD-KNOWLEDGE-SELECTION-RENDERER-CONTINUITY
+      verification_refs: [FV-02, FV-08, FV-09]
+      precondition: A Knowledge workspace has loaded list, graph and detail access for one stable semantic scope and the live graph renderer is active.
+      operation: Select different Knowledge items through the list/detail path without changing Knowledge scope, semantic filters, relation filters or graph topology.
+      oracle: Selection/detail changes update accepted selection/detail presentation without reloading graph data or replacing the live renderer; renderer-owned camera/layout remains continuous unless the user explicitly invokes focus/fit/reset or accepted topology changes.
+
     - id: FTD-QUESTION-TO-KNOWLEDGE
       verification_refs: [FV-02, FV-08]
       precondition: A Study Question has one or more canonical aligned Knowledge ids within the current LearningTarget.

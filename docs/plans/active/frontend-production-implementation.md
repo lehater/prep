@@ -227,13 +227,13 @@ Manual review of the running frontend exposed an upstream design defect rather t
 
 The canonical frontend closure has therefore been reopened. FI-01..FI-07 remain historical implementation evidence against the previous baseline; they are not the current completion frontier.
 
-- [x] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence.
+- [ ] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence — REOPENED by post-qualification live UX review.
 
 FRC-01 must implement the revised dominant-graph frames, graph control surface and semantic-preserving performance profiles; adapt eligible renderer mechanics from `experiments/knowledge-representation-3d`; and record hardware-accelerated 1k/2k/5k evidence before production frontend closure is claimed again.
 
 ## FRC-01 implementation and CI evidence
 
-FRC-01 implementation correction is complete in code and deterministic/CI verification at checkpoint commit `240dc04f14f9b1a853aa3917e5a545989aa91b5f`, workflow run `36205548385`.
+Checkpoint `240dc04f14f9b1a853aa3917e5a545989aa91b5f`, workflow run `36205548385`, passed the previously defined FRC-01 evidence. That completion claim was later invalidated by live interface review because the evidence did not cover renderer lifetime across Knowledge selection and exercised wide spatial dominance only at 1920px.
 
 Passed evidence:
 
@@ -277,4 +277,18 @@ Measured Performance-profile results:
 
 The accepted ordinary **2k / 10k ≥30 FPS** hardware target is satisfied. The 5k / 25k workload is a stress envelope rather than an ordinary-frame-rate target; its measured degradation is recorded and remains semantically correct/responsive enough for stress evidence.
 
-FRC-01 is therefore complete. No additional frontend implementation work is implied by this correction slice.
+### Post-qualification live-review correction — REOPENED
+
+Live use exposed a concrete state-lifetime defect: Curation passed a semantically identical but referentially new global Knowledge scope on selection. KnowledgeExplorer effects depended on object identity, so selecting a Knowledge item re-entered list/graph loading and replaced the live renderer, producing visible page/graph jitter.
+
+Correction commit `603e7114ade6aa311a232f13c61ed9fec79249ef`:
+
+- stabilizes Knowledge scope by semantic value before query effects;
+- preserves the live graph renderer across ordinary selection/detail changes;
+- narrows supporting wide-layout panes and reduces shell edge padding so the graph receives a larger share on 1366px-class desktops;
+- moves the wide responsive executable check from 1920x1080 to 1366x768;
+- adds a browser regression asserting that Knowledge selection does not disconnect/replace the live graph renderer.
+
+Permanent `Frontend fast` run `36207434077` passes on the correction commit. Full browser/release requalification is still required before FRC-01 can return to COMPLETE.
+
+FRC-01 remains reopened; the next work is browser/full verification and manual confirmation of the corrected running UI, not a new frontend feature slice.
