@@ -217,9 +217,21 @@ export function KnowledgeExplorer({
 
   const retry = () => setReloadVersion((value) => value + 1);
 
-  const issueRendererCommand = (type: GraphRendererCommand["type"]) => {
+  const issueRendererCommand = (
+    command:
+      | Exclude<GraphRendererCommand["type"], "focus-node">
+      | { readonly type: "focus-node"; readonly knowledgeId: string },
+  ) => {
     commandSequence.current += 1;
-    setRendererCommand({ id: commandSequence.current, type });
+    if (typeof command === "string") {
+      setRendererCommand({ id: commandSequence.current, type: command });
+      return;
+    }
+    setRendererCommand({
+      id: commandSequence.current,
+      type: command.type,
+      knowledgeId: command.knowledgeId,
+    });
   };
 
   const toggleRelationType = (relationType: KnowledgeRelationType) => {
@@ -694,16 +706,15 @@ export function KnowledgeExplorer({
                   ↶
                 </Button>
               </Tooltip>
-              {routeState.selectedKnowledgeId &&
-              routeState.focusedKnowledgeIds.length === 0 ? (
-                <Tooltip title="Фокусировать выбранную статью" placement="left">
+              {routeState.selectedKnowledgeId ? (
+                <Tooltip title="Фокус камеры на выбранной ноде" placement="left">
                   <Button
                     size="small"
-                    aria-label="Focus selected"
+                    aria-label="Focus camera on selected node"
                     onClick={() =>
-                      updateRouteState({
-                        ...routeState,
-                        focusedKnowledgeIds: [routeState.selectedKnowledgeId!],
+                      issueRendererCommand({
+                        type: "focus-node",
+                        knowledgeId: routeState.selectedKnowledgeId!,
                       })
                     }
                     sx={{
@@ -721,11 +732,38 @@ export function KnowledgeExplorer({
                   </Button>
                 </Tooltip>
               ) : null}
-              {routeState.focusedKnowledgeIds.length > 0 ? (
-                <Tooltip title="Очистить фокус" placement="left">
+              {routeState.selectedKnowledgeId &&
+              routeState.focusedKnowledgeIds.length === 0 ? (
+                <Tooltip title="Показать выбранную ноду и её соседей" placement="left">
                   <Button
                     size="small"
-                    aria-label="Clear focus"
+                    aria-label="Show selected neighborhood"
+                    onClick={() =>
+                      updateRouteState({
+                        ...routeState,
+                        focusedKnowledgeIds: [routeState.selectedKnowledgeId!],
+                      })
+                    }
+                    sx={{
+                      minWidth: 34,
+                      width: 34,
+                      height: 34,
+                      p: 0,
+                      color: "rgba(255,255,255,0.9)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      backgroundColor: "rgba(11,18,32,0.58)",
+                      backdropFilter: "blur(6px)",
+                    }}
+                  >
+                    ⎔
+                  </Button>
+                </Tooltip>
+              ) : null}
+              {routeState.focusedKnowledgeIds.length > 0 ? (
+                <Tooltip title="Вернуть полный граф" placement="left">
+                  <Button
+                    size="small"
+                    aria-label="Clear neighborhood"
                     onClick={() =>
                       updateRouteState({ ...routeState, focusedKnowledgeIds: [] })
                     }
