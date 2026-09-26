@@ -180,6 +180,8 @@ export function Rfg3dGraphRenderer({
   const instancedLayerRef = useRef<InstancedNodeLayer | null>(null);
   const batchedLayerRef = useRef<BatchedLinkLayer | null>(null);
   const animationPausedRef = useRef(false);
+  const simulationStartedAtRef = useRef<number>(performance.now());
+  const engineSettledMsRef = useRef<number>();
   const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null);
   const [size, setSize] = useState({ width: 960, height: 600 });
 
@@ -220,6 +222,19 @@ export function Rfg3dGraphRenderer({
       }
       const renderer = graphRef.current?.renderer();
       const renderInfo = renderer?.info.render;
+      const context = renderer?.getContext();
+      const debugInfo = context?.getExtension("WEBGL_debug_renderer_info") as
+        | { UNMASKED_VENDOR_WEBGL: number; UNMASKED_RENDERER_WEBGL: number }
+        | null
+        | undefined;
+      const webglVendor =
+        context && debugInfo
+          ? String(context.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL))
+          : undefined;
+      const webglRenderer =
+        context && debugInfo
+          ? String(context.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
+          : undefined;
       onDiagnostics({
         nodeCount: graphData.nodes.length,
         edgeCount: graphData.links.length,
@@ -228,6 +243,10 @@ export function Rfg3dGraphRenderer({
         drawCalls: renderInfo?.calls,
         triangles: renderInfo?.triangles,
         pixelRatio: renderer?.getPixelRatio(),
+        renderFrame: renderInfo?.frame,
+        engineSettledMs: engineSettledMsRef.current,
+        webglVendor,
+        webglRenderer,
       } satisfies GraphRendererDiagnostics);
     },
     [
@@ -469,6 +488,10 @@ export function Rfg3dGraphRenderer({
         frame = requestAnimationFrame(apply);
         return;
       }
+      if (command.type === "diagnostics") {
+        emitDiagnostics(animationPausedRef.current);
+        return;
+      }
       resumeRenderer();
       if (command.type === "fit") {
         graph.zoomToFit(450, 48);
@@ -495,6 +518,7 @@ export function Rfg3dGraphRenderer({
   }, [
     captureViewport,
     command,
+    emitDiagnostics,
     onViewportChange,
     resumeRenderer,
     scheduleIdlePause,
@@ -590,6 +614,8 @@ export function Rfg3dGraphRenderer({
     if (webglAvailable !== true) {
       return;
     }
+    simulationStartedAtRef.current = performance.now();
+    engineSettledMsRef.current = undefined;
     resumeRenderer();
     if (strategy.physics === "off") {
       const timer = window.setTimeout(pauseRenderer, 60);
@@ -815,6 +841,8 @@ export function Rfg3dGraphRenderer({
 
   const handleEngineStop = useCallback(() => {
     syncOptimizedLayers();
+    engineSettledMsRef.current =
+      performance.now() - simulationStartedAtRef.current;
     focusCamera();
     emitDiagnostics(false);
   }, [emitDiagnostics, focusCamera, syncOptimizedLayers]);

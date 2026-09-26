@@ -17,7 +17,7 @@ export interface GraphRenderPreferences {
 
 export interface GraphRendererCommand {
   readonly id: number;
-  readonly type: "fit" | "reset-camera";
+  readonly type: "fit" | "reset-camera" | "diagnostics";
 }
 
 export interface GraphRendererDiagnostics {
@@ -28,6 +28,10 @@ export interface GraphRendererDiagnostics {
   readonly drawCalls?: number;
   readonly triangles?: number;
   readonly pixelRatio?: number;
+  readonly renderFrame?: number;
+  readonly engineSettledMs?: number;
+  readonly webglVendor?: string;
+  readonly webglRenderer?: string;
 }
 
 export interface GraphViewportSnapshot {

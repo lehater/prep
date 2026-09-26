@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "verify": "npm run typecheck && npm run lint && npm run check:boundaries && npm run test",
     "ci": "npm run verify:full",
-    "verify:full": "npm run verify && npm run build && npm run test:e2e"
+    "verify:full": "npm run verify && npm run build && npm run test:e2e",
+    "benchmark:graph": "playwright test --config=playwright.performance.config.ts"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
