@@ -153,60 +153,80 @@ export const knowledgeGraphMockNodes: readonly KnowledgeNodeModel[] =
     summary,
   }));
 
-const realizes = (
+const relation = (
   id: string,
   sourceId: string,
   targetId: string,
+  type: KnowledgeRelationModel["type"],
 ): KnowledgeRelationModel => ({
   id: `kg-relation-${id}`,
   sourceId,
   targetId,
-  type: "realizes",
+  type,
 });
 
-// Knowledge Graph V2 persists human-facing wikilinks plus explanations rather than
-// requiring a machine-readable relation registry. Only relationships whose source
-// prose explicitly describes realization/materialization/representation are projected
-// into Prep's narrower accepted "realizes" relation.
+// Knowledge Graph V2 persists explanatory wikilinks instead of requiring typed edges.
+// Prep treats typed relations as an import/read-model concern and emits one only when
+// the source prose supports the accepted type and direction without adding meaning.
 export const knowledgeGraphMockRelations: readonly KnowledgeRelationModel[] = [
-  realizes(
+  relation(
+    "asyncio-uses-event-loop",
+    "01a06c89-a98d-7202-9123-cf733eecd1d7",
+    "01a06c89-a98d-793f-ac52-ea72eb9aea9c",
+    "uses",
+  ),
+  relation(
+    "task-uses-coroutine",
+    "01a06c89-a98d-73aa-810e-6934a89f1f1c",
+    "01a06c89-a98d-739e-b348-7aaad3e0f65c",
+    "uses",
+  ),
+  relation(
     "asyncio-asynchronous-programming",
     "01a06c89-a98d-7202-9123-cf733eecd1d7",
     "01a06c89-a98d-78a5-97e0-949effb4475a",
+    "realizes",
   ),
-  realizes(
+  relation(
     "async-runtime-asynchronous-programming",
     "01a06c89-a98d-7d01-9421-7245e031f828",
     "01a06c89-a98d-78a5-97e0-949effb4475a",
+    "realizes",
   ),
-  realizes(
+  relation(
     "event-loop-async-runtime",
     "01a06c89-a98d-793f-ac52-ea72eb9aea9c",
     "01a06c89-a98d-7d01-9421-7245e031f828",
+    "realizes",
   ),
-  realizes(
+  relation(
     "async-await-asynchronous-programming",
     "01a06c89-a98d-7144-955e-bad081641a0b",
     "01a06c89-a98d-78a5-97e0-949effb4475a",
+    "realizes",
   ),
-  realizes(
+  relation(
     "acl-access-control-matrix",
     "01a0737a-ac0d-7c3c-af10-033e1398119e",
     "01a0737a-9db9-76dc-b251-e95fc992e816",
+    "realizes",
   ),
-  realizes(
+  relation(
     "capability-list-access-control-matrix",
     "01a0737a-b9d3-74a7-85ed-83619afc457f",
     "01a0737a-9db9-76dc-b251-e95fc992e816",
+    "realizes",
   ),
-  realizes(
+  relation(
     "rbac-access-control-policy",
     "01a0737a-c4aa-704e-b0c7-56d0665fc842",
     "01a06d2f-309f-7f2c-bb7a-98263185e0f8",
+    "realizes",
   ),
-  realizes(
+  relation(
     "abac-access-control-policy",
     "01a0737a-cf99-7b59-97ff-d678a694b1c0",
     "01a06d2f-309f-7f2c-bb7a-98263185e0f8",
+    "realizes",
   ),
 ];
