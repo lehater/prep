@@ -601,6 +601,7 @@ export function KnowledgeExplorer({
                           routeState.relationTypes === undefined ||
                           routeState.relationTypes.includes(type)
                         }
+                        slotProps={{ input: { "aria-label": type } }}
                         onChange={() => toggleRelationType(type)}
                       />
                     }

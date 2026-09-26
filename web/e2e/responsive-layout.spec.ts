@@ -63,9 +63,11 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await expect(
     page.getByRole("complementary", { name: "Application navigation" }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "Graph settings" }).click();
   await expect(
-    page.getByRole("group", { name: "Graph performance profile" }),
+    page.getByRole("combobox", { name: "Graph performance profile" }),
   ).toBeVisible();
+  await page.keyboard.press("Escape");
   const titleFontSize = await appTitle.evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize),
   );

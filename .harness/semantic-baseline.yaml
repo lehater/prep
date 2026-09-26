@@ -29,12 +29,12 @@ reviews:
     basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
 
   - capability: prep.knowledge-relation-classification
-    revision: 1
-    basis: "The machine-readable relation classifier is accepted as current Knowledge Model semantics: it prefers the most specific supported relation, permits explicit candidate proposals when no leaf fits, and forbids invented edges when evidence is insufficient."
+    revision: 2
+    basis: "The machine-readable classifier now distinguishes preferred canonical leaves, candidate proposal vocabulary and legacy-only runtime compatibility; matched can persist only a preferred leaf, candidate vocabulary routes through candidate_needed, and unsupported assertions create no edge."
 
   - capability: prep.knowledge-model
-    revision: 2
-    basis: Knowledge identity, kinds and relations remain canonical domain semantics independent of persistence, renderer and user-interface realization; relation classification now has an explicit canonical machine-readable contract.
+    revision: 3
+    basis: Knowledge identity, forms and relationship semantics were revalidated against the canonical classifier; the model now separates stored/runtime compatibility relation types from the preferred leaves admissible for new classification.
 
   - capability: prep.frontend-performance-capacity
     revision: 1

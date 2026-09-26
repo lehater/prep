@@ -14,9 +14,21 @@ purpose:
     - broad_families_are_for_classification_and_filtering_not_visible_leaf_edges
     - propose_a_new_leaf_when_a_real_relation_exists_but_no_registered_leaf_fits
 
+leaf_status_semantics:
+  preferred: >
+    Accepted canonical leaf predicate for new classification. Only preferred
+    leaves may be returned as matched and persisted as newly classified edges.
+  candidate: >
+    Machine-readable proposal vocabulary for corpus validation. A candidate may
+    guide candidate_needed output, but it is not accepted as a newly persisted
+    edge until promoted to preferred through proposal_policy.
+  legacy_only: >
+    Existing stored/runtime compatibility relation. It may be read and
+    displayed for compatibility but must not be selected for a new assertion.
+
 classification_outcomes:
   matched:
-    meaning: Existing leaf predicate fits the source assertion exactly enough.
+    meaning: An existing preferred leaf predicate fits the source assertion exactly enough.
     required_output:
       - predicate
       - source_id
@@ -57,8 +69,11 @@ classification_algorithm:
       Choose the narrowest relation family whose role pattern fits the proposition.
   - step: test_registered_leaves
     instruction: >
-      Evaluate candidate leaf predicates using definition, source_role,
-      target_role, positive_tests, negative_tests and contrast_with.
+      Evaluate preferred leaf predicates using definition, source_role,
+      target_role, positive_tests, negative_tests and contrast_with. Candidate
+      leaves may be considered only as proposal vocabulary, not as matched.
+      Deprecated broad leaves are compatibility-only and are never selected
+      for a new assertion.
   - step: choose_most_specific
     instruction: >
       Select the most specific leaf fully supported by evidence. Never choose a
@@ -69,8 +84,11 @@ classification_algorithm:
       canonical predicate, store one canonical edge and derive the inverse label.
   - step: unresolved
     instruction: >
-      If a real relation is supported but no leaf fits, return candidate_needed.
-      If the relation itself is not supported precisely, return insufficient_evidence.
+      If a real relation is supported but no preferred leaf fits, return
+      candidate_needed. Reuse a catalogued candidate as proposed_predicate when
+      it precisely fits; otherwise propose a new leaf under proposal_policy.
+      If the relation itself is not supported precisely, return
+      insufficient_evidence.
 
 relation_families:
   - id: taxonomic
