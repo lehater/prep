@@ -5,7 +5,10 @@ import type {
 import type { LearningStatisticsModel } from "../../features/learning/model/learningStatistics";
 import type { LearningTargetModel } from "../../features/learning/model/learningTarget";
 import type { QuestionModel } from "../../features/learning/model/question";
-import { donorKnowledgeNodes, donorKnowledgeRelations } from "./mockPaymentKnowledgeFixture";
+import {
+  knowledgeGraphMockNodes,
+  knowledgeGraphMockRelations,
+} from "./mockKnowledgeGraphFixture";
 
 export const PREPARED_TARGET_ID = "linux-backend-interview";
 
@@ -81,7 +84,7 @@ const coreMockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
 
 export const mockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
   ...coreMockKnowledgeNodes,
-  ...donorKnowledgeNodes,
+  ...knowledgeGraphMockNodes,
 ];
 
 const coreMockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
@@ -101,7 +104,7 @@ const coreMockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
 
 export const mockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
   ...coreMockKnowledgeRelations,
-  ...donorKnowledgeRelations,
+  ...knowledgeGraphMockRelations,
 ];
 
 export const mockTargetKnowledgeIds: Readonly<Record<string, readonly string[]>> = {
