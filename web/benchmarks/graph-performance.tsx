@@ -17,7 +17,10 @@ declare global {
       readonly edgeCount: number;
       readonly profile: GraphPerformanceProfile;
       diagnostics?: GraphRendererDiagnostics;
-      samples: GraphRendererDiagnostics[];
+      samples: Array<{
+        readonly capturedAtMs: number;
+        readonly diagnostics: GraphRendererDiagnostics;
+      }>;
     };
   }
 }
@@ -68,7 +71,10 @@ function BenchmarkApp() {
         const benchmark = window.__prepGraphBenchmark;
         if (!benchmark) return;
         benchmark.diagnostics = diagnostics;
-        benchmark.samples.push(diagnostics);
+        benchmark.samples.push({
+          capturedAtMs: performance.now(),
+          diagnostics,
+        });
       }}
     />
   );

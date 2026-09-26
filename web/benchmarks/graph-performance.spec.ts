@@ -19,7 +19,10 @@ interface BenchmarkState {
   edgeCount: number;
   profile: string;
   diagnostics?: Diagnostics;
-  samples: Diagnostics[];
+  samples: Array<{
+    capturedAtMs: number;
+    diagnostics: Diagnostics;
+  }>;
 }
 
 function isSoftwareRenderer(renderer?: string): boolean {
@@ -58,14 +61,28 @@ for (const nodeCount of [1_000, 2_000, 5_000]) {
 
     const settled = await readState(page);
     const samples = settled?.samples ?? [];
-    const frameSamples = samples.filter(
-      (sample) => typeof sample.renderFrame === "number",
+    const activeSamples = samples.filter(
+      (sample) =>
+        !sample.diagnostics.animationPaused &&
+        typeof sample.diagnostics.renderFrame === "number",
     );
-    const first = frameSamples[0]?.renderFrame;
-    const last = frameSamples.at(-1)?.renderFrame;
+    const firstActive = activeSamples[0];
+    const lastActive = activeSamples.at(-1);
     const frameDelta =
-      typeof first === "number" && typeof last === "number"
-        ? Math.max(0, last - first)
+      firstActive && lastActive
+        ? Math.max(
+            0,
+            (lastActive.diagnostics.renderFrame ?? 0) -
+              (firstActive.diagnostics.renderFrame ?? 0),
+          )
+        : undefined;
+    const activeDurationSeconds =
+      firstActive && lastActive
+        ? Math.max(0.001, (lastActive.capturedAtMs - firstActive.capturedAtMs) / 1_000)
+        : undefined;
+    const sampledFps =
+      frameDelta !== undefined && activeDurationSeconds !== undefined
+        ? frameDelta / activeDurationSeconds
         : undefined;
 
     console.log(
@@ -83,6 +100,8 @@ for (const nodeCount of [1_000, 2_000, 5_000]) {
         triangles: settled?.diagnostics?.triangles,
         engineSettledMs: settled?.diagnostics?.engineSettledMs,
         sampledRenderFrameDelta: frameDelta,
+        sampledActiveSeconds: activeDurationSeconds,
+        sampledFps,
         idlePaused: settled?.diagnostics?.animationPaused,
       }),
     );
