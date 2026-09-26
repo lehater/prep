@@ -22,10 +22,16 @@ export interface GraphPhysicsTuning {
   readonly linkDistance: number;
 }
 
-export interface GraphRendererCommand {
-  readonly id: number;
-  readonly type: "fit" | "reset-camera" | "diagnostics";
-}
+export type GraphRendererCommand =
+  | {
+      readonly id: number;
+      readonly type: "fit" | "reset-camera" | "diagnostics";
+    }
+  | {
+      readonly id: number;
+      readonly type: "focus-node";
+      readonly knowledgeId: string;
+    };
 
 export interface GraphRendererDiagnostics {
   readonly nodeCount: number;
