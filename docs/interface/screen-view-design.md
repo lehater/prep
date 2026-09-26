@@ -8,6 +8,8 @@ The whole-product page/frame topology and coarse low-fidelity frames are maintai
 
 ## [F-00-APPLICATION-SHELL] Application shell
 
+Wide/desktop realization uses the accepted persistent left navigation rail from Presentation System: Prep identity, Learning/Curation mode, active mode-local sections and bottom-anchored external-runtime status. Narrow layouts may collapse this hierarchy into an accessible compact navigation mechanism.
+
 The shell provides an explicit way to enter/switch between:
 
 - **Learning**;
@@ -176,11 +178,14 @@ The graph is a primary interactive work surface, not a card embedded between equ
 
 Spatial contract:
 
+- desktop shell rail is approximately 200-220 px and is not part of the graph/content width allocation;
+- workspace header + authoring actions + graph toolbar remain compact, normally within approximately 120-150 px total vertical chrome;
 - graph receives the flexible majority of workspace width and useful viewport height;
-- list is supporting and may collapse;
-- detail is supporting and bounded in width;
-- toolbar/header height stays compact;
-- Curation New/Import are toolbar actions opening focused surfaces rather than permanent top cards.
+- optional Knowledge results pane is approximately 200-240 px and may collapse;
+- detail/editor is supporting and approximately 280-320 px on wide layouts;
+- graph renderer surface fills the graph region rather than sitting at a smaller fixed canvas size;
+- Curation New/Import are toolbar/header actions opening focused surfaces rather than permanent top cards;
+- ordinary UI density follows the accepted 13-14 px body / 28-32 px control scale from Presentation System.
 
 ### Compact frame
 
@@ -208,7 +213,7 @@ Spatial contract:
 └──────────────────────────────────────┘
 ```
 
-Focus/read order remains toolbar -> primary graph/list access -> selected detail; reflow must not create a keyboard trap or horizontal page overflow.
+Focus/read order remains shell navigation -> page/header actions -> graph toolbar -> primary graph/search access -> selected detail. Reflow must not create a keyboard trap or horizontal page overflow.
 
 ### Graph settings
 
@@ -227,9 +232,9 @@ Advanced presentation-only settings may expose labels, arrowheads, decorative pa
 Required interactions:
 
 - orbit/pan/zoom the 3D projection;
-- click without drag selects a node and opens in-context detail;
+- click without drag selects a node and opens in-context detail while preserving the rest of the graph;
 - drag/rotate manipulates presentation only;
-- focus selected node and a bounded local neighborhood;
+- focus selected node and a bounded local neighborhood only after explicit Focus action or accepted deep-link intent;
 - toggle accepted relation types, initially `addresses` and `realizes`, through a multi-select relation checklist/legend;
 - filter semantic kinds Concept / Mechanism / Procedure / Strategy;
 - preserve graph state while inspecting detail;

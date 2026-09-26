@@ -361,3 +361,21 @@ Live-interaction checkpoint workflow run `36210994698` passed after the graph/na
 - **22/22 Playwright PASS**.
 
 The temporary checkpoint workflow is removed after recording this evidence. Manual live-use confirmation remains required before FRC-01 is reclaimed as COMPLETE, specifically for sustained graph interaction and navigation/list usability.
+
+
+### Canonical visual-specification pass
+
+The accepted design sketch is now translated into buildable canonical presentation knowledge rather than retained as a visual-only reference.
+
+Presentation System revision 4 now specifies:
+
+- compact typography hierarchy and control density;
+- spacing rhythm, surface/border/elevation roles and icon usage;
+- persistent approximately 200-220 px desktop left navigation rail;
+- wide Knowledge workspace geometry with optional approximately 200-240 px results pane, flexible dominant graph and approximately 280-320 px detail/editor pane;
+- compact header/actions and one graph toolbar task band;
+- bounded/search-first Knowledge results behavior;
+- dark graph workspace treatment, selected-node emphasis without implicit focus and optional compact status/minimap utilities;
+- wide >= approximately 1280 px, compact approximately 900-1279 px and narrow < approximately 900 px transformations.
+
+Screen/View Design, Presentation Verification, Frontend Test Design and Implementation Design are revalidated downstream. The specification intentionally uses accepted ranges/roles rather than pixel-perfect screenshot equality so provider/CSS mechanics remain replaceable without reopening product semantics.

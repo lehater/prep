@@ -157,6 +157,8 @@ TypeScript compilation additionally enforces public type boundaries; oxlint hand
 
 ## Visual density and responsive realization
 
+This realization consumes the now-explicit Presentation System visual specification. Provider defaults are not acceptable substitutes for the accepted role system.
+
 The production frontend uses a compact desktop-first application density rather than provider defaults.
 
 Concrete realization choices:
@@ -171,7 +173,7 @@ Concrete realization choices:
 - graph height is derived from remaining viewport space after compact shell/workspace chrome rather than a large fixed page stack;
 - graph surface has an explicit renderer-background role so the primary workspace remains visually legible during renderer initialization/degradation.
 
-These values are implementation choices behind the accepted wide/compact/narrow semantic transformations. If usability evidence shows they are too dense or too sparse, adjust this realization without reopening product/domain semantics.
+These values now realize accepted Presentation System ranges. Implementation may choose exact values inside those ranges; materially changing the hierarchy, rail model, density class or pane role requires Presentation/Screen revalidation rather than local CSS drift.
 
 ## Live interaction and navigation correction
 

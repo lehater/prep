@@ -101,6 +101,12 @@ content:
       operation: Present each applicable state through the same view responsibility.
       oracle: Each state remains distinguishable with consistent presentation semantics and does not expose actions invalid for that state.
 
+    - id: FTD-VISUAL-SYSTEM-FIDELITY
+      verification_refs: [FV-02, FV-09]
+      precondition: Representative Learning and Curation workspaces render at browser 100% zoom using the production theme/provider.
+      operation: Inspect the application shell, workspace typography/control density, Knowledge wide composition and graph surface at representative wide/compact/narrow viewport classes.
+      oracle: Desktop uses the persistent left rail; operational body/control typography stays compact rather than provider-display sized; ordinary controls remain within the accepted dense range; wide Knowledge results/detail stay supporting while graph receives the flexible majority; graph canvas fills its region with the accepted dark workspace treatment; responsive reflow preserves the accepted hierarchy without horizontal overflow. Exact provider token names and pixel-perfect screenshot equality are not required.
+
     - id: FTD-RESPONSIVE-GRAPH-WORKSPACE
       verification_refs: [FV-02, FV-09]
       precondition: The same representative Knowledge workspace is available at wide, compact and narrow viewport classes.

@@ -61,7 +61,24 @@ Implementation-level import/dependency isolation of the provider belongs to fron
 
 The prototype's theme/token/provider mapping plus rendered representative views sufficient to show that recurring roles are shared rather than independently re-invented.
 
-Exact colors, fonts and spacing values are not canonical unless separately accepted by Presentation System.
+Presentation System now accepts visual-role metrics and approximate density ranges. Verification checks those role relationships and ranges rather than provider-specific token names or pixel-perfect screenshots.
+
+### PV-VISUAL-SYSTEM-FIDELITY — accepted design language is actually realized
+
+**Verifies**
+
+- operational typography stays within the compact accepted hierarchy instead of falling back to provider display defaults;
+- controls/panels use the accepted dense spacing and sizing roles;
+- desktop shell is the persistent left rail rather than a second top navigation row;
+- wide Knowledge results/detail widths remain supporting while graph occupies the flexible majority;
+- the graph uses a continuous dark workspace surface and selected-node emphasis does not erase unrelated topology;
+- repeated surfaces, borders, selection/focus cues and icon treatment remain coherent across representative Learning and Curation screens.
+
+**Method:** INSPECTION + DEMONSTRATION + TEST for robust measurable ranges.
+
+**Evidence requirement**
+
+Representative rendered views at 100% browser zoom plus automated range assertions for structural metrics that are stable enough to test (for example title/control scale, shell rail existence, graph dominance, pane bounds and overflow). Pixel-perfect screenshot equality is not required.
 
 ### PV-ACCESSIBILITY-BASELINE — non-graph and focus semantics
 
@@ -107,7 +124,7 @@ This check may lead to retaining, narrowing or demoting 3D without changing Know
 
 **Evidence requirement**
 
-Rendered browser evidence at representative wide, compact and narrow viewport classes. Exact CSS breakpoint numbers/pixels are not canonical; spatial role/priority and reflow outcome are.
+Rendered browser evidence at representative wide, compact and narrow viewport classes. Accepted Presentation System breakpoint classes and approximate pane/control metrics are verification ranges, not pixel-perfect snapshot oracles.
 
 ### PV-GRAPH-PERFORMANCE-DEGRADATION — scale without semantic loss
 
@@ -151,5 +168,5 @@ This artifact does not verify:
 
 - source-code dependency direction or provider import isolation — frontend Verification Design owns that structural evidence;
 - executable test mechanics/framework choice — Test Design owns those contracts when applicable;
-- exact palette, typography family, spacing values or component-library identity unless they become accepted Presentation System decisions;
+- exact font file/package, exact hexadecimal palette values, component-library identity or pixel-perfect coordinates beyond the accepted Presentation System role/range decisions;
 - semantic learning-material coverage or learner-state inference.

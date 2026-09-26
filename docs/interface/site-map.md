@@ -80,7 +80,7 @@ Responsibility: preserve mode/context and global status without becoming a produ
 └──────────────────┴────────────────────────────────────────────┘
 ```
 
-Desktop projection uses a persistent left navigation rail; narrow layouts may reflow it into a compact disclosure/header navigation.
+Desktop projection uses the accepted approximately 200-220 px persistent left navigation rail; narrow layouts may reflow it into a compact disclosure/header navigation. The rail carries Prep identity, mode navigation, active mode-local sections and bottom-anchored runtime status.
 
 Global responsibilities:
 
@@ -168,7 +168,7 @@ Responsibility: help the learner understand the knowledge structure relevant to 
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────┐
-│ Knowledge  Search […] [Kind] [Relations] [Focus] [Fit] [Reset] [Settings]          │
+│ Search […] [Kind] [Relations] [Focus] [Clear] [Fit] [Reset] [Settings] [Profile] │
 ├──────────────┬───────────────────────────────────────────────────┬─────────────────┤
 │ optional     │                                                   │ selected detail │
 │ list/hits    │                  3D GRAPH                         │ content         │

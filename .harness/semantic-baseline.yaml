@@ -77,12 +77,12 @@ reviews:
     basis: Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology.
 
   - capability: prep.presentation-system
-    revision: 3
-    basis: Responsive wide/compact/narrow presentation roles, graph-primary spatial hierarchy and accepted graph performance/degradation controls were revalidated against the newly registered Frontend Performance/Capacity contract.
+    revision: 4
+    basis: "Presentation System now canonically specifies the accepted visual language: compact typography/control density, light-shell/dark-graph surface roles, persistent desktop left rail, Knowledge pane ranges, toolbar composition and wide/compact/narrow breakpoint classes."
 
   - capability: prep.screen-view-design
-    revision: 3
-    basis: Knowledge Screen/View composition now explicitly constrains graph-primary wide/compact/narrow frames, focus/read-order consequences, toolbar controls and semantic-preserving performance profiles while leaving CSS mechanics and renderer internals downstream.
+    revision: 4
+    basis: "Screen/View Design now consumes the accepted visual specification with explicit shell rail, workspace chrome budget, supporting-pane ranges, graph-fill behavior and selection-without-implicit-focus interaction."
 
   - capability: prep.import-consistency
     revision: 2
@@ -93,8 +93,8 @@ reviews:
     basis: Revalidated against the current interaction/topology prerequisite baseline; existing task and navigation evidence obligations remain sufficient.
 
   - capability: prep.presentation-verification
-    revision: 3
-    basis: Presentation verification now requires rendered spatial/responsive closure plus deterministic semantic-preservation and hardware-accelerated 1k/2k/5k graph performance evidence.
+    revision: 4
+    basis: "Presentation Verification now includes visual-system fidelity evidence for the accepted density, shell, pane hierarchy and graph-surface roles in addition to responsive/performance closure."
 
   - capability: prep.system-architecture
     revision: 2
@@ -121,9 +121,9 @@ reviews:
     basis: "Frontend verification now distinguishes selection from explicit focus and requires idle optimization to preserve interaction readiness; ordinary selection cannot narrow graph membership implicitly."
 
   - capability: prep.frontend-test-design
-    revision: 5
-    basis: "Frontend Test Design now verifies selection-vs-focus separation and bounded search-first Knowledge browsing for large corpora in addition to renderer continuity and graph controls."
+    revision: 6
+    basis: "Frontend Test Design now adds executable visual-system fidelity ranges for shell navigation, compact density, graph dominance and responsive pane roles while avoiding pixel-perfect provider-specific oracles."
 
   - capability: prep.frontend-implementation-design
-    revision: 6
-    basis: "Implementation Design now incorporates live-use corrections: persistent desktop left navigation, bounded search-first global Knowledge browsing, explicit selection-vs-focus separation and interaction-safe renderer idle policy."
+    revision: 7
+    basis: "Implementation Design is revalidated against the canonical visual specification; exact implementation values must stay within accepted typography/control/pane/shell ranges instead of treating them as arbitrary local CSS choices."
