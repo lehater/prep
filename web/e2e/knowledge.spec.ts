@@ -144,10 +144,10 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(profile).toHaveValue("performance");
 
   const arrowheads = page.getByRole("checkbox", {
-    name: "Directional arrowheads",
+    name: "Стрелки",
   });
   const particles = page.getByRole("checkbox", {
-    name: "Decorative particles",
+    name: "Частицы",
   });
   await expect(arrowheads).not.toBeChecked();
   await expect(particles).not.toBeChecked();

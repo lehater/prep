@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 1
-    basis: Problem observations, desired outcomes and evidence were revalidated as problem truth without importing product or solution choices.
+    revision: 2
+    basis: Problem observations now carry an explicit durable stakeholder-evidence inventory and provenance class; the revalidation confirms they remain problem truth without importing product or solution choices.
 
   - capability: prep.product-intent
     revision: 1
@@ -53,8 +53,8 @@ reviews:
     basis: Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports.
 
   - capability: prep.task-model
-    revision: 1
-    basis: The task model expresses user goals/tasks and dependencies rather than screens, routes or component structure.
+    revision: 2
+    basis: The task model was revalidated against the pinned task-model skill; every current USER task now states required information, user input/decision, system support, observable outcome and material recovery semantics without choosing screens.
 
   - capability: prep.user-journeys
     revision: 1
@@ -73,8 +73,8 @@ reviews:
     basis: Browser collection contracts now explicitly expose exact total_count for the current scope/query while opaque cursors remain transport mechanics; all other browser/backend and external-runtime semantics were revalidated unchanged.
 
   - capability: prep.interaction-design
-    revision: 2
-    basis: Revalidated against Machine Interface revision 2; accepted browse/search interactions remain unchanged and the previously required material counts now have an explicit machine-contract source.
+    revision: 3
+    basis: Interaction Design was revalidated against the pinned interaction-design skill; contexts now bind accepted actions/inputs to visible responses, material states, recovery and machine-operation IDs while preserving the existing product behavior.
 
   - capability: prep.interface-topology
     revision: 2
@@ -93,8 +93,8 @@ reviews:
     basis: Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics.
 
   - capability: prep.interface-verification
-    revision: 2
-    basis: Revalidated against the current interaction/topology prerequisite baseline; existing task and navigation evidence obligations remain sufficient.
+    revision: 3
+    basis: Interface Verification now exposes stable IV checks with verifies scope, method and concrete evidence requirements for task, interaction, IA, topology, Screen/View and recovery closure.
 
   - capability: prep.presentation-verification
     revision: 4

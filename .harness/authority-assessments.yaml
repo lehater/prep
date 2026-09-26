@@ -30,7 +30,11 @@ assessments:
     reopening_conditions: [model-context boundaries or translation relationships cease to be independently material]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    rationale: Current observable behavior does not require an independently versioned domain-use-case contract between Product Requirements and Tactical Domain Design; product capabilities, model semantics and application orchestration provide the accepted boundaries without a missing intermediate owner.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    reopening_conditions: [a domain-focused behavioral contract must remain stable while tactical modeling or application orchestration changes independently]
 
   - authority_id: TACTICAL-DOMAIN-DESIGN
     applicability: REQUIRED
@@ -61,7 +65,11 @@ assessments:
     reopening_conditions: [import atomicity, concurrency, retry or external synchronization semantics change]
 
   - authority_id: SECURITY-ARCHITECTURE
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    rationale: The current single-user local trust boundary has no independently owned identity, session, authorization or security-enforcement architecture; its accepted trust and external-runtime constraints remain part of System Architecture and Machine Interface Design.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    reopening_conditions: [multi-user identity or authorization is accepted, deployment exposes a materially new trust boundary, credentials/session protection gain independent lifecycle, or security enforcement needs separate consumers]
 
   - authority_id: MACHINE-INTERFACE-DESIGN
     applicability: REQUIRED
@@ -98,10 +106,18 @@ assessments:
     applicability: UNASSESSED
 
   - authority_id: CHANGE-TRANSITION-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/implementation/frontend-implementation-design.md]
+    rationale: Current frontend release/rollback is whole-artifact replacement with no accepted data migration, coexistence window, irreversible intermediate state or independent transition semantics.
+    depends_on_evidence: [docs/implementation/frontend-implementation-design.md]
+    reopening_conditions: [a release requires mixed-version coexistence, data/schema migration, staged irreversible rollout, compatibility window or transition-specific recovery]
 
   - authority_id: OPERABILITY-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    rationale: Current runtime reachability/error visibility is fully owned by Machine Interface, System Architecture and Verification; no independently valuable diagnosability/telemetry contract is required for the selected frontend scope.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    reopening_conditions: [runtime diagnosis, correlation, health or operational evidence becomes a separately consumed pre-code contract]
 
   - authority_id: ENGINEERING-POLICY
     applicability: REQUIRED

@@ -853,7 +853,6 @@ export function KnowledgeExplorer({
                     <Checkbox
                       size="small"
                       checked={renderPreferences.arrowheads}
-                      inputProps={{ "aria-label": "Directional arrowheads" }}
                       onChange={(event) =>
                         updatePreference("arrowheads", event.target.checked)
                       }
@@ -866,7 +865,6 @@ export function KnowledgeExplorer({
                     <Checkbox
                       size="small"
                       checked={renderPreferences.particles}
-                      inputProps={{ "aria-label": "Decorative particles" }}
                       onChange={(event) =>
                         updatePreference("particles", event.target.checked)
                       }
