@@ -1,11 +1,7 @@
 # Architecture
 
-Canonical architecture documentation lives under [`docs/architecture/`](docs/architecture/).
+Current architecture is defined by Harness-registered artifacts, not by this file.
 
-Start with:
+Read `.harness/core.yaml` and `.harness/engineering-graph.yaml`, then load the smallest required canonical architecture artifacts from `docs/`.
 
-- [`docs/architecture/overview.md`](docs/architecture/overview.md) — DDD + Clean/Hexagonal model;
-- [`docs/architecture/context-map.md`](docs/architecture/context-map.md) — bounded contexts and external systems;
-- [`docs/architecture/dependency-rules.md`](docs/architecture/dependency-rules.md) — dependency and port/adapter constraints.
-
-The accepted architecture decision is [`docs/decisions/ADR-005-ddd-clean-hexagonal-architecture.md`](docs/decisions/ADR-005-ddd-clean-hexagonal-architecture.md).
+Do not reconstruct architecture from removed ADRs, Git history, old branches or experimental code.

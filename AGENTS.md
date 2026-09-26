@@ -2,102 +2,68 @@
 
 ## Purpose
 
-This repository is the system of record for Prep. Chat history is working context, not authoritative project state.
+This repository is the system of record for Prep. Chat history is transient working context.
 
-Prep is currently undergoing Harness-guided revalidation. Legacy graph-centered, Anki-centered and implementation-first artifacts may be retained as evidence, but they are not premises for current canonical design unless they are explicitly wired into `.harness/core.yaml`.
+## Canonical engineering knowledge
 
-## Required read order
+Harness is the only routing mechanism for current engineering meaning.
 
 Before substantive engineering work:
 
-1. Read this file.
-2. Read `.harness-version`, `.harness/core.yaml`, `.harness/engineering-graph.yaml` and `.harness/authority-assessments.yaml` when work creates or changes engineering knowledge or crosses an Authority boundary.
-3. Read `docs/README.md` and the smallest relevant current canonical artifact set.
-4. Read applicable current ADRs only when the canonical artifact depends on them.
-5. For multi-step work, create or update the active plan under `docs/plans/active/`.
+1. read `.harness-version`;
+2. read `.harness/core.yaml` and `.harness/engineering-graph.yaml`;
+3. identify the affected capability and its prerequisites;
+4. read only the registered canonical artifacts required by that closure;
+5. persist durable semantic changes back through the owning Harness capability/artifact;
+6. rerun Harness and repository validation.
 
-Use progressive disclosure. Do not recover old solution assumptions merely because legacy files or code still exist.
+`docs/README.md` is an index only. Every other engineering-knowledge file under `docs/` must be registered in `.harness/core.yaml`.
+
+Do not use Git history, removed documentation, experimental branches, commit messages or implementation details to reconstruct product/domain/interface/architecture semantics unless the task explicitly asks for archaeology or evidence review.
+
+## Open decisions
+
+Durable unresolved semantic decisions belong in the `questions` section of `.harness/core.yaml`.
+
+Do not create parallel ADR, research, plan or design-document systems that can become an alternative source of truth. Implementation execution state belongs in the branch/PR/commit workflow unless Harness requires a canonical artifact.
 
 ## Canonical Harness
 
-`lehater/harness` is the normative engineering-knowledge process. `.harness-version` pins the immutable Harness revision used locally and in CI.
+`lehater/harness` is pinned by `.harness-version`.
 
 Prep owns:
+- project Authority/Capability/Consumer topology in `.harness/engineering-graph.yaml`;
+- canonical artifact realization and Questions in `.harness/core.yaml`;
+- Authority applicability evidence in `.harness/authority-assessments.yaml`;
+- semantic acceptance/currentness baseline in `.harness/semantic-baseline.yaml`;
+- project engineering-coverage policy in `.harness/engineering-coverage.yaml`.
 
-- project semantic truth in current canonical `docs/**` artifacts;
-- project-specific Authority/Capability/Consumer topology in `.harness/engineering-graph.yaml`;
-- canonical artifact realization and unresolved Questions in `.harness/core.yaml`;
-- project Authority applicability evidence in `.harness/authority-assessments.yaml`;
-- capability-level strict semantic revalidation identities and review basis in `.harness/semantic-baseline.yaml`.
-
-Harness owns generic graph/core validation, applicability semantics, routing and target-state evaluation. Do not create project-specific stages, gates or a second Harness evaluator.
-
-Bootstrap/validate:
-
-```text
-python tools/bootstrap_harness.py
-python tools/semantic_baseline.py
-python tools/check_harness_integration.py
-```
-
-## Current engineering frontier
-
-FRC-01 is reopened after live interface review found an implementation/state-lifetime defect that previous automated evidence did not cover.
-
-Commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes semantic Knowledge scope so ordinary selection/detail changes do not reload graph/list data or replace the live renderer, and tightens graph-primary proportions for ordinary 1366px-class desktop widths. Commit `e8c10e3ba47145c8e8a0c3f18061466b681e0659` fixes the renderer viewport lifecycle so the WebGL canvas measures and fills its assigned graph region instead of remaining at the initial 960x600 fallback size.
-
-Automated requalification run `36208046392` passes strict semantic/currentness closure, repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and 22 Playwright tests including renderer continuity and canvas-to-viewport sizing. Permanent `Frontend fast` run `36208046305` also passes.
-
-The previous physical-GPU qualification remains valid renderer-performance evidence: ordinary 2k/10k measured approximately 57 FPS against the accepted ~30-FPS target. Manual confirmation of the corrected running UI is still required before FRC-01 is COMPLETE again.
-
-Live interaction revalidation additionally found and corrected an incomplete transfer of experimental graph mechanics: ordinary standard graphs no longer hard-pause after the old 5.5-second settle budget; selection no longer implies focus; global Knowledge browse is bounded/search-first; desktop application navigation now uses a persistent left rail. Full checkpoint run `36210994698` passes 30/30 strict semantic assertions, 28 Python tests, 14/42 Vitest and 22/22 Playwright.
-
-Do not advance to a new non-frontend implementation frontier until manual live-use confirms sustained graph interaction and the corrected navigation/browse design.
-
-`Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; successful renderer performance does not by itself prove that 3D improves user task outcomes.
-
-The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
-
-## Current product constraints
-
-- first version is a browser-based single-user application;
-- frontend and backend are separate Docker containers;
-- canonical data survive ordinary restarts;
-- multi-user/auth/tenant isolation, backup/restore/PITR and HA/failover are future scope;
-- automatic interpretation of review statistics into mastery, gaps, priorities or replanning is deferred;
-- Anki is the first external study runtime;
-- backend integrates through `ExternalStudyRuntimePort -> AnkiConnectAdapter`; browser does not call AnkiConnect directly.
-
-## Source-of-truth rules
-
-1. `.harness/core.yaml` identifies current canonical artifacts and unresolved semantic Questions.
-2. Current canonical artifacts own product/domain/application/interface/architecture semantics.
-3. Current accepted ADRs may constrain those artifacts where explicitly referenced.
-4. Legacy docs, code, tests, screenshots and experiments are evidence unless current canonical truth explicitly adopts them.
-5. Active plans describe current work but do not override canonical semantic truth.
-
-When upstream canonical knowledge changes, use Harness dependency/lifecycle rules to revalidate affected downstream knowledge rather than preserving consistency by importing old assumptions upward.
+Harness owns generic validation, routing, semantic admission/currentness and target-state evaluation.
 
 ## Architecture discipline
 
 Use DDD, Clean Architecture and Hexagonal Architecture where applicable.
 
-Primary dependency rule:
+Primary dependency direction:
 
 ```text
 interface -> application -> domain
 infrastructure -> application ports
 ```
 
-Current semantic boundaries include:
-
-- Knowledge Model owns reusable subject semantics;
-- Learning Design owns Requirements, LearningTargets, Questions and target-relative learning design;
-- Learner Model owns Question-level ReviewObservations/statistics only;
-- external runtimes and UI projections do not define canonical domain semantics.
+Frameworks, persistence, external study runtimes, renderers and UI projections do not define domain semantics.
 
 ## Development workflow
 
-Work only on the branch explicitly selected by the user/task. Do not merge or squash into `main` without explicit user authorization.
+Work on the branch selected for the task. Do not merge or squash into `main` without explicit user authorization.
 
-Commit coherent semantic blocks. Validate Harness realization and affected project checks after material changes.
+Commit coherent semantic blocks. When canonical upstream knowledge changes, revalidate affected downstream capabilities through Harness instead of copying assumptions across documents.
+
+## Validation
+
+```text
+python tools/bootstrap_harness.py
+python tools/semantic_baseline.py
+python tools/check_harness_integration.py
+python tools/validate_docs.py
+```
