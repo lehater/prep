@@ -101,7 +101,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-9db9-76dc-b251-e95fc992e816",
     sourcePath: "graph/access-control-matrix.md",
-    sourceKind: "model",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Access Control Matrix",
     summary:
@@ -110,7 +110,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-ac0d-7c3c-af10-033e1398119e",
     sourcePath: "graph/access-control-list.md",
-    sourceKind: "representation",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Access Control List",
     summary:
@@ -119,7 +119,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-b9d3-74a7-85ed-83619afc457f",
     sourcePath: "graph/capability-list.md",
-    sourceKind: "representation",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Capability List",
     summary:
@@ -128,7 +128,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-c4aa-704e-b0c7-56d0665fc842",
     sourcePath: "graph/role-based-access-control.md",
-    sourceKind: "model",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Role-Based Access Control",
     summary:
@@ -137,7 +137,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-cf99-7b59-97ff-d678a694b1c0",
     sourcePath: "graph/attribute-based-access-control.md",
-    sourceKind: "methodology",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Attribute-Based Access Control",
     summary:
@@ -191,7 +191,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737a-db09-7af8-900b-842650784c56",
     sourcePath: "graph/relationship-based-access-control.md",
-    sourceKind: "model",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Relationship-Based Access Control",
     summary:
@@ -200,7 +200,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737d-09d3-7dde-bb51-1436dfc85306",
     sourcePath: "graph/lattice-based-access-control.md",
-    sourceKind: "model",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Lattice-Based Access Control",
     summary:
@@ -209,7 +209,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737b-6847-7b6a-a45b-cce7ac6c4167",
     sourcePath: "graph/zanzibar.md",
-    sourceKind: "technology",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Zanzibar",
     summary:
@@ -218,7 +218,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737b-446a-7ce5-aa39-921ad81e1201",
     sourcePath: "graph/open-policy-agent.md",
-    sourceKind: "technology",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Open Policy Agent",
     summary:
@@ -227,7 +227,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737b-5beb-772c-9a59-ed54477fd5b1",
     sourcePath: "graph/cedar.md",
-    sourceKind: "technology",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Cedar",
     summary:
@@ -236,7 +236,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a07394-110d-7a20-9ae4-5e07c60c18cb",
     sourcePath: "graph/policy-decision-point.md",
-    sourceKind: "role",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Policy Decision Point",
     summary:
@@ -245,7 +245,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a07395-1c59-753d-b295-1c418b25eff1",
     sourcePath: "graph/policy-enforcement-point.md",
-    sourceKind: "role",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Policy Enforcement Point",
     summary:
@@ -254,7 +254,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a07396-0cd4-7515-8504-248a54b77db5",
     sourcePath: "graph/policy-information-point.md",
-    sourceKind: "role",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Policy Information Point",
     summary:
@@ -263,7 +263,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075a7-efe1-7c2e-982d-94af2d46f794",
     sourcePath: "graph/policy-administration-point.md",
-    sourceKind: "role",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Policy Administration Point",
     summary:
@@ -272,7 +272,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a0737b-3804-755e-b8df-1d039c2b14b7",
     sourcePath: "graph/xacml.md",
-    sourceKind: "standard",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "XACML",
     summary:
@@ -281,7 +281,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075a8-cc16-7a21-b555-dbb628329a1f",
     sourcePath: "graph/policy-set.md",
-    sourceKind: "construct",
+    sourceKind: "unspecified",
     semanticKind: "concept",
     title: "Policy Set",
     summary:
@@ -290,7 +290,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075a9-8ff2-7c13-87c4-458f2ce89c0f",
     sourcePath: "graph/policy-combining-algorithm.md",
-    sourceKind: "mechanism",
+    sourceKind: "unspecified",
     semanticKind: "mechanism",
     title: "Policy Combining Algorithm",
     summary:
@@ -299,7 +299,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075ad-9bcd-7ce3-bc93-39fb3f1d44c0",
     sourcePath: "graph/deny-overrides.md",
-    sourceKind: "algorithm",
+    sourceKind: "unspecified",
     semanticKind: "mechanism",
     title: "Deny-overrides",
     summary:
@@ -308,7 +308,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075ae-6d66-7c40-90e3-43951b3ef2cf",
     sourcePath: "graph/permit-overrides.md",
-    sourceKind: "algorithm",
+    sourceKind: "unspecified",
     semanticKind: "mechanism",
     title: "Permit-overrides",
     summary:
@@ -317,7 +317,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075af-0464-713d-8aab-68f6c263b3a2",
     sourcePath: "graph/first-applicable.md",
-    sourceKind: "algorithm",
+    sourceKind: "unspecified",
     semanticKind: "mechanism",
     title: "First-applicable",
     summary:
@@ -326,7 +326,7 @@ const KNOWLEDGE_GRAPH_SEEDS: readonly KnowledgeGraphSeed[] = [
   {
     id: "01a075ba-b692-7554-bc5b-86bd70bc58fb",
     sourcePath: "graph/only-one-applicable.md",
-    sourceKind: "algorithm",
+    sourceKind: "unspecified",
     semanticKind: "mechanism",
     title: "Only-one-applicable",
     summary:
