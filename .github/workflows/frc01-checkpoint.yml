@@ -92,3 +92,5 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Run 1k/2k/5k graph stress evidence
         run: npm run benchmark:graph
+
+# rerun after deterministic settle budget and router-aware checkbox assertion

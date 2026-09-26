@@ -617,11 +617,19 @@ export function Rfg3dGraphRenderer({
     simulationStartedAtRef.current = performance.now();
     engineSettledMsRef.current = undefined;
     resumeRenderer();
-    if (strategy.physics === "off") {
-      const timer = window.setTimeout(pauseRenderer, 60);
-      return () => window.clearTimeout(timer);
-    }
-    return undefined;
+
+    const settleBudgetMs =
+      strategy.physics === "off"
+        ? 60
+        : strategy.physics === "settle-and-pause"
+          ? 5_500
+          : 16_000;
+    const timer = window.setTimeout(() => {
+      if (!dragRef.current) {
+        pauseRenderer();
+      }
+    }, settleBudgetMs);
+    return () => window.clearTimeout(timer);
   }, [dataKey, pauseRenderer, resumeRenderer, strategy.physics, webglAvailable]);
 
   const findNodeAtPointer = useCallback(

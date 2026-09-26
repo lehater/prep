@@ -130,8 +130,9 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(realizes).toBeChecked();
   await expect(addresses).toBeChecked();
 
-  await realizes.uncheck();
+  await realizes.click();
   await expect(page).toHaveURL(/relation=addresses/);
+  await expect(realizes).not.toBeChecked();
   await expect(
     page.getByRole("region", { name: "Knowledge graph" }),
   ).toContainText(/1 relations/);
