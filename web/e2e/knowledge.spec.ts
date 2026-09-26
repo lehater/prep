@@ -136,12 +136,15 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(page.getByText(/1 relations · auto/)).toBeVisible();
   await page.keyboard.press("Escape");
 
-  await page.getByRole("button", { name: "Graph settings" }).click();
-  const profile = page.getByRole("combobox", {
+  const profile = page.getByRole("group", {
     name: "Graph performance profile",
   });
-  await profile.selectOption("performance");
-  await expect(profile).toHaveValue("performance");
+  await profile.getByRole("button", { name: "Performance" }).click();
+  await expect(
+    profile.getByRole("button", { name: "Performance" }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "Graph settings" }).click();
   await page.getByText("Advanced rendering").click();
 
   const arrowheads = page.getByRole("checkbox", {
