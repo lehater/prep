@@ -514,7 +514,8 @@ export function KnowledgeExplorer({
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
             md: "minmax(180px, 210px) minmax(0, 1fr)",
-            lg: "200px minmax(0, 1fr) 280px",\n            xl: "220px minmax(0, 1fr) 320px",
+            lg: "200px minmax(0, 1fr) 280px",
+            xl: "220px minmax(0, 1fr) 320px",
           },
           gridTemplateAreas: {
             xs: `"graph" "list" "detail"`,
@@ -554,7 +555,13 @@ export function KnowledgeExplorer({
                 <li key={node.id}>
                   <Button
                     onClick={() => openDetail(node.id)}
-                    fullWidth\n                    sx={{ justifyContent: "flex-start", textAlign: "left", px: 0.75, py: 0.5 }}
+                    fullWidth
+                    sx={{
+                      justifyContent: "flex-start",
+                      textAlign: "left",
+                      px: 0.75,
+                      py: 0.5,
+                    }}
                   >
                     <Stack sx={{ alignItems: "flex-start" }}>
                       <span>{node.title}</span>
