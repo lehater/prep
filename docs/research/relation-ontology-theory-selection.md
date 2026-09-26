@@ -168,6 +168,8 @@ ISO/IEC 21838-2 standardizes Basic Formal Ontology as a top-level ontology. BFO/
 
 This is important because formal ontological **dependence** is far stricter than the software-engineering phrase "depends on".
 
+It also exposes a naming trap: BFO's relation named `realizes` is not the same relation Prep means by `realizes`. In BFO/RO, realization is tied to a process realizing a realizable entity such as a role, disposition or function. Prep's implementation/abstraction relation is instead much closer to ArchiMate Realization. Relation identifiers therefore cannot be imported by lexical similarity alone.
+
 For example, specific dependence in BFO concerns entities whose existence at a time requires another entity to exist at that time. This is not the semantics of "Task depends on Async Runtime".
 
 ### Decision
@@ -343,7 +345,7 @@ These can already be defended by standards/theory:
 |---|---|---|
 | `specializes` | strong | ISO 704 generic relation; ArchiMate Specialization |
 | `part_of` | strong | ISO 704 partitive relation; BFO/RO parthood |
-| `realizes` | strong | BFO/RO realization family; ArchiMate Realization; already Prep-proven |
+| `realizes` | strong, using Prep/ArchiMate semantics | ArchiMate Realization matches concrete/tangible -> abstract semantics; BFO's same-named `realizes` has different process -> realizable-entity semantics and must not be conflated |
 | `addresses` | strong Prep-specific | explicit problem/response role; clear proposition and boundary |
 | `produces` | strong when endpoint roles fit | ISO 704 originator/product; SIO output; PROV generation |
 | `causes` | strong with evidence | ISO 704 causal relation |
