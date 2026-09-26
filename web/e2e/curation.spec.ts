@@ -102,7 +102,7 @@ test("Knowledge authoring adds an accepted typed relation", async ({ page }) => 
 
   await expect(page.getByText("KnowledgeRelation added.")).toBeVisible();
   await expect(
-    editor.getByText(/linux-server-hardening —addresses→ resource-isolation/),
+    editor.getByText(/linux-server-hardening → addresses → resource-isolation/),
   ).toBeVisible();
 });
 
