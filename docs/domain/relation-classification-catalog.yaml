@@ -107,6 +107,149 @@ relation_families:
     basis: ISO_704_opposite_relations
     meaning: Contrary or contradictory concepts.
 
+standard_relation_patterns:
+  note: >
+    Paraphrased concept-relation patterns derived from ISO 704-style concept
+    system methodology. These are classification/proposal patterns, not all
+    automatically valid visible Prep leaf predicates.
+  patterns:
+    - id: generic_kind
+      family: taxonomic
+      roles: [narrower_kind, broader_kind]
+      typical_leaf: specializes
+    - id: partitive_whole_part
+      family: partitive
+      roles: [part, whole]
+      typical_leaf: part_of
+    - id: contiguity_enhancement
+      family: interaction_control
+      roles: [primary_object_or_tool, accessory_or_enhancement]
+      proposal_hint: accessory_to_or_enhances
+    - id: contiguity_attachment
+      family: partitive
+      roles: [attached_entity, attachment_or_connection]
+      proposal_hint: attached_to
+    - id: contiguity_locative
+      family: partitive
+      roles: [contained_or_located_entity, container_or_location]
+      proposal_hint: located_in_or_contained_in
+    - id: contiguity_material
+      family: production_origination_transformation
+      roles: [item, material]
+      proposal_hint: made_of
+    - id: contiguity_property
+      family: representation_provenance
+      roles: [entity, property_or_state]
+      proposal_hint: has_property_or_exhibits
+    - id: contiguity_ownership
+      family: interaction_control
+      roles: [owned_entity, owner]
+      proposal_hint: owned_by
+    - id: contiguity_rank
+      family: taxonomic
+      roles: [ranked_entity, comparative_rank]
+      proposal_hint: ranked_relative_to
+    - id: sequential_temporal
+      family: causal_temporal_developmental
+      roles: [earlier_event_or_stage, later_event_or_stage]
+      typical_leaf: precedes
+    - id: sequential_spatial
+      family: partitive
+      roles: [entity, spatial_counterpart_or_location]
+      proposal_hint: spatial_relation_requires_domain_specific_leaf
+    - id: sequential_causal
+      family: causal_temporal_developmental
+      roles: [cause, effect]
+      typical_leaf: causes
+    - id: sequential_developmental
+      family: causal_temporal_developmental
+      roles: [earlier_form_or_stage, later_form_or_stage]
+      proposal_hint: develops_into_or_evolves_into
+    - id: activity_agent
+      family: activity_participation_instrument
+      roles: [activity, agent]
+      proposal_hint: performed_by_or_agent_of
+    - id: activity_object
+      family: activity_participation_instrument
+      roles: [activity, acted_on_object]
+      proposal_hint: acts_on
+    - id: activity_tool
+      family: activity_participation_instrument
+      roles: [activity, instrument]
+      proposal_hint: performed_with
+    - id: activity_manner
+      family: activity_participation_instrument
+      roles: [activity, method_or_manner]
+      proposal_hint: performed_by_method
+    - id: activity_location
+      family: activity_participation_instrument
+      roles: [activity, location]
+      proposal_hint: occurs_at
+    - id: activity_purpose
+      family: problem_response
+      roles: [activity_or_artifact, objective]
+      proposal_hint: aims_at_or_has_purpose
+    - id: activity_result_or_beneficiary
+      family: production_origination_transformation
+      roles: [activity, result_or_beneficiary]
+      proposal_hint: results_in_or_benefits
+    - id: activity_patient
+      family: activity_participation_instrument
+      roles: [activity_or_instrument, affected_patient]
+      proposal_hint: affects
+    - id: origination_producer_product
+      family: production_origination_transformation
+      roles: [producer_or_activity, product_or_output]
+      typical_leaf: produces
+    - id: origination_ingredient_product
+      family: production_origination_transformation
+      roles: [ingredient_or_input_material, product]
+      proposal_hint: ingredient_of_or_made_from
+    - id: origination_instrument_product
+      family: production_origination_transformation
+      roles: [instrument_or_tool, product]
+      proposal_hint: instrument_produces
+    - id: instrumental_agent_instrument
+      family: activity_participation_instrument
+      roles: [agent, instrument]
+      proposal_hint: operates_or_uses_instrument
+    - id: instrumental_object_instrument
+      family: activity_participation_instrument
+      roles: [handled_object, handling_instrument]
+      proposal_hint: handled_by
+    - id: instrumental_instrument_patient
+      family: activity_participation_instrument
+      roles: [instrument, affected_patient]
+      proposal_hint: acts_on
+    - id: interactional_control
+      family: interaction_control
+      roles: [controller_or_provider, controlled_or_consumer]
+      proposal_hint: choose_precise_control_service_or_requirement_leaf
+    - id: representational
+      family: representation_provenance
+      roles: [representation, represented_entity]
+      typical_leaf: represents
+    - id: transmission_sender_receiver
+      family: transmission_information_flow
+      roles: [sender, receiver]
+      typical_leaf: flows_to
+    - id: transmission_sender_payload
+      family: transmission_information_flow
+      roles: [sender, transmitted_payload]
+      proposal_hint: sends_or_emits
+    - id: transmission_payload_receiver
+      family: transmission_information_flow
+      roles: [transmitted_payload, receiver]
+      proposal_hint: received_by
+    - id: opposite_contrary
+      family: contrast_opposition
+      roles: [concept, contrary_concept]
+      proposal_hint: contrary_to
+    - id: opposite_contradictory
+      family: contrast_opposition
+      roles: [concept, contradictory_or_negated_concept]
+      proposal_hint: contradicts_or_negates
+
 leaf_predicates:
   - id: addresses
     status: preferred
