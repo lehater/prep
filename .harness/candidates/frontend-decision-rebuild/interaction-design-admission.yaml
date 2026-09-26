@@ -1,0 +1,37 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.interaction-design
+acceptance_id: frontend-decision-rebuild::prep.interaction-design::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: INTERACTION-DESIGN
+  path: docs/interface/interaction-design.yaml
+  capability: prep.interaction-design
+  changed_paths:
+    - docs/interface/interaction-design.yaml
+  canonical_references:
+    - referenced_path: docs/application/application-design.md
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/interface/machine-interface.md
+    - referenced_path: docs/application/task-model.yaml
+    - referenced_path: docs/application/user-journeys.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - interaction-not-product-requirement
+    basis: >-
+      Every rebuilt USER task has an interaction context or explicit no-ui
+      disposition. Accepted machine-operation outcomes define visible success,
+      conflict and recovery semantics. External study is deliberately no-ui in
+      Prep, and Knowledge exploration requires search/focus/traversal without
+      selecting graph, 2D/3D or other presentation technology.
