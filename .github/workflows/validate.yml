@@ -86,6 +86,11 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/check_harness_integration.py
 
+      - name: Full Harness revalidation
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/full_harness_revalidate.py
+
       - name: Validate documentation links
         run: python tools/validate_docs.py
 
