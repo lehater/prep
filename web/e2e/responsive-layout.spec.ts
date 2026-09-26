@@ -42,15 +42,22 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   const detailBox = await box(detail);
 
   expect(mainBox.width).toBeGreaterThan(1300);
-  expect(listBox.width).toBeGreaterThanOrEqual(190);
+  expect(listBox.width).toBeGreaterThanOrEqual(180);
   expect(listBox.width).toBeLessThanOrEqual(240);
-  expect(detailBox.width).toBeGreaterThanOrEqual(250);
-  expect(detailBox.width).toBeLessThanOrEqual(320);
+  expect(detailBox.width).toBeGreaterThanOrEqual(270);
+  expect(detailBox.width).toBeLessThanOrEqual(300);
   expect(graphBox.width).toBeGreaterThan(740);
   expect(graphBox.width).toBeGreaterThan(listBox.width * 3);
-  expect(graphBox.height).toBeGreaterThanOrEqual(580);
-  expect(graphBox.height).toBeLessThanOrEqual(960);
+  expect(graphBox.height).toBeGreaterThanOrEqual(520);
+  expect(graphBox.height).toBeLessThanOrEqual(920);
+  expect(graphBox.y).toBeLessThan(190);
   await expectRendererFillsViewport(page);
+
+  const appTitle = page.getByRole("heading", { name: "Prep", level: 1 });
+  const titleFontSize = await appTitle.evaluate((element) =>
+    Number.parseFloat(getComputedStyle(element).fontSize),
+  );
+  expect(titleFontSize).toBeLessThanOrEqual(20);
 });
 
 test("reflows the Knowledge workspace for tablet and mobile widths", async ({

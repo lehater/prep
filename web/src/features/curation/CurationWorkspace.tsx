@@ -55,24 +55,21 @@ export function CurationWorkspace({
   Renderer,
 }: CurationWorkspaceProps) {
   return (
-    <Stack spacing={{ xs: 2, md: 2.5 }}>
+    <Stack spacing={{ xs: 1.25, md: 1.5 }}>
       <Stack
-        direction={{ xs: "column", lg: "row" }}
-        spacing={1.5}
+        direction={{ xs: "column", md: "row" }}
+        spacing={1}
         sx={{
-          alignItems: { xs: "flex-start", lg: "flex-end" },
+          alignItems: { xs: "flex-start", md: "center" },
           justifyContent: "space-between",
         }}
       >
         <header>
-          <Typography component="p" color="text.secondary">
+          <Typography component="p" variant="overline" color="text.secondary">
             Curation
           </Typography>
           <Typography component="h2" variant="h5">
-            Curation {LABELS[section]}
-          </Typography>
-          <Typography color="text.secondary">
-            Maintain prepared profiles and reusable canonical learning data outside the learner workflow.
+            {LABELS[section]}
           </Typography>
         </header>
 

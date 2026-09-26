@@ -25,7 +25,7 @@ export function AppShell({
       sx={{
         minHeight: "100dvh",
         px: { xs: 2, sm: 3, lg: 3 },
-        py: { xs: 1.5, md: 2 },
+        py: { xs: 1, md: 1.25 },
       }}
     >
       <Stack
@@ -33,12 +33,12 @@ export function AppShell({
         direction={{ xs: "column", sm: "row" }}
         spacing={1}
         sx={{
-          mb: { xs: 2, md: 2.5 },
+          mb: { xs: 1.25, md: 1.5 },
           alignItems: { xs: "flex-start", sm: "center" },
           justifyContent: "space-between",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           Prep
         </Typography>
         <Stack

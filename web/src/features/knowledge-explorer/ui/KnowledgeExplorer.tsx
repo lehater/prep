@@ -262,7 +262,7 @@ export function KnowledgeExplorer({
   }
 
   return (
-    <Stack spacing={1.5}>
+    <Stack spacing={1}>
       <Stack
         component="form"
         direction={{ xs: "column", md: "row" }}
@@ -270,7 +270,7 @@ export function KnowledgeExplorer({
         onSubmit={submitSearch}
         sx={{
           alignItems: { md: "center" },
-          flexWrap: { md: "wrap" },
+          flexWrap: { md: "wrap", lg: "nowrap" },
         }}
       >
         <TextField
@@ -278,7 +278,7 @@ export function KnowledgeExplorer({
           value={searchDraft}
           onChange={(event) => setSearchDraft(event.target.value)}
           size="small"
-          sx={{ width: { xs: "100%", md: 300 } }}
+          sx={{ width: { xs: "100%", md: 220, xl: 260 } }}
         />
         <Button type="submit" variant="contained">
           Search
@@ -509,19 +509,19 @@ export function KnowledgeExplorer({
       <Box
         sx={{
           "--knowledge-workspace-height":
-            "clamp(580px, calc(100dvh - 240px), 960px)",
+            "clamp(520px, calc(100dvh - 178px), 920px)",
           display: "grid",
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
-            md: "minmax(210px, 250px) minmax(0, 1fr)",
-            lg: "minmax(190px, 220px) minmax(0, 1fr) minmax(250px, 300px)",
+            md: "minmax(180px, 210px) minmax(0, 1fr)",
+            lg: "200px minmax(0, 1fr) 280px",\n            xl: "220px minmax(0, 1fr) 320px",
           },
           gridTemplateAreas: {
             xs: `"graph" "list" "detail"`,
             md: `"list graph" "detail detail"`,
             lg: `"list graph detail"`,
           },
-          gap: 1.5,
+          gap: 1,
           minWidth: 0,
           alignItems: "stretch",
         }}
@@ -532,7 +532,7 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "list",
-            p: 1.5,
+            p: 1,
             minWidth: 0,
             height: { md: "var(--knowledge-workspace-height)" },
             overflow: "auto",
@@ -549,12 +549,12 @@ export function KnowledgeExplorer({
               message="Change the current search or semantic-kind filter."
             />
           ) : listState.status === "ready" ? (
-            <Stack component="ul" spacing={0.75} sx={{ listStyle: "none", p: 0 }}>
+            <Stack component="ul" spacing={0.25} sx={{ listStyle: "none", p: 0 }}>
               {listState.value.items.map((node) => (
                 <li key={node.id}>
                   <Button
                     onClick={() => openDetail(node.id)}
-                    sx={{ justifyContent: "flex-start", textAlign: "left" }}
+                    fullWidth\n                    sx={{ justifyContent: "flex-start", textAlign: "left", px: 0.75, py: 0.5 }}
                   >
                     <Stack sx={{ alignItems: "flex-start" }}>
                       <span>{node.title}</span>
@@ -573,10 +573,10 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "graph",
-            p: 0.75,
+            p: 0,
             minWidth: 0,
             height: {
-              xs: "clamp(460px, 68dvh, 720px)",
+              xs: "clamp(420px, 62dvh, 680px)",
               md: "var(--knowledge-workspace-height)",
             },
             display: "flex",
@@ -603,7 +603,7 @@ export function KnowledgeExplorer({
               </Typography>
             ) : null}
           </Stack>
-          <Box sx={{ flex: 1, minHeight: 0 }}>
+          <Box sx={{ flex: 1, minHeight: 0, backgroundColor: "#0b1220" }}>
             {graphState.status === "loading" || scene === null ? (
               <LoadingState label="Loading Knowledge graph" />
             ) : (
@@ -623,7 +623,7 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "detail",
-            p: 1.5,
+            p: 1.25,
             minWidth: 0,
             height: { lg: "var(--knowledge-workspace-height)" },
             overflow: "auto",

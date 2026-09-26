@@ -148,7 +148,7 @@ export function KnowledgeCurationView({
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1}>
       <Stack
         component="section"
         aria-label="Knowledge authoring actions"
@@ -166,9 +166,6 @@ export function KnowledgeCurationView({
         <Button component={Link} to="/curation/import?kind=knowledge">
           Import Knowledge
         </Button>
-        <Typography variant="body2" color="text.secondary">
-          Create or import only when needed; graph exploration remains the primary workspace.
-        </Typography>
       </Stack>
 
       {showCreate ? (
@@ -227,7 +224,7 @@ export function KnowledgeCurationView({
             <Stack
               component="section"
               aria-label="Knowledge editor"
-              spacing={1.5}
+              spacing={1}
             >
               <Typography component="h3" variant="h6">
                 Knowledge editor
