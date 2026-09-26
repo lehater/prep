@@ -65,11 +65,17 @@ authorities:
       independent_change: Tactical semantics can evolve behind accepted product and model-context boundaries without selecting persistence, UI or runtime technology.
       public_contract: Provides accepted Knowledge Model, Learning Design and Learner Model semantics to later design.
     produces:
+      - capability: prep.knowledge-relation-classification
+        knowledge_kind: domain-model
+        requires:
+          - capability: prep.model-context-strategy
+          - capability: prep.product-capabilities
       - capability: prep.knowledge-model
         knowledge_kind: domain-model
         requires:
           - capability: prep.model-context-strategy
           - capability: prep.product-capabilities
+          - capability: prep.knowledge-relation-classification
       - capability: prep.learning-design
         knowledge_kind: domain-model
         requires:

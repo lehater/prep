@@ -1,6 +1,6 @@
 version: 1
 kind: prep-relation-classification-catalog
-status: research-candidate
+status: canonical
 
 purpose:
   statement: >

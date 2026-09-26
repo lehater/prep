@@ -31,11 +31,17 @@ artifacts:
     provides: [prep.model-context-strategy]
     depends_on: [PRODUCT-CAPABILITIES, CONTEXT-MAP]
 
+  - id: KNOWLEDGE-RELATION-CLASSIFICATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    path: docs/domain/relation-classification-catalog.yaml
+    provides: [prep.knowledge-relation-classification]
+    depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES]
+
   - id: KNOWLEDGE-MODEL
     authority: TACTICAL-DOMAIN-DESIGN
     path: docs/domain/knowledge-model.md
     provides: [prep.knowledge-model]
-    depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES]
+    depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES, KNOWLEDGE-RELATION-CLASSIFICATION]
 
   - id: FRONTEND-PERFORMANCE-CAPACITY
     authority: QUALITY-DESIGN
