@@ -155,6 +155,24 @@ The checker should operate on versioned source imports and path rules, not gener
 
 TypeScript compilation additionally enforces public type boundaries; oxlint handles ordinary code-quality rules.
 
+## Visual density and responsive realization
+
+The production frontend uses a compact desktop-first application density rather than provider defaults.
+
+Concrete realization choices:
+
+- base readable UI text is approximately 13–14 px at browser 100% zoom;
+- application/page headings stay approximately 18–22 px; provider display-sized headings are not used for workspace chrome;
+- ordinary toolbar buttons/inputs/selects target a compact 28–32 px control height on desktop while remaining keyboard accessible;
+- provider button text uses normal casing rather than default all-caps presentation;
+- wide Knowledge composition begins at the 1280px-class breakpoint and uses approximately 200–220 px list support, a flexible graph remainder, and approximately 280–320 px detail/editor support;
+- compact 900–1279px composition keeps list + graph side-by-side and moves detail below;
+- narrow below 900px presents graph first at full content width, then supporting list/detail;
+- graph height is derived from remaining viewport space after compact shell/workspace chrome rather than a large fixed page stack;
+- graph surface has an explicit renderer-background role so the primary workspace remains visually legible during renderer initialization/degradation.
+
+These values are implementation choices behind the accepted wide/compact/narrow semantic transformations. If usability evidence shows they are too dense or too sparse, adjust this realization without reopening product/domain semantics.
+
 ## State realization
 
 Use:

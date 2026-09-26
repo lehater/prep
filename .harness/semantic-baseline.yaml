@@ -125,5 +125,5 @@ reviews:
     basis: Frontend Test Design now includes an executable Knowledge-selection renderer-continuity contract in addition to responsive workspace, graph-control, semantic-preservation and hardware stress evidence.
 
   - capability: prep.frontend-implementation-design
-    revision: 4
-    basis: Implementation Design revalidates FRC-01 completion criteria after live review exposed selection-driven graph reload and ordinary-desktop spatial-evidence gaps; semantic scope identity and renderer continuity are now explicit realization obligations.
+    revision: 5
+    basis: Implementation Design now makes the downstream visual-density realization explicit: compact typography/control scale, 1280-class wide workspace, 900-class narrow transition, bounded support-pane widths and viewport-derived graph height replace unreviewed MUI provider defaults.

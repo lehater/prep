@@ -313,3 +313,10 @@ Requalification workflow run `36208046392` passed:
 Permanent `Frontend fast` run `36208046305` also passed on the viewport correction commit.
 
 FRC-01 remains reopened only for manual confirmation of the corrected running UI. No new frontend feature slice is implied.
+
+
+### Visual-density/live-design correction
+
+Manual review at browser 100% zoom confirmed that the spatial regions were technically responsive but the realization still looked like unstyled provider defaults: oversized workspace typography, tall controls, redundant explanatory copy, excessive chrome height and no explicit density system.
+
+The implementation correction therefore treats exact typography, spacing, control density and breakpoint numbers as the downstream Implementation Design responsibility already allowed by Presentation System. The first realization pass establishes a compact 13–14px workspace text scale, 18–22px headings, 28–32px controls, normal-case buttons, 1280px-class wide frame, 900px-class narrow transition, approximately 200/280px supporting panes and viewport-derived graph height. Product/domain/interface semantics are unchanged.
