@@ -20,6 +20,28 @@ The edge direction is part of its meaning. UI arrows and graph traversal must fo
 
 The registry describes semantic truth, not visualization. Colors, line styles and visibility toggles are view concerns derived from `type`.
 
+## Revalidation status
+
+The registry below is the **current compatibility baseline**, not the accepted final relation design.
+
+Deeper relation-model research found that `uses`, `depends_on`, `enables` and generic `derives_from` are too broad to serve reliably as human-facing leaf predicates. They collapse materially different assertions and can create opposite-looking edges that do not add explanatory value.
+
+The next vocabulary migration MUST be based on:
+
+- `docs/research/relation-ontology-theory-selection.md` — theory/standards selection and the exact 20-predicate candidate set;
+- ISO 704 concept-relation methodology;
+- OWL/Relation Ontology definition discipline;
+- ArchiMate technical/system relations;
+- PROV-O provenance/derivation semantics;
+- the concept-map proposition test for visible edge quality.
+
+Until corpus validation and migration are complete:
+
+- existing runtime types remain supported for compatibility;
+- no new relation type should be added merely by analogy to the current nine-type enum;
+- new broad `uses` / `depends_on` / `enables` assertions should not be treated as evidence that those predicates are semantically adequate;
+- inverse wording should be derived from one canonical relation where possible rather than stored as a second opposite edge.
+
 ## Canonical registry
 
 ### Structural / taxonomic
