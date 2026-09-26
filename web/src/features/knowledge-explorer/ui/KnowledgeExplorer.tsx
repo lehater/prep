@@ -268,7 +268,7 @@ export function KnowledgeExplorer({
   }
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1} sx={{ width: "100%", maxWidth: "100%", minWidth: 0 }}>
       <Paper
         component="form"
         variant="outlined"
@@ -279,9 +279,11 @@ export function KnowledgeExplorer({
           display: "flex",
           alignItems: { md: "center" },
           flexDirection: { xs: "column", md: "row" },
-          flexWrap: { md: "wrap", lg: "nowrap" },
+          flexWrap: "wrap",
           gap: 0.5,
           minWidth: 0,
+          maxWidth: "100%",
+          overflow: "hidden",
         }}
       >
         <TextField
@@ -520,7 +522,7 @@ export function KnowledgeExplorer({
             setRenderPreferences(graphPreferencesForProfile(next));
           }}
           sx={{
-            ml: { lg: "auto" },
+            ml: { md: "auto" },
             "& .MuiToggleButton-root": {
               minHeight: 28,
               px: 1,
@@ -794,7 +796,10 @@ export function KnowledgeExplorer({
                                 <Typography component="h5" variant="subtitle2">
                                   Relations
                                 </Typography>
-                                <Stack component="ul" sx={{ pl: 2 }}>
+                                <Stack
+                                  component="ul"
+                                  sx={{ pl: 2, minWidth: 0, overflowWrap: "anywhere" }}
+                                >
                                   {graphState.value.relations
                                     .filter(
                                       (relation) =>
