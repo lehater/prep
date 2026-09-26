@@ -35,8 +35,10 @@ import {
   type NodePointerGesture,
 } from "./nodeGesture";
 import {
-  rendererGraphDataKey,
-  toRendererGraphData,
+  rendererLinkDataKey,
+  rendererNodeDataKey,
+  toRendererLinks,
+  toRendererNodes,
   type Rfg3dLink,
   type Rfg3dNode,
 } from "./rendererGraphData";
@@ -178,8 +180,14 @@ export function Rfg3dGraphRenderer({
   const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null);
   const [size, setSize] = useState({ width: 960, height: 600 });
 
-  const dataKey = rendererGraphDataKey(scene);
-  const graphData = useMemo(() => toRendererGraphData(scene), [dataKey]);
+  const nodeDataKey = rendererNodeDataKey(scene);
+  const linkDataKey = rendererLinkDataKey(scene);
+  const rendererNodes = useMemo(() => toRendererNodes(scene), [nodeDataKey]);
+  const rendererLinks = useMemo(() => toRendererLinks(scene), [linkDataKey]);
+  const graphData = useMemo(
+    () => ({ nodes: rendererNodes, links: rendererLinks }),
+    [rendererLinks, rendererNodes],
+  );
   const presentationById = useMemo(
     () => new Map(scene.nodes.map((node) => [node.knowledgeId, node])),
     [scene.nodes],
@@ -393,7 +401,8 @@ export function Rfg3dGraphRenderer({
       }
     };
   }, [
-    dataKey,
+    nodeDataKey,
+    linkDataKey,
     emitDiagnostics,
     graphData.links,
     graphData.nodes.length,
@@ -631,11 +640,18 @@ export function Rfg3dGraphRenderer({
     engineSettledMsRef.current = undefined;
     resumeRenderer();
 
+    if (strategy.physics !== "off") {
+      try {
+        graphRef.current?.d3ReheatSimulation();
+      } catch {
+        // The force graph can still be mounting; its own next tick will continue setup.
+      }
+    }
+
     if (!shouldIdlePause) {
       return;
     }
-    const settleBudgetMs =
-      strategy.physics === "off" ? 60 : 5_500;
+    const settleBudgetMs = strategy.physics === "off" ? 60 : 5_500;
     const timer = window.setTimeout(() => {
       if (!dragRef.current) {
         pauseRenderer();
@@ -643,7 +659,7 @@ export function Rfg3dGraphRenderer({
     }, settleBudgetMs);
     return () => window.clearTimeout(timer);
   }, [
-    dataKey,
+    linkDataKey,
     pauseRenderer,
     resumeRenderer,
     shouldIdlePause,
