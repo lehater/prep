@@ -1,37 +1,247 @@
 version: 1
-kind: information-architecture-design
-id: PREP-INFORMATION-ARCHITECTURE
+kind: prep-information-architecture
+
+purpose: >-
+  Organize the information required by accepted Prep tasks so users can find
+  learning, knowledge and curation information without deriving structure from
+  backend resources or committing to routes, screens, panes or layout.
+
 locations:
-  - {id: APP-SHELL, purpose: Preserve explicit Learning/Curation mode switching and global runtime status., concept_refs: [LEARNING, CURATION, EXTERNAL-RUNTIME], scope: global}
-  - {id: TARGET-WORKSPACE, purpose: Preserve the selected LearningTarget while moving between learner tasks., concept_refs: [LEARNING, LEARNING-TARGET], scope: target}
-  - {id: CURATION-WORKSPACE, purpose: Preserve the authoring context while moving between reusable learning-system areas., concept_refs: [CURATION], scope: global}
-  - {id: LEARNING-TARGETS, purpose: Choose a prepared target., concept_refs: [LEARNING, LEARNING-TARGET], scope: global}
-  - {id: TARGET-OVERVIEW, purpose: Understand the active target, scope and material availability., concept_refs: [LEARNING-TARGET, TARGET-SCOPE, REQUIREMENT], scope: target}
-  - {id: TARGET-KNOWLEDGE, purpose: Read/search/explore target-relevant knowledge and relations., concept_refs: [KNOWLEDGE, KNOWLEDGE-RELATION], scope: target}
-  - {id: TARGET-STUDY, purpose: Inspect Questions/Study Set and hand the preview to the external runtime., concept_refs: [QUESTION, STUDY-SET, EXTERNAL-RUNTIME], scope: target}
-  - {id: TARGET-STATISTICS, purpose: Inspect factual review evidence., concept_refs: [REVIEW-FACTS, QUESTION], scope: target}
-  - {id: CURATION-TARGETS, purpose: Maintain prepared LearningTargets and scope., concept_refs: [CURATION, LEARNING-TARGET, REQUIREMENT], scope: global}
-  - {id: CURATION-KNOWLEDGE, purpose: Maintain reusable Knowledge and semantic relations., concept_refs: [CURATION, KNOWLEDGE, KNOWLEDGE-RELATION], scope: global}
-  - {id: CURATION-REQUIREMENTS, purpose: Maintain Requirements/RequirementSets and Knowledge alignment., concept_refs: [CURATION, REQUIREMENT, KNOWLEDGE], scope: global}
-  - {id: CURATION-QUESTIONS, purpose: Maintain Questions and Knowledge alignment., concept_refs: [CURATION, QUESTION, KNOWLEDGE], scope: global}
-  - {id: CURATION-IMPORT, purpose: Import supported prepared data in its curation context., concept_refs: [CURATION], scope: contextual}
-  - {id: RUNTIME-STATUS, purpose: Inspect external-runtime status., concept_refs: [EXTERNAL-RUNTIME], scope: secondary}
-relationships:
-  - {source: APP-SHELL, target: LEARNING-TARGETS, relation: mode-entry}
-  - {source: APP-SHELL, target: CURATION-WORKSPACE, relation: mode-entry}
-  - {source: LEARNING-TARGETS, target: TARGET-WORKSPACE, relation: select-target}
-  - {source: TARGET-WORKSPACE, target: TARGET-OVERVIEW, relation: contains}
-  - {source: TARGET-WORKSPACE, target: TARGET-KNOWLEDGE, relation: contains}
-  - {source: TARGET-WORKSPACE, target: TARGET-STUDY, relation: contains}
-  - {source: TARGET-WORKSPACE, target: TARGET-STATISTICS, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-TARGETS, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-KNOWLEDGE, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-REQUIREMENTS, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-QUESTIONS, relation: contains}
-  - {source: LEARNING-TARGETS, target: TARGET-OVERVIEW, relation: enter-target}
-  - {source: TARGET-OVERVIEW, target: TARGET-KNOWLEDGE, relation: target-section}
-  - {source: TARGET-OVERVIEW, target: TARGET-STUDY, relation: target-section}
-  - {source: TARGET-OVERVIEW, target: TARGET-STATISTICS, relation: target-section}
-  - {source: CURATION-TARGETS, target: CURATION-REQUIREMENTS, relation: composes-from}
-  - {source: CURATION-REQUIREMENTS, target: CURATION-KNOWLEDGE, relation: aligns-to}
-  - {source: CURATION-QUESTIONS, target: CURATION-KNOWLEDGE, relation: aligns-to}
+  - id: IA-LEARNING
+    label: Learning
+    purpose: >-
+      Organize information used to choose an existing target, prepare/export
+      study material and inspect factual review evidence.
+    concept_refs: [MODE-LEARNING, ACTIVE-TARGET, TARGET-SCOPE, STUDY-PREVIEW, REVIEW-EVIDENCE]
+    scope: global-work-context
+    parent: ROOT
+    task_refs:
+      - TM-LEARN-SELECT-TARGET
+      - TM-LEARN-PREPARE-STUDY
+      - TM-LEARN-EXPORT-STUDY
+      - TM-LEARN-STUDY-EXTERNALLY
+      - TM-LEARN-INSPECT-EVIDENCE
+
+  - id: IA-LEARNING-TARGET
+    label: Target
+    purpose: >-
+      Make available curated targets findable and keep the active target,
+      intended outcome and prepared scope understandable.
+    concept_refs: [ACTIVE-TARGET, TARGET-SCOPE]
+    scope: learning-context
+    parent: IA-LEARNING
+    task_refs: [TM-LEARN-SELECT-TARGET]
+    cross_links: [IA-KNOWLEDGE]
+
+  - id: IA-STUDY-PREPARATION
+    label: Study preparation
+    purpose: >-
+      Keep the currently resolvable Study Set preview, its currentness and
+      preparation diagnostics together before external export.
+    concept_refs: [ACTIVE-TARGET, STUDY-PREVIEW, PREPARATION-DIAGNOSTIC]
+    scope: active-target
+    parent: IA-LEARNING
+    task_refs:
+      - TM-LEARN-PREPARE-STUDY
+      - TM-LEARN-EXPORT-STUDY
+      - TM-LEARN-STUDY-EXTERNALLY
+    cross_links: [IA-CURATION-DIAGNOSTICS, IA-KNOWLEDGE]
+
+  - id: IA-REVIEW-EVIDENCE
+    label: Review evidence
+    purpose: >-
+      Keep factual Question-level review history/statistics findable in target
+      or Question context while preserving their distinction from inferred
+      mastery or readiness.
+    concept_refs: [ACTIVE-TARGET, QUESTION-MATERIAL, REVIEW-EVIDENCE]
+    scope: active-target-or-question
+    parent: IA-LEARNING
+    task_refs: [TM-LEARN-INSPECT-EVIDENCE]
+    cross_links: [IA-CURATION-QUESTIONS]
+
+  - id: IA-KNOWLEDGE
+    label: Knowledge
+    purpose: >-
+      Provide one coherent place for finding, focusing and traversing reusable
+      Knowledge items and accepted semantic relationships. The same information
+      space can be observed in Learning work and intentionally edited in
+      Curation work without creating duplicate knowledge identities.
+    concept_refs: [KNOWLEDGE-ITEM, KNOWLEDGE-RELATIONSHIP, EXPLORATION-SCOPE, KNOWLEDGE-FOCUS]
+    scope: global-or-active-target
+    parent: ROOT
+    task_refs:
+      - TM-EXPLORE-FIND-KNOWLEDGE
+      - TM-EXPLORE-RELATIONSHIPS
+      - TM-CURATE-KNOWLEDGE
+      - TM-CURATE-KNOWLEDGE-RELATIONS
+    cross_links: [IA-LEARNING-TARGET, IA-CURATION-REQUIREMENTS, IA-CURATION-QUESTIONS]
+
+  - id: IA-CURATION
+    label: Curation
+    purpose: >-
+      Organize intentional maintenance of reusable targets, requirements,
+      questions, alignments, prepared input and supported structural
+      diagnostics separately from the learner workflow.
+    concept_refs: [MODE-CURATION, CHANGE-OUTCOME, PREPARATION-DIAGNOSTIC]
+    scope: global-work-context
+    parent: ROOT
+    task_refs:
+      - TM-CURATE-TARGET
+      - TM-CURATE-KNOWLEDGE
+      - TM-CURATE-KNOWLEDGE-RELATIONS
+      - TM-CURATE-REQUIREMENTS
+      - TM-CURATE-REQUIREMENT-ALIGNMENT
+      - TM-CURATE-QUESTIONS
+      - TM-CURATE-QUESTION-ALIGNMENT
+      - TM-CURATE-BULK-LOAD
+      - TM-CURATE-DIAGNOSTICS
+    cross_links: [IA-KNOWLEDGE]
+
+  - id: IA-CURATION-TARGETS
+    label: Targets
+    purpose: >-
+      Find and maintain reusable LearningTargets and their explicit prepared
+      Requirement/RequirementSet scopes.
+    concept_refs: [ACTIVE-TARGET, TARGET-SCOPE, REQUIREMENT, CHANGE-OUTCOME]
+    scope: curation
+    parent: IA-CURATION
+    task_refs: [TM-CURATE-TARGET]
+    cross_links: [IA-CURATION-REQUIREMENTS, IA-KNOWLEDGE]
+
+  - id: IA-CURATION-REQUIREMENTS
+    label: Requirements
+    purpose: >-
+      Find and maintain reusable Requirements/RequirementSets and their explicit
+      alignments to Knowledge.
+    concept_refs: [REQUIREMENT, KNOWLEDGE-ITEM, CHANGE-OUTCOME]
+    scope: curation
+    parent: IA-CURATION
+    task_refs:
+      - TM-CURATE-REQUIREMENTS
+      - TM-CURATE-REQUIREMENT-ALIGNMENT
+    cross_links: [IA-CURATION-TARGETS, IA-KNOWLEDGE]
+
+  - id: IA-CURATION-QUESTIONS
+    label: Questions
+    purpose: >-
+      Find and maintain reusable Question material and its explicit Knowledge
+      alignments.
+    concept_refs: [QUESTION-MATERIAL, KNOWLEDGE-ITEM, CHANGE-OUTCOME]
+    scope: curation
+    parent: IA-CURATION
+    task_refs:
+      - TM-CURATE-QUESTIONS
+      - TM-CURATE-QUESTION-ALIGNMENT
+    cross_links: [IA-KNOWLEDGE, IA-REVIEW-EVIDENCE]
+
+  - id: IA-CURATION-IMPORT
+    label: Prepared data
+    purpose: >-
+      Keep prepared bulk input, validation/rejection outcomes and the affected
+      canonical object kinds together as one curation concern.
+    concept_refs: [CHANGE-OUTCOME]
+    scope: curation
+    parent: IA-CURATION
+    task_refs: [TM-CURATE-BULK-LOAD]
+    cross_links:
+      - IA-KNOWLEDGE
+      - IA-CURATION-TARGETS
+      - IA-CURATION-REQUIREMENTS
+      - IA-CURATION-QUESTIONS
+
+  - id: IA-CURATION-DIAGNOSTICS
+    label: Diagnostics
+    purpose: >-
+      Find supported structural preparation problems and route the user to the
+      canonical information that can be intentionally repaired.
+    concept_refs: [PREPARATION-DIAGNOSTIC, KNOWLEDGE-ITEM, QUESTION-MATERIAL, REQUIREMENT]
+    scope: curation
+    parent: IA-CURATION
+    task_refs: [TM-CURATE-DIAGNOSTICS]
+    cross_links:
+      - IA-KNOWLEDGE
+      - IA-CURATION-REQUIREMENTS
+      - IA-CURATION-QUESTIONS
+      - IA-STUDY-PREPARATION
+
+organization:
+  primary_grouping:
+    - location: IA-LEARNING
+      rationale: >-
+        Learning has a distinct information purpose: consume a prepared target,
+        prepare material and inspect evidence without mutating reusable scope.
+    - location: IA-KNOWLEDGE
+      rationale: >-
+        Knowledge understanding is a reusable cross-context activity, so
+        canonical Knowledge is not duplicated into separate Learning and
+        Curation information trees.
+    - location: IA-CURATION
+      rationale: >-
+        Canonical maintenance needs deliberate entry and mutation semantics, so
+        it remains findable as a separate work context.
+  hierarchy_rule: >-
+    Child locations refine an information responsibility; they do not imply a
+    page, route, menu item or persistent visual region.
+  cross_link_rule: >-
+    Cross-links expose semantic/task adjacency such as diagnostic-to-repair,
+    target-to-knowledge and Question-to-evidence without duplicating the
+    underlying canonical object.
+
+taxonomy:
+  stable_labels:
+    Learning: consume a prepared target and study material
+    Knowledge: understand reusable subject knowledge and relationships
+    Curation: intentionally maintain reusable canonical data
+    Target: the active or curated LearningTarget and prepared scope
+    Study preparation: current Study Set preview before external export
+    Review evidence: factual Question-level review observations/statistics
+    Requirements: reusable demanded capabilities and sets
+    Questions: reusable question/direct-answer material
+    Prepared data: supported bulk input and its outcome
+    Diagnostics: supported structural preparation facts
+  terminology_constraints:
+    - do not label review evidence as mastery, readiness or progress
+    - do not label structural diagnostics as coverage score
+    - do not call Knowledge relationships visual edges in user-facing semantic descriptions
+    - do not use graph terminology as the primary label for canonical Knowledge
+
+findability_assumptions:
+  - id: F-01
+    assumption: >-
+      Users can recognize Learning, Knowledge and Curation as distinct
+      information intents more readily than a navigation structure derived from
+      backend entity names alone.
+    validation_need: verify through prototype/task walkthrough evidence
+  - id: F-02
+    assumption: >-
+      A shared Knowledge information space with explicit mode/scope/focus is
+      less confusing than separate duplicate Learning-Knowledge and
+      Curation-Knowledge destinations.
+    validation_need: verify users always understand whether mutation is available
+  - id: F-03
+    assumption: >-
+      Diagnostics are most findable as a curation concern with contextual links
+      from Study preparation and affected canonical objects.
+    validation_need: verify diagnostic-to-repair transitions during curation tasks
+
+global_vs_contextual_scope:
+  global:
+    - IA-KNOWLEDGE can search canonical Knowledge globally
+    - IA-CURATION organizes reusable canonical data globally
+  contextual:
+    - IA-LEARNING-TARGET is bound to the selected target after selection
+    - IA-STUDY-PREPARATION is bound to the active target
+    - IA-REVIEW-EVIDENCE may be target- or Question-scoped
+    - IA-KNOWLEDGE may switch to target-relevant scope while preserving explicit scope identity
+
+deliberately_unconstrained:
+  - route and URL structure
+  - menu or rail composition
+  - page/view partitioning
+  - persistent versus transient regions
+  - responsive layout
+  - visual representation of Knowledge relationships
+  - graphical versus textual presentation
+  - component boundaries
+
+unresolved_questions: []
