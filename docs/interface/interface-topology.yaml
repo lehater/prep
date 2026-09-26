@@ -1,24 +1,258 @@
 version: 1
-kind: interface-topology-design
-id: PREP-INTERFACE-TOPOLOGY
+kind: prep-interface-topology
+
+purpose: >-
+  Partition the rebuilt Prep human interface into stable task views and
+  structural navigation contexts. View identity follows accepted information
+  and interaction responsibilities, not existing routes/components or a chosen
+  visual representation.
+
 views:
-  - {id: F-00-APPLICATION-SHELL, responsibility: Preserve explicit Learning/Curation mode context and global runtime-status access., location_ref: APP-SHELL, interaction_context_refs: [], structural: true, parent: ROOT, exits: [L-01-TARGET-SELECTION, C-11-TARGET-COLLECTION, S-01-RUNTIME-STATUS]}
-  - {id: F-LT-TARGET-WORKSPACE, responsibility: Preserve the active LearningTarget while switching among learner sections., location_ref: TARGET-WORKSPACE, interaction_context_refs: [], structural: true, parent: F-00-APPLICATION-SHELL, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS]}
-  - {id: F-C-CURATION-WORKSPACE, responsibility: Preserve Curation mode while switching among authoring areas., location_ref: CURATION-WORKSPACE, interaction_context_refs: [], structural: true, parent: F-00-APPLICATION-SHELL, exits: [C-11-TARGET-COLLECTION, C-21-KNOWLEDGE-WORKSPACE, C-31-REQUIREMENTS-COLLECTION, C-41-QUESTIONS-COLLECTION]}
-  - {id: L-01-TARGET-SELECTION, responsibility: Choose a prepared LearningTarget., location_ref: LEARNING-TARGETS, interaction_context_refs: [I-L-SELECT-TARGET], parent: F-00-APPLICATION-SHELL, exits: [L-02-TARGET-OVERVIEW, S-01-RUNTIME-STATUS]}
-  - {id: L-02-TARGET-OVERVIEW, responsibility: Establish active target context and read-only scope., location_ref: TARGET-OVERVIEW, interaction_context_refs: [I-L-OVERVIEW], parent: F-LT-TARGET-WORKSPACE, exits: [L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS, C-12-TARGET-EDITOR]}
-  - {id: L-03-TARGET-KNOWLEDGE, responsibility: Explore target-relevant Knowledge and relations., location_ref: TARGET-KNOWLEDGE, interaction_context_refs: [I-L-KNOWLEDGE], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS]}
-  - {id: L-04-TARGET-STUDY, responsibility: Inspect Questions/Study Set and hand the exact preview to the external runtime., location_ref: TARGET-STUDY, interaction_context_refs: [I-L-STUDY], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-05-TARGET-STATISTICS, S-01-RUNTIME-STATUS]}
-  - {id: L-05-TARGET-STATISTICS, responsibility: Inspect factual review evidence for currently relevant Questions., location_ref: TARGET-STATISTICS, interaction_context_refs: [I-L-STATISTICS], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY]}
-  - {id: C-11-TARGET-COLLECTION, responsibility: Find/create curated LearningTargets., location_ref: CURATION-TARGETS, interaction_context_refs: [I-C-TARGETS], parent: F-C-CURATION-WORKSPACE, exits: [C-12-TARGET-EDITOR, C-21-KNOWLEDGE-WORKSPACE, C-31-REQUIREMENTS-COLLECTION, C-41-QUESTIONS-COLLECTION]}
-  - {id: C-12-TARGET-EDITOR, responsibility: Edit one target definition and Requirement scope., location_ref: CURATION-TARGETS, interaction_context_refs: [I-C-TARGETS], parent: C-11-TARGET-COLLECTION, exits: [C-11-TARGET-COLLECTION, L-02-TARGET-OVERVIEW]}
-  - {id: C-21-KNOWLEDGE-WORKSPACE, responsibility: Search/explore the global Knowledge corpus and enter editing., location_ref: CURATION-KNOWLEDGE, interaction_context_refs: [I-C-KNOWLEDGE], parent: F-C-CURATION-WORKSPACE, exits: [C-22-KNOWLEDGE-EDITOR, C-11-TARGET-COLLECTION, C-31-REQUIREMENTS-COLLECTION, C-41-QUESTIONS-COLLECTION, S-02-IMPORT-FLOW]}
-  - {id: C-22-KNOWLEDGE-EDITOR, responsibility: Edit one KnowledgeNode and accepted semantic relations., location_ref: CURATION-KNOWLEDGE, interaction_context_refs: [I-C-KNOWLEDGE], parent: C-21-KNOWLEDGE-WORKSPACE, exits: [C-21-KNOWLEDGE-WORKSPACE]}
-  - {id: C-31-REQUIREMENTS-COLLECTION, responsibility: Find/create Requirements and RequirementSets., location_ref: CURATION-REQUIREMENTS, interaction_context_refs: [I-C-REQUIREMENTS], parent: F-C-CURATION-WORKSPACE, exits: [C-32-REQUIREMENT-EDITOR, C-33-REQUIREMENTSET-EDITOR, S-02-IMPORT-FLOW]}
-  - {id: C-32-REQUIREMENT-EDITOR, responsibility: Edit one Requirement and Knowledge alignment., location_ref: CURATION-REQUIREMENTS, interaction_context_refs: [I-C-REQUIREMENTS], parent: C-31-REQUIREMENTS-COLLECTION, exits: [C-31-REQUIREMENTS-COLLECTION]}
-  - {id: C-33-REQUIREMENTSET-EDITOR, responsibility: Edit one acyclic RequirementSet and membership., location_ref: CURATION-REQUIREMENTS, interaction_context_refs: [I-C-REQUIREMENTS], parent: C-31-REQUIREMENTS-COLLECTION, exits: [C-31-REQUIREMENTS-COLLECTION]}
-  - {id: C-41-QUESTIONS-COLLECTION, responsibility: Find/create and structurally inspect reusable Questions., location_ref: CURATION-QUESTIONS, interaction_context_refs: [I-C-QUESTIONS], parent: F-C-CURATION-WORKSPACE, exits: [C-42-QUESTION-EDITOR, S-02-IMPORT-FLOW]}
-  - {id: C-42-QUESTION-EDITOR, responsibility: Edit one Question and Knowledge alignment., location_ref: CURATION-QUESTIONS, interaction_context_refs: [I-C-QUESTIONS], parent: C-41-QUESTIONS-COLLECTION, exits: [C-41-QUESTIONS-COLLECTION]}
-  - {id: S-01-RUNTIME-STATUS, responsibility: Inspect external-runtime reachability/compatibility., location_ref: RUNTIME-STATUS, interaction_context_refs: [I-RUNTIME-STATUS], parent: F-00-APPLICATION-SHELL, exits: [L-01-TARGET-SELECTION]}
-  - {id: S-02-IMPORT-FLOW, responsibility: Apply prepared data and inspect import outcomes., location_ref: CURATION-IMPORT, interaction_context_refs: [I-C-IMPORT], parent: F-C-CURATION-WORKSPACE, exits: [C-21-KNOWLEDGE-WORKSPACE, C-31-REQUIREMENTS-COLLECTION, C-41-QUESTIONS-COLLECTION]}
+  - id: V-LEARN-TARGET
+    responsibility: >-
+      Establish and keep understandable the active curated LearningTarget and
+      its read-only prepared scope.
+    location_ref: IA-LEARNING-TARGET
+    interaction_context_refs: [I-LEARNING-TARGET]
+    parent: ROOT
+    entries:
+      - primary Learning entry
+      - direct entry to an explicitly identified target when that target exists
+    exits: [V-LEARN-STUDY, V-LEARN-EVIDENCE, V-KNOWLEDGE, V-CURATE]
+    direct_link_semantics: >-
+      A target identity may be directly addressable, but failure to resolve it
+      returns a not-found state rather than creating/editing a target.
+
+  - id: V-LEARN-STUDY
+    responsibility: >-
+      Build, inspect and export the current Study Set preview for the active
+      target while preserving preview/export fidelity.
+    location_ref: IA-STUDY-PREPARATION
+    interaction_context_refs: [I-STUDY-PREPARATION]
+    parent: V-LEARN-TARGET
+    entries:
+      - from an active target
+      - direct entry only when target context can be resolved explicitly
+    exits: [V-LEARN-TARGET, V-LEARN-EVIDENCE, V-KNOWLEDGE, V-CURATE-DIAGNOSTICS]
+    direct_link_semantics: >-
+      Study preparation requires an explicit resolvable target context; it does
+      not infer or create one from route state.
+
+  - id: V-LEARN-EVIDENCE
+    responsibility: >-
+      Inspect and refresh factual Question-level review evidence in target or
+      Question context without implying mastery/readiness.
+    location_ref: IA-REVIEW-EVIDENCE
+    interaction_context_refs: [I-REVIEW-EVIDENCE]
+    parent: V-LEARN-TARGET
+    entries:
+      - from an active target
+      - from a referenced Question when canonical identity is available
+    exits: [V-LEARN-TARGET, V-LEARN-STUDY, V-CURATE-QUESTIONS]
+    direct_link_semantics: >-
+      Direct Question evidence entry preserves Question identity and reports
+      absence of evidence explicitly.
+
+  - id: V-KNOWLEDGE
+    responsibility: >-
+      Find, focus and traverse reusable Knowledge and semantic relationships in
+      an explicit global/target-relevant scope; when entered in Curation work,
+      intentionally maintain Knowledge and relationships without duplicating
+      the canonical Knowledge space.
+    location_ref: IA-KNOWLEDGE
+    interaction_context_refs:
+      - I-KNOWLEDGE-EXPLORE
+      - I-CURATE-KNOWLEDGE
+      - I-CURATE-KNOWLEDGE-RELATION
+    parent: ROOT
+    entries:
+      - primary Knowledge entry with global scope
+      - contextual entry from Learning with target-relevant scope
+      - contextual entry from Curation with mutation work enabled
+      - direct entry to one canonical Knowledge identity
+    exits:
+      - V-LEARN-TARGET
+      - V-CURATE
+      - V-CURATE-TARGETS
+      - V-CURATE-REQUIREMENTS
+      - V-CURATE-QUESTIONS
+      - V-CURATE-DIAGNOSTICS
+    direct_link_semantics: >-
+      Direct Knowledge identity establishes focus. Global versus target-relevant
+      scope and Learning versus Curation work context remain explicit and are
+      never inferred from visual representation.
+
+  - id: V-CURATE
+    responsibility: >-
+      Provide the structural entry/continuity for deliberate reusable-data
+      maintenance and its task destinations.
+    location_ref: IA-CURATION
+    interaction_context_refs: []
+    structural: true
+    screen_required: false
+    parent: ROOT
+    entries:
+      - primary Curation entry
+    exits:
+      - V-CURATE-TARGETS
+      - V-KNOWLEDGE
+      - V-CURATE-REQUIREMENTS
+      - V-CURATE-QUESTIONS
+      - V-CURATE-IMPORT
+      - V-CURATE-DIAGNOSTICS
+    direct_link_semantics: >-
+      Curation entry establishes Curation work context and may resolve to the
+      most appropriate child destination without requiring an otherwise empty
+      landing screen.
+
+  - id: V-CURATE-TARGETS
+    responsibility: Maintain reusable LearningTargets and their prepared scopes.
+    location_ref: IA-CURATION-TARGETS
+    interaction_context_refs: [I-CURATE-TARGET]
+    parent: V-CURATE
+    entries:
+      - from Curation structure
+      - direct entry to a target identity for intentional curation
+    exits: [V-CURATE, V-CURATE-REQUIREMENTS, V-KNOWLEDGE, V-CURATE-DIAGNOSTICS]
+    direct_link_semantics: >-
+      Direct target entry is a Curation context and may expose mutation actions
+      that remain unavailable in Learning work.
+
+  - id: V-CURATE-REQUIREMENTS
+    responsibility: >-
+      Maintain Requirements/RequirementSets, membership and explicit
+      Requirement-to-Knowledge alignments.
+    location_ref: IA-CURATION-REQUIREMENTS
+    interaction_context_refs:
+      - I-CURATE-REQUIREMENTS
+      - I-CURATE-REQUIREMENT-ALIGNMENT
+    parent: V-CURATE
+    entries:
+      - from Curation structure
+      - from target scope or diagnostic context
+      - direct entry to a canonical Requirement/RequirementSet identity when supported
+    exits: [V-CURATE, V-CURATE-TARGETS, V-KNOWLEDGE, V-CURATE-DIAGNOSTICS]
+    direct_link_semantics: >-
+      Requirement identity is preserved separately from aligned Knowledge identity.
+
+  - id: V-CURATE-QUESTIONS
+    responsibility: >-
+      Maintain Question/direct-answer material and explicit
+      Question-to-Knowledge alignments.
+    location_ref: IA-CURATION-QUESTIONS
+    interaction_context_refs:
+      - I-CURATE-QUESTIONS
+      - I-CURATE-QUESTION-ALIGNMENT
+    parent: V-CURATE
+    entries:
+      - from Curation structure
+      - from diagnostic or evidence context
+      - direct entry to a canonical Question identity
+    exits: [V-CURATE, V-KNOWLEDGE, V-CURATE-DIAGNOSTICS, V-LEARN-EVIDENCE]
+    direct_link_semantics: >-
+      Question curation identity remains separate from review-evidence context.
+
+  - id: V-CURATE-IMPORT
+    responsibility: >-
+      Submit one supported prepared-data document and understand aggregate and
+      item-level application outcomes.
+    location_ref: IA-CURATION-IMPORT
+    interaction_context_refs: [I-CURATE-IMPORT]
+    parent: V-CURATE
+    entries:
+      - from Curation structure
+    exits:
+      - V-CURATE
+      - V-CURATE-TARGETS
+      - V-KNOWLEDGE
+      - V-CURATE-REQUIREMENTS
+      - V-CURATE-QUESTIONS
+      - V-CURATE-DIAGNOSTICS
+    direct_link_semantics: >-
+      Import is a curation operation; successful/rejected items route to their
+      canonical destinations without making the transport container a domain object.
+
+  - id: V-CURATE-DIAGNOSTICS
+    responsibility: >-
+      Inspect supported structural preparation facts and continue to the owning
+      explicit repair context.
+    location_ref: IA-CURATION-DIAGNOSTICS
+    interaction_context_refs: [I-CURATE-DIAGNOSTICS]
+    parent: V-CURATE
+    entries:
+      - from Curation structure
+      - contextual entry from Study preparation
+    exits:
+      - V-CURATE
+      - V-KNOWLEDGE
+      - V-CURATE-REQUIREMENTS
+      - V-CURATE-QUESTIONS
+      - V-LEARN-STUDY
+    direct_link_semantics: >-
+      A diagnostic may preserve implicated canonical identity while routing to a
+      repair context; it never applies repair automatically.
+
+navigation_model:
+  root_destinations:
+    - V-LEARN-TARGET
+    - V-KNOWLEDGE
+    - V-CURATE
+  principle: >-
+    Root destinations correspond to the accepted primary information intents
+    Learning, shared Knowledge and Curation. The concrete navigation control
+    (rail, menu, tabs, command surface or another pattern) remains downstream.
+  continuity:
+    - active LearningTarget remains meaningful while moving between Learning and target-scoped Knowledge
+    - Knowledge focus may be deep-linked without losing explicit exploration scope
+    - Curation work context remains explicit when the shared Knowledge view exposes mutation actions
+    - diagnostics preserve enough implicated identity to continue into repair work
+
 non_view_contexts: []
+
+coverage:
+  interaction_contexts:
+    I-LEARNING-TARGET: V-LEARN-TARGET
+    I-STUDY-PREPARATION: V-LEARN-STUDY
+    I-REVIEW-EVIDENCE: V-LEARN-EVIDENCE
+    I-KNOWLEDGE-EXPLORE: V-KNOWLEDGE
+    I-CURATE-KNOWLEDGE: V-KNOWLEDGE
+    I-CURATE-KNOWLEDGE-RELATION: V-KNOWLEDGE
+    I-CURATE-TARGET: V-CURATE-TARGETS
+    I-CURATE-REQUIREMENTS: V-CURATE-REQUIREMENTS
+    I-CURATE-REQUIREMENT-ALIGNMENT: V-CURATE-REQUIREMENTS
+    I-CURATE-QUESTIONS: V-CURATE-QUESTIONS
+    I-CURATE-QUESTION-ALIGNMENT: V-CURATE-QUESTIONS
+    I-CURATE-IMPORT: V-CURATE-IMPORT
+    I-CURATE-DIAGNOSTICS: V-CURATE-DIAGNOSTICS
+  no_ui_user_tasks:
+    - TM-LEARN-STUDY-EXTERNALLY
+
+responsibility_review:
+  mixed_responsibilities_rejected:
+    - >-
+      Study preparation/export is separate from review evidence because one
+      governs a prospective external side effect while the other inspects
+      recorded factual history.
+    - >-
+      Reusable Knowledge has one shared task view rather than separate
+      Learning/Curation copies because canonical identity and relationship
+      understanding are the same information responsibility; work mode changes
+      available mutation actions.
+    - >-
+      Targets, Requirements and Questions remain separate curation views because
+      their editing/alignment invariants and supporting information differ.
+    - >-
+      Prepared-data import remains separate from object editing because its
+      primary responsibility is item-level batch outcome/recovery, not canonical
+      object composition.
+
+deliberately_unconstrained:
+  - concrete URL and route strings
+  - desktop/mobile shell geometry
+  - navigation widget type
+  - view region and pane composition
+  - modal versus inline editing
+  - whether Knowledge uses graph, 3D graph, 2D diagram, list, tree, table or mixed presentation
+  - visual hierarchy, styling and components
+
+unresolved_questions: []
