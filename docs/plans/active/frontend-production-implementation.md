@@ -484,3 +484,21 @@ Manual review moved graph-specific controls off the node-search toolbar and onto
 - the persistent application navigation rail is narrowed to reduce non-content width.
 
 The experiment remains implementation evidence; production keeps its current renderer, relation vocabulary, routing and detail/filter state ownership.
+
+
+### Relation vocabulary revalidation — required follow-up
+
+The current nine-type runtime relation enum is now explicitly a compatibility baseline while the Knowledge relation model is revalidated.
+
+Normative research input:
+- `docs/research/relation-ontology-theory-selection.md`.
+
+The next semantic migration must:
+1. audit a representative real Knowledge Graph corpus against the documented 20-predicate candidate set;
+2. record unmatched recurring assertions rather than forcing them into broad predicates;
+3. remove or demote `uses`, `depends_on`, `enables` and generic `derives_from` when precise leaf predicates are available;
+4. collapse inverse-looking duplicate edges into one canonical assertion plus derived inverse presentation;
+5. canonicalize only predicates that pass the documented theory/evidence admission protocol;
+6. then migrate model, fixtures, filters, renderer colors/tooltips and tests together.
+
+Do not treat the candidate twenty as already accepted merely because they are documented.
