@@ -1,5 +1,8 @@
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
@@ -52,6 +55,8 @@ export function CurationWorkspace({
   importPort,
   Renderer,
 }: CurationWorkspaceProps) {
+  const [showKnowledgeCreate, setShowKnowledgeCreate] = useState(false);
+
   return (
     <Stack spacing={{ xs: 1.25, md: 1.5 }}>
       <Stack
@@ -62,7 +67,7 @@ export function CurationWorkspace({
           justifyContent: "space-between",
         }}
       >
-        <header>
+        <header aria-label={`Curation ${LABELS[section]} header`}>
           <Typography component="p" variant="overline" color="text.secondary">
             Curation
           </Typography>
@@ -76,6 +81,34 @@ export function CurationWorkspace({
           ) : null}
         </header>
 
+        {section === "knowledge" ? (
+          <Stack
+            component="section"
+            aria-label="Knowledge authoring actions"
+            direction="row"
+            spacing={0.75}
+            sx={{
+              alignItems: "center",
+              flexWrap: "wrap",
+              flexShrink: 0,
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => setShowKnowledgeCreate((value) => !value)}
+              aria-expanded={showKnowledgeCreate}
+            >
+              New Knowledge
+            </Button>
+            <Button
+              component={Link}
+              to="/curation/import?kind=knowledge"
+              variant="outlined"
+            >
+              Import Knowledge
+            </Button>
+          </Stack>
+        ) : null}
       </Stack>
 
       {section === "targets" ? (
@@ -88,6 +121,8 @@ export function CurationWorkspace({
           queryPort={knowledgeQueryPort}
           curationPort={knowledgePort}
           Renderer={Renderer}
+          showCreate={showKnowledgeCreate}
+          onShowCreateChange={setShowKnowledgeCreate}
         />
       ) : section === "requirements" ? (
         <RequirementsCurationView
