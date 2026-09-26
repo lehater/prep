@@ -21,6 +21,7 @@ import type {
   GraphViewportSnapshot,
 } from "../../features/knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeSemanticKind } from "../../features/knowledge-explorer/model/knowledge";
+import { DEFAULT_GRAPH_PHYSICS_TUNING } from "../../features/knowledge-explorer/ui/graphPresentation";
 import { KNOWLEDGE_RELATION_COLORS } from "../../features/knowledge-explorer/ui/graphPresentation";
 import { createBatchedLinkLayer, type BatchedLinkLayer } from "./batchedLinkLayer";
 import {
@@ -58,6 +59,11 @@ const NODE_COLORS: Readonly<Record<KnowledgeSemanticKind, string>> = {
   procedure: "#d9903d",
   strategy: "#a46de3",
 };
+
+interface AdjustableForce {
+  strength: (value: number) => unknown;
+  distance?: (value: number) => unknown;
+}
 
 interface RendererControls {
   enabled?: boolean;
@@ -163,6 +169,7 @@ export function Rfg3dGraphRenderer({
   viewport,
   performanceProfile = "auto",
   renderPreferences = DEFAULT_GRAPH_RENDER_PREFERENCES,
+  physicsTuning = DEFAULT_GRAPH_PHYSICS_TUNING,
   command,
   onNodeActivate,
   onViewportChange,
@@ -445,6 +452,44 @@ export function Rfg3dGraphRenderer({
       cancelAnimationFrame(frame);
     };
   }, [emitDiagnostics, strategy.maxPixelRatio, webglAvailable]);
+
+  useEffect(() => {
+    if (webglAvailable !== true) {
+      return;
+    }
+    const frame = requestAnimationFrame(() => {
+      const graph = graphRef.current;
+      if (!graph) {
+        return;
+      }
+      try {
+        (graph.d3Force("center") as AdjustableForce | undefined)?.strength(
+          physicsTuning.centerForce,
+        );
+        (graph.d3Force("charge") as AdjustableForce | undefined)?.strength(
+          -physicsTuning.repelForce,
+        );
+        const linkForce = graph.d3Force("link") as AdjustableForce | undefined;
+        linkForce?.strength(physicsTuning.linkForce);
+        linkForce?.distance?.(physicsTuning.linkDistance);
+        if (strategy.physics !== "off") {
+          resumeRenderer();
+          graph.d3ReheatSimulation();
+        }
+      } catch {
+        // Force initialization may still be completing; the next renderer update retries.
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [
+    physicsTuning.centerForce,
+    physicsTuning.linkDistance,
+    physicsTuning.linkForce,
+    physicsTuning.repelForce,
+    resumeRenderer,
+    strategy.physics,
+    webglAvailable,
+  ]);
 
   const captureViewport = useCallback((): GraphViewportSnapshot | null => {
     const graph = graphRef.current;
