@@ -9,6 +9,10 @@ import {
   knowledgeGraphMockNodes,
   knowledgeGraphMockRelations,
 } from "./mockKnowledgeGraphFixture";
+import {
+  donorKnowledgeNodes,
+  donorKnowledgeRelations,
+} from "./mockPaymentKnowledgeFixture";
 
 export const PREPARED_TARGET_ID = "linux-backend-interview";
 
@@ -84,6 +88,7 @@ const coreMockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
 
 export const mockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
   ...coreMockKnowledgeNodes,
+  ...donorKnowledgeNodes,
   ...knowledgeGraphMockNodes,
 ];
 
@@ -104,6 +109,7 @@ const coreMockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
 
 export const mockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
   ...coreMockKnowledgeRelations,
+  ...donorKnowledgeRelations,
   ...knowledgeGraphMockRelations,
 ];
 
