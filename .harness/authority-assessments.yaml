@@ -24,9 +24,9 @@ assessments:
 
   - authority_id: MODEL-CONTEXT-STRATEGY
     applicability: REQUIRED
-    evidence: [docs/architecture/context-map.md]
+    evidence: [docs/architecture/model-context-map.md]
     rationale: Knowledge Model, Learning Design and Learner Model have independently modeled languages and explicit semantic information-flow boundaries.
-    depends_on_evidence: [docs/architecture/context-map.md]
+    depends_on_evidence: [docs/architecture/context-map.md, docs/architecture/model-context-map.md]
     reopening_conditions: [model-context boundaries or translation relationships cease to be independently material]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
@@ -36,32 +36,60 @@ assessments:
     applicability: REQUIRED
     evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
-    depends_on_evidence: [docs/architecture/context-map.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted context boundaries or tactical domain semantics change]
 
   - authority_id: APPLICATION-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/application/application-design.md, docs/application/user-journeys.md]
+    rationale: Current canonical knowledge defines application orchestration, Study Set materialization and task-oriented user journeys.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [application orchestration or accepted journeys change materially]
 
   - authority_id: SYSTEM-ARCHITECTURE
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/architecture/system-architecture.md, docs/architecture/frontend-system-architecture.md]
+    rationale: Current canonical knowledge contains material runtime boundaries, deployment topology and frontend module/dependency/state-ownership decisions.
+    depends_on_evidence: [docs/application/application-design.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/import-consistency.md]
+    reopening_conditions: [runtime boundaries, frontend module/dependency topology, deployment constraints or technical topology change materially]
 
   - authority_id: CONCURRENCY-CONSISTENCY-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/architecture/import-consistency.md]
+    rationale: Bulk import and external-runtime interaction require explicit atomicity, partial-result and retry/consistency semantics.
+    depends_on_evidence: [docs/application/application-design.md, docs/interface/machine-interface.md]
+    reopening_conditions: [import atomicity, concurrency, retry or external synchronization semantics change]
 
   - authority_id: SECURITY-ARCHITECTURE
     applicability: UNASSESSED
 
   - authority_id: MACHINE-INTERFACE-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/interface/machine-interface.md]
+    rationale: Prep exposes independently owned browser/backend and external-study-runtime machine interaction contracts.
+    depends_on_evidence: [docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [supported machine interactions or external runtime contracts change materially]
 
   - authority_id: HUMAN-INTERFACE-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/interface/human-interface.md, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    rationale: Prep requires independently owned human interaction, information architecture and presentation/view composition. Presentation and screen/view contracts remain subject to the current revalidation.
+    depends_on_evidence: [docs/application/user-journeys.md, docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [accepted journeys, interaction model, information architecture or presentation/view contracts change materially]
 
   - authority_id: DATA-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/architecture/data-design.md]
+    rationale: Current canonical knowledge contains independent durable-storage representation and persistence constraints.
+    depends_on_evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md, docs/architecture/import-consistency.md, docs/architecture/system-architecture.md]
+    reopening_conditions: [persistence ownership, schema constraints or durable representation change materially]
 
   - authority_id: QUALITY-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/architecture/performance-capacity.md]
+    rationale: The interactive Knowledge graph has architecture-significant measurable scale, frame-rate, idle-resource and graceful-degradation constraints that are independently consumed by interface, architecture, component and verification work.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/architecture/performance-capacity.md]
+    reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
 
   - authority_id: SECURITY-ANALYSIS
     applicability: UNASSESSED
@@ -76,32 +104,52 @@ assessments:
     applicability: UNASSESSED
 
   - authority_id: ENGINEERING-POLICY
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/engineering/frontend-engineering-policy.md]
+    rationale: Frontend realization must apply consistent cross-cutting rules for provider isolation, dependency direction, reuse, composition, state ownership and representation boundaries across multiple feature/implementation slices.
+    depends_on_evidence: [docs/architecture/frontend-system-architecture.md, docs/interface/presentation-system.md, docs/engineering/frontend-engineering-policy.md]
+    reopening_conditions: [frontend architecture, provider strategy or project-wide engineering discipline changes materially]
 
   - authority_id: COMPONENT-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/implementation/frontend-component-design.md]
+    rationale: The selected frontend prototype and production consumers require explicit code-facing module/component, renderer, mapping, adapter and dependency boundaries so implementation does not promote experimental structure into architecture by accident.
+    depends_on_evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/frontend-system-architecture.md, docs/implementation/frontend-component-design.md]
+    reopening_conditions: [frontend architecture, screen/view responsibilities or machine-interface contracts change materially]
 
   - authority_id: TEST-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/verification/frontend-verification.md, docs/verification/frontend-test-design.yaml]
+    rationale: The production frontend consumer requires executable observable contracts refining accepted frontend Verification Design before concrete production test code is treated as evidence.
+    depends_on_evidence: [docs/verification/frontend-verification.md, docs/interface/interaction-design.yaml, docs/interface/screen-view-design.md]
+    reopening_conditions: [frontend verification obligations or production frontend scope change materially]
 
   - authority_id: IMPLEMENTATION-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/implementation/frontend-implementation-design.md]
+    rationale: The production frontend consumer requires bounded implementation slices, concrete repository realization, tool/provider placement, legacy-code reuse dispositions and reproducible completion/release criteria derived from accepted frontend design.
+    depends_on_evidence: [docs/implementation/frontend-component-design.md, docs/verification/frontend-verification.md, docs/verification/frontend-test-design.yaml, docs/engineering/frontend-engineering-policy.md]
+    reopening_conditions: [selected production frontend scope or accepted implementation-facing boundaries change materially]
 
   - authority_id: VERIFICATION-DESIGN
-    applicability: UNASSESSED
+    applicability: REQUIRED
+    evidence: [docs/verification/interface-verification.md, docs/verification/presentation-verification.md, docs/verification/frontend-verification.md]
+    rationale: Current canonical frontend knowledge has independent interface, presentation and production architecture/machine-contract verification obligations before test design.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/interface/machine-interface.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/architecture/frontend-system-architecture.md]
+    reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
 
 migration_conflicts:
   - retired_authority: STRATEGIC-DOMAIN-DESIGN
     previous_evidence: [.harness/core.yaml@pre-reconcile, docs/architecture/context-map.md]
     replacements: [DOMAIN-STRATEGY, MODEL-CONTEXT-STRATEGY]
     resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: The current context map contains independently material evidence for both replacement ownership families; applicability was reassessed from artifact semantics rather than copied.
+    rationale: The current context and model-context maps contain independently material evidence for both replacement ownership families; applicability was reassessed from artifact semantics rather than copied.
 
   - retired_authority: INTERFACE-DESIGN
     previous_evidence: [.harness/core.yaml@pre-reconcile]
     replacements: [MACHINE-INTERFACE-DESIGN, HUMAN-INTERFACE-DESIGN]
-    resolution: DEFERRED-REASSESSMENT
-    rationale: Legacy machine and human interface artifacts belong to the superseded solution hypothesis and are not current canonical evidence during top-level revalidation.
+    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
+    rationale: Current canonical machine-interface and human-interface artifacts independently prove both replacement ownership families; applicability was reassessed from current semantics rather than copied from the retired Authority.
 
   - retired_authority: DOMAIN-MODEL-DESIGN
     previous_evidence: [.harness/core.yaml@pre-reconcile]

@@ -1,0 +1,61 @@
+version: 1
+kind: visual-composition-design
+id: PREP-VISUAL-COMPOSITION
+status: CURRENT
+inherits: PRESENTATION-SYSTEM
+
+purpose: >-
+  Own material visual arrangement and appearance decisions independently of
+  frontend runtime/module architecture. Screen/View owns what exists and what it
+  means; this contract owns how accepted content is spatially composed.
+
+screens:
+  - id: C-21-KNOWLEDGE-WORKSPACE
+    reference_intent: accepted Knowledge workspace sketch reviewed in the implementation conversation
+    wide:
+      header:
+        composition: horizontal
+        left: title-block
+        right: authoring-actions
+        align: authoring actions share the header row with the title block
+      title-block:
+        order: [context, title, helper]
+      authoring-actions:
+        order: [new-knowledge, import-knowledge]
+        placement: top-right of the header row
+        new-knowledge: primary-contained
+        import-knowledge: secondary-outlined
+      graph-toolbar:
+        placement: separate horizontal band below the header row
+        contains:
+          - search
+          - semantic-kind
+          - relation-types
+          - focus
+          - clear-focus
+          - fit-graph
+          - reset-camera
+          - graph-settings
+          - performance-profile
+    invariants:
+      - new-knowledge and import-knowledge are not members of the graph toolbar
+      - authoring actions share the wide header row with the title block
+      - graph toolbar forms a separate lower band
+      - moving authoring actions into the toolbar is a visual-conformance failure
+      - wide layout avoids negative-margin positioning hacks between header and body
+    responsive:
+      - at narrow width authoring actions may wrap below the title block but remain part of the header, not the graph toolbar
+    freedoms:
+      - exact DOM structure
+      - exact CSS Grid/Flexbox mechanism
+      - minor spacing differences
+      - exact icon glyphs
+      - exact neutral color values within the Presentation System roles
+
+rendered_conformance:
+  - id: VC-KNOWLEDGE-HEADER-WIDE
+    viewport: 1366x768
+    oracle: >-
+      New Knowledge and Import Knowledge render in the same header region as
+      Curation Knowledge, and the Knowledge graph toolbar begins below that
+      header region as a separate band.

@@ -1,0 +1,39 @@
+name: Frontend fast
+
+on:
+  push:
+    branches-ignore: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/frontend-fast.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend-fast:
+    name: Frontend fast
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run fast deterministic checks
+        run: npm run verify

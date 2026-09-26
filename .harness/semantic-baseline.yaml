@@ -1,0 +1,133 @@
+version: 1
+kind: prep-strict-semantic-baseline
+baseline_id: prep-strict-semantic-baseline-v1
+purpose: >-
+  Record explicit capability-level semantic revalidation decisions for the
+  current accepted Prep Core. The revision number is human-controlled semantic
+  acceptance identity, not a file timestamp or content hash. Bump only the
+  affected capability when its accepted semantics are revalidated or replaced.
+
+reviews:
+  - capability: prep.problem-evidence
+    revision: 1
+    basis: Problem observations, desired outcomes and evidence were revalidated as problem truth without importing product or solution choices.
+
+  - capability: prep.product-intent
+    revision: 1
+    basis: Product intent was revalidated at observable scope/outcome level without promoting downstream domain, interface or architecture decisions.
+
+  - capability: prep.product-capabilities
+    revision: 1
+    basis: Product capabilities remain externally meaningful product behavior and do not prescribe technical realization.
+
+  - capability: prep.domain-strategy
+    revision: 1
+    basis: Strategic domain responsibilities remain investment/responsibility boundaries rather than tactical model or context-internal design.
+
+  - capability: prep.model-context-strategy
+    revision: 1
+    basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
+
+  - capability: prep.knowledge-model
+    revision: 1
+    basis: Knowledge identity, kinds and relations remain canonical domain semantics independent of persistence, renderer and user-interface realization.
+
+  - capability: prep.frontend-performance-capacity
+    revision: 1
+    basis: Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics.
+
+  - capability: prep.learning-design
+    revision: 1
+    basis: LearningTarget, Requirement and Question semantics remain target-relative learning-design truth without importing learner-state inference or UI mechanics.
+
+  - capability: prep.learner-model
+    revision: 1
+    basis: Learner evidence remains factual Question-level ReviewObservation/statistics semantics and does not invent mastery, readiness or retention inference.
+
+  - capability: prep.application-design
+    revision: 1
+    basis: Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports.
+
+  - capability: prep.task-model
+    revision: 1
+    basis: The task model expresses user goals/tasks and dependencies rather than screens, routes or component structure.
+
+  - capability: prep.user-journeys
+    revision: 1
+    basis: Journeys express task progression and context transitions without turning current screen decomposition into product semantics.
+
+  - capability: prep.conceptual-interface-model
+    revision: 1
+    basis: User-facing concepts were revalidated against tasks and domain/application sources without becoming a duplicate domain model.
+
+  - capability: prep.information-architecture
+    revision: 1
+    basis: Information organization and findability were revalidated independently of concrete screen layout or UI provider.
+
+  - capability: prep.machine-interfaces
+    revision: 2
+    basis: Browser collection contracts now explicitly expose exact total_count for the current scope/query while opaque cursors remain transport mechanics; all other browser/backend and external-runtime semantics were revalidated unchanged.
+
+  - capability: prep.interaction-design
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; accepted browse/search interactions remain unchanged and the previously required material counts now have an explicit machine-contract source.
+
+  - capability: prep.interface-topology
+    revision: 2
+    basis: Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology.
+
+  - capability: prep.presentation-system
+    revision: 4
+    basis: "Presentation System now canonically specifies the accepted visual language: compact typography/control density, light-shell/dark-graph surface roles, persistent desktop left rail, Knowledge pane ranges, toolbar composition and wide/compact/narrow breakpoint classes."
+
+  - capability: prep.screen-view-design
+    revision: 4
+    basis: "Screen/View Design owns accepted screen semantics, regions and interaction composition without depending on frontend runtime architecture."
+
+  - capability: prep.visual-composition
+    revision: 1
+    basis: "Visual Composition independently owns the accepted Knowledge workspace spatial arrangement: authoring actions share the wide header row with the title block, while graph controls occupy a separate lower toolbar band; it depends on Screen/View and Presentation System rather than Frontend System Architecture."
+
+  - capability: prep.import-consistency
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics.
+
+  - capability: prep.interface-verification
+    revision: 2
+    basis: Revalidated against the current interaction/topology prerequisite baseline; existing task and navigation evidence obligations remain sufficient.
+
+  - capability: prep.presentation-verification
+    revision: 4
+    basis: "Presentation Verification now includes visual-system fidelity evidence for the accepted density, shell, pane hierarchy and graph-surface roles in addition to responsive/performance closure."
+
+  - capability: prep.system-architecture
+    revision: 2
+    basis: Revalidated against Machine Interface revision 2; collection count metadata does not change runtime, trust, deployment or external-integration topology.
+
+  - capability: prep.data-design
+    revision: 2
+    basis: Revalidated after Machine Interface revision 2 through current consistency/system-architecture prerequisites; exact query result counts add no new durable representation or storage semantics.
+
+  - capability: prep.frontend-system-architecture
+    revision: 3
+    basis: Frontend architecture was revalidated against the graph performance/capacity prerequisite; Knowledge Exploration owns user presentation intent while the renderer adapter owns private optimization strategy and semantic-preserving degradation.
+
+  - capability: prep.frontend-engineering-policy
+    revision: 3
+    basis: Engineering policy now requires bounded graph work, demand-driven idle rendering, semantic-preserving degradation and hardware performance evidence while keeping renderer optimization internals isolated.
+
+  - capability: prep.frontend-component-design
+    revision: 3
+    basis: Graph component contracts now separate user-visible performance profiles/preferences from renderer-private instancing, batching, pixel-ratio, physics and diagnostics strategies.
+
+  - capability: prep.frontend-verification
+    revision: 5
+    basis: "Frontend verification now distinguishes selection from explicit focus and requires idle optimization to preserve interaction readiness; ordinary selection cannot narrow graph membership implicitly."
+
+  - capability: prep.frontend-test-design
+    revision: 6
+    basis: "Frontend Test Design now adds executable visual-system fidelity ranges for shell navigation, compact density, graph dominance and responsive pane roles while avoiding pixel-perfect provider-specific oracles."
+
+  - capability: prep.frontend-implementation-design
+    revision: 7
+    basis: "Implementation Design is revalidated against the canonical visual specification; exact implementation values must stay within accepted typography/control/pane/shell ranges instead of treating them as arbitrary local CSS choices."

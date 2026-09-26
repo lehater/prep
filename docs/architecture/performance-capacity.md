@@ -1,51 +1,153 @@
-# Performance and Capacity Design
+# Frontend Performance and Capacity Design
 
 ## Purpose
 
-Set engineering envelopes sufficient to validate the chosen architecture without pretending they are product SLAs.
+Define the accepted performance/capacity envelope for the interactive Knowledge graph and the user-visible degradation rules that keep Prep usable as graph density grows.
 
-## Backend data envelope
+This is a QUALITY-DESIGN contract. It is not a product SLA and it does not make any concrete renderer, batching strategy or physics engine canonical.
 
-Technical validation targets:
+The previous 3D experiment is evidence only. Its useful stress findings are adopted here only where they support this accepted contract.
 
-- 100,000 KnowledgeNodes;
-- 1,000,000 Relations;
-- several KnowledgeAssertions per node;
-- millions of learner review/evidence events over long-term use.
+## Workload envelope
 
-These are deliberate headroom targets for a personal/small-team knowledge system, not expected initial data volume.
+The browser must not assume that every canonical KnowledgeNode/KnowledgeRelation is rendered at once.
 
-## Interactive graph envelope
+Reference visible-graph envelopes:
 
-The UI never renders the full backend graph by default.
+- ordinary interactive view: up to approximately **2,000 visible nodes / 10,000 visible edges**;
+- stress view: up to approximately **5,000 visible nodes / 25,000 visible edges**;
+- larger corpora must use search, semantic/relation filtering, focus/neighborhood restriction and later clustering/progressive expansion rather than requiring an unbounded live full-corpus graph.
 
-Target modes:
+These numbers are engineering validation envelopes, not expected initial corpus size.
 
-- normal interactive view: up to ~2,000 visible nodes / ~10,000 edges;
-- stress view: up to ~5,000 nodes / ~25,000 edges;
-- larger scopes use filtering, clustering, search and progressive neighborhood expansion.
+## Interaction target
 
-Target interaction is approximately 30 FPS or better during ordinary navigation on a modern desktop at normal view size; the application may reduce labels/effects/layout work under stress.
+On a modern hardware-accelerated desktop browser at a normal desktop viewport:
 
-## Query budgets
+- ordinary orbit/pan/zoom/focus/filter interaction should remain approximately **30 FPS or better** in the ordinary envelope;
+- the renderer must become demand-driven when idle: once physics/camera inertia and explicit visual transitions stop, it must not keep an avoidable continuous animation loop alive;
+- performance degradation must never change canonical Knowledge identity, relation type/direction, selected scope or the availability of list/search/detail access.
 
-Representative bounded graph/search/detail queries should target sub-second user-visible response; common cached/indexed operations should normally complete in a few hundred milliseconds on the reference deployment.
+Exact p95 interaction budgets may be refined only from representative benchmark evidence.
 
-Exact p95 budgets are finalized after the first representative benchmark suite, before implementation is considered production-ready.
+## Degradation model
 
-## Background work
+Performance degradation is presentation-only and follows a semantic-preservation rule: **reduce rendering cost before reducing information access**.
 
-Semantic extraction, embedding, ASR and media processing are background jobs; they optimize throughput/retryability rather than interactive latency.
+### Auto profile — default
 
-## Benchmark gates
+The renderer selects an implementation strategy appropriate to visible graph size and device capability.
 
-Before adding a specialized graph store, benchmark PostgreSQL using representative:
+Allowed tactics include:
 
-- 1-hop/2-hop typed neighborhoods;
-- bounded variable-depth traversal with cycles;
-- filtered TargetScope subgraph;
-- node detail/evidence lookup;
-- text/vector candidate search;
-- progress overlay join.
+- instanced node rendering;
+- batched relation rendering;
+- demand-driven rendering;
+- reduced device-pixel ratio;
+- reduced polygon/detail resolution;
+- fewer always-visible labels;
+- disabling decorative particles;
+- pausing or shortening live force simulation after layout settles.
 
-Before replacing the selected renderer, benchmark representative 1k/2k/5k-node views.
+### Quality profile
+
+Prefer presentation richness when the visible graph remains comfortably responsive.
+
+May keep:
+
+- richer node geometry;
+- more labels;
+- directional arrowheads;
+- decorative relation particles/effects;
+- live physics for longer.
+
+### Performance profile
+
+Prefer interaction responsiveness under large/stress graphs.
+
+May:
+
+- use instanced nodes and batched links;
+- render lower-detail node geometry;
+- suppress mass directional particles;
+- reduce link thickness/effect work;
+- show labels only for selected/focused/hovered nodes;
+- pause physics after settling or allow the user to disable live physics;
+- lower render pixel ratio.
+
+Directional arrowheads may be disabled only when relation direction remains inspectable through another explicit encoding such as selected-relation detail/legend.
+
+### Fallback
+
+If WebGL/rendering is unavailable or the graph cannot remain usable, list/search/detail remain the canonical access path. Failure of the 3D presentation must not block Knowledge access.
+
+## User-visible graph controls
+
+The Knowledge workspace exposes a compact **Graph settings** surface.
+
+Stable user-facing controls:
+
+- Performance profile: **Auto / Quality / Performance**;
+- fit visible graph to viewport;
+- reset camera/view;
+- relation-type visibility;
+- semantic-kind visibility;
+- focus/clear focus.
+
+An **Advanced rendering** disclosure may expose presentation-only tuning useful for large graphs:
+
+- labels: normal / focused-only / off;
+- directional arrowheads: on/off;
+- decorative particles: on/off;
+- live physics: on / settle-and-pause / off;
+- node visual detail: normal / reduced.
+
+These settings may affect beauty and renderer workload but must not redefine domain semantics.
+
+Implementation-specific switches such as standard-vs-instanced node objects, standard-vs-batched link objects, internal buffer strategy, Three.js object counts or shader choices remain renderer implementation details. They may exist in developer diagnostics but are not required product vocabulary.
+
+## Donor evidence retained from the 3D experiment
+
+The experimental R2 spike established useful renderer evidence:
+
+- deterministic 60 / 250 / 1000-node density fixtures;
+- standard vs instanced-node A/B;
+- standard vs batched-link A/B;
+- performance ablations for particles, arrowheads, low-poly nodes, thin links, link visibility and physics;
+- demand-driven idle rendering;
+- developer diagnostics for RAF rate, force settle time, draw calls, triangles, CSS/buffer size and pixel ratio;
+- interaction parity checks for search/focus, hover-neighborhood, click-vs-drag and relation filtering.
+
+Production must adapt the mechanics to canonical Prep Knowledge semantics rather than copying PaymentGraph/product assumptions.
+
+## Verification obligations
+
+Production graph verification must include representative hardware-accelerated stress runs at **1k / 2k / 5k visible nodes** with proportionate relation density.
+
+Record at minimum:
+
+- active interaction FPS/RAF rate;
+- idle renderer activity;
+- force/layout settle time after load/filter/drag where physics is enabled;
+- perceived orbit/zoom/drag responsiveness;
+- search -> focus latency/usability;
+- filter -> topology-update behavior;
+- draw calls and triangle count when available;
+- WebGL/context failure;
+- whether each degradation profile preserves relation/selection/detail semantics.
+
+Headless tests may prove fixture counts, configuration transitions and semantic preservation. They must not claim real GPU/browser performance.
+
+## Implementation freedoms
+
+The following remain downstream renderer choices:
+
+- exact force constants;
+- exact automatic profile thresholds;
+- node/link batching implementation;
+- WebGL/Three.js object layout;
+- shader/material choices;
+- exact pixel-ratio policy;
+- exact numeric camera damping/zoom constants.
+
+Changing these does not require upstream redesign unless user-visible semantics or the accepted performance envelope changes.

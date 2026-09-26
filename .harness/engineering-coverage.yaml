@@ -1,0 +1,43 @@
+version: 1
+kind: prep-engineering-coverage-overlay
+project: PREP
+subject_inventory:
+  state: NOT_APPLICABLE
+  rationale: The selected frontend implementation scope is already explicitly partitioned by canonical view/module/capability contracts; no independent subject inventory is required to prove per-subject engineering coverage.
+decisions:
+  - concern: interface.human.responsiveness
+    state: COVERED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: Screen/View and Presentation contracts now define wide, compact and narrow semantic transformations, spatial priority and focus/read-order consequences while leaving exact CSS breakpoint numbers downstream.
+    evidence: [PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN]
+  - concern: quality.performance.latency
+    state: COVERED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The accepted graph quality contract defines an ordinary interactive envelope and approximately 30 FPS interaction target with representative hardware-accelerated benchmark obligations.
+    evidence: [FRONTEND-PERFORMANCE-CAPACITY]
+  - concern: quality.performance.resource-efficiency
+    state: COVERED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The graph quality contract requires demand-driven idle rendering and permits semantic-preserving reduction of labels, effects, pixel ratio, geometry detail and live physics under load.
+    evidence: [FRONTEND-PERFORMANCE-CAPACITY]
+  - concern: quality.performance.capacity
+    state: COVERED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: Visible-graph validation envelopes are approximately 2k nodes/10k edges ordinary and 5k nodes/25k edges stress, with larger corpora requiring bounded exploration instead of unbounded live rendering.
+    evidence: [FRONTEND-PERFORMANCE-CAPACITY]
+  - concern: quality.performance.throughput
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The current frontend graph quality contract has no independent throughput objective. Its material behavior is interactive latency/frame behavior, renderer resource efficiency and visible-graph capacity; inventing a nodes-per-second target would not represent a user or architecture requirement.
+    evidence: [FRONTEND-PERFORMANCE-CAPACITY]
+  - concern: interface.human.i18n
+    state: DEFERRED
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: No multi-locale or localization requirement is accepted for the current single-user v1. Internationalization remains future scope and must be reopened if product requirements introduce locale/language obligations.
+    evidence: [PRODUCT-VISION, PRESENTATION-SYSTEM]
