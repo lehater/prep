@@ -1,7 +1,11 @@
 import { describe, expect, test } from "vitest";
 
 import type { GraphScene } from "../../features/knowledge-explorer/projection/graphScene";
-import { toRendererGraphData } from "./rendererGraphData";
+import {
+  rendererLinkDataKey,
+  rendererNodeDataKey,
+  toRendererGraphData,
+} from "./rendererGraphData";
 
 const scene: GraphScene = {
   nodes: [
@@ -46,6 +50,13 @@ describe("RFG3D graph data mapping", () => {
       target: "contention",
       relationType: "addresses",
     });
+  });
+
+  test("relation-only changes do not invalidate renderer node identity", () => {
+    const filtered: GraphScene = { ...scene, edges: [] };
+
+    expect(rendererNodeDataKey(filtered)).toBe(rendererNodeDataKey(scene));
+    expect(rendererLinkDataKey(filtered)).not.toBe(rendererLinkDataKey(scene));
   });
 
   test("renderer geometry mutations cannot enter GraphScene", () => {
