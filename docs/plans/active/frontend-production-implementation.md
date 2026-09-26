@@ -470,3 +470,17 @@ The fixture preserves the Knowledge Graph immutable Concept Card IDs and source 
 - Historical Knowledge Graph candidates without sufficient admission evidence remain excluded; no generic `related_to` fallback is introduced.
 - Real Knowledge Graph mock corpus now contains 35 source cards across asynchronous-programming and access-control/authorization clusters. Typed projections preserve source-supported `uses`, `specializes`, `depends_on`, `realizes`, `produces`, and `enables` relations instead of collapsing imported relations to one type.
 - Research evidence: `docs/research/knowledge-relation-vocabulary-evaluation.md`.
+
+
+### Graph workspace control redistribution
+
+Manual review moved graph-specific controls off the node-search toolbar and onto the graph surface:
+
+- node search and semantic-kind filtering remain in the top Knowledge toolbar;
+- Knowledge detail/article support moves to the left side of the wide workspace;
+- relation filtering moves to the right-side graph overlay;
+- camera/focus/settings controls become compact translucent graph-surface controls;
+- the production renderer now exposes the experiment-proven physics tuning boundary for center force, node repulsion, link force and link distance;
+- the persistent application navigation rail is narrowed to reduce non-content width.
+
+The experiment remains implementation evidence; production keeps its current renderer, relation vocabulary, routing and detail/filter state ownership.
