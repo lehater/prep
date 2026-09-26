@@ -5,6 +5,7 @@ import type {
 import type { LearningStatisticsModel } from "../../features/learning/model/learningStatistics";
 import type { LearningTargetModel } from "../../features/learning/model/learningTarget";
 import type { QuestionModel } from "../../features/learning/model/question";
+import { donorKnowledgeNodes, donorKnowledgeRelations } from "./mockPaymentKnowledgeFixture";
 
 export const PREPARED_TARGET_ID = "linux-backend-interview";
 
@@ -33,7 +34,7 @@ export const mockTargets: readonly LearningTargetModel[] = [
   },
 ];
 
-export const mockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
+const coreMockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
   {
     id: "resource-contention",
     semanticKind: "concept",
@@ -78,7 +79,12 @@ export const mockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
   },
 ];
 
-export const mockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
+export const mockKnowledgeNodes: readonly KnowledgeNodeModel[] = [
+  ...coreMockKnowledgeNodes,
+  ...donorKnowledgeNodes,
+];
+
+const coreMockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
   {
     id: "relation-isolation-addresses-contention",
     sourceId: "resource-isolation",
@@ -91,6 +97,11 @@ export const mockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
     targetId: "resource-isolation",
     type: "realizes",
   },
+];
+
+export const mockKnowledgeRelations: readonly KnowledgeRelationModel[] = [
+  ...coreMockKnowledgeRelations,
+  ...donorKnowledgeRelations,
 ];
 
 export const mockTargetKnowledgeIds: Readonly<Record<string, readonly string[]>> = {
