@@ -135,6 +135,9 @@ jobs:
       - name: Run frontend browser tests
         run: npm run test:e2e
 
+      - name: Run graph stress evidence
+        run: npm run benchmark:graph
+
       - name: Build frontend container
         env:
           FRONTEND_IMAGE: prep-web-ci:${{ github.sha }}

@@ -134,6 +134,7 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(page).toHaveURL(/relation=addresses/);
   await expect(realizes).not.toBeChecked();
   await expect(page.getByText(/1 relations · auto/)).toBeVisible();
+  await page.keyboard.press("Escape");
 
   await page.getByRole("button", { name: "Graph settings" }).click();
   const profile = page.getByRole("combobox", {
@@ -153,7 +154,9 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(
     page.getByRole("combobox", { name: "Graph live physics" }),
   ).toHaveValue("settle-and-pause");
+  await page.keyboard.press("Escape");
 
+  await page.getByRole("button", { name: /Relations 1/ }).click();
   await page.getByRole("button", { name: "Show all" }).click();
   await expect(page).not.toHaveURL(/relation=/);
 });

@@ -100,3 +100,5 @@ jobs:
 # rerun after Curation detail/editor integration into supporting pane
 
 # rerun after restoring Paper import for on-demand authoring form
+
+# rerun after modal-aware control test and permanent benchmark gate

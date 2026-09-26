@@ -107,5 +107,19 @@ for (const nodeCount of [1_000, 2_000, 5_000]) {
     );
 
     expect(settled?.diagnostics?.animationPaused).toBe(true);
+
+    if (process.env.REQUIRE_HARDWARE_WEBGL === "1") {
+      expect(
+        isSoftwareRenderer(settled?.diagnostics?.webglRenderer),
+        `Hardware benchmark requires a real GPU-backed WebGL renderer, got: ${settled?.diagnostics?.webglRenderer ?? "unknown"}`,
+      ).toBe(false);
+
+      if (nodeCount === 2_000) {
+        expect(
+          sampledFps,
+          "The accepted ordinary 2k/10k hardware envelope requires approximately 30 FPS or better.",
+        ).toBeGreaterThanOrEqual(30);
+      }
+    }
   });
 }
