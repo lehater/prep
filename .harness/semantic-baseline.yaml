@@ -82,7 +82,11 @@ reviews:
 
   - capability: prep.screen-view-design
     revision: 4
-    basis: "Screen/View Design now consumes the accepted visual specification with explicit shell rail, workspace chrome budget, supporting-pane ranges, graph-fill behavior and selection-without-implicit-focus interaction."
+    basis: "Screen/View Design owns accepted screen semantics, regions and interaction composition without depending on frontend runtime architecture."
+
+  - capability: prep.visual-composition
+    revision: 1
+    basis: "Visual Composition independently owns the accepted Knowledge workspace spatial arrangement: authoring actions share the wide header row with the title block, while graph controls occupy a separate lower toolbar band; it depends on Screen/View and Presentation System rather than Frontend System Architecture."
 
   - capability: prep.import-consistency
     revision: 2
