@@ -109,6 +109,12 @@ artifacts:
     provides: [prep.screen-view-design]
     depends_on: [INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
 
+  - id: VISUAL-COMPOSITION
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/visual-composition.yaml
+    provides: [prep.visual-composition]
+    depends_on: [SCREEN-VIEW-DESIGN, PRESENTATION-SYSTEM, FRONTEND-PERFORMANCE-CAPACITY]
+
   - id: MACHINE-INTERFACES
     authority: MACHINE-INTERFACE-DESIGN
     path: docs/interface/machine-interface.md
@@ -131,7 +137,7 @@ artifacts:
     authority: VERIFICATION-DESIGN
     path: docs/verification/presentation-verification.md
     provides: [prep.presentation-verification]
-    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
+    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, VISUAL-COMPOSITION, FRONTEND-PERFORMANCE-CAPACITY]
 
   - id: SYSTEM-ARCHITECTURE
     authority: SYSTEM-ARCHITECTURE
@@ -179,7 +185,7 @@ artifacts:
     authority: IMPLEMENTATION-DESIGN
     path: docs/implementation/frontend-implementation-design.md
     provides: [prep.frontend-implementation-design]
-    depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
+    depends_on: [FRONTEND-COMPONENT-DESIGN, VISUAL-COMPOSITION, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
 questions:
   - id: Q-LEARNING-DESIGN-BOUNDARY
