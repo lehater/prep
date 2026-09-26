@@ -6,6 +6,10 @@ import {
   knowledgeGraphMockNodes,
   knowledgeGraphMockRelations,
 } from "./mockKnowledgeGraphFixture";
+import {
+  donorKnowledgeNodes,
+  donorKnowledgeRelations,
+} from "./mockPaymentKnowledgeFixture";
 
 describe("MockKnowledgeAdapter", () => {
   test("searches through the consumer-owned port inside an explicit target scope", async () => {
@@ -33,8 +37,16 @@ describe("MockKnowledgeAdapter", () => {
     }
   });
 
-  test("exposes two real Knowledge Graph card groups only in global mock scope", async () => {
+  test("keeps the existing payment corpus and adds two real Knowledge Graph groups in global scope", async () => {
     const adapter = new MockKnowledgeAdapter();
+
+    expect(donorKnowledgeNodes.length).toBeGreaterThanOrEqual(35);
+    expect(
+      donorKnowledgeRelations.every((relation) =>
+        new Set(donorKnowledgeNodes.map((node) => node.id)).has(relation.sourceId) &&
+        new Set(donorKnowledgeNodes.map((node) => node.id)).has(relation.targetId),
+      ),
+    ).toBe(true);
 
     expect(knowledgeGraphMockNodes).toHaveLength(14);
     expect(new Set(knowledgeGraphMockNodes.map((node) => node.id)).size).toBe(
@@ -54,6 +66,7 @@ describe("MockKnowledgeAdapter", () => {
     if (global.status === "success") {
       expect(global.value.nodes).toEqual(
         expect.arrayContaining([
+          expect.objectContaining({ id: "demo-payment-payments", title: "Payments" }),
           expect.objectContaining({ title: "Asynchronous Programming" }),
           expect.objectContaining({ title: "asyncio" }),
           expect.objectContaining({ title: "Access Control Policy" }),
