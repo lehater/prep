@@ -60,7 +60,7 @@ function outcomeToState<T>(outcome: KnowledgeQueryOutcome<T>): AsyncValue<T> {
 
 function relationSet(
   relationTypes: readonly KnowledgeRelationType[],
-): ReadonlySet<KnowledgeRelationType> {
+): Set<KnowledgeRelationType> {
   return new Set(relationTypes);
 }
 
