@@ -96,6 +96,7 @@ describe("buildGraphScene", () => {
 
     expect(scene.nodes.map((node) => node.knowledgeId).sort()).toEqual([
       "idea",
+      "implementation",
       "problem",
     ]);
     expect(scene.edges.map((edge) => edge.relationType)).toEqual(["addresses"]);
