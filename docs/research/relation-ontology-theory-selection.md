@@ -365,6 +365,43 @@ These can already be defended by standards/theory:
 
 They may exist as internal super-properties/families if useful, but they should not normally be the final visible semantic edge.
 
+## Candidate leaf vocabulary for corpus validation
+
+This is the concrete **20-predicate candidate set** to use in the next corpus audit. It is not yet canonical. A predicate survives only if representative real Knowledge Graph evidence passes the admission protocol below.
+
+| # | Predicate | Meaning |
+|---:|---|---|
+| 1 | `addresses` | source solves, mitigates or handles the target problem |
+| 2 | `realizes` | source is a concrete realization of the target abstraction |
+| 3 | `specializes` | source is a narrower kind or specialization of target |
+| 4 | `part_of` | source is a constituent part of target |
+| 5 | `represents` | source represents, models or stands for target |
+| 6 | `requires` | source cannot function or be valid in the asserted sense without target; strict prerequisite only |
+| 7 | `causes` | source causally brings about target |
+| 8 | `precedes` | source intrinsically occurs before target in a process/lifecycle |
+| 9 | `triggers` | occurrence/completion of source initiates target behavior |
+| 10 | `produces` | source creates target as an output/result |
+| 11 | `serves` | source provides functionality/capability to target |
+| 12 | `flows_to` | information/data/value is transferred from source to target |
+| 13 | `reads_from` | source reads/obtains data from target |
+| 14 | `writes_to` | source writes/sends data into target |
+| 15 | `evaluates` | source determines a result/decision by evaluating target |
+| 16 | `enforces` | source makes target policy/decision/rule effective in operation |
+| 17 | `supplies` | source provides target with required information/input |
+| 18 | `schedules` | source plans/queues target for execution |
+| 19 | `executes` | source directly performs/runs target work |
+| 20 | `organizes` | source structures a set of target units according to an organizing rule/model |
+
+### Explicit non-goal
+
+The candidate set is **not** a new flat universal ontology. It is a bounded first module for Prep. Additional predicates such as `propagates`, `wraps`, `invokes`, `transforms`, `computed_from` or `revision_of` may be admitted only when repeated corpus evidence and a standard/theory anchor justify them.
+
+The current broad predicates `uses`, `depends_on`, `enables` and generic `derives_from` are not candidates for ordinary visible leaf edges. They may survive only as internal super-properties/families if that proves useful.
+
+### Migration principle
+
+Do not convert an existing edge by lexical substitution. Re-read the source assertion, choose the precise leaf predicate whose definition fits, and collapse inverse-looking duplicate edges into one canonical assertion plus a derived inverse label for presentation.
+
 ## Mapping the current problematic corpus
 
 Examples to reclassify during the next corpus pass:
