@@ -30,7 +30,7 @@ reviews:
 
   - capability: prep.knowledge-relation-classification
     revision: 1
-    basis: The machine-readable relation classifier is accepted as current Knowledge Model semantics: it prefers the most specific supported relation, permits explicit candidate proposals when no leaf fits, and forbids invented edges when evidence is insufficient.
+    basis: "The machine-readable relation classifier is accepted as current Knowledge Model semantics: it prefers the most specific supported relation, permits explicit candidate proposals when no leaf fits, and forbids invented edges when evidence is insufficient."
 
   - capability: prep.knowledge-model
     revision: 2
