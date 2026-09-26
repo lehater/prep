@@ -44,11 +44,14 @@ export function buildGraphScene(
   );
   const kindFilteredIds = new Set(kindFiltered.map((node) => node.id));
 
-  const relationFiltered = graph.relations.filter(
+  const scopedRelations = graph.relations.filter(
     (relation) =>
       kindFilteredIds.has(relation.sourceId) &&
-      kindFilteredIds.has(relation.targetId) &&
-      (!relationFilterActive || allowedRelations.has(relation.type)),
+      kindFilteredIds.has(relation.targetId),
+  );
+  const relationFiltered = scopedRelations.filter(
+    (relation) =>
+      !relationFilterActive || allowedRelations.has(relation.type),
   );
 
   const focusIds = new Set(intent.focusedKnowledgeIds ?? []);
@@ -58,7 +61,7 @@ export function buildGraphScene(
     visibleIds = new Set(
       [...focusIds].filter((knowledgeId) => kindFilteredIds.has(knowledgeId)),
     );
-    for (const relation of relationFiltered) {
+    for (const relation of scopedRelations) {
       if (focusIds.has(relation.sourceId) || focusIds.has(relation.targetId)) {
         visibleIds.add(relation.sourceId);
         visibleIds.add(relation.targetId);
