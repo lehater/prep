@@ -70,6 +70,7 @@ describe("graph render strategy", () => {
       labels: "focused-only",
       arrowheads: false,
       particles: false,
+      physics: "on",
       maxPixelRatio: 1,
     });
     expect(JSON.stringify(scene)).toBe(before);
@@ -100,6 +101,18 @@ describe("graph render strategy", () => {
     expect(quality.physics).toBe("on");
     expect(performance.family).toBe("optimized");
     expect(performance.particles).toBe(false);
-    expect(performance.physics).toBe("settle-and-pause");
+    expect(performance.physics).toBe("on");
+  });
+
+  test("preserves an explicitly requested settle-and-pause policy", () => {
+    const strategy = resolveGraphRenderStrategy(
+      smallScene,
+      "performance",
+      {
+        ...DEFAULT_GRAPH_RENDER_PREFERENCES,
+        physics: "settle-and-pause",
+      },
+    );
+    expect(strategy.physics).toBe("settle-and-pause");
   });
 });

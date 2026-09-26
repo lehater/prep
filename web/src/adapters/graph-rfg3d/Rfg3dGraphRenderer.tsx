@@ -277,8 +277,7 @@ export function Rfg3dGraphRenderer({
     emitDiagnostics(true);
   }, [clearIdleTimer, emitDiagnostics]);
 
-  const shouldIdlePause =
-    strategy.family === "optimized" || strategy.physics !== "on";
+  const shouldIdlePause = strategy.physics !== "on";
 
   const scheduleIdlePause = useCallback(() => {
     clearIdleTimer();

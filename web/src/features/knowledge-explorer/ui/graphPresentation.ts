@@ -34,7 +34,7 @@ export function graphPreferencesForProfile(
     labels: "normal",
     arrowheads: true,
     particles: false,
-    physics: "settle-and-pause",
+    physics: "on",
     nodeDetail: "normal",
   };
 }

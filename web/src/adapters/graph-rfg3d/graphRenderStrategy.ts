@@ -43,10 +43,7 @@ export function resolveGraphRenderStrategy(
       : preferences.labels;
   const arrowheads = optimized ? false : preferences.arrowheads;
   const particles = optimized ? false : preferences.particles;
-  const physics =
-    optimized && preferences.physics === "on"
-      ? "settle-and-pause"
-      : preferences.physics;
+  const physics = preferences.physics;
 
   return {
     family: optimized ? "optimized" : "standard",

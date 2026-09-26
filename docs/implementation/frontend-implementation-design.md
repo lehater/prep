@@ -180,7 +180,9 @@ These values now realize accepted Presentation System ranges. Implementation may
 Post-qualification manual use overrides several earlier implementation choices that were technically valid but operationally poor.
 
 - Node selection and graph focus are separate user intents. Activating a node selects it and opens detail; it never narrows visible topology automatically. Focus is an explicit command or an accepted deep-link intent.
-- Ordinary Auto/standard graphs keep live interaction available after force settling. Hard renderer idle pause is reserved for optimized or explicit settle-and-pause/off strategies and must wake from user interaction.
+- Auto and Quality keep live interactive physics regardless of whether renderer geometry is standard or optimized; optimization may change batching/instancing/labels/effects but does not silently change physics policy.
+- Timed renderer pause is allowed only when the user has explicitly selected a profile/preference whose physics policy is `settle-and-pause` or `off`. Ordinary Auto interaction never schedules a hidden five-second pause.
+- Window/tab visibility suspension remains a resource-lifecycle concern and resumes on return; it is not an in-workspace idle timeout.
 - Global Curation Knowledge is search-first. Its supporting browse/results pane is collapsed by default and bounded to a small result window; large corpora are narrowed through search/semantic filters instead of rendering thousands of persistent list controls.
 - Desktop application navigation uses a persistent left rail for Learning/Curation mode, active mode sections and external-runtime status. Mobile/narrow layouts may reflow this navigation without changing route responsibilities.
 - Experimental R2 remains donor evidence for renderer-local interaction/presentation mechanics such as selection-vs-focus separation, wake/idle behavior, bounded search results and compact graph controls. PaymentGraph semantics and experiment-only tuning surfaces remain excluded.

@@ -420,3 +420,22 @@ Canonical visual reference checkpoint run `36213841539` passed for the Curation 
 The browser suite now includes explicit evidence that bounded Knowledge-result selection produces a visible selected row while preserving graph membership and not introducing implicit focus. The temporary checkpoint workflow is removed after recording this evidence.
 
 This establishes Curation / Knowledge as the first reference implementation of Presentation System revision 4. Manual visual review remains the acceptance gate before propagating the same visual system to the remaining screens.
+
+
+### P0 Auto graph freeze correction
+
+Manual use on the canonical visual reference exposed a duplicated configuration source that reintroduced the previously fixed five-second freeze.
+
+Root cause:
+
+- `DEFAULT_GRAPH_RENDER_PREFERENCES` had already been corrected to `physics: "on"`;
+- `graphPreferencesForProfile("auto")` still returned `physics: "settle-and-pause"`;
+- the renderer therefore considered ordinary Auto mode eligible for the 5.5-second settle timer and called `pauseAnimation()`.
+
+The correction removes implicit physics degradation from Auto entirely:
+
+- Auto profile now requests `physics: "on"`;
+- renderer strategy no longer converts optimized Auto physics to `settle-and-pause`;
+- timed idle pause is keyed only by an explicit non-live physics preference, not by optimized renderer family;
+- Performance may still request `settle-and-pause` explicitly;
+- regression coverage waits beyond the former 5.5-second threshold and verifies the public Auto settings remain `physics: on`.

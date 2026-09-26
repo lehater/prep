@@ -164,3 +164,33 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await page.getByRole("button", { name: "Show all" }).click();
   await expect(page).not.toHaveURL(/relation=/);
 });
+
+
+test("Auto graph remains interactive beyond the former settle-pause threshold", async ({ page }) => {
+  await page.goto(targetKnowledgePath);
+
+  const profile = page.getByRole("group", {
+    name: "Graph performance profile",
+  });
+  await expect(
+    profile.getByRole("button", { name: "Auto" }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  const graph = page.getByRole("application", {
+    name: "Interactive 3D Knowledge graph",
+  });
+  await expect(graph).toBeVisible();
+
+  await page.waitForTimeout(6500);
+
+  await page.getByRole("button", { name: "Graph settings" }).click();
+  await page.getByText("Advanced rendering").click();
+  await expect(
+    page.getByRole("combobox", { name: "Graph live physics" }),
+  ).toHaveValue("on");
+
+  await page.keyboard.press("Escape");
+  await graph.hover();
+  await page.getByRole("button", { name: "Fit graph" }).click();
+  await expect(graph).toBeVisible();
+});
