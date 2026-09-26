@@ -453,3 +453,11 @@ Auto live-physics checkpoint run `36214168456` passed after removing the hidden 
 - **24/24 Playwright PASS**.
 
 The browser suite now waits beyond the former 5.5-second pause threshold in public Auto mode and verifies that live physics remains `on` and the graph continues accepting graph commands. The temporary checkpoint workflow is removed after recording this evidence.
+### Mock Knowledge corpus refresh
+
+The global frontend mock corpus now uses two bounded groups of real Concept Cards from `lehater/knowledge-graph@main` instead of the synthetic payment donor snapshot:
+
+- Asynchronous Programming: Asynchronous Programming, asyncio, Async Runtime, Event Loop, Coroutine, Task, async/await, Cancellation;
+- Access Control: Access Control Policy, Access Control Matrix, Access Control List, Capability List, Role-Based Access Control, Attribute-Based Access Control.
+
+The fixture preserves the Knowledge Graph immutable Concept Card IDs and source paths. Knowledge Graph V2 human-facing wikilinks remain explanatory links rather than a required typed-relation registry, so the Prep fixture projects only relations whose source prose explicitly supports Prep's accepted `realizes` meaning. Broader Knowledge Graph `kind` values are retained as fixture provenance and narrowed only at the frontend-model boundary.
