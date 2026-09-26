@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
@@ -35,7 +36,11 @@ import type {
   KnowledgeQueryPort,
 } from "../ports/KnowledgeQueryPort";
 import { buildGraphScene } from "../projection/graphScene";
-import { graphPreferencesForProfile } from "./graphPresentation";
+import {
+  graphPreferencesForProfile,
+  KNOWLEDGE_RELATION_COLORS,
+  KNOWLEDGE_RELATION_DESCRIPTIONS_RU,
+} from "./graphPresentation";
 import {
   parseExplorerRouteState,
   serializeExplorerRouteState,
@@ -746,7 +751,33 @@ export function KnowledgeExplorer({
                         onChange={() => toggleRelationType(type)}
                       />
                     }
-                    label={type}
+                    label={
+                      <Tooltip
+                        title={KNOWLEDGE_RELATION_DESCRIPTIONS_RU[type]}
+                        placement="right"
+                        arrow
+                      >
+                        <Stack
+                          component="span"
+                          direction="row"
+                          spacing={1}
+                          sx={{ alignItems: "center" }}
+                        >
+                          <Box
+                            component="span"
+                            aria-hidden="true"
+                            sx={{
+                              width: 18,
+                              height: 3,
+                              borderRadius: 999,
+                              flexShrink: 0,
+                              backgroundColor: KNOWLEDGE_RELATION_COLORS[type],
+                            }}
+                          />
+                          <Box component="span">{type}</Box>
+                        </Stack>
+                      </Tooltip>
+                    }
                   />
                 ))}
                 <Stack direction="row" spacing={0.5}>
