@@ -701,7 +701,7 @@ export function KnowledgeExplorer({
               }}
             >
               <Box sx={{ width: 18, display: "grid", gap: "3px" }}>
-                {[4, 10, 7].map((offset, index) => (
+                {[4, 10, 7].map((offset) => (
                   <Box
                     key={offset}
                     sx={{
