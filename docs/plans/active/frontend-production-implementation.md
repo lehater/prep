@@ -320,3 +320,17 @@ FRC-01 remains reopened only for manual confirmation of the corrected running UI
 Manual review at browser 100% zoom confirmed that the spatial regions were technically responsive but the realization still looked like unstyled provider defaults: oversized workspace typography, tall controls, redundant explanatory copy, excessive chrome height and no explicit density system.
 
 The implementation correction therefore treats exact typography, spacing, control density and breakpoint numbers as the downstream Implementation Design responsibility already allowed by Presentation System. The first realization pass establishes a compact 13–14px workspace text scale, 18–22px headings, 28–32px controls, normal-case buttons, 1280px-class wide frame, 900px-class narrow transition, approximately 200/280px supporting panes and viewport-derived graph height. Product/domain/interface semantics are unchanged.
+
+
+Visual-density checkpoint workflow run `36208874015` passed after preserving the full accessible Curation heading context while keeping the visible chrome compact:
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **18 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE, Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- repository validators and **28/28 Python tests**;
+- **14 Vitest files / 41 tests PASS**;
+- production Vite build PASS;
+- **22/22 Playwright PASS**.
+
+The correction is not yet accepted as a successful visual design outcome until manual review of the running 100%-zoom desktop UI confirms the density, hierarchy and workspace proportions.

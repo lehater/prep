@@ -267,3 +267,12 @@ Commit `e8c10e3ba47145c8e8a0c3f18061466b681e0659` gates measurement on mounted W
 Automated requalification workflow run `36208046392` passed strict semantic/currentness closure, all repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and **22/22 Playwright tests**. Frontend Test Design now reports **18 executable contracts ACCEPTED**. Permanent `Frontend fast` run `36208046305` also passed.
 
 FRC-01 remains REOPENED only until the corrected running UI is manually confirmed. Hardware benchmark results above remain valid for renderer throughput/resource behavior only.
+
+
+## Compact visual-density realization
+
+Post-viewport manual review showed that correct responsive region geometry was insufficient: the implementation still inherited oversized default MUI typography/control density and redundant persistent explanatory copy.
+
+The current realization replaces provider defaults with an explicit compact theme and responsive profile: approximately 13–14px workspace text, 18–22px headings, 28–32px desktop controls, normal-case buttons, compact shell/workspace chrome, 1280px-class wide composition, 900px-class narrow transition, bounded supporting panes and viewport-derived graph height. The graph host also supplies its dark workspace surface independently of canvas initialization.
+
+Workflow run `36208874015` passed strict Harness/currentness closure, repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and 22/22 Playwright tests. This is implementation correctness evidence, not a substitute for manual visual/usability acceptance.
