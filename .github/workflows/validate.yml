@@ -81,6 +81,11 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/semantic_baseline.py
 
+      - name: Validate Decision Governance pilot
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/decision_governance_pilot.py
+
       - name: Validate Harness integration
         env:
           HARNESS_ROOT: .harness-tool

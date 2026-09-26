@@ -1,0 +1,193 @@
+version: 1
+kind: prep-decision-exploration-pilot
+id: PREP-DECISION-EXPLORATION-PILOT-V1
+
+cases:
+  - id: SYSTEM-ARCHITECTURE
+    capability: prep.system-architecture
+    exploration:
+      version: 1
+      kind: harness-decision-exploration
+      capability: prep.system-architecture
+      knowledge_kind: system-architecture
+      research_sources:
+        - id: ANKICONNECT-HTTP
+          kind: official
+          reference: https://github.com/FooSoft/anki-connect
+      axes:
+        - axis: runtime-boundaries
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: merge-vs-split, challenge: Challenge a single backend by splitting independently meaningful runtime responsibilities., alternatives: [single-backend-runtime, service-per-context]}
+            - {strategy: boundary-shift, challenge: Move model-context boundaries across process/runtime boundaries and inspect the resulting coupling., alternatives: [single-backend-runtime, service-per-context]}
+          decision_points:
+            - id: backend-runtime-shape
+              alternatives:
+                - id: single-backend-runtime
+                  difference: One backend runtime preserves internal model-context boundaries.
+                  material_effects: {runtime-count: one, process-boundary: shared, independent-deployment: false}
+                - id: service-per-context
+                  difference: Model contexts become independently deployed runtime services.
+                  material_effects: {runtime-count: multiple, process-boundary: split, independent-deployment: true}
+
+        - axis: deployment-topology
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: co-locate-vs-separate, challenge: Compare one deployable with separate browser/frontend and backend deployables., alternatives: [separate-frontend-backend, combined-runtime]}
+            - {strategy: deployment-boundary-shift, challenge: Shift the browser/backend separation and inspect deployment consequences., alternatives: [separate-frontend-backend, combined-runtime]}
+          decision_points:
+            - id: browser-backend-deployment
+              alternatives:
+                - id: separate-frontend-backend
+                  difference: Frontend and backend remain separate deployable boundaries.
+                  material_effects: {deployable-count: two, colocation: separate, scaling-boundary: split}
+                - id: combined-runtime
+                  difference: Frontend assets and backend execution share one deployable.
+                  material_effects: {deployable-count: one, colocation: combined, scaling-boundary: shared}
+
+        - axis: interaction-model
+          applicability: APPLICABLE
+          exploration_level: RESEARCH
+          research_sources: [ANKICONNECT-HTTP]
+          probes:
+            - {strategy: adapter-substitution, challenge: Replace the current Anki adapter mechanism with another supported external-runtime realization., alternatives: [backend-ankiconnect-http, prepared-file-exchange]}
+            - {strategy: transport-boundary-shift, challenge: Shift the external-runtime interaction between HTTP application API and prepared-file transfer., alternatives: [backend-ankiconnect-http, prepared-file-exchange]}
+          decision_points:
+            - id: anki-integration-path
+              alternatives:
+                - id: backend-ankiconnect-http
+                  difference: Backend invokes the configured AnkiConnect HTTP application interface through an adapter.
+                  material_effects: {sync-async: synchronous, protocol-boundary: http-application-api, coupling: adapter-mediated}
+                - id: prepared-file-exchange
+                  difference: Prep exchanges prepared files through the external-runtime boundary.
+                  material_effects: {sync-async: deferred-transfer, protocol-boundary: file-exchange, coupling: adapter-mediated}
+
+        - axis: state-placement
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: move-source-of-truth, challenge: Move canonical state from backend persistence to browser-owned state., alternatives: [backend-durable-state, browser-canonical-state]}
+            - {strategy: cache-vs-canonical, challenge: Treat browser cached projection as canonical instead of derived state., alternatives: [backend-durable-state, browser-canonical-state]}
+          decision_points:
+            - id: canonical-state-owner
+              alternatives:
+                - id: backend-durable-state
+                  difference: Backend persistence remains the source of truth.
+                  material_effects: {source-of-truth: backend, state-locality: server-side, replication: browser-derived}
+                - id: browser-canonical-state
+                  difference: Browser state becomes the source of truth.
+                  material_effects: {source-of-truth: browser, state-locality: client-side, replication: backend-derived}
+
+        - axis: dependency-direction
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: reverse-dependency, challenge: Reverse the accepted inward dependency direction., alternatives: [adapters-depend-inward, domain-depends-on-infrastructure]}
+            - {strategy: invert-port, challenge: Compare port inversion with direct infrastructure dependency., alternatives: [adapters-depend-inward, domain-depends-on-infrastructure]}
+          decision_points:
+            - id: infrastructure-direction
+              alternatives:
+                - id: adapters-depend-inward
+                  difference: Infrastructure implements ports owned by application/domain.
+                  material_effects: {dependency-owner: canonical-contract, inversion-boundary: port, framework-coupling: isolated}
+                - id: domain-depends-on-infrastructure
+                  difference: Domain/application imports infrastructure-specific mechanisms.
+                  material_effects: {dependency-owner: infrastructure, inversion-boundary: none, framework-coupling: inward}
+
+        - axis: failure-isolation
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: isolate-failure-boundary, challenge: Keep external-runtime failure behind a dedicated adapter boundary., alternatives: [adapter-isolation, transport-leaks-inward]}
+            - {strategy: collapse-failure-boundary, challenge: Remove the adapter boundary and let transport failure semantics propagate inward., alternatives: [adapter-isolation, transport-leaks-inward]}
+          decision_points:
+            - id: external-runtime-isolation
+              alternatives:
+                - id: adapter-isolation
+                  difference: External runtime failure is contained at the adapter boundary.
+                  material_effects: {failure-domain: external-adapter, containment-boundary: adapter, fallback: replaceable-adapter}
+                - id: transport-leaks-inward
+                  difference: Transport-specific failure semantics enter canonical application/domain code.
+                  material_effects: {failure-domain: canonical-core, containment-boundary: none, fallback: transport-coupled}
+
+  - id: IMPLEMENTATION-AUTONOMY
+    capability: prep.frontend-implementation-design
+    exploration:
+      version: 1
+      kind: harness-decision-exploration
+      capability: prep.frontend-implementation-design
+      knowledge_kind: implementation-design
+      axes:
+        - axis: slice-boundaries
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: split-slice, challenge: Split realization by accepted ownership boundaries., alternatives: [boundary-aligned-slices, cross-cutting-layer-slices]}
+            - {strategy: dependency-order-perturbation, challenge: Partition by technical layer and compare dependency consequences., alternatives: [boundary-aligned-slices, cross-cutting-layer-slices]}
+          decision_points:
+            - id: feature-slicing
+              alternatives:
+                - {id: boundary-aligned-slices, difference: Slices preserve accepted feature/component ownership., material_effects: {slice-granularity: feature, dependency-order: owner-aligned, ownership-alignment: preserved}}
+                - {id: cross-cutting-layer-slices, difference: Slices cut horizontally across accepted owners., material_effects: {slice-granularity: technical-layer, dependency-order: cross-owner, ownership-alignment: weakened}}
+
+        - axis: repository-realization
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: boundary-remap, challenge: Remap physical modules away from accepted semantic boundaries., alternatives: [accepted-boundary-mapping, unconstrained-mapping]}
+            - {strategy: composition-root-shift, challenge: Compare explicit composition-root realization with unconstrained placement., alternatives: [accepted-boundary-mapping, unconstrained-mapping]}
+          decision_points:
+            - id: semantic-physical-mapping
+              alternatives:
+                - {id: accepted-boundary-mapping, difference: Repository roots preserve accepted module/feature boundaries., material_effects: {module-boundary: accepted, composition-root: explicit, generated-source-placement: controlled}}
+                - {id: unconstrained-mapping, difference: Physical placement ignores accepted semantic boundaries., material_effects: {module-boundary: mixed, composition-root: diffuse, generated-source-placement: ad-hoc}}
+
+        - axis: dependency-tooling
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: tool-substitution, challenge: Substitute one minimal static-serving runtime for another., alternatives: [nginx-static, caddy-static]}
+            - {strategy: remove-tool, challenge: Remove the selected static-server product and identify another realization of the same contract., alternatives: [nginx-static, caddy-static]}
+          decision_points:
+            - id: static-server-image
+              alternatives:
+                - {id: nginx-static, difference: Pinned nginx image serves built static assets., material_effects: {tool-family: nginx, enforcement-point: runtime-image, runtime-footprint: minimal-static-server}}
+                - {id: caddy-static, difference: Pinned Caddy image serves built static assets., material_effects: {tool-family: caddy, enforcement-point: runtime-image, runtime-footprint: minimal-static-server}}
+
+        - axis: migration-transition
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: rollback-perturbation, challenge: Compare image rollback with a frontend-owned data rollback., alternatives: [previous-image-redeploy, frontend-data-rollback]}
+            - {strategy: compatibility-window, challenge: Introduce a transition requiring state compatibility and compare it with stateless image rollback., alternatives: [previous-image-redeploy, frontend-data-rollback]}
+          decision_points:
+            - id: frontend-rollback-transition
+              alternatives:
+                - {id: previous-image-redeploy, difference: Roll back by redeploying the previous accepted image., material_effects: {transition-mode: image-redeploy, rollback: artifact-level, compatibility: no-frontend-data-migration}}
+                - {id: frontend-data-rollback, difference: Roll back frontend-owned durable data as part of release transition., material_effects: {transition-mode: data-migration, rollback: stateful, compatibility: migration-required}}
+
+        - axis: verification-enforcement
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: manual-vs-automated, challenge: Compare reproducible CI enforcement with manual-only verification., alternatives: [reproducible-ci-gate, manual-only-verification]}
+            - {strategy: move-verification-layer, challenge: Move authoritative verification from CI to developer-local execution., alternatives: [reproducible-ci-gate, manual-only-verification]}
+          decision_points:
+            - id: deterministic-enforcement
+              alternatives:
+                - {id: reproducible-ci-gate, difference: CI executes deterministic checks from versioned inputs., material_effects: {verification-layer: ci, automation-boundary: repository, failure-gate: automatic}}
+                - {id: manual-only-verification, difference: Verification relies on local/manual execution., material_effects: {verification-layer: developer-local, automation-boundary: workstation, failure-gate: manual}}
+
+        - axis: delivery-gates
+          applicability: APPLICABLE
+          exploration_level: EXPLORE
+          probes:
+            - {strategy: local-vs-ci, challenge: Compare local checks with authoritative CI release gating., alternatives: [ci-authoritative, local-only-authoritative]}
+            - {strategy: gate-owner-shift, challenge: Move release authority from versioned CI to local developer state., alternatives: [ci-authoritative, local-only-authoritative]}
+          decision_points:
+            - id: authoritative-gate
+              alternatives:
+                - {id: ci-authoritative, difference: Versioned CI is the authoritative release gate., material_effects: {gate-location: ci, authority: repository, reproducibility: high}}
+                - {id: local-only-authoritative, difference: Developer-local checks are authoritative., material_effects: {gate-location: local, authority: workstation, reproducibility: low}}
