@@ -1,12 +1,15 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Paper from "@mui/material/Paper";
+import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -16,14 +19,21 @@ import {
   KNOWLEDGE_SEMANTIC_KINDS,
   type KnowledgeGraphModel,
   type KnowledgeNodeModel,
+  type KnowledgeRelationType,
   type KnowledgeScope,
 } from "../model/knowledge";
-import type { GraphRenderer } from "../ports/GraphRenderer";
+import type {
+  GraphPerformanceProfile,
+  GraphRenderPreferences,
+  GraphRenderer,
+  GraphRendererCommand,
+} from "../ports/GraphRenderer";
 import type {
   KnowledgeQueryOutcome,
   KnowledgeQueryPort,
 } from "../ports/KnowledgeQueryPort";
 import { buildGraphScene } from "../projection/graphScene";
+import { graphPreferencesForProfile } from "./graphPresentation";
 import {
   parseExplorerRouteState,
   serializeExplorerRouteState,
@@ -48,6 +58,12 @@ function outcomeToState<T>(outcome: KnowledgeQueryOutcome<T>): AsyncValue<T> {
     : outcome;
 }
 
+function relationSet(
+  relationTypes: readonly KnowledgeRelationType[],
+): ReadonlySet<KnowledgeRelationType> {
+  return new Set(relationTypes);
+}
+
 export function KnowledgeExplorer({
   scope,
   queryPort,
@@ -57,7 +73,10 @@ export function KnowledgeExplorer({
   const routeState = useMemo(() => parseExplorerRouteState(params), [params]);
   const [searchDraft, setSearchDraft] = useState(routeState.query);
   const [listState, setListState] = useState<
-    AsyncValue<{ readonly items: readonly KnowledgeNodeModel[]; readonly totalCount: number }>
+    AsyncValue<{
+      readonly items: readonly KnowledgeNodeModel[];
+      readonly totalCount: number;
+    }>
   >({ status: "loading" });
   const [graphState, setGraphState] = useState<AsyncValue<KnowledgeGraphModel>>({
     status: "loading",
@@ -66,6 +85,17 @@ export function KnowledgeExplorer({
     AsyncValue<KnowledgeNodeModel | null>
   >({ status: "ready", value: null });
   const [reloadVersion, setReloadVersion] = useState(0);
+  const [relationsAnchor, setRelationsAnchor] =
+    useState<HTMLButtonElement | null>(null);
+  const [settingsAnchor, setSettingsAnchor] =
+    useState<HTMLButtonElement | null>(null);
+  const [performanceProfile, setPerformanceProfile] =
+    useState<GraphPerformanceProfile>("auto");
+  const [renderPreferences, setRenderPreferences] =
+    useState<GraphRenderPreferences>(() => graphPreferencesForProfile("auto"));
+  const [rendererCommand, setRendererCommand] =
+    useState<GraphRendererCommand>();
+  const commandSequence = useRef(0);
 
   useEffect(() => {
     setSearchDraft(routeState.query);
@@ -139,9 +169,10 @@ export function KnowledgeExplorer({
             semanticKinds: routeState.semanticKind
               ? [routeState.semanticKind]
               : undefined,
-            relationTypes: routeState.relationType
-              ? [routeState.relationType]
-              : undefined,
+            relationTypes:
+              routeState.relationTypes.length > 0
+                ? routeState.relationTypes
+                : undefined,
           })
         : null,
     [graphState, routeState],
@@ -163,6 +194,31 @@ export function KnowledgeExplorer({
   };
 
   const retry = () => setReloadVersion((value) => value + 1);
+
+  const issueRendererCommand = (type: GraphRendererCommand["type"]) => {
+    commandSequence.current += 1;
+    setRendererCommand({ id: commandSequence.current, type });
+  };
+
+  const toggleRelationType = (relationType: KnowledgeRelationType) => {
+    const selected = relationSet(routeState.relationTypes);
+    const next = selected.has(relationType)
+      ? routeState.relationTypes.filter((type) => type !== relationType)
+      : [...routeState.relationTypes, relationType];
+    updateRouteState({
+      ...routeState,
+      relationTypes: KNOWLEDGE_RELATION_TYPES.filter((type) =>
+        next.includes(type),
+      ),
+    });
+  };
+
+  const updatePreference = <K extends keyof GraphRenderPreferences>(
+    key: K,
+    value: GraphRenderPreferences[K],
+  ) => {
+    setRenderPreferences((current) => ({ ...current, [key]: value }));
+  };
 
   const blockingState = [listState, graphState].find(
     (state) => state.status === "unavailable" || state.status === "failure",
@@ -191,7 +247,7 @@ export function KnowledgeExplorer({
   }
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1.5}>
       <Stack
         component="form"
         direction={{ xs: "column", md: "row" }}
@@ -207,7 +263,7 @@ export function KnowledgeExplorer({
           value={searchDraft}
           onChange={(event) => setSearchDraft(event.target.value)}
           size="small"
-          sx={{ width: { xs: "100%", md: 320 } }}
+          sx={{ width: { xs: "100%", md: 300 } }}
         />
         <Button type="submit" variant="contained">
           Search
@@ -235,31 +291,68 @@ export function KnowledgeExplorer({
             ))}
           </select>
         </label>
-        <label>
-          Relation type{" "}
-          <select
-            aria-label="Relation type"
-            value={routeState.relationType ?? ""}
-            onChange={(event) =>
+
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={(event) => setRelationsAnchor(event.currentTarget)}
+          aria-haspopup="dialog"
+          aria-expanded={Boolean(relationsAnchor)}
+        >
+          Relations {routeState.relationTypes.length || "all"}
+        </Button>
+        <Popover
+          open={Boolean(relationsAnchor)}
+          anchorEl={relationsAnchor}
+          onClose={() => setRelationsAnchor(null)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+          <Stack spacing={0.5} sx={{ p: 1.5, minWidth: 210 }}>
+            <Typography variant="subtitle2">Visible relation types</Typography>
+            {KNOWLEDGE_RELATION_TYPES.map((type) => (
+              <FormControlLabel
+                key={type}
+                control={
+                  <Checkbox
+                    size="small"
+                    checked={
+                      routeState.relationTypes.length === 0 ||
+                      routeState.relationTypes.includes(type)
+                    }
+                    onChange={() => toggleRelationType(type)}
+                  />
+                }
+                label={type}
+              />
+            ))}
+            <Button
+              size="small"
+              onClick={() =>
+                updateRouteState({ ...routeState, relationTypes: [] })
+              }
+            >
+              Show all
+            </Button>
+          </Stack>
+        </Popover>
+
+        {routeState.selectedKnowledgeId &&
+        routeState.focusedKnowledgeIds.length === 0 ? (
+          <Button
+            size="small"
+            onClick={() =>
               updateRouteState({
                 ...routeState,
-                relationType:
-                  KNOWLEDGE_RELATION_TYPES.find(
-                    (value) => value === event.target.value,
-                  ) ?? undefined,
+                focusedKnowledgeIds: [routeState.selectedKnowledgeId!],
               })
             }
           >
-            <option value="">All</option>
-            {KNOWLEDGE_RELATION_TYPES.map((relation) => (
-              <option key={relation} value={relation}>
-                {relation}
-              </option>
-            ))}
-          </select>
-        </label>
+            Focus selected
+          </Button>
+        ) : null}
         {routeState.focusedKnowledgeIds.length > 0 ? (
           <Button
+            size="small"
             onClick={() =>
               updateRouteState({ ...routeState, focusedKnowledgeIds: [] })
             }
@@ -267,24 +360,153 @@ export function KnowledgeExplorer({
             Clear focus
           </Button>
         ) : null}
+
+        <Button size="small" onClick={() => issueRendererCommand("fit")}>
+          Fit graph
+        </Button>
+        <Button
+          size="small"
+          onClick={() => issueRendererCommand("reset-camera")}
+        >
+          Reset camera
+        </Button>
+        <Button
+          size="small"
+          variant="outlined"
+          aria-label="Graph settings"
+          aria-haspopup="dialog"
+          aria-expanded={Boolean(settingsAnchor)}
+          onClick={(event) => setSettingsAnchor(event.currentTarget)}
+        >
+          Graph settings
+        </Button>
+        <Popover
+          open={Boolean(settingsAnchor)}
+          anchorEl={settingsAnchor}
+          onClose={() => setSettingsAnchor(null)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Stack spacing={1.25} sx={{ p: 2, width: 300 }}>
+            <Typography variant="subtitle1">Graph settings</Typography>
+            <label>
+              Performance profile{" "}
+              <select
+                aria-label="Graph performance profile"
+                value={performanceProfile}
+                onChange={(event) => {
+                  const next = event.target.value as GraphPerformanceProfile;
+                  setPerformanceProfile(next);
+                  setRenderPreferences(graphPreferencesForProfile(next));
+                }}
+              >
+                <option value="auto">Auto</option>
+                <option value="quality">Quality</option>
+                <option value="performance">Performance</option>
+              </select>
+            </label>
+            <Typography variant="caption" color="text.secondary">
+              Performance may reduce decoration while preserving canonical
+              Knowledge, relation direction and list/detail access.
+            </Typography>
+            <details>
+              <summary>Advanced rendering</summary>
+              <Stack spacing={0.75} sx={{ pt: 1 }}>
+                <label>
+                  Labels{" "}
+                  <select
+                    aria-label="Graph labels"
+                    value={renderPreferences.labels}
+                    onChange={(event) =>
+                      updatePreference(
+                        "labels",
+                        event.target.value as GraphRenderPreferences["labels"],
+                      )
+                    }
+                  >
+                    <option value="normal">Normal</option>
+                    <option value="focused-only">Focused only</option>
+                    <option value="off">Off</option>
+                  </select>
+                </label>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={renderPreferences.arrowheads}
+                      onChange={(event) =>
+                        updatePreference("arrowheads", event.target.checked)
+                      }
+                    />
+                  }
+                  label="Directional arrowheads"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={renderPreferences.particles}
+                      onChange={(event) =>
+                        updatePreference("particles", event.target.checked)
+                      }
+                    />
+                  }
+                  label="Decorative particles"
+                />
+                <label>
+                  Live physics{" "}
+                  <select
+                    aria-label="Graph live physics"
+                    value={renderPreferences.physics}
+                    onChange={(event) =>
+                      updatePreference(
+                        "physics",
+                        event.target.value as GraphRenderPreferences["physics"],
+                      )
+                    }
+                  >
+                    <option value="on">On</option>
+                    <option value="settle-and-pause">Settle and pause</option>
+                    <option value="off">Off</option>
+                  </select>
+                </label>
+                <label>
+                  Node detail{" "}
+                  <select
+                    aria-label="Graph node visual detail"
+                    value={renderPreferences.nodeDetail}
+                    onChange={(event) =>
+                      updatePreference(
+                        "nodeDetail",
+                        event.target
+                          .value as GraphRenderPreferences["nodeDetail"],
+                      )
+                    }
+                  >
+                    <option value="normal">Normal</option>
+                    <option value="reduced">Reduced</option>
+                  </select>
+                </label>
+              </Stack>
+            </details>
+          </Stack>
+        </Popover>
       </Stack>
 
       <Box
         sx={{
           "--knowledge-workspace-height":
-            "clamp(500px, calc(100dvh - 420px), 820px)",
+            "clamp(560px, calc(100dvh - 300px), 920px)",
           display: "grid",
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
-            md: "minmax(220px, 280px) minmax(0, 1fr)",
-            lg: "minmax(220px, 280px) minmax(0, 1fr) minmax(280px, 360px)",
+            md: "minmax(210px, 250px) minmax(0, 1fr)",
+            lg: "minmax(210px, 250px) minmax(0, 1fr) minmax(270px, 340px)",
           },
           gridTemplateAreas: {
-            xs: `"list" "graph" "detail"`,
+            xs: `"graph" "list" "detail"`,
             md: `"list graph" "detail detail"`,
             lg: `"list graph detail"`,
           },
-          gap: 2,
+          gap: 1.5,
           minWidth: 0,
           alignItems: "stretch",
         }}
@@ -295,7 +517,7 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "list",
-            p: 2,
+            p: 1.5,
             minWidth: 0,
             height: { md: "var(--knowledge-workspace-height)" },
             overflow: "auto",
@@ -312,7 +534,7 @@ export function KnowledgeExplorer({
               message="Change the current search or semantic-kind filter."
             />
           ) : listState.status === "ready" ? (
-            <Stack component="ul" spacing={1} sx={{ listStyle: "none", p: 0 }}>
+            <Stack component="ul" spacing={0.75} sx={{ listStyle: "none", p: 0 }}>
               {listState.value.items.map((node) => (
                 <li key={node.id}>
                   <Button
@@ -336,10 +558,10 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "graph",
-            p: 1.5,
+            p: 0.75,
             minWidth: 0,
             height: {
-              xs: "clamp(420px, 55dvh, 560px)",
+              xs: "clamp(460px, 68dvh, 720px)",
               md: "var(--knowledge-workspace-height)",
             },
             display: "flex",
@@ -347,15 +569,34 @@ export function KnowledgeExplorer({
             overflow: "hidden",
           }}
         >
-          <Typography component="h3" variant="h6" gutterBottom>
-            Knowledge graph
-          </Typography>
+          <Stack
+            direction="row"
+            sx={{
+              px: 0.75,
+              pb: 0.5,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography component="h3" variant="subtitle1">
+              Knowledge graph
+            </Typography>
+            {scene ? (
+              <Typography variant="caption" color="text.secondary">
+                {scene.nodes.length} nodes · {scene.edges.length} relations ·{" "}
+                {performanceProfile}
+              </Typography>
+            ) : null}
+          </Stack>
           <Box sx={{ flex: 1, minHeight: 0 }}>
             {graphState.status === "loading" || scene === null ? (
               <LoadingState label="Loading Knowledge graph" />
             ) : (
               <Renderer
                 scene={scene}
+                performanceProfile={performanceProfile}
+                renderPreferences={renderPreferences}
+                command={rendererCommand}
                 onNodeActivate={(knowledgeId) => openDetail(knowledgeId, true)}
               />
             )}
@@ -367,7 +608,7 @@ export function KnowledgeExplorer({
           variant="outlined"
           sx={{
             gridArea: "detail",
-            p: 2,
+            p: 1.5,
             minWidth: 0,
             height: { lg: "var(--knowledge-workspace-height)" },
             overflow: "auto",
@@ -424,7 +665,8 @@ export function KnowledgeExplorer({
                       )
                       .map((relation) => (
                         <li key={relation.id}>
-                          {relation.sourceId} —{relation.type}→ {relation.targetId}
+                          {relation.sourceId} —{relation.type}→{" "}
+                          {relation.targetId}
                         </li>
                       ))}
                   </Stack>

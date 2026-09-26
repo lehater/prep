@@ -11,7 +11,7 @@ describe("Knowledge explorer route context", () => {
     const before: ExplorerRouteState = {
       query: "cgroups",
       semanticKind: "concept",
-      relationType: "realizes",
+      relationTypes: ["addresses", "realizes"],
       focusedKnowledgeIds: ["resource-isolation"],
     };
 
@@ -27,12 +27,26 @@ describe("Knowledge explorer route context", () => {
     expect(closed).toEqual(before);
   });
 
-  test("ignores unknown semantic filter values instead of inventing semantics", () => {
+  test("ignores unknown filters instead of inventing semantics", () => {
     const parsed = parseExplorerRouteState(
-      new URLSearchParams("kind=unknown&relation=related_to"),
+      new URLSearchParams(
+        "kind=unknown&relation=related_to,addresses,realizes,related_to",
+      ),
     );
 
     expect(parsed.semanticKind).toBeUndefined();
-    expect(parsed.relationType).toBeUndefined();
+    expect(parsed.relationTypes).toEqual(["addresses", "realizes"]);
+  });
+
+  test("serializes accepted relation multi-selection as one stable route value", () => {
+    const parsed = parseExplorerRouteState(
+      serializeExplorerRouteState({
+        query: "",
+        relationTypes: ["realizes", "addresses"],
+        focusedKnowledgeIds: [],
+      }),
+    );
+
+    expect(parsed.relationTypes).toEqual(["addresses", "realizes"]);
   });
 });
