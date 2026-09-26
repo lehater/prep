@@ -1,7 +1,6 @@
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -222,96 +221,119 @@ export function KnowledgeCurationView({
         scope={{ kind: "global" }}
         queryPort={queryPort}
         Renderer={Renderer}
-      />
-
-      {detail ? (
-        <Paper component="section" aria-label="Knowledge editor" variant="outlined" sx={{ p: 2 }}>
-          <Stack spacing={2}>
-            <Typography component="h3" variant="h6">
-              Knowledge editor
-            </Typography>
-            <Stack component="form" spacing={1} onSubmit={save}>
-              <label>
-                Semantic kind{" "}
-                <select
-                  aria-label="Knowledge semantic kind"
-                  value={semanticKind}
-                  onChange={(event) =>
-                    setSemanticKind(event.target.value as KnowledgeSemanticKind)
-                  }
-                >
-                  {KNOWLEDGE_SEMANTIC_KINDS.map((kind) => (
-                    <option key={kind} value={kind}>
-                      {kind}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <TextField
-                label="Knowledge content"
-                multiline
-                minRows={4}
-                value={content}
-                onChange={(event) => setContent(event.target.value)}
-              />
-              <Button type="submit" variant="contained" sx={{ alignSelf: "flex-start" }}>
-                Save Knowledge
-              </Button>
-            </Stack>
-
-            <Typography component="h4" variant="subtitle1">
-              Relations
-            </Typography>
-            <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
-              {[...detail.incomingRelations, ...detail.outgoingRelations].map((relation) => (
-                <Chip
-                  key={relation.id}
-                  label={`${relation.sourceId} —${relation.type}→ ${relation.targetId}`}
-                  onDelete={() => void removeRelation(relation.id)}
-                />
-              ))}
-            </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
-              <label>
-                Relation type{" "}
-                <select
-                  aria-label="New relation type"
-                  value={relationType}
-                  onChange={(event) =>
-                    setRelationType(event.target.value as KnowledgeRelationType)
-                  }
-                >
-                  {KNOWLEDGE_RELATION_TYPES.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Target Knowledge{" "}
-                <select
-                  aria-label="Relation target"
-                  value={relationTarget}
-                  onChange={(event) => setRelationTarget(event.target.value)}
-                >
-                  <option value="">Select</option>
-                  {candidates
-                    .filter((node) => node.id !== selectedId)
-                    .map((node) => (
-                      <option key={node.id} value={node.id}>
-                        {node.title}
+        detailPanel={
+          detail ? (
+            <Stack
+              component="section"
+              aria-label="Knowledge editor"
+              spacing={1.5}
+            >
+              <Typography component="h3" variant="h6">
+                Knowledge editor
+              </Typography>
+              <Stack component="form" spacing={1} onSubmit={save}>
+                <label>
+                  Semantic kind{" "}
+                  <select
+                    aria-label="Knowledge semantic kind"
+                    value={semanticKind}
+                    onChange={(event) =>
+                      setSemanticKind(event.target.value as KnowledgeSemanticKind)
+                    }
+                  >
+                    {KNOWLEDGE_SEMANTIC_KINDS.map((kind) => (
+                      <option key={kind} value={kind}>
+                        {kind}
                       </option>
                     ))}
-                </select>
-              </label>
-              <Button onClick={() => void addRelation()} disabled={!relationTarget}>
-                Add relation
-              </Button>
+                  </select>
+                </label>
+                <TextField
+                  label="Knowledge content"
+                  multiline
+                  minRows={4}
+                  value={content}
+                  onChange={(event) => setContent(event.target.value)}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ alignSelf: "flex-start" }}
+                >
+                  Save Knowledge
+                </Button>
+              </Stack>
+
+              <Typography component="h4" variant="subtitle1">
+                Relations
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
+                {[...detail.incomingRelations, ...detail.outgoingRelations].map(
+                  (relation) => (
+                    <Chip
+                      key={relation.id}
+                      label={`${relation.sourceId} —${relation.type}→ ${relation.targetId}`}
+                      onDelete={() => void removeRelation(relation.id)}
+                    />
+                  ),
+                )}
+              </Stack>
+              <Stack direction="column" spacing={1}>
+                <label>
+                  Relation type{" "}
+                  <select
+                    aria-label="New relation type"
+                    value={relationType}
+                    onChange={(event) =>
+                      setRelationType(
+                        event.target.value as KnowledgeRelationType,
+                      )
+                    }
+                  >
+                    {KNOWLEDGE_RELATION_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Target Knowledge{" "}
+                  <select
+                    aria-label="Relation target"
+                    value={relationTarget}
+                    onChange={(event) => setRelationTarget(event.target.value)}
+                  >
+                    <option value="">Select</option>
+                    {candidates
+                      .filter((node) => node.id !== selectedId)
+                      .map((node) => (
+                        <option key={node.id} value={node.id}>
+                          {node.title}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+                <Button
+                  onClick={() => void addRelation()}
+                  disabled={!relationTarget}
+                >
+                  Add relation
+                </Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </Paper>
-      ) : null}
+          ) : (
+            <Stack spacing={1}>
+              <Typography component="h3" variant="h6">
+                Knowledge editor
+              </Typography>
+              <Typography color="text.secondary">
+                Select a Knowledge item from the list or graph to edit it.
+              </Typography>
+            </Stack>
+          )
+        }
+      />
     </Stack>
   );
 }

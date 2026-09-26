@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../../ui/patterns/ViewState";
@@ -44,6 +44,7 @@ interface KnowledgeExplorerProps {
   readonly scope: KnowledgeScope;
   readonly queryPort: KnowledgeQueryPort;
   readonly Renderer: GraphRenderer;
+  readonly detailPanel?: ReactNode;
 }
 
 type AsyncValue<T> =
@@ -68,6 +69,7 @@ export function KnowledgeExplorer({
   scope,
   queryPort,
   Renderer,
+  detailPanel,
 }: KnowledgeExplorerProps) {
   const [params, setParams] = useSearchParams();
   const routeState = useMemo(() => parseExplorerRouteState(params), [params]);
@@ -619,75 +621,82 @@ export function KnowledgeExplorer({
             overflow: "auto",
           }}
         >
-          <Typography component="h3" variant="h6" gutterBottom>
-            Knowledge detail
-          </Typography>
-          {detailState.status === "loading" ? (
-            <LoadingState label="Loading Knowledge detail" />
-          ) : detailState.status === "unavailable" ? (
-            <StateNotice
-              title="Knowledge detail unavailable"
-              message={detailState.message}
-              severity="warning"
-              retryLabel="Retry"
-              onRetry={retry}
-            />
-          ) : detailState.status === "failure" ? (
-            <StateNotice
-              title="Knowledge detail could not be loaded"
-              message={detailState.message}
-              severity="error"
-              retryLabel="Retry"
-              onRetry={retry}
-            />
-          ) : detailState.value === null ? (
-            <Typography color="text.secondary">
-              Select a Knowledge item from the list or graph.
-            </Typography>
+          {detailPanel !== undefined ? (
+            detailPanel
           ) : (
-            <Stack spacing={1}>
-              <Typography component="h4" variant="subtitle1">
-                {detailState.value.title}
-              </Typography>
-              <Chip
-                label={detailState.value.semanticKind}
-                size="small"
-                sx={{ alignSelf: "flex-start" }}
-              />
-              <Typography>{detailState.value.summary}</Typography>
-              {graphState.status === "ready" ? (
-                <>
-                  <Divider />
-                  <Typography component="h5" variant="subtitle2">
-                    Relations
-                  </Typography>
-                  <Stack component="ul" sx={{ pl: 2 }}>
-                    {graphState.value.relations
-                      .filter(
-                        (relation) =>
-                          relation.sourceId === detailState.value?.id ||
-                          relation.targetId === detailState.value?.id,
-                      )
-                      .map((relation) => (
-                        <li key={relation.id}>
-                          {relation.sourceId} —{relation.type}→{" "}
-                          {relation.targetId}
-                        </li>
-                      ))}
-                  </Stack>
-                </>
-              ) : null}
-              <Button
-                onClick={() =>
-                  updateRouteState({
-                    ...routeState,
-                    selectedKnowledgeId: undefined,
-                  })
-                }
-              >
-                Close detail
-              </Button>
-            </Stack>
+            <>
+                        <Typography component="h3" variant="h6" gutterBottom>
+                          Knowledge detail
+                        </Typography>
+                        {detailState.status === "loading" ? (
+                          <LoadingState label="Loading Knowledge detail" />
+                        ) : detailState.status === "unavailable" ? (
+                          <StateNotice
+                            title="Knowledge detail unavailable"
+                            message={detailState.message}
+                            severity="warning"
+                            retryLabel="Retry"
+                            onRetry={retry}
+                          />
+                        ) : detailState.status === "failure" ? (
+                          <StateNotice
+                            title="Knowledge detail could not be loaded"
+                            message={detailState.message}
+                            severity="error"
+                            retryLabel="Retry"
+                            onRetry={retry}
+                          />
+                        ) : detailState.value === null ? (
+                          <Typography color="text.secondary">
+                            Select a Knowledge item from the list or graph.
+                          </Typography>
+                        ) : (
+                          <Stack spacing={1}>
+                            <Typography component="h4" variant="subtitle1">
+                              {detailState.value.title}
+                            </Typography>
+                            <Chip
+                              label={detailState.value.semanticKind}
+                              size="small"
+                              sx={{ alignSelf: "flex-start" }}
+                            />
+                            <Typography>{detailState.value.summary}</Typography>
+                            {graphState.status === "ready" ? (
+                              <>
+                                <Divider />
+                                <Typography component="h5" variant="subtitle2">
+                                  Relations
+                                </Typography>
+                                <Stack component="ul" sx={{ pl: 2 }}>
+                                  {graphState.value.relations
+                                    .filter(
+                                      (relation) =>
+                                        relation.sourceId === detailState.value?.id ||
+                                        relation.targetId === detailState.value?.id,
+                                    )
+                                    .map((relation) => (
+                                      <li key={relation.id}>
+                                        {relation.sourceId} —{relation.type}→{" "}
+                                        {relation.targetId}
+                                      </li>
+                                    ))}
+                                </Stack>
+                              </>
+                            ) : null}
+                            <Button
+                              onClick={() =>
+                                updateRouteState({
+                                  ...routeState,
+                                  selectedKnowledgeId: undefined,
+                                })
+                              }
+                            >
+                              Close detail
+                            </Button>
+                          </Stack>
+                        )}
+              
+            </>
           )}
         </Paper>
       </Box>
