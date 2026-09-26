@@ -62,7 +62,7 @@ describe("MockKnowledgeAdapter", () => {
       "enables",
     ]);
 
-    expect(knowledgeGraphMockNodes).toHaveLength(14);
+    expect(knowledgeGraphMockNodes).toHaveLength(35);
     expect(new Set(knowledgeGraphMockNodes.map((node) => node.id)).size).toBe(
       knowledgeGraphMockNodes.length,
     );
@@ -77,9 +77,20 @@ describe("MockKnowledgeAdapter", () => {
     expect(
       knowledgeGraphMockRelations.some((relation) => relation.type === "uses"),
     ).toBe(true);
-    expect(
-      knowledgeGraphMockRelations.some((relation) => relation.type === "realizes"),
-    ).toBe(true);
+    for (const relationType of [
+      "uses",
+      "specializes",
+      "depends_on",
+      "realizes",
+      "produces",
+      "enables",
+    ] as const) {
+      expect(
+        knowledgeGraphMockRelations.some(
+          (relation) => relation.type === relationType,
+        ),
+      ).toBe(true);
+    }
 
     const global = await adapter.graph({ kind: "global" });
     expect(global.status).toBe("success");
@@ -91,6 +102,13 @@ describe("MockKnowledgeAdapter", () => {
           expect.objectContaining({ title: "asyncio" }),
           expect.objectContaining({ title: "Access Control Policy" }),
           expect.objectContaining({ title: "Attribute-Based Access Control" }),
+          expect.objectContaining({ title: "Future" }),
+          expect.objectContaining({ title: "Structured Concurrency" }),
+          expect.objectContaining({ title: "Relationship-Based Access Control" }),
+          expect.objectContaining({ title: "Zanzibar" }),
+          expect.objectContaining({ title: "Policy Decision Point" }),
+          expect.objectContaining({ title: "XACML" }),
+          expect.objectContaining({ title: "Deny-overrides" }),
         ]),
       );
     }
