@@ -7,7 +7,17 @@ export const KNOWLEDGE_SEMANTIC_KINDS = [
 
 export type KnowledgeSemanticKind = (typeof KNOWLEDGE_SEMANTIC_KINDS)[number];
 
-export const KNOWLEDGE_RELATION_TYPES = ["addresses", "realizes"] as const;
+export const KNOWLEDGE_RELATION_TYPES = [
+  "addresses",
+  "uses",
+  "specializes",
+  "part_of",
+  "depends_on",
+  "realizes",
+  "produces",
+  "derives_from",
+  "enables",
+] as const;
 
 export type KnowledgeRelationType = (typeof KNOWLEDGE_RELATION_TYPES)[number];
 
