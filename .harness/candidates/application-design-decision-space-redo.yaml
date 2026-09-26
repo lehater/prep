@@ -1,0 +1,148 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.application-design
+knowledge_kind: application-design
+research_sources: []
+
+axes:
+  - axis: operation-boundaries
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: split-operation
+        challenge: Split application mutations by semantic owner and compare ownership/coupling.
+        alternatives: [semantic-owner-operations, workflow-bundled-operations]
+      - strategy: merge-operations
+        challenge: Merge cross-owner mutations behind workflow commands and inspect ownership leakage.
+        alternatives: [semantic-owner-operations, workflow-bundled-operations]
+    decision_points:
+      - id: modeled-data-mutation-boundary
+        alternatives:
+          - id: semantic-owner-operations
+            difference: Mutations remain aligned with the semantic responsibility that owns the changed canonical concept.
+            material_effects: {operation-granularity: semantic-owner-scoped, mutation-owner: owning-domain-responsibility, query-write-split: explicit-command-query-boundary}
+          - id: workflow-bundled-operations
+            difference: One workflow command coordinates canonical mutations across several semantic responsibilities.
+            material_effects: {operation-granularity: workflow-scoped, mutation-owner: cross-responsibility-orchestrator, query-write-split: workflow-command-with-result}
+
+  - axis: orchestration
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: move-orchestrator
+        challenge: Move external-study sequencing from Prep application behavior to the external runtime.
+        alternatives: [prep-owned-study-orchestration, external-runtime-led-orchestration]
+      - strategy: sync-vs-async
+        challenge: Compare Prep-controlled delegation/result ingestion with externally driven callback progression.
+        alternatives: [prep-owned-study-orchestration, external-runtime-led-orchestration]
+    decision_points:
+      - id: external-study-orchestration-owner
+        alternatives:
+          - id: prep-owned-study-orchestration
+            difference: Prep owns preparation, delegation intent and result-ingestion sequencing while transport stays downstream.
+            material_effects: {orchestration-owner: prep-application, ordering: prep-defined-semantic-sequence, sync-async: delegation-with-later-result-ingest}
+          - id: external-runtime-led-orchestration
+            difference: The external runtime drives workflow progression and invokes Prep reactively.
+            material_effects: {orchestration-owner: external-study-runtime, ordering: external-runtime-driven, sync-async: callback-or-event-driven}
+
+  - axis: failure-semantics
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: fail-vs-recover
+        challenge: Separate deterministic canonical-validation failure from external-runtime delivery failure before considering recovery.
+        alternatives: [reject-invalid-canonical-change, best-effort-canonical-acceptance, surface-external-failure, retry-external-failure]
+      - strategy: retry-vs-no-retry
+        challenge: Perturb a transient external-runtime failure independently from an invalid canonical mutation.
+        alternatives: [reject-invalid-canonical-change, best-effort-canonical-acceptance, surface-external-failure, retry-external-failure]
+    decision_points:
+      - id: canonical-validation-failure-policy
+        alternatives:
+          - id: reject-invalid-canonical-change
+            difference: A canonical mutation that violates accepted domain/application invariants is rejected as an explicit failed operation.
+            material_effects: {failure-classification: invalid-canonical-change, recovery-owner: caller-follow-up, retry-policy: no-implicit-retry}
+          - id: best-effort-canonical-acceptance
+            difference: A multi-item canonical mutation may accept valid portions and report or skip invalid portions.
+            material_effects: {failure-classification: item-level-invalidity, recovery-owner: application-operation, retry-policy: retry-rejected-items}
+      - id: external-runtime-failure-recovery-policy
+        alternatives:
+          - id: surface-external-failure
+            difference: A failed external-study export/import attempt is surfaced explicitly without automatic retry.
+            material_effects: {failure-classification: external-runtime-failure, recovery-owner: caller-follow-up, retry-policy: no-implicit-retry}
+          - id: retry-external-failure
+            difference: Prep performs bounded automatic retry for failures classified as transient before surfacing terminal failure.
+            material_effects: {failure-classification: transient-vs-terminal-external, recovery-owner: application-operation, retry-policy: bounded-automatic-retry}
+
+  - axis: partial-results
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: all-or-nothing-vs-partial
+        challenge: Test Study Set preparation and bulk canonical load independently for partial-result semantics.
+        alternatives: [complete-study-coverage-gate, resolvable-study-subset, atomic-bulk-load, partial-bulk-acceptance]
+      - strategy: resumability-perturbation
+        challenge: Interrupt each workflow after only part of its requested material is usable.
+        alternatives: [complete-study-coverage-gate, resolvable-study-subset, atomic-bulk-load, partial-bulk-acceptance]
+    decision_points:
+      - id: study-set-preparation-partiality
+        alternatives:
+          - id: complete-study-coverage-gate
+            difference: Study preparation yields no Study Set until requested scope satisfies a completeness condition.
+            material_effects: {all-or-nothing: completeness-gated, partial-validity: no-partial-study-set, continuation: retry-after-material-complete}
+          - id: resolvable-study-subset
+            difference: Study preparation returns the currently resolvable Question subset and exposes missing material separately.
+            material_effects: {all-or-nothing: partial-allowed, partial-validity: resolvable-study-subset, continuation: rebuild-as-material-changes}
+      - id: bulk-canonical-load-partiality
+        alternatives:
+          - id: atomic-bulk-load
+            difference: No canonical changes from one decoded bulk load persist unless every item is acceptable.
+            material_effects: {all-or-nothing: atomic, partial-validity: none-persisted, continuation: correct-and-retry-whole-load}
+          - id: partial-bulk-acceptance
+            difference: Independently valid items may persist while invalid items receive explicit rejection outcomes.
+            material_effects: {all-or-nothing: partial-allowed, partial-validity: accepted-subset, continuation: retry-rejected-items}
+
+  - axis: continuation-currentness
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: recompute-vs-materialize
+        challenge: Separate ordinary browser-query currentness from Study Set preview/export continuation.
+        alternatives: [live-browser-query, snapshot-browser-query, drift-detect-before-export, silent-live-recompute]
+      - strategy: stale-vs-refresh
+        challenge: Change canonical target/question state between reads and between Study Set preview/export.
+        alternatives: [live-browser-query, snapshot-browser-query, drift-detect-before-export, silent-live-recompute]
+    decision_points:
+      - id: browser-query-currentness
+        alternatives:
+          - id: live-browser-query
+            difference: Each browser-facing query reflects current accepted canonical state.
+            material_effects: {snapshot-vs-live: live, staleness-policy: refresh-on-query, continuation-token: query-position-only}
+          - id: snapshot-browser-query
+            difference: A browser query session remains bound to an earlier accepted snapshot across continuation.
+            material_effects: {snapshot-vs-live: snapshot, staleness-policy: preserve-session-snapshot, continuation-token: snapshot-plus-position}
+      - id: study-set-preview-export-currentness
+        alternatives:
+          - id: drift-detect-before-export
+            difference: Preview materializes current state and export detects target/question resolution drift before sending different material.
+            material_effects: {snapshot-vs-live: preview-materialization, staleness-policy: detect-drift-before-export, continuation-token: preview-identity}
+          - id: silent-live-recompute
+            difference: Export silently re-resolves current state even when it differs from the previously previewed Study Set.
+            material_effects: {snapshot-vs-live: live-recompute, staleness-policy: silent-refresh, continuation-token: none}
+
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  reviewed_decisions:
+    - modeled-data-mutation-boundary
+    - external-study-orchestration-owner
+    - canonical-validation-failure-policy
+    - external-runtime-failure-recovery-policy
+    - study-set-preparation-partiality
+    - bulk-canonical-load-partiality
+    - browser-query-currentness
+    - study-set-preview-export-currentness
+  open_gaps: []

@@ -1,0 +1,132 @@
+version: 1
+kind: prep-decision-governance-pilot
+id: PREP-DECISION-GOVERNANCE-PILOT-V2
+
+cases:
+  - id: SYSTEM-ARCHITECTURE
+    capability: prep.system-architecture
+    decision_review:
+      axes:
+        - axis: runtime-boundaries
+          decisions:
+            - id: backend-runtime-shape
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: single-backend-runtime, state: VIABLE}
+                - {id: service-per-context, state: REJECTED, rationale: No accepted driver requires distributed ownership or independent scaling.}
+              disposition: DETERMINED
+              selected: single-backend-runtime
+
+        - axis: deployment-topology
+          decisions:
+            - id: browser-backend-deployment
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: separate-frontend-backend, state: VIABLE}
+                - {id: combined-runtime, state: REJECTED, rationale: Accepted architecture drivers require separate frontend/backend containers.}
+              disposition: DETERMINED
+              selected: separate-frontend-backend
+
+        - axis: interaction-model
+          decisions:
+            - id: anki-integration-path
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: backend-ankiconnect-http, state: VIABLE}
+                - {id: prepared-file-exchange, state: REJECTED, rationale: Current automated integration contract selects backend-to-AnkiConnect HTTP; file exchange remains a future adapter option when deployment constraints require it.}
+              disposition: DETERMINED
+              selected: backend-ankiconnect-http
+
+        - axis: state-placement
+          decisions:
+            - id: canonical-state-owner
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: backend-durable-state, state: VIABLE}
+                - {id: browser-canonical-state, state: REJECTED, rationale: Browser owns presentation state, not canonical Prep truth.}
+              disposition: DETERMINED
+              selected: backend-durable-state
+
+        - axis: dependency-direction
+          decisions:
+            - id: infrastructure-direction
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: adapters-depend-inward, state: VIABLE}
+                - {id: domain-depends-on-infrastructure, state: REJECTED, rationale: Accepted dependency direction keeps infrastructure outside canonical domain/application semantics.}
+              disposition: DETERMINED
+              selected: adapters-depend-inward
+
+        - axis: failure-isolation
+          decisions:
+            - id: external-runtime-isolation
+              owner_authority: SYSTEM-ARCHITECTURE
+              alternatives:
+                - {id: adapter-isolation, state: VIABLE}
+                - {id: transport-leaks-inward, state: REJECTED, rationale: Accepted integration boundary prevents Anki transport semantics leaking inward.}
+              disposition: DETERMINED
+              selected: adapter-isolation
+
+  - id: IMPLEMENTATION-AUTONOMY
+    capability: prep.frontend-implementation-design
+    decision_review:
+      axes:
+        - axis: slice-boundaries
+          decisions:
+            - id: feature-slicing
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: boundary-aligned-slices, state: VIABLE}
+                - {id: cross-cutting-layer-slices, state: REJECTED, rationale: Conflicts with accepted component ownership and dependency boundaries.}
+              disposition: DETERMINED
+              selected: boundary-aligned-slices
+
+        - axis: repository-realization
+          decisions:
+            - id: semantic-physical-mapping
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: accepted-boundary-mapping, state: VIABLE}
+                - {id: unconstrained-mapping, state: REJECTED, rationale: Would remove deterministic dependency-boundary realization.}
+              disposition: DETERMINED
+              selected: accepted-boundary-mapping
+
+        - axis: dependency-tooling
+          decisions:
+            - id: static-server-image
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: nginx-static, state: VIABLE}
+                - {id: caddy-static, state: VIABLE}
+              disposition: DELEGATED
+              selected: nginx-static
+
+        - axis: migration-transition
+          decisions:
+            - id: frontend-rollback-transition
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: previous-image-redeploy, state: VIABLE}
+                - {id: frontend-data-rollback, state: REJECTED, rationale: Frontend owns no canonical durable business data in this scope.}
+              disposition: DETERMINED
+              selected: previous-image-redeploy
+
+        - axis: verification-enforcement
+          decisions:
+            - id: deterministic-enforcement
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: reproducible-ci-gate, state: VIABLE}
+                - {id: manual-only-verification, state: REJECTED, rationale: Accepted completion criteria require reproducible deterministic enforcement.}
+              disposition: DETERMINED
+              selected: reproducible-ci-gate
+
+        - axis: delivery-gates
+          decisions:
+            - id: authoritative-gate
+              owner_authority: IMPLEMENTATION-DESIGN
+              alternatives:
+                - {id: ci-authoritative, state: VIABLE}
+                - {id: local-only-authoritative, state: REJECTED, rationale: Accepted Implementation Design makes CI authoritative.}
+              disposition: DETERMINED
+              selected: ci-authoritative

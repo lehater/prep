@@ -1,0 +1,16 @@
+version: 1
+kind: harness-decision-policy
+
+defaults:
+  exploration: EXPLORE
+  autonomy: CONSERVATIVE
+  execution_assurance: REQUEST_BOUND
+
+knowledge_kinds:
+  - knowledge_kind: system-architecture
+    axes:
+      - axis: interaction-model
+        exploration: RESEARCH
+
+  - knowledge_kind: implementation-design
+    autonomy: CONSERVATIVE

@@ -38,7 +38,10 @@ Prep owns:
 - canonical artifact realization and Questions in `.harness/core.yaml`;
 - Authority applicability evidence in `.harness/authority-assessments.yaml`;
 - semantic acceptance/currentness baseline in `.harness/semantic-baseline.yaml`;
-- project engineering-coverage policy in `.harness/engineering-coverage.yaml`.
+- project engineering-coverage policy in `.harness/engineering-coverage.yaml`;
+- experimental decision-exploration/autonomy policy in `.harness/decision-policy.yaml`.
+
+Decision exploration/governance pilot evidence under `.harness/candidates/**` is noncanonical admission evidence. It must not be treated as an alternative source of product/domain/application/architecture truth.
 
 Harness owns generic validation, routing, semantic admission/currentness and target-state evaluation.
 
@@ -54,6 +57,41 @@ infrastructure -> application ports
 ```
 
 Frameworks, persistence, external study runtimes, renderers and UI projections do not define domain semantics.
+
+## Sequential Harness decision pipeline
+
+Decision-governed work runs per Capability through one sequential pipeline:
+
+```text
+FORM OPTIONS
+→ REVIEW OPTIONS
+→ CHOOSE / ESCALATE
+→ PRODUCE CANDIDATE
+→ SEMANTIC ADMISSION
+```
+
+Harness derives a single READY frontier from prerequisite currentness and Core
+Questions. The agent takes one READY Capability, runs the complete pipeline,
+persists the resulting artifact/questions/evidence, then recomputes the
+frontier.
+
+There is no EXPLORER/PRODUCER execution-role handoff.
+
+For CREATE, option formation reads accepted prerequisite/support knowledge.
+For REVISION or explicit REDO, it also reads the current accepted provider as
+baseline truth. The future candidate/preselected solution remains forbidden
+before option formation and review complete.
+
+Repeated ordinary invocation over unchanged CURRENT state is idempotent.
+Completed work is repeated only when explicitly requested through redo; redo
+never bypasses blockers or prerequisite currentness.
+
+Before any choice, Decision Exploration must include a COMPLETE
+`decision_space_review` covering mixed-decision splitting, missing material
+cases, accepted-constraint conflicts and Authority-boundary mistakes.
+
+Unresolved semantics use normal Core Questions addressed to the owning
+Authority. Do not create role-specific reexploration requests or workflow state.
 
 ## Development workflow
 
