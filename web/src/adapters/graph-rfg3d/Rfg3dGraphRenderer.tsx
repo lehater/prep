@@ -181,7 +181,7 @@ export function Rfg3dGraphRenderer({
   const batchedLayerRef = useRef<BatchedLinkLayer | null>(null);
   const animationPausedRef = useRef(false);
   const simulationStartedAtRef = useRef<number>(performance.now());
-  const engineSettledMsRef = useRef<number>();
+  const engineSettledMsRef = useRef<number | undefined>(undefined);
   const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null);
   const [size, setSize] = useState({ width: 960, height: 600 });
 
