@@ -205,3 +205,35 @@ test("Knowledge selection is explicit in bounded results without narrowing graph
   await expect(graphStatus).toHaveText(before ?? "");
   await expect(page).not.toHaveURL(/focus=/);
 });
+
+test("Knowledge visual composition keeps authoring actions in the header above the graph toolbar", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.goto("/curation/knowledge");
+
+  const title = page.getByRole("heading", { name: "Curation Knowledge", level: 2 });
+  const create = page.getByRole("button", { name: "New Knowledge" });
+  const importAction = page.getByRole("link", { name: "Import Knowledge" });
+  const toolbar = page.getByRole("form", { name: "Knowledge graph toolbar" });
+
+  await expect(title).toBeVisible();
+  await expect(create).toBeVisible();
+  await expect(importAction).toBeVisible();
+  await expect(toolbar).toBeVisible();
+
+  const titleBox = await title.boundingBox();
+  const createBox = await create.boundingBox();
+  const importBox = await importAction.boundingBox();
+  const toolbarBox = await toolbar.boundingBox();
+  expect(titleBox).not.toBeNull();
+  expect(createBox).not.toBeNull();
+  expect(importBox).not.toBeNull();
+  expect(toolbarBox).not.toBeNull();
+  if (!titleBox || !createBox || !importBox || !toolbarBox) return;
+
+  expect(createBox.y).toBeLessThan(toolbarBox.y);
+  expect(importBox.y).toBeLessThan(toolbarBox.y);
+  expect(createBox.y + createBox.height).toBeLessThanOrEqual(toolbarBox.y);
+  expect(importBox.y + importBox.height).toBeLessThanOrEqual(toolbarBox.y);
+  expect(createBox.x).toBeGreaterThan(titleBox.x + titleBox.width);
+  expect(importBox.x).toBeGreaterThan(createBox.x);
+});
