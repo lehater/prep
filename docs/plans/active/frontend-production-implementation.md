@@ -334,3 +334,16 @@ Visual-density checkpoint workflow run `36208874015` passed after preserving the
 - **22/22 Playwright PASS**.
 
 The correction is not yet accepted as a successful visual design outcome until manual review of the running 100%-zoom desktop UI confirms the density, hierarchy and workspace proportions.
+
+
+### Live graph/navigation correction
+
+Manual use exposed three implementation defects not caught by the previous closure:
+
+- the ordinary graph inherited a `settle-and-pause` default and a hard 5.5-second renderer pause from performance work, reproducing a visible freeze after approximately five seconds;
+- graph node activation passed `focus=true`, so simple selection implicitly narrowed topology, despite the accepted distinction between selection/detail and explicit focus;
+- global Knowledge browsing rendered the whole collection as a persistent list, which does not scale to large corpora.
+
+Correction commit `7678e449986bc58648b53fe7210af65e1e792c9e` separates selection from focus, keeps standard Auto graphs interaction-ready, preserves wakeable idle pause for optimized/degraded paths, makes global browse/results collapsed and bounded, and moves desktop mode/section navigation into a persistent left rail.
+
+The experimental R2 implementation was used as donor evidence for these interaction mechanics. Its PaymentGraph semantics, Storybook tuning and experiment-specific product state remain excluded.

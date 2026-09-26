@@ -60,10 +60,10 @@ content:
       oracle: Canonical ids, accepted semantic distinctions and exact total_count are preserved exactly; opaque cursor/status/serialization representation does not enter semantic entities or feature-owned task state.
 
     - id: FTD-RENDERER-CLICK-VS-DRAG
-      verification_refs: [FV-06]
-      precondition: GraphRenderer is given a renderer-neutral GraphScene containing a known Knowledge node.
+      verification_refs: [FV-02, FV-06, FV-08]
+      precondition: GraphRenderer is given a renderer-neutral GraphScene containing a known Knowledge node and no explicit focus command is active.
       operation: Perform one click-without-drag gesture and separately a drag gesture on the same node.
-      oracle: Click-without-drag emits exactly one canonical node-activation event; drag changes presentation state only and emits no semantic Knowledge mutation/activation completion.
+      oracle: Click-without-drag emits exactly one canonical node-selection/activation event without implicitly changing focus/filter membership; drag changes presentation state only and emits no semantic Knowledge mutation/activation completion. Focus/local-neighborhood filtering occurs only after an explicit user focus action or an accepted deep-link intent.
 
     - id: FTD-RENDERER-SEMANTIC-ISOLATION
       verification_refs: [FV-06]
@@ -82,6 +82,12 @@ content:
       precondition: Knowledge list/search/detail and graph representations are available for the same representative Knowledge scope.
       operation: Using keyboard interaction only, locate a Knowledge item through the non-graph path, open detail, close it and continue navigation.
       oracle: The core Knowledge task is completable without graph manipulation, focus remains visible and usable, and returning from detail restores an accepted continuation point.
+
+    - id: FTD-KNOWLEDGE-INDEX-BOUNDED-BROWSE
+      verification_refs: [FV-02, FV-09]
+      precondition: A Knowledge scope contains substantially more items than are useful to enumerate as one persistent panel.
+      operation: Open the Knowledge workspace without a search, then explicitly open browse/results and refine by search or semantic kind.
+      oracle: The graph remains primary by default; browse/results is optional and bounded, reports result/total context, and directs the user to refine rather than rendering an unbounded collection of controls. Canonical search/detail access remains available without graph manipulation.
 
     - id: FTD-GRAPH-FALLBACK-EQUIVALENCE
       verification_refs: [FV-02, FV-09]

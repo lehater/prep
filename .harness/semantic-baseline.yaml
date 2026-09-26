@@ -117,13 +117,13 @@ reviews:
     basis: Graph component contracts now separate user-visible performance profiles/preferences from renderer-private instancing, batching, pixel-ratio, physics and diagnostics strategies.
 
   - capability: prep.frontend-verification
-    revision: 4
-    basis: Frontend verification additionally requires stable Knowledge graph query/renderer lifetime across selection/detail transitions that preserve semantic scope/topology, closing the live-review state-lifetime gap without changing product semantics.
+    revision: 5
+    basis: "Frontend verification now distinguishes selection from explicit focus and requires idle optimization to preserve interaction readiness; ordinary selection cannot narrow graph membership implicitly."
 
   - capability: prep.frontend-test-design
-    revision: 4
-    basis: Frontend Test Design now includes an executable Knowledge-selection renderer-continuity contract in addition to responsive workspace, graph-control, semantic-preservation and hardware stress evidence.
+    revision: 5
+    basis: "Frontend Test Design now verifies selection-vs-focus separation and bounded search-first Knowledge browsing for large corpora in addition to renderer continuity and graph controls."
 
   - capability: prep.frontend-implementation-design
-    revision: 5
-    basis: "Implementation Design now makes the downstream visual-density realization explicit: compact typography/control scale, 1280-class wide workspace, 900-class narrow transition, bounded support-pane widths and viewport-derived graph height replace unreviewed MUI provider defaults."
+    revision: 6
+    basis: "Implementation Design now incorporates live-use corrections: persistent desktop left navigation, bounded search-first global Knowledge browsing, explicit selection-vs-focus separation and interaction-safe renderer idle policy."

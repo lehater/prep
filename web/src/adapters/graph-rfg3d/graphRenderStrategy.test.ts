@@ -50,7 +50,7 @@ describe("graph render strategy", () => {
       useBatchedLinks: false,
       arrowheads: true,
       particles: false,
-      physics: "settle-and-pause",
+      physics: "on",
     });
   });
 

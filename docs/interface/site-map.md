@@ -66,14 +66,21 @@ There is no general Settings area in the current accepted scope. Anki endpoint/A
 Responsibility: preserve mode/context and global status without becoming a product workspace itself.
 
 ```text
-┌───────────────────────────────────────────────────────────────┐
-│ Prep     [ Learning ] [ Curation ]              [Anki status] │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│                     active frame                              │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
+┌──────────────────┬────────────────────────────────────────────┐
+│ Prep             │                                            │
+│                  │                                            │
+│ Learning         │              active frame                  │
+│ Curation         │                                            │
+│   Targets        │                                            │
+│   Knowledge      │                                            │
+│   Requirements   │                                            │
+│   Questions      │                                            │
+│                  │                                            │
+│ Anki status      │                                            │
+└──────────────────┴────────────────────────────────────────────┘
 ```
+
+Desktop projection uses a persistent left navigation rail; narrow layouts may reflow it into a compact disclosure/header navigation.
 
 Global responsibilities:
 

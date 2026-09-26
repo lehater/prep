@@ -116,7 +116,8 @@ The graph renderer remains a replaceable presentation adapter:
 - click-without-drag activation and other renderer mechanics cannot mutate Knowledge semantics directly;
 - Auto / Quality / Performance and accepted advanced rendering preferences cross the renderer boundary only as presentation intent;
 - private instancing/batching/pixel-ratio/force/idle strategies remain adapter-owned;
-- semantic-preserving degradation and demand-driven idle behavior satisfy the accepted performance/capacity contract.
+- semantic-preserving degradation and demand-driven idle behavior satisfy the accepted performance/capacity contract;
+- idle optimization cannot make an ordinary interactive graph non-responsive: standard small/medium graphs stay interaction-ready, while optimized/explicit settle-and-pause paths must wake on user interaction.
 
 **Method:** TEST + INSPECTION.
 
@@ -149,6 +150,7 @@ Frontend state follows accepted ownership:
 - shell owns top-level mode/navigation context;
 - Learning owns selected target/workspace context;
 - KnowledgeExplorer owns semantic filters/selection/focus intent;
+- selection/detail and focus are distinct intents: ordinary node selection opens/updates detail without implicitly changing visible graph membership; focus/local-neighborhood filtering requires explicit focus intent or an accepted deep link;
 - semantically unchanged Knowledge scope does not invalidate graph query/renderer lifetime merely because selection/detail intent changes; renderer-local camera/layout remains continuous unless accepted focus/fit/reset/topology changes require otherwise;
 - renderer owns camera/layout/physics/transient gesture state;
 - server query/cache state remains in the feature/data-access boundary;
