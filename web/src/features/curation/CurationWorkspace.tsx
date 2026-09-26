@@ -68,7 +68,11 @@ export function CurationWorkspace({
           <Typography component="p" variant="overline" color="text.secondary">
             Curation
           </Typography>
-          <Typography component="h2" variant="h5">
+          <Typography
+            component="h2"
+            variant="h5"
+            aria-label={`Curation ${LABELS[section]}`}
+          >
             {LABELS[section]}
           </Typography>
         </header>
