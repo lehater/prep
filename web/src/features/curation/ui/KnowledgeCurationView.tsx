@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import {
   KNOWLEDGE_RELATION_TYPES,
@@ -26,12 +26,16 @@ interface KnowledgeCurationViewProps {
   readonly queryPort: KnowledgeQueryPort;
   readonly curationPort: KnowledgeCurationPort;
   readonly Renderer: GraphRenderer;
+  readonly showCreate: boolean;
+  readonly onShowCreateChange: (show: boolean) => void;
 }
 
 export function KnowledgeCurationView({
   queryPort,
   curationPort,
   Renderer,
+  showCreate,
+  onShowCreateChange,
 }: KnowledgeCurationViewProps) {
   const [params, setParams] = useSearchParams();
   const selectedId = params.get("selected") || undefined;
@@ -45,7 +49,6 @@ export function KnowledgeCurationView({
   const [relationType, setRelationType] =
     useState<KnowledgeRelationType>("addresses");
   const [message, setMessage] = useState<string>();
-  const [showCreate, setShowCreate] = useState(false);
   const [reloadVersion, setReloadVersion] = useState(0);
 
   useEffect(() => {
@@ -95,7 +98,7 @@ export function KnowledgeCurationView({
     });
     if (outcome.status === "success") {
       setNewContent("");
-      setShowCreate(false);
+      onShowCreateChange(false);
       setMessage("KnowledgeNode created.");
       setReloadVersion((value) => value + 1);
       selectKnowledge(outcome.value.node.id);
@@ -149,36 +152,6 @@ export function KnowledgeCurationView({
 
   return (
     <Stack spacing={1}>
-      <Stack
-        component="section"
-        aria-label="Knowledge authoring actions"
-        direction="row"
-        spacing={0.5}
-        sx={{
-          alignItems: "center",
-          justifyContent: { xs: "flex-start", md: "flex-end" },
-          flexWrap: "wrap",
-          mt: { md: -5.5 },
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <Button
-          variant={showCreate ? "contained" : "outlined"}
-          onClick={() => setShowCreate((value) => !value)}
-          aria-expanded={showCreate}
-        >
-          New Knowledge
-        </Button>
-        <Button
-          component={Link}
-          to="/curation/import?kind=knowledge"
-          variant="outlined"
-        >
-          Import Knowledge
-        </Button>
-      </Stack>
-
       {showCreate ? (
         <Paper
           component="section"
@@ -217,7 +190,7 @@ export function KnowledgeCurationView({
               <Button type="submit" variant="contained">
                 Create Knowledge
               </Button>
-              <Button onClick={() => setShowCreate(false)}>Cancel</Button>
+              <Button onClick={() => onShowCreateChange(false)}>Cancel</Button>
             </Stack>
           </Stack>
         </Paper>
