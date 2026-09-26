@@ -67,6 +67,13 @@ describe("buildGraphScene", () => {
     expect(scene.nodes[0]).not.toHaveProperty("z");
   });
 
+  test("an explicit empty relation filter hides every edge without removing nodes", () => {
+    const scene = buildGraphScene(graph, { relationTypes: [] });
+
+    expect(scene.nodes).toHaveLength(3);
+    expect(scene.edges).toEqual([]);
+  });
+
   test("focus is a bounded one-hop projection and relation filters remain semantic", () => {
     const scene = buildGraphScene(graph, {
       focusedKnowledgeIds: ["idea"],
