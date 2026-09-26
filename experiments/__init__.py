@@ -1,1 +1,1 @@
-"""Repository experiments that are not yet accepted domain contracts."""
+"""Noncanonical experiment/reference packages; directory placement never grants engineering authority."""

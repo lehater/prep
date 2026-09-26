@@ -20,7 +20,9 @@ The repository does not treat README text, Git history, experiments or old solut
 python tools/bootstrap_harness.py
 python tools/semantic_baseline.py
 python tools/check_harness_integration.py
+python tools/full_harness_revalidate.py
 python tools/validate_docs.py
+python -m unittest discover -s experiments/anki_adapter_reference/tests -v
 ```
 
 Implementation, tests and experiments may provide evidence, but they do not redefine canonical engineering meaning unless that meaning is admitted through Harness and persisted in a Core artifact.
