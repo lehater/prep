@@ -38,7 +38,10 @@ Prep owns:
 - canonical artifact realization and Questions in `.harness/core.yaml`;
 - Authority applicability evidence in `.harness/authority-assessments.yaml`;
 - semantic acceptance/currentness baseline in `.harness/semantic-baseline.yaml`;
-- project engineering-coverage policy in `.harness/engineering-coverage.yaml`.
+- project engineering-coverage policy in `.harness/engineering-coverage.yaml`;
+- experimental decision-exploration/autonomy policy in `.harness/decision-policy.yaml`.
+
+Decision exploration/governance pilot evidence under `.harness/candidates/**` is noncanonical admission evidence. It must not be treated as an alternative source of product/domain/application/architecture truth.
 
 Harness owns generic validation, routing, semantic admission/currentness and target-state evaluation.
 
