@@ -37,7 +37,7 @@ export function AppShell({
       sx={{
         minHeight: "100dvh",
         display: { xs: "block", md: "grid" },
-        gridTemplateColumns: { md: "216px minmax(0, 1fr)" },
+        gridTemplateColumns: { md: "128px minmax(0, 1fr)" },
         backgroundColor: "background.default",
       }}
     >
@@ -52,8 +52,8 @@ export function AppShell({
           borderBottom: { xs: 1, md: 0 },
           borderColor: "divider",
           backgroundColor: "background.paper",
-          px: 1.25,
-          py: 1.5,
+          px: 0.75,
+          py: 1.25,
           display: "flex",
           flexDirection: "column",
           gap: 1.25,
@@ -81,6 +81,8 @@ export function AppShell({
             variant={inLearning ? "contained" : "text"}
             sx={{
               justifyContent: "flex-start",
+              px: 1,
+              fontSize: "0.75rem",
               color: inLearning ? "primary.contrastText" : "text.secondary",
             }}
           >
@@ -92,6 +94,8 @@ export function AppShell({
             variant={inCuration ? "contained" : "text"}
             sx={{
               justifyContent: "flex-start",
+              px: 1,
+              fontSize: "0.75rem",
               color: inCuration ? "primary.contrastText" : "text.secondary",
             }}
           >
@@ -111,6 +115,8 @@ export function AppShell({
                   variant={activeCurationSection === section ? "outlined" : "text"}
                   sx={{
                     justifyContent: "flex-start",
+                    px: 1,
+                    fontSize: "0.75rem",
                     color:
                       activeCurationSection === section
                         ? "primary.main"
@@ -141,6 +147,8 @@ export function AppShell({
                   variant={activeLearningSection === section ? "outlined" : "text"}
                   sx={{
                     justifyContent: "flex-start",
+                    px: 1,
+                    fontSize: "0.75rem",
                     color:
                       activeCurationSection === section
                         ? "primary.main"
@@ -158,7 +166,7 @@ export function AppShell({
               <Button
                 component={Link}
                 to="/learning"
-                sx={{ justifyContent: "flex-start" }}
+                sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
               >
                 Choose target
               </Button>
