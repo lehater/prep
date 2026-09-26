@@ -1,0 +1,95 @@
+version: 1
+kind: harness-capability-lifecycle
+providers:
+  - capability: prep.problem-evidence
+    artifact: PROBLEM-SPACE
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.problem-evidence::r2
+    accepted_prerequisites: {}
+
+  - capability: prep.product-intent
+    artifact: PRODUCT-VISION
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.product-intent::r1
+    accepted_prerequisites:
+      prep.problem-evidence: prep-strict-semantic-baseline-v1::prep.problem-evidence::r2
+
+  - capability: prep.product-capabilities
+    artifact: PRODUCT-CAPABILITIES
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+    accepted_prerequisites:
+      prep.product-intent: prep-strict-semantic-baseline-v1::prep.product-intent::r1
+
+  - capability: prep.domain-strategy
+    artifact: CONTEXT-MAP
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.domain-strategy::r1
+    accepted_prerequisites:
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+
+  - capability: prep.model-context-strategy
+    artifact: MODEL-CONTEXT-MAP
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.model-context-strategy::r1
+    accepted_prerequisites:
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+      prep.domain-strategy: prep-strict-semantic-baseline-v1::prep.domain-strategy::r1
+
+  - capability: prep.knowledge-relation-classification
+    artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.knowledge-relation-classification::r2
+    accepted_prerequisites:
+      prep.model-context-strategy: prep-strict-semantic-baseline-v1::prep.model-context-strategy::r1
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+
+  - capability: prep.knowledge-model
+    artifact: KNOWLEDGE-MODEL
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+    accepted_prerequisites:
+      prep.model-context-strategy: prep-strict-semantic-baseline-v1::prep.model-context-strategy::r1
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+      prep.knowledge-relation-classification: prep-strict-semantic-baseline-v1::prep.knowledge-relation-classification::r2
+
+  - capability: prep.frontend-performance-capacity
+    artifact: FRONTEND-PERFORMANCE-CAPACITY
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.frontend-performance-capacity::r1
+    accepted_prerequisites:
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+      prep.knowledge-model: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+
+  - capability: prep.learning-design
+    artifact: LEARNING-DESIGN
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.learning-design::r1
+    accepted_prerequisites:
+      prep.model-context-strategy: prep-strict-semantic-baseline-v1::prep.model-context-strategy::r1
+      prep.knowledge-model: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+
+  - capability: prep.learner-model
+    artifact: LEARNER-MODEL
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.learner-model::r1
+    accepted_prerequisites:
+      prep.model-context-strategy: prep-strict-semantic-baseline-v1::prep.model-context-strategy::r1
+      prep.knowledge-model: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+
+  - capability: prep.application-design
+    artifact: APPLICATION-DESIGN
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.application-design::r1
+    accepted_prerequisites:
+      prep.product-capabilities: prep-strict-semantic-baseline-v1::prep.product-capabilities::r2
+      prep.knowledge-model: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+      prep.learning-design: prep-strict-semantic-baseline-v1::prep.learning-design::r1
+      prep.learner-model: prep-strict-semantic-baseline-v1::prep.learner-model::r1
+
+  - capability: prep.machine-interfaces
+    artifact: MACHINE-INTERFACES
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.machine-interfaces::r2
+    accepted_prerequisites:
+      prep.application-design: prep-strict-semantic-baseline-v1::prep.application-design::r1
+      prep.knowledge-model: prep-strict-semantic-baseline-v1::prep.knowledge-model::r3
+      prep.learning-design: prep-strict-semantic-baseline-v1::prep.learning-design::r1
+      prep.learner-model: prep-strict-semantic-baseline-v1::prep.learner-model::r1
+
+  - capability: prep.import-consistency
+    artifact: IMPORT-CONSISTENCY
+    acceptance_id: prep-strict-semantic-baseline-v1::prep.import-consistency::r2
+    accepted_prerequisites:
+      prep.application-design: prep-strict-semantic-baseline-v1::prep.application-design::r1
+      prep.machine-interfaces: prep-strict-semantic-baseline-v1::prep.machine-interfaces::r2
