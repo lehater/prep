@@ -1,0 +1,38 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.interface-verification
+acceptance_id: frontend-decision-rebuild::prep.interface-verification::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: INTERFACE-VERIFICATION
+  path: docs/verification/interface-verification.md
+  capability: prep.interface-verification
+  changed_paths:
+    - docs/verification/interface-verification.md
+  canonical_references:
+    - referenced_path: docs/application/application-design.md
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/application/task-model.yaml
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - verification-not-semantic-owner
+    basis: >-
+      The strategy derives verification oracles only from accepted task,
+      conceptual, information, interaction and topology obligations. It checks
+      task/context/view closure, Learning/Curation separation, preview/export
+      recovery and representation-neutral Knowledge exploration without adding
+      product or presentation requirements.
