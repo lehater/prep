@@ -308,3 +308,19 @@ Curation / Knowledge now realizes the accepted Presentation System visual specif
 - selection remains independent from focus and graph membership remains stable during ordinary detail selection.
 
 Checkpoint run `36213841539` passed strict currentness/Harness closure, 28 Python tests, 14 Vitest files / 42 tests, production build and 23/23 Playwright tests. This is correctness/structural evidence; manual visual review remains required before the reference is accepted as the target visual implementation for propagation.
+
+
+## Auto live-physics regression correction
+
+A duplicated profile configuration reintroduced the five-second graph freeze after the earlier interaction correction. `DEFAULT_GRAPH_RENDER_PREFERENCES` used live physics, but `graphPreferencesForProfile("auto")` still selected `settle-and-pause`. The renderer therefore legitimately scheduled its old 5.5-second pause even though the user-visible profile was Auto.
+
+Current policy:
+
+- Auto = live physics;
+- Quality = live physics;
+- renderer optimization may change batching, instancing, labels, effects and pixel ratio, but may not silently replace live physics with timed pause;
+- Performance may explicitly request `settle-and-pause`;
+- timed pause is keyed only by explicit non-live physics policy, never merely by the optimized renderer family;
+- tab/window lifecycle suspension remains allowed and resumes when the app becomes active.
+
+Checkpoint run `36214168456` passed 30/30 strict currentness assertions, 28 Python tests, 14 Vitest files / 44 tests, production build and 24/24 Playwright tests, including a browser regression that crosses the former 5.5-second threshold.

@@ -439,3 +439,17 @@ The correction removes implicit physics degradation from Auto entirely:
 - timed idle pause is keyed only by an explicit non-live physics preference, not by optimized renderer family;
 - Performance may still request `settle-and-pause` explicitly;
 - regression coverage waits beyond the former 5.5-second threshold and verifies the public Auto settings remain `physics: on`.
+
+
+Auto live-physics checkpoint run `36214168456` passed after removing the hidden Auto pause:
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **20 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE with Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- repository validators and **28/28 Python tests**;
+- **14 Vitest files / 44 tests PASS**;
+- production Vite build PASS;
+- **24/24 Playwright PASS**.
+
+The browser suite now waits beyond the former 5.5-second pause threshold in public Auto mode and verifies that live physics remains `on` and the graph continues accepting graph commands. The temporary checkpoint workflow is removed after recording this evidence.
