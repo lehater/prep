@@ -1,6 +1,6 @@
 # Frontend Release Evidence
 
-> **Status: historical evidence for the pre-FRC-01 frontend baseline.** Manual UI review and the subsequent responsive/performance design revalidation changed accepted Presentation, Screen/View and Quality prerequisites. The FI-07 checks below remain useful evidence for the prior realization but do not prove current `FRONTEND-IMPLEMENTATION` closure. Renewed evidence is required by FRC-01.
+> **Status: renewed FRC-01 implementation evidence; hardware performance qualification pending.** The pre-FRC-01 FI-07 material below remains historical context. Current code/CI evidence satisfies revised responsive, graph-control, semantic-preservation, stress and idle-resource obligations, but the accepted real-GPU 2k/10k FPS oracle still requires physical workstation evidence.
 
 ## Status and role
 
@@ -173,3 +173,70 @@ The correction keeps accepted view semantics unchanged:
 Executable evidence lives in `web/e2e/responsive-layout.spec.ts`. It verifies a 1920x1080 wide layout, a 1024x768 tablet reflow, a 390x844 mobile stack, graph/list/detail width relationships and absence of horizontal overflow.
 
 Responsive browser checkpoint workflow run `36199163419` passed production Vite build and all 19 Playwright tests.
+
+## FRC-01 renewed responsive/performance evidence
+
+Checkpoint `240dc04f14f9b1a853aa3917e5a545989aa91b5f`, workflow run `36205548385`, verifies the revised frontend realization.
+
+### Spatial and control realization
+
+- Knowledge uses a graph-primary wide composition with bounded list/detail supporting panes.
+- Compact layout keeps list + graph and moves supporting detail below.
+- Narrow layout presents the graph first at full content width, followed by supporting list/detail regions without horizontal page overflow.
+- Curation Knowledge keeps New/Import as compact on-demand actions; the selected Knowledge editor occupies the right detail pane rather than a permanent block below the graph.
+- Toolbar includes semantic kind, multi-select relation filtering, focus/clear focus, Fit graph, Reset camera and Graph settings.
+- Graph settings expose Auto / Quality / Performance plus advanced labels, arrowheads, particles, live-physics and node-detail degradation preferences.
+- renderer-private instancing/batching strategy names are not exposed as product vocabulary.
+
+### Renderer performance realization
+
+The production `graph-rfg3d` adapter now supports:
+
+- automatic/explicit optimized strategy selection;
+- instanced node rendering;
+- batched relation rendering;
+- deterministic adapter-private initial geometry;
+- reduced node detail/pixel ratio/effects in the Performance path;
+- semantic-preserving arrow/label/physics degradation;
+- demand-driven pause after settle/idle;
+- Fit/Reset commands;
+- renderer-private diagnostics for draw calls, triangles, WebGL identity, settle timing and idle state.
+
+The same renderer-neutral `GraphScene` remains the source of canonical node/relation identity. Performance profiles do not mutate Knowledge ids, relation source/target/type, target/global scope or equivalent list/detail access.
+
+### Automated evidence
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend Test Design: **17 contracts ACCEPTED**;
+- Vitest: **14 files / 41 tests PASS**;
+- Playwright: **21/21 PASS**;
+- dependency audit: zero vulnerabilities;
+- build + production Docker + OCI revision identity: PASS;
+- repository validators + **28 Python tests**: PASS.
+
+### 1k / 2k / 5k stress evidence
+
+GitHub runner evidence used:
+
+`ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)), SwiftShader driver)`
+
+Therefore it validates the optimized stress path and idle behavior but **not** the hardware FPS requirement.
+
+| Scene | Strategy | Draw calls | Triangles | Settle | Sampled software FPS | Idle |
+|---|---|---:|---:|---:|---:|---|
+| 1k nodes / 5k edges | optimized | 2 | 36,000 | ~5.25s | ~38.5 | paused |
+| 2k nodes / 10k edges | optimized | 2 | 72,000 | ~5.34s | ~16.7 | paused |
+| 5k nodes / 25k edges | optimized | 2 | 180,000 | ~5.52s | ~7.45 | paused |
+
+### Hardware qualification
+
+The repository provides:
+
+```bash
+cd web
+npm ci
+npx playwright install chromium
+npm run benchmark:graph:hardware
+```
+
+This command rejects software WebGL and, for 2k/10k, rejects sampled FPS below 30. Successful output from a representative GPU workstation is the remaining FRC-01 physical evidence item.

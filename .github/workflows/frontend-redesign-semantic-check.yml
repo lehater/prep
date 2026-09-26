@@ -44,3 +44,5 @@ jobs:
 # rerun after explicit quality coverage ownership
 
 # canonical Harness pin recheck
+
+# final documentation/evidence revalidation before temporary workflow cleanup

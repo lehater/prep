@@ -230,3 +230,47 @@ The canonical frontend closure has therefore been reopened. FI-01..FI-07 remain 
 - [ ] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence.
 
 FRC-01 must implement the revised dominant-graph frames, graph control surface and semantic-preserving performance profiles; adapt eligible renderer mechanics from `experiments/knowledge-representation-3d`; and record hardware-accelerated 1k/2k/5k evidence before production frontend closure is claimed again.
+
+## FRC-01 implementation and CI evidence
+
+FRC-01 implementation correction is complete in code and deterministic/CI verification at checkpoint commit `240dc04f14f9b1a853aa3917e5a545989aa91b5f`, workflow run `36205548385`.
+
+Passed evidence:
+
+- permanent `Frontend fast`: PASS;
+- pinned Harness strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **17 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE, Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`, strict semantic/currentness COMPLETE;
+- repository docs/architecture/questions validators and **28/28 Python tests**;
+- frontend deterministic checks: **14 Vitest files / 41 tests PASS**;
+- npm audit: **0 vulnerabilities**;
+- production Vite build: PASS;
+- browser verification: **21/21 Playwright PASS**;
+- production Docker build and OCI revision identity: PASS;
+- software-rendered stress evidence: **1k/5k, 2k/10k, 5k/25k PASS** with optimized strategy, pixel ratio 1, 2 draw calls and deterministic idle pause.
+
+Observed CI stress measurements used ANGLE SwiftShader and therefore are **not** accepted as hardware FPS evidence:
+
+- 1k nodes / 5k edges: ~38.5 sampled FPS, 36k triangles, settle ~5.25s;
+- 2k nodes / 10k edges: ~16.7 sampled FPS, 72k triangles, settle ~5.34s;
+- 5k nodes / 25k edges: ~7.45 sampled FPS, 180k triangles, settle ~5.52s;
+- all three reached `idlePaused=true`.
+
+The optimized path materially reduces renderer object/draw pressure, but these frame-rate values describe SwiftShader software rendering only.
+
+### Remaining physical qualification
+
+FRC-01 remains unchecked until its accepted hardware oracle is recorded on a real GPU-backed desktop browser.
+
+Run from `web/` on the representative workstation:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run benchmark:graph:hardware
+```
+
+The command intentionally fails if WebGL reports SwiftShader/llvmpipe/software rendering. On real hardware it additionally requires the ordinary **2k nodes / 10k edges** Performance-profile workload to sustain approximately **30 FPS or better**, while retaining the same semantic and idle-pause checks.
+
+No additional application implementation is currently known to be required; the remaining item is physical performance qualification/evidence.

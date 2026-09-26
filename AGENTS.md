@@ -42,13 +42,13 @@ python tools/check_harness_integration.py
 
 ## Current engineering frontier
 
-The production frontend closure is **reopened** after manual UI review exposed missing responsive/spatial Screen/View knowledge and an orphaned graph Performance/Capacity contract.
+The frontend responsive/spatial/performance correction has been implemented and revalidated against canonical Harness `dd74a4876886beb134dedbb133974f765896db8e`.
 
-Current authority work has revised the Presentation System, Screen/View Design and Frontend Performance/Capacity knowledge so the active graph is the dominant Knowledge workspace, wide/compact/narrow transformations are explicit, and user-visible performance degradation preserves canonical semantics.
+FRC-01 code and CI evidence are complete: graph-primary wide/compact/narrow composition, graph controls, semantic-preserving Auto/Quality/Performance degradation, optimized instanced/batched rendering, demand-driven idle pause, 21 browser tests and software-rendered 1k/2k/5k stress evidence all pass.
 
-FI-01 through FI-07 remain historical realization evidence against the previous baseline. The current implementation frontier is **FRC-01 — Knowledge workspace spatial/performance correction** in `docs/implementation/frontend-implementation-design.md`. Do not claim `FRONTEND-IMPLEMENTATION` current-complete again until downstream architecture/component/verification/test knowledge is revalidated and FRC-01 plus 1k/2k/5k hardware renderer evidence are complete.
+The only remaining FRC-01 acceptance item is **physical GPU qualification** of the accepted ordinary 2k/10k ~30-FPS target. GitHub-hosted CI reports SwiftShader and is intentionally not accepted as hardware FPS evidence. Run `npm run benchmark:graph:hardware` from `web/` on a representative GPU workstation; the command rejects software rendering and sub-30-FPS 2k/10k results.
 
-`Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
+Do not claim the physical performance qualification complete until that run is recorded. `Q-KNOWLEDGE-GRAPH-3D-VALUE` also remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
 
 The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
 
