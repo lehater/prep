@@ -124,7 +124,7 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
     page.getByRole("button", { name: "Reset camera" }),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: /Relations all/ }).click();
+  await page.getByRole("button", { name: "Relation filters" }).click();
   const realizes = page.getByRole("checkbox", { name: "realizes" });
   const addresses = page.getByRole("checkbox", { name: "addresses" });
   await expect(realizes).toBeChecked();
@@ -136,22 +136,18 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(page.getByText(/1 relations · auto/)).toBeVisible();
   await page.keyboard.press("Escape");
 
-  const profile = page.getByRole("group", {
+  await page.getByRole("button", { name: "Graph settings" }).click();
+  const profile = page.getByRole("combobox", {
     name: "Graph performance profile",
   });
-  await profile.getByRole("button", { name: "Performance" }).click();
-  await expect(
-    profile.getByRole("button", { name: "Performance" }),
-  ).toHaveAttribute("aria-pressed", "true");
-
-  await page.getByRole("button", { name: "Graph settings" }).click();
-  await page.getByText("Advanced rendering").click();
+  await profile.selectOption("performance");
+  await expect(profile).toHaveValue("performance");
 
   const arrowheads = page.getByRole("checkbox", {
-    name: "Directional arrowheads",
+    name: "Стрелки",
   });
   const particles = page.getByRole("checkbox", {
-    name: "Decorative particles",
+    name: "Частицы",
   });
   await expect(arrowheads).not.toBeChecked();
   await expect(particles).not.toBeChecked();
@@ -160,7 +156,7 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   ).toHaveValue("settle-and-pause");
   await page.keyboard.press("Escape");
 
-  await page.getByRole("button", { name: /Relations 1/ }).click();
+  await page.getByRole("button", { name: "Relation filters" }).click();
   await page.getByRole("button", { name: "Show all" }).click();
   await expect(page).not.toHaveURL(/relation=/);
 });
@@ -169,12 +165,15 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
 test("Auto graph remains interactive beyond the former settle-pause threshold", async ({ page }) => {
   await page.goto(targetKnowledgePath);
 
-  const profile = page.getByRole("group", {
+  await page.getByRole("button", { name: "Graph settings" }).click();
+  const profile = page.getByRole("combobox", {
     name: "Graph performance profile",
   });
+  await expect(profile).toHaveValue("auto");
   await expect(
-    profile.getByRole("button", { name: "Auto" }),
-  ).toHaveAttribute("aria-pressed", "true");
+    page.getByRole("combobox", { name: "Graph live physics" }),
+  ).toHaveValue("on");
+  await page.keyboard.press("Escape");
 
   const graph = page.getByRole("application", {
     name: "Interactive 3D Knowledge graph",
@@ -183,13 +182,6 @@ test("Auto graph remains interactive beyond the former settle-pause threshold", 
 
   await page.waitForTimeout(6500);
 
-  await page.getByRole("button", { name: "Graph settings" }).click();
-  await page.getByText("Advanced rendering").click();
-  await expect(
-    page.getByRole("combobox", { name: "Graph live physics" }),
-  ).toHaveValue("on");
-
-  await page.keyboard.press("Escape");
   await graph.hover();
   await page.getByRole("button", { name: "Fit graph" }).click();
   await expect(graph).toBeVisible();

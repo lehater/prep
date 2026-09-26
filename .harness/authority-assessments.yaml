@@ -30,13 +30,17 @@ assessments:
     reopening_conditions: [model-context boundaries or translation relationships cease to be independently material]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    rationale: Current observable behavior does not require an independently versioned domain-use-case contract between Product Requirements and Tactical Domain Design; product capabilities, model semantics and application orchestration provide the accepted boundaries without a missing intermediate owner.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    reopening_conditions: [a domain-focused behavioral contract must remain stable while tactical modeling or application orchestration changes independently]
 
   - authority_id: TACTICAL-DOMAIN-DESIGN
     applicability: REQUIRED
-    evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    evidence: [docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
-    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted context boundaries or tactical domain semantics change]
 
   - authority_id: APPLICATION-DESIGN
@@ -61,7 +65,11 @@ assessments:
     reopening_conditions: [import atomicity, concurrency, retry or external synchronization semantics change]
 
   - authority_id: SECURITY-ARCHITECTURE
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    rationale: The current single-user local trust boundary has no independently owned identity, session, authorization or security-enforcement architecture; its accepted trust and external-runtime constraints remain part of System Architecture and Machine Interface Design.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    reopening_conditions: [multi-user identity or authorization is accepted, deployment exposes a materially new trust boundary, credentials/session protection gain independent lifecycle, or security enforcement needs separate consumers]
 
   - authority_id: MACHINE-INTERFACE-DESIGN
     applicability: REQUIRED
@@ -72,7 +80,7 @@ assessments:
 
   - authority_id: HUMAN-INTERFACE-DESIGN
     applicability: REQUIRED
-    evidence: [docs/interface/human-interface.md, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    evidence: [docs/interface/conceptual-interface-model.yaml, docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
     rationale: Prep requires independently owned human interaction, information architecture and presentation/view composition. Presentation and screen/view contracts remain subject to the current revalidation.
     depends_on_evidence: [docs/application/user-journeys.md, docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted journeys, interaction model, information architecture or presentation/view contracts change materially]
@@ -92,16 +100,32 @@ assessments:
     reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
 
   - authority_id: SECURITY-ANALYSIS
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    rationale: The accepted v1 scope is a single-user local deployment inside one trusted user/data boundary. Canonical design already keeps credentials/deployment secrets out of browser product state, keeps Anki behind the backend adapter boundary, and explicitly treats broader network exposure, multi-user identity/authorization and stronger trust boundaries as reopening conditions. No independent threat/control coverage contract is required for the current implementation consumer.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    reopening_conditions: [remote or untrusted deployment becomes accepted scope, multiple users or authorization are introduced, credential/session lifecycle becomes product-owned, sensitive-data protection or disclosure rules become material, or a security review/control framework becomes a required release input]
 
   - authority_id: OBLIGATION-ANALYSIS
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, web/package-lock.json, web/Dockerfile]
+    rationale: No law, regulation, contract, organizational policy or platform mandate is currently accepted as an engineering input. The frontend lockfile contains third-party license metadata, but all non-dev npm packages are currently MIT, ISC or BSD-3-Clause while MPL-2.0 packages are build-only; the Docker build copies only static dist output into the nginx runtime. External/public distribution and its required notice/license bundle are not an accepted current product/release obligation, so no independent obligation-coverage contract is required for the current consumer.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, web/package-lock.json, web/Dockerfile]
+    reopening_conditions: [Prep or its Docker artifacts are distributed externally, a third-party license introduces material copyleft/notice/source obligations into shipped artifacts, a legal/regulatory/privacy/contractual requirement becomes applicable, or an organization/platform policy must be traced into engineering decisions]
 
   - authority_id: CHANGE-TRANSITION-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/implementation/frontend-implementation-design.md]
+    rationale: Current frontend release/rollback is whole-artifact replacement with no accepted data migration, coexistence window, irreversible intermediate state or independent transition semantics.
+    depends_on_evidence: [docs/implementation/frontend-implementation-design.md]
+    reopening_conditions: [a release requires mixed-version coexistence, data/schema migration, staged irreversible rollout, compatibility window or transition-specific recovery]
 
   - authority_id: OPERABILITY-DESIGN
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    rationale: Current runtime reachability/error visibility is fully owned by Machine Interface, System Architecture and Verification; no independently valuable diagnosability/telemetry contract is required for the selected frontend scope.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    reopening_conditions: [runtime diagnosis, correlation, health or operational evidence becomes a separately consumed pre-code contract]
 
   - authority_id: ENGINEERING-POLICY
     applicability: REQUIRED
@@ -138,39 +162,3 @@ assessments:
     depends_on_evidence: [docs/vision/product-capabilities.md, docs/interface/machine-interface.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/architecture/frontend-system-architecture.md]
     reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
 
-migration_conflicts:
-  - retired_authority: STRATEGIC-DOMAIN-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile, docs/architecture/context-map.md]
-    replacements: [DOMAIN-STRATEGY, MODEL-CONTEXT-STRATEGY]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: The current context and model-context maps contain independently material evidence for both replacement ownership families; applicability was reassessed from artifact semantics rather than copied.
-
-  - retired_authority: INTERFACE-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [MACHINE-INTERFACE-DESIGN, HUMAN-INTERFACE-DESIGN]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: Current canonical machine-interface and human-interface artifacts independently prove both replacement ownership families; applicability was reassessed from current semantics rather than copied from the retired Authority.
-
-  - retired_authority: DOMAIN-MODEL-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [TACTICAL-DOMAIN-DESIGN]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: Current Knowledge Model, Learning Design and Learner Model artifacts contain tactical domain semantics; legacy graph-centered artifacts were not carried forward.
-
-  - retired_authority: SECURITY-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [SECURITY-ARCHITECTURE, SECURITY-ANALYSIS]
-    resolution: DEFERRED-REASSESSMENT
-    rationale: Legacy security artifacts are downstream of the superseded solution hypothesis and do not prove current applicability.
-
-  - retired_authority: EXTERNAL-DEPENDENCY-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: []
-    resolution: RETIRED-NON-AUTHORITY
-    rationale: Current Harness treats external-dependency work as cross-Authority analysis rather than a standalone Authority.
-
-  - retired_authority: REALIZATION-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [IMPLEMENTATION-DESIGN]
-    resolution: DEFERRED-REASSESSMENT
-    rationale: Legacy implementation design is downstream of superseded architecture and cannot establish current applicability.

@@ -21,6 +21,22 @@ The transition is difficult because:
 - limited time and attention require choices about what to learn next;
 - as the person's state changes, those choices need to change as well.
 
+## Evidence and provenance
+
+The problem observations above are accepted direct stakeholder/project evidence from the current revalidation, not deductions from the existing implementation. To keep the problem statement reviewable, the durable observation set is:
+
+- **OBS-P01 — target uncertainty:** a real learning goal can require uncertain scope and different depths of capability;
+- **OBS-P02 — partial observability:** the learner's current state is not directly known and must be approached through imperfect evidence;
+- **OBS-P03 — fragmented knowledge:** relevant material may be incomplete, inconsistent, redundant or expressed with different terminology;
+- **OBS-P04 — exposure is not capability:** encountering information does not establish later recall, explanation, reasoning or application;
+- **OBS-P05 — limited resources:** time and attention force choices about what deserves attention next;
+- **OBS-P06 — changing state:** new learning/evidence can change what should be learned or checked next;
+- **OBS-P07 — retention/transfer risk:** immediate success does not guarantee later availability or transfer to another context.
+
+Provenance class: explicit product-owner/stakeholder observations accepted during Prep's Harness revalidation. No downstream UI, graph, Anki, persistence or implementation behavior is used as evidence that these problems exist.
+
+These observations may later be supplemented or challenged by research/user evidence. A conflict that changes the existence, affected actor or desired outcome of the problem must reopen Discovery rather than being reconciled by a downstream design artifact.
+
 ## Desired outcome
 
 The person can reliably progress toward a chosen learning outcome by being able to:

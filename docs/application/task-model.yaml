@@ -1,25 +1,121 @@
 version: 1
 kind: task-model
 id: PREP-TASK-MODEL
+
 goals:
   - id: GOAL-LEARN-TARGET
     tasks:
-      - {id: TASK-L-SELECT-TARGET, responsibility: USER, outcome: A prepared LearningTarget is active.}
-      - {id: TASK-L-UNDERSTAND-TARGET, responsibility: USER, outcome: Learner understands target purpose and curated scope.}
-      - {id: TASK-L-EXPLORE-KNOWLEDGE, responsibility: USER, outcome: Learner can read and explore target-relevant Knowledge and relations.}
-      - {id: TASK-L-STUDY-QUESTIONS, responsibility: USER, outcome: Learner can inspect currently available Questions and Study Set material.}
-      - {id: TASK-L-EXPORT-STUDY, responsibility: USER, outcome: Learner exports the inspected Study Set to the external runtime.}
-      - {id: TASK-L-REVIEW-FACTS, responsibility: USER, outcome: Learner inspects factual ReviewObservations/statistics.}
+      - id: TASK-L-SELECT-TARGET
+        responsibility: USER
+        capability_refs: [PC-01]
+        required_information: [available curated LearningTargets, target identity, target definition, scope summary]
+        decision_or_input: Search/browse and select one prepared LearningTarget.
+        system_support: List/search targets, expose enough read-only target context to choose, and establish the selected target as active.
+        outcome: A prepared LearningTarget is active.
+        recovery: Empty results remain distinguishable from load failure; unavailable/recoverable failures preserve the selection task.
+      - id: TASK-L-UNDERSTAND-TARGET
+        responsibility: USER
+        capability_refs: [PC-01, PC-03]
+        depends_on: [TASK-L-SELECT-TARGET]
+        required_information: [target definition, curated Requirement/RequirementSet scope, available Knowledge count, resolvable Question count, factual review summary]
+        decision_or_input: Inspect the target and choose the next learner section.
+        system_support: Project current target scope/material facts without exposing target-scope mutation.
+        outcome: Learner understands target purpose, curated scope and current material availability.
+        recovery: Missing material is shown as availability/curation limitation rather than fabricated completeness.
+      - id: TASK-L-EXPLORE-KNOWLEDGE
+        responsibility: USER
+        capability_refs: [PC-03]
+        depends_on: [TASK-L-SELECT-TARGET]
+        required_information: [target-relevant Knowledge, accepted relation type/direction, canonical detail, current filters/focus]
+        decision_or_input: Search, filter, select, navigate relations and optionally focus a neighborhood.
+        system_support: Provide equivalent list/search/detail and graph access over the same canonical identities while preserving exploration state.
+        outcome: Learner can read and explore target-relevant Knowledge and relations.
+        recovery: Graph/rendering degradation must leave non-graph Knowledge access usable; recoverable query failure retains target context.
+      - id: TASK-L-STUDY-QUESTIONS
+        responsibility: USER
+        capability_refs: [PC-04, PC-06]
+        depends_on: [TASK-L-SELECT-TARGET]
+        required_information: [currently resolvable Questions, direct answers, supporting Knowledge references, exact Study Set preview, preview freshness]
+        decision_or_input: Inspect Questions, build/rebuild the preview and navigate a Question to supporting Knowledge.
+        system_support: Materialize the current resolvable Question subset, represent valid-empty output and detect stale previews.
+        outcome: Learner can inspect currently available Questions and the exact Study Set material.
+        recovery: A stale preview can be rebuilt; an empty Study Set is a valid explicit result.
+      - id: TASK-L-EXPORT-STUDY
+        responsibility: USER
+        capability_refs: [PC-06]
+        depends_on: [TASK-L-STUDY-QUESTIONS]
+        required_information: [exact inspected Study Set, external-runtime reachability, per-Question export outcome]
+        decision_or_input: Export the inspected preview and retry recoverable failures when appropriate.
+        system_support: Export only the materialization represented by the preview token and distinguish conflict, runtime unavailable, partial failure and operational failure.
+        outcome: Learner exports the inspected Study Set to the external runtime without silently changing membership.
+        recovery: Conflict requires rebuild/reinspect; partial/recoverable failures retain target and per-item outcome context.
+      - id: TASK-L-REVIEW-FACTS
+        responsibility: USER
+        capability_refs: [PC-07]
+        depends_on: [TASK-L-SELECT-TARGET]
+        required_information: [Question-level ReviewObservations, factual aggregates, review history, sync outcome]
+        decision_or_input: Inspect statistics/history and optionally trigger review synchronization.
+        system_support: Retrieve and present factual review evidence without mastery/readiness/retention inference.
+        outcome: Learner inspects factual ReviewObservations/statistics.
+        recovery: Runtime-unavailable sync does not erase already recorded facts and can be retried.
+
   - id: GOAL-CURATE-LEARNING-SYSTEM
     tasks:
-      - {id: TASK-C-MAINTAIN-TARGETS, responsibility: USER, outcome: Curator maintains LearningTargets and their Requirement scope.}
-      - {id: TASK-C-MAINTAIN-KNOWLEDGE, responsibility: USER, outcome: Curator maintains KnowledgeNodes and KnowledgeRelations.}
-      - {id: TASK-C-MAINTAIN-REQUIREMENTS, responsibility: USER, outcome: Curator maintains Requirements/RequirementSets and Knowledge alignments.}
-      - {id: TASK-C-MAINTAIN-QUESTIONS, responsibility: USER, outcome: Curator maintains Questions and Knowledge alignments.}
-      - {id: TASK-C-IMPORT-DATA, responsibility: USER, outcome: Curator imports supported prepared canonical data and sees outcomes.}
+      - id: TASK-C-MAINTAIN-TARGETS
+        responsibility: USER
+        capability_refs: [PC-01, PC-02]
+        required_information: [LearningTarget definition, reusable Requirements/RequirementSets, current target scope]
+        decision_or_input: Create/edit a target and add/remove reusable scope members.
+        system_support: Validate references and persist target composition without changing reusable Requirement semantics.
+        outcome: Curator maintains LearningTargets and their Requirement scope.
+        recovery: Validation/conflict outcomes preserve edit context and do not partially apply an invalid scope change.
+      - id: TASK-C-MAINTAIN-KNOWLEDGE
+        responsibility: USER
+        capability_refs: [PC-02, PC-03, PC-10]
+        required_information: [KnowledgeNode identity/content/kind, accepted relation vocabulary, incoming/outgoing relations]
+        decision_or_input: Create/edit Knowledge and add/remove precisely typed relations.
+        system_support: Preserve stable identities, validate supported relation semantics and expose global/search-first exploration.
+        outcome: Curator maintains KnowledgeNodes and KnowledgeRelations.
+        recovery: Invalid relation/content changes are rejected without silently coercing relation meaning.
+      - id: TASK-C-MAINTAIN-REQUIREMENTS
+        responsibility: USER
+        capability_refs: [PC-01, PC-02]
+        required_information: [Requirement content, RequirementSet membership, Knowledge candidates, current alignments]
+        decision_or_input: Create/edit requirements/sets, maintain membership and align/unalign Knowledge.
+        system_support: Enforce acyclic RequirementSet composition and valid canonical references.
+        outcome: Curator maintains Requirements/RequirementSets and Knowledge alignments.
+        recovery: Cycle/reference/validation rejection preserves the current editing task.
+      - id: TASK-C-MAINTAIN-QUESTIONS
+        responsibility: USER
+        capability_refs: [PC-02, PC-04, PC-10]
+        required_information: [Question/direct answer, canonical Knowledge candidates, current alignments, structural alignment status]
+        decision_or_input: Create/edit Questions and align/unalign supporting Knowledge.
+        system_support: Permit unaligned Questions while keeping that structural state distinguishable.
+        outcome: Curator maintains Questions and Knowledge alignments.
+        recovery: Validation/reference rejection preserves editable content and existing accepted alignments.
+      - id: TASK-C-IMPORT-DATA
+        responsibility: USER
+        capability_refs: [PC-02]
+        required_information: [supported data kind/schema, prepared document, aggregate outcome, per-item rejection identity/reason]
+        decision_or_input: Select a prepared document, apply it and inspect item outcomes.
+        system_support: Validate envelope/items, apply valid items independently and expose created/updated/duplicate/rejected outcomes.
+        outcome: Curator imports supported prepared canonical data and sees outcomes.
+        recovery: Invalid envelope blocks the request; rejected items remain identifiable/correctable while valid peers stay applied.
+
   - id: GOAL-OPERATE-STUDY-INTEGRATION
     tasks:
-      - {id: TASK-I-CHECK-RUNTIME, responsibility: USER, outcome: User can inspect external-runtime reachability/compatibility.}
+      - id: TASK-I-CHECK-RUNTIME
+        responsibility: USER
+        capability_refs: [PC-06, PC-08]
+        required_information: [external-runtime reachability, compatibility, non-secret configured profile summary]
+        decision_or_input: Inspect current runtime status before or after a runtime-dependent action.
+        system_support: Report reachable/unavailable/incompatible status without exposing deployment secrets as product state.
+        outcome: User can inspect external-runtime reachability/compatibility.
+        recovery: Unavailable status remains inspectable and does not imply loss of canonical Prep data.
+
 sufficiency_review:
   status: ACCEPTED
-  rationale: Current Learning, Curation and runtime-status user work is enumerated; deferred coverage-quality and learner-state inference work is outside the current slice.
+  rationale: >-
+    Every current USER goal has explicit information, input/decision, system
+    support, observable outcome and material recovery semantics. Deferred
+    coverage-quality and learner-state inference work is outside the current slice.

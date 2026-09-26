@@ -2,148 +2,222 @@
 
 ## Purpose
 
-Define task-oriented interaction before screen or navigation decisions. These journeys consume accepted application/domain semantics and do not prescribe UI realization.
+Define task-oriented interaction before screen or navigation decisions. Journeys consume accepted Product Capability, Task Model, Application and Domain semantics; they do not prescribe UI realization.
 
 ## Actor and task contexts
 
-The first version has one Prep user/data scope. Multi-user identity, authentication, authorization and tenant separation are not part of the current journeys.
+The first version has one Prep user/data scope. Multi-user identity, authentication, authorization and tenant separation are outside current journeys.
 
-Within that single-user scope, Prep distinguishes two task modes:
+Within that single-user scope, the same physical person may act in two task modes:
 
-- **Learning mode** — the person acts as learner: selects an existing curated LearningTarget, studies available material and inspects recorded review facts;
-- **Curation mode** — the person acts as curator/teacher: maintains reusable LearningTargets and their scopes, Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
+- **Learning mode** — selects an existing curated LearningTarget, studies currently available material and inspects factual review evidence;
+- **Curation mode** — maintains reusable LearningTargets/scopes, Knowledge, Requirements/RequirementSets, Questions, alignments and supported quality diagnostics.
 
-These are not security roles in v1. The same physical person may switch modes. Future multi-user operation may assign such responsibilities to different people, but that requires explicit later product/security design.
-
-Mode boundaries are intentional: Learning mode consumes prepared learning structure; it does not expose semantic authoring as part of the learning task.
+These are task modes, not security roles. Learning consumes prepared semantic structure; semantic authoring requires an explicit move to Curation.
 
 ## Maintain knowledge
 
-Context: curation.
+**Task:** `TASK-C-MAINTAIN-KNOWLEDGE`  
+**Actor/context:** curator / Curation.  
+**Trigger:** reusable subject knowledge must be added or corrected.  
+**Preconditions:** Curation is available; referenced Knowledge identities/accepted relation semantics are available where a relation is edited.
 
-Goal: add or maintain reusable subject knowledge.
+Flow:
+1. Curator creates/edits a KnowledgeNode manually or supplies supported prepared input.
+2. Curator provides accepted semantic kind/content.
+3. System validates and applies the item.
+4. Curator may add/remove a precisely typed KnowledgeRelation using existing canonical endpoints.
+5. System preserves stable identities and relation direction/meaning.
 
-Entry: the curator intends to record accepted subject knowledge.
+Alternate/recovery: invalid content/reference/relation semantics are rejected without partially applying the affected item; the curator remains able to correct/retry. No relation is coerced into a broad type merely to make the operation succeed.
 
-Interactions:
-1. Curator chooses to create knowledge manually or supply prepared bulk input.
-2. For manual authoring, curator supplies the KnowledgeNode semantic kind and content.
-3. System validates domain-required structure and creates or updates the KnowledgeNode.
-4. Curator may select existing nodes and create or remove a typed KnowledgeRelation.
-5. System preserves stable identities and accepted relation semantics.
-
-Recovery: invalid structure or relation semantics are rejected without partially applying the affected operation. Bulk-input representation and per-record reporting are downstream interface concerns.
-
-Completion: accepted KnowledgeNodes/KnowledgeRelations are available to learning and other Prep flows.
+**Completion:** accepted KnowledgeNodes/KnowledgeRelations are available to downstream learning/curation queries.
 
 ## Maintain learning requirements
 
-Context: curation.
+**Task:** `TASK-C-MAINTAIN-REQUIREMENTS`  
+**Actor/context:** curator / Curation.  
+**Trigger:** reusable learning requirements, sets or Knowledge alignments need maintenance.  
+**Preconditions:** referenced Requirement/RequirementSet/Knowledge identities exist where required.
 
-Goal: record reusable learning requirements and compositions.
+Flow:
+1. Curator creates/edits Requirements or supported prepared input.
+2. Curator creates/edits RequirementSets and adds/removes Requirement or nested RequirementSet membership.
+3. System rejects composition that would violate acyclicity.
+4. Curator aligns/unaligns Requirements with existing KnowledgeNodes when the semantic correspondence is known.
 
-Interactions:
-1. Curator creates/edits Requirements or supplies prepared bulk input.
-2. Curator creates/edits RequirementSets and adds/removes Requirements or nested RequirementSets.
-3. System rejects composition that violates acyclicity.
-4. Curator may align/un-align Requirements with existing KnowledgeNodes.
+Alternate/recovery: cycle/reference/validation rejection leaves the accepted graph unchanged for the rejected operation and preserves enough context to correct/retry.
 
-Completion: accepted requirements, compositions and knowledge alignments are available for target definition.
+**Completion:** accepted Requirements, acyclic compositions and Knowledge alignments are available for target composition.
 
 ## Maintain questions
 
-Context: curation.
+**Task:** `TASK-C-MAINTAIN-QUESTIONS`  
+**Actor/context:** curator / Curation.  
+**Trigger:** reusable Question material must be created/corrected/aligned.  
+**Preconditions:** none for Question creation; referenced Knowledge identities must exist for alignment.
 
-Goal: build and maintain the reusable question corpus independently of a particular learner target.
+Flow:
+1. Curator creates/edits a Question with direct answer or supplies prepared input.
+2. Curator may select one or more existing KnowledgeNodes relevant to it.
+3. System records/removes Question-to-Knowledge alignment.
+4. A Question may exist before alignment; unaligned state remains explicit.
 
-Interactions:
-1. Curator creates/edits a Question with direct answer or supplies prepared bulk input.
-2. Curator identifies one or more existing KnowledgeNodes relevant to the Question.
-3. System records or removes Question-to-Knowledge alignments.
-4. Question may exist before alignment; unaligned Questions remain distinguishable so curation can be completed later.
-5. Any future assessment of whether the full Question set adequately covers a KnowledgeNode belongs to curation/system quality work, not to the learner's study-progress workflow.
+Alternate/recovery: rejected content/reference changes do not erase accepted Question data or alignments. Semantic adequacy/coverage is not inferred from Question count.
 
-Completion: Questions and their accepted knowledge alignments are available for Study Set construction.
+**Completion:** Questions and currently accepted Knowledge alignments are available for Study Set resolution.
 
 ## Curate learning target
 
-Context: curation.
+**Task:** `TASK-C-MAINTAIN-TARGETS`  
+**Actor/context:** curator / Curation.  
+**Trigger:** a prepared learning outcome/profile must be created or its reusable scope revised.  
+**Preconditions:** Requirements/RequirementSets chosen for scope already exist.
 
-Goal: define a reusable prepared learning target/profile that a learner can later choose without understanding or editing its internal Requirement composition.
-
-Interactions:
+Flow:
 1. Curator creates/edits a LearningTarget.
-2. Curator selects reusable Requirements and/or RequirementSets that define its scope.
-3. System records target-requirement selection without changing reusable Requirement semantics.
-4. Curator may revise the target composition later through Curation mode.
+2. Curator selects reusable Requirements/RequirementSets defining the prepared scope.
+3. System records target selection without changing reusable Requirement semantics.
+4. Curator may later revise composition through Curation.
 
-Completion: an existing LearningTarget has a prepared scope available to Learning mode.
+Alternate/recovery: invalid references/conflict are visible and do not silently produce a partial target-scope mutation.
+
+**Completion:** an existing LearningTarget has a prepared reusable scope selectable from Learning mode.
 
 ## Choose learning target
 
-Context: learner.
+**Task:** `TASK-L-SELECT-TARGET`  
+**Actor/context:** learner / Learning.  
+**Trigger:** learner wants to begin/continue work toward a prepared target.  
+**Preconditions:** none; zero curated targets is an explicit empty state.
 
-Goal: choose the prepared outcome/profile to study.
+Flow:
+1. Learner browses/searches curated LearningTargets.
+2. Learner opens/selects one.
+3. System establishes the selected target as active learning context.
+4. Learner may inspect its read-only prepared scope.
 
-Interactions:
-1. Learner browses/searches available curated LearningTargets.
-2. Learner opens/selects one target.
-3. System establishes that target as the active learning context.
-4. Learner can inspect the target's intended scope but cannot edit its Requirement/RequirementSet composition from Learning mode.
+Alternate/recovery: empty search is distinguished from unavailable/failure; retry preserves the selection task. Editing target composition requires an explicit switch to Curation.
 
-Completion: an existing curated target is active for learning preparation.
+**Completion:** an existing curated target is active.
 
-If the same physical user wants to change target semantics or composition, they explicitly switch to Curation mode; that work is not folded into the learner journey.
+## Understand target
+
+**Task:** `TASK-L-UNDERSTAND-TARGET`  
+**Actor/context:** learner / Learning.  
+**Trigger:** target is selected and learner needs to understand what it means/currently contains.  
+**Preconditions:** active LearningTarget.
+
+Flow:
+1. System presents target definition and read-only Requirement/RequirementSet scope.
+2. System exposes current material availability summaries and factual review summary where available.
+3. Learner chooses whether to inspect Knowledge, Study material or Statistics next.
+
+Alternate/recovery: unresolved/missing material is represented as an availability/curation limitation, not as fabricated coverage/mastery.
+
+**Completion:** learner can explain the target intent/scope and choose a next learner task.
+
+## Explore target knowledge
+
+**Task:** `TASK-L-EXPLORE-KNOWLEDGE`  
+**Actor/context:** learner / Learning.  
+**Trigger:** learner needs to inspect target-relevant subject meaning/relationships.  
+**Preconditions:** active LearningTarget.
+
+Flow:
+1. System projects Knowledge reached from current Requirement-to-Knowledge alignment.
+2. Learner searches/filters, selects a Knowledge item and inspects canonical detail/relations.
+3. Learner may explicitly focus a local neighborhood and later restore the target scope.
+4. Equivalent list/search/detail access remains available alongside graph projection.
+
+Alternate/recovery: renderer failure/degradation does not remove canonical non-graph access; data-query retry preserves active target/filter context.
+
+**Completion:** learner can inspect relevant Knowledge identities and accepted relational context.
 
 ## Prepare study
 
-Context: learner.
+**Task:** `TASK-L-STUDY-QUESTIONS`  
+**Actor/context:** learner / Learning.  
+**Trigger:** learner wants the currently available Question material for the active target.  
+**Preconditions:** active LearningTarget; corpus completeness is not a prerequisite.
 
-Goal: obtain the currently available Questions relevant to a selected LearningTarget.
+Flow:
+1. System resolves selected Requirements/RequirementSets.
+2. System follows available Requirement-to-Knowledge alignments.
+3. System selects currently available Questions aligned with that Knowledge.
+4. System materializes and presents the exact Study Set preview, including valid-empty output.
+5. Learner may inspect Question/direct answer/supporting Knowledge and navigate a Question to its Knowledge context.
 
-Interactions:
-1. Learner selects a LearningTarget.
-2. System resolves selected Requirements/RequirementSets.
-3. System follows currently available Requirement-to-Knowledge alignments.
-4. System selects currently available Questions aligned with that knowledge.
-5. System presents the resulting Study Set for inspection, including an explicit valid-empty result when no Questions currently resolve.
-6. Learner may proceed with export of the available Study Set to a supported external learning runtime.
+Alternate/recovery: stale materialization is not silently substituted; learner can rebuild/reinspect. Incomplete curation may limit available material without blocking a valid subset.
 
-Incomplete curation does not block the learner workflow merely because some requirements, knowledge aspects or future semantic coverage criteria are not complete. Detailed curation diagnostics belong to the curation context; learner interaction may communicate only the limitation necessary to explain unavailable/empty material.
-
-Completion: a Study Set exists as an application materialization of the currently resolvable corpus.
+**Completion:** an exact current Study Set preview exists for inspection, possibly empty.
 
 ## Study externally
 
-Context: learner.
+**Task:** `TASK-L-EXPORT-STUDY`  
+**Actor/context:** learner plus supported external runtime.  
+**Trigger:** learner chooses export from an inspected Study Set preview.  
+**Preconditions:** active target, inspected materialization token, configured runtime.
 
-Goal: use a prepared Study Set in a supported external learning runtime.
+Flow:
+1. Learner requests export of the inspected preview.
+2. System re-resolves current materialization and verifies the token.
+3. On match, system materializes runtime-specific representation and sends it through the accepted external interface.
+4. External runtime executes study.
+5. Prep may later receive supported review results, resolve them to canonical Questions and record ReviewObservations.
 
-Interactions:
-1. Learner chooses export for the Study Set.
-2. System materializes runtime-specific study representation.
-3. System sends it through the supported external interface.
-4. External runtime conducts learning.
-5. Prep later receives supported review results.
-6. System resolves results to canonical Questions and records ReviewObservations.
+Alternate/recovery: stale preview returns conflict requiring rebuild/reinspection; runtime-unavailable/partial/operational failures remain distinguishable and retryable without losing target/item outcome context.
 
-Failure/recovery semantics specific to transport, external identity reconciliation, duplicates and partial synchronization require the downstream machine-interface contract.
-
-Completion: study material is available externally and/or returned ReviewObservations have been recorded.
+**Completion:** inspected material is reconciled externally and/or supported returned ReviewObservations are recorded.
 
 ## Inspect learning statistics
 
-Context: learner.
+**Task:** `TASK-L-REVIEW-FACTS`  
+**Actor/context:** learner / Learning.  
+**Trigger:** learner wants to inspect recorded review evidence.  
+**Preconditions:** active target or Question context; zero observations is valid.
 
-Goal: inspect recorded review history/statistics without treating them as inferred mastery.
+Flow:
+1. System retrieves Question-level ReviewObservations/statistics for the current context.
+2. Learner may explicitly request runtime review synchronization.
+3. System presents factual aggregates/history without mastery/readiness/retention/priority inference.
 
-Interactions:
-1. Learner selects the relevant learning/question context.
-2. System retrieves recorded Question-level ReviewObservations/statistics.
-3. System presents recorded facts without claiming mastery, readiness, retention or priority.
+Alternate/recovery: synchronization failure/unavailable runtime preserves already recorded facts and can be retried; empty history is not treated as negative evidence.
 
-Completion: learner can inspect recorded statistics.
+**Completion:** learner can inspect current factual review evidence.
+
+## Check external runtime
+
+**Task:** `TASK-I-CHECK-RUNTIME`  
+**Actor/context:** user / integration status.  
+**Trigger:** user wants to know whether runtime-dependent operations are currently possible.  
+**Preconditions:** configured runtime profile may or may not be reachable.
+
+Flow:
+1. User opens/inspects runtime status.
+2. System reports reachable/compatible or unavailable/incompatible state plus only non-secret configured profile context.
+
+Alternate/recovery: status failure can be retried and never mutates canonical learning data.
+
+**Completion:** current supported runtime reachability/compatibility is visible.
+
+## Import prepared data
+
+**Task:** `TASK-C-IMPORT-DATA`  
+**Actor/context:** curator / contextual Curation import.  
+**Trigger:** prepared canonical data should be loaded in bulk.  
+**Preconditions:** supported prepared-data envelope/data kind.
+
+Flow:
+1. Curator selects prepared input.
+2. System validates the envelope, then items according to accepted import semantics.
+3. Valid independent items are applied.
+4. System reports aggregate counts and per-item created/updated/duplicate/rejected outcomes.
+
+Alternate/recovery: invalid envelope blocks application; item-level rejection remains identifiable/correctable and does not roll back accepted independent peers.
+
+**Completion:** all processable items have terminal outcomes visible to the curator.
 
 ## Deliberately deferred journeys
 
-No current journey automatically interprets statistics into KnowledgeNode state, overlays degrees of learned knowledge on the graph, reprioritizes learning, regenerates a plan, extracts knowledge from arbitrary sources, generates questions, semantically judges Question-set coverage adequacy, or validates imported source content automatically.
+No current journey automatically interprets statistics into KnowledgeNode state, overlays a degree learned on the graph, reprioritizes learning, regenerates a plan, extracts knowledge from arbitrary sources, generates questions, semantically judges Question-set coverage adequacy, or validates arbitrary source content automatically.

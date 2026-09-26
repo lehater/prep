@@ -360,8 +360,8 @@ export function KnowledgeExplorer({
               ? "minmax(180px, 210px) minmax(0, 1fr)"
               : "minmax(0, 1fr)",
             lg: showList
-              ? "260px 160px minmax(0, 1fr)"
-              : "260px minmax(0, 1fr)",
+              ? "280px 160px minmax(0, 1fr)"
+              : "280px minmax(0, 1fr)",
             xl: showList
               ? "280px 180px minmax(0, 1fr)"
               : "280px minmax(0, 1fr)",
@@ -601,6 +601,7 @@ export function KnowledgeExplorer({
                           routeState.relationTypes === undefined ||
                           routeState.relationTypes.includes(type)
                         }
+                        slotProps={{ input: { "aria-label": type } }}
                         onChange={() => toggleRelationType(type)}
                       />
                     }

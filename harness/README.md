@@ -1,27 +1,34 @@
 # Prep Harness integration
 
-Prep uses the repository-independent `lehater/harness` project rather than maintaining a local engineering-knowledge evaluator.
+Prep uses the pinned repository-independent `lehater/harness`.
 
-## Files
+## Project-owned Harness state
 
 ```text
-.harness-version                 immutable Harness commit
-.harness/engineering-graph.yaml Prep Authority/Capability/Consumer policy
-.harness/core.yaml              Prep canonical artifact realization
-.harness-tool/                  disposable local Harness checkout (ignored)
+.harness-version
+.harness/engineering-graph.yaml
+.harness/core.yaml
+.harness/authority-assessments.yaml
+.harness/semantic-baseline.yaml
+.harness/engineering-coverage.yaml
 ```
 
-Canonical semantic truth remains in `docs/**`; `.harness/**` describes engineering ownership and realization only.
+`.harness/core.yaml` is the canonical artifact inventory. Project semantics live only in the artifacts registered there. `docs/README.md` is a navigation index, not an additional authority.
 
-## Local use
+## Current consumers
+
+- `CURRENT-REVALIDATION`
+- `FRONTEND-PROTOTYPE`
+- `FRONTEND-IMPLEMENTATION`
+
+Use the Engineering Graph to determine prerequisites and currentness. Do not infer current design from historical documents or experiments.
+
+## Local validation
 
 ```bash
 python tools/bootstrap_harness.py
+python tools/semantic_baseline.py
 python tools/check_harness_integration.py
+python tools/full_harness_revalidate.py
+python tools/validate_docs.py
 ```
-
-`TOP-LEVEL-DESIGN`, `LOGICAL-DESIGN` and `TECHNICAL-DESIGN` are completed baselines. `IMPLEMENTATION-DESIGN` is the active final design frontier. Production feature code remains out of scope until its exact schema/protocol/component/deployment/acceptance contracts close.
-
-## Agent operation
-
-ADR-006 still defines one-chat-agent operation and context minimization. Universal Harness provides engineering-knowledge routing/coverage; it does not replace the agent interaction model.

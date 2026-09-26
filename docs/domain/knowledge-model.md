@@ -135,9 +135,9 @@ This preserves the distinction between transferable implementation-independent k
 
 Typed relationships are part of subject meaning and may create semantic roles.
 
-The canonical relation vocabulary is controlled and extensible. Prep keeps `addresses` for its explicit problem/solution role and also admits the relation semantics previously evaluated in the Knowledge Graph project where they have clear directional boundaries.
+Relation semantics are controlled and extensible. The machine-readable classifier is the canonical contract for new relation classification. The table below is only the **stored/runtime compatibility vocabulary** that current code may still encounter; it is not the admissible-new-edge list.
 
-| relation | direction | meaning |
+| compatibility relation | direction | meaning |
 |---|---|---|
 | `addresses` | solution/response -> problem | source provides a solution, mitigation or response to the target problem |
 | `uses` | user -> employed target | source functionally employs the target as a mechanism, tool, technology, service or method; this alone does not imply necessity |
@@ -149,9 +149,9 @@ The canonical relation vocabulary is controlled and extensible. Prep keeps `addr
 | `derives_from` | derived entity -> source entity | source is semantically derived from the target |
 | `enables` | enabler -> enabled capability/state | source materially makes the target possible or practically attainable without asserting universal hard dependency |
 
-> **Relation-vocabulary revalidation:** the table above is the current runtime/domain compatibility baseline, not the final target vocabulary. Theory-backed research has identified `uses`, `depends_on`, `enables` and generic `derives_from` as overly broad leaf predicates. The candidate replacement model and admission protocol are maintained in `docs/research/relation-ontology-theory-selection.md`; the executable classification guidance is `docs/domain/relation-classification-catalog.yaml`. Canonical migration must follow corpus validation rather than one-for-one renaming.
+> **Relation-vocabulary status:** the table above is the current runtime/domain compatibility baseline, not the final leaf vocabulary. The canonical machine-readable classification and candidate-admission contract is `docs/domain/relation-classification-catalog.yaml`. Existing broad runtime types remain supported until representative corpus validation justifies migration; classification must not coerce new assertions into an imprecise legacy predicate.
 
-These types are machine-readable Prep semantics. Their admission does not require Knowledge Graph V2 to restore a typed relation registry: current Knowledge Graph cards may keep human-facing explanatory wikilinks, while a Prep import/export boundary classifies a typed edge only when the source explanation supports one of the accepted meanings without adding a new material assertion.
+For new classification, only `preferred` leaves in `docs/domain/relation-classification-catalog.yaml` may produce a `matched` edge. Catalogued `candidate` leaves are proposal vocabulary and must return `candidate_needed` until promoted; `uses`, `depends_on`, `enables` and broad `derives_from` are compatibility-only for new classification and must not be selected merely because the runtime can represent them. Existing stored edges using compatibility types remain readable until an evidence-backed corpus migration is accepted.
 
 A generic `related_to` relation remains insufficient canonical subject meaning. When available evidence does not distinguish an accepted type and direction, no typed edge should be invented.
 

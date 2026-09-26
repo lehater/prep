@@ -12,7 +12,11 @@ async function box(locator: Locator) {
 async function expectNoDocumentHorizontalOverflow(
   page: import("@playwright/test").Page,
 ) {
-  await expectNoDocumentHorizontalOverflow(page);
+  const overflow = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth,
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.viewportWidth + 1);
 }
 
 async function expectRendererFillsViewport(page: import("@playwright/test").Page) {
@@ -46,8 +50,8 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await expect(
     page.getByRole("region", { name: "Knowledge list", exact: true }),
   ).toHaveCount(0);
-  expect(detailBox.width).toBeGreaterThanOrEqual(270);
-  expect(detailBox.width).toBeLessThanOrEqual(300);
+  expect(detailBox.width).toBeGreaterThanOrEqual(275);
+  expect(detailBox.width).toBeLessThanOrEqual(325);
   expect(graphBox.width).toBeGreaterThan(760);
   expect(graphBox.height).toBeGreaterThanOrEqual(520);
   expect(graphBox.height).toBeLessThanOrEqual(920);
@@ -59,9 +63,11 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await expect(
     page.getByRole("complementary", { name: "Application navigation" }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "Graph settings" }).click();
   await expect(
-    page.getByRole("group", { name: "Graph performance profile" }),
+    page.getByRole("combobox", { name: "Graph performance profile" }),
   ).toBeVisible();
+  await page.keyboard.press("Escape");
   const titleFontSize = await appTitle.evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize),
   );

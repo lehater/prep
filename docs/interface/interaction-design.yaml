@@ -1,16 +1,108 @@
 version: 1
 kind: interaction-design
 id: PREP-INTERACTION-DESIGN
+
 contexts:
-  - {id: I-L-SELECT-TARGET, task_refs: [TASK-L-SELECT-TARGET], actions: [search-targets, select-target]}
-  - {id: I-L-OVERVIEW, task_refs: [TASK-L-UNDERSTAND-TARGET], actions: [inspect-scope, navigate-related-context]}
-  - {id: I-L-KNOWLEDGE, task_refs: [TASK-L-EXPLORE-KNOWLEDGE], actions: [search-knowledge, switch-list-graph, filter-kind, filter-relation, focus-node, inspect-detail]}
-  - {id: I-L-STUDY, task_refs: [TASK-L-STUDY-QUESTIONS, TASK-L-EXPORT-STUDY], actions: [inspect-question, build-study-preview, show-in-knowledge-map, export-preview, rebuild-stale-preview]}
-  - {id: I-L-STATISTICS, task_refs: [TASK-L-REVIEW-FACTS], actions: [sync-reviews, inspect-aggregates, inspect-review-history]}
-  - {id: I-C-TARGETS, task_refs: [TASK-C-MAINTAIN-TARGETS], actions: [search-targets, create-target, edit-target, compose-scope]}
-  - {id: I-C-KNOWLEDGE, task_refs: [TASK-C-MAINTAIN-KNOWLEDGE], actions: [search-knowledge, inspect-global-graph, create-knowledge, edit-knowledge, add-relation, remove-relation]}
-  - {id: I-C-REQUIREMENTS, task_refs: [TASK-C-MAINTAIN-REQUIREMENTS], actions: [search-requirements, create-requirement, edit-requirement, maintain-set-membership, align-knowledge]}
-  - {id: I-C-QUESTIONS, task_refs: [TASK-C-MAINTAIN-QUESTIONS], actions: [search-questions, create-question, edit-question, align-knowledge]}
-  - {id: I-C-IMPORT, task_refs: [TASK-C-IMPORT-DATA], actions: [select-prepared-document, apply-import, inspect-item-outcomes]}
-  - {id: I-RUNTIME-STATUS, task_refs: [TASK-I-CHECK-RUNTIME], actions: [inspect-runtime-status]}
+  - id: I-L-SELECT-TARGET
+    task_refs: [TASK-L-SELECT-TARGET]
+    actions: [search-targets, select-target]
+    inputs: [text query, target selection]
+    machine_operations: [learning.targets.list, learning.targets.get]
+    visible_responses: [target results with total context, active target context, empty results, recoverable load failure]
+    states: [loading, empty, ready, failure]
+    recovery: Preserve the selection task and query on recoverable failure.
+
+  - id: I-L-OVERVIEW
+    task_refs: [TASK-L-UNDERSTAND-TARGET]
+    actions: [inspect-scope, navigate-related-context]
+    inputs: [active target]
+    machine_operations: [learning.targets.get, learning.target.knowledge.list, learning.target.questions.list, learning.target.statistics.get]
+    visible_responses: [read-only scope, material counts, factual review summary, unavailable material distinction]
+    states: [loading, ready, partial-unavailable, failure]
+    recovery: Keep the active target while retrying unavailable projections.
+
+  - id: I-L-KNOWLEDGE
+    task_refs: [TASK-L-EXPLORE-KNOWLEDGE]
+    actions: [search-knowledge, switch-list-graph, filter-kind, filter-relation, select-node, focus-node, clear-focus, inspect-detail, fit-graph, reset-camera]
+    inputs: [text query, semantic kind, relation types, selected Knowledge id, explicit focus intent]
+    machine_operations: [learning.target.knowledge.list, learning.target.knowledge.graph]
+    visible_responses: [bounded list/search results, graph projection, selected detail, explicit relation type/direction, renderer degradation/fallback]
+    states: [loading, empty, ready, selected, focused, renderer-unavailable, query-failure]
+    focus_semantics: Selection opens detail without changing graph membership; focus changes topology emphasis only after explicit user/deep-link intent and is reversible.
+    keyboard_semantics: Core Knowledge search/list/detail work remains completable without graph manipulation.
+    recovery: Renderer failure preserves list/search/detail access; data-query retry preserves target/filter context.
+
+  - id: I-L-STUDY
+    task_refs: [TASK-L-STUDY-QUESTIONS, TASK-L-EXPORT-STUDY]
+    actions: [inspect-question, build-study-preview, show-in-knowledge-map, export-preview, rebuild-stale-preview, retry-export]
+    inputs: [active target, selected Question, materialization token]
+    machine_operations: [learning.target.questions.list, learning.target.study_set.build, learning.target.study_set.export]
+    visible_responses: [Question detail, exact Study Set preview, valid-empty preview, stale-preview conflict, per-Question export outcomes, runtime unavailable, partial external failure]
+    states: [loading, empty, preview-ready, preview-stale, exporting, exported, partial-failure, runtime-unavailable, operational-failure]
+    recovery: Conflict requires rebuild/reinspect; recoverable external failures retain preview/target context and item outcomes.
+
+  - id: I-L-STATISTICS
+    task_refs: [TASK-L-REVIEW-FACTS]
+    actions: [sync-reviews, inspect-aggregates, inspect-review-history]
+    inputs: [active target, optional Question context, explicit sync action]
+    machine_operations: [learning.target.statistics.get, learning.question.reviews.get, learning.reviews.sync]
+    visible_responses: [factual aggregates/history, sync summary, item-level failures, runtime unavailable]
+    states: [loading, empty, ready, syncing, partial-failure, runtime-unavailable, operational-failure]
+    recovery: Sync failure preserves already recorded facts and permits retry.
+
+  - id: I-C-TARGETS
+    task_refs: [TASK-C-MAINTAIN-TARGETS]
+    actions: [search-targets, create-target, edit-target, compose-scope]
+    inputs: [text query, target fields, Requirement/RequirementSet selection]
+    machine_operations: [curation.targets.list, curation.targets.get, curation.targets.create, curation.targets.update, curation.targets.scope.add, curation.targets.scope.remove]
+    visible_responses: [collection/detail/edit state, validation rejection, conflict, success]
+    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
+    recovery: Preserve editor input/context for correction or retry.
+
+  - id: I-C-KNOWLEDGE
+    task_refs: [TASK-C-MAINTAIN-KNOWLEDGE]
+    actions: [search-knowledge, inspect-global-graph, create-knowledge, edit-knowledge, add-relation, remove-relation]
+    inputs: [text query, semantic kind/content, relation type, source/target Knowledge selection]
+    machine_operations: [curation.knowledge.list, curation.knowledge.get, curation.knowledge.create, curation.knowledge.update, curation.knowledge.relation.add, curation.knowledge.relation.remove, curation.knowledge.graph]
+    visible_responses: [bounded results/global graph/detail, validation rejection, conflict, successful mutation]
+    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
+    focus_semantics: Selection and graph focus remain distinct; mutation never occurs through drag/layout state.
+    recovery: Preserve editing/selection context; rejected relation semantics are not coerced to another relation.
+
+  - id: I-C-REQUIREMENTS
+    task_refs: [TASK-C-MAINTAIN-REQUIREMENTS]
+    actions: [search-requirements, create-requirement, edit-requirement, maintain-set-membership, align-knowledge, unalign-knowledge]
+    inputs: [text query, requirement content, set membership, Knowledge selection]
+    machine_operations: [curation.requirements.list, curation.requirements.get, curation.requirements.create, curation.requirements.update, curation.requirement_sets.get, curation.requirement_sets.create, curation.requirement_sets.update, curation.requirement_sets.member.add, curation.requirement_sets.member.remove, curation.requirements.knowledge.align, curation.requirements.knowledge.unalign]
+    visible_responses: [collection/editor state, cycle/reference validation rejection, conflict, successful mutation]
+    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
+    recovery: Preserve editing state after rejected membership/alignment operations.
+
+  - id: I-C-QUESTIONS
+    task_refs: [TASK-C-MAINTAIN-QUESTIONS]
+    actions: [search-questions, create-question, edit-question, align-knowledge, unalign-knowledge]
+    inputs: [text query, question text, direct answer, Knowledge selection]
+    machine_operations: [curation.questions.list, curation.questions.get, curation.questions.create, curation.questions.update, curation.questions.knowledge.align, curation.questions.knowledge.unalign]
+    visible_responses: [collection/editor state, aligned/unaligned structural state, validation rejection, conflict, successful mutation]
+    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
+    recovery: Preserve editable question content and accepted alignments after rejection.
+
+  - id: I-C-IMPORT
+    task_refs: [TASK-C-IMPORT-DATA]
+    actions: [select-prepared-document, apply-import, inspect-item-outcomes, correct-and-retry]
+    inputs: [prepared-data document]
+    machine_operations: [curation.import.apply]
+    visible_responses: [aggregate received/applied/rejected counts, created/updated/duplicate/rejected item outcomes, rejection reason/category]
+    states: [idle, validating, applied, partially-applied, envelope-rejected, operational-failure]
+    recovery: Invalid/rejected items remain identifiable for correction; valid peer items are not rolled back after accepted envelope processing.
+
+  - id: I-RUNTIME-STATUS
+    task_refs: [TASK-I-CHECK-RUNTIME]
+    actions: [inspect-runtime-status]
+    inputs: []
+    machine_operations: [integration.external_runtime.status.get]
+    visible_responses: [reachable/compatible status, unavailable/incompatible status, non-secret profile summary]
+    states: [loading, reachable, unavailable, incompatible, operational-failure]
+    recovery: Status can be retried without changing canonical learning state.
+
 task_dispositions: []
