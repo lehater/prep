@@ -20,7 +20,7 @@ The edge direction is part of its meaning. UI arrows and graph traversal must fo
 
 The registry describes semantic truth, not visualization. Colors, line styles and visibility toggles are view concerns derived from `type`.
 
-## Initial registry
+## Canonical registry
 
 ### Structural / taxonomic
 
@@ -86,7 +86,7 @@ A makes B possible or practically achievable without meaning that B structurally
 
 Example: `Unique Constraint --enables--> Concurrency-safe Deduplication`.
 
-### Problem / choice
+### Problem / solution
 
 **`addresses`**
 
@@ -100,49 +100,13 @@ Example: `Transactional Outbox --addresses--> Database-to-Broker Dual Write Prob
 
 This relation is intentionally separate from `realizes`: “addresses a problem” and “realizes a property/model” are different claims.
 
-**`alternative_to`**
+## Evaluated but not admitted
 
-```text
-A --alternative_to--> B
-```
+The historical Knowledge Graph relation study considered additional meanings including `verifies`, `consumes`, `supersedes`, `instance_of`, `monitors`, `alternative_to` and other software-architecture-specific candidates. They are not canonical Prep relations now because the source study did not establish enough representative evidence or a sufficiently safe boundary for admission.
 
-A and B are materially substitutable approaches in at least one explicit context. Semantically symmetric; storage may keep one canonical edge representation.
+Prep-specific candidates `constrains` and `precedes` also remain deferred. They have plausible semantics but were not part of the independently evaluated Knowledge Graph admission set used for this change. They can be reconsidered through the normal admission rule below rather than being smuggled into the frontend contract.
 
-Example: two concurrency-control strategies under the same constraint set.
-
-**`constrains`**
-
-```text
-A --constrains--> B
-```
-
-A places a material restriction on valid forms/behavior of B.
-
-Example: a consistency requirement constrains an implementation strategy.
-
-**`precedes`**
-
-```text
-A --precedes--> B
-```
-
-A occurs before B in an intrinsic process/lifecycle ordering. Do not use it merely because a course teaches A before B.
-
-Example: `Authorization --precedes--> Capture` in a payment flow where that lifecycle definition applies.
-
-## Deliberately not core relations
-
-These are not admitted merely because they appeared useful in one software-engineering corpus:
-
-```text
-verifies
-deployed_on
-monitors
-consumes
-supersedes
-```
-
-They may be added later if recurring graph use cases require them and their semantic boundaries are clear. This avoids making the universal graph vocabulary accidentally software-architecture-specific.
+A generic `related_to` remains forbidden as a fallback.
 
 ## Admission of a new relation type
 
