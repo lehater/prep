@@ -185,10 +185,7 @@ export function KnowledgeExplorer({
             semanticKinds: routeState.semanticKind
               ? [routeState.semanticKind]
               : undefined,
-            relationTypes:
-              routeState.relationTypes.length > 0
-                ? routeState.relationTypes
-                : undefined,
+            relationTypes: routeState.relationTypes,
           })
         : null,
     [graphState, routeState],
@@ -218,7 +215,7 @@ export function KnowledgeExplorer({
 
   const toggleRelationType = (relationType: KnowledgeRelationType) => {
     const selected =
-      routeState.relationTypes.length === 0
+      routeState.relationTypes === undefined
         ? new Set<KnowledgeRelationType>(KNOWLEDGE_RELATION_TYPES)
         : relationSet(routeState.relationTypes);
     if (selected.has(relationType)) {
@@ -230,7 +227,7 @@ export function KnowledgeExplorer({
     updateRouteState({
       ...routeState,
       relationTypes:
-        next.length === KNOWLEDGE_RELATION_TYPES.length ? [] : next,
+        next.length === KNOWLEDGE_RELATION_TYPES.length ? undefined : next,
     });
   };
 
@@ -328,50 +325,6 @@ export function KnowledgeExplorer({
             ))}
           </select>
         </label>
-
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={(event) => setRelationsAnchor(event.currentTarget)}
-          aria-haspopup="dialog"
-          aria-expanded={Boolean(relationsAnchor)}
-        >
-          Relations {routeState.relationTypes.length || "all"}
-        </Button>
-        <Popover
-          open={Boolean(relationsAnchor)}
-          anchorEl={relationsAnchor}
-          onClose={() => setRelationsAnchor(null)}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        >
-          <Stack spacing={0.5} sx={{ p: 1.5, minWidth: 210 }}>
-            <Typography variant="subtitle2">Visible relation types</Typography>
-            {KNOWLEDGE_RELATION_TYPES.map((type) => (
-              <FormControlLabel
-                key={type}
-                control={
-                  <Checkbox
-                    size="small"
-                    checked={
-                      routeState.relationTypes.length === 0 ||
-                      routeState.relationTypes.includes(type)
-                    }
-                    onChange={() => toggleRelationType(type)}
-                  />
-                }
-                label={type}
-              />
-            ))}
-            <Button
-              size="small"
-              onClick={() =>
-                updateRouteState({ ...routeState, relationTypes: [] })
-              }
-            >
-              Show all
-            </Button>
-          </Stack>
-        </Popover>
 
         {routeState.selectedKnowledgeId &&
         routeState.focusedKnowledgeIds.length === 0 ? (
@@ -723,6 +676,102 @@ export function KnowledgeExplorer({
                 </Typography>
               ) : null}
             </Stack>
+            <Button
+              size="small"
+              aria-label="Relation filters"
+              aria-haspopup="dialog"
+              aria-expanded={Boolean(relationsAnchor)}
+              onClick={(event) => setRelationsAnchor(event.currentTarget)}
+              sx={{
+                position: "absolute",
+                top: 42,
+                left: 8,
+                zIndex: 4,
+                minWidth: 34,
+                width: 34,
+                height: 34,
+                p: 0,
+                color: "rgba(255,255,255,0.9)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                backgroundColor: "rgba(11,18,32,0.78)",
+                backdropFilter: "blur(6px)",
+                "&:hover": {
+                  backgroundColor: "rgba(18,28,48,0.92)",
+                },
+              }}
+            >
+              <Box sx={{ width: 18, display: "grid", gap: "3px" }}>
+                {[4, 10, 7].map((offset, index) => (
+                  <Box
+                    key={offset}
+                    sx={{
+                      height: 2,
+                      borderRadius: 1,
+                      backgroundColor: "currentColor",
+                      position: "relative",
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        top: -2,
+                        left: offset,
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        backgroundColor: "currentColor",
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
+            </Button>
+            <Popover
+              open={Boolean(relationsAnchor)}
+              anchorEl={relationsAnchor}
+              onClose={() => setRelationsAnchor(null)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+              transformOrigin={{ vertical: "top", horizontal: "left" }}
+            >
+              <Stack spacing={0.5} sx={{ p: 1.5, minWidth: 220 }}>
+                <Typography variant="subtitle2">Visible relation types</Typography>
+                {KNOWLEDGE_RELATION_TYPES.map((type) => (
+                  <FormControlLabel
+                    key={type}
+                    control={
+                      <Checkbox
+                        size="small"
+                        checked={
+                          routeState.relationTypes === undefined ||
+                          routeState.relationTypes.includes(type)
+                        }
+                        onChange={() => toggleRelationType(type)}
+                      />
+                    }
+                    label={type}
+                  />
+                ))}
+                <Stack direction="row" spacing={0.5}>
+                  <Button
+                    size="small"
+                    onClick={() =>
+                      updateRouteState({
+                        ...routeState,
+                        relationTypes: undefined,
+                      })
+                    }
+                  >
+                    Show all
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() =>
+                      updateRouteState({ ...routeState, relationTypes: [] })
+                    }
+                  >
+                    Hide all
+                  </Button>
+                </Stack>
+              </Stack>
+            </Popover>
             {graphState.status === "loading" || scene === null ? (
               <LoadingState label="Loading Knowledge graph" />
             ) : (
