@@ -82,6 +82,7 @@ export function KnowledgeExplorer({
     [targetScopeId],
   );
   const [searchDraft, setSearchDraft] = useState(routeState.query);
+  const [showList, setShowList] = useState(scope.kind === "target");
   const [listState, setListState] = useState<
     AsyncValue<{
       readonly items: readonly KnowledgeNodeModel[];
@@ -109,7 +110,10 @@ export function KnowledgeExplorer({
 
   useEffect(() => {
     setSearchDraft(routeState.query);
-  }, [routeState.query]);
+    if (routeState.query || routeState.semanticKind) {
+      setShowList(true);
+    }
+  }, [routeState.query, routeState.semanticKind]);
 
   useEffect(() => {
     let active = true;
@@ -282,6 +286,14 @@ export function KnowledgeExplorer({
         />
         <Button type="submit" variant="contained">
           Search
+        </Button>
+        <Button
+          size="small"
+          variant={showList ? "outlined" : "text"}
+          aria-expanded={showList}
+          onClick={() => setShowList((value) => !value)}
+        >
+          {showList ? "Hide results" : "Browse Knowledge"}
         </Button>
         <label>
           Semantic kind{" "}
@@ -513,66 +525,92 @@ export function KnowledgeExplorer({
           display: "grid",
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
-            md: "minmax(180px, 210px) minmax(0, 1fr)",
-            lg: "200px minmax(0, 1fr) 280px",
-            xl: "220px minmax(0, 1fr) 320px",
+            md: showList
+              ? "minmax(180px, 210px) minmax(0, 1fr)"
+              : "minmax(0, 1fr)",
+            lg: showList
+              ? "200px minmax(0, 1fr) 280px"
+              : "minmax(0, 1fr) 280px",
+            xl: showList
+              ? "220px minmax(0, 1fr) 320px"
+              : "minmax(0, 1fr) 320px",
           },
           gridTemplateAreas: {
-            xs: `"graph" "list" "detail"`,
-            md: `"list graph" "detail detail"`,
-            lg: `"list graph detail"`,
+            xs: showList ? `"graph" "list" "detail"` : `"graph" "detail"`,
+            md: showList
+              ? `"list graph" "detail detail"`
+              : `"graph" "detail"`,
+            lg: showList ? `"list graph detail"` : `"graph detail"`,
           },
           gap: 1,
           minWidth: 0,
           alignItems: "stretch",
         }}
       >
-        <Paper
-          component="section"
-          aria-label="Knowledge list"
-          variant="outlined"
-          sx={{
-            gridArea: "list",
-            p: 1,
-            minWidth: 0,
-            height: { md: "var(--knowledge-workspace-height)" },
-            overflow: "auto",
-          }}
-        >
-          <Typography component="h3" variant="h6" gutterBottom>
-            Knowledge list
-          </Typography>
-          {listState.status === "loading" ? (
-            <LoadingState label="Loading Knowledge list" />
-          ) : listState.status === "ready" && listState.value.items.length === 0 ? (
-            <StateNotice
-              title="No Knowledge found"
-              message="Change the current search or semantic-kind filter."
-            />
-          ) : listState.status === "ready" ? (
-            <Stack component="ul" spacing={0.25} sx={{ listStyle: "none", p: 0 }}>
-              {listState.value.items.map((node) => (
-                <li key={node.id}>
-                  <Button
-                    onClick={() => openDetail(node.id)}
-                    fullWidth
+        {showList ? (
+                  <Paper
+                    component="section"
+                    aria-label="Knowledge list"
+                    variant="outlined"
                     sx={{
-                      justifyContent: "flex-start",
-                      textAlign: "left",
-                      px: 0.75,
-                      py: 0.5,
+                      gridArea: "list",
+                      p: 1,
+                      minWidth: 0,
+                      height: { md: "var(--knowledge-workspace-height)" },
+                      overflow: "auto",
                     }}
                   >
-                    <Stack sx={{ alignItems: "flex-start" }}>
-                      <span>{node.title}</span>
-                      <Chip label={node.semanticKind} size="small" />
+                    <Stack
+                      direction="row"
+                      sx={{ alignItems: "baseline", justifyContent: "space-between", gap: 1 }}
+                    >
+                      <Typography component="h3" variant="h6" gutterBottom>
+                        Knowledge results
+                      </Typography>
+                      {listState.status === "ready" ? (
+                        <Typography variant="caption" color="text.secondary">
+                          {Math.min(listState.value.items.length, 40)} / {listState.value.totalCount}
+                        </Typography>
+                      ) : null}
                     </Stack>
-                  </Button>
-                </li>
-              ))}
-            </Stack>
-          ) : null}
-        </Paper>
+                    {listState.status === "loading" ? (
+                      <LoadingState label="Loading Knowledge list" />
+                    ) : listState.status === "ready" && listState.value.items.length === 0 ? (
+                      <StateNotice
+                        title="No Knowledge found"
+                        message="Change the current search or semantic-kind filter."
+                      />
+                    ) : listState.status === "ready" ? (
+                      <Stack component="ul" spacing={0.25} sx={{ listStyle: "none", p: 0 }}>
+                        {listState.value.items.slice(0, 40).map((node) => (
+                          <li key={node.id}>
+                            <Button
+                              onClick={() => openDetail(node.id)}
+                              fullWidth
+                              sx={{
+                                justifyContent: "flex-start",
+                                textAlign: "left",
+                                px: 0.75,
+                                py: 0.5,
+                              }}
+                            >
+                              <Stack sx={{ alignItems: "flex-start" }}>
+                                <span>{node.title}</span>
+                                <Chip label={node.semanticKind} size="small" />
+                              </Stack>
+                            </Button>
+                          </li>
+                        ))}
+                      </Stack>
+                    ) : null}
+                    {listState.status === "ready" && listState.value.items.length > 40 ? (
+                      <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
+                        Showing the first 40 matches. Refine search or semantic kind to narrow the result set.
+                      </Typography>
+                    ) : null}
+                  </Paper>
+                  ) : null}
+
 
         <Paper
           component="section"
@@ -619,7 +657,7 @@ export function KnowledgeExplorer({
                 performanceProfile={performanceProfile}
                 renderPreferences={renderPreferences}
                 command={rendererCommand}
-                onNodeActivate={(knowledgeId) => openDetail(knowledgeId, true)}
+                onNodeActivate={(knowledgeId) => openDetail(knowledgeId)}
               />
             )}
           </Box>

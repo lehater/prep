@@ -1,8 +1,6 @@
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../ui/patterns/ViewState";
 import { KnowledgeExplorer } from "../knowledge-explorer/ui/KnowledgeExplorer";
@@ -16,7 +14,6 @@ import type { TargetQueryPort } from "./ports/TargetQueryPort";
 import { StatisticsView } from "./ui/StatisticsView";
 import { StudyView } from "./ui/StudyView";
 import { TargetOverviewView } from "./ui/TargetOverviewView";
-import { targetSectionPath } from "./ui/learningRoutes";
 
 export type LearningSection = "overview" | "knowledge" | "study" | "statistics";
 
@@ -112,29 +109,6 @@ export function LearningWorkspace({
         <Typography>{target.definition}</Typography>
       </header>
 
-      <Stack
-        component="nav"
-        aria-label="Learning target sections"
-        direction="row"
-        spacing={1}
-        sx={{ flexWrap: "wrap" }}
-      >
-        {(["overview", "knowledge", "study", "statistics"] as const).map(
-          (item) => (
-            <Button
-              key={item}
-              component={Link}
-              to={targetSectionPath(targetId, item)}
-              variant={item === section ? "contained" : "text"}
-            >
-              {item[0].toUpperCase() + item.slice(1)}
-            </Button>
-          ),
-        )}
-        <Button component={Link} to="/learning">
-          Choose another target
-        </Button>
-      </Stack>
 
       {section === "overview" ? (
         <TargetOverviewView

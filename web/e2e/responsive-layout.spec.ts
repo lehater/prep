@@ -26,10 +26,6 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await page.goto("/curation/knowledge");
 
   const main = page.getByRole("main");
-  const list = page.getByRole("region", {
-    name: "Knowledge list",
-    exact: true,
-  });
   const graph = page.getByRole("region", {
     name: "Knowledge graph",
     exact: true,
@@ -37,17 +33,16 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   const detail = page.getByRole("complementary");
 
   const mainBox = await box(main);
-  const listBox = await box(list);
   const graphBox = await box(graph);
   const detailBox = await box(detail);
 
-  expect(mainBox.width).toBeGreaterThan(1300);
-  expect(listBox.width).toBeGreaterThanOrEqual(180);
-  expect(listBox.width).toBeLessThanOrEqual(240);
+  expect(mainBox.width).toBeGreaterThan(1080);
+  await expect(
+    page.getByRole("region", { name: "Knowledge list", exact: true }),
+  ).toHaveCount(0);
   expect(detailBox.width).toBeGreaterThanOrEqual(270);
   expect(detailBox.width).toBeLessThanOrEqual(300);
-  expect(graphBox.width).toBeGreaterThan(740);
-  expect(graphBox.width).toBeGreaterThan(listBox.width * 3);
+  expect(graphBox.width).toBeGreaterThan(760);
   expect(graphBox.height).toBeGreaterThanOrEqual(520);
   expect(graphBox.height).toBeLessThanOrEqual(920);
   expect(graphBox.y).toBeLessThan(190);
@@ -66,16 +61,17 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto("/curation/knowledge");
 
-  const list = page.getByRole("region", {
-    name: "Knowledge list",
-    exact: true,
-  });
   const graph = page.getByRole("region", {
     name: "Knowledge graph",
     exact: true,
   });
   const detail = page.getByRole("complementary");
 
+  await page.getByRole("button", { name: "Browse Knowledge" }).click();
+  const list = page.getByRole("region", {
+    name: "Knowledge list",
+    exact: true,
+  });
   const tabletList = await box(list);
   const tabletGraph = await box(graph);
   const tabletDetail = await box(detail);

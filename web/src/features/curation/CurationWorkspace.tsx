@@ -1,7 +1,5 @@
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
 
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
@@ -77,26 +75,6 @@ export function CurationWorkspace({
           </Typography>
         </header>
 
-        <Stack
-          component="nav"
-          aria-label="Curation sections"
-          direction="row"
-          spacing={1}
-          sx={{ flexWrap: "wrap" }}
-        >
-          {(["targets", "knowledge", "requirements", "questions"] as const).map(
-            (item) => (
-              <Button
-                key={item}
-                component={Link}
-                to={`/curation/${item}`}
-                variant={section === item ? "contained" : "text"}
-              >
-                {LABELS[item]}
-              </Button>
-            ),
-          )}
-        </Stack>
       </Stack>
 
       {section === "targets" ? (

@@ -277,8 +277,14 @@ export function Rfg3dGraphRenderer({
     emitDiagnostics(true);
   }, [clearIdleTimer, emitDiagnostics]);
 
+  const shouldIdlePause =
+    strategy.family === "optimized" || strategy.physics !== "on";
+
   const scheduleIdlePause = useCallback(() => {
     clearIdleTimer();
+    if (!shouldIdlePause) {
+      return;
+    }
     idleTimerRef.current = window.setTimeout(() => {
       idleTimerRef.current = null;
       if (!dragRef.current) {
@@ -287,7 +293,7 @@ export function Rfg3dGraphRenderer({
         emitDiagnostics(true);
       }
     }, IDLE_PAUSE_DELAY_MS);
-  }, [clearIdleTimer, emitDiagnostics]);
+  }, [clearIdleTimer, emitDiagnostics, shouldIdlePause]);
 
   const reportUnavailable = useCallback(
     (message: string) => {
@@ -633,19 +639,25 @@ export function Rfg3dGraphRenderer({
     engineSettledMsRef.current = undefined;
     resumeRenderer();
 
+    if (!shouldIdlePause) {
+      return;
+    }
     const settleBudgetMs =
-      strategy.physics === "off"
-        ? 60
-        : strategy.physics === "settle-and-pause"
-          ? 5_500
-          : 16_000;
+      strategy.physics === "off" ? 60 : 5_500;
     const timer = window.setTimeout(() => {
       if (!dragRef.current) {
         pauseRenderer();
       }
     }, settleBudgetMs);
     return () => window.clearTimeout(timer);
-  }, [dataKey, pauseRenderer, resumeRenderer, strategy.physics, webglAvailable]);
+  }, [
+    dataKey,
+    pauseRenderer,
+    resumeRenderer,
+    shouldIdlePause,
+    strategy.physics,
+    webglAvailable,
+  ]);
 
   const findNodeAtPointer = useCallback(
     (clientX: number, clientY: number): Rfg3dNode | null => {
@@ -906,6 +918,12 @@ export function Rfg3dGraphRenderer({
         tabIndex={0}
         aria-label="Interactive 3D Knowledge graph"
         onPointerDownCapture={startNodeGesture}
+        onPointerMoveCapture={() => {
+          if (animationPausedRef.current) {
+            resumeRenderer();
+            scheduleIdlePause();
+          }
+        }}
         onWheelCapture={resumeRenderer}
         style={{
           width: "100%",

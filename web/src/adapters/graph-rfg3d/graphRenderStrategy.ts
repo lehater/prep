@@ -8,7 +8,7 @@ export const DEFAULT_GRAPH_RENDER_PREFERENCES: GraphRenderPreferences = {
   labels: "normal",
   arrowheads: true,
   particles: false,
-  physics: "settle-and-pause",
+  physics: "on",
   nodeDetail: "normal",
 };
 
