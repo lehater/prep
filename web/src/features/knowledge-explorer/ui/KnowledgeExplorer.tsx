@@ -6,10 +6,9 @@ import Divider from "@mui/material/Divider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Paper from "@mui/material/Paper";
 import Popover from "@mui/material/Popover";
+import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -27,6 +26,7 @@ import {
 } from "../model/knowledge";
 import type {
   GraphPerformanceProfile,
+  GraphPhysicsTuning,
   GraphRenderPreferences,
   GraphRenderer,
   GraphRendererCommand,
@@ -37,6 +37,7 @@ import type {
 } from "../ports/KnowledgeQueryPort";
 import { buildGraphScene } from "../projection/graphScene";
 import {
+  DEFAULT_GRAPH_PHYSICS_TUNING,
   graphPreferencesForProfile,
   KNOWLEDGE_RELATION_COLORS,
   KNOWLEDGE_RELATION_DESCRIPTIONS_RU,
@@ -111,6 +112,9 @@ export function KnowledgeExplorer({
     useState<GraphPerformanceProfile>("auto");
   const [renderPreferences, setRenderPreferences] =
     useState<GraphRenderPreferences>(() => graphPreferencesForProfile("auto"));
+  const [physicsTuning, setPhysicsTuning] = useState<GraphPhysicsTuning>(
+    DEFAULT_GRAPH_PHYSICS_TUNING,
+  );
   const [rendererCommand, setRendererCommand] =
     useState<GraphRendererCommand>();
   const commandSequence = useRef(0);
@@ -331,169 +335,6 @@ export function KnowledgeExplorer({
           </select>
         </label>
 
-        {routeState.selectedKnowledgeId &&
-        routeState.focusedKnowledgeIds.length === 0 ? (
-          <Button
-            size="small"
-            onClick={() =>
-              updateRouteState({
-                ...routeState,
-                focusedKnowledgeIds: [routeState.selectedKnowledgeId!],
-              })
-            }
-          >
-            Focus selected
-          </Button>
-        ) : null}
-        {routeState.focusedKnowledgeIds.length > 0 ? (
-          <Button
-            size="small"
-            onClick={() =>
-              updateRouteState({ ...routeState, focusedKnowledgeIds: [] })
-            }
-          >
-            Clear focus
-          </Button>
-        ) : null}
-
-        <Button size="small" onClick={() => issueRendererCommand("fit")}>
-          Fit graph
-        </Button>
-        <Button
-          size="small"
-          onClick={() => issueRendererCommand("reset-camera")}
-        >
-          Reset camera
-        </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          aria-label="Graph settings"
-          aria-haspopup="dialog"
-          aria-expanded={Boolean(settingsAnchor)}
-          onClick={(event) => setSettingsAnchor(event.currentTarget)}
-        >
-          Graph settings
-        </Button>
-        <Popover
-          open={Boolean(settingsAnchor)}
-          anchorEl={settingsAnchor}
-          onClose={() => setSettingsAnchor(null)}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-        >
-          <Stack spacing={1.25} sx={{ p: 2, width: 300 }}>
-            <Typography variant="subtitle1">Graph settings</Typography>
-            <Typography variant="caption" color="text.secondary">
-              Performance may reduce decoration while preserving canonical
-              Knowledge, relation direction and list/detail access.
-            </Typography>
-            <details>
-              <summary>Advanced rendering</summary>
-              <Stack spacing={0.75} sx={{ pt: 1 }}>
-                <label>
-                  Labels{" "}
-                  <select
-                    aria-label="Graph labels"
-                    value={renderPreferences.labels}
-                    onChange={(event) =>
-                      updatePreference(
-                        "labels",
-                        event.target.value as GraphRenderPreferences["labels"],
-                      )
-                    }
-                  >
-                    <option value="normal">Normal</option>
-                    <option value="focused-only">Focused only</option>
-                    <option value="off">Off</option>
-                  </select>
-                </label>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={renderPreferences.arrowheads}
-                      onChange={(event) =>
-                        updatePreference("arrowheads", event.target.checked)
-                      }
-                    />
-                  }
-                  label="Directional arrowheads"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={renderPreferences.particles}
-                      onChange={(event) =>
-                        updatePreference("particles", event.target.checked)
-                      }
-                    />
-                  }
-                  label="Decorative particles"
-                />
-                <label>
-                  Live physics{" "}
-                  <select
-                    aria-label="Graph live physics"
-                    value={renderPreferences.physics}
-                    onChange={(event) =>
-                      updatePreference(
-                        "physics",
-                        event.target.value as GraphRenderPreferences["physics"],
-                      )
-                    }
-                  >
-                    <option value="on">On</option>
-                    <option value="settle-and-pause">Settle and pause</option>
-                    <option value="off">Off</option>
-                  </select>
-                </label>
-                <label>
-                  Node detail{" "}
-                  <select
-                    aria-label="Graph node visual detail"
-                    value={renderPreferences.nodeDetail}
-                    onChange={(event) =>
-                      updatePreference(
-                        "nodeDetail",
-                        event.target
-                          .value as GraphRenderPreferences["nodeDetail"],
-                      )
-                    }
-                  >
-                    <option value="normal">Normal</option>
-                    <option value="reduced">Reduced</option>
-                  </select>
-                </label>
-              </Stack>
-            </details>
-          </Stack>
-        </Popover>
-
-        <ToggleButtonGroup
-          exclusive
-          size="small"
-          value={performanceProfile}
-          aria-label="Graph performance profile"
-          onChange={(_, next: GraphPerformanceProfile | null) => {
-            if (!next) return;
-            setPerformanceProfile(next);
-            setRenderPreferences(graphPreferencesForProfile(next));
-          }}
-          sx={{
-            ml: { md: "auto" },
-            "& .MuiToggleButton-root": {
-              minHeight: 28,
-              px: 1,
-              py: 0.25,
-              textTransform: "none",
-              fontSize: "0.71875rem",
-            },
-          }}
-        >
-          <ToggleButton value="auto">Auto</ToggleButton>
-          <ToggleButton value="quality">Quality</ToggleButton>
-          <ToggleButton value="performance">Performance</ToggleButton>
-        </ToggleButtonGroup>
       </Paper>
 
       <Box
@@ -507,18 +348,18 @@ export function KnowledgeExplorer({
               ? "minmax(180px, 210px) minmax(0, 1fr)"
               : "minmax(0, 1fr)",
             lg: showList
-              ? "200px minmax(0, 1fr) 280px"
-              : "minmax(0, 1fr) 280px",
+              ? "260px 160px minmax(0, 1fr)"
+              : "260px minmax(0, 1fr)",
             xl: showList
-              ? "220px minmax(0, 1fr) 320px"
-              : "minmax(0, 1fr) 320px",
+              ? "280px 180px minmax(0, 1fr)"
+              : "280px minmax(0, 1fr)",
           },
           gridTemplateAreas: {
             xs: showList ? `"graph" "list" "detail"` : `"graph" "detail"`,
             md: showList
               ? `"list graph" "detail detail"`
               : `"graph" "detail"`,
-            lg: showList ? `"list graph detail"` : `"graph detail"`,
+            lg: showList ? `"detail list graph"` : `"detail graph"`,
           },
           gap: 1,
           minWidth: 0,
@@ -690,7 +531,7 @@ export function KnowledgeExplorer({
               sx={{
                 position: "absolute",
                 top: 42,
-                left: 8,
+                right: 8,
                 zIndex: 4,
                 minWidth: 34,
                 width: 34,
@@ -733,8 +574,8 @@ export function KnowledgeExplorer({
               open={Boolean(relationsAnchor)}
               anchorEl={relationsAnchor}
               onClose={() => setRelationsAnchor(null)}
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              transformOrigin={{ vertical: "top", horizontal: "left" }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
             >
               <Stack spacing={0.5} sx={{ p: 1.5, minWidth: 220 }}>
                 <Typography variant="subtitle2">Visible relation types</Typography>
@@ -803,6 +644,252 @@ export function KnowledgeExplorer({
                 </Stack>
               </Stack>
             </Popover>
+
+            <Stack
+              spacing={0.5}
+              sx={{
+                position: "absolute",
+                top: 84,
+                right: 8,
+                zIndex: 4,
+              }}
+            >
+              <Tooltip title="Вписать граф" placement="left">
+                <Button
+                  size="small"
+                  aria-label="Fit graph"
+                  onClick={() => issueRendererCommand("fit")}
+                  sx={{
+                    minWidth: 34,
+                    width: 34,
+                    height: 34,
+                    p: 0,
+                    color: "rgba(255,255,255,0.9)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    backgroundColor: "rgba(11,18,32,0.58)",
+                    backdropFilter: "blur(6px)",
+                    "&:hover": { backgroundColor: "rgba(18,28,48,0.88)" },
+                  }}
+                >
+                  ⛶
+                </Button>
+              </Tooltip>
+              <Tooltip title="Сбросить камеру" placement="left">
+                <Button
+                  size="small"
+                  aria-label="Reset camera"
+                  onClick={() => issueRendererCommand("reset-camera")}
+                  sx={{
+                    minWidth: 34,
+                    width: 34,
+                    height: 34,
+                    p: 0,
+                    color: "rgba(255,255,255,0.9)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    backgroundColor: "rgba(11,18,32,0.58)",
+                    backdropFilter: "blur(6px)",
+                    "&:hover": { backgroundColor: "rgba(18,28,48,0.88)" },
+                  }}
+                >
+                  ↶
+                </Button>
+              </Tooltip>
+              {routeState.selectedKnowledgeId &&
+              routeState.focusedKnowledgeIds.length === 0 ? (
+                <Tooltip title="Фокусировать выбранную статью" placement="left">
+                  <Button
+                    size="small"
+                    aria-label="Focus selected"
+                    onClick={() =>
+                      updateRouteState({
+                        ...routeState,
+                        focusedKnowledgeIds: [routeState.selectedKnowledgeId!],
+                      })
+                    }
+                    sx={{
+                      minWidth: 34,
+                      width: 34,
+                      height: 34,
+                      p: 0,
+                      color: "rgba(255,255,255,0.9)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      backgroundColor: "rgba(11,18,32,0.58)",
+                      backdropFilter: "blur(6px)",
+                    }}
+                  >
+                    ◎
+                  </Button>
+                </Tooltip>
+              ) : null}
+              {routeState.focusedKnowledgeIds.length > 0 ? (
+                <Tooltip title="Очистить фокус" placement="left">
+                  <Button
+                    size="small"
+                    aria-label="Clear focus"
+                    onClick={() =>
+                      updateRouteState({ ...routeState, focusedKnowledgeIds: [] })
+                    }
+                    sx={{
+                      minWidth: 34,
+                      width: 34,
+                      height: 34,
+                      p: 0,
+                      color: "rgba(255,255,255,0.9)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      backgroundColor: "rgba(11,18,32,0.58)",
+                      backdropFilter: "blur(6px)",
+                    }}
+                  >
+                    ×
+                  </Button>
+                </Tooltip>
+              ) : null}
+              <Tooltip title="Настройки графа" placement="left">
+                <Button
+                  size="small"
+                  aria-label="Graph settings"
+                  aria-haspopup="dialog"
+                  aria-expanded={Boolean(settingsAnchor)}
+                  onClick={(event) => setSettingsAnchor(event.currentTarget)}
+                  sx={{
+                    minWidth: 34,
+                    width: 34,
+                    height: 34,
+                    p: 0,
+                    color: "rgba(255,255,255,0.9)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    backgroundColor: "rgba(11,18,32,0.58)",
+                    backdropFilter: "blur(6px)",
+                    "&:hover": { backgroundColor: "rgba(18,28,48,0.88)" },
+                  }}
+                >
+                  ⚙
+                </Button>
+              </Tooltip>
+            </Stack>
+
+            <Popover
+              open={Boolean(settingsAnchor)}
+              anchorEl={settingsAnchor}
+              onClose={() => setSettingsAnchor(null)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+              <Stack spacing={1.25} sx={{ p: 1.5, width: 300 }}>
+                <Typography variant="subtitle2">Настройки графа</Typography>
+                <label>
+                  Профиль{" "}
+                  <select
+                    aria-label="Graph performance profile"
+                    value={performanceProfile}
+                    onChange={(event) => {
+                      const next = event.target.value as GraphPerformanceProfile;
+                      setPerformanceProfile(next);
+                      setRenderPreferences(graphPreferencesForProfile(next));
+                    }}
+                  >
+                    <option value="auto">Auto</option>
+                    <option value="quality">Quality</option>
+                    <option value="performance">Performance</option>
+                  </select>
+                </label>
+                <label>
+                  Подписи{" "}
+                  <select
+                    aria-label="Graph labels"
+                    value={renderPreferences.labels}
+                    onChange={(event) =>
+                      updatePreference(
+                        "labels",
+                        event.target.value as GraphRenderPreferences["labels"],
+                      )
+                    }
+                  >
+                    <option value="normal">Normal</option>
+                    <option value="focused-only">Focused only</option>
+                    <option value="off">Off</option>
+                  </select>
+                </label>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      size="small"
+                      checked={renderPreferences.arrowheads}
+                      onChange={(event) =>
+                        updatePreference("arrowheads", event.target.checked)
+                      }
+                    />
+                  }
+                  label="Стрелки"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      size="small"
+                      checked={renderPreferences.particles}
+                      onChange={(event) =>
+                        updatePreference("particles", event.target.checked)
+                      }
+                    />
+                  }
+                  label="Частицы"
+                />
+                <label>
+                  Физика{" "}
+                  <select
+                    aria-label="Graph live physics"
+                    value={renderPreferences.physics}
+                    onChange={(event) =>
+                      updatePreference(
+                        "physics",
+                        event.target.value as GraphRenderPreferences["physics"],
+                      )
+                    }
+                  >
+                    <option value="on">On</option>
+                    <option value="settle-and-pause">Settle and pause</option>
+                    <option value="off">Off</option>
+                  </select>
+                </label>
+                {([
+                  ["centerForce", "Притяжение к центру", 0, 2, 0.1],
+                  ["repelForce", "Отталкивание узлов", 0, 240, 10],
+                  ["linkForce", "Сила связей", 0, 2, 0.1],
+                  ["linkDistance", "Длина связей", 10, 120, 5],
+                ] as const).map(([key, label, min, max, step]) => (
+                  <Box key={key}>
+                    <Stack
+                      direction="row"
+                      sx={{ justifyContent: "space-between", alignItems: "center" }}
+                    >
+                      <Typography variant="caption">{label}</Typography>
+                      <Typography variant="caption">{physicsTuning[key]}</Typography>
+                    </Stack>
+                    <Slider
+                      size="small"
+                      aria-label={label}
+                      value={physicsTuning[key]}
+                      min={min}
+                      max={max}
+                      step={step}
+                      onChange={(_, value) =>
+                        setPhysicsTuning((current) => ({
+                          ...current,
+                          [key]: value as number,
+                        }))
+                      }
+                    />
+                  </Box>
+                ))}
+                <Button
+                  size="small"
+                  onClick={() => setPhysicsTuning(DEFAULT_GRAPH_PHYSICS_TUNING)}
+                >
+                  Сбросить физику
+                </Button>
+              </Stack>
+            </Popover>
+
             {graphState.status === "loading" || scene === null ? (
               <LoadingState label="Loading Knowledge graph" />
             ) : (
@@ -810,6 +897,7 @@ export function KnowledgeExplorer({
                 scene={scene}
                 performanceProfile={performanceProfile}
                 renderPreferences={renderPreferences}
+                physicsTuning={physicsTuning}
                 command={rendererCommand}
                 onNodeActivate={(knowledgeId) => openDetail(knowledgeId)}
               />
