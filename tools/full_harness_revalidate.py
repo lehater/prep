@@ -167,9 +167,12 @@ def main() -> int:
     status_doc = project_status(catalog, assessments, core)
     states: dict[str, int] = {}
     blocked = []
+    unassessed = []
     for row in status_doc["rows"]:
         key = row["applicability"]
         states[key] = states.get(key, 0) + 1
+        if row.get("applicability") == "UNASSESSED":
+            unassessed.append(row["authority"])
         if row.get("operational_status") == "BLOCKED":
             blocked.append(
                 {
@@ -181,6 +184,11 @@ def main() -> int:
         "Project Engineering Status applicability: "
         + ", ".join(f"{k}={v}" for k, v in sorted(states.items()))
     )
+    if unassessed:
+        raise SystemExit(
+            "Full Harness revalidation requires every reference Authority to be assessed; "
+            "UNASSESSED: " + ", ".join(sorted(unassessed))
+        )
     if blocked:
         print("Project-wide unresolved Authority questions (may be outside selected Consumer closure):")
         for row in blocked:

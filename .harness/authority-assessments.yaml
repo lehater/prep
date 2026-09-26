@@ -100,10 +100,18 @@ assessments:
     reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
 
   - authority_id: SECURITY-ANALYSIS
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    rationale: The accepted v1 scope is a single-user local deployment inside one trusted user/data boundary. Canonical design already keeps credentials/deployment secrets out of browser product state, keeps Anki behind the backend adapter boundary, and explicitly treats broader network exposure, multi-user identity/authorization and stronger trust boundaries as reopening conditions. No independent threat/control coverage contract is required for the current implementation consumer.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    reopening_conditions: [remote or untrusted deployment becomes accepted scope, multiple users or authorization are introduced, credential/session lifecycle becomes product-owned, sensitive-data protection or disclosure rules become material, or a security review/control framework becomes a required release input]
 
   - authority_id: OBLIGATION-ANALYSIS
-    applicability: UNASSESSED
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, web/package-lock.json, web/Dockerfile]
+    rationale: No law, regulation, contract, organizational policy or platform mandate is currently accepted as an engineering input. The frontend lockfile contains third-party license metadata, but all non-dev npm packages are currently MIT, ISC or BSD-3-Clause while MPL-2.0 packages are build-only; the Docker build copies only static dist output into the nginx runtime. External/public distribution and its required notice/license bundle are not an accepted current product/release obligation, so no independent obligation-coverage contract is required for the current consumer.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, web/package-lock.json, web/Dockerfile]
+    reopening_conditions: [Prep or its Docker artifacts are distributed externally, a third-party license introduces material copyleft/notice/source obligations into shipped artifacts, a legal/regulatory/privacy/contractual requirement becomes applicable, or an organization/platform policy must be traced into engineering decisions]
 
   - authority_id: CHANGE-TRANSITION-DESIGN
     applicability: NOT_APPLICABLE
