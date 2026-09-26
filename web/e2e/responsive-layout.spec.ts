@@ -73,7 +73,7 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   });
   const detail = page.getByRole("complementary", { name: "Knowledge detail" });
 
-  await page.getByRole("button", { name: "Browse Knowledge" }).click();
+  await page.getByRole("button", { name: "Browse" }).click();
   const list = page.getByRole("region", {
     name: "Knowledge list",
     exact: true,
