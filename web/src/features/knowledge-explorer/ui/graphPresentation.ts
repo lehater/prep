@@ -2,8 +2,16 @@ import type { KnowledgeRelationType } from "../model/knowledge";
 
 import type {
   GraphPerformanceProfile,
+  GraphPhysicsTuning,
   GraphRenderPreferences,
 } from "../ports/GraphRenderer";
+
+export const DEFAULT_GRAPH_PHYSICS_TUNING: GraphPhysicsTuning = {
+  centerForce: 1,
+  repelForce: 90,
+  linkForce: 1,
+  linkDistance: 38,
+};
 
 export const GRAPH_PERFORMANCE_PROFILES = [
   "auto",
