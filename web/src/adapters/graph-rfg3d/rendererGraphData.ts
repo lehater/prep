@@ -28,17 +28,23 @@ export interface Rfg3dGraphData {
   readonly links: Rfg3dLink[];
 }
 
-export function rendererGraphDataKey(scene: GraphScene): string {
-  const nodes = scene.nodes
+export function rendererNodeDataKey(scene: GraphScene): string {
+  return scene.nodes
     .map((node) => `${node.knowledgeId}\u0000${node.label}\u0000${node.semanticKind}`)
     .join("\u0001");
-  const edges = scene.edges
+}
+
+export function rendererLinkDataKey(scene: GraphScene): string {
+  return scene.edges
     .map(
       (edge) =>
         `${edge.relationId}\u0000${edge.sourceKnowledgeId}\u0000${edge.targetKnowledgeId}\u0000${edge.relationType}`,
     )
     .join("\u0001");
-  return `${nodes}\u0002${edges}`;
+}
+
+export function rendererGraphDataKey(scene: GraphScene): string {
+  return `${rendererNodeDataKey(scene)}\u0002${rendererLinkDataKey(scene)}`;
 }
 
 function initialPosition(index: number, count: number) {
@@ -54,19 +60,27 @@ function initialPosition(index: number, count: number) {
   };
 }
 
+export function toRendererNodes(scene: GraphScene): Rfg3dNode[] {
+  return scene.nodes.map((node, index) => ({
+    id: node.knowledgeId,
+    label: node.label,
+    semanticKind: node.semanticKind,
+    ...initialPosition(index, scene.nodes.length),
+  }));
+}
+
+export function toRendererLinks(scene: GraphScene): Rfg3dLink[] {
+  return scene.edges.map((edge) => ({
+    id: edge.relationId,
+    source: edge.sourceKnowledgeId,
+    target: edge.targetKnowledgeId,
+    relationType: edge.relationType,
+  }));
+}
+
 export function toRendererGraphData(scene: GraphScene): Rfg3dGraphData {
   return {
-    nodes: scene.nodes.map((node, index) => ({
-      id: node.knowledgeId,
-      label: node.label,
-      semanticKind: node.semanticKind,
-      ...initialPosition(index, scene.nodes.length),
-    })),
-    links: scene.edges.map((edge) => ({
-      id: edge.relationId,
-      source: edge.sourceKnowledgeId,
-      target: edge.targetKnowledgeId,
-      relationType: edge.relationType,
-    })),
+    nodes: toRendererNodes(scene),
+    links: toRendererLinks(scene),
   };
 }
