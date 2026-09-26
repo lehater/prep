@@ -461,3 +461,12 @@ The global frontend mock corpus now uses two bounded groups of real Concept Card
 - Access Control: Access Control Policy, Access Control Matrix, Access Control List, Capability List, Role-Based Access Control, Attribute-Based Access Control.
 
 The fixture preserves the Knowledge Graph immutable Concept Card IDs and source paths. Knowledge Graph V2 human-facing wikilinks remain explanatory links rather than a required typed-relation registry, so the Prep fixture projects only relations whose source prose explicitly supports Prep's accepted `realizes` meaning. Broader Knowledge Graph `kind` values are retained as fixture provenance and narrowed only at the frontend-model boundary.
+
+
+### Knowledge relation vocabulary expansion
+
+- Revalidated Prep relation semantics against the pre-V2 Knowledge Graph typed-relation research and current V2 external-consumer boundary.
+- Canonical Prep relation vocabulary now includes `addresses` plus the eight historically admitted Knowledge Graph types: `uses`, `specializes`, `part_of`, `depends_on`, `realizes`, `produces`, `derives_from`, `enables`.
+- Historical Knowledge Graph candidates without sufficient admission evidence remain excluded; no generic `related_to` fallback is introduced.
+- Real Knowledge Graph mock fixtures now preserve source-supported `uses` as well as `realizes` edges instead of collapsing all imported relations to one type.
+- Research evidence: `docs/research/knowledge-relation-vocabulary-evaluation.md`.
