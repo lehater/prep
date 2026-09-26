@@ -30,7 +30,7 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
     name: "Knowledge graph",
     exact: true,
   });
-  const detail = page.getByRole("complementary");
+  const detail = page.getByRole("complementary", { name: "Knowledge detail" });
 
   const mainBox = await box(main);
   const graphBox = await box(graph);
@@ -65,7 +65,7 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
     name: "Knowledge graph",
     exact: true,
   });
-  const detail = page.getByRole("complementary");
+  const detail = page.getByRole("complementary", { name: "Knowledge detail" });
 
   await page.getByRole("button", { name: "Browse Knowledge" }).click();
   const list = page.getByRole("region", {

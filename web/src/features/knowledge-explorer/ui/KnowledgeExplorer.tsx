@@ -665,6 +665,7 @@ export function KnowledgeExplorer({
 
         <Paper
           component="aside"
+          aria-label="Knowledge detail"
           variant="outlined"
           sx={{
             gridArea: "detail",

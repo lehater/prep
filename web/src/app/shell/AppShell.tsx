@@ -43,6 +43,7 @@ export function AppShell({
     >
       <Box
         component="aside"
+        aria-label="Application navigation"
         sx={{
           position: { md: "sticky" },
           top: 0,
