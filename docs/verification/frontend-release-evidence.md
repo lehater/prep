@@ -293,3 +293,18 @@ Current correction:
 - experimental R2 mechanics remain donor evidence while PaymentGraph semantics and Storybook tuning remain excluded.
 
 Checkpoint run `36210994698` passed 30/30 strict semantic/currentness assertions, 19 accepted Frontend Test Design contracts, 28 Python tests, 14 Vitest files / 42 tests, production build and 22/22 Playwright tests.
+
+
+## Canonical visual reference implementation
+
+Curation / Knowledge now realizes the accepted Presentation System visual specification as the reference workspace:
+
+- quieter persistent left navigation rail with explicit active-mode/section hierarchy and separated runtime status;
+- compact Curation Knowledge title/helper with authoring actions aligned into the header zone;
+- one coherent bordered graph toolbar with search, bounded browse, semantic/relation filters, focus/camera commands, settings and visible Auto/Quality/Performance segmented control;
+- bounded results with exact result/total context and explicit selected-row treatment;
+- continuous dark graph surface with title/status overlaid inside the workspace instead of consuming a separate white header row;
+- bounded light detail/editor pane with denser relation presentation;
+- selection remains independent from focus and graph membership remains stable during ordinary detail selection.
+
+Checkpoint run `36213841539` passed strict currentness/Harness closure, 28 Python tests, 14 Vitest files / 42 tests, production build and 23/23 Playwright tests. This is correctness/structural evidence; manual visual review remains required before the reference is accepted as the target visual implementation for propagation.

@@ -404,3 +404,19 @@ The Curation / Knowledge screen is now being used as the reference implementatio
 - graph title/status moved onto the dark graph surface so the canvas reads as one continuous primary workspace;
 - bounded white detail/editor support pane with denser relation presentation;
 - browser assertions extended for shell/profile visibility and selection-without-focus behavior.
+
+
+Canonical visual reference checkpoint run `36213841539` passed for the Curation / Knowledge reference implementation:
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **20 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE with Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- repository validators and **28/28 Python tests**;
+- **14 Vitest files / 42 tests PASS**;
+- production Vite build PASS;
+- **23/23 Playwright PASS**.
+
+The browser suite now includes explicit evidence that bounded Knowledge-result selection produces a visible selected row while preserving graph membership and not introducing implicit focus. The temporary checkpoint workflow is removed after recording this evidence.
+
+This establishes Curation / Knowledge as the first reference implementation of Presentation System revision 4. Manual visual review remains the acceptance gate before propagating the same visual system to the remaining screens.
