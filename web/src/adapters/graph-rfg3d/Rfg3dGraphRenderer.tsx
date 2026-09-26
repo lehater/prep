@@ -20,10 +20,8 @@ import type {
   GraphRendererProps,
   GraphViewportSnapshot,
 } from "../../features/knowledge-explorer/ports/GraphRenderer";
-import type {
-  KnowledgeRelationType,
-  KnowledgeSemanticKind,
-} from "../../features/knowledge-explorer/model/knowledge";
+import type { KnowledgeSemanticKind } from "../../features/knowledge-explorer/model/knowledge";
+import { KNOWLEDGE_RELATION_COLORS } from "../../features/knowledge-explorer/ui/graphPresentation";
 import { createBatchedLinkLayer, type BatchedLinkLayer } from "./batchedLinkLayer";
 import {
   DEFAULT_GRAPH_RENDER_PREFERENCES,
@@ -55,18 +53,6 @@ const NODE_COLORS: Readonly<Record<KnowledgeSemanticKind, string>> = {
   mechanism: "#22a06b",
   procedure: "#d9903d",
   strategy: "#a46de3",
-};
-
-const RELATION_COLORS: Readonly<Record<KnowledgeRelationType, string>> = {
-  addresses: "#78b7ff",
-  uses: "#f6c177",
-  specializes: "#c4a7e7",
-  part_of: "#9ccfd8",
-  depends_on: "#eb6f92",
-  realizes: "#7fd3a5",
-  produces: "#f2a272",
-  derives_from: "#b7c7e3",
-  enables: "#a6da95",
 };
 
 interface RendererControls {
@@ -218,7 +204,7 @@ export function Rfg3dGraphRenderer({
   );
 
   const linkColor = useCallback(
-    (link: Rfg3dLink) => RELATION_COLORS[link.relationType],
+    (link: Rfg3dLink) => KNOWLEDGE_RELATION_COLORS[link.relationType],
     [],
   );
 
