@@ -1,3 +1,5 @@
+import type { KnowledgeRelationType } from "../model/knowledge";
+
 import type {
   GraphPerformanceProfile,
   GraphRenderPreferences,
@@ -38,3 +40,27 @@ export function graphPreferencesForProfile(
     nodeDetail: "normal",
   };
 }
+
+export const KNOWLEDGE_RELATION_COLORS: Readonly<Record<KnowledgeRelationType, string>> = {
+  addresses: "#78b7ff",
+  uses: "#f6c177",
+  specializes: "#c4a7e7",
+  part_of: "#9ccfd8",
+  depends_on: "#eb6f92",
+  realizes: "#7fd3a5",
+  produces: "#f2a272",
+  derives_from: "#b7c7e3",
+  enables: "#a6da95",
+};
+
+export const KNOWLEDGE_RELATION_DESCRIPTIONS_RU: Readonly<Record<KnowledgeRelationType, string>> = {
+  addresses: "Источник решает, смягчает или обрабатывает проблему, указанную целью.",
+  uses: "Источник функционально использует цель как механизм, инструмент, технологию или метод.",
+  specializes: "Источник является более частным видом или специализацией цели.",
+  part_of: "Источник является составной частью цели.",
+  depends_on: "Источник требует цель как необходимую зависимость или предпосылку.",
+  realizes: "Источник конкретно реализует, воплощает или представляет более абстрактную цель.",
+  produces: "Источник производит цель как результат или выход.",
+  derives_from: "Источник семантически происходит или выводится из цели.",
+  enables: "Источник делает цель возможной или практически достижимой, не утверждая жёсткую обязательную зависимость.",
+};
