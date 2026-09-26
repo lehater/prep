@@ -2,7 +2,10 @@ import { describe, expect, test } from "vitest";
 
 import { MockKnowledgeAdapter } from "./MockKnowledgeAdapter";
 import { PREPARED_TARGET_ID } from "./mockFixtures";
-import { donorKnowledgeNodes, donorKnowledgeRelations } from "./mockPaymentKnowledgeFixture";
+import {
+  knowledgeGraphMockNodes,
+  knowledgeGraphMockRelations,
+} from "./mockKnowledgeGraphFixture";
 
 describe("MockKnowledgeAdapter", () => {
   test("searches through the consumer-owned port inside an explicit target scope", async () => {
@@ -30,29 +33,33 @@ describe("MockKnowledgeAdapter", () => {
     }
   });
 
-  test("exposes a semantically valid donor corpus only in global mock scope", async () => {
+  test("exposes two real Knowledge Graph card groups only in global mock scope", async () => {
     const adapter = new MockKnowledgeAdapter();
 
-    expect(donorKnowledgeNodes.length).toBeGreaterThanOrEqual(35);
-    expect(new Set(donorKnowledgeNodes.map((node) => node.id)).size).toBe(
-      donorKnowledgeNodes.length,
+    expect(knowledgeGraphMockNodes).toHaveLength(14);
+    expect(new Set(knowledgeGraphMockNodes.map((node) => node.id)).size).toBe(
+      knowledgeGraphMockNodes.length,
     );
 
-    const donorIds = new Set(donorKnowledgeNodes.map((node) => node.id));
+    const fixtureIds = new Set(knowledgeGraphMockNodes.map((node) => node.id));
     expect(
-      donorKnowledgeRelations.every(
+      knowledgeGraphMockRelations.every(
         (relation) =>
-          donorIds.has(relation.sourceId) && donorIds.has(relation.targetId),
+          fixtureIds.has(relation.sourceId) && fixtureIds.has(relation.targetId),
       ),
     ).toBe(true);
 
     const global = await adapter.graph({ kind: "global" });
     expect(global.status).toBe("success");
     if (global.status === "success") {
-      expect(global.value.nodes.length).toBeGreaterThanOrEqual(40);
-      expect(
-        global.value.nodes.some((node) => node.id === "demo-payment-payments"),
-      ).toBe(true);
+      expect(global.value.nodes).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ title: "Asynchronous Programming" }),
+          expect.objectContaining({ title: "asyncio" }),
+          expect.objectContaining({ title: "Access Control Policy" }),
+          expect.objectContaining({ title: "Attribute-Based Access Control" }),
+        ]),
+      );
     }
 
     const target = await adapter.graph({
@@ -62,7 +69,7 @@ describe("MockKnowledgeAdapter", () => {
     expect(target.status).toBe("success");
     if (target.status === "success") {
       expect(
-        target.value.nodes.some((node) => node.id.startsWith("demo-payment-")),
+        target.value.nodes.some((node) => fixtureIds.has(node.id)),
       ).toBe(false);
     }
   });
