@@ -24,7 +24,7 @@ export function AppShell({
       maxWidth={false}
       sx={{
         minHeight: "100dvh",
-        px: { xs: 2, sm: 3, lg: 4 },
+        px: { xs: 2, sm: 3, lg: 3 },
         py: { xs: 1.5, md: 2 },
       }}
     >

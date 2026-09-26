@@ -73,6 +73,14 @@ export function KnowledgeExplorer({
 }: KnowledgeExplorerProps) {
   const [params, setParams] = useSearchParams();
   const routeState = useMemo(() => parseExplorerRouteState(params), [params]);
+  const targetScopeId = scope.kind === "target" ? scope.targetId : undefined;
+  const stableScope = useMemo<KnowledgeScope>(
+    () =>
+      targetScopeId === undefined
+        ? { kind: "global" }
+        : { kind: "target", targetId: targetScopeId },
+    [targetScopeId],
+  );
   const [searchDraft, setSearchDraft] = useState(routeState.query);
   const [listState, setListState] = useState<
     AsyncValue<{
@@ -107,7 +115,7 @@ export function KnowledgeExplorer({
     let active = true;
     setListState({ status: "loading" });
     void queryPort
-      .list(scope, {
+      .list(stableScope, {
         search: routeState.query || undefined,
         semanticKind: routeState.semanticKind,
       })
@@ -124,13 +132,13 @@ export function KnowledgeExplorer({
     reloadVersion,
     routeState.query,
     routeState.semanticKind,
-    scope,
+    stableScope,
   ]);
 
   useEffect(() => {
     let active = true;
     setGraphState({ status: "loading" });
-    void queryPort.graph(scope).then((outcome) => {
+    void queryPort.graph(stableScope).then((outcome) => {
       if (active) {
         setGraphState(outcomeToState(outcome));
       }
@@ -138,7 +146,7 @@ export function KnowledgeExplorer({
     return () => {
       active = false;
     };
-  }, [queryPort, reloadVersion, scope]);
+  }, [queryPort, reloadVersion, stableScope]);
 
   useEffect(() => {
     if (!routeState.selectedKnowledgeId) {
@@ -148,7 +156,7 @@ export function KnowledgeExplorer({
 
     let active = true;
     setDetailState({ status: "loading" });
-    void queryPort.get(scope, routeState.selectedKnowledgeId).then((outcome) => {
+    void queryPort.get(stableScope, routeState.selectedKnowledgeId).then((outcome) => {
       if (active) {
         setDetailState(outcomeToState(outcome));
       }
@@ -156,7 +164,7 @@ export function KnowledgeExplorer({
     return () => {
       active = false;
     };
-  }, [queryPort, reloadVersion, routeState.selectedKnowledgeId, scope]);
+  }, [queryPort, reloadVersion, routeState.selectedKnowledgeId, stableScope]);
 
   const updateRouteState = (next: ExplorerRouteState) => {
     setParams(serializeExplorerRouteState(next));
@@ -501,12 +509,12 @@ export function KnowledgeExplorer({
       <Box
         sx={{
           "--knowledge-workspace-height":
-            "clamp(560px, calc(100dvh - 300px), 920px)",
+            "clamp(580px, calc(100dvh - 240px), 960px)",
           display: "grid",
           gridTemplateColumns: {
             xs: "minmax(0, 1fr)",
             md: "minmax(210px, 250px) minmax(0, 1fr)",
-            lg: "minmax(210px, 250px) minmax(0, 1fr) minmax(270px, 340px)",
+            lg: "minmax(190px, 220px) minmax(0, 1fr) minmax(250px, 300px)",
           },
           gridTemplateAreas: {
             xs: `"graph" "list" "detail"`,

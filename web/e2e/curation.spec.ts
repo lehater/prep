@@ -59,6 +59,29 @@ test("RequirementSet cycle rejection preserves the editor context", async ({ pag
   ).toBeVisible();
 });
 
+
+test("selecting Knowledge preserves the live graph renderer", async ({ page }) => {
+  await page.goto("/curation/knowledge");
+
+  const graph = page.getByRole("application", {
+    name: "Interactive 3D Knowledge graph",
+  });
+  await expect(graph).toBeVisible();
+
+  const graphHandle = await graph.elementHandle();
+  expect(graphHandle).not.toBeNull();
+
+  await page
+    .getByRole("region", { name: "Knowledge list" })
+    .getByRole("button", { name: /Linux server hardening/ })
+    .click();
+
+  await expect(
+    page.getByRole("region", { name: "Knowledge editor" }),
+  ).toBeVisible();
+  expect(await graphHandle!.evaluate((element) => element.isConnected)).toBe(true);
+});
+
 test("Knowledge authoring adds an accepted typed relation", async ({ page }) => {
   await page.goto("/curation/knowledge");
 

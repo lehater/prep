@@ -10,7 +10,7 @@ async function box(locator: Locator) {
 }
 
 test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
-  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto("/curation/knowledge");
 
   const main = page.getByRole("main");
@@ -29,15 +29,15 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   const graphBox = await box(graph);
   const detailBox = await box(detail);
 
-  expect(mainBox.width).toBeGreaterThan(1800);
-  expect(listBox.width).toBeGreaterThanOrEqual(220);
-  expect(listBox.width).toBeLessThanOrEqual(300);
-  expect(detailBox.width).toBeGreaterThanOrEqual(280);
-  expect(detailBox.width).toBeLessThanOrEqual(380);
-  expect(graphBox.width).toBeGreaterThan(900);
+  expect(mainBox.width).toBeGreaterThan(1300);
+  expect(listBox.width).toBeGreaterThanOrEqual(190);
+  expect(listBox.width).toBeLessThanOrEqual(240);
+  expect(detailBox.width).toBeGreaterThanOrEqual(250);
+  expect(detailBox.width).toBeLessThanOrEqual(320);
+  expect(graphBox.width).toBeGreaterThan(740);
   expect(graphBox.width).toBeGreaterThan(listBox.width * 3);
-  expect(graphBox.height).toBeGreaterThanOrEqual(500);
-  expect(graphBox.height).toBeLessThanOrEqual(920);
+  expect(graphBox.height).toBeGreaterThanOrEqual(580);
+  expect(graphBox.height).toBeLessThanOrEqual(960);
 });
 
 test("reflows the Knowledge workspace for tablet and mobile widths", async ({
