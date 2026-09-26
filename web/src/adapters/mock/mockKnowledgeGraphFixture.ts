@@ -437,6 +437,42 @@ export const knowledgeGraphMockRelations: readonly KnowledgeRelationModel[] = [
     "uses",
   ),
   relation(
+    "async-await-future",
+    "01a06c89-a98d-7144-955e-bad081641a0b",
+    "01a06c89-a98d-7e86-b884-27348617f46e",
+    "uses",
+  ),
+  relation(
+    "task-future",
+    "01a06c89-a98d-73aa-810e-6934a89f1f1c",
+    "01a06c89-a98d-7e86-b884-27348617f46e",
+    "uses",
+  ),
+  relation(
+    "task-async-runtime",
+    "01a06c89-a98d-73aa-810e-6934a89f1f1c",
+    "01a06c89-a98d-7d01-9421-7245e031f828",
+    "depends_on",
+  ),
+  relation(
+    "async-runtime-task",
+    "01a06c89-a98d-7d01-9421-7245e031f828",
+    "01a06c89-a98d-73aa-810e-6934a89f1f1c",
+    "uses",
+  ),
+  relation(
+    "async-runtime-future",
+    "01a06c89-a98d-7d01-9421-7245e031f828",
+    "01a06c89-a98d-7e86-b884-27348617f46e",
+    "uses",
+  ),
+  relation(
+    "async-runtime-coroutine",
+    "01a06c89-a98d-7d01-9421-7245e031f828",
+    "01a06c89-a98d-739e-b348-7aaad3e0f65c",
+    "uses",
+  ),
+  relation(
     "rebac-access-control-policy",
     "01a0737a-db09-7af8-900b-842650784c56",
     "01a06d2f-309f-7f2c-bb7a-98263185e0f8",
