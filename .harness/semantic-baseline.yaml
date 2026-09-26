@@ -17,8 +17,8 @@ reviews:
     basis: Product intent was revalidated at observable scope/outcome level without promoting downstream domain, interface or architecture decisions.
 
   - capability: prep.product-capabilities
-    revision: 1
-    basis: Product capabilities remain externally meaningful product behavior and do not prescribe technical realization.
+    revision: 2
+    basis: Product capabilities were revalidated into stable PC trace anchors with observable acceptance semantics and explicit current-slice/deferred dispositions; learning material is preparation/availability in the current slice, not automatic derivation.
 
   - capability: prep.domain-strategy
     revision: 1
@@ -53,12 +53,12 @@ reviews:
     basis: Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports.
 
   - capability: prep.task-model
-    revision: 2
-    basis: The task model was revalidated against the pinned task-model skill; every current USER task now states required information, user input/decision, system support, observable outcome and material recovery semantics without choosing screens.
+    revision: 3
+    basis: The task model was revalidated against Product Capability revision 2 and the pinned task-model skill; every current USER task now also traces to stable PC capability anchors while preserving information, decision, system-support, outcome and recovery semantics.
 
   - capability: prep.user-journeys
-    revision: 1
-    basis: Journeys express task progression and context transitions without turning current screen decomposition into product semantics.
+    revision: 2
+    basis: User Journeys were revalidated against the pinned journey skill and current Task Model; every current USER task now has an explicit journey with actor/context, trigger, preconditions, completion and material alternate/recovery behavior without choosing screens.
 
   - capability: prep.conceptual-interface-model
     revision: 1
@@ -105,8 +105,8 @@ reviews:
     basis: Revalidated against Machine Interface revision 2; collection count metadata does not change runtime, trust, deployment or external-integration topology.
 
   - capability: prep.data-design
-    revision: 2
-    basis: Revalidated after Machine Interface revision 2 through current consistency/system-architecture prerequisites; exact query result counts add no new durable representation or storage semantics.
+    revision: 3
+    basis: Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope.
 
   - capability: prep.frontend-system-architecture
     revision: 3
