@@ -8,6 +8,8 @@ import Paper from "@mui/material/Paper";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
@@ -267,18 +269,24 @@ export function KnowledgeExplorer({
 
   return (
     <Stack spacing={1}>
-      <Stack
+      <Paper
         component="form"
-        direction={{ xs: "column", md: "row" }}
-        spacing={1}
+        variant="outlined"
         onSubmit={submitSearch}
         sx={{
+          px: 1,
+          py: 0.75,
+          display: "flex",
           alignItems: { md: "center" },
+          flexDirection: { xs: "column", md: "row" },
           flexWrap: { md: "wrap", lg: "nowrap" },
+          gap: 0.5,
+          minWidth: 0,
         }}
       >
         <TextField
-          label="Search Knowledge"
+          placeholder="Search Knowledge"
+          aria-label="Search Knowledge"
           value={searchDraft}
           onChange={(event) => setSearchDraft(event.target.value)}
           size="small"
@@ -293,7 +301,7 @@ export function KnowledgeExplorer({
           aria-expanded={showList}
           onClick={() => setShowList((value) => !value)}
         >
-          {showList ? "Hide results" : "Browse Knowledge"}
+          {showList ? "Hide results" : "Browse"}
         </Button>
         <label>
           Semantic kind{" "}
@@ -416,22 +424,6 @@ export function KnowledgeExplorer({
         >
           <Stack spacing={1.25} sx={{ p: 2, width: 300 }}>
             <Typography variant="subtitle1">Graph settings</Typography>
-            <label>
-              Performance profile{" "}
-              <select
-                aria-label="Graph performance profile"
-                value={performanceProfile}
-                onChange={(event) => {
-                  const next = event.target.value as GraphPerformanceProfile;
-                  setPerformanceProfile(next);
-                  setRenderPreferences(graphPreferencesForProfile(next));
-                }}
-              >
-                <option value="auto">Auto</option>
-                <option value="quality">Quality</option>
-                <option value="performance">Performance</option>
-              </select>
-            </label>
             <Typography variant="caption" color="text.secondary">
               Performance may reduce decoration while preserving canonical
               Knowledge, relation direction and list/detail access.
@@ -516,7 +508,33 @@ export function KnowledgeExplorer({
             </details>
           </Stack>
         </Popover>
-      </Stack>
+
+        <ToggleButtonGroup
+          exclusive
+          size="small"
+          value={performanceProfile}
+          aria-label="Graph performance profile"
+          onChange={(_, next: GraphPerformanceProfile | null) => {
+            if (!next) return;
+            setPerformanceProfile(next);
+            setRenderPreferences(graphPreferencesForProfile(next));
+          }}
+          sx={{
+            ml: { lg: "auto" },
+            "& .MuiToggleButton-root": {
+              minHeight: 28,
+              px: 1,
+              py: 0.25,
+              textTransform: "none",
+              fontSize: "0.71875rem",
+            },
+          }}
+        >
+          <ToggleButton value="auto">Auto</ToggleButton>
+          <ToggleButton value="quality">Quality</ToggleButton>
+          <ToggleButton value="performance">Performance</ToggleButton>
+        </ToggleButtonGroup>
+      </Paper>
 
       <Box
         sx={{
@@ -545,6 +563,7 @@ export function KnowledgeExplorer({
           gap: 1,
           minWidth: 0,
           alignItems: "stretch",
+          overflow: "hidden",
         }}
       >
         {showList ? (
@@ -581,17 +600,35 @@ export function KnowledgeExplorer({
                         message="Change the current search or semantic-kind filter."
                       />
                     ) : listState.status === "ready" ? (
-                      <Stack component="ul" spacing={0.25} sx={{ listStyle: "none", p: 0 }}>
+                      <Stack
+                        component="ul"
+                        spacing={0.25}
+                        sx={{ listStyle: "none", p: 0, m: 0 }}
+                      >
                         {listState.value.items.slice(0, 40).map((node) => (
                           <li key={node.id}>
                             <Button
                               onClick={() => openDetail(node.id)}
                               fullWidth
+                              aria-current={
+                                routeState.selectedKnowledgeId === node.id
+                                  ? "true"
+                                  : undefined
+                              }
                               sx={{
                                 justifyContent: "flex-start",
                                 textAlign: "left",
                                 px: 0.75,
                                 py: 0.5,
+                                borderRadius: 1,
+                                backgroundColor:
+                                  routeState.selectedKnowledgeId === node.id
+                                    ? "rgba(37, 99, 235, 0.10)"
+                                    : "transparent",
+                                color:
+                                  routeState.selectedKnowledgeId === node.id
+                                    ? "primary.main"
+                                    : "text.primary",
                               }}
                             >
                               <Stack sx={{ alignItems: "flex-start" }}>
@@ -627,28 +664,63 @@ export function KnowledgeExplorer({
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
+            backgroundColor: "#0b1220",
+            borderColor: "#172033",
           }}
         >
-          <Stack
-            direction="row"
+          <Box
             sx={{
-              px: 0.75,
-              pb: 0.5,
-              alignItems: "center",
-              justifyContent: "space-between",
+              flex: 1,
+              minHeight: 0,
+              position: "relative",
+              backgroundColor: "#0b1220",
             }}
           >
-            <Typography component="h3" variant="subtitle1">
-              Knowledge graph
-            </Typography>
-            {scene ? (
-              <Typography variant="caption" color="text.secondary">
-                {scene.nodes.length} nodes · {scene.edges.length} relations ·{" "}
-                {performanceProfile}
+            <Stack
+              direction="row"
+              sx={{
+                position: "absolute",
+                top: 8,
+                left: 8,
+                right: 8,
+                zIndex: 3,
+                alignItems: "center",
+                justifyContent: "space-between",
+                pointerEvents: "none",
+              }}
+            >
+              <Typography
+                component="h3"
+                variant="caption"
+                sx={{
+                  color: "rgba(255,255,255,0.88)",
+                  fontWeight: 700,
+                  px: 0.75,
+                  py: 0.4,
+                  borderRadius: 1,
+                  backgroundColor: "rgba(11,18,32,0.72)",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                Knowledge graph
               </Typography>
-            ) : null}
-          </Stack>
-          <Box sx={{ flex: 1, minHeight: 0, backgroundColor: "#0b1220" }}>
+              {scene ? (
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: "rgba(255,255,255,0.78)",
+                    px: 0.75,
+                    py: 0.4,
+                    borderRadius: 1,
+                    backgroundColor: "rgba(11,18,32,0.72)",
+                    backdropFilter: "blur(6px)",
+                  }}
+                >
+                  {scene.nodes.length} nodes · {scene.edges.length} relations ·{" "}
+                  {performanceProfile}
+                </Typography>
+              ) : null}
+            </Stack>
             {graphState.status === "loading" || scene === null ? (
               <LoadingState label="Loading Knowledge graph" />
             ) : (
@@ -671,6 +743,7 @@ export function KnowledgeExplorer({
             gridArea: "detail",
             p: 1.25,
             minWidth: 0,
+            backgroundColor: "background.paper",
             height: { lg: "var(--knowledge-workspace-height)" },
             overflow: "auto",
           }}

@@ -61,6 +61,10 @@ export const appTheme = createTheme({
           padding: "4px 9px",
           borderRadius: 6,
           whiteSpace: "nowrap",
+          "&:focus-visible": {
+            outline: "2px solid #2563eb",
+            outlineOffset: 2,
+          },
         },
         sizeSmall: {
           minHeight: 28,
@@ -92,6 +96,7 @@ export const appTheme = createTheme({
     },
     MuiPaper: {
       styleOverrides: {
+        root: { backgroundImage: "none" },
         outlined: { borderColor: "#e4e7ec" },
       },
     },

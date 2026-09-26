@@ -66,13 +66,14 @@ export function CurationWorkspace({
           <Typography component="p" variant="overline" color="text.secondary">
             Curation
           </Typography>
-          <Typography
-            component="h2"
-            variant="h5"
-            aria-label={`Curation ${LABELS[section]}`}
-          >
-            {LABELS[section]}
+          <Typography component="h2" variant="h5">
+            Curation {LABELS[section]}
           </Typography>
+          {section === "knowledge" ? (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>
+              Maintain reusable canonical Knowledge while keeping graph exploration primary.
+            </Typography>
+          ) : null}
         </header>
 
       </Stack>

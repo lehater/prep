@@ -391,3 +391,16 @@ Visual-specification checkpoint run `36212315132` passed after canonicalizing th
 - **28/28 Python tests PASS**.
 
 The temporary checkpoint workflow is removed after recording this evidence. This validates documentation/currentness consistency; it does not claim the existing frontend already realizes the newly accepted visual specification.
+
+
+### Canonical visual-spec reference implementation
+
+The Curation / Knowledge screen is now being used as the reference implementation for Presentation System revision 4. The pass aligns the running UI with the accepted sketch/specification rather than merely preserving structural responsiveness:
+
+- quieter persistent left navigation rail with explicit selection hierarchy and bottom runtime status;
+- compact Curation Knowledge header/helper with authoring actions visually aligned to the header area;
+- one bordered graph toolbar containing search, browse, filters, graph commands and visible Auto/Quality/Performance segmented profile control;
+- bounded results with explicit selected-row treatment;
+- graph title/status moved onto the dark graph surface so the canvas reads as one continuous primary workspace;
+- bounded white detail/editor support pane with denser relation presentation;
+- browser assertions extended for shell/profile visibility and selection-without-focus behavior.

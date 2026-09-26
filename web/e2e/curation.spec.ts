@@ -186,3 +186,22 @@ test("Curation Knowledge keeps authoring actions compact until requested", async
     page.getByRole("region", { name: "New Knowledge" }),
   ).toHaveCount(0);
 });
+
+
+test("Knowledge selection is explicit in bounded results without narrowing graph", async ({ page }) => {
+  await page.goto("/curation/knowledge");
+  await page.getByRole("button", { name: "Browse" }).click();
+
+  const graphStatus = page.getByText(/nodes · .* relations · auto/).first();
+  await expect(graphStatus).toBeVisible();
+  const before = await graphStatus.textContent();
+
+  const result = page
+    .getByRole("region", { name: "Knowledge list" })
+    .getByRole("button", { name: /Linux server hardening/ });
+  await result.click();
+
+  await expect(result).toHaveAttribute("aria-current", "true");
+  await expect(graphStatus).toHaveText(before ?? "");
+  await expect(page).not.toHaveURL(/focus=/);
+});

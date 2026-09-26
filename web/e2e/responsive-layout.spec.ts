@@ -49,6 +49,12 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await expectRendererFillsViewport(page);
 
   const appTitle = page.getByRole("heading", { name: "Prep", level: 1 });
+  await expect(
+    page.getByRole("complementary", { name: "Application navigation" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("group", { name: "Graph performance profile" }),
+  ).toBeVisible();
   const titleFontSize = await appTitle.evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize),
   );

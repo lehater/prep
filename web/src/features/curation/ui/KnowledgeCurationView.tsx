@@ -153,8 +153,15 @@ export function KnowledgeCurationView({
         component="section"
         aria-label="Knowledge authoring actions"
         direction="row"
-        spacing={1}
-        sx={{ alignItems: "center", flexWrap: "wrap" }}
+        spacing={0.5}
+        sx={{
+          alignItems: "center",
+          justifyContent: { xs: "flex-start", md: "flex-end" },
+          flexWrap: "wrap",
+          mt: { md: -5.5 },
+          position: "relative",
+          zIndex: 2,
+        }}
       >
         <Button
           variant={showCreate ? "contained" : "outlined"}
@@ -163,7 +170,11 @@ export function KnowledgeCurationView({
         >
           New Knowledge
         </Button>
-        <Button component={Link} to="/curation/import?kind=knowledge">
+        <Button
+          component={Link}
+          to="/curation/import?kind=knowledge"
+          variant="outlined"
+        >
           Import Knowledge
         </Button>
       </Stack>
@@ -265,12 +276,16 @@ export function KnowledgeCurationView({
               <Typography component="h4" variant="subtitle1">
                 Relations
               </Typography>
-              <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
+              <Stack
+                direction="row"
+                spacing={0.5}
+                sx={{ flexWrap: "wrap", rowGap: 0.5 }}
+              >
                 {[...detail.incomingRelations, ...detail.outgoingRelations].map(
                   (relation) => (
                     <Chip
                       key={relation.id}
-                      label={`${relation.sourceId} —${relation.type}→ ${relation.targetId}`}
+                      label={`${relation.sourceId} → ${relation.type} → ${relation.targetId}`}
                       onDelete={() => void removeRelation(relation.id)}
                     />
                   ),

@@ -52,7 +52,7 @@ export function AppShell({
           borderBottom: { xs: 1, md: 0 },
           borderColor: "divider",
           backgroundColor: "background.paper",
-          px: 1.5,
+          px: 1.25,
           py: 1.5,
           display: "flex",
           flexDirection: "column",
@@ -60,7 +60,11 @@ export function AppShell({
           zIndex: 10,
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ px: 0.75 }}>
+        <Typography
+          component="h1"
+          variant="h5"
+          sx={{ px: 0.75, color: "primary.main", fontWeight: 700 }}
+        >
           Prep
         </Typography>
 
@@ -75,7 +79,10 @@ export function AppShell({
             component={Link}
             to={learningEntryPath}
             variant={inLearning ? "contained" : "text"}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{
+              justifyContent: "flex-start",
+              color: inLearning ? "primary.contrastText" : "text.secondary",
+            }}
           >
             Learning
           </Button>
@@ -83,7 +90,10 @@ export function AppShell({
             component={Link}
             to="/curation/knowledge"
             variant={inCuration ? "contained" : "text"}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{
+              justifyContent: "flex-start",
+              color: inCuration ? "primary.contrastText" : "text.secondary",
+            }}
           >
             Curation
           </Button>
@@ -99,7 +109,18 @@ export function AppShell({
                   component={Link}
                   to={`/curation/${section}`}
                   variant={activeCurationSection === section ? "outlined" : "text"}
-                  sx={{ justifyContent: "flex-start" }}
+                  sx={{
+                    justifyContent: "flex-start",
+                    color:
+                      activeCurationSection === section
+                        ? "primary.main"
+                        : "text.secondary",
+                    backgroundColor:
+                      activeCurationSection === section
+                        ? "rgba(37, 99, 235, 0.08)"
+                        : "transparent",
+                    borderColor: "transparent",
+                  }}
                 >
                   {navLabel(section)}
                 </Button>
@@ -118,7 +139,18 @@ export function AppShell({
                   component={Link}
                   to={`/learning/${encodeURIComponent(targetId)}/${section}`}
                   variant={activeLearningSection === section ? "outlined" : "text"}
-                  sx={{ justifyContent: "flex-start" }}
+                  sx={{
+                    justifyContent: "flex-start",
+                    color:
+                      activeCurationSection === section
+                        ? "primary.main"
+                        : "text.secondary",
+                    backgroundColor:
+                      activeCurationSection === section
+                        ? "rgba(37, 99, 235, 0.08)"
+                        : "transparent",
+                    borderColor: "transparent",
+                  }}
                 >
                   {navLabel(section)}
                 </Button>
@@ -134,7 +166,14 @@ export function AppShell({
           </>
         ) : null}
 
-        <Box sx={{ mt: { md: "auto" } }}>
+        <Box
+          sx={{
+            mt: { md: "auto" },
+            pt: 1,
+            borderTop: 1,
+            borderColor: "divider",
+          }}
+        >
           <RuntimeStatusEntry port={runtimeStatusPort} />
         </Box>
       </Box>
