@@ -1,0 +1,24 @@
+version: 1
+kind: prep-reference-implementation
+id: anki-adapter-reference
+status: maintained
+canonical_engineering_knowledge: false
+role: reusable-donor-evidence
+origin:
+  previous_path: src/prep/infrastructure/anki
+validated_by:
+  - python -m unittest discover -s experiments/anki_adapter_reference/tests -v
+retained_mechanics:
+  - ankiconnect-v6-http-client
+  - typed-transport-errors
+  - deck-reconciliation
+  - note-type-safe-evolution
+  - exact-external-id-resolution
+  - note-upsert-preserving-external-identity
+  - tag-preservation
+  - media-upload
+reuse_constraints:
+  - must-be-adapted-behind-current-external-study-runtime-port
+  - must-be-revalidated-against-current-machine-interface
+  - must-not-import-historical-interview-preparation-semantics
+  - must-not-define-canonical-question-or-learning-semantics

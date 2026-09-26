@@ -24,3 +24,12 @@ python tools/validate_docs.py
 ```
 
 Implementation, tests and experiments may provide evidence, but they do not redefine canonical engineering meaning unless that meaning is admitted through Harness and persisted in a Core artifact.
+
+## Maintained reference implementations
+
+Reusable implementation evidence that is intentionally outside current production architecture lives under `experiments/`.
+
+- `experiments/anki_adapter_reference/` — tested AnkiConnect transport and note/deck reconciliation donor code. It is not backend architecture authority; a future backend may adapt it only behind the accepted ExternalStudyRuntimePort / Machine Interface contracts.
+- the dedicated `experiments/knowledge-representation-3d` branch remains the retained 3D UI/renderer/performance evidence line.
+
+Reference implementations are evidence and reusable code, not semantic authority.

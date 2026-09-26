@@ -1,1 +1,0 @@
-"""prep shared Python package."""

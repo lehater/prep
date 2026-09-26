@@ -6,9 +6,9 @@ import unittest
 import urllib.error
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from prep.infrastructure.anki import AnkiConnect, AnkiConnectError
+from anki_adapter import AnkiConnect, AnkiConnectError
 
 
 class FakeResponse:

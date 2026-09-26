@@ -21,6 +21,8 @@ Before substantive engineering work:
 
 Do not use Git history, removed documentation, experimental branches, commit messages or implementation details to reconstruct product/domain/interface/architecture semantics unless the task explicitly asks for archaeology or evidence review.
 
+Maintained reference implementations under `experiments/` may be reused as donor code only after checking them against current canonical contracts. Their tests prove implementation behavior, not current product/domain/interface/architecture meaning.
+
 ## Open decisions
 
 Durable unresolved semantic decisions belong in the `questions` section of `.harness/core.yaml`.
