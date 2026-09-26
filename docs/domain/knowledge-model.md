@@ -45,7 +45,7 @@ Two similarly named objects are not identical merely because their labels overla
 
 ## Semantic forms
 
-The current recurring semantic forms are deliberately small and extensible.
+The current recurring semantic forms form a small controlled, extensible vocabulary. A new semantic kind is introduced only when it recurs, has a distinct explanatory responsibility and boundary, and reducing it to an existing kind would lose material meaning.
 
 ### Concept
 
@@ -178,39 +178,15 @@ HOW TO CHOOSE/ORGANIZE? strategy
 
 These are explanatory roles and forms, not mandatory layers for every subject.
 
-## Question boundary
+## Boundary with Learning Design
 
-Questions, exercises and cards are not canonical Knowledge Model entities merely because they refer to knowledge.
+Questions are owned by Learning Design. Knowledge Model exposes reusable `KnowledgeNode` identities that a question may reference as its supporting knowledge.
 
-Learning Design may map a question to the knowledge required to answer it:
+A question contains its own question text and direct answer text. Its knowledge references identify the reusable subject knowledge that explains the topic; they do not change Knowledge Model ownership.
 
-```text
-Question
-  prompt
-  requires: KnowledgeNode[]
-```
+Concrete facts, values, definitions, conditions and examples may be part of a `KnowledgeNode.content` when they belong to that reusable explanatory object.
 
-The semantic meaning of `requires` is:
-
-> Which reusable knowledge must a learner command to answer this question substantively and correctly?
-
-It does **not** mean:
-
-> Which minimal atomic fact is the literal answer?
-
-Therefore a question such as “What does 7 mean in Unix permissions?” may require the reusable knowledge object `Unix permission representation`; the model need not create a canonical node whose identity is the literal value `7`.
-
-A broad question may require several knowledge objects. A personal or meta interview question may require no subject-knowledge node.
-
-Questions do not reference `KnowledgeRelation` by default. Relations remain internal subject semantics; Learning Design depends on them only when a learning requirement genuinely concerns the relationship itself.
-
-## Requirement / competency boundary
-
-A reusable statement of expected knowledge or knowledge-based capability may be referenced by learning targets when it has meaning beyond one target.
-
-Such a requirement may align to one or more knowledge objects but is not identical to learner state or a target-relative gap.
-
-Whether reusable competency definitions remain inside Knowledge Model is still open; target-specific requirements belong to Learning Design.
+Reusable requirements and competencies are owned by Learning Design. They may align to Knowledge Model identities without becoming subject knowledge.
 
 ## Ownership
 
@@ -222,7 +198,6 @@ Knowledge Model owns:
 - explanatory meaning and coherence;
 - implementation-independent and implementation-specific knowledge without conflating them;
 - provenance or support needed to judge subject-semantic quality;
-- reusable requirement/competency definitions only where they have target-independent meaning.
 
 It does not own:
 
@@ -238,8 +213,8 @@ It does not own:
 - reusable subject meaning must not change because one learner succeeds or fails;
 - learner observations cannot directly mutate subject truth;
 - semantic identity is independent of presentation, target and external study-system identity;
-- node admission must not force every literal answer fragment into an artificial knowledge atom;
-- semantic form and relational role are distinct dimensions;
+- a KnowledgeNode is admitted when it has stable semantic identity, an independent explanatory responsibility, and usefulness beyond one concrete question, learner or learning target;
+- a question's question text, answer text and knowledge references remain Learning Design semantics;- semantic form and relational role are distinct dimensions;
 - `realizes` establishes abstraction/implementation roles relative to a pair of knowledge objects; neither role is a permanent global level;
 - `addresses` establishes solution/problem roles relative to a pair of knowledge objects; neither role is a permanent global type;
 - concrete technology is not automatically a mechanism;
@@ -275,11 +250,6 @@ Knowledge-component and Q-matrix research supports many-to-many mapping between 
 
 The previous Knowledge Graph project provides implementation evidence for stable semantic identity, explanatory responsibility, lightweight classification and questions derived from explanatory knowledge. Its graph-centered architecture is not treated as a premise of this model.
 
-## Open questions
+## Deferred input concerns
 
-- whether `Concept | Mechanism | Procedure | Strategy` are sufficient recurring semantic forms or should remain a partially controlled extensible vocabulary;
-- whether `Strategy` and `Method` need distinct semantics;
-- which additional relation types have genuine recurring subject semantics;
-- whether reusable competency definitions have enough target-independent identity to remain in Knowledge Model;
-- how provenance, disagreement and conflicting claims affect acceptance of reusable knowledge;
-- what exact admission test determines when explanatory material deserves an independent KnowledgeNode.
+Source validation, provenance assessment, disagreement resolution and conflicting-input handling are outside Knowledge Model. Knowledge Model stores accepted subject semantics supplied to it; a future Knowledge Input / Acquisition context may own these concerns if a concrete product use case justifies that context.

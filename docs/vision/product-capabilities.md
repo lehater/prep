@@ -10,9 +10,9 @@ Define the top-level capabilities Prep needs in order to deliver the accepted pr
 
 Establish a learning outcome with enough scope and depth to determine what knowledge is relevant and what kind of learner capability is expected.
 
-### Knowledge acquisition
+### Knowledge authoring and input
 
-Accept relevant source material or other inputs and derive usable knowledge from them while preserving enough source context to review uncertainty and conflicting information.
+Enable a person to create and maintain the product's modeled data through user-facing interfaces, including subject knowledge and learning requirements, and to load prepared data when useful. The product does not currently prepare, extract, derive or validate that content automatically.
 
 ### Knowledge organization
 
@@ -52,7 +52,7 @@ Show the learner their current evidence-backed position relative to the target a
 
 ### Knowledge and learning quality control
 
-Surface uncertainty, conflicting or weakly supported knowledge, problematic learning material and other quality issues that can undermine the learning process.
+Detect structural or semantic problems in accepted knowledge and problematic learning material that can undermine the learning process. Source validation, provenance assessment and conflicting-input resolution are outside the current product scope.
 
 ## Initial capability slice
 
@@ -60,13 +60,14 @@ For the initial product focus, the minimum coherent slice is:
 
 ```text
 learning target
-  -> acquire subject knowledge
+  -> author or load subject knowledge and requirements
   -> organize concepts and important relationships
   -> derive material for familiarity and retrieval
   -> learn / retrieve
-  -> collect evidence
-  -> update priorities
+  -> collect review observations/statistics
 ```
+
+Interpretation of those observations into learner state, gaps, priorities or automatic replanning is explicitly deferred; therefore the initial slice does not claim evidence-driven priority updates yet.
 
 The first slice may intentionally exercise only a subset of the full depth spectrum. In particular, proving useful terminology/concept familiarity and retrievability does not require solving every form of application, procedural performance or assessment.
 

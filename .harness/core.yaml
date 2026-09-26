@@ -37,6 +37,12 @@ artifacts:
     provides: [prep.knowledge-model]
     depends_on: [MODEL-CONTEXT-MAP, PRODUCT-CAPABILITIES]
 
+  - id: FRONTEND-PERFORMANCE-CAPACITY
+    authority: QUALITY-DESIGN
+    path: docs/architecture/performance-capacity.md
+    provides: [prep.frontend-performance-capacity]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL]
+
   - id: LEARNING-DESIGN
     authority: TACTICAL-DOMAIN-DESIGN
     path: docs/domain/learning-design.md
@@ -49,4 +55,167 @@ artifacts:
     provides: [prep.learner-model]
     depends_on: [MODEL-CONTEXT-MAP, KNOWLEDGE-MODEL, PRODUCT-CAPABILITIES]
 
-questions: []
+  - id: TASK-MODEL
+    authority: APPLICATION-DESIGN
+    path: docs/application/task-model.yaml
+    provides: [prep.task-model]
+    depends_on: [APPLICATION-DESIGN, PRODUCT-CAPABILITIES]
+
+  - id: USER-JOURNEYS
+    authority: APPLICATION-DESIGN
+    path: docs/application/user-journeys.md
+    provides: [prep.user-journeys]
+    depends_on: [APPLICATION-DESIGN, TASK-MODEL]
+
+  - id: APPLICATION-DESIGN
+    authority: APPLICATION-DESIGN
+    path: docs/application/application-design.md
+    provides: [prep.application-design]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: CONCEPTUAL-INTERFACE-MODEL
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/conceptual-interface-model.yaml
+    provides: [prep.conceptual-interface-model]
+    depends_on: [TASK-MODEL, USER-JOURNEYS, APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: INFORMATION-ARCHITECTURE
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/information-architecture.yaml
+    provides: [prep.information-architecture]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, TASK-MODEL, USER-JOURNEYS]
+
+  - id: INTERACTION-DESIGN
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/interaction-design.yaml
+    provides: [prep.interaction-design]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, TASK-MODEL, USER-JOURNEYS, APPLICATION-DESIGN, MACHINE-INTERFACES]
+
+  - id: INTERFACE-TOPOLOGY
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/interface-topology.yaml
+    provides: [prep.interface-topology]
+    depends_on: [INFORMATION-ARCHITECTURE, INTERACTION-DESIGN]
+
+  - id: PRESENTATION-SYSTEM
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/presentation-system.md
+    provides: [prep.presentation-system]
+    depends_on: [CONCEPTUAL-INTERFACE-MODEL, INFORMATION-ARCHITECTURE, INTERFACE-TOPOLOGY, INTERACTION-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: SCREEN-VIEW-DESIGN
+    authority: HUMAN-INTERFACE-DESIGN
+    path: docs/interface/screen-view-design.md
+    provides: [prep.screen-view-design]
+    depends_on: [INTERFACE-TOPOLOGY, INTERACTION-DESIGN, PRESENTATION-SYSTEM, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: MACHINE-INTERFACES
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/interface/machine-interface.md
+    provides: [prep.machine-interfaces]
+    depends_on: [APPLICATION-DESIGN, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: IMPORT-CONSISTENCY
+    authority: CONCURRENCY-CONSISTENCY-DESIGN
+    path: docs/architecture/import-consistency.md
+    provides: [prep.import-consistency]
+    depends_on: [APPLICATION-DESIGN, MACHINE-INTERFACES]
+
+  - id: INTERFACE-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/interface-verification.md
+    provides: [prep.interface-verification]
+    depends_on: [TASK-MODEL, INFORMATION-ARCHITECTURE, INTERACTION-DESIGN, INTERFACE-TOPOLOGY]
+
+  - id: PRESENTATION-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/presentation-verification.md
+    provides: [prep.presentation-verification]
+    depends_on: [INTERFACE-VERIFICATION, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: SYSTEM-ARCHITECTURE
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/system-architecture.md
+    provides: [prep.system-architecture]
+    depends_on: [APPLICATION-DESIGN, INTERACTION-DESIGN, INTERFACE-TOPOLOGY, MACHINE-INTERFACES, IMPORT-CONSISTENCY]
+
+  - id: DATA-DESIGN
+    authority: DATA-DESIGN
+    path: docs/architecture/data-design.md
+    provides: [prep.data-design]
+    depends_on: [KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL, IMPORT-CONSISTENCY, SYSTEM-ARCHITECTURE]
+
+  - id: FRONTEND-SYSTEM-ARCHITECTURE
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/architecture/frontend-system-architecture.md
+    provides: [prep.frontend-system-architecture]
+    depends_on: [SYSTEM-ARCHITECTURE, PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: FRONTEND-ENGINEERING-POLICY
+    authority: ENGINEERING-POLICY
+    path: docs/engineering/frontend-engineering-policy.md
+    provides: [prep.frontend-engineering-policy]
+    depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, PRESENTATION-SYSTEM]
+
+  - id: FRONTEND-COMPONENT-DESIGN
+    authority: COMPONENT-DESIGN
+    path: docs/implementation/frontend-component-design.md
+    provides: [prep.frontend-component-design]
+    depends_on: [FRONTEND-SYSTEM-ARCHITECTURE, FRONTEND-ENGINEERING-POLICY, SCREEN-VIEW-DESIGN, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: FRONTEND-VERIFICATION
+    authority: VERIFICATION-DESIGN
+    path: docs/verification/frontend-verification.md
+    provides: [prep.frontend-verification]
+    depends_on: [PRODUCT-CAPABILITIES, PRESENTATION-VERIFICATION, FRONTEND-SYSTEM-ARCHITECTURE, MACHINE-INTERFACES, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: FRONTEND-TEST-DESIGN
+    authority: TEST-DESIGN
+    path: docs/verification/frontend-test-design.yaml
+    provides: [prep.frontend-test-design]
+    depends_on: [FRONTEND-VERIFICATION, INTERACTION-DESIGN, SCREEN-VIEW-DESIGN, FRONTEND-PERFORMANCE-CAPACITY]
+
+  - id: FRONTEND-IMPLEMENTATION-DESIGN
+    authority: IMPLEMENTATION-DESIGN
+    path: docs/implementation/frontend-implementation-design.md
+    provides: [prep.frontend-implementation-design]
+    depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
+
+questions:
+  - id: Q-LEARNING-DESIGN-BOUNDARY
+    authority: MODEL-CONTEXT-STRATEGY
+    text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
+    blocks: [LEARNING-DESIGN]
+    resolution: MODEL-CONTEXT-MAP
+
+  - id: Q-QUESTION-CORPUS-ORGANIZATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should a large corpus of Questions be organized so thousands of questions remain navigable and usable, including identity, classification, grouping, filtering, difficulty, provenance, duplication or variants, and which organization should be derived from Knowledge Model rather than duplicated on Question?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-LEARNER-STATE-SUBJECT
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: "What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?"
+    blocks: [LEARNER-MODEL]
+    resolution: LEARNER-MODEL
+
+  - id: Q-STUDY-SET-PREPARATION-GATE
+    authority: APPLICATION-DESIGN
+    text: What exact condition makes a LearningTarget sufficiently prepared to build a Study Set, and when preparation is incomplete should construction be blocked or should Prep build the resolvable subset while reporting explicit missing-preparation diagnostics?
+    blocks: [SCREEN-VIEW-DESIGN]
+    resolution: APPLICATION-DESIGN
+
+  - id: Q-LEARNING-COVERAGE-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What semantic model should determine whether learning support and assessment/evidence adequately cover a KnowledgeNode, Requirement or target capability, including artifact/activity kinds beyond Questions, cognitive/performance depth, context/transfer breadth, target dependence, and human versus automated judgment?
+
+  - id: Q-TARGET-SCOPE-AUTHORSHIP
+    authority: APPLICATION-DESIGN
+    text: "In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?"
+    blocks: [USER-JOURNEYS]
+    resolution: APPLICATION-DESIGN
+
+  - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
+    authority: HUMAN-INTERFACE-DESIGN
+    text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?

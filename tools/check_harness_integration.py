@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -18,6 +19,15 @@ if not (HARNESS_ROOT / "engineering_graph.py").exists():
 
 sys.path.insert(0, str(HARNESS_ROOT))
 from engineering_graph import evaluate_engineering_target, validate_engineering_graph  # noqa: E402
+from engineering_coverage import evaluate_with_repository_policy  # noqa: E402
+from semantic_closure import evaluate_semantic_closure  # noqa: E402
+from workspace import validate_knowledge_document  # noqa: E402
+from frontend_interface_knowledge import (  # noqa: E402
+    evaluate_frontend_ux_closure,
+    evaluate_topology_screen_subject_coverage,
+)
+
+from semantic_baseline import build_strict_semantic_baseline  # noqa: E402
 
 
 def load(path: str) -> dict:
@@ -27,7 +37,30 @@ def load(path: str) -> dict:
     return value
 
 
-def require_complete(graph: dict, core: dict, target: str) -> None:
+def load_harness(path: str) -> dict:
+    full_path = HARNESS_ROOT / path
+    value = yaml.safe_load(full_path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise SystemExit(f"{full_path} must contain a mapping")
+    return value
+
+
+def extract_screen_subjects(path: str) -> list[str]:
+    text = (ROOT / path).read_text(encoding="utf-8")
+    subjects = re.findall(r"(?m)^#{2,3}\s+\[([A-Z0-9][A-Z0-9-]*)\]\s+", text)
+    duplicates = sorted({item for item in subjects if subjects.count(item) > 1})
+    if duplicates:
+        raise SystemExit(f"Duplicate Screen/View subject ids in {path}: {duplicates}")
+    return subjects
+
+
+def require_complete(
+    graph: dict,
+    core: dict,
+    target: str,
+    *,
+    implementation_consumer: bool,
+) -> dict:
     result = evaluate_engineering_target(graph, target, core)
     if result.get("status") != "COMPLETE":
         raise SystemExit(
@@ -35,7 +68,44 @@ def require_complete(graph: dict, core: dict, target: str) -> None:
             f"got {result.get('status')}: create={result.get('create')} "
             f"wait={result.get('wait')} pending={result.get('pending')}"
         )
-    print(f"{target}: COMPLETE (structural coverage only)")
+    if result.get("implementation_consumer") is not implementation_consumer:
+        raise SystemExit(
+            f"{target} implementation classification mismatch: "
+            f"expected {implementation_consumer}, "
+            f"got {result.get('implementation_consumer')}"
+        )
+    print(
+        f"{target}: COMPLETE (structural coverage only; "
+        f"implementation_consumer={implementation_consumer})"
+    )
+    return result
+
+
+def report_target(
+    graph: dict,
+    core: dict,
+    target: str,
+    *,
+    implementation_consumer: bool,
+) -> dict:
+    result = evaluate_engineering_target(graph, target, core)
+    if result.get("implementation_consumer") is not implementation_consumer:
+        raise SystemExit(
+            f"{target} implementation classification mismatch: "
+            f"expected {implementation_consumer}, "
+            f"got {result.get('implementation_consumer')}"
+        )
+
+    def caps(key: str) -> list[str]:
+        return [item["capability"] for item in result.get(key, [])]
+
+    print(
+        f"{target}: {result.get('status')} "
+        f"(implementation_consumer={implementation_consumer}; "
+        f"create={caps('create')} wait={caps('wait')} "
+        f"pending={caps('pending')})"
+    )
+    return result
 
 
 def main() -> int:
@@ -43,13 +113,157 @@ def main() -> int:
     core = load(".harness/core.yaml")
 
     validate_engineering_graph(graph)
+    semantic_evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
 
     for artifact in core.get("artifacts", []):
         path = artifact.get("path")
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
 
-    require_complete(graph, core, "CURRENT-REVALIDATION")
+    ux = evaluate_frontend_ux_closure(
+        load("docs/application/task-model.yaml"),
+        load("docs/interface/conceptual-interface-model.yaml"),
+        load("docs/interface/information-architecture.yaml"),
+        load("docs/interface/interaction-design.yaml"),
+        load("docs/interface/interface-topology.yaml"),
+    )
+    if ux.get("status") != "ACCEPTED":
+        raise SystemExit(f"Frontend UX closure rejected: {ux.get('findings')}")
+
+    subject_coverage = evaluate_topology_screen_subject_coverage(
+        load("docs/interface/interface-topology.yaml"),
+        extract_screen_subjects("docs/interface/screen-view-design.md"),
+    )
+    if subject_coverage.get("status") != "ACCEPTED":
+        raise SystemExit(
+            "Screen/View subject coverage rejected: "
+            f"{subject_coverage.get('findings')}"
+        )
+    print(
+        "Frontend UX closure: ACCEPTED "
+        f"({len(subject_coverage['expected_subjects'])} topology views covered)"
+    )
+
+    test_design = load("docs/verification/frontend-test-design.yaml")
+    validate_knowledge_document(test_design)
+    verification_ids = set(
+        re.findall(
+            r"(?m)^###\s+(FV-[0-9]+)\s+",
+            (ROOT / "docs/verification/frontend-verification.md").read_text(
+                encoding="utf-8"
+            ),
+        )
+    )
+    test_refs = {
+        ref
+        for item in test_design["content"]["tests"]
+        for ref in item["verification_refs"]
+    }
+    unknown_refs = sorted(test_refs - verification_ids)
+    required_test_refs = {
+        "FV-02", "FV-03", "FV-04", "FV-05",
+        "FV-06", "FV-07", "FV-08", "FV-09",
+    }
+    missing_test_refs = sorted(required_test_refs - test_refs)
+    if unknown_refs or missing_test_refs:
+        raise SystemExit(
+            "Frontend Test Design verification trace invalid: "
+            f"unknown={unknown_refs} missing_test_obligations={missing_test_refs}"
+        )
+    print(
+        "Frontend Test Design: ACCEPTED "
+        f"({len(test_design['content']['tests'])} executable contracts)"
+    )
+
+    require_complete(
+        graph,
+        core,
+        "CURRENT-REVALIDATION",
+        implementation_consumer=False,
+    )
+    require_complete(
+        graph,
+        core,
+        "FRONTEND-PROTOTYPE",
+        implementation_consumer=False,
+    )
+
+    for target in ("CURRENT-REVALIDATION", "FRONTEND-PROTOTYPE"):
+        closure = evaluate_semantic_closure(
+            graph=graph,
+            model=core,
+            target=target,
+            skill_registry=load_harness(
+                "skills/artifact-skill-registry-v0.yaml"
+            ),
+            semantic_evaluations=semantic_evaluations,
+            lifecycle=lifecycle,
+        )
+        if closure.get("status") != "COMPLETE":
+            raise SystemExit(
+                f"{target} strict semantic/currentness closure is "
+                f"{closure.get('status')}: "
+                f"semantic_gaps={closure.get('semantic_gaps')} "
+                f"currentness_gaps={closure.get('currentness_gaps')}"
+            )
+        print(f"{target} strict semantic/currentness: COMPLETE")
+    production = report_target(
+        graph,
+        core,
+        "FRONTEND-IMPLEMENTATION",
+        implementation_consumer=True,
+    )
+
+    coverage = evaluate_with_repository_policy(
+        graph=graph,
+        realization=core,
+        consumer="FRONTEND-IMPLEMENTATION",
+        scope="frontend",
+        project_overlay=load(".harness/engineering-coverage.yaml"),
+        semantic_evaluations=semantic_evaluations,
+    )
+    print(
+        "FRONTEND-IMPLEMENTATION Engineering Coverage: "
+        f"completion_ready={coverage['completion_ready']} "
+        f"remaining_work={coverage['remaining_work_count']} "
+        f"questions={coverage['question_frontier_count']}"
+    )
+    for item in coverage.get("work_items", []):
+        action = item.get("action")
+        capability = item.get("capability")
+        concern = item.get("concern")
+        print(
+            "  coverage-work: "
+            f"action={action} "
+            f"capability={capability or '-'} "
+            f"concern={concern or '-'}"
+        )
+
+    if production.get("status") == "COMPLETE":
+        if not coverage.get("completion_ready"):
+            raise SystemExit(
+                "FRONTEND-IMPLEMENTATION is structurally COMPLETE but "
+                "Engineering Coverage is not completion-ready"
+            )
+
+        closure = evaluate_semantic_closure(
+            graph=graph,
+            model=core,
+            target="FRONTEND-IMPLEMENTATION",
+            skill_registry=load_harness(
+                "skills/artifact-skill-registry-v0.yaml"
+            ),
+            semantic_evaluations=semantic_evaluations,
+            lifecycle=lifecycle,
+        )
+        if closure.get("status") != "COMPLETE":
+            raise SystemExit(
+                "FRONTEND-IMPLEMENTATION strict semantic/currentness closure "
+                f"is {closure.get('status')}: "
+                f"semantic_gaps={closure.get('semantic_gaps')} "
+                f"currentness_gaps={closure.get('currentness_gaps')}"
+            )
+        print("FRONTEND-IMPLEMENTATION strict semantic/currentness: COMPLETE")
 
     print("Prep pinned Harness integration PASS")
     return 0
