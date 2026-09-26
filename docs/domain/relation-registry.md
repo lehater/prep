@@ -42,6 +42,20 @@ Until corpus validation and migration are complete:
 - new broad `uses` / `depends_on` / `enables` assertions should not be treated as evidence that those predicates are semantically adequate;
 - inverse wording should be derived from one canonical relation where possible rather than stored as a second opposite edge.
 
+## Machine-readable classifier contract
+
+Agent classification MUST use `docs/domain/relation-classification-catalog.yaml`.
+
+The classifier is not limited to the currently registered runtime enum. It must return exactly one of:
+
+1. `matched` — an existing leaf predicate precisely fits the assertion;
+2. `candidate_needed` — a real relation is supported, but no registered leaf fits without semantic loss; propose a new leaf using the standard relation-pattern catalogue and provide definition, roles, inverse and evidence;
+3. `insufficient_evidence` — no precise semantic assertion is supported; create no edge.
+
+The classifier must prefer the most specific supported leaf and must not coerce an assertion into `uses`, `depends_on`, `enables` or another broad legacy type merely to avoid introducing a new candidate.
+
+Inverse wording is presentation, not a second fact: one canonical edge may expose a derived inverse label.
+
 ## Canonical registry
 
 ### Structural / taxonomic
