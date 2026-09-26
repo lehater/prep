@@ -1,0 +1,34 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.task-model
+acceptance_id: frontend-decision-rebuild::prep.task-model::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: TASK-MODEL
+  path: docs/application/task-model.yaml
+  capability: prep.task-model
+  changed_paths:
+    - docs/application/task-model.yaml
+  canonical_references:
+    - referenced_path: docs/application/application-design.md
+    - referenced_path: docs/vision/product-capabilities.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - task-not-screen-design
+    basis: >-
+      Rebuilt from the Harness read set only. The artifact derives human work
+      from accepted Product Capabilities and Application Design, keeps Learning
+      and Curation responsibilities distinct, models knowledge exploration
+      without selecting a visualization form, and introduces no screen,
+      navigation, layout, component or frontend-provider decision.
