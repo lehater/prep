@@ -49,6 +49,7 @@ const NODE_DRAG_THRESHOLD_PX = 5;
 const NODE_HIT_RADIUS_PX = 18;
 const IDLE_PAUSE_DELAY_MS = 700;
 const FOCUS_DISTANCE = 125;
+const FOCUS_TRANSITION_MS = 1800;
 const RESET_CAMERA_DISTANCE = 320;
 const LINK_ARROW_LENGTH = 6;
 const LINK_ARROW_REL_POS = 0.86;
@@ -562,14 +563,42 @@ export function Rfg3dGraphRenderer({
         return;
       }
       resumeRenderer();
+      let transitionMs = 450;
       if (command.type === "fit") {
         graph.zoomToFit(450, 48);
-      } else {
+      } else if (command.type === "reset-camera") {
         graph.cameraPosition(
           { x: 0, y: 0, z: RESET_CAMERA_DISTANCE },
           { x: 0, y: 0, z: 0 },
           450,
         );
+      } else {
+        const node = graphData.nodes.find(
+          (candidate) => candidate.id === command.knowledgeId,
+        );
+        if (!node) {
+          scheduleIdlePause();
+          return;
+        }
+        const x = node.x ?? 0;
+        const y = node.y ?? 0;
+        const z = node.z ?? 0;
+        const length = Math.hypot(x, y, z) || 1;
+        transitionMs = FOCUS_TRANSITION_MS;
+        graph.cameraPosition(
+          {
+            x: x + (x / length) * FOCUS_DISTANCE,
+            y: y + (y / length) * FOCUS_DISTANCE,
+            z: z + (z / length) * FOCUS_DISTANCE,
+          },
+          { x, y, z },
+          transitionMs,
+        );
+        window.setTimeout(() => {
+          const controls = graph.controls() as RendererControls;
+          controls.target?.copy(new THREE.Vector3(x, y, z));
+          controls.update?.();
+        }, transitionMs);
       }
       window.setTimeout(() => {
         const snapshot = captureViewport();
@@ -577,7 +606,7 @@ export function Rfg3dGraphRenderer({
           onViewportChange?.(snapshot);
         }
         scheduleIdlePause();
-      }, 500);
+      }, transitionMs + 50);
     };
     frame = requestAnimationFrame(apply);
     return () => {
@@ -588,6 +617,7 @@ export function Rfg3dGraphRenderer({
     captureViewport,
     command,
     emitDiagnostics,
+    graphData.nodes,
     onViewportChange,
     resumeRenderer,
     scheduleIdlePause,
@@ -868,44 +898,6 @@ export function Rfg3dGraphRenderer({
     syncOptimizedLayers,
   ]);
 
-  const focusCamera = useCallback(() => {
-    syncOptimizedLayers();
-    const graph = graphRef.current;
-    const focused = scene.nodes.find((node) => node.focused);
-    if (!graph || !focused) {
-      scheduleIdlePause();
-      return;
-    }
-
-    const liveNode = graphData.nodes.find(
-      (node) => node.id === focused.knowledgeId,
-    );
-    if (
-      !liveNode ||
-      !Number.isFinite(liveNode.x) ||
-      !Number.isFinite(liveNode.y) ||
-      !Number.isFinite(liveNode.z)
-    ) {
-      scheduleIdlePause();
-      return;
-    }
-
-    const x = liveNode.x ?? 0;
-    const y = liveNode.y ?? 0;
-    const z = liveNode.z ?? 0;
-    const length = Math.hypot(x, y, z) || 1;
-    graph.cameraPosition(
-      {
-        x: x + (x / length) * FOCUS_DISTANCE,
-        y: y + (y / length) * FOCUS_DISTANCE,
-        z: z + (z / length) * FOCUS_DISTANCE,
-      },
-      { x, y, z },
-      500,
-    );
-    scheduleIdlePause();
-  }, [graphData.nodes, scene.nodes, scheduleIdlePause, syncOptimizedLayers]);
-
   const nodeLabel = useCallback(
     (node: Rfg3dNode) => {
       if (strategy.labels === "off") {
@@ -933,9 +925,8 @@ export function Rfg3dGraphRenderer({
     syncOptimizedLayers();
     engineSettledMsRef.current =
       performance.now() - simulationStartedAtRef.current;
-    focusCamera();
     emitDiagnostics(false);
-  }, [emitDiagnostics, focusCamera, syncOptimizedLayers]);
+  }, [emitDiagnostics, syncOptimizedLayers]);
 
   if (webglAvailable === null) {
     return (
