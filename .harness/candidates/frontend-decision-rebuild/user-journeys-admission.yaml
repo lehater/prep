@@ -1,0 +1,33 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.user-journeys
+acceptance_id: frontend-decision-rebuild::prep.user-journeys::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: USER-JOURNEYS
+  path: docs/application/user-journeys.md
+  capability: prep.user-journeys
+  changed_paths:
+    - docs/application/user-journeys.md
+  canonical_references:
+    - referenced_path: docs/application/task-model.yaml
+    - referenced_path: docs/application/application-design.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - journey-not-screen-design
+    basis: >-
+      Rebuilt only from the Harness read set. Every current USER task has
+      explicit journey coverage, material alternate/recovery paths preserve
+      accepted Application Design behavior, and no screen, route, pane,
+      visualization form, layout or frontend technology is selected.
