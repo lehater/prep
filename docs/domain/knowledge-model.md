@@ -149,6 +149,8 @@ The canonical relation vocabulary is controlled and extensible. Prep keeps `addr
 | `derives_from` | derived entity -> source entity | source is semantically derived from the target |
 | `enables` | enabler -> enabled capability/state | source materially makes the target possible or practically attainable without asserting universal hard dependency |
 
+> **Relation-vocabulary revalidation:** the table above is the current runtime/domain compatibility baseline, not the final target vocabulary. Theory-backed research has identified `uses`, `depends_on`, `enables` and generic `derives_from` as overly broad leaf predicates. The candidate replacement model, including the concrete 20-predicate corpus-validation set and admission protocol, is maintained in `docs/research/relation-ontology-theory-selection.md`. Canonical migration must follow corpus validation rather than one-for-one renaming.
+
 These types are machine-readable Prep semantics. Their admission does not require Knowledge Graph V2 to restore a typed relation registry: current Knowledge Graph cards may keep human-facing explanatory wikilinks, while a Prep import/export boundary classifies a typed edge only when the source explanation supports one of the accepted meanings without adding a new material assertion.
 
 A generic `related_to` relation remains insufficient canonical subject meaning. When available evidence does not distinguish an accepted type and direction, no typed edge should be invented.
