@@ -1,20 +1,327 @@
 version: 1
-kind: conceptual-interface-model
-id: PREP-CONCEPTUAL-INTERFACE
-concepts:
-  - {id: LEARNING-TARGET, meaning: A prepared outcome/profile selected by the learner.}
-  - {id: TARGET-SCOPE, meaning: Read-only Requirement/RequirementSet composition of the active target in Learning mode.}
-  - {id: KNOWLEDGE, meaning: Reusable subject knowledge available for reading and relational exploration.}
-  - {id: KNOWLEDGE-RELATION, meaning: Accepted typed semantic relation between KnowledgeNodes.}
-  - {id: REQUIREMENT, meaning: Reusable learning requirement used by curated target scope.}
-  - {id: QUESTION, meaning: Reusable retrieval/diagnostic artifact aligned to Knowledge.}
-  - {id: STUDY-SET, meaning: Current application materialization of resolvable Questions for one target.}
-  - {id: REVIEW-FACTS, meaning: Recorded factual ReviewObservations/statistics without mastery inference.}
-  - {id: EXTERNAL-RUNTIME, meaning: Configured external study runtime such as Anki.}
+kind: prep-conceptual-interface-model
+
+purpose: >-
+  Define the user-facing concepts, work modes and shared state vocabulary needed
+  to perform the accepted Prep tasks without copying the tactical domain model
+  into the interface or selecting navigation, screens, layout or visualization
+  technology.
+
 modes:
-  - {id: LEARNING, purpose: Consume prepared learning structure without semantic authoring.}
-  - {id: CURATION, purpose: Author and maintain prepared targets and reusable learning knowledge/material.}
-state_vocabulary:
-  - {id: RUNTIME-REACHABLE, meaning: Supported external-runtime operations are currently reachable.}
-  - {id: RUNTIME-UNAVAILABLE, meaning: External runtime cannot currently perform supported operations.}
-  - {id: STUDY-PREVIEW-STALE, meaning: Canonical target/question resolution changed after Study Set preview.}
+  - id: MODE-LEARNING
+    name: Learning
+    meaning: >-
+      Work that consumes an existing curated LearningTarget and reusable corpus
+      to prepare study, use the supported external runtime and inspect factual
+      review evidence.
+    changes_available_work:
+      - target scope is consumed as read-only
+      - study preparation and export are available
+      - factual review evidence can be inspected
+      - reusable corpus repair is not performed implicitly
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/application/task-model.yaml
+      - docs/application/user-journeys.md
+
+  - id: MODE-CURATION
+    name: Curation
+    meaning: >-
+      Work that intentionally maintains reusable LearningTargets, Knowledge,
+      Requirements, Questions, alignments and supported structural diagnostics.
+    changes_available_work:
+      - canonical reusable data may be created or changed through application use cases
+      - target scope may be composed
+      - structural preparation gaps may be investigated and repaired
+      - study completion or learner state is not inferred from curation work
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/application/task-model.yaml
+      - docs/application/user-journeys.md
+
+concepts:
+  - id: ACTIVE-TARGET
+    name: Active learning target
+    meaning: >-
+      The existing curated LearningTarget whose intended outcome and prepared
+      Requirement/RequirementSet scope define the current Learning context.
+    user_must_understand:
+      - which target is active
+      - its intended outcome
+      - that its scope is read-only in Learning mode
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/domain/learning-design.md
+
+  - id: TARGET-SCOPE
+    name: Target scope
+    meaning: >-
+      The reusable Requirements and RequirementSets assigned to a
+      LearningTarget. It expresses prepared learning scope, not a navigation
+      tree and not subject-knowledge structure.
+    user_must_understand:
+      - which reusable requirements belong to a target
+      - that RequirementSet composition and Knowledge structure are distinct
+    upstream_refs:
+      - docs/domain/learning-design.md
+      - docs/application/application-design.md
+
+  - id: KNOWLEDGE-ITEM
+    name: Knowledge item
+    meaning: >-
+      A reusable KnowledgeNode with stable semantic identity and an explanatory
+      responsibility that is independent of target, learner, source location
+      and presentation.
+    user_must_understand:
+      - identity persists across views and targets
+      - semantic kind helps explain what sort of knowledge object it is
+      - presentation position never defines identity
+    upstream_refs:
+      - docs/domain/knowledge-model.md
+
+  - id: KNOWLEDGE-RELATIONSHIP
+    name: Knowledge relationship
+    meaning: >-
+      An accepted directional semantic assertion connecting two Knowledge
+      items. Its type and direction carry subject meaning; it is not merely a
+      visual connection.
+    user_must_understand:
+      - source and target identities
+      - relationship meaning and direction
+      - absence of an accepted relation must not be replaced by an invented edge
+    upstream_refs:
+      - docs/domain/knowledge-model.md
+      - docs/domain/relation-classification-catalog.yaml
+
+  - id: EXPLORATION-SCOPE
+    name: Knowledge exploration scope
+    meaning: >-
+      The bounded set in which the user is currently searching and following
+      knowledge: either global canonical knowledge or Knowledge relevant to the
+      active LearningTarget.
+    user_must_understand:
+      - whether exploration is global or target-relevant
+      - changing focus does not silently change the scope
+      - large scopes may be bounded without changing canonical meaning
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/application/task-model.yaml
+      - docs/application/user-journeys.md
+
+  - id: KNOWLEDGE-FOCUS
+    name: Knowledge focus
+    meaning: >-
+      The Knowledge item currently chosen for detailed understanding and
+      relationship traversal inside the current exploration scope.
+    user_must_understand:
+      - focus is an attention state, not canonical data
+      - following a relationship may move focus while preserving scope
+    upstream_refs:
+      - docs/application/task-model.yaml
+      - docs/application/user-journeys.md
+
+  - id: REQUIREMENT
+    name: Requirement
+    meaning: >-
+      A reusable statement of demanded capability that may participate in target
+      scope and may align to reusable Knowledge without becoming Knowledge.
+    user_must_understand:
+      - requirement identity is distinct from a Knowledge item
+      - an alignment expresses correspondence rather than identity
+    upstream_refs:
+      - docs/domain/learning-design.md
+
+  - id: QUESTION-MATERIAL
+    name: Question material
+    meaning: >-
+      A reusable Question with its direct answer and references to supporting
+      Knowledge items. A Question may exist before every useful Knowledge
+      alignment is known.
+    user_must_understand:
+      - question identity is distinct from Knowledge identity
+      - direct answer belongs to the Question
+      - Knowledge references support resolution and understanding
+    upstream_refs:
+      - docs/domain/learning-design.md
+      - docs/application/application-design.md
+
+  - id: STUDY-PREVIEW
+    name: Study set preview
+    meaning: >-
+      A current-state materialization of the Questions presently resolvable for
+      the active target. It is reviewed before export and is not a durable
+      canonical learning object.
+    user_must_understand:
+      - it may be empty or incomplete
+      - incompleteness does not by itself block useful study
+      - target/question drift can make a previously reviewed preview stale
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/application/user-journeys.md
+
+  - id: PREPARATION-DIAGNOSTIC
+    name: Preparation diagnostic
+    meaning: >-
+      A factual supported indication of a reusable-corpus preparation issue,
+      such as a missing alignment or absent aligned Question material.
+    user_must_understand:
+      - a diagnostic identifies a curation fact or gap
+      - it is not a learner failure
+      - it is not a semantic coverage score
+      - repair occurs through explicit Curation work
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/domain/learning-design.md
+      - docs/application/task-model.yaml
+
+  - id: REVIEW-EVIDENCE
+    name: Review evidence
+    meaning: >-
+      Factual Question-attributable ReviewObservations and reproducible
+      statistics received from learning activity.
+    user_must_understand:
+      - observations are facts about Question reviews
+      - absence of observations means absence of evidence
+      - the current model does not convert them into mastery, readiness,
+        retention, gaps or priority
+    upstream_refs:
+      - docs/domain/learner-model.md
+      - docs/application/application-design.md
+
+  - id: CHANGE-OUTCOME
+    name: Change outcome
+    meaning: >-
+      The visible accepted or rejected result of an intentional canonical-data
+      mutation in Curation work.
+    user_must_understand:
+      - accepted means canonical data changed through the owning application use case
+      - rejected means the previous accepted canonical state remains authoritative
+      - rejection information supports correction without implying partial success
+    upstream_refs:
+      - docs/application/application-design.md
+      - docs/application/task-model.yaml
+
+shared_state_vocabulary:
+  - id: ACTIVE-CONTEXT
+    applies_to: [ACTIVE-TARGET, EXPLORATION-SCOPE]
+    values:
+      - no-active-target
+      - active-target
+      - global-knowledge-scope
+      - target-relevant-knowledge-scope
+    meaning: >-
+      Makes the current semantic scope explicit so search, focus and learning
+      preparation are not interpreted against an implicit context.
+
+  - id: STUDY-PREVIEW-CURRENTNESS
+    applies_to: [STUDY-PREVIEW]
+    values:
+      - current
+      - stale
+    meaning: >-
+      Stale means target/question resolution changed after the preview and the
+      material must be refreshed before export of a different result.
+
+  - id: STUDY-MATERIAL-AVAILABILITY
+    applies_to: [STUDY-PREVIEW]
+    values:
+      - resolvable-material
+      - empty-result
+      - resolvable-with-preparation-diagnostics
+    meaning: >-
+      Describes what is currently materializable without introducing a
+      completeness threshold.
+
+  - id: EVIDENCE-PRESENCE
+    applies_to: [REVIEW-EVIDENCE]
+    values:
+      - observations-present
+      - no-observations
+    meaning: >-
+      Presence vocabulary remains factual and must not be relabeled as
+      mastered/not-mastered.
+
+  - id: MUTATION-RESULT
+    applies_to: [CHANGE-OUTCOME]
+    values:
+      - accepted
+      - rejected
+    meaning: >-
+      Distinguishes canonical change from validation failure without inventing a
+      mutable workflow status.
+
+conceptual_relationships:
+  - subject: ACTIVE-TARGET
+    relation: defines-current-learning-context-for
+    object: STUDY-PREVIEW
+    meaning: Study preparation is always interpreted relative to one selected existing target.
+
+  - subject: TARGET-SCOPE
+    relation: resolves-through
+    object: KNOWLEDGE-ITEM
+    meaning: Requirements/RequirementSets may align to reusable Knowledge while preserving separate identities.
+
+  - subject: QUESTION-MATERIAL
+    relation: references
+    object: KNOWLEDGE-ITEM
+    meaning: Question material points to supporting reusable Knowledge rather than owning it.
+
+  - subject: STUDY-PREVIEW
+    relation: contains-resolvable
+    object: QUESTION-MATERIAL
+    meaning: The preview is the currently resolvable subset for the active target.
+
+  - subject: PREPARATION-DIAGNOSTIC
+    relation: routes-to-explicit-repair-of
+    object: QUESTION-MATERIAL
+    meaning: Diagnostics may lead to Curation work but do not mutate material implicitly.
+
+  - subject: KNOWLEDGE-FOCUS
+    relation: belongs-to
+    object: EXPLORATION-SCOPE
+    meaning: Focus changes may occur without silently changing the surrounding exploration scope.
+
+  - subject: KNOWLEDGE-RELATIONSHIP
+    relation: connects
+    object: KNOWLEDGE-ITEM
+    meaning: Relationship meaning belongs to canonical semantics rather than to any visual projection.
+
+  - subject: REVIEW-EVIDENCE
+    relation: attributed-to
+    object: QUESTION-MATERIAL
+    meaning: Direct observations remain Question-level facts in the current slice.
+
+interface_principles:
+  - id: WORK-CONTEXT-EXPLICIT
+    statement: >-
+      Learning and Curation must remain recognizably different work contexts
+      because they permit materially different operations, even though the same
+      person may perform both.
+  - id: SCOPE-BEFORE-REPRESENTATION
+    statement: >-
+      Knowledge exploration must make global versus target-relevant scope and
+      current focus intelligible before choosing a visual representation.
+  - id: FACTS-NOT-INFERENCE
+    statement: >-
+      Review evidence and structural diagnostics must remain visibly distinct
+      from deferred semantic judgments such as mastery, readiness, priority or
+      coverage adequacy.
+  - id: PREVIEW-BEFORE-EXTERNAL-SIDE-EFFECT
+    statement: >-
+      A reviewed Study Set preview and its currentness are user-facing concepts
+      because export has an external side effect and drift must be detected.
+  - id: CANONICAL-VS-ATTENTION-STATE
+    statement: >-
+      Selection, focus, scope and mode are interaction/context state; they do
+      not redefine canonical Knowledge, Learning or Learner semantics.
+
+deliberately_unconstrained:
+  - navigation hierarchy and locations
+  - number or partitioning of screens/views
+  - route structure
+  - pane or panel composition
+  - whether Knowledge relationships use a graph, 3D graph, 2D diagram, list, tree, table or mixed projections
+  - visual style, density, color, typography and geometry
+  - frontend framework, component and renderer boundaries
+
+unresolved_questions: []
