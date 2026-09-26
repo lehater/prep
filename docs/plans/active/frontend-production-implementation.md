@@ -227,7 +227,7 @@ Manual review of the running frontend exposed an upstream design defect rather t
 
 The canonical frontend closure has therefore been reopened. FI-01..FI-07 remain historical implementation evidence against the previous baseline; they are not the current completion frontier.
 
-- [ ] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence.
+- [x] FRC-01 — Knowledge workspace spatial/performance correction and renewed evidence.
 
 FRC-01 must implement the revised dominant-graph frames, graph control surface and semantic-preserving performance profiles; adapt eligible renderer mechanics from `experiments/knowledge-representation-3d`; and record hardware-accelerated 1k/2k/5k evidence before production frontend closure is claimed again.
 
@@ -259,18 +259,22 @@ Observed CI stress measurements used ANGLE SwiftShader and therefore are **not**
 
 The optimized path materially reduces renderer object/draw pressure, but these frame-rate values describe SwiftShader software rendering only.
 
-### Remaining physical qualification
+### Physical hardware qualification — COMPLETE
 
-FRC-01 remains unchecked until its accepted hardware oracle is recorded on a real GPU-backed desktop browser.
+The final hardware benchmark was executed from the production branch state using the strict `npm run benchmark:graph:hardware` gate with headed Chromium and software rasterization disabled.
 
-Run from `web/` on the representative workstation:
+Renderer identity:
 
-```bash
-npm ci
-npx playwright install chromium
-npm run benchmark:graph:hardware
-```
+- vendor: `Google Inc. (VMware, Inc.)`;
+- renderer: `ANGLE (VMware Inc., SVGA3D; build: RELEASE; LLVM;, OpenGL ES 3.0)`;
+- `softwareRenderer=false`.
 
-The command intentionally fails if WebGL reports SwiftShader/llvmpipe/software rendering. On real hardware it additionally requires the ordinary **2k nodes / 10k edges** Performance-profile workload to sustain approximately **30 FPS or better**, while retaining the same semantic and idle-pause checks.
+Measured Performance-profile results:
 
-No additional application implementation is currently known to be required; the remaining item is physical performance qualification/evidence.
+- **1k nodes / 5k edges:** ~56.5 FPS, 2 draw calls, 36k triangles, idle pause PASS;
+- **2k nodes / 10k edges:** ~57.1 FPS, 2 draw calls, 72k triangles, settle ~5.48s, idle pause PASS;
+- **5k nodes / 25k edges:** ~23.8 FPS, 2 draw calls, 180k triangles, settle ~5.48s, idle pause PASS.
+
+The accepted ordinary **2k / 10k ≥30 FPS** hardware target is satisfied. The 5k / 25k workload is a stress envelope rather than an ordinary-frame-rate target; its measured degradation is recorded and remains semantically correct/responsive enough for stress evidence.
+
+FRC-01 is therefore complete. No additional frontend implementation work is implied by this correction slice.

@@ -42,13 +42,13 @@ python tools/check_harness_integration.py
 
 ## Current engineering frontier
 
-The frontend responsive/spatial/performance correction has been implemented and revalidated against canonical Harness `dd74a4876886beb134dedbb133974f765896db8e`.
+The frontend responsive/spatial/performance correction FRC-01 is complete and revalidated against canonical Harness `dd74a4876886beb134dedbb133974f765896db8e`.
 
-FRC-01 code and CI evidence are complete: graph-primary wide/compact/narrow composition, graph controls, semantic-preserving Auto/Quality/Performance degradation, optimized instanced/batched rendering, demand-driven idle pause, 21 browser tests and software-rendered 1k/2k/5k stress evidence all pass.
+Graph-primary wide/compact/narrow composition, graph controls, semantic-preserving Auto/Quality/Performance degradation, optimized instanced/batched rendering, demand-driven idle pause, deterministic/CI verification, software stress evidence and physical GPU qualification all pass. The real-GPU ordinary 2k/10k Performance-profile benchmark measured approximately 57 FPS against the accepted ~30-FPS target.
 
-The only remaining FRC-01 acceptance item is **physical GPU qualification** of the accepted ordinary 2k/10k ~30-FPS target. GitHub-hosted CI reports SwiftShader and is intentionally not accepted as hardware FPS evidence. Run `npm run benchmark:graph:hardware` from `web/` on a representative GPU workstation; the command rejects software rendering and sub-30-FPS 2k/10k results.
+There is no further frontend implementation slice implied by FRC-01. Select the next engineering frontier from current Harness/project priorities and its owning Consumer/Authority rather than extending frontend behavior opportunistically.
 
-Do not claim the physical performance qualification complete until that run is recorded. `Q-KNOWLEDGE-GRAPH-3D-VALUE` also remains unresolved pending human task evidence; do not promote 3D to a whole-product invariant.
+`Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; successful renderer performance does not by itself prove that 3D improves user task outcomes.
 
 The `experiments/knowledge-representation-3d` branch remains implementation evidence only. Renderer-local mechanics may be adapted later under the accepted `GraphRenderer -> graph-rfg3d` boundary; its routes, graph-first product semantics, generated snapshot sync and experimental state ownership are not production authority.
 

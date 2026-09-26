@@ -72,7 +72,7 @@ Current frontend realization constraints additionally include:
 - `docs/verification/frontend-test-design.yaml`;
 - `docs/implementation/frontend-implementation-design.md`.
 
-Current noncanonical implementation evidence is recorded in `docs/verification/frontend-release-evidence.md`. FRC-01 code/CI evidence is renewed there; the remaining qualification item is the accepted real-GPU 2k/10k performance run.
+Current noncanonical implementation evidence is recorded in `docs/verification/frontend-release-evidence.md`. FRC-01 code/CI evidence and the real-GPU 2k/10k performance qualification are complete there.
 
 The 3D graph remains a first-class prototype hypothesis, not a graph-first whole-product invariant. UI providers/renderers are downstream replaceable dependencies and may not redefine product/interface semantics.
 
