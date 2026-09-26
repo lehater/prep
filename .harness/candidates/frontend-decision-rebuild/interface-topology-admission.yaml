@@ -1,0 +1,36 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.interface-topology
+acceptance_id: frontend-decision-rebuild::prep.interface-topology::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: INTERFACE-TOPOLOGY
+  path: docs/interface/interface-topology.yaml
+  capability: prep.interface-topology
+  changed_paths:
+    - docs/interface/interface-topology.yaml
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - topology-not-screen-composition
+    basis: >-
+      Every interaction context is mapped to one coherent task view and the
+      external-study task remains explicitly no-ui. Root topology follows the
+      accepted Learning / shared Knowledge / Curation information intents;
+      shared Knowledge avoids duplicate semantic spaces while Curation retains
+      explicit mutation context. No local screen regions, layout or graph
+      presentation are chosen.
