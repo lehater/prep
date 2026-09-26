@@ -327,13 +327,13 @@ Completion is the full checklist in the final section below.
 
 This is a revalidation/correction slice, **not FI-08** and not new product scope. It exists because the previous Screen/View closure left responsive spatial hierarchy materially unconstrained and the graph performance/capacity artifact was outside the Harness dependency graph.
 
-Depends on the revised Presentation System, Screen/View Design, Frontend Performance/Capacity, Frontend Architecture, Component Design, Verification and Test Design.
+Depends on the revised Presentation System, Screen/View Design, Visual Composition, Frontend Performance/Capacity, Frontend Architecture, Component Design, Verification and Test Design. Visual Composition is an independent realization input and does not derive from Frontend Architecture.
 
 Creates/adapts:
 
 - graph-primary responsive Knowledge workspace for wide / compact / narrow compositions;
 - compact Knowledge toolbar with Search, semantic-kind filter, relation-type multi-select, focus/clear, Fit, Reset and Graph settings;
-- Curation New/Import as focused actions instead of permanent large panels above the graph;
+- Curation New/Import as header-row authoring actions, visually separate from the lower graph toolbar;
 - renderer-neutral Auto / Quality / Performance profile state and accepted advanced rendering preferences;
 - donor adaptation of instanced-node, batched-link, demand-driven idle rendering and semantic-preserving visual/physics degradation;
 - renderer-private diagnostics suitable for hardware benchmark evidence;
