@@ -3,6 +3,8 @@ name: Visual composition experiment
 on:
   push:
     branches: [experiment/parallel-visual-composition-header]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
