@@ -136,3 +136,28 @@ test("contextual import reports applied and rejected item outcomes", async ({ pa
   await expect(outcomes).toContainText("python-gil: created");
   await expect(outcomes).toContainText("broken: rejected");
 });
+
+test("Curation Knowledge keeps authoring actions compact until requested", async ({
+  page,
+}) => {
+  await page.goto("/curation/knowledge");
+
+  await expect(
+    page.getByRole("region", { name: "New Knowledge" }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "New Knowledge" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Import Knowledge" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "New Knowledge" }).click();
+  await expect(
+    page.getByRole("region", { name: "New Knowledge" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(
+    page.getByRole("region", { name: "New Knowledge" }),
+  ).toHaveCount(0);
+});

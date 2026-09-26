@@ -113,3 +113,48 @@ test("completes core Knowledge access with keyboard interaction only", async ({
   await expect(search).toHaveValue("cgroups");
   await expect(page).toHaveURL(/q=cgroups/);
 });
+
+test("graph toolbar preserves semantic filters and exposes performance degradation controls", async ({
+  page,
+}) => {
+  await page.goto(targetKnowledgePath);
+
+  await expect(page.getByRole("button", { name: "Fit graph" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Reset camera" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: /Relations all/ }).click();
+  const realizes = page.getByRole("checkbox", { name: "realizes" });
+  const addresses = page.getByRole("checkbox", { name: "addresses" });
+  await expect(realizes).toBeChecked();
+  await expect(addresses).toBeChecked();
+
+  await realizes.uncheck();
+  await expect(page).toHaveURL(/relation=addresses/);
+  await expect(
+    page.getByRole("region", { name: "Knowledge graph" }),
+  ).toContainText(/1 relations/);
+
+  await page.getByRole("button", { name: "Graph settings" }).click();
+  const profile = page.getByRole("combobox", {
+    name: "Graph performance profile",
+  });
+  await profile.selectOption("performance");
+  await expect(profile).toHaveValue("performance");
+
+  const arrowheads = page.getByRole("checkbox", {
+    name: "Directional arrowheads",
+  });
+  const particles = page.getByRole("checkbox", {
+    name: "Decorative particles",
+  });
+  await expect(arrowheads).not.toBeChecked();
+  await expect(particles).not.toBeChecked();
+  await expect(
+    page.getByRole("combobox", { name: "Graph live physics" }),
+  ).toHaveValue("settle-and-pause");
+
+  await page.getByRole("button", { name: "Show all" }).click();
+  await expect(page).not.toHaveURL(/relation=/);
+});

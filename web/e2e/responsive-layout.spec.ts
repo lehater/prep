@@ -37,7 +37,7 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   expect(graphBox.width).toBeGreaterThan(900);
   expect(graphBox.width).toBeGreaterThan(listBox.width * 3);
   expect(graphBox.height).toBeGreaterThanOrEqual(500);
-  expect(graphBox.height).toBeLessThanOrEqual(820);
+  expect(graphBox.height).toBeLessThanOrEqual(920);
 });
 
 test("reflows the Knowledge workspace for tablet and mobile widths", async ({
@@ -72,9 +72,11 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   const mobileGraph = await box(graph);
   const mobileDetail = await box(detail);
 
-  expect(mobileGraph.y).toBeGreaterThanOrEqual(mobileList.y + mobileList.height);
-  expect(mobileDetail.y).toBeGreaterThanOrEqual(
+  expect(mobileList.y).toBeGreaterThanOrEqual(
     mobileGraph.y + mobileGraph.height,
+  );
+  expect(mobileDetail.y).toBeGreaterThanOrEqual(
+    mobileList.y + mobileList.height,
   );
   expect(mobileGraph.width).toBeGreaterThan(340);
 

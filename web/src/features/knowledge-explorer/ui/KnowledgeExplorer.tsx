@@ -201,15 +201,20 @@ export function KnowledgeExplorer({
   };
 
   const toggleRelationType = (relationType: KnowledgeRelationType) => {
-    const selected = relationSet(routeState.relationTypes);
-    const next = selected.has(relationType)
-      ? routeState.relationTypes.filter((type) => type !== relationType)
-      : [...routeState.relationTypes, relationType];
+    const selected =
+      routeState.relationTypes.length === 0
+        ? new Set<KnowledgeRelationType>(KNOWLEDGE_RELATION_TYPES)
+        : relationSet(routeState.relationTypes);
+    if (selected.has(relationType)) {
+      selected.delete(relationType);
+    } else {
+      selected.add(relationType);
+    }
+    const next = KNOWLEDGE_RELATION_TYPES.filter((type) => selected.has(type));
     updateRouteState({
       ...routeState,
-      relationTypes: KNOWLEDGE_RELATION_TYPES.filter((type) =>
-        next.includes(type),
-      ),
+      relationTypes:
+        next.length === KNOWLEDGE_RELATION_TYPES.length ? [] : next,
     });
   };
 
