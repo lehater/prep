@@ -135,16 +135,23 @@ This preserves the distinction between transferable implementation-independent k
 
 Typed relationships are part of subject meaning and may create semantic roles.
 
-Currently accepted foundational relations:
+The canonical relation vocabulary is controlled and extensible. Prep keeps `addresses` for its explicit problem/solution role and also admits the relation semantics previously evaluated in the Knowledge Graph project where they have clear directional boundaries.
 
-| relation | meaning |
-|---|---|
-| `addresses` | source provides a solution, mitigation or response to the target problem |
-| `realizes` | source is a concrete or narrower realization of the target abstraction |
+| relation | direction | meaning |
+|---|---|---|
+| `addresses` | solution/response -> problem | source provides a solution, mitigation or response to the target problem |
+| `uses` | user -> employed target | source functionally employs the target as a mechanism, tool, technology, service or method; this alone does not imply necessity |
+| `specializes` | specific kind -> general kind | source is a narrower kind of the target |
+| `part_of` | part -> whole | source is a constituent part of the target |
+| `depends_on` | dependent -> dependency | source requires the target as a prerequisite; evidence must support necessity rather than mere use |
+| `realizes` | concrete realization -> abstraction | source concretely implements, embodies or represents the target abstraction |
+| `produces` | producer/activity -> output | source produces the target as an output or result |
+| `derives_from` | derived entity -> source entity | source is semantically derived from the target |
+| `enables` | enabler -> enabled capability/state | source materially makes the target possible or practically attainable without asserting universal hard dependency |
 
-Additional relation types such as dependency, composition, participation, causal explanation or usage require demonstrated recurring semantics and clear boundaries before becoming canonical.
+These types are machine-readable Prep semantics. Their admission does not require Knowledge Graph V2 to restore a typed relation registry: current Knowledge Graph cards may keep human-facing explanatory wikilinks, while a Prep import/export boundary classifies a typed edge only when the source explanation supports one of the accepted meanings without adding a new material assertion.
 
-A generic `related_to` relation is not sufficient canonical subject meaning.
+A generic `related_to` relation remains insufficient canonical subject meaning. When available evidence does not distinguish an accepted type and direction, no typed edge should be invented.
 
 Relations should not be duplicated as separate nodes merely to make them addressable.
 
