@@ -102,3 +102,5 @@ jobs:
 # rerun after restoring Paper import for on-demand authoring form
 
 # rerun after modal-aware control test and permanent benchmark gate
+
+# rerun after opening Advanced rendering before degradation assertions

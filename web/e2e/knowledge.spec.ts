@@ -142,6 +142,7 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   });
   await profile.selectOption("performance");
   await expect(profile).toHaveValue("performance");
+  await page.getByText("Advanced rendering").click();
 
   const arrowheads = page.getByRole("checkbox", {
     name: "Directional arrowheads",
