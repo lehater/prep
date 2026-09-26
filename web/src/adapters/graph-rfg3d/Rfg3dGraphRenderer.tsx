@@ -49,6 +49,8 @@ const NODE_HIT_RADIUS_PX = 18;
 const IDLE_PAUSE_DELAY_MS = 700;
 const FOCUS_DISTANCE = 125;
 const RESET_CAMERA_DISTANCE = 320;
+const LINK_ARROW_LENGTH = 6;
+const LINK_ARROW_REL_POS = 0.86;
 
 const NODE_COLORS: Readonly<Record<KnowledgeSemanticKind, string>> = {
   concept: "#4f8df7",
@@ -973,9 +975,11 @@ export function Rfg3dGraphRenderer({
             }
             linkOpacity={0.8}
             linkDirectionalArrowLength={
-              strategy.arrowheads && !strategy.useBatchedLinks ? 3 : 0
+              strategy.arrowheads && !strategy.useBatchedLinks
+                ? LINK_ARROW_LENGTH
+                : 0
             }
-            linkDirectionalArrowRelPos={1}
+            linkDirectionalArrowRelPos={LINK_ARROW_REL_POS}
             linkDirectionalParticles={
               strategy.particles && !strategy.useBatchedLinks ? 1 : 0
             }
