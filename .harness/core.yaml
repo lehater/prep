@@ -219,3 +219,136 @@ questions:
   - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
     authority: HUMAN-INTERFACE-DESIGN
     text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?
+
+  - id: Q-REQUIREMENT-ACQUISITION-SCOPE
+    authority: PRODUCT-REQUIREMENTS
+    text: To what extent should Prep obtain and normalize learning requirements from authoritative public sources versus requiring already prepared Requirement/RequirementSet input?
+    blocks: [PRODUCT-CAPABILITIES]
+    resolution: PRODUCT-CAPABILITIES
+
+  - id: Q-KNOWLEDGE-ACQUISITION-SCOPE
+    authority: PRODUCT-REQUIREMENTS
+    text: To what extent should Prep transform source material into candidate subject knowledge automatically or with human assistance versus requiring already prepared canonical Knowledge input?
+    blocks: [PRODUCT-CAPABILITIES]
+    resolution: PRODUCT-CAPABILITIES
+
+  - id: Q-TARGET-SATISFACTION-CRITERIA
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What does it mean for a learner to satisfy a LearningTarget or its Requirements, including required depth, performance context and evidence criteria?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-KNOWLEDGE-NODE-IDENTITY-GRANULARITY
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What rules determine KnowledgeNode semantic identity and granularity, including when source material describes a new reusable knowledge object versus an alias, detail or part of an existing object?
+    blocks: [KNOWLEDGE-MODEL]
+    resolution: KNOWLEDGE-MODEL
+
+  - id: Q-KNOWLEDGE-RELATION-CONTRACT
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What is the complete canonical KnowledgeRelation vocabulary and machine-readable classification/admission contract, including direction, precision, unsupported relations and introduction of new relation types?
+    blocks: [KNOWLEDGE-MODEL]
+    resolution: KNOWLEDGE-MODEL
+
+  - id: Q-KNOWLEDGE-PROVENANCE-ADMISSION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What source support, provenance and confidence information is required before a candidate KnowledgeNode or KnowledgeRelation is admitted as accepted canonical subject knowledge?
+    blocks: [KNOWLEDGE-MODEL]
+    resolution: KNOWLEDGE-MODEL
+
+  - id: Q-KNOWLEDGE-RECONCILIATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should aliases, duplicate concepts, overlapping granularity, contradictory assertions and revisions from multiple sources be reconciled while preserving stable Knowledge identity?
+    blocks: [KNOWLEDGE-MODEL]
+    resolution: KNOWLEDGE-MODEL
+
+  - id: Q-KNOWLEDGE-QUALITY-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: Which structural or semantic conditions constitute actionable Knowledge quality problems, and which diagnostics may be automated without turning graph structure or heuristics into subject truth?
+    blocks: [KNOWLEDGE-MODEL]
+    resolution: KNOWLEDGE-MODEL
+
+  - id: Q-REQUIREMENT-KNOWLEDGE-MAPPING
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should a Requirement be aligned to reusable Knowledge so that the mapping preserves the capability actually demanded rather than reducing the Requirement to a topic label?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-TARGET-KNOWLEDGE-SCOPE-DERIVATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: Given Requirement-to-Knowledge alignments, how is the target-relevant Knowledge scope derived, including whether graph traversal expands from aligned entry knowledge and which relation semantics bound that expansion?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-CAPABILITY-ACTIVITY-MAPPING
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: Which learning or diagnostic activity kinds are appropriate for developing or evidencing different Requirement capabilities and depths, and how is that applicability represented?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-INITIAL-LEARNER-STATE-EVIDENCE
+    authority: APPLICATION-DESIGN
+    text: How should Prep obtain enough initial evidence about a learner before meaningful gaps or priorities can be computed, including when diagnostic activity should be requested?
+    blocks: [APPLICATION-DESIGN]
+    resolution: APPLICATION-DESIGN
+
+  - id: Q-LEARNER-EVIDENCE-VOCABULARY
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What learner-evidence vocabulary is required beyond the current Anki-shaped ReviewObservation so evidence from different learning and diagnostic activities can be recorded without losing its meaning?
+    blocks: [LEARNER-MODEL]
+    resolution: LEARNER-MODEL
+
+  - id: Q-LEARNER-STATE-INTERPRETATION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should recorded learner evidence be interpreted into inferred learner state, including uncertainty and the limits of inference from Question evidence to Knowledge or Requirements?
+    blocks: [LEARNER-MODEL]
+    resolution: LEARNER-MODEL
+
+  - id: Q-GAP-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should Prep compute a target-relative Gap between required capability and inferred learner state, including the role of Knowledge projections without reducing learner state to a set of known or unknown graph nodes?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-READINESS-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What evidence and dependency semantics determine whether a learner is ready for productive work on a Requirement or learning activity?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-PRIORITIZATION-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should target importance, gaps, readiness, uncertainty, limited time and retention risk determine what deserves attention next?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-NEXT-ACTION-SELECTION
+    authority: APPLICATION-DESIGN
+    text: How should an accepted learning or diagnostic priority be converted into a concrete next action or materialization without allowing available Question material or an external runtime to redefine the priority semantics?
+    blocks: [APPLICATION-DESIGN]
+    resolution: APPLICATION-DESIGN
+
+  - id: Q-EVIDENCE-AGING-RETENTION
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: How should time, delayed retrieval and context affect the continuing evidential value of prior learner observations without importing an external scheduler as Prep domain truth?
+    blocks: [LEARNER-MODEL]
+    resolution: LEARNER-MODEL
+
+  - id: Q-PROGRESS-MODEL
+    authority: TACTICAL-DOMAIN-DESIGN
+    text: What evidence-backed claims may Prep make about learner progress toward a LearningTarget, and at what subject level may those claims be expressed?
+    blocks: [LEARNING-DESIGN]
+    resolution: LEARNING-DESIGN
+
+  - id: Q-ADAPTIVE-REPLANNING
+    authority: APPLICATION-DESIGN
+    text: How should newly recorded and interpreted evidence trigger recomputation of gaps, priorities and subsequent learning or diagnostic actions while preserving explicit user control?
+    blocks: [APPLICATION-DESIGN]
+    resolution: APPLICATION-DESIGN
+
+  - id: Q-KNOWLEDGE-ACQUISITION-WORKFLOW
+    authority: APPLICATION-DESIGN
+    text: What end-to-end workflow transforms accepted source material into candidate, reviewed and admitted KnowledgeNodes and KnowledgeRelations, including the division of responsibility between automation, assistance and human judgment?
+    blocks: [APPLICATION-DESIGN]
+    resolution: APPLICATION-DESIGN
+
