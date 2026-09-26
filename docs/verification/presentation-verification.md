@@ -80,6 +80,21 @@ Presentation System now accepts visual-role metrics and approximate density rang
 
 Representative rendered views at 100% browser zoom plus automated range assertions for structural metrics that are stable enough to test (for example title/control scale, shell rail existence, graph dominance, pane bounds and overflow). Pixel-perfect screenshot equality is not required.
 
+### PV-VISUAL-COMPOSITION-CONFORMANCE — accepted visual arrangement is preserved
+
+**Verifies**
+
+- Curation Knowledge authoring actions remain part of the wide header composition and are not moved into the graph toolbar;
+- the graph toolbar is a separate lower control band;
+- the rendered hierarchy follows `docs/interface/visual-composition.yaml` without requiring pixel-perfect equality;
+- narrow reflow may wrap header actions but does not merge them into graph-control semantics.
+
+**Method:** TEST + DEMONSTRATION.
+
+**Evidence requirement**
+
+At 1366x768, browser evidence must show `Curation Knowledge`, `New Knowledge` and `Import Knowledge` above the separately named Knowledge graph toolbar. The executable browser test uses bounding boxes only for the stable structural relationship and does not assert incidental pixels.
+
 ### PV-ACCESSIBILITY-BASELINE — non-graph and focus semantics
 
 **Verifies**
