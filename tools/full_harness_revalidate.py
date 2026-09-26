@@ -74,11 +74,22 @@ def main() -> int:
     ]
     semantic_evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
 
+    # Graph Doctor consumes the generic Core v0 model, whose validator expects
+    # explicit Authority declarations. Prep uses Engineering-Graph direct
+    # declaration mode, so create an in-memory compatibility projection only
+    # for diagnostics; canonical ownership remains in engineering-graph.yaml.
+    doctor_model = dict(core)
+    doctor_model["authorities"] = [
+        {"id": item["id"]}
+        for item in graph.get("authorities", []) or []
+        if isinstance(item, dict) and item.get("id")
+    ]
+
     doctor_warnings = []
     for consumer in consumers:
         doctor = diagnose_project(
             graph,
-            model=core,
+            model=doctor_model,
             target=consumer,
             source_root=ROOT,
         )

@@ -360,8 +360,8 @@ export function KnowledgeExplorer({
               ? "minmax(180px, 210px) minmax(0, 1fr)"
               : "minmax(0, 1fr)",
             lg: showList
-              ? "260px 160px minmax(0, 1fr)"
-              : "260px minmax(0, 1fr)",
+              ? "280px 160px minmax(0, 1fr)"
+              : "280px minmax(0, 1fr)",
             xl: showList
               ? "280px 180px minmax(0, 1fr)"
               : "280px minmax(0, 1fr)",
@@ -853,6 +853,7 @@ export function KnowledgeExplorer({
                     <Checkbox
                       size="small"
                       checked={renderPreferences.arrowheads}
+                      inputProps={{ "aria-label": "Directional arrowheads" }}
                       onChange={(event) =>
                         updatePreference("arrowheads", event.target.checked)
                       }
@@ -865,6 +866,7 @@ export function KnowledgeExplorer({
                     <Checkbox
                       size="small"
                       checked={renderPreferences.particles}
+                      inputProps={{ "aria-label": "Decorative particles" }}
                       onChange={(event) =>
                         updatePreference("particles", event.target.checked)
                       }
