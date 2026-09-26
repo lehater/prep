@@ -490,8 +490,9 @@ The experiment remains implementation evidence; production keeps its current ren
 
 The current nine-type runtime relation enum is now explicitly a compatibility baseline while the Knowledge relation model is revalidated.
 
-Normative research input:
-- `docs/research/relation-ontology-theory-selection.md`.
+Normative relation-classification inputs:
+- `docs/research/relation-ontology-theory-selection.md`;
+- `docs/domain/relation-classification-catalog.yaml` (machine-readable classifier contract and fallback policy).
 
 The next semantic migration must:
 1. audit a representative real Knowledge Graph corpus against the documented 20-predicate candidate set;
