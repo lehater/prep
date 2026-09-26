@@ -8,7 +8,7 @@ import {
 export interface ExplorerRouteState {
   readonly query: string;
   readonly semanticKind?: KnowledgeSemanticKind;
-  readonly relationTypes: readonly KnowledgeRelationType[];
+  readonly relationTypes?: readonly KnowledgeRelationType[];
   readonly selectedKnowledgeId?: string;
   readonly focusedKnowledgeIds: readonly string[];
 }
@@ -17,13 +17,15 @@ export function parseExplorerRouteState(
   params: URLSearchParams,
 ): ExplorerRouteState {
   const kind = params.get("kind");
-  const relations = (params.get("relation") ?? "")
+  const relationParam = params.get("relation");
+  const relations = (relationParam ?? "")
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
-  const relationTypes = KNOWLEDGE_RELATION_TYPES.filter((type) =>
-    relations.includes(type),
-  );
+  const relationTypes =
+    relationParam === null
+      ? undefined
+      : KNOWLEDGE_RELATION_TYPES.filter((type) => relations.includes(type));
   const focused = params
     .get("focus")
     ?.split(",")
@@ -49,7 +51,7 @@ export function serializeExplorerRouteState(
   if (state.semanticKind) {
     params.set("kind", state.semanticKind);
   }
-  if (state.relationTypes.length > 0) {
+  if (state.relationTypes !== undefined) {
     params.set("relation", state.relationTypes.join(","));
   }
   if (state.selectedKnowledgeId) {
