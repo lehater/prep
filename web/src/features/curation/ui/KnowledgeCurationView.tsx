@@ -236,6 +236,7 @@ export function KnowledgeCurationView({
               component="section"
               aria-label="Knowledge editor"
               spacing={1}
+              sx={{ minWidth: 0 }}
             >
               <Typography component="h3" variant="h6">
                 Knowledge editor
@@ -287,6 +288,14 @@ export function KnowledgeCurationView({
                       key={relation.id}
                       label={`${relation.sourceId} → ${relation.type} → ${relation.targetId}`}
                       onDelete={() => void removeRelation(relation.id)}
+                      sx={{
+                        maxWidth: "100%",
+                        "& .MuiChip-label": {
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        },
+                      }}
                     />
                   ),
                 )}
