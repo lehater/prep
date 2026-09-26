@@ -309,20 +309,35 @@ export function Rfg3dGraphRenderer({
   }, [reportUnavailable]);
 
   useEffect(() => {
+    if (webglAvailable !== true) {
+      return;
+    }
     const element = containerRef.current;
     if (!element) {
       return;
     }
 
+    const applySize = (width: number, height: number) => {
+      const next = {
+        width: Math.max(320, Math.floor(width)),
+        height: Math.max(360, Math.floor(height)),
+      };
+      setSize((current) =>
+        current.width === next.width && current.height === next.height
+          ? current
+          : next,
+      );
+    };
+
+    const bounds = element.getBoundingClientRect();
+    applySize(bounds.width, bounds.height);
+
     const observer = new ResizeObserver(([entry]) => {
-      setSize({
-        width: Math.max(320, Math.floor(entry.contentRect.width)),
-        height: Math.max(360, Math.floor(entry.contentRect.height)),
-      });
+      applySize(entry.contentRect.width, entry.contentRect.height);
     });
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [webglAvailable]);
 
   const syncOptimizedLayers = useCallback(() => {
     instancedLayerRef.current?.sync(graphData.nodes, nodeColor);

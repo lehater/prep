@@ -9,6 +9,18 @@ async function box(locator: Locator) {
   return value;
 }
 
+async function expectRendererFillsViewport(page: import("@playwright/test").Page) {
+  const renderer = page.getByRole("application", {
+    name: "Interactive 3D Knowledge graph",
+  });
+  await expect(renderer).toBeVisible();
+  const viewportBox = await box(renderer);
+  const canvasBox = await box(renderer.locator("canvas").first());
+
+  expect(Math.abs(canvasBox.width - viewportBox.width)).toBeLessThanOrEqual(2);
+  expect(Math.abs(canvasBox.height - viewportBox.height)).toBeLessThanOrEqual(2);
+}
+
 test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto("/curation/knowledge");
@@ -38,6 +50,7 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   expect(graphBox.width).toBeGreaterThan(listBox.width * 3);
   expect(graphBox.height).toBeGreaterThanOrEqual(580);
   expect(graphBox.height).toBeLessThanOrEqual(960);
+  await expectRendererFillsViewport(page);
 });
 
 test("reflows the Knowledge workspace for tablet and mobile widths", async ({
@@ -79,6 +92,7 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
     mobileList.y + mobileList.height,
   );
   expect(mobileGraph.width).toBeGreaterThan(340);
+  await expectRendererFillsViewport(page);
 
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
