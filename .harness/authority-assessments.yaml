@@ -34,9 +34,9 @@ assessments:
 
   - authority_id: TACTICAL-DOMAIN-DESIGN
     applicability: REQUIRED
-    evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    evidence: [docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
-    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted context boundaries or tactical domain semantics change]
 
   - authority_id: APPLICATION-DESIGN
@@ -72,7 +72,7 @@ assessments:
 
   - authority_id: HUMAN-INTERFACE-DESIGN
     applicability: REQUIRED
-    evidence: [docs/interface/human-interface.md, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    evidence: [docs/interface/conceptual-interface-model.yaml, docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
     rationale: Prep requires independently owned human interaction, information architecture and presentation/view composition. Presentation and screen/view contracts remain subject to the current revalidation.
     depends_on_evidence: [docs/application/user-journeys.md, docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted journeys, interaction model, information architecture or presentation/view contracts change materially]
@@ -138,39 +138,3 @@ assessments:
     depends_on_evidence: [docs/vision/product-capabilities.md, docs/interface/machine-interface.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/architecture/frontend-system-architecture.md]
     reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
 
-migration_conflicts:
-  - retired_authority: STRATEGIC-DOMAIN-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile, docs/architecture/context-map.md]
-    replacements: [DOMAIN-STRATEGY, MODEL-CONTEXT-STRATEGY]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: The current context and model-context maps contain independently material evidence for both replacement ownership families; applicability was reassessed from artifact semantics rather than copied.
-
-  - retired_authority: INTERFACE-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [MACHINE-INTERFACE-DESIGN, HUMAN-INTERFACE-DESIGN]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: Current canonical machine-interface and human-interface artifacts independently prove both replacement ownership families; applicability was reassessed from current semantics rather than copied from the retired Authority.
-
-  - retired_authority: DOMAIN-MODEL-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [TACTICAL-DOMAIN-DESIGN]
-    resolution: RESOLVED-BY-SEMANTIC-REASSESSMENT
-    rationale: Current Knowledge Model, Learning Design and Learner Model artifacts contain tactical domain semantics; legacy graph-centered artifacts were not carried forward.
-
-  - retired_authority: SECURITY-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [SECURITY-ARCHITECTURE, SECURITY-ANALYSIS]
-    resolution: DEFERRED-REASSESSMENT
-    rationale: Legacy security artifacts are downstream of the superseded solution hypothesis and do not prove current applicability.
-
-  - retired_authority: EXTERNAL-DEPENDENCY-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: []
-    resolution: RETIRED-NON-AUTHORITY
-    rationale: Current Harness treats external-dependency work as cross-Authority analysis rather than a standalone Authority.
-
-  - retired_authority: REALIZATION-DESIGN
-    previous_evidence: [.harness/core.yaml@pre-reconcile]
-    replacements: [IMPLEMENTATION-DESIGN]
-    resolution: DEFERRED-REASSESSMENT
-    rationale: Legacy implementation design is downstream of superseded architecture and cannot establish current applicability.

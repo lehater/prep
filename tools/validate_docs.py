@@ -67,6 +67,32 @@ def validate_doc_inventory() -> list[str]:
     return errors
 
 
+def _walk_strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        for item in value:
+            yield from _walk_strings(item)
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from _walk_strings(item)
+
+
+def validate_harness_doc_references() -> list[str]:
+    errors: list[str] = []
+    for path in sorted((ROOT / ".harness").glob("*.yaml")):
+        value = yaml.safe_load(path.read_text(encoding="utf-8"))
+        for item in _walk_strings(value):
+            if not item.startswith("docs/"):
+                continue
+            referenced = item.split("@", 1)[0]
+            if not (ROOT / referenced).is_file():
+                errors.append(
+                    f"{path.relative_to(ROOT)}: missing Harness doc reference {item!r}"
+                )
+    return errors
+
+
 def validate_file(path: Path) -> list[str]:
     text = path.read_text(encoding="utf-8")
     text = FENCED_BLOCK.sub("", text)
@@ -99,6 +125,7 @@ def validate_file(path: Path) -> list[str]:
 
 def main() -> int:
     errors = validate_doc_inventory()
+    errors.extend(validate_harness_doc_references())
 
     markdown_files = [
         path for path in sorted(ROOT.rglob("*.md")) if _is_repository_owned(path)
