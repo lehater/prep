@@ -272,6 +272,7 @@ export function KnowledgeExplorer({
       <Paper
         component="form"
         variant="outlined"
+        aria-label="Knowledge graph toolbar"
         onSubmit={submitSearch}
         sx={{
           px: 1,
