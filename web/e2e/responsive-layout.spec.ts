@@ -77,7 +77,8 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   const tabletDetail = await box(detail);
 
   expect(tabletGraph.x).toBeGreaterThan(tabletList.x + tabletList.width);
-  expect(tabletGraph.width).toBeGreaterThan(600);
+  expect(tabletGraph.width).toBeGreaterThan(520);
+  expect(tabletGraph.width).toBeGreaterThan(tabletList.width * 2.5);
   expect(tabletDetail.y).toBeGreaterThanOrEqual(
     Math.min(tabletList.y + tabletList.height, tabletGraph.y + tabletGraph.height),
   );
