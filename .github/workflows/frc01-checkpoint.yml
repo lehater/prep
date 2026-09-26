@@ -94,3 +94,5 @@ jobs:
         run: npm run benchmark:graph
 
 # rerun after deterministic settle budget and router-aware checkbox assertion
+
+# rerun after stable benchmark diagnostics callback and direct relation-count oracle

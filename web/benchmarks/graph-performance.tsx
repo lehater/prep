@@ -1,4 +1,11 @@
-import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
+import {
+  StrictMode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createRoot } from "react-dom/client";
 
 import { Rfg3dGraphRenderer } from "../src/adapters/graph-rfg3d/Rfg3dGraphRenderer";
@@ -46,6 +53,16 @@ function BenchmarkApp() {
   const [command, setCommand] = useState<GraphRendererCommand>();
   const sequence = useRef(0);
 
+  const handleDiagnostics = useCallback((diagnostics: GraphRendererDiagnostics) => {
+    const benchmark = window.__prepGraphBenchmark;
+    if (!benchmark) return;
+    benchmark.diagnostics = diagnostics;
+    benchmark.samples.push({
+      capturedAtMs: performance.now(),
+      diagnostics,
+    });
+  }, []);
+
   useEffect(() => {
     window.__prepGraphBenchmark = {
       nodeCount,
@@ -67,15 +84,7 @@ function BenchmarkApp() {
       renderPreferences={graphPreferencesForProfile(profile)}
       command={command}
       onNodeActivate={() => undefined}
-      onDiagnostics={(diagnostics) => {
-        const benchmark = window.__prepGraphBenchmark;
-        if (!benchmark) return;
-        benchmark.diagnostics = diagnostics;
-        benchmark.samples.push({
-          capturedAtMs: performance.now(),
-          diagnostics,
-        });
-      }}
+      onDiagnostics={handleDiagnostics}
     />
   );
 }
