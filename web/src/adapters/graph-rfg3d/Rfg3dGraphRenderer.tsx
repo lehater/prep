@@ -6,12 +6,17 @@ import {
   useRef,
   useState,
 } from "react";
-import type { ErrorInfo, PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import type {
+  ErrorInfo,
+  PointerEvent as ReactPointerEvent,
+  ReactNode,
+} from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import type { ForceGraphMethods } from "react-force-graph-3d";
 import * as THREE from "three";
 
 import type {
+  GraphRendererDiagnostics,
   GraphRendererProps,
   GraphViewportSnapshot,
 } from "../../features/knowledge-explorer/ports/GraphRenderer";
@@ -19,6 +24,12 @@ import type {
   KnowledgeRelationType,
   KnowledgeSemanticKind,
 } from "../../features/knowledge-explorer/model/knowledge";
+import { createBatchedLinkLayer, type BatchedLinkLayer } from "./batchedLinkLayer";
+import {
+  DEFAULT_GRAPH_RENDER_PREFERENCES,
+  resolveGraphRenderStrategy,
+} from "./graphRenderStrategy";
+import { createInstancedNodeLayer, type InstancedNodeLayer } from "./instancedNodeLayer";
 import {
   advanceNodePointerGesture,
   beginNodePointerGesture,
@@ -37,6 +48,7 @@ const NODE_DRAG_THRESHOLD_PX = 5;
 const NODE_HIT_RADIUS_PX = 18;
 const IDLE_PAUSE_DELAY_MS = 700;
 const FOCUS_DISTANCE = 125;
+const RESET_CAMERA_DISTANCE = 320;
 
 const NODE_COLORS: Readonly<Record<KnowledgeSemanticKind, string>> = {
   concept: "#4f8df7",
@@ -152,8 +164,12 @@ class RendererErrorBoundary extends Component<
 export function Rfg3dGraphRenderer({
   scene,
   viewport,
+  performanceProfile = "auto",
+  renderPreferences = DEFAULT_GRAPH_RENDER_PREFERENCES,
+  command,
   onNodeActivate,
   onViewportChange,
+  onDiagnostics,
   onUnavailable,
 }: GraphRendererProps) {
   const graphRef = useRef<ForceGraphMethods<Rfg3dNode, Rfg3dLink>>(undefined);
@@ -161,6 +177,9 @@ export function Rfg3dGraphRenderer({
   const dragRef = useRef<ActiveNodeDrag | null>(null);
   const idleTimerRef = useRef<number | null>(null);
   const unavailableReportedRef = useRef(false);
+  const instancedLayerRef = useRef<InstancedNodeLayer | null>(null);
+  const batchedLayerRef = useRef<BatchedLinkLayer | null>(null);
+  const animationPausedRef = useRef(false);
   const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null);
   const [size, setSize] = useState({ width: 960, height: 600 });
 
@@ -169,6 +188,54 @@ export function Rfg3dGraphRenderer({
   const presentationById = useMemo(
     () => new Map(scene.nodes.map((node) => [node.knowledgeId, node])),
     [scene.nodes],
+  );
+  const strategy = useMemo(
+    () => resolveGraphRenderStrategy(scene, performanceProfile, renderPreferences),
+    [scene, performanceProfile, renderPreferences],
+  );
+
+  const nodeColor = useCallback(
+    (node: Rfg3dNode) => {
+      const presentation = presentationById.get(node.id);
+      if (presentation?.selected) {
+        return "#ffffff";
+      }
+      if (presentation?.focused || presentation?.highlighted) {
+        return "#78b7ff";
+      }
+      return NODE_COLORS[node.semanticKind];
+    },
+    [presentationById],
+  );
+
+  const linkColor = useCallback(
+    (link: Rfg3dLink) => RELATION_COLORS[link.relationType],
+    [],
+  );
+
+  const emitDiagnostics = useCallback(
+    (animationPaused = animationPausedRef.current) => {
+      if (!onDiagnostics) {
+        return;
+      }
+      const renderer = graphRef.current?.renderer();
+      const renderInfo = renderer?.info.render;
+      onDiagnostics({
+        nodeCount: graphData.nodes.length,
+        edgeCount: graphData.links.length,
+        strategy: strategy.family,
+        animationPaused,
+        drawCalls: renderInfo?.calls,
+        triangles: renderInfo?.triangles,
+        pixelRatio: renderer?.getPixelRatio(),
+      } satisfies GraphRendererDiagnostics);
+    },
+    [
+      graphData.links.length,
+      graphData.nodes.length,
+      onDiagnostics,
+      strategy.family,
+    ],
   );
 
   const clearIdleTimer = useCallback(() => {
@@ -180,23 +247,28 @@ export function Rfg3dGraphRenderer({
 
   const resumeRenderer = useCallback(() => {
     clearIdleTimer();
+    animationPausedRef.current = false;
     graphRef.current?.resumeAnimation();
   }, [clearIdleTimer]);
 
   const pauseRenderer = useCallback(() => {
     clearIdleTimer();
+    animationPausedRef.current = true;
     graphRef.current?.pauseAnimation();
-  }, [clearIdleTimer]);
+    emitDiagnostics(true);
+  }, [clearIdleTimer, emitDiagnostics]);
 
   const scheduleIdlePause = useCallback(() => {
     clearIdleTimer();
     idleTimerRef.current = window.setTimeout(() => {
       idleTimerRef.current = null;
       if (!dragRef.current) {
+        animationPausedRef.current = true;
         graphRef.current?.pauseAnimation();
+        emitDiagnostics(true);
       }
     }, IDLE_PAUSE_DELAY_MS);
-  }, [clearIdleTimer]);
+  }, [clearIdleTimer, emitDiagnostics]);
 
   const reportUnavailable = useCallback(
     (message: string) => {
@@ -232,6 +304,104 @@ export function Rfg3dGraphRenderer({
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
+
+  const syncOptimizedLayers = useCallback(() => {
+    instancedLayerRef.current?.sync(graphData.nodes, nodeColor);
+    batchedLayerRef.current?.sync(graphData.nodes, graphData.links, linkColor);
+  }, [graphData.links, graphData.nodes, linkColor, nodeColor]);
+
+  useEffect(() => {
+    if (webglAvailable !== true) {
+      return;
+    }
+
+    let cancelled = false;
+    let frame = 0;
+    let graphScene: THREE.Scene | undefined;
+
+    const attach = () => {
+      if (cancelled) {
+        return;
+      }
+      const graph = graphRef.current;
+      if (!graph) {
+        frame = requestAnimationFrame(attach);
+        return;
+      }
+
+      graphScene = graph.scene();
+      if (strategy.useInstancedNodes) {
+        instancedLayerRef.current = createInstancedNodeLayer(
+          graphData.nodes.length,
+          strategy.nodeResolution,
+        );
+        graphScene.add(instancedLayerRef.current.object);
+      }
+      if (strategy.useBatchedLinks) {
+        batchedLayerRef.current = createBatchedLinkLayer(graphData.links);
+        graphScene.add(batchedLayerRef.current.object);
+      }
+      syncOptimizedLayers();
+      emitDiagnostics(false);
+    };
+
+    frame = requestAnimationFrame(attach);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      if (graphScene && instancedLayerRef.current) {
+        graphScene.remove(instancedLayerRef.current.object);
+        instancedLayerRef.current.dispose();
+        instancedLayerRef.current = null;
+      }
+      if (graphScene && batchedLayerRef.current) {
+        graphScene.remove(batchedLayerRef.current.object);
+        batchedLayerRef.current.dispose();
+        batchedLayerRef.current = null;
+      }
+    };
+  }, [
+    dataKey,
+    emitDiagnostics,
+    graphData.links,
+    graphData.nodes.length,
+    strategy.nodeResolution,
+    strategy.useBatchedLinks,
+    strategy.useInstancedNodes,
+    syncOptimizedLayers,
+    webglAvailable,
+  ]);
+
+  useEffect(() => {
+    syncOptimizedLayers();
+  }, [presentationById, syncOptimizedLayers]);
+
+  useEffect(() => {
+    if (webglAvailable !== true) {
+      return;
+    }
+    let cancelled = false;
+    let frame = 0;
+    const applyPixelRatio = () => {
+      if (cancelled) {
+        return;
+      }
+      const renderer = graphRef.current?.renderer();
+      if (!renderer) {
+        frame = requestAnimationFrame(applyPixelRatio);
+        return;
+      }
+      renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio || 1, strategy.maxPixelRatio),
+      );
+      emitDiagnostics(animationPausedRef.current);
+    };
+    frame = requestAnimationFrame(applyPixelRatio);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [emitDiagnostics, strategy.maxPixelRatio, webglAvailable]);
 
   const captureViewport = useCallback((): GraphViewportSnapshot | null => {
     const graph = graphRef.current;
@@ -282,6 +452,54 @@ export function Rfg3dGraphRenderer({
       cancelAnimationFrame(frame);
     };
   }, [viewport, webglAvailable]);
+
+  useEffect(() => {
+    if (webglAvailable !== true || !command) {
+      return;
+    }
+    let cancelled = false;
+    let frame = 0;
+
+    const apply = () => {
+      if (cancelled) {
+        return;
+      }
+      const graph = graphRef.current;
+      if (!graph) {
+        frame = requestAnimationFrame(apply);
+        return;
+      }
+      resumeRenderer();
+      if (command.type === "fit") {
+        graph.zoomToFit(450, 48);
+      } else {
+        graph.cameraPosition(
+          { x: 0, y: 0, z: RESET_CAMERA_DISTANCE },
+          { x: 0, y: 0, z: 0 },
+          450,
+        );
+      }
+      window.setTimeout(() => {
+        const snapshot = captureViewport();
+        if (snapshot) {
+          onViewportChange?.(snapshot);
+        }
+        scheduleIdlePause();
+      }, 500);
+    };
+    frame = requestAnimationFrame(apply);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [
+    captureViewport,
+    command,
+    onViewportChange,
+    resumeRenderer,
+    scheduleIdlePause,
+    webglAvailable,
+  ]);
 
   useEffect(() => {
     if (webglAvailable !== true) {
@@ -368,6 +586,18 @@ export function Rfg3dGraphRenderer({
     webglAvailable,
   ]);
 
+  useEffect(() => {
+    if (webglAvailable !== true) {
+      return;
+    }
+    resumeRenderer();
+    if (strategy.physics === "off") {
+      const timer = window.setTimeout(pauseRenderer, 60);
+      return () => window.clearTimeout(timer);
+    }
+    return undefined;
+  }, [dataKey, pauseRenderer, resumeRenderer, strategy.physics, webglAvailable]);
+
   const findNodeAtPointer = useCallback(
     (clientX: number, clientY: number): Rfg3dNode | null => {
       const graph = graphRef.current;
@@ -389,7 +619,11 @@ export function Rfg3dGraphRenderer({
         ) {
           continue;
         }
-        const screen = graph.graph2ScreenCoords(node.x ?? 0, node.y ?? 0, node.z ?? 0);
+        const screen = graph.graph2ScreenCoords(
+          node.x ?? 0,
+          node.y ?? 0,
+          node.z ?? 0,
+        );
         const distance = Math.hypot(screen.x - pointerX, screen.y - pointerY);
         if (
           distance <= NODE_HIT_RADIUS_PX &&
@@ -417,7 +651,9 @@ export function Rfg3dGraphRenderer({
 
       const cameraDistance = graph
         .camera()
-        .position.distanceTo(new THREE.Vector3(node.x ?? 0, node.y ?? 0, node.z ?? 0));
+        .position.distanceTo(
+          new THREE.Vector3(node.x ?? 0, node.y ?? 0, node.z ?? 0),
+        );
       dragRef.current = {
         node,
         cameraDistance,
@@ -464,7 +700,10 @@ export function Rfg3dGraphRenderer({
       drag.node.fx = drag.node.x = point.x;
       drag.node.fy = drag.node.y = point.y;
       drag.node.fz = drag.node.z = point.z;
-      graph.d3ReheatSimulation();
+      syncOptimizedLayers();
+      if (strategy.physics !== "off") {
+        graph.d3ReheatSimulation();
+      }
     };
 
     const release = (cancelled: boolean) => {
@@ -477,15 +716,16 @@ export function Rfg3dGraphRenderer({
         delete drag.node.fx;
         delete drag.node.fy;
         delete drag.node.fz;
-        graphRef.current?.d3ReheatSimulation();
+        if (strategy.physics !== "off") {
+          graphRef.current?.d3ReheatSimulation();
+        }
       }
 
-      const activatedId = completeNodePointerGesture(
-        drag.gesture,
-        cancelled,
-      );
+      const activatedId = completeNodePointerGesture(drag.gesture, cancelled);
       dragRef.current = null;
-      const controls = graphRef.current?.controls() as RendererControls | undefined;
+      const controls = graphRef.current?.controls() as
+        | RendererControls
+        | undefined;
       if (controls) {
         controls.enabled = true;
       }
@@ -505,9 +745,15 @@ export function Rfg3dGraphRenderer({
       window.removeEventListener("pointerup", finish);
       window.removeEventListener("pointercancel", cancel);
     };
-  }, [onNodeActivate, scheduleIdlePause]);
+  }, [
+    onNodeActivate,
+    scheduleIdlePause,
+    strategy.physics,
+    syncOptimizedLayers,
+  ]);
 
   const focusCamera = useCallback(() => {
+    syncOptimizedLayers();
     const graph = graphRef.current;
     const focused = scene.nodes.find((node) => node.focused);
     if (!graph || !focused) {
@@ -515,7 +761,9 @@ export function Rfg3dGraphRenderer({
       return;
     }
 
-    const liveNode = graphData.nodes.find((node) => node.id === focused.knowledgeId);
+    const liveNode = graphData.nodes.find(
+      (node) => node.id === focused.knowledgeId,
+    );
     if (
       !liveNode ||
       !Number.isFinite(liveNode.x) ||
@@ -540,26 +788,36 @@ export function Rfg3dGraphRenderer({
       500,
     );
     scheduleIdlePause();
-  }, [graphData.nodes, scene.nodes, scheduleIdlePause]);
+  }, [graphData.nodes, scene.nodes, scheduleIdlePause, syncOptimizedLayers]);
 
-  const nodeColor = useCallback(
+  const nodeLabel = useCallback(
     (node: Rfg3dNode) => {
+      if (strategy.labels === "off") {
+        return "";
+      }
       const presentation = presentationById.get(node.id);
-      if (presentation?.selected) {
-        return "#ffffff";
+      if (
+        strategy.labels === "focused-only" &&
+        !presentation?.selected &&
+        !presentation?.focused &&
+        !presentation?.highlighted
+      ) {
+        return "";
       }
-      if (presentation?.focused || presentation?.highlighted) {
-        return "#78b7ff";
-      }
-      return NODE_COLORS[node.semanticKind];
+      return `${node.label} · ${node.semanticKind}`;
     },
-    [presentationById],
+    [presentationById, strategy.labels],
   );
 
-  const linkColor = useCallback(
-    (link: Rfg3dLink) => RELATION_COLORS[link.relationType],
-    [],
-  );
+  const handleEngineTick = useCallback(() => {
+    syncOptimizedLayers();
+  }, [syncOptimizedLayers]);
+
+  const handleEngineStop = useCallback(() => {
+    syncOptimizedLayers();
+    focusCamera();
+    emitDiagnostics(false);
+  }, [emitDiagnostics, focusCamera, syncOptimizedLayers]);
 
   if (webglAvailable === null) {
     return (
@@ -577,11 +835,24 @@ export function Rfg3dGraphRenderer({
     );
   }
 
+  const cooldownTime =
+    strategy.physics === "on"
+      ? 15_000
+      : strategy.physics === "settle-and-pause"
+        ? 5_000
+        : 0;
+
   return (
-    <section aria-label="3D Knowledge graph" style={{ height: "100%", minHeight: 360 }}>
+    <section
+      aria-label="3D Knowledge graph"
+      style={{ height: "100%", minHeight: 360 }}
+      data-render-strategy={strategy.family}
+      data-performance-profile={performanceProfile}
+    >
       <div
         ref={containerRef}
         role="application"
+        tabIndex={0}
         aria-label="Interactive 3D Knowledge graph"
         onPointerDownCapture={startNodeGesture}
         onWheelCapture={resumeRenderer}
@@ -599,9 +870,10 @@ export function Rfg3dGraphRenderer({
             width={size.width}
             height={size.height}
             graphData={graphData}
+            cooldownTime={cooldownTime}
             controlType="trackball"
             rendererConfig={{
-              antialias: true,
+              antialias: strategy.family === "standard",
               alpha: false,
               powerPreference: "high-performance",
             }}
@@ -610,9 +882,11 @@ export function Rfg3dGraphRenderer({
             showNavInfo={false}
             backgroundColor="#0b1220"
             nodeRelSize={4}
-            nodeResolution={16}
+            nodeResolution={strategy.nodeResolution}
+            nodeVisibility={!strategy.useInstancedNodes}
             nodeColor={nodeColor}
-            nodeLabel={(node) => `${node.label} · ${node.semanticKind}`}
+            nodeLabel={nodeLabel}
+            linkVisibility={!strategy.useBatchedLinks}
             linkColor={linkColor}
             linkWidth={(link) =>
               presentationById.get(endpointId(link.source))?.highlighted ||
@@ -621,12 +895,20 @@ export function Rfg3dGraphRenderer({
                 : 1
             }
             linkOpacity={0.8}
-            linkDirectionalArrowLength={3}
+            linkDirectionalArrowLength={
+              strategy.arrowheads && !strategy.useBatchedLinks ? 3 : 0
+            }
             linkDirectionalArrowRelPos={1}
+            linkDirectionalParticles={
+              strategy.particles && !strategy.useBatchedLinks ? 1 : 0
+            }
+            linkDirectionalParticleWidth={1.5}
+            linkDirectionalParticleColor={linkColor}
             linkLabel={(link) =>
               `${link.relationType}: ${endpointId(link.source)} → ${endpointId(link.target)}`
             }
-            onEngineStop={focusCamera}
+            onEngineTick={handleEngineTick}
+            onEngineStop={handleEngineStop}
           />
         </RendererErrorBoundary>
       </div>
