@@ -347,3 +347,17 @@ Manual use exposed three implementation defects not caught by the previous closu
 Correction commit `7678e449986bc58648b53fe7210af65e1e792c9e` separates selection from focus, keeps standard Auto graphs interaction-ready, preserves wakeable idle pause for optimized/degraded paths, makes global browse/results collapsed and bounded, and moves desktop mode/section navigation into a persistent left rail.
 
 The experimental R2 implementation was used as donor evidence for these interaction mechanics. Its PaymentGraph semantics, Storybook tuning and experiment-specific product state remain excluded.
+
+
+Live-interaction checkpoint workflow run `36210994698` passed after the graph/navigation/list correction:
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **19 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE with Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- repository validators and **28/28 Python tests**;
+- **14 Vitest files / 42 tests PASS**;
+- production Vite build PASS;
+- **22/22 Playwright PASS**.
+
+The temporary checkpoint workflow is removed after recording this evidence. Manual live-use confirmation remains required before FRC-01 is reclaimed as COMPLETE, specifically for sustained graph interaction and navigation/list usability.

@@ -50,7 +50,9 @@ Automated requalification run `36208046392` passes strict semantic/currentness c
 
 The previous physical-GPU qualification remains valid renderer-performance evidence: ordinary 2k/10k measured approximately 57 FPS against the accepted ~30-FPS target. Manual confirmation of the corrected running UI is still required before FRC-01 is COMPLETE again.
 
-Do not advance to a new non-frontend implementation frontier until this implementation-only correction is requalified.
+Live interaction revalidation additionally found and corrected an incomplete transfer of experimental graph mechanics: ordinary standard graphs no longer hard-pause after the old 5.5-second settle budget; selection no longer implies focus; global Knowledge browse is bounded/search-first; desktop application navigation now uses a persistent left rail. Full checkpoint run `36210994698` passes 30/30 strict semantic assertions, 28 Python tests, 14/42 Vitest and 22/22 Playwright.
+
+Do not advance to a new non-frontend implementation frontier until manual live-use confirms sustained graph interaction and the corrected navigation/browse design.
 
 `Q-KNOWLEDGE-GRAPH-3D-VALUE` remains unresolved pending human task evidence; successful renderer performance does not by itself prove that 3D improves user task outcomes.
 

@@ -276,3 +276,20 @@ Post-viewport manual review showed that correct responsive region geometry was i
 The current realization replaces provider defaults with an explicit compact theme and responsive profile: approximately 13–14px workspace text, 18–22px headings, 28–32px desktop controls, normal-case buttons, compact shell/workspace chrome, 1280px-class wide composition, 900px-class narrow transition, bounded supporting panes and viewport-derived graph height. The graph host also supplies its dark workspace surface independently of canvas initialization.
 
 Workflow run `36208874015` passed strict Harness/currentness closure, repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and 22/22 Playwright tests. This is implementation correctness evidence, not a substitute for manual visual/usability acceptance.
+
+
+## Live graph interaction / navigation correction
+
+Manual use found that the previous performance adaptation made the ordinary graph stop rendering after approximately five seconds: the default presentation requested `settle-and-pause` and the adapter unconditionally hard-paused animation after a 5.5-second settle budget. The experiment donor had a fuller wake/idle lifecycle; production had copied the pause side without equivalent interaction-safe policy.
+
+Current correction:
+
+- ordinary Auto/standard graphs use live physics and do not hard-idle-pause after settling;
+- optimized or explicitly degraded settle/off paths retain demand-driven idle pause and wake on interaction;
+- node activation selects/opens detail only; focus/local-neighborhood filtering is explicit;
+- global Curation Knowledge starts with browse/results collapsed and graph primary;
+- browse/results is capped at 40 visible matches with exact result/total context and search/filter refinement;
+- desktop mode/section navigation is a persistent left rail; narrow layouts reflow it;
+- experimental R2 mechanics remain donor evidence while PaymentGraph semantics and Storybook tuning remain excluded.
+
+Checkpoint run `36210994698` passed 30/30 strict semantic/currentness assertions, 19 accepted Frontend Test Design contracts, 28 Python tests, 14 Vitest files / 42 tests, production build and 22/22 Playwright tests.
