@@ -9,6 +9,12 @@ async function box(locator: Locator) {
   return value;
 }
 
+async function expectNoDocumentHorizontalOverflow(
+  page: import("@playwright/test").Page,
+) {
+  await expectNoDocumentHorizontalOverflow(page);
+}
+
 async function expectRendererFillsViewport(page: import("@playwright/test").Page) {
   const renderer = page.getByRole("application", {
     name: "Interactive 3D Knowledge graph",
@@ -47,6 +53,7 @@ test("uses the wide viewport for the Knowledge workspace", async ({ page }) => {
   expect(graphBox.height).toBeLessThanOrEqual(920);
   expect(graphBox.y).toBeLessThan(190);
   await expectRendererFillsViewport(page);
+  await expectNoDocumentHorizontalOverflow(page);
 
   const appTitle = page.getByRole("heading", { name: "Prep", level: 1 });
   await expect(
@@ -88,6 +95,7 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   expect(tabletDetail.y).toBeGreaterThanOrEqual(
     Math.min(tabletList.y + tabletList.height, tabletGraph.y + tabletGraph.height),
   );
+  await expectNoDocumentHorizontalOverflow(page);
 
   await page.setViewportSize({ width: 390, height: 844 });
 
