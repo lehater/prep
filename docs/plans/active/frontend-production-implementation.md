@@ -379,3 +379,15 @@ Presentation System revision 4 now specifies:
 - wide >= approximately 1280 px, compact approximately 900-1279 px and narrow < approximately 900 px transformations.
 
 Screen/View Design, Presentation Verification, Frontend Test Design and Implementation Design are revalidated downstream. The specification intentionally uses accepted ranges/roles rather than pixel-perfect screenshot equality so provider/CSS mechanics remain replaceable without reopening product semantics.
+
+
+Visual-specification checkpoint run `36212315132` passed after canonicalizing the sketch into Presentation/Screen contracts:
+
+- strict semantic baseline: **30/30 CURRENT-capable**;
+- Frontend UX closure: **19 topology views ACCEPTED**;
+- Frontend Test Design: **20 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION`: COMPLETE with Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- documentation, architecture and question validators PASS;
+- **28/28 Python tests PASS**.
+
+The temporary checkpoint workflow is removed after recording this evidence. This validates documentation/currentness consistency; it does not claim the existing frontend already realizes the newly accepted visual specification.
