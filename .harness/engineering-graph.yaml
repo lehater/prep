@@ -192,6 +192,12 @@ authorities:
           - capability: prep.presentation-system
           - capability: prep.machine-interfaces
           - capability: prep.frontend-performance-capacity
+      - capability: prep.visual-composition
+        knowledge_kind: visual-composition-design
+        requires:
+          - capability: prep.screen-view-design
+          - capability: prep.presentation-system
+          - capability: prep.frontend-performance-capacity
 
   - id: MACHINE-INTERFACE-DESIGN
     responsibility: Own supported machine-consumed interaction and representation contracts for browser/backend and external-runtime boundaries.
@@ -250,6 +256,7 @@ authorities:
           - capability: prep.interface-verification
           - capability: prep.presentation-system
           - capability: prep.screen-view-design
+          - capability: prep.visual-composition
           - capability: prep.frontend-performance-capacity
       - capability: prep.frontend-verification
         knowledge_kind: verification-strategy
@@ -378,6 +385,7 @@ authorities:
           - engineering.delivery.rollback
         requires:
           - capability: prep.frontend-component-design
+          - capability: prep.visual-composition
           - capability: prep.frontend-verification
           - capability: prep.frontend-test-design
 
