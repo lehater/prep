@@ -476,3 +476,18 @@ After Frontend Test Design was accepted, `prep.frontend-implementation-design` b
 - complete coding completion criteria.
 
 The historical broad `docs/implementation/implementation-design.md` is now explicitly labeled noncanonical to prevent stale whole-platform assumptions from being treated as current Prep implementation authority.
+
+## Open semantic-question closure before further design
+
+Further product/domain/application design should not treat the end-to-end learning loop as settled while the newly registered Harness Questions remain unresolved.
+
+Immediate investigation order:
+
+1. Product-entry and preparation scope: `Q-REQUIREMENT-ACQUISITION-SCOPE`, `Q-KNOWLEDGE-ACQUISITION-SCOPE`, `Q-TARGET-SATISFACTION-CRITERIA`.
+2. Knowledge core: `Q-KNOWLEDGE-NODE-IDENTITY-GRANULARITY`, `Q-KNOWLEDGE-RELATION-CONTRACT`, `Q-KNOWLEDGE-PROVENANCE-ADMISSION`, `Q-KNOWLEDGE-RECONCILIATION`, `Q-KNOWLEDGE-QUALITY-MODEL`, `Q-KNOWLEDGE-ACQUISITION-WORKFLOW`.
+3. Requirement-to-learning semantics: `Q-REQUIREMENT-KNOWLEDGE-MAPPING`, `Q-TARGET-KNOWLEDGE-SCOPE-DERIVATION`, `Q-CAPABILITY-ACTIVITY-MAPPING`, existing `Q-LEARNING-COVERAGE-MODEL`.
+4. Learner evidence/state: `Q-INITIAL-LEARNER-STATE-EVIDENCE`, existing `Q-LEARNER-STATE-SUBJECT`, `Q-LEARNER-EVIDENCE-VOCABULARY`, `Q-LEARNER-STATE-INTERPRETATION`, `Q-EVIDENCE-AGING-RETENTION`.
+5. Adaptation loop: `Q-GAP-MODEL`, `Q-READINESS-MODEL`, `Q-PRIORITIZATION-MODEL`, `Q-NEXT-ACTION-SELECTION`, `Q-PROGRESS-MODEL`, `Q-ADAPTIVE-REPLANNING`.
+
+The questions remain authoritative only in `.harness/core.yaml`; this plan records investigation order and must not duplicate or redefine their semantics.
+
