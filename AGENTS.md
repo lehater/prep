@@ -44,9 +44,11 @@ python tools/check_harness_integration.py
 
 FRC-01 is reopened after live interface review found an implementation/state-lifetime defect that previous automated evidence did not cover.
 
-Commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes semantic Knowledge scope so ordinary selection/detail changes do not reload graph/list data or replace the live renderer, and tightens graph-primary proportions for ordinary 1366px-class desktop widths. Permanent `Frontend fast` run `36207434077` passes.
+Commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes semantic Knowledge scope so ordinary selection/detail changes do not reload graph/list data or replace the live renderer, and tightens graph-primary proportions for ordinary 1366px-class desktop widths. Commit `e8c10e3ba47145c8e8a0c3f18061466b681e0659` fixes the renderer viewport lifecycle so the WebGL canvas measures and fills its assigned graph region instead of remaining at the initial 960x600 fallback size.
 
-The previous physical-GPU qualification remains valid renderer-performance evidence: ordinary 2k/10k measured approximately 57 FPS against the accepted ~30-FPS target. It does not prove interaction stability or spatial usability. Browser/full requalification plus manual confirmation of stable selection/layout are required before FRC-01 is COMPLETE again.
+Automated requalification run `36208046392` passes strict semantic/currentness closure, repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and 22 Playwright tests including renderer continuity and canvas-to-viewport sizing. Permanent `Frontend fast` run `36208046305` also passes.
+
+The previous physical-GPU qualification remains valid renderer-performance evidence: ordinary 2k/10k measured approximately 57 FPS against the accepted ~30-FPS target. Manual confirmation of the corrected running UI is still required before FRC-01 is COMPLETE again.
 
 Do not advance to a new non-frontend implementation frontier until this implementation-only correction is requalified.
 

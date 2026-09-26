@@ -260,4 +260,10 @@ Live use after the previous FRC-01 qualification exposed a gap not covered by th
 
 Correction commit `603e7114ade6aa311a232f13c61ed9fec79249ef` stabilizes Knowledge scope by semantic value, keeps the live renderer connected across ordinary selection/detail changes, tightens wide side-pane bounds, reduces wide shell padding and moves the wide layout test to 1366x768. Permanent `Frontend fast` workflow run `36207434077` passes.
 
-The new Playwright regression and full release/browser gate have not yet been executed for this correction commit. Therefore the earlier FRC-01 COMPLETE claim is withdrawn until that evidence and manual running-UI review pass. Hardware benchmark results above remain valid for renderer throughput/resource behavior only.
+The selection-lifetime correction was then followed by a second live-review finding: the assigned graph region expanded, but the WebGL canvas remained at the initial `960x600` fallback size. The ResizeObserver effect had executed before the renderer container existed while WebGL availability was still unresolved, then never reattached.
+
+Commit `e8c10e3ba47145c8e8a0c3f18061466b681e0659` gates measurement on mounted WebGL availability, applies the initial measured container size explicitly and keeps later size changes synchronized. `responsive-layout.spec.ts` now verifies the actual canvas bounds against the renderer viewport, not only the surrounding graph region.
+
+Automated requalification workflow run `36208046392` passed strict semantic/currentness closure, all repository validators, 28 Python tests, 14 Vitest files / 41 tests, production build and **22/22 Playwright tests**. Frontend Test Design now reports **18 executable contracts ACCEPTED**. Permanent `Frontend fast` run `36208046305` also passed.
+
+FRC-01 remains REOPENED only until the corrected running UI is manually confirmed. Hardware benchmark results above remain valid for renderer throughput/resource behavior only.

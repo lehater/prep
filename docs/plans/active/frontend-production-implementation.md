@@ -289,6 +289,27 @@ Correction commit `603e7114ade6aa311a232f13c61ed9fec79249ef`:
 - moves the wide responsive executable check from 1920x1080 to 1366x768;
 - adds a browser regression asserting that Knowledge selection does not disconnect/replace the live graph renderer.
 
-Permanent `Frontend fast` run `36207434077` passes on the correction commit. Full browser/release requalification is still required before FRC-01 can return to COMPLETE.
+Permanent `Frontend fast` run `36207434077` passed the selection-lifetime correction.
 
-FRC-01 remains reopened; the next work is browser/full verification and manual confirmation of the corrected running UI, not a new frontend feature slice.
+A subsequent manual screenshot exposed a second implementation defect: the graph region itself expanded correctly, but the WebGL canvas remained at the renderer's initial `960x600` fallback size. Root cause: the ResizeObserver effect ran only on the first render while WebGL availability was still unknown, found no mounted renderer container, and never retried.
+
+Viewport correction commit `e8c10e3ba47145c8e8a0c3f18061466b681e0659`:
+
+- starts graph measurement only after WebGL availability mounts the renderer container;
+- applies an immediate measured size and keeps it synchronized with ResizeObserver;
+- adds browser assertions that the actual canvas fills the renderer viewport at ordinary desktop and mobile sizes;
+- preserves the previously added renderer-lifetime regression.
+
+Requalification workflow run `36208046392` passed:
+- strict semantic baseline **30/30 CURRENT-capable**;
+- Frontend UX closure **19 topology views ACCEPTED**;
+- Frontend Test Design **18 executable contracts ACCEPTED**;
+- `FRONTEND-IMPLEMENTATION` COMPLETE with Engineering Coverage `completion_ready=true`, `remaining_work=0`, `questions=0`;
+- repository validators and **28/28 Python tests**;
+- **14 Vitest files / 41 tests PASS**;
+- production Vite build PASS;
+- **22/22 Playwright PASS**, including selection renderer continuity and canvas-to-viewport sizing.
+
+Permanent `Frontend fast` run `36208046305` also passed on the viewport correction commit.
+
+FRC-01 remains reopened only for manual confirmation of the corrected running UI. No new frontend feature slice is implied.
