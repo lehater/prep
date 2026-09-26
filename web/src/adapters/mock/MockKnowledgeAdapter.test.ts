@@ -1,5 +1,7 @@
 import { describe, expect, test } from "vitest";
 
+import { KNOWLEDGE_RELATION_TYPES } from "../../features/knowledge-explorer/model/knowledge";
+
 import { MockKnowledgeAdapter } from "./MockKnowledgeAdapter";
 import { PREPARED_TARGET_ID } from "./mockFixtures";
 import {
@@ -48,6 +50,18 @@ describe("MockKnowledgeAdapter", () => {
       ),
     ).toBe(true);
 
+    expect(KNOWLEDGE_RELATION_TYPES).toEqual([
+      "addresses",
+      "uses",
+      "specializes",
+      "part_of",
+      "depends_on",
+      "realizes",
+      "produces",
+      "derives_from",
+      "enables",
+    ]);
+
     expect(knowledgeGraphMockNodes).toHaveLength(14);
     expect(new Set(knowledgeGraphMockNodes.map((node) => node.id)).size).toBe(
       knowledgeGraphMockNodes.length,
@@ -59,6 +73,12 @@ describe("MockKnowledgeAdapter", () => {
         (relation) =>
           fixtureIds.has(relation.sourceId) && fixtureIds.has(relation.targetId),
       ),
+    ).toBe(true);
+    expect(
+      knowledgeGraphMockRelations.some((relation) => relation.type === "uses"),
+    ).toBe(true);
+    expect(
+      knowledgeGraphMockRelations.some((relation) => relation.type === "realizes"),
     ).toBe(true);
 
     const global = await adapter.graph({ kind: "global" });
