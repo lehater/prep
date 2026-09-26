@@ -37,6 +37,7 @@ export function buildGraphScene(
   intent: GraphProjectionIntent,
 ): GraphScene {
   const allowedKinds = new Set(intent.semanticKinds ?? []);
+  const relationFilterActive = intent.relationTypes !== undefined;
   const allowedRelations = new Set(intent.relationTypes ?? []);
   const kindFiltered = graph.nodes.filter(
     (node) => allowedKinds.size === 0 || allowedKinds.has(node.semanticKind),
@@ -47,7 +48,7 @@ export function buildGraphScene(
     (relation) =>
       kindFilteredIds.has(relation.sourceId) &&
       kindFilteredIds.has(relation.targetId) &&
-      (allowedRelations.size === 0 || allowedRelations.has(relation.type)),
+      (!relationFilterActive || allowedRelations.has(relation.type)),
   );
 
   const focusIds = new Set(intent.focusedKnowledgeIds ?? []);
