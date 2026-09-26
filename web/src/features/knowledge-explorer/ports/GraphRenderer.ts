@@ -15,6 +15,13 @@ export interface GraphRenderPreferences {
   readonly nodeDetail: GraphNodeVisualDetail;
 }
 
+export interface GraphPhysicsTuning {
+  readonly centerForce: number;
+  readonly repelForce: number;
+  readonly linkForce: number;
+  readonly linkDistance: number;
+}
+
 export interface GraphRendererCommand {
   readonly id: number;
   readonly type: "fit" | "reset-camera" | "diagnostics";
@@ -44,6 +51,7 @@ export interface GraphRendererProps {
   readonly viewport?: GraphViewportSnapshot;
   readonly performanceProfile?: GraphPerformanceProfile;
   readonly renderPreferences?: GraphRenderPreferences;
+  readonly physicsTuning?: GraphPhysicsTuning;
   readonly command?: GraphRendererCommand;
   readonly onNodeActivate: (knowledgeId: string) => void;
   readonly onViewportChange?: (snapshot: GraphViewportSnapshot) => void;
