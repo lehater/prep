@@ -1,0 +1,41 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.frontend-verification
+acceptance_id: frontend-decision-rebuild::prep.frontend-verification::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: FRONTEND-VERIFICATION
+  path: docs/verification/frontend-verification.md
+  capability: prep.frontend-verification
+  changed_paths:
+    - docs/verification/frontend-verification.md
+  canonical_references:
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/architecture/frontend-system-architecture.md
+    - referenced_path: docs/verification/interface-verification.md
+    - referenced_path: docs/interface/machine-interface.md
+    - referenced_path: docs/verification/presentation-verification.md
+    - referenced_path: docs/vision/product-capabilities.md
+    - referenced_path: docs/vision/vision.md
+    - referenced_path: docs/architecture/system-architecture.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - verification-not-semantic-owner
+    basis: >-
+      Rebuilt only from the Harness-generated CREATE read set. The strategy
+      defines evidence for product-scope traceability, frontend dependency
+      boundaries, mixed textual/3D Knowledge access, canonical mutation and
+      recovery semantics, study/evidence behavior, responsive keyboard
+      continuity, machine-boundary use, failure isolation and quality-target
+      discipline without selecting component/test framework realization.
