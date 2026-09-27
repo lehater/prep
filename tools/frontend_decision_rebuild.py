@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe branch for the current experiment base.
+# Isolated CI probe branch after rebuilt Data Design admission.
 from __future__ import annotations
 
 import json
