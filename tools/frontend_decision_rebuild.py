@@ -26,6 +26,9 @@ from semantic_admission import admit_artifact  # noqa: E402
 TARGETS = ("FRONTEND-IMPLEMENTATION", "CURRENT-REVALIDATION")
 BASE_LIFECYCLE_PATH = ROOT / ".harness/candidates/frontend-decision-rebuild-lifecycle.yaml"
 EVIDENCE_DIR = ROOT / ".harness/candidates/frontend-decision-rebuild"
+UPSTREAM_REVISION_PATH = (
+    EVIDENCE_DIR / "frontend-performance-capacity-revision.yaml"
+)
 REBUILT_CAPABILITIES = {
     "prep.task-model",
     "prep.user-journeys",
@@ -156,6 +159,60 @@ def load_admission_evidence() -> dict[str, dict[str, Any]]:
     return result
 
 
+def apply_upstream_revision(
+    *,
+    graph: dict[str, Any],
+    core: dict[str, Any],
+    lifecycle: dict[str, Any],
+    decision_contracts: dict[str, Any],
+    policy: dict[str, Any],
+    skill_registry: dict[str, Any],
+    knowledge_contracts: dict[str, Any],
+) -> dict[str, Any]:
+    doc = load(UPSTREAM_REVISION_PATH)
+    if doc.get("kind") != "prep-frontend-decision-rebuild-upstream-revision":
+        raise SystemExit("unexpected upstream revision evidence kind")
+    capability = doc.get("capability")
+    if capability != "prep.frontend-performance-capacity":
+        raise SystemExit(f"unexpected upstream revision capability: {capability}")
+    if doc.get("decision_request_mode") != "REVISION":
+        raise SystemExit("upstream quality correction must use REVISION mode")
+
+    result = admit_artifact(
+        graph=graph,
+        model=core,
+        skill_registry=skill_registry,
+        knowledge_contracts=knowledge_contracts,
+        decision_contracts=decision_contracts,
+        decision_policy=policy,
+        decision_exploration=doc.get("decision_exploration"),
+        capability=capability,
+        sources=doc.get("sources", {}),
+        candidate=doc.get("candidate", {}),
+        acceptance_id=doc["acceptance_id"],
+        lifecycle=lifecycle,
+        decision_request_mode="REVISION",
+    )
+    if result.get("status") != "ACCEPTED":
+        raise SystemExit(
+            "strict semantic admission rejected upstream quality revision: "
+            + json.dumps(result.get("findings", []), sort_keys=True)
+        )
+
+    indices = [
+        index
+        for index, item in enumerate(lifecycle.get("providers", []) or [])
+        if item.get("capability") == capability
+    ]
+    if len(indices) != 1:
+        raise SystemExit(
+            f"expected exactly one lifecycle provider for {capability}, got {indices}"
+        )
+    lifecycle["providers"][indices[0]] = result["lifecycle_assertion"]
+    validate_projection(graph, core, lifecycle)
+    return result
+
+
 def main() -> int:
     graph = load(ROOT / ".harness/engineering-graph.yaml")
     core = load(ROOT / ".harness/core.yaml")
@@ -180,6 +237,16 @@ def main() -> int:
             "reset lifecycle must not contain rebuilt capabilities: "
             + ", ".join(base_selected)
         )
+
+    upstream_revision = apply_upstream_revision(
+        graph=graph,
+        core=core,
+        lifecycle=lifecycle,
+        decision_contracts=decision_contracts,
+        policy=policy,
+        skill_registry=skill_registry,
+        knowledge_contracts=knowledge_contracts,
+    )
 
     providers = provider_index(core)
     evidence = load_admission_evidence()
@@ -257,6 +324,10 @@ def main() -> int:
     summary = {
         "frontier_status": "READY" if ready else "EMPTY",
         "targets": list(TARGETS),
+        "upstream_revision": {
+            "capability": "prep.frontend-performance-capacity",
+            "acceptance_id": upstream_revision["admission"]["acceptance_id"],
+        },
         "admitted_rebuilt": admitted,
         "ready": sorted(ready),
         "blocked": roadmap_capabilities(roadmaps, "blocked"),
@@ -265,6 +336,8 @@ def main() -> int:
     }
     print("FRONTEND DECISION REBUILD ROADMAP")
     print(json.dumps(summary, indent=2, sort_keys=False))
+    print("UPSTREAM REVISION EVALUATION")
+    print(json.dumps(upstream_revision, indent=2, sort_keys=False))
     print("ADMISSION EVALUATIONS")
     print(json.dumps(evaluations, indent=2, sort_keys=False))
     print("FINAL ROADMAPS")
