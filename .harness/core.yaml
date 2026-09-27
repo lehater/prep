@@ -225,6 +225,7 @@ questions:
   - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
     authority: HUMAN-INTERFACE-DESIGN
     text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?
+    resolution: PRESENTATION-SYSTEM
 
   - id: Q-FRONTEND-GRAPH-CAPACITY-SCOPE
     authority: QUALITY-DESIGN
