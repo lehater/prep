@@ -1,0 +1,323 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.presentation-system
+acceptance_id: frontend-decision-rebuild::prep.presentation-system::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.presentation-system
+  knowledge_kind: presentation-system-design
+  explorer_request_id: sha256:905364c739dec753cd73f51ed6f502008107aa524a883e9d78f8fdf66f088f5f
+
+  axes:
+    - axis: knowledge-representation
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: graph-vs-nongraph
+          challenge: >-
+            Compare a purely textual Knowledge explorer with a spatial relational
+            projection paired with the same explicit search/focus/detail semantics.
+          alternatives:
+            - textual-semantic-access-only
+            - spatial-plus-textual-access
+        - strategy: 2d-vs-3d
+          challenge: >-
+            For a selected spatial relation projection, compare planar and
+            three-dimensional navigation while preserving explicit relation semantics.
+          alternatives:
+            - spatial-2d
+            - spatial-3d
+            - dual-2d-3d
+        - strategy: single-vs-mixed
+          challenge: >-
+            Test whether one projection should carry all Knowledge access or
+            whether semantic textual access and spatial relation exploration
+            should coexist.
+          alternatives:
+            - textual-semantic-access-only
+            - spatial-plus-textual-access
+            - dual-2d-3d
+      decision_points:
+        - id: knowledge-access-portfolio
+          alternatives:
+            - id: textual-semantic-access-only
+              difference: >-
+                Knowledge uses search/list/focused detail and explicit relationship
+                traversal without any spatial node-link projection.
+              material_effects:
+                representation-form: textual-list-detail
+                spatial-dimensionality: none
+                relation-encoding: explicit-textual-relations
+            - id: spatial-plus-textual-access
+              difference: >-
+                Textual semantic access remains available while a node-link
+                projection provides an additional relational exploration surface.
+              material_effects:
+                representation-form: mixed-textual-and-node-link
+                spatial-dimensionality: spatial-projection-present
+                relation-encoding: geometry-plus-explicit-semantic-relation
+        - id: spatial-dimensionality
+          alternatives:
+            - id: spatial-2d
+              difference: >-
+                The relational projection uses a planar node-link space with
+                pan/zoom/focus interactions.
+              material_effects:
+                representation-form: node-link
+                spatial-dimensionality: two-dimensional
+                relation-encoding: planar-links-plus-explicit-detail
+            - id: spatial-3d
+              difference: >-
+                The relational projection uses a three-dimensional node-link
+                space with camera navigation and focus traversal.
+              material_effects:
+                representation-form: node-link
+                spatial-dimensionality: three-dimensional
+                relation-encoding: spatial-links-plus-explicit-detail
+            - id: dual-2d-3d
+              difference: >-
+                Both 2D and 3D spatial projections are product presentation modes
+                for the same semantic Knowledge relationships.
+              material_effects:
+                representation-form: multiple-node-link-modes
+                spatial-dimensionality: two-and-three-dimensional
+                relation-encoding: duplicated-spatial-projections-plus-explicit-detail
+
+    - axis: information-density
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: dense-vs-progressive
+          challenge: >-
+            Compare presenting broad relation context and labels simultaneously
+            with a focus-driven projection that progressively discloses detail.
+          alternatives:
+            - all-context-dense
+            - focus-progressive
+        - strategy: focus-context-shift
+          challenge: >-
+            Shift emphasis from global simultaneous context toward one primary
+            focus plus a bounded relevant neighborhood and test task continuity.
+          alternatives:
+            - all-context-dense
+            - focus-progressive
+        - strategy: always-visible-vs-on-demand
+          challenge: >-
+            Compare always-visible content/labels with detail disclosed from the
+            current focus while preserving search and relation access.
+          alternatives:
+            - all-context-dense
+            - focus-progressive
+      decision_points:
+        - id: knowledge-density-strategy
+          alternatives:
+            - id: all-context-dense
+              difference: >-
+                The presentation attempts to keep broad graph/list context, labels
+                and detail simultaneously visible by default.
+              material_effects:
+                simultaneous-context: broad-always-visible
+                detail-disclosure: eager
+                label-density: high
+            - id: focus-progressive
+              difference: >-
+                Search/scope establish context, one primary focus is emphasized,
+                and relationship/detail information is progressively disclosed.
+              material_effects:
+                simultaneous-context: bounded-focus-neighborhood
+                detail-disclosure: progressive
+                label-density: contextual
+
+    - axis: control-surface
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: inline-vs-dedicated-controls
+          challenge: >-
+            Compare a comprehensive permanently visible visualization toolbar with
+            task-core controls plus compact projection-local secondary controls.
+          alternatives:
+            - comprehensive-persistent-controls
+            - task-core-plus-secondary-controls
+            - command-only-controls
+        - strategy: direct-manipulation-vs-command
+          challenge: >-
+            Compare controls exposed through visible task actions with a mostly
+            command-driven surface while keeping renderer tuning out of product vocabulary.
+          alternatives:
+            - comprehensive-persistent-controls
+            - task-core-plus-secondary-controls
+            - command-only-controls
+        - strategy: pointer-vs-keyboard
+          challenge: >-
+            Test a pointer/spatial-gesture-only graph interaction against an
+            interaction model with equivalent semantic search/focus/traversal by keyboard.
+          alternatives:
+            - pointer-only-spatial-access
+            - pointer-plus-keyboard-semantic-access
+      decision_points:
+        - id: control-persistence
+          alternatives:
+            - id: comprehensive-persistent-controls
+              difference: >-
+                A broad persistent toolbar exposes task controls and visualization
+                tuning together.
+              material_effects:
+                control-persistence: comprehensive-persistent
+                direct-manipulation: visible-toolbar-and-spatial
+                keyboard-equivalence: can-be-provided
+            - id: task-core-plus-secondary-controls
+              difference: >-
+                Search/scope/filter/focus remain discoverable task controls while
+                projection-local camera controls are compact and renderer tuning stays secondary.
+              material_effects:
+                control-persistence: task-core-persistent-secondary-contextual
+                direct-manipulation: spatial-plus-explicit-task-controls
+                keyboard-equivalence: explicit-semantic-path
+            - id: command-only-controls
+              difference: >-
+                Most Knowledge navigation/filter actions are hidden behind command
+                invocation rather than visible task controls.
+              material_effects:
+                control-persistence: minimal
+                direct-manipulation: command-dominant
+                keyboard-equivalence: strong-but-discoverability-dependent
+        - id: spatial-access-equivalence
+          alternatives:
+            - id: pointer-only-spatial-access
+              difference: >-
+                Focus and relation traversal depend on pointer/camera gestures in
+                the spatial projection.
+              material_effects:
+                control-persistence: spatial-gestures
+                direct-manipulation: pointer-only
+                keyboard-equivalence: absent
+            - id: pointer-plus-keyboard-semantic-access
+              difference: >-
+                Pointer spatial exploration is optional; search, result selection,
+                relationship traversal and focus remain keyboard-operable.
+              material_effects:
+                control-persistence: visible-semantic-controls
+                direct-manipulation: pointer-optional
+                keyboard-equivalence: present
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - knowledge-access-portfolio
+      - spatial-dimensionality
+      - knowledge-density-strategy
+      - control-persistence
+      - spatial-access-equivalence
+    open_gaps: []
+
+candidate:
+  id: PRESENTATION-SYSTEM
+  path: docs/interface/presentation-system.md
+  capability: prep.presentation-system
+  changed_paths:
+    - docs/interface/presentation-system.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+  semantic_assertions: []
+  decision_review:
+    axes:
+      - axis: knowledge-representation
+        decisions:
+          - id: knowledge-access-portfolio
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: textual-semantic-access-only
+                state: VIABLE
+              - id: spatial-plus-textual-access
+                state: VIABLE
+            disposition: DELEGATED
+            selected: spatial-plus-textual-access
+          - id: spatial-dimensionality
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: spatial-2d
+                state: VIABLE
+              - id: spatial-3d
+                state: VIABLE
+              - id: dual-2d-3d
+                state: REJECTED
+                rationale: >-
+                  Maintaining two spatial product modes adds presentation and
+                  verification complexity without an accepted task that requires both.
+            disposition: DELEGATED
+            selected: spatial-3d
+
+      - axis: information-density
+        decisions:
+          - id: knowledge-density-strategy
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: all-context-dense
+                state: REJECTED
+                rationale: >-
+                  It conflicts with the accepted single-primary-focus model and
+                  forces unnecessary simultaneous rendering/detail instead of
+                  using search, scope and progressive disclosure.
+              - id: focus-progressive
+                state: VIABLE
+            disposition: DETERMINED
+            selected: focus-progressive
+
+      - axis: control-surface
+        decisions:
+          - id: control-persistence
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: comprehensive-persistent-controls
+                state: VIABLE
+              - id: task-core-plus-secondary-controls
+                state: VIABLE
+              - id: command-only-controls
+                state: VIABLE
+            disposition: DELEGATED
+            selected: task-core-plus-secondary-controls
+          - id: spatial-access-equivalence
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: pointer-only-spatial-access
+                state: REJECTED
+                rationale: >-
+                  Accepted Interaction Design requires keyboard-operable search,
+                  result selection, relationship selection and focus traversal.
+              - id: pointer-plus-keyboard-semantic-access
+                state: VIABLE
+            disposition: DETERMINED
+            selected: pointer-plus-keyboard-semantic-access
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - presentation-not-domain-semantics
+      - source-discipline
+    basis: >-
+      The rebuilt presentation system is derived from the Harness-generated
+      CREATE read set. It selects a mixed textual plus 3D Knowledge presentation
+      while preserving textual/keyboard semantic access, focus-progressive
+      density and explicit relation meaning. The 3D choice is local to Knowledge,
+      renderer mechanics remain downstream, and no domain, route, screen-region
+      or numeric performance semantics are invented.
