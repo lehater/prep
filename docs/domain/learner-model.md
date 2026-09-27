@@ -66,6 +66,8 @@ LearnerCapabilityClaim
 
 It is an evidence-backed proposition that the learner possesses or does not possess the specified Capability in the stated time scope.
 
+A LearnerCapabilityClaim is admissible only when at least one valid CapabilityEvidenceArgument with `bearing: supports` backs that Claim.
+
 The Claim has no intrinsic:
 
 - confidence;
@@ -117,9 +119,9 @@ warrant.applicability_conditions
 
 The argument inherits `supports | challenges` from its warrant.
 
-A supporting argument may justify accepting or retaining the Claim according to accepted policy.
+A valid supporting argument is the minimum semantic basis for the Claim to exist.
 
-A challenging argument weakens or contests the Claim but does not itself assert the opposite polarity.
+A challenging argument weakens or contests the Claim but does not itself assert the opposite polarity. Supporting and challenging arguments may coexist; unresolved conflict remains explicit rather than being collapsed into a hidden scalar state.
 
 Model-specific confidence, posterior, likelihood or uncertainty output belongs in `inference_result`, not in LearnerCapabilityClaim.
 
@@ -166,7 +168,8 @@ Old evidence does not automatically license a present-time Claim. A current Clai
 - unknown actual conditions remain unknown;
 - Observation has token identity and provenance;
 - Observation is not Evidence by itself;
-- Observation does not imply a LearnerCapabilityClaim without an applicable warrant and valid evidence argument;
+- Observation does not imply a LearnerCapabilityClaim without an applicable warrant and valid supporting evidence argument;
+- every LearnerCapabilityClaim has at least one valid supporting CapabilityEvidenceArgument;
 - a challenging argument does not imply the opposite claim;
 - finite observations do not automatically justify broad generalization;
 - failure does not automatically justify a negative capability claim;
