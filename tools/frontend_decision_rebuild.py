@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Isolated CI probe branch; behavior identical to the experiment branch.
+# Re-trigger after experiment workflow ordering changed.
 from __future__ import annotations
 
 import json
