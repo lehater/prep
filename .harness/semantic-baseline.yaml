@@ -25,8 +25,8 @@ reviews:
     basis: Strategic domain responsibilities remain investment/responsibility boundaries rather than tactical model or context-internal design.
 
   - capability: prep.model-context-strategy
-    revision: 2
-    basis: Model-context boundaries are revalidated for the new conceptual model: Knowledge owns reusable subject semantics; Learning Design owns reusable Capability/Task/observation/warrant/assessment/target semantics; Learner Model owns actual Performance/Observation and evidence-backed learner claims.
+    revision: 1
+    basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
 
   - capability: prep.knowledge-relation-classification
     revision: 3
