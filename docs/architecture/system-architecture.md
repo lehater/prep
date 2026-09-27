@@ -1,143 +1,194 @@
 # System Architecture
 
+## Purpose
+
+Define the smallest Prep runtime and dependency topology that satisfies the accepted application, human-interface, machine-interface and consistency contracts for the current single-user slice.
+
+This architecture owns runtime boundaries and dependency direction. Product/domain semantics, human-interface composition, machine-operation meaning, consistency rules and physical persistence representation remain with their upstream/downstream Authorities.
+
 ## Architecture driver closure
 
-Accepted drivers for the current scope:
+| Concern | State | Decision | Canonical basis |
+| --- | --- | --- | --- |
+| execution-mode | RESOLVED | Interactive browser work invokes foreground backend application operations. External review sync/export are explicit foreground operations; no background worker is required. | `docs/application/application-design.md`, `docs/interface/machine-interface.md`, `docs/interface/interaction-design.yaml` |
+| consumers | RESOLVED | One user may perform Learning and Curation work through the browser. Prepared-data import and the external study runtime are machine-boundary consumers/collaborators, not separate product actors. | `docs/application/application-design.md`, `docs/interface/interaction-design.yaml`, `docs/interface/machine-interface.md` |
+| load-volume-frequency | RESOLVED | The accepted scope is single-user interactive work plus explicit item-accounted bulk import. Collections are queried/paginated at the backend boundary; no independent high-throughput server workload is accepted. | `docs/application/application-design.md`, `docs/interface/machine-interface.md` |
+| latency-freshness | RESOLVED | Browser queries observe current canonical state. Study export must detect preview drift instead of silently exporting changed material. No eventual-consistency user contract is introduced. | `docs/application/application-design.md`, `docs/interface/machine-interface.md` |
+| availability | RESOLVED | External-runtime unavailability is isolated to operations that require it. Local canonical browsing/curation and already recorded evidence remain independently usable; no high-availability topology is required by accepted inputs. | `docs/interface/interaction-design.yaml`, `docs/interface/machine-interface.md` |
+| recovery-durability | RESOLVED | Canonical mutations follow accepted validation/conflict outcomes. Import units are atomic and idempotent individually; peer valid items survive rejected items. Physical durable-storage technology remains Data Design. | `docs/architecture/import-consistency.md`, `docs/interface/machine-interface.md` |
+| growth-horizon | RESOLVED | Current growth is handled through backend-side search/pagination and explicit bounded operations. Multi-user horizontal scaling, service sharding and distributed coordination are reopening conditions, not current drivers. | `docs/application/application-design.md`, `docs/interface/machine-interface.md` |
+| deployment-environment | RESOLVED | Browser code executes in the browser; one Prep backend deployable owns application entrypoints and integration adapters. The supported Anki runtime remains external and may be reached from local/container deployment through deployment configuration. | `docs/interface/machine-interface.md` |
+| concurrency | RESOLVED | Competing writes to the same stable identity must not create duplicates or silently last-write-wins; conflicts are surfaced. Bulk peers do not form one transaction. | `docs/architecture/import-consistency.md` |
+| integration-boundaries | RESOLVED | Three explicit boundaries exist: browser ↔ Prep backend, prepared-data document → Prep backend, and Prep backend ↔ external study runtime adapter. The browser does not call Anki directly. | `docs/interface/machine-interface.md` |
+| persistence-history | RESOLVED | Canonical modeled data and accepted ReviewObservations require durable backend-owned storage behind application/infrastructure boundaries. Concrete schema/store choice belongs to Data Design. | `docs/application/application-design.md`, `docs/interface/machine-interface.md` |
+| security-trust-boundary | RESOLVED | External-runtime endpoint/API-key configuration remains backend/deployment configuration and is not browser product state. The current architecture introduces no multi-user identity/authorization semantics. | `docs/application/application-design.md`, `docs/interface/machine-interface.md` |
 
-- Prep is a browser-based web application.
-- Frontend and backend run as separate Docker containers.
-- Initial deployment is local.
-- The first version is single-user. User/tenant isolation and multi-user authentication are intentionally deferred, while later introduction of users must remain possible without changing domain meaning.
-- The architecture must not depend on local-only assumptions that prevent later remote deployment.
-- Canonical domain/application behavior executes behind the backend boundary.
-- Human interaction is delivered by the browser frontend.
-- Bulk prepared-data exchange and Anki integration follow accepted Machine Interface contracts.
-- The first automated Anki integration is backend-to-AnkiConnect HTTP; endpoint location is deployment configuration.
-- Local development may run Anki Desktop on the Docker host while the Prep backend runs in a container; the container-to-host route is infrastructure configuration, not application semantics.
-- Import idempotency and item-level consistency follow Import Consistency.
-- Canonical data must survive ordinary process/container restarts through durable persistence.
-- Backup/restore and long-term recovery are deliberately deferred for the early architecture-evolution period; no current requirement justifies a backup subsystem.
-
-The current data/trust boundary is one user's Prep installation and its configured external learning runtime. The backend does not need tenant-aware authorization or row-level ownership in the first version.
-
-No accepted driver currently requires microservices, distributed domain ownership, queues, asynchronous workers, or independent scaling of model contexts.
-
-### Driver classification
-
-| Concern | State | Current decision / rationale |
-|---|---|---|
-| execution-mode | RESOLVED | Browser frontend and backend are separate Docker runtime boundaries. |
-| consumers | RESOLVED | First version serves one Prep user/data scope; multi-user operation is future scope. |
-| load-volume-frequency | DEFERRED | No accepted scale/load target currently changes the single-backend topology; measure before introducing scaling machinery. |
-| latency-freshness | DEFERRED | No accepted latency or freshness SLO currently changes topology; interactions are ordinary user-driven web/application operations. |
-| availability | DEFERRED | Local single-user early versions have no HA/failover/uptime requirement; adding availability machinery now would not satisfy an accepted need. |
-| recovery-durability | RESOLVED | Canonical data survives ordinary restarts; backup/restore and long-term recovery are deliberately deferred. |
-| growth-horizon | DEFERRED | Later remote/multi-user use is anticipated, but no accepted growth target justifies speculative scaling topology now. |
-| deployment-environment | RESOLVED | Initial local Docker deployment with separate frontend/backend; boundaries must remain usable for later remote deployment. |
-| concurrency | RESOLVED | Current material concurrency is repeated/concurrent import identity handling defined by Import Consistency; no multi-user concurrency semantics are required. |
-| integration-boundaries | RESOLVED | Prepared-data exchange is versioned; automated Anki v1 uses backend-to-AnkiConnect behind a transport-independent external-runtime boundary. |
-| persistence-history | RESOLVED | Canonical model data and append-oriented ReviewObservations are durable; broader audit/version history is not required. |
-| security-trust-boundary | RESOLVED | Current trust scope is one local user/deployment plus configured Anki endpoint; no tenant authorization boundary exists in v1. Network exposure remains deployment configuration and must not broaden this trust assumption silently. |
-
-All baseline concerns are classified for the current scope. Deferred concerns are non-material to the selected topology until a corresponding requirement is accepted.
+No baseline architecture-driver concern remains unresolved for the current scope.
 
 ## Runtime topology
 
 ```text
-Browser
-   |
-   v
-Frontend container
-   |
-   | backend machine interface
-   v
-Backend container
-   |
-   +--> durable persistence
-   |
-   +--> supported external learning runtime adapter --> Anki
+Browser runtime
+  |
+  | versioned browser/backend machine operations
+  v
+Prep backend runtime
+  +-- application entrypoints / orchestration
+  +-- canonical query and mutation ports
+  +-- persistence ports --------------------> durable store (technology downstream)
+  +-- prepared-data import adapter
+  +-- external-study port ------------------> Anki adapter --> external Anki runtime
 ```
 
-Frontend and backend are separate deployable runtime boundaries. Domain model contexts are not separate deployables merely because they have distinct semantic ownership.
+### Browser runtime
 
-## Frontend boundary
+The browser runtime owns presentation and interaction state required by accepted interface contracts: current work context, exploration scope, focus, transient form input, loading/recovery state and currently displayed projections.
 
-The frontend owns browser-side interaction realization of accepted Human Interface contracts.
+Those values do not become canonical product/domain state merely because the browser retains them during an interaction.
 
-It may own ephemeral presentation state, form state, navigation state and cached server projections. It does not own canonical Knowledge, Learning Design, Learner Model, import consistency or persistence truth.
+The browser invokes the versioned backend machine boundary. It does not:
 
-All canonical mutations pass through backend application/machine contracts.
+- write directly to durable storage;
+- become a second canonical source of truth;
+- call Anki/AnkiConnect directly;
+- own import identity, canonical conflict resolution or external-runtime reconciliation.
 
-## Backend boundary
+### Prep backend runtime
 
-The backend is one application/runtime boundary for the current scope.
+One backend runtime is sufficient for the current accepted drivers. It owns technical execution of application entrypoints and coordinates infrastructure adapters behind application-facing ports.
 
-It hosts:
+The backend runtime contains technical composition for:
 
-- application use cases;
-- Knowledge Model;
-- Learning Design;
-- Learner Model;
-- machine-interface endpoints;
-- import validation/orchestration;
-- external-learning-runtime adapter orchestration;
-- persistence access through owner-respecting ports/repositories.
+- browser/backend operation dispatch;
+- application use-case/query invocation;
+- persistence adapter invocation;
+- prepared-data decoding/application coordination;
+- external-study adapter invocation.
 
-Internal modules preserve model-context dependency boundaries without network separation.
+A separate background worker, message broker, integration service or independent import service is not part of the current architecture because no accepted driver requires asynchronous background execution, independent scaling or independent deployment.
 
-## External integration boundary
+### External study runtime
 
-Anki interaction is isolated behind an adapter implementing the accepted external-learning-runtime contract.
+Anki remains an external runtime behind the backend external-study port. Its availability is not a prerequisite for ordinary local canonical browsing/curation.
 
-The first concrete adapter is AnkiConnect. The backend, not the browser, invokes it. In the local development topology Anki Desktop may run on the Docker host and the backend container reaches the configured host endpoint. Docker host-gateway naming, AnkiConnect bind address, port and API key are deployment configuration.
+Explicit export, review-sync and runtime-status operations cross this boundary. Adapter-specific endpoint, API-key and representation details stay outside application/domain semantics.
 
-AnkiConnect is not the architectural identity of the external-learning-runtime boundary. File exchange and a future local bridge/add-on remain possible alternative adapters when deployment constraints require them.
+## Deployment topology
 
-Anki's native sync service, including a self-hosted sync server, may be used to support the Anki environment but is not Prep's machine API: Prep does not couple application behavior to the Anki sync protocol.
+The current topology has one Prep server deployable plus browser-delivered static code. The architecture does not require the static bundle and backend to have independent release/scaling lifecycles; they may be packaged together for the current deployment.
 
-Anki identifiers, schemas and transport behavior do not leak into canonical domain models.
+The external Anki runtime remains independently running because that independence is already part of the accepted machine boundary, not because Prep is decomposed into distributed services.
+
+Reopen deployment topology when an accepted driver requires one of:
+
+- multiple users or independent security boundaries;
+- independent frontend/backend scaling or release lifecycle;
+- background processing with durability requirements;
+- remote external-runtime bridging;
+- availability/failover guarantees beyond operation-level recovery.
+
+## Interaction topology
+
+### Browser ↔ backend
+
+Use foreground stateless request/response interactions for the accepted browser operation IDs.
+
+This fits the accepted interaction model because operations have explicit request inputs and visible success/failure outcomes, and no accepted behavior requires server-initiated push or a persistent bidirectional session.
+
+Long-lived duplex channels or queued browser commands are reopening options if future accepted behavior introduces server push, collaborative presence, long-running asynchronous jobs or another material requirement.
+
+### Backend ↔ external runtime
+
+External study operations are foreground adapter calls initiated by explicit application operations:
+
+- export reviewed study material;
+- sync review facts;
+- inspect runtime status.
+
+An external failure returns through the accepted operation outcome model. The architecture does not mask it behind an invented background retry workflow.
+
+## State placement
+
+Canonical modeled data and ReviewObservations have one backend-side source of truth. The browser may cache/query/display representations, but it is not a competing authoritative replica.
+
+Interaction-only state such as current mode, navigation context, exploration scope, Knowledge focus and unsaved form input is browser-local unless a future accepted capability explicitly makes such state durable/shared.
+
+Study-preview identity is the accepted machine-boundary materialization token used to detect drift. It is not promoted into a new durable canonical Study Set entity.
 
 ## Dependency direction
 
+The dependency direction is inward toward accepted application/domain contracts:
+
 ```text
-transport/UI adapters
-        |
-        v
-application
-        |
-        v
-domain/model contexts
-        ^
-        |
-persistence/external adapters implement required ports
+browser presentation
+    -> browser/backend machine contract
+        -> application orchestration
+            -> domain semantics
+
+backend infrastructure adapters
+    -> application ports
+
+Anki adapter
+    -> external-study port
+    -> application orchestration
 ```
 
-Infrastructure depends on canonical contracts; canonical domain semantics do not depend on Docker, database technology, frontend framework or Anki transport libraries.
+Framework, transport, persistence and Anki-specific types must not become required dependencies of domain semantics or redefine application behavior.
 
-## Deployment
+System Architecture does not select concrete frontend component boundaries or persistence schema.
 
-The initial Docker deployment contains at least frontend and backend containers. Durable persistence may be embedded in or attached to the backend deployment according to Data Design/Implementation Design; this architecture does not yet choose a database product or require a third database container.
+## Failure isolation
 
-Local deployment and later remote deployment preserve the same logical frontend/backend boundary. Hostnames, TLS termination, reverse proxy and production orchestration are deployment/operability decisions unless later constraints make them architecture-significant.
+### External runtime
 
-## Import correctness realization
+External-runtime outage/incompatibility is an integration failure domain. It affects operations that require that runtime while preserving:
 
-Backend execution must expose a technical identity boundary capable of enforcing accepted import idempotency under repeated/concurrent requests. Physical uniqueness and transaction mechanisms are delegated to Data Design.
+- local canonical browsing and curation;
+- an already built study preview;
+- already recorded review evidence;
+- correction/retry context.
+
+### Prepared-data import
+
+Import failure isolation follows the accepted consistency contract:
+
+- envelope-level decoding failure rejects the request;
+- after envelope acceptance, each item is an independent atomic unit;
+- invalid items do not roll back valid peers;
+- no item may be partially applied;
+- concurrent duplicate/conflicting identity handling must preserve uniqueness and surface conflicts.
+
+These correctness semantics are consumed from Concurrency/Consistency Design; System Architecture only places the enforcement behind the backend application/infrastructure boundary.
+
+## Rejected structural alternatives
+
+The reviewed decision space rejected the following current-scope alternatives because they either violate accepted boundaries or add complexity without an accepted driver:
+
+- browser-owned canonical persistence/application execution;
+- browser-direct Anki integration;
+- dual-master browser/backend canonical state;
+- dedicated background worker or message broker;
+- independently scaled frontend/backend/services as a required topology;
+- persistent browser/server duplex as the default interaction model;
+- framework- or Anki-specific dependencies flowing into application/domain semantics;
+- whole-bulk rollback or partially applied import items.
+
+They remain legitimate reopening alternatives if upstream requirements change.
 
 ## Non-goals
 
-Current architecture does not introduce:
+This architecture does not decide:
 
-- microservices per bounded context;
-- message broker/event bus;
-- distributed transactions;
-- background job infrastructure;
-- independent frontend ownership of canonical business state;
-- direct browser access to persistence;
-- direct UI-to-Anki integration bypassing backend application semantics;
-- multi-user/tenant isolation or user-owned partition keys in canonical records;
-- backup scheduling, backup retention, point-in-time recovery, or restore workflows.
+- concrete HTTP route/verb mapping;
+- frontend framework, component tree or visual layout;
+- whether Knowledge presentation is graph, list, tree, table or mixed;
+- database technology, schema or migration mechanics;
+- Anki scheduling semantics;
+- multi-user authentication/authorization;
+- background jobs not required by an accepted capability.
 
-## Reopening conditions
+## Consequences
 
-Revisit topology if accepted requirements introduce backup/recovery objectives, multiple users/tenants, independent scaling, long-running/asynchronous work, offline-first synchronization, stronger availability targets, remote Anki interaction constraints, a requirement to automate against Anki without a reachable AnkiConnect endpoint, or materially different trust/security boundaries.
+The current system remains deliberately simple: one canonical backend execution boundary, browser-local interaction state, explicit adapter seams and foreground request/response orchestration.
+
+This keeps downstream freedom for Data Design and Frontend System Architecture while preventing those layers from inventing a second source of truth, hidden asynchronous workflows or direct external-runtime coupling.
