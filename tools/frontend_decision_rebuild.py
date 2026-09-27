@@ -23,7 +23,7 @@ from capability_lifecycle import lifecycle_index, validate_projection  # noqa: E
 from decision_pipeline import derive_decision_roadmap  # noqa: E402
 from semantic_admission import admit_artifact  # noqa: E402
 
-TARGET = "FRONTEND-IMPLEMENTATION"
+TARGETS = ("FRONTEND-IMPLEMENTATION", "CURRENT-REVALIDATION")
 BASE_LIFECYCLE_PATH = ROOT / ".harness/candidates/frontend-decision-rebuild-lifecycle.yaml"
 EVIDENCE_DIR = ROOT / ".harness/candidates/frontend-decision-rebuild"
 REBUILT_CAPABILITIES = {
@@ -63,43 +63,80 @@ def provider_index(core: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return result
 
 
-def roadmap_for(
+def roadmaps_for(
     *,
     graph: dict[str, Any],
     core: dict[str, Any],
     lifecycle: dict[str, Any],
     contracts: dict[str, Any],
     policy: dict[str, Any],
-) -> dict[str, Any]:
-    return derive_decision_roadmap(
-        graph=graph,
-        model=core,
-        target=TARGET,
-        lifecycle=lifecycle,
-        decision_contracts=contracts,
-        decision_policy=policy,
-    )
+) -> dict[str, dict[str, Any]]:
+    return {
+        target: derive_decision_roadmap(
+            graph=graph,
+            model=core,
+            target=target,
+            lifecycle=lifecycle,
+            decision_contracts=contracts,
+            decision_policy=policy,
+        )
+        for target in TARGETS
+    }
 
 
 def assert_create_purity(
-    roadmap: dict[str, Any],
+    roadmaps: dict[str, dict[str, Any]],
     providers: dict[str, dict[str, Any]],
 ) -> None:
-    for unit in roadmap["ready"]:
-        capability = unit["capability"]
-        if capability not in REBUILT_CAPABILITIES:
-            continue
-        if unit["decision_request_mode"] != "CREATE":
-            continue
-        old_path = providers[capability]["path"]
-        leaked = [
-            item for item in unit["read_set"]
-            if item.get("path") == old_path
-        ]
-        if leaked:
-            raise SystemExit(
-                f"CREATE read set leaked prior provider for {capability}: {leaked}"
-            )
+    for roadmap in roadmaps.values():
+        for unit in roadmap["ready"]:
+            capability = unit["capability"]
+            if capability not in REBUILT_CAPABILITIES:
+                continue
+            if unit["decision_request_mode"] != "CREATE":
+                continue
+            old_path = providers[capability]["path"]
+            leaked = [
+                item for item in unit["read_set"]
+                if item.get("path") == old_path
+            ]
+            if leaked:
+                raise SystemExit(
+                    f"CREATE read set leaked prior provider for {capability}: {leaked}"
+                )
+
+
+def ready_units(
+    roadmaps: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    result: dict[str, dict[str, Any]] = {}
+    for target, roadmap in roadmaps.items():
+        for unit in roadmap["ready"]:
+            capability = unit["capability"]
+            if capability not in REBUILT_CAPABILITIES:
+                continue
+            previous = result.get(capability)
+            if previous is not None and previous != unit:
+                raise SystemExit(
+                    f"inconsistent Roadmap unit for {capability} across targets; "
+                    f"first={previous} target={target} unit={unit}"
+                )
+            result[capability] = unit
+    return result
+
+
+def roadmap_capabilities(
+    roadmaps: dict[str, dict[str, Any]],
+    bucket: str,
+) -> list[str]:
+    return sorted(
+        {
+            item["capability"]
+            for roadmap in roadmaps.values()
+            for item in roadmap[bucket]
+            if item["capability"] in REBUILT_CAPABILITIES
+        }
+    )
 
 
 def load_admission_evidence() -> dict[str, dict[str, Any]]:
@@ -150,28 +187,24 @@ def main() -> int:
     evaluations: dict[str, Any] = {}
 
     while evidence:
-        roadmap = roadmap_for(
+        roadmaps = roadmaps_for(
             graph=graph,
             core=core,
             lifecycle=lifecycle,
             contracts=decision_contracts,
             policy=policy,
         )
-        assert_create_purity(roadmap, providers)
-        ready = {
-            item["capability"]: item
-            for item in roadmap["ready"]
-            if item["capability"] in REBUILT_CAPABILITIES
-        }
+        assert_create_purity(roadmaps, providers)
+        ready = ready_units(roadmaps)
         executable = sorted(set(ready) & set(evidence))
         if not executable:
             raise SystemExit(
-                "admission evidence is not executable from the current Harness Roadmap: "
+                "admission evidence is not executable from the current Harness Roadmaps: "
                 + json.dumps(
                     {
                         "pending_evidence": sorted(evidence),
                         "ready": sorted(ready),
-                        "blocked": roadmap["blocked"],
+                        "blocked": roadmap_capabilities(roadmaps, "blocked"),
                     },
                     sort_keys=True,
                 )
@@ -210,37 +243,32 @@ def main() -> int:
         validate_projection(graph, core, lifecycle)
         admitted.append(capability)
 
-    roadmap = roadmap_for(
+    roadmaps = roadmaps_for(
         graph=graph,
         core=core,
         lifecycle=lifecycle,
         contracts=decision_contracts,
         policy=policy,
     )
-    assert_create_purity(roadmap, providers)
+    assert_create_purity(roadmaps, providers)
+    ready = ready_units(roadmaps)
+    lifecycle_caps = set(lifecycle_index(lifecycle))
 
     summary = {
-        "frontier_status": roadmap["frontier_status"],
+        "frontier_status": "READY" if ready else "EMPTY",
+        "targets": list(TARGETS),
         "admitted_rebuilt": admitted,
-        "ready": [item["capability"] for item in roadmap["ready"]],
-        "blocked": [item["capability"] for item in roadmap["blocked"]],
-        "waiting_upstream": [
-            item["capability"] for item in roadmap["waiting_upstream"]
-        ],
-        "completed_rebuilt": sorted(
-            {
-                item["capability"]
-                for item in roadmap["completed"]
-                if item["capability"] in REBUILT_CAPABILITIES
-            }
-        ),
+        "ready": sorted(ready),
+        "blocked": roadmap_capabilities(roadmaps, "blocked"),
+        "waiting_upstream": roadmap_capabilities(roadmaps, "waiting_upstream"),
+        "completed_rebuilt": sorted(lifecycle_caps & REBUILT_CAPABILITIES),
     }
     print("FRONTEND DECISION REBUILD ROADMAP")
     print(json.dumps(summary, indent=2, sort_keys=False))
     print("ADMISSION EVALUATIONS")
     print(json.dumps(evaluations, indent=2, sort_keys=False))
-    print("FINAL ROADMAP")
-    print(json.dumps(roadmap, indent=2, sort_keys=False))
+    print("FINAL ROADMAPS")
+    print(json.dumps(roadmaps, indent=2, sort_keys=False))
     return 0
 
 
