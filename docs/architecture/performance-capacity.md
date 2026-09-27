@@ -2,152 +2,103 @@
 
 ## Purpose
 
-Define the accepted performance/capacity envelope for the interactive Knowledge graph and the user-visible degradation rules that keep Prep usable as graph density grows.
+Define the frontend quality constraints that are actually supported by accepted Product Capabilities and Knowledge Model semantics, without selecting a presentation form or inventing MVP performance targets.
 
-This is a QUALITY-DESIGN contract. It is not a product SLA and it does not make any concrete renderer, batching strategy or physics engine canonical.
+This is a QUALITY-DESIGN contract. It constrains the quality of a selected realization; it does not decide whether Knowledge is presented as a graph, 3D graph, 2D diagram, list, tree, table or mixed representation.
 
-The previous 3D experiment is evidence only. Its useful stress findings are adopted here only where they support this accepted contract.
+## Accepted quality constraints
 
-## Workload envelope
+### Information access survives presentation degradation
 
-The browser must not assume that every canonical KnowledgeNode/KnowledgeRelation is rendered at once.
+Prep must preserve access to canonical Knowledge identity, semantic kind, relation type/direction and the user's explicit exploration scope when a presentation has to reduce rendering work or visual richness.
 
-Reference visible-graph envelopes:
+A performance fallback may change presentation fidelity. It must not change subject meaning.
 
-- ordinary interactive view: up to approximately **2,000 visible nodes / 10,000 visible edges**;
-- stress view: up to approximately **5,000 visible nodes / 25,000 visible edges**;
-- larger corpora must use search, semantic/relation filtering, focus/neighborhood restriction and later clustering/progressive expansion rather than requiring an unbounded live full-corpus graph.
+This follows from:
 
-These numbers are engineering validation envelopes, not expected initial corpus size.
+- `PC-03 Knowledge organization`, which requires important concepts and accepted relationships to remain understandable and navigable without prescribing one visualization form;
+- Knowledge Model identity and relationship semantics, which are independent of UI position or graph layout.
 
-## Interaction target
+### Full-corpus simultaneous rendering is not required
 
-On a modern hardware-accelerated desktop browser at a normal desktop viewport:
+No accepted capability requires the browser to render every canonical KnowledgeNode or KnowledgeRelation at once.
 
-- ordinary orbit/pan/zoom/focus/filter interaction should remain approximately **30 FPS or better** in the ordinary envelope;
-- the renderer must become demand-driven when idle: once physics/camera inertia and explicit visual transitions stop, it must not keep an avoidable continuous animation loop alive;
-- performance degradation must never change canonical Knowledge identity, relation type/direction, selected scope or the availability of list/search/detail access.
+A selected presentation may use bounded subsets, search, filtering, focus, progressive disclosure, pagination, neighborhood expansion or another strategy consistent with its Human Interface Design.
 
-Exact p95 interaction budgets may be refined only from representative benchmark evidence.
+The exact strategy belongs to the selected presentation and implementation design.
 
-## Degradation model
+### Current MVP has no accepted numeric performance envelope
 
-Performance degradation is presentation-only and follows a semantic-preservation rule: **reduce rendering cost before reducing information access**.
+There is currently no accepted product or quality evidence establishing an MVP requirement for:
 
-### Auto profile — default
+- frames per second;
+- visible node count;
+- visible relation count;
+- draw-call or triangle budget;
+- force-layout settle time;
+- exact interaction-latency percentile;
+- exact idle CPU/GPU budget.
 
-The renderer selects an implementation strategy appropriate to visible graph size and device capability.
+Therefore no numeric value in those dimensions is a semantic acceptance target for the current MVP.
 
-Allowed tactics include:
+Such targets may be introduced later only from representative benchmark evidence or an accepted product/quality need.
 
-- instanced node rendering;
-- batched relation rendering;
-- demand-driven rendering;
-- reduced device-pixel ratio;
-- reduced polygon/detail resolution;
-- fewer always-visible labels;
-- disabling decorative particles;
-- pausing or shortening live force simulation after layout settles.
+## Representation-specific quality
 
-### Quality profile
+Representation-specific quality constraints are conditional on Human Interface Design first selecting that representation.
 
-Prefer presentation richness when the visible graph remains comfortably responsive.
+Examples:
 
-May keep:
+- if a 3D node-link projection is selected, renderer responsiveness, camera interaction, occlusion handling and graceful fallback become applicable quality/verification concerns for that projection;
+- if a list/table/tree projection is selected, its own density, navigation and rendering constraints apply instead.
 
-- richer node geometry;
-- more labels;
-- directional arrowheads;
-- decorative relation particles/effects;
-- live physics for longer.
+QUALITY-DESIGN does not make any of those representations mandatory.
 
-### Performance profile
+## Routing of the previous 3D experiment
 
-Prefer interaction responsiveness under large/stress graphs.
+The existing 3D experiment is useful downstream donor evidence because a working renderer and interaction mechanics already exist.
 
-May:
+It is not an upstream requirement that Prep use 3D.
 
-- use instanced nodes and batched links;
-- render lower-detail node geometry;
-- suppress mass directional particles;
-- reduce link thickness/effect work;
-- show labels only for selected/focused/hovered nodes;
-- pause physics after settling or allow the user to disable live physics;
-- lower render pixel ratio.
+Route its reusable knowledge as follows:
 
-Directional arrowheads may be disabled only when relation direction remains inspectable through another explicit encoding such as selected-relation detail/legend.
+- **HUMAN-INTERFACE-DESIGN / presentation-system**: decide whether a 3D projection materially helps accepted Knowledge exploration tasks and, if selected, which user-facing graph interactions/settings are actually needed;
+- **SCREEN-VIEW-DESIGN**: place the selected projection and its controls in concrete views;
+- **FRONTEND-SYSTEM-ARCHITECTURE / COMPONENT-DESIGN**: define renderer/provider seams only after the presentation decision exists;
+- **VERIFICATION / TEST-DESIGN**: reuse stress fixtures and renderer measurements when they prove an accepted selected presentation;
+- **IMPLEMENTATION-DESIGN**: reuse the existing 3D implementation where compatible instead of rebuilding equivalent mechanics.
 
-### Fallback
+Existing 3D work should therefore reduce implementation cost if 3D remains a viable selected presentation. Its existence does not by itself establish user value.
 
-If WebGL/rendering is unavailable or the graph cannot remain usable, list/search/detail remain the canonical access path. Failure of the 3D presentation must not block Knowledge access.
+## Deferred non-blocking measurements
 
-## User-visible graph controls
+The current frontend may collect performance measurements during prototyping and implementation, including FPS, interaction latency, idle activity, renderer workload and dataset-size behavior.
 
-The Knowledge workspace exposes a compact **Graph settings** surface.
+These measurements are evidence for later quality refinement, not pass/fail requirements until a Quality Authority accepts corresponding targets.
 
-Stable user-facing controls:
+Reopen numeric quality targets when at least one of the following becomes true:
 
-- Performance profile: **Auto / Quality / Performance**;
-- fit visible graph to viewport;
-- reset camera/view;
-- relation-type visibility;
-- semantic-kind visibility;
-- focus/clear focus.
-
-An **Advanced rendering** disclosure may expose presentation-only tuning useful for large graphs:
-
-- labels: normal / focused-only / off;
-- directional arrowheads: on/off;
-- decorative particles: on/off;
-- live physics: on / settle-and-pause / off;
-- node visual detail: normal / reduced.
-
-These settings may affect beauty and renderer workload but must not redefine domain semantics.
-
-Implementation-specific switches such as standard-vs-instanced node objects, standard-vs-batched link objects, internal buffer strategy, Three.js object counts or shader choices remain renderer implementation details. They may exist in developer diagnostics but are not required product vocabulary.
-
-## Donor evidence retained from the 3D experiment
-
-The experimental R2 spike established useful renderer evidence:
-
-- deterministic 60 / 250 / 1000-node density fixtures;
-- standard vs instanced-node A/B;
-- standard vs batched-link A/B;
-- performance ablations for particles, arrowheads, low-poly nodes, thin links, link visibility and physics;
-- demand-driven idle rendering;
-- developer diagnostics for RAF rate, force settle time, draw calls, triangles, CSS/buffer size and pixel ratio;
-- interaction parity checks for search/focus, hover-neighborhood, click-vs-drag and relation filtering.
-
-Production must adapt the mechanics to canonical Prep Knowledge semantics rather than copying PaymentGraph/product assumptions.
-
-## Verification obligations
-
-Production graph verification must include representative hardware-accelerated stress runs at **1k / 2k / 5k visible nodes** with proportionate relation density.
-
-Record at minimum:
-
-- active interaction FPS/RAF rate;
-- idle renderer activity;
-- force/layout settle time after load/filter/drag where physics is enabled;
-- perceived orbit/zoom/drag responsiveness;
-- search -> focus latency/usability;
-- filter -> topology-update behavior;
-- draw calls and triangle count when available;
-- WebGL/context failure;
-- whether each degradation profile preserves relation/selection/detail semantics.
-
-Headless tests may prove fixture counts, configuration transitions and semantic preservation. They must not claim real GPU/browser performance.
+- representative user/task testing identifies a responsiveness threshold that affects task completion;
+- realistic corpus size demonstrates a material capacity constraint;
+- a selected presentation technology requires a bounded envelope to remain usable;
+- deployment/device constraints make resource limits architecture-significant.
 
 ## Implementation freedoms
 
-The following remain downstream renderer choices:
+Until an accepted quality target says otherwise, downstream design may choose:
 
-- exact force constants;
-- exact automatic profile thresholds;
-- node/link batching implementation;
-- WebGL/Three.js object layout;
-- shader/material choices;
-- exact pixel-ratio policy;
-- exact numeric camera damping/zoom constants.
+- renderer and rendering technology;
+- batching/instancing strategy;
+- pixel ratio and visual-detail policy;
+- animation/physics strategy;
+- progressive rendering or pagination approach;
+- caching and projection strategy;
+- benchmark fixture sizes and diagnostics.
 
-Changing these does not require upstream redesign unless user-visible semantics or the accepted performance envelope changes.
+These choices must preserve accepted semantic meaning and task access.
+
+## Resolution of Q-FRONTEND-GRAPH-CAPACITY-SCOPE
+
+The previous graph-specific contract was over-scoped.
+
+Graph and Graph settings are not QUALITY-DESIGN requirements. Graph-specific quality becomes applicable only if Human Interface Design selects a graph projection. Numeric graph envelopes and FPS values from the previous experiment are evidence, not current MVP acceptance criteria.
