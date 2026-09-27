@@ -6,142 +6,165 @@ title: Frontend Test Design
 
 content:
   purpose: >-
-    Define executable observable test contracts that refine accepted frontend
-    verification obligations without choosing test-framework mechanics or
-    treating implementation internals as semantic truth.
+    Define executable frontend test contracts for the rebuilt Prep verification
+    obligations while keeping test framework, fixture mechanics, mocks and
+    private component structure outside semantic ownership.
 
   tests:
-    - id: FTD-MODE-WORKSPACE-NAVIGATION
+    - id: FTD-01-PROVIDER-BOUNDARY
       verification_refs: [FV-02]
-      precondition: The frontend is loaded with representative Learning and Curation data and no modal/error state is active.
-      operation: Switch between Learning and Curation, select a prepared LearningTarget, and navigate through Overview, Knowledge, Study and Statistics.
-      oracle: The visible mode and target workspace follow accepted navigation responsibilities; switching modes does not invent or expose disallowed learner editing behavior.
+      precondition: >-
+        The production frontend source graph is available with declared feature,
+        backend-adapter and 3D-renderer-adapter boundaries.
+      operation: >-
+        Analyze source dependencies crossing feature/provider boundaries.
+      oracle: >-
+        Raw transport representations do not cross into feature public contracts;
+        3D renderer provider types do not cross into Learning/Curation or
+        Knowledge semantic public contracts; browser code has no direct external
+        study-runtime client.
 
-    - id: FTD-TARGET-CONTEXT-PRESERVATION
-      verification_refs: [FV-02, FV-08]
-      precondition: A LearningTarget is selected and the learner has applied a Knowledge search/filter and selected one Knowledge item.
-      operation: Open readable Knowledge detail and then close/return to the target Knowledge view.
-      oracle: The same LearningTarget scope and accepted search/filter/focus intent remain active; renderer-only camera/layout state may change only within its presentation ownership.
+    - id: FTD-02-KNOWLEDGE-WITHOUT-RENDERER
+      verification_refs: [FV-03, FV-08]
+      precondition: >-
+        Canonical Knowledge fixtures include searchable items and typed directed
+        relationships, while the 3D provider is disabled or unavailable.
+      operation: >-
+        Enter Knowledge, choose global or target-relevant scope, search, focus an
+        item, inspect its relationships and follow one connected identity.
+      oracle: >-
+        Textual search, focus, readable relation type/direction, detail and
+        relationship traversal remain usable; renderer unavailability is
+        contained and does not change scope or canonical identity.
 
-    - id: FTD-KNOWLEDGE-SELECTION-RENDERER-CONTINUITY
-      verification_refs: [FV-02, FV-08, FV-09]
-      precondition: A Knowledge workspace has loaded list, graph and detail access for one stable semantic scope and the live graph renderer is active.
-      operation: Select different Knowledge items through the list/detail path without changing Knowledge scope, semantic filters, relation filters or graph topology.
-      oracle: Selection/detail changes update accepted selection/detail presentation without reloading graph data or replacing the live renderer; renderer-owned camera/layout remains continuous unless the user explicitly invokes focus/fit/reset or accepted topology changes.
-
-    - id: FTD-QUESTION-TO-KNOWLEDGE
-      verification_refs: [FV-02, FV-08]
-      precondition: A Study Question has one or more canonical aligned Knowledge ids within the current LearningTarget.
-      operation: Invoke Show in Knowledge Map from the Question.
-      oracle: The current target scope is preserved and all aligned canonical Knowledge items become the intended focus/highlight set without creating new Knowledge identity or relation semantics.
-
-    - id: FTD-RECOVERABLE-FAILURE-PRESERVES-CONTEXT
-      verification_refs: [FV-02, FV-03, FV-08]
-      precondition: The user is in an accepted task context with editable or retryable state and the backing adapter returns an accepted recoverable failure outcome.
-      operation: Trigger the operation and then retry or correct the input through the accepted recovery path.
-      oracle: The frontend exposes the corresponding recoverable failure state, preserves task/input context required for recovery, and does not report success until the accepted success outcome occurs.
-
-    - id: FTD-MACHINE-OUTCOME-MAPPING
+    - id: FTD-03-SPATIAL-TEXTUAL-FOCUS-PARITY
       verification_refs: [FV-03]
-      precondition: Representative accepted Machine Interface success, validation-rejected, conflict, unavailable and recoverable-failure outcomes are available as adapter fixtures.
-      operation: Pass each outcome through the production frontend adapter boundary.
-      oracle: Each outcome maps to the corresponding frontend-owned state while canonical identities and accepted semantic distinctions are preserved and raw transport/provider exceptions do not cross into feature contracts.
+      precondition: >-
+        The 3D projection and textual Knowledge projection receive the same
+        renderer-neutral fixture with a known focused item and relationship.
+      operation: >-
+        Establish focus from the textual results, then establish focus/follow a
+        relationship through the 3D projection.
+      oracle: >-
+        Both paths resolve to the same canonical Knowledge identities and
+        relationship semantics; renderer geometry/provider objects are not the
+        semantic identity observed by the feature.
 
-    - id: FTD-FORBIDDEN-DEPENDENCY-EDGES
+    - id: FTD-04-CURATION-REJECTION-CONFLICT
       verification_refs: [FV-04]
-      precondition: The production frontend source tree and declared module boundaries exist.
-      operation: Build or inspect the frontend import/dependency graph.
-      oracle: Learning and Curation internals do not depend on one another; feature modules do not import concrete HTTP/mock adapters or the concrete graph-renderer package; shared presentation modules do not import feature-owned state.
+      precondition: >-
+        A Curation surface has confirmed canonical data and an editable local
+        draft; backend fixtures can return validation_rejected and conflict.
+      operation: >-
+        Submit one invalid mutation and one stale/conflicting mutation.
+      oracle: >-
+        Rejection preserves proposed input for correction without presenting it
+        as canonical; conflict exposes current canonical state/reconciliation
+        behavior and does not silently overwrite it.
 
-    - id: FTD-DTO-MAPPING-IDENTITY
+    - id: FTD-05-STUDY-MATERIALIZATION-FIDELITY
       verification_refs: [FV-05]
-      precondition: A representative Machine Interface DTO graph/list/detail response contains known canonical Prep ids, semantic kinds, relation source/target/type values, an exact collection total_count and an opaque next_cursor.
-      operation: Map the DTO through the HTTP adapter into frontend semantic/read models and frontend-owned collection results.
-      oracle: Canonical ids, accepted semantic distinctions and exact total_count are preserved exactly; opaque cursor/status/serialization representation does not enter semantic entities or feature-owned task state.
+      precondition: >-
+        An active target can build a Study Set preview; fixtures can change the
+        target/question resolution after inspection.
+      operation: >-
+        Build and inspect a preview, change the resolvable material, then attempt
+        export with the inspected materialization token.
+      oracle: >-
+        Export reports stale/conflict and requires rebuild/reinspection rather
+        than exporting a different set; the inspected preview remains
+        understandable during recovery.
 
-    - id: FTD-RENDERER-CLICK-VS-DRAG
-      verification_refs: [FV-02, FV-06, FV-08]
-      precondition: GraphRenderer is given a renderer-neutral GraphScene containing a known Knowledge node and no explicit focus command is active.
-      operation: Perform one click-without-drag gesture and separately a drag gesture on the same node.
-      oracle: Click-without-drag emits exactly one canonical node-selection/activation event without implicitly changing focus/filter membership; drag changes presentation state only and emits no semantic Knowledge mutation/activation completion. Focus/local-neighborhood filtering occurs only after an explicit user focus action or an accepted deep-link intent.
+    - id: FTD-06-EVIDENCE-FACTS-NOT-MASTERY
+      verification_refs: [FV-05]
+      precondition: >-
+        One target has recorded ReviewObservations and another Question has no
+        observations; sync can return success, external-runtime-unavailable and
+        partial failure.
+      operation: >-
+        Inspect target evidence, Question history and explicit review sync across
+        the fixture outcomes.
+      oracle: >-
+        Recorded facts and absence of facts are shown distinctly; no state is
+        labeled as mastery/readiness/retention; external/partial failures preserve
+        already recorded local evidence and item-level distinctions.
 
-    - id: FTD-RENDERER-SEMANTIC-ISOLATION
+    - id: FTD-07-CURATION-RESPONSIVE-CONTINUITY
       verification_refs: [FV-06]
-      precondition: A GraphScene is rendered and the concrete renderer has assigned coordinates, camera state and internal library objects.
-      operation: Read all values exposed back through the public GraphRenderer/KnowledgeExplorer boundary after layout and interaction.
-      oracle: Only renderer-neutral events/opaque viewport state cross the boundary; coordinates, force-engine objects and concrete renderer/Three.js objects never enter canonical frontend Knowledge models.
+      precondition: >-
+        A Targets, Requirements or Questions collection has query state and a
+        focused item; the view can be exercised in wide and narrow composition.
+      operation: >-
+        Move from wide collection-plus-focused work to narrow focused substate,
+        trigger a validation error, then return to the collection.
+      oracle: >-
+        Semantic view identity is unchanged, entered input is preserved,
+        actionable error focus is reachable, and returning restores meaningful
+        collection/query/focus context.
 
-    - id: FTD-MOCK-HTTP-SUBSTITUTABILITY
+    - id: FTD-08-KNOWLEDGE-NARROW-COMPOSITION
+      verification_refs: [FV-06]
+      precondition: >-
+        Knowledge has textual results, focused detail and an available 3D
+        projection in a narrow viewport.
+      operation: >-
+        Search and focus using keyboard, enter the explicit 3D mode, leave it and
+        continue relation traversal through the textual path.
+      oracle: >-
+        Textual search/detail is the primary narrow access path, 3D is explicit
+        rather than permanently competing for space, semantic focus/scope
+        survives mode changes where possible, and keyboard focus is not trapped.
+
+    - id: FTD-09-MACHINE-OUTCOME-MAPPING
       verification_refs: [FV-07]
-      precondition: Equivalent accepted Knowledge/Target/Question/runtime-status data is available through both mock and HTTP adapter implementations.
-      operation: Execute the same consumer-owned query contract cases against each adapter.
-      oracle: Both adapters return equivalent frontend semantic/read-model outcomes for equivalent accepted data and failure categories, regardless of their provider-specific transport/fixture internals.
+      precondition: >-
+        Backend adapter fixtures can return success, not_found,
+        validation_rejected, conflict, external_runtime_unavailable,
+        partial_external_failure and operational_failure for applicable
+        operations.
+      operation: >-
+        Invoke representative Learning, Knowledge and Curation feature contracts
+        through the backend adapter for each applicable outcome.
+      oracle: >-
+        Feature-visible states preserve the accepted semantic distinctions;
+        collection query controls use backend query semantics and no raw
+        transport code invents an alternative product outcome.
 
-    - id: FTD-KEYBOARD-KNOWLEDGE-ACCESS
-      verification_refs: [FV-02, FV-09]
-      precondition: Knowledge list/search/detail and graph representations are available for the same representative Knowledge scope.
-      operation: Using keyboard interaction only, locate a Knowledge item through the non-graph path, open detail, close it and continue navigation.
-      oracle: The core Knowledge task is completable without graph manipulation, focus remains visible and usable, and returning from detail restores an accepted continuation point.
+    - id: FTD-10-RENDERER-FAILURE-ISOLATION
+      verification_refs: [FV-08]
+      precondition: >-
+        Knowledge textual state is loaded and the 3D provider can fail during
+        initialization and during active rendering.
+      operation: >-
+        Trigger both renderer failure modes while retaining current Knowledge
+        scope/focus.
+      oracle: >-
+        Failure is contained to the spatial projection, textual Knowledge
+        remains usable, and unrelated application/feature work does not become a
+        global error solely because the renderer failed.
 
-    - id: FTD-KNOWLEDGE-INDEX-BOUNDED-BROWSE
-      verification_refs: [FV-02, FV-09]
-      precondition: A Knowledge scope contains substantially more items than are useful to enumerate as one persistent panel.
-      operation: Open the Knowledge workspace without a search, then explicitly open browse/results and refine by search or semantic kind.
-      oracle: The graph remains primary by default; browse/results is optional and bounded, reports result/total context, and directs the user to refine rather than rendering an unbounded collection of controls. Canonical search/detail access remains available without graph manipulation.
+    - id: FTD-11-QUALITY-NON-GATE
+      verification_refs: [FV-09]
+      precondition: >-
+        Frontend acceptance/test configuration and any retained 3D diagnostic
+        benchmarks are available.
+      operation: >-
+        Evaluate the release/correctness gate configuration against current
+        Quality Design.
+      oracle: >-
+        No correctness/release gate requires an unaccepted FPS, node/edge count,
+        draw-call, triangle or layout-settle threshold; diagnostics may record
+        those values without converting them into semantic pass/fail criteria.
 
-    - id: FTD-GRAPH-FALLBACK-EQUIVALENCE
-      verification_refs: [FV-02, FV-09]
-      precondition: The same representative KnowledgeGraphModel is available to graph and list/search/detail projections.
-      operation: Identify a selected Knowledge item and its accepted relation context using each representation.
-      oracle: Both representations resolve the same canonical Knowledge identities and accepted relation source/target/type semantics; geometric position is never required to recover semantic truth.
-
-    - id: FTD-COMMON-VIEW-STATES
-      verification_refs: [FV-02, FV-09]
-      precondition: A representative server-backed view can be driven into loading, empty, loaded, validation-rejected, recoverable-failure and unavailable/degraded states where those states are accepted.
-      operation: Present each applicable state through the same view responsibility.
-      oracle: Each state remains distinguishable with consistent presentation semantics and does not expose actions invalid for that state.
-
-    - id: FTD-VISUAL-SYSTEM-FIDELITY
-      verification_refs: [FV-02, FV-09]
-      precondition: Representative Learning and Curation workspaces render at browser 100% zoom using the production theme/provider.
-      operation: Inspect the application shell, workspace typography/control density, Knowledge wide composition and graph surface at representative wide/compact/narrow viewport classes.
-      oracle: Desktop uses the persistent left rail; operational body/control typography stays compact rather than provider-display sized; ordinary controls remain within the accepted dense range; wide Knowledge results/detail stay supporting while graph receives the flexible majority; graph canvas fills its region with the accepted dark workspace treatment; responsive reflow preserves the accepted hierarchy without horizontal overflow. Exact provider token names and pixel-perfect screenshot equality are not required.
-
-    - id: FTD-RESPONSIVE-GRAPH-WORKSPACE
-      verification_refs: [FV-02, FV-09]
-      precondition: The same representative Knowledge workspace is available at wide, compact and narrow viewport classes.
-      operation: Render the workspace in each viewport class and inspect region ordering, graph/list/detail availability and keyboard continuation.
-      oracle: Wide composition gives the graph the flexible majority of the workspace; compact keeps the graph primary while supporting detail/list reflow; narrow uses one content width without horizontal overflow; focus/read order remains usable and required controls remain reachable.
-
-    - id: FTD-GRAPH-CONTROL-SURFACE
-      verification_refs: [FV-02, FV-06, FV-09]
-      precondition: A representative graph contains multiple semantic kinds and relation types and exposes the accepted graph toolbar.
-      operation: Change relation-type multi-selection and semantic-kind filtering, focus/clear focus, fit the graph, reset camera and open graph settings.
-      oracle: Visible topology follows semantic filters without inventing relations; fit/reset affect viewport only; focus is reversible; accepted controls remain available without exposing private renderer strategy names.
-
-    - id: FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS
-      verification_refs: [FV-06, FV-09]
-      precondition: The same renderer-neutral GraphScene can be rendered under Auto, Quality and Performance profiles plus accepted advanced visual preferences.
-      operation: Switch profiles and toggle labels, arrowheads, decorative particles, live physics and node visual detail where supported.
-      oracle: Canonical node ids, visible semantic membership, relation source/target/type, current scope, selection/focus and equivalent list/detail access remain unchanged; if arrowheads are disabled, direction remains explicitly inspectable by another accepted encoding.
-
-    - id: FTD-GRAPH-STRESS-EVIDENCE
-      verification_refs: [FV-06, FV-09]
-      precondition: Synthetic renderer-neutral stress fixtures exist for approximately 1k, 2k and 5k visible nodes with proportionate typed relations and no product/domain meaning.
-      operation: Run the production renderer in a hardware-accelerated desktop browser for each fixture/profile and record active RAF/FPS, idle activity, settle behavior, orbit/zoom/drag/search-focus/filter responsiveness and available draw-call/triangle diagnostics.
-      oracle: The ordinary 2k/10k envelope is approximately 30 FPS or better under an appropriate supported profile on the reference desktop class; idle rendering stops avoidable continuous animation work after settling; 5k stress behavior and any required degradation are recorded; no benchmark profile changes canonical graph semantics. Headless execution may validate fixture/configuration semantics but cannot satisfy this performance oracle.
-
-  implementation_freedoms:
-    - exact test runner and browser/component-test framework
-    - fixture/helper/mocking syntax
-    - DOM selectors and test-file layout
-    - internal component decomposition
-    - concrete adapter fake implementation
-    - visual snapshot tooling unless a separately accepted visual invariant requires it
-
-  forbidden_oracles:
-    - exact force-layout coordinates
-    - concrete renderer-library object identity
-    - private React component state shape
-    - CSS class names or provider component tree
-    - pixel-perfect snapshots without an accepted visual invariant
+    - id: FTD-12-KEYBOARD-RELATION-TRAVERSAL
+      verification_refs: [FV-03, FV-06]
+      precondition: >-
+        Knowledge contains a search result with at least one typed directed
+        relationship and the user interacts without pointer-only spatial gestures.
+      operation: >-
+        Keyboard-focus search, choose the result, inspect relationship semantics
+        and move focus through the connected identity.
+      oracle: >-
+        The full semantic traversal completes with visible focus and readable
+        relation type/direction independently of camera/direct-manipulation
+        gestures.
