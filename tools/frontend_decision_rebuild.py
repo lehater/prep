@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after engineering policy and frontend verification.
+# Isolated CI probe with Component Design decision governance enabled.
 from __future__ import annotations
 
 import json
