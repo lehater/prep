@@ -78,6 +78,8 @@ Absence of a Claim is not a negative Claim.
 
 `time_scope` states the time about which capability is asserted. It is distinct from Observation timestamp, Performance temporal extent and inference creation time.
 
+Learner state is a projection over accepted Claims and their supporting/challenging arguments, not a separate mutable `CapabilityState` entity. Incompatible claims or arguments remain explicit when their scope/time/provenance does not justify reconciliation; downstream consumers must not silently choose one as truth.
+
 ## CapabilityEvidenceArgument
 
 ```text
