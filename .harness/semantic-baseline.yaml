@@ -49,8 +49,8 @@ reviews:
     basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
 
   - capability: prep.application-design
-    revision: 2
-    basis: "Application Design now defines the Study Set preparation gate over RequirementExpression<CapabilitySpecification>: valid/resolvable target semantics and a supported study profile are required, while incomplete learning support produces an exact resolvable subset plus diagnostics rather than a false completeness gate; explicit LearningSupportRequirement semantics remain domain-owned."
+    revision: 3
+    basis: "Application Design was explicitly REDO-reviewed through the Harness decision pipeline for Study Set preparation: strict-completeness, explicit-support hard-gate, resolvable-subset, separate-validation and silent-best-effort alternatives were critically reviewed; only an exact resolvable subset with explicit preparation diagnostics remained viable. The preview binds subset and diagnostics to the same current-state identity."
 
   - capability: prep.task-model
     revision: 3
