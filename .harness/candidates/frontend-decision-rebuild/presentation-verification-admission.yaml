@@ -1,0 +1,41 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.presentation-verification
+acceptance_id: frontend-decision-rebuild::prep.presentation-verification::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: PRESENTATION-VERIFICATION
+  path: docs/verification/presentation-verification.md
+  capability: prep.presentation-verification
+  changed_paths:
+    - docs/verification/presentation-verification.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/verification/interface-verification.md
+    - referenced_path: docs/interface/presentation-system.md
+    - referenced_path: docs/interface/screen-view-design.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - verification-not-semantic-owner
+    basis: >-
+      Rebuilt only from the Harness-generated CREATE read set. The strategy
+      verifies the accepted topology-to-screen closure, task-context hierarchy,
+      mixed textual/3D Knowledge presentation, responsive composition,
+      context-preserving Curation, factual feedback and non-spatial access.
+      Historical graph performance numbers remain diagnostic rather than
+      invented MVP acceptance gates.
