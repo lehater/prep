@@ -81,8 +81,8 @@ reviews:
     basis: "Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology."
 
   - capability: prep.presentation-system
-    revision: 4
-    basis: "Presentation System now canonically specifies the accepted visual language: compact typography/control density, light-shell/dark-graph surface roles, persistent desktop left rail, Knowledge pane ranges, toolbar composition and wide/compact/narrow breakpoint classes."
+    revision: 5
+    basis: "Presentation System resolved the 3D Knowledge-graph question through the Harness decision pipeline: 3D-default, 2D-default-with-optional-3D, list-primary and no-stable-default alternatives were reviewed across representation, information-density and control-surface axes. Mixed coordinated access with a 2D node-link production default is accepted; 3D remains experimental and requires explicit fit/reset, focus/filter, redundant relation encoding, non-spatial detail and lossless return to 2D/list access."
 
   - capability: prep.screen-view-design
     revision: 4
