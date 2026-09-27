@@ -188,6 +188,16 @@ artifacts:
     depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
 questions:
+  - id: Q-STUDY-SET-PREPARATION-GATE
+    authority: APPLICATION-DESIGN
+    text: >-
+      What exact condition makes a LearningTarget sufficiently prepared to build a Study Set
+      under the new CapabilitySpecification/RequirementExpression model, and when preparation
+      is incomplete should construction be blocked or should Prep build the resolvable subset
+      while reporting explicit missing-preparation diagnostics?
+    blocks: [SCREEN-VIEW-DESIGN]
+    resolution: APPLICATION-DESIGN
+
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
     text: >-
