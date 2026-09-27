@@ -136,11 +136,22 @@ A valid target with no currently representable material yields an explicit empty
 
 Construction fails rather than returning a misleading subset only when the target cannot be interpreted coherently (for example, an invalid RequirementExpression or unresolved required CapabilitySpecification reference) or the requested preparation profile is unsupported.
 
+#### Decision rationale
+
+The preparation gate deliberately separates **materialization validity** from **learning-support adequacy**.
+
+- A strict completeness gate is rejected because neither Product Requirements nor Learning Design makes complete support a precondition for using available material.
+- Treating every unsatisfied LearningSupportRequirement as a hard application failure is rejected because that requirement governs when support may be called adequate; it does not itself define permission to materialize partial support.
+- A separate validate/acknowledge-before-build operation is rejected because no accepted upstream behavior requires a second user/application decision before using a transparent partial result.
+- Silent best-effort materialization is rejected because it would hide known missing or inadequate support.
+
+The accepted application policy is therefore: build the exact resolvable subset when the target is interpretable and the requested profile is supported, and expose material incompleteness/adequacy as explicit diagnostics.
+
 #### Materialization consistency
 
-A Study Set preview records the exact resolved materialization identity needed to detect change before export.
+A Study Set preview binds the exact resolved subset **and its preparation diagnostics** to one current-state materialization identity.
 
-When a user exports a previously previewed set, the application must detect if target requirements or the resolved material changed since that preview rather than silently exporting a different set.
+When a user exports a previously previewed set, the application must detect if target requirements, relevant support resolution, or preparation diagnostics changed since that preview rather than silently exporting a materially different state.
 
 For the current slice, dependency-sensitive ordering, automatic prioritization from learner state and adaptive evidence-based filtering are not part of Build Study Set unless separately accepted.
 
