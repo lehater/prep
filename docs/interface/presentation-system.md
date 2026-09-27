@@ -13,7 +13,7 @@ Define shared presentation and interaction conventions for the accepted two-mode
 - **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
 - **One canonical identity, contextual capabilities.** The same canonical object may be viewed from learner or curation context while edit capabilities remain context-specific.
 - **No fake completeness.** The learner sees available material; semantic Question-set coverage quality belongs to curation and has no current numeric score.
-- **Graph is first-class but non-exclusive.** The frontend prototype gives spatial Knowledge exploration a prominent role for relational learning, while list/search/detail remain equivalent canonical access paths.
+- **Graph is first-class but non-exclusive.** Relational Knowledge exploration has a first-class node-link view, while list/search/detail remain equivalent canonical access paths. Production does not require 3D to preserve this principle.
 - **Recoverability is visible.** Validation and external-integration failures retain context/input and expose a retry or correction path.
 
 ## Accepted visual language and design tokens
@@ -194,7 +194,7 @@ For canvas/map/graph workspaces, the primary interactive surface receives the fl
 
 ## Knowledge workspace visual specification
 
-The Knowledge workspace is a graph-centered operational frame with supporting search/results and detail/editor access.
+The Knowledge workspace is a graph-centered operational frame with supporting search/results and detail/editor access. The production-default node-link projection is 2D; an optional 3D projection may exist only as an experimental presentation variant and must preserve the same semantic scope, selection and access paths.
 
 ### Wide frame geometry
 
@@ -320,7 +320,7 @@ Knowledge provides coordinated list/search, graph and detail representations ove
 
 ### Spatial priority
 
-The 3D graph is the **primary workspace** whenever graph mode is active. List/search and detail are supporting access/inspection regions.
+The node-link graph is the **primary workspace** whenever graph mode is active. List/search and detail are supporting access/inspection regions. Production graph mode defaults to 2D; 3D is not required for task completion.
 
 Wide composition:
 
@@ -363,21 +363,53 @@ Relation filtering uses a multi-select checklist/legend so several accepted rela
 Graph settings expose the accepted performance profiles and presentation-only controls from `docs/architecture/performance-capacity.md`. Expensive visual effects may be disabled without losing semantic access.
 
 
-For the frontend prototype:
+### Representation decision
 
-- a 3D node-link graph is implemented as an experimental first-class Knowledge view;
-- Target Knowledge defaults the graph scope to nodes relevant to the selected LearningTarget;
+The reviewed presentation alternatives were:
+
+- 3D node-link as the production-default primary representation;
+- 2D node-link as the production default with optional experimental 3D;
+- list/search/detail as the sole primary representation with graph secondary;
+- task-adaptive switching with no stable default.
+
+The accepted representation is **mixed coordinated access with a 2D node-link production default**:
+
+- node-link remains first-class for relation tracing, neighborhood inspection and preserving relational context;
+- list/search/detail remain fully task-complete and are not degraded to fallback-only semantics;
+- 3D remains an optional experimental presentation variant rather than a product invariant.
+
+No currently accepted task establishes a material benefit from the third spatial dimension over 2D node-link plus list/search/detail. The accepted tasks require search, relation inspection, selection, neighborhood focus and canonical detail; all are expressible without depth navigation. The current evidence also identifies viewpoint, occlusion and disorientation as additional 3D costs. Therefore 3D-default is rejected until concrete comparative task evidence justifies it.
+
+A future promotion of 3D requires evidence on named tasks showing material improvement over the accepted 2D/list baseline without unacceptable orientation/accessibility cost. Renderer novelty or visual appeal alone is insufficient.
+
+### Graph behavior
+
+- Target Knowledge defaults graph scope to Knowledge relevant to the selected LearningTarget;
 - Curation may expose a broader/global graph;
-- relation-type filters control accepted semantic relation types, initially `addresses` and `realizes`;
-- semantic-kind filters control Concept / Mechanism / Procedure / Strategy visibility;
+- relation-type filters control accepted semantic relation types;
+- semantic-kind filters control supported Knowledge classifications where available;
 - focus mode reduces clutter to a selected node and a bounded neighborhood;
 - relation direction and type remain legible without relying on geometry alone;
 - node selection opens readable canonical detail without discarding graph state;
-- Study Questions can deep-link into the graph focused on their aligned KnowledgeNodes.
+- supported study artifacts may deep-link into Knowledge focused on their referenced Knowledge identities.
 
-Graph layout/camera state and performance-profile state remain presentation state. Geometric proximity and renderer quality settings are not semantic meaning.
+Graph layout/camera state and performance-profile state remain presentation state. Geometric proximity, screen position, depth and renderer quality settings are not semantic meaning.
 
-The 3D prototype is compared with 2D/list baselines on concrete relational-learning tasks. Research shows potential value of node-link representations and, in some settings, 3D/immersive depth, but also known viewpoint, occlusion and disorientation costs; therefore 3D is not promoted to a product invariant before task evidence.
+### 3D experimental guardrails
+
+If a 3D projection is exposed, it must not introduce a distinct task contract. It inherits the same scope and commands as graph mode and must provide:
+
+- explicit **Fit graph** and **Reset camera/view**;
+- search-to-selection/focus;
+- semantic-kind and relation-type filtering;
+- explicit **Focus / Clear focus** to bound clutter;
+- selective labels prioritizing selected/focused/hovered nodes;
+- readable selected-item detail outside the spatial projection;
+- redundant relation direction/type encoding;
+- a direct path back to the 2D/list representation without losing semantic selection/scope;
+- keyboard-completable search/list/detail access independent of spatial camera manipulation.
+
+Selection must remain distinct from focus. Camera position/orientation must never alter canonical membership or imply semantic importance. Occluded or off-camera Knowledge remains discoverable through search/list and fit/focus commands.
 
 A future learner-state overlay may use opacity, size or other redundant encodings, but only after accepted learner-state semantics exist. Current review facts must not be converted into pseudo-mastery by visualization code.
 
