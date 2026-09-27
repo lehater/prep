@@ -188,16 +188,6 @@ artifacts:
     depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
 questions:
-  - id: Q-TARGET-SCOPE-AUTHORSHIP
-    authority: APPLICATION-DESIGN
-    text: >-
-      In the learner workflow, who establishes the
-      RequirementExpression<CapabilitySpecification> of a LearningTarget: does the learner
-      select reusable capability specifications directly, select a curated target/profile,
-      or use another accepted composition flow?
-    blocks: [USER-JOURNEYS]
-    resolution: APPLICATION-DESIGN
-
   - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
     authority: HUMAN-INTERFACE-DESIGN
     text: >-
