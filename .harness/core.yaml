@@ -235,3 +235,4 @@ questions:
       settings surface? If it is conditional, which quality constraints remain
       applicable when another Knowledge representation is selected?
     blocks_capabilities: [prep.presentation-system]
+    resolution: FRONTEND-PERFORMANCE-CAPACITY
