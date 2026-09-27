@@ -196,7 +196,7 @@ questions:
 
   - id: Q-LEARNING-SUPPORT-COVERAGE
     authority: TACTICAL-DOMAIN-DESIGN
-    text: What additional semantics, if any, are required to judge whether learning support is adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics, without reducing support quality to artifact or Question count?
+    text: What additional semantics, if any, are required to judge whether learning support is adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics, without reducing support quality to artifact count?
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
