@@ -29,6 +29,8 @@ Task states what was required or self-adopted. Repeating the same Task creates a
 
 Performance may be individual, collaborative, tool-mediated, long-running or incomplete.
 
+`actual_conditions` record what is known about the real execution conditions. Unknown conditions remain unknown; missing context must not be fabricated merely to fit a CapabilitySpecification.
+
 Internal reasoning is not directly observable. Only expressed reasoning, actions, traces and work products can become observation targets.
 
 ## Observation
@@ -89,9 +91,9 @@ CapabilityEvidenceArgument           // TOKEN
     created_at
 ```
 
-This is the concrete inferential argument that applies one warrant to an actual observation set and concerns one Claim.
+This is one concrete inferential application of an EvidentialWarrant to an actual observation set concerning one learner-capability claim.
 
-Independent executions over the same Observations, warrant and Claim may remain distinct arguments when model/version/provenance differs.
+The token is retained because inferential provenance has independent meaning: the same observations and target claim may be assessed under different accepted warrants, model versions or procedures, and supporting and challenging arguments may coexist.
 
 A valid CapabilityEvidenceArgument requires:
 
@@ -99,10 +101,10 @@ A valid CapabilityEvidenceArgument requires:
 observations satisfy warrant.evidence_pattern
 
 claim.CapabilitySpecification
-    == warrant.target_capability_specification
+    == warrant.target_claim.capability_specification
 
 claim.polarity
-    == warrant.target_polarity
+    == warrant.target_claim.polarity
 
 claim.time_scope
     satisfies warrant.claim_time_scope_rule
@@ -110,6 +112,12 @@ claim.time_scope
 warrant.applicability_conditions
     hold
 ```
+
+The argument inherits `supports | challenges` from its warrant.
+
+A supporting argument may justify accepting or retaining the Claim according to accepted policy.
+
+A challenging argument weakens or contests the Claim but does not itself assert the opposite polarity.
 
 Model-specific confidence, posterior, likelihood or uncertainty output belongs in `inference_result`, not in LearnerCapabilityClaim.
 
@@ -120,6 +128,22 @@ PREP does not materialize a universal `Evidence` entity.
 An Observation becomes evidential in the context of a CapabilityEvidenceArgument under an EvidentialWarrant.
 
 The same Observation may participate in several arguments. Observations may be dependent; repeated or near-identical observations are not automatically independent evidence.
+
+## Question and external-runtime compatibility
+
+Question-specific review records are integration representations, not the canonical learner model.
+
+When a supported review interaction can be interpreted faithfully:
+
+- the presented/reviewed prompt may correspond to a Task derived from a TaskSpecification;
+- the concrete review interaction is a Performance;
+- the learner response, correctness/rating, latency or other recorded result may become one or more Observations with runtime provenance;
+- any unavailable execution context remains unknown rather than being invented;
+- a runtime rating or successful review is not itself a LearnerCapabilityClaim.
+
+This allows Anki-style review facts to enter the general model without making Question or a runtime rating the universal evidence subject.
+
+If an imported record lacks enough semantics to construct a faithful Performance/Observation mapping, PREP must preserve it only at the integration boundary until a supported translation exists.
 
 ## Individual and collaborative performance
 
@@ -137,9 +161,11 @@ Old evidence does not automatically license a present-time Claim. A current Clai
 
 - Performance is an event; Task is a goal/specification-side object;
 - repeated execution creates a new Performance;
+- unknown actual conditions remain unknown;
 - Observation has token identity and provenance;
 - Observation is not Evidence by itself;
 - Observation does not imply a LearnerCapabilityClaim without an applicable warrant and valid evidence argument;
+- a challenging argument does not imply the opposite claim;
 - finite observations do not automatically justify broad generalization;
 - failure does not automatically justify a negative capability claim;
 - multiple raters do not automatically make evidence independent;
@@ -159,4 +185,4 @@ The following are not current fundamental learner constructs:
 - EvidentialBearing as an identity-less qualified relation;
 - universal Evidence entity.
 
-Integration-specific review logs may later be translated into Performance/Observation semantics when their provenance and meaning justify that mapping.
+Integration-specific review logs are translated into Performance/Observation semantics only when their actual meaning and provenance support that translation.
