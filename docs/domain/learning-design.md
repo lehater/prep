@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define reusable capability, task, observation, evidence-warrant, assessment and target semantics. This context owns what competent performance means and what evidence configuration can justify capability claims; it does not own actual learner performances or learner-specific claims.
+Define reusable capability, learning-support, task, observation, evidence, assessment, target, gap, priority and learning-intent semantics. This context owns normative and target-relative learning design; it does not own actual learner performances, observations or learner-specific evidential conclusions.
 
 ## Capability
 
@@ -42,20 +42,6 @@ A constitutive constraint determines whether a performance is an instance of the
 
 A criterion dimension measures quality of an otherwise admissible performance.
 
-Example:
-
-```text
-Construct proof
-
-constitutive:
-    logical validity
-
-criterion dimensions:
-    completeness
-    clarity
-    economy
-```
-
 ### focuses_on
 
 ```text
@@ -63,12 +49,6 @@ PerformanceExpectation -- focuses_on --> Knowledge
 ```
 
 The relation is true when Knowledge is a direct semantic object of the expected performance.
-
-Examples:
-
-- Explain CAP theorem -> focuses_on CAP theorem.
-- Recall Pythagorean theorem -> focuses_on Pythagorean theorem.
-- Compare TCP and UDP -> focuses_on TCP and UDP.
 
 Semantics:
 
@@ -113,6 +93,68 @@ Capability consistency is an ontic/normative requirement. Confidence in an estim
 
 Absence of a standard means only constitutive Capability semantics are required. It does not mean success in every condition.
 
+One CapabilitySpecification does not automatically satisfy another merely because it appears narrower, broader, stronger or weaker. Such entailment requires accepted semantics for the relevant condition scopes and standards.
+
+## Learning support
+
+### LearningMaterial
+
+```text
+LearningMaterial
+    learner_facing_content
+
+    -- presents --> Knowledge*
+    -- intended_to_support --> CapabilitySpecification*
+```
+
+LearningMaterial is a reusable learner-facing artifact such as an explanation, worked example, reference note or other material that does not itself require a learner response.
+
+Its content may present reusable Knowledge without becoming the canonical owner of that subject meaning.
+
+`intended_to_support` is a design-intent relation. It does not imply that exposure causes learning, that the material is sufficient, or that the learner possesses the Capability.
+
+When an artifact requires a learner response or performance, that behavioral demand is modeled as Task/TaskSpecification rather than being hidden inside LearningMaterial.
+
+### LearningSupportRequirement
+
+```text
+LearningSupportRequirement            // VALUE
+    target: CapabilitySpecification
+    support_constraints
+    coverage_constraints
+```
+
+LearningSupportRequirement states what kinds and coverage of learning/practice opportunities are required before Learning Design may claim that support is adequately prepared for a CapabilitySpecification.
+
+The constraints may refer to LearningMaterial, TaskSpecification, relevant condition coverage or other accepted learning-support properties. The model does not prescribe a universal taxonomy of learning methods.
+
+A set of support artifacts/opportunities may satisfy a LearningSupportRequirement as a derived predicate.
+
+Important:
+
+- adequacy is relative to an explicit LearningSupportRequirement;
+- artifact count alone has no adequacy semantics;
+- satisfying support requirements does not imply that learning occurred;
+- assessment EvidencePattern and learning-support adequacy are distinct questions.
+
+This resolves learning-support coverage without introducing a universal coverage score.
+
+### LearningIntent
+
+```text
+LearningIntent                       // VALUE
+    target: LearningTarget
+    capability_focus: CapabilitySpecification*
+    addresses: Gap*
+    purpose
+```
+
+LearningIntent is a target-relative normative statement of what change or reinforcement should be pursued next.
+
+`purpose` is open semantic content. Examples may include acquisition, reconstruction, retrieval practice, application practice, transfer preparation or retention support; these examples are not a closed enumeration.
+
+LearningIntent may be realized through LearningMaterial, TaskSpecifications or other accepted learning/practice opportunities. It does not itself assert that the intended change occurred.
+
 ## Task semantics
 
 ### TaskSpecification
@@ -129,7 +171,7 @@ TaskSpecification
 
 A TaskSpecification is one constraint-defined class of Tasks with one semantics of admissible variability.
 
-`response_affordances` describe what a conforming Task makes available for performance and observation, including required work products, permitted interaction, traces, response channels and required exposure of reasoning when applicable.
+`response_affordances` describe what a conforming Task permits or requires from the performer, including work products, interaction, traces, response channels and required exposure of reasoning when applicable.
 
 ### affords_observation_of
 
@@ -148,6 +190,7 @@ It is a design-modal relation. It does not imply:
 Task
     concrete_expectation
     prescribed_conditions
+    response_affordances
 
     -- conforms_to -->
         TaskSpecification*
@@ -155,7 +198,9 @@ Task
 
 Task is a concrete prescribed or self-adopted goal under concrete conditions.
 
-`Task -- conforms_to --> TaskSpecification` is classificatory and semantically derived from satisfaction of specification constraints. Cardinality is `0..*`. A Task may conform to overlapping specifications.
+Its concrete response affordances are part of what the performer is actually permitted or required to produce. A Task conforms to a TaskSpecification only when its expectation, conditions and response affordances satisfy the specification constraints.
+
+`Task -- conforms_to --> TaskSpecification` is classificatory with cardinality `0..*`. A Task may conform to overlapping specifications.
 
 Changing the semantics of a TaskSpecification creates a new semantic specification identity rather than retroactively reclassifying history.
 
@@ -198,16 +243,19 @@ No IRT, BKT, cognitive-diagnosis, Bayesian or confidence formula is part of the 
 ```text
 EvidentialWarrant
     evidence_pattern
-    target_capability_specification
-    target_polarity
+    target_claim:
+        capability_specification
+        polarity
     bearing: supports | challenges
     claim_time_scope_rule
     applicability_conditions?
 ```
 
-A warrant is reusable justification for why an EvidencePattern permits a directed inference concerning a CapabilitySpecification.
+A warrant is reusable justification for why an EvidencePattern permits a directed evidential bearing on a particular kind of learner-capability claim.
 
-Positive and negative inferences are not assumed symmetric. A warrant licenses exactly the polarity/bearing semantics it states.
+The nested `target_claim` removes ambiguity between claim polarity and evidential direction.
+
+A warrant that challenges a positive claim does not thereby support the corresponding negative claim. Positive and negative claims require their own warranted semantics.
 
 Statistical confidence is not part of warrant identity.
 
@@ -231,13 +279,15 @@ EvidencePattern states what evidence configuration is required. SamplingSpecific
 ```text
 AssessmentDesign
     targets: CapabilitySpecification*
-    TaskSpecification*
-    ObservationSpecification*
-    EvidentialWarrant*
-    SamplingSpecification*
+    task_specifications: TaskSpecification*
+    observation_specifications: ObservationSpecification*
+    warrants: EvidentialWarrant*
+    sampling_specifications: SamplingSpecification*
 ```
 
-AssessmentDesign is reusable design-time semantics. It is distinct from assessment events, sessions and actual Performance.
+AssessmentDesign is reusable design-time semantics that groups a coherent assessment intent. It is distinct from assessment events, sessions and actual Performance.
+
+The grouping is meaningful because the same TaskSpecification or ObservationSpecification may participate in different assessment designs with different targets, warrants or sampling requirements.
 
 Valid evidence may arise from natural work without any AssessmentDesign.
 
@@ -269,28 +319,101 @@ RequirementExpression =
 
 `at_least_n` is not part of the core until a strong use case requires it.
 
+## Target-relative gap and priority
+
+### Target satisfaction
+
+Target satisfaction is derived from the RequirementExpression and accepted learner-specific state.
+
+A leaf CapabilitySpecification is established as satisfied only when an accepted positive LearnerCapabilityClaim matches or is explicitly known to entail the required specification.
+
+No broadening across condition scope, standard or time is automatic.
+
+For composites:
+
+- `all_of` is satisfied only when every child is satisfied;
+- `any_of` is satisfied when at least one child is satisfied.
+
+Absence of a satisfying claim means satisfaction is not established. It does not create a negative learner claim.
+
+### Gap
+
+```text
+Gap                                  // DERIVED VALUE
+    target: LearningTarget
+    requirement_fragment
+    kind: unresolved | challenged
+    basis
+```
+
+A Gap is a target-relative requirement fragment whose satisfaction is not currently established.
+
+- `unresolved`: available learner state is insufficient to establish satisfaction;
+- `challenged`: accepted learner-specific evidence/state materially challenges satisfaction.
+
+A Gap is not an intrinsic property of Knowledge or Capability.
+
+The Boolean structure of RequirementExpression must be respected. An unsatisfied alternative inside an already satisfied `any_of` branch is not automatically a target Gap.
+
+### LearningPriority
+
+```text
+LearningPriority                     // VALUE / DECISION
+    target: LearningTarget
+    focuses_on: Gap+
+    rationale
+```
+
+LearningPriority records which target-relative gaps deserve attention next and why.
+
+Priority is not an intrinsic property of Knowledge, Capability or Gap. It may be human-authored or algorithmically derived, but any algorithm is downstream policy and must preserve target/evidence semantics.
+
+Reducing uncertainty may itself justify priority even when no negative learner claim exists.
+
+## Question compatibility profile
+
+`Question` is not a fundamental domain entity.
+
+A current-slice question can be represented as a convenience profile over the general model:
+
+- the prompt and expected response behavior belong to TaskSpecification/Task;
+- a direct/reference answer used to evaluate a response belongs to ObservationSpecification evaluation semantics;
+- explanatory/reference content shown for learning may be LearningMaterial;
+- the learner's actual response is part of Performance;
+- ratings, correctness judgments or other recorded results are Observations with provenance.
+
+This permits Question-based workflows without making Question the universal learning or evidence model.
+
 ## Allowed inference
 
 The following local inferences are valid:
 
-- Task conforms_to TaskSpecification -> Task satisfies that specification's constraints;
+- Task conforms_to TaskSpecification -> Task satisfies that specification's expectation, condition and response-affordance constraints;
 - RequirementExpression `all_of` -> all children are required;
 - RequirementExpression `any_of` -> at least one child is sufficient for that branch;
-- a set of Observations may be tested against EvidencePattern as a derived predicate.
+- a set of Observations may be tested against EvidencePattern as a derived predicate;
+- a set of learning materials/opportunities may be tested against an explicit LearningSupportRequirement;
+- target satisfaction and Gap may be derived only using the accepted RequirementExpression and learner-state semantics above.
 
 ## Forbidden inference
 
 The model does not allow:
 
 - `focuses_on(K)` -> K is required as a realization method;
+- `intended_to_support(C)` -> the learner acquired C;
+- learning-support adequacy -> learner Capability;
 - a domain proposition that K can support C -> K is necessary or sufficient for C;
 - Task conformance -> Capability possession;
 - TaskSpecification affordance -> Observation exists;
 - successful Performance -> broad Capability;
 - failed Performance -> negative Capability claim;
+- a warrant challenging a positive claim -> support for a negative claim;
 - narrow condition scope -> broader condition scope;
 - familiar-task Capability -> novel-task Capability;
-- repeated evidence -> independent evidence.
+- repeated evidence -> independent evidence;
+- absence of a satisfying claim -> negative learner claim;
+- artifact count -> learning-support adequacy;
+- priority -> intrinsic importance of Knowledge.
 
 ## Removed from the core model
 
@@ -309,13 +432,14 @@ The following are not current fundamental constructs:
 - PerformanceCriterion entity;
 - Evidence entity;
 - EvidenceRequirement;
-- CoverageSpecification;
+- universal CoverageSpecification;
 - ActualCoverage;
 - AssessmentTarget;
 - AssessmentEpisode;
 - TaskFamily;
 - TaskTemplate;
 - TaskInstance;
-- Attempt.
+- Attempt;
+- LearningSupportDesign as a separate aggregate.
 
 A future use case may reintroduce a distinction only when removing it causes material semantic loss.
