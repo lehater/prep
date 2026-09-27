@@ -1,0 +1,439 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.frontend-component-design
+acceptance_id: frontend-decision-rebuild::prep.frontend-component-design::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.frontend-component-design
+  knowledge_kind: component-design
+  explorer_request_id: sha256:bae4a05b0e37376800ae58d98e12516797b3464ba30af7fa90d27dd4ae20a5d6
+
+  axes:
+    - axis: responsibility-boundaries
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: split-vs-merge
+          challenge: >-
+            Compare feature/task ownership with one module per topology view and
+            with a few broad technical layers.
+          alternatives:
+            - task-feature-ownership
+            - topology-view-islands
+            - horizontal-technical-ownership
+            - stable-pattern-sharing
+            - generic-ui-platform
+        - strategy: feature-vs-technical
+          challenge: >-
+            Shift ownership from Learning/Knowledge/Curation responsibilities to
+            generic components/hooks/services and inspect change-reason cohesion.
+          alternatives:
+            - task-feature-ownership
+            - horizontal-technical-ownership
+        - strategy: local-vs-shared
+          challenge: >-
+            Compare local composition plus extraction of stable repeated patterns
+            with a universal shared entity/CRUD component platform.
+          alternatives:
+            - stable-pattern-sharing
+            - generic-ui-platform
+      decision_points:
+        - id: feature-module-ownership
+          alternatives:
+            - id: task-feature-ownership
+              difference: >-
+                Learning, Knowledge and Curation own cohesive task behavior;
+                topology views are compositions inside those feature boundaries.
+              material_effects:
+                boundary-granularity: feature-plus-view-composition
+                ownership-basis: user-task-and-semantic-responsibility
+                cross-feature-sharing: stable-patterns-only
+            - id: topology-view-islands
+              difference: >-
+                Every topology view is an independently owned module even when
+                multiple views share one feature responsibility and state continuity.
+              material_effects:
+                boundary-granularity: one-module-per-view
+                ownership-basis: topology-view
+                cross-feature-sharing: coordination-through-shared-services
+            - id: horizontal-technical-ownership
+              difference: >-
+                Primary ownership is split by technical categories such as
+                components, hooks, services and stores across all product work.
+              material_effects:
+                boundary-granularity: broad-technical-layers
+                ownership-basis: implementation-mechanism
+                cross-feature-sharing: high-horizontal-sharing
+        - id: shared-component-extraction
+          alternatives:
+            - id: stable-pattern-sharing
+              difference: >-
+                Reuse is extracted only for stable repeated presentation
+                responsibilities with multiple current consumers.
+              material_effects:
+                boundary-granularity: small-repeated-patterns
+                ownership-basis: repeated-consumer-responsibility
+                cross-feature-sharing: bounded
+            - id: generic-ui-platform
+              difference: >-
+                Targets, Requirements, Questions and other work are generalized
+                behind one configurable CRUD/entity component platform.
+              material_effects:
+                boundary-granularity: generic-platform
+                ownership-basis: configuration-driven-abstraction
+                cross-feature-sharing: pervasive
+
+    - axis: provider-seams
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: direct-vs-port
+          challenge: >-
+            Compare consumer-owned frontend contracts with provider APIs leaking
+            directly into feature public models.
+          alternatives:
+            - consumer-shaped-backend-contracts
+            - raw-transport-feature-contracts
+            - knowledge-renderer-port
+            - renderer-types-in-knowledge-feature
+        - strategy: wrapper-scope-perturbation
+          challenge: >-
+            Expand provider abstraction from meaningful boundary seams to one
+            project wrapper per provider primitive or operation.
+          alternatives:
+            - consumer-shaped-backend-contracts
+            - per-operation-wrapper-layer
+            - knowledge-renderer-port
+            - generic-visualization-provider-platform
+        - strategy: provider-substitution
+          challenge: >-
+            Replace backend transport or the 3D provider and inspect how much
+            feature/component semantics must change.
+          alternatives:
+            - consumer-shaped-backend-contracts
+            - raw-transport-feature-contracts
+            - knowledge-renderer-port
+            - renderer-types-in-knowledge-feature
+            - generic-visualization-provider-platform
+      decision_points:
+        - id: backend-provider-seam
+          alternatives:
+            - id: consumer-shaped-backend-contracts
+              difference: >-
+                Feature consumers depend on coherent operation contracts while a
+                shared technical adapter may implement several such contracts.
+              material_effects:
+                seam-location: feature-to-backend-adapter
+                provider-leakage: contained
+                substitution-scope: backend-technical-provider
+            - id: raw-transport-feature-contracts
+              difference: >-
+                Feature public models depend directly on raw HTTP DTO/status/route
+                representation.
+              material_effects:
+                seam-location: absent
+                provider-leakage: cross-feature
+                substitution-scope: feature-rewrite
+            - id: per-operation-wrapper-layer
+              difference: >-
+                Every machine operation receives its own project abstraction even
+                where no distinct consumer boundary or substitution need exists.
+              material_effects:
+                seam-location: every-operation
+                provider-leakage: contained
+                substitution-scope: over-fragmented
+        - id: spatial-provider-seam
+          alternatives:
+            - id: knowledge-renderer-port
+              difference: >-
+                Knowledge owns a renderer-neutral projection contract and the 3D
+                provider is an outward adapter.
+              material_effects:
+                seam-location: knowledge-projection-boundary
+                provider-leakage: renderer-local
+                substitution-scope: spatial-provider
+            - id: renderer-types-in-knowledge-feature
+              difference: >-
+                Renderer node/link/scene/camera types become public Knowledge
+                feature/component models.
+              material_effects:
+                seam-location: absent
+                provider-leakage: feature-wide
+                substitution-scope: knowledge-feature-rewrite
+            - id: generic-visualization-provider-platform
+              difference: >-
+                A broad generic visualization abstraction is introduced to cover
+                hypothetical future 2D/3D/chart providers.
+              material_effects:
+                seam-location: generic-visualization-platform
+                provider-leakage: contained
+                substitution-scope: hypothetical-multi-provider
+
+    - axis: state-ownership
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: local-vs-global
+          challenge: >-
+            Compare minimal shared app context plus feature-local interaction
+            state with a universal global frontend store.
+          alternatives:
+            - minimal-app-feature-local-state
+            - universal-global-ui-store
+            - per-view-duplicated-context
+            - replaceable-server-query-state
+            - client-canonical-domain-store
+            - renderer-adapter-local-state
+            - renderer-state-in-knowledge-global
+        - strategy: server-vs-client-owner
+          challenge: >-
+            Move canonical backend data into a client-owned domain store and
+            inspect conflict/currentness ownership.
+          alternatives:
+            - replaceable-server-query-state
+            - client-canonical-domain-store
+        - strategy: lifecycle-perturbation
+          challenge: >-
+            Promote renderer camera/scene state or view drafts beyond their
+            natural lifetime and inspect coupling across unrelated tasks.
+          alternatives:
+            - minimal-app-feature-local-state
+            - universal-global-ui-store
+            - per-view-duplicated-context
+            - renderer-adapter-local-state
+            - renderer-state-in-knowledge-global
+      decision_points:
+        - id: interaction-state-sharing
+          alternatives:
+            - id: minimal-app-feature-local-state
+              difference: >-
+                Only root work context and active target continuity are shared
+                above features; search/focus/drafts/recovery stay with their owner.
+              material_effects:
+                state-owner: app-context-plus-feature-owners
+                sharing-scope: only-required-cross-view-context
+                lifecycle: task-context
+            - id: universal-global-ui-store
+              difference: >-
+                Most navigation, query, draft, focus and renderer interaction
+                state is promoted into one global mutable store.
+              material_effects:
+                state-owner: global-store
+                sharing-scope: application-wide
+                lifecycle: application
+            - id: per-view-duplicated-context
+              difference: >-
+                Each topology view independently copies target/focus/context
+                values even when continuity across views is accepted.
+              material_effects:
+                state-owner: individual-view
+                sharing-scope: duplicated
+                lifecycle: view-instance
+        - id: server-representation-state
+          alternatives:
+            - id: replaceable-server-query-state
+              difference: >-
+                Backend data is held as replaceable query/cache representation
+                under consumer feature contracts.
+              material_effects:
+                state-owner: backend-authoritative-query-cache
+                sharing-scope: consumer-driven
+                lifecycle: cache-query-lifecycle
+            - id: client-canonical-domain-store
+              difference: >-
+                The frontend maintains a client-owned canonical domain model and
+                reconciles server data into it as secondary input.
+              material_effects:
+                state-owner: client-canonical-store
+                sharing-scope: application-wide-domain
+                lifecycle: long-lived
+        - id: renderer-local-state
+          alternatives:
+            - id: renderer-adapter-local-state
+              difference: >-
+                Camera, scene resources and transient hover remain inside the 3D
+                adapter while canonical focus stays in Knowledge interaction state.
+              material_effects:
+                state-owner: renderer-adapter
+                sharing-scope: spatial-projection-only
+                lifecycle: renderer-instance
+            - id: renderer-state-in-knowledge-global
+              difference: >-
+                Renderer camera/scene/provider objects are promoted into general
+                Knowledge/global state.
+              material_effects:
+                state-owner: knowledge-or-global-store
+                sharing-scope: feature-wide
+                lifecycle: feature-or-application
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - feature-module-ownership
+      - shared-component-extraction
+      - backend-provider-seam
+      - spatial-provider-seam
+      - interaction-state-sharing
+      - server-representation-state
+      - renderer-local-state
+    open_gaps: []
+
+candidate:
+  id: FRONTEND-COMPONENT-DESIGN
+  path: docs/implementation/frontend-component-design.md
+  capability: prep.frontend-component-design
+  changed_paths:
+    - docs/implementation/frontend-component-design.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/engineering/frontend-engineering-policy.md
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/architecture/frontend-system-architecture.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/interface/machine-interface.md
+    - referenced_path: docs/interface/presentation-system.md
+    - referenced_path: docs/interface/screen-view-design.md
+    - referenced_path: docs/architecture/system-architecture.md
+  semantic_assertions: []
+  decision_review:
+    axes:
+      - axis: responsibility-boundaries
+        decisions:
+          - id: feature-module-ownership
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: task-feature-ownership
+                state: VIABLE
+              - id: topology-view-islands
+                state: VIABLE
+              - id: horizontal-technical-ownership
+                state: REJECTED
+                rationale: >-
+                  Primary technical-layer ownership obscures accepted
+                  Learning/Knowledge/Curation responsibilities and increases
+                  cross-feature change coupling.
+            disposition: DELEGATED
+            selected: task-feature-ownership
+          - id: shared-component-extraction
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: stable-pattern-sharing
+                state: VIABLE
+              - id: generic-ui-platform
+                state: REJECTED
+                rationale: >-
+                  Current accepted screens do not justify a generic CRUD/entity
+                  framework; it would own variation before stable reuse exists.
+            disposition: DETERMINED
+            selected: stable-pattern-sharing
+
+      - axis: provider-seams
+        decisions:
+          - id: backend-provider-seam
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: consumer-shaped-backend-contracts
+                state: VIABLE
+              - id: raw-transport-feature-contracts
+                state: REJECTED
+                rationale: >-
+                  It violates the accepted frontend dependency direction by
+                  making transport representation a feature contract.
+              - id: per-operation-wrapper-layer
+                state: REJECTED
+                rationale: >-
+                  Engineering Policy explicitly rejects wrappers without a
+                  meaningful consumer/substitution responsibility.
+            disposition: DETERMINED
+            selected: consumer-shaped-backend-contracts
+          - id: spatial-provider-seam
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: knowledge-renderer-port
+                state: VIABLE
+              - id: renderer-types-in-knowledge-feature
+                state: REJECTED
+                rationale: >-
+                  Renderer types are required to remain inside the 3D adapter
+                  boundary and cannot define Knowledge public semantics.
+              - id: generic-visualization-provider-platform
+                state: REJECTED
+                rationale: >-
+                  No accepted second visualization provider requires a broader
+                  generic platform; the abstraction would be speculative.
+            disposition: DETERMINED
+            selected: knowledge-renderer-port
+
+      - axis: state-ownership
+        decisions:
+          - id: interaction-state-sharing
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: minimal-app-feature-local-state
+                state: VIABLE
+              - id: universal-global-ui-store
+                state: REJECTED
+                rationale: >-
+                  It promotes unrelated drafts, renderer and task state above
+                  their accepted ownership/lifetime without a cross-view need.
+              - id: per-view-duplicated-context
+                state: REJECTED
+                rationale: >-
+                  Accepted Learning to target-scoped Knowledge continuity
+                  requires shared target context rather than duplicated copies.
+            disposition: DETERMINED
+            selected: minimal-app-feature-local-state
+          - id: server-representation-state
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: replaceable-server-query-state
+                state: VIABLE
+              - id: client-canonical-domain-store
+                state: REJECTED
+                rationale: >-
+                  Backend canonical authority is accepted architecture; a
+                  client-canonical store would re-own state and conflict semantics.
+            disposition: DETERMINED
+            selected: replaceable-server-query-state
+          - id: renderer-local-state
+            owner_authority: COMPONENT-DESIGN
+            alternatives:
+              - id: renderer-adapter-local-state
+                state: VIABLE
+              - id: renderer-state-in-knowledge-global
+                state: REJECTED
+                rationale: >-
+                  Camera/scene/provider lifecycle has no accepted consumer outside
+                  the spatial adapter and would couple feature semantics to provider state.
+            disposition: DETERMINED
+            selected: renderer-adapter-local-state
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - component-not-upstream-owner
+      - implementation-facing-boundaries-complete-for-scope
+      - no-invention
+      - source-discipline
+    basis: >-
+      Rebuilt from the Harness-generated CREATE read set. Public ownership
+      follows Learning/Knowledge/Curation responsibilities, only stable repeated
+      presentation patterns are shared, backend and 3D providers remain behind
+      narrow consumer-owned seams, and state lifetime is explicit without
+      selecting framework, library, directory or private helper structure.
