@@ -41,10 +41,12 @@ reviews:
     basis: "Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics."
 
   - capability: prep.learning-design
-    revision: 3\n    basis: "Learning Design now completes the capability-centered tactical model with reusable LearningMaterial, explicit LearningSupportRequirement semantics, target-relative LearningIntent, derived Gap and LearningPriority, concrete Task response affordances, a Question compatibility profile, and clarified EvidentialWarrant target-claim/bearing semantics without introducing a universal coverage score."
+    revision: 3
+    basis: "Learning Design now completes the capability-centered tactical model with reusable LearningMaterial, explicit LearningSupportRequirement semantics, target-relative LearningIntent, derived Gap and LearningPriority, concrete Task response affordances, a Question compatibility profile, and clarified EvidentialWarrant target-claim/bearing semantics without introducing a universal coverage score."
 
   - capability: prep.learner-model
-    revision: 3\n    basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
+    revision: 3
+    basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
 
   - capability: prep.application-design
     revision: 1
