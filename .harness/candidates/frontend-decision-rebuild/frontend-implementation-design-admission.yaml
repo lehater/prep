@@ -1,0 +1,525 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.frontend-implementation-design
+acceptance_id: frontend-decision-rebuild::prep.frontend-implementation-design::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.frontend-implementation-design
+  knowledge_kind: implementation-design
+  explorer_request_id: sha256:4b4e0a3f6d91ea3cf6b3180f700299a860ecfd6f46af72fe3dcaaa2a7813a10a
+
+  axes:
+    - axis: slice-boundaries
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: split-slice
+          challenge: >-
+            Compare a small boundary foundation followed by independently verifiable
+            user-work slices with finer slices split by every technical layer.
+          alternatives:
+            - foundation-plus-vertical-work-slices
+            - horizontal-layer-slices
+            - screen-by-screen-slices
+        - strategy: merge-slices
+          challenge: >-
+            Compare bounded slices with one broad frontend replacement that changes
+            shell, Knowledge, Learning, Curation and provider integration together.
+          alternatives:
+            - foundation-plus-vertical-work-slices
+            - broad-replacement-slice
+        - strategy: dependency-order-perturbation
+          challenge: >-
+            Start 3D integration before renderer-neutral Knowledge semantics, or
+            Curation/Learning surfaces before backend/provider boundaries, and test
+            whether those slices can be verified without inventing missing seams.
+          alternatives:
+            - foundation-plus-vertical-work-slices
+            - provider-first-order
+      decision_points:
+        - id: implementation-slice-structure
+          alternatives:
+            - id: foundation-plus-vertical-work-slices
+              difference: >-
+                Establish composition/provider boundaries first, then realize
+                Knowledge semantic access, 3D projection, Learning and Curation as
+                independently verifiable user-work slices.
+              material_effects:
+                slice-granularity: bounded-feature-work
+                dependency-order: boundary-before-consumers
+                ownership-alignment: accepted-feature-boundaries
+            - id: horizontal-layer-slices
+              difference: >-
+                Implement transport/adapters, state, UI components and screens as
+                broad technical-layer stages across all features.
+              material_effects:
+                slice-granularity: cross-feature-technical-layers
+                dependency-order: technical-layer-order
+                ownership-alignment: horizontal-technical
+            - id: broad-replacement-slice
+              difference: >-
+                Replace the frontend in one large implementation unit and verify only
+                after the full shell/features/providers are composed.
+              material_effects:
+                slice-granularity: one-large-slice
+                dependency-order: mostly-internal
+                ownership-alignment: whole-frontend
+            - id: screen-by-screen-slices
+              difference: >-
+                Treat each concrete Screen/View as an implementation slice even when
+                several views share one accepted feature responsibility.
+              material_effects:
+                slice-granularity: screen-subject
+                dependency-order: view-by-view
+                ownership-alignment: topology-view
+
+    - axis: repository-realization
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: boundary-remap
+          challenge: >-
+            Compare physical feature/task ownership with generic components/hooks/services
+            roots and test whether public ownership remains visible.
+          alternatives:
+            - feature-task-roots-with-adapters
+            - generic-technical-layer-roots
+        - strategy: composition-root-shift
+          challenge: >-
+            Compare one browser composition root with independent composition roots
+            for Learning, Knowledge and Curation.
+          alternatives:
+            - single-app-composition-root
+            - per-context-composition-roots
+        - strategy: generated-source-perturbation
+          challenge: >-
+            Compare keeping generated/provider-specific artifacts inside adapters
+            with exposing them as shared feature models.
+          alternatives:
+            - provider-artifacts-contained
+            - provider-artifacts-shared
+      decision_points:
+        - id: physical-ownership-map
+          alternatives:
+            - id: feature-task-roots-with-adapters
+              difference: >-
+                One frontend source root mirrors accepted Learning/Knowledge/Curation
+                ownership, with shared presentation and technical adapters separated.
+              material_effects:
+                module-boundary: feature-task-plus-adapters
+                composition-root: single-application-root
+                generated-source-placement: provider-adapter-private
+            - id: generic-technical-layer-roots
+              difference: >-
+                Organize public source primarily as components/hooks/services/models
+                shared across work contexts.
+              material_effects:
+                module-boundary: generic-technical-layers
+                composition-root: single-application-root
+                generated-source-placement: technical-layer-dependent
+            - id: per-context-composition-roots
+              difference: >-
+                Give Learning, Knowledge and Curation independent composition roots
+                and integrate them at a higher shell boundary.
+              material_effects:
+                module-boundary: context-applications
+                composition-root: multiple-feature-roots
+                generated-source-placement: per-context
+        - id: provider-source-placement
+          alternatives:
+            - id: provider-artifacts-contained
+              difference: >-
+                Raw HTTP/renderer/generated/provider representations remain private
+                to their owning adapter/provider boundary.
+              material_effects:
+                module-boundary: consumer-owned-contracts
+                composition-root: provider-injected
+                generated-source-placement: adapter-private
+            - id: provider-artifacts-shared
+              difference: >-
+                Generated or provider-specific representations become shared models
+                imported by feature code.
+              material_effects:
+                module-boundary: provider-shaped-public-model
+                composition-root: provider-coupled
+                generated-source-placement: shared-feature-visible
+
+    - axis: dependency-tooling
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: tool-substitution
+          challenge: >-
+            Compare retaining the repository's current TypeScript/oxlint/versioned
+            boundary-check/Vitest/Playwright toolchain with introducing a new
+            architecture/lint/test tool family for the same obligations.
+          alternatives:
+            - current-versioned-toolchain
+            - replacement-tool-family
+            - manual-review-only
+        - strategy: enforcement-point-shift
+          challenge: >-
+            Move architecture dependency enforcement from the existing versioned
+            checker and CI to editor/pre-commit/manual review and test reproducibility.
+          alternatives:
+            - current-versioned-toolchain
+            - local-only-enforcement
+        - strategy: remove-tool
+          challenge: >-
+            Remove deterministic architecture-boundary checking and rely on typecheck
+            plus human review.
+          alternatives:
+            - current-versioned-toolchain
+            - manual-review-only
+      decision_points:
+        - id: implementation-tool-environment
+          alternatives:
+            - id: current-versioned-toolchain
+              difference: >-
+                Realize the new design inside the existing npm-lockfile environment
+                and existing deterministic typecheck/lint/boundary/unit/browser/build
+                surfaces, changing tools only if a current obligation cannot be enforced.
+              material_effects:
+                tool-family: existing-repository-node-typescript-toolchain
+                enforcement-point: versioned-scripts-plus-ci
+                runtime-footprint: no-new-tool-family
+            - id: replacement-tool-family
+              difference: >-
+                Replace one or more current lint/architecture/test/build tool families
+                while implementing the rebuilt frontend.
+              material_effects:
+                tool-family: new-tool-family
+                enforcement-point: rewritten-scripts-and-ci
+                runtime-footprint: tooling-transition
+            - id: manual-review-only
+              difference: >-
+                Enforce component/provider boundaries primarily through code review
+                instead of deterministic project checks.
+              material_effects:
+                tool-family: no-architecture-checker
+                enforcement-point: human-review
+                runtime-footprint: minimal-tooling
+
+    - axis: migration-transition
+      applicability: NOT_APPLICABLE
+      exploration_level: EXPLORE
+      applicability_evidence:
+        - FRONTEND-COMPONENT-DESIGN
+        - FRONTEND-VERIFICATION
+      rationale: >-
+        The accepted target is one frontend realization with no accepted data/schema
+        migration, mixed-version coexistence contract, compatibility window or
+        irreversible intermediate state. Existing web code is implementation evidence,
+        not an upstream interface that must remain concurrently supported. Deployment
+        remains whole-artifact replacement; transition semantics reopen only if a
+        compatibility/coexistence obligation is introduced.
+
+    - axis: verification-enforcement
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: move-verification-layer
+          challenge: >-
+            Compare layered static/unit/browser evidence against relying primarily on
+            browser end-to-end tests for all frontend obligations.
+          alternatives:
+            - layered-deterministic-verification
+            - browser-e2e-dominant
+            - manual-demonstration
+        - strategy: manual-vs-automated
+          challenge: >-
+            Replace executable Frontend Test Design oracles with manual walkthroughs
+            and test whether current verification obligations remain reproducible.
+          alternatives:
+            - layered-deterministic-verification
+            - manual-demonstration
+        - strategy: gate-failure-perturbation
+          challenge: >-
+            Allow architecture/test failures as advisory signals rather than
+            implementation completion failures.
+          alternatives:
+            - layered-deterministic-verification
+            - advisory-verification
+      decision_points:
+        - id: verification-enforcement-model
+          alternatives:
+            - id: layered-deterministic-verification
+              difference: >-
+                Map obligations to the lowest deterministic layer that proves them,
+                with architecture/static checks, unit/contract tests and browser
+                behavior tests all participating in completion evidence.
+              material_effects:
+                verification-layer: layered-static-unit-browser
+                automation-boundary: versioned-automated-checks
+                failure-gate: blocking-for-applicable-obligations
+            - id: browser-e2e-dominant
+              difference: >-
+                Prove most component/provider/behavior constraints through browser
+                end-to-end scenarios.
+              material_effects:
+                verification-layer: browser-heavy
+                automation-boundary: automated-browser
+                failure-gate: blocking-e2e
+            - id: manual-demonstration
+              difference: >-
+                Treat walkthrough/manual inspection as the main proof for obligations
+                that already have executable/static verification contracts.
+              material_effects:
+                verification-layer: manual
+                automation-boundary: human
+                failure-gate: review-dependent
+            - id: advisory-verification
+              difference: >-
+                Run deterministic checks but do not make failures block completion.
+              material_effects:
+                verification-layer: layered
+                automation-boundary: automated-advisory
+                failure-gate: nonblocking
+
+    - axis: delivery-gates
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: local-vs-ci
+          challenge: >-
+            Compare the repository's current versioned PR/CI gate with developer-local
+            verification as the authoritative completion gate.
+          alternatives:
+            - repository-ci-authoritative
+            - local-authoritative
+            - manual-authoritative
+        - strategy: gate-owner-shift
+          challenge: >-
+            Shift acceptance from versioned repository checks to reviewer discretion.
+          alternatives:
+            - repository-ci-authoritative
+            - manual-authoritative
+        - strategy: reproducibility-perturbation
+          challenge: >-
+            Run frontend checks with unpinned/ad-hoc dependencies instead of the
+            committed lockfile and versioned workflow.
+          alternatives:
+            - repository-ci-authoritative
+            - ad-hoc-ci-environment
+      decision_points:
+        - id: authoritative-completion-gate
+          alternatives:
+            - id: repository-ci-authoritative
+              difference: >-
+                Versioned repository CI using the committed dependency environment is
+                the authoritative automated gate; local checks are fast feedback.
+              material_effects:
+                gate-location: repository-ci
+                authority: versioned-project-gate
+                reproducibility: committed-lockfile-and-workflow
+            - id: local-authoritative
+              difference: >-
+                A developer-local successful verification run is sufficient even if
+                repository CI differs or is absent.
+              material_effects:
+                gate-location: developer-machine
+                authority: local-run
+                reproducibility: environment-dependent
+            - id: manual-authoritative
+              difference: >-
+                Reviewer approval is the main implementation gate without requiring
+                the versioned automated suite to pass.
+              material_effects:
+                gate-location: review
+                authority: reviewer-discretion
+                reproducibility: manual
+            - id: ad-hoc-ci-environment
+              difference: >-
+                CI is authoritative but installs changing/unlocked tool versions.
+              material_effects:
+                gate-location: repository-ci
+                authority: versioned-workflow
+                reproducibility: unpinned-dependencies
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - implementation-slice-structure
+      - physical-ownership-map
+      - provider-source-placement
+      - implementation-tool-environment
+      - verification-enforcement-model
+      - authoritative-completion-gate
+    open_gaps: []
+
+
+candidate:
+  id: FRONTEND-IMPLEMENTATION-DESIGN
+  path: docs/implementation/frontend-implementation-design.md
+  capability: prep.frontend-implementation-design
+  changed_paths:
+    - docs/implementation/frontend-implementation-design.md
+  canonical_references:
+    - referenced_path: docs/implementation/frontend-component-design.md
+    - referenced_path: docs/verification/frontend-test-design.yaml
+    - referenced_path: docs/verification/frontend-verification.md
+    - referenced_path: docs/verification/interface-verification.md
+    - referenced_path: docs/verification/presentation-verification.md
+  semantic_assertions: []
+
+  decision_review:
+    axes:
+      - axis: slice-boundaries
+        decisions:
+          - id: implementation-slice-structure
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: foundation-plus-vertical-work-slices
+                state: VIABLE
+              - id: horizontal-layer-slices
+                state: VIABLE
+              - id: broad-replacement-slice
+                state: VIABLE
+              - id: screen-by-screen-slices
+                state: REJECTED
+                rationale: >-
+                  Accepted Component Design owns public boundaries by task/feature
+                  responsibility rather than by individual Screen/View subjects;
+                  making every screen the primary slice would fragment those accepted
+                  ownership boundaries.
+            disposition: DELEGATED
+            selected: foundation-plus-vertical-work-slices
+
+      - axis: repository-realization
+        decisions:
+          - id: physical-ownership-map
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: feature-task-roots-with-adapters
+                state: VIABLE
+              - id: generic-technical-layer-roots
+                state: REJECTED
+                rationale: >-
+                  A public components/hooks/services ownership map conflicts with
+                  the accepted Component Design rule that public boundaries follow
+                  stable user work and semantic responsibilities.
+              - id: per-context-composition-roots
+                state: REJECTED
+                rationale: >-
+                  Accepted Component Design defines one AppCompositionRoot that
+                  constructs Learning, Knowledge and Curation feature roots rather
+                  than independently composed frontend applications.
+            disposition: DETERMINED
+            selected: feature-task-roots-with-adapters
+
+          - id: provider-source-placement
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: provider-artifacts-contained
+                state: VIABLE
+              - id: provider-artifacts-shared
+                state: REJECTED
+                rationale: >-
+                  Accepted Component Design requires raw transport and 3D provider
+                  representations to remain behind backend/renderer adapter seams.
+            disposition: DETERMINED
+            selected: provider-artifacts-contained
+
+      - axis: dependency-tooling
+        decisions:
+          - id: implementation-tool-environment
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: current-versioned-toolchain
+                state: VIABLE
+              - id: replacement-tool-family
+                state: REJECTED
+                rationale: >-
+                  The target repository already owns a committed reproducible
+                  frontend build/test environment and deterministic boundary check;
+                  no accepted current obligation requires a tooling-family migration,
+                  so replacing it would add unrelated implementation/transition scope.
+              - id: manual-review-only
+                state: REJECTED
+                rationale: >-
+                  Architecturally significant provider/dependency restrictions and
+                  executable Frontend Test Design obligations require deterministic
+                  mechanical evidence, not review-only enforcement.
+            disposition: DETERMINED
+            selected: current-versioned-toolchain
+
+      - axis: verification-enforcement
+        decisions:
+          - id: verification-enforcement-model
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: layered-deterministic-verification
+                state: VIABLE
+              - id: browser-e2e-dominant
+                state: REJECTED
+                rationale: >-
+                  Frontend Verification includes structural/provider and currentness
+                  obligations whose lowest reliable proof layer is static/analysis,
+                  not browser-only behavior.
+              - id: manual-demonstration
+                state: REJECTED
+                rationale: >-
+                  Frontend Test Design already defines executable oracles for the
+                  behavior-oriented verification obligations.
+              - id: advisory-verification
+                state: REJECTED
+                rationale: >-
+                  A failing accepted verification obligation cannot count as
+                  implementation completion evidence.
+            disposition: DETERMINED
+            selected: layered-deterministic-verification
+
+      - axis: delivery-gates
+        decisions:
+          - id: authoritative-completion-gate
+            owner_authority: IMPLEMENTATION-DESIGN
+            alternatives:
+              - id: repository-ci-authoritative
+                state: VIABLE
+              - id: local-authoritative
+                state: REJECTED
+                rationale: >-
+                  Developer-local state does not provide the repository's
+                  authoritative reproducible merge evidence.
+              - id: manual-authoritative
+                state: REJECTED
+                rationale: >-
+                  Manual approval cannot substitute for accepted deterministic
+                  structural and executable verification gates.
+              - id: ad-hoc-ci-environment
+                state: REJECTED
+                rationale: >-
+                  Unlocked/ad-hoc dependency state is not reproducible from
+                  versioned project inputs.
+            disposition: DETERMINED
+            selected: repository-ci-authoritative
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - source-discipline
+      - authority-boundary
+      - no-invention
+      - implementation-not-upstream-owner
+      - implementation-slices-explicit
+      - repository-realization-derived-from-accepted-boundaries
+    basis: >-
+      The plan translates the rebuilt CURRENT component, verification and test
+      contracts into bounded repository work. It keeps 3D behind the accepted
+      Knowledge projection seam, preserves textual Knowledge access, uses existing
+      repository tooling as implementation context rather than semantic authority,
+      introduces no independent migration state, and leaves merge/deployment
+      authorization outside Implementation Design.
