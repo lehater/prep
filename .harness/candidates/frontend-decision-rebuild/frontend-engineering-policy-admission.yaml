@@ -1,0 +1,41 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.frontend-engineering-policy
+acceptance_id: frontend-decision-rebuild::prep.frontend-engineering-policy::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: FRONTEND-ENGINEERING-POLICY
+  path: docs/engineering/frontend-engineering-policy.md
+  capability: prep.frontend-engineering-policy
+  changed_paths:
+    - docs/engineering/frontend-engineering-policy.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/frontend-system-architecture.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/interface/presentation-system.md
+    - referenced_path: docs/architecture/system-architecture.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - obligations-concrete-and-reviewable
+      - optional-patterns-not-defaults
+      - policy-not-product-domain-owner
+      - source-discipline
+    basis: >-
+      Rebuilt only from the Harness-generated CREATE read set. The policy makes
+      dependency direction, state ownership, renderer isolation, semantic
+      fallback, task-oriented feature ownership and KISS obligations directly
+      reviewable while keeping framework, state library, router, worker,
+      microfrontend and generic abstraction choices optional.
