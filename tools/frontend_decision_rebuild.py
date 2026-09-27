@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe with Component Design decision governance enabled.
+# Isolated CI probe after Component/Test Design admissions.
 from __future__ import annotations
 
 import json
