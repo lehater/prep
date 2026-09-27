@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after quality ownership correction.
+# Isolated CI probe with presentation decision governance enabled.
 from __future__ import annotations
 
 import json
