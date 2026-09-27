@@ -325,7 +325,9 @@ RequirementExpression =
 
 Target satisfaction is derived from the RequirementExpression and accepted learner-specific state.
 
-A leaf CapabilitySpecification is established as satisfied only when an accepted positive LearnerCapabilityClaim matches or is explicitly known to entail the required specification.
+A leaf CapabilitySpecification is established as satisfied only when a positive LearnerCapabilityClaim matches or is explicitly known to entail the required specification and that Claim is backed by at least one valid supporting CapabilityEvidenceArgument.
+
+A positive Claim with an unresolved valid challenging argument does not by itself establish target satisfaction.
 
 No broadening across condition scope, standard or time is automatic.
 
