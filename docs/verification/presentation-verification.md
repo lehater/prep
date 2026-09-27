@@ -1,172 +1,200 @@
-# Presentation Verification
+# Presentation Verification Strategy
 
 ## Purpose
 
-Define verification obligations for the accepted Presentation System and Screen/View Design without turning rendered implementation details or a concrete UI provider into semantic authority.
+Verify that the rebuilt Presentation System and Screen/View Design realize the accepted Prep interface semantics without reintroducing presentation choices as product/domain truth.
 
-This artifact is a verification strategy. Some checks are executable now from canonical documents; rendered/task evidence becomes available only when the frontend prototype exists.
+This strategy verifies the current presentation contract. It does not introduce numeric performance targets, new product behavior, renderer requirements beyond the accepted local 3D Knowledge projection, or frontend implementation mechanics.
 
-## Executable structural checks
+## Scope
 
-Every view required by canonical Interface Topology must have a stable subject id in `docs/interface/screen-view-design.md`.
+Accepted inputs:
 
-The project integration adapter extracts those ids and the generic Harness topology -> screen subject evaluator compares them with the topology-derived expected set.
+- `docs/interface/conceptual-interface-model.yaml`
+- `docs/architecture/performance-capacity.md`
+- `docs/interface/information-architecture.yaml`
+- `docs/interface/interaction-design.yaml`
+- `docs/interface/interface-topology.yaml`
+- `docs/verification/interface-verification.md`
+- `docs/interface/presentation-system.md`
+- `docs/interface/screen-view-design.md`
 
-This proves material view/frame coverage only. It does not prove usability, accessibility, visual consistency or the value of the 3D graph.
+## Verification checks
 
-## Presentation-system verification obligations
+### PV-01 — Topology-to-screen closure
 
-### PV-PATTERN-CONSISTENCY — reusable presentation roles
+**Verifies:** every topology view that requires a screen/view has exactly one Screen/View subject, while structural-only topology nodes do not force empty screens.
 
-**Verifies**
+**Method:** ANALYSIS
 
-- repeated application-level presentation roles are realized consistently across representative Learning and Curation views;
-- loading, empty, recoverable failure and unavailable/degraded states use the same accepted role semantics where those states apply;
-- repeated collection/search/filter/detail/form-action patterns do not acquire contradictory behavior merely because different feature modules render them.
+**Required evidence:**
 
-**Method:** INSPECTION + DEMONSTRATION.
+- deterministic extraction of topology view ids;
+- deterministic extraction of Screen/View subject ids;
+- exact coverage of:
+  - `V-LEARN-TARGET`
+  - `V-LEARN-STUDY`
+  - `V-LEARN-EVIDENCE`
+  - `V-KNOWLEDGE`
+  - `V-CURATE-TARGETS`
+  - `V-CURATE-REQUIREMENTS`
+  - `V-CURATE-QUESTIONS`
+  - `V-CURATE-IMPORT`
+  - `V-CURATE-DIAGNOSTICS`;
+- `V-CURATE` remains structural and does not require an otherwise empty landing screen;
+- zero missing or unexpected Screen/View subjects.
 
-**Evidence requirement**
+### PV-02 — Root work-context clarity
 
-Rendered representative views/stories or equivalent deterministic review surfaces covering at least one Learning and one Curation consumer for each shared pattern actually used by the prototype.
+**Verifies:** Learning, Knowledge and Curation remain recognizable root intents and that Curation mutation affordances never appear as an implicit side effect of ordinary Learning work.
 
-The check is about consistent product/presentation roles, not pixel identity.
+**Method:** DEMONSTRATION
 
-### PV-PROVIDER-NEUTRALITY — provider does not authorize product behavior
+**Required evidence:** a rendered prototype or equivalent screen walkthrough showing:
 
-**Verifies**
+1. root access to Learning, Knowledge and Curation;
+2. visible current work context;
+3. target context retained when moving from Learning into target-scoped Knowledge;
+4. Curation context made explicit before canonical mutation actions become available;
+5. no duplicated canonical Knowledge identity across Learning/Curation presentation.
 
-- selecting a UI component/provider does not introduce search, filtering, sorting, editing, deletion, navigation or other product capabilities absent from accepted Screen/View semantics;
-- provider-specific visual affordances do not silently redefine accepted interaction meaning.
+This refines Interface Verification IV-03 and IV-06 at the concrete presentation level.
 
-**Method:** INSPECTION.
+### PV-03 — Knowledge dual-access contract
 
-**Evidence requirement**
+**Verifies:** the selected local 3D projection improves relational exploration without becoming the only way to access Knowledge semantics.
 
-Trace representative provider-backed controls back to the Screen/View or Presentation System responsibility that authorizes them. Provider/template capability alone is insufficient evidence.
+**Method:** DEMONSTRATION
 
-Implementation-level import/dependency isolation of the provider belongs to frontend Verification Design; this check verifies semantic presentation fidelity.
+**Required evidence:** the Knowledge view demonstrates all of the following:
 
-### PV-THEME-COHERENCE — one shared presentation role system
+- search can find Knowledge independently of spatial navigation;
+- textual results can establish the canonical focus;
+- focused detail exposes readable identity/content and semantic kind;
+- incoming/outgoing relationship type and direction are explicitly inspectable;
+- following a relationship can move focus without relying on geometry alone;
+- the 3D projection consumes the same canonical focus/scope semantics;
+- disabling or failing the renderer leaves textual search/focus/detail usable.
 
-**Verifies**
+The check does not require every canonical node or relation to be rendered simultaneously.
 
-- repeated semantic presentation roles such as hierarchy, feedback, focus, surface treatment, typography role and spacing role are mapped through one coherent presentation/theme/token system;
-- features do not introduce competing global visual systems;
-- provider/theme token names remain realization details rather than product/domain semantics.
+### PV-04 — Wide and narrow Knowledge composition
 
-**Method:** INSPECTION.
+**Verifies:** the accepted responsive priority changes presentation without changing Knowledge semantics.
 
-**Evidence requirement**
+**Method:** DEMONSTRATION
 
-The prototype's theme/token/provider mapping plus rendered representative views sufficient to show that recurring roles are shared rather than independently re-invented.
+**Required evidence:**
 
-Presentation System now accepts visual-role metrics and approximate density ranges. Verification checks those role relationships and ranges rather than provider-specific token names or pixel-perfect screenshots.
+**Wide composition**
+- 3D relational projection receives the largest work region;
+- search/filter/scope controls remain discoverable;
+- textual Knowledge access and focused detail remain reachable without leaving the semantic Knowledge view.
 
-### PV-VISUAL-SYSTEM-FIDELITY — accepted design language is actually realized
+**Narrow composition**
+- textual search/results/focused detail become the primary access path;
+- 3D becomes an explicit full-width mode/disclosure;
+- switching presentation mode preserves current scope/focus when technically possible;
+- no semantic capability disappears solely because the viewport is narrow.
 
-**Verifies**
+No exact breakpoint is part of the oracle.
 
-- operational typography stays within the compact accepted hierarchy instead of falling back to provider display defaults;
-- controls/panels use the accepted dense spacing and sizing roles;
-- desktop shell is the persistent left rail rather than a second top navigation row;
-- wide Knowledge results/detail widths remain supporting while graph occupies the flexible majority;
-- the graph uses a continuous dark workspace surface and selected-node emphasis does not erase unrelated topology;
-- repeated surfaces, borders, selection/focus cues and icon treatment remain coherent across representative Learning and Curation screens.
+### PV-05 — Context-preserving Curation composition
 
-**Method:** INSPECTION + DEMONSTRATION + TEST for robust measurable ranges.
+**Verifies:** Targets, Requirements and Questions use one topology task view each rather than recreating separate collection/editor product destinations.
 
-**Evidence requirement**
+**Method:** DEMONSTRATION
 
-Representative rendered views at 100% browser zoom plus automated range assertions for structural metrics that are stable enough to test (for example title/control scale, shell rail existence, graph dominance, pane bounds and overflow). Pixel-perfect screenshot equality is not required.
+**Required evidence:** for each of `V-CURATE-TARGETS`, `V-CURATE-REQUIREMENTS` and `V-CURATE-QUESTIONS`:
 
-### PV-ACCESSIBILITY-BASELINE — non-graph and focus semantics
+- collection/search context can establish a focused canonical object;
+- wide composition may keep finder and focused work together;
+- narrow composition may move focused work to a full-width substate;
+- returning restores meaningful collection/search context;
+- validation rejection retains proposed input;
+- conflict keeps accepted canonical state distinguishable from stale/proposed input.
 
-**Verifies**
+A modal may support bounded secondary selection but is not the mandatory container for primary canonical editing.
 
-- core navigation/actions have keyboard-accessible interaction and visible focus;
-- semantic state does not depend on color alone;
-- every core Knowledge task exposed through the graph retains a non-graph list/search/detail path.
+### PV-06 — Responsive focus and reading order
 
-**Method:** DEMONSTRATION + TEST where automation is practical.
+**Verifies:** responsive reflow follows semantic priority and does not create keyboard/focus traps or destroy task continuity.
 
-**Evidence requirement**
+**Method:** TEST
 
-Keyboard walkthrough/browser evidence for representative Learning/Curation navigation and Knowledge access, plus automated accessibility/focus checks where they provide reliable evidence.
+**Required evidence:** representative responsive interaction tests show:
 
-### PV-GRAPH-TASK-VALUE — 3D remains an evidence-backed hypothesis
+- focus moves to the meaningful focused region when entering a narrow detail/edit substate;
+- returning restores focus to the originating result when available;
+- validation failures move attention to actionable error information while preserving input;
+- disclosures remain keyboard reachable;
+- entering/leaving the 3D projection cannot trap keyboard focus;
+- secondary context is disclosed/reflowed before information access is removed.
 
-**Verifies**
+### PV-07 — Factual feedback semantics
 
-- 3D graph interactions are evaluated against the accepted list/search/detail baseline on the concrete tasks named by Screen/View Design;
-- geometry is not treated as semantic truth;
-- relation type/direction remains inspectable without relying on position alone.
+**Verifies:** visual states preserve the accepted factual meaning of empty, error, conflict and success conditions.
 
-**Method:** DEMONSTRATION + ANALYSIS.
+**Method:** INSPECTION
 
-**Evidence requirement**
+**Required evidence:** screen-state review confirms:
 
-Task evidence comparing graph and non-graph representations for the same representative Knowledge data, recording correctness, effort/time, navigation errors/disorientation and cases where either representation is simpler.
+- no target/search match is not presented as a product/domain failure;
+- empty Study Set materialization is not learner failure;
+- no review observations is not “not mastered”;
+- no diagnostics is not a semantic coverage score;
+- validation rejection/conflict does not look like accepted mutation;
+- external-runtime failure is distinguishable from local canonical-data failure;
+- success appears only after an accepted operation outcome.
 
-This check may lead to retaining, narrowing or demoting 3D without changing Knowledge semantics.
+### PV-08 — Non-spatial accessibility path
 
-### PV-SPATIAL-RESPONSIVE-CLOSURE — primary workspace survives reflow
+**Verifies:** 3D remains an enhancement to Knowledge exploration rather than a pointer-only semantic dependency.
 
-**Verifies**
+**Method:** TEST
 
-- wide Knowledge composition gives the active graph the clear majority of flexible workspace while list/detail remain supporting regions;
-- compact composition preserves graph primacy while detail moves below/drawer and list may collapse;
-- narrow composition uses one usable content width with graph primary and supporting list/detail disclosures;
-- Curation New/Import actions do not permanently consume a large row above the graph;
-- responsive transformation preserves meaningful focus/read order and does not introduce horizontal page overflow.
+**Required evidence:**
 
-**Method:** DEMONSTRATION + TEST.
+- visible keyboard focus;
+- keyboard operation for Knowledge search, result selection, focus and relationship traversal;
+- readable non-spatial relation type/direction;
+- status meaning not encoded by color alone;
+- primary Learning/Curation actions reachable without spatial gestures;
+- renderer-local camera/direct-manipulation gestures are not required to complete the accepted semantic traversal.
 
-**Evidence requirement**
+This check verifies the accepted Presentation System contract; it does not claim conformance to an unstated external accessibility standard.
 
-Rendered browser evidence at representative wide, compact and narrow viewport classes. Accepted Presentation System breakpoint classes and approximate pane/control metrics are verification ranges, not pixel-perfect snapshot oracles.
+### PV-09 — Performance evidence is diagnostic until accepted
 
-### PV-GRAPH-PERFORMANCE-DEGRADATION — scale without semantic loss
+**Verifies:** current implementation/prototype work does not silently turn historical 3D benchmarks into MVP acceptance gates.
 
-**Verifies**
+**Method:** INSPECTION
 
-- Auto / Quality / Performance profiles and accepted advanced visual settings change presentation cost only;
-- canonical Knowledge identity, scope, relation type/direction, focus/selection and list/search/detail access remain unchanged across profiles;
-- relation direction remains inspectable if directional arrowheads are disabled;
-- renderer becomes demand-driven when idle after active simulation/camera transitions settle;
-- representative hardware-accelerated graph workloads satisfy the accepted ordinary envelope and produce recorded stress evidence.
+**Required evidence:**
 
-**Method:** TEST + DEMONSTRATION + MEASUREMENT.
+- no pass/fail gate requires a specific FPS, visible node count, edge count, draw-call budget, triangle count or force-layout settle time;
+- available 3D stress fixtures/measurements may be retained as engineering diagnostics;
+- any future numeric gate traces to a later accepted Quality Design revision;
+- presentation degradation, when exercised, preserves canonical identity, relation semantics and textual Knowledge access.
 
-**Evidence requirement**
+## Evidence gate
 
-Deterministic semantic-preservation tests plus hardware-accelerated 1k / 2k / 5k graph runs recording active RAF/FPS, idle renderer activity, layout/force settle behavior, interaction responsiveness and available draw-call/triangle diagnostics. Headless evidence alone cannot satisfy the performance measurement.
+`prep.presentation-verification` is satisfied when PV-01 through PV-09 have current evidence against the same accepted Presentation System and Screen/View Design baselines.
 
-## Current evidence state
-
-Available now:
-
-- topology -> Screen/View subject coverage;
-- canonical traceability of the verification obligations above to Presentation System and Screen/View Design.
-
-Requires renewed rendered evidence after the responsive/performance redesign:
-
-- reusable-pattern consistency;
-- provider-neutral presentation fidelity;
-- theme/token coherence;
-- accessibility walkthroughs;
-- 3D task-value evidence;
-- wide/compact/narrow spatial hierarchy and focus/read-order behavior;
-- semantic-preserving graph performance/degradation profiles;
-- hardware-accelerated 1k/2k/5k renderer measurements.
-
-Previous rendered evidence against the older unconstrained layout is historical evidence only. It cannot close the revised Presentation Verification obligations.
+A historical result becomes stale whenever either accepted upstream presentation artifact changes materially.
 
 ## Out of scope
 
-This artifact does not verify:
+These belong downstream or upstream:
 
-- source-code dependency direction or provider import isolation — frontend Verification Design owns that structural evidence;
-- executable test mechanics/framework choice — Test Design owns those contracts when applicable;
-- exact font file/package, exact hexadecimal palette values, component-library identity or pixel-perfect coordinates beyond the accepted Presentation System role/range decisions;
-- semantic learning-material coverage or learner-state inference.
+- deciding whether 3D should exist — already owned by accepted Presentation System;
+- renderer library/component structure;
+- exact routes, CSS mechanics and breakpoints;
+- numeric performance/capacity thresholds not accepted by Quality Design;
+- backend/domain correctness;
+- frontend module/component dependency enforcement;
+- executable test-framework implementation details.
+
+## Unresolved Questions
+
+None introduced by Presentation Verification.
