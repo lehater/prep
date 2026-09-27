@@ -187,4 +187,4 @@ artifacts:
     provides: [prep.frontend-implementation-design]
     depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
-questions:
+questions: []
