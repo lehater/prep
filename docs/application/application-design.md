@@ -102,19 +102,47 @@ Text search is an application query capability over human-readable canonical con
 
 ### Build Study Set
 
-Resolve a LearningTarget through its selected Requirements/RequirementSets and their existing knowledge alignments to relevant KnowledgeNodes, then select all currently resolvable Questions aligned to that knowledge.
+A Study Set is a current-state application materialization for a supported study profile. It is not a tactical domain entity and does not assert learning-support adequacy or learner capability.
 
-The resulting Study Set is an application-level materialization: a selected set of canonical Questions for a particular learning preparation flow. It does not become reusable subject truth and does not introduce a new tactical domain entity.
+For the current Question-compatible profile, the application resolves the selected LearningTarget's RequirementExpression into its required CapabilitySpecification leaves and selects the currently available learning/practice artifacts that can be represented by that profile under accepted Learning Design semantics.
 
-A Study Set preview is a current-state materialization rather than a durable canonical object. When a user exports a previously previewed set, the application must detect if target/question resolution changed since that preview rather than silently exporting a different set.
+A question-shaped item is therefore an application compatibility bundle over the general model rather than a new canonical domain kind: prompt/response expectations are backed by TaskSpecification/Task semantics, learner-facing reference content may be LearningMaterial, and evaluation semantics are backed by ObservationSpecification where applicable.
 
-Study Set construction does **not** require proof that the reusable question corpus completely covers every KnowledgeNode or every aspect of a target. Question-coverage adequacy is a separate curation/learning-material quality concern.
+#### Preparation gate
 
-Incomplete reusable material therefore does not create a learner-facing preparation gate. The application builds the currently resolvable subset. Missing Requirement-to-Knowledge alignment, Knowledge with no Questions and any future question-coverage quality assessment may be exposed as curation diagnostics, but they do not redefine the Study Set as complete.
+Study Set construction is allowed when:
 
-A target with no currently resolvable Questions yields an explicit empty Study Set/result rather than an invented semantic rejection.
+1. the selected LearningTarget exists;
+2. its RequirementExpression is structurally valid;
+3. every referenced CapabilitySpecification needed to interpret that expression is resolvable; and
+4. the requested study profile itself is supported by the application.
 
-For the current slice, dependency-sensitive ordering, automatic prioritization from learner statistics and evidence-based filtering are deferred.
+These are interpretation/execution preconditions, not completeness requirements.
+
+The application does **not** require every target requirement to have learning support before building a Study Set. It materializes the currently resolvable subset.
+
+For each relevant requirement fragment, the result may also expose preparation diagnostics such as:
+
+- no currently resolvable support;
+- available support does not satisfy an explicit LearningSupportRequirement;
+- support adequacy is not specified because no LearningSupportRequirement applies;
+- candidate support exists but cannot be represented by the requested study profile.
+
+If an explicit LearningSupportRequirement exists, adequacy is evaluated using that domain semantics. The application does not replace it with artifact count, Question count or its own coverage heuristic.
+
+An unsatisfied LearningSupportRequirement is a **diagnostic**, not a Study Set construction failure in the current flow. It means the application must not describe the subset as adequate/complete.
+
+A valid target with no currently representable material yields an explicit empty Study Set plus its diagnostics.
+
+Construction fails rather than returning a misleading subset only when the target cannot be interpreted coherently (for example, an invalid RequirementExpression or unresolved required CapabilitySpecification reference) or the requested preparation profile is unsupported.
+
+#### Materialization consistency
+
+A Study Set preview records the exact resolved materialization identity needed to detect change before export.
+
+When a user exports a previously previewed set, the application must detect if target requirements or the resolved material changed since that preview rather than silently exporting a different set.
+
+For the current slice, dependency-sensitive ordering, automatic prioritization from learner state and adaptive evidence-based filtering are not part of Build Study Set unless separately accepted.
 
 ## External study
 
@@ -162,10 +190,10 @@ Bulk prepared input ----+--> application use cases
 Learning preparation
 
 selected curated LearningTarget
-  -> its Requirements / RequirementSets
-  -> currently aligned KnowledgeNodes
-  -> currently aligned Questions
-  -> Study Set (resolvable subset)
+  -> RequirementExpression<CapabilitySpecification>
+  -> currently resolvable learning/practice support
+  -> requested supported study profile
+  -> Study Set (exact resolvable subset + preparation diagnostics)
 
 
 External study
@@ -190,15 +218,17 @@ Application Design owns:
 - Requirement-to-Knowledge and Question-to-Knowledge alignment operations;
 - curation of LearningTarget composition;
 - selection of an existing curated LearningTarget for the learner workflow;
-- target-to-requirement-to-knowledge-to-question traversal used to prepare study;
-- Study Set materialization from the currently resolvable corpus;
+- interpretation of a selected LearningTarget for study preparation;
+- resolution of currently available learning/practice support into a supported study profile;
+- Study Set materialization as the exact resolvable subset with explicit preparation diagnostics;
+- enforcement of the Study Set preparation gate without inventing a completeness requirement;
 - orchestration of export and result-import flows;
 - coordination of accepted domain models without redefining them.
 
 Application Design does not own:
 
 - KnowledgeNode, KnowledgeRelation, Requirement, RequirementSet, LearningTarget, Question or ReviewObservation semantics;
-- semantic judgment of whether a Question set fully covers a KnowledgeNode;
+- LearningSupportRequirement semantics or any universal learning-support coverage heuristic;
 - forms, screens, graph editors or other human interaction design;
 - file/API/message representation contracts;
 - external-runtime card schemas or API semantics;
@@ -222,6 +252,6 @@ Data Design must preserve accepted domain identities, relationships, composition
 - propagation of inferred learner state onto KnowledgeNodes/Requirements;
 - automatic reprioritization or replanning from review statistics;
 - dependency-aware question ordering;
-- semantic assessment of Question-set coverage adequacy for a KnowledgeNode;
+- automatic invention of learning-support adequacy when no LearningSupportRequirement exists;
 - generalized study representations beyond requirements demonstrated by concrete learning runtimes;
 - automatic extraction, generation or semantic validation of imported source content.
