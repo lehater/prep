@@ -2,64 +2,50 @@
 
 ## Purpose
 
-Define where Prep's independently modeled domain languages apply and how they relate, without re-owning tactical internals, application orchestration or technical realization.
+Define where Prep's independently modeled domain languages apply and how they relate, without re-owning strategic domain classification or tactical internals.
 
 ## Contexts
 
 ### Knowledge Model
 
-Owns reusable subject meaning independent of one learner, target, task execution or presentation.
-
-Its tactical vocabulary includes KnowledgeObject, KnowledgeProposition and schema-level relation predicates.
+Owns reusable subject knowledge semantics independent of one learner, target, learning mechanism or presentation.
 
 ### Learning Design
 
-Owns reusable semantics for capability expectations, capability scope/standard, task and observation design, evidence requirements/warrants, assessment design and target capability profiles.
-
-Its tactical vocabulary includes Capability, CapabilitySpecification, TaskSpecification, Task, ObservationSpecification, EvidencePattern, EvidentialWarrant, SamplingSpecification, AssessmentDesign, LearningTarget and RequirementExpression.
-
-This context specifies what competent performance and admissible evidence mean. It does not own actual learner performance or learner-specific capability claims.
+Owns learning requirements and competencies, target-relative interpretation of reusable knowledge, scope and depth, gaps, priorities, learning/diagnostic intent, and concrete learning or diagnostic artifacts such as questions.
 
 ### Learner Model
 
-Owns learner-specific actual events, observations and evidence-backed claims.
-
-Its tactical vocabulary includes Performance, Observation, CapabilityEvidenceArgument and LearnerCapabilityClaim.
-
-It records the distinction between observed facts and inferential conclusions rather than treating external review statistics as direct learner state.
+Owns learner-specific learning observations and statistics. For the current slice, the model records Question-level review history; interpretation into inferred state, uncertainty, retention or progress is intentionally deferred.
 
 ## Relationships
 
 - Knowledge Model provides reusable subject semantics to Learning Design.
-- Learning Design may define PerformanceExpectations that directly `focuses_on` reusable Knowledge without taking ownership of Knowledge identity.
-- Learning Design defines reusable Capability and evidence/assessment semantics consumed by Learner Model.
-- Learner Model records actual Performance and Observation and may form Claims only through applicable EvidentialWarrants.
-- Learner Model does not mutate reusable Knowledge, Capability, TaskSpecification or assessment semantics.
-- LearningTarget is normative; LearnerCapabilityClaim is epistemic.
-- external runtimes may execute work or provide observations, but they do not own these model semantics.
+- Learner Model provides recorded Question-level learning observations/statistics that Learning Design may consume when applicable; semantics for interpreting them into learner state or planning decisions are deferred.
+- Learning Design may define concrete learning or diagnostic artifacts, including prompt/reference-answer questions, when their meaning is target-relative learning or evidence intent; those artifacts do not become reusable subject truth.
+- Learning Design may reference Knowledge Model identities but does not mutate reusable subject truth.
+- A Gap exists only relative to a learning target and learner evidence or explicit uncertainty; it is not a property of subject knowledge.
+- External inputs and learning runtimes may supply evidence or execute work but do not own these domain semantics.
 
 ## Boundary invariants
 
-- reusable subject truth and learner-specific epistemic state remain distinct;
-- normative target semantics and descriptive/inferential learner semantics remain distinct;
-- design-time Task/Observation/EvidencePattern semantics and actual Performance/Observation semantics remain distinct;
+- subject truth and learner state remain distinct;
+- target-relative policy cannot redefine reusable subject meaning;
+- learner observations cannot directly mutate Knowledge Model semantics;
 - context boundaries describe semantic ownership, not deployable-service boundaries;
-- translation across contexts preserves participating identities rather than collapsing them.
+- translation/alignment preserves the identities of the participating models rather than collapsing them.
 
 ## Current boundary decision
 
-The three-context split remains sufficient for the current conceptual model.
+Learning Design remains one model context for the current scope. Target interpretation, prioritization, learning/practice intent, diagnostic intent, and the concrete artifacts used to realize those intents participate in the same target-relative decision: what the learner should work on or demonstrate next and why.
 
-Assessment semantics do not require a fourth Assessment Model context yet. Design-side assessment constructs participate in the same reusable question: what capability is targeted, what performance opportunity is created and what evidence pattern licenses an inference. They therefore remain in Learning Design.
+The presence of a `Question` with a concise reference answer does not by itself justify an Assessment Model or Learning Material model context. Its reusable subject semantics remain owned by Knowledge Model through referenced knowledge identities; its learner observations remain owned by Learner Model.
 
-Actual performance, observation and learner-specific inferential arguments have independent token identity and lifecycle; they remain in Learner Model.
+A future split is justified only when learning-material or assessment semantics demonstrate independently changing language or invariants that cannot be expressed as target-relative Learning Design without conflating ownership. No such evidence is currently established.
 
-A later split is justified only if assessment or another semantic family develops independently changing language/invariants that cannot be owned coherently by these contexts.
+The name **Learning Design** is therefore intentional: unlike Knowledge Model and Learner Model, this context owns design decisions that transform target, reusable knowledge and learner-state evidence into learning/diagnostic intent and artifacts. It is not a model of learning as a phenomenon.
 
-## Reopening conditions
+## Deferred questions
 
-Reassess the boundaries if:
-
-- assessment design gains an independent lifecycle and consumers that change separately from Capability/Task semantics;
-- actual evidence must be shared across materially different learner-state models with incompatible semantics;
-- new learning-material semantics require independently owned identity/invariants rather than being Task or presentation concerns.
+- what concrete evidence would establish independently changing learning-material or assessment language/invariants and therefore trigger a later split;
+- whether Learner Model needs further decomposition when interpretation beyond recorded Question-level statistics is introduced.
