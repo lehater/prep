@@ -390,6 +390,18 @@ The choice of 3D is therefore a deliberate Presentation System decision, not a c
 
 A future comparative study may still revise this default if evidence shows that 3D materially harms the relevant tasks or learning outcomes, or that another representation provides a clearly better experience under the same semantic information budget.
 
+Decision-space review disposition:
+
+- **3D production default + coordinated non-graph access — VIABLE / DETERMINED.** Satisfies the accepted graph tasks, stakeholder presentation intent and current feasibility evidence while retaining accessibility/failure paths.
+- **2D production default + optional 3D — REJECTED for the current direction.** It remains functionally sufficient and may be used as fallback, but it does not realize the explicitly accepted preference for 3D as the characteristic graph experience.
+- **list/search/detail primary with graph secondary — REJECTED.** It preserves task completion but conflicts with the accepted first-class spatial Knowledge experience.
+- **no stable default / adaptive representation — REJECTED.** It delegates a material presentation decision to an unspecified switching policy and weakens the stable interaction language without accepted evidence that such adaptation is needed.
+
+The other required Presentation System axes are resolved consistently with this choice:
+
+- **information density:** bounded/progressive rather than maximum simultaneous exposure; selective labels, filtering and explicit focus control clutter, and the renderer is not required to show the entire corpus;
+- **control surface:** direct 3D manipulation is combined with explicit Search, Focus/Clear focus, Fit, Reset and filters; core search/list/detail work remains keyboard-completable without camera manipulation.
+
 ### Experiment reuse boundary
 
 The existing R2 implementation is a **donor/reference implementation**, not the canonical production architecture.
