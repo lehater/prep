@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Isolated CI probe branch; behavior identical to the experiment branch.
 from __future__ import annotations
 
 import json
