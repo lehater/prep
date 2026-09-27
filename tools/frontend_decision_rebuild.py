@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after governed Presentation System admission.
+# Isolated CI probe with Screen/View decision governance enabled.
 from __future__ import annotations
 
 import json
