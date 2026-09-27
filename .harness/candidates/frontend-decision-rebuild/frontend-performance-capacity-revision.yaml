@@ -1,0 +1,36 @@
+version: 1
+kind: prep-frontend-decision-rebuild-upstream-revision
+capability: prep.frontend-performance-capacity
+acceptance_id: frontend-decision-rebuild::prep.frontend-performance-capacity::r2
+decision_request_mode: REVISION
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: FRONTEND-PERFORMANCE-CAPACITY
+  path: docs/architecture/performance-capacity.md
+  capability: prep.frontend-performance-capacity
+  changed_paths:
+    - docs/architecture/performance-capacity.md
+  canonical_references:
+    - referenced_path: docs/vision/product-capabilities.md
+    - referenced_path: docs/domain/knowledge-model.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invented-quality-target
+      - no-invention
+      - source-discipline
+    basis: >-
+      The revision removes presentation ownership and numeric MVP targets that
+      were not supported by accepted Product Capabilities or Knowledge Model
+      semantics. It retains only representation-neutral semantic-preserving
+      quality constraints, explicitly marks numeric capacity/performance targets
+      as unaccepted for the current MVP, and routes 3D-specific controls,
+      composition, renderer mechanics and verification evidence to their
+      downstream owning Authorities.
