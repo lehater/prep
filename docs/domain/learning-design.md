@@ -348,8 +348,10 @@ Gap                                  // DERIVED VALUE
 
 A Gap is a target-relative requirement fragment whose satisfaction is not currently established.
 
-- `unresolved`: available learner state is insufficient to establish satisfaction;
+- `unresolved`: available learner state is absent, conflicting or otherwise insufficient to establish satisfaction;
 - `challenged`: accepted learner-specific evidence/state materially challenges satisfaction.
+
+Its `basis` may reference the relevant learner claims/arguments or the explicit absence of sufficient supporting state. The Gap does not copy or re-own those learner facts.
 
 A Gap is not an intrinsic property of Knowledge or Capability.
 
