@@ -49,8 +49,8 @@ reviews:
     basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
 
   - capability: prep.application-design
-    revision: 3
-    basis: "Application Design was explicitly REDO-reviewed through the Harness decision pipeline for Study Set preparation: strict-completeness, explicit-support hard-gate, resolvable-subset, separate-validation and silent-best-effort alternatives were critically reviewed; only an exact resolvable subset with explicit preparation diagnostics remained viable. The preview binds subset and diagnostics to the same current-state identity."
+    revision: 4
+    basis: "Application Design resolved target-scope authorship through the Harness decision pipeline: learner-direct composition, learner-mode personal-target creation, prepared-target selection and learner-mode overrides were reviewed; only prepared LearningTarget selection remained viable in learning mode, with RequirementExpression<CapabilitySpecification> authored through explicit Curation even when the same person performs both roles."
 
   - capability: prep.task-model
     revision: 3
