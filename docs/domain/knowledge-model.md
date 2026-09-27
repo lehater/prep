@@ -2,263 +2,117 @@
 
 ## Purpose
 
-Define the reusable subject-knowledge semantics owned by the Knowledge Model bounded context without choosing persistence, visualization, document layout or study-runtime representation.
+Define reusable subject semantics independently of one learner, learning target, task execution, assessment design, storage model or presentation.
 
-The model represents **knowledge objects and semantic relationships between them**. A graph is one possible projection of those semantics, not the domain definition.
+## Core concepts
 
-## Core model
+### Knowledge
 
-```text
-KnowledgeNode
-  id
-  semantic_kind
-  content
+`Knowledge` is the semantic family of reusable subject meaning. The current minimal model has two independently addressable forms.
 
-KnowledgeRelation
-  id
-  type
-  source: KnowledgeNode
-  target: KnowledgeNode
-```
+### KnowledgeObject
 
-A `KnowledgeNode` is a reusable object of subject meaning with stable semantic identity.
-
-A `KnowledgeRelation` is a first-class directional semantic assertion between two knowledge objects. Its type carries subject meaning; it is not a visualization edge.
-
-The model does not require every answer fragment, literal value or sentence to become a node. Node granularity follows independently useful explanatory responsibility.
-
-## Semantic identity
-
-Semantic identity denotes continuity of the subject referent or reusable knowledge object.
-
-Identity is independent of:
-
-- label, aliases and wording;
-- source location or document path;
-- UI position or graph layout;
-- learning target;
-- learner state;
-- question/card identity;
-- external study-system identity.
-
-Two similarly named objects are not identical merely because their labels overlap.
-
-## Semantic forms
-
-The current recurring semantic forms form a small controlled, extensible vocabulary. A new semantic kind is introduced only when it recurs, has a distinct explanatory responsibility and boundary, and reducing it to an existing kind would lose material meaning.
-
-### Concept
-
-Represents a stable notion, phenomenon, property, structure or named subject referent.
-
-Primary explanatory question:
-
-> What is this / what does this notion mean?
-
-Examples: process, inode, file descriptor, virtual memory, signal, Unix permissions, cgroups.
-
-### Mechanism
-
-Explains how a phenomenon or behavior is produced through interaction of parts, rules or state.
-
-Primary explanatory question:
-
-> How does the system produce this behavior or effect?
-
-Examples: virtual-address translation, process scheduling, systemd service activation.
-
-A concrete implementation is **not automatically a mechanism**. `systemd` may be a concrete technology/concept; `systemd service activation` is a mechanism when the knowledge object explains how activation is produced.
-
-### Procedure
-
-Describes how an acting subject achieves a goal through actions, conditions and, where material, ordering.
-
-Primary explanatory question:
-
-> How does an actor obtain this result?
-
-Examples: inspect disk usage, change file permissions, trace filesystem errors with strace.
-
-This term is preferred over `Practice` inside Knowledge Model because learning practice belongs to Learning Design.
-
-### Strategy
-
-Defines principles for selecting and organizing actions across a class of situations, including subordinate procedures and material trade-offs.
-
-Primary explanatory question:
-
-> How should actions be selected and organized to pursue this goal across varying situations?
-
-Examples: Linux server hardening, incident investigation, performance troubleshooting.
-
-A strategy is not merely a long procedure. A procedure prescribes an actionable way to achieve a bounded result; a strategy guides choices among actions under varying conditions.
-
-## Relational roles, not permanent node types
-
-Some important distinctions are **relative between knowledge objects** and therefore must not be encoded as permanent mutually exclusive node kinds.
-
-### Problem and solution
-
-A knowledge object is a solution to a problem because it **addresses** that problem.
-
-```text
-Solution --addresses--> Problem
-```
-
-`problem` and `solution` are relational roles unless future evidence demonstrates an independently useful intrinsic semantic form.
-
-The same knowledge object may address one problem while introducing, exposing or participating in another.
-
-### Abstraction and implementation
-
-A knowledge object is an implementation relative to an abstraction because it **realizes** that abstraction.
-
-```text
-Implementation --realizes--> Abstraction
-```
-
-Abstraction/implementation is therefore not a global level enum.
-
-The same object may be a realization of a higher-level abstraction while itself defining an abstraction realized by lower-level objects.
+A reusable coherent subject-semantic object with stable semantic identity.
 
 Examples:
 
-```text
-Linux cgroups --realizes--> Resource isolation
-epoll         --realizes--> Event-driven I/O notification
-systemd       --realizes--> Init system
-```
+- Idempotency
+- Linux cgroups
+- Resource isolation
+- Quadratic equations
+- CPU performance troubleshooting
+- DCF valuation
 
-This preserves the distinction between transferable implementation-independent knowledge and knowledge of a concrete realization without forcing every node into one permanent abstraction level.
+A KnowledgeObject may have an optional open `knowledge_form` classification such as:
 
-## Semantic relationship principles
+- `mechanism`
+- `procedure`
+- `strategy`
 
-Typed relationships are part of subject meaning and may create semantic roles.
+The classification is open and non-exhaustive. `concept` and `model` are not mandatory semantic kinds.
 
-Relation semantics are controlled and extensible. The machine-readable classifier is the canonical contract for new relation classification. The table below is only the **stored/runtime compatibility vocabulary** that current code may still encounter; it is not the admissible-new-edge list.
+### KnowledgeProposition
 
-| compatibility relation | direction | meaning |
-|---|---|---|
-| `addresses` | solution/response -> problem | source provides a solution, mitigation or response to the target problem |
-| `uses` | user -> employed target | source functionally employs the target as a mechanism, tool, technology, service or method; this alone does not imply necessity |
-| `specializes` | specific kind -> general kind | source is a narrower kind of the target |
-| `part_of` | part -> whole | source is a constituent part of the target |
-| `depends_on` | dependent -> dependency | source requires the target as a prerequisite; evidence must support necessity rather than mere use |
-| `realizes` | concrete realization -> abstraction | source concretely implements, embodies or represents the target abstraction |
-| `produces` | producer/activity -> output | source produces the target as an output or result |
-| `derives_from` | derived entity -> source entity | source is semantically derived from the target |
-| `enables` | enabler -> enabled capability/state | source materially makes the target possible or practically attainable without asserting universal hard dependency |
+An independently addressable reusable proposition.
 
-> **Relation-vocabulary status:** the table above is the current runtime/domain compatibility baseline, not the final leaf vocabulary. The canonical machine-readable classification and candidate-admission contract is `docs/domain/relation-classification-catalog.yaml`. Existing broad runtime types remain supported until representative corpus validation justifies migration; classification must not coerce new assertions into an imprecise legacy predicate.
-
-For new classification, only `preferred` leaves in `docs/domain/relation-classification-catalog.yaml` may produce a `matched` edge. Catalogued `candidate` leaves are proposal vocabulary and must return `candidate_needed` until promoted; `uses`, `depends_on`, `enables` and broad `derives_from` are compatibility-only for new classification and must not be selected merely because the runtime can represent them. Existing stored edges using compatibility types remain readable until an evidence-backed corpus migration is accepted.
-
-A generic `related_to` relation remains insufficient canonical subject meaning. When available evidence does not distinguish an accepted type and direction, no typed edge should be invented.
-
-Relations should not be duplicated as separate nodes merely to make them addressable.
-
-## Example semantic chain
+A proposition may contain:
 
 ```text
-[Resource contention / uncontrolled resource usage]
-                    ^
-                    | addresses
-[Resource isolation]
-                    ^
-                    | realizes
-[Linux cgroups]
-       |
-       +-- related semantic knowledge -->
-           [How cgroups enforce resource limits] : Mechanism
-           [Configuring CPU limits with cgroups] : Procedure
+KnowledgeProposition
+    participants?
+    conditions?
+    predicate / conclusion
 ```
 
-The important learning structure is preserved without claiming that Problem, Solution, Abstraction and Implementation form one flat taxonomy.
+Examples:
 
-A useful explanatory traversal can therefore expose:
+- CPU quota constrains runnable CPU time.
+- A payment timeout does not imply payment failure.
+- A right triangle satisfies a² + b² = c².
+
+Relational knowledge is represented by the same construct:
 
 ```text
-WHY?          problem
-WHAT IDEA?    implementation-independent solution/abstraction
-HOW?          concrete realization and mechanism
-HOW TO USE?   procedure
-HOW TO CHOOSE/ORGANIZE? strategy
+KnowledgeProposition
+    predicate
+    participants
+    conditions?
 ```
 
-These are explanatory roles and forms, not mandatory layers for every subject.
+Relation predicates such as `causes`, `part_of`, `represents` and `realizes` are vocabulary/schema-level semantics. They are not separate Knowledge entities.
 
-## Boundary with Learning Design
+## Relation vocabulary
 
-Questions are owned by Learning Design. Knowledge Model exposes reusable `KnowledgeNode` identities that a question may reference as its supporting knowledge.
+`docs/domain/relation-classification-catalog.yaml` is a predicate vocabulary and classification aid for relational KnowledgePropositions.
 
-A question contains its own question text and direct answer text. Its knowledge references identify the reusable subject knowledge that explains the topic; they do not change Knowledge Model ownership.
+A registered predicate does not create an assertion by itself. A relational proposition exists only when the proposition has independently supported semantic content.
 
-Concrete facts, values, definitions, conditions and examples may be part of a `KnowledgeNode.content` when they belong to that reusable explanatory object.
+Predicate metadata may specify direction, symmetry or transitivity. No relation inherits transitivity, necessity, sufficiency or composition semantics merely because another relation has them.
 
-Reusable requirements and competencies are owned by Learning Design. They may align to Knowledge Model identities without becoming subject knowledge.
+## Boundary with capability semantics
 
-## Ownership
+Knowledge may be the direct semantic object of a performance expectation. That cross-model relation is owned by Learning Design as `focuses_on`.
 
-Knowledge Model owns:
+Knowledge may also be useful in one or more competent realizations of a Capability. PREP does not model that as a structural `KnowledgeUse` edge on Capability. When such reusable domain meaning matters, it is expressed as a KnowledgeProposition, for example:
 
-- stable semantic identity of reusable subject knowledge;
-- semantic forms of reusable knowledge objects;
-- typed semantic relationships and distinctions;
-- explanatory meaning and coherence;
-- implementation-independent and implementation-specific knowledge without conflating them;
-- provenance or support needed to judge subject-semantic quality;
+```text
+Knowledge K can support realization of Capability C
+in role R under conditions A.
+```
 
-It does not own:
+This does not imply that K is necessary, sufficient, memorized, used in every performance, or the only valid realization strategy.
 
-- learner evidence or inferred learner state;
-- target-relative gaps or priorities;
-- learning/diagnostic activities or scheduling;
-- question/card lifecycle;
-- import/extraction mechanics;
-- UI or graph visualization.
+## Identity
+
+Knowledge identity is semantic, not representational.
+
+Changing presentation, target, learner, task instance, external study-system identity or graph position does not create new Knowledge.
+
+A material change in the reusable subject meaning may create new Knowledge identity.
 
 ## Invariants
 
-- reusable subject meaning must not change because one learner succeeds or fails;
-- learner observations cannot directly mutate subject truth;
-- semantic identity is independent of presentation, target and external study-system identity;
-- a KnowledgeNode is admitted when it has stable semantic identity, an independent explanatory responsibility, and usefulness beyond one concrete question, learner or learning target;
-- a question's question text, answer text and knowledge references remain Learning Design semantics;- semantic form and relational role are distinct dimensions;
-- `realizes` establishes abstraction/implementation roles relative to a pair of knowledge objects; neither role is a permanent global level;
-- `addresses` establishes solution/problem roles relative to a pair of knowledge objects; neither role is a permanent global type;
-- concrete technology is not automatically a mechanism;
-- system behavior and actor action remain distinguishable: Mechanism explains how the system produces an effect; Procedure explains how an actor obtains a result;
-- target alignment may reference reusable knowledge without taking ownership of subject meaning;
-- learning artifacts may depend on knowledge objects without becoming canonical subject knowledge.
+- reusable subject meaning does not change because one learner succeeds or fails;
+- learner observations cannot mutate reusable subject truth;
+- KnowledgeObject and KnowledgeProposition are distinct semantic forms;
+- a relational predicate is vocabulary, while a relational assertion is a KnowledgeProposition;
+- a relation is not transitively inherited unless its own semantics explicitly support that inference;
+- `part_of`, `causes`, `represents`, `realizes` and other predicates keep their own distinct semantics;
+- absence of a relation assertion is not evidence for its negation;
+- Knowledge is reusable beyond one concrete Task, Performance, learner or LearningTarget.
 
-## Evidence from current stress testing
+## Removed from the core model
 
-The current Linux interview-question corpus does not require answer-literal atomization.
+The following are not current fundamental Knowledge entities:
 
-Representative mappings remain coherent at reusable knowledge granularity:
+- KnowledgeNode as a universal undifferentiated carrier;
+- KnowledgeRelation as a Knowledge entity;
+- KnowledgeAssertion;
+- KnowledgeRequirement;
+- KnowledgeUseRequirement;
+- KnowledgeSupportProfile;
+- KnowledgePattern;
+- KnowledgeSchema;
+- mandatory `Concept` or `Model` semantic kinds.
 
-```text
-inode questions                    -> Inode : Concept
-7 / 755 / rwx permission questions -> Unix permission representation : Concept
-SIGTERM vs SIGKILL                 -> Unix signals : Concept
-Linux boot                         -> Linux boot process : Mechanism
-change permissions                 -> Changing file permissions : Procedure
-strace filesystem diagnosis        -> Filesystem troubleshooting with strace : Procedure
-secure a Linux server              -> Linux server hardening : Strategy
-```
-
-This is evidence for the current model boundary, not proof that these four semantic forms are complete.
-
-## Research influence
-
-1EdTech CASE supports separation of reusable competency/standards definitions from learning and assessment use, but Prep does not adopt the CASE schema.
-
-Knowledge Space Theory supports separating discipline knowledge structure from an individual learner state; Prep does not currently adopt its mathematical representation.
-
-Knowledge-component and Q-matrix research supports many-to-many mapping between assessment items and reusable knowledge requirements. Prep uses that separation principle without requiring Knowledge Components to be globally minimal atoms.
-
-The previous Knowledge Graph project provides implementation evidence for stable semantic identity, explanatory responsibility, lightweight classification and questions derived from explanatory knowledge. Its graph-centered architecture is not treated as a premise of this model.
-
-## Deferred input concerns
-
-Source validation, provenance assessment, disagreement resolution and conflicting-input handling are outside Knowledge Model. Knowledge Model stores accepted subject semantics supplied to it; a future Knowledge Input / Acquisition context may own these concerns if a concrete product use case justifies that context.
+They may reappear only if a future counterexample demonstrates an independently necessary semantic distinction.

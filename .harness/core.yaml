@@ -188,40 +188,23 @@ artifacts:
     depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
 questions:
-  - id: Q-LEARNING-DESIGN-BOUNDARY
-    authority: MODEL-CONTEXT-STRATEGY
-    text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
-    blocks: [LEARNING-DESIGN]
-    resolution: MODEL-CONTEXT-MAP
-
-  - id: Q-QUESTION-CORPUS-ORGANIZATION
-    authority: TACTICAL-DOMAIN-DESIGN
-    text: How should a large corpus of Questions be organized so thousands of questions remain navigable and usable, including identity, classification, grouping, filtering, difficulty, provenance, duplication or variants, and which organization should be derived from Knowledge Model rather than duplicated on Question?
-    blocks: [LEARNING-DESIGN]
-    resolution: LEARNING-DESIGN
-
-  - id: Q-LEARNER-STATE-SUBJECT
-    authority: TACTICAL-DOMAIN-DESIGN
-    text: "What should learner state in Prep be about: Question, KnowledgeNode, Requirement, or multiple distinct subjects, given that external systems such as Anki provide evidence at the external item/card level while Prep questions may reference multiple knowledge objects and requirements?"
-    blocks: [LEARNER-MODEL]
-    resolution: LEARNER-MODEL
-
   - id: Q-STUDY-SET-PREPARATION-GATE
     authority: APPLICATION-DESIGN
-    text: What exact condition makes a LearningTarget sufficiently prepared to build a Study Set, and when preparation is incomplete should construction be blocked or should Prep build the resolvable subset while reporting explicit missing-preparation diagnostics?
+    text: What exact condition makes a LearningTarget sufficiently prepared to build a Study Set under the new CapabilitySpecification/RequirementExpression model, and when preparation is incomplete should construction be blocked or should Prep build the resolvable subset while reporting explicit missing-preparation diagnostics?
     blocks: [SCREEN-VIEW-DESIGN]
     resolution: APPLICATION-DESIGN
 
-  - id: Q-LEARNING-COVERAGE-MODEL
+  - id: Q-LEARNING-SUPPORT-COVERAGE
     authority: TACTICAL-DOMAIN-DESIGN
-    text: What semantic model should determine whether learning support and assessment/evidence adequately cover a KnowledgeNode, Requirement or target capability, including artifact/activity kinds beyond Questions, cognitive/performance depth, context/transfer breadth, target dependence, and human versus automated judgment?
+    text: What additional semantics, if any, are required to judge whether learning support is adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics, without reducing support quality to artifact or Question count?
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
-    text: "In the learner workflow, who establishes the Requirement/RequirementSet scope of a LearningTarget: does the learner select reusable Requirements directly, select a curated target/profile with prepared scope, or use another accepted composition flow?"
+    text: In the learner workflow, who establishes the RequirementExpression<CapabilitySpecification> of a LearningTarget: does the learner select reusable capability specifications directly, select a curated target/profile, or use another accepted composition flow?
     blocks: [USER-JOURNEYS]
     resolution: APPLICATION-DESIGN
 
   - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
     authority: HUMAN-INTERFACE-DESIGN
     text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?
+    resolution: PRESENTATION-SYSTEM

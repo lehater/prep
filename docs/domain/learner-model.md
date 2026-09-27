@@ -2,71 +2,161 @@
 
 ## Purpose
 
-Define the minimal learner-specific record of learning statistics independently of reusable subject knowledge and target-specific learning policy.
+Define learner-specific actual performance, observation and capability-claim semantics while preserving the distinction between observed facts and inferential conclusions.
 
-## Core distinctions
-
-### Question Evidence Subject
-
-Question is the canonical subject of directly recorded learning observations and evidence.
-
-KnowledgeNode and Requirement state are not direct observations. Any state attributed to them is a later inference derived from evidence about related Questions.
-
-### Review Observation
-
-For the first integration-driven slice, the recorded statistics follow the semantics of an Anki review log while remaining source-neutral in the Learner Model.
-
-A Review Observation records one answering of a Question:
+## Performance
 
 ```text
-ReviewObservation
-  question: Question
-  occurred_at
-  rating: Again | Hard | Good | Easy
-  previous_interval
-  next_interval
-  duration
-  review_phase: Learning | Review | Relearning | Early
+Performance                          // EVENT
+    participants*
+    temporal_extent
+    actual_conditions
+
+    actor-attributed actions / trace
+    work_products*
+    expressed_reasoning?
+    actual_bindings?
+
+    -- responds_to -->
+        Task*
 ```
 
-The rating semantics follow the initial integration contract: Again means failed recall; Hard, Good and Easy mean successful recall with different self-reported difficulty. Intervals record the scheduling interval before and after the review. Duration records time spent before choosing the rating. Review phase records the scheduling context in which the answer occurred.
+Performance is one concrete execution event: what actually happened.
 
-These fields are recorded facts/statistics. Prep does not currently interpret them as mastery, proficiency, confidence or knowledge state.
+Task states what was required or self-adopted. Repeating the same Task creates a new Performance.
 
-This vocabulary is intentionally integration-driven rather than claimed as a universal learning model. A later integration may demonstrate that the model must be generalized or revised.
+`responds_to` has cardinality `0..*`. Natural work can produce a Performance without a previously materialized Task.
 
+Performance may be individual, collaborative, tool-mediated, long-running or incomplete.
 
-## Ownership
+Internal reasoning is not directly observable. Only expressed reasoning, actions, traces and work products can become observation targets.
 
-Learner Model owns:
+## Observation
 
-- learner-specific Review Observations about Questions;
-- review history and statistics reproducible from those observations.
+```text
+Observation                          // TOKEN
+    Performance
+    about: 1..*
+    assertion/value
+    provenance
 
-Interpretation of those statistics into evidence strength, inferred learner state, uncertainty, retention/decay, knowledge state or requirement state is deferred.
+    -- conforms_to -->
+        ObservationSpecification*
+```
 
-It references Questions from Learning Design as the canonical subjects of recorded learning observations and statistics. Knowledge Model identities and Requirements may receive derived interpretations later, but such interpretation is outside the current model.
+Observation has token identity. Two independent raters may create distinct Observations with the same assertion.
 
-It does not own subject meaning, target policy, gaps or learning priorities.
+`about` may identify the Performance, participant, actor-attributed action, work product or part of a work product.
 
-## Research influence
+`Observation -- conforms_to --> ObservationSpecification` is classificatory with cardinality `0..*`. Opportunistic observations may exist without a prior specification, and one Observation may satisfy more than one compatible specification.
 
-The initial Review Observation vocabulary is deliberately shaped by the first planned learning-system integration. It preserves review-history facts without importing that system's scheduler or inferred memory model into Prep.
+An Observation records an attributed assertion/value with provenance. It is not a truth oracle and is not itself a capability claim.
+
+## LearnerCapabilityClaim
+
+```text
+LearnerCapabilityClaim
+    learner
+    CapabilitySpecification
+    polarity: positive | negative
+    time_scope
+```
+
+It is an evidence-backed proposition that the learner possesses or does not possess the specified Capability in the stated time scope.
+
+The Claim has no intrinsic:
+
+- confidence;
+- posterior probability;
+- standard error;
+- proficiency value;
+- generic `unknown` polarity.
+
+Absence of a Claim is not a negative Claim.
+
+`time_scope` states the time about which capability is asserted. It is distinct from Observation timestamp, Performance temporal extent and inference creation time.
+
+## CapabilityEvidenceArgument
+
+```text
+CapabilityEvidenceArgument           // TOKEN
+    observations: 1..*
+    warrant: EvidentialWarrant
+    claim: LearnerCapabilityClaim
+
+    inference_result?
+    provenance
+    created_at
+```
+
+This is the concrete inferential argument that applies one warrant to an actual observation set and concerns one Claim.
+
+Independent executions over the same Observations, warrant and Claim may remain distinct arguments when model/version/provenance differs.
+
+A valid CapabilityEvidenceArgument requires:
+
+```text
+observations satisfy warrant.evidence_pattern
+
+claim.CapabilitySpecification
+    == warrant.target_capability_specification
+
+claim.polarity
+    == warrant.target_polarity
+
+claim.time_scope
+    satisfies warrant.claim_time_scope_rule
+
+warrant.applicability_conditions
+    hold
+```
+
+Model-specific confidence, posterior, likelihood or uncertainty output belongs in `inference_result`, not in LearnerCapabilityClaim.
+
+## Evidence role
+
+PREP does not materialize a universal `Evidence` entity.
+
+An Observation becomes evidential in the context of a CapabilityEvidenceArgument under an EvidentialWarrant.
+
+The same Observation may participate in several arguments. Observations may be dependent; repeated or near-identical observations are not automatically independent evidence.
+
+## Individual and collaborative performance
+
+A group Performance does not automatically support an individual Capability claim.
+
+Individual claims require observation targets/provenance that attribute relevant behavior or work product to the learner and a warrant whose applicability permits that inference.
+
+## Temporal semantics
+
+Skill degradation and changing conditions are handled by explicit Claim time scope and warrant temporal rules.
+
+Old evidence does not automatically license a present-time Claim. A current Claim does not automatically apply indefinitely.
 
 ## Invariants
 
-- historical Review Observations are not rewritten;
-- absence of observations is not a negative learning result;
-- every Review Observation remains attributable to Question identity;
-- learner statistics cannot redefine reusable subject semantics;
-- interpretation of statistics into learner, KnowledgeNode or Requirement state is not part of the current model.
+- Performance is an event; Task is a goal/specification-side object;
+- repeated execution creates a new Performance;
+- Observation has token identity and provenance;
+- Observation is not Evidence by itself;
+- Observation does not imply a LearnerCapabilityClaim without an applicable warrant and valid evidence argument;
+- finite observations do not automatically justify broad generalization;
+- failure does not automatically justify a negative capability claim;
+- multiple raters do not automatically make evidence independent;
+- group Performance does not automatically imply individual capability;
+- absence of Claim is not negative Claim;
+- learner-specific evidence cannot redefine reusable Knowledge or Capability semantics.
 
-## Deferred questions
+## Removed from the core model
 
-- whether later integrations require a more general observation vocabulary;
+The following are not current fundamental learner constructs:
 
-- what evidence-strength model should interpret recorded statistics;
-- whether and how statistics should produce inferred learner state;
-- how inferred state may propagate from Questions to KnowledgeNodes or Requirements;
-- how context and transfer limitations affect evidence reuse;
-- what decay/retention model is justified before sufficient empirical data exists.
+- ReviewObservation as a Question-specific universal observation type;
+- Question as the canonical evidence subject;
+- CapabilityState;
+- intrinsic mastery/readiness/proficiency state;
+- CapabilityEstimate as core;
+- EvidentialBearing as an identity-less qualified relation;
+- universal Evidence entity.
+
+Integration-specific review logs may later be translated into Performance/Observation semantics when their provenance and meaning justify that mapping.

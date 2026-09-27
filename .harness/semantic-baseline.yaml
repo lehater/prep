@@ -25,28 +25,23 @@ reviews:
     basis: Strategic domain responsibilities remain investment/responsibility boundaries rather than tactical model or context-internal design.
 
   - capability: prep.model-context-strategy
-    revision: 1
-    basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
+    revision: 2\n    basis: Model-context boundaries are revalidated for the new conceptual model: Knowledge owns reusable subject semantics; Learning Design owns reusable Capability/Task/observation/warrant/assessment/target semantics; Learner Model owns actual Performance/Observation and evidence-backed learner claims.
 
   - capability: prep.knowledge-relation-classification
-    revision: 2
-    basis: "The machine-readable classifier now distinguishes preferred canonical leaves, candidate proposal vocabulary and legacy-only runtime compatibility; matched can persist only a preferred leaf, candidate vocabulary routes through candidate_needed, and unsupported assertions create no edge."
+    revision: 3\n    basis: Relation classification is retained only as schema-level predicate vocabulary for relational KnowledgePropositions; predicate registration does not create Knowledge entities or assertions, and inference properties remain predicate-specific.
 
   - capability: prep.knowledge-model
-    revision: 3
-    basis: Knowledge identity, forms and relationship semantics were revalidated against the canonical classifier; the model now separates stored/runtime compatibility relation types from the preferred leaves admissible for new classification.
+    revision: 4\n    basis: Knowledge is replaced by the minimal KnowledgeObject/KnowledgeProposition model with stable semantic identity, open optional knowledge forms and relational propositions; structural KnowledgeUse and mandatory Concept/Model kinds are removed.
 
   - capability: prep.frontend-performance-capacity
     revision: 1
     basis: Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics.
 
   - capability: prep.learning-design
-    revision: 1
-    basis: LearningTarget, Requirement and Question semantics remain target-relative learning-design truth without importing learner-state inference or UI mechanics.
+    revision: 2\n    basis: Learning Design is replaced by the Capability-centered model: Capability/CapabilitySpecification, TaskSpecification/Task, ObservationSpecification, EvidencePattern/EvidentialWarrant, Sampling/AssessmentDesign and LearningTarget RequirementExpression, with explicit relation modalities and forbidden inferences.
 
   - capability: prep.learner-model
-    revision: 1
-    basis: Learner evidence remains factual Question-level ReviewObservation/statistics semantics and does not invent mastery, readiness or retention inference.
+    revision: 2\n    basis: Learner Model is replaced by actual Performance/Observation tokens plus LearnerCapabilityClaim and identity-bearing CapabilityEvidenceArgument; Question-specific ReviewObservation and intrinsic mastery/state estimates are removed from the core.
 
   - capability: prep.application-design
     revision: 1
