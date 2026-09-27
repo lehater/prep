@@ -1,0 +1,364 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.screen-view-design
+acceptance_id: frontend-decision-rebuild::prep.screen-view-design::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.screen-view-design
+  knowledge_kind: screen-view-design
+  explorer_request_id: sha256:36c11748bdeb79ea626396325f3e9c5f1d501b666b947d1055455e1350606fe5
+
+  axes:
+    - axis: view-composition
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: single-vs-split
+          challenge: >-
+            Compare one task surface that preserves collection/focus context
+            with splitting collection and focused work into separate product destinations.
+          alternatives:
+            - context-preserving-task-surface
+            - split-collection-detail-destinations
+            - modal-dominant-task-surface
+        - strategy: co-locate-vs-separate
+          challenge: >-
+            Test whether collection, focused detail/editor and task-specific
+            secondary context should remain co-located for each topology view.
+          alternatives:
+            - context-preserving-task-surface
+            - split-collection-detail-destinations
+            - modal-dominant-task-surface
+        - strategy: region-priority-shift
+          challenge: >-
+            For Knowledge, shift the largest work region among 3D projection,
+            textual access and equal split while preserving all semantic access paths.
+          alternatives:
+            - knowledge-3d-primary
+            - knowledge-text-primary
+            - knowledge-equal-split
+      decision_points:
+        - id: entity-task-surface
+          alternatives:
+            - id: context-preserving-task-surface
+              difference: >-
+                Each topology view keeps finder/collection and focused work in
+                one semantic task surface; layout may switch between simultaneous
+                and sequential regions by viewport.
+              material_effects:
+                primary-region: current-focused-task
+                secondary-context: collection-context-preserved
+                task-colocation: same-semantic-view
+            - id: split-collection-detail-destinations
+              difference: >-
+                Collection and detail/editor become separate product destinations
+                with independent view identity.
+              material_effects:
+                primary-region: destination-specific
+                secondary-context: lost-or-reconstructed
+                task-colocation: separate-destinations
+            - id: modal-dominant-task-surface
+              difference: >-
+                Collection remains primary while most detail/edit work occurs in
+                modal overlays.
+              material_effects:
+                primary-region: collection
+                secondary-context: obscured-behind-overlay
+                task-colocation: overlay-on-collection
+        - id: knowledge-wide-priority
+          alternatives:
+            - id: knowledge-3d-primary
+              difference: >-
+                The 3D relational projection receives the largest wide-screen
+                region while textual search/detail remain adjacent/reachable.
+              material_effects:
+                primary-region: 3d-relational-projection
+                secondary-context: textual-search-and-detail
+                task-colocation: mixed-in-one-knowledge-view
+            - id: knowledge-text-primary
+              difference: >-
+                Textual list/detail receives the largest region and 3D is opened
+                as a secondary visualization.
+              material_effects:
+                primary-region: textual-search-detail
+                secondary-context: 3d-on-demand
+                task-colocation: mixed-in-one-knowledge-view
+            - id: knowledge-equal-split
+              difference: >-
+                Textual and 3D regions permanently divide the wide work area with
+                roughly equal presentation priority.
+              material_effects:
+                primary-region: dual-equal
+                secondary-context: none
+                task-colocation: simultaneous-equal-split
+
+    - axis: detail-edit-placement
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: inline-vs-overlay
+          challenge: >-
+            Compare contextual master/detail editing with modal overlays and
+            full-width focused substates for canonical curation work.
+          alternatives:
+            - adaptive-context-preserving-edit
+            - always-inline-edit
+            - modal-edit
+            - dedicated-fullscreen-edit
+        - strategy: same-view-vs-dedicated
+          challenge: >-
+            Test whether focused editing should remain within the topology view
+            or become a distinct product destination.
+          alternatives:
+            - adaptive-context-preserving-edit
+            - dedicated-fullscreen-edit
+        - strategy: context-preservation-perturbation
+          challenge: >-
+            Remove collection/search context while editing and compare recovery,
+            conflict correction and return-to-origin behavior.
+          alternatives:
+            - adaptive-context-preserving-edit
+            - dedicated-fullscreen-edit
+      decision_points:
+        - id: curation-edit-placement
+          alternatives:
+            - id: adaptive-context-preserving-edit
+              difference: >-
+                Wide layouts may use master/detail while narrow layouts use a
+                full-width focused substate, preserving finder/search origin.
+              material_effects:
+                detail-placement: contextual-or-fullwidth-by-space
+                edit-placement: same-semantic-view
+                context-preservation: explicit
+            - id: always-inline-edit
+              difference: >-
+                Editor fields are always embedded beside/in the collection regardless
+                of available space.
+              material_effects:
+                detail-placement: inline
+                edit-placement: inline
+                context-preservation: direct-but-space-constrained
+            - id: modal-edit
+              difference: >-
+                Canonical editors primarily open in modal overlays above the collection.
+              material_effects:
+                detail-placement: overlay
+                edit-placement: modal
+                context-preservation: visually-obscured
+            - id: dedicated-fullscreen-edit
+              difference: >-
+                Editing always moves to a focused full-screen state, even on wide layouts.
+              material_effects:
+                detail-placement: separate-fullwidth-state
+                edit-placement: fullwidth
+                context-preservation: return-navigation-required
+
+    - axis: responsive-composition
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: collapse-vs-reflow
+          challenge: >-
+            Compare compressing simultaneous wide regions with reflowing the same
+            semantic view into sequential priority-driven states.
+          alternatives:
+            - priority-sequential-reflow
+            - compress-all-regions
+            - hide-secondary-context
+        - strategy: persistent-vs-disclosed
+          challenge: >-
+            Test whether secondary detail/controls remain persistently visible or
+            move behind disclosure while preserving task access.
+          alternatives:
+            - priority-sequential-reflow
+            - compress-all-regions
+            - hide-secondary-context
+        - strategy: primary-surface-perturbation
+          challenge: >-
+            On narrow Knowledge layouts, keep 3D primary versus shift semantic
+            textual search/focused detail to primary and make 3D an explicit mode.
+          alternatives:
+            - narrow-text-primary-3d-mode
+            - narrow-3d-primary
+      decision_points:
+        - id: narrow-region-strategy
+          alternatives:
+            - id: priority-sequential-reflow
+              difference: >-
+                Primary task/focus becomes full-width and secondary context moves
+                to disclosed or sequential substates with focus restoration.
+              material_effects:
+                narrow-layout: priority-sequential
+                disclosure: secondary-context-disclosed
+                projection-priority: task-dependent
+            - id: compress-all-regions
+              difference: >-
+                Wide multi-region composition is retained by shrinking every
+                region into the narrow viewport.
+              material_effects:
+                narrow-layout: compressed-multi-region
+                disclosure: none
+                projection-priority: unchanged
+            - id: hide-secondary-context
+              difference: >-
+                Secondary context is removed rather than made available through
+                disclosure/sequential navigation.
+              material_effects:
+                narrow-layout: reduced-content
+                disclosure: removed
+                projection-priority: primary-only
+        - id: narrow-knowledge-priority
+          alternatives:
+            - id: narrow-text-primary-3d-mode
+              difference: >-
+                Search/results/focused detail are primary on narrow layouts and
+                3D becomes an explicit full-width mode/disclosure.
+              material_effects:
+                narrow-layout: textual-primary
+                disclosure: 3d-explicit-mode
+                projection-priority: semantic-access-first
+            - id: narrow-3d-primary
+              difference: >-
+                3D remains the persistent primary region on narrow layouts and
+                textual access is secondary/disclosed.
+              material_effects:
+                narrow-layout: 3d-primary
+                disclosure: textual-secondary
+                projection-priority: spatial-first
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - entity-task-surface
+      - knowledge-wide-priority
+      - curation-edit-placement
+      - narrow-region-strategy
+      - narrow-knowledge-priority
+    open_gaps: []
+
+candidate:
+  id: SCREEN-VIEW-DESIGN
+  path: docs/interface/screen-view-design.md
+  capability: prep.screen-view-design
+  changed_paths:
+    - docs/interface/screen-view-design.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/interface/machine-interface.md
+    - referenced_path: docs/interface/presentation-system.md
+  semantic_assertions: []
+  decision_review:
+    axes:
+      - axis: view-composition
+        decisions:
+          - id: entity-task-surface
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: context-preserving-task-surface
+                state: VIABLE
+              - id: split-collection-detail-destinations
+                state: REJECTED
+                rationale: >-
+                  The accepted topology defines one task view for Targets,
+                  Requirements and Questions; separate product destinations would
+                  duplicate view identity and lose task continuity.
+              - id: modal-dominant-task-surface
+                state: REJECTED
+                rationale: >-
+                  Long-form canonical editing and conflict recovery require durable
+                  visible context; modal dominance obscures the owning collection/context.
+            disposition: DETERMINED
+            selected: context-preserving-task-surface
+          - id: knowledge-wide-priority
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: knowledge-3d-primary
+                state: VIABLE
+              - id: knowledge-text-primary
+                state: VIABLE
+              - id: knowledge-equal-split
+                state: REJECTED
+                rationale: >-
+                  Permanently equal regions spend scarce space even when one task
+                  mode dominates and weaken the focus-progressive presentation.
+            disposition: DELEGATED
+            selected: knowledge-3d-primary
+
+      - axis: detail-edit-placement
+        decisions:
+          - id: curation-edit-placement
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: adaptive-context-preserving-edit
+                state: VIABLE
+              - id: always-inline-edit
+                state: VIABLE
+              - id: modal-edit
+                state: REJECTED
+                rationale: >-
+                  Modal-first canonical editing weakens conflict/validation context
+                  and is unsuitable as the shared pattern for complex curation.
+              - id: dedicated-fullscreen-edit
+                state: VIABLE
+            disposition: DELEGATED
+            selected: adaptive-context-preserving-edit
+
+      - axis: responsive-composition
+        decisions:
+          - id: narrow-region-strategy
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: priority-sequential-reflow
+                state: VIABLE
+              - id: compress-all-regions
+                state: REJECTED
+                rationale: >-
+                  Compressing all wide regions preserves geometry rather than task
+                  hierarchy and makes dense editing/exploration unusable.
+              - id: hide-secondary-context
+                state: REJECTED
+                rationale: >-
+                  Removing secondary context violates the presentation requirement
+                  to reduce simultaneous regions before reducing information access.
+            disposition: DETERMINED
+            selected: priority-sequential-reflow
+          - id: narrow-knowledge-priority
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            alternatives:
+              - id: narrow-text-primary-3d-mode
+                state: VIABLE
+              - id: narrow-3d-primary
+                state: VIABLE
+            disposition: DELEGATED
+            selected: narrow-text-primary-3d-mode
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - screen-not-product-semantics
+      - source-discipline
+    basis: >-
+      Every topology-required material view is composed from the authorized
+      read set. Curation keeps collection and focused work inside the same
+      semantic task view; Knowledge gives 3D primary wide-screen area while
+      retaining textual/detail access; narrow layouts reflow by semantic priority.
+      No route strings, CSS mechanics, domain semantics or renderer thresholds are invented.
