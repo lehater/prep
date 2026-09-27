@@ -190,21 +190,36 @@ artifacts:
 questions:
   - id: Q-STUDY-SET-PREPARATION-GATE
     authority: APPLICATION-DESIGN
-    text: What exact condition makes a LearningTarget sufficiently prepared to build a Study Set under the new CapabilitySpecification/RequirementExpression model, and when preparation is incomplete should construction be blocked or should Prep build the resolvable subset while reporting explicit missing-preparation diagnostics?
+    text: >-
+      What exact condition makes a LearningTarget sufficiently prepared to build a Study Set
+      under the new CapabilitySpecification/RequirementExpression model, and when preparation
+      is incomplete should construction be blocked or should Prep build the resolvable subset
+      while reporting explicit missing-preparation diagnostics?
     blocks: [SCREEN-VIEW-DESIGN]
     resolution: APPLICATION-DESIGN
 
   - id: Q-LEARNING-SUPPORT-COVERAGE
     authority: TACTICAL-DOMAIN-DESIGN
-    text: What additional semantics, if any, are required to judge whether learning support is adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics, without reducing support quality to artifact count?
+    text: >-
+      What additional semantics, if any, are required to judge whether learning support is
+      adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics,
+      without reducing support quality to artifact count?
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
-    text: In the learner workflow, who establishes the RequirementExpression<CapabilitySpecification> of a LearningTarget: does the learner select reusable capability specifications directly, select a curated target/profile, or use another accepted composition flow?
+    text: >-
+      In the learner workflow, who establishes the
+      RequirementExpression<CapabilitySpecification> of a LearningTarget: does the learner
+      select reusable capability specifications directly, select a curated target/profile,
+      or use another accepted composition flow?
     blocks: [USER-JOURNEYS]
     resolution: APPLICATION-DESIGN
 
   - id: Q-KNOWLEDGE-GRAPH-3D-VALUE
     authority: HUMAN-INTERFACE-DESIGN
-    text: For target-scoped relational learning and global knowledge exploration, which concrete tasks materially benefit from a 3D node-link projection over 2D/list representations, and which focus/filter/detail interactions are required to control viewpoint, occlusion and disorientation?
+    text: >-
+      For target-scoped relational learning and global knowledge exploration, which concrete
+      tasks materially benefit from a 3D node-link projection over 2D/list representations,
+      and which focus/filter/detail interactions are required to control viewpoint, occlusion
+      and disorientation?
     resolution: PRESENTATION-SYSTEM
