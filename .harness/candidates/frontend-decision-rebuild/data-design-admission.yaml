@@ -1,0 +1,38 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.data-design
+acceptance_id: frontend-decision-rebuild::prep.data-design::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+candidate:
+  id: DATA-DESIGN
+  path: docs/architecture/data-design.md
+  capability: prep.data-design
+  changed_paths:
+    - docs/architecture/data-design.md
+  canonical_references:
+    - referenced_path: docs/architecture/import-consistency.md
+    - referenced_path: docs/domain/knowledge-model.md
+    - referenced_path: docs/domain/relation-classification-catalog.yaml
+    - referenced_path: docs/domain/learner-model.md
+    - referenced_path: docs/domain/learning-design.md
+    - referenced_path: docs/architecture/system-architecture.md
+  semantic_assertions: []
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - authority-boundary
+      - no-invention
+      - source-discipline
+      - storage-not-semantic-owner
+    basis: >-
+      Rebuilt only from the Harness-generated CREATE read set. The design maps
+      accepted canonical identities, relationships, append-oriented review
+      history and import idempotency/conflict semantics into durable storage
+      constraints while keeping graph layout, coverage, learner inference,
+      database technology and retention policy outside Data Design ownership.
