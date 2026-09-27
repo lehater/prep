@@ -1,0 +1,582 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.frontend-system-architecture
+acceptance_id: frontend-decision-rebuild::prep.frontend-system-architecture::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.frontend-system-architecture
+  knowledge_kind: system-architecture
+  explorer_request_id: sha256:31e40f2869104bfc1e2bf334b75f42a5290c60293120fa43487d38075af4c5a4
+
+  research_sources:
+    - id: WHATWG-FETCH
+      kind: standard
+      title: WHATWG Fetch Living Standard
+      locator: https://fetch.spec.whatwg.org/
+    - id: HTML-WORKERS
+      kind: standard
+      title: WHATWG HTML - Web workers
+      locator: https://html.spec.whatwg.org/multipage/workers.html
+    - id: RFC-6455
+      kind: standard
+      title: RFC 6455 The WebSocket Protocol
+      locator: https://www.rfc-editor.org/rfc/rfc6455.html
+
+  axes:
+    - axis: runtime-boundaries
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: merge-vs-split
+          challenge: >-
+            Compare one browser application runtime with splitting renderer or
+            product areas into independently coordinated frontend runtimes.
+          alternatives:
+            - single-browser-runtime-renderer-adapter
+            - browser-plus-renderer-worker-boundary
+            - multiple-frontend-runtimes
+        - strategy: boundary-shift
+          challenge: >-
+            Move renderer execution and feature ownership across runtime
+            boundaries and test whether accepted semantics require that split.
+          alternatives:
+            - single-browser-runtime-renderer-adapter
+            - browser-plus-renderer-worker-boundary
+            - multiple-frontend-runtimes
+        - strategy: independent-deployment-perturbation
+          challenge: >-
+            Give Learning/Knowledge/Curation or the renderer independent runtime
+            lifecycle and inspect whether a deployment/scale driver supports it.
+          alternatives:
+            - single-browser-runtime-renderer-adapter
+            - multiple-frontend-runtimes
+      decision_points:
+        - id: frontend-runtime-shape
+          alternatives:
+            - id: single-browser-runtime-renderer-adapter
+              difference: >-
+                One browser application runtime owns UI orchestration; the 3D
+                renderer is an adapter within the browser boundary.
+              material_effects:
+                runtime-count: one-browser-application
+                process-boundary: renderer-inside-browser-runtime-boundary
+                independent-deployment: none
+            - id: browser-plus-renderer-worker-boundary
+              difference: >-
+                Renderer/layout execution is architecturally separated behind a
+                worker message boundary.
+              material_effects:
+                runtime-count: browser-plus-worker
+                process-boundary: worker-message-boundary
+                independent-deployment: no
+            - id: multiple-frontend-runtimes
+              difference: >-
+                Product areas or renderer execute as independently coordinated
+                frontend runtimes/microfrontends.
+              material_effects:
+                runtime-count: multiple-frontend-runtimes
+                process-boundary: cross-runtime-composition
+                independent-deployment: possible
+
+    - axis: deployment-topology
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: co-locate-vs-separate
+          challenge: >-
+            Compare one Prep browser bundle with independently deployed feature
+            or renderer applications.
+          alternatives:
+            - single-browser-deployable
+            - independent-feature-deployables
+        - strategy: scaling-perturbation
+          challenge: >-
+            Test whether independent scaling of Knowledge/3D or other frontend
+            areas is supported by an accepted workload driver.
+          alternatives:
+            - single-browser-deployable
+            - independent-feature-deployables
+        - strategy: deployment-boundary-shift
+          challenge: >-
+            Move 3D realization into a separately deployed service/application
+            and inspect added coordination.
+          alternatives:
+            - single-browser-deployable
+            - remote-renderer-deployable
+      decision_points:
+        - id: frontend-deployment-shape
+          alternatives:
+            - id: single-browser-deployable
+              difference: >-
+                Current frontend is one application/bundle lifecycle associated
+                with the Prep server deployment.
+              material_effects:
+                deployable-count: one-frontend-application
+                colocation: feature-code-colocated
+                scaling-boundary: frontend-application
+            - id: independent-feature-deployables
+              difference: >-
+                Learning, Knowledge or Curation have independent deployment/release lifecycles.
+              material_effects:
+                deployable-count: multiple-feature-deployables
+                colocation: separated
+                scaling-boundary: per-feature
+            - id: remote-renderer-deployable
+              difference: >-
+                Spatial rendering becomes a separately deployed technical service.
+              material_effects:
+                deployable-count: frontend-plus-renderer-service
+                colocation: renderer-remote
+                scaling-boundary: renderer-service
+
+    - axis: interaction-model
+      applicability: APPLICABLE
+      exploration_level: RESEARCH
+      research_sources: [WHATWG-FETCH, HTML-WORKERS, RFC-6455]
+      probes:
+        - strategy: sync-vs-async
+          challenge: >-
+            Compare accepted foreground request/response backend interaction with
+            persistent push or durable job-style browser interaction.
+          alternatives:
+            - backend-request-response
+            - persistent-browser-server-duplex
+            - queued-browser-job-model
+        - strategy: adapter-substitution
+          challenge: >-
+            Replace in-browser renderer adapter calls with worker messaging or a
+            remote renderer service.
+          alternatives:
+            - in-browser-renderer-adapter
+            - renderer-worker-message-boundary
+            - remote-renderer-interaction
+        - strategy: transport-boundary-shift
+          challenge: >-
+            Shift browser/backend communication from request/response to
+            persistent duplex and test accepted behavior requirements.
+          alternatives:
+            - backend-request-response
+            - persistent-browser-server-duplex
+      decision_points:
+        - id: browser-backend-interaction
+          alternatives:
+            - id: backend-request-response
+              difference: >-
+                Frontend maps accepted machine operations to foreground web
+                requests and explicit outcomes.
+              material_effects:
+                sync-async: foreground-request-response
+                protocol-boundary: backend-machine-operation-adapter
+                coupling: operation-contract
+            - id: persistent-browser-server-duplex
+              difference: >-
+                Browser keeps a persistent bidirectional channel with
+                server-initiated application updates.
+              material_effects:
+                sync-async: persistent-duplex
+                protocol-boundary: websocket-like-session
+                coupling: connection-lifecycle
+            - id: queued-browser-job-model
+              difference: >-
+                User commands become durable asynchronous jobs independent of the
+                initiating interaction.
+              material_effects:
+                sync-async: asynchronous-job
+                protocol-boundary: job-queue
+                coupling: persistent-job-lifecycle
+        - id: renderer-interaction-boundary
+          alternatives:
+            - id: in-browser-renderer-adapter
+              difference: >-
+                Renderer is invoked through a local projection adapter and emits
+                renderer-neutral focus/intents.
+              material_effects:
+                sync-async: local-interaction
+                protocol-boundary: in-process-adapter
+                coupling: renderer-port
+            - id: renderer-worker-message-boundary
+              difference: >-
+                Renderer/layout processing is accessed through browser worker messages.
+              material_effects:
+                sync-async: asynchronous-message
+                protocol-boundary: worker
+                coupling: serialized-projection-contract
+            - id: remote-renderer-interaction
+              difference: >-
+                Renderer is accessed through a remote network service.
+              material_effects:
+                sync-async: remote-request
+                protocol-boundary: network-renderer-service
+                coupling: service-contract
+
+    - axis: state-placement
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: move-source-of-truth
+          challenge: >-
+            Move canonical application state into browser storage and compare
+            conflict/currentness semantics.
+          alternatives:
+            - backend-canonical-browser-interaction-state
+            - browser-canonical-offline-state
+            - dual-master-browser-server
+        - strategy: cache-vs-canonical
+          challenge: >-
+            Distinguish replaceable query/cache data from focus/search/form and
+            renderer-local attention state.
+          alternatives:
+            - backend-canonical-browser-interaction-state
+            - browser-canonical-offline-state
+        - strategy: replication-perturbation
+          challenge: >-
+            Make browser and backend authoritative replicas and inspect the new
+            replication/conflict requirements.
+          alternatives:
+            - backend-canonical-browser-interaction-state
+            - dual-master-browser-server
+      decision_points:
+        - id: frontend-state-authority
+          alternatives:
+            - id: backend-canonical-browser-interaction-state
+              difference: >-
+                Backend remains source of truth; browser stores replaceable
+                server representations plus local interaction/renderer state.
+              material_effects:
+                source-of-truth: backend
+                state-locality: canonical-server-interaction-browser
+                replication: cache-only
+            - id: browser-canonical-offline-state
+              difference: >-
+                Browser storage becomes authoritative for canonical Prep writes.
+              material_effects:
+                source-of-truth: browser
+                state-locality: browser-durable
+                replication: server-secondary
+            - id: dual-master-browser-server
+              difference: >-
+                Browser and backend both accept canonical writes and reconcile.
+              material_effects:
+                source-of-truth: dual-master
+                state-locality: browser-and-server
+                replication: bidirectional-authoritative
+
+    - axis: dependency-direction
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: reverse-dependency
+          challenge: >-
+            Let feature/view semantics depend directly on transport DTO or 3D
+            renderer scene-object types.
+          alternatives:
+            - frontend-ports-adapters
+            - transport-led-features
+            - renderer-led-knowledge
+        - strategy: invert-port
+          challenge: >-
+            Put backend transport and 3D renderer behind frontend-facing ports
+            and renderer-neutral projection models.
+          alternatives:
+            - frontend-ports-adapters
+            - transport-led-features
+            - renderer-led-knowledge
+        - strategy: framework-coupling-perturbation
+          challenge: >-
+            Make framework/library models the owners of feature state and
+            inspect replacement/semantic leakage consequences.
+          alternatives:
+            - frontend-ports-adapters
+            - transport-led-features
+            - renderer-led-knowledge
+      decision_points:
+        - id: frontend-dependency-direction
+          alternatives:
+            - id: frontend-ports-adapters
+              difference: >-
+                Feature/view semantics depend on frontend contracts; HTTP and 3D
+                providers implement outward adapters.
+              material_effects:
+                dependency-owner: frontend-semantic-contracts
+                inversion-boundary: transport-and-renderer-ports
+                framework-coupling: isolated
+            - id: transport-led-features
+              difference: >-
+                Raw HTTP DTO/status/route mechanics define feature public models.
+              material_effects:
+                dependency-owner: transport
+                inversion-boundary: absent
+                framework-coupling: feature-transport-coupled
+            - id: renderer-led-knowledge
+              difference: >-
+                3D library node/link/scene types become Knowledge feature models.
+              material_effects:
+                dependency-owner: renderer-library
+                inversion-boundary: absent-renderer-port
+                framework-coupling: knowledge-renderer-coupled
+
+    - axis: failure-isolation
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: collapse-failure-boundary
+          challenge: >-
+            Let renderer failure or backend/external integration error collapse
+            the entire browser application.
+          alternatives:
+            - renderer-isolated-textual-fallback
+            - renderer-failure-global
+            - regional-backend-failure
+            - global-request-failure
+        - strategy: isolate-failure-boundary
+          challenge: >-
+            Contain renderer and request failures at the smallest task/presentation
+            boundary while preserving confirmed context.
+          alternatives:
+            - renderer-isolated-textual-fallback
+            - regional-backend-failure
+        - strategy: dependency-outage-perturbation
+          challenge: >-
+            Remove renderer or external runtime availability and compare retained
+            local tasks/information access.
+          alternatives:
+            - renderer-isolated-textual-fallback
+            - renderer-failure-global
+            - regional-backend-failure
+            - global-request-failure
+      decision_points:
+        - id: renderer-failure-domain
+          alternatives:
+            - id: renderer-isolated-textual-fallback
+              difference: >-
+                3D renderer failure is contained to that projection and Knowledge
+                continues through textual search/focus/detail.
+              material_effects:
+                failure-domain: 3d-projection
+                containment-boundary: renderer-adapter
+                fallback: textual-knowledge-access
+            - id: renderer-failure-global
+              difference: >-
+                Renderer initialization/runtime failure breaks the Knowledge view
+                or entire browser application.
+              material_effects:
+                failure-domain: knowledge-or-application
+                containment-boundary: collapsed
+                fallback: none
+        - id: request-failure-domain
+          alternatives:
+            - id: regional-backend-failure
+              difference: >-
+                Recoverable request failure is shown within affected task/view
+                while safe confirmed context remains available.
+              material_effects:
+                failure-domain: affected-operation-region
+                containment-boundary: feature-view
+                fallback: preserve-context-and-retry
+            - id: global-request-failure
+              difference: >-
+                Any failed backend operation replaces the whole application with
+                a global failure state.
+              material_effects:
+                failure-domain: whole-application
+                containment-boundary: global
+                fallback: reload-only
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - frontend-runtime-shape
+      - frontend-deployment-shape
+      - browser-backend-interaction
+      - renderer-interaction-boundary
+      - frontend-state-authority
+      - frontend-dependency-direction
+      - renderer-failure-domain
+      - request-failure-domain
+    open_gaps: []
+
+candidate:
+  id: FRONTEND-SYSTEM-ARCHITECTURE
+  path: docs/architecture/frontend-system-architecture.md
+  capability: prep.frontend-system-architecture
+  changed_paths:
+    - docs/architecture/frontend-system-architecture.md
+  canonical_references:
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/performance-capacity.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/interface/machine-interface.md
+    - referenced_path: docs/interface/presentation-system.md
+    - referenced_path: docs/interface/screen-view-design.md
+    - referenced_path: docs/architecture/system-architecture.md
+  semantic_assertions: []
+  decision_review:
+    axes:
+      - axis: runtime-boundaries
+        decisions:
+          - id: frontend-runtime-shape
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: single-browser-runtime-renderer-adapter
+                state: VIABLE
+              - id: browser-plus-renderer-worker-boundary
+                state: REJECTED
+                rationale: >-
+                  No accepted numeric responsiveness/capacity target currently
+                  requires a worker boundary; worker offload remains downstream freedom.
+              - id: multiple-frontend-runtimes
+                state: REJECTED
+                rationale: >-
+                  No accepted independent deployment, team/runtime ownership or
+                  scaling driver justifies multiple frontend runtimes.
+            disposition: DETERMINED
+            selected: single-browser-runtime-renderer-adapter
+
+      - axis: deployment-topology
+        decisions:
+          - id: frontend-deployment-shape
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: single-browser-deployable
+                state: VIABLE
+              - id: independent-feature-deployables
+                state: REJECTED
+                rationale: >-
+                  Accepted system deployment has one Prep frontend/backend product
+                  lifecycle and no feature-specific deployment requirement.
+              - id: remote-renderer-deployable
+                state: REJECTED
+                rationale: >-
+                  Remote rendering adds a network/runtime boundary without an
+                  accepted product or quality driver.
+            disposition: DETERMINED
+            selected: single-browser-deployable
+
+      - axis: interaction-model
+        decisions:
+          - id: browser-backend-interaction
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: backend-request-response
+                state: VIABLE
+              - id: persistent-browser-server-duplex
+                state: REJECTED
+                rationale: >-
+                  Accepted machine/interaction contracts require foreground
+                  request/outcome behavior and no server-push semantics.
+              - id: queued-browser-job-model
+                state: REJECTED
+                rationale: >-
+                  No persistent asynchronous job lifecycle is accepted for current UI work.
+            disposition: DETERMINED
+            selected: backend-request-response
+          - id: renderer-interaction-boundary
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: in-browser-renderer-adapter
+                state: VIABLE
+              - id: renderer-worker-message-boundary
+                state: REJECTED
+                rationale: >-
+                  It adds an execution/serialization boundary without a current
+                  accepted quality target requiring offload.
+              - id: remote-renderer-interaction
+                state: REJECTED
+                rationale: >-
+                  A remote renderer violates the smallest-satisfying frontend topology.
+            disposition: DETERMINED
+            selected: in-browser-renderer-adapter
+
+      - axis: state-placement
+        decisions:
+          - id: frontend-state-authority
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: backend-canonical-browser-interaction-state
+                state: VIABLE
+              - id: browser-canonical-offline-state
+                state: REJECTED
+                rationale: >-
+                  Accepted System Architecture keeps canonical state backend-owned
+                  and no offline-first canonical-write capability exists.
+              - id: dual-master-browser-server
+                state: REJECTED
+                rationale: >-
+                  It invents replication/conflict semantics beyond accepted upstream.
+            disposition: DETERMINED
+            selected: backend-canonical-browser-interaction-state
+
+      - axis: dependency-direction
+        decisions:
+          - id: frontend-dependency-direction
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: frontend-ports-adapters
+                state: VIABLE
+              - id: transport-led-features
+                state: REJECTED
+                rationale: >-
+                  It would let transport mechanics redefine accepted frontend semantics.
+              - id: renderer-led-knowledge
+                state: REJECTED
+                rationale: >-
+                  Presentation System explicitly keeps renderer geometry/types
+                  from defining canonical Knowledge meaning.
+            disposition: DETERMINED
+            selected: frontend-ports-adapters
+
+      - axis: failure-isolation
+        decisions:
+          - id: renderer-failure-domain
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: renderer-isolated-textual-fallback
+                state: VIABLE
+              - id: renderer-failure-global
+                state: REJECTED
+                rationale: >-
+                  Accepted Presentation/Screen contracts require Knowledge access
+                  without the 3D renderer.
+            disposition: DETERMINED
+            selected: renderer-isolated-textual-fallback
+          - id: request-failure-domain
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: regional-backend-failure
+                state: VIABLE
+              - id: global-request-failure
+                state: REJECTED
+                rationale: >-
+                  Accepted interactions preserve safe task context during recoverable failure.
+            disposition: DETERMINED
+            selected: regional-backend-failure
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - architecture-not-product-requirement
+      - authority-boundary
+      - dependency-topology-explicit-where-material
+      - no-invention
+      - source-discipline
+    basis: >-
+      Rebuilt from the Harness-generated CREATE read set. The architecture keeps
+      one browser application runtime, isolates transport and 3D renderer behind
+      frontend ports, preserves backend canonical authority, and contains
+      renderer/request failure without inventing microfrontends, workers,
+      offline-first state or numeric quality targets.
