@@ -49,8 +49,8 @@ reviews:
     basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
 
   - capability: prep.application-design
-    revision: 1
-    basis: "Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports."
+    revision: 2
+    basis: "Application Design now defines the Study Set preparation gate over RequirementExpression<CapabilitySpecification>: valid/resolvable target semantics and a supported study profile are required, while incomplete learning support produces an exact resolvable subset plus diagnostics rather than a false completeness gate; explicit LearningSupportRequirement semantics remain domain-owned."
 
   - capability: prep.task-model
     revision: 3
