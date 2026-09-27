@@ -188,12 +188,6 @@ artifacts:
     depends_on: [FRONTEND-COMPONENT-DESIGN, FRONTEND-VERIFICATION, FRONTEND-TEST-DESIGN]
 
 questions:
-  - id: Q-LEARNING-DESIGN-BOUNDARY
-    authority: MODEL-CONTEXT-STRATEGY
-    text: Does Learning Design remain one model context, or does its current scope combine target-relative planning with learning-material or assessment semantics that require separate model contexts?
-    blocks: [LEARNING-DESIGN]
-    resolution: MODEL-CONTEXT-MAP
-
   - id: Q-STUDY-SET-PREPARATION-GATE
     authority: APPLICATION-DESIGN
     text: >-
@@ -203,13 +197,6 @@ questions:
       while reporting explicit missing-preparation diagnostics?
     blocks: [SCREEN-VIEW-DESIGN]
     resolution: APPLICATION-DESIGN
-
-  - id: Q-LEARNING-SUPPORT-COVERAGE
-    authority: TACTICAL-DOMAIN-DESIGN
-    text: >-
-      What additional semantics, if any, are required to judge whether learning support is
-      adequate for a CapabilitySpecification beyond assessment EvidencePattern semantics,
-      without reducing support quality to artifact count?
 
   - id: Q-TARGET-SCOPE-AUTHORSHIP
     authority: APPLICATION-DESIGN
