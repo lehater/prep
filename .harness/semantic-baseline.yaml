@@ -14,19 +14,19 @@ reviews:
 
   - capability: prep.product-intent
     revision: 2
-    basis: Product intent now explicitly covers usable knowledge plus knowledge-dependent capability, contextual evidence and bounded evidence-backed learner-state conclusions without selecting domain or inference structures.
+    basis: "Product intent now explicitly covers usable knowledge plus knowledge-dependent capability, contextual evidence and bounded evidence-backed learner-state conclusions without selecting domain or inference structures."
 
   - capability: prep.product-capabilities
     revision: 3
-    basis: Product capabilities now define target conditions/standards where material, representation-neutral learning/practice/assessment forms, contextual performance evidence, bounded learner-state conclusions and progress semantics while keeping Question/Anki as optional prototype realizations rather than product definitions.
+    basis: "Product capabilities now define target conditions/standards where material, representation-neutral learning/practice/assessment forms, contextual performance evidence, bounded learner-state conclusions and progress semantics while keeping Question/Anki as optional prototype realizations rather than product definitions."
 
   - capability: prep.domain-strategy
     revision: 2
-    basis: Domain strategy retains Knowledge, Learning Design and Learner Model while clarifying their strategic responsibilities: reusable subject meaning; normative target/learning/practice/assessment/adaptation semantics; and learner-specific performance evidence plus evidence-backed state.
+    basis: "Domain strategy retains Knowledge, Learning Design and Learner Model while clarifying their strategic responsibilities: reusable subject meaning; normative target/learning/practice/assessment/adaptation semantics; and learner-specific performance evidence plus evidence-backed state."
 
   - capability: prep.model-context-strategy
     revision: 2
-    basis: Model-context strategy now defines only applicability and knowledge flow between reusable subject, normative learning-design and learner-specific descriptive/epistemic languages; tactical entity and inference structures remain downstream.
+    basis: "Model-context strategy now defines only applicability and knowledge flow between reusable subject, normative learning-design and learner-specific descriptive/epistemic languages; tactical entity and inference structures remain downstream."
 
   - capability: prep.knowledge-relation-classification
     revision: 3
