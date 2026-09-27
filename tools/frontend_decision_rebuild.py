@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after Component/Test Design admissions.
+# Final isolated CI probe for rebuilt frontend chain.
 from __future__ import annotations
 
 import json
