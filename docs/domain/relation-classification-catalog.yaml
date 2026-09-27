@@ -2,10 +2,20 @@ version: 1
 kind: prep-relation-classification-catalog
 status: canonical
 
+semantic_role:
+  predicate_vocabulary_only: true
+  relational_assertion_entity: KnowledgeProposition
+  predicates_are_knowledge_entities: false
+  inference_properties_are_predicate_specific: true
+  notes:
+    - Registering a predicate does not assert a relation.
+    - No predicate inherits necessity, sufficiency, transitivity or symmetry from its family.
+    - Relational propositions keep participants, conditions and provenance separately from predicate vocabulary.
+
 purpose:
   statement: >
-    Machine-readable guidance for classifying semantic relations between
-    Knowledge nodes without forcing assertions into an underspecified flat enum.
+    Machine-readable guidance for classifying relation predicates used by
+    relational KnowledgePropositions without forcing assertions into an underspecified flat enum.
   governing_principles:
     - prefer_semantic_precision_over_small_vocabulary
     - choose_the_most_specific_supported_leaf_predicate
@@ -17,14 +27,14 @@ purpose:
 leaf_status_semantics:
   preferred: >
     Accepted canonical leaf predicate for new classification. Only preferred
-    leaves may be returned as matched and persisted as newly classified edges.
+    leaves may be returned as matched for new relational KnowledgePropositions.
   candidate: >
     Machine-readable proposal vocabulary for corpus validation. A candidate may
     guide candidate_needed output, but it is not accepted as a newly persisted
     edge until promoted to preferred through proposal_policy.
   legacy_only: >
-    Existing stored/runtime compatibility relation. It may be read and
-    displayed for compatibility but must not be selected for a new assertion.
+    Legacy vocabulary retained for compatibility with historical material. It
+    must not be selected for a new relational KnowledgeProposition.
 
 classification_outcomes:
   matched:
