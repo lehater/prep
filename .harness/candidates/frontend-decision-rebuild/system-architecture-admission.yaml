@@ -1,0 +1,646 @@
+version: 1
+kind: prep-frontend-decision-rebuild-admission
+capability: prep.system-architecture
+acceptance_id: frontend-decision-rebuild::prep.system-architecture::1
+decision_request_mode: CREATE
+
+sources:
+  version: 1
+  kind: prep-semantic-revalidation-sources
+  semantic_assertions: []
+
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration
+  capability: prep.system-architecture
+  knowledge_kind: system-architecture
+  explorer_request_id: sha256:a6dbed900cfc006129ed8a6d8d16f804abf5a6a974f96b1328548b0d0e6041b8
+
+  research_sources:
+    - id: RFC-9110
+      kind: standard
+      title: RFC 9110 HTTP Semantics
+      locator: https://www.rfc-editor.org/rfc/rfc9110.html
+    - id: WHATWG-FETCH
+      kind: standard
+      title: WHATWG Fetch Living Standard
+      locator: https://fetch.spec.whatwg.org/
+    - id: RFC-6455
+      kind: standard
+      title: RFC 6455 The WebSocket Protocol
+      locator: https://www.rfc-editor.org/rfc/rfc6455.html
+
+  axes:
+    - axis: runtime-boundaries
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: merge-vs-split
+          challenge: >-
+            Compare one backend application runtime with splitting background
+            integration/import work into another Prep runtime.
+          alternatives:
+            - backend-owned-canonical-runtime
+            - browser-owned-canonical-runtime
+            - request-bound-no-worker
+            - dedicated-background-worker
+        - strategy: boundary-shift
+          challenge: >-
+            Move the canonical application boundary toward the browser and test
+            whether accepted application and machine-interface ownership still holds.
+          alternatives:
+            - backend-owned-canonical-runtime
+            - browser-owned-canonical-runtime
+        - strategy: independent-deployment-perturbation
+          challenge: >-
+            Give asynchronous work an independently deployed runtime and test
+            whether any accepted driver requires that complexity.
+          alternatives:
+            - request-bound-no-worker
+            - dedicated-background-worker
+      decision_points:
+        - id: canonical-application-runtime-owner
+          alternatives:
+            - id: backend-owned-canonical-runtime
+              difference: >-
+                The browser invokes application behavior through the accepted
+                backend machine boundary; canonical state remains backend-side.
+              material_effects:
+                runtime-count: browser-plus-one-prep-backend
+                process-boundary: canonical-operations-cross-browser-backend-boundary
+                independent-deployment: no-extra-canonical-runtime
+            - id: browser-owned-canonical-runtime
+              difference: >-
+                Browser code becomes the primary canonical application/state
+                runtime and the backend is reduced to infrastructure assistance.
+              material_effects:
+                runtime-count: browser-becomes-canonical-runtime
+                process-boundary: canonical-owner-moves-across-machine-boundary
+                independent-deployment: browser-state-lifecycle-becomes-authoritative
+        - id: background-execution-runtime
+          alternatives:
+            - id: request-bound-no-worker
+              difference: >-
+                Export, review sync and import are executed from explicit
+                foreground backend operations without another worker runtime.
+              material_effects:
+                runtime-count: no-dedicated-worker
+                process-boundary: foreground-backend-operation
+                independent-deployment: none
+            - id: dedicated-background-worker
+              difference: >-
+                A separate Prep worker receives queued integration/import work
+                and completes it outside the initiating request lifecycle.
+              material_effects:
+                runtime-count: additional-worker-runtime
+                process-boundary: queue-between-api-and-worker
+                independent-deployment: worker-can-deploy-independently
+
+    - axis: deployment-topology
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: co-locate-vs-separate
+          challenge: >-
+            Compare one Prep server release unit with independently deployed
+            frontend/backend and multi-service alternatives.
+          alternatives:
+            - single-prep-server-deployable
+            - independent-frontend-backend-deployables
+            - multiple-backend-services
+        - strategy: scaling-perturbation
+          challenge: >-
+            Assume components can scale independently and test whether the
+            authorized inputs contain a workload or availability driver for it.
+          alternatives:
+            - single-prep-server-deployable
+            - independent-frontend-backend-deployables
+            - multiple-backend-services
+        - strategy: deployment-boundary-shift
+          challenge: >-
+            Move import and external integration into independently deployed
+            backend services and examine the resulting coordination boundary.
+          alternatives:
+            - single-prep-server-deployable
+            - multiple-backend-services
+      decision_points:
+        - id: prep-deployment-shape
+          alternatives:
+            - id: single-prep-server-deployable
+              difference: >-
+                One Prep backend deployable provides the application/machine
+                boundary and may deliver the browser bundle; Anki remains external.
+              material_effects:
+                deployable-count: one-prep-server-plus-browser-bundle
+                colocation: prep-server-responsibilities-colocated
+                scaling-boundary: prep-server
+            - id: independent-frontend-backend-deployables
+              difference: >-
+                Browser static assets and backend API have mandatory independent
+                deployment/release lifecycles.
+              material_effects:
+                deployable-count: frontend-and-backend-independent
+                colocation: separated
+                scaling-boundary: frontend-and-backend
+            - id: multiple-backend-services
+              difference: >-
+                API, import and external-runtime integration become separate
+                deployable backend services.
+              material_effects:
+                deployable-count: multiple-backend-services
+                colocation: split-by-technical-function
+                scaling-boundary: per-service
+
+    - axis: interaction-model
+      applicability: APPLICABLE
+      exploration_level: RESEARCH
+      research_sources: [RFC-9110, WHATWG-FETCH, RFC-6455]
+      probes:
+        - strategy: sync-vs-async
+          challenge: >-
+            Compare foreground request/response with queued asynchronous commands
+            for browser/backend and backend/external-runtime operations.
+          alternatives:
+            - stateless-request-response
+            - persistent-bidirectional-channel
+            - queued-asynchronous-command-channel
+            - foreground-adapter-request-response
+            - background-sync-queue
+        - strategy: adapter-substitution
+          challenge: >-
+            Replace the accepted backend external-runtime adapter with browser
+            direct integration and test semantic/credential boundary consequences.
+          alternatives:
+            - foreground-adapter-request-response
+            - browser-direct-external-runtime
+        - strategy: transport-boundary-shift
+          challenge: >-
+            Move the browser/backend boundary from request/response to a
+            persistent duplex connection and compare coupling and lifecycle.
+          alternatives:
+            - stateless-request-response
+            - persistent-bidirectional-channel
+      decision_points:
+        - id: browser-backend-interaction
+          alternatives:
+            - id: stateless-request-response
+              difference: >-
+                Each accepted browser operation is a foreground request with a
+                defined response/outcome; no persistent application session is required.
+              material_effects:
+                sync-async: foreground-request-response
+                protocol-boundary: stateless-web-request-response
+                coupling: operation-contract-coupled
+            - id: persistent-bidirectional-channel
+              difference: >-
+                Browser and backend keep a long-lived duplex channel capable of
+                server-initiated messages.
+              material_effects:
+                sync-async: continuous-duplex
+                protocol-boundary: persistent-connection
+                coupling: connection-lifecycle-coupled
+            - id: queued-asynchronous-command-channel
+              difference: >-
+                Browser commands are durably queued and complete independently of
+                the initiating request.
+              material_effects:
+                sync-async: asynchronous-command
+                protocol-boundary: queue-or-job-boundary
+                coupling: completion-decoupled
+        - id: backend-external-runtime-interaction
+          alternatives:
+            - id: foreground-adapter-request-response
+              difference: >-
+                Explicit export/sync/status operations invoke the backend adapter
+                and return accepted external-runtime outcomes to the caller.
+              material_effects:
+                sync-async: foreground-adapter-call
+                protocol-boundary: backend-external-adapter
+                coupling: operation-scoped
+            - id: background-sync-queue
+              difference: >-
+                External-runtime work is queued and reconciled later by a worker.
+              material_effects:
+                sync-async: background-asynchronous
+                protocol-boundary: queue-then-external-adapter
+                coupling: job-lifecycle
+            - id: browser-direct-external-runtime
+              difference: >-
+                Browser code bypasses the Prep backend and communicates with the
+                external study runtime directly.
+              material_effects:
+                sync-async: browser-initiated-external-call
+                protocol-boundary: browser-external-runtime
+                coupling: browser-coupled-to-external-runtime
+
+    - axis: state-placement
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: move-source-of-truth
+          challenge: >-
+            Move canonical authority from backend storage/application ownership
+            into the browser and test current-query/conflict semantics.
+          alternatives:
+            - backend-owned-durable-canonical-state
+            - browser-local-canonical-state
+            - dual-master-replicated-canonical-state
+        - strategy: cache-vs-canonical
+          challenge: >-
+            Distinguish browser attention/cache state from canonical state and
+            test whether interaction context needs server ownership.
+          alternatives:
+            - backend-owned-durable-canonical-state
+            - browser-local-ephemeral-context
+            - backend-session-owned-ui-context
+        - strategy: replication-perturbation
+          challenge: >-
+            Make browser and backend independently authoritative and examine
+            conflict/replication requirements absent from accepted inputs.
+          alternatives:
+            - backend-owned-durable-canonical-state
+            - dual-master-replicated-canonical-state
+      decision_points:
+        - id: canonical-state-placement
+          alternatives:
+            - id: backend-owned-durable-canonical-state
+              difference: >-
+                Canonical modeled data and ReviewObservations have one backend-side
+                source of truth behind application/infrastructure ports.
+              material_effects:
+                source-of-truth: backend
+                state-locality: backend-durable
+                replication: browser-representations-only
+            - id: browser-local-canonical-state
+              difference: >-
+                Browser-local persistence is primary canonical state.
+              material_effects:
+                source-of-truth: browser
+                state-locality: browser-durable
+                replication: backend-secondary
+            - id: dual-master-replicated-canonical-state
+              difference: >-
+                Browser and backend are both authoritative and reconcile changes.
+              material_effects:
+                source-of-truth: dual-master
+                state-locality: browser-and-backend
+                replication: bidirectional-authoritative
+        - id: interface-attention-state-placement
+          alternatives:
+            - id: browser-local-ephemeral-context
+              difference: >-
+                Mode, scope, focus, unsaved input and loading/recovery context are
+                browser interaction state, not canonical records.
+              material_effects:
+                source-of-truth: browser-for-attention-only
+                state-locality: browser-ephemeral
+                replication: none-required
+            - id: backend-session-owned-ui-context
+              difference: >-
+                Backend persists navigation/focus/edit-session state as required
+                server session state.
+              material_effects:
+                source-of-truth: backend-session
+                state-locality: backend-session-store
+                replication: browser-session-copy
+
+    - axis: dependency-direction
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: reverse-dependency
+          challenge: >-
+            Make application/domain code depend on frontend, persistence or Anki
+            implementation types and test ownership leakage.
+          alternatives:
+            - inward-ports-and-adapters
+            - framework-led-domain-coupling
+            - external-runtime-model-leakage
+        - strategy: invert-port
+          challenge: >-
+            Place infrastructure and external-runtime adapters behind application
+            ports instead of allowing them to define orchestration.
+          alternatives:
+            - inward-ports-and-adapters
+            - framework-led-domain-coupling
+            - external-runtime-model-leakage
+        - strategy: framework-coupling-perturbation
+          challenge: >-
+            Treat a chosen web/persistence/external framework as the semantic
+            dependency owner and inspect replaceability and boundary violations.
+          alternatives:
+            - inward-ports-and-adapters
+            - framework-led-domain-coupling
+            - external-runtime-model-leakage
+      decision_points:
+        - id: application-dependency-direction
+          alternatives:
+            - id: inward-ports-and-adapters
+              difference: >-
+                UI/machine adapters invoke application contracts and infrastructure
+                implements application-facing ports; technical providers depend inward.
+              material_effects:
+                dependency-owner: application-contracts
+                inversion-boundary: application-ports
+                framework-coupling: isolated-to-adapters
+            - id: framework-led-domain-coupling
+              difference: >-
+                Application/domain semantics import web or persistence framework types.
+              material_effects:
+                dependency-owner: technical-framework
+                inversion-boundary: absent
+                framework-coupling: application-domain-coupled
+            - id: external-runtime-model-leakage
+              difference: >-
+                Anki/card/scheduler types become dependencies of application/domain semantics.
+              material_effects:
+                dependency-owner: external-runtime-model
+                inversion-boundary: bypassed-external-port
+                framework-coupling: domain-coupled-to-anki
+
+    - axis: failure-isolation
+      applicability: APPLICABLE
+      exploration_level: EXPLORE
+      probes:
+        - strategy: collapse-failure-boundary
+          challenge: >-
+            Let Anki availability determine whole-product availability and let one
+            invalid import item fail the entire accepted envelope.
+          alternatives:
+            - operation-scoped-integration-failure
+            - global-backend-health-coupling
+            - per-item-atomic-isolation
+            - whole-bulk-rollback
+        - strategy: isolate-failure-boundary
+          challenge: >-
+            Isolate external-runtime and import failures at the smallest boundary
+            already defined by accepted interaction/consistency semantics.
+          alternatives:
+            - operation-scoped-integration-failure
+            - per-item-atomic-isolation
+            - partial-item-apply
+        - strategy: dependency-outage-perturbation
+          challenge: >-
+            Remove external-runtime availability during ordinary curation/evidence
+            inspection and compare global failure with operation-scoped recovery.
+          alternatives:
+            - operation-scoped-integration-failure
+            - global-backend-health-coupling
+      decision_points:
+        - id: external-runtime-failure-domain
+          alternatives:
+            - id: operation-scoped-integration-failure
+              difference: >-
+                External-runtime outage fails only operations that require it and
+                preserves local canonical work/recovery context.
+              material_effects:
+                failure-domain: external-operations-only
+                containment-boundary: backend-external-adapter
+                fallback: preserve-local-state-and-retry
+            - id: global-backend-health-coupling
+              difference: >-
+                External-runtime outage makes the whole Prep backend unavailable.
+              material_effects:
+                failure-domain: whole-prep-runtime
+                containment-boundary: collapsed
+                fallback: none
+        - id: import-failure-domain
+          alternatives:
+            - id: per-item-atomic-isolation
+              difference: >-
+                Accepted envelope items are independent atomic units; rejected
+                items do not roll back valid peers.
+              material_effects:
+                failure-domain: individual-import-item
+                containment-boundary: item-application-unit
+                fallback: item-correction-and-retry
+            - id: whole-bulk-rollback
+              difference: >-
+                Any invalid item rolls back all peer items in the accepted envelope.
+              material_effects:
+                failure-domain: whole-bulk-request
+                containment-boundary: bulk-transaction
+                fallback: retry-entire-bulk
+            - id: partial-item-apply
+              difference: >-
+                One invalid item may leave some of that same item applied.
+              material_effects:
+                failure-domain: sub-item-partial-state
+                containment-boundary: below-item-unit
+                fallback: manual-reconciliation
+
+  decision_space_review:
+    status: COMPLETE
+    checks:
+      - mixed-decision-split
+      - missing-material-case-search
+      - accepted-constraint-cross-check
+      - authority-boundary-cross-check
+    reviewed_decisions:
+      - canonical-application-runtime-owner
+      - background-execution-runtime
+      - prep-deployment-shape
+      - browser-backend-interaction
+      - backend-external-runtime-interaction
+      - canonical-state-placement
+      - interface-attention-state-placement
+      - application-dependency-direction
+      - external-runtime-failure-domain
+      - import-failure-domain
+    open_gaps: []
+
+candidate:
+  id: SYSTEM-ARCHITECTURE
+  path: docs/architecture/system-architecture.md
+  capability: prep.system-architecture
+  changed_paths:
+    - docs/architecture/system-architecture.md
+  canonical_references:
+    - referenced_path: docs/application/application-design.md
+    - referenced_path: docs/interface/conceptual-interface-model.yaml
+    - referenced_path: docs/architecture/import-consistency.md
+    - referenced_path: docs/interface/information-architecture.yaml
+    - referenced_path: docs/interface/interaction-design.yaml
+    - referenced_path: docs/interface/interface-topology.yaml
+    - referenced_path: docs/interface/machine-interface.md
+  semantic_assertions: []
+  decision_review:
+    axes:
+      - axis: runtime-boundaries
+        decisions:
+          - id: canonical-application-runtime-owner
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: backend-owned-canonical-runtime
+                state: VIABLE
+              - id: browser-owned-canonical-runtime
+                state: REJECTED
+                rationale: >-
+                  It contradicts the accepted browser/backend machine boundary and
+                  the application contract that interfaces invoke application use cases.
+            disposition: DETERMINED
+            selected: backend-owned-canonical-runtime
+          - id: background-execution-runtime
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: request-bound-no-worker
+                state: VIABLE
+              - id: dedicated-background-worker
+                state: REJECTED
+                rationale: >-
+                  Accepted review sync/export/import are explicit foreground
+                  operations and no background-worker driver exists.
+            disposition: DETERMINED
+            selected: request-bound-no-worker
+
+      - axis: deployment-topology
+        decisions:
+          - id: prep-deployment-shape
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: single-prep-server-deployable
+                state: VIABLE
+              - id: independent-frontend-backend-deployables
+                state: REJECTED
+                rationale: >-
+                  No accepted independent release, scaling or availability
+                  lifecycle requires mandatory frontend/backend deployment separation.
+              - id: multiple-backend-services
+                state: REJECTED
+                rationale: >-
+                  No accepted driver requires independent scaling/deployment of
+                  import or external integration; the split adds coordination boundaries.
+            disposition: DETERMINED
+            selected: single-prep-server-deployable
+
+      - axis: interaction-model
+        decisions:
+          - id: browser-backend-interaction
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: stateless-request-response
+                state: VIABLE
+              - id: persistent-bidirectional-channel
+                state: REJECTED
+                rationale: >-
+                  The accepted operations require request/outcome interactions but
+                  no server-push or persistent-duplex behavior.
+              - id: queued-asynchronous-command-channel
+                state: REJECTED
+                rationale: >-
+                  No durable asynchronous job semantics are accepted for browser work.
+            disposition: DETERMINED
+            selected: stateless-request-response
+          - id: backend-external-runtime-interaction
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: foreground-adapter-request-response
+                state: VIABLE
+              - id: background-sync-queue
+                state: REJECTED
+                rationale: >-
+                  It invents background job/retry semantics absent from the accepted
+                  explicit sync/export interaction model.
+              - id: browser-direct-external-runtime
+                state: REJECTED
+                rationale: >-
+                  The accepted Anki transport profile explicitly makes the Prep
+                  backend the API client and keeps deployment credentials out of browser state.
+            disposition: DETERMINED
+            selected: foreground-adapter-request-response
+
+      - axis: state-placement
+        decisions:
+          - id: canonical-state-placement
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: backend-owned-durable-canonical-state
+                state: VIABLE
+              - id: browser-local-canonical-state
+                state: REJECTED
+                rationale: >-
+                  It would bypass backend application/query authority and conflict semantics.
+              - id: dual-master-replicated-canonical-state
+                state: REJECTED
+                rationale: >-
+                  It adds replication/conflict semantics not present in accepted upstream knowledge.
+            disposition: DETERMINED
+            selected: backend-owned-durable-canonical-state
+          - id: interface-attention-state-placement
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: browser-local-ephemeral-context
+                state: VIABLE
+              - id: backend-session-owned-ui-context
+                state: REJECTED
+                rationale: >-
+                  Accepted conceptual/interface knowledge treats mode, scope and
+                  focus as interaction context rather than canonical server state.
+            disposition: DETERMINED
+            selected: browser-local-ephemeral-context
+
+      - axis: dependency-direction
+        decisions:
+          - id: application-dependency-direction
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: inward-ports-and-adapters
+                state: VIABLE
+              - id: framework-led-domain-coupling
+                state: REJECTED
+                rationale: >-
+                  It makes technical framework choices redefine application/domain boundaries.
+              - id: external-runtime-model-leakage
+                state: REJECTED
+                rationale: >-
+                  The accepted external-runtime contract explicitly prevents Anki
+                  concepts from becoming Prep domain/application semantics.
+            disposition: DETERMINED
+            selected: inward-ports-and-adapters
+
+      - axis: failure-isolation
+        decisions:
+          - id: external-runtime-failure-domain
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: operation-scoped-integration-failure
+                state: VIABLE
+              - id: global-backend-health-coupling
+                state: REJECTED
+                rationale: >-
+                  Accepted interaction recovery preserves local preview/evidence/curation
+                  when the external runtime is unavailable.
+            disposition: DETERMINED
+            selected: operation-scoped-integration-failure
+          - id: import-failure-domain
+            owner_authority: SYSTEM-ARCHITECTURE
+            alternatives:
+              - id: per-item-atomic-isolation
+                state: VIABLE
+              - id: whole-bulk-rollback
+                state: REJECTED
+                rationale: >-
+                  The accepted Import Consistency contract explicitly says the bulk
+                  container is not one atomic transaction.
+              - id: partial-item-apply
+                state: REJECTED
+                rationale: >-
+                  The accepted Import Consistency contract requires each item to
+                  be accepted atomically or rejected without partial application.
+            disposition: DETERMINED
+            selected: per-item-atomic-isolation
+
+  semantic_review:
+    status: ACCEPTED
+    checks:
+      - architecture-not-product-requirement
+      - authority-boundary
+      - dependency-topology-explicit-where-material
+      - no-invention
+      - source-discipline
+    basis: >-
+      Rebuilt only from the Harness-generated CREATE read set. Architecture
+      drivers are explicitly classified, the topology remains the smallest one
+      satisfying accepted browser/backend, consistency and external-runtime
+      contracts, dependency direction is explicit, and no screen, persistence
+      schema, product behavior or background workflow is invented.
