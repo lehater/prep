@@ -95,9 +95,9 @@ assessments:
   - authority_id: QUALITY-DESIGN
     applicability: REQUIRED
     evidence: [docs/architecture/performance-capacity.md]
-    rationale: The interactive Knowledge graph has architecture-significant measurable scale, frame-rate, idle-resource and graceful-degradation constraints that are independently consumed by interface, architecture, component and verification work.
+    rationale: Frontend quality independently owns representation-neutral semantic-preserving degradation and the applicability of performance/capacity constraints while explicitly deferring unsupported numeric MVP thresholds; representation-specific quality activates only after Human Interface Design selects that representation.
     depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/architecture/performance-capacity.md]
-    reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
+    reopening_conditions: [representative task or corpus evidence establishes numeric responsiveness/capacity/resource targets, a selected presentation introduces architecture-significant quality constraints, or degradation semantics change materially]
 
   - authority_id: SECURITY-ANALYSIS
     applicability: NOT_APPLICABLE

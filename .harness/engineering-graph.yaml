@@ -120,11 +120,11 @@ authorities:
           - capability: prep.task-model
 
   - id: QUALITY-DESIGN
-    responsibility: Own measurable architecture-significant frontend performance, capacity and graceful-degradation constraints without selecting renderer implementation.
+    responsibility: Own accepted architecture-significant frontend performance, capacity and graceful-degradation constraints without selecting presentation form or renderer implementation.
     boundary:
-      semantic_cohesion: Visible graph scale, interaction responsiveness, idle-resource behavior and semantic-preserving degradation.
-      independent_change: Quality targets may be refined from benchmark evidence while product/domain semantics and renderer technology remain independently changeable.
-      public_contract: Provides accepted graph performance/capacity constraints to presentation, screen, architecture, component, verification, test and implementation knowledge.
+      semantic_cohesion: Representation-neutral responsiveness, capacity applicability and semantic-preserving degradation constraints supported by accepted evidence.
+      independent_change: Quality targets may be refined from representative evidence while product/domain semantics, presentation choice and renderer technology remain independently changeable.
+      public_contract: Provides accepted frontend quality constraints and explicitly deferred/unquantified dimensions to presentation, screen, architecture, component, verification, test and implementation knowledge.
     produces:
       - capability: prep.frontend-performance-capacity
         knowledge_kind: quality-design

@@ -2,490 +2,456 @@
 
 ## Purpose
 
-Translate the accepted Prep frontend architecture, component contracts, verification obligations and executable test contracts into bounded production implementation work.
+Translate the rebuilt Prep frontend knowledge chain into bounded implementation work without reopening accepted Product, Interface, Architecture, Component or Verification decisions.
 
-This artifact is the final design boundary before production frontend coding. It owns repository realization, tool/provider selection, implementation slicing and completion criteria. It does not redefine Product, Domain, Application, Interface, Machine Interface, System Architecture, Engineering Policy, Component Design, Verification Design or Test Design semantics.
+This artifact is an implementation plan, not authorization to merge or deploy. Production frontend changes begin only after this design is CURRENT and are performed against the accepted rebuilt chain.
 
 ## Implementation boundary
 
-In scope:
+Implement the current frontend slice that realizes:
 
-- create the production `web/` frontend package from the current repository, which has no canonical production frontend source tree;
-- realize the accepted Application Shell, Learning, Curation and Knowledge Exploration responsibilities;
-- implement consumer-owned frontend models/ports and mock/HTTP adapters;
-- realize the reusable presentation/provider layer using a replaceable UI provider;
-- implement the renderer-neutral graph projection and concrete 3D renderer adapter;
-- adapt eligible mechanics from `experiments/knowledge-representation-3d` without promoting its product semantics;
-- implement the accepted frontend test contracts and verification evidence;
-- package the frontend as the separate Docker runtime required by System Architecture.
+- root Learning / Knowledge / Curation work contexts;
+- accepted topology views and Screen/View compositions;
+- backend machine-operation access through frontend-owned contracts;
+- textual Knowledge search/focus/detail/relationship traversal;
+- selected local 3D Knowledge projection through the accepted renderer seam;
+- Curation task surfaces and recovery semantics;
+- accepted frontend verification/test contracts.
 
-Out of scope:
+Excluded from this implementation:
 
-- backend implementation;
-- persistence implementation;
-- new Product/Domain/Application semantics;
-- authentication/multi-user behavior;
-- new background synchronization;
-- learning mastery/readiness inference;
-- graph semantics not present in canonical Knowledge Model;
-- provider features not authorized by accepted Screen/View contracts.
-
-## Selected frontend toolchain
-
-Current production realization selects:
-
-- Node.js 24.x LTS for the frontend build/test environment;
-- npm with a committed `package-lock.json`; CI/build uses `npm ci`;
-- React 19;
-- TypeScript 6;
-- Vite 8;
-- React Router for route realization;
-- TanStack Query for server/query-cache state once HTTP adapters are active;
-- MUI Material community/free package (`@mui/material`) as the initial presentation provider;
-- `react-force-graph-3d` + Three.js as the initial 3D renderer provider;
-- Vitest for unit/contract/component-level executable contracts;
-- Playwright for browser end-to-end contracts;
-- oxlint for frontend linting;
-- Storybook as an optional presentation/renderer review surface and experiment host, not semantic authority.
-
-Exact package versions are pinned by the first production `web/package-lock.json`. The experiment package/lockfile is evidence for a known-working combination, not a production lockfile to copy unchanged.
-
-No MUI X Pro/Premium or other paid provider capability is required by the accepted scope. Introducing a paid/provider-specific feature later requires an explicit implementation/dependency decision and must not change public Prep semantics.
-
-## Provider realization
-
-MUI is a concrete implementation provider, not a frontend contract owner.
-
-Rules:
-
-- one application-level MUI `ThemeProvider` is composed at the frontend composition root;
-- repeated Presentation System roles map through `web/src/ui/theme/**`;
-- reusable product presentation patterns live under `web/src/ui/patterns/**`;
-- project pattern props/contracts use Prep/React/plain TypeScript types rather than exported MUI-specific types;
-- feature-local use of MUI primitives is allowed when it remains private/local and does not create a cross-feature public contract;
-- do not create one project wrapper per `Box`, `Stack`, `Typography`, `Button` or other provider primitive;
-- replacing MUI is expected to change theme/provider/pattern realization, not frontend semantic models, feature ports or Screen/View meaning.
+- new product/domain semantics;
+- learner mastery/readiness inference;
+- semantic coverage scoring;
+- numeric graph performance targets;
+- browser-direct external-runtime integration;
+- microfrontends;
+- worker/remote-renderer architecture not justified by accepted evidence;
+- redesign of accepted backend machine contracts;
+- merge/deployment authorization.
 
 ## Repository realization
 
-The production frontend root is:
+The accepted logical ownership maps to one frontend source root.
+
+Exact existing project root names are resolved during coding against the repository build structure, but the following module ownership is normative:
 
 ```text
-web/
-  package.json
-  package-lock.json
-  tsconfig*.json
-  vite.config.ts
-  Dockerfile
+<frontend-source-root>/
+  app/
+    composition/
+    work-context/
 
-  scripts/
-    check-boundaries.mjs
+  features/
+    learning/
+      target/
+      study/
+      evidence/
 
-  src/
-    app/
-      composition/
-      routing/
-      shell/
-      config/
+    knowledge/
+      explorer/
+      textual/
+      detail/
+      curation-actions/
+      projection/
 
-    features/
-      learning/
-      curation/
-      knowledge-explorer/
-        model/
-        ports/
-        projection/
-        ui/
+    curation/
+      targets/
+      requirements/
+      questions/
+      import/
+      diagnostics/
 
-    adapters/
-      http/
-      mock/
-      graph-rfg3d/
+  shared/
+    presentation/
+      entity-task-surface/
+      operation-feedback/
+      contextual-disclosure/
 
-    ui/
-      theme/
-      patterns/
+  adapters/
+    backend/
+    knowledge-3d/
 
-    test-support/
-
-  e2e/
+  verification/
+    architecture-boundaries/
 ```
 
-These are architectural/module roots, not a requirement for one class/file per box.
+This is an ownership map, not a requirement for one file or directory per line.
 
-Private helper files, hook decomposition and component filenames remain implementation freedom as long as they preserve the accepted public boundaries.
+### Composition root
 
-### Semantic-to-physical mapping
+One application composition root constructs:
 
-| Accepted responsibility | Physical home |
-|---|---|
-| FrontendCompositionRoot | `web/src/app/composition/**` |
-| AppShell + top-level mode/nav | `web/src/app/shell/**`, `web/src/app/routing/**` |
-| LearningWorkspace | `web/src/features/learning/**` |
-| CurationWorkspace | `web/src/features/curation/**` |
-| KnowledgeExplorer | `web/src/features/knowledge-explorer/ui/**` |
-| Knowledge frontend models / scope / graph model | `web/src/features/knowledge-explorer/model/**` |
-| KnowledgeQueryPort / GraphRenderer-facing contracts | `web/src/features/knowledge-explorer/ports/**` |
-| GraphProjectionBuilder / GraphScene | `web/src/features/knowledge-explorer/projection/**` |
-| HTTP transport DTOs/mappers/client implementations | `web/src/adapters/http/**` |
-| mock query implementations/fixtures | `web/src/adapters/mock/**` |
-| react-force-graph-3d / Three.js adapter | `web/src/adapters/graph-rfg3d/**` |
-| shared presentation roles/theme | `web/src/ui/theme/**` |
-| stable repeated product presentation patterns | `web/src/ui/patterns/**` |
-| reusable test builders/fakes | `web/src/test-support/**` |
-| browser end-to-end contracts | `web/e2e/**` |
+- backend technical provider;
+- Knowledge 3D projection provider;
+- feature roots;
+- root work-context state;
+- shell/navigation composition.
 
-Do not introduce a generic `shared/` dumping-ground module. Promote a dependency to a shared root only when the accepted Engineering Policy reuse criteria are met.
+Features do not create their own competing provider/composition roots.
 
-## Dependency enforcement
+### Generated/provider source
 
-`web/scripts/check-boundaries.mjs` is the project-owned deterministic source-boundary check.
+No generated source is required by the accepted design.
 
-It must fail when:
+If implementation uses generated transport/provider artifacts, they stay inside the relevant adapter/provider boundary and are not imported as feature public models.
 
-- `features/**` imports concrete `adapters/**`;
-- Learning feature internals import Curation internals or vice versa;
-- `react-force-graph-3d`, `three` or `three-spritetext` are imported outside `src/adapters/graph-rfg3d/**`;
-- raw HTTP DTO modules are imported outside `src/adapters/http/**`;
-- renderer adapter code imports Machine Interface DTO modules directly;
-- frontend model/port/projection modules import MUI/provider implementation types;
-- a cross-feature UI pattern imports feature-owned mutable state.
-
-The checker should operate on versioned source imports and path rules, not generated editor state.
-
-TypeScript compilation additionally enforces public type boundaries; oxlint handles ordinary code-quality rules.
-
-## Visual density and responsive realization
-
-This realization consumes the now-explicit Presentation System visual specification. Provider defaults are not acceptable substitutes for the accepted role system.
-
-The production frontend uses a compact desktop-first application density rather than provider defaults.
-
-Concrete realization choices:
-
-- base readable UI text is approximately 13–14 px at browser 100% zoom;
-- application/page headings stay approximately 18–22 px; provider display-sized headings are not used for workspace chrome;
-- ordinary toolbar buttons/inputs/selects target a compact 28–32 px control height on desktop while remaining keyboard accessible;
-- provider button text uses normal casing rather than default all-caps presentation;
-- wide Knowledge composition begins at the 1280px-class breakpoint and uses approximately 200–220 px list support, a flexible graph remainder, and approximately 280–320 px detail/editor support;
-- compact 900–1279px composition keeps list + graph side-by-side and moves detail below;
-- narrow below 900px presents graph first at full content width, then supporting list/detail;
-- graph height is derived from remaining viewport space after compact shell/workspace chrome rather than a large fixed page stack;
-- graph surface has an explicit renderer-background role so the primary workspace remains visually legible during renderer initialization/degradation.
-
-These values now realize accepted Presentation System ranges. Implementation may choose exact values inside those ranges; materially changing the hierarchy, rail model, density class or pane role requires Presentation/Screen revalidation rather than local CSS drift.
-
-## Live interaction and navigation correction
-
-Post-qualification manual use overrides several earlier implementation choices that were technically valid but operationally poor.
-
-- Node selection and graph focus are separate user intents. Activating a node selects it and opens detail; it never narrows visible topology automatically. Focus is an explicit command or an accepted deep-link intent.
-- Auto and Quality keep live interactive physics regardless of whether renderer geometry is standard or optimized; optimization may change batching/instancing/labels/effects but does not silently change physics policy.
-- Timed renderer pause is allowed only when the user has explicitly selected a profile/preference whose physics policy is `settle-and-pause` or `off`. Ordinary Auto interaction never schedules a hidden five-second pause.
-- Window/tab visibility suspension remains a resource-lifecycle concern and resumes on return; it is not an in-workspace idle timeout.
-- Global Curation Knowledge is search-first. Its supporting browse/results pane is collapsed by default and bounded to a small result window; large corpora are narrowed through search/semantic filters instead of rendering thousands of persistent list controls.
-- Desktop application navigation uses a persistent left rail for Learning/Curation mode, active mode sections and external-runtime status. Mobile/narrow layouts may reflow this navigation without changing route responsibilities.
-- Experimental R2 remains donor evidence for renderer-local interaction/presentation mechanics such as selection-vs-focus separation, wake/idle behavior, bounded search results and compact graph controls. PaymentGraph semantics and experiment-only tuning surfaces remain excluded.
-
-## State realization
-
-Use:
-
-- React/router state for navigation and shareable route context;
-- local React state/reducer state for feature-local transient UI state;
-- TanStack Query for server/query-cache state once the HTTP adapter is active;
-- renderer-local refs/state for camera, force simulation, drag and hover mechanics;
-- server/query effects keyed by semantic scope/query identity rather than incidental object identity, so selection/detail changes do not invalidate unchanged graph data.
-
-Do not add a general-purpose global client store in the initial production frontend.
-
-If later code demonstrates cross-feature mutable state whose lifecycle cannot be owned by shell/router/query cache, reopen Component/Implementation Design rather than introducing a store silently.
+Generated/provider code must identify its regeneration/source mechanism where applicable.
 
 ## Implementation slices
 
-Slices are dependency-ordered only where necessary. They are not project stages.
+### Slice I0 — Frontend boundary foundation
 
-### FI-01 — Production frontend foundation
+**Goal:** establish the smallest implementation skeleton needed for later vertical slices without rewriting user behavior yet.
 
-Creates:
+Implement:
 
-- fresh `web/` package and committed lockfile;
-- React/TypeScript/Vite boot;
-- composition root;
-- MUI provider/theme root;
-- route shell;
-- Vitest/Playwright configuration;
-- oxlint/typecheck/build scripts;
-- deterministic boundary checker;
-- frontend CI/release commands.
+- application composition root;
+- root WorkContext shell boundary;
+- backend adapter/mapping boundary;
+- consumer-facing feature contract shapes required by current slices;
+- architecture/dependency boundary verification;
+- renderer-neutral Knowledge projection value contract;
+- 3D provider interface/seam with a no-renderer/test implementation.
 
-Completion:
+Does not implement:
 
-- `npm ci`, typecheck, lint, boundary check, empty smoke test and production build pass;
-- no product/domain behavior is invented to fill the shell.
+- full Learning/Curation screens;
+- the production 3D donor integration;
+- speculative shared UI frameworks.
 
-### FI-02 — Minimum vertical Knowledge path
+**Completion evidence:**
 
-Depends on FI-01.
+- frontend can compose feature placeholders through the accepted root boundaries;
+- feature code does not need raw transport or renderer types;
+- structural dependency checks can detect forbidden provider leakage.
 
-Creates a useful production-structured vertical slice with mock data:
+### Slice I1 — Knowledge semantic backbone
 
-- Learning/Curation shell switch;
-- one prepared target context;
-- frontend Knowledge models;
-- consumer-owned Knowledge query port;
-- MockKnowledgeAdapter;
-- Knowledge list/search/detail path;
-- loading/empty/failure presentation patterns;
-- route/context preservation;
-- GraphRenderer contract + renderer-neutral GraphScene/GraphProjectionBuilder with a non-3D placeholder.
+**Goal:** implement the semantic/accessibility path before spatial rendering.
 
-This is the first visible end-to-end slice and proves the architecture before importing experimental renderer code.
+Implement `V-KNOWLEDGE` with:
 
-Completion:
+- global / target-relevant scope;
+- backend-driven search/filter;
+- textual result access;
+- canonical focus;
+- readable focused detail;
+- explicit incoming/outgoing relationship type/direction;
+- relationship traversal;
+- renderer-neutral projection model generation;
+- textual behavior when no 3D provider is active.
 
-- applicable FTD contracts for navigation/context, DTO-independent models and non-graph Knowledge access pass against mock adapters;
-- no concrete graph package is imported outside the future graph adapter root.
+**Dependencies:** I0.
 
-### FI-03 — 3D renderer adapter
+**Completion evidence:**
 
-Depends on FI-02.
+- FTD-02 textual Knowledge path passes with renderer unavailable;
+- FTD-12 keyboard relation traversal passes;
+- accepted scope/focus semantics are independent of spatial geometry.
 
-Creates `adapters/graph-rfg3d/**` and adapts eligible experimental renderer mechanics to the current GraphRenderer/GraphScene contract.
+### Slice I2 — 3D Knowledge donor integration
 
-Completion:
+**Goal:** reuse the existing 3D experiment behind the accepted projection adapter without importing its product assumptions.
 
-- click-without-drag vs drag behavior passes FTD contract;
-- camera/layout/force/library objects do not cross the renderer boundary;
-- list/search/detail remains fully usable if WebGL/renderer is unavailable;
-- experiment product fixtures/routes/state are absent from production modules.
+Implement:
 
-### FI-04 — Learning workspace
+- `ThreeDKnowledgeProjectionAdapter`;
+- mapping from renderer-neutral projection model to donor renderer input;
+- mapping of donor focus/relation interaction back to canonical Knowledge intents;
+- renderer lifecycle/resource cleanup;
+- projection failure → textual fallback;
+- wide Knowledge composition with 3D as largest relational work region;
+- narrow explicit 3D mode/disclosure;
+- only accepted projection-local controls such as fit/reframe/reset where useful.
 
-Depends on FI-01 and shared frontend contracts from FI-02.
+Remove or disable donor behavior that:
 
-Implements accepted Learning Target Selection, Overview, Knowledge, Study and Statistics responsibilities against mock/consumer ports first.
+- owns navigation/product shell;
+- invents Knowledge semantics;
+- requires renderer-specific identity;
+- exposes obsolete Performance/Quality tuning as product vocabulary;
+- requires every node/relation to render simultaneously.
 
-Completion:
+**Dependencies:** I1.
 
-- accepted target context, Question -> Knowledge navigation, common states and recoverable failure behavior pass relevant FTD contracts;
-- no curation mutation behavior is exposed from Learning.
+**Completion evidence:**
 
-### FI-05 — Curation workspace
+- FTD-03 focus parity passes;
+- FTD-10 renderer failure isolation passes;
+- wide/narrow presentation verification passes;
+- renderer/provider imports remain inside the adapter boundary.
 
-Depends on FI-01 and shared frontend contracts from FI-02.
+### Slice I3 — Learning vertical flow
 
-Implements accepted Targets, Knowledge, Requirements/RequirementSets, Questions and contextual Import Curation responsibilities.
+**Goal:** implement the learner workflow end to end against accepted machine operations.
 
-Completion:
+Implement:
 
-- editors/collections expose only accepted commands and machine outcomes;
-- recoverable input state is preserved;
-- Learning internals are not imported.
+- `V-LEARN-TARGET`;
+- `V-LEARN-STUDY`;
+- `V-LEARN-EVIDENCE`;
+- active target continuity into target-scoped Knowledge;
+- Study preview/build/export currentness and stale recovery;
+- factual ReviewObservation display/sync states;
+- accepted external-runtime failure/partial-failure presentation.
 
-FI-04 and FI-05 may proceed in parallel after their shared contracts are stable.
+**Dependencies:** I0; target-scoped Knowledge transition consumes I1 when available but Learning target/study/evidence behavior does not depend on the 3D adapter.
 
-### FI-06 — Production HTTP adapters and query cache
+**Completion evidence:**
 
-Depends on accepted consumer ports and the relevant feature surfaces.
+- FTD-05 materialization fidelity passes;
+- FTD-06 evidence facts-not-mastery passes;
+- Learning/Curation mutation separation remains intact.
 
-Creates:
+### Slice I4 — Curation core
 
-- versioned HTTP client boundary;
-- adapter-private DTO definitions;
-- DTO -> frontend-model mappers;
-- TanStack Query integration;
-- runtime-status integration;
-- accepted success/conflict/validation/unavailable/partial/operational outcome translation.
+**Goal:** implement intentional maintenance of reusable canonical data with context-preserving task surfaces.
 
-Mock adapters remain available for deterministic tests and local evidence.
+Implement:
 
-Completion:
+- `V-CURATE-TARGETS`;
+- `V-CURATE-REQUIREMENTS`;
+- `V-CURATE-QUESTIONS`;
+- explicit Curation Knowledge mutation actions around the shared Knowledge feature;
+- collection/search + focused edit composition;
+- validation rejection/conflict recovery;
+- RequirementSet membership and accepted alignments through machine operations.
 
-- mock/HTTP substitutability and machine-outcome mapping FTD contracts pass;
-- exact collection `total_count` is preserved in consumer-owned collection results while opaque cursor representation remains adapter/query-cache private;
-- feature modules are unchanged by provider selection except composition wiring;
-- no client-only filtering over arbitrary partial server pages is introduced.
+**Dependencies:** I0; Knowledge alignment/focus interactions consume I1.
 
-### FI-07 — Verification evidence and deployable frontend
+**Completion evidence:**
 
-Depends on all selected production slices.
+- FTD-04 mutation rejection/conflict passes;
+- FTD-07 responsive Curation continuity passes;
+- feature state remains local except accepted shared target/work context.
 
-Completes:
+### Slice I5 — Import and diagnostics
 
-- browser E2E scenarios;
-- keyboard/focus/non-graph access evidence;
-- Presentation Verification evidence;
-- 3D-vs-baseline task evidence;
-- Docker frontend image;
-- authoritative frontend release gate;
-- cleanup of prototype-only diagnostics/settings not accepted as product behavior.
+**Goal:** complete remaining Curation topology.
 
-Completion is the full checklist in the final section below.
+Implement:
 
-### FRC-01 — Knowledge workspace spatial/performance correction
+- `V-CURATE-IMPORT`;
+- aggregate and item-level import outcomes;
+- `V-CURATE-DIAGNOSTICS`;
+- diagnostic → owning repair navigation while preserving implicated identity/context.
 
-This is a revalidation/correction slice, **not FI-08** and not new product scope. It exists because the previous Screen/View closure left responsive spatial hierarchy materially unconstrained and the graph performance/capacity artifact was outside the Harness dependency graph.
+**Dependencies:** I4 for repair destinations.
 
-Depends on the revised Presentation System, Screen/View Design, Frontend Performance/Capacity, Frontend Architecture, Component Design, Verification and Test Design.
+**Completion evidence:**
 
-Creates/adapts:
+- created/updated/duplicate-skipped/rejected outcomes remain distinguishable;
+- no semantic coverage score or automatic repair is invented;
+- diagnostic-to-repair navigation preserves accepted Curation context.
 
-- graph-primary responsive Knowledge workspace for wide / compact / narrow compositions;
-- compact Knowledge toolbar with Search, semantic-kind filter, relation-type multi-select, focus/clear, Fit, Reset and Graph settings;
-- Curation New/Import as focused actions instead of permanent large panels above the graph;
-- renderer-neutral Auto / Quality / Performance profile state and accepted advanced rendering preferences;
-- donor adaptation of instanced-node, batched-link, demand-driven idle rendering and semantic-preserving visual/physics degradation;
-- renderer-private diagnostics suitable for hardware benchmark evidence;
-- synthetic renderer-neutral 1k / 2k / 5k stress fixtures;
-- renewed Presentation/Frontend Verification evidence.
+### Slice I6 — Verification closure and obsolete realization removal
 
-Completion:
+**Goal:** prove the rebuilt frontend before removing obsolete realization paths.
 
-- FTD-RESPONSIVE-GRAPH-WORKSPACE, FTD-KNOWLEDGE-SELECTION-RENDERER-CONTINUITY, FTD-GRAPH-CONTROL-SURFACE and FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS are green;
-- hardware FTD-GRAPH-STRESS-EVIDENCE is recorded for 1k/2k/5k workloads;
-- ordinary 2k/10k interaction meets the accepted approximately-30-FPS target under an appropriate supported profile on the reference desktop class;
-- idle renderer does not maintain avoidable continuous RAF work after settling;
-- graph remains the dominant active workspace on wide/compact layouts and usable full-width primary surface on narrow layouts;
-- private renderer strategies do not leak into feature/domain contracts;
-- old PaymentGraph/routes/snapshot-sync/Storybook product semantics remain absent.
+Complete:
 
-## Experimental 3D reuse policy
+- all FTD contracts;
+- frontend dependency/static checks;
+- topology-to-screen subject checks;
+- presentation/keyboard/responsive verification;
+- quality non-gate inspection;
+- full repository CI;
+- removal of obsolete frontend paths/components only after their accepted replacement is evidenced.
 
-The branch `experiments/knowledge-representation-3d` is evidence/donor code only.
+**Dependencies:** I1–I5 as applicable.
 
-| Experimental asset | Disposition | Production rule |
-|---|---|---|
-| `R2GraphSpike.tsx` | EXTRACT/ADAPT ONLY | Never copy as production component. Extract renderer-local mechanics into `graph-rfg3d`; discard mixed MUI shell, fixtures, Storybook tuning and old semantic state. |
-| click-without-drag / drag tracking inside spike | ADAPT | Move behind GraphRenderer adapter; emit only canonical node activation after completed click. |
-| camera fit/focus/orbit damping/inertia mechanics | ADAPT | Keep renderer-local; expose only accepted commands/opaque viewport state. |
-| idle pause/resume + renderer diagnostics mechanics | ADAPT | Keep adapter-local; diagnostics remain non-product evidence unless separately accepted. |
-| `r2GraphConfig.ts` | ADAPT | Keep camera/physics/renderer tuning under adapter. Move reusable presentation roles/colors/spacing to current theme/Presentation System realization. |
-| `r2InstancedNodeRenderer.ts` | ADAPT CANDIDATE | Replace PaymentGraph types with renderer-neutral GraphScene node projections. |
-| `r2InstancedInteractionLayer.ts` | ADAPT CANDIDATE | Preserve performance/interaction technique only; no experimental semantic model leakage. |
-| `r2BatchedLinkRenderer.ts` | ADAPT CANDIDATE | Consume accepted GraphScene edges; relation meaning comes from canonical projection. |
-| `r2DensityFixture.ts` | TEST-ONLY ADAPT | May become a synthetic renderer performance fixture; never production Knowledge truth. |
-| `R2GraphSpike.stories.tsx` | REWRITE | Reuse scenario ideas only. New stories/tests reference current GraphRenderer/KnowledgeExplorer contracts and FTD verification intent. |
-| `KnowledgeCardDetail.tsx` | REWRITE | Current detail uses KnowledgeNodeModel/accepted Screen/View responsibilities; old concept-card semantics are not copied. |
-| `paymentGraphFixture.ts` and payment-specific fixtures | DISCARD FROM PRODUCT | Optional synthetic test data only after removing old semantic assumptions. |
-| `knowledgeGraphSnapshot*` | DISCARD FROM PRODUCT | External Knowledge Graph snapshot shape is not the Prep frontend model. |
-| `sync-knowledge-graph.mjs` | DISCARD | Production data comes from Mock/HTTP adapters, not a repository-sync script. |
-| experiment MUI theme / CSS | EVIDENCE ONLY | Current Presentation System + centralized production theme own visual roles. |
-| experiment `package.json` / `package-lock.json` | VERSION EVIDENCE | Create fresh production package; use tested versions as candidates and pin the accepted set in the new lockfile. |
+This slice does not add behavior. It closes evidence and removes superseded realization.
 
-Any donor file that still imports experimental PaymentGraph/KnowledgeGraphSnapshot semantics after adaptation is not eligible for production reuse.
-
-## Test realization
-
-Map `docs/verification/frontend-test-design.yaml` contracts as follows:
-
-- Vitest: pure model/projection/mapper/adapter contracts, import-boundary helpers and renderer-neutral behavior where browser rendering is unnecessary;
-- Vitest browser/component tests: component/view state and renderer adapter contracts requiring DOM/browser APIs;
-- Playwright: cross-view routing, keyboard/focus, common states and end-to-end user-visible contracts;
-- Storybook: optional rendered evidence and manual/automated presentation review, but not the only correctness gate.
-
-Do not use exact force coordinates, provider component trees, CSS class names or private React state as oracles.
-
-## Authoritative frontend gate
-
-The production frontend gate is reproducible from versioned repository inputs.
-
-At minimum CI must run from `web/`:
+## Slice dependency order
 
 ```text
-npm ci
-npm run typecheck
-npm run lint
-npm run check:boundaries
-npm run test
-npm run build
-npm run test:e2e
+I0 boundary foundation
+ |
+ +--> I1 Knowledge semantic backbone
+ |      |
+ |      +--> I2 3D donor integration
+ |      |
+ |      +--> I4 Curation core --> I5 Import/diagnostics
+ |
+ +--> I3 Learning vertical flow
+
+I1..I5 --> I6 verification closure / obsolete realization removal
 ```
 
-A convenience `npm run check` may compose the fast deterministic subset, but the authoritative PR/release gate remains CI.
+I2 does not block I3. A usable Learning frontend can progress while 3D adaptation is refined.
 
-Storybook remains an optional carrier for rendered scenarios, but the accepted Frontend Performance/Capacity contract now makes representative hardware-accelerated renderer measurement mandatory evidence. Developer diagnostics may supply RAF/FPS, settle, draw-call and triangle evidence without becoming product UI.
+## Why this slicing
 
-## Build and delivery
+The plan deliberately separates Knowledge semantic access from the 3D donor.
 
-The frontend Docker build consumes the committed `package-lock.json` with `npm ci` and produces static browser assets.
+This gives the donor a clear acceptance boundary:
 
-A multi-stage container may use a Node build stage plus a minimal static-serving runtime. The exact static server image is implementation-local unless deployment constraints make it architecture-significant; pin the selected image/version in Docker/lock configuration.
+- if integration works, existing implementation value is reused;
+- if renderer adaptation fails, the product still has a correct Knowledge path;
+- renderer problems cannot force the rest of the frontend back into graph-centered architecture.
 
-The frontend container contains no canonical mutable business data.
+A “3D first, then rebuild semantics around it” sequence is rejected because it would let implementation evidence re-own accepted interface architecture.
 
-### Release
+A one-shot whole-frontend rewrite is also rejected because it weakens verification/rollback boundaries without an accepted need.
 
-Release evidence requires:
+## Provider/tooling realization
 
-- authoritative frontend CI gate green;
-- reproducible Docker image build from committed inputs;
-- image/version identity recorded by the deployment mechanism;
-- no uncommitted generated frontend source required for supported behavior.
+### Backend adapter
 
-### Rollback
+Implement one technical backend provider capable of satisfying the accepted consumer-facing feature contracts.
 
-Frontend rollback is redeployment of the previously accepted frontend image/artifact.
+Do not create one runtime wrapper/object per machine operation merely for abstraction symmetry.
 
-No frontend data migration or rollback transaction exists in this scope because canonical durable data is backend-owned.
+Mapping responsibilities:
 
-If a future frontend release requires a backend contract transition that is not backward compatible, that compatibility/rollout decision must be accepted upstream before implementation.
+- request input → machine operation representation;
+- transport response → accepted semantic outcome/value;
+- pagination/query metadata → frontend contract values.
 
-## Configuration
+### 3D provider
 
-Application composition selects Mock or HTTP adapters explicitly.
+Implement the existing donor behind `KnowledgeProjectionPort`.
 
-Production configuration may provide backend endpoint/runtime configuration through the accepted deployment mechanism, but secrets and Anki configuration do not become browser-editable product state.
+No donor provider type appears in:
 
-Do not hard-code local-only Docker hostnames into feature code. Transport endpoint mechanics stay inside composition/config + HTTP adapter boundaries.
+- Learning feature;
+- Curation feature;
+- Knowledge semantic public state;
+- test oracles outside adapter-specific integration tests.
+
+### Dependency-boundary enforcement
+
+Add a deterministic repository-owned architecture check to CI that verifies at minimum:
+
+- renderer-provider imports are confined to the 3D adapter/provider area;
+- transport-provider/raw machine representation imports are confined to backend adapter/mapping areas;
+- no browser external-runtime client is introduced;
+- feature modules do not create prohibited cross-feature cycles;
+- shared presentation modules do not import feature mutation/state ownership.
+
+The exact parser/lint package is an implementation freedom if it proves the same versioned rule deterministically and adds no runtime dependency.
+
+### Test tooling
+
+Use the repository’s selected frontend test/build environment to realize `FRONTEND-TEST-DESIGN`.
+
+Do not add a second test framework solely because a test contract was introduced.
+
+If an existing environment cannot express one required oracle, add the smallest compatible capability needed for that oracle rather than replacing the test stack wholesale.
+
+## Migration / transition applicability
+
+No independent migration/transition contract is applicable to the current frontend implementation scope.
+
+The current `web/` code is implementation evidence, not a semantic baseline or a concurrently supported product contract. The rebuilt frontend remains one browser artifact: this plan introduces no data/schema migration, mixed-version coexistence window, irreversible intermediate production state, live dual-UI compatibility requirement or transition-specific runtime recovery protocol.
+
+Implementation slices may replace internal modules incrementally inside the implementation branch because that improves bounded verification. That development sequencing is not a user-visible migration state and does not create a second canonical frontend.
+
+Production merge/deployment remains outside this artifact's authority. If a future release introduces mixed-version coexistence, staged irreversible rollout, data/schema migration, live compatibility window or transition-specific rollback semantics, reopen Change/Transition Design before implementation invents such behavior.
+
+## Verification enforcement
+
+### Structural gates
+
+Automate:
+
+- component/provider dependency rules;
+- topology/screen subject consistency;
+- managed test-design traceability;
+- Harness semantic/currentness checks.
+
+### Behavioral gates
+
+Automate accepted test contracts where executable behavior is required:
+
+- Knowledge textual/3D parity and fallback;
+- Curation rejection/conflict;
+- Study materialization fidelity;
+- evidence semantics;
+- responsive/focus continuity;
+- backend outcome mapping;
+- renderer failure isolation.
+
+### Diagnostic-only evidence
+
+3D benchmark measurements may run and be retained, but do not fail the release based on unaccepted numeric FPS/node/edge/rendering thresholds.
+
+## Delivery gate
+
+The authoritative implementation gate is repository CI from versioned project inputs.
+
+For a frontend implementation change, CI must reproduce at least:
+
+- Harness semantic/currentness validation;
+- frontend build/type/static validation applicable to the selected stack;
+- dependency-boundary structural checks;
+- executable frontend test contracts;
+- existing repository integration/revalidation checks affected by the change.
+
+Local/pre-commit commands may provide fast feedback but do not replace CI.
+
+This artifact does not authorize merging a draft PR or merging into `main`.
 
 ## Completion criteria
 
-Production frontend implementation is complete only when all of the following hold:
+`prep.frontend-implementation-design` is realized by production implementation only when all of the following are true:
 
-1. `FRONTEND-IMPLEMENTATION` is structurally COMPLETE under the pinned Harness.
-2. Engineering Coverage reports `completion_ready=true`, zero remaining work and no blocking Questions.
-3. Strict semantic/currentness closure is COMPLETE for the production Consumer.
-4. The production `web/` package uses a committed lockfile and reproducible `npm ci` environment.
-5. TypeScript, lint, architecture-boundary checks and production build pass.
-6. Every applicable FTD Test Design contract is implemented and green.
-7. Frontend Verification obligations have concrete evidence, including presentation evidence required by PV checks.
-8. Product behavior is traceable to accepted Screen/View/Machine contracts; provider capability has not introduced extra product behavior.
-9. Raw HTTP DTOs remain confined to HTTP adapters.
-10. `react-force-graph-3d` / Three.js imports remain confined to the graph adapter.
-11. Learning and Curation feature internals remain independent.
-12. Mock and HTTP adapters satisfy the same consumer-owned contracts.
-13. Knowledge list/search/detail remains usable without graph manipulation.
-14. The 3D renderer uses canonical GraphScene identity/relation semantics and keeps coordinates/physics/camera state noncanonical.
-15. MUI types do not become public domain/application/feature-port contracts.
-16. No old graph-first routes, PaymentGraph semantics, Storybook tuning controls or legacy source-sync machinery enters production behavior.
-17. Frontend Docker image builds reproducibly and rollback to the prior image is possible without data migration.
-18. Any implementation-discovered semantic gap has been routed back to its owning Authority rather than silently decided in code.
-19. Revised wide/compact/narrow Knowledge spatial contracts are proven, with graph-primary composition and no required horizontal overflow.
-20. Accepted graph controls and Auto/Quality/Performance profiles preserve canonical semantics.
-21. Hardware-accelerated 1k/2k/5k stress evidence satisfies the Frontend Performance/Capacity verification obligations, including demand-driven idle behavior.
-22. Selecting Knowledge within an unchanged scope preserves graph-query/renderer lifetime and does not reset renderer-owned camera/layout merely because detail selection changed.
+1. root Learning / Knowledge / Curation context is implemented from rebuilt topology;
+2. every non-structural `V-*` view has a production realization;
+3. textual Knowledge access works independently of 3D;
+4. 3D donor is contained behind `KnowledgeProjectionPort` and satisfies focus/fallback contracts;
+5. backend canonical authority and operation outcomes are preserved;
+6. no browser-direct external-runtime path exists;
+7. Curation collection/edit state preserves accepted validation/conflict semantics;
+8. responsive wide/narrow composition preserves accepted task priorities and keyboard paths;
+9. FTD contracts required by current frontend verification pass;
+10. dependency-boundary checks pass;
+11. repository full CI is green;
+12. obsolete frontend paths that conflict with rebuilt topology are removed or explicitly isolated from production entry;
+13. no unaccepted numeric graph benchmark is a correctness/release gate.
 
-## Explicit implementation freedoms
+## Risks
 
-Coding agents remain free to choose:
+### Donor 3D integration mismatch
 
-- private React component decomposition;
-- function vs hook vs small class representation;
-- local helper names;
-- exact test-file placement within the declared roots;
-- CSS technique inside accepted provider/theme boundaries;
-- internal TanStack Query key construction;
-- private mapper/helper decomposition;
-- exact static-server runtime image;
-- renderer tuning values that do not become accepted usability/performance semantics.
+The donor may encode old product assumptions, identity shapes or shell behavior.
 
-These choices do not require upstream design changes unless they alter public contracts, ownership, dependency direction or observable behavior.
+Mitigation: adapt only through renderer-neutral projection input/intents; reject donor semantics outside the adapter.
 
-## Harness semantic acceptance
+### Legacy frontend coupling
 
-This artifact satisfies the `implementation-design` review intent:
+Existing implementation may have transport/provider/global-state coupling that conflicts with new boundaries.
 
-- **implementation-not-upstream-owner** — all slices and choices realize accepted upstream contracts without redefining them;
-- **implementation-slices-explicit** — FI-01 through FI-07 are bounded, dependency-ordered realization slices with completion criteria;
-- **repository-realization-derived-from-accepted-boundaries** — physical module roots, adapters, provider mapping, tests and enforcement directly realize Frontend System Architecture, Engineering Policy, Component Design, Verification and Test Design.
+Mitigation: cut over by vertical slices; use structural checks before deleting old paths.
+
+### Overgeneralization during rewrite
+
+Entity-heavy Curation screens can tempt a generic CRUD platform.
+
+Mitigation: implement current feature surfaces first; extract only repeated stable presentation patterns already accepted by Component Design.
+
+### Test coupling to old UI structure
+
+Existing tests may encode obsolete screen ids/layout.
+
+Mitigation: migrate or replace their oracle with the rebuilt FV/FTD contracts; implementation structure is not correctness truth.
+
+## Implementation freedoms
+
+Coding may choose, consistent with accepted project/build constraints:
+
+- exact framework APIs;
+- router/state/query/test libraries;
+- exact file names under the logical ownership roots;
+- styling/token implementation;
+- code-splitting/lazy-loading mechanics;
+- 3D renderer library integration details;
+- exact architecture-check tool;
+- internal helper/function/class representation.
+
+These choices must not cross the accepted semantic/component boundaries.
+
+## Unresolved Questions
+
+None block implementation planning.

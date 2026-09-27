@@ -2,273 +2,316 @@
 
 ## Purpose
 
-Define the frontend-scoped structural architecture needed to realize the accepted Prep interface without allowing prototype code, transport DTOs or a concrete 3D renderer to become accidental architectural authority.
+Define the browser-side runtime, dependency and failure-isolation architecture that realizes the accepted Prep System Architecture and rebuilt Presentation/Screen contracts.
 
-This refines the accepted whole-system architecture. It does not redefine product, domain, application, machine-interface or Screen/View semantics.
+The frontend architecture preserves one backend canonical source of truth, keeps interaction state browser-local, isolates the selected 3D Knowledge projection from semantic access, and leaves component decomposition/framework mechanics downstream.
 
-## Architectural drivers
+## Architecture driver closure
 
-The selected frontend scope must satisfy these accepted constraints:
+| Concern | State | Frontend decision | Basis |
+| --- | --- | --- | --- |
+| execution-mode | RESOLVED | One interactive browser application invokes foreground backend operations; 3D projection work is local presentation work. | System Architecture, Interaction Design |
+| consumers | RESOLVED | One user performs Learning, Knowledge and Curation tasks through the same browser application. | Screen/View Design |
+| load-volume-frequency | RESOLVED | Collections use backend search/pagination; Knowledge projection is bounded/focus-progressive rather than full-corpus mandatory. | Machine Interfaces, Presentation System, Quality Design |
+| latency-freshness | RESOLVED | Server-backed reads/mutations are request/outcome interactions; preview/export currentness remains backend-authoritative. No client eventual-consistency contract is introduced. | Machine Interfaces, System Architecture |
+| availability | RESOLVED | 3D renderer failure must not remove textual Knowledge access. External runtime failures arrive through backend outcomes and do not collapse unrelated frontend tasks. | Presentation System, Screen/View Design |
+| recovery-durability | RESOLVED | Unsaved interaction/form context may be preserved locally during recoverable failure; canonical durability belongs to backend storage. | Interaction Design, System Architecture |
+| growth-horizon | RESOLVED | Current browser architecture supports bounded projections and paginated/searchable collections; no microfrontend or independently scaled browser subsystem is required. | Quality Design, Machine Interfaces |
+| deployment-environment | RESOLVED | One browser bundle/application is delivered for the current Prep server deployment. 3D renderer code executes within the browser boundary. | System Architecture |
+| concurrency | RESOLVED | Frontend never resolves canonical write conflicts itself; it surfaces accepted conflict outcomes and reload/reconciliation flows. | Interaction Design, Machine Interfaces |
+| integration-boundaries | RESOLVED | Browser talks only to Prep backend machine operations. The 3D renderer consumes browser-side projection/view-model data and does not call backend/external runtime independently. | Machine Interfaces, System Architecture |
+| persistence-history | RESOLVED | Browser persistence is not a canonical history store. Review history and canonical data remain backend-owned. | System Architecture, Data Design |
+| security-trust-boundary | RESOLVED | Deployment secrets and external-runtime credentials remain outside browser state. No new frontend authorization model is invented. | System Architecture, Machine Interfaces |
 
-- one browser frontend realizes both Learning and Curation task contexts;
-- the same canonical Knowledge identity is reused across global Curation and target-scoped Learning projections;
-- list/search/detail and graph are coordinated representations, not separate semantic models;
-- the current Knowledge graph is an experimental projection whose 3D renderer may be replaced or demoted;
-- canonical mutations remain behind backend machine contracts;
-- the immediate prototype may use mock/static data, while production uses the same frontend-facing boundaries with an HTTP/API adapter;
-- graph camera, layout, focus, filters and selection are presentation state and must not leak into canonical Knowledge semantics;
-- the accepted graph quality envelope requires bounded 2k/10k ordinary and 5k/25k stress views, approximately 30 FPS ordinary interaction on the reference desktop class, demand-driven idle rendering and semantic-preserving degradation under load.
+No current frontend driver requires another browser runtime, microfrontend deployment or background worker.
 
-No accepted driver requires a frontend microfrontend topology, plugin system, event bus or global application store.
+## Runtime topology
 
-## Module topology
+```text
+Browser application runtime
+|
++-- shell / navigation context
++-- feature/application-facing UI orchestration
++-- server-state query/mutation boundary
+|     |
+|     +--> HTTP/backend adapter --> Prep backend machine operations
+|
++-- browser-local interaction state
+|     +-- active target/context
+|     +-- search/filter/focus
+|     +-- unsaved form state
+|     +-- responsive/disclosure state
+|
++-- Knowledge presentation boundary
+      +-- textual/search/detail projection
+      +-- 3D projection adapter
+             +-- renderer-local camera/scene/interaction state
+```
 
-The frontend is decomposed into architectural modules by responsibility, not by screen file.
+The textual and 3D projections consume the same canonical/view-model semantics. Neither owns Knowledge identity or relation meaning.
 
-### Application Shell
+## Browser application boundary
 
-Owns:
+One browser application runtime is sufficient for the current scope.
 
-- bootstrapping/composition;
-- Learning/Curation mode context;
-- top-level navigation context;
-- access to global runtime-status presentation.
+It owns technical coordination of:
 
-The shell composes feature modules but does not own their task state or canonical data.
+- navigation/work-context continuity;
+- backend request lifecycles;
+- browser-local interaction state;
+- mapping backend operation results into accepted screen states;
+- presentation projection/view-model construction;
+- activation/deactivation of the 3D renderer.
 
-### Learning
+It does not own:
 
-Owns learner-facing realization for:
+- canonical domain state;
+- persistent learner history;
+- import reconciliation;
+- external-runtime credentials or calls;
+- semantic conflict resolution.
 
-- target selection;
-- target workspace context;
-- Overview;
-- target-scoped Knowledge exploration;
-- Study;
-- Statistics.
+## Backend interaction boundary
 
-It owns the currently selected LearningTarget context for learner navigation. It does not own canonical target composition.
+All server-backed behavior goes through the accepted machine operation contract.
 
-### Curation
+The frontend architecture uses a transport adapter that maps application-facing frontend requests to those operation IDs and maps machine outcomes back into view/application states.
 
-Owns authoring/maintenance realization for:
+Feature/view code must not depend on raw HTTP route strings, status-code interpretation or transport DTO shape as semantic truth.
 
-- LearningTargets;
-- Knowledge;
-- Requirements/RequirementSets;
-- Questions;
-- contextual Import.
+No browser-direct Anki/AnkiConnect path is allowed.
 
-It does not expose its internal editor or collection state to Learning.
+## Server state and browser state
 
-### Knowledge Exploration
+### Backend-authoritative state
 
-Owns the reusable frontend capability for coordinated Knowledge list/search/detail and graph exploration over a supplied Knowledge scope.
+Backend-owned canonical/server state includes:
 
-The supplied scope may be:
+- LearningTargets and prepared scopes;
+- Knowledge and accepted relationships;
+- Requirements/RequirementSets and alignments;
+- Questions and alignments;
+- ReviewObservations/statistics;
+- import outcomes/canonical results.
 
-- global/reusable Knowledge for Curation;
-- target-derived Knowledge for Learning.
+Frontend caches may retain representations of these values for interaction efficiency, but cache contents remain replaceable and non-authoritative.
 
-This module owns interaction/presentation state needed for exploration, including the user-selected Auto / Quality / Performance profile and accepted advanced presentation preferences, but not canonical Knowledge truth.
+### Browser-local interaction state
 
-It contains a renderer-neutral graph projection boundary. The graph is the primary work surface when graph mode is active; supporting list/detail regions may reflow/collapse without transferring semantic ownership. Concrete 3D/2D renderer libraries remain downstream adapters.
+Browser-local state includes:
 
-### Frontend Data Access
+- selected root work context;
+- active target reference used by Learning context;
+- current search/filter text;
+- current Knowledge exploration scope;
+- Knowledge focus;
+- disclosure/panel state;
+- unsaved editor input;
+- transient loading/recovery state;
+- 3D camera/scene interaction state.
 
-Owns the browser-side boundary through which feature modules obtain accepted application projections and submit commands.
+Browser-local interaction state may survive local re-render/navigation where useful, but persistence across sessions is not a semantic requirement.
 
-It provides feature-facing query/command contracts and isolates transport representation from frontend semantic/read models.
+## Knowledge projection architecture
 
-Two realization modes are allowed behind the same boundary:
+### Projection model boundary
 
-- mock/repository-derived adapters for the current prototype;
-- HTTP/API adapters for production integration.
+Knowledge presentation consumes a renderer-neutral projection model containing only presentation-safe semantics required by the selected scope, such as:
 
-Feature modules must not branch on whether data comes from mock or HTTP.
+- Knowledge identity;
+- readable content/label;
+- semantic kind;
+- accepted relationship identity/type/direction;
+- current focus;
+- current bounded visible membership.
+
+Renderer geometry/camera objects do not enter canonical/domain or general feature state.
+
+### Textual projection
+
+Search/list/focused detail is a first-class frontend projection, not a fallback implementation afterthought.
+
+It must remain usable when:
+
+- 3D is disabled;
+- renderer initialization fails;
+- rendering is unsuitable for the current viewport/device;
+- the user chooses textual traversal.
+
+### 3D projection adapter
+
+The selected 3D relational projection is behind a dedicated browser presentation adapter/seam.
+
+The adapter owns only renderer-specific concerns:
+
+- node/link scene realization;
+- camera/viewpoint state;
+- renderer event translation;
+- renderer resource lifecycle;
+- mapping selected/focused projection identities back to renderer-neutral frontend intents.
+
+It must not:
+
+- issue independent canonical mutations;
+- decide Knowledge membership/type/direction;
+- become the source of selection/focus identity;
+- require feature/domain code to import renderer-specific object types.
+
+The existing 3D experiment should be reused through this boundary where its mechanics match the accepted projection contract.
+
+## Renderer execution alternatives
+
+The current architecture does **not** require a Web Worker, OffscreenCanvas, separate process or remote renderer.
+
+A same-browser-runtime adapter is the smallest topology satisfying accepted inputs because no numeric performance target currently justifies a second execution boundary.
+
+Worker/offscreen execution remains an implementation/evolution option if representative evidence later shows main-thread contention that materially harms accepted tasks.
 
 ## Dependency direction
 
-Allowed dependency direction:
-
 ```text
-composition/bootstrap
-        |
-        v
-application shell
-        |
-        +-------------------+
-        v                   v
-     Learning            Curation
-        \                   /
-         \                 /
-          v               v
-        Knowledge Exploration
-                |
-                v
-      frontend semantic/read models
-                ^
-                |
-       feature-facing data contracts
-                ^
-        +-------+--------+
-        |                |
-   mock adapter      HTTP/API adapter
-
-graph projection contract
-        ^
-        |
-concrete renderer adapter
+screen/view realization
+      |
+      v
+frontend feature/use-case boundary
+      |
+      +--> backend operation port --> HTTP adapter
+      |
+      +--> projection model
+              |
+              +--> textual projection
+              +--> 3D renderer port --> renderer adapter/library
 ```
 
-Rules:
+Allowed direction is inward toward frontend semantic/view contracts.
 
-- Learning and Curation do not import each other's internal implementation.
-- Feature modules depend on frontend-owned semantic/read models and feature-facing data contracts, not raw transport DTOs.
-- Mock and HTTP adapters depend on the consuming frontend contracts; feature modules do not depend on adapter implementation.
-- A concrete graph renderer depends on the renderer-neutral graph projection boundary; Knowledge Exploration does not depend directly on a renderer package API.
-- Shared presentation primitives may be consumed by features, but they must not become a cross-feature owner of task state or domain semantics.
-- Cross-feature behavior is coordinated through shell/navigation context or accepted shared frontend models, not arbitrary component imports.
+Forbidden dependency inversions include:
 
-## Representation boundaries
+- feature/view-model semantics importing renderer scene object types;
+- feature semantics importing raw transport DTOs as their public model;
+- renderer adapter calling backend APIs directly;
+- HTTP adapter deciding presentation states;
+- screen components re-owning canonical conflict/domain rules.
 
-### Transport DTO -> frontend semantic/read model
+## Frontend module responsibilities
 
-Machine-interface DTOs terminate at the Frontend Data Access boundary.
+The architecture requires responsibility boundaries, not exact directories.
 
-Adapters translate transport representation into frontend-owned models shaped for accepted UI tasks. Accepted collection metadata required by views, such as an exact `total_count` for the current query/scope, may cross the adapter as part of a frontend-owned collection result. Transport-specific pagination tokens, status-code mappings and serialization details do not leak into feature state.
+### App composition
 
-Frontend models preserve canonical Prep identities and accepted semantic distinctions. They may omit data irrelevant to the selected UI task but must not invent new domain meaning.
+Owns:
 
-Exact TypeScript types and mapper functions belong to Component Design.
+- startup;
+- root work-context/navigation composition;
+- dependency wiring;
+- global error boundary/fallback placement.
 
-### Frontend Knowledge model -> graph projection
+### Learning frontend
 
-Knowledge Exploration transforms frontend Knowledge models into a renderer-neutral graph projection containing only data needed to render and interact with accepted nodes/relations.
+Owns UI orchestration for:
 
-The projection preserves:
+- target selection;
+- study preview/build/export;
+- evidence inspection.
 
-- canonical Knowledge identity;
-- accepted semantic kind;
-- accepted relation identity/type/direction;
-- current global or target scope.
+### Knowledge frontend
 
-It may additionally carry presentation-only projection metadata.
+Owns UI orchestration for:
 
-Renderer coordinates, forces, camera position, hover state and transient layout state remain outside canonical Knowledge and outside transport DTOs.
+- scope/search/filter/focus;
+- relation traversal;
+- textual detail;
+- activation of selected 3D projection;
+- Curation-only mutation entry when explicit Curation context exists.
 
-Exact `GraphRenderer` and projection mapper contracts belong to Component Design.
+### Curation frontend
 
-## State ownership
+Owns UI orchestration for:
 
-Architectural state ownership is:
+- Targets;
+- Requirements/RequirementSets;
+- Questions;
+- prepared-data import;
+- diagnostics.
 
-| State | Owner |
-|---|---|
-| current Learning/Curation mode and top-level route context | Application Shell |
-| selected LearningTarget and learner workspace context | Learning |
-| collection/editor draft state | owning Curation feature |
-| server/query state and cache | owning feature data-access boundary |
-| Knowledge search/filter/selected-node/focus scope | Knowledge Exploration |
-| selected graph performance profile and accepted advanced rendering preferences | Knowledge Exploration presentation state |
-| graph camera/layout/drag/hover state | renderer adapter / Knowledge Exploration presentation state |
-| resolved renderer strategy, batching/instancing, pixel ratio, force-engine and idle-loop state | renderer adapter |
-| canonical Knowledge/Requirement/Question/Target truth | backend/domain, never frontend presentation state |
-| external-runtime reachability projection | data-access query result, displayed by the relevant feature/shell surface |
+Shared canonical Knowledge rendering/search semantics are not duplicated into a second Curation Knowledge implementation; work context changes allowed actions.
 
-There is no default global mutable store. State is promoted upward only when multiple architectural modules require the same lifecycle and ownership.
+### Adapters
 
-## Mock/API adapter boundary
+Own technical provider integration:
 
-The prototype must exercise the same feature-facing contracts that production HTTP integration will consume.
+- backend transport;
+- 3D renderer;
+- browser/platform APIs.
 
-Mock data may be static or repository-derived, but it must be adapted into the same frontend semantic/read models as API data.
+## Data fetching and mutation
 
-This prevents prototype-only fixture shapes from becoming implicit product contracts and allows the backend adapter to replace the mock adapter without rewriting feature semantics.
+Collection search/filter must use accepted backend query semantics where machine operations provide them; arbitrary client-only filtering of partial pages cannot redefine collection results.
 
-## Renderer boundary
-
-The current 3D implementation is a replaceable presentation adapter.
-
-Architectural invariant:
+Mutations follow:
 
 ```text
-accepted Knowledge semantics
-        -> frontend Knowledge model
-        -> renderer-neutral graph projection
-        -> renderer adapter
-        -> concrete library objects / coordinates
+user intent
+ -> frontend command
+ -> backend operation
+ -> accepted outcome
+ -> cache/query reconciliation
+ -> visible state
 ```
 
-Renderer library objects, callbacks, physics state and coordinates must not cross back into canonical frontend models.
+Optimistic presentation is allowed only when it cannot be mistaken for canonical acceptance. Validation rejection/conflict must restore or reload authoritative state according to the accepted interaction contract.
 
-The renderer boundary also isolates performance realization:
+## Failure isolation
 
-- Knowledge Exploration may request accepted presentation profiles/preferences;
-- the adapter chooses private tactics such as instanced nodes, batched links, lower pixel ratio, reduced geometry, demand-driven rendering and physics settling;
-- any degradation must preserve canonical node/relation identity, relation direction/type, current scope, selection/focus and the equivalent list/search/detail path;
-- automatic profile thresholds and concrete optimization algorithms remain renderer-private.
+### Renderer failure
 
-Old experimental renderer code may be reused only below this boundary after Component/Implementation Design verifies that it does not import stale routing, state ownership or graph-first product semantics.
+Failure boundary: 3D projection adapter.
 
-## Composition and navigation
+Required result:
 
-The shell composes Learning and Curation.
+- textual Knowledge search/list/detail stays usable;
+- current semantic scope/focus is preserved when possible;
+- renderer-specific failure does not become global application failure.
 
-Learning composes its target workspace and learner sections while preserving selected-target context.
+### Backend request failure
 
-Curation composes its collection/editor contexts while preserving explicit Curation mode.
+Failure is scoped to the affected screen/task region where possible. Existing confirmed context remains visible if safe.
 
-Knowledge Exploration is reused by both contexts with explicit scope input. Reuse is by stable public contract, not by sharing feature-internal state.
+### External runtime failure
 
-Exact router library, route strings, React component tree and provider nesting remain downstream.
+Arrives through backend machine outcomes and affects only export/sync/status interactions that require it.
 
-## Structural verification obligations
+### Frontend fatal composition failure
 
-Later Verification/Component Design must make it possible to check at least:
+A top-level error boundary may protect the shell/application from one view failure, but it must not invent recovery guarantees beyond what can be safely retried/reloaded.
 
-- feature code does not import concrete transport DTOs outside adapters;
-- feature code does not import the concrete 3D renderer package directly;
-- Learning and Curation internals do not depend on each other;
-- renderer objects/coordinates do not enter canonical frontend models;
-- mock and HTTP adapters satisfy the same frontend-facing data contracts;
-- graph/list/detail resolve the same canonical Knowledge identities;
-- wide/compact/narrow Knowledge compositions preserve the graph's primary-workspace role without breaking focus/read order;
-- Auto/Quality/Performance and accepted advanced degradation settings cannot change Knowledge/relation semantics;
-- renderer stress evidence can exercise 1k/2k/5k representative scenes without exposing private renderer objects to feature code.
+## Deployment topology
 
-The concrete lint/test mechanisms are downstream.
+Current frontend deployment is one browser application bundle associated with the Prep server deployment.
 
-## Explicit non-goals
+No accepted driver requires:
 
-This architecture does not choose:
+- microfrontends;
+- independently deployed Learning/Knowledge/Curation bundles;
+- renderer as a remote service;
+- separate browser workers as architectural units.
 
-- React component boundaries;
-- exact `GraphRenderer` method signatures;
-- exact DTO/view-model TypeScript types;
-- concrete state-management library;
-- router library or route strings;
-- directory/file layout;
-- concrete test framework;
-- exact 3D graph library;
-- reuse/adapt/discard decisions for individual legacy source files.
-
-Those decisions belong to Component Design or Implementation Design.
+Code splitting/lazy loading remains implementation freedom and is especially reasonable for the optional-heavy 3D renderer, but bundle splitting does not create semantic/runtime ownership.
 
 ## Reopening conditions
 
-Revisit this architecture if accepted requirements introduce:
+Revisit architecture when accepted evidence requires:
 
-- independently deployable frontend applications;
-- offline-first/local-first synchronization;
-- multiple simultaneous users/sessions with browser-side authorization consequences;
-- server-driven UI composition;
-- a renderer that must own canonical editing semantics rather than consume a projection;
-- materially different frontend/backend transport boundaries.
+- independent frontend deployment/scaling;
+- multi-user live collaboration/server push;
+- durable offline-first canonical writes;
+- background job UI with persistent job lifecycle;
+- main-thread renderer isolation to meet an accepted quality target;
+- multiple renderer technologies with independent lifecycle;
+- a new trust/authentication boundary.
 
-## Harness semantic acceptance
+## Consequences
 
-The artifact satisfies the required `system-architecture` review intent:
+The rebuilt frontend architecture is simpler than a graph-centered application architecture: 3D is isolated as one presentation adapter inside a task-oriented browser application.
 
-- **architecture-not-product-requirement** — it only constrains technical/frontend structure derived from accepted interface/application contracts;
-- **dependency-topology-explicit-where-material** — module boundaries, state ownership, adapter boundaries and dependency direction are explicit wherever implementation would otherwise need to invent them.
+This keeps the nearly complete 3D donor reusable while preventing its renderer/library model from shaping Learning, Curation, routing, canonical state or backend integration.

@@ -12,28 +12,28 @@ decisions:
     rationale: Screen/View and Presentation contracts now define wide, compact and narrow semantic transformations, spatial priority and focus/read-order consequences while leaving exact CSS breakpoint numbers downstream.
     evidence: [PRESENTATION-SYSTEM, SCREEN-VIEW-DESIGN]
   - concern: quality.performance.latency
-    state: COVERED
+    state: DEFERRED
     consumers: [FRONTEND-IMPLEMENTATION]
     scopes: [frontend]
-    rationale: The accepted graph quality contract defines an ordinary interactive envelope and approximately 30 FPS interaction target with representative hardware-accelerated benchmark obligations.
+    rationale: No numeric interaction-latency or FPS threshold is accepted for the current MVP. Responsiveness measurements remain diagnostic until representative task evidence establishes a material threshold.
     evidence: [FRONTEND-PERFORMANCE-CAPACITY]
   - concern: quality.performance.resource-efficiency
-    state: COVERED
+    state: DEFERRED
     consumers: [FRONTEND-IMPLEMENTATION]
     scopes: [frontend]
-    rationale: The graph quality contract requires demand-driven idle rendering and permits semantic-preserving reduction of labels, effects, pixel ratio, geometry detail and live physics under load.
+    rationale: No CPU, GPU, draw-call, triangle or idle-resource budget is accepted for the current MVP. Selected presentations may degrade visual richness only while preserving canonical semantic access.
     evidence: [FRONTEND-PERFORMANCE-CAPACITY]
   - concern: quality.performance.capacity
-    state: COVERED
+    state: DEFERRED
     consumers: [FRONTEND-IMPLEMENTATION]
     scopes: [frontend]
-    rationale: Visible-graph validation envelopes are approximately 2k nodes/10k edges ordinary and 5k nodes/25k edges stress, with larger corpora requiring bounded exploration instead of unbounded live rendering.
+    rationale: No visible node/edge count is an accepted MVP capacity gate. Full-corpus simultaneous rendering is not required; concrete bounded projection/search/filter strategies remain presentation/implementation decisions until representative corpus evidence establishes a material limit.
     evidence: [FRONTEND-PERFORMANCE-CAPACITY]
   - concern: quality.performance.throughput
     state: NOT_APPLICABLE
     consumers: [FRONTEND-IMPLEMENTATION]
     scopes: [frontend]
-    rationale: The current frontend graph quality contract has no independent throughput objective. Its material behavior is interactive latency/frame behavior, renderer resource efficiency and visible-graph capacity; inventing a nodes-per-second target would not represent a user or architecture requirement.
+    rationale: No accepted frontend task or architecture driver defines an independent throughput objective; inventing items-per-second or nodes-per-second semantics would not represent a current requirement.
     evidence: [FRONTEND-PERFORMANCE-CAPACITY]
   - concern: interface.human.i18n
     state: DEFERRED

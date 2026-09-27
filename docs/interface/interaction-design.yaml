@@ -1,108 +1,371 @@
 version: 1
-kind: interaction-design
-id: PREP-INTERACTION-DESIGN
+kind: prep-interaction-design
+
+purpose: >-
+  Define user actions, visible application responses and recovery semantics for
+  the rebuilt Prep frontend without deciding the final view inventory,
+  navigation topology, layout or visual representation technology.
 
 contexts:
-  - id: I-L-SELECT-TARGET
-    task_refs: [TASK-L-SELECT-TARGET]
-    actions: [search-targets, select-target]
-    inputs: [text query, target selection]
-    machine_operations: [learning.targets.list, learning.targets.get]
-    visible_responses: [target results with total context, active target context, empty results, recoverable load failure]
-    states: [loading, empty, ready, failure]
-    recovery: Preserve the selection task and query on recoverable failure.
+  - id: I-LEARNING-TARGET
+    purpose: Find and select an existing curated LearningTarget.
+    task_refs: [TM-LEARN-SELECT-TARGET]
+    concept_refs: [MODE-LEARNING, ACTIVE-TARGET, TARGET-SCOPE]
+    actions:
+      - id: search-targets
+        user_input: text query or empty query
+        operations: [learning.targets.list]
+        visible_response: matching target summaries and collection state
+      - id: select-target
+        user_input: target identity selected from returned canonical references
+        operations: [learning.targets.get]
+        visible_response: active target identity, intended outcome and read-only prepared scope
+    states:
+      - no-target-selected
+      - loading-targets
+      - targets-available
+      - no-target-match
+      - target-selected
+      - target-not-found
+      - operational-failure
+    recovery:
+      no-target-match: preserve query/scope and allow refinement or separate Curation work
+      target-not-found: return to available targets without manufacturing a replacement target
+      operational-failure: retry without changing target scope
+    input_semantics:
+      search: keyboard-focusable text input; submission does not discard current query on failure
+      result_selection: target identity comes from returned references, not manually reconstructed raw ids
 
-  - id: I-L-OVERVIEW
-    task_refs: [TASK-L-UNDERSTAND-TARGET]
-    actions: [inspect-scope, navigate-related-context]
-    inputs: [active target]
-    machine_operations: [learning.targets.get, learning.target.knowledge.list, learning.target.questions.list, learning.target.statistics.get]
-    visible_responses: [read-only scope, material counts, factual review summary, unavailable material distinction]
-    states: [loading, ready, partial-unavailable, failure]
-    recovery: Keep the active target while retrying unavailable projections.
+  - id: I-STUDY-PREPARATION
+    purpose: Build, inspect and export exactly the reviewed current Study Set.
+    task_refs: [TM-LEARN-PREPARE-STUDY, TM-LEARN-EXPORT-STUDY]
+    concept_refs: [ACTIVE-TARGET, STUDY-PREVIEW, PREPARATION-DIAGNOSTIC]
+    actions:
+      - id: build-preview
+        user_input: request preparation for the active target
+        operations: [learning.target.study_set.build]
+        visible_response: >-
+          current Question subset, including explicit empty result, plus the
+          opaque materialization identity needed to preserve preview/export fidelity
+      - id: inspect-preview
+        user_input: inspect currently materialized Question content before external side effect
+        operations: []
+        visible_response: preview remains visibly bound to the active target
+      - id: export-reviewed-preview
+        user_input: confirm export of the inspected preview
+        operations: [learning.target.study_set.export]
+        visible_response: aggregate and per-Question export/reconciliation outcomes
+    states:
+      - no-preview
+      - building-preview
+      - preview-current
+      - preview-empty
+      - exporting
+      - exported
+      - preview-stale
+      - external-runtime-unavailable
+      - partial-external-failure
+      - operational-failure
+    transitions:
+      - from: no-preview
+        action: build-preview
+        to: preview-current-or-empty
+      - from: preview-current
+        action: export-reviewed-preview
+        to: exporting
+      - from: exporting
+        outcome: conflict
+        to: preview-stale
+      - from: preview-stale
+        action: build-preview
+        to: preview-current-or-empty
+    recovery:
+      preview-empty: keep the empty result inspectable and expose supported curation diagnostics separately
+      preview-stale: require rebuild and reinspection before another export
+      external-runtime-unavailable: preserve preview and permit retry after runtime recovery
+      partial-external-failure: preserve item-level outcomes so successful and failed Questions remain distinguishable
+      operational-failure: preserve preview and allow safe retry
+    safety:
+      - never silently export a materialization that differs from the inspected preview
+      - never relabel partial/empty material as learner failure or insufficient mastery
 
-  - id: I-L-KNOWLEDGE
-    task_refs: [TASK-L-EXPLORE-KNOWLEDGE]
-    actions: [search-knowledge, switch-list-graph, filter-kind, filter-relation, select-node, focus-node, clear-focus, inspect-detail, fit-graph, reset-camera]
-    inputs: [text query, semantic kind, relation types, selected Knowledge id, explicit focus intent]
-    machine_operations: [learning.target.knowledge.list, learning.target.knowledge.graph]
-    visible_responses: [bounded list/search results, graph projection, selected detail, explicit relation type/direction, renderer degradation/fallback]
-    states: [loading, empty, ready, selected, focused, renderer-unavailable, query-failure]
-    focus_semantics: Selection opens detail without changing graph membership; focus changes topology emphasis only after explicit user/deep-link intent and is reversible.
-    keyboard_semantics: Core Knowledge search/list/detail work remains completable without graph manipulation.
-    recovery: Renderer failure preserves list/search/detail access; data-query retry preserves target/filter context.
+  - id: I-REVIEW-EVIDENCE
+    purpose: Inspect and explicitly refresh factual Question-level review evidence.
+    task_refs: [TM-LEARN-INSPECT-EVIDENCE]
+    concept_refs: [ACTIVE-TARGET, QUESTION-MATERIAL, REVIEW-EVIDENCE]
+    actions:
+      - id: load-target-evidence
+        user_input: active target
+        operations: [learning.target.statistics.get]
+        visible_response: factual aggregates plus attributable review facts
+      - id: inspect-question-history
+        user_input: Question selected from target evidence or Question context
+        operations: [learning.question.reviews.get]
+        visible_response: paginated factual ReviewObservations
+      - id: refresh-external-review-facts
+        user_input: explicit refresh while inspecting evidence
+        operations: [learning.reviews.sync]
+        visible_response: imported review summary with item-level failures, followed by refreshed local evidence
+    states:
+      - loading
+      - evidence-present
+      - no-observations
+      - syncing
+      - sync-complete
+      - external-runtime-unavailable
+      - partial-import-failure
+      - operational-failure
+    recovery:
+      no-observations: keep absence explicit; do not infer not-mastered
+      external-runtime-unavailable: retain already recorded local facts and permit later refresh
+      partial-import-failure: distinguish successfully recorded observations from failed items
+      operational-failure: retain current factual evidence and permit retry
+    semantic_guardrails:
+      - no mastery, readiness, retention, gap or priority state is inferred
+      - refresh is a foreground interaction supporting evidence inspection, not a background-work claim
 
-  - id: I-L-STUDY
-    task_refs: [TASK-L-STUDY-QUESTIONS, TASK-L-EXPORT-STUDY]
-    actions: [inspect-question, build-study-preview, show-in-knowledge-map, export-preview, rebuild-stale-preview, retry-export]
-    inputs: [active target, selected Question, materialization token]
-    machine_operations: [learning.target.questions.list, learning.target.study_set.build, learning.target.study_set.export]
-    visible_responses: [Question detail, exact Study Set preview, valid-empty preview, stale-preview conflict, per-Question export outcomes, runtime unavailable, partial external failure]
-    states: [loading, empty, preview-ready, preview-stale, exporting, exported, partial-failure, runtime-unavailable, operational-failure]
-    recovery: Conflict requires rebuild/reinspect; recoverable external failures retain preview/target context and item outcomes.
+  - id: I-KNOWLEDGE-EXPLORE
+    purpose: Search, focus and traverse accepted reusable Knowledge within an explicit scope.
+    task_refs: [TM-EXPLORE-FIND-KNOWLEDGE, TM-EXPLORE-RELATIONSHIPS]
+    concept_refs: [KNOWLEDGE-ITEM, KNOWLEDGE-RELATIONSHIP, EXPLORATION-SCOPE, KNOWLEDGE-FOCUS]
+    actions:
+      - id: set-scope
+        user_input: choose global scope or the current target-relevant scope
+        operations: []
+        visible_response: current exploration scope becomes explicit
+      - id: search-knowledge
+        user_input: text query and optional accepted semantic-kind filter
+        operations:
+          - learning.target.knowledge.list
+          - curation.knowledge.list
+        visible_response: matching canonical Knowledge references in the selected scope
+      - id: focus-knowledge
+        user_input: select one Knowledge item
+        operations:
+          - curation.knowledge.get
+        visible_response: focused canonical content plus accepted incoming/outgoing semantic relationships
+      - id: follow-relationship
+        user_input: select an accepted relationship and connected Knowledge identity
+        operations: []
+        visible_response: focus moves to the connected Knowledge item while scope remains explicit
+    states:
+      - no-focus
+      - searching
+      - no-match
+      - focus-selected
+      - relation-selected
+      - loading-focus
+      - operational-failure
+    recovery:
+      no-match: retain scope/filter/query and allow refinement
+      operational-failure: retain prior focus and scope where available
+    interaction_constraints:
+      - relation type and direction must be inspectable as semantics, not only encoded by geometry
+      - search/filter/focus must work without requiring all nodes to be simultaneously rendered
+      - focus traversal must be possible independently of whether presentation later chooses graph, list, tree, table or mixed projection
+    input_semantics:
+      keyboard: search, result selection, relationship selection and focus traversal must be operable without pointer-only spatial gestures
+      focus: only one primary Knowledge focus is required at a time; multi-selection is not invented
 
-  - id: I-L-STATISTICS
-    task_refs: [TASK-L-REVIEW-FACTS]
-    actions: [sync-reviews, inspect-aggregates, inspect-review-history]
-    inputs: [active target, optional Question context, explicit sync action]
-    machine_operations: [learning.target.statistics.get, learning.question.reviews.get, learning.reviews.sync]
-    visible_responses: [factual aggregates/history, sync summary, item-level failures, runtime unavailable]
-    states: [loading, empty, ready, syncing, partial-failure, runtime-unavailable, operational-failure]
-    recovery: Sync failure preserves already recorded facts and permits retry.
+  - id: I-CURATE-TARGET
+    purpose: Create/edit a LearningTarget and intentionally change its prepared scope.
+    task_refs: [TM-CURATE-TARGET]
+    concept_refs: [MODE-CURATION, TARGET-SCOPE, REQUIREMENT, CHANGE-OUTCOME]
+    actions:
+      - id: find-target
+        operations: [curation.targets.list, curation.targets.get]
+        visible_response: canonical target definition and current scope
+      - id: save-target-definition
+        operations: [curation.targets.create, curation.targets.update]
+        visible_response: accepted target or explicit rejection/conflict
+      - id: change-target-scope
+        operations: [curation.targets.scope.add, curation.targets.scope.remove]
+        visible_response: accepted scope mutation or explicit rejection/conflict
+    states: [browsing, editing, submitting, accepted, validation-rejected, conflict, not-found, operational-failure]
+    recovery:
+      validation-rejected: preserve entered intent and rejection details for correction
+      conflict: reload current canonical target before resubmitting an intentional change
+      operational-failure: avoid presenting an unconfirmed mutation as accepted
 
-  - id: I-C-TARGETS
-    task_refs: [TASK-C-MAINTAIN-TARGETS]
-    actions: [search-targets, create-target, edit-target, compose-scope]
-    inputs: [text query, target fields, Requirement/RequirementSet selection]
-    machine_operations: [curation.targets.list, curation.targets.get, curation.targets.create, curation.targets.update, curation.targets.scope.add, curation.targets.scope.remove]
-    visible_responses: [collection/detail/edit state, validation rejection, conflict, success]
-    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
-    recovery: Preserve editor input/context for correction or retry.
+  - id: I-CURATE-KNOWLEDGE
+    purpose: Create/edit a reusable Knowledge item while preserving canonical identity semantics.
+    task_refs: [TM-CURATE-KNOWLEDGE]
+    concept_refs: [KNOWLEDGE-ITEM, CHANGE-OUTCOME]
+    actions:
+      - id: browse-knowledge
+        operations: [curation.knowledge.list, curation.knowledge.get]
+        visible_response: searchable canonical Knowledge and focused item
+      - id: save-knowledge
+        operations: [curation.knowledge.create, curation.knowledge.update]
+        visible_response: accepted canonical item or explicit rejection/conflict
+    states: [browsing, editing, submitting, accepted, validation-rejected, conflict, not-found, operational-failure]
+    recovery:
+      validation-rejected: retain proposed content for correction while accepted canonical state remains authoritative
+      conflict: reload canonical item and require deliberate reconciliation
 
-  - id: I-C-KNOWLEDGE
-    task_refs: [TASK-C-MAINTAIN-KNOWLEDGE]
-    actions: [search-knowledge, inspect-global-graph, create-knowledge, edit-knowledge, add-relation, remove-relation]
-    inputs: [text query, semantic kind/content, relation type, source/target Knowledge selection]
-    machine_operations: [curation.knowledge.list, curation.knowledge.get, curation.knowledge.create, curation.knowledge.update, curation.knowledge.relation.add, curation.knowledge.relation.remove, curation.knowledge.graph]
-    visible_responses: [bounded results/global graph/detail, validation rejection, conflict, successful mutation]
-    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
-    focus_semantics: Selection and graph focus remain distinct; mutation never occurs through drag/layout state.
-    recovery: Preserve editing/selection context; rejected relation semantics are not coerced to another relation.
+  - id: I-CURATE-KNOWLEDGE-RELATION
+    purpose: Add/remove an accepted typed semantic relationship between known Knowledge items.
+    task_refs: [TM-CURATE-KNOWLEDGE-RELATIONS]
+    concept_refs: [KNOWLEDGE-ITEM, KNOWLEDGE-RELATIONSHIP, CHANGE-OUTCOME]
+    actions:
+      - id: choose-endpoints
+        user_input: explicit source and target canonical Knowledge identities
+        operations: [curation.knowledge.get, curation.knowledge.list]
+        visible_response: endpoint identities and current relation context remain inspectable
+      - id: add-relation
+        user_input: accepted supported relation type with deliberate source/target direction
+        operations: [curation.knowledge.relation.add]
+        visible_response: accepted relation or explicit rejection/conflict
+      - id: remove-relation
+        user_input: existing relation identity
+        operations: [curation.knowledge.relation.remove]
+        visible_response: accepted removal or explicit failure
+    states: [selecting-endpoints, editing-relation, submitting, accepted, validation-rejected, conflict, operational-failure]
+    recovery:
+      validation-rejected: do not coerce to a broader/imprecise relation; preserve explicit failure
+      conflict: reload endpoint/relation facts before retry
 
-  - id: I-C-REQUIREMENTS
-    task_refs: [TASK-C-MAINTAIN-REQUIREMENTS]
-    actions: [search-requirements, create-requirement, edit-requirement, maintain-set-membership, align-knowledge, unalign-knowledge]
-    inputs: [text query, requirement content, set membership, Knowledge selection]
-    machine_operations: [curation.requirements.list, curation.requirements.get, curation.requirements.create, curation.requirements.update, curation.requirement_sets.get, curation.requirement_sets.create, curation.requirement_sets.update, curation.requirement_sets.member.add, curation.requirement_sets.member.remove, curation.requirements.knowledge.align, curation.requirements.knowledge.unalign]
-    visible_responses: [collection/editor state, cycle/reference validation rejection, conflict, successful mutation]
-    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
-    recovery: Preserve editing state after rejected membership/alignment operations.
+  - id: I-CURATE-REQUIREMENTS
+    purpose: Maintain Requirements/RequirementSets and acyclic membership.
+    task_refs: [TM-CURATE-REQUIREMENTS]
+    concept_refs: [REQUIREMENT, CHANGE-OUTCOME]
+    actions:
+      - id: browse-requirements
+        operations: [curation.requirements.list, curation.requirements.get, curation.requirement_sets.get]
+        visible_response: reusable requirements and set membership
+      - id: save-requirement
+        operations: [curation.requirements.create, curation.requirements.update]
+        visible_response: accepted item or rejection/conflict
+      - id: save-requirement-set
+        operations: [curation.requirement_sets.create, curation.requirement_sets.update]
+        visible_response: accepted set or rejection/conflict
+      - id: change-set-membership
+        operations: [curation.requirement_sets.member.add, curation.requirement_sets.member.remove]
+        visible_response: accepted membership or domain-invariant rejection
+    states: [browsing, editing, submitting, accepted, validation-rejected, conflict, operational-failure]
+    recovery:
+      validation-rejected: preserve the previous accepted acyclic composition and expose the rejection
 
-  - id: I-C-QUESTIONS
-    task_refs: [TASK-C-MAINTAIN-QUESTIONS]
-    actions: [search-questions, create-question, edit-question, align-knowledge, unalign-knowledge]
-    inputs: [text query, question text, direct answer, Knowledge selection]
-    machine_operations: [curation.questions.list, curation.questions.get, curation.questions.create, curation.questions.update, curation.questions.knowledge.align, curation.questions.knowledge.unalign]
-    visible_responses: [collection/editor state, aligned/unaligned structural state, validation rejection, conflict, successful mutation]
-    states: [loading, empty, ready, editing, validation-rejected, conflict, failure]
-    recovery: Preserve editable question content and accepted alignments after rejection.
+  - id: I-CURATE-REQUIREMENT-ALIGNMENT
+    purpose: Deliberately align/unalign a Requirement with canonical Knowledge.
+    task_refs: [TM-CURATE-REQUIREMENT-ALIGNMENT]
+    concept_refs: [REQUIREMENT, KNOWLEDGE-ITEM, CHANGE-OUTCOME]
+    actions:
+      - id: inspect-alignment
+        operations: [curation.requirements.get, curation.knowledge.list]
+        visible_response: selected Requirement, candidate Knowledge and current alignment facts
+      - id: align
+        operations: [curation.requirements.knowledge.align]
+        visible_response: accepted alignment or rejection/conflict
+      - id: unalign
+        operations: [curation.requirements.knowledge.unalign]
+        visible_response: accepted removal or rejection/conflict
+    states: [browsing, selecting, submitting, accepted, validation-rejected, conflict, operational-failure]
+    recovery:
+      validation-rejected: leave unknown/missing alignment explicit rather than guessing a substitute
 
-  - id: I-C-IMPORT
-    task_refs: [TASK-C-IMPORT-DATA]
-    actions: [select-prepared-document, apply-import, inspect-item-outcomes, correct-and-retry]
-    inputs: [prepared-data document]
-    machine_operations: [curation.import.apply]
-    visible_responses: [aggregate received/applied/rejected counts, created/updated/duplicate/rejected item outcomes, rejection reason/category]
-    states: [idle, validating, applied, partially-applied, envelope-rejected, operational-failure]
-    recovery: Invalid/rejected items remain identifiable for correction; valid peer items are not rolled back after accepted envelope processing.
+  - id: I-CURATE-QUESTIONS
+    purpose: Maintain reusable Question/direct-answer material.
+    task_refs: [TM-CURATE-QUESTIONS]
+    concept_refs: [QUESTION-MATERIAL, CHANGE-OUTCOME]
+    actions:
+      - id: browse-questions
+        operations: [curation.questions.list, curation.questions.get]
+        visible_response: searchable Question material and current Knowledge alignments
+      - id: save-question
+        operations: [curation.questions.create, curation.questions.update]
+        visible_response: accepted Question or rejection/conflict
+    states: [browsing, editing, submitting, accepted, validation-rejected, conflict, not-found, operational-failure]
+    recovery:
+      validation-rejected: preserve proposed text for correction without requiring a Knowledge alignment to exist
 
-  - id: I-RUNTIME-STATUS
-    task_refs: [TASK-I-CHECK-RUNTIME]
-    actions: [inspect-runtime-status]
-    inputs: []
-    machine_operations: [integration.external_runtime.status.get]
-    visible_responses: [reachable/compatible status, unavailable/incompatible status, non-secret profile summary]
-    states: [loading, reachable, unavailable, incompatible, operational-failure]
-    recovery: Status can be retried without changing canonical learning state.
+  - id: I-CURATE-QUESTION-ALIGNMENT
+    purpose: Deliberately align/unalign Question material with canonical Knowledge.
+    task_refs: [TM-CURATE-QUESTION-ALIGNMENT]
+    concept_refs: [QUESTION-MATERIAL, KNOWLEDGE-ITEM, CHANGE-OUTCOME]
+    actions:
+      - id: inspect-alignment
+        operations: [curation.questions.get, curation.knowledge.list]
+        visible_response: selected Question, candidate Knowledge and existing alignments
+      - id: align
+        operations: [curation.questions.knowledge.align]
+        visible_response: accepted alignment or rejection/conflict
+      - id: unalign
+        operations: [curation.questions.knowledge.unalign]
+        visible_response: accepted removal or rejection/conflict
+    states: [browsing, selecting, submitting, accepted, validation-rejected, conflict, operational-failure]
+    recovery:
+      validation-rejected: preserve unresolved alignment rather than creating an unsupported match
 
-task_dispositions: []
+  - id: I-CURATE-IMPORT
+    purpose: Submit supported prepared data and understand item-level application outcomes.
+    task_refs: [TM-CURATE-BULK-LOAD]
+    concept_refs: [CHANGE-OUTCOME]
+    actions:
+      - id: submit-prepared-data
+        user_input: supported UTF-8 JSON prepared-data envelope
+        operations: [curation.import.apply]
+        visible_response: aggregate counts and item-level created/updated/duplicate-skipped/rejected outcomes
+    states: [ready, submitting, applied, partially-applied, envelope-rejected, operational-failure]
+    recovery:
+      envelope-rejected: preserve source input locally and expose representation rejection
+      partially-applied: keep successful and rejected units distinguishable; rejected units may be corrected/retried independently
+      operational-failure: do not claim unknown item results as accepted
+    input_semantics:
+      file_or_text_source: exact upload/paste mechanism remains downstream; semantic input is one supported prepared-data document
+
+  - id: I-CURATE-DIAGNOSTICS
+    purpose: Inspect supported structural preparation facts and continue into the owning repair interaction.
+    task_refs: [TM-CURATE-DIAGNOSTICS]
+    concept_refs: [PREPARATION-DIAGNOSTIC, KNOWLEDGE-ITEM, QUESTION-MATERIAL, REQUIREMENT]
+    actions:
+      - id: load-question-alignment-diagnostics
+        operations: [curation.questions.list]
+        visible_response: accepted structural aligned/unaligned facts
+      - id: investigate-diagnostic
+        user_input: implicated canonical object
+        operations: []
+        visible_response: preserve diagnostic context while moving to the corresponding explicit curation interaction
+    states: [loading, findings-present, no-findings, operational-failure]
+    recovery:
+      no-findings: report no supported structural finding, not a semantic quality score
+      operational-failure: retain last known diagnostic context where safe
+
+task_dispositions:
+  - task_ref: TM-LEARN-STUDY-EXTERNALLY
+    disposition: no-ui
+    rationale: >-
+      The accepted application delegates the learning/retrieval activity to the
+      supported external study runtime. Prep frontend owns preparation/export
+      and later evidence inspection, not a duplicate study experience.
+
+cross_context_rules:
+  - id: EXPLICIT-WORK-MODE
+    rule: >-
+      Canonical mutation actions are exposed only in Curation work; entering a
+      Learning interaction must not silently enable target-scope or corpus edits.
+  - id: SCOPE-PRESERVATION
+    rule: >-
+      Knowledge search, focus and relationship traversal preserve an explicit
+      global/target-relevant scope until the user deliberately changes it.
+  - id: SERVER-AUTHORITY
+    rule: >-
+      Browser-visible mutation success follows accepted machine-operation
+      outcomes; optimistic presentation must not redefine conflict or validation
+      rejection as canonical success.
+  - id: RECOVERY-CONTEXT
+    rule: >-
+      Recoverable failure should retain the user's semantic context and proposed
+      input when doing so cannot misrepresent canonical acceptance.
+
+deliberately_unconstrained:
+  - concrete view inventory and view boundaries
+  - parent navigation and route structure
+  - menu, rail, tabs or breadcrumbs
+  - modal versus inline editing
+  - pane/layout composition
+  - graph versus non-graph Knowledge presentation
+  - 2D versus 3D visualization
+  - frontend component boundaries and framework
+
+unresolved_questions: []

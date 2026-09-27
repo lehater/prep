@@ -1,71 +1,184 @@
-# Interface Verification
+# Interface Verification Strategy
 
 ## Purpose
 
-Define verification obligations for the accepted Task Model, Information Architecture, Interaction Design and Interface Topology before Screen/View or frontend realization is treated as conforming.
+Verify that the rebuilt human-interface knowledge chain preserves accepted user
+tasks, interaction semantics and topology reachability before presentation
+details or frontend implementation are treated as correct.
 
-Verification owns proof obligations only. Missing product/domain/application/interface meaning routes back to the owning Authority rather than being invented as a test expectation.
+This strategy verifies the accepted interface contract. It does not introduce
+new product behavior, visual requirements or implementation choices.
 
-## IV-01 — USER task interaction coverage
+## Scope
 
-**Verifies:** every current USER task in `PREP-TASK-MODEL` has either an Interaction Design context or an explicit no-UI disposition.
+Accepted inputs:
 
-**Method:** ANALYSIS.
+- `docs/application/task-model.yaml`
+- `docs/interface/conceptual-interface-model.yaml`
+- `docs/interface/information-architecture.yaml`
+- `docs/interface/interaction-design.yaml`
+- `docs/interface/interface-topology.yaml`
+- `docs/application/application-design.md`
 
-**Evidence requirement:** deterministic Task Model -> Interaction Design coverage showing no unmapped USER task and no unknown task reference.
+## Verification checks
 
-## IV-02 — Interaction information-location coverage
+### IV-01 — USER task closure
 
-**Verifies:** every interaction context is placed in accepted Information Architecture through a topology view/location rather than inventing its own information structure.
+**Verifies:** every USER task in the accepted Task Model has either an accepted
+interaction context that reaches a topology task view, or an explicit accepted
+no-ui disposition.
 
-**Method:** ANALYSIS.
+**Method:** ANALYSIS
 
-**Evidence requirement:** deterministic interaction-context -> topology-view -> IA-location trace with all references resolved.
+**Required evidence:**
 
-## IV-03 — Interaction response/state sufficiency
+- deterministic extraction of USER task ids;
+- deterministic extraction of interaction `task_refs` and no-ui dispositions;
+- deterministic extraction of topology interaction-context coverage;
+- zero `UNCOVERED_USER_TASK`, `UNKNOWN_TASK_REF` and
+  `USER_TASK_WITHOUT_VIEW` findings for the rebuilt chain.
 
-**Verifies:** each material interaction context states user actions/inputs, visible system responses, material states and recovery semantics, and server-backed contexts bind to accepted Machine Interface operation IDs.
+A changed task id without corresponding downstream coverage is a regression.
 
-**Method:** INSPECTION + ANALYSIS.
+### IV-02 — Interaction context closure
 
-**Evidence requirement:** structured review of `docs/interface/interaction-design.yaml`; every server-backed context has non-empty `machine_operations`, `visible_responses`, `states` and a recovery disposition.
+**Verifies:** no accepted interaction context disappears between Interaction
+Design and Interface Topology.
 
-## IV-04 — Topology task/context closure
+**Method:** ANALYSIS
 
-**Verifies:** every non-structural interaction context maps to at least one topology view, every USER task therefore reaches a view, and structural frames are explicitly identified rather than masquerading as task views.
+**Required evidence:**
 
-**Method:** ANALYSIS.
+- the complete set of `contexts[].id` from Interaction Design;
+- the complete topology `interaction_context_refs`/coverage mapping;
+- zero unknown or uncovered interaction-context findings.
 
-**Evidence requirement:** generic Harness frontend topology closure with zero undisposed interaction contexts and zero uncovered USER tasks.
+The explicit `TM-LEARN-STUDY-EXTERNALLY` no-ui disposition is verified
+separately from view coverage and must not be converted into a Prep study view.
 
-## IV-05 — Topology reference integrity
+### IV-03 — Learning/Curation behavior separation
 
-**Verifies:** topology view IDs are unique; parent, exit, interaction-context and IA-location references resolve; navigation relationships do not depend on screen-local invention.
+**Verifies:** Learning consumes target scope and reusable corpus information
+without silently enabling canonical mutation, while Curation intentionally
+exposes accepted mutation work.
 
-**Method:** TEST + ANALYSIS.
+**Method:** DEMONSTRATION
 
-**Evidence requirement:** deterministic topology validation in the pinned Harness integration.
+**Required evidence:** task walkthroughs showing:
 
-## IV-06 — Screen/View subject coverage
+1. selecting a target in Learning exposes its prepared scope as read-only;
+2. Study preparation can proceed without entering target/corpus editing;
+3. following a diagnostic into Curation is an explicit context transition;
+4. Knowledge exploration preserves canonical identity while Curation context
+   changes which mutation actions are available.
 
-**Verifies:** every view/frame required by Interface Topology has one corresponding stable Screen/View subject and no required topology subject disappears during detailed view design.
+Failure includes any path where an ordinary Learning action silently mutates
+target scope, Knowledge, Requirements or Questions.
 
-**Method:** TEST.
+### IV-04 — Study preview/export fidelity and recovery
 
-**Evidence requirement:** pinned Harness topology-to-screen-subject coverage comparing `docs/interface/interface-topology.yaml` with subject IDs in `docs/interface/screen-view-design.md`.
+**Verifies:** the accepted `I-STUDY-PREPARATION` interaction keeps preview and
+external export distinguishable and exposes material conflict/failure states.
 
-## IV-07 — Human task recovery trace
+**Method:** TEST
 
-**Verifies:** accepted validation, conflict, runtime-unavailable, partial-external-failure and recoverable operational outcomes that affect current USER tasks have an explicit interaction recovery disposition before concrete screens implement them.
+**Required evidence:** interaction-level tests or behavioral prototype tests
+covering:
 
-**Method:** INSPECTION.
+- build returns a non-empty preview;
+- build returns an explicit empty preview;
+- export of the inspected current preview succeeds;
+- stale preview produces the accepted conflict state and requires rebuild;
+- external runtime unavailable preserves the reviewed preview;
+- partial external failure keeps per-Question success/failure distinguishable.
 
-**Evidence requirement:** trace from Application/Machine Interface outcomes through the applicable Interaction Design contexts. Unknown outcome semantics are a blocking upstream question, not a UI convention.
+Test Design may refine fixtures and mechanics but must preserve these oracles.
 
-## Current evidence
+### IV-05 — Knowledge scope/focus/traversal independence
 
-The deterministic checks are executed by `tools/check_harness_integration.py` and the full Harness revalidation command. Rendered usability/accessibility evidence belongs to Presentation/Frontend Verification.
+**Verifies:** `I-KNOWLEDGE-EXPLORE` and `V-KNOWLEDGE` support the accepted
+information need without assuming a graph renderer or requiring all corpus
+elements to be simultaneously visible.
+
+**Method:** DEMONSTRATION
+
+**Required evidence:** a representation-neutral behavioral prototype or
+equivalent walkthrough demonstrates that the user can:
+
+1. distinguish global from target-relevant scope;
+2. search/filter Knowledge;
+3. select one canonical Knowledge focus;
+4. inspect typed relationship meaning and direction;
+5. follow a connected Knowledge identity while preserving explicit scope;
+6. perform those actions without pointer-only spatial gestures.
+
+A later graph/3D/2D projection may satisfy this check, but the check does not
+require one.
+
+### IV-06 — Navigation continuity and direct identity
+
+**Verifies:** topology preserves canonical task continuity among Learning,
+shared Knowledge and Curation without duplicating semantic identity.
+
+**Method:** ANALYSIS
+
+**Required evidence:**
+
+- all `parent` and `exits` references resolve;
+- the three root destinations remain reachable;
+- target-scoped Knowledge can return to Learning context;
+- Curation destinations can reach shared Knowledge in explicit Curation work;
+- diagnostic-to-repair exits resolve;
+- direct Knowledge/Question/Target identity entry does not create a second
+  canonical object identity.
+
+### IV-07 — Visible failure semantics do not fabricate success
+
+**Verifies:** accepted interaction recovery distinguishes validation rejection,
+conflict, not-found, operational failure and external-runtime failure from
+accepted canonical change.
+
+**Method:** INSPECTION
+
+**Required evidence:** review of every mutation/external-side-effect interaction
+context confirms that:
+
+- success is shown only for an accepted operation outcome;
+- rejection/conflict preserves prior accepted canonical state;
+- retry/reload paths retain enough user intent to recover;
+- missing evidence/material is not relabeled as mastery failure or semantic
+  quality judgment.
+
+### IV-08 — IA/concept reference integrity
+
+**Verifies:** every topology location and every interaction/concept reference
+resolves to the rebuilt accepted IA and Conceptual Interface Model.
+
+**Method:** ANALYSIS
+
+**Required evidence:** deterministic reference validation with zero unknown
+location, concept or mode ids.
+
+## Evidence gate
+
+`prep.interface-verification` is satisfied when all eight checks have current
+evidence against the same accepted Task Model / Conceptual Interface / IA /
+Interaction / Topology baselines.
+
+A historical green result is stale whenever one of those accepted upstream
+artifacts changes.
 
 ## Out of scope
 
-This artifact does not select routes, screen regions, styling, frontend providers, test frameworks or implementation structure.
+These belong to later verification capabilities:
+
+- typography, color, density and visual hierarchy quality;
+- responsive layout and screen composition;
+- chosen Knowledge visualization rendering;
+- frontend performance/capacity measurements;
+- component/unit/integration/e2e test implementation details;
+- backend/domain correctness already owned upstream.
+
+## Unresolved Questions
+
+None introduced by Interface Verification.

@@ -37,8 +37,8 @@ reviews:
     basis: Knowledge identity, forms and relationship semantics were revalidated against the canonical classifier; the model now separates stored/runtime compatibility relation types from the preferred leaves admissible for new classification.
 
   - capability: prep.frontend-performance-capacity
-    revision: 1
-    basis: Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics.
+    revision: 2
+    basis: Quality Design now keeps only representation-neutral semantic-preserving degradation/capacity applicability, explicitly leaves current MVP numeric FPS/node/edge/resource targets unaccepted, and makes representation-specific quality conditional on downstream Human Interface selection.
 
   - capability: prep.learning-design
     revision: 1
@@ -53,81 +53,81 @@ reviews:
     basis: Application knowledge coordinates accepted product/domain behavior and failure outcomes without re-owning domain semantics or selecting transports.
 
   - capability: prep.task-model
-    revision: 3
-    basis: The task model was revalidated against Product Capability revision 2 and the pinned task-model skill; every current USER task now also traces to stable PC capability anchors while preserving information, decision, system-support, outcome and recovery semantics.
+    revision: 4
+    basis: Task Model was rebuilt from accepted Product/Application semantics so user work is representation-neutral; Knowledge requires find/focus/typed-relation traversal rather than graph access, and external study is separated from Prep UI work.
 
   - capability: prep.user-journeys
-    revision: 2
-    basis: User Journeys were revalidated against the pinned journey skill and current Task Model; every current USER task now has an explicit journey with actor/context, trigger, preconditions, completion and material alternate/recovery behavior without choosing screens.
+    revision: 3
+    basis: User Journeys were rebuilt from the revised Task Model with complete USER-task coverage while preserving Learning/Curation separation, explicit external-study delegation, failure recovery and representation-neutral Knowledge exploration.
 
   - capability: prep.conceptual-interface-model
-    revision: 1
-    basis: User-facing concepts were revalidated against tasks and domain/application sources without becoming a duplicate domain model.
+    revision: 2
+    basis: Conceptual Interface Model now distinguishes Learning/Curation work contexts, shared canonical Knowledge, explicit global/target exploration scope and focus as interaction state without selecting navigation, layout or visualization form.
 
   - capability: prep.information-architecture
-    revision: 1
-    basis: Information organization and findability were revalidated independently of concrete screen layout or UI provider.
+    revision: 2
+    basis: Information Architecture now provides one shared Knowledge information space with explicit scope/context and removes graph terminology and duplicated Learning/Curation Knowledge locations from canonical organization.
 
   - capability: prep.machine-interfaces
     revision: 2
     basis: Browser collection contracts now explicitly expose exact total_count for the current scope/query while opaque cursors remain transport mechanics; all other browser/backend and external-runtime semantics were revalidated unchanged.
 
   - capability: prep.interaction-design
-    revision: 3
-    basis: Interaction Design was revalidated against the pinned interaction-design skill; contexts now bind accepted actions/inputs to visible responses, material states, recovery and machine-operation IDs while preserving the existing product behavior.
+    revision: 4
+    basis: Interaction Design now defines representation-neutral Knowledge search/focus/relation traversal, explicit scope preservation and keyboard semantics, plus rebuilt Learning/Curation recovery behavior without choosing graph, 2D or 3D presentation.
 
   - capability: prep.interface-topology
-    revision: 2
-    basis: Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology.
+    revision: 3
+    basis: Interface Topology now consolidates work into Learning, shared Knowledge and Curation task views, removes duplicated collection/editor and runtime-status destinations, and keeps Curation structural entry separate from concrete screen composition.
 
   - capability: prep.presentation-system
-    revision: 4
-    basis: "Presentation System now canonically specifies the accepted visual language: compact typography/control density, light-shell/dark-graph surface roles, persistent desktop left rail, Knowledge pane ranges, toolbar composition and wide/compact/narrow breakpoint classes."
+    revision: 5
+    basis: Presentation System was reselected through governed option review: textual/search/detail access is the semantic backbone and a local 3D relational projection is selected for Knowledge without becoming universal UI; numeric graph gates and fixed shell/style choices are removed.
 
   - capability: prep.screen-view-design
-    revision: 4
-    basis: "Screen/View Design now consumes the accepted visual specification with explicit shell rail, workspace chrome budget, supporting-pane ranges, graph-fill behavior and selection-without-implicit-focus interaction."
+    revision: 5
+    basis: Screen/View Design now composes the rebuilt V-* topology with task-primary regions, same-view context-preserving Curation work, wide/narrow semantic transformations and local 3D Knowledge priority without fixed pixel geometry or graph performance targets.
 
   - capability: prep.import-consistency
     revision: 2
     basis: Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics.
 
   - capability: prep.interface-verification
-    revision: 3
-    basis: Interface Verification now exposes stable IV checks with verifies scope, method and concrete evidence requirements for task, interaction, IA, topology, Screen/View and recovery closure.
+    revision: 4
+    basis: Interface Verification now verifies rebuilt task/context/topology closure, Learning/Curation separation, representation-neutral Knowledge traversal and factual failure semantics against the new interface chain.
 
   - capability: prep.presentation-verification
-    revision: 4
-    basis: "Presentation Verification now includes visual-system fidelity evidence for the accepted density, shell, pane hierarchy and graph-surface roles in addition to responsive/performance closure."
+    revision: 5
+    basis: Presentation Verification now verifies the shared Knowledge dual-access contract, local 3D projection, rebuilt wide/narrow composition, context-preserving Curation and non-spatial accessibility without reinstating historical numeric graph gates.
 
   - capability: prep.system-architecture
-    revision: 2
-    basis: Revalidated against Machine Interface revision 2; collection count metadata does not change runtime, trust, deployment or external-integration topology.
+    revision: 3
+    basis: System Architecture was rebuilt through full decision review into one Prep backend/server deployable plus browser code, foreground request/response interactions, backend canonical authority and explicit adapter boundaries without mandatory separate frontend deployment, workers or duplex channels.
 
   - capability: prep.data-design
-    revision: 3
-    basis: Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope.
+    revision: 4
+    basis: Data Design was rebuilt against the new System Architecture with backend-only canonical write ownership, stable semantic identities/relations, explicit transactional/import concurrency rules, append-oriented review evidence and no graph-layout or learner-state persistence.
 
   - capability: prep.frontend-system-architecture
-    revision: 3
-    basis: Frontend architecture was revalidated against the graph performance/capacity prerequisite; Knowledge Exploration owns user presentation intent while the renderer adapter owns private optimization strategy and semantic-preserving degradation.
+    revision: 4
+    basis: Frontend architecture now follows Learning/shared Knowledge/Curation task ownership, keeps textual Knowledge independent of the 3D renderer, isolates renderer and transport adapters, and does not require extra browser runtimes/workers absent accepted quality evidence.
 
   - capability: prep.frontend-engineering-policy
-    revision: 3
-    basis: Engineering policy now requires bounded graph work, demand-driven idle rendering, semantic-preserving degradation and hardware performance evidence while keeping renderer optimization internals isolated.
+    revision: 4
+    basis: Frontend Engineering Policy was rebuilt around task ownership, provider isolation, canonical-state boundaries and semantic verification discipline; historical graph performance profiles/numeric benchmark gates are no longer product correctness requirements.
 
   - capability: prep.frontend-component-design
-    revision: 3
-    basis: Graph component contracts now separate user-visible performance profiles/preferences from renderer-private instancing, batching, pixel-ratio, physics and diagnostics strategies.
+    revision: 4
+    basis: Component Design now owns task/feature boundaries for Learning, Knowledge and Curation, narrow backend/3D provider seams and minimal state ownership; the existing 3D experiment is donor code behind KnowledgeProjectionPort rather than frontend architecture.
 
   - capability: prep.frontend-verification
-    revision: 5
-    basis: "Frontend verification now distinguishes selection from explicit focus and requires idle optimization to preserve interaction readiness; ordinary selection cannot narrow graph membership implicitly."
+    revision: 6
+    basis: Frontend Verification now proves rebuilt topology, provider isolation, textual/3D focus parity, Curation recovery, responsive/keyboard continuity and failure isolation while treating graph performance measurements as diagnostic unless later accepted by Quality Design.
 
   - capability: prep.frontend-test-design
-    revision: 6
-    basis: "Frontend Test Design now adds executable visual-system fidelity ranges for shell navigation, compact density, graph dominance and responsive pane roles while avoiding pixel-perfect provider-specific oracles."
+    revision: 7
+    basis: Frontend Test Design now supplies executable contracts for renderer-independent Knowledge, textual/3D parity, Curation conflict recovery, Study materialization fidelity, responsive continuity and machine-outcome mapping without historical FPS/node-count or pixel-layout oracles.
 
   - capability: prep.frontend-implementation-design
-    revision: 7
-    basis: "Implementation Design is revalidated against the canonical visual specification; exact implementation values must stay within accepted typography/control/pane/shell ranges instead of treating them as arbitrary local CSS choices."
+    revision: 8
+    basis: Implementation Design now uses feature/task ownership and bounded vertical slices, builds the Knowledge semantic backbone before adapting the existing 3D donor, retains the repository toolchain as implementation context, makes CI authoritative and records migration-transition semantics as not independently applicable.

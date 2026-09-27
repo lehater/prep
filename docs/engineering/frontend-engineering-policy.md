@@ -2,175 +2,252 @@
 
 ## Purpose
 
-Define project-wide frontend engineering obligations that must remain stable across feature slices and implementation agents.
+Define the cross-cutting engineering obligations that keep the rebuilt Prep frontend aligned with its accepted interface and frontend architecture while preserving implementation freedom.
 
-This policy does not own product, domain, interface or architecture semantics. It constrains how accepted Prep frontend knowledge is realized in code.
+This policy is intentionally small. It applies KISS and explicit dependency ownership where they prevent known frontend failure modes; it does not mandate patterns, abstractions or libraries without demonstrated need.
 
 ## Applicability
 
-This policy applies to:
+This policy applies to frontend component and implementation design and to production frontend code that realizes:
 
-- frontend System Architecture refinements;
-- frontend Component Design;
-- reusable presentation/provider realization;
-- frontend Implementation Design;
-- production frontend code and structurally significant prototype code intended for reuse.
+- Learning;
+- Knowledge;
+- Curation;
+- backend machine-operation access;
+- the textual Knowledge projection;
+- the selected 3D Knowledge projection.
 
-Pure throwaway visual experiments may use narrower local structure only when their code is explicitly noncanonical and is not promoted into production without revalidation.
+## P1 — Preserve accepted semantic boundaries
 
-## Core obligations
+Frontend code must express accepted Prep concepts and task/view semantics rather than exposing transport, renderer or framework vocabulary as the public model of a feature.
 
-### Explicit ownership and high cohesion
+Reviewable obligations:
 
-- Every public module/component/port must have one coherent responsibility and an identifiable owner.
-- Shared modules must not become catch-all locations for unrelated feature behavior.
-- Feature-owned mutable state remains with the owning feature unless multiple architectural consumers require a shared lifetime.
+- feature/view-facing models use accepted concepts such as target, Knowledge focus, exploration scope, Question material, review evidence and change outcome;
+- raw backend DTO/status/route mechanics stop at the backend adapter/mapping boundary;
+- renderer scene/node/link/camera object types stop at the 3D renderer adapter;
+- Anki/AnkiConnect concepts do not become frontend product/domain concepts;
+- screen/component code does not recreate domain validation, conflict or relation semantics already owned upstream.
 
-Rationale: shared ownership and low-cohesion utility layers make later change and provider replacement ambiguous.
+## P1 — Dependency direction follows frontend ports/adapters
 
-### Reviewable dependency direction
+Dependencies point from technical providers toward frontend-owned contracts, not from feature semantics toward provider APIs.
 
-- Source dependencies must follow accepted frontend architecture.
-- Feature modules depend on frontend-owned contracts, not concrete transport or renderer implementations.
-- Learning and Curation may share stable frontend models/presentation assets but must not depend on each other's feature internals.
-- Dependency rules that protect architectural boundaries should be mechanically enforceable when implementation tooling permits it.
+Required seams exist only where provider leakage would otherwise cross feature/public boundaries:
 
-### Consumer-owned contracts and dependency inversion
+- backend machine-operation adapter;
+- 3D renderer adapter;
+- browser/platform adapters when a platform API would otherwise become a feature contract.
 
-- Introduce a port/abstraction when it isolates an accepted external/provider dependency, supports a known substitution requirement, or protects a meaningful architectural boundary.
-- Shape the contract from consumer needs rather than mirroring the provider API.
-- Do not introduce interfaces/wrappers around every concrete dependency merely to satisfy DIP ceremonially.
+A wrapper around every library primitive is not required.
 
-### Composition and substitutability
+Feature modules may use ordinary framework primitives locally when those primitives do not become cross-feature semantic contracts.
 
-- Prefer composition when behavior is assembled from independent responsibilities.
-- Use inheritance only when a real substitutable subtype relationship exists and its behavioral contract is stable.
-- Do not use inheritance primarily for code reuse.
+## P1 — One canonical server authority
 
-### Evidence-based reuse
+Backend-owned canonical data remains authoritative.
 
-Promote code into a reusable/public component only when at least one is true:
+Frontend caches and local representations are replaceable projections.
 
-- multiple current consumers need the same stable responsibility;
-- it represents a repeated accepted presentation/product pattern;
-- it isolates a meaningful replaceable dependency;
-- independent evolution behind a stable contract is already expected.
+Required behavior:
 
-Do not build speculative generic frameworks for hypothetical future reuse.
+- mutation success is not committed in UI semantics until the accepted backend outcome permits it;
+- validation rejection and conflict keep proposed input distinguishable from canonical state;
+- stale/failed requests do not silently overwrite newer confirmed canonical state;
+- browser persistence is not introduced as a second canonical store without a new accepted architecture decision.
 
-### Provider isolation
+## P1 — 3D remains an optional presentation dependency
 
-External UI/rendering/framework providers are implementation dependencies, not owners of Prep presentation semantics.
+The Knowledge feature must remain semantically usable without successful 3D renderer initialization.
 
-- Public feature contracts and shared product-pattern contracts must not expose provider-specific types when doing so would couple multiple features to the provider.
-- Provider primitives may be used locally inside provider/presentation implementation where no stable project contract is created.
-- Do not create one-to-one wrappers for every provider primitive.
-- Replacement of a UI provider should primarily affect provider mapping/theme/presentation implementation rather than product semantics, machine contracts or feature data models.
-- Concrete provider selection/version is recorded by downstream Component/Implementation Design when selected.
+Required behavior:
 
-### Styling and presentation consistency
+- textual search, focus, detail and relationship traversal do not import renderer-specific APIs;
+- renderer activation consumes a renderer-neutral Knowledge projection model;
+- renderer events translate back into frontend intents/identities;
+- renderer failure is handled at the projection boundary and preserves textual Knowledge access;
+- direct renderer interaction is never the only path for an accepted semantic task.
 
-Cross-feature visual decisions must be expressed through shared presentation roles/patterns rather than independently re-invented in each feature.
+Existing 3D experiment code should be reused when it satisfies these boundaries. Reuse is preferred over rebuilding equivalent mechanics, but donor code must be adapted rather than allowed to redefine the accepted architecture.
 
-When implementation selects a concrete provider/theme mechanism:
+## P1 — State ownership is explicit
 
-- shared semantic color, typography, spacing, density, surface, focus and feedback roles should map through a centralized theme/token boundary when those roles are reused;
-- provider-specific theme/token names must not become product/domain semantics;
-- local one-off layout values may remain local when they do not create a reusable presentation rule;
-- feature code must not introduce competing global theme systems.
+Before adding frontend state, classify its owner/lifetime.
 
-Exact palette, font family, spacing values and provider token syntax remain downstream until accepted Presentation System/Implementation Design selects them.
+### Server representation state
 
-### Representation boundaries
+Examples:
 
-- Transport DTOs terminate at transport adapters.
-- Renderer/library objects terminate at renderer adapters.
-- Frontend semantic/read models preserve canonical Prep identity and accepted distinctions without becoming a duplicate domain model.
-- Mapping code is explicit at representation boundaries rather than distributed implicitly across views.
+- targets;
+- Knowledge;
+- Requirements;
+- Questions;
+- review observations;
+- import outcomes.
 
-### State discipline
+These values mirror backend-authoritative state and belong to query/cache handling, not feature-owned canonical stores.
 
-- No global mutable store by default.
-- State is promoted to a wider owner only when its lifecycle is shared by multiple architectural consumers.
-- Canonical business truth remains backend/domain owned.
-- Renderer geometry/camera/physics state remains presentation state.
+### Interaction state
 
-### Error handling discipline
+Examples:
 
-- Preserve accepted failure/outcome distinctions across boundaries; do not collapse validation, conflict, unavailability and unexpected operational faults into one generic success/failure shape.
-- Provider/transport-specific exceptions or error payloads terminate at their adapters and are translated into frontend-owned outcomes before reaching feature contracts.
-- Recoverable failures must retain enough context for the accepted retry/correction path; do not silently discard user input or current task context.
-- Do not swallow unexpected failures to keep the UI apparently successful. Surface them through the owning feature's failure state and preserve diagnostic context for downstream operability when such evidence is available.
-- Shared error helpers may normalize representation, but they must not become owners of product/domain failure semantics.
+- current work context;
+- active target reference;
+- search/filter;
+- Knowledge scope/focus;
+- editor draft;
+- disclosure;
+- pending operation/recovery state.
 
-### Performance degradation preserves semantics
+Keep interaction state as local as practical to the feature/view that owns it. Promote it only when multiple accepted views require shared continuity.
 
-The accepted graph quality contract is normative for production realization.
+### Renderer-local state
 
-- visible graph work is bounded; the frontend must not require rendering the full canonical corpus merely because the backend can store it;
-- Auto / Quality / Performance are presentation profiles, not domain/application state;
-- user-visible degradation may reduce labels, arrowheads, decorative particles, pixel ratio, node detail or live-physics work only while canonical identity, relation type/direction, current scope, selection/focus and readable list/search/detail access remain intact;
-- relation direction may not become unknowable merely because arrowheads are disabled;
-- renderer optimization mechanics such as instancing, batching, buffer layout and shader/object choices stay inside the renderer adapter;
-- the renderer must become demand-driven when idle rather than consuming continuous RAF/CPU solely to preserve a static scene;
-- performance evidence must use representative hardware-accelerated 1k/2k/5k stress workloads; headless tests may verify semantics/configuration but must not claim GPU/frame-rate performance;
-- developer diagnostics may expose RAF/FPS, settle time, draw calls, triangles, buffer size and pixel ratio as engineering evidence without becoming product semantics.
+Examples:
 
-### Testability
+- camera;
+- scene resources;
+- transient hover;
+- renderer lifecycle.
 
-- Prefer public/consumer-owned contracts and observable behavior as test boundaries.
-- Private implementation structure is not a test oracle by default.
-- Replaceable adapters should be testable against the same consumer-facing contract where that contract has multiple implementations.
+Keep it inside the renderer adapter/presentation boundary unless an accepted frontend semantic state explicitly requires promotion.
+
+## P1 — Feature ownership follows accepted work responsibilities
+
+Use cohesive feature ownership around accepted frontend responsibilities:
+
+- app composition/shell;
+- Learning;
+- Knowledge;
+- Curation;
+- provider adapters.
+
+Do not split code merely to mirror every screen region or backend resource.
+
+Do not duplicate shared Knowledge semantics into separate Learning-Knowledge and Curation-Knowledge implementations. Work context controls available actions around the same canonical Knowledge responsibility.
+
+## P1 — KISS over speculative abstraction
+
+Introduce an abstraction when it has a present responsibility:
+
+- protects an accepted boundary;
+- supports more than one real consumer;
+- enables a required provider substitution;
+- removes stable repeated product/engineering knowledge.
+
+Do not introduce abstractions solely because a future alternative can be imagined.
+
+Examples of non-rules:
+
+- no mandatory repository class for every backend operation;
+- no CQRS frontend architecture requirement;
+- no event bus by default;
+- no microfrontend boundary;
+- no generic form/table/list framework required;
+- no wrapper for every design-system or renderer primitive;
+- no universal global state store.
+
+## P2 — Composition before inheritance
+
+Use composition for UI/presentation collaboration unless a true substitutable subtype relationship exists.
+
+Shared behavior should be extracted around stable repeated responsibilities rather than deep inheritance hierarchies.
+
+This is especially important for:
+
+- entity finder/focused-detail patterns;
+- loading/error/empty feedback;
+- backend operation state;
+- Knowledge projection controls.
+
+## P1 — Task behavior is tested at public boundaries
+
+Default tests target accepted observable behavior and consumer-owned contracts.
+
+Prefer tests of:
+
+- task/view states and transitions;
+- operation mapping/outcome handling;
+- renderer-neutral projection contracts;
+- adapter boundaries;
+- semantic fallback behavior;
+- responsive/focus behavior when it is an accepted view contract.
+
+Avoid coupling correctness tests to private component structure, exact DOM nesting or renderer internals unless those mechanics are themselves the failure boundary under test.
+
+## P1 — Accessibility paths are architectural obligations
+
+Implementation must preserve the accepted non-spatial semantic path:
+
+- keyboard search/result selection/focus;
+- relationship traversal without pointer-only spatial gestures;
+- visible focus;
+- readable semantic status;
+- relation type/direction outside geometry.
+
+The selected 3D projection may add direct manipulation; it may not replace these paths.
+
+## P2 — Progressive disclosure over permanent control density
+
+Screen/View Design already establishes task priority and responsive transformations.
+
+Implementation should therefore:
+
+- keep primary task controls discoverable;
+- move projection tuning and secondary information behind contextual disclosure;
+- avoid permanently allocating large shell/chrome areas to controls that are not part of the current task;
+- preserve semantic context when master/detail becomes sequential on narrow layouts.
+
+## P2 — Error handling is regional where accepted
+
+Recoverable operation or renderer failures should be contained by the owning task/presentation boundary.
+
+Do not convert a local failure into a whole-application error state unless the application cannot safely continue.
+
+A global error boundary may protect the shell from fatal composition failures; it is not a substitute for accepted feature recovery states.
+
+## P2 — Performance work follows evidence
+
+There is no current MVP numeric FPS/node/edge/rendering acceptance target.
+
+Engineering may measure and optimize, especially around the reused 3D renderer, but:
+
+- diagnostic benchmark thresholds are not release gates unless Quality Design later accepts them;
+- optimization must not remove textual Knowledge access or semantic relation meaning;
+- do not introduce a worker/remote renderer/microfrontend solely for speculative performance.
+
+## Forbidden dependency patterns
+
+The following are policy violations:
+
+- feature semantics importing raw transport DTO/status-code contracts as their public model;
+- Learning/Curation feature code importing 3D renderer scene types;
+- renderer adapter issuing canonical backend mutations independently of the Knowledge feature/application flow;
+- browser code calling the external study runtime directly;
+- feature-owned mutable global state duplicating backend canonical state;
+- renderer or visual geometry defining Knowledge identity/relation semantics;
+- hidden optimistic mutation presented as accepted canonical state;
+- production task behavior depending on numeric graph targets that are not accepted quality constraints.
 
 ## Explicit non-rules
 
-This policy does **not** require:
+This policy does not mandate:
 
-- one wrapper for every MUI/provider primitive;
-- a custom UI framework;
-- one class/interface per component;
-- inheritance-free code;
-- a global state library;
-- generic repositories;
-- CQRS, mediator/event-bus patterns or dependency-injection frameworks;
-- abstraction before a concrete current need exists;
-- reuse of old experimental code merely because it already works.
+- React, Vue or another framework;
+- a particular state/query library;
+- a particular router;
+- a particular CSS/design-system implementation;
+- Clean Architecture folder names;
+- use-case/repository classes for every operation;
+- microfrontends;
+- Web Workers/OffscreenCanvas;
+- a generic component library beyond what downstream component design demonstrates is useful;
+- exact bundle/chunk structure.
 
-KISS and YAGNI take precedence over ceremonial abstraction.
+## Downstream consumption
 
-## Reusable frontend presentation contracts
+`prep.frontend-component-design` must translate these obligations into concrete component/provider boundaries.
 
-Project-wide reusable presentation code should be created around stable repeated patterns, not vendor widgets.
+`prep.frontend-implementation-design` must translate them into repository/module realization and verification gates.
 
-Current justified reusable pattern families include:
-
-- application/shell framing and mode context;
-- collection search/filter controls used across reusable-data catalogues;
-- entity/detail presentation framing;
-- loading/empty/failure feedback states;
-- form completion/cancel/action framing;
-- confirmation for destructive or irreversible user actions when such actions are accepted;
-- consistent focus/accessibility treatment.
-
-These describe project responsibilities. Exact component names, props and provider composition remain Component/Implementation Design decisions.
-
-## Provider replacement acceptance
-
-A future UI-provider replacement is considered structurally healthy when it does not require changes to:
-
-- Product Requirements;
-- Domain/Application semantics;
-- Machine Interface contracts;
-- frontend semantic/read models;
-- feature-owned query/command ports;
-- Screen/View meaning.
-
-Changes to provider mapping, theme, reusable presentation implementation and rendered verification evidence are expected.
-
-## Harness semantic acceptance
-
-This policy satisfies the reusable Engineering Policy intent:
-
-- **policy-not-product-domain-owner** — it constrains realization without redefining Prep semantics;
-- **obligations-concrete-and-reviewable** — obligations are stated as inspectable dependency, ownership, provider, reuse, state and representation rules;
-- **optional-patterns-not-defaults** — abstractions/patterns require current evidence, and explicit non-rules prevent SOLID/provider isolation from becoming ceremonial layers.
+A downstream choice may vary internally as long as these observable dependency and ownership obligations remain satisfied.
