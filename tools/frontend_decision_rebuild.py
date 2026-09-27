@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after governed Screen/View admission.
+# Isolated CI probe after frontend architecture and presentation verification.
 from __future__ import annotations
 
 import json
