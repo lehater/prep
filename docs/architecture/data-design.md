@@ -2,108 +2,303 @@
 
 ## Purpose
 
-Define the smallest durable representation needed to preserve accepted Prep semantics and import consistency. Storage remains a physical realization, not a second domain owner.
+Define the smallest durable representation and persistence constraints that preserve Prep's accepted Knowledge, Learning Design, Learner Model, import-consistency and System Architecture semantics.
 
-## Persistence boundary
+Data Design owns physical storage shape and integrity realization. It does not redefine semantic identity, invent learner-state interpretation, select a frontend representation, or turn technical storage records into domain concepts.
 
-The backend owns access to one logical durable store for the current scope. Model contexts retain semantic ownership even when physically stored together.
+## Persistence ownership
 
-No accepted driver requires a database per bounded context.
+The Prep backend is the sole write owner of canonical durable state.
 
-Durability currently means canonical data survives ordinary backend/container restarts. Backup/restore, backup retention and point-in-time recovery are intentionally deferred while the data model is still expected to change rapidly; they are not current persistence obligations.
+Persistence adapters implement backend/application-facing ports. Browser state, visual projections and the external study runtime are not independent canonical stores.
 
-The first version has one user/data scope. Canonical records therefore do not require user/tenant ownership columns or tenant-scoped uniqueness. This is an explicit current-scope decision, not an assumption that the product will remain single-user.
+Durable state is partitioned by semantic ownership even when a single physical database is used:
 
-## Durable records
+- Knowledge Model records;
+- Learning Design records;
+- Learner Model review-history records;
+- technical import-identity/idempotency records.
 
-### Knowledge Model
+A shared physical store does not create shared semantic ownership.
+
+## Durable Knowledge representation
+
+### KnowledgeNode
+
+Persist at least:
+
+- stable canonical KnowledgeNode identity;
+- accepted semantic kind;
+- accepted content.
+
+Identity remains independent of label wording, source location, target, learner, visualization position and external-system identity.
+
+### KnowledgeRelation
+
+Persist at least:
+
+- stable relation identity;
+- canonical relation predicate/type identifier;
+- source KnowledgeNode identity;
+- target KnowledgeNode identity.
+
+Source and target are directional and must reference existing KnowledgeNodes.
+
+The persisted predicate must preserve the relation value admitted by Knowledge Model. Storage must not coerce an accepted relation into a generic `related_to` or into another broader predicate merely because a database enum is smaller.
+
+The current classifier distinguishes preferred, candidate and legacy-only vocabulary. Data storage preserves already accepted canonical/runtime relation values; admission of a new relation remains a semantic responsibility upstream.
+
+No graph coordinates, layout, camera, visual edge style or renderer state belongs to canonical Knowledge persistence.
+
+## Durable Learning Design representation
+
+### Requirement
 
 Persist:
 
-- KnowledgeNode stable ID, semantic kind and content;
-- KnowledgeRelation stable ID, type, source KnowledgeNode ID and target KnowledgeNode ID.
+- stable Requirement identity;
+- accepted Requirement definition/content.
 
-Relation endpoints must reference existing KnowledgeNodes.
-
-### Learning Design
+### RequirementSet
 
 Persist:
 
-- Requirement stable ID and accepted content;
-- RequirementSet stable ID and accepted content;
-- RequirementSet membership edges;
-- Requirement-to-Knowledge alignment edges;
-- Question stable ID, question text and direct answer;
-- Question-to-Knowledge alignment edges;
-- LearningTarget stable ID and accepted target content;
-- Target-to-Requirement/RequirementSet selection edges.
+- stable RequirementSet identity;
+- accepted set definition/content where present.
 
-RequirementSet composition must preserve the accepted acyclicity invariant. Its physical enforcement may combine storage constraints with application transaction validation where a simple declarative database constraint is insufficient.
+Represent composition with explicit association records:
 
-### Learner Model
+- RequirementSet → Requirement membership;
+- RequirementSet → child RequirementSet membership.
 
-Persist ReviewObservations as append-oriented historical records attributable to canonical Question ID, including occurred_at, rating, previous_interval, next_interval, duration and review_phase.
+Membership pairs are unique. Direct self-membership is forbidden physically.
 
-Accepted history is not overwritten to represent current inferred state.
+The accepted acyclicity invariant for recursive RequirementSet composition must be checked inside the same mutation transaction before a new child-set membership is committed. A storage FK alone is insufficient to establish acyclicity.
 
-## Cross-model references
+### Requirement-to-Knowledge alignment
 
-Cross-model references use canonical stable IDs while semantic validation remains with the owning application/domain contracts.
+Persist explicit many-to-many alignment records containing:
 
-Physical foreign keys may be used where they preserve accepted existence constraints within the single logical store, but they do not transfer semantic ownership.
+- Requirement identity;
+- KnowledgeNode identity.
 
-## Import identity
+Both identities remain independently owned. The association must not merge or duplicate either semantic object.
 
-Durably preserve enough import identity to enforce the accepted priority:
+### LearningTarget
 
-- canonical Prep ID;
-- stable import key with producer/import namespace where applicable;
-- technical fingerprint plus fingerprint canonicalization/algorithm version when fallback identity is used.
+Persist:
 
-A uniqueness constraint must prevent two canonical records of the same importable kind from claiming the same active stable import identity.
+- stable LearningTarget identity;
+- accepted target definition/content.
 
-Fingerprint uniqueness is scoped by importable kind and fingerprint version. It is a technical duplicate guard, not semantic equality.
+Represent target scope with explicit associations to:
 
-## Item transactions
+- Requirements;
+- RequirementSets.
 
-One import item is the transaction boundary for its durable canonical changes and technical import identity.
+Target assignment does not copy the owned Requirement/RequirementSet contents into target-owned storage.
 
-Successful peer items in the same bulk request commit independently. Rejected items leave no partial durable mutation for that item.
+### Question
 
-Concurrent creation of the same resolved import identity is serialized by durable uniqueness/transaction behavior so only one logical canonical object is created.
+Persist:
 
-Conflicting concurrent updates to the same stable identity must not silently use last-writer-wins. A conflict is surfaced unless later version/reconciliation semantics are accepted.
+- stable Question identity;
+- question text;
+- direct answer text.
 
-## External learning-system mapping
+Represent Question-to-Knowledge references as explicit many-to-many associations.
 
-Persist a technical mapping sufficient to reconcile external Anki study/review identifiers to canonical Question IDs.
+A Question may validly have zero Knowledge alignments. Persistence must not invent a non-null alignment requirement.
 
-The mapping belongs to integration persistence, not Question semantics. External identifiers never replace Prep IDs.
+Question count, aligned-Question count and similar aggregates are derived facts and are not persisted as semantic coverage judgments.
 
-The first concrete adapter is AnkiConnect. Persist only the Anki note/card identifiers and synchronization cursor/checkpoint data actually required to reconcile exported Questions and ingest review history without replaying the same event as a new observation.
+## Durable Learner Model representation
 
-Endpoint, bind address, port and API key are deployment configuration and are not canonical learning data.
+### ReviewObservation
 
-The exact identifier/cursor representation remains an implementation decision constrained by the AnkiConnect adapter contract.
+Persist every accepted ReviewObservation as an append-oriented historical record attributable to exactly one canonical Question.
 
-## Bulk outcome durability
+The durable representation preserves:
 
-Bulk response statistics are computed from per-item outcomes. The current product semantics do not require permanent storage of every bulk execution report.
+- observation identity;
+- Question identity;
+- occurred-at value;
+- rating;
+- previous interval;
+- next interval;
+- duration;
+- review phase.
 
-Failed input payloads are not required to be retained.
+Accepted historical observations are not rewritten in place.
 
-## Implementation freedoms
+Absence of observations remains absence of evidence. Storage does not materialize inferred mastery, readiness, retention, KnowledgeNode state, Requirement state, gap or priority because those semantics are not accepted in the current Learner Model.
 
-The following remain downstream implementation choices unless later requirements constrain them:
+If a future model introduces derived learner state, that state requires its own accepted semantics before persistence is added.
 
-- relational versus another storage engine;
-- concrete database product;
-- table/column names;
-- ORM;
-- index implementation beyond required uniqueness;
-- migration tooling;
-- backup format/tooling and restore automation.
+## Technical import identity and idempotency
+
+Import consistency requires repeated delivery of one logical import unit not to create duplicate canonical objects.
+
+Persist technical import-identity evidence sufficient to enforce the accepted resolution hierarchy after the import/application boundary has formed the applicable identity:
+
+1. canonical Prep identity when supplied;
+2. stable producer/import identity when supplied;
+3. deterministic technical fingerprint fallback.
+
+A practical physical representation may store an opaque normalized import-identity token plus:
+
+- canonical object kind;
+- canonical object identity;
+- identity method/version where required to interpret the token;
+- last accepted representation fingerprint when needed to distinguish duplicate delivery from conflicting changed content.
+
+The exact producer-key namespace/canonicalization algorithm remains owned by the import representation/implementation contract. Data Design requires only that the resulting technical identity be durable and unique at the accepted idempotency boundary.
+
+A technical fingerprint is duplicate-control evidence, not semantic identity.
+
+## Uniqueness and referential integrity
+
+Required physical constraints include:
+
+- unique canonical identity for every canonical object;
+- unique KnowledgeRelation identity;
+- valid KnowledgeRelation source/target references;
+- unique RequirementSet membership pair;
+- unique Requirement-to-Knowledge alignment pair;
+- unique Question-to-Knowledge alignment pair;
+- unique LearningTarget-to-Requirement assignment pair;
+- unique LearningTarget-to-RequirementSet assignment pair;
+- every ReviewObservation references an existing Question;
+- technical import identity is unique for the object-kind/idempotency boundary it represents.
+
+Association records must use canonical identities rather than copies of mutable display content.
+
+Foreign keys or equivalent storage guarantees are appropriate where they preserve these accepted reference constraints. They do not transfer semantic ownership to Data Design.
+
+## Transaction boundaries
+
+### Canonical single-item mutation
+
+One accepted canonical object mutation and the owner-local association changes required to keep that same operation valid commit atomically.
+
+A rejected mutation leaves the prior accepted durable state intact.
+
+### Bulk prepared input
+
+The bulk container is not one transaction.
+
+After envelope acceptance, each import item is its own transaction:
+
+- the item commits completely, or
+- the item is rejected without partial durable application.
+
+Failure of one peer item does not roll back already accepted independent peers.
+
+References that are required for an item must resolve before that item commits.
+
+### Concurrent import identity
+
+Concurrent attempts to create the same resolved technical identity must be serialized by a uniqueness/locking mechanism so both cannot create canonical duplicates.
+
+When the same stable identity is concurrently presented with incompatible content, storage must provide enough atomic compare/read-write behavior for the application/import layer to surface a conflict instead of silently applying last-writer-wins.
+
+The concrete mechanism may be a uniqueness constraint, transactional lock, compare-and-swap revision or another database-supported primitive; the semantic requirement is conflict visibility, not a mandated database feature.
+
+## Technical revision/version fields
+
+A storage implementation may use opaque row revisions or equivalent concurrency tokens to detect stale writes.
+
+Such values are technical concurrency evidence only:
+
+- they are not domain identity;
+- they do not become user-visible semantic versions unless another accepted contract says so;
+- they must not replace the accepted conflict semantics.
+
+## Derived/query data
+
+Indexes, search structures, materialized projections and caches are allowed when they can be rebuilt from canonical durable state and do not become a second semantic source of truth.
+
+Examples include:
+
+- text-search indexes;
+- relation traversal indexes;
+- target-resolution query indexes;
+- aggregate review-statistic projections.
+
+A cached or materialized projection must not turn:
+
+- graph geometry into Knowledge semantics;
+- Question count into learning coverage;
+- review statistics into mastery/readiness;
+- visual selection/focus into canonical state.
+
+## Persistence history and deletion
+
+ReviewObservation history is append-oriented because accepted learner evidence is historical and must not be rewritten.
+
+The authorized read set does not define a general retention, archival, backup or deletion policy for other canonical data. Data Design therefore does not invent one.
+
+Implementations must not silently introduce semantic deletion/expiry behavior. If product/security/operability requirements later require retention or erasure policy, that policy must be accepted by the owning Authority before Data Design changes its lifecycle rules.
+
+## Schema evolution
+
+Concrete database technology, ORM, migration framework and physical storage types are implementation freedoms.
+
+Schema evolution must preserve:
+
+- canonical identities;
+- relationship direction/type;
+- RequirementSet acyclicity;
+- explicit alignments/assignments;
+- historical ReviewObservation attribution;
+- import idempotency/conflict evidence.
+
+The current architecture has no accepted mixed-version coexistence or distributed schema-transition requirement. If a future release requires a materially observable coexistence/migration window, that transition semantics must be routed to its owning design boundary before implementation.
+
+## Physical model sketch
+
+The following names are descriptive physical responsibilities, not mandated SQL identifiers:
+
+```text
+knowledge_node
+knowledge_relation
+
+requirement
+requirement_set
+requirement_set_requirement
+requirement_set_child_set
+requirement_knowledge_alignment
+
+learning_target
+target_requirement
+target_requirement_set
+
+question
+question_knowledge_alignment
+
+review_observation
+
+import_identity
+```
+
+A single relational store can satisfy the current invariants, but no concrete database engine is selected here. Another storage technology is acceptable only if it preserves the same identity, reference, transaction and history constraints.
 
 ## Reopening conditions
 
-Revisit Data Design before introducing multiple users/tenants; ownership scope, tenant-scoped uniqueness, authorization references and migration of existing single-user data must then be designed explicitly. Also revisit when backup/recovery objectives become accepted, retention/deletion obligations, audit requirements, offline synchronization, multiple durable stores, semantic version history, or asynchronous import processing becomes accepted scope.
+Revisit Data Design when accepted semantics introduce any of:
+
+- learner-state or retention inference requiring durable derived state;
+- semantic coverage judgments;
+- provenance/source ownership requiring durable records;
+- multi-user ownership or authorization;
+- cross-item import transactions;
+- distributed/multi-writer canonical storage;
+- accepted deletion/retention obligations;
+- mixed-version schema coexistence;
+- a new learning-artifact family with independent durable identity.
+
+## Consequences
+
+The persistence model stays close to accepted semantic identities and relationships while keeping technical aids—indexes, revisions, import fingerprints and caches—explicitly non-semantic.
+
+Frontend and visualization work can project the same canonical data in different forms without causing storage to privilege graph layout or any other presentation choice.
