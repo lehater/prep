@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Isolated CI probe after final implementation-design admission.
+# Final CI probe including final comparison evidence.
 from __future__ import annotations
 
 import json
