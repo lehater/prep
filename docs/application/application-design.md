@@ -18,17 +18,13 @@ Application operations:
 
 Automatic extraction, derivation or validation of source material is outside the current scope.
 
-### Learning requirements
+### Capability requirements
 
-Application operations:
+Application curation may maintain reusable Capability definitions used by LearningTarget requirements.
 
-- create and edit a Requirement;
-- create and edit a RequirementSet;
-- add or remove Requirements and nested RequirementSets from a RequirementSet while preserving the domain acyclicity invariant;
-- align or unalign a Requirement with KnowledgeNodes;
-- load prepared Requirements, RequirementSets, composition and alignments in bulk.
+A CapabilitySpecification is a domain value, not an independently identity-bearing application record by default. Application operations may construct or replace CapabilitySpecification values while composing a LearningTarget RequirementExpression and may load prepared Capability definitions/target requirement expressions when supported.
 
-The application does not infer requirements automatically from source material.
+The application does not infer target requirements automatically from source material or learner activity.
 
 ### Questions
 
@@ -42,19 +38,36 @@ Question import does not require alignment to be known at import time. Alignment
 
 ### Learning targets
 
-LearningTarget composition is a **curation operation**.
+Establishing or changing a LearningTarget RequirementExpression is a **curation operation**.
 
 Curation operations:
 
 - create and edit a LearningTarget;
-- assign or remove reusable Requirements and RequirementSets for a LearningTarget;
-- optionally load prepared target definitions and assignments when a machine interface supports them.
+- compose or replace its RequirementExpression<CapabilitySpecification>;
+- optionally load a prepared target definition and requirement expression when a machine interface supports it.
 
-Learning-mode operation:
+Learning-mode operations:
 
-- select/open an existing curated LearningTarget for study.
+- list/select/open an existing prepared LearningTarget for study;
+- inspect its RequirementExpression read-only;
+- choose temporary navigation/focus within that target without mutating the target definition.
 
-Learning mode does not create, edit or recompose the selected target scope. A target is consumed as a prepared learning profile; changing its Requirements/RequirementSets requires an explicit switch to curation work.
+Learning mode does not create, edit, override or recompose the selected target scope. Selection establishes which prepared target is active; it is not target authorship.
+
+The same physical person may establish a personal target, but doing so is still an explicit curation use case completed before returning to learning mode. This preserves the Product Requirement that the learner workflow itself is not required to author target scope.
+
+#### Target-scope authorship decision
+
+The reviewed alternatives were:
+
+- learner directly composes CapabilitySpecifications while entering learning;
+- learner selects an existing prepared/curated LearningTarget;
+- learner creates a personal target from reusable specifications as part of learning entry;
+- learner selects a prepared target but applies target-local requirement overrides in learning mode.
+
+Direct composition and target-local overrides are rejected because they make learner-mode selection also own target-scope authorship, contrary to PC-01. Personal-target creation remains valid only when treated as the same explicit curation operation as any other target composition, so it is not a distinct learner-workflow alternative.
+
+The accepted policy is therefore: **curation establishes the complete RequirementExpression; learning selects and consumes a prepared LearningTarget without mutating its scope.**
 
 ### Learner statistics
 
@@ -67,7 +80,7 @@ The current application contract provides recording and retrieval of Question-le
 The current single-user product supports two different classes of work without introducing authentication roles:
 
 - **learning workflow** — choose an existing curated LearningTarget, build study material, study externally and inspect recorded review facts;
-- **curation workflow** — maintain reusable LearningTargets and their scopes, Knowledge, Requirements/RequirementSets, Questions, alignments and learning-material quality.
+- **curation workflow** — maintain reusable LearningTargets and their RequirementExpressions, Capability definitions, Knowledge, Questions, alignments and learning-material quality.
 
 The same person may perform both in v1. The distinction is semantic/task-oriented, not a user/permission model.
 
@@ -80,7 +93,7 @@ The browser frontend needs stable application queries in addition to mutation/us
 Learning-mode queries:
 
 - list/search existing curated LearningTargets;
-- retrieve one LearningTarget with its read-only Requirement/RequirementSet scope;
+- retrieve one LearningTarget with its read-only RequirementExpression<CapabilitySpecification>;
 - project KnowledgeNodes currently relevant to a LearningTarget;
 - project the accepted KnowledgeRelations among a selected global or target-relevant node set;
 - project Questions currently relevant to a LearningTarget;
@@ -90,7 +103,7 @@ Curation-mode queries:
 
 - list/search and retrieve LearningTargets;
 - list/search and retrieve KnowledgeNodes;
-- list/search and retrieve Requirements/RequirementSets;
+- list/search and retrieve reusable Capability definitions needed for target curation;
 - list/search and retrieve Questions;
 - retrieve structural alignment facts needed by curation, including unaligned Questions and KnowledgeNodes with no aligned Questions where requested.
 
@@ -191,11 +204,9 @@ Human authoring --------+
 Bulk prepared input ----+--> application use cases
                               |
                               +--> KnowledgeNodes / KnowledgeRelations
-                              +--> Requirements / RequirementSets
-                              +--> Requirement <-> Knowledge alignments
-                              +--> Questions
-                              +--> Question <-> Knowledge alignments
-                              +--> LearningTargets / target requirements
+                              +--> Capability definitions
+                              +--> Questions / Question-compatible support
+                              +--> LearningTargets / RequirementExpression<CapabilitySpecification>
 
 
 Learning preparation
@@ -225,9 +236,9 @@ Application Design owns:
 
 - canonical-data authoring and maintenance orchestration;
 - bulk-input orchestration after an input representation has been decoded;
-- RequirementSet composition operations;
-- Requirement-to-Knowledge and Question-to-Knowledge alignment operations;
-- curation of LearningTarget composition;
+- curation of Capability definitions used by target requirements;
+- curation of LearningTarget RequirementExpression composition;
+- Question-compatible support/alignment orchestration where still used by the current profile;
 - selection of an existing curated LearningTarget for the learner workflow;
 - interpretation of a selected LearningTarget for study preparation;
 - resolution of currently available learning/practice support into a supported study profile;
@@ -238,7 +249,7 @@ Application Design owns:
 
 Application Design does not own:
 
-- KnowledgeNode, KnowledgeRelation, Requirement, RequirementSet, LearningTarget, Question or ReviewObservation semantics;
+- Knowledge, Capability, CapabilitySpecification, RequirementExpression, LearningTarget, Question-compatibility or learner-evidence semantics;
 - LearningSupportRequirement semantics or any universal learning-support coverage heuristic;
 - forms, screens, graph editors or other human interaction design;
 - file/API/message representation contracts;
@@ -249,7 +260,7 @@ Application Design does not own:
 
 ## Downstream interface needs
 
-Human Interface Design must distinguish Learning mode from Curation mode without requiring different authenticated users in v1. Learning mode selects prepared LearningTargets and must not expose target-scope editing as part of the learner workflow.
+Human Interface Design must distinguish Learning mode from Curation mode without requiring different authenticated users in v1. Learning mode selects prepared LearningTargets and exposes their requirement expressions read-only; target-scope mutation requires an explicit transition to Curation.
 
 Machine Interface Design must define representation contracts for supported bulk input and external-learning-system interaction. The initial format is not selected by Application Design.
 
