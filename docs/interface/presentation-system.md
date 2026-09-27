@@ -1,413 +1,345 @@
-# Presentation System Design
+# Presentation System
 
 ## Purpose
 
-Define shared presentation and interaction conventions for the accepted two-mode product: target-centric Learning plus reusable-data/target-profile Curation, without choosing frontend framework mechanics or encoding domain semantics in styling.
+Define the shared presentation language for Prep's rebuilt human interface from the accepted conceptual model, information architecture, interaction design, topology and frontend quality constraints.
 
-## Interaction principles
+The presentation system makes shared visual and interaction choices. It does not redefine domain semantics, choose backend behavior, prescribe concrete screen composition or make one visualization the only way to access Knowledge.
 
-- **Mode is explicit.** Learning and Curation are visibly different task contexts even when the same physical user performs both.
-- **Learner context first.** Inside Learning, the selected curated LearningTarget remains visible while the learner moves through Overview, Knowledge, Study and Statistics.
-- **Curation is explicit.** Editing target scope, reusable Knowledge/Requirements/Questions and corpus quality belongs to Curation rather than appearing as implicit learner chores.
-- **Reuse is explicit.** Target views project reusable canonical objects; they do not imply that Knowledge, Requirements or Questions are owned by the target.
-- **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
-- **One canonical identity, contextual capabilities.** The same canonical object may be viewed from learner or curation context while edit capabilities remain context-specific.
-- **No fake completeness.** The learner sees available material; semantic Question-set coverage quality belongs to curation and has no current numeric score.
-- **Graph is first-class but non-exclusive.** The frontend prototype gives spatial Knowledge exploration a prominent role for relational learning, while list/search/detail remain equivalent canonical access paths.
-- **Recoverability is visible.** Validation and external-integration failures retain context/input and expose a retry or correction path.
+## Presentation principles
 
-## Accepted visual language and design tokens
+### Task context before decoration
 
-The current production visual direction is intentionally compact, information-dense and workspace-oriented. These values are accepted Presentation System decisions rather than provider defaults.
+Every view makes the current work context and primary user intent understandable before secondary visual detail.
 
-### Typography
+The three root intents remain recognizable:
 
-Use one neutral UI sans-serif family through the shared theme/provider boundary. The exact font file/provider may vary, but the visual metrics must remain close to the accepted scale.
+- **Learning** — consume a prepared target, prepare/export study material and inspect factual review evidence;
+- **Knowledge** — understand reusable subject knowledge and semantic relationships;
+- **Curation** — intentionally maintain reusable canonical data.
 
-| Role | Accepted size | Weight / behavior |
-| --- | ---: | --- |
-| application/page title | 18-22 px | 600-700 |
-| section heading | 15-18 px | 600-700 |
-| ordinary UI/body text | 13-14 px | 400-500 |
-| compact control/label text | 12-13 px | 500-600 |
-| caption/metadata/tag | 11-12 px | 500-700 |
-| overline/context label | 10-11 px | 600-700, restrained tracking |
+They use one shared visual language. Distinction comes from labels, action hierarchy and context, not color alone.
 
-Large display typography is not used inside operational workspaces. Workspace hierarchy is created by placement, weight, surface and spacing rather than oversized headings.
+### Focus before density
 
-### Density and spacing
+Presentation follows the accepted single-primary-focus interaction model.
 
-Use a 4/6/8/12/16/24 px spacing rhythm. Ordinary dense workspace composition should primarily use 6-12 px gaps.
+Large information spaces use search, filtering, scope, focus and progressive disclosure rather than attempting to show every available object and detail simultaneously.
 
-Accepted control density:
+### Semantics do not depend on geometry
 
-- ordinary desktop buttons/selects/text inputs: approximately 28-32 px high;
-- icon-only graph controls: approximately 28-32 px square;
-- chips/tags: approximately 18-22 px high;
-- panel internal padding: approximately 8-12 px;
-- application content edge padding: approximately 12-20 px depending on viewport class.
+Knowledge identity, semantic kind, relation type and relation direction remain explicitly inspectable outside spatial position.
 
-Buttons use normal title/sentence case, not automatic all-caps.
+A spatial projection may make relationships easier to explore, but geometry, distance, color or camera position never become the sole carrier of canonical meaning.
 
-### Color and surfaces
+### Canonical state and interaction state look different
 
-The visual system uses a light application shell with a dark graph workspace:
+Selection, focus, active scope, loading, unsaved input and temporary projection state are visually distinguishable from accepted canonical content.
 
-- application background: very light neutral gray;
-- ordinary panel/surface: white or near-white;
-- dividers/borders: low-contrast neutral gray;
-- primary action/selection accent: clear medium blue;
-- ordinary text: near-black neutral;
-- secondary text: muted gray;
-- graph canvas: dark navy/charcoal;
-- graph labels: high-contrast near-white;
-- semantic node colors may distinguish semantic roles, but color never carries meaning alone.
+A pending or rejected mutation must never look equivalent to accepted canonical state.
 
-Exact hexadecimal values are provider/theme implementation details as long as contrast and role relationships remain equivalent.
+## Shared information hierarchy
 
-### Shape, borders and elevation
+Across views, visual hierarchy follows:
 
-- panels use restrained 6-8 px corner radius;
-- ordinary boundaries prefer 1 px borders over heavy shadows;
-- overlays/floating graph utilities may use modest elevation;
-- selected rows use a low-intensity accent background plus non-color selection indication;
-- focus-visible treatment must be stronger than ordinary borders.
+1. **work context** — Learning, Knowledge or Curation and relevant target/scope;
+2. **primary task / focused object**;
+3. **primary action or current outcome**;
+4. **supporting information and relationships**;
+5. **secondary controls, diagnostics and implementation-oriented detail**.
 
-### Iconography
+This hierarchy is semantic. Concrete regions, columns, drawers and breakpoint composition belong to Screen/View Design.
 
-Use one coherent simple line-icon family. Icons supplement text and never replace required accessible labels. Graph controls may become icon-only when space is constrained, provided tooltip/accessible-name semantics remain explicit.
+## Knowledge presentation portfolio
 
-## Accepted application shell
+Knowledge uses a **mixed access model**.
 
-Desktop/wide application navigation uses a persistent left rail.
+### Textual semantic backbone
 
-### Desktop / wide shell
+Searchable textual/list access and focused detail are always available.
 
-- rail width: approximately 200-220 px;
-- rail occupies full useful viewport height and remains visually separate from the active workspace;
-- application identity `Prep` appears at the top;
-- primary mode entries: `Learning`, `Curation`;
-- active mode is clearly selected;
-- mode-local navigation appears below the active mode:
-  - Curation: Targets, Knowledge, Requirements, Questions;
-  - Learning target context: Overview, Knowledge, Study, Statistics plus a way to change target;
-- external runtime status such as Anki reachability is anchored near the rail bottom;
-- active workspace consumes the remaining width.
+They provide:
 
-The rail is navigation, not a second content column: it stays visually quieter than the active task surface.
+- canonical Knowledge identity and readable content;
+- semantic kind;
+- explicit incoming/outgoing relationship type and direction;
+- current global or target-relevant exploration scope;
+- keyboard-operable result and relationship traversal.
 
-### Narrow shell
+This path is the semantic/accessibility backbone and does not depend on a graphics renderer.
 
-Below the narrow breakpoint, the persistent rail may collapse into a compact header/disclosure/navigation drawer. The same navigation hierarchy and accessible names remain available without horizontal overflow.
+### 3D relational projection
 
-## Shared application composition
+A 3D node-link projection is selected as a local visualization mode for the shared Knowledge view.
 
-The application shell provides an explicit way to enter/switch between:
+Its responsibility is to support relational exploration:
 
-- **Learning**;
-- **Curation**.
+- perceive local/global relationship structure;
+- move focus by following accepted semantic relationships;
+- preserve context around the focused Knowledge item;
+- make relation neighborhoods visually explorable.
 
-The accepted desktop switcher/navigation mechanism is the persistent left rail defined above. Narrow/mobile collapse mechanics remain downstream as long as the same hierarchy is preserved.
+It is **not**:
 
-A compact global integration/status/settings surface may expose external-runtime connectivity/configuration.
+- the universal shell of Prep;
+- the only Knowledge access mechanism;
+- canonical domain structure;
+- a requirement that all nodes/relations be rendered simultaneously;
+- a source of semantic meaning beyond accepted Knowledge identities and relationships.
 
-Study and Statistics are contextual Learning capabilities. Import is a contextual Curation/Library capability.
+The existing 3D experiment is donor implementation evidence and should be reused downstream where compatible. Its existence reduces realization cost but does not override the semantic safeguards above.
 
-## Learning presentation pattern
+### Why 3D is paired with textual access
 
-Learning starts with selection of an existing curated LearningTarget. Learning mode provides no create/edit/recompose actions for target scope.
+A 3D projection can improve relational overview and make exploration engaging, but it also introduces viewpoint, occlusion, spatial-navigation and accessibility risks.
 
-When a target is open, presentation preserves:
+Therefore:
 
-- target identity and concise definition;
-- minimal local learner navigation for Overview, Knowledge, Study and Statistics;
-- available-material facts relevant to the current section;
-- a stable way back to target selection;
-- an explicit switch to Curation when the same v1 user chooses to author or repair reusable material/target structure.
+- search can establish focus without spatial navigation;
+- focused detail provides explicit content and relationship semantics;
+- selecting/following a relationship does not require interpreting geometry;
+- renderer failure or deliberate disabling does not remove Knowledge access;
+- the user can return from spatial exploration to textual/focused navigation without changing canonical scope.
 
-Scope is presented inside Overview because it is read-only in Learning. Target Questions are presented inside Study because the current Study Set and currently resolvable Question collection have the same membership.
+A future 2D projection remains a controlled extension if user evidence shows it materially improves the same tasks.
 
-Detailed structural/semantic curation diagnostics should not dominate learner surfaces.
+## Knowledge projection density
 
-Learning target navigation uses the shared shell hierarchy on desktop; exact routing and narrow/mobile disclosure mechanics remain downstream.
+The default projection is **focus-progressive**, not full-corpus dense.
 
-## Curation presentation pattern
+Presentation should emphasize:
 
-Curation exposes:
+- the focused Knowledge item;
+- its directly relevant neighborhood/relationships;
+- enough surrounding context to preserve orientation;
+- explicit filters/scope when the visible projection is bounded.
 
-- prepared LearningTargets and their Requirement/RequirementSet composition;
-- the reusable Library of Knowledge, Requirements/RequirementSets and Questions.
+Labels/details use progressive disclosure:
 
-Library collections remain collection-first.
+- focused item: strong identity/content access;
+- related items: readable identity on interaction or when presentation can support it without clutter;
+- distant/supporting context: lower visual emphasis;
+- full content: on demand through focused detail.
 
-Each collection may provide supported search/filter controls, creation, canonical detail/edit access, alignments and contextual Import.
+No fixed node count, edge count, FPS or density threshold is part of the current contract.
 
-Future Question-set coverage quality belongs here or in another curation surface derived from accepted semantics. Until those semantics exist, presentation may show structural facts such as "no aligned Questions" but must not fabricate a coverage percentage.
+## Knowledge control surface
 
-## Canonical object pattern
+### Persistent task controls
 
-Canonical Knowledge, Requirement/RequirementSet and Question identity is shared across contexts.
+The Knowledge presentation keeps the controls needed to perform accepted tasks easy to discover:
 
-### Learner context
+- search;
+- global vs target-relevant scope;
+- semantic-kind filtering where available;
+- relation-type filtering where available;
+- current focus / clear focus.
 
-Learner detail emphasizes readable subject/question content and navigation relevant to the selected target.
+### Projection-local controls
 
-### Curation context
+When the 3D projection is active, presentation may expose compact projection-local controls such as:
 
-Curation detail may expose:
+- fit/reframe visible projection;
+- reset viewpoint;
+- enter/leave 3D projection.
 
-- editable canonical fields;
-- related-object/alignment sections;
-- searchable canonical-object selectors where assignment/alignment is allowed;
-- explicit completion/cancel behavior;
-- inline validation while preserving recoverable input.
+These controls affect attention/presentation state only.
 
-Context switching must preserve object identity and make the change in available actions clear.
+### Secondary renderer tuning
 
-## Study presentation
+Renderer mechanics are not ordinary product vocabulary.
 
-Study Set presentation keeps LearningTarget identity and currently resolved Questions visible.
+Options such as:
 
-Construction uses the currently resolvable subset. It may be empty. The presentation does not imply semantic completeness and does not block learning merely because curation is incomplete.
+- force constants;
+- physics duration;
+- particles;
+- polygon/detail level;
+- batching/instancing;
+- pixel ratio;
+- shader/material choices;
 
-External-study actions show runtime availability and per-Question outcome. An unavailable runtime is distinct from an empty Study Set.
+remain implementation or developer-diagnostic concerns unless later user evidence shows a stable user task for controlling them.
 
-## Statistics presentation
+The previous Auto / Quality / Performance profile requirement is removed from the product presentation contract.
 
-Statistics use factual ReviewObservation language and factual aggregates.
+## Action hierarchy
 
-Target-context statistics are observations for Questions currently relevant to the target, not target mastery/readiness.
+Shared action hierarchy:
 
-## Responsive spatial system
+- **primary** — the action that advances the current user task;
+- **secondary** — reversible/supporting task action;
+- **contextual** — object-specific action available when a canonical item/focus exists;
+- **destructive or scope-changing** — visually differentiated and requires deliberate intent;
+- **technical/diagnostic** — subordinate to user work and never competes visually with primary actions.
 
-All material views must define how hierarchy survives reduced available width. Exact CSS breakpoints remain implementation details; the semantic transformations are not.
+Curation mutation actions appear only when Curation context is explicit.
 
-Shared layout classes:
+Learning views do not silently expose mutation actions merely because the same canonical object is visible.
 
-- **wide workspace** — enough width for a dominant primary work surface plus persistent supporting regions;
-- **compact workspace** — primary work surface remains dominant while secondary detail/list regions move below, collapse or become drawers;
-- **narrow workspace** — one primary reading/interaction column; secondary regions become explicit disclosures/drawers and must not cause horizontal overflow.
+## Search, selection and detail pattern
 
-Responsive reflow preserves keyboard/focus order and does not hide required actions.
+The reusable pattern for entity-heavy work is:
 
-For canvas/map/graph workspaces, the primary interactive surface receives the flexible remainder of available width/height. Supporting list/detail panes must not consume equal visual weight merely because they are sibling regions.
+```text
+scope/context
+  -> search/filter
+  -> result/reference
+  -> focus/selection
+  -> focused detail
+  -> relationship/context action
+```
 
-## Knowledge workspace visual specification
+The pattern applies to Knowledge and may be specialized by Targets, Requirements and Questions.
 
-The Knowledge workspace is a graph-centered operational frame with supporting search/results and detail/editor access.
+Selection/focus is preserved during recoverable loading or operational failure when doing so does not misrepresent canonical acceptance.
 
-### Wide frame geometry
+## Forms and canonical mutations
 
-At desktop/wide widths:
+Curation forms follow a common state language:
 
-- left application rail: approximately 200-220 px;
-- workspace header + actions + graph toolbar: compact, normally no more than approximately 120-150 px total vertical chrome;
-- optional Knowledge results pane: approximately 200-240 px;
-- right detail/editor pane: approximately 280-320 px;
-- central graph receives all remaining horizontal space and must be the visually dominant region;
-- graph height uses the useful viewport remainder after shell/header/toolbars, normally targeting at least approximately 520 px on ordinary desktop screens;
-- the graph is not centered inside a larger empty panel: its renderer surface fills the graph region.
+- browsing;
+- editing;
+- submitting;
+- accepted;
+- validation rejected;
+- conflict;
+- operational failure.
 
-### Page header and actions
+Presentation rules:
 
-Header composition:
+- proposed input remains distinguishable from accepted canonical value;
+- validation rejection keeps corrective context;
+- conflict requires explicit reload/reconciliation rather than silently presenting stale input as accepted;
+- success is shown only after the accepted machine/application outcome.
 
-1. small context/eyebrow, e.g. `Curation`;
-2. compact title, e.g. `Curation Knowledge`;
-3. one short helper sentence only where it materially helps orientation.
+Exact inline/modal/drawer composition remains Screen/View Design freedom.
 
-Curation authoring actions `New Knowledge` and `Import Knowledge` are compact actions aligned with the header/toolbar area. They do not render permanent full-width authoring cards until invoked.
+## Feedback conventions
 
-### Graph toolbar
+### Loading
 
-The graph toolbar is one compact horizontal control band on wide layouts. It contains, in task order:
+Loading indicates the affected region/task without replacing unrelated usable context.
 
-1. Search field;
-2. Search action;
-3. semantic-kind filter;
-4. relation-type control;
-5. explicit Focus;
-6. Clear focus;
-7. Fit graph;
-8. Reset camera;
-9. Graph settings;
-10. compact Auto / Quality / Performance profile selector where space permits.
+### Empty
 
-Toolbar controls may wrap in compact layouts but must remain grouped by task. They must not form several visually unrelated button rows.
+Empty state states the factual absence:
 
-### Knowledge results pane
+- no search match;
+- empty Study Set materialization;
+- no observations;
+- no supported diagnostics.
 
-The results pane is supporting and search-first.
+It must not infer learner failure, poor coverage or missing mastery.
 
-- label: `Knowledge results`;
-- show exact result/total context when available, e.g. `40 / 1,284`;
-- do not render an unbounded full corpus;
-- ordinary visible window is approximately 8-12 rows or a bounded maximum such as 40 results;
-- row shows concise title plus compact semantic-kind tag/secondary cue;
-- selected item uses explicit selection styling;
-- large corpora are narrowed with search/filtering; future virtualization/pagination may realize the same contract;
-- global Curation may keep the pane collapsed by default so the graph receives maximum width.
+### Error and recovery
 
-### Graph canvas
+Errors preserve semantic context where safe and present the next valid recovery action.
 
-Graph canvas visual behavior follows the proven experimental direction without importing experiment semantics:
+External-runtime failure remains distinguishable from local canonical-data failure.
 
-- dark continuous workspace surface;
-- selected node is emphasized but the remaining graph stays visible;
-- selection does not imply focus/filtering;
-- explicit focus may emphasize a bounded neighborhood and dim/hide unrelated nodes only after the user asks for it;
-- visible node labels are selective to avoid clutter; selected/focused/hovered labels have priority;
-- relation direction/type remains inspectable by arrows, labels, legend/detail or another redundant encoding;
-- compact unobtrusive graph status may show node count, relation count and active profile;
-- fit/reset/settings controls may be duplicated as icon utilities inside the canvas only if they mirror, rather than redefine, toolbar commands;
-- optional minimap/overview is allowed as a presentation aid but carries no semantic meaning.
+### Success
 
-### Detail/editor pane
+Success confirms accepted outcome, not merely local optimistic intent.
 
-The right pane is bounded supporting context, not a peer workspace.
+## Navigation presentation
 
-- width approximately 280-320 px on wide layouts;
-- compact heading and field spacing;
-- selected Knowledge identity/content remains visible while graph context is preserved;
-- relations use compact rows/chips with explicit direction/type text;
-- relation editor uses compact type + target selection and explicit Add action;
-- Save/mutation actions are visually clear but do not dominate the pane;
-- closing or changing detail must not reset graph camera/layout merely because selection changed.
+The root destinations remain:
 
-### Selection and focus
+- Learning;
+- Knowledge;
+- Curation.
 
-Selection and focus are separate interaction states:
+The presentation system does not mandate tabs, rail, menu or another concrete navigation widget. Screen/View Design chooses the shell pattern while preserving:
 
-- selecting a node opens/updates detail and highlights that node;
-- other nodes remain visible;
-- focus/local-neighborhood filtering occurs only after explicit user Focus action or accepted deep-link intent;
-- Clear focus restores the previous semantic scope without discarding selection unless the user changes selection separately.
+- root destinations remain findable;
+- current work context remains visible;
+- target-scoped Knowledge entry preserves target context;
+- Curation remains explicit before mutation actions appear.
 
-## Responsive frame specification
+## Visual language
 
-Accepted implementation breakpoints are expressed as viewport classes rather than device brands.
+No branding system or exact visual reference is accepted upstream, so exact colors, typefaces and token values remain controlled implementation/design freedoms.
 
-### Wide — approximately 1280 px and above
+Shared defaults:
 
-- persistent left application rail;
-- one-row/compact graph toolbar where practical;
-- optional results pane + dominant central graph + persistent right detail/editor;
-- results pane may be collapsed independently;
-- graph is the clear majority of the flexible workspace.
+- restrained chrome around the primary task;
+- clear hierarchy through type scale, spacing, weight and grouping;
+- semantic status never encoded by color alone;
+- selection/focus has an explicit visible treatment;
+- dense technical metadata is subordinate to user-readable meaning;
+- visual effects in the 3D projection must not obscure identity or relationship inspection.
 
-### Compact — approximately 900-1279 px
+A small stable semantic token vocabulary may be introduced downstream for roles such as surface, text, emphasis, focus, success, warning, error and relation-category encoding. Exact values are not canonical at this stage.
 
-- application navigation remains available but may use a narrower rail or compact equivalent;
-- results pane may remain beside graph only while graph stays dominant;
-- detail/editor moves below the graph or becomes a drawer/overlay;
-- graph should retain at least roughly 2.5x the width of an open results pane where both are side by side;
-- toolbar may wrap into two compact rows.
+## Responsive/adaptive defaults
 
-### Narrow — below approximately 900 px
+Presentation must preserve task semantics when available viewport space changes.
 
-- one content column;
-- graph appears first and uses full content width;
-- results and detail/editor follow as explicit disclosures/drawers/stacked regions;
-- large supporting panes never force horizontal page scrolling;
-- graph controls become compact/icon-based where necessary;
-- navigation rail becomes a compact mobile navigation mechanism.
+General rules:
 
-Responsive transformation preserves semantic state, keyboard order and current selection/filter/focus intent.
+- primary task and focused content outrank secondary context;
+- secondary panels/controls may move behind disclosure;
+- textual Knowledge access remains available when the 3D projection is unsuitable for the current viewport/device;
+- Curation input and validation state must remain recoverable across adaptation.
 
-## Knowledge exploration
+Exact breakpoints and region rearrangement belong to Screen/View Design and implementation.
 
-Knowledge provides coordinated list/search, graph and detail representations over the same canonical identities.
+## Accessibility defaults
 
-### Spatial priority
+Shared requirements:
 
-The 3D graph is the **primary workspace** whenever graph mode is active. List/search and detail are supporting access/inspection regions.
+- keyboard-visible focus;
+- keyboard operation for search, result selection, relationship traversal and primary actions;
+- semantic statuses expressed in text/structure, not color alone;
+- pointer-only 3D gestures never become the sole way to focus or traverse Knowledge;
+- focused Knowledge identity and relation type/direction have non-spatial readable equivalents;
+- motion/continuous visual effects are presentation enhancements, not semantic requirements.
 
-Wide composition:
+Detailed conformance criteria may be refined by Verification Design when concrete screens exist.
 
-- compact workspace header and toolbar;
-- optional/collapsible Knowledge list at the left;
-- flexible central graph occupying the clear majority of remaining workspace;
-- selected Knowledge detail at the right;
-- graph workspace uses the available viewport height after shell/header/toolbars rather than a small fixed canvas.
+## Material invariants
 
-Compact composition:
+- Knowledge remains accessible without the 3D renderer.
+- 3D is a local Knowledge projection, not the universal Prep UI.
+- Geometry never defines canonical Knowledge semantics.
+- Learning/Curation context remains explicit around shared canonical information.
+- Mutation success follows accepted canonical outcome.
+- Search/focus/relationship traversal have non-spatial, keyboard-operable paths.
+- No numeric performance envelope or renderer profile is a current MVP presentation requirement.
 
-- list remains narrow/collapsible beside the graph when useful;
-- graph remains primary;
-- detail moves below the graph or opens as a drawer/overlay;
-- no supporting pane may force the graph into a small card.
+## Controlled freedoms
 
-Narrow composition:
+Screen/View Design may decide:
 
-- graph uses full available content width;
-- list and detail are explicit drawers/disclosures or ordered supporting sections;
-- search/filter/settings remain reachable without horizontal overflow;
-- non-graph list/search/detail remains fully usable.
+- concrete navigation widget;
+- screen regions and pane composition;
+- inline vs overlay detail/editing;
+- whether 3D is initially visible or activated from the Knowledge view;
+- exact placement of projection-local controls;
+- responsive rearrangement.
 
-In Curation Knowledge, **New Knowledge** and **Import** are toolbar actions that open focused authoring/import surfaces. They must not permanently occupy a large row above the graph.
+Implementation may decide:
 
-### Graph control surface
+- CSS/layout mechanics;
+- rendering library and object model;
+- camera mechanics;
+- batching/instancing;
+- physics behavior;
+- exact styles and tokens;
+- internal component structure.
 
-Primary toolbar:
+## Reopening conditions
 
-- Knowledge search;
-- semantic-kind filter;
-- relation-type filter;
-- focus/clear focus;
-- **Fit graph**;
-- **Reset camera**;
-- compact **Graph settings**.
+Revisit the presentation system when:
 
-Relation filtering uses a multi-select checklist/legend so several accepted relation types can be visible simultaneously; color may support but never replace the textual relation type.
+- prototype/user evidence shows 3D harms or materially improves target tasks;
+- a 2D projection demonstrates distinct user value;
+- branding or explicit visual identity becomes accepted;
+- accessibility/platform obligations require stricter presentation rules;
+- realistic corpus/device evidence produces accepted numeric quality constraints;
+- new product capabilities add materially different user work.
 
-Graph settings expose the accepted performance profiles and presentation-only controls from `docs/architecture/performance-capacity.md`. Expensive visual effects may be disabled without losing semantic access.
+## Unresolved questions
 
-
-For the frontend prototype:
-
-- a 3D node-link graph is implemented as an experimental first-class Knowledge view;
-- Target Knowledge defaults the graph scope to nodes relevant to the selected LearningTarget;
-- Curation may expose a broader/global graph;
-- relation-type filters control accepted semantic relation types, initially `addresses` and `realizes`;
-- semantic-kind filters control Concept / Mechanism / Procedure / Strategy visibility;
-- focus mode reduces clutter to a selected node and a bounded neighborhood;
-- relation direction and type remain legible without relying on geometry alone;
-- node selection opens readable canonical detail without discarding graph state;
-- Study Questions can deep-link into the graph focused on their aligned KnowledgeNodes.
-
-Graph layout/camera state and performance-profile state remain presentation state. Geometric proximity and renderer quality settings are not semantic meaning.
-
-The 3D prototype is compared with 2D/list baselines on concrete relational-learning tasks. Research shows potential value of node-link representations and, in some settings, 3D/immersive depth, but also known viewpoint, occlusion and disorientation costs; therefore 3D is not promoted to a product invariant before task evidence.
-
-A future learner-state overlay may use opacity, size or other redundant encodings, but only after accepted learner-state semantics exist. Current review facts must not be converted into pseudo-mastery by visualization code.
-
-## Import presentation
-
-Import is presented from the relevant Library data kind rather than as a required global workspace.
-
-Bulk import reports total/applied/rejected outcomes plus rejected-item identity and reason without representing partial success as total failure.
-
-## Accessibility baseline
-
-Core navigation/actions are keyboard accessible; focus is visible; labels do not depend on placeholders; semantic state does not depend on color alone; every graph task needed for core operation has a non-graph equivalent.
-
-Any future state overlay must use a non-color-only redundant encoding.
-
-## Remaining implementation freedoms
-
-The accepted visual language above constrains role hierarchy, density, approximate metrics, shell composition and responsive workspace behavior.
-
-Still downstream:
-
-- exact CSS/layout mechanism;
-- exact font provider/file as long as metrics remain equivalent;
-- exact hexadecimal palette values within the accepted role/contrast relationships;
-- concrete component library/provider;
-- exact icon package within one coherent line-icon family;
-- route implementation;
-- animation/easing details that do not alter task semantics;
-- virtualization/pagination implementation behind the bounded Knowledge results contract;
-- exact narrow/mobile drawer/disclosure implementation;
-- future learner-state overlay encoding after its semantics exist.
-
-Repeated presentation roles must map through one provider/theme/token boundary rather than allowing each feature to invent an unrelated visual system.
+None currently block shared presentation definition.
