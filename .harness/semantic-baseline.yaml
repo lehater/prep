@@ -81,8 +81,8 @@ reviews:
     basis: "Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology."
 
   - capability: prep.presentation-system
-    revision: 5
-    basis: "Presentation System resolved the 3D Knowledge-graph question through the Harness decision pipeline: 3D-default, 2D-default-with-optional-3D, list-primary and no-stable-default alternatives were reviewed across representation, information-density and control-surface axes. Mixed coordinated access with a 2D node-link production default is accepted; 3D remains experimental and requires explicit fit/reset, focus/filter, redundant relation encoding, non-spatial detail and lossless return to 2D/list access."
+    revision: 6
+    basis: "Presentation System REDO-resolved the 3D Knowledge-graph decision using explicit stakeholder preference plus preserved R2 feasibility evidence. Mixed coordinated access with a 3D node-link production default is accepted; list/search/detail remain task-complete, 2D may serve as fallback/alternative, information density stays bounded/progressive, and explicit focus/filter/fit/reset plus non-spatial keyboard access constrain occlusion/orientation risk. No claim of proven educational superiority over 2D is made."
 
   - capability: prep.screen-view-design
     revision: 4
