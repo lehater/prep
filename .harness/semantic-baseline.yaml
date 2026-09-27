@@ -13,20 +13,16 @@ reviews:
     basis: Problem observations now carry an explicit durable stakeholder-evidence inventory and provenance class; the revalidation confirms they remain problem truth without importing product or solution choices.
 
   - capability: prep.product-intent
-    revision: 1
-    basis: Product intent was revalidated at observable scope/outcome level without promoting downstream domain, interface or architecture decisions.
+    revision: 2\n    basis: Product intent now explicitly covers usable knowledge plus knowledge-dependent capability, contextual evidence and bounded evidence-backed learner-state conclusions without selecting domain or inference structures.
 
   - capability: prep.product-capabilities
-    revision: 2
-    basis: Product capabilities were revalidated into stable PC trace anchors with observable acceptance semantics and explicit current-slice/deferred dispositions; learning material is preparation/availability in the current slice, not automatic derivation.
+    revision: 3\n    basis: Product capabilities now define target conditions/standards where material, representation-neutral learning/practice/assessment forms, contextual performance evidence, bounded learner-state conclusions and progress semantics while keeping Question/Anki as optional prototype realizations rather than product definitions.
 
   - capability: prep.domain-strategy
-    revision: 1
-    basis: Strategic domain responsibilities remain investment/responsibility boundaries rather than tactical model or context-internal design.
+    revision: 2\n    basis: Domain strategy retains Knowledge, Learning Design and Learner Model while clarifying their strategic responsibilities: reusable subject meaning; normative target/learning/practice/assessment/adaptation semantics; and learner-specific performance evidence plus evidence-backed state.
 
   - capability: prep.model-context-strategy
-    revision: 1
-    basis: Model-context applicability and relationships remain separate from strategic investment classification and tactical semantics.
+    revision: 2\n    basis: Model-context strategy now defines only applicability and knowledge flow between reusable subject, normative learning-design and learner-specific descriptive/epistemic languages; tactical entity and inference structures remain downstream.
 
   - capability: prep.knowledge-relation-classification
     revision: 3

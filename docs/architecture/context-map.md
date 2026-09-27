@@ -4,7 +4,7 @@
 
 Define the strategic domain decomposition for Prep from the accepted Problem Space, Product Vision and Product Capabilities.
 
-This map owns semantic boundaries and relationships. It does not imply services, processes, databases, UI surfaces, storage models or deployment units.
+This map owns semantic responsibility boundaries and relationships. It does not imply tactical entities, services, processes, databases, UI surfaces, storage models or deployment units.
 
 ## Research basis
 
@@ -13,7 +13,7 @@ The decomposition is informed by established adaptive-learning and competency-mo
 - adaptive-learning literature commonly separates a domain model, learner model and instructional/adaptation responsibility;
 - Knowledge Space Theory separates discipline knowledge structure from an individual's knowledge state;
 - 1EdTech CASE models reusable competencies, learning outcomes, relationships and rubrics independently of learner records and delivery systems;
-- learner-model research treats the learner model as a distinct representation of learner-specific state used by adaptive behavior.
+- learner-model research treats learner-specific evidence and state as distinct from reusable subject meaning and instructional policy.
 
 These precedents are evidence for separation of responsibilities, not prescribed implementation models.
 
@@ -21,45 +21,52 @@ These precedents are evidence for separation of responsibilities, not prescribed
 
 ### Knowledge Model
 
-Owns the reusable representation of subject knowledge independently of any particular learner, learning target or learning mechanism.
+Owns reusable subject knowledge semantics independently of any particular learner, learning target or learning mechanism.
 
-Its language concerns knowledge identity, concepts or other knowledge units, distinctions, relationships, explanatory meaning and coherence of the represented subject.
+Its responsibility is the identity, meaning, distinctions, relationships and coherence of represented subject knowledge.
 
-It does not own learning requirements or competencies, decide what a particular learner should do next, or own learner state.
+It does not own desired learner capability, target-relative learning policy, learner observations or learner-specific state.
 
 The representation is deliberately undecided. This context is not synonymous with a graph, ontology, hierarchy or document model.
 
 ### Learning Design
 
-Owns learning requirements and competencies together with target-specific interpretation and adaptation: what the learner is trying to achieve, what depth or evidence is required, which gaps matter for that target, and what learning or practice should be selected next.
+Owns normative and target-relative learning semantics: what the learner is expected to know or be able to do, the material scope/conditions/standard of that expectation, what learning/practice/assessment opportunities and evidence are appropriate, which target-relative gaps matter, and what should receive attention next.
 
-Its language concerns reusable and target-specific requirements or competencies, learning target, required depth, target scope, gap, priority, learning intent, learning material, practice intent and evidence requirement.
+It consumes reusable subject knowledge from Knowledge Model and evidence-backed learner-specific state from Learner Model.
 
-It consumes reusable subject knowledge from Knowledge Model and learner-state information from Learner Model. It does not redefine subject knowledge or own observations about the learner.
+It does not redefine subject knowledge and does not own actual learner performance, observations or learner-specific evidential conclusions.
 
-This context currently keeps target interpretation, prioritization and learning/practice design together because they participate in one decision: what should the learner work on next and why. A later split requires evidence of independently changing language or invariants.
+Learning, practice and assessment design remain together strategically while they share one target-relative responsibility: define the desired outcome, the opportunities to develop or demonstrate it, and the evidence needed to judge progress. A later split requires evidence of independently changing language, lifecycle or consumers.
 
 ### Learner Model
 
-Owns learner-specific learning observations and statistics. In the current slice these are Question-level review observations; interpretation into inferred state, confidence/uncertainty, retention, decay or demonstrated progress is deferred.
+Owns learner-specific descriptive and epistemic semantics: actual learner performance and observations, their provenance/context, and evidence-backed interpretation of what can currently be concluded about that learner, including material uncertainty and temporal scope.
 
-It references learning artifacts needed to identify what was reviewed, but it does not mutate subject truth or decide target-specific learning policy.
+It does not redefine reusable subject truth, define the desired target, or decide what the learner should work on next.
+
+The exact inference model, confidence representation and tactical structures are downstream decisions.
 
 ## Context relationships
 
 ```text
-                    reusable subject knowledge
-Knowledge Model -------------------------------> Learning Design
-      |                                                |
-      | knowledge identity                             | learning / evidence intent
-      v                                                v
-Learner Model ---------------------------------> learning / practice execution
-      ^                                                |
-      |                                                | observations / results
-      +------------------------------------------------+
-
-Learner Model -------- recorded observations/statistics --------> Learning Design
-Learning Design ------ learning-artifact identity/context ------> Learner Model
+Knowledge Model
+      |
+      | reusable subject semantics
+      v
+Learning Design
+      |
+      | target / learning / practice / assessment intent
+      | evidence expectations
+      v
+learning / practice / assessment execution
+      |
+      | actual performance / observations
+      v
+Learner Model
+      |
+      | evidence-backed learner-specific state / uncertainty
+      +-----------------------------------------------> Learning Design
 ```
 
 The diagram shows semantic information flow, not a required runtime pipeline.
@@ -68,13 +75,15 @@ The diagram shows semantic information flow, not a required runtime pipeline.
 
 ### Authoring and input
 
-People create and maintain Prep's modeled data through user-facing interfaces. This includes subject knowledge owned by Knowledge Model and requirements or other learning-design data owned by Learning Design. Prepared data may also be loaded through an input interface.
+People create and maintain Prep's modeled data through user-facing interfaces. Prepared data may also be loaded through an input interface.
 
-Authoring and loading do not create new semantic ownership: each bounded context continues to own the data defined by its model. Automatic source preparation, extraction, derivation, validation and conflict resolution are outside the current product scope. No separate acquisition bounded context is justified.
+Authoring and loading do not create new semantic ownership: each bounded context continues to own the meaning assigned to its data. Automatic source preparation, extraction, derivation, validation and conflict resolution are outside the current product scope unless separately accepted.
 
-### Learning / practice execution
+### Learning / practice / assessment execution
 
-Actual learning activity may be executed inside Prep or delegated to external systems. Anki, assessment engines and other study runtimes are mechanisms outside the strategic core unless future evidence establishes product-owned semantics that require another bounded context.
+Actual activity may be executed inside Prep or delegated to external systems. Anki, assessment engines and other runtimes are mechanisms outside the strategic core unless future evidence establishes independently owned product semantics.
+
+External execution can supply observations but does not define Prep's subject, target or learner-state semantics.
 
 ### Subject specialization
 
@@ -82,29 +91,28 @@ Technical subjects and future domains may require specialized vocabulary or inva
 
 ### Quality
 
-Quality rules remain with the context whose truth they protect: knowledge quality with Knowledge Model, learning-design quality with Learning Design, and evidence/state quality with Learner Model. No independent Quality bounded context is currently justified.
+Quality rules remain with the context whose truth they protect: knowledge quality with Knowledge Model, learning-design quality with Learning Design, and learner-evidence/state quality with Learner Model. No independent Quality bounded context is currently justified.
 
 ## Relationship rules
 
 - Knowledge Model owns reusable subject semantics; learner evidence cannot redefine them.
-- Learner Model owns learner-specific learning observations and statistics; study activity is not automatically proof of knowledge.
-- Learning Design owns target-relative gaps, priorities and next-learning decisions.
-- A gap exists only relative to a target and learner evidence or explicit uncertainty; it is not intrinsic subject knowledge. The current slice does not yet define how recorded review statistics become such interpreted evidence.
-- Learning Design references Knowledge Model rather than copying ownership of subject knowledge.
-- Learner Model records observations against stable learning-artifact references but does not own those definitions.
-- Input mechanisms may propose or import knowledge but do not gain semantic ownership by doing so.
-- External learning runtimes do not define Prep's domain semantics.
+- Learning Design owns desired learner outcomes, evidence requirements, target-relative gaps, priorities and adaptation decisions.
+- Learner Model owns learner-specific observations and evidence-backed conclusions; observations and conclusions remain distinguishable.
+- Learner-specific state may inform Learning Design but cannot redefine reusable Knowledge or the target itself.
+- A gap exists only relative to a target and learner-specific evidence/state or explicit uncertainty; it is not intrinsic subject knowledge.
+- Learning Design references Knowledge Model rather than copying ownership of subject meaning.
+- External runtimes do not define Prep's domain semantics.
 - No bounded context is automatically a deployable service.
 
 ## Strategic uncertainties
 
-The following remain explicit questions for Domain Model Design:
+The following remain explicit reopening conditions rather than unresolved tactical details:
 
-- whether Learning Design later needs separation between target/planning semantics and learning-material/practice design;
-- how recorded learner statistics should later be interpreted into learner state and evidence strength;
-- how learner-state uncertainty should be represented;
-- how retention and evidence decay affect inferred learner state;
-- which subject-specific semantics justify specialization or an additional bounded context;
+- split Learning Design only if target/planning, learning/practice or assessment semantics acquire independently changing language, lifecycle or consumers;
+- split Learner Model only if raw observation and learner-state interpretation acquire independently valuable public contracts or independent change lifecycles;
+- add subject-specific contexts only when specialization can no longer be expressed coherently within the existing boundaries.
+
+Exact capability, task, observation, evidence, inference, gap and priority structures belong to Tactical Domain Design.
 
 ## Research references
 
