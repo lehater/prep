@@ -245,7 +245,7 @@ Implement:
 - no semantic coverage score or automatic repair is invented;
 - diagnostic-to-repair navigation preserves accepted Curation context.
 
-### Slice I6 — Verification closure and legacy cutover
+### Slice I6 — Verification closure and obsolete realization removal
 
 **Goal:** prove the rebuilt frontend before removing obsolete realization paths.
 
@@ -276,7 +276,7 @@ I0 boundary foundation
  |
  +--> I3 Learning vertical flow
 
-I1..I5 --> I6 verification closure / legacy cutover
+I1..I5 --> I6 verification closure / obsolete realization removal
 ```
 
 I2 does not block I3. A usable Learning frontend can progress while 3D adaptation is refined.
@@ -340,28 +340,15 @@ Do not add a second test framework solely because a test contract was introduced
 
 If an existing environment cannot express one required oracle, add the smallest compatible capability needed for that oracle rather than replacing the test stack wholesale.
 
-## Migration / transition
+## Migration / transition applicability
 
-The current production frontend is implementation evidence, not semantic baseline.
+No independent migration/transition contract is applicable to the current frontend implementation scope.
 
-Use **incremental internal cutover**:
+The current `web/` code is implementation evidence, not a semantic baseline or a concurrently supported product contract. The rebuilt frontend remains one browser artifact: this plan introduces no data/schema migration, mixed-version coexistence window, irreversible intermediate production state, live dual-UI compatibility requirement or transition-specific runtime recovery protocol.
 
-1. introduce new boundaries beside existing realization without changing accepted backend contracts;
-2. realize one accepted task surface/slice;
-3. prove its relevant verification contracts;
-4. switch that task entry/composition to the rebuilt path;
-5. keep the previous path only while needed for rollback during the branch/PR implementation;
-6. remove superseded code after the new slice has current evidence.
+Implementation slices may replace internal modules incrementally inside the implementation branch because that improves bounded verification. That development sequencing is not a user-visible migration state and does not create a second canonical frontend.
 
-Do not maintain long-lived dual product semantics.
-
-### Rollback
-
-Before merge/deployment authorization, Git/branch rollback to the previously working implementation is sufficient.
-
-No runtime feature-flag compatibility system is required by accepted design.
-
-If deployment process later requires live dual-version rollback semantics, that is a separate transition requirement and must be accepted before inventing it here.
+Production merge/deployment remains outside this artifact's authority. If a future release introduces mixed-version coexistence, staged irreversible rollout, data/schema migration, live compatibility window or transition-specific rollback semantics, reopen Change/Transition Design before implementation invents such behavior.
 
 ## Verification enforcement
 
