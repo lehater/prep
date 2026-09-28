@@ -4,276 +4,283 @@
 
 Define Prep's application-level composition of accepted product and domain behavior without re-owning domain semantics, external machine contracts, persistence, UI composition or runtime topology.
 
-Canonical data is maintained through application use cases. Human interfaces and bulk-import interfaces invoke these use cases; neither writes directly to persistence.
+Application Design supports the user-centered loop established by the Task Model:
 
-## Canonical data maintenance
+```text
+target
+  -> current evidence-backed state
+  -> target-relative gaps / uncertainty
+  -> next focus
+  -> learning / practice / diagnosis
+  -> new evidence
+  -> updated target-relative state
+```
 
-### Knowledge
+A parallel curation lifecycle bootstraps and maintains the reusable corpus required by that loop.
+
+## Task contexts
+
+The current single-user product has two semantic work contexts, not security roles:
+
+- **Learning/target work** — establish a concrete target, inspect current state and gaps, choose the next focus, learn/practise/diagnose, collect evidence and reassess progress.
+- **Curation work** — prepare and maintain targets, capabilities, knowledge, learning support, assessment design and structured bulk data.
+
+The same person may move between both contexts. When a required target or support artifact does not exist, the learner workflow may route into the corresponding curation task and return with the original target context preserved.
+
+## Target application use cases
+
+### Select or establish target
 
 Application operations:
 
-- create and edit a KnowledgeNode;
-- create and remove a typed KnowledgeRelation between KnowledgeNodes;
-- load prepared KnowledgeNodes and KnowledgeRelations in bulk.
+- list/search prepared LearningTargets;
+- open one prepared target as active context;
+- route to target preparation when no suitable target exists;
+- return to learning with the newly prepared target active.
 
-Automatic extraction, derivation or validation of source material is outside the current scope.
+Target creation/editing remains a curation operation. Learning does not silently mutate a prepared target.
 
-### Capability requirements
+### Inspect target profile
 
-Application curation may maintain reusable Capability definitions used by LearningTarget requirements.
+Project the target context and RequirementExpression<CapabilitySpecification> in a user-consumable form, including relevant capability definitions and currently resolvable target-relevant Knowledge references where requested.
 
-A CapabilitySpecification is a domain value, not an independently identity-bearing application record by default. Application operations may construct or replace CapabilitySpecification values while composing a LearningTarget RequirementExpression and may load prepared Capability definitions/target requirement expressions when supported.
+The application preserves RequirementExpression boolean semantics and does not flatten them into an inaccurate checklist.
 
-The application does not infer target requirements automatically from source material or learner activity.
+## Learner-state and gap use cases
 
-### Questions
+### Establish current state
+
+For the active target:
+
+1. resolve the target's required CapabilitySpecifications;
+2. retrieve accepted LearnerCapabilityClaims and their supporting/challenging CapabilityEvidenceArguments;
+3. determine which target requirement fragments are currently established as satisfied;
+4. preserve unresolved or conflicting evidence as uncertainty;
+5. expose supported diagnostic/assessment opportunities for material unresolved areas.
+
+Missing evidence is not converted into a negative capability claim.
+
+### Derive target-relative gaps
+
+Use accepted Learning Design target-satisfaction and Gap semantics to derive:
+
+- satisfied requirement fragments;
+- unresolved gaps;
+- challenged gaps;
+- basis for each conclusion.
+
+The application does not create a scalar proficiency score unless a separately accepted domain/product model defines one.
+
+### Choose current learning/diagnostic focus
+
+Application operations may create or select current LearningPriority/LearningIntent values for one or more gaps.
+
+The application must preserve:
+
+- target identity;
+- focused gap(s);
+- rationale;
+- whether the intent is learning/practice or diagnostic uncertainty reduction.
+
+Automatic ranking is optional downstream policy. Human selection remains valid.
+
+## Knowledge exploration
+
+Queries support:
+
+- global Knowledge exploration for curation;
+- target-scoped Knowledge exploration;
+- current-focus/gap-scoped Knowledge exploration where accepted capability-to-knowledge semantics allow it;
+- list/search/detail and semantic relationship traversal over the same canonical Knowledge identities.
+
+Graph/list/detail are projections, not separate semantic models.
+
+## Learning, practice and diagnosis
+
+### Resolve support for current focus
+
+Given an active target and selected LearningIntent/diagnostic focus, resolve currently available:
+
+- LearningMaterial;
+- TaskSpecifications / Tasks;
+- applicable LearningSupportRequirements;
+- supported external-runtime compatibility representations.
+
+Missing or inadequate support is returned as explicit preparation diagnostics.
+
+### Execute or delegate activity
+
+Activity may execute:
+
+- inside Prep;
+- through a supported external runtime.
+
+Application Design owns orchestration intent and correlation with target/focus. Transport and runtime representation belong to Machine Interface Design.
+
+### Question-compatible Study Set
+
+A Study Set remains a compatibility materialization for the supported Question/Anki slice.
+
+It is not the primary product workflow and is not a domain entity.
+
+For this profile the application:
+
+1. resolves currently representable support for the selected target/focus;
+2. materializes an exact preview with diagnostics and current-state identity;
+3. detects stale previews before export;
+4. exports only the inspected materialization.
+
+A valid empty or partial subset remains possible and must not be described as adequate unless accepted LearningSupportRequirement semantics justify that claim.
+
+## Evidence application use cases
+
+### Record performance and observations
+
+Supported local or external activity may produce Performance and Observation facts with provenance.
 
 Application operations:
 
-- create and edit a Question and its direct answer;
-- align or unalign a Question with one or more KnowledgeNodes;
-- load prepared Questions and, when supplied, their knowledge alignments in bulk.
+- record accepted Performance facts;
+- record accepted Observations;
+- preserve unsupported/incomplete integration records at the integration boundary until faithful translation exists.
 
-Question import does not require alignment to be known at import time. Alignment can be completed as a separate curation activity.
+### Derive learner capability claims
 
-### Learning targets
+Where accepted EvidentialWarrants apply, evaluate observation sets against EvidencePatterns and create/update accepted CapabilityEvidenceArguments and LearnerCapabilityClaims according to Learner Model invariants.
 
-Establishing or changing a LearningTarget RequirementExpression is a **curation operation**.
+The application never treats a raw runtime rating, one correct answer or activity completion as a broad learner capability claim by itself.
 
-Curation operations:
+### Reassess target state
 
-- create and edit a LearningTarget;
-- compose or replace its RequirementExpression<CapabilitySpecification>;
-- optionally load a prepared target definition and requirement expression when a machine interface supports it.
+After accepted evidence changes:
 
-Learning-mode operations:
+1. recompute target satisfaction;
+2. recompute Gap values;
+3. expose material changes from the previous target-relative projection;
+4. allow current priority/focus to be preserved or revised.
 
-- list/select/open an existing prepared LearningTarget for study;
-- inspect its RequirementExpression read-only;
-- choose temporary navigation/focus within that target without mutating the target definition.
+No-change, increased uncertainty and newly challenged state are valid outcomes.
 
-Learning mode does not create, edit, override or recompose the selected target scope. Selection establishes which prepared target is active; it is not target authorship.
+## Corpus bootstrap and curation
 
-The same physical person may establish a personal target, but doing so is still an explicit curation use case completed before returning to learning mode. This preserves the Product Requirement that the learner workflow itself is not required to author target scope.
+### Structured bulk input
 
-#### Target-scope authorship decision
+Bulk input is a first-class curation workflow.
 
-The reviewed alternatives were:
+Application Design owns orchestration after a machine-interface representation has been decoded:
 
-- learner directly composes CapabilitySpecifications while entering learning;
-- learner selects an existing prepared/curated LearningTarget;
-- learner creates a personal target from reusable specifications as part of learning entry;
-- learner selects a prepared target but applies target-local requirement overrides in learning mode.
+1. receive decoded prepared records plus schema/data-kind identity;
+2. validate semantic references/invariants through owning domain operations;
+3. apply valid independent items according to import consistency policy;
+4. return aggregate and per-item outcomes.
 
-Direct composition and target-local overrides are rejected because they make learner-mode selection also own target-scope authorship, contrary to PC-01. Personal-target creation remains valid only when treated as the same explicit curation operation as any other target composition, so it is not a distinct learner-workflow alternative.
+The concrete file/envelope schema, versioning and serialization belong to Machine Interface Design.
 
-The accepted policy is therefore: **curation establishes the complete RequirementExpression; learning selects and consumes a prepared LearningTarget without mutating its scope.**
+For the frontend-first prototype, representative corpus data may be supplied by mock adapters. This does not remove the bulk-import product requirement.
 
-### Learner statistics
+### Incremental curation
 
-ReviewObservations are normally recorded from learning-runtime results rather than manually authored canonical data.
+Application operations support incremental creation/editing of:
 
-The current application contract provides recording and retrieval of Question-level review history/statistics. It does not interpret those statistics into learner state.
+- LearningTargets and RequirementExpressions;
+- reusable Capabilities and CapabilitySpecifications used by targets;
+- Knowledge;
+- LearningMaterial and TaskSpecifications;
+- ObservationSpecifications, EvidencePatterns, EvidentialWarrants, SamplingSpecifications and AssessmentDesigns where supported.
 
-## Task-context distinction
+Incremental UI curation complements bulk import; it is not required to be the efficient path for mass authoring.
 
-The current single-user product supports two different classes of work without introducing authentication roles:
+### Quality diagnostics
 
-- **learning workflow** — choose an existing curated LearningTarget, build study material, study externally and inspect recorded review facts;
-- **curation workflow** — maintain reusable LearningTargets and their RequirementExpressions, Capability definitions, Knowledge, Questions, alignments and learning-material quality.
+Expose accepted structural/semantic preparation problems such as unresolved references, target requirements without usable support, or incomplete assessment semantics.
 
-The same person may perform both in v1. The distinction is semantic/task-oriented, not a user/permission model.
+The application does not invent a universal corpus-quality score.
 
-A learning workflow consumes the currently curated reusable corpus. It is not responsible for repairing semantic completeness of that corpus before useful study can proceed.
+## Browser-facing query groups
 
-## Browser-facing queries
+### Target/learning queries
 
-The browser frontend needs stable application queries in addition to mutation/use-case commands.
+- list/search targets;
+- read target capability profile;
+- read current target-relative state;
+- read satisfied/unresolved/challenged requirement fragments;
+- read gap basis/evidence references;
+- read current priorities/intents;
+- read available diagnostic opportunities;
+- read target/focus-scoped Knowledge;
+- read available learning/practice support;
+- read evidence/progress history.
 
-Learning-mode queries:
+### Curation queries
 
-- list/search existing curated LearningTargets;
-- retrieve one LearningTarget with its read-only RequirementExpression<CapabilitySpecification>;
-- project KnowledgeNodes currently relevant to a LearningTarget;
-- project the accepted KnowledgeRelations among a selected global or target-relevant node set;
-- project Questions currently relevant to a LearningTarget;
-- retrieve Question-level ReviewObservations/statistics in target or Question context.
+- list/search/retrieve targets;
+- list/search/retrieve capabilities;
+- list/search/retrieve Knowledge;
+- list/search/retrieve learning/practice support;
+- list/search/retrieve assessment/evidence design;
+- inspect import outcomes and corpus diagnostics.
 
-Curation-mode queries:
-
-- list/search and retrieve LearningTargets;
-- list/search and retrieve KnowledgeNodes;
-- list/search and retrieve reusable Capability definitions needed for target curation;
-- list/search and retrieve Questions;
-- retrieve structural alignment facts needed by curation, including unaligned Questions and KnowledgeNodes with no aligned Questions where requested.
-
-These queries expose current canonical state. They do not infer mastery, coverage adequacy, readiness or priority.
-
-Text search is an application query capability over human-readable canonical content. Exact indexing/ranking technology is not application semantics.
-
-## Learning preparation
-
-### Build Study Set
-
-A Study Set is a current-state application materialization for a supported study profile. It is not a tactical domain entity and does not assert learning-support adequacy or learner capability.
-
-For the current Question-compatible profile, the application resolves the selected LearningTarget's RequirementExpression into its required CapabilitySpecification leaves and selects the currently available learning/practice artifacts that can be represented by that profile under accepted Learning Design semantics.
-
-A question-shaped item is therefore an application compatibility bundle over the general model rather than a new canonical domain kind: prompt/response expectations are backed by TaskSpecification/Task semantics, learner-facing reference content may be LearningMaterial, and evaluation semantics are backed by ObservationSpecification where applicable.
-
-#### Preparation gate
-
-Study Set construction is allowed when:
-
-1. the selected LearningTarget exists;
-2. its RequirementExpression is structurally valid;
-3. every referenced CapabilitySpecification needed to interpret that expression is resolvable; and
-4. the requested study profile itself is supported by the application.
-
-These are interpretation/execution preconditions, not completeness requirements.
-
-The application does **not** require every target requirement to have learning support before building a Study Set. It materializes the currently resolvable subset.
-
-For each relevant requirement fragment, the result may also expose preparation diagnostics such as:
-
-- no currently resolvable support;
-- available support does not satisfy an explicit LearningSupportRequirement;
-- support adequacy is not specified because no LearningSupportRequirement applies;
-- candidate support exists but cannot be represented by the requested study profile.
-
-If an explicit LearningSupportRequirement exists, adequacy is evaluated using that domain semantics. The application does not replace it with artifact count, Question count or its own coverage heuristic.
-
-An unsatisfied LearningSupportRequirement is a **diagnostic**, not a Study Set construction failure in the current flow. It means the application must not describe the subset as adequate/complete.
-
-A valid target with no currently representable material yields an explicit empty Study Set plus its diagnostics.
-
-Construction fails rather than returning a misleading subset only when the target cannot be interpreted coherently (for example, an invalid RequirementExpression or unresolved required CapabilitySpecification reference) or the requested preparation profile is unsupported.
-
-#### Decision rationale
-
-The preparation gate deliberately separates **materialization validity** from **learning-support adequacy**.
-
-- A strict completeness gate is rejected because neither Product Requirements nor Learning Design makes complete support a precondition for using available material.
-- Treating every unsatisfied LearningSupportRequirement as a hard application failure is rejected because that requirement governs when support may be called adequate; it does not itself define permission to materialize partial support.
-- A separate validate/acknowledge-before-build operation is rejected because no accepted upstream behavior requires a second user/application decision before using a transparent partial result.
-- Silent best-effort materialization is rejected because it would hide known missing or inadequate support.
-
-The accepted application policy is therefore: build the exact resolvable subset when the target is interpretable and the requested profile is supported, and expose material incompleteness/adequacy as explicit diagnostics.
-
-#### Materialization consistency
-
-A Study Set preview binds the exact resolved subset **and its preparation diagnostics** to one current-state materialization identity.
-
-When a user exports a previously previewed set, the application must detect if target requirements, relevant support resolution, or preparation diagnostics changed since that preview rather than silently exporting a materially different state.
-
-For the current slice, dependency-sensitive ordering, automatic prioritization from learner state and adaptive evidence-based filtering are not part of Build Study Set unless separately accepted.
-
-## External study
-
-### Materialize for External Study
-
-Transform a Study Set into the representation required by a selected external learning runtime.
-
-A runtime-specific card is a derived representation of a Question, not a canonical Prep domain object. The concrete external representation and protocol are owned downstream by machine-interface/technical design.
-
-### Export Study Material
-
-Send the materialized study representation to an external learning runtime.
-
-Application Design owns the orchestration intent. External API/protocol contracts and technical transport are not owned here.
-
-### Import Review Results
-
-Receive review results from an external learning runtime, resolve them back to canonical Questions, and record ReviewObservations in the Learner Model.
-
-The mapping and external representation needed to identify corresponding external items are downstream machine-interface/technical concerns.
-
-### Record Learning Statistics
-
-Record accepted Question-level ReviewObservations so review history and statistics can be reproduced.
-
-The current flow stops at recording statistics. Interpretation into learner state, retention, mastery, gaps, priorities or automatic replanning is deferred.
+Exact transport/query shapes remain downstream.
 
 ## Composition
 
 ```text
-Canonical data maintenance / curation
-
-Human authoring --------+
-                        |
-Bulk prepared input ----+--> application use cases
-                              |
-                              +--> KnowledgeNodes / KnowledgeRelations
-                              +--> Capability definitions
-                              +--> Questions / Question-compatible support
-                              +--> LearningTargets / RequirementExpression<CapabilitySpecification>
-
-
-Learning preparation
-
-selected curated LearningTarget
-  -> RequirementExpression<CapabilitySpecification>
-  -> currently resolvable learning/practice support
-  -> requested supported study profile
-  -> Study Set (exact resolvable subset + preparation diagnostics)
-
-
-External study
-
-Study Set
-  -> materialize for external runtime
-  -> export
-  -> external learning activity
-  -> import review results
-  -> record Question-level ReviewObservations
+Prepared target/corpus data -----------+
+Incremental curation ------------------+--> canonical reusable corpus
+                                             |
+                                             v
+                                      active LearningTarget
+                                             |
+                         +-------------------+-------------------+
+                         |                                       |
+                         v                                       v
+              accepted learner evidence                 target requirements
+                         |                                       |
+                         +-------------------+-------------------+
+                                             v
+                                  target-relative state
+                               satisfied / gap / uncertain
+                                             |
+                                             v
+                                  LearningPriority/Intent
+                                             |
+                         +-------------------+-------------------+
+                         |                                       |
+                         v                                       v
+                 learning/practice                         diagnosis
+                         |                                       |
+                         +-------------------+-------------------+
+                                             v
+                                  Performance/Observation
+                                             |
+                                             v
+                               evidence-backed claims
+                                             |
+                                             +----> reassess target
 ```
-
-Canonical-data maintenance flows are independent. Curation may happen before, after or separately from a learner's target workflow.
 
 ## Ownership boundaries
 
-Application Design owns:
+Application Design owns orchestration of accepted domain semantics and user task support.
 
-- canonical-data authoring and maintenance orchestration;
-- bulk-input orchestration after an input representation has been decoded;
-- curation of Capability definitions used by target requirements;
-- curation of LearningTarget RequirementExpression composition;
-- Question-compatible support/alignment orchestration where still used by the current profile;
-- selection of an existing curated LearningTarget for the learner workflow;
-- interpretation of a selected LearningTarget for study preparation;
-- resolution of currently available learning/practice support into a supported study profile;
-- Study Set materialization as the exact resolvable subset with explicit preparation diagnostics;
-- enforcement of the Study Set preparation gate without inventing a completeness requirement;
-- orchestration of export and result-import flows;
-- coordination of accepted domain models without redefining them.
+It does not own:
 
-Application Design does not own:
+- Knowledge, Capability, LearningTarget, Gap, LearningPriority, LearningIntent, Performance, Observation, evidence-warrant or learner-claim semantics;
+- import file representation/schema;
+- graph/view/screen composition;
+- persistence schema;
+- external-runtime protocols;
+- frontend component/runtime topology.
 
-- Knowledge, Capability, CapabilitySpecification, RequirementExpression, LearningTarget, Question-compatibility or learner-evidence semantics;
-- LearningSupportRequirement semantics or any universal learning-support coverage heuristic;
-- forms, screens, graph editors or other human interaction design;
-- file/API/message representation contracts;
-- external-runtime card schemas or API semantics;
-- external-item mapping representation;
-- database/storage schema;
-- runtime/component topology.
+## Downstream needs
 
-## Downstream interface needs
+Human Interface Design must support the complete target-relative loop rather than only prepared-target study.
 
-Human Interface Design must distinguish Learning mode from Curation mode without requiring different authenticated users in v1. Learning mode selects prepared LearningTargets and exposes their requirement expressions read-only; target-scope mutation requires an explicit transition to Curation.
+Machine Interface Design must define stable representation contracts for:
 
-Machine Interface Design must define representation contracts for supported bulk input and external-learning-system interaction. The initial format is not selected by Application Design.
+- target/state/gap/evidence reads needed by the frontend;
+- curation commands;
+- structured bulk import, including a documented externally preparable schema;
+- supported external-runtime learning/evidence exchange.
 
-Data Design must preserve accepted domain identities, relationships, compositions, alignments, targets and ReviewObservations without becoming the owner of their semantics.
-
-## Deferred behavior
-
-- interpretation of review statistics into learner state;
-- evidence-strength/confidence models;
-- retention/decay interpretation;
-- propagation of inferred learner state onto KnowledgeNodes/Requirements;
-- automatic reprioritization or replanning from review statistics;
-- dependency-aware question ordering;
-- automatic invention of learning-support adequacy when no LearningSupportRequirement exists;
-- generalized study representations beyond requirements demonstrated by concrete learning runtimes;
-- automatic extraction, generation or semantic validation of imported source content.
+The first frontend prototype may use mocks for these contracts while preserving the same semantic boundaries.
