@@ -79,6 +79,25 @@ export interface KnowledgeRelationDraft {
 
 export type ImportDataKind = "knowledge" | "requirements" | "questions" | "targets";
 
+export interface ImportContractModel {
+  readonly schemaVersion: string;
+  readonly supportedKinds: readonly ImportDataKind[];
+  readonly exampleDocument: string;
+}
+
+export interface ImportValidationItemModel {
+  readonly item: string;
+  readonly status: "valid" | "rejected";
+  readonly reason?: string;
+}
+
+export interface ImportValidationModel {
+  readonly total: number;
+  readonly valid: number;
+  readonly rejected: number;
+  readonly items: readonly ImportValidationItemModel[];
+}
+
 export type ImportItemStatus =
   | "created"
   | "updated"
