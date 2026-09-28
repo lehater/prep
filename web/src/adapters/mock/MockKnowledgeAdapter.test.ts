@@ -19,7 +19,7 @@ describe("MockKnowledgeAdapter", () => {
 
     const outcome = await adapter.list(
       { kind: "target", targetId: PREPARED_TARGET_ID },
-      { search: "cgroups" },
+      { search: "idempotency" },
     );
 
     expect(outcome.status).toBe("success");
@@ -28,7 +28,7 @@ describe("MockKnowledgeAdapter", () => {
       expect(outcome.value.items).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            id: "linux-cgroups",
+            id: "demo-payment-idempotency-key",
             semanticKind: "concept",
           }),
         ]),
