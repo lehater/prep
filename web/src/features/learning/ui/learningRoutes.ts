@@ -1,6 +1,15 @@
+export type LearningSection =
+  | "overview"
+  | "state"
+  | "gaps"
+  | "learning"
+  | "diagnostics"
+  | "knowledge"
+  | "progress";
+
 export function targetSectionPath(
   targetId: string,
-  section: "overview" | "knowledge" | "study" | "statistics",
+  section: LearningSection,
 ): string {
   return `/learning/${encodeURIComponent(targetId)}/${section}`;
 }
