@@ -39,6 +39,21 @@ test("gap can become an explicit learning focus", async ({ page }) => {
   await expect(page.getByText("Idempotency and retry safety")).toBeVisible();
 });
 
+test("current focus stays visible when moving into Knowledge", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/gaps`);
+
+  const gap = page.getByText("Reliable payment commands").locator("..").locator("..");
+  await gap.getByRole("button", { name: "Learn this" }).click();
+
+  await page
+    .getByRole("navigation", { name: "Learning target sections" })
+    .getByRole("link", { name: "Knowledge", exact: true })
+    .click();
+
+  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/knowledge`));
+  await expect(page.getByText("Current focus: Reliable payment commands · learning")).toBeVisible();
+});
+
 test("diagnostic evidence changes target-relative progress", async ({ page }) => {
   await page.goto(`/learning/${targetId}/gaps`);
 
