@@ -295,7 +295,7 @@ authorities:
       - capability: prep.frontend-system-architecture
         knowledge_kind: system-architecture
         requires:
-          - capability: prep.system-architecture
+          - capability: prep.application-design
           - capability: prep.presentation-system
           - capability: prep.screen-view-design
           - capability: prep.machine-interfaces
