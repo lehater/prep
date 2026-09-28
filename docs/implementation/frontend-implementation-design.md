@@ -180,7 +180,7 @@ CI realization is deliberately tiered:
 - **fast** — frontend typecheck, lint, dependency-boundary checks and unit tests; lightweight semantic/Harness/document closure in a separate repository-fast workflow;
 - **heavy** — full Harness revalidation, maintained reference suites, dependency audit, production build, Playwright E2E, graph stress evidence and container identity verification.
 
-Heavy validation is manually dispatchable for final large-branch checkpoints and runs automatically after changes reach `main`; it is not an every-commit feature-branch tax.
+Heavy validation is manually dispatched on the large branch being finalized; ordinary feature pushes, PR updates and `main` pushes do not trigger it implicitly.
 
 Completion:
 
