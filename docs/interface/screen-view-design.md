@@ -44,23 +44,27 @@ Overview / State / Gaps / Learning / Diagnostics / Knowledge / Progress.
 
 ## [L-01-TARGETS]
 
-**Task:** `TASK-L-ESTABLISH-TARGET`
+**Tasks:** `TASK-L-ESTABLISH-TARGET`, `TASK-C-SELECT-PREPARATION-PATH`
 
-Reads: `learning.targets.list`, `learning.targets.get`.
+Reads: `learning.targets.list`, `learning.targets.get`; when preparation is required, supported corpus diagnostics/import-contract availability may also be read.
 
 Regions:
 - search/browse controls — secondary;
-- target collection — primary;
-- selected target requirement summary — primary;
-- prepare-new-target affordance — secondary.
+- target collection — primary when usable targets exist;
+- selected target requirement summary — primary when a target is selected;
+- missing/unknown preparation-prerequisite summary — primary in empty/partial-corpus state;
+- bulk / incremental / mixed preparation choices — primary in preparation-needed state;
+- retained motivating target/source context — supporting.
 
-States: loading, empty, ready, failure.
+States: loading, empty-targets, empty-corpus, partial-corpus, ready, preparation-path-selected, diagnostics-unavailable, failure.
 
-Primary action: activate suitable target.
+Primary actions:
+- activate suitable target when one exists;
+- otherwise choose a corpus-preparation path.
 
-Empty state explicitly routes to target preparation.
+The empty-system state must not imply that opening a target editor alone is sufficient when reusable Capability/Knowledge/support/assessment prerequisites are absent. Bulk preparation may route directly to Import; incremental or mixed preparation routes into the relevant Curation workspace while preserving the motivating context.
 
-Responsive: controls precede collection; detail follows selection.
+Responsive: controls precede target/preparation results; selected detail or preparation explanation follows the primary decision.
 
 ## [L-02-TARGET-OVERVIEW]
 
