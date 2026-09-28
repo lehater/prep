@@ -2,114 +2,79 @@
 
 ## Purpose
 
-Define evidence required before the frontend-first implementation can be treated as a conforming realization of accepted product/interface/frontend-architecture contracts.
-
-Mock-backed realization is a valid first implementation target. HTTP/backend implementation is not required for frontend semantic closure; when added later it must satisfy the same ports.
+Define evidence required before the mock-first frontend can be treated as a conforming realization of the accepted user-centered product/interface/frontend-architecture contracts.
 
 ## FV-01 — Product/interface traceability
 
-**Method:** INSPECTION.
+Verify every user-visible behavior traces to Product Capability plus Task/Screen responsibility; provider features do not create new product behavior.
 
-Verify every user-visible behavior traces to Product Capability plus Screen/View responsibility and no provider feature creates new product behavior.
+## FV-02 — Complete target-relative workflow
 
-## FV-02 — Accepted frontend workflows
+Verify against deterministic mocks:
 
-**Method:** TEST.
+- select or establish target;
+- understand required capabilities;
+- inspect current evidence-backed state;
+- distinguish satisfied / unresolved / challenged;
+- inspect target-relative gaps;
+- choose learning or diagnostic focus;
+- perform learning/diagnostic activity;
+- accept new evidence;
+- inspect progress and changed gaps/focus.
 
-Verify representative Learning/Curation workflows:
+The flow must preserve active target/focus across views.
 
-- select prepared target;
-- preserve active target across Overview/Knowledge/Study/Statistics;
-- inspect target requirements/support diagnostics;
-- search/select/explore Knowledge;
-- build valid empty/non-empty Study Set preview and recover from stale preview;
-- inspect factual evidence;
-- curate Targets, Knowledge, Capabilities and Question-compatible Study Material;
-- import prepared input and inspect outcomes;
-- inspect runtime status.
-
-Evidence: executable browser/component scenarios over deterministic mock ports.
-
-## FV-03 — Frontend port/outcome fidelity
-
-**Method:** TEST.
-
-Verify adapters preserve accepted operation inputs/results and distinct outcomes: success, validation rejection, conflict/staleness, runtime unavailable/incompatible, partial external failure and operational failure.
-
-Opaque tokens remain opaque; canonical identity and semantic distinctions survive mapping.
-
-## FV-04 — Dependency direction
-
-**Method:** TEST.
+## FV-03 — Corpus bootstrap and curation
 
 Verify:
 
-- Learning/Curation internals do not import each other;
-- features do not import concrete mock/transport adapters;
-- features do not import the concrete graph renderer;
+- missing target/corpus data has an explicit preparation path;
+- import contract/examples are inspectable;
+- validate and apply are separate;
+- mixed valid/rejected outcomes remain actionable;
+- incremental Curation covers Targets, Capabilities, Knowledge, Learning Support and Assessment.
+
+## FV-04 — Frontend port/outcome fidelity
+
+Verify adapters preserve accepted operation inputs/results and outcome distinctions. UI code does not derive target satisfaction, Gap or learner claims independently.
+
+## FV-05 — Dependency direction
+
+Verify:
+
+- target-work/Curation feature internals remain independent;
+- features do not import concrete adapters/renderers;
 - shared presentation code does not own feature mutable state;
-- renderer/provider types do not leak into frontend semantic ports/models.
+- provider/renderer types do not leak into semantic ports/models.
 
-## FV-05 — Representation isolation
+## FV-06 — Representation isolation
 
-**Method:** TEST.
+Verify mock fixtures/future transport DTOs terminate inside adapters and map to frontend-owned models.
 
-Verify mock fixtures and future transport DTOs terminate inside adapters and map to the same frontend-owned models. Mock fixture convenience fields must not become feature contracts.
+## FV-07 — Renderer isolation and semantic preservation
 
-## FV-06 — Renderer isolation and semantic preservation
-
-**Method:** TEST.
-
-Verify:
-
-- GraphScene uses canonical Knowledge refs and relational KnowledgeProposition refs/predicate metadata;
-- coordinates/camera/physics/library objects stay adapter-private;
-- click-without-drag activation cannot mutate Knowledge;
-- selection and explicit focus remain distinct;
-- profile/degradation changes preserve semantic membership/identity/proposition meaning;
-- renderer unavailable leaves non-spatial Knowledge access usable;
-- idle rendering becomes demand-driven when settled.
-
-Hardware FPS/capacity evidence is supplied separately under Presentation Verification.
-
-## FV-07 — Mock/future transport substitutability
-
-**Method:** TEST.
-
-Verify the current MockFrontendAdapter satisfies the same consumer-owned ports expected from a later transport adapter. Feature behavior and models do not branch on adapter kind.
-
-A future transport adapter must pass the same shared port contract suite before replacing mocks.
+Verify canonical Knowledge refs/proposition meaning survive GraphScene projection; selection and focus remain distinct; renderer unavailable preserves non-spatial completion.
 
 ## FV-08 — State ownership/lifetime
 
-**Method:** TEST.
+Verify shell/TargetContext owns only active target/focus navigation state; feature/editor/query state remains feature-local; canonical learner/target truth is not promoted into general mutable UI state.
 
-Verify:
+## FV-09 — Evidence/state/gap integrity
 
-- shell owns mode/navigation;
-- Learning owns active target;
-- feature/editor/query state stays with its feature;
-- KnowledgeExplorer owns query/filter/selection/focus;
-- renderer owns camera/layout/force/drag/hover;
-- selecting detail inside unchanged semantic scope does not recreate graph query/renderer lifetime;
-- no canonical domain/application truth is promoted into general frontend mutable state.
+Verify raw observations, accepted claims, target-relative state and Gap remain distinguishable. Missing evidence is uncertainty, not failure; activity completion is not gap closure.
 
-## FV-09 — Presentation evidence closure
+## FV-10 — Progress integrity
 
-**Method:** ANALYSIS.
+Verify progress is derived from accepted before/after target-relative projections and supports changed, unchanged and increased-uncertainty outcomes.
 
-Verify all applicable PV checks have evidence before production closure, especially keyboard/non-spatial access, 3D semantic fidelity/task suitability, responsive hierarchy, semantic-preserving degradation and hardware workload evidence.
+## FV-11 — Presentation evidence closure
 
-## FV-10 — Harness currentness
+Verify all applicable Presentation Verification checks have evidence, including keyboard/non-spatial access, responsive target-work hierarchy, import usability and 3D semantic fidelity.
 
-**Method:** ANALYSIS.
+## FV-12 — Harness currentness
 
-Verify frontend closure is rerun when accepted prerequisites change; stale canonical frontend knowledge cannot be treated as current merely because code still builds.
+Verify frontend closure is rerun whenever accepted prerequisites change; stale frontend knowledge/code cannot be treated as current merely because it builds.
 
 ## Completion meaning
 
-Acceptance of this artifact means verification obligations are explicit and traceable. It does not claim all prototype/production evidence already exists.
-
-## Out of scope
-
-Backend service topology, persistence, exact test framework syntax, provider internals, pixel-perfect snapshots and unaccepted learner-state inference.
+Acceptance means verification obligations are explicit and traceable. It does not by itself claim every prototype evidence item is already green.
