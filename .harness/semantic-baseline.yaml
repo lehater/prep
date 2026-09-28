@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 3
-    basis: "Problem evidence now explicitly includes external career/role target translation and the need to bootstrap an initially absent reusable corpus, while remaining solution-neutral."
+    revision: 4
+    basis: "Problem evidence now records its representative-user validation status, recruitment hypotheses and observation-linked discovery questions without treating stakeholder assumptions or UI preferences as validated problem truth."
 
   - capability: prep.product-intent
     revision: 3
@@ -49,24 +49,24 @@ reviews:
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 5
-    basis: "Application Design now orchestrates the complete target-relative loop and parallel corpus bootstrap/curation lifecycle; Question/Study Set and Anki are retained only as compatibility paths."
+    revision: 6
+    basis: "Application Design now orchestrates explicit empty/partial-corpus preparation-path selection and reassesses after newly accepted evidence even when target satisfaction does not change."
 
   - capability: prep.task-model
-    revision: 5
-    basis: "Task Model is rebuilt from user goals rather than prepared Study artifacts and now covers target establishment, current-state assessment, gaps, focus, learning/diagnosis, evidence, progress and corpus bootstrap/curation."
+    revision: 6
+    basis: "Task Model now includes the previously unowned first-use decision between bulk, incremental and mixed corpus preparation while preserving all existing target/evidence/learning tasks."
 
   - capability: prep.user-journeys
-    revision: 4
-    basis: "Journeys now follow the complete user-centered flow from target establishment through assessment, gaps, focus, learning/diagnosis, evidence and reassessment, plus bulk and incremental corpus preparation."
+    revision: 5
+    basis: "User Journeys now include concrete end-to-end learner and completely-empty-system bootstrap scenarios derived from the Task Model, including partial import recovery and valid no-change progress."
 
   - capability: prep.conceptual-interface-model
-    revision: 3
-    basis: "Conceptual interface vocabulary is rebuilt around Target, Capability, Current State, Gap, Learning Focus, Evidence, Progress and Corpus/Import concepts rather than Study/Statistics as primary concepts."
+    revision: 4
+    basis: "Conceptual interface semantics now separate Observation, evidential basis and learner claim from target-relative Current State instead of bundling all layers into a generic Evidence concept."
 
   - capability: prep.information-architecture
-    revision: 3
-    basis: "Information architecture is reorganized around Target Work state/gaps/learning/diagnostics/knowledge/progress and Curation targets/capabilities/knowledge/support/assessment/import/quality."
+    revision: 4
+    basis: "Information Architecture now provides an explicit empty-corpus bootstrap entry/return path and carries the refined observation/evidence-basis/claim concepts through target-state, diagnostics and progress contexts."
 
   - capability: prep.machine-interfaces
     revision: 4
