@@ -2,254 +2,226 @@
 
 ## Purpose
 
-Define the minimum machine-consumed contracts required by the frontend-first slice and supported external-study integration.
+Define transport-neutral machine-consumed contracts required by the frontend-first user-centered flow, curation and supported external integrations.
 
-The contract is **transport-neutral**. It defines operation IDs, inputs, read-model meaning and observable outcomes. HTTP paths/verbs, FastAPI/controllers, persistence, deployment topology and generated clients are downstream backend realization and are intentionally deferred.
+The contract defines operation IDs, semantic inputs/results and observable outcomes. HTTP paths/verbs, backend framework, persistence and deployment remain downstream.
 
-## Frontend application boundary
-
-The frontend consumes accepted application behavior through consumer-facing ports. Mock and future HTTP adapters must preserve the same semantic contract.
-
-### Common collection query
-
-Where applicable:
-
-```text
-text_query?
-cursor?
-limit?
-```
-
-Collection result:
-
-```text
-items[]
-next_cursor?
-total_count
-```
-
-`total_count` is the exact count for the same semantic scope/query before pagination. Cursor representation is opaque and noncanonical.
-
-Search semantics apply to the whole requested collection. An adapter must not pretend client-side filtering of an arbitrary partial page is equivalent.
-
-### Common outcomes
+## Common outcomes
 
 Operations may return:
 
 - `success`;
 - `not_found`;
 - `validation_rejected`;
-- `conflict` when submitted continuation/current-state identity is stale;
+- `conflict`;
 - `external_runtime_unavailable`;
 - `external_runtime_incompatible`;
 - `partial_external_failure`;
 - `operational_failure`.
 
-Transport-specific status codes are adapter mappings, not frontend/domain semantics.
+Transport status codes are adapter mappings, not product semantics.
 
-## Frontend read-model semantics
+## Frontend read models
 
-### LearningTarget summary/detail
+### Target detail
 
-A target detail exposes:
+Exposes:
 
-- stable target identity;
-- human-readable definition;
-- read-only `RequirementExpression<CapabilitySpecification>`;
-- enough CapabilitySpecification detail to explain required scope without exposing persistence representation.
+- target identity/context;
+- human-readable target definition;
+- RequirementExpression<CapabilitySpecification>;
+- enough capability/standard/condition detail to understand what is expected.
 
-Learning mode never receives a target-local mutable override contract.
+### Target-relative learner state
+
+Exposes, for one active target:
+
+- satisfied requirement fragments;
+- unresolved gaps;
+- challenged gaps;
+- material uncertainty/conflict;
+- basis references to accepted claims/evidence;
+- previous projection identity when progress comparison is requested.
+
+No universal scalar proficiency score is implied.
+
+### Learning focus
+
+Exposes:
+
+- target identity;
+- focused gap(s) or uncertainty;
+- rationale;
+- intent kind: learning/practice or diagnostic;
+- currently available support summary.
 
 ### Knowledge projection
 
-Knowledge read models preserve the distinction between:
+Preserves canonical Knowledge identity and relational proposition semantics. Graph/list/detail are presentation projections only.
 
-- `KnowledgeObject`;
-- `KnowledgeProposition`.
+### Learning/practice/assessment support
 
-A relational proposition exposes its predicate plus participants and conditions where applicable. A returned visual/projection edge is a frontend representation of that proposition and does not create a `KnowledgeRelation` domain entity.
+Exposes currently available LearningMaterial/TaskSpecification-compatible opportunities for a target/focus and explicit preparation diagnostics.
 
-Presentation coordinates, camera state and renderer-private fields never cross this boundary as canonical Knowledge.
+### Evidence
 
-### Study material and Study Set
+Exposes accepted Performance/Observation facts plus provenance and accepted CapabilityEvidenceArgument/LearnerCapabilityClaim projections where applicable.
 
-The current supported profile is Question-compatible. A frontend study item may therefore expose question/direct-answer compatibility fields, but those fields are a projection over accepted learning/task/evaluation semantics rather than a universal domain type.
-
-A Study Set preview exposes:
-
-- target identity;
-- supported study-profile identity;
-- exact representable item subset;
-- preparation diagnostics per relevant requirement fragment where applicable;
-- opaque `materialization_token` binding subset and diagnostics to one current-state materialization.
-
-A valid target may return an empty Study Set.
-
-### Learning evidence
-
-Frontend evidence read models expose factual `Observation` information plus relevant Performance/task/provenance context when available.
-
-Question-compatible external-runtime review facts may be projected for usability, but a runtime rating is not itself a LearnerCapabilityClaim and the interface does not infer mastery/readiness/retention from raw observations.
-
-### Runtime status
-
-Runtime status exposes:
-
-- reachable/unavailable;
-- compatible/incompatible;
-- non-secret configured profile summary where available.
-
-Deployment secrets and low-level connectivity configuration are not browser product state.
+Raw runtime ratings remain distinguishable from inferred learner capability claims.
 
 ## Learning-mode operations
 
 | Operation ID | Intent | Minimum input | Result |
 |---|---|---|---|
 | `learning.targets.list` | Browse/search prepared targets | `text_query?, cursor?, limit?` | target summaries |
-| `learning.targets.get` | Open prepared target | `target_id` | target detail with read-only RequirementExpression |
-| `learning.target.knowledge.list` | Search/browse target-relevant Knowledge | `target_id, text_query?, cursor?, limit?` | Knowledge summaries |
-| `learning.target.knowledge.projection` | Read target-scoped relational exploration projection | `target_id, filters?` | KnowledgeObject/KnowledgeProposition projection preserving proposition semantics |
-| `learning.target.questions.list` | Browse current Question-compatible material | `target_id, text_query?, cursor?, limit?` | compatibility item summaries |
-| `learning.target.study_set.build` | Build current Study Set preview | `target_id, study_profile?` | exact subset + diagnostics + `materialization_token` |
-| `learning.target.study_set.export` | Export exactly inspected preview | `target_id, materialization_token` | per-item reconciliation/export outcomes |
-| `learning.target.evidence.get` | Read factual target-context evidence | `target_id` | Observation facts/aggregates with bounded context |
-| `learning.question.evidence.get` | Read factual evidence for a Question-compatible item | `question_id, cursor?, limit?` | attributable Observation/history projection |
+| `learning.targets.get` | Open prepared target | `target_id` | target detail |
+| `learning.target.state.get` | Read current target-relative learner state | `target_id` | satisfied/unresolved/challenged fragments + basis |
+| `learning.target.diagnostics.list` | List supported diagnostic/assessment opportunities for unresolved target areas | `target_id, requirement_fragment?` | diagnostic opportunities |
+| `learning.target.gaps.get` | Read explicit target-relative Gap projection | `target_id` | gaps + basis + uncertainty |
+| `learning.target.focus.get` | Read current LearningPriority/LearningIntent context | `target_id` | current focus/intents |
+| `learning.target.focus.set` | Choose/confirm next learning or diagnostic focus | `target_id, gap_refs, intent_kind, rationale?` | accepted focus |
+| `learning.target.knowledge.list` | Search/browse target/focus-relevant Knowledge | `target_id, focus_id?, text_query?, cursor?, limit?` | Knowledge summaries |
+| `learning.target.knowledge.projection` | Read relational Knowledge projection | `target_id, focus_id?, filters?` | Knowledge semantic projection |
+| `learning.target.support.list` | Read learning/practice support for target/focus | `target_id, focus_id?` | support opportunities + diagnostics |
+| `learning.target.activity.start` | Establish one supported learning/practice/diagnostic activity context | `target_id, focus_id, support_ref` | activity/task context |
+| `learning.target.evidence.get` | Read factual and inferred evidence-backed target context | `target_id` | observations/claims/arguments projection |
+| `learning.target.progress.get` | Compare current target-relative state with prior accepted projection | `target_id, since_projection_id?` | changed/unchanged requirement fragments and gaps |
 | `learning.evidence.sync` | Pull supported external-runtime evidence | optional runtime cursor/time boundary | import summary and item-level failures |
 | `integration.external_runtime.status.get` | Inspect runtime reachability/compatibility | none | RuntimeStatus |
 
-`learning.target.study_set.build` resolves the selected target according to current Application/Learning Design semantics. It does not require complete support.
+### Question/Anki compatibility operations
 
-`learning.target.study_set.export` must reject stale materialization with `conflict` instead of exporting a silently changed subset.
+| Operation ID | Intent |
+|---|---|
+| `learning.target.questions.list` | Browse current Question-compatible material |
+| `learning.target.study_set.build` | Build exact current compatible Study Set preview |
+| `learning.target.study_set.export` | Export exactly the inspected preview |
+| `learning.question.evidence.get` | Read attributable evidence for one compatibility item |
+
+These remain a compatibility path under learning/practice/evidence, not the primary product model.
 
 ## Curation-mode operations
 
-### Learning targets
+### Targets
 
-| Operation ID | Intent |
-|---|---|
-| `curation.targets.list` | Browse/search curated targets |
-| `curation.targets.get` | Retrieve target definition and RequirementExpression |
-| `curation.targets.create` | Create a LearningTarget with an accepted prepared expression |
-| `curation.targets.update` | Edit target definition and/or replace its RequirementExpression through explicit Curation |
-
-Target mutation works with complete `RequirementExpression<CapabilitySpecification>` semantics; the interface does not expose legacy Requirement/RequirementSet records as target scope.
+- `curation.targets.list`
+- `curation.targets.get`
+- `curation.targets.create`
+- `curation.targets.update`
 
 ### Capabilities
 
-| Operation ID | Intent |
-|---|---|
-| `curation.capabilities.list` | Browse/search reusable Capability definitions |
-| `curation.capabilities.get` | Retrieve one reusable Capability |
-| `curation.capabilities.create` | Create a reusable Capability |
-| `curation.capabilities.update` | Edit accepted Capability semantics |
-
-The representation preserves PerformanceExpectation, material condition/criterion information and Knowledge focus where required by current domain semantics. Persistence-specific normalization is not part of this contract.
+- `curation.capabilities.list`
+- `curation.capabilities.get`
+- `curation.capabilities.create`
+- `curation.capabilities.update`
 
 ### Knowledge
 
-| Operation ID | Intent |
-|---|---|
-| `curation.knowledge.list` | Browse/search reusable Knowledge |
-| `curation.knowledge.get` | Retrieve one KnowledgeObject or KnowledgeProposition plus usable relational context |
-| `curation.knowledge.create` | Create KnowledgeObject or KnowledgeProposition |
-| `curation.knowledge.update` | Edit reusable Knowledge semantics |
-| `curation.knowledge.delete` | Remove Knowledge only when accepted application/domain constraints allow it |
-| `curation.knowledge.projection` | Retrieve a filtered exploration projection over canonical Knowledge identities |
+- `curation.knowledge.list`
+- `curation.knowledge.get`
+- `curation.knowledge.create`
+- `curation.knowledge.update`
+- `curation.knowledge.delete`
+- `curation.knowledge.projection`
 
-Relational meaning is authored as a KnowledgeProposition. Predicate vocabulary is schema-level meaning, not an independently asserted Knowledge entity.
+### Learning support
 
-### Question-compatible study material
+- `curation.learning_support.list`
+- `curation.learning_support.get`
+- `curation.learning_support.create`
+- `curation.learning_support.update`
 
-| Operation ID | Intent |
-|---|---|
-| `curation.questions.list` | Browse/search current Question-compatible material |
-| `curation.questions.get` | Retrieve compatibility material and supported Knowledge mappings |
-| `curation.questions.create` | Create compatibility material |
-| `curation.questions.update` | Edit compatibility material |
-| `curation.questions.knowledge.align` | Maintain supported Knowledge mapping where semantically justified |
-| `curation.questions.knowledge.unalign` | Remove that mapping |
+Current Question-compatible operations may coexist as adapter-level compatibility operations.
 
-These operation names preserve the current application compatibility profile. They do not promote Question to the universal frontend/domain concept.
+### Assessment/evidence design
 
-### Prepared import
+- `curation.assessment_design.list`
+- `curation.assessment_design.get`
+- `curation.assessment_design.create`
+- `curation.assessment_design.update`
 
-`curation.import.apply` accepts a supported prepared document and returns:
+The representation may include supported TaskSpecifications, ObservationSpecifications, EvidencePatterns, EvidentialWarrants and SamplingSpecifications required by the accepted design.
 
-- aggregate received/applied/rejected counts;
-- per-item `created | updated | duplicate_skipped | rejected`;
-- stable item reference/import key/position where available;
+### Corpus diagnostics
+
+- `curation.quality.get` — return supported structural/semantic preparation diagnostics without a universal quality score.
+
+## Prepared import
+
+### Contract discovery
+
+`curation.import.contract.get` returns the supported import contract metadata sufficient for external preparation:
+
+- schema/version identity;
+- supported semantic data kinds;
+- required/optional fields;
+- reference/key rules;
+- validation constraints;
+- representative example payloads.
+
+This permits a user to give the contract/example to an external agent or tool that prepares a compatible import document.
+
+The first frontend prototype may expose a mock contract. A production serialization format need not be frozen yet.
+
+### Validate
+
+`curation.import.validate` accepts a prepared document and returns:
+
+- envelope/schema compatibility;
+- aggregate counts;
+- item-level valid/rejected status;
+- stable import key/position;
 - rejection category/reason.
 
-The frontend contract requires observable outcomes only. File decoding, transaction strategy, persistence and backend module design are deferred.
+Validation does not apply data.
 
-## External study runtime contract
+### Apply
 
-The current external runtime is Anki-compatible.
+`curation.import.apply` accepts a previously valid/current prepared document or validation identity and returns:
 
-### Export
+- created;
+- updated;
+- duplicate_skipped;
+- rejected;
+- aggregate and per-item outcomes.
 
-The adapter must be able to materialize one supported runtime item for each Question-compatible Study Set item, preserve a stable Prep compatibility reference for reconciliation, and return per-item outcomes.
+Exact transaction/idempotency mechanics belong to Import Consistency Design.
 
-Repeated export of the same logical Prep item must not intentionally create duplicate logical runtime items.
+## Supported prepared-data semantic kinds
 
-### Evidence import
+The import contract may support:
 
-Supported review activity is translated into factual Prep evidence only when mapping is semantically justified.
+- `targets`;
+- `capabilities`;
+- `knowledge`;
+- `learning_support`;
+- `assessment_design`;
+- compatibility kinds such as `questions` where still required.
 
-Where available, the compatibility projection may carry:
+Storage IDs, graph coordinates and backend persistence fields are excluded.
 
-- Prep Question-compatible reference;
-- occurred-at time;
-- runtime rating (Again/Hard/Good/Easy);
-- previous/next interval;
-- duration;
-- runtime phase.
+## External runtime
 
-These are provenance-bearing runtime facts used to create or support `Performance`/`Observation` records. They are not imported as mastery, retention, Gap, LearningPriority or LearnerCapabilityClaim.
+The current compatibility runtime may be Anki-compatible.
 
-### External identities
+External operations must preserve stable Prep correlation and distinguish runtime unavailable/incompatible, partial failure and unmappable records.
 
-External note/card/review IDs may be retained for reconciliation but never replace canonical Prep identity.
-
-### External failures
-
-Distinguish at least:
-
-- runtime unavailable;
-- runtime incompatible;
-- Prep compatibility reference unresolved;
-- export item rejected;
-- review record malformed/unmappable;
-- successful export/import.
-
-## Prepared-data compatibility boundary
-
-Prepared import remains a versioned interchange surface, but the frontend-first phase does not freeze backend schema.
-
-Supported semantic kinds should correspond to current canonical meanings:
-
-- `knowledge` — KnowledgeObject/KnowledgeProposition;
-- `capabilities` — reusable Capability definitions;
-- `questions` — current Question-compatible material;
-- `targets` — LearningTarget plus RequirementExpression<CapabilitySpecification>.
-
-A document may use canonical IDs or stable import-local keys. Storage IDs, visualization coordinates and backend persistence fields are excluded.
-
-Exact JSON schema, cross-item transactional strategy and backend deduplication mechanics remain deferred until backend design, provided future realization preserves the observable import outcomes above.
+Returned runtime facts are translated into Performance/Observation semantics only when faithful mapping exists.
 
 ## Compatibility
 
-Frontend ports/read models, prepared-data documents and external-runtime mappings require explicit version compatibility when representation changes could alter meaning.
+Mock and future HTTP adapters must be substitutable at this semantic boundary.
 
-Mock adapters and future transport adapters must be substitutable at the semantic contract level.
+Representation changes that can change meaning require explicit version compatibility.
 
 ## Not part of this contract
 
-- HTTP paths/verbs/status-code mapping;
-- backend framework/controller/service layout;
-- database tables or persistence identifiers;
-- frontend component structure;
-- graph renderer coordinates/camera/physics state;
-- Anki scheduling policy or FSRS interpretation;
-- broad learner-state inference;
-- automatic source extraction/generation.
+- HTTP endpoints/status-code mapping;
+- backend/controller/service structure;
+- database schema;
+- graph camera/layout/physics;
+- fixed UI routes/screens;
+- Anki scheduler semantics;
+- automatic arbitrary-source extraction/generation;
+- universal proficiency scoring.
