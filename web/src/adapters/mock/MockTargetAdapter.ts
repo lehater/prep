@@ -54,11 +54,26 @@ export class MockTargetAdapter implements TargetQueryPort {
       readonly label: string;
     }[];
   }): LearningTargetModel {
+    const capabilityIds = this.store.targetCapabilityIds.get(target.id) ?? [];
+    const capabilities = capabilityIds.flatMap((capabilityId) => {
+      const capability = this.store.capabilities.find((item) => item.id === capabilityId);
+      return capability
+        ? [{
+            id: capability.id,
+            title: capability.title,
+            summary: capability.performanceExpectation,
+          }]
+        : [];
+    });
     return {
       id: target.id,
       name: target.name,
       definition: target.definition,
-      scopeSummary: `${target.scopeItems.length} curated scope item(s)`,
+      scopeSummary:
+        capabilities.length > 0
+          ? `${capabilities.length} required capability(s)`
+          : `${target.scopeItems.length} compatibility scope item(s)`,
+      capabilities,
       scopeItems: target.scopeItems.map((item) => {
         const source = this.store.requirements.find(
           (candidate) => candidate.id === item.id,
@@ -67,7 +82,7 @@ export class MockTargetAdapter implements TargetQueryPort {
           id: item.id,
           kind: item.kind,
           title: item.label,
-          summary: source?.definition ?? "Curated scope item",
+          summary: source?.definition ?? "Compatibility scope item",
         };
       }),
     };
