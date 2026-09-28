@@ -1,25 +1,188 @@
-version: 1
+version: 2
 kind: interface-topology-design
 id: PREP-INTERFACE-TOPOLOGY
 
 views:
-  - {id: F-00-APPLICATION-SHELL, responsibility: Preserve explicit Learning/Curation mode context and global runtime-status access., location_ref: APP-SHELL, interaction_context_refs: [], structural: true, parent: ROOT, exits: [L-01-TARGET-SELECTION, C-11-TARGET-COLLECTION, S-01-RUNTIME-STATUS]}
-  - {id: F-LT-TARGET-WORKSPACE, responsibility: Preserve the active LearningTarget while switching among learner task views., location_ref: TARGET-WORKSPACE, interaction_context_refs: [], structural: true, parent: F-00-APPLICATION-SHELL, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS]}
-  - {id: F-C-CURATION-WORKSPACE, responsibility: Preserve Curation mode while switching among authoring areas., location_ref: CURATION-WORKSPACE, interaction_context_refs: [], structural: true, parent: F-00-APPLICATION-SHELL, exits: [C-11-TARGET-COLLECTION, C-21-KNOWLEDGE-WORKSPACE, C-31-CAPABILITY-COLLECTION, C-41-STUDY-MATERIAL-COLLECTION]}
-  - {id: L-01-TARGET-SELECTION, responsibility: Choose a prepared LearningTarget., location_ref: LEARNING-TARGETS, interaction_context_refs: [I-L-SELECT-TARGET], parent: F-00-APPLICATION-SHELL, exits: [L-02-TARGET-OVERVIEW, S-01-RUNTIME-STATUS]}
-  - {id: L-02-TARGET-OVERVIEW, responsibility: Understand active target requirements, support diagnostics and evidence context., location_ref: TARGET-OVERVIEW, interaction_context_refs: [I-L-OVERVIEW], parent: F-LT-TARGET-WORKSPACE, exits: [L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS, C-12-TARGET-EDITOR]}
-  - {id: L-03-TARGET-KNOWLEDGE, responsibility: Explore target-relevant reusable Knowledge and relational propositions., location_ref: TARGET-KNOWLEDGE, interaction_context_refs: [I-L-KNOWLEDGE], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-04-TARGET-STUDY, L-05-TARGET-STATISTICS]}
-  - {id: L-04-TARGET-STUDY, responsibility: Inspect the exact Study Set subset/diagnostics and delegate the inspected preview to the external runtime., location_ref: TARGET-STUDY, interaction_context_refs: [I-L-STUDY], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-05-TARGET-STATISTICS, S-01-RUNTIME-STATUS]}
-  - {id: L-05-TARGET-STATISTICS, responsibility: Inspect factual learning evidence and its relevant context., location_ref: TARGET-STATISTICS, interaction_context_refs: [I-L-STATISTICS], parent: F-LT-TARGET-WORKSPACE, exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-KNOWLEDGE, L-04-TARGET-STUDY]}
-  - {id: C-11-TARGET-COLLECTION, responsibility: Find/create curated LearningTargets., location_ref: CURATION-TARGETS, interaction_context_refs: [I-C-TARGETS], parent: F-C-CURATION-WORKSPACE, exits: [C-12-TARGET-EDITOR, C-21-KNOWLEDGE-WORKSPACE, C-31-CAPABILITY-COLLECTION, C-41-STUDY-MATERIAL-COLLECTION]}
-  - {id: C-12-TARGET-EDITOR, responsibility: Edit one target definition and its RequirementExpression<CapabilitySpecification>., location_ref: CURATION-TARGETS, interaction_context_refs: [I-C-TARGETS], parent: C-11-TARGET-COLLECTION, exits: [C-11-TARGET-COLLECTION, C-31-CAPABILITY-COLLECTION, L-02-TARGET-OVERVIEW]}
-  - {id: C-21-KNOWLEDGE-WORKSPACE, responsibility: Find/explore reusable Knowledge and enter semantic editing., location_ref: CURATION-KNOWLEDGE, interaction_context_refs: [I-C-KNOWLEDGE], parent: F-C-CURATION-WORKSPACE, exits: [C-22-KNOWLEDGE-EDITOR, C-11-TARGET-COLLECTION, C-31-CAPABILITY-COLLECTION, C-41-STUDY-MATERIAL-COLLECTION, S-02-IMPORT-FLOW]}
-  - {id: C-22-KNOWLEDGE-EDITOR, responsibility: Edit one KnowledgeObject or KnowledgeProposition and its semantic fields., location_ref: CURATION-KNOWLEDGE, interaction_context_refs: [I-C-KNOWLEDGE], parent: C-21-KNOWLEDGE-WORKSPACE, exits: [C-21-KNOWLEDGE-WORKSPACE]}
-  - {id: C-31-CAPABILITY-COLLECTION, responsibility: Find/create reusable Capability definitions., location_ref: CURATION-CAPABILITIES, interaction_context_refs: [I-C-CAPABILITIES], parent: F-C-CURATION-WORKSPACE, exits: [C-32-CAPABILITY-EDITOR, C-11-TARGET-COLLECTION, C-21-KNOWLEDGE-WORKSPACE, S-02-IMPORT-FLOW]}
-  - {id: C-32-CAPABILITY-EDITOR, responsibility: Edit one reusable Capability and its accepted Knowledge focus/criteria semantics., location_ref: CURATION-CAPABILITIES, interaction_context_refs: [I-C-CAPABILITIES], parent: C-31-CAPABILITY-COLLECTION, exits: [C-31-CAPABILITY-COLLECTION, C-21-KNOWLEDGE-WORKSPACE]}
-  - {id: C-41-STUDY-MATERIAL-COLLECTION, responsibility: Find/create material for supported study profiles, including current Question-compatible material., location_ref: CURATION-STUDY-MATERIAL, interaction_context_refs: [I-C-STUDY-MATERIAL], parent: F-C-CURATION-WORKSPACE, exits: [C-42-STUDY-MATERIAL-EDITOR, C-21-KNOWLEDGE-WORKSPACE, S-02-IMPORT-FLOW]}
-  - {id: C-42-STUDY-MATERIAL-EDITOR, responsibility: Edit one Question-compatible material item and supported Knowledge mappings., location_ref: CURATION-STUDY-MATERIAL, interaction_context_refs: [I-C-STUDY-MATERIAL], parent: C-41-STUDY-MATERIAL-COLLECTION, exits: [C-41-STUDY-MATERIAL-COLLECTION, C-21-KNOWLEDGE-WORKSPACE]}
-  - {id: S-01-RUNTIME-STATUS, responsibility: Inspect external-runtime reachability/compatibility., location_ref: RUNTIME-STATUS, interaction_context_refs: [I-RUNTIME-STATUS], parent: F-00-APPLICATION-SHELL, exits: [L-01-TARGET-SELECTION]}
-  - {id: S-02-IMPORT-FLOW, responsibility: Apply prepared data and inspect import outcomes., location_ref: CURATION-IMPORT, interaction_context_refs: [I-C-IMPORT], parent: F-C-CURATION-WORKSPACE, exits: [C-11-TARGET-COLLECTION, C-21-KNOWLEDGE-WORKSPACE, C-31-CAPABILITY-COLLECTION, C-41-STUDY-MATERIAL-COLLECTION]}
+  - id: F-00-APPLICATION-SHELL
+    responsibility: Preserve global Target Work/Curation context, active target identity and runtime-status access.
+    location_ref: APP-SHELL
+    interaction_context_refs: []
+    structural: true
+    parent: ROOT
+    exits: [L-01-TARGETS, C-10-CURATION-HOME, S-01-RUNTIME-STATUS]
 
-non_view_contexts: []
+  - id: F-LT-TARGET-WORKSPACE
+    responsibility: Preserve the active target while switching among assessment, gaps, learning, diagnostics, knowledge and progress views.
+    location_ref: TARGET-WORKSPACE
+    interaction_context_refs: []
+    structural: true
+    parent: F-00-APPLICATION-SHELL
+    exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS, L-07-TARGET-KNOWLEDGE, L-08-TARGET-PROGRESS]
+
+  - id: F-C-CURATION-WORKSPACE
+    responsibility: Preserve curation context while switching among corpus-authoring areas.
+    location_ref: CURATION-WORKSPACE
+    interaction_context_refs: []
+    structural: true
+    parent: F-00-APPLICATION-SHELL
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
+
+  - id: L-01-TARGETS
+    responsibility: Find a suitable target or begin target preparation when one is missing.
+    location_ref: TARGETS
+    interaction_context_refs: [I-L-ESTABLISH-TARGET]
+    parent: F-00-APPLICATION-SHELL
+    exits: [L-02-TARGET-OVERVIEW, C-12-TARGET-EDITOR]
+
+  - id: L-02-TARGET-OVERVIEW
+    responsibility: Understand the active target context and required capabilities.
+    location_ref: TARGET-OVERVIEW
+    interaction_context_refs: [I-L-UNDERSTAND-TARGET]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-03-TARGET-STATE, L-07-TARGET-KNOWLEDGE, C-12-TARGET-EDITOR]
+
+  - id: L-03-TARGET-STATE
+    responsibility: Inspect current evidence-backed state, uncertainty and available diagnostic opportunities against the target.
+    location_ref: TARGET-STATE
+    interaction_context_refs: [I-L-CURRENT-STATE]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-04-TARGET-GAPS, L-06-TARGET-DIAGNOSTICS, L-07-TARGET-KNOWLEDGE]
+
+  - id: L-04-TARGET-GAPS
+    responsibility: Inspect target-relative gaps and choose the next learning or diagnostic focus.
+    location_ref: TARGET-GAPS
+    interaction_context_refs: [I-L-GAPS]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS, L-07-TARGET-KNOWLEDGE, L-08-TARGET-PROGRESS, C-41-LEARNING-SUPPORT-COLLECTION]
+
+  - id: L-05-TARGET-LEARNING
+    responsibility: Work on the current learning focus using available material or practice support.
+    location_ref: TARGET-LEARNING
+    interaction_context_refs: [I-L-LEARNING]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-07-TARGET-KNOWLEDGE, L-06-TARGET-DIAGNOSTICS, L-08-TARGET-PROGRESS, S-01-RUNTIME-STATUS, C-41-LEARNING-SUPPORT-COLLECTION]
+
+  - id: L-06-TARGET-DIAGNOSTICS
+    responsibility: Perform or synchronize supported diagnostic/evidence activity for unresolved or focused capability areas.
+    location_ref: TARGET-DIAGNOSTICS
+    interaction_context_refs: [I-L-DIAGNOSTICS]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-03-TARGET-STATE, L-04-TARGET-GAPS, L-08-TARGET-PROGRESS, S-01-RUNTIME-STATUS, C-51-ASSESSMENT-COLLECTION]
+
+  - id: L-07-TARGET-KNOWLEDGE
+    responsibility: Explore target- or focus-relevant Knowledge without losing active target/focus context.
+    location_ref: TARGET-KNOWLEDGE
+    interaction_context_refs: [I-L-KNOWLEDGE]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS]
+
+  - id: L-08-TARGET-PROGRESS
+    responsibility: Compare target-relative state over time and decide how to adapt the next focus.
+    location_ref: TARGET-PROGRESS
+    interaction_context_refs: [I-L-PROGRESS]
+    parent: F-LT-TARGET-WORKSPACE
+    exits: [L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS]
+
+  - id: C-10-CURATION-HOME
+    responsibility: Enter corpus curation and choose the semantic area to maintain.
+    location_ref: CURATION-WORKSPACE
+    interaction_context_refs: []
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
+
+  - id: C-11-TARGET-COLLECTION
+    responsibility: Find/create prepared targets.
+    location_ref: CURATION-TARGETS
+    interaction_context_refs: [I-C-TARGETS]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-12-TARGET-EDITOR, C-21-CAPABILITY-COLLECTION, C-61-IMPORT]
+
+  - id: C-12-TARGET-EDITOR
+    responsibility: Edit one target and its RequirementExpression<CapabilitySpecification>.
+    location_ref: CURATION-TARGETS
+    interaction_context_refs: [I-C-TARGETS]
+    parent: C-11-TARGET-COLLECTION
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, L-02-TARGET-OVERVIEW]
+
+  - id: C-21-CAPABILITY-COLLECTION
+    responsibility: Find/create reusable capability definitions.
+    location_ref: CURATION-CAPABILITIES
+    interaction_context_refs: [I-C-CAPABILITIES]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-22-CAPABILITY-EDITOR, C-31-KNOWLEDGE-WORKSPACE, C-61-IMPORT]
+
+  - id: C-22-CAPABILITY-EDITOR
+    responsibility: Edit one reusable Capability and its performance/condition/criterion semantics.
+    location_ref: CURATION-CAPABILITIES
+    interaction_context_refs: [I-C-CAPABILITIES]
+    parent: C-21-CAPABILITY-COLLECTION
+    exits: [C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE]
+
+  - id: C-31-KNOWLEDGE-WORKSPACE
+    responsibility: Find/explore reusable Knowledge and enter semantic editing.
+    location_ref: CURATION-KNOWLEDGE
+    interaction_context_refs: [I-C-KNOWLEDGE]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-32-KNOWLEDGE-EDITOR, C-21-CAPABILITY-COLLECTION, C-41-LEARNING-SUPPORT-COLLECTION, C-61-IMPORT]
+
+  - id: C-32-KNOWLEDGE-EDITOR
+    responsibility: Edit one KnowledgeObject or KnowledgeProposition.
+    location_ref: CURATION-KNOWLEDGE
+    interaction_context_refs: [I-C-KNOWLEDGE]
+    parent: C-31-KNOWLEDGE-WORKSPACE
+    exits: [C-31-KNOWLEDGE-WORKSPACE]
+
+  - id: C-41-LEARNING-SUPPORT-COLLECTION
+    responsibility: Find/create learning material and practice/task support.
+    location_ref: CURATION-LEARNING-SUPPORT
+    interaction_context_refs: [I-C-LEARNING-SUPPORT]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-42-LEARNING-SUPPORT-EDITOR, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-61-IMPORT]
+
+  - id: C-42-LEARNING-SUPPORT-EDITOR
+    responsibility: Edit one learning/practice support artifact and its capability/knowledge relationships.
+    location_ref: CURATION-LEARNING-SUPPORT
+    interaction_context_refs: [I-C-LEARNING-SUPPORT]
+    parent: C-41-LEARNING-SUPPORT-COLLECTION
+    exits: [C-41-LEARNING-SUPPORT-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE]
+
+  - id: C-51-ASSESSMENT-COLLECTION
+    responsibility: Find/create reusable assessment and evidence-design definitions.
+    location_ref: CURATION-ASSESSMENT
+    interaction_context_refs: [I-C-ASSESSMENT]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-52-ASSESSMENT-EDITOR, C-21-CAPABILITY-COLLECTION, C-61-IMPORT]
+
+  - id: C-52-ASSESSMENT-EDITOR
+    responsibility: Edit one assessment/evidence design and its task/observation/warrant semantics.
+    location_ref: CURATION-ASSESSMENT
+    interaction_context_refs: [I-C-ASSESSMENT]
+    parent: C-51-ASSESSMENT-COLLECTION
+    exits: [C-51-ASSESSMENT-COLLECTION, C-21-CAPABILITY-COLLECTION]
+
+  - id: C-61-IMPORT
+    responsibility: Obtain the import contract, validate prepared data and apply accepted bulk records.
+    location_ref: CURATION-IMPORT
+    interaction_context_refs: [I-C-IMPORT]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-71-QUALITY]
+
+  - id: C-71-QUALITY
+    responsibility: Inspect known corpus-quality/preparation diagnostics and route correction work.
+    location_ref: CURATION-QUALITY
+    interaction_context_refs: [I-C-QUALITY]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION]
+
+  - id: S-01-RUNTIME-STATUS
+    responsibility: Inspect external-runtime reachability/compatibility.
+    location_ref: RUNTIME-STATUS
+    interaction_context_refs: [I-RUNTIME-STATUS]
+    parent: F-00-APPLICATION-SHELL
+    exits: [L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS]
+
+non_view_contexts:
+  - id: N-L-ACTIVE-TARGET
+    responsibility: Preserve active target identity across all target-work views.
+  - id: N-L-ACTIVE-FOCUS
+    responsibility: Preserve current LearningPriority/LearningIntent context across gaps, learning, diagnostics, knowledge and progress.
