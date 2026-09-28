@@ -1,4 +1,7 @@
 import type {
+  ImportContractModel,
+  ImportDataKind,
+  ImportValidationModel,
   KnowledgeDraft,
   KnowledgeRelationDraft,
 } from "../../features/curation/model/curationModels";
@@ -21,6 +24,31 @@ import {
   mapRequirementCollection,
 } from "./mappers";
 import { toCurationOutcome } from "./outcomes";
+
+function mapImportContractModel(value: unknown): ImportContractModel {
+  const record = value as Record<string, unknown>;
+  if (
+    typeof record.schemaVersion !== "string" ||
+    !Array.isArray(record.supportedKinds) ||
+    typeof record.exampleDocument !== "string"
+  ) {
+    throw new Error("invalid import contract");
+  }
+  return record as unknown as ImportContractModel;
+}
+
+function mapImportValidationModel(value: unknown): ImportValidationModel {
+  const record = value as Record<string, unknown>;
+  if (
+    typeof record.total !== "number" ||
+    typeof record.valid !== "number" ||
+    typeof record.rejected !== "number" ||
+    !Array.isArray(record.items)
+  ) {
+    throw new Error("invalid import validation");
+  }
+  return record as unknown as ImportValidationModel;
+}
 
 function input(values: Record<string, unknown>): Record<string, unknown> {
   return Object.fromEntries(
@@ -320,7 +348,29 @@ export class HttpCurationQuestionAdapter implements QuestionCurationPort {
 export class HttpImportAdapter implements CurationImportPort {
   constructor(private readonly client: HttpOperationClient) {}
 
-  async apply(documentText: string, expectedKind?: string) {
+  async contract() {
+    const envelope = await this.client.query("curation.import.contract.get");
+    return toCurationOutcome(envelope, mapImportContractModel);
+  }
+
+  async validate(documentText: string, expectedKind?: ImportDataKind) {
+    let document: unknown;
+    try {
+      document = JSON.parse(documentText);
+    } catch {
+      return {
+        status: "validation_rejected" as const,
+        message: "Prepared-data document is not valid JSON.",
+      };
+    }
+    const envelope = await this.client.query("curation.import.validate", {
+      document,
+      expected_data_kind: expectedKind,
+    });
+    return toCurationOutcome(envelope, mapImportValidationModel);
+  }
+
+  async apply(documentText: string, expectedKind?: ImportDataKind) {
     let document: unknown;
     try {
       document = JSON.parse(documentText);
