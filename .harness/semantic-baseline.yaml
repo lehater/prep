@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 17
-    basis: "Research protocol completeness is now explicit through a coverage matrix mapping every UMC and CH-P01..CH-P06 to Round A questions, Round B cards/stages and minimum expected evidence, with interim coverage synthesis preventing unexercised claims from being mistaken for validation."
+    revision: 18
+    basis: "Research analysis now starts from a descriptive, open codebook rather than Prep concepts, requires emergent codes and negative-case search, and only maps findings to OBS/RQ/CH/UMC after participant behavior has been reconstructed, reducing confirmation bias in user-model synthesis."
 
   - capability: prep.product-intent
     revision: 4

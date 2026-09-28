@@ -546,6 +546,58 @@ coverage:
 
 Any critical row with fewer than multiple independent sessions remains open regardless of how positive the existing sessions appear.
 
+### Descriptive coding codebook
+
+Use descriptive codes before mapping findings to Prep concepts. The codebook is intentionally broader than the current Task Model.
+
+| Code | Meaning | Examples of evidence |
+| --- | --- | --- |
+| TARGET-SOURCE | where expectations come from | vacancy, recruiter, interview loop, peers, prior experience, community |
+| TARGET-SHAPE | how the target is represented mentally | role family, level, company, interview stages, topic/depth expectations |
+| TARGET-CHANGE | event that changes perceived expectations | recruiter clarification, failed interview, new vacancy, peer advice |
+| STATE-SIGNAL | signal used to judge current ability | work experience, recall, explanation, solving, mock, real interview |
+| STATE-UNCERTAINTY | explicit uncertainty or lack of trustworthy signal | never tested, stale knowledge, unfamiliar context |
+| PRIORITY-DRIVER | reason for choosing next work | deadline, target importance, weakness, anxiety, available resource, interview stage |
+| ACTIVITY-LEARN | activity intended to acquire/reconstruct knowledge | reading, notes, course, explanation, study |
+| ACTIVITY-PRACTISE | activity intended to perform/rehearse | coding, design exercise, mock, task repetition |
+| ACTIVITY-DIAGNOSE | activity primarily used to find current limits | mock, quiz, unseen problem, self-test |
+| PROGRESS-SIGNAL | signal interpreted as improvement/readiness | completed topics, speed, independent solution, mock result, interview feedback |
+| SIGNAL-DISTRUST | reason a progress/readiness signal is considered weak | familiarity, memorized question, hints, easy context, recency |
+| FEEDBACK-EFFECT | what feedback changes | self-state, target expectations, priority, resource choice, confidence |
+| RESOURCE-SOURCE | where preparation material comes from | guides, courses, notes, question banks, AI, colleagues |
+| ORGANIZATION-WORK | work spent structuring material | lists, cards, tags, knowledge maps, copying, deduplication |
+| ORGANIZATION-VALUE | benefit or burden of structure | navigation, reuse, clarity, overhead, maintenance |
+| CONSTRAINT | condition limiting behavior | time, energy, interview date, confidentiality, tool cost |
+| WORKAROUND | compensating behavior caused by missing support | spreadsheets, ad-hoc prompts, duplicated notes, manual checklists |
+| FAILURE-POINT | where preparation breaks or becomes unreliable | overload, unclear depth, false confidence, stale plan, fragmented sources |
+| MISSING-TASK | user action/decision absent from current Prep model | any emergent task not covered by existing candidate concepts |
+| REJECTED-TASK | Prep candidate task the participant does not need/own | e.g. reusable corpus maintenance seen as system responsibility |
+| EMERGENT | meaningful pattern not captured above | create a new descriptive label rather than forcing an existing code |
+
+**Coding discipline**
+
+1. Code the participant's reconstructed behavior first.
+2. Preserve sequence and causal links: what happened, what triggered it, what changed next.
+3. Use `EMERGENT` freely; the codebook is not a closed ontology.
+4. A single observation may have several descriptive codes.
+5. Do not use `UMC-*`, `OBS-*`, `CH-*` as first-pass codes.
+6. Only after descriptive coding is complete, map relevant findings to OBS/RQ/CH/UMC.
+7. When two researchers code the same material, disagreement is discussed as interpretation rather than resolved by majority vote or numeric inter-rater score unless a later research method explicitly requires one.
+
+**Negative-case requirement**
+
+For each recurring pattern, actively search the completed sessions for a negative case: a participant/context where the pattern does not hold. Record whether the difference is noise, a legitimate workflow variant, a scope boundary or evidence that the candidate claim is too broad.
+
+This is especially required for:
+
+- one stable target versus layered/mutable targets;
+- evidence-backed prioritization versus deadline/resource-driven prioritization;
+- explicit evidence tracking versus lightweight heuristics;
+- reusable corpus ownership versus ephemeral/resource-native preparation;
+- sequential lifecycle versus opportunistic/repeating loops.
+
+Negative cases are not exceptions to discard; they are inputs to `RETAIN / NARROW / CHANGE / INVESTIGATE-MORE`.
+
 ### Session evidence ledger
 
 Each session gets an identifier `USR-<round>-<nn>`. Do not store unnecessary personal data.
