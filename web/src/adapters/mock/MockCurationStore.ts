@@ -245,6 +245,19 @@ export class MockCurationStore {
           "Observe whether the already-established backend capability remains supported under the represented conditions.",
         evidenceRuleSummary:
           "A conforming observation may add current supporting evidence without changing target satisfaction that is already established.",
+        evidenceBearing: "supports",
+      },
+      {
+        id: "assessment-python-backend-challenge",
+        title: "Python backend uncertainty diagnostic",
+        capabilityIds: ["cap-python-backend"],
+        taskSummary:
+          "Probe a production backend scenario designed to expose a potentially material weakness in the previously established capability.",
+        observationSummary:
+          "Observe whether the learner misses a required failure-handling or reasoning constraint under the represented conditions.",
+        evidenceRuleSummary:
+          "A conforming adverse observation challenges the current positive claim but does not itself establish a negative capability claim.",
+        evidenceBearing: "challenges",
       },
       {
         id: "assessment-payment-reliability",
@@ -253,6 +266,7 @@ export class MockCurationStore {
         taskSummary: "Explain and design retry-safe payment command handling under duplicate delivery.",
         observationSummary: "Observe whether idempotency and retry constraints are correctly identified and applied.",
         evidenceRuleSummary: "A supported positive claim requires correct reasoning across the retry/idempotency scenario; one raw answer is not broad mastery.",
+        evidenceBearing: "supports",
       },
       {
         id: "assessment-card-chain",
@@ -261,6 +275,7 @@ export class MockCurationStore {
         taskSummary: "Place payment participants and processing stages into their correct responsibility chain.",
         observationSummary: "Observe participant-role and flow correctness.",
         evidenceRuleSummary: "Evidence is scoped to the represented processing conditions.",
+        evidenceBearing: "supports",
       },
     ];
     this.targetCapabilityIds.set("python-backend-fintech", [
