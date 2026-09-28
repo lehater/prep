@@ -2,354 +2,337 @@
 
 ## Purpose
 
-Define implementation-independent composition for the accepted frontend topology. Every view inherits `PREP-PRESENTATION-SYSTEM` semantics from Presentation System and consumes only accepted interaction/machine contracts.
+Define implementation-independent composition for the accepted frontend topology. Every view inherits `PREP-PRESENTATION-SYSTEM` and consumes only accepted interaction/machine contracts.
 
-## Decision-governance revalidation
+## Shared rules
 
-### View composition
+- Active target persists across all target-work views.
+- Active focus persists across Gaps, Learning, Diagnostics, Knowledge and Progress.
+- Curation collections are search/browse-first; editors preserve recoverable draft state.
+- Loading, empty, validation/conflict, unavailable/degraded and recoverable failure states remain distinguishable where supported.
+- Responsive reflow preserves semantic/focus order.
+- Graph state is presentation state only.
+- Current Question terminology appears only inside compatibility learning/runtime flows.
 
-Options were formed from the current topology before selection:
+## [F-00-APPLICATION-SHELL]
 
-1. topology-aligned task views inside structural Learning/Curation shells;
-2. one large Learning view and one large Curation view with all work mixed into panels;
-3. split every conceptual sub-object into additional dedicated views beyond the accepted topology.
-
-Review:
-
-- option 1 — **VIABLE**: preserves one primary responsibility per topology view and shared context in structural shells;
-- option 2 — **REJECTED**: mixes independent tasks and would erase accepted topology responsibilities;
-- option 3 — **REJECTED**: invents navigation/view identities not required by current tasks.
-
-Disposition: **DETERMINED — option 1**.
-
-### Detail/edit placement
-
-Options:
-
-1. always inline/in-context;
-2. always dedicated detail/edit views;
-3. context-sensitive placement: learner inspection remains in-context where continuity matters, while accepted Curation editors use dedicated task views.
-
-Review:
-
-- option 1 — **REJECTED**: conflicts with accepted dedicated Curation editor views;
-- option 2 — **REJECTED**: would break Knowledge exploration continuity for learner inspection;
-- option 3 — **VIABLE**.
-
-Disposition: **DETERMINED — option 3**.
-
-### Responsive composition
-
-Options:
-
-1. semantic reflow/disclosure preserving primary work surface, actions and focus order;
-2. fixed desktop composition with horizontal scrolling/scaling;
-3. hide secondary required information/actions at narrow widths.
-
-Review:
-
-- option 1 — **VIABLE**;
-- option 2 — **REJECTED** for usability/accessibility and graph-workspace constraints;
-- option 3 — **REJECTED** because required task capabilities would disappear.
-
-Disposition: **DETERMINED — option 1**.
-
-## Shared composition rules
-
-- Learning and Curation remain explicit modes.
-- Learning target context persists across Overview, Knowledge, Study and Statistics.
-- Curation collections are search/browse-first; editors are focused task contexts.
-- Loading, empty, validation/conflict, unavailable/degraded and recoverable failure states remain visually distinguishable where supported by bound operations.
-- Recoverable editor input is preserved.
-- Responsive reflow preserves semantic order and focus order.
-- Knowledge spatial rendering is presentation state only; canonical Knowledge identity/proposition meaning remains available through non-spatial search/list/detail access.
-- Current Question terminology may appear only inside the supported Question-compatible study-material workflow.
-
-## [F-00-APPLICATION-SHELL] Application shell
-
-**Purpose:** preserve global mode and runtime-status context.
+**Purpose:** preserve global task context and runtime-status access.
 
 Regions:
+- global navigation — primary;
+- active target context when present — supporting;
+- active workspace — primary;
+- runtime status — secondary.
 
-- persistent/compact navigation: Learning, Curation;
-- mode-local destinations;
-- runtime status affordance;
-- active workspace.
+Responsive:
+- wide: persistent left rail;
+- narrow: compact accessible navigation disclosure;
+- focus/read order: navigation → target context → workspace → runtime status.
 
-Wide: persistent left rail. Narrow: accessible compact disclosure/drawer preserving the same hierarchy.
+## [F-LT-TARGET-WORKSPACE]
 
-## [F-LT-TARGET-WORKSPACE] Target workspace
+**Purpose:** preserve one active target across the full target-relative loop.
 
-**Purpose:** preserve one active LearningTarget across learner task views.
+Regions:
+- target identity/context — primary;
+- target-local navigation — primary;
+- current focus summary — secondary;
+- active child view — primary.
 
-Persistent context:
+Target-local navigation:
+Overview / State / Gaps / Learning / Diagnostics / Knowledge / Progress.
 
-- target identity and concise definition;
-- Overview / Knowledge / Study / Statistics navigation;
-- change-target action.
+## [L-01-TARGETS]
 
-No target-scope mutation is exposed in Learning mode.
-
-## [L-01-TARGET-SELECTION] Learning target selection
-
-**Purpose:** find and select a prepared target.
+**Task:** `TASK-L-ESTABLISH-TARGET`
 
 Reads: `learning.targets.list`, `learning.targets.get`.
 
 Regions:
+- search/browse controls — secondary;
+- target collection — primary;
+- selected target requirement summary — primary;
+- prepare-new-target affordance — secondary.
 
-- search/browse controls;
-- bounded target results with total context;
-- concise target definition/scope summary;
-- loading/empty/failure states.
+States: loading, empty, ready, failure.
 
-Primary action: select target.
+Primary action: activate suitable target.
 
-Responsive: results reflow to one readable column; search remains first in focus/read order.
+Empty state explicitly routes to target preparation.
 
-## [L-02-TARGET-OVERVIEW] Target overview
+Responsive: controls precede collection; detail follows selection.
 
-**Purpose:** explain the active target, its required capability scope, support status and factual evidence context.
+## [L-02-TARGET-OVERVIEW]
 
-Reads: `learning.targets.get`, `learning.target.study_set.build`, `learning.target.evidence.get`.
+**Task:** `TASK-L-UNDERSTAND-TARGET`
+
+Reads: `learning.targets.get`, `learning.target.knowledge.list`.
 
 Regions:
+- target context/definition — primary;
+- requirement/capability structure — primary;
+- standards/conditions — supporting;
+- related Knowledge entry points — secondary;
+- preparation issue indicator — secondary.
 
-1. target identity/definition;
-2. read-only `RequirementExpression<CapabilitySpecification>`;
-3. current support/material summary;
-4. preparation diagnostics;
-5. factual evidence summary.
+Primary action: continue to State.
 
-The view does not infer mastery/readiness or expose target-scope editing.
+Responsive: target context → requirement structure → supporting details.
 
-Responsive: sections stack in semantic order; diagnostics remain adjacent to the requirement fragment they qualify where practical.
+## [L-03-TARGET-STATE]
 
-## [L-03-TARGET-KNOWLEDGE] Target Knowledge
+**Task:** `TASK-L-ESTABLISH-CURRENT-STATE`
 
-**Purpose:** explore target-relevant `KnowledgeObject` and `KnowledgeProposition` semantics.
+Reads: `learning.target.state.get`, `learning.target.evidence.get`, `learning.target.diagnostics.list`.
+
+Regions:
+- state summary — primary;
+- requirement-state projection — primary;
+- evidence basis/detail — secondary;
+- unresolved/diagnostic opportunities — secondary.
+
+States: loading, ready, insufficient-evidence, conflicting-evidence, failure.
+
+Required semantic distinctions: satisfied / unresolved / challenged.
+
+Primary actions:
+- inspect basis;
+- gather evidence for unresolved area;
+- continue to Gaps.
+
+Responsive: state projection remains first; evidence/diagnostics follow or move to drawers.
+
+## [L-04-TARGET-GAPS]
+
+**Tasks:** `TASK-L-REVIEW-GAPS`, `TASK-L-CHOOSE-NEXT-FOCUS`
+
+Reads/commands: `learning.target.gaps.get`, `learning.target.focus.get`, `learning.target.focus.set`.
+
+Regions:
+- gap collection/requirement structure — primary;
+- selected gap detail and basis — primary;
+- current focus/rationale — secondary;
+- next-action choices — primary;
+- support-availability warning — secondary.
+
+Primary actions:
+- choose learning focus;
+- choose diagnostic focus;
+- inspect Knowledge;
+- route to Curation for missing support.
+
+No scalar proficiency score is introduced.
+
+Responsive: gap list/structure → selected detail → next actions.
+
+## [L-05-TARGET-LEARNING]
+
+**Task:** `TASK-L-LEARN-OR-PRACTISE`
+
+Reads/commands: `learning.target.support.list`, `learning.target.activity.start`, runtime status.
+
+Regions:
+- active focus — primary;
+- available learning material — primary;
+- practice/task opportunities — primary;
+- support diagnostics — secondary;
+- runtime/delegation controls — secondary.
+
+States: loading, empty-support, ready, activity-active, runtime-unavailable, failure.
+
+Question-compatible Study Set/export may be presented as one support profile inside this view, not as the view's organizing model.
+
+Responsive: focus → material/tasks → diagnostics → delegation.
+
+## [L-06-TARGET-DIAGNOSTICS]
+
+**Task:** `TASK-L-COLLECT-EVIDENCE`
+
+Reads/commands: `learning.target.diagnostics.list`, `learning.target.activity.start`, `learning.evidence.sync`, `learning.target.evidence.get`.
+
+Regions:
+- diagnostic target/focus — primary;
+- diagnostic opportunities — primary;
+- active/performed task context — primary;
+- observations/provenance — primary;
+- derived claims/arguments — secondary;
+- sync/runtime status — secondary.
+
+States: loading, empty, ready, activity-active, syncing, partial-failure, runtime-unavailable, failure.
+
+Raw observation facts and inferred claims remain visually distinct.
+
+## [L-07-TARGET-KNOWLEDGE]
+
+**Task:** `TASK-L-EXPLORE-RELEVANT-KNOWLEDGE`
 
 Reads: `learning.target.knowledge.list`, `learning.target.knowledge.projection`.
 
-Composition:
+Regions:
+- search/filter/control band — secondary;
+- bounded semantic results — supporting;
+- 3D graph on capable environments — primary;
+- selected Knowledge detail — supporting;
+- non-spatial access — primary fallback/equivalent path.
 
-- compact search/filter/control band;
-- bounded search/results access;
-- **primary 3D spatial Knowledge surface** on capable environments;
-- selected Knowledge detail as supporting context;
-- explicit non-spatial search/list/detail path.
+Controls:
+search; semantic filters; relation-predicate filters; Focus/Clear focus; Fit; Reset; graph settings.
 
-Accepted controls inherit Presentation System:
-
-- search;
-- Knowledge form/type filter;
-- relation-predicate filter;
-- explicit Focus / Clear focus;
-- Fit;
-- Reset camera/view;
-- Graph settings / performance profile.
-
-Selection opens/updates detail without implicitly changing semantic membership. Explicit focus is reversible. Camera/depth/layout never imply semantic importance.
-
-Degradation: renderer failure/capability limits preserve task-complete non-spatial access to the same semantic scope.
+Selection never implicitly changes scope. Explicit focus is reversible.
 
 Responsive:
+- wide: optional results + dominant graph + detail;
+- compact: graph dominant, detail below/drawer;
+- narrow: full-width graph or non-spatial access, results/detail disclosures.
 
-- wide: optional bounded results + dominant graph + supporting detail;
-- compact: graph remains dominant; detail moves below or to disclosure;
-- narrow: graph uses full content width; results/detail become ordered disclosures and non-spatial access remains fully usable.
+Renderer degradation preserves task-complete non-spatial access.
 
-## [L-04-TARGET-STUDY] Target Study
+## [L-08-TARGET-PROGRESS]
 
-**Purpose:** inspect the current supported-profile material and exact Study Set preview, then export the inspected materialization.
+**Task:** `TASK-L-REVIEW-PROGRESS`
 
-Reads/commands: `learning.target.questions.list`, `learning.target.study_set.build`, `learning.target.study_set.export`.
-
-Regions:
-
-1. Question-compatible study-material results;
-2. selected material detail/supporting Knowledge links;
-3. exact Study Set subset;
-4. preparation diagnostics;
-5. preview-currentness state;
-6. external-runtime/export outcomes.
-
-States include valid empty, preview ready, stale/conflict, exporting, partial external failure and runtime unavailable.
-
-Primary action: export the currently inspected preview only. Stale conflict requires rebuild/reinspection.
-
-Responsive: preview/diagnostics remain readable before export actions; per-item outcomes become stacked records when narrow.
-
-## [L-05-TARGET-STATISTICS] Target Statistics
-
-**Purpose:** inspect factual learning evidence.
-
-Reads/commands: `learning.target.evidence.get`, `learning.question.evidence.get`, `learning.evidence.sync`.
+Reads: `learning.target.progress.get`, state/gaps/focus projections.
 
 Regions:
+- comparison summary — primary;
+- changed target fragments — primary;
+- unchanged/unresolved/challenged fragments — supporting;
+- new evidence basis — secondary;
+- gap/focus change summary — primary;
+- next adaptation action — primary.
 
-- factual aggregate summary;
-- Observation history with relevant context/provenance;
-- optional Question-compatible item context;
-- explicit sync status/outcomes.
+States: loading, no-change, changed, increased-uncertainty, failure.
 
-No raw rating/history is labeled as mastery, retention, Gap or LearningPriority.
+Primary actions:
+- continue focus;
+- choose another gap;
+- gather more evidence.
 
-Responsive: history becomes stacked labeled records; sync action remains reachable without hiding existing evidence during failure.
+## [F-C-CURATION-WORKSPACE]
 
-## [F-C-CURATION-WORKSPACE] Curation workspace
-
-**Purpose:** preserve explicit semantic-authoring context.
+**Purpose:** preserve corpus-authoring context.
 
 Destinations:
+Targets / Capabilities / Knowledge / Learning Support / Assessment / Import / Quality.
 
-- Targets;
-- Knowledge;
-- Capabilities;
-- Study Material.
+## [C-11/C-12] Targets collection/editor
 
-Import is contextual and may be entered from relevant Curation areas.
+Reads/commands: curation target operations + capability lookup.
 
-## [C-11-TARGET-COLLECTION] LearningTarget collection
+Collection regions:
+- search;
+- target results;
+- create/import entry.
 
-**Purpose:** find/create prepared targets.
-
-Reads/commands: `curation.targets.list`, `curation.targets.create`.
-
-Regions: search, bounded results, create action, loading/empty/failure states.
-
-Opening a target enters `C-12-TARGET-EDITOR`.
-
-## [C-12-TARGET-EDITOR] LearningTarget editor
-
-**Purpose:** edit one target and its complete prepared `RequirementExpression<CapabilitySpecification>`.
-
-Reads/commands: `curation.targets.get`, `curation.targets.update`, `curation.capabilities.list`.
-
-Regions:
-
-- target definition;
-- requirement-expression composition;
-- CapabilitySpecification selector/detail;
-- validation/conflict feedback;
+Editor regions:
+- target context;
+- RequirementExpression composition;
+- CapabilitySpecification selection/detail;
+- validation/conflict;
 - save/cancel.
 
-No learner-mode override is created here.
-
-Responsive: expression editor and capability selector stack while preserving current draft and focus.
-
-## [C-21-KNOWLEDGE-WORKSPACE] Curation Knowledge workspace
-
-**Purpose:** find/explore reusable Knowledge and enter semantic editing.
-
-Reads/commands: `curation.knowledge.list`, `curation.knowledge.projection`, `curation.knowledge.create`.
-
-Uses the same 3D-default spatial presentation and non-spatial access guardrails as Target Knowledge, but with broader Curation scope.
-
-New Knowledge and Import are compact task actions rather than permanently expanded forms.
-
-## [C-22-KNOWLEDGE-EDITOR] Knowledge editor
-
-**Purpose:** edit one `KnowledgeObject` or `KnowledgeProposition`.
-
-Reads/commands: `curation.knowledge.get`, `curation.knowledge.update`.
-
-For KnowledgeObject: coherent content plus optional open knowledge-form classification.
-
-For KnowledgeProposition: proposition content plus predicate/participants/conditions where applicable. Predicate vocabulary is not edited as if it were an asserted relation entity.
-
-Validation preserves draft context.
-
-Responsive: editor may be a bounded pane on wide Knowledge workspace and a focused drawer/stacked region on compact/narrow layouts, while preserving semantic selection context.
-
-## [C-31-CAPABILITY-COLLECTION] Capability collection
-
-**Purpose:** find/create reusable Capability definitions.
-
-Reads/commands: `curation.capabilities.list`, `curation.capabilities.create`.
-
-Regions: search/results, concise performance expectation summary, create action, common collection states.
-
-## [C-32-CAPABILITY-EDITOR] Capability editor
-
-**Purpose:** edit reusable Capability semantics used by target specifications.
-
-Reads/commands: `curation.capabilities.get`, `curation.capabilities.update`, `curation.knowledge.list`.
+## [C-21/C-22] Capabilities collection/editor
 
 Regions:
-
+- search/results;
 - PerformanceExpectation;
-- condition space / criterion dimensions / constitutive constraints as supported;
-- Knowledge focus selector;
-- validation/conflict feedback;
+- condition space;
+- criterion dimensions/constraints;
+- required standard where applicable;
+- Knowledge focus;
+- validation/conflict;
 - save/cancel.
 
-The editor does not display learner-specific capability state as part of reusable Capability definition.
+Learner-specific state is excluded.
 
-## [C-41-STUDY-MATERIAL-COLLECTION] Study Material collection
+## [C-31/C-32] Knowledge workspace/editor
 
-**Purpose:** find/create material for the current supported Question-compatible profile.
+Collection/workspace uses the same 3D-default + task-complete non-spatial guardrails as target Knowledge, but with broader corpus scope.
 
-Reads/commands: `curation.questions.list`, `curation.questions.create`.
+Authoring actions remain compact until invoked.
 
-Presentation uses the broader label **Study Material**; Question wording may appear inside item/profile detail.
+Editor supports KnowledgeObject/KnowledgeProposition semantics and preserves proposition predicate/participants/conditions.
 
-No material-count-based adequacy score is shown.
+## [C-41/C-42] Learning Support collection/editor
 
-## [C-42-STUDY-MATERIAL-EDITOR] Study Material editor
-
-**Purpose:** edit one Question-compatible material item and supported Knowledge mappings.
-
-Reads/commands: `curation.questions.get`, `curation.questions.update`, `curation.questions.knowledge.align`, `curation.questions.knowledge.unalign`.
+Reads/commands: `curation.learning_support.*`.
 
 Regions:
-
-- prompt/response compatibility fields;
-- Knowledge mapping selector;
-- mapping/validation state;
+- search/results;
+- support kind/content;
+- intended CapabilitySpecification;
+- related Knowledge;
+- explicit support diagnostics where defined;
+- validation/conflict;
 - save/cancel.
 
-The editor does not imply that Question is the universal learning-material model.
+Artifact count is never rendered as adequacy.
 
-## [S-02-IMPORT-FLOW] Import flow
+## [C-51/C-52] Assessment collection/editor
 
-**Purpose:** apply supported prepared input and inspect outcomes.
-
-Command: `curation.import.apply`.
+Reads/commands: `curation.assessment_design.*`.
 
 Regions:
+- search/results;
+- target CapabilitySpecifications;
+- TaskSpecifications;
+- ObservationSpecifications;
+- EvidencePatterns/EvidentialWarrants;
+- SamplingSpecification where applicable;
+- semantic validation;
+- save/cancel.
 
-- input selection;
-- validation/application state;
-- aggregate counts;
-- per-item created/updated/duplicate/rejected outcomes;
-- rejection reason and retry/correction path.
+Incomplete design cannot produce a learner capability conclusion.
 
-Backend decoding/storage mechanics are not exposed as UI semantics.
+## [C-61-IMPORT]
 
-## [S-01-RUNTIME-STATUS] Integration status
+**Tasks:** `TASK-C-PREPARE-BULK-DATA`, `TASK-C-IMPORT-BULK-DATA`
 
-**Purpose:** inspect external-runtime reachability and compatibility.
+Reads/commands: `curation.import.contract.get`, `curation.import.validate`, `curation.import.apply`.
+
+Regions:
+1. schema/version and supported data kinds — primary;
+2. external-agent/tool preparation example — primary;
+3. input document selection — primary;
+4. validation summary — primary;
+5. per-item validation outcomes — supporting;
+6. explicit Apply action — primary;
+7. apply result and per-item terminal outcomes — primary.
+
+Validation never silently applies data.
+
+States: idle, contract-ready, validating, validation-rejected, ready-to-apply, applying, applied, partially-applied, failure.
+
+## [C-71-QUALITY]
+
+Read: `curation.quality.get`.
+
+Regions:
+- known diagnostics — primary;
+- owning semantic area — secondary;
+- navigate-to-fix action — primary.
+
+Empty diagnostics means only “no known reported issue”, not proven completeness.
+
+## [S-01-RUNTIME-STATUS]
 
 Read: `integration.external_runtime.status.get`.
 
 Shows reachable/unavailable, compatible/incompatible and non-secret profile summary.
 
-Deployment endpoint/API-key editing is not part of this frontend slice.
-
 ## Knowledge visualization verification obligations
 
 The 3D-default Knowledge views must verify:
 
-- search -> selection/focus remains usable;
-- selection and focus are distinct;
+- search → selection/focus works;
+- selection and focus differ;
 - relation predicate/direction is inspectable without geometry alone;
-- required Knowledge remains discoverable when off-camera/occluded;
-- non-spatial search/list/detail path completes core Knowledge tasks;
-- wide/compact/narrow reflow preserves semantic state and focus order;
-- accepted performance/capacity degradation never changes canonical Knowledge/proposition meaning;
-- renderer failure preserves task-complete semantic access.
+- off-camera/occluded Knowledge remains discoverable;
+- non-spatial search/list/detail completes core Knowledge tasks;
+- target/focus scoping is preserved;
+- renderer degradation never alters semantic truth;
+- wide/compact/narrow reflow preserves target/focus and focus order.
 
 ## Deliberately unconstrained
 
-Implementation remains free to choose exact routes, DOM hierarchy, CSS Grid/Flexbox mechanics, component split, frontend framework primitives, drawer/modal mechanics, graph library internals and private renderer tuning, provided the contracts above remain true.
+Exact routes, DOM hierarchy, component split, CSS mechanics, drawer/modal choice, framework primitives, graph library internals and private renderer tuning remain downstream.
