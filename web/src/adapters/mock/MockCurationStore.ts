@@ -236,6 +236,17 @@ export class MockCurationStore {
     ];
     this.assessmentDesigns = [
       {
+        id: "assessment-python-backend-confirmation",
+        title: "Python backend confirmation diagnostic",
+        capabilityIds: ["cap-python-backend"],
+        taskSummary:
+          "Explain a representative production backend design while preserving failure and maintainability reasoning.",
+        observationSummary:
+          "Observe whether the already-established backend capability remains supported under the represented conditions.",
+        evidenceRuleSummary:
+          "A conforming observation may add current supporting evidence without changing target satisfaction that is already established.",
+      },
+      {
         id: "assessment-payment-reliability",
         title: "Payment reliability diagnostic",
         capabilityIds: ["cap-payment-reliability"],
