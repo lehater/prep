@@ -20,6 +20,8 @@ import {
   mockTargets,
 } from "./mockFixtures";
 
+export type MockCurationSeed = "prepared" | "empty";
+
 export class MockCurationStore {
   readonly knowledgeNodes: KnowledgeNodeModel[];
   readonly knowledgeRelations: KnowledgeRelationModel[];
@@ -34,7 +36,19 @@ export class MockCurationStore {
   readonly importFingerprints = new Set<string>();
   private sequence = 100;
 
-  constructor() {
+  constructor(seed: MockCurationSeed = "prepared") {
+    if (seed === "empty") {
+      this.knowledgeNodes = [];
+      this.knowledgeRelations = [];
+      this.requirements = [];
+      this.targets = [];
+      this.questions = [];
+      this.capabilities = [];
+      this.learningSupport = [];
+      this.assessmentDesigns = [];
+      return;
+    }
+
     this.knowledgeNodes = mockKnowledgeNodes.map((item) => ({ ...item }));
     this.knowledgeRelations = mockKnowledgeRelations.map((item) => ({ ...item }));
     this.requirements = [
@@ -360,6 +374,8 @@ export class MockCurationStore {
   }
 }
 
-export function createMockCurationStore(): MockCurationStore {
-  return new MockCurationStore();
+export function createMockCurationStore(
+  seed: MockCurationSeed = "prepared",
+): MockCurationStore {
+  return new MockCurationStore(seed);
 }
