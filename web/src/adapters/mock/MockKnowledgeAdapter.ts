@@ -88,8 +88,20 @@ export class MockKnowledgeAdapter implements KnowledgeQueryPort {
       return this.store.knowledgeNodes;
     }
 
-    const ids = new Set(this.store.knowledgeIdsForTarget(scope.targetId));
-    return this.store.knowledgeNodes.filter((node) => ids.has(node.id));
+    const targetIds = new Set(this.store.knowledgeIdsForTarget(scope.targetId));
+    if (!scope.focusId) {
+      return this.store.knowledgeNodes.filter((node) => targetIds.has(node.id));
+    }
+
+    const capabilityId = scope.focusId.replace(/^focus-/, "");
+    if (!(this.store.targetCapabilityIds.get(scope.targetId) ?? []).includes(capabilityId)) {
+      return [];
+    }
+    const capability = this.store.capabilities.find((item) => item.id === capabilityId);
+    const focusIds = new Set(capability?.knowledgeIds ?? []);
+    return this.store.knowledgeNodes.filter(
+      (node) => targetIds.has(node.id) && focusIds.has(node.id),
+    );
   }
 
   private problem<T>(): KnowledgeQueryOutcome<T> | null {
