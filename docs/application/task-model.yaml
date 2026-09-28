@@ -12,95 +12,136 @@ goals:
         decision_or_input: Search/browse and select one prepared LearningTarget.
         system_support: List/search targets, expose enough read-only target context to choose, and establish the selected target as active.
         outcome: A prepared LearningTarget is active.
-        recovery: Empty results remain distinguishable from load failure; unavailable/recoverable failures preserve the selection task.
+        recovery: Empty results remain distinguishable from load failure; recoverable failures preserve the selection task.
+
       - id: TASK-L-UNDERSTAND-TARGET
         responsibility: USER
-        capability_refs: [PC-01, PC-03]
+        capability_refs: [PC-01, PC-04, PC-07]
         depends_on: [TASK-L-SELECT-TARGET]
-        required_information: [target definition, curated Requirement/RequirementSet scope, available Knowledge count, resolvable Question count, factual review summary]
-        decision_or_input: Inspect the target and choose the next learner section.
-        system_support: Project current target scope/material facts without exposing target-scope mutation.
-        outcome: Learner understands target purpose, curated scope and current material availability.
-        recovery: Missing material is shown as availability/curation limitation rather than fabricated completeness.
+        required_information:
+          - target definition
+          - read-only RequirementExpression<CapabilitySpecification>
+          - current learning/practice support availability
+          - preparation diagnostics where support is missing, inadequate or not representable
+          - factual evidence summary where available
+        decision_or_input: Inspect the target and choose the next learner task.
+        system_support: Project current target requirements, available support and evidence facts without exposing target-scope mutation or fabricating completeness.
+        outcome: Learner understands the target, its required capability scope and the currently available support/evidence context.
+        recovery: Missing or inadequate support remains explicit and does not become a false completeness or learner-state conclusion.
+
       - id: TASK-L-EXPLORE-KNOWLEDGE
         responsibility: USER
         capability_refs: [PC-03]
         depends_on: [TASK-L-SELECT-TARGET]
-        required_information: [target-relevant Knowledge, accepted relation type/direction, canonical detail, current filters/focus]
-        decision_or_input: Search, filter, select, navigate relations and optionally focus a neighborhood.
-        system_support: Provide equivalent list/search/detail and graph access over the same canonical identities while preserving exploration state.
-        outcome: Learner can read and explore target-relevant Knowledge and relations.
-        recovery: Graph/rendering degradation must leave non-graph Knowledge access usable; recoverable query failure retains target context.
+        required_information:
+          - target-relevant KnowledgeObject and KnowledgeProposition identities/content
+          - relational proposition predicate/participants/conditions where applicable
+          - current query/filter/focus context
+        decision_or_input: Search, filter, select and follow accepted semantic relationships among target-relevant Knowledge.
+        system_support: Provide searchable/navigable access to the same canonical Knowledge identities while preserving semantic predicate meaning and current exploration context.
+        outcome: Learner can inspect reusable subject meaning and accepted relational context relevant to the target.
+        recovery: Presentation degradation or recoverable query failure preserves semantic access and active target context.
+
       - id: TASK-L-STUDY-QUESTIONS
         responsibility: USER
         capability_refs: [PC-04, PC-06]
         depends_on: [TASK-L-SELECT-TARGET]
-        required_information: [currently resolvable Questions, direct answers, supporting Knowledge references, exact Study Set preview, preview freshness]
-        decision_or_input: Inspect Questions, build/rebuild the preview and navigate a Question to supporting Knowledge.
-        system_support: Materialize the current resolvable Question subset, represent valid-empty output and detect stale previews.
-        outcome: Learner can inspect currently available Questions and the exact Study Set material.
-        recovery: A stale preview can be rebuilt; an empty Study Set is a valid explicit result.
+        required_information:
+          - currently representable Question-compatible study material
+          - exact Study Set preview
+          - preparation diagnostics
+          - preview freshness/current-state identity
+          - supporting Knowledge references where available
+        decision_or_input: Build/rebuild and inspect the current Study Set preview, then choose whether to use the represented material.
+        system_support: Materialize the exact resolvable subset for the supported Question-compatible profile, preserve valid-empty output, expose diagnostics and detect stale previews.
+        outcome: Learner can inspect the exact currently representable Study Set without treating material count as adequacy.
+        recovery: A stale preview can be rebuilt; missing/inadequate support remains diagnostic and an empty Study Set is a valid explicit result.
+
       - id: TASK-L-EXPORT-STUDY
         responsibility: USER
         capability_refs: [PC-06]
         depends_on: [TASK-L-STUDY-QUESTIONS]
-        required_information: [exact inspected Study Set, external-runtime reachability, per-Question export outcome]
+        required_information: [exact inspected Study Set, external-runtime reachability, per-item export outcome]
         decision_or_input: Export the inspected preview and retry recoverable failures when appropriate.
-        system_support: Export only the materialization represented by the preview token and distinguish conflict, runtime unavailable, partial failure and operational failure.
-        outcome: Learner exports the inspected Study Set to the external runtime without silently changing membership.
+        system_support: Export only the materialization represented by the preview identity and distinguish conflict, runtime unavailable, partial failure and operational failure.
+        outcome: Learner exports the inspected Study Set without silently changing membership.
         recovery: Conflict requires rebuild/reinspect; partial/recoverable failures retain target and per-item outcome context.
+
       - id: TASK-L-REVIEW-FACTS
         responsibility: USER
         capability_refs: [PC-07]
         depends_on: [TASK-L-SELECT-TARGET]
-        required_information: [Question-level ReviewObservations, factual aggregates, review history, sync outcome]
-        decision_or_input: Inspect statistics/history and optionally trigger review synchronization.
-        system_support: Retrieve and present factual review evidence without mastery/readiness/retention inference.
-        outcome: Learner inspects factual ReviewObservations/statistics.
-        recovery: Runtime-unavailable sync does not erase already recorded facts and can be retried.
+        required_information:
+          - recorded Observation facts
+          - relevant Performance/task context and provenance when available
+          - factual aggregates/history
+          - synchronization outcome for Question-compatible external-runtime evidence
+        decision_or_input: Inspect factual learning evidence and optionally request synchronization from the supported external runtime.
+        system_support: Retrieve and present observations and factual aggregates without converting them directly into broad mastery/readiness/retention conclusions.
+        outcome: Learner inspects current factual evidence and its relevant context.
+        recovery: Runtime-unavailable synchronization does not erase recorded evidence; empty history is not negative evidence.
 
   - id: GOAL-CURATE-LEARNING-SYSTEM
     tasks:
       - id: TASK-C-MAINTAIN-TARGETS
         responsibility: USER
         capability_refs: [PC-01, PC-02]
-        required_information: [LearningTarget definition, reusable Requirements/RequirementSets, current target scope]
-        decision_or_input: Create/edit a target and add/remove reusable scope members.
-        system_support: Validate references and persist target composition without changing reusable Requirement semantics.
-        outcome: Curator maintains LearningTargets and their Requirement scope.
-        recovery: Validation/conflict outcomes preserve edit context and do not partially apply an invalid scope change.
+        required_information:
+          - LearningTarget definition
+          - available CapabilitySpecifications
+          - current RequirementExpression
+        decision_or_input: Create/edit a LearningTarget and compose/replace its RequirementExpression<CapabilitySpecification>.
+        system_support: Validate referenced capability specifications and persist target composition without changing reusable Capability semantics.
+        outcome: Curator maintains prepared LearningTargets with explicit capability requirements.
+        recovery: Validation/conflict outcomes preserve edit context and do not partially apply an invalid target expression.
+
       - id: TASK-C-MAINTAIN-KNOWLEDGE
         responsibility: USER
         capability_refs: [PC-02, PC-03, PC-10]
-        required_information: [KnowledgeNode identity/content/kind, accepted relation vocabulary, incoming/outgoing relations]
-        decision_or_input: Create/edit Knowledge and add/remove precisely typed relations.
-        system_support: Preserve stable identities, validate supported relation semantics and expose global/search-first exploration.
-        outcome: Curator maintains KnowledgeNodes and KnowledgeRelations.
-        recovery: Invalid relation/content changes are rejected without silently coercing relation meaning.
-      - id: TASK-C-MAINTAIN-REQUIREMENTS
+        required_information:
+          - KnowledgeObject and KnowledgeProposition identity/content
+          - predicate vocabulary for relational propositions
+          - proposition participants/conditions where applicable
+        decision_or_input: Create/edit reusable Knowledge and add/remove or revise relational propositions.
+        system_support: Preserve stable semantic identities, validate supported predicate semantics and keep predicates distinct from asserted propositions.
+        outcome: Curator maintains reusable KnowledgeObject/KnowledgeProposition content and accepted relational meaning.
+        recovery: Invalid content/reference/predicate changes are rejected without silently coercing semantic meaning.
+
+      - id: TASK-C-MAINTAIN-CAPABILITIES
         responsibility: USER
         capability_refs: [PC-01, PC-02]
-        required_information: [Requirement content, RequirementSet membership, Knowledge candidates, current alignments]
-        decision_or_input: Create/edit requirements/sets, maintain membership and align/unalign Knowledge.
-        system_support: Enforce acyclic RequirementSet composition and valid canonical references.
-        outcome: Curator maintains Requirements/RequirementSets and Knowledge alignments.
-        recovery: Cycle/reference/validation rejection preserves the current editing task.
+        required_information:
+          - reusable Capability definitions
+          - PerformanceExpectation
+          - condition space and criterion dimensions
+          - CapabilitySpecification scope/standard where needed
+          - Knowledge focused on by the capability
+        decision_or_input: Create/edit reusable Capability definitions used by prepared target requirements.
+        system_support: Validate reusable capability semantics and references without deriving capability requirements from learner activity.
+        outcome: Curator maintains Capability definitions that can be referenced by LearningTarget RequirementExpressions.
+        recovery: Validation/reference rejection preserves the current editing task and accepted reusable definitions.
+
       - id: TASK-C-MAINTAIN-QUESTIONS
         responsibility: USER
         capability_refs: [PC-02, PC-04, PC-10]
-        required_information: [Question/direct answer, canonical Knowledge candidates, current alignments, structural alignment status]
-        decision_or_input: Create/edit Questions and align/unalign supporting Knowledge.
-        system_support: Permit unaligned Questions while keeping that structural state distinguishable.
-        outcome: Curator maintains Questions and Knowledge alignments.
-        recovery: Validation/reference rejection preserves editable content and existing accepted alignments.
+        required_information:
+          - Question-compatible prompt/response material
+          - supporting Knowledge candidates
+          - current compatibility mappings/alignments
+          - learning-support diagnostics where defined
+        decision_or_input: Create/edit Question-compatible study material and maintain supported Knowledge mappings.
+        system_support: Preserve the current compatibility profile while keeping Question semantics subordinate to TaskSpecification/LearningMaterial/ObservationSpecification domain semantics.
+        outcome: Curator maintains material usable by the current Question-compatible study profile.
+        recovery: Validation/reference rejection preserves accepted material/mappings; material count does not imply learning-support adequacy.
+
       - id: TASK-C-IMPORT-DATA
         responsibility: USER
         capability_refs: [PC-02]
         required_information: [supported data kind/schema, prepared document, aggregate outcome, per-item rejection identity/reason]
         decision_or_input: Select a prepared document, apply it and inspect item outcomes.
-        system_support: Validate envelope/items, apply valid items independently and expose created/updated/duplicate/rejected outcomes.
+        system_support: Validate envelope/items, apply valid independent items according to accepted import semantics and expose created/updated/duplicate/rejected outcomes.
         outcome: Curator imports supported prepared canonical data and sees outcomes.
-        recovery: Invalid envelope blocks the request; rejected items remain identifiable/correctable while valid peers stay applied.
+        recovery: Invalid envelope blocks the request; rejected items remain identifiable/correctable while accepted independent peers remain applied.
 
   - id: GOAL-OPERATE-STUDY-INTEGRATION
     tasks:
@@ -116,6 +157,9 @@ goals:
 sufficiency_review:
   status: ACCEPTED
   rationale: >-
-    Every current USER goal has explicit information, input/decision, system
-    support, observable outcome and material recovery semantics. Deferred
-    coverage-quality and learner-state inference work is outside the current slice.
+    Every current USER goal has explicit information, input/decision, system support,
+    observable outcome and material recovery semantics. The model uses current
+    CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition
+    and Observation semantics; Question remains only the current compatibility profile.
+    Automatic prioritization, broad learner-state inference and backend/persistence
+    realization remain outside this frontend-first task slice.
