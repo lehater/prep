@@ -49,16 +49,16 @@ reviews:
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 8
-    basis: "Application orchestration now carries target purpose explicitly, relates role-capability and selection/interview targets without requirement inheritance, and routes new recruiter/interview information to the affected target separately from learner-state evidence."
+    revision: 9
+    basis: "Learner-facing missing-preparation recovery is now separated from Curation mechanics: learners request/accept prepared support or explicitly self-curate, while bulk/incremental/import decisions remain curator/operator responsibilities by default."
 
   - capability: prep.task-model
-    revision: 12
-    basis: "Negative-case evidence refines UMC-01 with CH-P07/RQ-P12: target tasks now carry purpose and must distinguish role capability from selection/interview performance while preserving relationships, refinements and provenance. Naturalistic acceptance remains intact; elicited concept validation is still pending."
+    revision: 13
+    basis: "UMC-05 traceability now matches the naturalistic scope change: TASK-L-OBTAIN-PREPARATION-SUPPORT models the learner job, while GOAL-BOOTSTRAP-AND-CURATE-CORPUS is explicitly curator/operator context and schema/import/repair work is opt-in for self-curating learners."
 
   - capability: prep.user-journeys
-    revision: 9
-    basis: "Learner journeys now make target purpose visible: role-capability and selection/interview preparation may coexist and overlap, but company/interview mechanics refine only the relevant target rather than silently redefining the professional-role target."
+    revision: 10
+    basis: "Empty-system recovery now follows the learner task TASK-L-OBTAIN-PREPARATION-SUPPORT and keeps corpus/import repair inside curator/operator Curation unless self-curation is explicitly selected, eliminating the remaining learner-corpus-ownership contradiction."
 
   - capability: prep.conceptual-interface-model
     revision: 4

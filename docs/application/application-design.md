@@ -165,11 +165,27 @@ After new evidence/information is accepted, whether or not it changes target sat
 
 No-change, increased uncertainty and newly challenged state are valid outcomes.
 
+## Missing preparation support
+
+### Obtain preparation support
+
+When target/learning work discovers that a usable target, learning support or assessment context is missing, the learner-facing application flow does not expose corpus engineering as the default recovery.
+
+Application behavior:
+
+1. preserve the motivating target/source/focus context;
+2. explain the missing preparation need in learner-facing terms;
+3. use an available system/external-agent/curator preparation path where supported;
+4. allow explicit self-curation as an opt-in path;
+5. return a reviewable prepared/refined target/support context to learning work.
+
+The learner is not required to choose bulk versus incremental import, understand the import contract or repair item-level corpus failures unless they explicitly enter the Curation context.
+
 ## Corpus bootstrap and curation
 
 ### Choose preparation path
 
-When a learner reaches target work without reusable data needed for a usable target/capability/support/assessment context, the application exposes that preparation is incomplete without assuming the learner must perform corpus engineering.
+Within the Curation context, when reusable data needed for a usable target/capability/support/assessment context is absent or incomplete, the curator/operator chooses how that preparation is fulfilled.
 
 Preparation may be fulfilled by:
 
@@ -178,7 +194,7 @@ Preparation may be fulfilled by:
 - learner self-curation when the learner explicitly chooses that role;
 - a mixed path.
 
-The learner-facing contract is to preserve the motivating target/source context and eventually expose a trustworthy reviewable preparation scope/support. Import schema, item-level correction and corpus-quality work belong to the curation context unless the learner chooses to enter it.
+The learner-facing contract is defined by **Obtain preparation support** above. Import schema, item-level correction and corpus-quality work remain Curation responsibilities unless the learner explicitly chooses self-curation.
 
 ### Structured bulk input
 

@@ -18,7 +18,21 @@ goals:
         decision_or_input: Select an existing target or initiate preparation of a new target from available source material, accepting that the active target may begin broad and be refined as company/interview information appears.
         system_support: Expose prepared targets and enough target context to choose; preserve purpose, role/level/company/interview refinements and provenance without forcing destructive replacement; relate overlapping role-capability and selection/interview targets without inheriting requirements between them; when no suitable target exists, route the user into target preparation rather than assuming one already exists.
         outcome: A sufficiently concrete active target exists for current preparation, with unresolved/refinable target expectations kept explicit.
-        recovery: Missing or inadequate target data is explicit; new recruiter/interview/company information can refine the active target without losing earlier context/history.
+        recovery: Missing or inadequate target data is explicit; when reusable preparation support is missing, route to TASK-L-OBTAIN-PREPARATION-SUPPORT without requiring the learner to enter corpus/schema work; new recruiter/interview/company information can refine the active target without losing earlier context/history.
+
+      - id: TASK-L-OBTAIN-PREPARATION-SUPPORT
+        responsibility: USER
+        capability_refs: [PC-01, PC-02, PC-04, PC-10]
+        required_information:
+          - motivating target/source context
+          - which target/support prerequisites are missing or uncertain
+          - available system/agent/curator preparation support
+          - optional self-curation path
+          - what prepared scope/support the learner will be able to review
+        decision_or_input: Request or accept a low-overhead preparation path, or explicitly choose self-curation when desired.
+        system_support: Preserve the motivating goal, expose what is missing in learner language, use system/agent/curator preparation where available, and keep import schemas/item-level corpus repair out of the learner path unless self-curation is explicitly chosen.
+        outcome: Missing preparation is delegated or explicitly self-curated, and the learner can return to target work with a reviewable prepared/refined target and support context.
+        recovery: Failed/partial preparation preserves the motivating target/source context and allows retry, alternative preparation, or explicit self-curation without forcing schema-level repair.
 
       - id: TASK-L-UNDERSTAND-TARGET
         responsibility: USER
@@ -140,7 +154,8 @@ goals:
         recovery: No-change and increased-uncertainty outcomes remain valid and visible; history is not rewritten to manufacture progress.
 
   - id: GOAL-BOOTSTRAP-AND-CURATE-CORPUS
-    description: Create and maintain reusable data required for target assessment, knowledge exploration, learning and evidence collection. This is a curation/operator capability and is not assumed to be a learner-owned job even when the same physical person may self-curate.
+    actor_context: CURATOR_OR_OPERATOR
+    description: Create and maintain reusable data required for target assessment, knowledge exploration, learning and evidence collection. This is a curation/operator capability and is not assumed to be a learner-owned job even when the same physical person may explicitly self-curate.
     tasks:
       - id: TASK-C-SELECT-PREPARATION-PATH
         responsibility: USER
@@ -339,7 +354,7 @@ human_validation:
       observation_refs: [OBS-P03, OBS-P09]
       challenge_refs: [CH-P06]
       research_question_refs: [RQ-P05, RQ-P06, RQ-P11]
-      task_refs: [TASK-C-SELECT-PREPARATION-PATH, TASK-C-PREPARE-BULK-DATA, TASK-C-IMPORT-BULK-DATA, TASK-C-REVIEW-CORPUS-QUALITY]
+      task_refs: [TASK-L-ESTABLISH-TARGET, TASK-L-OBTAIN-PREPARATION-SUPPORT]
       journey_refs: [E2E-C1]
       secondary_evidence:
         status: SECONDARY_CHALLENGE_LEARNER_CORPUS_OWNERSHIP

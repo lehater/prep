@@ -40,7 +40,7 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 9. Inspect changed state/gaps, target refinement or a valid no-change outcome.
 10. Continue the current focus, select another focus, gather more evidence or refine the target.
 
-**Recovery branches:** missing learning support routes to corpus preparation without losing target/focus; unavailable spatial visualization preserves list/search/detail; contradictory evidence remains visible; accepted evidence may legitimately produce no state change.
+**Recovery branches:** missing learning support routes to learner-facing preparation support and only optionally into self-curation, without losing target/focus; unavailable spatial visualization preserves list/search/detail; contradictory evidence remains visible; accepted evidence may legitimately produce no state change.
 
 **Research purpose:** test whether this lifecycle matches how target-oriented learners actually reason about readiness, next action and progress.
 
@@ -49,7 +49,7 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 **Scenario:** the learner has a target/vacancy description and source material but Prep has no usable target, capabilities, Knowledge, learning support or assessment design.
 
 1. The system makes the missing preparation prerequisites explicit instead of routing directly to an unusable target editor.
-2. The learner preserves the motivating goal and chooses whether to delegate preparation or explicitly enter self-curation; the product does not assume corpus maintenance is a learner job.
+2. Through TASK-L-OBTAIN-PREPARATION-SUPPORT, the learner preserves the motivating goal and requests/accepts a low-overhead preparation path or explicitly enters self-curation; the product does not assume corpus maintenance is a learner job.
 3. A system/external agent or curator/operator may prepare/import reusable structured data; a self-curating learner may use the same curation tasks.
 4. Item-level validation/rejection and corpus-quality correction stay in the curation context unless the learner explicitly owns that context.
 5. The learner receives a reviewable target/preparation scope and can challenge missing/incorrect expectations without needing to understand the internal semantic corpus representation.
@@ -74,6 +74,22 @@ Flow:
 Alternate/recovery: missing target data is explicit and does not force the user to choose an unrelated prepared target.
 
 **Completion:** a sufficiently concrete active target exists for current preparation, while unresolved/refinable expectations remain visible.
+
+## Obtain missing preparation support
+
+**Task:** `TASK-L-OBTAIN-PREPARATION-SUPPORT`
+
+**Trigger:** target/learning work cannot continue because required target/support/assessment preparation is absent or materially incomplete.
+
+Flow:
+1. System explains what preparation is missing in learner-facing terms while preserving the motivating target/source/focus.
+2. Learner accepts an available system/agent/curator preparation path or explicitly chooses self-curation.
+3. Preparation occurs outside the learner path unless self-curation was chosen.
+4. Learner reviews the prepared/refined target/support context and returns to target work.
+
+Alternate/recovery: partial or failed preparation preserves the motivating context and offers retry/alternate preparation; schema/item repair is not imposed on the learner.
+
+**Completion:** the learner has reviewable preparation support or an explicit self-curation path, without being made responsible for corpus machinery by default.
 
 ## Understand target
 
@@ -206,7 +222,9 @@ Alternate/recovery: no-change, increased uncertainty and newly challenged state 
 
 **Task:** `TASK-C-SELECT-PREPARATION-PATH`
 
-**Trigger:** target/learning work cannot proceed because the required reusable corpus is empty or materially incomplete.
+**Actor/context:** curator/operator / Curation (or learner only after explicit self-curation choice).
+
+**Trigger:** reusable corpus data is empty or materially incomplete and the Curation context must choose a fulfillment path.
 
 Flow:
 1. System exposes which preparation prerequisites are missing or unresolved.
