@@ -709,11 +709,13 @@ function validatePreparedDocument(
         Boolean(text(item.title) && (text(item.summary) || text(item.content))) &&
         ["material", "practice"].includes(text(item.kind));
     } else if (dataKind === "assessment_design") {
+      const bearing = text(item.evidence_bearing);
       valid = Boolean(
         text(item.title) &&
         text(item.task_summary) &&
         text(item.observation_summary) &&
-        text(item.evidence_rule_summary),
+        text(item.evidence_rule_summary) &&
+        (!bearing || ["supports", "challenges"].includes(bearing)),
       );
     } else {
       valid = Boolean(text(item.definition) || text(item.content));
@@ -994,6 +996,8 @@ export class MockImportAdapter implements CurationImportPort {
         taskSummary: text(item.task_summary),
         observationSummary: text(item.observation_summary),
         evidenceRuleSummary: text(item.evidence_rule_summary),
+        evidenceBearing:
+          text(item.evidence_bearing) === "challenges" ? "challenges" : "supports",
       };
       const index = this.store.assessmentDesigns.findIndex((candidate) => candidate.id === value.id);
       if (index >= 0) this.store.assessmentDesigns[index] = value;
