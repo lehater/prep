@@ -14,6 +14,6 @@ export class PendingHttpTargetWorkAdapter implements TargetWorkPort {
   async setFocus() { return this.unavailable(); }
   async listSupport() { return this.unavailable(); }
   async listDiagnostics() { return this.unavailable(); }
-  async completeDiagnostic() { return this.unavailable(); }
+  async acceptDiagnosticEvidence() { return this.unavailable(); }
   async getProgress() { return this.unavailable(); }
 }
