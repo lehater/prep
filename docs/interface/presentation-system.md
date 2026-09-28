@@ -8,11 +8,11 @@ Define shared presentation and interaction conventions for the accepted two-mode
 
 - **Mode is explicit.** Learning and Curation are visibly different task contexts even when the same physical user performs both.
 - **Learner context first.** Inside Learning, the selected curated LearningTarget remains visible while the learner moves through Overview, Knowledge, Study and Statistics.
-- **Curation is explicit.** Editing target scope, reusable Knowledge/Requirements/Questions and corpus quality belongs to Curation rather than appearing as implicit learner chores.
-- **Reuse is explicit.** Target views project reusable canonical objects; they do not imply that Knowledge, Requirements or Questions are owned by the target.
+- **Curation is explicit.** Editing target scope, reusable Knowledge, Capability definitions, supported study material and corpus quality belongs to Curation rather than appearing as implicit learner chores.
+- **Reuse is explicit.** Target views project reusable canonical objects; they do not imply that Knowledge, Capability definitions or study material are owned by the target.
 - **Library maintenance is collection-first.** Large reusable corpora are found through search/browse controls and opened into canonical detail/edit contexts.
 - **One canonical identity, contextual capabilities.** The same canonical object may be viewed from learner or curation context while edit capabilities remain context-specific.
-- **No fake completeness.** The learner sees available material; semantic Question-set coverage quality belongs to curation and has no current numeric score.
+- **No fake completeness.** The learner sees available material; learning-support adequacy is shown only through accepted LearningSupportRequirement semantics and has no invented universal numeric score.
 - **3D graph is the preferred Knowledge exploration experience, but not the only access path.** Relational Knowledge exploration uses a 3D node-link view as the production-default graph presentation, while list/search/detail remain task-complete canonical access paths.
 - **Recoverability is visible.** Validation and external-integration failures retain context/input and expose a retry or correction path.
 
@@ -89,7 +89,7 @@ Desktop/wide application navigation uses a persistent left rail.
 - primary mode entries: `Learning`, `Curation`;
 - active mode is clearly selected;
 - mode-local navigation appears below the active mode:
-  - Curation: Targets, Knowledge, Requirements, Questions;
+  - Curation: Targets, Knowledge, Capabilities, Study Material;
   - Learning target context: Overview, Knowledge, Study, Statistics plus a way to change target;
 - external runtime status such as Anki reachability is anchored near the rail bottom;
 - active workspace consumes the remaining width.
@@ -125,7 +125,7 @@ When a target is open, presentation preserves:
 - a stable way back to target selection;
 - an explicit switch to Curation when the same v1 user chooses to author or repair reusable material/target structure.
 
-Scope is presented inside Overview because it is read-only in Learning. Target Questions are presented inside Study because the current Study Set and currently resolvable Question collection have the same membership.
+Target requirements are presented inside Overview because the RequirementExpression is read-only in Learning. Study presents the current supported-profile material, exact Study Set subset and preparation diagnostics.
 
 Detailed structural/semantic curation diagnostics should not dominate learner surfaces.
 
@@ -135,18 +135,18 @@ Learning target navigation uses the shared shell hierarchy on desktop; exact rou
 
 Curation exposes:
 
-- prepared LearningTargets and their Requirement/RequirementSet composition;
-- the reusable Library of Knowledge, Requirements/RequirementSets and Questions.
+- prepared LearningTargets and their RequirementExpression<CapabilitySpecification> composition;
+- the reusable Library of Knowledge, Capability definitions and supported study material.
 
 Library collections remain collection-first.
 
 Each collection may provide supported search/filter controls, creation, canonical detail/edit access, alignments and contextual Import.
 
-Future Question-set coverage quality belongs here or in another curation surface derived from accepted semantics. Until those semantics exist, presentation may show structural facts such as "no aligned Questions" but must not fabricate a coverage percentage.
+Learning-support diagnostics belong here when accepted semantics provide them. Presentation may show missing, inadequate, unspecified or unrepresentable support facts, but must not fabricate a coverage percentage or infer adequacy from material count.
 
 ## Canonical object pattern
 
-Canonical Knowledge, Requirement/RequirementSet and Question identity is shared across contexts.
+Canonical Knowledge and Capability identity is shared across contexts; Question-compatible material identity is shared only within the current supported compatibility profile.
 
 ### Learner context
 
@@ -166,17 +166,17 @@ Context switching must preserve object identity and make the change in available
 
 ## Study presentation
 
-Study Set presentation keeps LearningTarget identity and currently resolved Questions visible.
+Study Set presentation keeps LearningTarget identity, the exact currently representable subset and its preparation diagnostics visible.
 
 Construction uses the currently resolvable subset. It may be empty. The presentation does not imply semantic completeness and does not block learning merely because curation is incomplete.
 
-External-study actions show runtime availability and per-Question outcome. An unavailable runtime is distinct from an empty Study Set.
+External-study actions show runtime availability and per-item outcome. An unavailable runtime is distinct from an empty Study Set.
 
 ## Statistics presentation
 
-Statistics use factual ReviewObservation language and factual aggregates.
+Statistics use factual Observation language, relevant provenance/context and factual aggregates.
 
-Target-context statistics are observations for Questions currently relevant to the target, not target mastery/readiness.
+Target-context statistics are factual evidence for the active context, not target mastery/readiness.
 
 ## Responsive spatial system
 
@@ -224,8 +224,8 @@ The graph toolbar is one compact horizontal control band on wide layouts. It con
 
 1. Search field;
 2. Search action;
-3. semantic-kind filter;
-4. relation-type control;
+3. knowledge-form/type filter;
+4. relation-predicate control;
 5. explicit Focus;
 6. Clear focus;
 7. Fit graph;
@@ -351,14 +351,14 @@ In Curation Knowledge, **New Knowledge** and **Import** are toolbar actions that
 Primary toolbar:
 
 - Knowledge search;
-- semantic-kind filter;
-- relation-type filter;
+- knowledge-form/type filter;
+- relation-predicate filter;
 - focus/clear focus;
 - **Fit graph**;
 - **Reset camera**;
 - compact **Graph settings**.
 
-Relation filtering uses a multi-select checklist/legend so several accepted relation types can be visible simultaneously; color may support but never replace the textual relation type.
+Relation filtering uses a multi-select checklist/legend so several accepted relation predicates can be visible simultaneously; color may support but never replace the textual predicate/relation label.
 
 Graph settings expose the accepted performance profiles and presentation-only controls from `docs/architecture/performance-capacity.md`. Expensive visual effects may be disabled without losing semantic access.
 
@@ -371,6 +371,8 @@ This decision was REDO-reviewed after two additional inputs became explicit:
 - the preserved R2 experiment has already demonstrated a working 3D interaction model and reduced implementation uncertainty, including orbit/zoom/pan, search-to-focus, selection/focus separation, hover-neighborhood emphasis, node drag, relation filtering, fit/reset camera behavior, deterministic 60/250/1000-node stress fixtures, demand-driven idle rendering and an optimized 1000-node/1500-edge path observed at roughly 25-30 RAF fps on the tested machine/browser.
 
 The experiment remains implementation/feasibility evidence. It does **not** establish that 3D produces better learning, comprehension or task performance than 2D/list alternatives.
+
+For this frontend-first revalidation, the representation space was formed again from the current Knowledge exploration tasks and conceptual model before applying the existing preference. The material alternatives remained the same; review found no new mixed concern, missing material case, accepted-constraint conflict or Authority-boundary error that changes their viability.
 
 The reviewed presentation alternatives were:
 
@@ -414,8 +416,8 @@ The presentation decision requires the 3D experience and its semantic guardrails
 
 - Target Knowledge defaults graph scope to Knowledge relevant to the selected LearningTarget;
 - Curation may expose a broader/global graph;
-- relation-type filters control accepted semantic relation types;
-- semantic-kind filters control supported Knowledge classifications where available;
+- relation-predicate filters control accepted predicate classes without changing proposition truth;
+- knowledge-form/type filters control supported presentation classifications where available;
 - focus mode reduces clutter to a selected node and a bounded neighborhood;
 - relation direction and type remain legible without relying on geometry alone;
 - node selection opens readable canonical detail without discarding graph state;
@@ -429,7 +431,7 @@ The production-default 3D projection must not introduce a distinct task contract
 
 - explicit **Fit graph** and **Reset camera/view**;
 - search-to-selection/focus;
-- semantic-kind and relation-type filtering;
+- knowledge-form/type and relation-predicate filtering;
 - explicit **Focus / Clear focus** to bound clutter;
 - selective labels prioritizing selected/focused/hovered nodes;
 - readable selected-item detail outside the spatial projection;
