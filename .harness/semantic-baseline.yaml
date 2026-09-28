@@ -93,12 +93,12 @@ reviews:
     basis: "Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics."
 
   - capability: prep.interface-verification
-    revision: 3
-    basis: "Interface Verification now exposes stable IV checks with verifies scope, method and concrete evidence requirements for task, interaction, IA, topology, Screen/View and recovery closure."
+    revision: 4
+    basis: "Revalidated against rebuilt Task/IA/Interaction/Topology contracts: verification now explicitly proves transport-neutral mock-substitutable frontend behavior, current operation/outcome recovery, topology closure and Screen/View coverage without depending on backend implementation details."
 
   - capability: prep.presentation-verification
-    revision: 4
-    basis: "Presentation Verification now includes visual-system fidelity evidence for the accepted density, shell, pane hierarchy and graph-surface roles in addition to responsive/performance closure."
+    revision: 5
+    basis: "Rebuilt for Presentation revision 7 and Screen/View revision 5: checks now verify 3D-default semantic fidelity, non-spatial task completion, responsive spatial hierarchy, semantic-preserving degradation and named hardware workload evidence using current KnowledgeProposition/evidence semantics."
 
   - capability: prep.system-architecture
     revision: 2
