@@ -35,11 +35,13 @@ Application operations:
 
 - list/search prepared LearningTargets;
 - open one prepared target as active context;
+- identify target purpose, especially role-capability versus selection/interview performance;
 - preserve/refine role, level, vacancy, company and interview-loop context as additional information arrives;
+- relate overlapping target purposes without copying requirements from one target into another;
 - route to target preparation when no suitable target exists;
 - return to learning with the newly prepared/refined target active.
 
-Target creation/editing remains a curation operation. Learning does not silently mutate a prepared target. Recruiter/interview/company information may trigger an explicit target-refinement operation, preserving earlier target context/provenance rather than rewriting history.
+Target creation/editing remains a curation operation. Learning does not silently mutate a prepared target. Recruiter/interview/company information may trigger an explicit selection/interview-target refinement; information about interview mechanics must not silently redefine professional-role capability. Earlier target context/provenance is preserved rather than rewritten.
 
 ### Inspect target profile
 
@@ -78,7 +80,7 @@ Application operations may create or select current LearningPriority/LearningInt
 
 The application must preserve:
 
-- target identity and current target layer/context;
+- target identity, purpose and current target layer/context;
 - focused gap(s)/uncertainty;
 - rationale, including target relevance/current state plus material deadline/interview-stage/time/cost constraints;
 - whether the intent is learning/practice or diagnostic uncertainty reduction.
@@ -155,7 +157,7 @@ The application never treats a raw runtime rating, one correct answer or activit
 
 After new evidence/information is accepted, whether or not it changes target satisfaction:
 
-1. separate learner-performance evidence from new information about target expectations;
+1. separate learner-performance evidence from new information about target expectations and identify which target purpose/context that information affects;
 2. recompute target satisfaction and Gap values from accepted learner evidence;
 3. where recruiter/interview/company information changes expected scope/depth, trigger explicit target refinement rather than treating that information as learner evidence;
 4. expose material changes from the previous target-relative projection;

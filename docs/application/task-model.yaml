@@ -12,11 +12,11 @@ goals:
         required_information:
           - available prepared targets
           - external target description where the desired target is not yet prepared
-          - target context and current target layer (role family / level / vacancy / company / interview loop where known)
+          - target context, target purpose (role-capability / selection-interview / other), and current target layer (role family / level / vacancy / company / interview loop where known)
           - target capability requirement profile
           - provenance and unresolved expectations that may refine the target later
         decision_or_input: Select an existing target or initiate preparation of a new target from available source material, accepting that the active target may begin broad and be refined as company/interview information appears.
-        system_support: Expose prepared targets and enough target context to choose; preserve role/level/company/interview refinements and provenance without forcing destructive replacement; when no suitable target exists, route the user into target preparation rather than assuming one already exists.
+        system_support: Expose prepared targets and enough target context to choose; preserve purpose, role/level/company/interview refinements and provenance without forcing destructive replacement; relate overlapping role-capability and selection/interview targets without inheriting requirements between them; when no suitable target exists, route the user into target preparation rather than assuming one already exists.
         outcome: A sufficiently concrete active target exists for current preparation, with unresolved/refinable target expectations kept explicit.
         recovery: Missing or inadequate target data is explicit; new recruiter/interview/company information can refine the active target without losing earlier context/history.
 
@@ -25,7 +25,7 @@ goals:
         capability_refs: [PC-01, PC-03]
         depends_on: [TASK-L-ESTABLISH-TARGET]
         required_information:
-          - target purpose/context and known target layers
+          - target purpose/context and known target layers, including whether expectations describe role capability or a selection/interview process
           - required capabilities and standards
           - target requirement structure
           - unresolved/uncertain expectations and their provenance
@@ -287,15 +287,15 @@ human_validation:
     acceptance, automated tests and implementation behavior cannot substitute for either evidence class.
   claims:
     - id: UMC-01-TARGET
-      description: A target context is useful for organizing preparation, but it may begin broad and be layered/refined across role, level, company and interview-loop information.
+      description: A target context is useful for organizing preparation, but it may begin broad and be layered/refined across role, level, company and interview-loop information; role-capability and selection/interview target purposes must remain distinguishable.
       observation_refs: [OBS-P01, OBS-P08]
-      challenge_refs: [CH-P01, CH-P05]
-      research_question_refs: [RQ-P01, RQ-P08]
+      challenge_refs: [CH-P01, CH-P05, CH-P07]
+      research_question_refs: [RQ-P01, RQ-P08, RQ-P12]
       task_refs: [TASK-L-ESTABLISH-TARGET, TASK-L-UNDERSTAND-TARGET]
       journey_refs: [E2E-L1]
       secondary_evidence:
         status: SECONDARY_NARROWED_LAYERED_TARGET
-        main_risk: Public and official current evidence repeatedly contradicts a single stable fully-known target; representative research must test whether layered/refinable target context remains understandable and useful.
+        main_risk: Public and official current evidence repeatedly contradicts a single stable fully-known target and show that professional-role competence may diverge from interview-format competence; elicited research must test whether related target purposes remain understandable without conflation.
       evidence_status: NATURALISTIC_SUPPORTED_NARROWED
       elicited_representative_status: UNTESTED
     - id: UMC-02-CURRENT-STATE

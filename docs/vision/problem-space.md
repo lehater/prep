@@ -94,6 +94,7 @@ The triangulation above also exposes plausible counterexamples to the current mo
 - **CH-P04 — preparation may be opportunistic rather than sequential:** public accounts show people switching among DSA, system design, stack review, practical work and company-specific preparation as interviews appear. Research must test whether target -> state -> gap -> focus -> activity -> evidence -> progress is a useful reasoning model or an overly neat sequence imposed by Prep.
 - **CH-P05 — real interview outcomes can change both state and target knowledge:** an interview can reveal a skill gap and simultaneously reveal previously unknown expectations about the role/company. Research must test whether feedback should revise only learner state/priorities or also the target profile itself.
 - **CH-P06 — reusable corpus may be optional infrastructure from the user's perspective:** users frequently assemble existing external resources rather than curate a durable semantic corpus. Research must distinguish the user's need ("get a usable preparation scope/support") from Prep's internal preference for reusable structured data.
+- **CH-P07 — role capability and selection/interview capability can diverge:** experienced developers report that real work experience may transfer poorly to timed interview formats, while interview loops may test LeetCode, presentation, company-specific behavioral or artificial design exercises that are not equivalent to day-to-day role capability. Prep must keep these target purposes related but must not treat selection-process performance as intrinsic role capability.
 
 These challenges are supported only at the secondary/anecdotal level. They exist to make Round A/B capable of disproving the current model.
 
@@ -153,7 +154,7 @@ This gate asks whether the behavioral problem/task model is grounded well enough
 4. no material task/actor responsibility is supported only by Prep implementation or stakeholder preference;
 5. limitations such as self-selection, unverifiable identity and unknown prevalence are explicit.
 
-The current model **meets Gate A** after the 2026-09-28 naturalistic web stress test and the resulting changes: layered/refinable target, multi-driver focus, performance-shaped evidence/progress, separate target-refining feedback, and non-assumed learner corpus ownership.
+The current model **meets Gate A** after the 2026-09-28 naturalistic web stress test, negative-case search and resulting changes: layered/refinable targets with distinct role-capability versus selection/interview purposes, multi-driver focus, performance-shaped evidence/progress, separate target-refining feedback, and non-assumed learner corpus ownership.
 
 **Gate B — ELICITED-HUMAN-VALIDATED**
 
@@ -205,6 +206,7 @@ These are recruitment hypotheses, not accepted user segments:
 - **RQ-P09 / CH-P02:** Which kinds of performance are part of "readiness" for the motivating users (recall/explanation, coding, system design, practical backend work, communication/behavioral evidence, past-project articulation), and which are outside Prep's useful scope?
 - **RQ-P10 / CH-P03, CH-P04:** What lightweight signals do users currently use to decide "I am improving / ready / still weak", and when would a more evidence-backed model be worth the additional effort?
 - **RQ-P11 / CH-P06:** Does the user need to own/curate a reusable structured corpus, or only to obtain a trustworthy usable preparation scope and support regardless of where the underlying structure is maintained?
+- **RQ-P12 / CH-P07:** When do role-capability requirements and company/interview-selection requirements overlap, and when must they remain distinct related targets so interview-specific preparation is not misrepresented as professional capability?
 
 ### Representative discovery scenarios
 
@@ -274,6 +276,23 @@ This stress test uses public current behavior as **SECONDARY** evidence to falsi
 | WEB-PAT-04 — focus is multi-driver | S03–S06, S08–S09, S11, S16–S18 | next focus must combine target relevance/current uncertainty with deadlines, next interview stage, available time and preparation cost; a pure gap ranking is too narrow |
 | WEB-PAT-05 — resource assembly is common; semantic corpus ownership is not | S05–S06, S11, S13–S15 | preserve trustworthy preparation bootstrap, but do not assume the learner's job is to author/maintain Prep's reusable semantic corpus |
 | WEB-PAT-06 — feedback can update target knowledge as well as learner state | S07–S10, S16 | interview/recruiter feedback may refine what the target is believed to require; progress reassessment and target refinement are separate effects of new information |
+| WEB-PAT-07 — role readiness and interview readiness can diverge | negative-case search plus S07, S12, S15–S18 | represent professional-role capability and selection/interview performance as related but distinct target purposes; do not infer one from the other |
+
+**Negative-case result**
+
+A deliberate counterexample search found experienced engineers whose real production competence did **not** map cleanly to interview performance, and senior interview loops with materially different mixes of LeetCode, practical coding, system design, concurrency, project presentation and behavioral evaluation. This does not invalidate target-oriented preparation; it invalidates conflating two target purposes:
+
+- **role-capability target** — capabilities needed to perform the desired professional role;
+- **selection/interview target** — capabilities/performance needed to pass a specific hiring process.
+
+They may share CapabilitySpecifications, but requirements do not inherit merely because the targets are related. Interview-specific constraints/tasks must not silently become role requirements. This is tracked as CH-P07/RQ-P12.
+
+Additional negative-case sources:
+
+- https://www.reddit.com/r/leetcode/comments/1t7mqxg/how_are_you_prepping_for_system_design/
+- https://www.reddit.com/r/leetcode/comments/1q06zz6/2026_interview_prep/
+- https://www.reddit.com/r/leetcode/comments/1lh0ytm
+- https://www.reddit.com/r/leetcode/comments/1w841bo/15_yoe_aiming_for_staff_in_big_tech_but_zero/
 
 **Secondary-evidence decision**
 
@@ -283,7 +302,8 @@ The network evidence is strong enough to revise the *candidate* model before rep
 2. keep target-relative gaps/uncertainty, but let next-focus rationale include external constraints and interview-stage timing;
 3. keep performance/evidence semantics, but do not require users to think in Prep's explicit evidence vocabulary or manually curate evidence records;
 4. keep reusable corpus infrastructure as a product/system capability, but remove the assumption that the learner must own corpus preparation/maintenance;
-5. let new external feedback revise target understanding independently from revising learner state.
+5. let new external feedback revise target understanding independently from revising learner state;
+6. distinguish professional-role capability from selection/interview performance when the hiring process tests company-specific or artificial forms that are not equivalent to day-to-day role capability.
 
 These are **NARROW/CHANGE decisions from secondary falsification**, not human validation. UMC evidence statuses remain UNTESTED until representative Round A/Round B evidence exists.
 

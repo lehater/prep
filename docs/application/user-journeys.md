@@ -29,7 +29,7 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 
 **Scenario:** a developer wants to become suitable for a Middle Python Backend role with fintech/card-payment responsibilities and already has some reusable corpus/evidence.
 
-1. Establish/select a sufficiently concrete current target and inspect what is known versus still uncertain; later company/interview information may refine it.
+1. Establish/select a sufficiently concrete current target context, distinguishing professional-role capability from selection/interview performance where both matter; inspect what is known versus still uncertain and allow later company/interview information to refine only the relevant target.
 2. Inspect the evidence-backed current state; missing evidence remains unresolved rather than failed.
 3. Review target-relative satisfied, unresolved and challenged fragments and inspect their basis.
 4. Choose a learning or diagnostic focus using target-relative gaps/uncertainty plus material deadline/interview-stage/time/cost constraints.
@@ -63,13 +63,13 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 
 **Task:** `TASK-L-ESTABLISH-TARGET`
 
-**Trigger:** user wants to prepare for a concrete role, vacancy, interview profile, certification or other outcome.
+**Trigger:** user wants to prepare for a concrete role, vacancy, interview process, certification or other outcome; role-capability and selection/interview target purposes may coexist.
 
 Flow:
-1. User searches/browses prepared targets.
-2. If a suitable target exists, user selects it.
+1. User searches/browses prepared target contexts and sees target purpose where material.
+2. If suitable role-capability and/or selection/interview targets exist, user selects/relates the relevant context.
 3. If not, user enters target preparation with the motivating source/context preserved.
-4. After preparation, the new target becomes active.
+4. After preparation, the new/refined target context becomes active without conflating selection mechanics with role capability.
 
 Alternate/recovery: missing target data is explicit and does not force the user to choose an unrelated prepared target.
 

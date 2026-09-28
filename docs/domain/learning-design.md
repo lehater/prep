@@ -296,13 +296,19 @@ Valid evidence may arise from natural work without any AssessmentDesign.
 ```text
 LearningTarget
     target_context
+    target_purpose
+    related_targets: LearningTarget*
     requirements:
         RequirementExpression<CapabilitySpecification>
 ```
 
-A LearningTarget normatively describes the desired capability profile in an external target context, such as a role, interview, certification or language standard.
+A LearningTarget normatively describes the desired capability profile for one explicit target purpose in an external target context.
 
-Two targets may have equivalent requirements but different target contexts.
+`target_purpose` states why the capability profile exists. Important initial purposes include **role-capability** (perform the professional role) and **selection/interview** (perform within a hiring/selection process); the field remains extensible for other target kinds such as certification.
+
+`related_targets` may associate targets that matter to the same real-world goal, for example a backend-role target and a company interview target. The relation provides context only: it does **not** imply requirement inheritance, equivalence, satisfaction transfer or that an interview-specific task is a professional-role requirement.
+
+Two targets may have equivalent requirements but different target contexts or purposes.
 
 ### RequirementExpression
 

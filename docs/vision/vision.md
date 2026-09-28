@@ -2,7 +2,7 @@
 
 ## Product intent
 
-Prep helps a person move from their current state of knowledge and knowledge-dependent capability toward a chosen target state by making target requirements explicit, establishing an evidence-backed view of current capability, exposing meaningful gaps and uncertainty, and supporting deliberate learning and reassessment.
+Prep helps a person move from their current state of knowledge and knowledge-dependent capability toward a chosen target state by making target requirements explicit, establishing an evidence-backed view of current capability, exposing meaningful gaps and uncertainty, and supporting deliberate learning and reassessment. Related target purposes may coexist: the capabilities required to perform a professional role and the performance required to pass a particular selection/interview process must remain distinguishable even when they overlap.
 
 The product is primarily concerned with acquiring, maintaining and demonstrating usable knowledge and the capabilities that materially depend on that knowledge. It does not attempt to become a universal system for teaching every kind of skill.
 
@@ -10,8 +10,8 @@ The product is primarily concerned with acquiring, maintaining and demonstrating
 
 A learner should be able to:
 
-1. define or select a concrete target such as a role, vacancy, interview profile, certification or other desired outcome;
-2. obtain a coherent target capability profile from manually curated or prepared structured source data;
+1. define or select a concrete target context and distinguish relevant target purposes such as professional-role capability versus company/interview-selection performance;
+2. obtain coherent, related target capability profiles from manually curated or prepared structured source data without collapsing interview-specific requirements into role capability;
 3. establish an evidence-backed view of their current state relative to that target;
 4. see target-relative gaps, uncertainty and priorities;
 5. choose the next learning or diagnostic focus;
@@ -62,6 +62,7 @@ Concrete event names, storage, telemetry provider, retention policy and numeric 
 ## Product principles
 
 - **Target before learning activity.** Learning activity is justified by a desired capability profile, not by available content alone.
+- **Target purpose remains explicit.** Professional-role capability and selection/interview performance may overlap but are not interchangeable; interview-specific mechanics must not be promoted to intrinsic role requirements.
 - **Learning outcome before representation.** The product model should be driven by what the learner needs to know or do, not by a preferred storage or visualization technology.
 - **Knowledge and learner state are distinct.** A representation of subject knowledge must not be conflated with evidence or conclusions about one person's current state.
 - **Different depths and conditions are meaningful.** Recall, understanding, application and deeper performance are not assumed equivalent, and performance in one condition is not automatically evidence for all conditions.
@@ -78,11 +79,11 @@ Concrete event names, storage, telemetry provider, retention policy and numeric 
 
 The first practical end-to-end scenario is preparation for a concrete technical role or vacancy.
 
-A representative target is a Python backend developer role, optionally specialized toward a domain such as fintech/card payments. The user should be able to understand the target capability profile, establish an initial evidence-backed position, inspect gaps, choose what to work on next, learn/practise, and observe changed evidence against the same target.
+A representative target context is a Python backend developer role, optionally specialized toward fintech/card payments, plus a related selection/interview target when preparing for a concrete hiring process. The user should be able to understand which expectations belong to the role versus the selection process, establish an initial evidence-backed position, inspect gaps, choose what to work on next, learn/practise, and observe changed evidence while target refinements remain explicit.
 
 The first frontend prototype may use representative mock data for the complete flow. Full ingestion automation, production persistence and backend realization are not prerequisites for validating whether the user-centered interaction is useful.
 
-Bulk data preparation remains part of the product lifecycle: externally prepared structured data can bootstrap targets, capabilities, knowledge and learning/assessment material, while user-facing curation supports correction and incremental maintenance.
+Bulk data preparation remains part of the product lifecycle: externally prepared structured data can bootstrap targets, capabilities, knowledge and learning/assessment material, while curator/operator-facing curation supports correction and incremental maintenance. A learner may self-curate but is not assumed to own reusable corpus maintenance.
 
 ## Current non-decisions
 

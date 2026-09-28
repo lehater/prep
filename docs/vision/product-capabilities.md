@@ -10,18 +10,18 @@ Stable capability IDs below are product-level trace anchors. They do not imply s
 
 ### [PC-01] Target definition and requirement preparation
 
-Enable a person to establish a concrete target outcome, such as a role, vacancy, interview profile or certification, with enough capability scope, conditions and required standard to support assessment and learning decisions.
+Enable a person to establish a concrete but refinable target context, such as a professional role, vacancy, company/interview process, certification or other desired outcome, with enough capability scope, conditions and required standard to support assessment and learning decisions.
 
-Target requirements may be curated manually or prepared from external source material before import. The learner must be able to understand the resulting target profile without needing to know internal modeling details.
+Related target purposes must remain distinguishable. In particular, professional-role capability and selection/interview performance may share CapabilitySpecifications but interview-specific tasks or conditions must not silently redefine the professional-role target. Target requirements may be curated manually or prepared from external source material before import. The learner must be able to understand the resulting related target profiles without needing to know internal modeling details.
 
-**Observable acceptance:** a target can express a reviewable capability requirement profile sufficient for target-relative assessment, gap derivation and learning focus.
+**Observable acceptance:** target contexts can express reviewable capability profiles with explicit purpose/provenance and optional related-target context sufficient for assessment, gap derivation and learning focus, while preserving unresolved/refinable expectations.
 
 ### [PC-02] Structured data input and curation
 
-Enable a person to bootstrap and maintain modeled data through two complementary paths:
+Enable a curator/operator, external preparation workflow or explicitly self-curating learner to bootstrap and maintain modeled data through two complementary paths:
 
 - bulk loading of prepared structured data conforming to a supported import contract;
-- incremental user-facing creation, correction and relationship maintenance.
+- incremental creation, correction and relationship maintenance.
 
 The modeled corpus may include targets, capabilities, knowledge, learning/practice material and assessment/evidence design data.
 
@@ -49,7 +49,7 @@ Use the target requirement profile and accepted learner state to identify target
 
 **Observable acceptance:** the learner can distinguish satisfied, unresolved and materially challenged target requirements where accepted semantics support those conclusions, and can establish an explicit next focus with rationale.
 
-Priority must remain target-relative and evidence/uncertainty-aware rather than a property of Knowledge or Capability.
+Priority must remain target-relative and evidence/uncertainty-aware rather than a property of Knowledge or Capability. Deadline, upcoming selection stage, available time/energy and preparation cost may legitimately affect focus when recorded as explicit constraints rather than capability semantics.
 
 ### [PC-06] Learning and practice
 
@@ -71,9 +71,9 @@ Support keeping important knowledge and knowledge-dependent capability available
 
 ### [PC-09] Progress and adaptation
 
-Show the learner their current evidence-backed position relative to the target and use changing evidence to revise gaps, priorities and subsequent learning/diagnostic activity.
+Show the learner their current evidence-backed position relative to the active target purpose/context and use changing evidence to revise gaps, priorities and subsequent learning/diagnostic activity. Separately, new recruiter/company/interview information may refine target expectations without being treated as learner-state evidence.
 
-**Observable acceptance:** after new evidence is accepted, the learner can inspect how the target-relative state changed and revise what to work on next. Progress must preserve material scope, uncertainty and temporal limits.
+**Observable acceptance:** after new evidence or target information is accepted, the learner can distinguish learner-state change from target refinement and revise what to work on next. Progress must preserve material scope, uncertainty and temporal limits.
 
 ### [PC-10] Knowledge and learning quality control
 
@@ -86,7 +86,7 @@ Detect structural or semantic problems in accepted knowledge and problematic lea
 The minimum coherent user-centered prototype slice is:
 
 ```text
-PC-01 establish a concrete target capability profile
+PC-01 establish/refine purpose-explicit related target profiles
   -> PC-02 provide representative prepared corpus data
   -> PC-07 establish/import enough learner evidence for an initial state
   -> PC-05 derive visible target-relative gaps/uncertainty and choose a next focus
@@ -94,7 +94,7 @@ PC-01 establish a concrete target capability profile
   -> PC-04 provide suitable learning/diagnostic support
   -> PC-06 learn/practise/diagnose
   -> PC-07 capture new evidence
-  -> PC-09 show changed target-relative state and revise focus
+  -> PC-09 show changed target-relative state, separate target refinement, and revise focus
 ```
 
 For the first frontend prototype, PC-02 may be realized by mocks rather than a production import path. The import contract remains a required later capability realization, not a prerequisite for validating the frontend flow.

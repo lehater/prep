@@ -9,16 +9,16 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 22
-    basis: "Evidence taxonomy now distinguishes naturalistic public-user data from secondary expert/research material. Digital-ethnography/online-forum methodology supports using concrete public target-user behavior to validate behavioral problem/task claims with explicit self-selection/identity/prevalence limits. The narrowed model therefore reaches EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING while elicited representative concept/usability validation remains a separate later gate."
+    revision: 23
+    basis: "Negative-case search adds CH-P07/RQ-P12: current experienced-developer accounts show that professional role capability and selection/interview performance can diverge. Target-oriented preparation remains supported, but Prep must keep these target purposes related yet semantically distinct rather than treating interview mechanics as intrinsic job capability."
 
   - capability: prep.product-intent
-    revision: 4
-    basis: "Product intent now includes explicit product-feedback semantics for the target/gap/activity/evidence/progress loop and empty-corpus bootstrap while prohibiting click/exposure/activity-completion metrics from masquerading as learning evidence."
+    revision: 5
+    basis: "Product intent now distinguishes professional-role capability from selection/interview performance as related target purposes, preventing interview-specific mechanics from being presented as intrinsic role requirements while preserving target-relative learning/evidence semantics."
 
   - capability: prep.product-capabilities
-    revision: 4
-    basis: "Product capabilities now cover target definition, structured corpus input/curation, current-state assessment, gap/prioritization, learning/practice, evidence and adaptive progress as one observable loop; Question/Anki remains compatibility-only."
+    revision: 5
+    basis: "Target capability now supports purpose-explicit related/refinable targets, especially role capability versus selection/interview performance; curation actor scope is explicit, prioritization accepts timing/cost constraints and progress separates learner-state change from target refinement."
 
   - capability: prep.domain-strategy
     revision: 3
@@ -41,24 +41,24 @@ reviews:
     basis: "Revalidated for the expanded target-work and curation surfaces; existing bounded spatial-workload and semantic-preserving degradation constraints remain sufficient."
 
   - capability: prep.learning-design
-    revision: 4
-    basis: "Revalidated as the semantic basis for the restored target-relative workflow: LearningTarget, CapabilitySpecification, Gap, LearningPriority, LearningIntent, learning support and assessment/evidence design already support the required loop."
+    revision: 5
+    basis: "LearningTarget now carries explicit target_purpose and optional related_targets so role-capability and selection/interview targets can coexist without requirement inheritance, satisfaction transfer or semantic conflation."
 
   - capability: prep.learner-model
     revision: 4
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 7
-    basis: "Application orchestration now separates learner-state evidence from target-refining external information, supports layered/refinable target context and multi-driver focus rationale, and treats reusable corpus preparation as a curator/operator/system responsibility that a learner may opt into rather than an assumed learner job."
+    revision: 8
+    basis: "Application orchestration now carries target purpose explicitly, relates role-capability and selection/interview targets without requirement inheritance, and routes new recruiter/interview information to the affected target separately from learner-state evidence."
 
   - capability: prep.task-model
-    revision: 11
-    basis: "The five behavioral UMC claims now carry naturalistic-public-user evidence statuses plus separate elicited-representative UNTESTED status. This accepts the narrowed task model for UX prototyping without claiming that Prep-specific concept comprehension or usability has been human-validated."
+    revision: 12
+    basis: "Negative-case evidence refines UMC-01 with CH-P07/RQ-P12: target tasks now carry purpose and must distinguish role capability from selection/interview performance while preserving relationships, refinements and provenance. Naturalistic acceptance remains intact; elicited concept validation is still pending."
 
   - capability: prep.user-journeys
-    revision: 8
-    basis: "Journeys are now accepted as EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING behavioral compositions grounded in naturalistic public-user evidence, while explicitly remaining unvalidated as Prep-specific interaction/concept models until elicited representative testing."
+    revision: 9
+    basis: "Learner journeys now make target purpose visible: role-capability and selection/interview preparation may coexist and overlap, but company/interview mechanics refine only the relevant target rather than silently redefining the professional-role target."
 
   - capability: prep.conceptual-interface-model
     revision: 4
