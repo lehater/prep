@@ -22,7 +22,11 @@ sys.path.insert(0, str(HARNESS_ROOT))
 
 from capability_lifecycle import validate_projection  # noqa: E402
 from engineering_graph import production_index, validate_realization  # noqa: E402
-from semantic_admission import admit_artifact, knowledge_contract_index  # noqa: E402
+from semantic_admission import (  # noqa: E402
+    admit_artifact,
+    effective_knowledge_contract,
+    knowledge_contract_index,
+)
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -105,6 +109,114 @@ def _topological_existing_capabilities(
     return order
 
 
+def _task_model_semantic_projection(
+    path: Path,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    document = load_yaml(path)
+    assertions: list[dict[str, Any]] = []
+    dispositions: list[dict[str, Any]] = []
+
+    for goal in document.get("goals", []) or []:
+        goal_id = goal.get("id")
+        if not isinstance(goal_id, str) or not goal_id:
+            continue
+        assertions.append(
+            {
+                "id": goal_id,
+                "kind": "task-goal",
+                "subject": goal_id,
+                "semantic_value": goal.get("description", goal_id),
+                "decision_authority": "APPLICATION-DESIGN",
+            }
+        )
+        for task in goal.get("tasks", []) or []:
+            task_id = task.get("id")
+            if not isinstance(task_id, str) or not task_id:
+                continue
+            assertions.append(
+                {
+                    "id": task_id,
+                    "kind": "task",
+                    "subject": task_id,
+                    "semantic_value": task_id,
+                    "decision_authority": "APPLICATION-DESIGN",
+                }
+            )
+            fields = {
+                "task-goal-ref": goal_id,
+                "task-responsibility": task.get("responsibility"),
+                "task-information": task.get("required_information"),
+                "task-decision-input": task.get("decision_or_input"),
+                "task-outcome": task.get("outcome"),
+                "task-system-support": task.get("system_support"),
+                "task-recovery": task.get("recovery"),
+            }
+            for kind, value in fields.items():
+                if value is None or value == "" or value == []:
+                    continue
+                assertions.append(
+                    {
+                        "id": f"{kind}:{task_id}",
+                        "kind": kind,
+                        "subject": task_id,
+                        "semantic_value": value,
+                        "decision_authority": "APPLICATION-DESIGN",
+                    }
+                )
+
+    return assertions, dispositions
+
+
+def _problem_evidence_semantic_projection(
+    path: Path,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    text = path.read_text(encoding="utf-8")
+    validated = "Current user-model gate: **REPRESENTATIVE-USER-VALIDATED**"
+    provisional = "Current user-model gate: **PROVISIONAL-FOR-RESEARCH**"
+
+    if validated in text:
+        return (
+            [
+                {
+                    "id": "REPRESENTATIVE-USER-VALIDATION",
+                    "kind": "representative-user-validation",
+                    "subject": "user-model",
+                    "semantic_value": "validated",
+                    "decision_authority": "DISCOVERY",
+                }
+            ],
+            [],
+        )
+    if provisional in text:
+        return (
+            [],
+            [
+                {
+                    "obligation": "representative-user-validation",
+                    "status": "QUESTION",
+                    "rationale": (
+                        "Canonical Discovery explicitly marks the user model "
+                        "PROVISIONAL-FOR-RESEARCH; representative-user validation "
+                        "has not yet been accepted."
+                    ),
+                }
+            ],
+        )
+    return [], []
+
+
+def project_semantic_candidate(
+    knowledge_kind: str,
+    artifact: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    path = ROOT / artifact["path"]
+    if knowledge_kind == "task-model":
+        return _task_model_semantic_projection(path)
+    if knowledge_kind == "problem-evidence":
+        return _problem_evidence_semantic_projection(path)
+    return [], []
+
+
 def build_strict_semantic_baseline(
     graph: dict[str, Any],
     core: dict[str, Any],
@@ -123,6 +235,10 @@ def build_strict_semantic_baseline(
         HARNESS_ROOT / "spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml"
     )
     contracts = knowledge_contract_index(knowledge_contracts)
+    overlay_path = ROOT / ".harness/semantic-obligations.yaml"
+    knowledge_contract_overlays = (
+        [load_yaml(overlay_path)] if overlay_path.is_file() else []
+    )
     productions = production_index(graph)
     providers = _provider_index(core)
     reviews = _review_index(manifest)
@@ -167,10 +283,24 @@ def build_strict_semantic_baseline(
                 f"knowledge_kind={knowledge_kind}"
             )
 
+        contract = effective_knowledge_contract(
+            contract,
+            knowledge_kind,
+            knowledge_contract_overlays,
+        )
+
         prerequisite_capabilities = [
             requirement["capability"]
             for requirement in production.get("requires", []) or []
         ]
+        accepted_capabilities = {
+            item["capability"] for item in lifecycle["providers"]
+        }
+        if any(
+            prerequisite not in accepted_capabilities
+            for prerequisite in prerequisite_capabilities
+        ):
+            continue
         canonical_references = [
             {"referenced_path": providers[upstream]["path"]}
             for upstream in prerequisite_capabilities
@@ -179,13 +309,18 @@ def build_strict_semantic_baseline(
             f"{baseline_id}::{capability}::r{review['revision']}"
         )
 
+        semantic_assertions, semantic_dispositions = project_semantic_candidate(
+            knowledge_kind,
+            artifact,
+        )
         candidate = {
             "id": artifact["id"],
             "path": artifact["path"],
             "capability": capability,
             "changed_paths": [],
             "canonical_references": canonical_references,
-            "semantic_assertions": [],
+            "semantic_assertions": semantic_assertions,
+            "semantic_dispositions": semantic_dispositions,
             "semantic_review": {
                 "status": "ACCEPTED",
                 "checks": contract.get("required_review_checks", []) or [],
@@ -203,6 +338,7 @@ def build_strict_semantic_baseline(
             model=core,
             skill_registry=skill_registry,
             knowledge_contracts=knowledge_contracts,
+            knowledge_contract_overlays=knowledge_contract_overlays,
             capability=capability,
             sources=sources,
             candidate=candidate,
@@ -210,10 +346,13 @@ def build_strict_semantic_baseline(
             lifecycle=lifecycle if prerequisite_capabilities else None,
         )
         if result.get("status") != "ACCEPTED":
-            raise SystemExit(
-                f"Strict semantic admission rejected {capability}: "
-                f"{result.get('findings')}"
-            )
+            result["review_evidence"] = {
+                "baseline_id": baseline_id,
+                "revision": review["revision"],
+                "basis": review["basis"],
+            }
+            evaluations["semantic_evaluations"].append(result)
+            continue
 
         lifecycle_assertion = result.pop("lifecycle_assertion")
         result["review_evidence"] = {
@@ -237,12 +376,25 @@ def main() -> int:
     graph = load_yaml(ROOT / ".harness/engineering-graph.yaml")
     core = load_yaml(ROOT / ".harness/core.yaml")
     evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
+    rejected = [
+        item
+        for item in evaluations["semantic_evaluations"]
+        if item.get("status") != "ACCEPTED"
+    ]
+    state = "INCOMPLETE" if rejected else "PASS"
     print(
-        f"Strict semantic baseline PASS: "
-        f"{len(evaluations['semantic_evaluations'])} capabilities admitted, "
-        f"{len(lifecycle['providers'])} lifecycle assertions CURRENT-capable"
+        f"Strict semantic baseline {state}: "
+        f"{len(evaluations['semantic_evaluations'])} capabilities evaluated, "
+        f"{len(lifecycle['providers'])} lifecycle assertions CURRENT-capable, "
+        f"{len(rejected)} rejected"
     )
-    return 0
+    for item in rejected:
+        print(
+            f"  rejected {item.get('capability')}: "
+            f"{item.get('findings')} "
+            f"questions={item.get('question_proposals', [])}"
+        )
+    return 1 if rejected else 0
 
 
 if __name__ == "__main__":

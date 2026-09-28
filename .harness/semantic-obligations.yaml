@@ -1,0 +1,11 @@
+version: 1
+kind: harness-knowledge-kind-semantic-overlay
+id: prep-semantic-completeness-experiment
+
+contracts:
+  - knowledge_kind: problem-evidence
+    owned_assertion_kinds:
+      - representative-user-validation
+    obligations:
+      - id: representative-user-validation
+        kind: representative-user-validation

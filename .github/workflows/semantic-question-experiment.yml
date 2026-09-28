@@ -1,0 +1,46 @@
+name: Semantic Question Loop experiment
+
+on:
+  push:
+    branches: [experiment/semantic-question-loop]
+    paths:
+      - ".harness/**"
+      - ".harness-version"
+      - "docs/vision/problem-space.md"
+      - "docs/application/task-model.yaml"
+      - "tools/semantic_baseline.py"
+      - "experiments/semantic_question_loop/**"
+      - ".github/workflows/semantic-question-experiment.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Read experimental Harness pin
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out experimental Harness
+        uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+
+      - run: python -m pip install PyYAML
+
+      - name: Run real-data semantic Question experiment
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python experiments/semantic_question_loop/run.py
