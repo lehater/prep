@@ -29,12 +29,14 @@ def main() -> int:
         raise SystemExit(f"{TARGET} exists but is not a Git checkout")
 
     run("git", "fetch", "--depth", "1", "origin", PIN, cwd=TARGET)
-    run("git", "checkout", "--detach", PIN, cwd=TARGET)
+    run("git", "checkout", "--detach", "FETCH_HEAD", cwd=TARGET)
     head = run("git", "rev-parse", "HEAD", cwd=TARGET)
-    if head != PIN:
+
+    is_sha = len(PIN) == 40 and all(ch in "0123456789abcdefABCDEF" for ch in PIN)
+    if is_sha and head.lower() != PIN.lower():
         raise SystemExit(f"Harness pin mismatch: expected {PIN}, got {head}")
 
-    print(f"Harness ready at {TARGET} ({PIN})")
+    print(f"Harness ready at {TARGET} ({PIN} -> {head})")
     return 0
 
 

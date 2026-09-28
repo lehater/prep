@@ -2,9 +2,9 @@
 
 Base: `fix/user-centered-product-flow`.
 
-Harness pin:
+Harness experiment ref:
 
-`5aae5b14b6477bdb92e2564ae8d33b477d28e0f1`
+`experiment/semantic-question-loop`
 
 The experiment uses the current Prep canonical data without deleting or
 weakening it.
@@ -25,5 +25,6 @@ python tools/bootstrap_harness.py
 python experiments/semantic_question_loop/run.py
 ```
 
-No generated Question is persisted into `.harness/core.yaml`; the branch tests
+The experiment intentionally tracks the Harness experiment branch rather than a
+mainline SHA. No generated Question is persisted into `.harness/core.yaml`; the branch tests
 the projection and routing mechanism first.
