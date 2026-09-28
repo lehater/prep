@@ -40,6 +40,63 @@ The problem observations above are accepted direct stakeholder/project evidence 
 
 Provenance class: explicit product-owner/stakeholder observations accepted during Prep's Harness revalidation. No downstream UI, graph, Anki, persistence or implementation behavior is used as evidence that these problems exist.
 
+### Evidence classes and current validation state
+
+The observation set uses three evidence classes that must not be collapsed into one another:
+
+- **STAKEHOLDER** — direct product-owner/project observations. This is sufficient to motivate Discovery, but not to prove representative user behavior.
+- **SECONDARY** — external research, practitioner reports or public user discussions that independently support or challenge part of an observation. This can strengthen plausibility and sharpen research questions, but it does not validate Prep's concrete workflow.
+- **REPRESENTATIVE-USER** — observed behavior or attributed statements from people matching the motivating user context while they work through goal-oriented scenarios. This is the evidence required to treat the user model as human-validated.
+
+Current user-model gate: **PROVISIONAL-FOR-RESEARCH**. No OBS-Pxx item is yet accepted as representative-user validated.
+
+| Observation | Secondary evidence status | What secondary evidence supports | Representative-user status |
+| --- | --- | --- | --- |
+| OBS-P01 — target uncertainty | PARTIAL-SUPPORT | Developer discussions repeatedly report uncertainty about which backend/interview topics matter for a concrete role and variation between companies/interview loops. | UNTESTED |
+| OBS-P02 — partial observability | SUPPORT-OUTSIDE-TARGET-POPULATION | Learning-science reviews show limits in learners' metacognitive monitoring and strategy judgments; this supports the general problem but does not prove how Prep's target users assess themselves. | UNTESTED |
+| OBS-P03 — fragmented knowledge | PARTIAL-SUPPORT | Practitioner preparation plans commonly assemble multiple resources, topic lists and practice systems rather than relying on one coherent source. | UNTESTED |
+| OBS-P04 — exposure is not capability | STRONG-SECONDARY-SUPPORT | Retrieval-practice and transfer research distinguishes re-exposure from later recall/application and shows that performance depends on retrieval conditions and feedback. | UNTESTED |
+| OBS-P05 — limited resources | PARTIAL-SUPPORT | Developer preparation reports explicitly describe bounded daily/weekly preparation time and the need to choose among many possible topics. | UNTESTED |
+| OBS-P06 — changing state | SECONDARY-UNRESOLVED | Adaptation after new learning is plausible and consistent with self-regulated learning, but the concrete Prep decision loop is not independently established for the motivating population. | UNTESTED |
+| OBS-P07 — retention/transfer risk | STRONG-SECONDARY-SUPPORT | Learning-science reviews and meta-analysis show that retention and transfer differ from immediate study success and depend on practice conditions. | UNTESTED |
+| OBS-P08 — external target translation | PARTIAL-SUPPORT | Developers report tailoring preparation to role/company expectations and job descriptions; the need for a coherent capability profile is still a Prep hypothesis. | UNTESTED |
+| OBS-P09 — corpus bootstrapping | PARTIAL-SUPPORT | Public preparation accounts show manual assembly of topic lists, notes, flash cards and practice resources; the need for Prep's reusable corpus and bulk/manual/mixed preparation choices remains unvalidated. | UNTESTED |
+
+Secondary evidence used for this triangulation:
+
+- Carpenter, Pan & Butler, *The science of effective learning with spacing and retrieval practice*, Nature Reviews Psychology (2022): https://www.nature.com/articles/s44159-022-00089-1
+- Pan & Rickard, *Transfer of test-enhanced learning: Meta-analytic review and synthesis* (2018): https://pubmed.ncbi.nlm.nih.gov/29733621/
+- Tech Interview Handbook, role/time-bounded coding interview study planning: https://www.techinterviewhandbook.org/coding-interview-study-plan/
+- Public developer discussions illustrating topic uncertainty, bounded time and self-assembled preparation:
+  - https://www.reddit.com/r/cscareerquestions/comments/1av5qc5/how_to_prep_effectively/
+  - https://www.reddit.com/r/cscareerquestions/comments/1m6pr7j/is_anyone_else_overwhelmed_by_how_much_you_have/
+  - https://www.reddit.com/r/cscareerquestions/comments/o3jevd/preparing_to_apply_for_a_new_role_would_love/
+  - https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
+
+The public discussions above are anecdotal convenience evidence. They may expose recurring behaviors or vocabulary, but they are not treated as a representative sample and cannot satisfy the human-validation gate.
+
+### User-model validation gate
+
+The model is considered **HUMAN-VALIDATED** only after representative-user evidence closes these critical claims:
+
+1. **Target claim:** a concrete role/opportunity/learning outcome is a useful primary organizing context, and users can establish or correct its expected scope without being forced into Prep's internal model.
+2. **Current-state claim:** users can reason about what is supported, uncertain or challenged without collapsing missing evidence into failure or treating familiarity as demonstrated capability.
+3. **Gap/focus claim:** users can identify why something deserves attention next and make a priority decision under realistic time/attention constraints.
+4. **Activity/evidence/progress claim:** users can distinguish learning/practice from diagnosis, recognize credible new evidence, and explain meaningful progress or legitimate no-change.
+5. **Bootstrap claim:** when no prepared corpus exists, users can choose a sensible preparation path and understand how to get from source material to a usable target without losing the motivating goal.
+
+Exit criteria are evidence-based rather than a magic participant count:
+
+- every critical claim is exercised by multiple independent representative participants;
+- the sample includes meaningful variation in preparation experience and at least the primary motivating Python/backend context;
+- no unresolved **BLOCKING** or repeated **MAJOR** finding contradicts the claimed task model;
+- participants can explain the core model and next action in their own words without being taught internal Prep terminology;
+- at least one full learner loop and one completely-empty-system bootstrap are observed end to end;
+- material changes caused by findings are rechecked with representative users;
+- scope limitations are recorded explicitly instead of generalized beyond the evidence.
+
+Secondary research, stakeholder approval, automated tests and implementation behavior cannot satisfy these exit criteria.
+
 These observations may later be supplemented or challenged by research/user evidence. A conflict that changes the existence, affected actor or desired outcome of the problem must reopen Discovery rather than being reconciled by a downstream design artifact.
 
 ## Discovery validation backlog

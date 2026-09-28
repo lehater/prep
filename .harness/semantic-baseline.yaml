@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 5
-    basis: "Problem evidence now includes an executable representative-user discovery protocol, observation/severity schema, decision/retest rules and first-round success observations while keeping stakeholder assumptions explicitly unvalidated."
+    revision: 6
+    basis: "Problem evidence now separates stakeholder, secondary and representative-user evidence; triangulates the current OBS-P01..P09 set with external evidence; and defines an explicit five-claim HUMAN-VALIDATED gate that secondary research, stakeholder approval, tests or implementation cannot satisfy."
 
   - capability: prep.product-intent
     revision: 4
