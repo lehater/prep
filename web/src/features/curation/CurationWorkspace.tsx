@@ -6,82 +6,93 @@ import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQu
 import type {
   CurationImportPort,
   KnowledgeCurationPort,
-  QuestionCurationPort,
-  RequirementCurationPort,
-  TargetCurationPort,
 } from "./ports/CurationPorts";
+import type {
+  AssessmentCurationPortV2,
+  CapabilityCurationPortV2,
+  CorpusQualityPort,
+  LearningSupportCurationPortV2,
+  TargetProfileCurationPort,
+} from "./ports/UserCenteredCurationPorts";
 import { ImportCurationView } from "./ui/ImportCurationView";
 import { KnowledgeCurationView } from "./ui/KnowledgeCurationView";
-import { QuestionsCurationView } from "./ui/QuestionsCurationView";
-import { RequirementsCurationView } from "./ui/RequirementsCurationView";
-import { TargetsCurationView } from "./ui/TargetsCurationView";
+import {
+  AssessmentCurationViewV2,
+  CapabilitiesCurationView,
+  CorpusQualityView,
+  LearningSupportCurationViewV2,
+  TargetProfilesCurationView,
+} from "./ui/UserCenteredCurationViews";
 
 export type CurationSection =
   | "targets"
+  | "capabilities"
   | "knowledge"
-  | "requirements"
-  | "questions"
-  | "import";
+  | "learning-support"
+  | "assessment"
+  | "import"
+  | "quality";
 
 interface CurationWorkspaceProps {
   readonly section: CurationSection;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
-  readonly targetPort: TargetCurationPort;
   readonly knowledgePort: KnowledgeCurationPort;
-  readonly requirementPort: RequirementCurationPort;
-  readonly questionPort: QuestionCurationPort;
+  readonly targetProfilePort: TargetProfileCurationPort;
+  readonly capabilityPort: CapabilityCurationPortV2;
+  readonly learningSupportPort: LearningSupportCurationPortV2;
+  readonly assessmentPort: AssessmentCurationPortV2;
+  readonly qualityPort: CorpusQualityPort;
   readonly importPort: CurationImportPort;
   readonly Renderer: GraphRenderer;
 }
 
 const LABELS: Readonly<Record<CurationSection, string>> = {
   targets: "Targets",
+  capabilities: "Capabilities",
   knowledge: "Knowledge",
-  requirements: "Requirements",
-  questions: "Questions",
+  "learning-support": "Learning Support",
+  assessment: "Assessment",
   import: "Import",
+  quality: "Quality",
 };
 
 export function CurationWorkspace({
   section,
   knowledgeQueryPort,
-  targetPort,
   knowledgePort,
-  requirementPort,
-  questionPort,
+  targetProfilePort,
+  capabilityPort,
+  learningSupportPort,
+  assessmentPort,
+  qualityPort,
   importPort,
   Renderer,
 }: CurationWorkspaceProps) {
   return (
     <Stack spacing={{ xs: 1.25, md: 1.5 }}>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={1}
-        sx={{
-          alignItems: { xs: "flex-start", md: "center" },
-          justifyContent: "space-between",
-        }}
-      >
-        <header>
-          <Typography component="p" variant="overline" color="text.secondary">
-            Curation
+      <header>
+        <Typography component="p" variant="overline" color="text.secondary">
+          Curation
+        </Typography>
+        <Typography component="h2" variant="h5">
+          {LABELS[section]}
+        </Typography>
+        {section === "knowledge" ? (
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>
+            Maintain reusable Knowledge while preserving graph exploration as a presentation projection.
           </Typography>
-          <Typography component="h2" variant="h5">
-            Curation {LABELS[section]}
-          </Typography>
-          {section === "knowledge" ? (
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>
-              Maintain reusable canonical Knowledge while keeping graph exploration primary.
-            </Typography>
-          ) : null}
-        </header>
-
-      </Stack>
+        ) : null}
+      </header>
 
       {section === "targets" ? (
-        <TargetsCurationView
-          targetPort={targetPort}
-          requirementPort={requirementPort}
+        <TargetProfilesCurationView
+          targetPort={targetProfilePort}
+          capabilityPort={capabilityPort}
+        />
+      ) : section === "capabilities" ? (
+        <CapabilitiesCurationView
+          capabilityPort={capabilityPort}
+          knowledgeQueryPort={knowledgeQueryPort}
         />
       ) : section === "knowledge" ? (
         <KnowledgeCurationView
@@ -89,16 +100,19 @@ export function CurationWorkspace({
           curationPort={knowledgePort}
           Renderer={Renderer}
         />
-      ) : section === "requirements" ? (
-        <RequirementsCurationView
-          requirementPort={requirementPort}
+      ) : section === "learning-support" ? (
+        <LearningSupportCurationViewV2
+          supportPort={learningSupportPort}
+          capabilityPort={capabilityPort}
           knowledgeQueryPort={knowledgeQueryPort}
         />
-      ) : section === "questions" ? (
-        <QuestionsCurationView
-          questionPort={questionPort}
-          knowledgeQueryPort={knowledgeQueryPort}
+      ) : section === "assessment" ? (
+        <AssessmentCurationViewV2
+          assessmentPort={assessmentPort}
+          capabilityPort={capabilityPort}
         />
+      ) : section === "quality" ? (
+        <CorpusQualityView qualityPort={qualityPort} />
       ) : (
         <ImportCurationView importPort={importPort} />
       )}
