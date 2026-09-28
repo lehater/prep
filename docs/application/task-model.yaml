@@ -12,25 +12,27 @@ goals:
         required_information:
           - available prepared targets
           - external target description where the desired target is not yet prepared
-          - target context
+          - target context and current target layer (role family / level / vacancy / company / interview loop where known)
           - target capability requirement profile
-        decision_or_input: Select an existing target or initiate preparation of a new target from available source material.
-        system_support: Expose prepared targets and enough target context to choose; when no suitable target exists, route the user into target preparation rather than assuming one already exists.
-        outcome: A concrete target with a reviewable capability requirement profile is active.
-        recovery: Missing or inadequate target data is explicit; the user can switch to target preparation without losing context.
+          - provenance and unresolved expectations that may refine the target later
+        decision_or_input: Select an existing target or initiate preparation of a new target from available source material, accepting that the active target may begin broad and be refined as company/interview information appears.
+        system_support: Expose prepared targets and enough target context to choose; preserve role/level/company/interview refinements and provenance without forcing destructive replacement; when no suitable target exists, route the user into target preparation rather than assuming one already exists.
+        outcome: A sufficiently concrete active target exists for current preparation, with unresolved/refinable target expectations kept explicit.
+        recovery: Missing or inadequate target data is explicit; new recruiter/interview/company information can refine the active target without losing earlier context/history.
 
       - id: TASK-L-UNDERSTAND-TARGET
         responsibility: USER
         capability_refs: [PC-01, PC-03]
         depends_on: [TASK-L-ESTABLISH-TARGET]
         required_information:
-          - target purpose/context
+          - target purpose/context and known target layers
           - required capabilities and standards
           - target requirement structure
+          - unresolved/uncertain expectations and their provenance
           - related target-relevant knowledge where available
         decision_or_input: Inspect the target and confirm that it represents the desired outcome closely enough to assess against.
         system_support: Present the capability profile in user-comprehensible form and allow traversal into supporting knowledge without exposing internal modeling details as the primary explanation.
-        outcome: Learner understands what the target expects and can identify the scope being assessed.
+        outcome: Learner understands what is currently known about the target, what remains uncertain, and which scope is being prepared against now.
         recovery: Unclear, incomplete or disputed target requirements are visible as preparation/curation issues rather than silently treated as complete.
 
       - id: TASK-L-ESTABLISH-CURRENT-STATE
@@ -72,9 +74,11 @@ goals:
           - rationale
           - available learning/practice/diagnostic support
           - time or attention constraints supplied by the user where material
-        decision_or_input: Choose or confirm the next capability/gap focus for learning or diagnosis.
-        system_support: Support explicit target-relative prioritization and expose the rationale; do not treat graph position, content availability or knowledge popularity as intrinsic priority.
-        outcome: One or more current learning/diagnostic focuses are explicit and traceable to target-relative gaps or uncertainty.
+          - upcoming interview stage/deadline or other external timing constraints where material
+          - preparation cost/effort and support availability where they affect feasible choice
+        decision_or_input: Choose or confirm the next learning/diagnostic focus by combining target relevance/current gaps or uncertainty with explicit external constraints.
+        system_support: Support explicit prioritization and expose whether rationale comes from target relevance, current uncertainty/challenge, deadline/interview stage, available time or preparation cost; do not treat graph position, content availability or knowledge popularity as intrinsic priority by themselves.
+        outcome: One or more current learning/diagnostic focuses are explicit and traceable to target-relative need/uncertainty plus any material external constraints.
         recovery: If no useful support exists for a high-priority focus, expose the support-preparation gap and preserve the priority decision.
 
       - id: TASK-L-EXPLORE-RELEVANT-KNOWLEDGE
@@ -129,13 +133,14 @@ goals:
           - newly accepted evidence
           - updated satisfied/unresolved/challenged requirement fragments
           - changed gaps/priorities
-        decision_or_input: Inspect what changed and decide whether to continue the current focus, choose another gap or gather more diagnostic evidence.
-        system_support: Recompute target-relative state from accepted evidence and make meaningful changes visible without claiming progress unsupported by evidence.
-        outcome: Learner understands how the current position against the target changed and can continue the adaptation loop.
+          - new external information that may refine target expectations
+        decision_or_input: Inspect what changed, distinguish learner-state change from target-understanding change, and decide whether to continue the current focus, choose another focus, gather more diagnostic evidence or refine the target.
+        system_support: Recompute target-relative state from accepted evidence, surface target-refinement triggers separately from learner-state evidence, and make meaningful changes visible without claiming progress unsupported by evidence.
+        outcome: Learner understands how current position and/or understanding of the target changed and can continue the adaptation loop.
         recovery: No-change and increased-uncertainty outcomes remain valid and visible; history is not rewritten to manufacture progress.
 
   - id: GOAL-BOOTSTRAP-AND-CURATE-CORPUS
-    description: Create and maintain the reusable data required for target assessment, knowledge exploration, learning and evidence collection, including first use when the corpus is empty or materially incomplete.
+    description: Create and maintain reusable data required for target assessment, knowledge exploration, learning and evidence collection. This is a curation/operator capability and is not assumed to be a learner-owned job even when the same physical person may self-curate.
     tasks:
       - id: TASK-C-SELECT-PREPARATION-PATH
         responsibility: USER
@@ -281,15 +286,15 @@ human_validation:
     stakeholder acceptance, automated tests and implementation behavior cannot close them.
   claims:
     - id: UMC-01-TARGET
-      description: A concrete target is a useful primary organizing context and users can establish/understand its scope.
+      description: A target context is useful for organizing preparation, but it may begin broad and be layered/refined across role, level, company and interview-loop information.
       observation_refs: [OBS-P01, OBS-P08]
       challenge_refs: [CH-P01, CH-P05]
       research_question_refs: [RQ-P01, RQ-P08]
       task_refs: [TASK-L-ESTABLISH-TARGET, TASK-L-UNDERSTAND-TARGET]
       journey_refs: [E2E-L1]
       secondary_evidence:
-        status: MIXED_PARTIAL_SUPPORT
-        main_risk: Target context appears useful, but public accounts often show a layered/mutable role -> company/interview target rather than one stable target.
+        status: SECONDARY_NARROWED_LAYERED_TARGET
+        main_risk: Public and official current evidence repeatedly contradicts a single stable fully-known target; representative research must test whether layered/refinable target context remains understandable and useful.
       evidence_status: UNTESTED
     - id: UMC-02-CURRENT-STATE
       description: Users can reason about supported, unresolved and challenged current state without equating missing evidence with failure or familiarity with capability.
@@ -303,15 +308,15 @@ human_validation:
         main_risk: False familiarity and interview-performance failures support the need for stronger current-state signals, but user willingness to maintain explicit evidence remains unknown.
       evidence_status: UNTESTED
     - id: UMC-03-GAP-FOCUS
-      description: Users can understand target-relative gaps/uncertainty and choose a useful next focus under realistic time and attention constraints.
+      description: Users can understand target-relative gaps/uncertainty and choose a useful next focus while also accounting for deadlines, interview stage, available time and preparation cost.
       observation_refs: [OBS-P05, OBS-P06]
       challenge_refs: [CH-P04]
       research_question_refs: [RQ-P03, RQ-P10]
       task_refs: [TASK-L-REVIEW-GAPS, TASK-L-CHOOSE-NEXT-FOCUS]
       journey_refs: [E2E-L1]
       secondary_evidence:
-        status: RELATIVELY_STRONG_SUPPORT
-        main_risk: Limited time and prioritization are recurrent, but users may prioritize opportunistically from interview timing/resources rather than from an explicit evidence-backed gap model.
+        status: SECONDARY_NARROWED_MULTI_DRIVER_PRIORITY
+        main_risk: Prioritization is strongly supported as a user need, but public behavior shows target gaps are only one driver alongside deadlines, interview stages, time/energy and preparation ROI.
       evidence_status: UNTESTED
     - id: UMC-04-ACTIVITY-EVIDENCE-PROGRESS
       description: Users can distinguish learning/practice from diagnosis, recognize credible evidence and understand progress or valid no-change.
@@ -321,19 +326,19 @@ human_validation:
       task_refs: [TASK-L-LEARN-OR-PRACTISE, TASK-L-COLLECT-EVIDENCE, TASK-L-REVIEW-PROGRESS]
       journey_refs: [E2E-L1]
       secondary_evidence:
-        status: MIXED_PARTIAL_SUPPORT
-        main_risk: Performance/mocks/interviews clearly matter to readiness, but readiness spans several performance forms and users often rely on lightweight activity proxies rather than explicit evidence semantics.
+        status: STRONG_SECONDARY_SUPPORT_PERFORMANCE_SHAPED
+        main_risk: Public and official evidence strongly supports performance-shaped readiness across coding/design/practical/articulation forms, but explicit Prep evidence vocabulary and manual evidence maintenance remain unvalidated.
       evidence_status: UNTESTED
     - id: UMC-05-BOOTSTRAP
-      description: With no prepared corpus, users can choose a sensible preparation path and reach a usable target while preserving the motivating goal.
+      description: With no prepared corpus, the learner can preserve the motivating preparation goal while system/curator/external-agent work produces trustworthy usable target/support; learner ownership of reusable corpus maintenance is not assumed.
       observation_refs: [OBS-P03, OBS-P09]
       challenge_refs: [CH-P06]
       research_question_refs: [RQ-P05, RQ-P06, RQ-P11]
       task_refs: [TASK-C-SELECT-PREPARATION-PATH, TASK-C-PREPARE-BULK-DATA, TASK-C-IMPORT-BULK-DATA, TASK-C-REVIEW-CORPUS-QUALITY]
       journey_refs: [E2E-C1]
       secondary_evidence:
-        status: WEAK_SUPPORT_HIGH_RISK
-        main_risk: Users do assemble fragmented resources, but public behavior does not show a clear user need to own or curate Prep-style reusable semantic corpus infrastructure.
+        status: SECONDARY_CHALLENGE_LEARNER_CORPUS_OWNERSHIP
+        main_risk: Public behavior repeatedly supports fragmented-resource assembly and demand for trustworthy structured paths, but provides little evidence that learners want to author/maintain Prep-style reusable semantic corpus; that responsibility may belong to system/curator/operator.
       evidence_status: UNTESTED
 
 sufficiency_review:
@@ -341,11 +346,6 @@ sufficiency_review:
   rationale: >-
     Structural/model sufficiency is accepted for research and prototyping only; the
     human_validation block remains PROVISIONAL_FOR_RESEARCH until representative-user
-    evidence satisfies the Discovery gate. The task model covers the complete user-centered loop from establishing a
-    concrete target through evidence-backed current-state assessment, target-relative
-    gap review, explicit next-focus selection, learning/practice, new evidence and
-    reassessment. It also covers first-use corpus preparation: choosing an appropriate
-    bulk/manual/mixed path, externally prepared structured data, bulk import, incremental
-    curation and quality review.
+    evidence satisfies the Discovery gate. Secondary naturalistic evidence has narrowed the candidate model toward a layered/refinable target and multi-driver focus selection while keeping evidence-backed current state and reassessment. Corpus preparation remains structurally covered as a curation/operator capability, but learner ownership of that work is now explicitly challenged rather than assumed.
     UI screens, navigation, graph count/representation and backend realization remain
     downstream decisions.

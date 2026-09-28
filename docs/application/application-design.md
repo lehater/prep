@@ -20,12 +20,12 @@ A parallel curation lifecycle bootstraps and maintains the reusable corpus requi
 
 ## Task contexts
 
-The current single-user product has two semantic work contexts, not security roles:
+The current product has two semantic work contexts, not security roles:
 
-- **Learning/target work** — establish a concrete target, inspect current state and gaps, choose the next focus, learn/practise/diagnose, collect evidence and reassess progress.
+- **Learning/target work** — establish/refine a target, inspect current state and gaps, choose the next focus, learn/practise/diagnose, collect evidence and reassess progress.
 - **Curation work** — prepare and maintain targets, capabilities, knowledge, learning support, assessment design and structured bulk data.
 
-The same person may move between both contexts. When a required target or support artifact does not exist, the learner workflow may route into the corresponding curation task and return with the original target context preserved.
+The same physical person may self-curate, but this is not assumed. Curation may instead be performed by a curator/operator or external agent/system workflow. A learner-facing bootstrap need therefore does not imply that the learner should understand import schemas or maintain reusable semantic corpus data. When required target/support data does not exist, learning preserves the motivating context while preparation is delegated or entered explicitly.
 
 ## Target application use cases
 
@@ -35,10 +35,11 @@ Application operations:
 
 - list/search prepared LearningTargets;
 - open one prepared target as active context;
+- preserve/refine role, level, vacancy, company and interview-loop context as additional information arrives;
 - route to target preparation when no suitable target exists;
-- return to learning with the newly prepared target active.
+- return to learning with the newly prepared/refined target active.
 
-Target creation/editing remains a curation operation. Learning does not silently mutate a prepared target.
+Target creation/editing remains a curation operation. Learning does not silently mutate a prepared target. Recruiter/interview/company information may trigger an explicit target-refinement operation, preserving earlier target context/provenance rather than rewriting history.
 
 ### Inspect target profile
 
@@ -73,16 +74,16 @@ The application does not create a scalar proficiency score unless a separately a
 
 ### Choose current learning/diagnostic focus
 
-Application operations may create or select current LearningPriority/LearningIntent values for one or more gaps.
+Application operations may create or select current LearningPriority/LearningIntent values for one or more gaps/uncertainties.
 
 The application must preserve:
 
-- target identity;
-- focused gap(s);
-- rationale;
+- target identity and current target layer/context;
+- focused gap(s)/uncertainty;
+- rationale, including target relevance/current state plus material deadline/interview-stage/time/cost constraints;
 - whether the intent is learning/practice or diagnostic uncertainty reduction.
 
-Automatic ranking is optional downstream policy. Human selection remains valid.
+Automatic ranking is optional downstream policy. Human selection remains valid. A focus need not be explained by gap severity alone.
 
 ## Knowledge exploration
 
@@ -152,12 +153,13 @@ The application never treats a raw runtime rating, one correct answer or activit
 
 ### Reassess target state
 
-After new evidence is accepted, whether or not it changes target satisfaction:
+After new evidence/information is accepted, whether or not it changes target satisfaction:
 
-1. recompute target satisfaction;
-2. recompute Gap values;
-3. expose material changes from the previous target-relative projection;
-4. allow current priority/focus to be preserved or revised.
+1. separate learner-performance evidence from new information about target expectations;
+2. recompute target satisfaction and Gap values from accepted learner evidence;
+3. where recruiter/interview/company information changes expected scope/depth, trigger explicit target refinement rather than treating that information as learner evidence;
+4. expose material changes from the previous target-relative projection;
+5. allow current priority/focus to be preserved or revised.
 
 No-change, increased uncertainty and newly challenged state are valid outcomes.
 
@@ -165,15 +167,16 @@ No-change, increased uncertainty and newly challenged state are valid outcomes.
 
 ### Choose preparation path
 
-When a learner reaches target work without the reusable data needed to establish a usable target/capability/support/assessment context, the application exposes the missing preparation prerequisites rather than assuming a target can be composed immediately.
+When a learner reaches target work without reusable data needed for a usable target/capability/support/assessment context, the application exposes that preparation is incomplete without assuming the learner must perform corpus engineering.
 
-The user may choose:
+Preparation may be fulfilled by:
 
-- bulk preparation/import when the missing corpus is large or can be prepared efficiently by an external agent/tool;
-- incremental curation for small additions/corrections;
-- a mixed path where bulk import establishes a base corpus and incremental curation resolves rejected or missing items.
+- system/external-agent bulk preparation where source material can be structured automatically;
+- curator/operator bulk import or incremental curation;
+- learner self-curation when the learner explicitly chooses that role;
+- a mixed path.
 
-This decision preserves the motivating target/source context so the user can return to target work after preparation. It does not introduce a separate domain entity for a bootstrap plan.
+The learner-facing contract is to preserve the motivating target/source context and eventually expose a trustworthy reviewable preparation scope/support. Import schema, item-level correction and corpus-quality work belong to the curation context unless the learner chooses to enter it.
 
 ### Structured bulk input
 

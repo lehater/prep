@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 20
-    basis: "Pre-session moderator QA removed leading and presuppositional wording from Round A before any counted evidence exists: false-familiarity, uncertainty, activity categories, activity-count weakness, target change and organization overhead are now elicited open-first rather than assumed, while RA-1 identity remains valid because no RA-1 session has yet run."
+    revision: 21
+    basis: "A systematic current-web stress test adds 18 naturalistic 2025–2026 preparation/interview accounts plus current Microsoft/Amazon/Stripe process triangulation. Repeated secondary evidence narrows the candidate model toward layered/refinable targets, multi-driver focus selection, performance-shaped readiness, target-refining feedback and learner-visible bootstrap without assuming learner-owned semantic corpus maintenance; this remains SECONDARY evidence and does not close the human gate."
 
   - capability: prep.product-intent
     revision: 4
@@ -49,16 +49,16 @@ reviews:
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 6
-    basis: "Application Design now orchestrates explicit empty/partial-corpus preparation-path selection and reassesses after newly accepted evidence even when target satisfaction does not change."
+    revision: 7
+    basis: "Application orchestration now separates learner-state evidence from target-refining external information, supports layered/refinable target context and multi-driver focus rationale, and treats reusable corpus preparation as a curator/operator/system responsibility that a learner may opt into rather than an assumed learner job."
 
   - capability: prep.task-model
-    revision: 9
-    basis: "The five provisional user-model claims now carry explicit secondary-evidence assessments and main risks. Gap/focus has the strongest secondary plausibility; target stability, readiness boundaries and especially Prep-style corpus ownership remain higher-risk hypotheses pending representative-user evidence."
+    revision: 10
+    basis: "Secondary naturalistic falsification narrows the provisional task model: target is explicitly layered/refinable, focus combines target/state with timing/cost constraints, progress can trigger separate target refinement, and UMC-05 no longer assumes learner ownership of reusable corpus curation. All five UMC evidence statuses remain UNTESTED pending representative users."
 
   - capability: prep.user-journeys
-    revision: 6
-    basis: "User Journeys now explicitly distinguish task-model traceability from representative-user validation and remain PROVISIONAL-FOR-RESEARCH until the five user-model claims satisfy the Discovery human-validation gate."
+    revision: 7
+    basis: "Provisional journeys now reflect the secondary-evidence narrowing: target refinement is non-destructive, focus rationale includes external constraints, target-change and learner-state-change are separated, and empty-system bootstrap no longer requires the learner to own schema/import/corpus repair work unless self-curation is explicitly chosen."
 
   - capability: prep.conceptual-interface-model
     revision: 4

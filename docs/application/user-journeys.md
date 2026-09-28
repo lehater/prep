@@ -8,12 +8,12 @@ Define task-oriented usage scenarios before screen, navigation or transport deci
 
 The first version has one Prep user/data scope. Multi-user identity, authentication, authorization and tenant separation are outside current journeys.
 
-The same physical person may work in two semantic contexts:
+Two semantic contexts exist:
 
-- **Target/Learning** — establish a target, assess current state, inspect gaps, choose a focus, learn/practise/diagnose, collect evidence and reassess.
+- **Target/Learning** — establish/refine a target, assess current state, inspect gaps, choose a focus, learn/practise/diagnose, collect evidence and reassess.
 - **Curation** — bootstrap and maintain targets, capabilities, knowledge, learning support and assessment/evidence design.
 
-These are not security roles.
+These are not security roles, and they are not assumed to belong to the same physical person. A learner may self-curate, but a curator/operator or external preparation workflow may own reusable corpus work.
 
 ## Human validation status
 
@@ -29,16 +29,16 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 
 **Scenario:** a developer wants to become suitable for a Middle Python Backend role with fintech/card-payment responsibilities and already has some reusable corpus/evidence.
 
-1. Establish/select the concrete target and inspect the capability profile.
+1. Establish/select a sufficiently concrete current target and inspect what is known versus still uncertain; later company/interview information may refine it.
 2. Inspect the evidence-backed current state; missing evidence remains unresolved rather than failed.
 3. Review target-relative satisfied, unresolved and challenged fragments and inspect their basis.
-4. Choose a learning or diagnostic focus under current time/attention constraints.
+4. Choose a learning or diagnostic focus using target-relative gaps/uncertainty plus material deadline/interview-stage/time/cost constraints.
 5. Explore focus-relevant Knowledge when it helps understand the problem structure.
 6. Perform meaningful learning/practice or diagnosis tied to the focus.
 7. Record/accept contextual observations and evidence only through supported evidence semantics.
-8. Reassess the same target.
-9. Inspect changed state/gaps or a valid no-change outcome.
-10. Continue the current focus, select another gap or gather more evidence.
+8. Reassess learner state and separately check whether new external information refined the target itself.
+9. Inspect changed state/gaps, target refinement or a valid no-change outcome.
+10. Continue the current focus, select another focus, gather more evidence or refine the target.
 
 **Recovery branches:** missing learning support routes to corpus preparation without losing target/focus; unavailable spatial visualization preserves list/search/detail; contradictory evidence remains visible; accepted evidence may legitimately produce no state change.
 
@@ -46,20 +46,18 @@ These scenarios compose the atomic tasks below. They are concrete enough for pro
 
 ### E2E-C1 — Bootstrap a completely empty preparation system
 
-**Scenario:** the user has a target/vacancy description and source material but Prep has no usable target, capabilities, Knowledge, learning support or assessment design.
+**Scenario:** the learner has a target/vacancy description and source material but Prep has no usable target, capabilities, Knowledge, learning support or assessment design.
 
 1. The system makes the missing preparation prerequisites explicit instead of routing directly to an unusable target editor.
-2. The user chooses bulk preparation, incremental curation or a mixed path based on volume and available source material.
-3. For bulk preparation, the user obtains the supported import contract/examples and may ask an external AI/tool to prepare a conforming document.
-4. The user validates the document before mutation and reviews item-level rejections.
-5. Valid independent items are applied; rejected items remain identifiable.
-6. The user reviews corpus diagnostics and corrects missing/rejected targets, capabilities, Knowledge, support or assessment design through the relevant incremental task.
-7. The user composes a concrete target only after the required reusable capability context exists.
-8. The prepared target becomes active and the user returns to Target/Learning work with the motivating target intent preserved.
+2. The learner preserves the motivating goal and chooses whether to delegate preparation or explicitly enter self-curation; the product does not assume corpus maintenance is a learner job.
+3. A system/external agent or curator/operator may prepare/import reusable structured data; a self-curating learner may use the same curation tasks.
+4. Item-level validation/rejection and corpus-quality correction stay in the curation context unless the learner explicitly owns that context.
+5. The learner receives a reviewable target/preparation scope and can challenge missing/incorrect expectations without needing to understand the internal semantic corpus representation.
+6. The prepared/refined target becomes active and the learner returns to Target/Learning work with the motivating source/context preserved.
 
-**Recovery branches:** invalid envelope blocks mutation; partial item rejection preserves accepted peers; the user may change preparation path; absence of a quality diagnostic is not treated as proof of corpus completeness.
+**Recovery branches:** failed/partial preparation does not destroy accepted data or motivating context; the learner can request another preparation path without being forced into schema-level repair.
 
-**Research purpose:** test whether users understand what must be prepared, can choose bulk versus manual preparation and can recover from partial import without losing the original goal.
+**Research purpose:** test whether the learner needs trustworthy preparation bootstrap while corpus ownership belongs to learner, curator/operator, system/agent, or a context-dependent combination.
 
 ## Establish target
 
@@ -75,7 +73,7 @@ Flow:
 
 Alternate/recovery: missing target data is explicit and does not force the user to choose an unrelated prepared target.
 
-**Completion:** a concrete active target with a reviewable capability requirement profile exists.
+**Completion:** a sufficiently concrete active target exists for current preparation, while unresolved/refinable expectations remain visible.
 
 ## Understand target
 
@@ -87,11 +85,11 @@ Flow:
 1. System presents target context and required capability structure.
 2. User inspects required standards/conditions where material.
 3. User may inspect related target-relevant knowledge.
-4. User confirms that the target is suitable enough to assess against.
+4. User confirms that the currently known target is suitable enough to assess against and can identify important unknown expectations.
 
-Alternate/recovery: incomplete or disputed requirements are visible as curation/preparation issues.
+Alternate/recovery: incomplete/disputed requirements or new recruiter/interview information trigger explicit refinement rather than silent replacement.
 
-**Completion:** user understands what the target expects.
+**Completion:** user understands what is currently known about the target and what remains uncertain.
 
 ## Establish current state
 
@@ -131,13 +129,13 @@ Alternate/recovery: conflicting evidence remains explicit and is not collapsed i
 **Preconditions:** visible gaps or meaningful uncertainty.
 
 Flow:
-1. System presents current target-relative gaps, accepted priorities/rationale where available, and support availability.
-2. User chooses or confirms one or more next learning/diagnostic focuses.
+1. System presents current target-relative gaps/uncertainty, accepted priorities/rationale where available, support availability and material deadline/interview-stage/time/cost constraints.
+2. User chooses or confirms one or more next learning/diagnostic focuses from those combined considerations.
 3. System records the current LearningPriority/LearningIntent context.
 
 Alternate/recovery: a high-priority gap with no usable support remains selected but exposes a support-preparation issue.
 
-**Completion:** the next target-relative focus is explicit.
+**Completion:** the next focus and its target/state/constraint rationale are explicit.
 
 ## Explore relevant knowledge
 
@@ -194,14 +192,15 @@ Alternate/recovery: failed synchronization leaves accepted evidence unchanged; o
 **Preconditions:** active target and newly accepted evidence.
 
 Flow:
-1. System recomputes target satisfaction and gaps.
-2. System shows material differences from the previous target-relative projection.
-3. User inspects which requirements became established, remain unresolved or became challenged.
-4. User decides whether to continue the current focus, choose another gap or gather more diagnostic evidence.
+1. System separates learner-state evidence from new information about target expectations.
+2. System recomputes target satisfaction/gaps from learner evidence and explicitly refines target context when justified by external target information.
+3. System shows material differences from the previous target-relative projection and/or target understanding.
+4. User inspects which requirements became established, remain unresolved/challenged, or changed because the target was refined.
+5. User decides whether to continue the current focus, choose another focus, gather more diagnostic evidence or refine the target further.
 
 Alternate/recovery: no-change, increased uncertainty and newly challenged state are valid outcomes.
 
-**Completion:** user understands progress relative to the same target and can continue the loop.
+**Completion:** user understands changes in learner state and target understanding without conflating the two, and can continue the loop.
 
 ## Choose corpus preparation path
 

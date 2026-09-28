@@ -208,6 +208,69 @@ Each durable observation remains UNVALIDATED with respect to representative-user
 
 Usability preference for a particular screen, graph, workflow or wording is not evidence that a problem observation exists. Conversely, research that changes the problem actor, desired outcome or material problem dimension must reopen downstream Product/Application/Interface knowledge through Harness.
 
+### Secondary naturalistic web stress test — 2026-09-28
+
+This stress test uses public current behavior as **SECONDARY** evidence to falsify or narrow the candidate user model before representative-user research. It does not satisfy the HUMAN-VALIDATED gate.
+
+**Sampling discipline**
+
+- Purposive sample: 18 independent public preparation/interview accounts from 2025–2026, weighted toward backend/experienced-developer contexts, plus four current official employer interview-process sources.
+- Communities include r/Backend, r/developersIndia, r/cscareerquestions, r/ExperiencedDevs, r/leetcode and related interview-preparation threads.
+- Vendor/self-promotional replies are not used as evidence of user need merely because they advertise a solution.
+- Official employer material is used only to establish current interview-format variability and performance dimensions, not as evidence of candidate behavior.
+- Post/comment popularity is not treated as prevalence. Repetition across independent contexts is used as a falsification signal, not a population estimate.
+
+**Naturalistic sources**
+
+- WEB-S01 — backend SDE2/3 preparation mixes DSA/HLD/LLD and lacks a trusted way to validate LLD/readiness: https://www.reddit.com/r/developersIndia/comments/1wb76jo/preparing_for_sde_23_interview_need_your/
+- WEB-S02 — backend phone-screen preparation: conceptual knowledge does not automatically transfer to explaining system design live: https://www.reddit.com/r/cscareerquestions/comments/1ucddnv/interview_discussion_june_22_2026/
+- WEB-S03 — Python/backend developer with severe time constraints reports covering too much and difficulty deciding scope: https://www.reddit.com/r/developersIndia/comments/1sd0ecq/how_to_prepare_smartly_for_interviews_23_yoe/
+- WEB-S04 — 5 YOE engineer explicitly asks whether DSA/system design/AI/projects should be parallel or sequential under a 2–3h/day constraint: https://www.reddit.com/r/developersIndia/comments/1ue5sh8/what_should_i_prepare_for_interviews_in_todays/
+- WEB-S05 — candidate chooses resources by actual interview relevance, YOE and money/time ROI rather than by a reusable corpus goal: https://www.reddit.com/r/developersIndia/comments/1vkuwqf/what_resources_are_you_guys_using_currently_for/
+- WEB-S06 — frontend-to-backend transition case reports resource overload and seeks a sustainable role-oriented path: https://www.reddit.com/r/developersIndia/comments/1vlkecc/i_need_help_with_my_interview_preparation_for/
+- WEB-S07 — recent interview reports vary between LeetCode, practical coding, system design and behavioral/take-home forms: https://www.reddit.com/r/cscareerquestions/comments/1rc34r3/is_grinding_dsa_problems_still_worth_it_in_2026/
+- WEB-S08 — system-design preparation starts only after an SDE2 onsite reveals that round, while LeetCode continues in parallel: https://www.reddit.com/r/cscareerquestions/comments/1kf5j8z
+- WEB-S09 — 5 YOE candidate changes preparation after poor early performance, begins system-design study when onsite timing makes it relevant, and finds spoken practice useful: https://www.reddit.com/r/cscareerquestions/comments/1or3gyj/my_experience_interviewing_in_2025_with_5_yoe/
+- WEB-S10 — experienced developer explicitly cannot infer the 2026 interview target from role alone and asks whether process expectations changed: https://www.reddit.com/r/ExperiencedDevs/comments/1ur16w3/what_gets_asked_in_2026_interview/
+- WEB-S11 — job seeker combines generic preparation with company/team-specific reverse engineering and family/time constraints: https://www.reddit.com/r/cscareerquestions/comments/1nqf4sa/folks_who_have_gotten_offers_this_year_how_did/
+- WEB-S12 — senior candidates describe readiness as coding rigor + system design + behavioral/past-experience signals rather than one knowledge dimension: https://www.reddit.com/r/leetcode/comments/1q06zz6/2026_interview_prep/
+- WEB-S13 — recent system-design discussion explicitly reports mocks exposing gaps that reading did not reveal and post-practice notes capturing misses: https://www.reddit.com/r/interviews/comments/1w3l4dq/system_design_interview_prep_what_resources_have/
+- WEB-S14 — retrospective after 1000+ hours reports passive content consumption as weak progress signal and timed active design as more useful: https://www.reddit.com/r/leetcode/comments/1wf1zfp/how_id_approach_system_design_prep_if_i_started/
+- WEB-S15 — backend-specific thread says interview depth depends on company/job and combines DSA, stack, system design, security and practical work: https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
+- WEB-S16 — 5 YOE backend engineer reports repeated interviews testing different deep areas, causing an effectively unbounded perceived syllabus: https://www.reddit.com/r/SoftwareEngineerJobs/comments/1wo7s6q/5_yoe_java_backend_engineer_what_should_i/
+- WEB-S17 — 7.5 YOE backend engineer with 3–4 months and family constraints asks how to allocate scarce time across DSA/system design/backend/cloud/AI: https://www.reddit.com/r/developersIndia/comments/1vsnte7/75_yoe_25_lpa_34_months_to_prepare_what_should_i/
+- WEB-S18 — 5.5 YOE backend engineer returning after years asks what the current process even looks like before deciding what to study: https://www.reddit.com/r/developersIndia/comments/1wjo487/55_yoe_backend_engineer_getting_back_into/
+
+**Official process triangulation**
+
+- WEB-O01 — Microsoft technical interviewing spans problem solving, design, coding, testing, past experience and role-related scenarios: https://careers.microsoft.com/v2/global/en/hiring-tips/technical-interviewing
+- WEB-O02 — Microsoft states next interview steps vary by role and recruiter guidance supplies format/timeline: https://careers.microsoft.com/v2/global/en/hiring-tips/interview-tips.html
+- WEB-O03 — Amazon SDE III preparation explicitly covers system design, coding and behavioral evaluation: https://amazon.jobs/content/en/how-we-hire/sde-iii-interview-prep
+- WEB-O04 — Stripe states hiring process/timeline varies by role, level and location: https://stripe.com/careers
+
+**Cross-source patterns**
+
+| Pattern | Repeated naturalistic evidence | Consequence for candidate model |
+| --- | --- | --- |
+| WEB-PAT-01 — target is layered/refinable | S03, S05, S07–S12, S15–S18; O02, O04 | retain target context, but reject the assumption that one stable fully-known target exists early; model role/level/company/interview-loop refinements without destructive replacement |
+| WEB-PAT-02 — readiness is multi-modal performance | S01–S02, S07, S09, S12–S15; O01, O03 | UMC-04 must cover coding, design, practical work, articulation and behavioral/past-work signals where in scope; knowledge familiarity alone is insufficient |
+| WEB-PAT-03 — performance/feedback reveals state better than exposure counts | S01–S02, S09, S13–S14 | strengthen the distinction between learning activity and diagnostic evidence, while avoiding a requirement that users manually maintain an explicit evidence ledger |
+| WEB-PAT-04 — focus is multi-driver | S03–S06, S08–S09, S11, S16–S18 | next focus must combine target relevance/current uncertainty with deadlines, next interview stage, available time and preparation cost; a pure gap ranking is too narrow |
+| WEB-PAT-05 — resource assembly is common; semantic corpus ownership is not | S05–S06, S11, S13–S15 | preserve trustworthy preparation bootstrap, but do not assume the learner's job is to author/maintain Prep's reusable semantic corpus |
+| WEB-PAT-06 — feedback can update target knowledge as well as learner state | S07–S10, S16 | interview/recruiter feedback may refine what the target is believed to require; progress reassessment and target refinement are separate effects of new information |
+
+**Secondary-evidence decision**
+
+The network evidence is strong enough to revise the *candidate* model before representative research:
+
+1. keep a concrete target context, but make it explicitly layered and refinable;
+2. keep target-relative gaps/uncertainty, but let next-focus rationale include external constraints and interview-stage timing;
+3. keep performance/evidence semantics, but do not require users to think in Prep's explicit evidence vocabulary or manually curate evidence records;
+4. keep reusable corpus infrastructure as a product/system capability, but remove the assumption that the learner must own corpus preparation/maintenance;
+5. let new external feedback revise target understanding independently from revising learner state.
+
+These are **NARROW/CHANGE decisions from secondary falsification**, not human validation. UMC evidence statuses remain UNTESTED until representative Round A/Round B evidence exists.
+
 ### Validation programme
 
 User-model validation is intentionally separated from interface usability so the model is not proven by the interface that was derived from it.
