@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 19
-    basis: "Discovery research governance is cleaned up: mutable execution counters and recruitment slots were removed from the canonical semantic artifact per AGENTS workflow rules; stable protocol-version and contamination controls remain, and recruitment/protocol provenance is consolidated into the canonical session record template."
+    revision: 20
+    basis: "Pre-session moderator QA removed leading and presuppositional wording from Round A before any counted evidence exists: false-familiarity, uncertainty, activity categories, activity-count weakness, target change and organization overhead are now elicited open-first rather than assumed, while RA-1 identity remains valid because no RA-1 session has yet run."
 
   - capability: prep.product-intent
     revision: 4

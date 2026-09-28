@@ -404,7 +404,7 @@ Closing Round A does **not** set UMC claims to HUMAN-VALIDATED. It only permits 
 
 **Protocol version rule**
 
-- `RA-1` is the initial counted Round A protocol defined by the current screener, moderator guide, evidence ledger and post-session analysis rules.
+- `RA-1` is the initial counted Round A protocol defined by the current screener, moderator guide, evidence ledger and post-session analysis rules. Before the first counted session, methodological wording may be clarified without creating a historical split because no RA-1 evidence yet exists.
 - `RB-1` is the initial Round B protocol defined by the UI-independent task/concept cards and staged scenario.
 - Every `USR-*` record must store the protocol version actually used.
 - Editorial changes that do not alter questions, stimulus, participant qualification or evidence coding may keep the same protocol version.
@@ -577,19 +577,19 @@ Use a recent concrete preparation episode wherever possible. The moderator shoul
 
 5. How did you decide what the role/interview expected from you?
 6. Which expectations came from the vacancy, recruiter/interview loop, prior experience, community advice or your own assumptions?
-7. Was there one target, or did it change between companies/interviews? Walk through a concrete change.
+7. Did the target stay stable or change between companies/interviews? If it changed, walk through one concrete change; if it stayed stable, explain what kept it stable.
 8. How did you decide how deep to prepare a topic?
-9. What important expectation did you discover late?
+9. Were there expectations you discovered later than others? If so, which ones and what revealed them?
 
 Probe CH-P01/CH-P05 without naming them: ask what changed the person's preparation scope and whether interview feedback changed their understanding of the target itself.
 
 **Reconstruct current-state reasoning (10 min)**
 
 10. At that time, how did you decide what you already knew well enough?
-11. Give one example where you thought you knew something but later discovered you could not use/explain it well enough.
-12. Give one example where you were unsure because you had not tested yourself.
-13. What signals did you trust most: work experience, solving tasks, explaining aloud, mock interview, quiz result, recall after time, something else?
-14. Were there signals you intentionally ignored or distrusted?
+11. Was there ever a case where your initial judgment of what you knew changed after you had to explain or use it? If so, walk through that case.
+12. Were there areas where you were unsure of your ability? What created that uncertainty?
+13. What made you trust a judgment that you knew or could do something well enough? Start with your own signals; probe examples such as work experience, solving, explaining, mocks or recall only if needed.
+14. Were there any signals you considered weak or untrustworthy? If so, what made you distrust them?
 
 Do not offer SATISFIED / UNRESOLVED / CHALLENGED vocabulary. Capture the participant's own distinctions.
 
@@ -598,8 +598,8 @@ Do not offer SATISFIED / UNRESOLVED / CHALLENGED vocabulary. Capture the partici
 15. Show me how you decided what to do next on a typical preparation day.
 16. What competed for your time?
 17. What made you switch topics or change the plan?
-18. Give an example where you chose learning/review versus practice/mock interview versus simply checking whether you knew something.
-19. Did you ever work on something mainly because a resource was available/easy to consume even though you were not sure it mattered?
+18. Walk through a time you chose among different kinds of preparation activity. How did you describe those activities yourself, and why did you choose one rather than another?
+19. What role did resource availability or convenience play in choosing what to work on, if any?
 
 Probe whether the sequence is target-driven, resource-driven, anxiety-driven, deadline-driven, feedback-driven or opportunistic.
 
@@ -607,27 +607,27 @@ Probe whether the sequence is target-driven, resource-driven, anxiety-driven, de
 
 20. How did you know you were making progress?
 21. What did you track, if anything?
-22. Did completed hours/questions/topics make you feel ready? When were those signals misleading?
-23. What event most changed your belief about your readiness?
-24. Did you ever get new information that made you *less* certain after studying more?
+22. Did you use completed hours, questions, topics or similar activity counts as progress/readiness signals? If so, how useful were they and where did they break down, if at all?
+23. What events, if any, materially changed your belief about your readiness?
+24. Did new information ever change your certainty after you had already studied more? If so, in which direction and why?
 25. What would have convinced you to stop studying one area and move on?
 
-Probe CH-P03 explicitly through examples, not by explaining Prep's evidence model.
+Probe CH-P03 only after the participant has described their own progress/readiness signals; do not introduce Prep's evidence model or imply that activity-count signals must be misleading.
 
 **Reconstruct source/corpus behavior (5–10 min)**
 
 26. Where did your preparation material come from?
-27. Did you try to organize it into one durable structure, or mostly use resources where they already lived?
+27. How, if at all, did you organize preparation material? What stayed in its original source/tool and what did you bring into your own structure?
 28. What did you copy/rewrite into your own notes/cards/lists, and why?
-29. What organization work felt useful? What felt like overhead?
+29. What organization work, if any, felt useful? What, if anything, felt unnecessary or too costly?
 30. If you used AI, what did you ask it to prepare, and how did you verify the result?
 
 Probe CH-P06: distinguish the user need for trustworthy scope/support from the implementation idea of a reusable corpus.
 
 **Close**
 
-31. Looking back, what part of the process cost the most unnecessary effort?
-32. What was the biggest uncertainty you never resolved before interviewing?
+31. Looking back, what parts of the process, if any, cost effort without enough value?
+32. What uncertainties, if any, remained unresolved before interviewing?
 33. If you could improve only one part of your preparation process, which would it be and why?
 34. Is there an important step we did not discuss because I framed the conversation incorrectly?
 
