@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 16
-    basis: "Research execution is now versioned and auditable: RA-1/RB-1 protocol identities, session protocol/deviation metadata, an anonymized six-slot Round A execution ledger, contamination rules and a within-round change freeze prevent methodological drift from being mistaken for user evidence."
+    revision: 17
+    basis: "Research protocol completeness is now explicit through a coverage matrix mapping every UMC and CH-P01..CH-P06 to Round A questions, Round B cards/stages and minimum expected evidence, with interim coverage synthesis preventing unexercised claims from being mistaken for validation."
 
   - capability: prep.product-intent
     revision: 4

@@ -498,6 +498,54 @@ Once the first counted `RA-1` session begins:
 
 This prevents early participants from progressively teaching the research instrument what answer to seek.
 
+### Research coverage matrix
+
+This matrix is a protocol-completeness check, not evidence. A claim remains `UNTESTED` until representative sessions exercise it.
+
+| Claim / challenge | Round A coverage | Round B coverage | Minimum evidence expected |
+| --- | --- | --- | --- |
+| UMC-01 / OBS-P01, OBS-P08 / CH-P01, CH-P05 | Q2, Q5–Q9, Q23–Q24 | cards: role expectations, revise role requirements; B1, B3 | participant reconstructs how target scope/depth is established and gives at least one concrete target refinement/change trigger |
+| UMC-02 / OBS-P02, OBS-P04 / CH-P03 | Q10–Q14, Q20–Q25 | cards: know/can-demonstrate, uncertain/weak; B2, B4, B5 | participant distinguishes confidence/familiarity from stronger performance evidence and identifies uncertainty without forced failure semantics |
+| UMC-03 / OBS-P05, OBS-P06 / CH-P04 | Q3, Q15–Q19, Q25 | cards: attention-next, stop/move-on; B2, B4 | participant explains a concrete prioritization decision under constraints and what changed that priority |
+| UMC-04 / OBS-P04, OBS-P06, OBS-P07 / CH-P02, CH-P03, CH-P05 | Q11–Q14, Q18, Q20–Q25 | cards: learn, practise, diagnose, feedback, readiness; B2–B5 | participant distinguishes at least some activity/performance/evidence/progress concepts in own language and reacts to no-change/conflicting evidence |
+| UMC-05 / OBS-P03, OBS-P09 / CH-P06 | Q4, Q26–Q30 | cards: find/organize material, reusable material; B6 | participant demonstrates/describes how raw sources become usable preparation support and what organization burden they will/will not accept |
+| CH-P01 mutable/layered target | Q7, Q9 | B1, B3 | actual or scenario-driven target refinement captured |
+| CH-P02 performance-shaped readiness | Q13, Q18, Q23 | B3, B4 | readiness includes/excludes concrete performance forms in participant language |
+| CH-P03 activity-vs-evidence burden | Q20–Q25 | B2, B4, B5 | participant shows what progress signals are actually used and whether stronger evidence would be worth overhead |
+| CH-P04 opportunistic sequence | Q15–Q19 | card ordering/grouping, B2 | sequence/grouping differs from or supports Prep lifecycle for concrete reasons |
+| CH-P05 interview feedback changes target/state | Q7, Q17, Q23–Q24 | B3, B4 | same feedback event is examined for target update and self-state update separately |
+| CH-P06 corpus may not be user job | Q26–Q30 | B6 | participant distinguishes useful organization from unacceptable curation overhead |
+
+**Coverage rules**
+
+- Before closing a session, the moderator checks whether any planned critical area was accidentally not exercised; do not force coverage if the participant has no relevant experience.
+- `NOT-EXERCISED` is acceptable at session level but must trigger later sampling/protocol attention if a critical claim remains uncovered across the round.
+- Card-sort ordering alone cannot support a claim; it must be accompanied by participant explanation/examples.
+- Round B may challenge a claim after Round A, but it cannot substitute for missing Round A evidence about current real behavior.
+- UMC-04 requires at least one participant example involving delayed/new-context performance or conflicting evidence; immediate correct recall alone is insufficient to exercise retention/transfer reasoning.
+- UMC-05 requires at least one participant with a genuinely low-structure starting point; a person who already has a mature curated system cannot alone validate empty-bootstrap behavior.
+
+**Interim synthesis trigger**
+
+After RA-05 (or earlier only for a material protocol defect), build a coverage view:
+
+```text
+coverage:
+  UMC-01: exercised_by [USR-...]
+  UMC-02: exercised_by [USR-...]
+  UMC-03: exercised_by [USR-...]
+  UMC-04: exercised_by [USR-...]
+  UMC-05: exercised_by [USR-...]
+  CH-P01: exercised_by [USR-...]
+  CH-P02: exercised_by [USR-...]
+  CH-P03: exercised_by [USR-...]
+  CH-P04: exercised_by [USR-...]
+  CH-P05: exercised_by [USR-...]
+  CH-P06: exercised_by [USR-...]
+```
+
+Any critical row with fewer than multiple independent sessions remains open regardless of how positive the existing sessions appear.
+
 ### Session evidence ledger
 
 Each session gets an identifier `USR-<round>-<nn>`. Do not store unnecessary personal data.
