@@ -81,8 +81,8 @@ reviews:
     basis: "Topology maps the new corpus-preparation decision to the existing Targets view and routes bulk versus incremental/mixed preparation without introducing a redundant Curation home screen."
 
   - capability: prep.presentation-system
-    revision: 9
-    basis: "Presentation System now includes explicit reduced-motion, zoom/reflow, error-announcement and non-drag accessibility contracts while preserving task-complete non-spatial Knowledge access."
+    revision: 10
+    basis: "Presentation System now defines provisional learner/curator content vocabulary, single-language prototype copy and state/error wording rules in addition to reduced-motion/accessibility contracts."
 
   - capability: prep.screen-view-design
     revision: 8
@@ -125,8 +125,8 @@ reviews:
     basis: "Frontend Verification preserves the complete target-relative, corpus, evidence, progress and boundary obligations while using the Harness-traceable FV heading structure consumed by integration validation."
 
   - capability: prep.frontend-test-design
-    revision: 8
-    basis: "Frontend Test Design preserves the user-centered executable contracts and verification trace while conforming to the pinned Harness knowledge-artifact schema version required for validation."
+    revision: 9
+    basis: "Frontend Test Design now covers completely empty-corpus bootstrap, realistic practice completion without invented evidence and reduced-motion Knowledge behavior."
 
   - capability: prep.frontend-implementation-design
     revision: 9
