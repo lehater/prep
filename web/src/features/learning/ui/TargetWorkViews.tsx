@@ -39,17 +39,34 @@ function stateColor(state: TargetRequirementState): "success" | "warning" | "def
 
 export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [state, setState] = useState<TargetStateModel | null>(null);
+  const [problem, setProblem] = useState<string>();
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setState(null);
+    setProblem(undefined);
     void targetWorkPort.getState(targetId).then((outcome) => {
-      if (active && outcome.status === "success") setState(outcome.value);
+      if (!active) return;
+      if (outcome.status === "success") setState(outcome.value);
+      else setProblem(outcome.message);
     });
     return () => {
       active = false;
     };
-  }, [targetId, targetWorkPort]);
+  }, [reload, targetId, targetWorkPort]);
 
+  if (problem) {
+    return (
+      <StateNotice
+        title="Current state unavailable"
+        message={problem}
+        severity="warning"
+        retryLabel="Retry"
+        onRetry={() => setReload((value) => value + 1)}
+      />
+    );
+  }
   if (!state) return <LoadingState label="Loading current state" />;
 
   return (
@@ -89,18 +106,42 @@ export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewPro
 export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [gaps, setGaps] = useState<readonly GapModel[] | null>(null);
   const [focus, setFocus] = useState<LearningFocusModel | null>(null);
+  const [problem, setProblem] = useState<string>();
+  const [reload, setReload] = useState(0);
 
   const load = () => {
+    setGaps(null);
+    setFocus(null);
+    setProblem(undefined);
     void Promise.all([targetWorkPort.getGaps(targetId), targetWorkPort.getFocus(targetId)]).then(
       ([gapOutcome, focusOutcome]) => {
-        if (gapOutcome.status === "success") setGaps(gapOutcome.value);
-        if (focusOutcome.status === "success") setFocus(focusOutcome.value);
+        if (gapOutcome.status !== "success") {
+          setProblem(gapOutcome.message);
+          return;
+        }
+        if (focusOutcome.status !== "success") {
+          setProblem(focusOutcome.message);
+          return;
+        }
+        setGaps(gapOutcome.value);
+        setFocus(focusOutcome.value);
       },
     );
   };
 
-  useEffect(load, [targetId, targetWorkPort]);
+  useEffect(load, [reload, targetId, targetWorkPort]);
 
+  if (problem) {
+    return (
+      <StateNotice
+        title="Target gaps unavailable"
+        message={problem}
+        severity="warning"
+        retryLabel="Retry"
+        onRetry={() => setReload((value) => value + 1)}
+      />
+    );
+  }
   if (!gaps) return <LoadingState label="Loading target gaps" />;
 
   const choose = (gap: GapModel, intentKind: "learning" | "diagnostic") => {
@@ -108,6 +149,7 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
       .setFocus(targetId, { gapId: gap.id, intentKind })
       .then((outcome) => {
         if (outcome.status === "success") setFocus(outcome.value);
+        else setProblem(outcome.message);
       });
   };
 
@@ -162,24 +204,46 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
 export function LearningFocusView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [focus, setFocus] = useState<LearningFocusModel | null | undefined>(undefined);
   const [support, setSupport] = useState<readonly LearningSupportModel[] | null>(null);
+  const [problem, setProblem] = useState<string>();
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setFocus(undefined);
+    setSupport(null);
+    setProblem(undefined);
     void targetWorkPort.getFocus(targetId).then(async (outcome) => {
-      if (!active || outcome.status !== "success") return;
+      if (!active) return;
+      if (outcome.status !== "success") {
+        setProblem(outcome.message);
+        return;
+      }
       setFocus(outcome.value);
       if (!outcome.value) {
         setSupport([]);
         return;
       }
       const supportOutcome = await targetWorkPort.listSupport(targetId, outcome.value.id);
-      if (active && supportOutcome.status === "success") setSupport(supportOutcome.value);
+      if (!active) return;
+      if (supportOutcome.status === "success") setSupport(supportOutcome.value);
+      else setProblem(supportOutcome.message);
     });
     return () => {
       active = false;
     };
-  }, [targetId, targetWorkPort]);
+  }, [reload, targetId, targetWorkPort]);
 
+  if (problem) {
+    return (
+      <StateNotice
+        title="Learning support unavailable"
+        message={problem}
+        severity="warning"
+        retryLabel="Retry"
+        onRetry={() => setReload((value) => value + 1)}
+      />
+    );
+  }
   if (focus === undefined || support === null) return <LoadingState label="Loading learning focus" />;
   if (!focus) {
     return <StateNotice title="Choose a gap first" message="Select a target-relative gap before starting learning or practice." severity="info" retryLabel="Open gaps" onRetry={() => { window.location.href = targetSectionPath(targetId, "gaps"); }} />;
@@ -218,23 +282,45 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
   const [items, setItems] = useState<readonly DiagnosticOpportunityModel[] | null>(null);
   const [acceptedEvidence, setAcceptedEvidence] =
     useState<DiagnosticEvidenceAcceptanceModel | null>(null);
+  const [problem, setProblem] = useState<string>();
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setItems(null);
+    setAcceptedEvidence(null);
+    setProblem(undefined);
     void targetWorkPort.getFocus(targetId).then(async (focusOutcome) => {
-      if (!active || focusOutcome.status !== "success") return;
+      if (!active) return;
+      if (focusOutcome.status !== "success") {
+        setProblem(focusOutcome.message);
+        return;
+      }
       setFocus(focusOutcome.value);
       const diagnosticOutcome = await targetWorkPort.listDiagnostics(
         targetId,
         focusOutcome.value?.gapId,
       );
-      if (active && diagnosticOutcome.status === "success") setItems(diagnosticOutcome.value);
+      if (!active) return;
+      if (diagnosticOutcome.status === "success") setItems(diagnosticOutcome.value);
+      else setProblem(diagnosticOutcome.message);
     });
     return () => {
       active = false;
     };
-  }, [targetId, targetWorkPort]);
+  }, [reload, targetId, targetWorkPort]);
 
+  if (problem) {
+    return (
+      <StateNotice
+        title="Diagnostic evidence unavailable"
+        message={problem}
+        severity="warning"
+        retryLabel="Retry"
+        onRetry={() => setReload((value) => value + 1)}
+      />
+    );
+  }
   if (!items) return <LoadingState label="Loading diagnostic opportunities" />;
 
   const acceptEvidence = (item: DiagnosticOpportunityModel) => {
@@ -242,6 +328,7 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
       .acceptDiagnosticEvidence(targetId, item.id, item.capabilityId)
       .then((outcome) => {
         if (outcome.status === "success") setAcceptedEvidence(outcome.value);
+        else setProblem(outcome.message);
       });
   };
 
@@ -296,17 +383,34 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
 
 export function ProgressView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [progress, setProgress] = useState<ProgressComparisonModel | null>(null);
+  const [problem, setProblem] = useState<string>();
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setProgress(null);
+    setProblem(undefined);
     void targetWorkPort.getProgress(targetId).then((outcome) => {
-      if (active && outcome.status === "success") setProgress(outcome.value);
+      if (!active) return;
+      if (outcome.status === "success") setProgress(outcome.value);
+      else setProblem(outcome.message);
     });
     return () => {
       active = false;
     };
-  }, [targetId, targetWorkPort]);
+  }, [reload, targetId, targetWorkPort]);
 
+  if (problem) {
+    return (
+      <StateNotice
+        title="Progress unavailable"
+        message={problem}
+        severity="warning"
+        retryLabel="Retry"
+        onRetry={() => setReload((value) => value + 1)}
+      />
+    );
+  }
   if (!progress) return <LoadingState label="Loading progress" />;
 
   return (
