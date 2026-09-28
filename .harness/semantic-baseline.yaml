@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 10
-    basis: "Recent public developer preparation accounts are now coded as secondary behavior patterns without upgrading representative-user status. The synthesis highlights the main falsification risk: the current Prep lifecycle may be more stable, sequential and corpus-centric than users' actual preparation behavior."
+    revision: 11
+    basis: "Round B is now UI-independent and executable: stimulus alternatives were compared, task/concept cards plus a sequential scenario were selected, a current composite Python/payments role brief was grounded in public vacancies, and each scenario stage has explicit falsification criteria for UMC-01..UMC-05."
 
   - capability: prep.product-intent
     revision: 4

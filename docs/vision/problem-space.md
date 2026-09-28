@@ -373,6 +373,181 @@ Analyse at least these dimensions:
 
 Do not count a participant saying that a proposed idea "sounds useful" as SUPPORT. SUPPORT requires observed/reconstructed behavior, an existing need/workaround, or a concrete decision pattern compatible with the claim.
 
+### Round B stimulus selection
+
+Available ways to challenge the user model were considered before choosing a stimulus:
+
+1. **Current coded prototype** — realistic interaction, but strongly risks teaching the participant Prep's proposed navigation/order and would make the user model validate itself.
+2. **Low-fidelity screens/wireframes** — lower implementation bias, but still encode information architecture, grouping and sequence that are downstream of the user model.
+3. **UI-independent task/concept cards** — exposes candidate user concepts/actions without prescribing screen placement or navigation.
+4. **Sequential scenario walkthrough** — reveals new external information and asks the participant what changes in their understanding/next action.
+
+For the current gate, use **(3) task/concept cards + (4) sequential scenario walkthrough**. The coded prototype and screen designs are deliberately excluded until the user model is accepted or materially revised.
+
+### Round B neutral target stimulus
+
+The stimulus is a composite, not a real employer and not a prediction of one company's interview. It is derived from current public backend/payments roles so the task has realistic ambiguity while avoiding company-specific memorization.
+
+**Initial role brief — Python Backend Engineer, Payments**
+
+A product company operates financial/payment workflows for business customers. The role is backend-focused and involves:
+
+- Python backend services and APIs;
+- relational data and correctness-sensitive transaction processing;
+- integrations with external financial/payment providers;
+- reliability, observability and investigation of production failures;
+- designing or improving services that must handle money movement safely;
+- collaboration with Product, Operations/Compliance and other engineers;
+- ownership of technical decisions and communication of trade-offs.
+
+The role description mentions Python and common backend infrastructure but does **not** define an exact interview syllabus, exact depth for each topic or one authoritative preparation resource.
+
+This composite is grounded in current public roles including:
+
+- Stripe Backend Engineer, Payments / Payments and Risk: https://stripe.com/careers/listing/backend-engineer-payments/6692166
+- InvestEngine Lead Backend Engineer, Payments Team: https://careers.investengine.com/jobs/8335980-lead-backend-engineer-payments-team
+- lemon.markets Senior Backend Engineer, Banking: https://jobs.ashbyhq.com/lemon-markets/8eb5e491-1af6-459e-b3d7-1f7a36871e79
+- Norman Senior Backend Engineer: https://norman.finance/de/en/careers/senior-backend-engineer
+
+The stimulus intentionally mixes recurring requirements (backend/API work, financial correctness, integrations, reliability, cross-functional collaboration) with uncertain depth and company-specific details. The participant must decide what the target means rather than receive a pre-modeled capability profile.
+
+### Round B task/concept cards
+
+Cards are presented as plain text in randomized order. They are **candidate concepts/actions to sort, rename, merge, reject or add to**, not required Prep steps.
+
+- understand what the role/interview expects;
+- decide what I already know/can demonstrate;
+- identify what is uncertain or weak;
+- decide what deserves attention next;
+- learn/review material;
+- practise under realistic conditions;
+- test/diagnose whether I can perform;
+- collect/use feedback from a mock or real interview;
+- decide whether new evidence changes my readiness;
+- revise what I think the role requires;
+- find/organize useful preparation material;
+- keep reusable notes/questions/material for later;
+- decide when to stop one topic and move on;
+- decide what to do next after a no-change or disappointing result.
+
+Participant instructions:
+
+1. Remove cards that do not belong in your real preparation process.
+2. Rename cards using your own language.
+3. Merge cards that are the same thing to you.
+4. Add missing cards.
+5. Arrange them only if an order really exists; otherwise group by when/why they happen.
+6. Mark which cards happen repeatedly and which happen only once.
+7. Mark which cards you would expect a tool to do automatically versus decisions you need to make yourself.
+
+The researcher records the participant's resulting model before mapping anything to UMC-01..UMC-05.
+
+### Round B sequential challenge scenario
+
+Run after the card exercise.
+
+**Stage B1 — initial target**
+
+Give only the neutral role brief.
+
+Ask:
+
+- What would you need to figure out first?
+- What would you do before starting to study?
+- What do you already know about the target, and what remains unknown?
+- What would make you decide the target is defined well enough to prepare against?
+
+Tests: UMC-01, CH-P01.
+
+**Stage B2 — constrained preparation**
+
+Add: "You have about three weeks and roughly 60–90 minutes on most weekdays. You already work as a backend developer but have not worked directly on payment processing."
+
+Ask:
+
+- What changes in your plan?
+- How do you decide what deserves time first?
+- What information about yourself would you want before prioritizing?
+- Which activities would be learning, which would be practice, and which would merely check your current ability?
+
+Tests: UMC-02, UMC-03, CH-P03, CH-P04.
+
+**Stage B3 — late interview information**
+
+Add: "A recruiter later says the technical process will include a backend coding/debugging discussion, a system-design discussion around reliable financial workflows, and discussion of past engineering decisions. Exact questions are not provided."
+
+Ask:
+
+- Did your target change, or did you merely learn more about the same target?
+- What preparation work becomes more or less important?
+- Would you preserve the earlier target model/history, replace it, or keep several layers?
+- What would you now want to test about yourself?
+
+Tests: UMC-01, UMC-04, CH-P01, CH-P02, CH-P05.
+
+**Stage B4 — diagnostic evidence**
+
+Add: "In a mock interview you explain API design well but struggle to reason clearly about idempotency/reconciliation during a failed payment workflow. You eventually solve the problem after hints."
+
+Ask:
+
+- What does this result actually tell you?
+- What does it *not* tell you?
+- Is this a gap, uncertainty, one-off performance issue or something else in your language?
+- What would you do next?
+- What future result would convince you the situation changed?
+
+Tests: UMC-02, UMC-03, UMC-04.
+
+**Stage B5 — no-change / conflicting evidence**
+
+Add: "After several days of study you answer a familiar idempotency question correctly, but a new scenario with duplicated webhooks and partial downstream failure still requires substantial prompting."
+
+Ask:
+
+- Do you consider this progress? Why?
+- What changed, if anything?
+- Would you continue the same focus, broaden it, diagnose differently or move on?
+- Which evidence would you trust more and why?
+
+Tests: UMC-04 and the distinction between activity, immediate familiarity, transfer and target-relative progress.
+
+**Stage B6 — empty preparation system**
+
+Reset the tool context: "Assume a preparation tool knows nothing about this role yet. You have only the role brief, a few links/articles and your own experience."
+
+Ask:
+
+- What would you expect the tool to do before it can help?
+- What information would you personally be willing to enter/organize?
+- What organization work would you consider unacceptable overhead?
+- If AI could prepare structure/material for you, what would you want to verify before trusting it?
+- Do you need to own a reusable corpus, or just need the tool to produce a trustworthy preparation scope/support?
+
+Tests: UMC-05, CH-P06.
+
+### Round B claim decision criteria
+
+Round B does not ask whether participants "like" the model. A claim is synthesized from behavior/explanations:
+
+- **UMC-01 Target**
+  - support: participant naturally establishes some target context and can revise/refine it when new external information appears;
+  - narrow/change: participant requires multiple simultaneous target layers, or target is too fluid for one active target abstraction.
+- **UMC-02 Current state**
+  - support: participant distinguishes demonstrated ability, uncertainty and weak/challenged performance using their own language;
+  - narrow/change: explicit evidence tracking is rejected as overhead or participant decisions rely on materially different signals not represented in the model.
+- **UMC-03 Gap/focus**
+  - support: participant can explain why one topic/activity deserves attention next under constraints;
+  - narrow/change: prioritization is primarily driven by external scheduling/resource availability in a way the current gap-relative model cannot represent.
+- **UMC-04 Activity/evidence/progress**
+  - support: participant distinguishes studying/practice from credible evidence and changes next action based on performance;
+  - narrow/change: readiness depends on capability/performance types outside accepted product scope or the proposed evidence distinctions are not usable.
+- **UMC-05 Bootstrap**
+  - support: participant needs a preparation-scope/support bootstrap and can understand a low-overhead path from raw sources to usable preparation;
+  - narrow/change: maintaining Prep-style reusable corpus is not a user task and should move to internal/curator responsibility.
+
+A repeated finding that invalidates a claim changes the Task Model before any screen/interface work resumes.
+
 ### Initial discovery session protocol
 
 The first round is qualitative discovery/mental-model validation, not a statistical study. Recruitment should cover the participant hypotheses above and include variation in preparation experience, current seniority and accessibility needs where practicable.
