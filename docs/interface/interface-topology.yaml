@@ -9,7 +9,7 @@ views:
     interaction_context_refs: []
     structural: true
     parent: ROOT
-    exits: [L-01-TARGETS, C-10-CURATION-HOME, S-01-RUNTIME-STATUS]
+    exits: [L-01-TARGETS, F-C-CURATION-WORKSPACE, S-01-RUNTIME-STATUS]
 
   - id: F-LT-TARGET-WORKSPACE
     responsibility: Preserve the active target while switching among assessment, gaps, learning, diagnostics, knowledge and progress views.
