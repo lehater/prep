@@ -53,12 +53,12 @@ reviews:
     basis: "Application Design now orchestrates explicit empty/partial-corpus preparation-path selection and reassesses after newly accepted evidence even when target satisfaction does not change."
 
   - capability: prep.task-model
-    revision: 6
-    basis: "Task Model now includes the previously unowned first-use decision between bulk, incremental and mixed corpus preparation while preserving all existing target/evidence/learning tasks."
+    revision: 7
+    basis: "Task Model now separates structural sufficiency from human validation and traces five critical user-model claims to problem observations, research questions, tasks and representative journeys; all claims remain explicitly UNTESTED pending representative-user evidence."
 
   - capability: prep.user-journeys
-    revision: 5
-    basis: "User Journeys now include concrete end-to-end learner and completely-empty-system bootstrap scenarios derived from the Task Model, including partial import recovery and valid no-change progress."
+    revision: 6
+    basis: "User Journeys now explicitly distinguish task-model traceability from representative-user validation and remain PROVISIONAL-FOR-RESEARCH until the five user-model claims satisfy the Discovery human-validation gate."
 
   - capability: prep.conceptual-interface-model
     revision: 4

@@ -15,6 +15,12 @@ The same physical person may work in two semantic contexts:
 
 These are not security roles.
 
+## Human validation status
+
+The journeys below are **PROVISIONAL-FOR-RESEARCH**. They are traceable compositions of the current Task Model, not evidence that representative users naturally follow the proposed lifecycle.
+
+Human acceptance is governed by the five claims in `task-model.yaml#human_validation` and the Discovery gate in `problem-space.md#user-model-validation-gate`. A journey becomes evidence-backed only after representative-user observation supports the relevant claims; stakeholder approval, secondary research, automated tests and the existing coded prototype do not satisfy that gate.
+
 ## Representative end-to-end journeys
 
 These scenarios compose the atomic tasks below. They are concrete enough for prototype/research preparation but remain independent of screens/routes.
