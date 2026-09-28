@@ -67,6 +67,7 @@ export function LearningWorkspace({
 
   useEffect(() => {
     let active = true;
+    setFocus(null);
     void targetWorkPort.getFocus(targetId).then((outcome) => {
       if (active && outcome.status === "success") {
         setFocus(outcome.value);
