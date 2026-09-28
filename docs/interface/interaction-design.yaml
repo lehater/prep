@@ -2,6 +2,60 @@ version: 2
 kind: interaction-design
 id: PREP-INTERACTION-DESIGN
 
+shared_contracts:
+  navigation_and_context:
+    - Back/return follows the prior meaningful task context rather than resetting to an arbitrary workspace root.
+    - Active target and current learning/diagnostic focus survive cross-view navigation unless the user explicitly changes or clears them.
+    - Temporary routing into Curation from Target Work preserves the motivating target/source/focus context needed for an explicit return.
+    - Search/filter/selection state is preserved across recoverable operations when retaining it does not misrepresent changed canonical data.
+
+  drafts_and_unsaved_changes:
+    - Editor input remains local draft state until an accepted create/update operation succeeds.
+    - Validation rejection, conflict and recoverable operational failure preserve the draft and correction context.
+    - Navigation that would discard a materially changed draft requires an explicit stay/discard decision; ordinary read-only navigation never invents an unsaved-change warning.
+    - Successful persistence replaces the draft baseline with the accepted result before the interface reports the editor as clean.
+
+  async_and_long_running_operations:
+    - Every user-initiated asynchronous mutation has an observable pending state and terminal success/partial/failure result.
+    - Duplicate submission of the same pending mutation is prevented unless the operation contract explicitly supports concurrent independent requests.
+    - A navigation action is not presented as cancellation of a machine operation unless the machine contract actually supports cancellation.
+    - When a non-cancellable operation continues after navigation, a later visible result must reconcile with canonical state rather than implying that leaving the view aborted it.
+    - Existing accepted data/context remains inspectable during retry where showing it cannot be confused with the pending result.
+
+  validation_and_conflict:
+    - Validation identifies the actionable rejected input or item and preserves valid independent input where the operation semantics allow partial success.
+    - Conflict never silently overwrites accepted canonical state or user draft state.
+    - Recovery offers correction/retry/reload choices that correspond to supported operation semantics; merge is not implied unless explicitly designed.
+    - Missing/unknown data is not converted into a validation failure, negative learner claim or fabricated default.
+
+  stale_data:
+    - A stale read discovered before mutation is not silently submitted as if current.
+    - If the machine operation exposes a version/conflict token, the interface preserves it through editing and surfaces a conflict outcome rather than auto-overwriting newer data.
+    - Refreshing stale data must not silently discard a dirty draft; the user must be able to keep/copy the draft or explicitly replace it.
+    - No optimistic mutation is assumed for target composition, evidence acceptance or import apply; optimistic behavior requires a separately accepted rollback-safe contract.
+
+  focus_and_keyboard:
+    - Primary task actions, navigation, forms, list/detail inspection and recovery actions are keyboard reachable in a semantic focus order.
+    - Entering a new full view moves focus to a meaningful view heading/primary region; returning from a temporary layer restores focus to its invoking control where that control still exists.
+    - Validation failure moves or announces focus to the first actionable error without erasing entered values.
+    - Operation completion never moves focus unexpectedly merely because background data refreshed.
+    - Spatial/drag interactions require an equivalent non-spatial or non-drag path for task completion.
+
+  pointer_and_touch:
+    - Pointer hover may add preview/context but cannot be the only way to reveal task-critical information or actions.
+    - Dragging, orbiting or direct spatial manipulation is never the sole path for selecting, inspecting, focusing or traversing Knowledge.
+    - Touch interaction must preserve the same semantic selection/focus distinction as pointer/keyboard interaction.
+
+  destructive_actions:
+    - The current accepted interaction set defines no delete/destructive corpus command.
+    - Any future destructive action requires an explicit task/application operation plus consequence/recovery semantics before a confirmation interaction is designed; a generic confirmation dialog is not sufficient authority.
+
+  user_feedback:
+    - Success feedback states what was accepted or changed without claiming learner progress unsupported by evidence.
+    - Partial success distinguishes accepted and rejected independent items.
+    - Failure messages identify a recoverable next action where one exists and never imply data loss when canonical accepted state is preserved.
+    - Loading/empty/unavailable/unknown are distinct states and are not collapsed into one generic empty message.
+
 contexts:
   - id: I-L-ESTABLISH-TARGET
     task_refs: [TASK-L-ESTABLISH-TARGET]
