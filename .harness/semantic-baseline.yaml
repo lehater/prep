@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 4
-    basis: "Problem evidence now records its representative-user validation status, recruitment hypotheses and observation-linked discovery questions without treating stakeholder assumptions or UI preferences as validated problem truth."
+    revision: 5
+    basis: "Problem evidence now includes an executable representative-user discovery protocol, observation/severity schema, decision/retest rules and first-round success observations while keeping stakeholder assumptions explicitly unvalidated."
 
   - capability: prep.product-intent
     revision: 3
