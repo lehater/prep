@@ -114,6 +114,20 @@ test("completes core Knowledge access with keyboard interaction only", async ({
   await expect(page).toHaveURL(/q=idempotency/);
 });
 
+test("graph settings restore keyboard focus to the invoking control", async ({ page }) => {
+  await page.goto("/learning/python-backend-fintech/knowledge");
+
+  const settings = page.getByRole("button", { name: "Graph settings" });
+  await settings.focus();
+  await settings.click();
+  await expect(
+    page.getByRole("combobox", { name: "Graph performance profile" }),
+  ).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(settings).toBeFocused();
+});
+
 test("graph toolbar preserves semantic filters and exposes performance degradation controls", async ({
   page,
 }) => {
