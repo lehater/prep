@@ -133,7 +133,10 @@ test("modern bulk import validates before partial apply", async ({ page }) => {
   await expect(outcomes).toContainText("payment-observability: created");
   await expect(outcomes).toContainText("broken: rejected");
 
-  await page.goto("/curation/capabilities");
+  await page
+    .getByRole("navigation", { name: "Curation sections" })
+    .getByRole("link", { name: "Capabilities", exact: true })
+    .click();
   await expect(page.getByRole("button", { name: "Payment observability" })).toBeVisible();
 });
 
