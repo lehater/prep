@@ -60,7 +60,7 @@ export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewPro
           Evidence-backed state relative to this target. Missing evidence stays unresolved.
         </Typography>
       </header>
-      <Stack spacing={1.25} aria-label="Target requirement state">
+      <Stack component="section" spacing={1.25} aria-label="Target requirement state">
         {state.items.map((item) => (
           <Paper key={item.requirementId} variant="outlined" sx={{ p: 1.5 }}>
             <Stack spacing={0.75}>
