@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 12
-    basis: "Discovery now includes a canonical session-record template, cross-session claim synthesis worksheet and explicit downstream reopening rules, enabling representative evidence to trace from USR/F findings through OBS/CH/UMC into Product, Task Model and User Journeys without creating a parallel research-document system."
+    revision: 13
+    basis: "Round A is operationally recruitable: recruitment channels and bias controls, outreach copy, screener, consent/privacy framing, pilot rules, moderator preflight, immediate post-session processing and evidence-based continuation/stopping criteria are now defined without changing any user-model claim."
 
   - capability: prep.product-intent
     revision: 4

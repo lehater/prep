@@ -258,6 +258,123 @@ A participant is a strong fit for the primary round when most of the following a
 
 Recruitment should not require fintech experience. Fintech/payment-processing experience is a useful variation case, not a gate for the primary population.
 
+### Round A recruitment and execution pack
+
+The research programme is ready to recruit without changing the user model.
+
+**Recruitment channel options considered**
+
+1. **Existing professional network** — fast access to relevant developers and easier artifact-based interviews, but carries convenience/similarity bias.
+2. **Developer communities** — broader variation in experience and preparation style, but response quality and participant fit are less predictable.
+3. **Paid research panel** — more controlled recruitment, but adds operational cost and may still require technical screening.
+4. **Project contributors / people already exposed to Prep** — useful only for protocol pilots because prior model exposure contaminates independent validation.
+
+Initial strategy: recruit through **(1) professional network + (2) developer communities**, using the screener and variation guardrails below. If this produces a homogeneous sample, add a panel or targeted outreach rather than treating convenience recruitment as representative.
+
+**Variation guardrails for the first round**
+
+Across the initial 5–6 representative sessions, try to include variation on:
+
+- backend experience/seniority rather than one team/peer group only;
+- active versus recently completed job/interview preparation;
+- highly structured preparation (notes/cards/plans) versus lightweight/ad-hoc preparation;
+- use versus non-use of AI assistants during preparation;
+- at least some participants who experienced a real interview/mock that changed their preparation;
+- Python/backend relevance in the primary sample; fintech/payment experience is optional variation, not a quota.
+
+Do not force demographic quotas that are unrelated to the current research questions. Record sample limits explicitly.
+
+**Recruitment message**
+
+> I am researching how backend developers actually prepare for a concrete software-engineering role/interview: how they decide what is expected, what they already know, what to work on next, and whether preparation is working.  
+>   
+> I am looking for developers who have seriously prepared for or evaluated a software-engineering role/interview recently. This is a research interview about your existing process, not a test of you and not a demo/sales session. It is especially useful if you can describe or show non-sensitive preparation artifacts such as a vacancy, topic list, notes, cards, bookmarks or study plan.  
+>   
+> The session focuses on a recent real preparation episode. You can skip anything confidential.
+
+Do not mention Prep's target/state/gap/evidence model in the recruitment text.
+
+**Pre-screen questions**
+
+Ask before scheduling:
+
+1. What kind of software-development work do you do or most recently did?
+2. Have you seriously prepared for, interviewed for, or evaluated a software-engineering role in roughly the last six months?
+3. Was there a concrete role, vacancy, company/interview loop or role family you were preparing toward?
+4. Did you have to choose among topics/activities because preparation time was limited?
+5. What did you use while preparing: notes, spreadsheets, question banks, LeetCode/task lists, Anki/cards, AI assistants, repositories, courses, other?
+6. Did you have any mock or real interview feedback that changed what you prepared?
+7. Are you already familiar with Prep's current task model or have you helped design this project?
+
+Strong Round A fit normally means "yes" to 2–4, relevant developer context in 1, and "no" to 7. Questions 5–6 provide variation, not exclusion.
+
+**Scheduling / pre-session request**
+
+Before the session, ask the participant to choose one recent preparation episode and, where comfortable, have one or more real artifacts available. Examples: a public vacancy, personal topic list, non-confidential notes, study plan, question list or anonymized AI conversation excerpt.
+
+Do not require participants to expose employer-confidential information, private recruiter communication, personal application data or proprietary code.
+
+**Consent/privacy opening**
+
+At the start, state:
+
+- the purpose is to understand their preparation process, not evaluate their technical ability;
+- participation is voluntary and they may skip any question or artifact;
+- avoid sharing confidential employer/company information;
+- recording, if used, requires explicit agreement for that session;
+- durable repository evidence will use pseudonymous `USR-*` identifiers and should exclude unnecessary personal data;
+- researcher interpretation will be kept separate from observed behavior/direct statements.
+
+If recording permission is not given, continue with notes. Lack of recording does not make a session invalid if evidence can be captured accurately enough.
+
+**Protocol pilot**
+
+Run one pilot before counting representative sessions where practical. A contributor/person familiar with Prep may be used for the pilot because the goal is to detect confusing wording, leading questions, timing problems and missing note fields. Mark it `counts_as_representative_validation: no`.
+
+After the pilot, only change the protocol for methodological clarity. Do not alter UMC claims based on the pilot participant's model-contaminated answers.
+
+**Moderator preflight checklist**
+
+Before each counted Round A session:
+
+- participant passed the screener and independence check;
+- one recent concrete preparation episode has been selected;
+- moderator has not sent the participant Prep task names or lifecycle;
+- note template has a new `USR-A-<nn>` ID;
+- recording permission state is known before recording starts;
+- moderator is prepared to ask for concrete examples/artifacts and "what happened next?";
+- no prototype/screens are open or ready to bias the current-behavior section;
+- strongest-disconfirming-evidence field will be completed even for supportive sessions.
+
+**Immediately after each session**
+
+Before discussing findings with stakeholders or comparing to expected Prep concepts:
+
+1. reconstruct the participant's sequence in their language;
+2. separate direct evidence from interpretation;
+3. record missing/extra tasks;
+4. complete the disconfirming-evidence field;
+5. map findings to OBS/RQ/CH/UMC only after steps 1–4;
+6. mark weak/ambiguous material `NOT-EXERCISED` or low-confidence rather than forcing support/challenge;
+7. do not change canonical UMC status until cross-session synthesis.
+
+**Round A continuation/stopping decision**
+
+After approximately five independent sessions, perform an interim synthesis rather than automatically stopping.
+
+Continue recruitment when any of the following is true:
+
+- new sessions still introduce materially new target/task structures;
+- a critical challenge CH-P01..CH-P06 has not been exercised;
+- Python/backend motivating context is underrepresented;
+- the sample is dominated by one preparation style/network/seniority band;
+- evidence for a critical UMC claim is contradictory without a clear context boundary;
+- a likely change to the Task Model has appeared but has not repeated independently.
+
+Round A may close when all critical observations/challenges have been exercised across multiple independent participants, new sessions mostly repeat already understood patterns, and remaining variation can be recorded as explicit scope rather than unresolved model uncertainty.
+
+Closing Round A does **not** set UMC claims to HUMAN-VALIDATED. It only permits synthesis of Problem Space findings and, if necessary, revision before Round B challenges the candidate Task Model/Journeys.
+
 ### Session evidence ledger
 
 Each session gets an identifier `USR-<round>-<nn>`. Do not store unnecessary personal data.
