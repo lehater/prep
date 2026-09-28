@@ -89,6 +89,37 @@ The triangulation above also exposes plausible counterexamples to the current mo
 
 These challenges are supported only at the secondary/anecdotal level. They exist to make Round A/B capable of disproving the current model.
 
+
+### Secondary behavior synthesis
+
+A small desk-research coding pass over recent public developer preparation accounts produced these recurring patterns. They remain **secondary evidence** and do not change any UMC status from `UNTESTED`.
+
+| Pattern | Secondary observation | Challenges/claims affected |
+| --- | --- | --- |
+| SEC-PAT-01 — mutable target | People often start with a broad backend/seniority target, then adjust preparation after learning a company's interview format, stack emphasis or depth expectations. | CH-P01, CH-P05 / UMC-01 |
+| SEC-PAT-02 — multi-modal readiness | Preparation commonly spans DSA/coding, system design, stack/backend knowledge, practical exercises and behavioral/past-project explanation rather than one homogeneous body of knowledge. | CH-P02 / UMC-04 |
+| SEC-PAT-03 — performance reveals false familiarity | Developers report understanding material when reading/watching it but being unable to retrieve/explain/apply it in an interview or mock. | OBS-P04, CH-P03 / UMC-02, UMC-04 |
+| SEC-PAT-04 — time scarcity drives explicit triage | People routinely ask what to prioritize, how deep to go and how to divide limited preparation time; role/company differences make a universal syllabus unattractive. | OBS-P01, OBS-P05, CH-P04 / UMC-03 |
+| SEC-PAT-05 — activity counts are common but weak readiness proxies | Question counts, hours, completed lists and topic coverage are commonly tracked, while confidence often changes after mocks or real interviews. | CH-P03 / UMC-02, UMC-04 |
+| SEC-PAT-06 — feedback loops cross target/state boundary | Real interviews and mocks reveal both personal weaknesses and previously unknown interviewer expectations; one event can update both self-assessment and understanding of the target. | CH-P05 / UMC-01, UMC-04 |
+| SEC-PAT-07 — resource assembly is usually lightweight | Public accounts more often describe combining external guides, LeetCode/problem lists, notes and company-specific information than maintaining a reusable semantic corpus. | CH-P06 / UMC-05 |
+
+Sources sampled for this coding pass:
+
+- https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
+- https://www.reddit.com/r/Backend/comments/1spki0u/java_backend_developer_3_yoe_seeking_structured/
+- https://www.reddit.com/r/cscareerquestions/comments/1m6pr7j/is_anyone_else_overwhelmed_by_how_much_you_have/
+- https://www.reddit.com/r/SoftwareEngineerJobs/comments/1wo7s6q/5_yoe_java_backend_engineer_what_should_i/
+- https://www.reddit.com/r/ExperiencedDevs/comments/1rmn6yj/today_had_a_system_design_interview_today_and_i/
+- https://www.reddit.com/r/ExperiencedDevs/comments/1roks3z/interview_prep_how_long_do_you_study/
+- https://www.reddit.com/r/csMajors/comments/1v14mpo/rising_senior_grinding_leetcode_system_design_how/
+- https://www.reddit.com/r/ExperiencedDevs/comments/1p2ew23/how_do_you_prepare_for_a_realworld_coding/
+- https://www.techinterviewhandbook.org/software-engineering-interview-guide/
+- https://www.techinterviewhandbook.org/coding-interview-study-plan/
+
+The strongest pre-interview risk to the current model is therefore not "users do not need preparation". It is that Prep may currently model the preparation process as **more stable, sequential and corpus-centric than users actually experience it**. Round A should actively look for that mismatch.
+
+
 Additional triangulation sources:
 
 - Tech Interview Handbook, software-engineering interview guide (role-dependent coding/system-design/behavioral preparation): https://www.techinterviewhandbook.org/software-engineering-interview-guide/

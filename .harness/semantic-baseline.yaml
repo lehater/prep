@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 9
-    basis: "Round A is now directly executable through a neutral moderator guide centered on reconstruction of a recent real preparation episode, with explicit probes for target evolution, current-state reasoning, prioritization, progress evidence and corpus behavior plus analysis rules that prevent preference statements from being counted as validation."
+    revision: 10
+    basis: "Recent public developer preparation accounts are now coded as secondary behavior patterns without upgrading representative-user status. The synthesis highlights the main falsification risk: the current Prep lifecycle may be more stable, sequential and corpus-centric than users' actual preparation behavior."
 
   - capability: prep.product-intent
     revision: 4
