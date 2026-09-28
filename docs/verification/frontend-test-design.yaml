@@ -1,4 +1,4 @@
-version: 2
+version: 1
 kind: harness-knowledge-artifact
 artifact: FRONTEND-TEST-DESIGN
 schema: test-design/v1
