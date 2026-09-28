@@ -71,6 +71,21 @@ test("diagnostic evidence changes target-relative progress", async ({ page }) =>
   await expect(page.getByText("Challenged → Satisfied")).toBeVisible();
 });
 
+test("new accepted evidence may validly leave target satisfaction unchanged", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/diagnostics`);
+
+  const diagnostic = page
+    .getByRole("heading", { name: "Python backend confirmation diagnostic" })
+    .locator("..");
+  await diagnostic
+    .getByRole("button", { name: "Accept mock diagnostic evidence" })
+    .click();
+
+  await expect(page.getByText("New evidence accepted")).toBeVisible();
+  await page.getByRole("link", { name: "Review progress" }).click();
+  await expect(page.getByText("No established change yet")).toBeVisible();
+});
+
 test("target overview is capability-oriented and Knowledge remains target-scoped", async ({ page }) => {
   await page.goto(`/learning/${targetId}/overview`);
 
