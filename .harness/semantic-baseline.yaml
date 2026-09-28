@@ -61,12 +61,12 @@ reviews:
     basis: "Rebuilt from Task Model revision 4: journeys now preserve CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition, LearningSupportRequirement and Observation/Performance semantics, keep Question as a compatibility realization, and remove graph/screen realization choices from journey ownership."
 
   - capability: prep.conceptual-interface-model
-    revision: 1
-    basis: "User-facing concepts were revalidated against tasks and domain/application sources without becoming a duplicate domain model."
+    revision: 2
+    basis: "Rebuilt from current tasks/journeys into a user-facing vocabulary for prepared target requirements, Capability, reusable Knowledge, study material, Study Set diagnostics, factual learning evidence and external runtime state; legacy Requirement, KnowledgeRelation entity and ReviewObservation concepts are removed and navigation/presentation remain downstream."
 
   - capability: prep.information-architecture
-    revision: 1
-    basis: "Information organization and findability were revalidated independently of concrete screen layout or UI provider."
+    revision: 2
+    basis: "Reorganized frontend information around target overview, Knowledge, study material/evidence and Curation of targets, capabilities, Knowledge and supported study material; grouping no longer mirrors legacy Requirement/KnowledgeRelation storage shapes and remains independent of concrete routes/layout."
 
   - capability: prep.machine-interfaces
     revision: 2
