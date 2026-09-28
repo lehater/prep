@@ -59,6 +59,22 @@ test("renders accepted server-backed states through the HTTP provider", async ({
         );
       }
 
+      if (operation === "learning.targets.get") {
+        return new Response(
+          JSON.stringify({
+            outcome: "success",
+            result: {
+              ...target,
+              capabilities: [],
+            },
+          }),
+          {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          },
+        );
+      }
+
       if (operation === "learning.targets.list") {
         if (state.delayNextList) {
           state.delayNextList = false;
@@ -166,4 +182,11 @@ test("renders accepted server-backed states through the HTTP provider", async ({
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByText("No suitable target found")).toBeVisible();
   await expect(page.getByRole("link", { name: "Prepare target" })).toBeVisible();
+
+  await page.goto("/learning/linux-backend-interview/state");
+  await expect(
+    page.getByRole("heading", { name: "Linux backend interview" }),
+  ).toBeVisible();
+  await expect(page.getByText("Current state unavailable")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Retry" })).toBeVisible();
 });
