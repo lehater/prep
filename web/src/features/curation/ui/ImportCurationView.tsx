@@ -92,7 +92,7 @@ export function ImportCurationView({ importPort }: ImportCurationViewProps) {
     }
   };
 
-  const canApply = Boolean(validation && validation.rejected === 0 && validation.valid > 0);
+  const canApply = Boolean(validation && validation.valid > 0);
 
   return (
     <Stack spacing={2.5}>
