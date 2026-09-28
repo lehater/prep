@@ -8,11 +8,14 @@ Define the learner problem Prep exists to address before selecting product, doma
 
 A person needs to move from their current state of knowledge or ability to a desired state, but does not have a sufficiently reliable way to manage that transition.
 
+For the primary motivating scenario, the desired state is often external: a role, vacancy, interview profile, certification or other opportunity defines capabilities the person is expected to demonstrate. The person may have only fragmented descriptions of that target and incomplete evidence about their own current capability.
+
 The transition is difficult because:
 
 - the desired state can require an uncertain scope of knowledge and different depths of mastery;
+- external target descriptions may be incomplete, inconsistent, duplicated or expressed at different levels of abstraction;
 - the person's current state is only partially observable;
-- relevant information can be fragmented, incomplete, inconsistent, redundant or expressed in different terms;
+- relevant subject material can be fragmented, incomplete, inconsistent, redundant or expressed in different terms;
 - encountering information is not the same as being able to recall, explain, reason about or apply it;
 - different knowledge may require different forms of learning and practice;
 - evidence of learning has different strengths and can become stale;
@@ -31,7 +34,9 @@ The problem observations above are accepted direct stakeholder/project evidence 
 - **OBS-P04 — exposure is not capability:** encountering information does not establish later recall, explanation, reasoning or application;
 - **OBS-P05 — limited resources:** time and attention force choices about what deserves attention next;
 - **OBS-P06 — changing state:** new learning/evidence can change what should be learned or checked next;
-- **OBS-P07 — retention/transfer risk:** immediate success does not guarantee later availability or transfer to another context.
+- **OBS-P07 — retention/transfer risk:** immediate success does not guarantee later availability or transfer to another context;
+- **OBS-P08 — external target translation:** a learner may need to turn one or more external descriptions of a desired role/opportunity into a coherent, reviewable target capability profile before meaningful assessment is possible;
+- **OBS-P09 — corpus bootstrapping:** useful assessment and learning depend on reusable target, capability, knowledge, task/material and evidence-design data that may initially be absent and must be created, imported or curated.
 
 Provenance class: explicit product-owner/stakeholder observations accepted during Prep's Harness revalidation. No downstream UI, graph, Anki, persistence or implementation behavior is used as evidence that these problems exist.
 
@@ -41,26 +46,38 @@ These observations may later be supplemented or challenged by research/user evid
 
 The person can reliably progress toward a chosen learning outcome by being able to:
 
-1. establish the desired state and relevant scope/depth;
-2. establish enough of the current state to identify meaningful differences;
-3. decide what requires attention next;
-4. learn or practise it in a form appropriate to the required outcome;
-5. obtain evidence that their state has changed;
-6. preserve relevant knowledge or ability until it is needed;
-7. use new evidence to continue adapting the learning process.
+1. establish the desired external or self-defined target state and relevant scope/depth;
+2. establish enough of the current state to identify meaningful target-relative differences and uncertainty;
+3. understand which requirements are satisfied, unresolved or challenged;
+4. decide what requires attention next;
+5. learn or practise it in a form appropriate to the required outcome;
+6. obtain evidence that their state has changed;
+7. preserve relevant knowledge or ability until it is needed;
+8. use new evidence to continue adapting the learning process.
+
+The supporting learning system can be bootstrapped and maintained from explicit source material or structured prepared data rather than assuming that target, knowledge and assessment data already exist.
 
 ## Problem dimensions
 
 ```text
-desired state
-  -> required knowledge / ability
-  -> current state
-  -> difference
+external/self-defined goal
+  -> target capability requirements
+  -> current evidence-backed state
+  -> gaps / uncertainty
   -> priority
-  -> learning / practice
+  -> learning / practice / diagnostic activity
   -> evidence
-  -> retention / transfer
   -> updated state
+  -> revised gaps / priority
+```
+
+A supporting data lifecycle exists alongside the learner loop:
+
+```text
+source material / prepared structured data
+  -> target / capability / knowledge / task-material data
+  -> validation and curation
+  -> reusable corpus
 ```
 
 These are problem dimensions, not prescribed product components. Their technical or product realization is intentionally outside this artifact.
@@ -72,7 +89,8 @@ These are problem dimensions, not prescribed product components. Their technical
 - source material may be incomplete, inconsistent or redundant;
 - learner state cannot be observed directly and must be inferred from imperfect evidence;
 - learning evidence can decay in relevance over time;
-- appropriate learning and evidence differ by the kind of knowledge or ability being developed.
+- appropriate learning and evidence differ by the kind of knowledge or ability being developed;
+- the reusable corpus may start incomplete or empty and must not be treated as pre-existing user input.
 
 ## Non-decisions
 
@@ -83,6 +101,7 @@ This problem statement does not choose:
 - cards, questions or another learning-object format;
 - a scheduling or repetition mechanism;
 - an external study system;
-- a subject domain or motivating use case.
+- a particular import file format;
+- a subject domain as a permanent product boundary.
 
 Those belong to downstream research and design.
