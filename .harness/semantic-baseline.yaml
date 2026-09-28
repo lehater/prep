@@ -77,8 +77,8 @@ reviews:
     basis: "Interaction Design now realizes current-state inspection, gap/focus decisions, learning/diagnostics/evidence/progress and modern corpus curation while preserving target/focus and recoverable state."
 
   - capability: prep.interface-topology
-    revision: 4
-    basis: "Topology now follows the target-relative learner loop and modern Curation responsibilities; old Study/Statistics and Requirements/Questions primary navigation is removed."
+    revision: 5
+    basis: "Topology removes the phantom Curation home view and directly exposes accepted semantic Curation areas from the structural workspace while preserving the target-relative learner topology."
 
   - capability: prep.presentation-system
     revision: 8
