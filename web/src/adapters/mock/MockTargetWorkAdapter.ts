@@ -4,18 +4,24 @@ import type {
   LearningFocusModel,
   LearningSupportModel,
   ProgressComparisonModel,
+  TargetRequirementState,
   TargetStateItemModel,
   TargetStateModel,
 } from "../../features/learning/model/targetWork";
 import type { TargetWorkPort } from "../../features/learning/ports/TargetWorkPort";
 import type { LearningOutcome } from "../../features/learning/ports/learningOutcome";
-import { PREPARED_TARGET_ID } from "./mockFixtures";
+import {
+  createMockCurationStore,
+  type MockCurationStore,
+} from "./MockCurationStore";
 
-const INITIAL_ITEMS: readonly TargetStateItemModel[] = [
-  {
-    requirementId: "python-backend-core",
-    title: "Build and reason about Python backend services",
-    summary: "Design, implement and explain production Python backend behavior.",
+interface InitialEvidenceState {
+  readonly state: TargetRequirementState;
+  readonly basis: TargetStateItemModel["basis"];
+}
+
+const INITIAL_EVIDENCE: Readonly<Record<string, InitialEvidenceState>> = {
+  "cap-python-backend": {
     state: "satisfied",
     basis: [
       {
@@ -25,113 +31,72 @@ const INITIAL_ITEMS: readonly TargetStateItemModel[] = [
       },
     ],
   },
-  {
-    requirementId: "card-payment-processing",
-    title: "Explain the card-payment processing chain",
-    summary: "Explain gateway, processor, acquiring, clearing and settlement responsibilities.",
-    state: "unresolved",
-    basis: [],
-  },
-  {
-    requirementId: "reliable-payment-commands",
-    title: "Design reliable payment commands",
-    summary: "Handle retries, duplicate delivery and idempotent payment-side effects.",
+  "cap-payment-reliability": {
     state: "challenged",
     basis: [
       {
         id: "evidence-idempotency-challenge",
-        summary: "Diagnostic answer missed duplicate-side-effect protection during retries.",
+        summary:
+          "Diagnostic answer missed duplicate-side-effect protection during retries.",
         provenance: "Prep diagnostic",
       },
     ],
   },
-  {
-    requirementId: "payment-reconciliation",
-    title: "Reason about payment reconciliation",
-    summary: "Detect and resolve mismatches between internal and external financial records.",
-    state: "unresolved",
-    basis: [],
-  },
-];
-
-const SUPPORT: Readonly<Record<string, readonly LearningSupportModel[]>> = {
-  "reliable-payment-commands": [
-    {
-      id: "support-idempotency",
-      title: "Idempotency and retry safety",
-      kind: "material",
-      summary: "Review idempotency keys, bounded retry policy and duplicate-side-effect prevention.",
-    },
-    {
-      id: "practice-retry-design",
-      title: "Design a retry-safe payment endpoint",
-      kind: "practice",
-      summary: "Work through a payment-command design with retries and duplicate delivery.",
-    },
-  ],
-  "card-payment-processing": [
-    {
-      id: "support-card-chain",
-      title: "Card processing chain",
-      kind: "material",
-      summary: "Review gateway, processor, acquiring, clearing and settlement relationships.",
-    },
-  ],
 };
 
-const DIAGNOSTICS: readonly DiagnosticOpportunityModel[] = [
-  {
-    id: "diagnostic-idempotency",
-    gapId: "gap-reliable-payment-commands",
-    title: "Retry-safe payment command",
-    summary: "Explain how an idempotency key prevents duplicate payment side effects across retries.",
-  },
-  {
-    id: "diagnostic-card-chain",
-    gapId: "gap-card-payment-processing",
-    title: "Card-processing chain check",
-    summary: "Place gateway, processor, acquirer, clearing and settlement in the correct responsibility chain.",
-  },
-];
-
 export class MockTargetWorkAdapter implements TargetWorkPort {
-  private completedIdempotencyDiagnostic = false;
-  private focus: LearningFocusModel | null = null;
+  private readonly completedCapabilityDiagnostics = new Set<string>();
+  private readonly focusByTarget = new Map<string, LearningFocusModel>();
+
+  constructor(
+    private readonly store: MockCurationStore = createMockCurationStore(),
+  ) {}
 
   async getState(targetId: string): Promise<LearningOutcome<TargetStateModel>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target state not found." };
     }
-    return { status: "success", value: this.state() };
+    return { status: "success", value: this.state(targetId) };
   }
 
   async getGaps(targetId: string): Promise<LearningOutcome<readonly GapModel[]>> {
-    if (targetId !== PREPARED_TARGET_ID) {
-      return { status: "not_found", message: "Target gaps not found." };
-    }
-    const gaps = this.state().items.flatMap((item): GapModel[] => {
+    const stateOutcome = await this.getState(targetId);
+    if (stateOutcome.status !== "success") return stateOutcome;
+
+    const gaps = stateOutcome.value.items.flatMap((item): GapModel[] => {
       if (item.state === "satisfied") return [];
-      return [{
-        id: `gap-${item.requirementId}`,
-        requirementId: item.requirementId,
-        title: item.title,
-        kind: item.state,
-        summary: item.summary,
-        basis:
-          item.basis.length > 0
-            ? item.basis.map((basis) => basis.summary).join(" ")
-            : "No sufficient evidence currently establishes this requirement.",
-        support: item.requirementId === "payment-reconciliation" ? "missing" : "available",
-      }];
+      return [
+        {
+          id: `gap-${item.requirementId}`,
+          requirementId: item.requirementId,
+          title: item.title,
+          kind: item.state,
+          summary: item.summary,
+          basis:
+            item.basis.length > 0
+              ? item.basis.map((basis) => basis.summary).join(" ")
+              : "No sufficient evidence currently establishes this requirement.",
+          support: this.store.learningSupport.some((support) =>
+            support.capabilityIds.includes(item.requirementId),
+          )
+            ? "available"
+            : "missing",
+        },
+      ];
     });
     return { status: "success", value: gaps };
   }
 
-  async getFocus(targetId: string): Promise<LearningOutcome<LearningFocusModel | null>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+  async getFocus(
+    targetId: string,
+  ): Promise<LearningOutcome<LearningFocusModel | null>> {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target focus not found." };
     }
-    return { status: "success", value: this.focus };
+    return {
+      status: "success",
+      value: this.focusByTarget.get(targetId) ?? null,
+    };
   }
 
   async setFocus(
@@ -144,11 +109,13 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
   ): Promise<LearningOutcome<LearningFocusModel>> {
     const gaps = await this.getGaps(targetId);
     if (gaps.status !== "success") return gaps;
+
     const gap = gaps.value.find((candidate) => candidate.id === input.gapId);
     if (!gap) {
       return { status: "not_found", message: "Gap not found." };
     }
-    this.focus = {
+
+    const focus: LearningFocusModel = {
       id: `focus-${gap.requirementId}`,
       gapId: gap.id,
       title: gap.title,
@@ -159,30 +126,65 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
           ? "Reduce important uncertainty before choosing what to learn."
           : "Work on a target-relative capability gap."),
     };
-    return { status: "success", value: this.focus };
+    this.focusByTarget.set(targetId, focus);
+    return { status: "success", value: focus };
   }
 
   async listSupport(
     targetId: string,
     focusId: string,
   ): Promise<LearningOutcome<readonly LearningSupportModel[]>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target support not found." };
     }
-    const requirementId = focusId.replace(/^focus-/, "");
-    return { status: "success", value: SUPPORT[requirementId] ?? [] };
+
+    const capabilityId = focusId.replace(/^focus-/, "");
+    if (!this.capabilityIds(targetId).includes(capabilityId)) {
+      return { status: "not_found", message: "Focused capability not found." };
+    }
+
+    return {
+      status: "success",
+      value: this.store.learningSupport
+        .filter((support) => support.capabilityIds.includes(capabilityId))
+        .map((support) => ({
+          id: support.id,
+          title: support.title,
+          kind: support.kind,
+          summary: support.summary,
+        })),
+    };
   }
 
   async listDiagnostics(
     targetId: string,
     gapId?: string,
   ): Promise<LearningOutcome<readonly DiagnosticOpportunityModel[]>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target diagnostics not found." };
     }
+
+    const targetCapabilities = new Set(this.capabilityIds(targetId));
+    const selectedCapabilityId = gapId?.replace(/^gap-/, "");
+
     return {
       status: "success",
-      value: gapId ? DIAGNOSTICS.filter((item) => item.gapId === gapId) : DIAGNOSTICS,
+      value: this.store.assessmentDesigns
+        .filter((assessment) =>
+          assessment.capabilityIds.some(
+            (capabilityId) =>
+              targetCapabilities.has(capabilityId) &&
+              (!selectedCapabilityId || capabilityId === selectedCapabilityId),
+          ),
+        )
+        .map((assessment) => ({
+          id: `diagnostic-${assessment.id}`,
+          gapId: `gap-${
+            assessment.capabilityIds.find((id) => targetCapabilities.has(id)) ?? ""
+          }`,
+          title: assessment.title,
+          summary: assessment.taskSummary,
+        })),
     };
   }
 
@@ -190,69 +192,123 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
     targetId: string,
     diagnosticId: string,
   ): Promise<LearningOutcome<TargetStateModel>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target state not found." };
     }
-    if (diagnosticId !== "diagnostic-idempotency") {
-      return { status: "success", value: this.state() };
+
+    const assessmentId = diagnosticId.replace(/^diagnostic-/, "");
+    const assessment = this.store.assessmentDesigns.find(
+      (candidate) => candidate.id === assessmentId,
+    );
+    if (!assessment) {
+      return { status: "not_found", message: "Diagnostic not found." };
     }
-    this.completedIdempotencyDiagnostic = true;
-    return { status: "success", value: this.state() };
+
+    const targetCapabilities = new Set(this.capabilityIds(targetId));
+    for (const capabilityId of assessment.capabilityIds) {
+      if (targetCapabilities.has(capabilityId)) {
+        this.completedCapabilityDiagnostics.add(capabilityId);
+      }
+    }
+
+    return { status: "success", value: this.state(targetId) };
   }
 
-  async getProgress(targetId: string): Promise<LearningOutcome<ProgressComparisonModel>> {
-    if (targetId !== PREPARED_TARGET_ID) {
+  async getProgress(
+    targetId: string,
+  ): Promise<LearningOutcome<ProgressComparisonModel>> {
+    if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target progress not found." };
     }
-    const changes = this.completedIdempotencyDiagnostic
-      ? [{
-          requirementId: "reliable-payment-commands",
-          title: "Design reliable payment commands",
-          before: "challenged" as const,
+
+    const capabilities = this.capabilities(targetId);
+    const changes = capabilities.flatMap((capability) => {
+      if (!this.completedCapabilityDiagnostics.has(capability.id)) return [];
+      const before = INITIAL_EVIDENCE[capability.id]?.state ?? "unresolved";
+      if (before === "satisfied") return [];
+      return [
+        {
+          requirementId: capability.id,
+          title: capability.title,
+          before,
           after: "satisfied" as const,
-          evidenceSummary: "The retry-safe payment diagnostic now supports the required idempotency behavior.",
-        }]
-      : [];
+          evidenceSummary:
+            "New diagnostic evidence now supports the target-required capability in this mock scenario.",
+        },
+      ];
+    });
+
+    const changed = changes.length > 0;
     return {
       status: "success",
       value: {
         targetId,
         fromProjectionId: "state-initial",
-        toProjectionId: this.completedIdempotencyDiagnostic ? "state-after-diagnostic" : "state-initial",
+        toProjectionId: changed ? "state-after-diagnostic" : "state-initial",
         changes,
-        summary:
-          changes.length > 0
-            ? "One target requirement changed after new diagnostic evidence."
-            : "No target-relative state change is established yet.",
+        summary: changed
+          ? `${changes.length} target requirement(s) changed after new diagnostic evidence.`
+          : "No target-relative state change is established yet.",
       },
     };
   }
 
-  private state(): TargetStateModel {
-    const items = INITIAL_ITEMS.map((item) => {
-      if (
-        item.requirementId === "reliable-payment-commands" &&
-        this.completedIdempotencyDiagnostic
-      ) {
-        return {
-          ...item,
-          state: "satisfied" as const,
-          basis: [
-            ...item.basis,
-            {
-              id: "evidence-idempotency-success",
-              summary: "Retry-safe payment diagnostic demonstrated correct idempotency reasoning.",
-              provenance: "Prep diagnostic",
-            },
-          ],
+  private state(targetId: string): TargetStateModel {
+    const items = this.capabilities(targetId).map(
+      (capability): TargetStateItemModel => {
+        const initial = INITIAL_EVIDENCE[capability.id] ?? {
+          state: "unresolved" as const,
+          basis: [],
         };
-      }
-      return item;
-    });
+
+        if (this.completedCapabilityDiagnostics.has(capability.id)) {
+          return {
+            requirementId: capability.id,
+            title: capability.title,
+            summary: capability.performanceExpectation,
+            state: "satisfied",
+            basis: [
+              ...initial.basis,
+              {
+                id: `evidence-diagnostic-${capability.id}`,
+                summary:
+                  "A completed mock diagnostic now supplies accepted supporting evidence for this capability.",
+                provenance: "Prep diagnostic",
+              },
+            ],
+          };
+        }
+
+        return {
+          requirementId: capability.id,
+          title: capability.title,
+          summary: capability.performanceExpectation,
+          state: initial.state,
+          basis: initial.basis,
+        };
+      },
+    );
+
     return {
-      targetId: PREPARED_TARGET_ID,
-      projectionId: this.completedIdempotencyDiagnostic ? "state-after-diagnostic" : "state-initial",
+      targetId,
+      projectionId:
+        this.completedCapabilityDiagnostics.size > 0
+          ? "state-after-diagnostic"
+          : "state-initial",
       items,
     };
+  }
+
+  private targetExists(targetId: string): boolean {
+    return this.store.targets.some((target) => target.id === targetId);
+  }
+
+  private capabilityIds(targetId: string): readonly string[] {
+    return this.store.targetCapabilityIds.get(targetId) ?? [];
+  }
+
+  private capabilities(targetId: string) {
+    const ids = new Set(this.capabilityIds(targetId));
+    return this.store.capabilities.filter((capability) => ids.has(capability.id));
   }
 }
