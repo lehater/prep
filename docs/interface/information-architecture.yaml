@@ -80,7 +80,7 @@ locations:
 
   - id: CURATION-ASSESSMENT
     purpose: Maintain diagnostic/assessment and evidence-design semantics.
-    concept_refs: [DIAGNOSTIC-ACTIVITY, EVIDENCE, CAPABILITY]
+    concept_refs: [DIAGNOSTIC-ACTIVITY, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, CAPABILITY]
     scope: global
 
   - id: CURATION-IMPORT
