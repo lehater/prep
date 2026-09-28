@@ -102,6 +102,19 @@ function arrayField(
   return field;
 }
 
+function optionalArrayField(
+  value: Record<string, unknown>,
+  key: string,
+  label: string,
+): readonly unknown[] | undefined {
+  const field = value[key];
+  if (field === undefined || field === null) return undefined;
+  if (!Array.isArray(field)) {
+    throw new DtoMappingError(`${label}.${key} must be an array.`);
+  }
+  return field;
+}
+
 function stringArray(
   value: Record<string, unknown>,
   key: string,
@@ -222,6 +235,27 @@ export function mapLearningTarget(value: unknown): LearningTargetModel {
   const scopeItems = arrayField(dto, "scope_items", "LearningTarget").map(
     mapScopeItem,
   );
+  const capabilityItems = optionalArrayField(
+    dto,
+    "capabilities",
+    "LearningTarget",
+  );
+  const capabilities = capabilityItems
+    ? capabilityItems.map((value) => {
+        const capability = record(value, "TargetCapability");
+        return {
+          id: stringField(capability, "id", "TargetCapability"),
+          title: stringField(capability, "title", "TargetCapability"),
+          summary: stringField(capability, "summary", "TargetCapability"),
+        };
+      })
+    : scopeItems
+        .filter((item) => item.kind === "requirement")
+        .map((item) => ({
+          id: item.id,
+          title: item.label,
+          summary: item.content,
+        }));
   return {
     id: stringField(dto, "id", "LearningTarget"),
     name: stringField(dto, "name", "LearningTarget"),
@@ -229,13 +263,7 @@ export function mapLearningTarget(value: unknown): LearningTargetModel {
     scopeSummary:
       optionalStringField(dto, "scope_summary", "LearningTarget") ??
       `${scopeItems.length} capability requirement(s)`,
-    capabilities: scopeItems
-      .filter((item) => item.kind === "requirement")
-      .map((item) => ({
-        id: item.id,
-        title: item.label,
-        summary: item.content,
-      })),
+    capabilities,
     scopeItems: scopeItems.map((item) => ({
       id: item.id,
       kind: item.kind,
