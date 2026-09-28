@@ -39,6 +39,30 @@ test("gap can become an explicit learning focus", async ({ page }) => {
   await expect(page.getByText("Idempotency and retry safety")).toBeVisible();
 });
 
+test("learning practice produces a work product without inventing evidence", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/gaps`);
+
+  const gap = page.getByText("Reliable payment commands", { exact: true }).locator("..").locator("..");
+  await gap.getByRole("button", { name: "Learn this" }).click();
+  await page.getByRole("link", { name: "Continue with focus" }).click();
+
+  await page.getByRole("button", { name: "Start practice" }).click();
+  const practice = page.getByRole("region", { name: "Practice: Retry-safe payment endpoint" });
+  await practice.getByRole("textbox", { name: "Your approach" }).fill(
+    "Use one stable idempotency key per logical payment command, persist the first outcome, return the same result for duplicates, and retry only transient failures.",
+  );
+  await practice.getByRole("button", { name: "Finish practice" }).click();
+
+  await expect(page.getByText("Practice completed")).toBeVisible();
+  await expect(page.getByText(/does not establish capability or close the gap/i)).toBeVisible();
+
+  await page
+    .getByRole("navigation", { name: "Learning target sections" })
+    .getByRole("link", { name: "Progress", exact: true })
+    .click();
+  await expect(page.getByText("No established change yet")).toBeVisible();
+});
+
 test("current focus stays visible when moving into Knowledge", async ({ page }) => {
   await page.goto(`/learning/${targetId}/gaps`);
 
