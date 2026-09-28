@@ -2,76 +2,34 @@
 
 ## Purpose
 
-Define the browser-side structural architecture needed to realize the accepted frontend independently of backend runtime topology.
+Define the browser-side structural architecture needed to realize the accepted user-centered frontend independently of backend runtime topology.
 
-The frontend depends on accepted Application semantics and transport-neutral Machine Interface ports. Mock adapters are the first realization; a future HTTP/backend adapter may replace them without changing feature semantics.
+The frontend depends on accepted Application semantics and transport-neutral Machine Interface ports. Mock adapters are the first realization; a future transport adapter may replace them without changing feature semantics.
 
 ## Architecture drivers
 
 Accepted drivers:
 
-- one browser application realizes Learning and Curation;
-- target/capability/Knowledge/study/evidence semantics are already owned upstream;
-- the frontend must work against mock data before backend realization;
-- the same frontend ports must support a later transport adapter;
-- 3D Knowledge is the production-default spatial presentation but list/search/detail remains task-complete;
-- Knowledge renderer state is noncanonical;
-- ordinary/stress graph workload and idle/degradation constraints come from Frontend Performance/Capacity;
-- Learning and Curation have distinct task state while sharing stable semantic identities.
+- one browser application realizes Target Work and Curation;
+- target/capability/Knowledge/evidence/gap/priority semantics are owned upstream;
+- the primary learner loop is target -> state -> gaps -> focus -> learning/diagnostics -> evidence -> progress;
+- the frontend must validate this loop against representative mock data before backend realization;
+- the same consumer-owned ports must support later transport adapters;
+- bulk import and incremental curation are separate user workflows;
+- 3D Knowledge is the preferred spatial projection while list/search/detail remains task-complete;
+- active target and active learning focus must persist across learner features;
+- renderer and provider state remain noncanonical.
 
-No accepted driver requires microfrontends, a plugin runtime, event bus, frontend-owned canonical persistence or a general global mutable store.
+No accepted driver requires microfrontends, an application-wide event bus, frontend-owned canonical persistence or a general global mutable store.
 
-## Decision-governance review
+## Runtime and deployment decisions
 
-Alternatives were formed per architecture axis before selection.
-
-### Runtime boundaries
-
-- single browser application with internal feature/adapter boundaries — **VIABLE**;
-- independently running/microfrontend feature runtimes — **REJECTED**, no independent deployment/runtime driver;
-- renderer as the semantic application runtime — **REJECTED**, violates presentation/domain boundary.
-
-Disposition: **DETERMINED — single browser runtime**.
-
-### Deployment topology
-
-- one frontend deployable — **VIABLE**;
-- separate Learning/Curation deployables — **REJECTED**, adds deployment boundary without accepted need.
-
-Disposition: **DETERMINED — one frontend deployable**.
-
-### Interaction model
-
-- direct in-process feature composition plus asynchronous consumer ports for external data/actions — **VIABLE**;
-- application-wide event bus as primary coordination — **REJECTED**, unnecessary indirection and ownership ambiguity;
-- direct feature access to backend/provider APIs — **REJECTED**, violates adapter boundary.
-
-Disposition: **DETERMINED — feature composition + ports**.
-
-### State placement
-
-- shell context + feature-local state + query/adapter state + renderer-local presentation state — **VIABLE**;
-- one general global client store — **REJECTED**, unnecessary shared ownership/coupling;
-- renderer/provider state as canonical frontend state — **REJECTED**, leaks presentation mechanics.
-
-Disposition: **DETERMINED — lifecycle-local ownership**.
-
-### Dependency direction
-
-- features depend on consumer-owned ports/models; adapters depend inward on those contracts — **VIABLE**;
-- features import concrete HTTP/mock/renderer providers — **REJECTED**;
-- shared UI layer owns product/task state — **REJECTED**.
-
-Disposition: **DETERMINED — inward adapter dependency**.
-
-### Failure isolation
-
-- data/runtime/renderer failure is isolated to affected feature capability with accepted degraded/non-spatial paths — **VIABLE**;
-- any provider/renderer failure collapses the whole application — **REJECTED**, conflicts with accepted recovery/degradation semantics.
-
-Disposition: **DETERMINED — feature/provider isolation**.
-
-No unknown alternatives remain for the current frontend scope.
+- single browser runtime — accepted;
+- one frontend deployable — accepted;
+- feature composition + consumer-owned asynchronous ports — accepted;
+- lifecycle-local state ownership — accepted;
+- adapters depend inward on consumer contracts — accepted;
+- provider/renderer failures are isolated to affected capability — accepted.
 
 ## Module topology
 
@@ -80,190 +38,270 @@ No unknown alternatives remain for the current frontend scope.
 Owns:
 
 - application bootstrap;
-- adapter/provider selection;
-- Learning/Curation mode and top-level navigation context;
-- global runtime-status placement.
+- provider/adapter selection;
+- Target Work / Curation top-level navigation;
+- global runtime-status placement;
+- active-target routing context.
 
-It composes features but does not own their canonical/task data.
+It composes features but does not own canonical target/learner/corpus truth.
 
-### Learning
+### Target Context
 
-Owns frontend task realization for:
+Small shared frontend context owned by target-work composition.
 
-- target selection;
-- active target context;
-- Overview;
-- target Knowledge;
-- Study;
-- Statistics/evidence.
+Owns only:
 
-It consumes prepared target scope and never authors `RequirementExpression`.
+- active target identity;
+- current accepted focus identity/intention where needed across views;
+- navigation continuity.
 
-### Curation
+It does not cache or reinterpret target requirements, learner state or gaps as canonical truth.
 
-Owns frontend task realization for:
+### Target Selection / Overview
 
-- Targets;
-- Knowledge;
-- Capabilities;
-- Question-compatible Study Material;
-- contextual Import.
+Owns frontend realization for:
 
-Learning and Curation do not import each other's internal feature state.
+- target search/selection;
+- target context/requirement understanding;
+- transition to explicit Curation when a target must be prepared or repaired.
 
-### Knowledge Exploration
-
-Reusable frontend capability consumed by Learning and Curation.
+### Learner State / Gaps
 
 Owns:
 
-- search/filter/selection/focus interaction state;
+- current target-relative state projection;
+- evidence-basis inspection;
+- satisfied/unresolved/challenged presentation;
+- gap inspection;
+- explicit next-focus selection.
+
+State/Gaps consumes upstream projections; it does not infer proficiency locally.
+
+### Learning
+
+Owns:
+
+- available learning/practice support for the active focus;
+- activity initiation;
+- compatibility Study Set/Anki flow where applicable;
+- missing-support routing.
+
+Question-compatible Study Set logic is a compatibility subfeature, not the feature boundary itself.
+
+### Diagnostics / Evidence
+
+Owns:
+
+- supported diagnostic opportunity selection;
+- evidence synchronization/import initiation;
+- factual Performance/Observation inspection;
+- accepted learner-claim/argument projection where exposed.
+
+It does not perform hidden inference in presentation code.
+
+### Progress
+
+Owns:
+
+- current-vs-prior target-relative comparison;
+- changed/unchanged gap presentation;
+- adaptation entry back to focus selection.
+
+### Knowledge Exploration
+
+Reusable capability consumed by:
+
+- Target Overview;
+- State/Gaps;
+- Learning;
+- Diagnostics;
+- Curation.
+
+Owns:
+
+- search/filter/selection/focus;
+- target/focus scope presentation state;
 - renderer-neutral spatial projection;
 - non-spatial result/detail coordination;
-- user-visible performance profile/preferences.
+- user-visible renderer preferences.
 
-It does not own `KnowledgeObject`/`KnowledgeProposition` truth.
+It does not own Knowledge truth, target semantics or learner state.
+
+### Curation
+
+Curation is decomposed by semantic responsibility:
+
+- Targets;
+- Capabilities;
+- Knowledge;
+- Learning Support;
+- Assessment/Evidence Design;
+- Import;
+- Quality Diagnostics.
+
+These features share canonical identities through ports, not each other's private state.
+
+### Import
+
+Owns the distinct bulk-ingestion workflow:
+
+- retrieve/display import contract/examples;
+- validate prepared data;
+- display per-item outcomes;
+- apply accepted records;
+- preserve correction/retry context.
+
+It does not own file-format semantics; Machine Interface Design owns the contract.
 
 ### Frontend Ports / Data Access
 
-Consumer-owned contracts for accepted read/command operations and read models.
+Consumer-owned contracts for target, state, gaps, focus, support, evidence, progress, curation, import and integration operations.
 
 Realizations:
 
-- **Mock adapters** — current frontend-first implementation;
-- **Transport adapter** — later backend integration.
+- Mock adapters — frontend-first realization;
+- future Transport adapters.
 
-Feature code does not branch by adapter type.
+Feature code never branches on adapter type.
 
 ### Graph Renderer Adapter
 
-Consumes a renderer-neutral `GraphScene`/projection and owns:
+Consumes renderer-neutral graph scene/projection and owns only concrete rendering mechanics:
 
-- concrete 3D library objects;
-- coordinates/camera/force/drag/hover state;
-- batching/instancing/pixel-ratio/idle-loop strategies;
+- camera/layout/force/drag/hover;
+- library objects;
+- batching/instancing/pixel-ratio;
+- idle/degradation strategies;
 - renderer diagnostics.
 
-It emits semantic interaction events using canonical Knowledge identities only.
+It emits semantic events using canonical identities.
 
 ## Dependency direction
 
 ```text
-Composition Root
-      |
-      +--> Shell
-      +--> Learning --------+
-      +--> Curation --------+--> frontend semantic/read models
-      |                     +--> consumer-owned ports
-      |                               ^
-      |                         +-----+------+
-      |                         |            |
-      |                      Mock         Transport
-      |
-      +--> Knowledge Exploration --> renderer-neutral GraphScene
-                                      ^
-                                      |
-                                  3D Renderer
+Composition Root / Shell
+        |
+        +--> Target Context
+        |
+        +--> Target Selection / Overview --+
+        +--> Learner State / Gaps ---------+
+        +--> Learning ---------------------+
+        +--> Diagnostics / Evidence -------+--> consumer-owned ports/read models
+        +--> Progress ---------------------+              ^
+        +--> Curation / Import ------------+         Mock / Transport adapters
+        |
+        +--> Knowledge Exploration --> renderer-neutral projection
+                                           ^
+                                           |
+                                      3D Renderer Adapter
 ```
 
 Rules:
 
 - features do not import concrete adapters;
-- adapters implement feature/consumer-owned ports;
-- raw transport DTOs stay inside a future transport adapter;
-- graph-library types stay inside renderer adapter;
-- shared presentation primitives do not own feature/task state;
-- cross-feature coordination uses shell/navigation context or explicit shared contracts.
+- features do not import another feature's private state;
+- shared Target Context contains only cross-view navigation identity/state;
+- adapters implement consumer-owned ports;
+- raw DTOs remain inside transport adapters;
+- graph-library types remain inside renderer adapter;
+- shared UI primitives do not own task/domain state.
 
 ## Frontend semantic/read-model boundary
 
-Frontend read models preserve only distinctions required by accepted UI tasks:
+Read models required by accepted tasks include:
 
-- LearningTarget + read-only RequirementExpression projection;
-- Capability/CapabilitySpecification summaries needed for target curation;
-- KnowledgeObject / KnowledgeProposition;
-- Question-compatible Study Material projection;
-- Study Set subset + diagnostics/currentness identity;
-- factual Observation/Performance context;
+- Target summary/detail + requirement structure;
+- Capability summary/detail;
+- target-relative state projection;
+- Gap projection + basis;
+- current LearningPriority/LearningIntent projection;
+- Knowledge semantic models/projections;
+- learning/practice support;
+- diagnostic opportunities;
+- Performance/Observation facts;
+- accepted learner claim/argument projections;
+- progress comparison;
+- import contract/validation/apply result;
 - RuntimeStatus.
 
-They preserve canonical IDs where identity matters but are not persistence models.
-
-## Graph projection boundary
-
-```text
-KnowledgeObject / KnowledgeProposition read models
-        -> GraphProjectionBuilder
-        -> GraphScene
-        -> GraphRenderer port
-        -> 3D adapter
-```
-
-`GraphScene` may contain visual nodes/edges for rendering, but an edge is only a projection of relational KnowledgeProposition semantics.
-
-Coordinates, camera/depth, force state and visual quality settings are never canonical meaning.
+These are frontend semantic models, not persistence models.
 
 ## State ownership
 
 | State | Owner |
 |---|---|
-| current mode / top-level navigation | Shell |
-| active LearningTarget | Learning |
-| target Overview/Study/Evidence query state | owning Learning feature |
-| Curation collection/editor drafts | owning Curation feature |
+| top-level Target Work / Curation mode | Shell |
+| active target identity | Target Context |
+| active focus identity/intention | Target Context |
+| target list/overview query state | Target Selection / Overview |
+| state/gap selection and query state | Learner State / Gaps |
+| active learning activity UI state | Learning |
+| diagnostic/evidence UI state | Diagnostics / Evidence |
+| progress comparison selection | Progress |
+| curation collection/editor drafts | owning Curation feature |
+| import document/validation/apply UI state | Import |
 | Knowledge query/filter/selection/focus | Knowledge Exploration |
-| graph quality/preferences | Knowledge Exploration |
-| camera/layout/force/drag/hover | renderer adapter |
-| adapter/query cache | data-access realization |
-| canonical domain/application truth | external to frontend; consumed through ports |
+| graph camera/layout/physics | Renderer Adapter |
+| canonical domain/application truth | external to frontend through ports |
 
 A general global store is not part of the initial architecture.
 
-## Mock-first composition
+## Mock-first prototype
 
-The first executable frontend uses deterministic mock adapters implementing the same ports that later transport adapters must implement.
+Representative deterministic mock fixtures must cover one coherent target, e.g. Python backend with optional fintech/card-payments specialization.
 
-Mock fixtures:
+The fixture set must support:
 
-- model current semantic read models, not legacy backend DTOs;
-- include loading/empty/failure/conflict/degraded cases where meaningful;
-- include deterministic small and stress Knowledge projections;
-- remain test/prototype data, never canonical product truth.
+- non-empty target requirement structure;
+- some satisfied capabilities;
+- unresolved uncertainty;
+- challenged gaps;
+- visible current focus;
+- learning support for some gaps;
+- missing support for at least one gap;
+- diagnostic opportunity and evidence update;
+- progress/reassessment changing at least one target-relative state;
+- target/focus-scoped Knowledge;
+- bulk-import contract + mixed validation outcomes.
+
+Mocks model current semantic contracts, not legacy backend DTOs.
 
 ## Failure isolation
 
-- query failure preserves shell/target context and exposes retry;
-- external runtime failure affects runtime-dependent Study/Evidence actions without erasing local accepted facts;
-- 3D renderer failure activates non-spatial Knowledge access;
-- validation/conflict preserves relevant editor/preview context.
+- query failure preserves active target/focus;
+- missing evidence remains unresolved rather than failing the entire target;
+- missing learning support affects the relevant gap only;
+- runtime failure affects delegated operations without erasing local evidence;
+- import partial rejection preserves accepted independent outcomes;
+- renderer failure preserves non-spatial Knowledge access.
 
 ## Structural verification obligations
 
 Verify:
 
-- Learning/Curation internals do not import each other;
-- features do not import concrete adapters;
-- renderer package/types do not escape renderer adapter;
+- feature internals do not cross-import;
+- no feature imports concrete adapters;
+- state/gap/progress views consume accepted projections rather than re-derive semantics inconsistently;
 - mock and future transport adapters satisfy the same ports;
-- semantic projection preserves Knowledge identity and KnowledgeProposition meaning;
-- renderer degradation cannot change semantic result set;
-- non-spatial Knowledge path remains usable without renderer;
-- 1k/2k/5k fixtures can exercise renderer boundaries without changing feature models.
+- active target/focus survives route/view changes;
+- Knowledge renderer types remain isolated;
+- target/focus-scoped graph projection does not alter Knowledge truth;
+- renderer degradation preserves semantic result set and non-spatial completion.
 
 ## Non-goals
 
 This architecture does not decide:
 
-- backend runtime/service topology;
-- HTTP routes/controllers/status codes;
-- database/persistence;
-- concrete React component split;
-- exact TypeScript port signatures;
+- backend service/runtime topology;
+- HTTP routes/controllers;
+- persistence;
+- exact React component split;
+- exact TypeScript signatures;
 - router/query/component libraries;
-- concrete file paths;
-- exact 3D library;
+- file paths;
+- exact graph library;
 - private renderer tuning.
 
 ## Reopening conditions
 
-Reopen if accepted requirements require independent frontend deployables, offline/local-first canonical state, browser-side authorization boundaries, server-driven UI, canonical renderer-owned editing semantics, or a materially different frontend/application boundary.
+Reopen if accepted requirements introduce independent frontend deployables, offline canonical state, browser-side authorization boundaries, server-driven UI, or renderer-owned canonical editing semantics.
