@@ -48,8 +48,23 @@ export interface LearningSupportModel {
 export interface DiagnosticOpportunityModel {
   readonly id: string;
   readonly gapId: string;
+  readonly capabilityId: string;
   readonly title: string;
   readonly summary: string;
+}
+
+export interface DiagnosticEvidenceAcceptanceModel {
+  readonly diagnosticId: string;
+  readonly observation: {
+    readonly id: string;
+    readonly summary: string;
+    readonly provenance: string;
+  };
+  readonly derivedClaim: {
+    readonly capabilityId: string;
+    readonly summary: string;
+  };
+  readonly state: TargetStateModel;
 }
 
 export interface ProgressChangeModel {
