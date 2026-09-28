@@ -20,12 +20,12 @@ views:
     exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS, L-07-TARGET-KNOWLEDGE, L-08-TARGET-PROGRESS]
 
   - id: F-C-CURATION-WORKSPACE
-    responsibility: Preserve curator/operator curation context, choose the corpus-preparation path where needed, and switch among corpus-authoring areas.
+    responsibility: Preserve curator/operator curation context while switching among preparation and corpus-authoring areas.
     location_ref: CURATION-WORKSPACE
-    interaction_context_refs: [I-C-SELECT-PREPARATION-PATH]
+    interaction_context_refs: []
     structural: true
     parent: F-00-APPLICATION-SHELL
-    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
+    exits: [C-01-PREPARATION-PATH, C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
 
   - id: L-01-TARGETS
     responsibility: Find/establish a purpose-explicit target and obtain missing preparation support without exposing Curation machinery unless self-curation is explicitly chosen.
@@ -82,6 +82,13 @@ views:
     interaction_context_refs: [I-L-PROGRESS]
     parent: F-LT-TARGET-WORKSPACE
     exits: [L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS]
+
+  - id: C-01-PREPARATION-PATH
+    responsibility: Let a curator/operator choose bulk, incremental or mixed preparation when reusable corpus prerequisites are missing or incomplete.
+    location_ref: CURATION-WORKSPACE
+    interaction_context_refs: [I-C-SELECT-PREPARATION-PATH]
+    parent: F-C-CURATION-WORKSPACE
+    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
 
   - id: C-11-TARGET-COLLECTION
     responsibility: Find/create prepared targets.

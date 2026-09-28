@@ -222,20 +222,34 @@ Primary actions:
 
 ## [F-C-CURATION-WORKSPACE]
 
-**Purpose:** preserve curator/operator corpus-authoring context and select the preparation path before entering the owning data areas when preparation is missing.
+**Purpose:** preserve curator/operator Curation context while switching among preparation and corpus-authoring areas.
+
+Regions:
+- curation navigation — primary;
+- retained motivating target/source context when entered through explicit self-curation — supporting;
+- active child view — primary.
+
+Destinations:
+Preparation / Targets / Capabilities / Knowledge / Learning Support / Assessment / Import / Quality.
+
+## [C-01-PREPARATION-PATH]
 
 **Task:** `TASK-C-SELECT-PREPARATION-PATH`
 
+**Purpose:** choose how missing/incomplete reusable data will be prepared inside the Curation context.
+
 Regions:
-- missing/incomplete corpus prerequisites — primary when preparation choice is needed;
+- missing/incomplete corpus prerequisites — primary;
 - bulk / incremental / mixed preparation choices — primary;
 - retained motivating target/source context for return — supporting;
-- curation destinations — primary.
+- affected curation areas — supporting.
 
-Destinations:
-Targets / Capabilities / Knowledge / Learning Support / Assessment / Import / Quality.
+Primary actions:
+- choose bulk preparation and continue to Import;
+- choose incremental preparation and continue to the owning Curation area;
+- choose a mixed path and preserve unresolved correction work.
 
-This path belongs to Curation. A learner sees it only after explicit self-curation.
+This view belongs to Curation. A learner reaches it only after explicit self-curation; ordinary learner missing-preparation recovery remains in `L-01-TARGETS`.
 
 ## [C-11-TARGET-COLLECTION]
 

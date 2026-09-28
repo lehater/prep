@@ -77,16 +77,16 @@ reviews:
     basis: "Interaction Design now covers TASK-L-OBTAIN-PREPARATION-SUPPORT in the learner path, preserves target purpose/related-target context, exposes multi-driver focus rationale and separates target refinement from learner-state progress."
 
   - capability: prep.interface-topology
-    revision: 8
-    basis: "I-C-SELECT-PREPARATION-PATH is now owned by the Curation Workspace topology frame, completing task/view closure while keeping learner Targets free of import/curation machinery."
+    revision: 9
+    basis: "Preparation-path selection now has a dedicated non-structural C-01-PREPARATION-PATH view under the structural Curation frame, satisfying task/view closure without putting task interaction semantics on a structural container."
 
   - capability: prep.presentation-system
     revision: 11
     basis: "Presentation System now treats 3D as the preferred current prototype candidate rather than an evidence-free production default; production renderer preference is gated on representative-user and accessibility validation."
 
   - capability: prep.screen-view-design
-    revision: 10
-    basis: "Curation Workspace now carries the curator/operator preparation-path decision; learner Targets remains limited to preparation need/request/review and explicit self-curation entry."
+    revision: 11
+    basis: "Screen/View Design separates the structural Curation workspace from the task-bearing C-01 preparation-path view; learner Targets remains limited to preparation need/request/review and explicit self-curation entry."
 
   - capability: prep.import-consistency
     revision: 3
