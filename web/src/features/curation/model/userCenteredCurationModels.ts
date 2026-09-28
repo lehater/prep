@@ -34,6 +34,7 @@ export interface AssessmentCurationModel {
   readonly taskSummary: string;
   readonly observationSummary: string;
   readonly evidenceRuleSummary: string;
+  readonly evidenceBearing: "supports" | "challenges";
 }
 
 export interface CorpusDiagnosticModel {
