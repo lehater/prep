@@ -67,7 +67,7 @@ import {
   MockLearningSupportCurationAdapter,
   MockTargetProfileCurationAdapter,
 } from "../../adapters/mock/MockUserCenteredCurationAdapters";
-import type { DataProvider } from "../config/appConfig";
+import type { DataProvider, MockDataScenario } from "../config/appConfig";
 
 export interface FrontendPorts {
   readonly targetQueryPort: TargetQueryPort;
@@ -93,6 +93,7 @@ export interface FrontendPorts {
 export function createFrontendPorts(config: {
   readonly dataProvider: DataProvider;
   readonly apiBaseUrl: string;
+  readonly mockScenario?: MockDataScenario;
 }): FrontendPorts {
   if (config.dataProvider === "http") {
     const client = new HttpOperationClient(config.apiBaseUrl);
@@ -118,7 +119,9 @@ export function createFrontendPorts(config: {
     };
   }
 
-  const store = createMockCurationStore();
+  const store = createMockCurationStore(
+    config.mockScenario === "empty-corpus" ? "empty" : "prepared",
+  );
   const curationTargetPort = new MockCurationTargetAdapter(store);
   const curationKnowledgePort = new MockCurationKnowledgeAdapter(store);
   const curationRequirementPort = new MockRequirementAdapter(store);
