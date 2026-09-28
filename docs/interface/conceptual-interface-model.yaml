@@ -1,67 +1,109 @@
-version: 1
+version: 2
 kind: conceptual-interface-model
 id: PREP-CONCEPTUAL-INTERFACE
 
 concepts:
-  - id: LEARNING-TARGET
-    meaning: A prepared learning outcome selected by the learner; its required scope is already curated.
+  - id: TARGET
+    meaning: A concrete desired outcome such as a role, vacancy, interview profile or certification selected by the user.
     upstream_refs: [LearningTarget]
+
   - id: TARGET-REQUIREMENTS
-    meaning: The read-only capability requirements of the active target, expressed through its RequirementExpression<CapabilitySpecification>.
+    meaning: The capability requirements that define what successful performance for the active target means.
     upstream_refs: [RequirementExpression, CapabilitySpecification]
+
   - id: CAPABILITY
-    meaning: A reusable description of what competent performance is expected to achieve under material conditions and criteria.
-    upstream_refs: [Capability, PerformanceExpectation]
+    meaning: A reusable description of expected competent performance under material conditions and criteria.
+    upstream_refs: [Capability, CapabilitySpecification, PerformanceExpectation]
+
+  - id: CURRENT-STATE
+    meaning: The evidence-backed projection of what is currently established, challenged or unresolved for the learner relative to the active target.
+    upstream_refs: [LearnerCapabilityClaim, CapabilityEvidenceArgument, application:Establish current state]
+
+  - id: GAP
+    meaning: A target-relative required fragment whose satisfaction is not currently established.
+    upstream_refs: [Gap]
+
+  - id: LEARNING-FOCUS
+    meaning: The currently chosen target-relative learning or diagnostic focus with rationale.
+    upstream_refs: [LearningPriority, LearningIntent]
+
   - id: KNOWLEDGE
-    meaning: Reusable subject meaning presented as coherent objects or independently addressable propositions.
+    meaning: Reusable subject meaning available for target- or focus-scoped exploration.
     upstream_refs: [KnowledgeObject, KnowledgeProposition]
-  - id: RELATIONAL-KNOWLEDGE
-    meaning: A Knowledge proposition whose predicate and participants express an accepted semantic relationship; it is not a separate relation entity.
-    upstream_refs: [KnowledgeProposition]
-  - id: STUDY-MATERIAL
-    meaning: Learner-facing material available for learning/practice; the current slice includes a Question-compatible projection without making Question the universal semantic type.
-    upstream_refs: [LearningMaterial, TaskSpecification, ObservationSpecification]
-  - id: STUDY-SET
-    meaning: A current-state application materialization of the exact support subset representable by a supported study profile.
-    upstream_refs: [application:Build Study Set]
-  - id: PREPARATION-DIAGNOSTIC
-    meaning: Explicit information about missing, inadequate, unspecified or unrepresentable support for a target requirement fragment.
-    upstream_refs: [LearningSupportRequirement, application:Build Study Set]
-  - id: LEARNING-EVIDENCE
-    meaning: Recorded factual observations with relevant performance/task/provenance context, distinct from evidence-backed learner capability conclusions.
-    upstream_refs: [Observation, Performance]
+
+  - id: LEARNING-SUPPORT
+    meaning: Material, tasks or practice opportunities intended to support the active capability focus.
+    upstream_refs: [LearningMaterial, TaskSpecification, LearningSupportRequirement]
+
+  - id: DIAGNOSTIC-ACTIVITY
+    meaning: A supported activity whose purpose is to reduce uncertainty or produce evidence about capability.
+    upstream_refs: [AssessmentDesign, TaskSpecification, ObservationSpecification]
+
+  - id: EVIDENCE
+    meaning: Recorded Performance/Observation facts plus accepted evidence-backed learner conclusions where applicable.
+    upstream_refs: [Performance, Observation, CapabilityEvidenceArgument, LearnerCapabilityClaim]
+
+  - id: PROGRESS
+    meaning: A comparison of target-relative state across accepted evidence changes.
+    upstream_refs: [application:Reassess target state]
+
+  - id: CORPUS
+    meaning: The reusable prepared data that supports target definition, knowledge exploration, learning/practice and assessment.
+    upstream_refs: [LearningTarget, Capability, KnowledgeObject, LearningMaterial, AssessmentDesign]
+
+  - id: IMPORT-CONTRACT
+    meaning: A supported versioned contract and examples that let external agents/tools prepare bulk corpus data.
+    upstream_refs: [machine:curation.import.contract.get]
+
+  - id: IMPORT-RESULT
+    meaning: Validation/application outcomes for a structured prepared-data import.
+    upstream_refs: [application:Structured bulk input]
+
   - id: EXTERNAL-RUNTIME
-    meaning: A configured external study runtime used by supported delegated study operations, such as the current Anki-compatible integration.
-    upstream_refs: [application:External study]
+    meaning: A configured external runtime used for supported delegated learning or evidence collection.
+    upstream_refs: [application:Execute or delegate activity]
 
 modes:
-  - id: LEARNING
-    purpose: Select and consume prepared targets without authoring target scope or reusable semantics.
+  - id: TARGET-WORK
+    purpose: Work toward a concrete target by assessing current state, inspecting gaps, choosing a focus, learning or diagnosing, and reassessing.
   - id: CURATION
-    purpose: Author and maintain prepared targets, reusable capabilities, Knowledge and supported study material.
+    purpose: Bootstrap and maintain reusable target, capability, knowledge, learning-support and assessment data.
 
 state_vocabulary:
-  - id: RUNTIME-REACHABLE
-    meaning: Supported external-runtime operations are currently reachable and compatible.
+  - id: SATISFIED
+    meaning: Accepted learner state currently establishes satisfaction of the relevant target requirement fragment.
+  - id: UNRESOLVED
+    meaning: Available evidence is insufficient to establish target satisfaction for the relevant fragment.
+  - id: CHALLENGED
+    meaning: Accepted evidence materially challenges current satisfaction of the relevant fragment.
+  - id: SUPPORT-MISSING
+    meaning: Required or useful learning/diagnostic support is not currently available.
   - id: RUNTIME-UNAVAILABLE
-    meaning: The external runtime cannot currently perform supported operations.
-  - id: STUDY-PREVIEW-STALE
-    meaning: Target/support resolution changed after the inspected Study Set materialization.
-  - id: SUPPORT-DIAGNOSTIC
-    meaning: A target requirement fragment has explicit support information that must remain visible without being converted into a learner-state conclusion.
+    meaning: A supported external runtime cannot currently perform requested operations.
 
 relationships:
-  - {source: LEARNING-TARGET, target: TARGET-REQUIREMENTS, relation: has-prepared-requirements}
-  - {source: TARGET-REQUIREMENTS, target: CAPABILITY, relation: constrains-capability}
+  - {source: TARGET, target: TARGET-REQUIREMENTS, relation: defines}
+  - {source: TARGET-REQUIREMENTS, target: CAPABILITY, relation: requires}
+  - {source: CURRENT-STATE, target: TARGET-REQUIREMENTS, relation: evaluates-against}
+  - {source: GAP, target: TARGET-REQUIREMENTS, relation: identifies-unsatisfied-fragment}
+  - {source: GAP, target: CURRENT-STATE, relation: derived-from}
+  - {source: LEARNING-FOCUS, target: GAP, relation: addresses}
   - {source: CAPABILITY, target: KNOWLEDGE, relation: may-focus-on}
-  - {source: STUDY-SET, target: STUDY-MATERIAL, relation: materializes}
-  - {source: STUDY-SET, target: PREPARATION-DIAGNOSTIC, relation: reports}
-  - {source: LEARNING-EVIDENCE, target: STUDY-MATERIAL, relation: may-arise-from-compatible-performance}
-  - {source: STUDY-SET, target: EXTERNAL-RUNTIME, relation: may-be-delegated-to}
+  - {source: LEARNING-FOCUS, target: LEARNING-SUPPORT, relation: selects-support-for}
+  - {source: LEARNING-FOCUS, target: DIAGNOSTIC-ACTIVITY, relation: may-request}
+  - {source: DIAGNOSTIC-ACTIVITY, target: EVIDENCE, relation: may-produce}
+  - {source: LEARNING-SUPPORT, target: EVIDENCE, relation: may-lead-to-performance-producing}
+  - {source: EVIDENCE, target: CURRENT-STATE, relation: updates}
+  - {source: CURRENT-STATE, target: PROGRESS, relation: contributes-to-comparison}
+  - {source: IMPORT-CONTRACT, target: CORPUS, relation: defines-preparable-shape-for}
+  - {source: IMPORT-RESULT, target: CORPUS, relation: mutates}
+  - {source: EXTERNAL-RUNTIME, target: LEARNING-SUPPORT, relation: may-execute}
+  - {source: EXTERNAL-RUNTIME, target: EVIDENCE, relation: may-supply}
 
 deliberately_unconstrained:
-  - concrete navigation locations and routes
-  - screen/view partitioning and layout
+  - concrete screen/view partitioning
+  - fixed navigation labels/routes
   - graph/list/3D presentation choice
+  - number of graph projections
   - HTTP/backend representation
   - persistence representation
