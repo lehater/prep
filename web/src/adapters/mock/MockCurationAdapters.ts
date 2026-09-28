@@ -630,9 +630,12 @@ function stableStringify(value: unknown): string {
 
 const SUPPORTED_IMPORT_KINDS: readonly ImportDataKind[] = [
   "knowledge",
-  "requirements",
-  "questions",
+  "capabilities",
+  "learning_support",
+  "assessment_design",
   "targets",
+  "questions",
+  "requirements",
 ];
 
 function validatePreparedDocument(
@@ -698,6 +701,19 @@ function validatePreparedDocument(
         : Boolean(text(item.semantic_kind) && text(item.content));
     } else if (dataKind === "questions") {
       valid = Boolean(text(item.question_text) && text(item.answer_text));
+    } else if (dataKind === "capabilities") {
+      valid = Boolean(text(item.title) && text(item.performance_expectation));
+    } else if (dataKind === "learning_support") {
+      valid =
+        Boolean(text(item.title) && (text(item.summary) || text(item.content))) &&
+        ["material", "practice"].includes(text(item.kind));
+    } else if (dataKind === "assessment_design") {
+      valid = Boolean(
+        text(item.title) &&
+        text(item.task_summary) &&
+        text(item.observation_summary) &&
+        text(item.evidence_rule_summary),
+      );
     } else {
       valid = Boolean(text(item.definition) || text(item.content));
     }
@@ -741,13 +757,20 @@ export class MockImportAdapter implements CurationImportPort {
         exampleDocument: JSON.stringify(
           {
             schema_version: "prep-import/v1",
-            data_kind: "knowledge",
+            data_kind: "capabilities",
             items: [
               {
-                key: "idempotency-key",
-                semantic_kind: "mechanism",
-                content: "Idempotency key — stable request identity for retry-safe commands.",
-              },
+                key: "payment-reliability",
+                title: "Reliable payment commands",
+                performance_expectation:
+                  "Design payment commands that remain safe under retries and duplicate delivery.",
+                condition_summary: "Transient failures and at-least-once delivery.",
+                criterion_summary: "No duplicate logical side effect.",
+                knowledge_ids: [
+                  "demo-payment-idempotency-key",
+                  "demo-payment-retry-policy"
+                ]
+              }
             ],
           },
           null,
@@ -921,6 +944,61 @@ export class MockImportAdapter implements CurationImportPort {
           }
         }
       }
+    } else if (kind === "capabilities") {
+      const value = {
+        id: updateId || this.store.nextId("capability"),
+        title: text(item.title),
+        performanceExpectation: text(item.performance_expectation),
+        conditionSummary: text(item.condition_summary),
+        criterionSummary: text(item.criterion_summary),
+        knowledgeIds: Array.isArray(item.knowledge_ids)
+          ? item.knowledge_ids.map(text).filter(Boolean)
+          : [],
+      };
+      const index = this.store.capabilities.findIndex((candidate) => candidate.id === value.id);
+      if (index >= 0) this.store.capabilities[index] = value;
+      else this.store.capabilities.push(value);
+      outcome = { status: "success", value };
+    } else if (kind === "learning_support") {
+      const supportKind = text(item.kind);
+      if (supportKind !== "material" && supportKind !== "practice") {
+        return {
+          item: stableKey || id || itemLabel,
+          status: "rejected",
+          reason: "representation/schema rejection",
+        };
+      }
+      const value = {
+        id: updateId || this.store.nextId("support"),
+        title: text(item.title),
+        kind: supportKind,
+        summary: text(item.summary) || text(item.content),
+        capabilityIds: Array.isArray(item.capability_ids)
+          ? item.capability_ids.map(text).filter(Boolean)
+          : [],
+        knowledgeIds: Array.isArray(item.knowledge_ids)
+          ? item.knowledge_ids.map(text).filter(Boolean)
+          : [],
+      };
+      const index = this.store.learningSupport.findIndex((candidate) => candidate.id === value.id);
+      if (index >= 0) this.store.learningSupport[index] = value;
+      else this.store.learningSupport.push(value);
+      outcome = { status: "success", value };
+    } else if (kind === "assessment_design") {
+      const value = {
+        id: updateId || this.store.nextId("assessment"),
+        title: text(item.title),
+        capabilityIds: Array.isArray(item.capability_ids)
+          ? item.capability_ids.map(text).filter(Boolean)
+          : [],
+        taskSummary: text(item.task_summary),
+        observationSummary: text(item.observation_summary),
+        evidenceRuleSummary: text(item.evidence_rule_summary),
+      };
+      const index = this.store.assessmentDesigns.findIndex((candidate) => candidate.id === value.id);
+      if (index >= 0) this.store.assessmentDesigns[index] = value;
+      else this.store.assessmentDesigns.push(value);
+      outcome = { status: "success", value };
     } else if (kind === "targets") {
       const definition = text(item.definition) || text(item.content);
       const input = {
@@ -930,6 +1008,21 @@ export class MockImportAdapter implements CurationImportPort {
       outcome = updateId
         ? await this.targets.update(updateId, input)
         : await this.targets.create(input);
+      if (outcome.status === "success" && Array.isArray(item.capability_ids)) {
+        const targetId =
+          typeof outcome.value === "object" &&
+          outcome.value !== null &&
+          "id" in outcome.value &&
+          typeof (outcome.value as { id?: unknown }).id === "string"
+            ? (outcome.value as { id: string }).id
+            : updateId;
+        if (targetId) {
+          this.store.targetCapabilityIds.set(
+            targetId,
+            item.capability_ids.map(text).filter(Boolean),
+          );
+        }
+      }
     } else {
       const definition = text(item.definition) || text(item.content);
       const input = { definition };
