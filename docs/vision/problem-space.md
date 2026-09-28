@@ -42,6 +42,55 @@ Provenance class: explicit product-owner/stakeholder observations accepted durin
 
 These observations may later be supplemented or challenged by research/user evidence. A conflict that changes the existence, affected actor or desired outcome of the problem must reopen Discovery rather than being reconciled by a downstream design artifact.
 
+## Discovery validation backlog
+
+The current observation set is **not yet validated with representative users**. The next Discovery step is to challenge the observations before treating the present target-first workflow as proven user behavior.
+
+### Research objectives
+
+- validate whether a concrete external target is a natural organizing goal for the primary motivating users;
+- understand how people currently translate role/vacancy expectations into a usable learning scope;
+- understand how they decide what they know, what remains uncertain and what deserves attention next;
+- understand what they accept as credible evidence of improvement or readiness;
+- understand how fragmented source material and an initially empty corpus affect the workflow;
+- identify where the proposed lifecycle differs materially from existing user behavior.
+
+### Participant hypotheses
+
+These are recruitment hypotheses, not accepted user segments:
+
+- **PH-P01:** Python/backend developers actively preparing for a concrete role, vacancy or interview profile;
+- **PH-P02:** developers who already use notes, question banks, Anki, documents, AI assistants or similar tools to assemble preparation material;
+- **PH-P03:** a subset with fintech/payment-processing preparation is useful for testing the motivating domain example, but fintech is not assumed to be the permanent product boundary.
+
+### Research questions
+
+- **RQ-P01 / OBS-P01, OBS-P08:** How does a person establish the scope and required depth of a concrete target today? What is ambiguous, duplicated or missing?
+- **RQ-P02 / OBS-P02, OBS-P04:** How does the person decide what they currently know or can do, and which signals do they distrust?
+- **RQ-P03 / OBS-P05, OBS-P06:** When time is limited, how is the next topic/activity chosen and what causes that choice to change?
+- **RQ-P04 / OBS-P04, OBS-P06, OBS-P07:** What counts as convincing progress evidence, and when does earlier success stop being trusted?
+- **RQ-P05 / OBS-P03:** Where do fragmented terminology, duplicated material or conflicting explanations create real preparation cost?
+- **RQ-P06 / OBS-P09:** When preparation data is initially absent, how is it assembled today? When would bulk preparation through an external AI/tool be preferable to manual entry?
+- **RQ-P07 / OBS-P07:** Which retention/transfer failures materially affect target readiness rather than merely recall convenience?
+
+### Representative discovery scenarios
+
+Research should be framed as user goals rather than interface instructions:
+
+1. **Concrete-target scenario:** "You want to become suitable for a specific Python backend role. Show how you would work out what it expects, what you already satisfy, what to work on next and how you would know you improved."
+2. **Empty-preparation scenario:** "You have a target description and source material, but no prepared learning system or corpus. Show how you would turn that material into something you can assess and learn against."
+
+### Evidence update rule
+
+Each durable observation remains UNVALIDATED with respect to representative-user evidence until research supports a stronger status. Research may mark an observation as:
+
+- SUPPORTED — observed strongly enough to retain the current problem statement;
+- SCOPE-LIMITED — valid only for a narrower actor/context than currently stated;
+- CHALLENGED — contradictory evidence requires Discovery revision;
+- UNTESTED — not yet investigated.
+
+Usability preference for a particular screen, graph, workflow or wording is not evidence that a problem observation exists. Conversely, research that changes the problem actor, desired outcome or material problem dimension must reopen downstream Product/Application/Interface knowledge through Harness.
+
 ## Desired outcome
 
 The person can reliably progress toward a chosen learning outcome by being able to:
