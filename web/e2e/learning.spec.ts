@@ -30,7 +30,7 @@ test("current state distinguishes satisfied unresolved and challenged", async ({
 test("gap can become an explicit learning focus", async ({ page }) => {
   await page.goto(`/learning/${targetId}/gaps`);
 
-  const gap = page.getByText("Reliable payment commands").locator("..").locator("..");
+  const gap = page.getByText("Reliable payment commands", { exact: true }).locator("..").locator("..");
   await gap.getByRole("button", { name: "Learn this" }).click();
 
   await expect(page.getByText("Current focus")).toBeVisible();
@@ -91,7 +91,7 @@ test("target overview is capability-oriented and Knowledge remains target-scoped
   await page.goto(`/learning/${targetId}/overview`);
 
   await expect(page.getByRole("heading", { name: "Target capabilities" })).toBeVisible();
-  await expect(page.getByText("Card-payment processing")).toBeVisible();
+  await expect(page.getByText("Card-payment processing", { exact: true })).toBeVisible();
   await expect(page.getByText("Reliable payment commands")).toBeVisible();
   await expect(page.getByText("Relevant Knowledge").locator("..")).toContainText("12");
 });
