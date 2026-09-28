@@ -61,16 +61,16 @@ export const KNOWLEDGE_RELATION_COLORS: Readonly<Record<KnowledgeRelationType, s
   enables: "#a6da95",
 };
 
-export const KNOWLEDGE_RELATION_DESCRIPTIONS_RU: Readonly<Record<KnowledgeRelationType, string>> = {
-  addresses: "Источник решает, смягчает или обрабатывает проблему, указанную целью.",
-  uses: "Источник функционально использует цель как механизм, инструмент, технологию или метод.",
-  specializes: "Источник является более частным видом или специализацией цели.",
-  part_of: "Источник является составной частью цели.",
-  depends_on: "Источник требует цель как необходимую зависимость или предпосылку.",
-  realizes: "Источник конкретно реализует, воплощает или представляет более абстрактную цель.",
-  produces: "Источник производит цель как результат или выход.",
-  derives_from: "Источник семантически происходит или выводится из цели.",
-  enables: "Источник делает цель возможной или практически достижимой, не утверждая жёсткую обязательную зависимость.",
+export const KNOWLEDGE_RELATION_DESCRIPTIONS: Readonly<Record<KnowledgeRelationType, string>> = {
+  addresses: "The source addresses, mitigates or handles the problem represented by the target.",
+  uses: "The source functionally uses the target as a mechanism, tool, technology or method.",
+  specializes: "The source is a more specific kind or specialization of the target.",
+  part_of: "The source is a constituent part of the target.",
+  depends_on: "The source requires the target as a dependency or prerequisite.",
+  realizes: "The source concretely realizes or represents the more abstract target.",
+  produces: "The source produces the target as an output or result.",
+  derives_from: "The source is semantically derived from the target.",
+  enables: "The source enables the target without asserting a strict mandatory dependency.",
 };
 
 export function applyReducedMotionPreferences(
