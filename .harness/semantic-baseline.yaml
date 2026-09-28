@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 18
-    basis: "Research analysis now starts from a descriptive, open codebook rather than Prep concepts, requires emergent codes and negative-case search, and only maps findings to OBS/RQ/CH/UMC after participant behavior has been reconstructed, reducing confirmation bias in user-model synthesis."
+    revision: 19
+    basis: "Discovery research governance is cleaned up: mutable execution counters and recruitment slots were removed from the canonical semantic artifact per AGENTS workflow rules; stable protocol-version and contamination controls remain, and recruitment/protocol provenance is consolidated into the canonical session record template."
 
   - capability: prep.product-intent
     revision: 4

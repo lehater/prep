@@ -294,19 +294,7 @@ Research recruitment must follow each community's current rules and moderator gu
 
 If a community does not clearly allow recruitment, skip it rather than working around moderation. Public developer discussions may still be used as secondary evidence under the existing evidence rules, but their authors are not representative participants unless they independently opt in to a research session.
 
-**Recruitment source field**
-
-Add to every counted session record:
-
-```text
-recruitment:
-  source_type: professional-network | referral | community | panel | other
-  source_name: <channel/community, no unnecessary personal identifier>
-  moderator_permission_required: yes | no
-  moderator_permission_obtained: yes | no | not-applicable
-```
-
-Use source diversity as a sampling diagnostic, not as a numeric representativeness score.
+Use recruitment-source diversity as a sampling diagnostic, not as a numeric representativeness score.
 
 **Variation guardrails for the first round**
 
@@ -412,22 +400,7 @@ Round A may close when all critical observations/challenges have been exercised 
 
 Closing Round A does **not** set UMC claims to HUMAN-VALIDATED. It only permits synthesis of Problem Space findings and, if necessary, revision before Round B challenges the candidate Task Model/Journeys.
 
-### Research execution state and protocol versioning
-
-Current execution state:
-
-```text
-research_gate: PROVISIONAL-FOR-RESEARCH
-round_a_protocol: RA-1
-round_b_protocol: RB-1
-round_a_status: READY-TO-RECRUIT
-round_b_status: PREPARED-NOT-RUN
-representative_sessions_completed: 0
-representative_sessions_synthesized: 0
-human_validated_claims: 0/5
-```
-
-These counters are operational status only. They do not imply evidence until actual `USR-*` sessions exist.
+### Research protocol versioning and contamination controls
 
 **Protocol version rule**
 
@@ -439,42 +412,7 @@ These counters are operational status only. They do not imply evidence until act
 - Never retroactively relabel earlier sessions as if they were run under a newer protocol.
 - During synthesis, check whether findings differ by protocol version before treating them as user-context variation.
 
-Add to every session record:
-
-```text
-protocol:
-  id: RA-1 | RB-1 | <later version>
-  deviations:
-    - <none, or exact deviation>
-  deviation_effect_on_evidence: NONE | POSSIBLE | MATERIAL
-```
-
 A `MATERIAL` deviation does not automatically discard a session, but evidence affected by the deviation must not be treated as equivalent to clean sessions without explicit justification.
-
-**Recruitment/execution ledger**
-
-Use pseudonymous operational IDs; do not store participant names/contact details in the repository.
-
-| Slot | Candidate/session state | Protocol | Recruitment source | Counted as representative evidence | Notes |
-| --- | --- | --- | --- | --- | --- |
-| RA-01 | OPEN | RA-1 | TBD | TBD | first independent Round A slot |
-| RA-02 | OPEN | RA-1 | TBD | TBD | seek different network/background from RA-01 |
-| RA-03 | OPEN | RA-1 | TBD | TBD | seek preparation-style variation |
-| RA-04 | OPEN | RA-1 | TBD | TBD | seek seniority/context variation |
-| RA-05 | OPEN | RA-1 | TBD | TBD | interim-synthesis threshold candidate |
-| RA-06 | OPEN | RA-1 | TBD | TBD | reserve for unresolved/underrepresented context |
-
-Allowed operational states:
-
-`OPEN -> CONTACTED -> SCREENED-IN | SCREENED-OUT -> SCHEDULED -> COMPLETED -> SYNTHESIZED`
-
-Additional states:
-
-- `PILOT` — protocol test, never counted as representative validation;
-- `WITHDRAWN` — participant withdrew; preserve no unnecessary data;
-- `INVALID-FOR-CLAIM` — session exists but cannot support one or more claims due to contamination/material protocol deviation.
-
-The ledger is not a participant database. Contact details, real names and scheduling logistics stay outside the repository.
 
 **Evidence contamination guard**
 
@@ -897,6 +835,16 @@ For each session:
 ```text
 session_id: USR-A-01 | USR-B-01
 round: A | B
+protocol:
+  id: RA-1 | RB-1 | <later version>
+  deviations:
+    - <none, or exact deviation>
+  deviation_effect_on_evidence: NONE | POSSIBLE | MATERIAL
+recruitment:
+  source_type: professional-network | referral | community | panel | other
+  source_name: <channel/community, no unnecessary personal identifier>
+  moderator_permission_required: yes | no
+  moderator_permission_obtained: yes | no | not-applicable
 participant_fit:
   primary_context: <backend/python/etc>
   recent_preparation: <yes/no + brief context>
