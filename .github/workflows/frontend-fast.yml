@@ -1,4 +1,4 @@
-name: Frontend fast
+name: Fast frontend validation
 
 on:
   push:
@@ -6,12 +6,18 @@ on:
     paths:
       - "web/**"
       - ".github/workflows/frontend-fast.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/frontend-fast.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: frontend-fast-${{ github.ref }}
+  group: frontend-fast-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -36,4 +42,4 @@ jobs:
         run: npm ci
 
       - name: Run fast deterministic checks
-        run: npm run verify
+        run: npm run verify:fast
