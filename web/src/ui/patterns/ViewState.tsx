@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 interface StateNoticeProps {
   readonly title: string;
   readonly message?: string;
-  readonly severity?: "info" | "warning" | "error";
+  readonly severity?: "success" | "info" | "warning" | "error";
   readonly retryLabel?: string;
   readonly onRetry?: () => void;
 }
