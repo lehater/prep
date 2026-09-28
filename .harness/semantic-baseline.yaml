@@ -85,8 +85,8 @@ reviews:
     basis: "Presentation System now prioritizes target context, evidence-backed state, gaps/focus and progress while retaining 3D Knowledge as the preferred spatial projection with task-complete non-spatial access."
 
   - capability: prep.screen-view-design
-    revision: 6
-    basis: "Screen/View composition is rebuilt for Overview, State, Gaps, Learning, Diagnostics, Knowledge and Progress plus Targets, Capabilities, Learning Support, Assessment, Import and Quality curation."
+    revision: 7
+    basis: "Screen/View Design now gives every topology view an explicit 1:1 subject, separating Curation collection and editor responsibilities while preserving the accepted target-relative and modern Curation composition semantics."
 
   - capability: prep.import-consistency
     revision: 3
