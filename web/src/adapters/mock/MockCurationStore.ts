@@ -115,6 +115,50 @@ export class MockCurationStore {
         knowledgeIds: [],
       },
       {
+        id: "cap-distributed-systems",
+        title: "Distributed backend systems",
+        performanceExpectation:
+          "Reason about distributed service behavior, partial failure, concurrency and asynchronous coordination.",
+        conditionSummary:
+          "Multiple services, asynchronous work, partial failures and independently failing dependencies.",
+        criterionSummary:
+          "Explicit failure modes, bounded coordination assumptions and safe behavior under concurrency.",
+        knowledgeIds: [],
+      },
+      {
+        id: "cap-data-persistence",
+        title: "Databases and transactional persistence",
+        performanceExpectation:
+          "Design and reason about persistent data access, transactions, consistency and schema evolution for backend services.",
+        conditionSummary:
+          "Concurrent service workloads with persistent state and production data-change constraints.",
+        criterionSummary:
+          "Correct transactional boundaries, consistency reasoning and safe data evolution.",
+        knowledgeIds: [],
+      },
+      {
+        id: "cap-backend-security",
+        title: "Backend security and access control",
+        performanceExpectation:
+          "Design backend authorization and access-control behavior without conflating authentication, policy and enforcement.",
+        conditionSummary:
+          "Protected service resources with multiple principals, roles or policy attributes.",
+        criterionSummary:
+          "Correct trust boundaries, explicit authorization decisions and least-privilege reasoning.",
+        knowledgeIds: [],
+      },
+      {
+        id: "cap-observability",
+        title: "Production observability",
+        performanceExpectation:
+          "Diagnose backend failures using logs, metrics and traces while preserving evidence and correlation context.",
+        conditionSummary:
+          "Distributed production failures with incomplete information and multiple observable signals.",
+        criterionSummary:
+          "Evidence-backed localization, useful correlation and explicit uncertainty.",
+        knowledgeIds: [],
+      },
+      {
         id: "cap-card-processing",
         title: "Card-payment processing",
         performanceExpectation: "Explain responsibilities and message flow across the card-payment processing chain.",
@@ -210,9 +254,13 @@ export class MockCurationStore {
     ];
     this.targetCapabilityIds.set("python-backend-fintech", [
       "cap-python-backend",
+      "cap-distributed-systems",
+      "cap-data-persistence",
       "cap-card-processing",
       "cap-payment-reliability",
       "cap-reconciliation",
+      "cap-backend-security",
+      "cap-observability",
     ]);
   }
 
