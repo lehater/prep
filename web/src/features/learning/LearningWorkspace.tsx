@@ -7,6 +7,7 @@ import { KnowledgeExplorer } from "../knowledge-explorer/ui/KnowledgeExplorer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { LearningTargetModel } from "./model/learningTarget";
+import type { LearningFocusModel } from "./model/targetWork";
 import type { TargetQueryPort } from "./ports/TargetQueryPort";
 import type { TargetWorkPort } from "./ports/TargetWorkPort";
 import {
@@ -43,6 +44,7 @@ export function LearningWorkspace({
   Renderer,
 }: LearningWorkspaceProps) {
   const [targetState, setTargetState] = useState<TargetState>({ status: "loading" });
+  const [focus, setFocus] = useState<LearningFocusModel | null>(null);
   const [reloadVersion, setReloadVersion] = useState(0);
 
   useEffect(() => {
@@ -62,6 +64,18 @@ export function LearningWorkspace({
       active = false;
     };
   }, [reloadVersion, targetId, targetQueryPort]);
+
+  useEffect(() => {
+    let active = true;
+    void targetWorkPort.getFocus(targetId).then((outcome) => {
+      if (active && outcome.status === "success") {
+        setFocus(outcome.value);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [section, targetId, targetWorkPort]);
 
   if (targetState.status === "loading") {
     return <LoadingState label="Loading target" />;
@@ -93,6 +107,11 @@ export function LearningWorkspace({
           {target.name}
         </Typography>
         <Typography>{target.definition}</Typography>
+        {focus ? (
+          <Typography variant="body2" color="text.secondary">
+            Current focus: {focus.title} · {focus.intentKind}
+          </Typography>
+        ) : null}
       </header>
 
       {section === "overview" ? (
