@@ -15,6 +15,46 @@ The same physical person may work in two semantic contexts:
 
 These are not security roles.
 
+## Representative end-to-end journeys
+
+These scenarios compose the atomic tasks below. They are concrete enough for prototype/research preparation but remain independent of screens/routes.
+
+### E2E-L1 — Prepare toward a concrete backend target
+
+**Scenario:** a developer wants to become suitable for a Middle Python Backend role with fintech/card-payment responsibilities and already has some reusable corpus/evidence.
+
+1. Establish/select the concrete target and inspect the capability profile.
+2. Inspect the evidence-backed current state; missing evidence remains unresolved rather than failed.
+3. Review target-relative satisfied, unresolved and challenged fragments and inspect their basis.
+4. Choose a learning or diagnostic focus under current time/attention constraints.
+5. Explore focus-relevant Knowledge when it helps understand the problem structure.
+6. Perform meaningful learning/practice or diagnosis tied to the focus.
+7. Record/accept contextual observations and evidence only through supported evidence semantics.
+8. Reassess the same target.
+9. Inspect changed state/gaps or a valid no-change outcome.
+10. Continue the current focus, select another gap or gather more evidence.
+
+**Recovery branches:** missing learning support routes to corpus preparation without losing target/focus; unavailable spatial visualization preserves list/search/detail; contradictory evidence remains visible; accepted evidence may legitimately produce no state change.
+
+**Research purpose:** test whether this lifecycle matches how target-oriented learners actually reason about readiness, next action and progress.
+
+### E2E-C1 — Bootstrap a completely empty preparation system
+
+**Scenario:** the user has a target/vacancy description and source material but Prep has no usable target, capabilities, Knowledge, learning support or assessment design.
+
+1. The system makes the missing preparation prerequisites explicit instead of routing directly to an unusable target editor.
+2. The user chooses bulk preparation, incremental curation or a mixed path based on volume and available source material.
+3. For bulk preparation, the user obtains the supported import contract/examples and may ask an external AI/tool to prepare a conforming document.
+4. The user validates the document before mutation and reviews item-level rejections.
+5. Valid independent items are applied; rejected items remain identifiable.
+6. The user reviews corpus diagnostics and corrects missing/rejected targets, capabilities, Knowledge, support or assessment design through the relevant incremental task.
+7. The user composes a concrete target only after the required reusable capability context exists.
+8. The prepared target becomes active and the user returns to Target/Learning work with the motivating target intent preserved.
+
+**Recovery branches:** invalid envelope blocks mutation; partial item rejection preserves accepted peers; the user may change preparation path; absence of a quality diagnostic is not treated as proof of corpus completeness.
+
+**Research purpose:** test whether users understand what must be prepared, can choose bulk versus manual preparation and can recover from partial import without losing the original goal.
+
 ## Establish target
 
 **Task:** `TASK-L-ESTABLISH-TARGET`
@@ -145,7 +185,7 @@ Alternate/recovery: failed synchronization leaves accepted evidence unchanged; o
 
 **Task:** `TASK-L-REVIEW-PROGRESS`
 
-**Preconditions:** active target and changed accepted evidence.
+**Preconditions:** active target and newly accepted evidence.
 
 Flow:
 1. System recomputes target satisfaction and gaps.
@@ -156,6 +196,22 @@ Flow:
 Alternate/recovery: no-change, increased uncertainty and newly challenged state are valid outcomes.
 
 **Completion:** user understands progress relative to the same target and can continue the loop.
+
+## Choose corpus preparation path
+
+**Task:** `TASK-C-SELECT-PREPARATION-PATH`
+
+**Trigger:** target/learning work cannot proceed because the required reusable corpus is empty or materially incomplete.
+
+Flow:
+1. System exposes which preparation prerequisites are missing or unresolved.
+2. User considers bulk import, incremental curation or a mixed path.
+3. User chooses a path based on expected volume, available source material and correction needs.
+4. The motivating target/source context remains available for the eventual return to Target/Learning work.
+
+Alternate/recovery: unknown corpus completeness remains explicit; the user can change preparation path without losing already accepted data.
+
+**Completion:** a concrete preparation path is selected.
 
 ## Prepare bulk data externally
 
