@@ -37,7 +37,11 @@ export interface KnowledgeRelationModel {
 
 export type KnowledgeScope =
   | { readonly kind: "global" }
-  | { readonly kind: "target"; readonly targetId: string };
+  | {
+      readonly kind: "target";
+      readonly targetId: string;
+      readonly focusId?: string;
+    };
 
 export interface KnowledgeGraphModel {
   readonly scope: KnowledgeScope;
@@ -46,5 +50,8 @@ export interface KnowledgeGraphModel {
 }
 
 export function knowledgeScopeKey(scope: KnowledgeScope): string {
-  return scope.kind === "global" ? "global" : `target:${scope.targetId}`;
+  if (scope.kind === "global") return "global";
+  return scope.focusId
+    ? `target:${scope.targetId}:focus:${scope.focusId}`
+    : `target:${scope.targetId}`;
 }
