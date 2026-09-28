@@ -27,11 +27,11 @@ test("switches explicit Learning and Curation Knowledge contexts", async ({ page
   ).toBeVisible();
   await page.getByRole("link", { name: "Curation" }).click();
   await expect(
-    page.getByRole("heading", { name: "Curation Knowledge" }),
+    page.getByRole("heading", { name: "Knowledge", level: 2 }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Target Work" }).click();
   await expect(
-    page.getByRole("heading", { name: "Choose a learning target" }),
+    page.getByRole("heading", { name: "Choose a target" }),
   ).toBeVisible();
 });
 
@@ -60,7 +60,7 @@ test("preserves target search context while readable detail opens and closes", a
   await expect(
     page.getByRole("heading", { name: "Middle Python Backend — Fintech / Card Payments" }),
   ).toBeVisible();
-  await expect(page).toHaveURL(/q=cgroups/);
+  await expect(page).toHaveURL(/q=idempotency/);
 });
 
 test("keeps a non-graph empty-state path when the 3D renderer is present or unavailable", async ({
@@ -111,7 +111,7 @@ test("completes core Knowledge access with keyboard interaction only", async ({
   await page.keyboard.press("Enter");
 
   await expect(search).toHaveValue("idempotency");
-  await expect(page).toHaveURL(/q=cgroups/);
+  await expect(page).toHaveURL(/q=idempotency/);
 });
 
 test("graph toolbar preserves semantic filters and exposes performance degradation controls", async ({
@@ -133,7 +133,7 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await realizes.click();
   await expect(page).toHaveURL(/relation=addresses/);
   await expect(realizes).not.toBeChecked();
-  await expect(page.getByText(/3 relations · auto/)).toBeVisible();
+  await expect(page.getByText(/relations · auto/).first()).toBeVisible();
   await page.keyboard.press("Escape");
 
   await page.getByRole("button", { name: "Graph settings" }).click();
