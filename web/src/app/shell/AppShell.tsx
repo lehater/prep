@@ -13,7 +13,15 @@ interface AppShellProps {
   readonly runtimeStatusPort: RuntimeStatusPort;
 }
 
-const CURATION_SECTIONS = ["targets", "knowledge", "requirements", "questions", "import"] as const;
+const CURATION_SECTIONS = [
+  "targets",
+  "capabilities",
+  "knowledge",
+  "learning-support",
+  "assessment",
+  "import",
+  "quality",
+] as const;
 const LEARNING_SECTIONS = ["overview", "state", "gaps", "learning", "diagnostics", "knowledge", "progress"] as const;
 
 const LABELS: Readonly<Record<string, string>> = {
@@ -25,9 +33,11 @@ const LABELS: Readonly<Record<string, string>> = {
   knowledge: "Knowledge",
   progress: "Progress",
   targets: "Targets",
-  requirements: "Requirements",
-  questions: "Questions",
+  capabilities: "Capabilities",
+  "learning-support": "Learning Support",
+  assessment: "Assessment",
   import: "Import",
+  quality: "Quality",
 };
 
 export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps) {
@@ -44,7 +54,7 @@ export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps
       sx={{
         minHeight: "100dvh",
         display: { xs: "block", md: "grid" },
-        gridTemplateColumns: { md: "156px minmax(0, 1fr)" },
+        gridTemplateColumns: { md: "164px minmax(0, 1fr)" },
         backgroundColor: "background.default",
       }}
     >
@@ -100,9 +110,14 @@ export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps
                   component={Link}
                   to={`/curation/${section}`}
                   variant={activeCurationSection === section ? "outlined" : "text"}
-                  sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
+                  sx={{
+                    justifyContent: "flex-start",
+                    px: 1,
+                    fontSize: "0.75rem",
+                    color: activeCurationSection === section ? "primary.main" : "text.secondary",
+                  }}
                 >
-                  {LABELS[section] ?? section}
+                  {LABELS[section]}
                 </Button>
               ))}
             </Stack>
