@@ -83,13 +83,6 @@ views:
     parent: F-LT-TARGET-WORKSPACE
     exits: [L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS]
 
-  - id: C-10-CURATION-HOME
-    responsibility: Enter corpus curation and choose the semantic area to maintain.
-    location_ref: CURATION-WORKSPACE
-    interaction_context_refs: []
-    parent: F-C-CURATION-WORKSPACE
-    exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
-
   - id: C-11-TARGET-COLLECTION
     responsibility: Find/create prepared targets.
     location_ref: CURATION-TARGETS
