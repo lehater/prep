@@ -125,8 +125,8 @@ reviews:
     basis: "Frontend verification now covers the complete target-relative loop, corpus bootstrap/curation, evidence/gap integrity, progress semantics and preserved dependency/renderer boundaries."
 
   - capability: prep.frontend-test-design
-    revision: 7
-    basis: "Frontend Test Design now traces executable contracts to current verification obligations for the target loop, evidence/gaps, modern Curation/import, responsive Knowledge and Harness currentness."
+    revision: 8
+    basis: "Frontend Test Design preserves the user-centered executable contracts and verification trace while conforming to the pinned Harness knowledge-artifact schema version required for validation."
 
   - capability: prep.frontend-implementation-design
     revision: 8
