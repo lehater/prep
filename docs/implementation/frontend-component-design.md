@@ -105,7 +105,8 @@ One adapter may implement multiple ports.
 ### DiagnosticPort
 
 - list diagnostic opportunities;
-- start diagnostic/activity context.
+- start diagnostic/activity context;
+- diagnostic/activity completion alone does not mutate learner capability state.
 
 ### LearningSupportPort
 
@@ -116,7 +117,10 @@ One adapter may implement multiple ports.
 ### EvidencePort
 
 - get target evidence;
-- sync supported external evidence.
+- sync supported external evidence;
+- in the mock-first prototype, explicitly accept a simulated diagnostic evidence update only after the diagnostic path is chosen;
+- return raw Observation/provenance separately from the derived learner-claim projection;
+- trigger target-state reassessment only from accepted evidence semantics, never from activity completion by itself.
 
 ### KnowledgePort
 
