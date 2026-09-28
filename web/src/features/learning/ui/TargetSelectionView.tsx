@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../../ui/patterns/ViewState";
 import type { LearningTargetModel } from "../model/learningTarget";
@@ -25,8 +25,10 @@ type TargetListState =
 export function TargetSelectionView({
   targetQueryPort,
 }: TargetSelectionViewProps) {
-  const [query, setQuery] = useState("");
-  const [draft, setDraft] = useState("");
+  const [searchParams] = useSearchParams();
+  const initialSearch = searchParams.get("search") ?? "";
+  const [query, setQuery] = useState(initialSearch);
+  const [draft, setDraft] = useState(initialSearch);
   const [reloadVersion, setReloadVersion] = useState(0);
   const [state, setState] = useState<TargetListState>({ status: "loading" });
 
@@ -53,6 +55,17 @@ export function TargetSelectionView({
   const submit = (event: FormEvent) => {
     event.preventDefault();
     setQuery(draft.trim());
+  };
+
+  const preparationPath = (
+    section: "import" | "capabilities",
+    mode: "bulk" | "manual" | "mixed",
+  ) => {
+    const params = new URLSearchParams();
+    params.set("mode", mode);
+    params.set("returnTo", `/learning?search=${encodeURIComponent(query)}`);
+    if (query) params.set("intent", query);
+    return `/curation/${section}?${params.toString()}`;
   };
 
   return (
@@ -101,14 +114,36 @@ export function TargetSelectionView({
         />
       ) : state.items.length === 0 ? (
         <Paper variant="outlined" sx={{ p: 2 }}>
-          <Stack spacing={1}>
+          <Stack spacing={1.25}>
             <Typography component="h3" variant="h6">No suitable target found</Typography>
             <Typography color="text.secondary">
-              Prepare a target capability profile first, then return to Target Work.
+              Prep may be missing the reusable capabilities, Knowledge, learning support or assessment data needed for this target. Choose how to prepare the corpus first.
             </Typography>
-            <Button component={Link} to="/curation/targets" sx={{ alignSelf: "flex-start" }}>
-              Prepare target
-            </Button>
+            {query ? (
+              <Typography variant="body2">Target/search context: {query}</Typography>
+            ) : null}
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
+              <Button
+                component={Link}
+                to={preparationPath("import", "bulk")}
+                variant="contained"
+              >
+                Prepare in bulk
+              </Button>
+              <Button
+                component={Link}
+                to={preparationPath("capabilities", "manual")}
+                variant="outlined"
+              >
+                Curate manually
+              </Button>
+              <Button
+                component={Link}
+                to={preparationPath("import", "mixed")}
+              >
+                Start mixed preparation
+              </Button>
+            </Stack>
           </Stack>
         </Paper>
       ) : (
