@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 13
-    basis: "Round A is operationally recruitable: recruitment channels and bias controls, outreach copy, screener, consent/privacy framing, pilot rules, moderator preflight, immediate post-session processing and evidence-based continuation/stopping criteria are now defined without changing any user-model claim."
+    revision: 14
+    basis: "Recruitment now has concrete current candidate pools plus a permission-first community-outreach rule, prohibition on scraping/mass-DM recruitment, and per-session recruitment-source provenance so channel-driven sample bias can be preserved during synthesis."
 
   - capability: prep.product-intent
     revision: 4

@@ -271,6 +271,43 @@ The research programme is ready to recruit without changing the user model.
 
 Initial strategy: recruit through **(1) professional network + (2) developer communities**, using the screener and variation guardrails below. If this produces a homogeneous sample, add a panel or targeted outreach rather than treating convenience recruitment as representative.
 
+**Concrete recruitment channels (checked 2026-09-28)**
+
+Use these as candidate pools, not as permission to post:
+
+- **Professional-network referrals** — preferred first path because participant fit and recent preparation history can be screened directly. Ask each suitable participant for at most one or two referrals with a different employer/team/background to reduce same-network clustering.
+- **r/Backend** — current 2026 threads show active backend developers discussing interview preparation and uncertainty about DSA/system design/backend-specific expectations: https://www.reddit.com/r/Backend/comments/1udz646/interview_preparation/ and https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
+- **r/ExperiencedDevs** — useful for the experienced/senior variation cohort; the community explicitly restricts normal participation to developers with 3+ years of experience. Treat it as a senior-specific channel, not the whole sample: https://www.reddit.com/r/ExperiencedDevs/
+- **r/developersIndia** — current 2026 posts include backend developers actively asking how to prioritize DSA/backend/system-design/AI preparation, which makes it a useful contrasting recruitment pool if geography/context differences are retained during synthesis: https://www.reddit.com/r/developersIndia/comments/1wqvi58/backend_ai_in_2026_what_should_i_actually_prepare/
+- **Python Discord** — Discord's current discovery listing describes a large Python-focused community. It is potentially useful for Python-specific variation, but recruitment policy was not established by this desk check: https://discord.com/servers?query=python
+
+**Permission-first rule**
+
+Research recruitment must follow each community's current rules and moderator guidance. Before posting in a subreddit/Discord/community:
+
+1. check current rules and whether research/recruitment posts are allowed;
+2. where the rule is absent or ambiguous, request moderator/admin permission first;
+3. do not mass-DM community members or scrape usernames for outreach;
+4. do not imply community endorsement;
+5. use the same screener and consent/privacy framing regardless of channel;
+6. record the recruitment source for each `USR-*` session so channel-driven sample bias remains visible.
+
+If a community does not clearly allow recruitment, skip it rather than working around moderation. Public developer discussions may still be used as secondary evidence under the existing evidence rules, but their authors are not representative participants unless they independently opt in to a research session.
+
+**Recruitment source field**
+
+Add to every counted session record:
+
+```text
+recruitment:
+  source_type: professional-network | referral | community | panel | other
+  source_name: <channel/community, no unnecessary personal identifier>
+  moderator_permission_required: yes | no
+  moderator_permission_obtained: yes | no | not-applicable
+```
+
+Use source diversity as a sampling diagnostic, not as a numeric representativeness score.
+
 **Variation guardrails for the first round**
 
 Across the initial 5–6 representative sessions, try to include variation on:
