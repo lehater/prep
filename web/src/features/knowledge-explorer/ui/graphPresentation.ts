@@ -72,3 +72,13 @@ export const KNOWLEDGE_RELATION_DESCRIPTIONS_RU: Readonly<Record<KnowledgeRelati
   derives_from: "Источник семантически происходит или выводится из цели.",
   enables: "Источник делает цель возможной или практически достижимой, не утверждая жёсткую обязательную зависимость.",
 };
+
+export function applyReducedMotionPreferences(
+  preferences: GraphRenderPreferences,
+): GraphRenderPreferences {
+  return {
+    ...preferences,
+    particles: false,
+    physics: "off",
+  };
+}
