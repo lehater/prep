@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 8
-    basis: "Discovery now includes an explicit falsification pass from secondary developer evidence: target granularity/evolution, performance-shaped readiness, activity-vs-evidence burden, opportunistic preparation order, interview feedback changing target knowledge, and the possibility that reusable corpus ownership is not itself a user need."
+    revision: 9
+    basis: "Round A is now directly executable through a neutral moderator guide centered on reconstruction of a recent real preparation episode, with explicit probes for target evolution, current-state reasoning, prioritization, progress evidence and corpus behavior plus analysis rules that prevent preference statements from being counted as validation."
 
   - capability: prep.product-intent
     revision: 4

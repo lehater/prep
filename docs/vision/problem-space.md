@@ -253,6 +253,95 @@ Minimum synthesis record per claim:
 | affected canonical artifacts | Problem Space / Task Model / User Journeys as applicable |
 | retest required | yes/no plus affected scenario |
 
+### Round A moderator guide
+
+Use a recent concrete preparation episode wherever possible. The moderator should prefer "what did you do?" over "what would you do?" and should not introduce Prep terminology before the participant has described their own model.
+
+**Opening / context (5–10 min)**
+
+1. Tell me about the most recent time you seriously prepared for a software-engineering role or interview.
+2. What role(s) were you considering? What information did you actually have at the beginning?
+3. What deadline, available time or other constraints mattered?
+4. What artifacts can you show or describe from that preparation: vacancy, notes, bookmarks, spreadsheets, cards, question lists, chat history, calendar, repositories?
+
+**Reconstruct the target (10 min)**
+
+5. How did you decide what the role/interview expected from you?
+6. Which expectations came from the vacancy, recruiter/interview loop, prior experience, community advice or your own assumptions?
+7. Was there one target, or did it change between companies/interviews? Walk through a concrete change.
+8. How did you decide how deep to prepare a topic?
+9. What important expectation did you discover late?
+
+Probe CH-P01/CH-P05 without naming them: ask what changed the person's preparation scope and whether interview feedback changed their understanding of the target itself.
+
+**Reconstruct current-state reasoning (10 min)**
+
+10. At that time, how did you decide what you already knew well enough?
+11. Give one example where you thought you knew something but later discovered you could not use/explain it well enough.
+12. Give one example where you were unsure because you had not tested yourself.
+13. What signals did you trust most: work experience, solving tasks, explaining aloud, mock interview, quiz result, recall after time, something else?
+14. Were there signals you intentionally ignored or distrusted?
+
+Do not offer SATISFIED / UNRESOLVED / CHALLENGED vocabulary. Capture the participant's own distinctions.
+
+**Reconstruct prioritization and activity choice (10 min)**
+
+15. Show me how you decided what to do next on a typical preparation day.
+16. What competed for your time?
+17. What made you switch topics or change the plan?
+18. Give an example where you chose learning/review versus practice/mock interview versus simply checking whether you knew something.
+19. Did you ever work on something mainly because a resource was available/easy to consume even though you were not sure it mattered?
+
+Probe whether the sequence is target-driven, resource-driven, anxiety-driven, deadline-driven, feedback-driven or opportunistic.
+
+**Reconstruct progress/readiness (10 min)**
+
+20. How did you know you were making progress?
+21. What did you track, if anything?
+22. Did completed hours/questions/topics make you feel ready? When were those signals misleading?
+23. What event most changed your belief about your readiness?
+24. Did you ever get new information that made you *less* certain after studying more?
+25. What would have convinced you to stop studying one area and move on?
+
+Probe CH-P03 explicitly through examples, not by explaining Prep's evidence model.
+
+**Reconstruct source/corpus behavior (5–10 min)**
+
+26. Where did your preparation material come from?
+27. Did you try to organize it into one durable structure, or mostly use resources where they already lived?
+28. What did you copy/rewrite into your own notes/cards/lists, and why?
+29. What organization work felt useful? What felt like overhead?
+30. If you used AI, what did you ask it to prepare, and how did you verify the result?
+
+Probe CH-P06: distinguish the user need for trustworthy scope/support from the implementation idea of a reusable corpus.
+
+**Close**
+
+31. Looking back, what part of the process cost the most unnecessary effort?
+32. What was the biggest uncertainty you never resolved before interviewing?
+33. If you could improve only one part of your preparation process, which would it be and why?
+34. Is there an important step we did not discuss because I framed the conversation incorrectly?
+
+### Round A analysis rules
+
+For each session, first reconstruct the participant's actual sequence in their vocabulary. Only after that sequence exists should the researcher map it to OBS/RQ/CH/UMC identifiers.
+
+Analyse at least these dimensions:
+
+- target granularity and how/when it changes;
+- preparation inputs/sources and trust;
+- self-assessment signals and uncertainty;
+- prioritization criteria and triggers;
+- learning/practice/diagnostic distinctions in participant language;
+- progress/readiness signals;
+- effects of real interview/mock feedback;
+- material organization/corpus behavior;
+- repeated workarounds and failure points;
+- tasks/decisions present in the user's process but absent from Prep;
+- Prep tasks the user never appears to need.
+
+Do not count a participant saying that a proposed idea "sounds useful" as SUPPORT. SUPPORT requires observed/reconstructed behavior, an existing need/workaround, or a concrete decision pattern compatible with the claim.
+
 ### Initial discovery session protocol
 
 The first round is qualitative discovery/mental-model validation, not a statistical study. Recruitment should cover the participant hypotheses above and include variation in preparation experience, current seniority and accessibility needs where practicable.
