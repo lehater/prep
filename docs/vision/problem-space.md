@@ -70,7 +70,7 @@ Current user-model gate: **EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING**. The behavior
 | OBS-P08 — external target translation | SUPPORTED-NARROWED | Need is real, but target is commonly layered/refinable across role, level, company and interview loop rather than one stable complete profile. | UNTESTED |
 | OBS-P09 — corpus bootstrapping | SCOPE-LIMITED | Users clearly need structured preparation scope/path from fragmented sources; evidence challenges the assumption that learners should own reusable semantic corpus maintenance. | UNTESTED |
 
-Secondary evidence used for this triangulation:
+Earlier triangulation sources (SECONDARY-RESEARCH plus NATURALISTIC-PUBLIC-USER where applicable):
 
 - Carpenter, Pan & Butler, *The science of effective learning with spacing and retrieval practice*, Nature Reviews Psychology (2022): https://www.nature.com/articles/s44159-022-00089-1
 - Pan & Rickard, *Transfer of test-enhanced learning: Meta-analytic review and synthesis* (2018): https://pubmed.ncbi.nlm.nih.gov/29733621/
@@ -96,14 +96,14 @@ The triangulation above also exposes plausible counterexamples to the current mo
 - **CH-P06 — reusable corpus may be optional infrastructure from the user's perspective:** users frequently assemble existing external resources rather than curate a durable semantic corpus. Research must distinguish the user's need ("get a usable preparation scope/support") from Prep's internal preference for reusable structured data.
 - **CH-P07 — role capability and selection/interview capability can diverge:** experienced developers report that real work experience may transfer poorly to timed interview formats, while interview loops may test LeetCode, presentation, company-specific behavioral or artificial design exercises that are not equivalent to day-to-day role capability. Prep must keep these target purposes related but must not treat selection-process performance as intrinsic role capability.
 
-These challenges are supported only at the secondary/anecdotal level. They exist to make Round A/B capable of disproving the current model.
+These challenges are supported at different evidence strengths. Recurring concrete developer self-reports count as NATURALISTIC-PUBLIC-USER evidence; expert/research material remains SECONDARY-RESEARCH. Elicited sessions are still needed where probing or Prep-specific comprehension matters.
 
 
-### Secondary behavior synthesis
+### Naturalistic behavior synthesis
 
-A small desk-research coding pass over recent public developer preparation accounts produced these recurring patterns. They remain **secondary evidence** and do not change any UMC status from `UNTESTED`.
+A desk-research coding pass over recent public developer preparation accounts produced these recurring NATURALISTIC-PUBLIC-USER patterns. They informed the narrowed behavioral UMC evidence statuses; elicited representative status remains `UNTESTED`.
 
-| Pattern | Secondary observation | Challenges/claims affected |
+| Pattern | Naturalistic observation | Challenges/claims affected |
 | --- | --- | --- |
 | SEC-PAT-01 — mutable target | People often start with a broad backend/seniority target, then adjust preparation after learning a company's interview format, stack emphasis or depth expectations. | CH-P01, CH-P05 / UMC-01 |
 | SEC-PAT-02 — multi-modal readiness | Preparation commonly spans DSA/coding, system design, stack/backend knowledge, practical exercises and behavioral/past-project explanation rather than one homogeneous body of knowledge. | CH-P02 / UMC-04 |
@@ -226,9 +226,9 @@ Each durable observation remains UNVALIDATED with respect to representative-user
 
 Usability preference for a particular screen, graph, workflow or wording is not evidence that a problem observation exists. Conversely, research that changes the problem actor, desired outcome or material problem dimension must reopen downstream Product/Application/Interface knowledge through Harness.
 
-### Secondary naturalistic web stress test — 2026-09-28
+### Naturalistic public-user web stress test — 2026-09-28
 
-This stress test uses public current behavior as **SECONDARY** evidence to falsify or narrow the candidate user model before representative-user research. It does not satisfy the HUMAN-VALIDATED gate.
+This stress test uses current public target-user behavior as **NATURALISTIC-PUBLIC-USER** evidence to falsify or narrow the behavioral user model. Together with SECONDARY-RESEARCH triangulation it can satisfy Gate A, but it does not satisfy Gate B (`ELICITED-HUMAN-VALIDATED`).
 
 **Sampling discipline**
 
@@ -294,9 +294,9 @@ Additional negative-case sources:
 - https://www.reddit.com/r/leetcode/comments/1lh0ytm
 - https://www.reddit.com/r/leetcode/comments/1w841bo/15_yoe_aiming_for_staff_in_big_tech_but_zero/
 
-**Secondary-evidence decision**
+**Naturalistic-evidence decision**
 
-The network evidence is strong enough to revise the *candidate* model before representative research:
+The naturalistic network evidence is strong enough to revise and behaviorally support the candidate model for UX prototyping:
 
 1. keep a concrete target context, but make it explicitly layered and refinable;
 2. keep target-relative gaps/uncertainty, but let next-focus rationale include external constraints and interview-stage timing;
@@ -305,11 +305,11 @@ The network evidence is strong enough to revise the *candidate* model before rep
 5. let new external feedback revise target understanding independently from revising learner state;
 6. distinguish professional-role capability from selection/interview performance when the hiring process tests company-specific or artificial forms that are not equivalent to day-to-day role capability.
 
-These are **NARROW/CHANGE decisions from secondary falsification**, not human validation. UMC evidence statuses remain UNTESTED until representative Round A/Round B evidence exists.
+These are **NARROW/CHANGE decisions from naturalistic falsification**. The behavioral UMC evidence statuses are therefore accepted at Gate A; `elicited_representative_status` remains `UNTESTED` until Round A/Round B or later interactive concept testing.
 
 ### Validation programme
 
-User-model validation is intentionally separated from interface usability so the model is not proven by the interface that was derived from it.
+Elicited concept validation is intentionally separated from behavioral user-model evidence and later interface usability so the model is not proven by the interface that was derived from it.
 
 **Round A — current-behavior discovery**
 
@@ -391,7 +391,7 @@ Research recruitment must follow each community's current rules and moderator gu
 5. use the same screener and consent/privacy framing regardless of channel;
 6. record the recruitment source for each `USR-*` session so channel-driven sample bias remains visible.
 
-If a community does not clearly allow recruitment, skip it rather than working around moderation. Public developer discussions may still be used as secondary evidence under the existing evidence rules, but their authors are not representative participants unless they independently opt in to a research session.
+If a community does not clearly allow recruitment, skip it rather than working around moderation. Public developer discussions may be used as NATURALISTIC-PUBLIC-USER evidence when they contain concrete target-context behavior. Their authors are not elicited representative participants unless they independently opt in to a research session.
 
 Use recruitment-source diversity as a sampling diagnostic, not as a numeric representativeness score.
 

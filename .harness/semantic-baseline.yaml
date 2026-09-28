@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 23
-    basis: "Negative-case search adds CH-P07/RQ-P12: current experienced-developer accounts show that professional role capability and selection/interview performance can diverge. Target-oriented preparation remains supported, but Prep must keep these target purposes related yet semantically distinct rather than treating interview mechanics as intrinsic job capability."
+    revision: 24
+    basis: "Evidence-language cleanup aligns the entire Discovery artifact with the four-class taxonomy: concrete public developer behavior is NATURALISTIC-PUBLIC-USER evidence rather than generic secondary evidence, Gate A behavioral UMC statuses may change from it, while elicited representative status remains separately UNTESTED for Prep-specific comprehension/usability."
 
   - capability: prep.product-intent
     revision: 5
