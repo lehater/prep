@@ -493,7 +493,7 @@ export function CorpusQualityView({ qualityPort }: { readonly qualityPort: Corpu
       {state.items.map((item) => (
         <Paper key={item.id} variant="outlined" sx={{ p: 1.5 }}>
           <Stack spacing={0.75}>
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
               <Chip size="small" label={item.area} color={item.severity === "warning" ? "warning" : "default"} />
               <Typography>{item.summary}</Typography>
             </Stack>
