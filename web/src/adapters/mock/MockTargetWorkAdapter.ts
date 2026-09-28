@@ -47,6 +47,7 @@ const INITIAL_EVIDENCE: Readonly<Record<string, InitialEvidenceState>> = {
 
 export class MockTargetWorkAdapter implements TargetWorkPort {
   private readonly acceptedCapabilityEvidence = new Set<string>();
+  private readonly challengedCapabilityEvidence = new Set<string>();
   private readonly focusByTarget = new Map<string, LearningFocusModel>();
 
   constructor(
@@ -217,7 +218,11 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
       return { status: "not_found", message: "Diagnostic evidence target not found." };
     }
 
-    this.acceptedCapabilityEvidence.add(capabilityId);
+    if (assessment.evidenceBearing === "challenges") {
+      this.challengedCapabilityEvidence.add(capabilityId);
+    } else {
+      this.acceptedCapabilityEvidence.add(capabilityId);
+    }
     const capability = this.store.capabilities.find(
       (candidate) => candidate.id === capabilityId,
     );
@@ -234,7 +239,10 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
         },
         derivedClaim: {
           capabilityId,
-          summary: `Accepted assessment semantics support a current positive learner claim for ${capability?.title ?? capabilityId}.`,
+          summary:
+            assessment.evidenceBearing === "challenges"
+              ? `Accepted assessment semantics challenge the current positive learner claim for ${capability?.title ?? capabilityId}.`
+              : `Accepted assessment semantics support a current positive learner claim for ${capability?.title ?? capabilityId}.`,
         },
         state: this.state(targetId),
       },
@@ -248,19 +256,23 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
       return { status: "not_found", message: "Target progress not found." };
     }
 
-    const capabilities = this.capabilities(targetId);
-    const changes = capabilities.flatMap((capability) => {
-      if (!this.acceptedCapabilityEvidence.has(capability.id)) return [];
+    const currentState = this.state(targetId);
+    const changes = this.capabilities(targetId).flatMap((capability) => {
       const before = INITIAL_EVIDENCE[capability.id]?.state ?? "unresolved";
-      if (before === "satisfied") return [];
+      const after =
+        currentState.items.find((item) => item.requirementId === capability.id)?.state ??
+        before;
+      if (before === after) return [];
       return [
         {
           requirementId: capability.id,
           title: capability.title,
           before,
-          after: "satisfied" as const,
+          after,
           evidenceSummary:
-            "New diagnostic evidence now supports the target-required capability in this mock scenario.",
+            after === "challenged"
+              ? "New accepted diagnostic evidence materially challenges previously established satisfaction."
+              : "New accepted diagnostic evidence supports the target-required capability in the represented conditions.",
         },
       ];
     });
@@ -287,6 +299,23 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
           state: "unresolved" as const,
           basis: [],
         };
+
+        if (this.challengedCapabilityEvidence.has(capability.id)) {
+          return {
+            requirementId: capability.id,
+            title: capability.title,
+            summary: capability.performanceExpectation,
+            state: "challenged",
+            basis: [
+              {
+                id: `evidence-diagnostic-challenge-${capability.id}`,
+                summary:
+                  "Accepted diagnostic evidence materially challenges the current positive learner-capability claim for this requirement.",
+                provenance: "Prep mock diagnostic evidence",
+              },
+            ],
+          };
+        }
 
         if (this.acceptedCapabilityEvidence.has(capability.id)) {
           return {
@@ -318,7 +347,8 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
     return {
       targetId,
       projectionId:
-        this.acceptedCapabilityEvidence.size > 0
+        this.acceptedCapabilityEvidence.size > 0 ||
+        this.challengedCapabilityEvidence.size > 0
           ? "state-after-diagnostic"
           : "state-initial",
       items,
