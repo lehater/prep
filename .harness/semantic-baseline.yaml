@@ -121,8 +121,8 @@ reviews:
     basis: "Component Design now defines consumer-owned ports/models for target state, gaps, focus, support, diagnostics, evidence, progress and modern Curation while preserving renderer and adapter isolation."
 
   - capability: prep.frontend-verification
-    revision: 6
-    basis: "Frontend verification now covers the complete target-relative loop, corpus bootstrap/curation, evidence/gap integrity, progress semantics and preserved dependency/renderer boundaries."
+    revision: 7
+    basis: "Frontend Verification preserves the complete target-relative, corpus, evidence, progress and boundary obligations while using the Harness-traceable FV heading structure consumed by integration validation."
 
   - capability: prep.frontend-test-design
     revision: 8
