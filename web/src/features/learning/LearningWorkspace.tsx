@@ -126,7 +126,11 @@ export function LearningWorkspace({
         <DiagnosticsView targetId={targetId} targetWorkPort={targetWorkPort} />
       ) : section === "knowledge" ? (
         <KnowledgeExplorer
-          scope={{ kind: "target", targetId }}
+          scope={{
+            kind: "target",
+            targetId,
+            focusId: focus?.id,
+          }}
           queryPort={knowledgeQueryPort}
           Renderer={Renderer}
         />
