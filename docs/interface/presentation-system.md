@@ -172,13 +172,15 @@ Knowledge supports coordinated list/search/detail and spatial graph projections 
 
 ### 3D representation decision
 
-3D remains the accepted production-default spatial Knowledge projection on capable environments because:
+3D is the **preferred spatial candidate and default in the current UX prototype** on capable environments because:
 
 - it is the product-owner-preferred exploration experience;
-- a preserved experiment has already demonstrated viable interaction/performance characteristics;
+- a preserved experiment and current frontend have demonstrated viable interaction/performance characteristics;
 - the underlying tasks remain independently available through list/search/detail.
 
-This is a presentation choice, not evidence that 3D improves learning outcomes.
+Technical feasibility and owner preference do not establish that 3D is the production-default UX. That decision requires representative-user validation of the concrete exploration tasks, orientation/comprehension, accessibility and comparison with non-spatial access.
+
+Until that validation is accepted, implementation must preserve both the 3D prototype path and task-complete list/search/detail access without treating renderer choice as product semantics.
 
 2D/non-spatial access may be used when 3D is unavailable, inappropriate or intentionally bypassed.
 
