@@ -5,8 +5,8 @@ id: PREP-INTERACTION-DESIGN
 shared_contracts:
   navigation_and_context:
     - Back/return follows the prior meaningful task context rather than resetting to an arbitrary workspace root.
-    - Active target and current learning/diagnostic focus survive cross-view navigation unless the user explicitly changes or clears them.
-    - Temporary routing into Curation from Target Work preserves the motivating target/source/focus context needed for an explicit return.
+    - Active target identity/purpose, related-target context and current learning/diagnostic focus survive cross-view navigation unless the user explicitly changes or clears them.
+    - Delegated preparation and temporary explicit self-curation preserve the motivating target/source/focus context needed for an explicit return.
     - Search/filter/selection state is preserved across recoverable operations when retaining it does not misrepresent changed canonical data.
 
   drafts_and_unsaved_changes:
@@ -59,13 +59,23 @@ shared_contracts:
 contexts:
   - id: I-L-ESTABLISH-TARGET
     task_refs: [TASK-L-ESTABLISH-TARGET]
-    concept_refs: [TARGET, TARGET-REQUIREMENTS]
-    actions: [search-targets, select-target, start-target-preparation]
+    concept_refs: [TARGET, TARGET-PURPOSE, TARGET-REQUIREMENTS]
+    actions: [search-targets, inspect-target-purpose, select-target, inspect-related-targets, start-target-preparation]
     inputs: [text query, target selection, optional external target context]
     machine_operations: [learning.targets.list, learning.targets.get]
-    visible_responses: [target results, target requirement summary, empty results, preparation-needed state, recoverable failure]
+    visible_responses: [target results with purpose, related-target context, target requirement summary, unresolved expectations, empty results, preparation-needed state, recoverable failure]
     states: [loading, empty, ready, preparation-needed, failure]
-    recovery: Preserve query and motivating target context when routing to preparation or retrying.
+    recovery: Preserve query, target purpose and motivating target context when routing to preparation or retrying.
+
+  - id: I-L-OBTAIN-PREPARATION-SUPPORT
+    task_refs: [TASK-L-OBTAIN-PREPARATION-SUPPORT]
+    concept_refs: [TARGET, TARGET-PURPOSE, PREPARATION-NEED]
+    actions: [inspect-missing-preparation, request-preparation, review-prepared-target, enter-explicit-self-curation]
+    inputs: [motivating target/source context, optional fulfillment preference]
+    machine_operations: [learning.preparation.options.get, learning.preparation.request, learning.targets.get]
+    visible_responses: [learner-facing missing prerequisites, available preparation support, accepted request/handoff, prepared/refined target review, recoverable failure]
+    states: [loading, preparation-needed, requesting, delegated, ready-to-review, self-curation-handoff, failure]
+    recovery: Preserve motivating context after failed/partial preparation; never force import/schema repair unless self-curation is explicitly chosen.
 
   - id: I-C-SELECT-PREPARATION-PATH
     task_refs: [TASK-C-SELECT-PREPARATION-PATH]
@@ -79,11 +89,11 @@ contexts:
 
   - id: I-L-UNDERSTAND-TARGET
     task_refs: [TASK-L-UNDERSTAND-TARGET]
-    concept_refs: [TARGET, TARGET-REQUIREMENTS, CAPABILITY, KNOWLEDGE]
-    actions: [inspect-target-context, inspect-required-capabilities, inspect-relevant-knowledge]
+    concept_refs: [TARGET, TARGET-PURPOSE, TARGET-REQUIREMENTS, CAPABILITY, KNOWLEDGE]
+    actions: [inspect-target-purpose, inspect-target-context, inspect-related-targets, inspect-required-capabilities, inspect-relevant-knowledge]
     inputs: [active target]
     machine_operations: [learning.targets.get, learning.target.knowledge.list]
-    visible_responses: [target definition, capability requirement structure, standards/conditions, related knowledge]
+    visible_responses: [target purpose/definition, related-target context, unresolved expectations/provenance, capability requirement structure, standards/conditions, related knowledge]
     states: [loading, ready, partial-unavailable, failure]
     recovery: Preserve active target while retrying independently unavailable projections.
 
@@ -103,7 +113,7 @@ contexts:
     actions: [inspect-gap, inspect-gap-basis, choose-learning-focus, choose-diagnostic-focus, revise-focus]
     inputs: [active target, gap selection, intent kind, optional rationale]
     machine_operations: [learning.target.gaps.get, learning.target.focus.get, learning.target.focus.set]
-    visible_responses: [satisfied/unresolved/challenged requirement fragments, gap basis, uncertainty, current focus, accepted focus change]
+    visible_responses: [satisfied/unresolved/challenged requirement fragments, gap basis, uncertainty, current focus, explicit target/state/deadline/interview-stage/time/cost rationale, accepted focus change]
     states: [loading, no-material-gaps, ready, focus-selected, conflict, failure]
     recovery: Preserve selected gap and user rationale after recoverable conflict/failure.
 
@@ -142,10 +152,10 @@ contexts:
   - id: I-L-PROGRESS
     task_refs: [TASK-L-REVIEW-PROGRESS]
     concept_refs: [PROGRESS, CURRENT-STATE, GAP, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, LEARNING-FOCUS]
-    actions: [inspect-state-change, inspect-changed-gaps, inspect-new-evidence, continue-focus, choose-another-focus]
+    actions: [inspect-state-change, inspect-target-refinement, inspect-changed-gaps, inspect-new-evidence, continue-focus, choose-another-focus]
     inputs: [active target, optional prior projection]
-    machine_operations: [learning.target.progress.get, learning.target.state.get, learning.target.gaps.get, learning.target.focus.set]
-    visible_responses: [changed/unchanged target fragments, gap changes, evidence basis, current focus]
+    machine_operations: [learning.target.progress.get, learning.targets.get, learning.target.state.get, learning.target.gaps.get, learning.target.focus.set]
+    visible_responses: [changed/unchanged learner-state fragments, separate target-refinement summary, gap changes, evidence basis, current focus]
     states: [loading, no-change, changed, increased-uncertainty, failure]
     recovery: Preserve historical comparison context and allow retry without rewriting prior evidence.
 
@@ -163,7 +173,7 @@ contexts:
     task_refs: [TASK-C-MAINTAIN-TARGETS]
     concept_refs: [TARGET, TARGET-REQUIREMENTS, CAPABILITY]
     actions: [search-targets, create-target, edit-target, compose-requirement-expression]
-    inputs: [target context, CapabilitySpecification selection/expression]
+    inputs: [target context, target purpose, optional related target references, CapabilitySpecification selection/expression]
     machine_operations: [curation.targets.list, curation.targets.get, curation.targets.create, curation.targets.update, curation.capabilities.list]
     visible_responses: [collection/detail/editor state, validation rejection, conflict, success]
     states: [loading, empty, ready, editing, validation-rejected, conflict, failure]

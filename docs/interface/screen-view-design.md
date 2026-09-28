@@ -6,7 +6,7 @@ Define implementation-independent composition for the accepted frontend topology
 
 ## Shared rules
 
-- Active target persists across all target-work views.
+- Active target identity/purpose and related-target context persist across all target-work views.
 - Active focus persists across Gaps, Learning, Diagnostics, Knowledge and Progress.
 - Curation collections are search/browse-first; editors preserve recoverable draft state.
 - Loading, empty, validation/conflict, unavailable/degraded and recoverable failure states remain distinguishable where supported.
@@ -31,10 +31,11 @@ Responsive:
 
 ## [F-LT-TARGET-WORKSPACE]
 
-**Purpose:** preserve one active target across the full target-relative loop.
+**Purpose:** preserve one active primary target plus its purpose and relevant related-target context across the full target-relative loop.
 
 Regions:
-- target identity/context — primary;
+- target identity/purpose/context — primary;
+- related-target context when material — supporting;
 - target-local navigation — primary;
 - current focus summary — secondary;
 - active child view — primary.
@@ -44,25 +45,30 @@ Overview / State / Gaps / Learning / Diagnostics / Knowledge / Progress.
 
 ## [L-01-TARGETS]
 
-**Tasks:** `TASK-L-ESTABLISH-TARGET`, `TASK-C-SELECT-PREPARATION-PATH`
+**Tasks:** `TASK-L-ESTABLISH-TARGET`, `TASK-L-OBTAIN-PREPARATION-SUPPORT`
 
-Reads: `learning.targets.list`, `learning.targets.get`; when preparation is required, supported corpus diagnostics/import-contract availability may also be read.
+Reads/commands: `learning.targets.list`, `learning.targets.get`, `learning.preparation.options.get`, `learning.preparation.request`.
 
 Regions:
 - search/browse controls — secondary;
-- target collection — primary when usable targets exist;
-- selected target requirement summary — primary when a target is selected;
-- missing/unknown preparation-prerequisite summary — primary in empty/partial-corpus state;
-- bulk / incremental / mixed preparation choices — primary in preparation-needed state;
+- target collection with target-purpose cues — primary when usable targets exist;
+- selected target purpose/context and requirement summary — primary when a target is selected;
+- related target context and unresolved expectations — supporting;
+- learner-facing missing-preparation summary — primary in preparation-needed state;
+- request/accept prepared support — primary in preparation-needed state;
+- explicit self-curation entry — secondary;
 - retained motivating target/source context — supporting.
 
-States: loading, empty-targets, empty-corpus, partial-corpus, ready, preparation-path-selected, diagnostics-unavailable, failure.
+States: loading, empty, ready, preparation-needed, requesting, delegated, ready-to-review, self-curation-handoff, failure.
 
 Primary actions:
-- activate suitable target when one exists;
-- otherwise choose a corpus-preparation path.
+- select a target with the intended purpose;
+- inspect related role/interview target context where material;
+- request/accept preparation support;
+- explicitly enter self-curation when desired;
+- continue to Target Overview when preparation is reviewable.
 
-The empty-system state must not imply that opening a target editor alone is sufficient when reusable Capability/Knowledge/support/assessment prerequisites are absent. Bulk preparation may route directly to Import; incremental or mixed preparation routes into the relevant Curation workspace while preserving the motivating context.
+The learner path does not expose bulk/incremental/import choices by default.
 
 Responsive: controls precede target/preparation results; selected detail or preparation explanation follows the primary decision.
 
@@ -73,7 +79,8 @@ Responsive: controls precede target/preparation results; selected detail or prep
 Reads: `learning.targets.get`, `learning.target.knowledge.list`.
 
 Regions:
-- target context/definition — primary;
+- target purpose/context/definition — primary;
+- related-target context and unresolved expectations/provenance — supporting;
 - requirement/capability structure — primary;
 - standards/conditions — supporting;
 - related Knowledge entry points — secondary;
@@ -115,7 +122,7 @@ Reads/commands: `learning.target.gaps.get`, `learning.target.focus.get`, `learni
 Regions:
 - gap collection/requirement structure — primary;
 - selected gap detail and basis — primary;
-- current focus/rationale — secondary;
+- current focus/rationale, including material target/state/deadline/interview-stage/time/cost drivers — secondary;
 - next-action choices — primary;
 - support-availability warning — secondary.
 
@@ -198,9 +205,10 @@ Renderer degradation preserves task-complete non-spatial access.
 Reads: `learning.target.progress.get`, state/gaps/focus projections.
 
 Regions:
-- comparison summary — primary;
-- changed target fragments — primary;
-- unchanged/unresolved/challenged fragments — supporting;
+- learner-state comparison summary — primary;
+- changed/unchanged learner-state requirement fragments — primary;
+- separate target-refinement summary — primary when target understanding changed;
+- unresolved/challenged fragments — supporting;
 - new evidence basis — secondary;
 - gap/focus change summary — primary;
 - next adaptation action — primary.
@@ -240,7 +248,8 @@ Primary action: open an existing target or start a new target profile.
 Reads/commands: target detail/update operations + capability lookup.
 
 Regions:
-- target context/definition — primary;
+- target purpose/context/definition — primary;
+- optional related-target references with no requirement inheritance — supporting;
 - required CapabilitySpecification selection/composition — primary;
 - validation/conflict — secondary;
 - save/cancel — primary;

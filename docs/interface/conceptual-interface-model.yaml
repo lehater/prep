@@ -4,8 +4,12 @@ id: PREP-CONCEPTUAL-INTERFACE
 
 concepts:
   - id: TARGET
-    meaning: A concrete desired outcome such as a role, vacancy, interview profile or certification selected by the user.
+    meaning: A purpose-explicit desired capability profile for one target context. Related targets may support the same real-world goal without inheriting requirements from one another.
     upstream_refs: [LearningTarget]
+
+  - id: TARGET-PURPOSE
+    meaning: Why a target profile exists, including the important distinction between professional-role capability and selection/interview performance.
+    upstream_refs: [LearningTarget.target_purpose]
 
   - id: TARGET-REQUIREMENTS
     meaning: The capability requirements that define what successful performance for the active target means.
@@ -52,11 +56,15 @@ concepts:
     upstream_refs: [LearnerCapabilityClaim]
 
   - id: PROGRESS
-    meaning: A comparison of target-relative state across accepted evidence changes.
+    meaning: A comparison of target-relative learner state across accepted evidence changes, kept distinct from changes in target understanding/refinement.
     upstream_refs: [application:Reassess target state]
 
+  - id: PREPARATION-NEED
+    meaning: A learner-visible statement that required target/support/assessment preparation is missing or uncertain and must be obtained before target work can proceed reliably; it does not make corpus machinery a learner responsibility.
+    upstream_refs: [application:Obtain preparation support]
+
   - id: CORPUS
-    meaning: The reusable prepared data that supports target definition, knowledge exploration, learning/practice and assessment.
+    meaning: Reusable prepared data that supports target definition, knowledge exploration, learning/practice and assessment; it is owned by the Curation context even when a learner explicitly self-curates.
     upstream_refs: [LearningTarget, Capability, KnowledgeObject, LearningMaterial, AssessmentDesign]
 
   - id: IMPORT-CONTRACT
@@ -75,7 +83,7 @@ modes:
   - id: TARGET-WORK
     purpose: Work toward a concrete target by assessing current state, inspecting gaps, choosing a focus, learning or diagnosing, and reassessing.
   - id: CURATION
-    purpose: Bootstrap and maintain reusable target, capability, knowledge, learning-support and assessment data.
+    purpose: Let a curator/operator or explicitly self-curating learner bootstrap and maintain reusable target, capability, knowledge, learning-support and assessment data.
 
 state_vocabulary:
   - id: SATISFIED
@@ -90,7 +98,10 @@ state_vocabulary:
     meaning: A supported external runtime cannot currently perform requested operations.
 
 relationships:
+  - {source: TARGET, target: TARGET-PURPOSE, relation: has-purpose}
+  - {source: TARGET, target: TARGET, relation: may-relate-without-requirement-inheritance}
   - {source: TARGET, target: TARGET-REQUIREMENTS, relation: defines}
+  - {source: PREPARATION-NEED, target: TARGET, relation: blocks-or-limits-preparation-for}
   - {source: TARGET-REQUIREMENTS, target: CAPABILITY, relation: requires}
   - {source: CURRENT-STATE, target: TARGET-REQUIREMENTS, relation: evaluates-against}
   - {source: GAP, target: TARGET-REQUIREMENTS, relation: identifies-unsatisfied-fragment}

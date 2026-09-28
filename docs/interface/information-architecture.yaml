@@ -4,23 +4,23 @@ id: PREP-INFORMATION-ARCHITECTURE
 
 locations:
   - id: APP-SHELL
-    purpose: Preserve global target-work/curation switching, active target context and integration status.
-    concept_refs: [TARGET-WORK, CURATION, TARGET, EXTERNAL-RUNTIME]
+    purpose: Preserve global target-work/curation switching, active target purpose/context and integration status.
+    concept_refs: [TARGET-WORK, CURATION, TARGET, TARGET-PURPOSE, EXTERNAL-RUNTIME]
     scope: global
 
   - id: TARGETS
-    purpose: Find an existing target; when no usable target/corpus exists, expose entry into corpus preparation before target composition.
-    concept_refs: [TARGET, TARGET-REQUIREMENTS, CORPUS, IMPORT-CONTRACT]
+    purpose: Find/establish a purpose-explicit target and, when preparation is missing, let the learner obtain prepared support without exposing import/corpus machinery unless self-curation is explicitly chosen.
+    concept_refs: [TARGET, TARGET-PURPOSE, TARGET-REQUIREMENTS, PREPARATION-NEED]
     scope: global
 
   - id: TARGET-WORKSPACE
-    purpose: Preserve the active target while moving through assessment, gaps, focus, learning and progress.
-    concept_refs: [TARGET, TARGET-REQUIREMENTS, CURRENT-STATE, GAP, LEARNING-FOCUS, PROGRESS]
+    purpose: Preserve the active target purpose/context and related-target context while moving through assessment, gaps, focus, learning and progress.
+    concept_refs: [TARGET, TARGET-PURPOSE, TARGET-REQUIREMENTS, CURRENT-STATE, GAP, LEARNING-FOCUS, PROGRESS]
     scope: target
 
   - id: TARGET-OVERVIEW
-    purpose: Understand target context and required capabilities.
-    concept_refs: [TARGET, TARGET-REQUIREMENTS, CAPABILITY]
+    purpose: Understand target purpose/context, related targets, unresolved expectations and required capabilities.
+    concept_refs: [TARGET, TARGET-PURPOSE, TARGET-REQUIREMENTS, CAPABILITY]
     scope: target
 
   - id: TARGET-STATE
@@ -128,8 +128,7 @@ relationships:
   - {source: CURATION-WORKSPACE, target: CURATION-IMPORT, relation: contains}
   - {source: CURATION-WORKSPACE, target: CURATION-QUALITY, relation: contains}
 
-  - {source: TARGETS, target: CURATION-WORKSPACE, relation: bootstrap-missing-corpus}
-  - {source: TARGETS, target: CURATION-TARGETS, relation: prepare-missing-target-after-prerequisites}
+  - {source: TARGETS, target: CURATION-WORKSPACE, relation: enter-explicit-self-curation}
   - {source: CURATION-WORKSPACE, target: TARGETS, relation: return-after-preparation}
   - {source: TARGET-GAPS, target: CURATION-LEARNING-SUPPORT, relation: repair-missing-support}
   - {source: TARGET-STATE, target: CURATION-ASSESSMENT, relation: repair-missing-diagnostic-support}
@@ -140,8 +139,9 @@ findability_assumptions:
   - Knowledge exploration must support search/list/detail independently of spatial representation.
   - Graph projections may visualize Knowledge, requirements/capabilities or learner-state overlays only when they preserve the underlying semantic concepts and task context.
   - Curation is organized by user-maintained semantic responsibility rather than backend resource layout.
-  - An empty-system user can understand which corpus prerequisites are missing before target composition and can choose bulk, incremental or mixed preparation.
-  - Bulk import is discoverable as the efficient path for mass corpus preparation; incremental curation remains available for correction and small changes.
-  - The motivating target/source context survives a temporary move into Curation and supports an explicit return to Target Work.
+  - An empty-system learner can understand what preparation is missing in learner-facing terms and request/accept prepared support without choosing corpus/import mechanics.
+  - Explicit self-curation remains available, while bulk import and incremental curation are discoverable inside the Curation context for curator/operator work.
+  - Target purpose and related-target context remain visible enough to prevent role-capability requirements from being confused with selection/interview mechanics.
+  - The motivating target/source context survives delegated preparation or an explicit temporary move into Curation and supports an explicit return to Target Work.
 
 unresolved_questions: []

@@ -4,7 +4,7 @@ id: PREP-INTERFACE-TOPOLOGY
 
 views:
   - id: F-00-APPLICATION-SHELL
-    responsibility: Preserve global Target Work/Curation context, active target identity and runtime-status access.
+    responsibility: Preserve global Target Work/Curation context, active target purpose/context and runtime-status access.
     location_ref: APP-SHELL
     interaction_context_refs: []
     structural: true
@@ -12,7 +12,7 @@ views:
     exits: [L-01-TARGETS, F-C-CURATION-WORKSPACE, S-01-RUNTIME-STATUS]
 
   - id: F-LT-TARGET-WORKSPACE
-    responsibility: Preserve the active target while switching among assessment, gaps, learning, diagnostics, knowledge and progress views.
+    responsibility: Preserve the active target purpose/context and related-target context while switching among assessment, gaps, learning, diagnostics, knowledge and progress views.
     location_ref: TARGET-WORKSPACE
     interaction_context_refs: []
     structural: true
@@ -28,14 +28,14 @@ views:
     exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
 
   - id: L-01-TARGETS
-    responsibility: Find a suitable target; when target/corpus prerequisites are missing, choose an appropriate preparation path without losing motivating context.
+    responsibility: Find/establish a purpose-explicit target and obtain missing preparation support without exposing Curation machinery unless self-curation is explicitly chosen.
     location_ref: TARGETS
-    interaction_context_refs: [I-L-ESTABLISH-TARGET, I-C-SELECT-PREPARATION-PATH]
+    interaction_context_refs: [I-L-ESTABLISH-TARGET, I-L-OBTAIN-PREPARATION-SUPPORT]
     parent: F-00-APPLICATION-SHELL
-    exits: [L-02-TARGET-OVERVIEW, F-C-CURATION-WORKSPACE, C-61-IMPORT, C-12-TARGET-EDITOR]
+    exits: [L-02-TARGET-OVERVIEW, F-C-CURATION-WORKSPACE]
 
   - id: L-02-TARGET-OVERVIEW
-    responsibility: Understand the active target context and required capabilities.
+    responsibility: Understand active target purpose/context, related targets, unresolved expectations and required capabilities.
     location_ref: TARGET-OVERVIEW
     interaction_context_refs: [I-L-UNDERSTAND-TARGET]
     parent: F-LT-TARGET-WORKSPACE
@@ -176,6 +176,6 @@ views:
 
 non_view_contexts:
   - id: N-L-ACTIVE-TARGET
-    responsibility: Preserve active target identity across all target-work views.
+    responsibility: Preserve active target identity, purpose and related-target context across all target-work views.
   - id: N-L-ACTIVE-FOCUS
     responsibility: Preserve current LearningPriority/LearningIntent context across gaps, learning, diagnostics, knowledge and progress.

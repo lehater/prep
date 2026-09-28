@@ -28,6 +28,9 @@ Transport status codes are adapter mappings, not product semantics.
 Exposes:
 
 - target identity/context;
+- target purpose;
+- related target references with no implied requirement inheritance;
+- target provenance and unresolved/refinable expectations;
 - human-readable target definition;
 - RequirementExpression<CapabilitySpecification>;
 - enough capability/standard/condition detail to understand what is expected.
@@ -49,11 +52,23 @@ No universal scalar proficiency score is implied.
 
 Exposes:
 
-- target identity;
+- target identity/purpose;
 - focused gap(s) or uncertainty;
-- rationale;
+- rationale including material deadline/interview-stage/time/cost constraints;
 - intent kind: learning/practice or diagnostic;
 - currently available support summary.
+
+### Preparation need
+
+Exposes a learner-facing projection of:
+
+- motivating target/source context;
+- missing or uncertain target/support/assessment prerequisites;
+- available system/agent/curator preparation support;
+- optional explicit self-curation handoff;
+- current preparation request/outcome where one exists.
+
+It does not expose import schema or item-level corpus-repair detail unless the user explicitly enters Curation.
 
 ### Knowledge projection
 
@@ -75,6 +90,8 @@ Raw runtime ratings remain distinguishable from inferred learner capability clai
 |---|---|---|---|
 | `learning.targets.list` | Browse/search prepared targets | `text_query?, cursor?, limit?` | target summaries |
 | `learning.targets.get` | Open prepared target | `target_id` | target detail |
+| `learning.preparation.options.get` | Inspect learner-facing missing-preparation need and available fulfillment paths | `target_context?, source_context?` | preparation need/options |
+| `learning.preparation.request` | Request/accept system/agent/curator preparation or explicit self-curation handoff | `target_context, source_context?, fulfillment_preference?` | accepted preparation request/handoff + review context |
 | `learning.target.state.get` | Read current target-relative learner state | `target_id` | satisfied/unresolved/challenged fragments + basis |
 | `learning.target.diagnostics.list` | List supported diagnostic/assessment opportunities for unresolved target areas | `target_id, requirement_fragment?` | diagnostic opportunities |
 | `learning.target.gaps.get` | Read explicit target-relative Gap projection | `target_id` | gaps + basis + uncertainty |
@@ -108,6 +125,8 @@ These remain a compatibility path under learning/practice/evidence, not the prim
 - `curation.targets.get`
 - `curation.targets.create`
 - `curation.targets.update`
+
+Target create/update representations include `target_purpose`, optional `related_target_refs` and provenance. Related-target references do not imply requirement inheritance or satisfaction transfer.
 
 ### Capabilities
 

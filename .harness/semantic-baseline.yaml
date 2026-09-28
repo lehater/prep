@@ -61,32 +61,32 @@ reviews:
     basis: "Empty-system recovery now follows the learner task TASK-L-OBTAIN-PREPARATION-SUPPORT and keeps corpus/import repair inside curator/operator Curation unless self-curation is explicitly selected, eliminating the remaining learner-corpus-ownership contradiction."
 
   - capability: prep.conceptual-interface-model
-    revision: 4
-    basis: "Conceptual interface semantics now separate Observation, evidential basis and learner claim from target-relative Current State instead of bundling all layers into a generic Evidence concept."
+    revision: 5
+    basis: "Conceptual interface now exposes target purpose, related-target context without requirement inheritance, learner-facing PREPARATION-NEED and a progress distinction between learner-state change and target refinement."
 
   - capability: prep.information-architecture
-    revision: 5
-    basis: "Information Architecture removes the remaining generic Evidence reference and keeps empty-corpus bootstrap as an explicit entry/return path."
+    revision: 6
+    basis: "Targets entry now owns learner-facing missing-preparation recovery and target-purpose context; import/corpus mechanics remain inside explicit Curation, eliminating the old direct learner-to-import IA path."
 
   - capability: prep.machine-interfaces
-    revision: 4
-    basis: "Machine Interface now exposes target-state, gaps, focus, diagnostics, evidence, progress and explicit import contract/validate/apply operations while keeping concrete transport/backend realization deferred."
+    revision: 5
+    basis: "Machine contracts now expose target purpose/related-target provenance, multi-driver focus rationale and learner-facing preparation options/request operations while keeping import/schema mechanics in Curation."
 
   - capability: prep.interaction-design
-    revision: 7
-    basis: "Interaction Design now includes normative shared contracts for navigation/context preservation, dirty drafts, async/long-running behavior, validation/conflict/stale data, focus/keyboard, pointer/touch, destructive-action governance and user feedback in addition to task-specific contexts."
+    revision: 8
+    basis: "Interaction Design now covers TASK-L-OBTAIN-PREPARATION-SUPPORT in the learner path, preserves target purpose/related-target context, exposes multi-driver focus rationale and separates target refinement from learner-state progress."
 
   - capability: prep.interface-topology
-    revision: 6
-    basis: "Topology maps the new corpus-preparation decision to the existing Targets view and routes bulk versus incremental/mixed preparation without introducing a redundant Curation home screen."
+    revision: 7
+    basis: "Topology keeps missing-preparation support in the existing Targets view, removes direct learner routing to import/editor machinery, and preserves explicit self-curation as the only Target Work -> Curation bootstrap transition."
 
   - capability: prep.presentation-system
     revision: 11
     basis: "Presentation System now treats 3D as the preferred current prototype candidate rather than an evidence-free production default; production renderer preference is gated on representative-user and accessibility validation."
 
   - capability: prep.screen-view-design
-    revision: 8
-    basis: "Screen/View Design expands the Targets entry state to cover empty/partial corpus preparation-path choice while preserving target/source context and avoiding an unusable direct-to-target-editor assumption."
+    revision: 9
+    basis: "Screen/View Design updates Targets, Overview, Gaps, Progress and target editing for purpose-explicit related targets and learner-facing preparation support, without adding a redundant new screen or exposing import choices by default."
 
   - capability: prep.import-consistency
     revision: 3
