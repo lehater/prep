@@ -65,19 +65,19 @@ artifacts:
     authority: APPLICATION-DESIGN
     path: docs/application/task-model.yaml
     provides: [prep.task-model]
-    depends_on: [APPLICATION-DESIGN, PRODUCT-CAPABILITIES]
+    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
+
+  - id: APPLICATION-DESIGN
+    authority: APPLICATION-DESIGN
+    path: docs/application/application-design.md
+    provides: [prep.application-design]
+    depends_on: [TASK-MODEL, PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
   - id: USER-JOURNEYS
     authority: APPLICATION-DESIGN
     path: docs/application/user-journeys.md
     provides: [prep.user-journeys]
     depends_on: [APPLICATION-DESIGN, TASK-MODEL]
-
-  - id: APPLICATION-DESIGN
-    authority: APPLICATION-DESIGN
-    path: docs/application/application-design.md
-    provides: [prep.application-design]
-    depends_on: [PRODUCT-CAPABILITIES, KNOWLEDGE-MODEL, LEARNING-DESIGN, LEARNER-MODEL]
 
   - id: CONCEPTUAL-INTERFACE-MODEL
     authority: HUMAN-INTERFACE-DESIGN
