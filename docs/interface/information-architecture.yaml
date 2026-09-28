@@ -1,47 +1,143 @@
-version: 1
+version: 2
 kind: information-architecture-design
 id: PREP-INFORMATION-ARCHITECTURE
 
 locations:
-  - {id: APP-SHELL, purpose: Preserve explicit Learning/Curation mode switching and global runtime status., concept_refs: [LEARNING, CURATION, EXTERNAL-RUNTIME], scope: global}
-  - {id: TARGET-WORKSPACE, purpose: Preserve the selected LearningTarget while moving between learner tasks., concept_refs: [LEARNING, LEARNING-TARGET], scope: target}
-  - {id: CURATION-WORKSPACE, purpose: Preserve authoring context while moving between reusable learning-system areas., concept_refs: [CURATION], scope: global}
-  - {id: LEARNING-TARGETS, purpose: Find and choose a prepared target., concept_refs: [LEARNING, LEARNING-TARGET], scope: global}
-  - {id: TARGET-OVERVIEW, purpose: Understand the active target requirements, support diagnostics and factual evidence context., concept_refs: [LEARNING-TARGET, TARGET-REQUIREMENTS, PREPARATION-DIAGNOSTIC, LEARNING-EVIDENCE], scope: target}
-  - {id: TARGET-KNOWLEDGE, purpose: Find and explore target-relevant reusable Knowledge and relational propositions., concept_refs: [KNOWLEDGE, RELATIONAL-KNOWLEDGE], scope: target}
-  - {id: TARGET-STUDY, purpose: Inspect the current Study Set, its diagnostics and delegated-study readiness., concept_refs: [STUDY-MATERIAL, STUDY-SET, PREPARATION-DIAGNOSTIC, EXTERNAL-RUNTIME], scope: target}
-  - {id: TARGET-STATISTICS, purpose: Inspect factual learning evidence and history without broad learner-state inference., concept_refs: [LEARNING-EVIDENCE, STUDY-MATERIAL], scope: target}
-  - {id: CURATION-TARGETS, purpose: Maintain prepared LearningTargets and their RequirementExpressions., concept_refs: [CURATION, LEARNING-TARGET, TARGET-REQUIREMENTS], scope: global}
-  - {id: CURATION-KNOWLEDGE, purpose: Maintain reusable KnowledgeObject/KnowledgeProposition semantics., concept_refs: [CURATION, KNOWLEDGE, RELATIONAL-KNOWLEDGE], scope: global}
-  - {id: CURATION-CAPABILITIES, purpose: Maintain reusable Capability definitions used by target requirements., concept_refs: [CURATION, CAPABILITY, KNOWLEDGE], scope: global}
-  - {id: CURATION-STUDY-MATERIAL, purpose: Maintain material used by supported study profiles, including the current Question-compatible profile., concept_refs: [CURATION, STUDY-MATERIAL, KNOWLEDGE], scope: global}
-  - {id: CURATION-IMPORT, purpose: Import supported prepared data in its curation context., concept_refs: [CURATION], scope: contextual}
-  - {id: RUNTIME-STATUS, purpose: Inspect external-runtime reachability and compatibility., concept_refs: [EXTERNAL-RUNTIME], scope: secondary}
+  - id: APP-SHELL
+    purpose: Preserve global target-work/curation switching, active target context and integration status.
+    concept_refs: [TARGET-WORK, CURATION, TARGET, EXTERNAL-RUNTIME]
+    scope: global
+
+  - id: TARGETS
+    purpose: Find an existing target or begin preparing a new one.
+    concept_refs: [TARGET, TARGET-REQUIREMENTS]
+    scope: global
+
+  - id: TARGET-WORKSPACE
+    purpose: Preserve the active target while moving through assessment, gaps, focus, learning and progress.
+    concept_refs: [TARGET, TARGET-REQUIREMENTS, CURRENT-STATE, GAP, LEARNING-FOCUS, PROGRESS]
+    scope: target
+
+  - id: TARGET-OVERVIEW
+    purpose: Understand target context and required capabilities.
+    concept_refs: [TARGET, TARGET-REQUIREMENTS, CAPABILITY]
+    scope: target
+
+  - id: TARGET-STATE
+    purpose: Understand evidence-backed current state and uncertainty relative to target requirements.
+    concept_refs: [CURRENT-STATE, EVIDENCE, TARGET-REQUIREMENTS]
+    scope: target
+
+  - id: TARGET-GAPS
+    purpose: Inspect satisfied, unresolved and challenged requirement fragments and choose what deserves attention next.
+    concept_refs: [GAP, CURRENT-STATE, LEARNING-FOCUS]
+    scope: target
+
+  - id: TARGET-LEARNING
+    purpose: Work on the current learning focus using available learning/practice support.
+    concept_refs: [LEARNING-FOCUS, LEARNING-SUPPORT, KNOWLEDGE, EXTERNAL-RUNTIME]
+    scope: target
+
+  - id: TARGET-DIAGNOSTICS
+    purpose: Reduce material uncertainty or collect capability evidence through supported diagnostic activity.
+    concept_refs: [LEARNING-FOCUS, DIAGNOSTIC-ACTIVITY, EVIDENCE]
+    scope: target
+
+  - id: TARGET-KNOWLEDGE
+    purpose: Explore target- or focus-relevant subject knowledge and semantic relationships.
+    concept_refs: [KNOWLEDGE, CAPABILITY, LEARNING-FOCUS]
+    scope: target
+
+  - id: TARGET-PROGRESS
+    purpose: Inspect how evidence changed target-relative state, gaps and focus decisions over time.
+    concept_refs: [PROGRESS, CURRENT-STATE, GAP, EVIDENCE]
+    scope: target
+
+  - id: CURATION-WORKSPACE
+    purpose: Preserve corpus-authoring context across reusable data areas.
+    concept_refs: [CURATION, CORPUS]
+    scope: global
+
+  - id: CURATION-TARGETS
+    purpose: Maintain targets and their capability requirement expressions.
+    concept_refs: [TARGET, TARGET-REQUIREMENTS, CAPABILITY]
+    scope: global
+
+  - id: CURATION-CAPABILITIES
+    purpose: Maintain reusable capability semantics used by target and assessment design.
+    concept_refs: [CAPABILITY, KNOWLEDGE]
+    scope: global
+
+  - id: CURATION-KNOWLEDGE
+    purpose: Maintain reusable Knowledge and semantic relationships.
+    concept_refs: [KNOWLEDGE]
+    scope: global
+
+  - id: CURATION-LEARNING-SUPPORT
+    purpose: Maintain learning material and practice/task support for capabilities.
+    concept_refs: [LEARNING-SUPPORT, CAPABILITY, KNOWLEDGE]
+    scope: global
+
+  - id: CURATION-ASSESSMENT
+    purpose: Maintain diagnostic/assessment and evidence-design semantics.
+    concept_refs: [DIAGNOSTIC-ACTIVITY, EVIDENCE, CAPABILITY]
+    scope: global
+
+  - id: CURATION-IMPORT
+    purpose: Obtain import contract/examples, validate prepared bulk data and apply accepted records.
+    concept_refs: [IMPORT-CONTRACT, IMPORT-RESULT, CORPUS]
+    scope: global
+
+  - id: CURATION-QUALITY
+    purpose: Inspect known corpus preparation/quality diagnostics and route correction work.
+    concept_refs: [CORPUS]
+    scope: global
+
+  - id: RUNTIME-STATUS
+    purpose: Inspect external runtime reachability/compatibility.
+    concept_refs: [EXTERNAL-RUNTIME]
+    scope: secondary
 
 relationships:
-  - {source: APP-SHELL, target: LEARNING-TARGETS, relation: mode-entry}
-  - {source: APP-SHELL, target: CURATION-WORKSPACE, relation: mode-entry}
-  - {source: LEARNING-TARGETS, target: TARGET-WORKSPACE, relation: select-target}
+  - {source: APP-SHELL, target: TARGETS, relation: target-work-entry}
+  - {source: APP-SHELL, target: CURATION-WORKSPACE, relation: curation-entry}
+  - {source: TARGETS, target: TARGET-WORKSPACE, relation: activate-target}
+
   - {source: TARGET-WORKSPACE, target: TARGET-OVERVIEW, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-STATE, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-GAPS, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-LEARNING, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-DIAGNOSTICS, relation: contains}
   - {source: TARGET-WORKSPACE, target: TARGET-KNOWLEDGE, relation: contains}
-  - {source: TARGET-WORKSPACE, target: TARGET-STUDY, relation: contains}
-  - {source: TARGET-WORKSPACE, target: TARGET-STATISTICS, relation: contains}
+  - {source: TARGET-WORKSPACE, target: TARGET-PROGRESS, relation: contains}
+
+  - {source: TARGET-OVERVIEW, target: TARGET-STATE, relation: assess-against}
+  - {source: TARGET-STATE, target: TARGET-GAPS, relation: derive-gaps}
+  - {source: TARGET-GAPS, target: TARGET-LEARNING, relation: choose-learning-focus}
+  - {source: TARGET-GAPS, target: TARGET-DIAGNOSTICS, relation: choose-diagnostic-focus}
+  - {source: TARGET-LEARNING, target: TARGET-KNOWLEDGE, relation: inspect-supporting-knowledge}
+  - {source: TARGET-DIAGNOSTICS, target: TARGET-PROGRESS, relation: evidence-updates-state}
+  - {source: TARGET-LEARNING, target: TARGET-PROGRESS, relation: subsequent-evidence-updates-state}
+  - {source: TARGET-PROGRESS, target: TARGET-GAPS, relation: revise-focus}
+
   - {source: CURATION-WORKSPACE, target: CURATION-TARGETS, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-KNOWLEDGE, relation: contains}
   - {source: CURATION-WORKSPACE, target: CURATION-CAPABILITIES, relation: contains}
-  - {source: CURATION-WORKSPACE, target: CURATION-STUDY-MATERIAL, relation: contains}
-  - {source: LEARNING-TARGETS, target: TARGET-OVERVIEW, relation: enter-target}
-  - {source: TARGET-OVERVIEW, target: TARGET-KNOWLEDGE, relation: target-section}
-  - {source: TARGET-OVERVIEW, target: TARGET-STUDY, relation: target-section}
-  - {source: TARGET-OVERVIEW, target: TARGET-STATISTICS, relation: target-section}
-  - {source: CURATION-TARGETS, target: CURATION-CAPABILITIES, relation: composes-from}
-  - {source: CURATION-CAPABILITIES, target: CURATION-KNOWLEDGE, relation: focuses-on}
-  - {source: CURATION-STUDY-MATERIAL, target: CURATION-KNOWLEDGE, relation: maps-to-when-applicable}
+  - {source: CURATION-WORKSPACE, target: CURATION-KNOWLEDGE, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-LEARNING-SUPPORT, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-ASSESSMENT, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-IMPORT, relation: contains}
+  - {source: CURATION-WORKSPACE, target: CURATION-QUALITY, relation: contains}
+
+  - {source: TARGETS, target: CURATION-TARGETS, relation: prepare-missing-target}
+  - {source: TARGET-GAPS, target: CURATION-LEARNING-SUPPORT, relation: repair-missing-support}
+  - {source: TARGET-STATE, target: CURATION-ASSESSMENT, relation: repair-missing-diagnostic-support}
 
 findability_assumptions:
-  - Target selection requires search/browse over prepared LearningTargets.
-  - Knowledge exploration requires search and semantic filtering independently of spatial presentation.
-  - Curation collections must expose stable identity and validation/diagnostic state without mirroring backend storage structure.
-  - Question-compatible terminology may appear inside the current study-material workflow but must not replace the broader STUDY-MATERIAL concept globally.
+  - Target selection/search is the primary entry for target work.
+  - Target-relative state, gaps and next focus must be findable without requiring graph navigation.
+  - Knowledge exploration must support search/list/detail independently of spatial representation.
+  - Graph projections may visualize Knowledge, requirements/capabilities or learner-state overlays only when they preserve the underlying semantic concepts and task context.
+  - Curation is organized by user-maintained semantic responsibility rather than backend resource layout.
+  - Bulk import is discoverable as the efficient path for mass corpus preparation; incremental curation remains available for correction and small changes.
 
 unresolved_questions: []
