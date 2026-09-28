@@ -24,6 +24,28 @@ export const mockTargets: readonly LearningTargetModel[] = [
       "Prepare for a Python backend role where reliable card-payment processing, distributed-system behavior and operational reasoning matter.",
     scopeSummary:
       "Python backend fundamentals plus payment processing, retry/idempotency safety and reconciliation capability.",
+    capabilities: [
+      {
+        id: "cap-python-backend",
+        title: "Python backend engineering",
+        summary: "Design, implement and explain production Python backend services.",
+      },
+      {
+        id: "cap-card-processing",
+        title: "Card-payment processing",
+        summary: "Explain responsibilities and message flow across the card-payment processing chain.",
+      },
+      {
+        id: "cap-payment-reliability",
+        title: "Reliable payment commands",
+        summary: "Design payment commands that remain safe under retries and duplicate delivery.",
+      },
+      {
+        id: "cap-reconciliation",
+        title: "Payment reconciliation",
+        summary: "Detect and resolve mismatches between internal and external payment records.",
+      },
+    ],
     scopeItems: [
       {
         id: "python-fintech-profile",
