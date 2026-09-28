@@ -162,6 +162,31 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
 });
 
 
+test("reduced-motion preference disables automatic graph motion without removing semantic access", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/learning/python-backend-fintech/knowledge");
+
+  await page.getByRole("button", { name: "Graph settings" }).click();
+  await expect(page.getByText(/Reduced motion is active/)).toBeVisible();
+
+  const particles = page.getByRole("checkbox", { name: "Частицы" });
+  await expect(particles).not.toBeChecked();
+  await expect(particles).toBeDisabled();
+
+  const physics = page.getByRole("combobox", { name: "Graph live physics" });
+  await expect(physics).toHaveValue("off");
+  await expect(physics).toBeDisabled();
+
+  await expect(
+    page.getByRole("application", { name: "Interactive 3D Knowledge graph" }),
+  ).toHaveAttribute("data-reduced-motion", "true");
+
+  await page.getByRole("button", { name: "Browse" }).click();
+  await expect(page.getByRole("region", { name: "Knowledge list" })).toBeVisible();
+});
+
 test("Auto graph remains interactive beyond the former settle-pause threshold", async ({ page }) => {
   await page.goto(targetKnowledgePath);
 
