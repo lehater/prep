@@ -42,9 +42,6 @@ export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewPro
   const [state, setState] = useState<TargetStateModel | null>(null);
   const [problem, setProblem] = useState<string>();
   const [reload, setReload] = useState(0);
-  const [activePracticeId, setActivePracticeId] = useState<string>();
-  const [practiceResponse, setPracticeResponse] = useState("");
-  const [completedPracticeId, setCompletedPracticeId] = useState<string>();
 
   useEffect(() => {
     let active = true;
@@ -210,6 +207,9 @@ export function LearningFocusView({ targetId, targetWorkPort }: TargetWorkViewPr
   const [support, setSupport] = useState<readonly LearningSupportModel[] | null>(null);
   const [problem, setProblem] = useState<string>();
   const [reload, setReload] = useState(0);
+  const [activePracticeId, setActivePracticeId] = useState<string>();
+  const [practiceResponse, setPracticeResponse] = useState("");
+  const [completedPracticeId, setCompletedPracticeId] = useState<string>();
 
   useEffect(() => {
     let active = true;
