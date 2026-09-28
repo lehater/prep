@@ -81,9 +81,16 @@ When implementation selects a concrete provider/theme mechanism:
 
 Exact palette, font family, spacing values and provider token syntax remain downstream until accepted Presentation System/Implementation Design selects them.
 
+### Mock-first substitutability
+
+- Frontend features must be executable against deterministic mock adapters before backend transport exists.
+- Mock and future transport adapters implement the same consumer-owned semantic ports.
+- Feature behavior, view models and tests must not branch on adapter kind.
+- Mock fixture shapes cannot become product/domain contracts merely because they are convenient.
+
 ### Representation boundaries
 
-- Transport DTOs terminate at transport adapters.
+- Transport DTOs terminate at transport adapters; mock adapters implement the same consumer-owned ports without becoming a second semantic contract.
 - Renderer/library objects terminate at renderer adapters.
 - Frontend semantic/read models preserve canonical Prep identity and accepted distinctions without becoming a duplicate domain model.
 - Mapping code is explicit at representation boundaries rather than distributed implicitly across views.
@@ -92,7 +99,7 @@ Exact palette, font family, spacing values and provider token syntax remain down
 
 - No global mutable store by default.
 - State is promoted to a wider owner only when its lifecycle is shared by multiple architectural consumers.
-- Canonical business truth remains backend/domain owned.
+- Canonical domain/application truth remains outside frontend presentation state and is consumed through accepted ports; the current mock realization is not canonical truth.
 - Renderer geometry/camera/physics state remains presentation state.
 
 ### Error handling discipline
@@ -109,8 +116,8 @@ The accepted graph quality contract is normative for production realization.
 
 - visible graph work is bounded; the frontend must not require rendering the full canonical corpus merely because the backend can store it;
 - Auto / Quality / Performance are presentation profiles, not domain/application state;
-- user-visible degradation may reduce labels, arrowheads, decorative particles, pixel ratio, node detail or live-physics work only while canonical identity, relation type/direction, current scope, selection/focus and readable list/search/detail access remain intact;
-- relation direction may not become unknowable merely because arrowheads are disabled;
+- user-visible degradation may reduce labels, arrowheads, decorative particles, pixel ratio, node detail or live-physics work only while canonical Knowledge identity, KnowledgeProposition predicate/direction, current semantic scope, selection/focus and readable list/search/detail access remain intact;
+- relational proposition direction/predicate may not become unknowable merely because arrowheads or another visual encoding are disabled;
 - renderer optimization mechanics such as instancing, batching, buffer layout and shader/object choices stay inside the renderer adapter;
 - the renderer must become demand-driven when idle rather than consuming continuous RAF/CPU solely to preserve a static scene;
 - performance evidence must use representative hardware-accelerated 1k/2k/5k stress workloads; headless tests may verify semantics/configuration but must not claim GPU/frame-rate performance;
