@@ -18,7 +18,10 @@ import type {
   KnowledgeDraft,
   KnowledgeRelationDraft,
 } from "../../features/curation/model/curationModels";
-import type { LearningSupportCurationModel } from "../../features/curation/model/userCenteredCurationModels";
+import type {
+  AssessmentCurationModel,
+  LearningSupportCurationModel,
+} from "../../features/curation/model/userCenteredCurationModels";
 import type {
   CurationImportPort,
   KnowledgeCurationPort,
@@ -987,7 +990,7 @@ export class MockImportAdapter implements CurationImportPort {
       else this.store.learningSupport.push(value);
       outcome = { status: "success", value };
     } else if (kind === "assessment_design") {
-      const value = {
+      const value: AssessmentCurationModel = {
         id: updateId || this.store.nextId("assessment"),
         title: text(item.title),
         capabilityIds: Array.isArray(item.capability_ids)
