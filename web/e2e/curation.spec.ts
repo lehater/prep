@@ -59,9 +59,9 @@ test("capability editor exposes performance conditions criteria and Knowledge fo
   await page.getByRole("button", { name: "Reliable payment commands" }).click();
   const editor = page.getByRole("region", { name: "Capability editor" });
 
-  await expect(editor.getByRole("textbox", { name: "Performance expectation" })).toContainText(
-    "payment commands",
-  );
+  await expect(
+    editor.getByRole("textbox", { name: "Performance expectation" }),
+  ).toHaveValue(/payment commands/i);
   await expect(editor.getByRole("textbox", { name: "Condition scope" })).not.toHaveValue("");
   await expect(editor.getByRole("textbox", { name: "Criteria / standard" })).not.toHaveValue("");
 });
