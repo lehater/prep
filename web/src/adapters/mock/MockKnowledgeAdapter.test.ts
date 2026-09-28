@@ -39,6 +39,31 @@ describe("MockKnowledgeAdapter", () => {
     }
   });
 
+  test("narrows target Knowledge to the current learning focus", async () => {
+    const adapter = new MockKnowledgeAdapter();
+
+    const outcome = await adapter.graph({
+      kind: "target",
+      targetId: PREPARED_TARGET_ID,
+      focusId: "focus-cap-payment-reliability",
+    });
+
+    expect(outcome.status).toBe("success");
+    if (outcome.status === "success") {
+      expect(outcome.value.nodes).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ id: "demo-payment-idempotency-key" }),
+          expect.objectContaining({ id: "demo-payment-retry-policy" }),
+        ]),
+      );
+      expect(
+        outcome.value.nodes.some(
+          (node) => node.id === "demo-payment-card-processing",
+        ),
+      ).toBe(false);
+    }
+  });
+
   test("keeps the existing payment corpus and adds two real Knowledge Graph groups in global scope", async () => {
     const adapter = new MockKnowledgeAdapter();
 
