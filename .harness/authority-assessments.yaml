@@ -95,9 +95,9 @@ assessments:
   - authority_id: QUALITY-DESIGN
     applicability: REQUIRED
     evidence: [docs/architecture/performance-capacity.md]
-    rationale: The interactive Knowledge graph has architecture-significant measurable scale, frame-rate, idle-resource and graceful-degradation constraints that are independently consumed by interface, architecture, component and verification work.
+    rationale: Interactive Knowledge exploration has architecture-significant measurable workload, responsiveness, idle-resource and graceful-degradation constraints; spatial graph counts are conditional presentation workload measures rather than product or domain semantics.
     depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/architecture/performance-capacity.md]
-    reopening_conditions: [visible graph scale, responsiveness targets, degradation semantics or renderer workload assumptions change materially]
+    reopening_conditions: [active-workload scale, responsiveness targets, degradation semantics or measured presentation-workload assumptions change materially]
 
   - authority_id: SECURITY-ANALYSIS
     applicability: NOT_APPLICABLE
