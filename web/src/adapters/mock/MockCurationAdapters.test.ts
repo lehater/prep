@@ -20,6 +20,20 @@ import {
 } from "./MockUserCenteredCurationAdapters";
 
 describe("Curation mock adapters", () => {
+  test("empty-corpus seed starts without reusable target or corpus data", () => {
+    const store = createMockCurationStore("empty");
+
+    expect(store.targets).toEqual([]);
+    expect(store.capabilities).toEqual([]);
+    expect(store.knowledgeNodes).toEqual([]);
+    expect(store.knowledgeRelations).toEqual([]);
+    expect(store.learningSupport).toEqual([]);
+    expect(store.assessmentDesigns).toEqual([]);
+    expect(store.questions).toEqual([]);
+    expect(store.requirements).toEqual([]);
+    expect([...store.targetCapabilityIds.entries()]).toEqual([]);
+  });
+
   test("modern target capabilities drive target-scoped Knowledge and learner state", async () => {
     const store = createMockCurationStore();
     const targets = new MockTargetProfileCurationAdapter(store);
