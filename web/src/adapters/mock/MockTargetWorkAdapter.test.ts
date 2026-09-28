@@ -26,9 +26,10 @@ describe("MockTargetWorkAdapter", () => {
     if (accepted.status !== "success") return;
 
     expect(accepted.value.observation.provenance).toBe("Prep mock diagnostic");
-    expect(accepted.value.derivedClaim.capabilityId).toBe(
+    expect(accepted.value.evidenceArgument.capabilityId).toBe(
       "cap-payment-reliability",
     );
+    expect(accepted.value.evidenceArgument.bearing).toBe("supports");
     expect(
       accepted.value.state.items.find(
         (item) => item.requirementId === "cap-payment-reliability",
@@ -64,7 +65,9 @@ describe("MockTargetWorkAdapter", () => {
         (item) => item.requirementId === "cap-python-backend",
       )?.state,
     ).toBe("challenged");
-    expect(accepted.value.derivedClaim.summary).toMatch(/challenge/i);
+    expect(accepted.value.evidenceArgument.bearing).toBe("challenges");
+    expect(accepted.value.evidenceArgument.summary).toMatch(/challenge/i);
+    expect(accepted.value.claimProjection.summary).toMatch(/prevents.*satisfaction/i);
 
     const progress = await adapter.getProgress(PREPARED_TARGET_ID);
     expect(progress.status).toBe("success");
