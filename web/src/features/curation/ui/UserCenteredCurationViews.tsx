@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import type { FormEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../../ui/patterns/ViewState";
@@ -15,6 +15,7 @@ import type { KnowledgeQueryPort } from "../../knowledge-explorer/ports/Knowledg
 import type {
   AssessmentCurationModel,
   CapabilityCurationModel,
+  CorpusDiagnosticModel,
   LearningSupportCurationModel,
   LearningSupportKind,
   TargetProfileModel,
@@ -27,7 +28,7 @@ import type {
   TargetProfileCurationPort,
 } from "../ports/UserCenteredCurationPorts";
 
-function selectedValues(event: React.ChangeEvent<HTMLSelectElement>): string[] {
+function selectedValues(event: ChangeEvent<HTMLSelectElement>): string[] {
   return Array.from(event.target.selectedOptions, (option) => option.value);
 }
 
@@ -468,7 +469,7 @@ export function AssessmentCurationViewV2({
 export function CorpusQualityView({ qualityPort }: { readonly qualityPort: CorpusQualityPort }) {
   const [state, setState] = useState<
     | { readonly status: "loading" }
-    | { readonly status: "ready"; readonly items: readonly Awaited<ReturnType<CorpusQualityPort["get"]>> extends { value: infer V } ? V extends readonly unknown[] ? V : never : never }
+    | { readonly status: "ready"; readonly items: readonly CorpusDiagnosticModel[] }
     | { readonly status: "problem"; readonly message: string }
   >({ status: "loading" });
 
