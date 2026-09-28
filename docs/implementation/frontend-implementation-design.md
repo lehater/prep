@@ -217,7 +217,7 @@ select target
 
 with no backend.
 
-## Completion criteria
+## Prototype completion criteria
 
 1. Current Task Model is traceable to implemented target-work and curation surfaces.
 2. Active target/focus survive navigation.
@@ -229,3 +229,21 @@ with no backend.
 8. Frontend boundary/type/build tests pass.
 9. Old Study/Statistics-centered IA is absent from primary navigation.
 10. Any newly discovered semantic gap is routed upstream rather than decided in code.
+11. Completely empty-corpus bootstrap is demonstrable end to end.
+12. Learning practice can be performed without activity completion fabricating evidence.
+13. Reduced-motion and non-spatial Knowledge paths remain task-complete.
+
+Meeting these criteria means **READY FOR USABILITY VALIDATION**, not ready for production UI implementation.
+
+## Production implementation gate
+
+Production implementation may treat the accepted UX/presentation package as authority only after:
+
+- representative-user evidence has been collected for the target mental model and empty-system bootstrap;
+- BLOCKING/MAJOR findings have been routed to their owning artifacts and material fixes retested;
+- the 3D-vs-non-spatial production-default decision has human evidence rather than only feasibility/owner preference;
+- critical learner vocabulary/state labels have been validated or revised;
+- accessibility evidence required by Presentation Verification has been collected for supported core flows;
+- unresolved/deferred UX decisions are explicitly separated from accepted handoff decisions.
+
+Until then, `web/` is a coded interactive prototype and implementation evidence source, not the authority from which upstream UX semantics are reconstructed.
