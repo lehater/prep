@@ -117,8 +117,8 @@ reviews:
     basis: "Engineering policy now makes the CI split explicit and bounded: fast checks are independently runnable with time limits, while heavy browser/performance/container/full-Harness evidence is manual-only at final large-branch checkpoints."
 
   - capability: prep.frontend-component-design
-    revision: 6
-    basis: "Component Design now makes diagnostic activity completion distinct from evidence acceptance and requires Observation/provenance to remain separate from derived learner-claim projections before target-state reassessment."
+    revision: 7
+    basis: "Component Design now distinguishes diagnostic activity from evidence acceptance, preserves Observation/provenance separately from evidence arguments and claim projections, and carries explicit supports/challenges evidential bearing without treating challenges as negative claims."
 
   - capability: prep.frontend-verification
     revision: 7
