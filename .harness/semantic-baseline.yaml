@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 14
-    basis: "Recruitment now has concrete current candidate pools plus a permission-first community-outreach rule, prohibition on scraping/mass-DM recruitment, and per-session recruitment-source provenance so channel-driven sample bias can be preserved during synthesis."
+    revision: 15
+    basis: "Community recruitment constraints are now channel-specific where current evidence exists: Python Discord requires approval for advertising/recruitment via staff/ModMail, while visible current research posts in developersIndia indicate possible fit but do not override current rules or moderator guidance."
 
   - capability: prep.product-intent
     revision: 4
