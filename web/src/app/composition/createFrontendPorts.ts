@@ -12,6 +12,7 @@ import type { LearningStatisticsPort } from "../../features/learning/ports/Learn
 import type { QuestionQueryPort } from "../../features/learning/ports/QuestionQueryPort";
 import type { StudyPort } from "../../features/learning/ports/StudyPort";
 import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryPort";
+import type { TargetWorkPort } from "../../features/learning/ports/TargetWorkPort";
 import { Rfg3dGraphRenderer } from "../../adapters/graph-rfg3d/Rfg3dGraphRenderer";
 import {
   HttpCurationKnowledgeAdapter,
@@ -29,6 +30,7 @@ import {
 } from "../../adapters/http/HttpLearningAdapters";
 import { HttpOperationClient } from "../../adapters/http/HttpOperationClient";
 import { HttpRuntimeStatusAdapter } from "../../adapters/http/HttpRuntimeStatusAdapter";
+import { PendingHttpTargetWorkAdapter } from "../../adapters/http/PendingTargetWorkAdapter";
 import {
   MockCurationKnowledgeAdapter,
   MockCurationQuestionAdapter,
@@ -43,10 +45,12 @@ import { MockQuestionAdapter } from "../../adapters/mock/MockQuestionAdapter";
 import { MockRuntimeStatusAdapter } from "../../adapters/mock/MockRuntimeStatusAdapter";
 import { MockStudyAdapter } from "../../adapters/mock/MockStudyAdapter";
 import { MockTargetAdapter } from "../../adapters/mock/MockTargetAdapter";
+import { MockTargetWorkAdapter } from "../../adapters/mock/MockTargetWorkAdapter";
 import type { DataProvider } from "../config/appConfig";
 
 export interface FrontendPorts {
   readonly targetQueryPort: TargetQueryPort;
+  readonly targetWorkPort: TargetWorkPort;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
   readonly questionQueryPort: QuestionQueryPort;
   readonly studyPort: StudyPort;
@@ -68,6 +72,7 @@ export function createFrontendPorts(config: {
     const client = new HttpOperationClient(config.apiBaseUrl);
     return {
       targetQueryPort: new HttpTargetAdapter(client),
+      targetWorkPort: new PendingHttpTargetWorkAdapter(),
       knowledgeQueryPort: new HttpKnowledgeAdapter(client),
       questionQueryPort: new HttpQuestionAdapter(client),
       studyPort: new HttpStudyAdapter(client),
@@ -90,6 +95,7 @@ export function createFrontendPorts(config: {
 
   return {
     targetQueryPort: new MockTargetAdapter("success", store),
+    targetWorkPort: new MockTargetWorkAdapter(),
     knowledgeQueryPort: new MockKnowledgeAdapter("success", store),
     questionQueryPort: new MockQuestionAdapter("success", store),
     studyPort: new MockStudyAdapter("success", "success", store),
