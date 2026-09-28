@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 11
-    basis: "Round B is now UI-independent and executable: stimulus alternatives were compared, task/concept cards plus a sequential scenario were selected, a current composite Python/payments role brief was grounded in public vacancies, and each scenario stage has explicit falsification criteria for UMC-01..UMC-05."
+    revision: 12
+    basis: "Discovery now includes a canonical session-record template, cross-session claim synthesis worksheet and explicit downstream reopening rules, enabling representative evidence to trace from USR/F findings through OBS/CH/UMC into Product, Task Model and User Journeys without creating a parallel research-document system."
 
   - capability: prep.product-intent
     revision: 4

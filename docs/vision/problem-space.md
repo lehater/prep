@@ -548,6 +548,129 @@ Round B does not ask whether participants "like" the model. A claim is synthesiz
 
 A repeated finding that invalidates a claim changes the Task Model before any screen/interface work resumes.
 
+### Session record template
+
+Store research findings in the canonical Discovery artifact during synthesis; raw recordings/transcripts may remain outside the repository when privacy or consent requires it. The durable record should contain only enough evidence to support/reopen canonical decisions.
+
+For each session:
+
+```text
+session_id: USR-A-01 | USR-B-01
+round: A | B
+participant_fit:
+  primary_context: <backend/python/etc>
+  recent_preparation: <yes/no + brief context>
+  prep_experience: <low/medium/high>
+  prep_tools: <participant-described>
+independence:
+  familiar_with_prep_model_before_session: yes | no
+  counts_as_representative_validation: yes | no
+
+target_context:
+  starting_target: <participant language>
+  target_granularity: role-family | level | vacancy | company | interview-loop | mixed | other
+  target_changed_during_recalled/scenario_process: yes | no
+  change_trigger: <if any>
+
+actual_or_constructed_sequence:
+  - <participant step/action in participant vocabulary>
+  - ...
+
+observations:
+  - id: F-<nn>
+    direct_evidence: <observed behavior or short attributed statement>
+    interpretation: <researcher interpretation, separate from evidence>
+    refs: [OBS-Pxx, CH-Pxx, UMC-xx]
+    outcome: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+    severity: BLOCKING | MAJOR | MINOR | NOTE
+    confidence: HIGH | MEDIUM | LOW
+    rationale: <why this mapping is justified>
+
+missing_or_extra_tasks:
+  missing_from_prep: [<participant tasks not represented>]
+  prep_tasks_not_needed_by_participant: [<candidate tasks>]
+
+vocabulary:
+  participant_terms:
+    - <their term> -> <what it meant>
+  prep_terms_that_required_explanation: [<if Round B>]
+
+claim_summary:
+  UMC-01: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+  UMC-02: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+  UMC-03: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+  UMC-04: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+  UMC-05: SUPPORT | SCOPE-LIMIT | CHALLENGE | NOT-EXERCISED
+
+researcher_notes:
+  strongest_disconfirming_evidence: <required even when session broadly supports model>
+  unresolved_questions: [...]
+  follow_up_needed: yes | no
+```
+
+Rules:
+
+- `direct_evidence` must not contain researcher conclusions disguised as observation.
+- A participant preference ("I would like that") is not evidence of an existing need or task.
+- `HIGH` confidence means the finding is grounded in demonstrated/reconstructed concrete behavior; it does not mean the finding generalizes to the population.
+- A contributor/product owner already familiar with Prep can be recorded for protocol testing but `counts_as_representative_validation: no`.
+- Preserve disconfirming evidence even when the overall session supports the model.
+
+### Cross-session synthesis worksheet
+
+Synthesize only after several independent sessions; do not update UMC status from a single participant.
+
+For each claim:
+
+```text
+claim: UMC-0x
+representative_sessions: [USR-...]
+supporting_findings: [USR-.../F-...]
+challenging_findings: [USR-.../F-...]
+scope_limit_findings: [USR-.../F-...]
+not_exercised_sessions: [USR-...]
+
+recurring_user_language:
+  - ...
+
+observed_user_sequence:
+  common:
+    - ...
+  legitimate_variants:
+    - ...
+  conflicts_with_current_task_model:
+    - ...
+
+decision: RETAIN | NARROW | CHANGE | INVESTIGATE-MORE
+decision_basis: <evidence synthesis>
+affected_artifacts:
+  - PROBLEM-SPACE
+  - PRODUCT-VISION
+  - PRODUCT-CAPABILITIES
+  - TASK-MODEL
+  - USER-JOURNEYS
+retest_required: yes | no
+retest_scope: <claim/scenario>
+```
+
+Decision discipline:
+
+- **RETAIN** only when multiple independent sessions support the claim and material challenges are explained by accepted scope/variation.
+- **NARROW** when the claim is useful only for a smaller actor/context than currently stated.
+- **CHANGE** when repeated evidence shows a materially different task, sequence, concept or responsibility.
+- **INVESTIGATE-MORE** when evidence conflicts, critical contexts are missing or findings are too weak to decide.
+- Never average contradictory qualitative findings into a score. Preserve the contexts that explain the disagreement.
+
+### Downstream reopening rule
+
+After synthesis:
+
+1. if evidence changes the **existence, actor or desired outcome of the problem**, revise PROBLEM-SPACE first and revalidate downstream;
+2. if the problem remains but product scope/outcome changes, revise PRODUCT-VISION / PRODUCT-CAPABILITIES;
+3. if user responsibility, ordering, decision points or recovery change, revise TASK-MODEL and USER-JOURNEYS;
+4. only after the five UMC claims satisfy the human-validation gate may Conceptual Interface / IA / Interaction work resume as accepted design rather than research hypothesis;
+5. existing interface/frontend artifacts remain downstream and potentially stale until that revalidation occurs.
+
 ### Initial discovery session protocol
 
 The first round is qualitative discovery/mental-model validation, not a statistical study. Recruitment should cover the participant hypotheses above and include variation in preparation experience, current seniority and accessibility needs where practicable.
