@@ -48,6 +48,9 @@ export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps
   const targetId = parts[0] === "learning" && parts.length >= 2 ? parts[1] : undefined;
   const activeCurationSection = inCuration ? parts[1] : undefined;
   const activeLearningSection = targetId ? parts[2] ?? "overview" : undefined;
+  const preservePreparationContext =
+    inCuration && new URLSearchParams(location.search).has("returnTo");
+  const curationSearch = preservePreparationContext ? location.search : "";
 
   return (
     <Box
@@ -108,7 +111,7 @@ export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps
                 <Button
                   key={section}
                   component={Link}
-                  to={`/curation/${section}`}
+                  to={`/curation/${section}${curationSearch}`}
                   variant={activeCurationSection === section ? "outlined" : "text"}
                   sx={{
                     justifyContent: "flex-start",
