@@ -2,19 +2,37 @@
 
 ## Purpose
 
-Verify that the frontend interaction/topology contract completely realizes the current Task Model and transport-neutral frontend machine boundary before implementation is treated as conforming.
+Verify that the frontend interaction/topology contract realizes the complete user-centered target workflow and the transport-neutral machine boundary before implementation is treated as conforming.
 
-Verification owns proof obligations only; missing product/domain/application/interface meaning routes to its owner.
+## IV-01 — USER task coverage
 
-## IV-01 — USER task interaction coverage
-
-**Verifies:** every current USER task has an Interaction Design context or explicit no-UI disposition.
+**Verifies:** every current USER task has an Interaction Design context or explicit disposition.
 
 **Method:** ANALYSIS.
 
-**Evidence:** deterministic Task Model -> Interaction Design coverage with zero unmapped USER tasks and zero unknown task references.
+**Evidence:** Task Model -> Interaction Design coverage with zero unmapped USER tasks and zero unknown task references.
 
-## IV-02 — Interaction information-location coverage
+## IV-02 — User-loop continuity
+
+**Verifies:** the complete learner loop is traversable without inventing hidden application behavior:
+
+`establish target -> understand target -> current state -> gaps -> choose focus -> learning/diagnostics -> evidence -> progress/reassessment`.
+
+**Method:** ANALYSIS + DEMONSTRATION.
+
+**Evidence:** task/journey/context/topology trace with preserved active target and focus across transitions.
+
+## IV-03 — Corpus bootstrap continuity
+
+**Verifies:** the corpus can start empty and the interface still exposes the preparation path:
+
+`import contract/examples -> validate -> apply -> incremental curation -> learner use`.
+
+**Method:** ANALYSIS.
+
+**Evidence:** task/journey/interaction/machine-operation trace for bulk import and each curation area.
+
+## IV-04 — Information-location coverage
 
 **Verifies:** every interaction context is placed through Interface Topology into accepted Information Architecture.
 
@@ -22,23 +40,23 @@ Verification owns proof obligations only; missing product/domain/application/int
 
 **Evidence:** interaction-context -> topology-view -> IA-location trace with all references resolved.
 
-## IV-03 — Interaction response/state sufficiency
+## IV-05 — State semantic integrity
 
-**Verifies:** each material context declares actions/inputs, visible responses, material states, recovery and accepted machine-operation bindings where application data/actions are required.
+**Verifies:** satisfied, unresolved, challenged, missing-support, unavailable-runtime and evidence/conflict states remain distinguishable and do not collapse into invented mastery/proficiency semantics.
 
 **Method:** INSPECTION.
 
-**Evidence:** review of `docs/interface/interaction-design.yaml` against current transport-neutral operation IDs/outcomes.
+**Evidence:** Interaction Design and Screen/View state review against Learning/Learner Model invariants.
 
-## IV-04 — Topology task/context closure
+## IV-06 — Machine binding completeness
 
-**Verifies:** every non-structural interaction context maps to at least one topology view, every USER task reaches a view, and structural shells remain explicit.
+**Verifies:** server-backed actions/read models used by Interaction Design bind to accepted operation IDs and accepted observable outcomes.
 
-**Method:** ANALYSIS.
+**Method:** TEST/INSPECTION.
 
-**Evidence:** Harness frontend topology closure with zero undisposed interaction contexts and zero uncovered USER tasks.
+**Evidence:** operation reference closure against `machine-interface.md`.
 
-## IV-05 — Topology reference integrity
+## IV-07 — Topology integrity
 
 **Verifies:** topology IDs are unique and all parent, exit, context and IA references resolve.
 
@@ -46,30 +64,34 @@ Verification owns proof obligations only; missing product/domain/application/int
 
 **Evidence:** deterministic pinned-Harness topology validation.
 
-## IV-06 — Screen/View subject coverage
+## IV-08 — Screen/View coverage
 
-**Verifies:** every topology view/frame has one corresponding stable Screen/View subject.
+**Verifies:** every topology view/frame has one stable Screen/View subject.
 
 **Method:** TEST.
 
-**Evidence:** pinned topology-to-screen-subject check comparing `interface-topology.yaml` with subject IDs in `screen-view-design.md`.
+**Evidence:** topology-to-screen-subject closure.
 
-## IV-07 — Recovery/outcome trace
+## IV-09 — Recovery/outcome trace
 
-**Verifies:** validation rejection, conflict/stale materialization, runtime unavailable/incompatible, partial external failure and recoverable operational failure have explicit visible recovery behavior where they affect USER tasks.
+**Verifies:** validation rejection, conflict, missing evidence/support, runtime unavailable/incompatible, partial external failure and recoverable operational failure retain user context and an explicit next action.
 
 **Method:** INSPECTION.
 
-**Evidence:** trace from current Machine Interface outcomes through Interaction Design contexts and Screen/View states.
+**Evidence:** machine outcome -> interaction state -> screen recovery trace.
+
+## IV-10 — Mode-boundary integrity
+
+**Verifies:** target-work views do not silently mutate reusable target/capability/knowledge/support/assessment semantics, and Curation transitions are explicit.
+
+**Method:** INSPECTION.
+
+**Evidence:** action/command ownership trace.
 
 ## Frontend-first boundary check
 
-The interface layer must remain implementable against mock adapters using the same semantic ports later used by a transport adapter. Verification therefore rejects any screen/interaction requirement that depends on an HTTP path, backend framework, database shape or persistence identifier.
+The interface must be implementable against mock adapters using the same semantic ports later used by transport adapters. Verification rejects dependencies on HTTP paths, backend frameworks, database shape or persistence identifiers.
 
 ## Current evidence
 
-Deterministic structural checks are executed by `tools/check_harness_integration.py` and full Harness revalidation. Rendered usability/accessibility evidence belongs to Presentation/Frontend Verification.
-
-## Out of scope
-
-Routes, CSS, framework/provider choice, backend transport and persistence are not verification truth here.
+Structural checks are expected from pinned Harness validation. Rendered usability/accessibility evidence belongs to Presentation/Frontend Verification.
