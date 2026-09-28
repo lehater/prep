@@ -1,0 +1,29 @@
+version: 1
+kind: harness-scenario
+id: prep-current-structural-baseline
+title: Current Prep remains structurally complete
+dimensions:
+  project_archetype: real-project
+  stage: design
+  behavior_class: structural
+  execution_type: real-project
+covers:
+  - prep-structural-baseline
+
+fixtures:
+  graph:
+    yaml: ../../../.harness/engineering-graph.yaml
+  core:
+    yaml: ../../../.harness/core.yaml
+
+steps:
+  - id: target
+    driver: engineering.target
+    with:
+      graph: {ref: fixture.graph}
+      target: FRONTEND-IMPLEMENTATION
+      model: {ref: fixture.core}
+    expect:
+      - {path: /status, op: equals, value: COMPLETE}
+    observe:
+      structural_status: /status

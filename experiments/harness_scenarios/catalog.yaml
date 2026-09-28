@@ -1,0 +1,42 @@
+version: 1
+kind: harness-scenario-coverage-catalog
+id: prep-harness-scenario-coverage-v1
+
+dimensions:
+  project_archetype: [real-project]
+  stage: [design, revalidation]
+  behavior_class: [structural, semantic]
+  execution_type: [real-project]
+
+required_scenario_dimensions:
+  - project_archetype
+  - stage
+  - behavior_class
+  - execution_type
+
+required_dimension_values:
+  stage: [design, revalidation]
+  behavior_class: [structural, semantic]
+  execution_type: [real-project]
+
+required_drivers:
+  - engineering.target
+  - prep.semantic_baseline
+  - prep.task_model_probe
+
+requirements:
+  - id: prep-structural-baseline
+    description: Current Prep consumer closure remains structurally reproducible.
+    min_scenarios: 1
+
+  - id: prep-real-semantic-blocker
+    description: Current provisional Discovery evidence is surfaced as a blocking semantic Question.
+    min_scenarios: 1
+
+  - id: prep-task-model-positive
+    description: Current Prep Task Model satisfies the reusable semantic completeness contract.
+    min_scenarios: 1
+
+  - id: prep-task-model-mutation
+    description: Removing one real task recovery semantic is detected and routed to Application Design.
+    min_scenarios: 1

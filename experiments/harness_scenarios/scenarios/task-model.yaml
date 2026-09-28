@@ -1,0 +1,52 @@
+version: 1
+kind: harness-scenario
+id: prep-task-model-completeness-and-mutation
+title: Real Task Model passes and a recovery mutation is detected
+dimensions:
+  project_archetype: real-project
+  stage: revalidation
+  behavior_class: semantic
+  execution_type: real-project
+covers:
+  - prep-task-model-positive
+  - prep-task-model-mutation
+
+fixtures:
+  graph:
+    yaml: ../../../.harness/engineering-graph.yaml
+  core:
+    yaml: ../../../.harness/core.yaml
+
+steps:
+  - id: current
+    driver: prep.task_model_probe
+    with:
+      graph: {ref: fixture.graph}
+      core: {ref: fixture.core}
+    expect:
+      - {path: /status, op: equals, value: ACCEPTED}
+      - {path: /task_count, op: equals, value: 19}
+      - {path: /questions, op: length, value: 0}
+    observe:
+      task_count: /task_count
+
+  - id: mutated
+    driver: prep.task_model_probe
+    with:
+      graph: {ref: fixture.graph}
+      core: {ref: fixture.core}
+      remove_recovery_from: TASK-L-ESTABLISH-TARGET
+    expect:
+      - {path: /status, op: equals, value: REJECTED}
+      - path: /findings
+        op: contains_match
+        value:
+          code: MISSING_SUBJECTS
+          obligation: recovery-per-task
+      - path: /questions
+        op: contains_match
+        value:
+          authority: APPLICATION-DESIGN
+          blocks_capabilities: [prep.task-model]
+    observe:
+      mutation_status: /status

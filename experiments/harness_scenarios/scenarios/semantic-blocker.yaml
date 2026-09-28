@@ -1,0 +1,41 @@
+version: 1
+kind: harness-scenario
+id: prep-current-semantic-blocker
+title: Current provisional user evidence becomes a Discovery Question
+dimensions:
+  project_archetype: real-project
+  stage: revalidation
+  behavior_class: semantic
+  execution_type: real-project
+covers:
+  - prep-real-semantic-blocker
+
+fixtures:
+  graph:
+    yaml: ../../../.harness/engineering-graph.yaml
+  core:
+    yaml: ../../../.harness/core.yaml
+
+steps:
+  - id: semantic
+    driver: prep.semantic_baseline
+    with:
+      graph: {ref: fixture.graph}
+      core: {ref: fixture.core}
+      target: FRONTEND-IMPLEMENTATION
+    expect:
+      - {path: /closure/status, op: equals, value: BLOCKED}
+      - path: /question_proposals
+        op: contains_match
+        value:
+          authority: DISCOVERY
+          blocks_capabilities: [prep.problem-evidence]
+      - path: /rejected
+        op: contains_match
+        value:
+          capability: prep.problem-evidence
+          status: REJECTED
+    observe:
+      closure_status: /closure/status
+      rejected_count: /rejected
+      current_count: /current_count
