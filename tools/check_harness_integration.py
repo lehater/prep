@@ -199,14 +199,37 @@ def main() -> int:
             semantic_evaluations=semantic_evaluations,
             lifecycle=lifecycle,
         )
-        if closure.get("status") != "COMPLETE":
-            raise SystemExit(
-                f"{target} strict semantic/currentness closure is "
-                f"{closure.get('status')}: "
-                f"semantic_gaps={closure.get('semantic_gaps')} "
-                f"currentness_gaps={closure.get('currentness_gaps')}"
+        if closure.get("status") == "COMPLETE":
+            print(f"{target} strict semantic/currentness: COMPLETE")
+            continue
+
+        if closure.get("status") == "BLOCKED":
+            semantic_gaps = closure.get("semantic_gaps", []) or []
+            currentness_gaps = closure.get("currentness_gaps", []) or []
+            frontier = closure.get("question_frontier", []) or []
+            non_question_gaps = [
+                item
+                for item in semantic_gaps
+                if item.get("code") != "SEMANTIC_QUESTION"
+            ]
+            if currentness_gaps or non_question_gaps or not frontier:
+                raise SystemExit(
+                    f"{target} semantic BLOCKED state is not a clean routed "
+                    f"Question frontier: semantic_gaps={semantic_gaps} "
+                    f"currentness_gaps={currentness_gaps} frontier={frontier}"
+                )
+            print(
+                f"{target} strict semantic/currentness: BLOCKED by routed "
+                f"Questions {[item.get('question') for item in frontier]}"
             )
-        print(f"{target} strict semantic/currentness: COMPLETE")
+            continue
+
+        raise SystemExit(
+            f"{target} strict semantic/currentness closure is "
+            f"{closure.get('status')}: "
+            f"semantic_gaps={closure.get('semantic_gaps')} "
+            f"currentness_gaps={closure.get('currentness_gaps')}"
+        )
     production = report_target(
         graph,
         core,
