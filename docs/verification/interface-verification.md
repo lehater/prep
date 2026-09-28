@@ -88,6 +88,20 @@ Verify that the frontend interaction/topology contract realizes the complete use
 
 **Evidence:** action/command ownership trace.
 
+## IV-11 — Shared interaction-contract closure
+
+**Verifies:** accepted shared rules for navigation/context retention, unsaved drafts, asynchronous operations, validation/conflict/stale data, focus restoration, keyboard/touch alternatives and destructive-action governance are not contradicted by task-specific contexts or Screen/View Design.
+
+**Method:** INSPECTION + DEMONSTRATION.
+
+**Evidence:** representative traces covering:
+- dirty Curation draft -> validation/conflict -> correction/retry without lost input;
+- long-running/import mutation -> pending -> partial/success/failure without duplicate submission or false cancellation;
+- stale/conflict outcome -> explicit recovery without silent overwrite;
+- Target Work -> temporary Curation -> return with motivating target/focus context;
+- keyboard-only navigation/recovery with semantic focus restoration;
+- spatial/drag interaction -> equivalent non-spatial/non-drag task completion.
+
 ## Frontend-first boundary check
 
 The interface must be implementable against mock adapters using the same semantic ports later used by transport adapters. Verification rejects dependencies on HTTP paths, backend frameworks, database shape or persistence identifiers.
