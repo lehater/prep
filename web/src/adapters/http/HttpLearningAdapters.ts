@@ -63,6 +63,7 @@ export class HttpKnowledgeAdapter implements KnowledgeQueryPort {
       operation,
       queryInput({
         target_id: scope.kind === "target" ? scope.targetId : undefined,
+        focus_id: scope.kind === "target" ? scope.focusId : undefined,
         text_query: query.search,
         semantic_kind: query.semanticKind,
       }),
@@ -98,7 +99,9 @@ export class HttpKnowledgeAdapter implements KnowledgeQueryPort {
         : "learning.target.knowledge.graph";
     const envelope = await this.client.query(
       operation,
-      scope.kind === "target" ? { target_id: scope.targetId } : {},
+      scope.kind === "target"
+        ? { target_id: scope.targetId, focus_id: scope.focusId }
+        : {},
     );
     return toKnowledgeOutcome(envelope, (value) =>
       mapKnowledgeGraph(scope, value),
