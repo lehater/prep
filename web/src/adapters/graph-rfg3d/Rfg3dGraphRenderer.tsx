@@ -170,6 +170,7 @@ export function Rfg3dGraphRenderer({
   viewport,
   performanceProfile = "auto",
   renderPreferences = DEFAULT_GRAPH_RENDER_PREFERENCES,
+  reducedMotion = false,
   physicsTuning = DEFAULT_GRAPH_PHYSICS_TUNING,
   command,
   onNodeActivate,
@@ -563,14 +564,14 @@ export function Rfg3dGraphRenderer({
         return;
       }
       resumeRenderer();
-      let transitionMs = 450;
+      let transitionMs = reducedMotion ? 0 : 450;
       if (command.type === "fit") {
-        graph.zoomToFit(450, 48);
+        graph.zoomToFit(reducedMotion ? 0 : 450, 48);
       } else if (command.type === "reset-camera") {
         graph.cameraPosition(
           { x: 0, y: 0, z: RESET_CAMERA_DISTANCE },
           { x: 0, y: 0, z: 0 },
-          450,
+          reducedMotion ? 0 : 450,
         );
       } else if (command.type === "focus-node") {
         const node = graphData.nodes.find(
@@ -584,7 +585,7 @@ export function Rfg3dGraphRenderer({
         const y = node.y ?? 0;
         const z = node.z ?? 0;
         const length = Math.hypot(x, y, z) || 1;
-        transitionMs = FOCUS_TRANSITION_MS;
+        transitionMs = reducedMotion ? 0 : FOCUS_TRANSITION_MS;
         graph.cameraPosition(
           {
             x: x + (x / length) * FOCUS_DISTANCE,
@@ -957,6 +958,7 @@ export function Rfg3dGraphRenderer({
       style={{ height: "100%", minHeight: 360 }}
       data-render-strategy={strategy.family}
       data-performance-profile={performanceProfile}
+      data-reduced-motion={reducedMotion ? "true" : "false"}
     >
       <div
         ref={containerRef}
