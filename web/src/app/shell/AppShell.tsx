@@ -13,17 +13,24 @@ interface AppShellProps {
   readonly runtimeStatusPort: RuntimeStatusPort;
 }
 
-const CURATION_SECTIONS = ["targets", "knowledge", "requirements", "questions"] as const;
-const LEARNING_SECTIONS = ["overview", "knowledge", "study", "statistics"] as const;
+const CURATION_SECTIONS = ["targets", "knowledge", "requirements", "questions", "import"] as const;
+const LEARNING_SECTIONS = ["overview", "state", "gaps", "learning", "diagnostics", "knowledge", "progress"] as const;
 
-function navLabel(value: string) {
-  return value[0].toUpperCase() + value.slice(1);
-}
+const LABELS: Readonly<Record<string, string>> = {
+  overview: "Overview",
+  state: "State",
+  gaps: "Gaps",
+  learning: "Learning",
+  diagnostics: "Diagnostics",
+  knowledge: "Knowledge",
+  progress: "Progress",
+  targets: "Targets",
+  requirements: "Requirements",
+  questions: "Questions",
+  import: "Import",
+};
 
-export function AppShell({
-  learningEntryPath,
-  runtimeStatusPort,
-}: AppShellProps) {
+export function AppShell({ learningEntryPath, runtimeStatusPort }: AppShellProps) {
   const location = useLocation();
   const inCuration = location.pathname.startsWith("/curation");
   const inLearning = location.pathname.startsWith("/learning");
@@ -37,7 +44,7 @@ export function AppShell({
       sx={{
         minHeight: "100dvh",
         display: { xs: "block", md: "grid" },
-        gridTemplateColumns: { md: "128px minmax(0, 1fr)" },
+        gridTemplateColumns: { md: "156px minmax(0, 1fr)" },
         backgroundColor: "background.default",
       }}
     >
@@ -60,44 +67,24 @@ export function AppShell({
           zIndex: 10,
         }}
       >
-        <Typography
-          component="h1"
-          variant="h5"
-          sx={{ px: 0.75, color: "primary.main", fontWeight: 700 }}
-        >
+        <Typography component="h1" variant="h5" sx={{ px: 0.75, color: "primary.main", fontWeight: 700 }}>
           Prep
         </Typography>
 
-        <Stack
-          component="nav"
-          aria-label="Primary"
-          direction={{ xs: "row", md: "column" }}
-          spacing={0.25}
-          sx={{ flexWrap: "wrap", alignItems: { md: "stretch" } }}
-        >
+        <Stack component="nav" aria-label="Primary" direction={{ xs: "row", md: "column" }} spacing={0.25}>
           <Button
             component={Link}
             to={learningEntryPath}
             variant={inLearning ? "contained" : "text"}
-            sx={{
-              justifyContent: "flex-start",
-              px: 1,
-              fontSize: "0.75rem",
-              color: inLearning ? "primary.contrastText" : "text.secondary",
-            }}
+            sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
           >
-            Learning
+            Target Work
           </Button>
           <Button
             component={Link}
             to="/curation/knowledge"
             variant={inCuration ? "contained" : "text"}
-            sx={{
-              justifyContent: "flex-start",
-              px: 1,
-              fontSize: "0.75rem",
-              color: inCuration ? "primary.contrastText" : "text.secondary",
-            }}
+            sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
           >
             Curation
           </Button>
@@ -113,22 +100,9 @@ export function AppShell({
                   component={Link}
                   to={`/curation/${section}`}
                   variant={activeCurationSection === section ? "outlined" : "text"}
-                  sx={{
-                    justifyContent: "flex-start",
-                    px: 1,
-                    fontSize: "0.75rem",
-                    color:
-                      activeCurationSection === section
-                        ? "primary.main"
-                        : "text.secondary",
-                    backgroundColor:
-                      activeCurationSection === section
-                        ? "rgba(37, 99, 235, 0.08)"
-                        : "transparent",
-                    borderColor: "transparent",
-                  }}
+                  sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
                 >
-                  {navLabel(section)}
+                  {LABELS[section] ?? section}
                 </Button>
               ))}
             </Stack>
@@ -149,51 +123,25 @@ export function AppShell({
                     justifyContent: "flex-start",
                     px: 1,
                     fontSize: "0.75rem",
-                    color:
-                      activeCurationSection === section
-                        ? "primary.main"
-                        : "text.secondary",
-                    backgroundColor:
-                      activeCurationSection === section
-                        ? "rgba(37, 99, 235, 0.08)"
-                        : "transparent",
-                    borderColor: "transparent",
+                    color: activeLearningSection === section ? "primary.main" : "text.secondary",
                   }}
                 >
-                  {navLabel(section)}
+                  {LABELS[section]}
                 </Button>
               ))}
-              <Button
-                component={Link}
-                to="/learning"
-                sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}
-              >
-                Choose target
+              <Button component={Link} to="/learning" sx={{ justifyContent: "flex-start", px: 1, fontSize: "0.75rem" }}>
+                Change target
               </Button>
             </Stack>
           </>
         ) : null}
 
-        <Box
-          sx={{
-            mt: { md: "auto" },
-            pt: 1,
-            borderTop: 1,
-            borderColor: "divider",
-          }}
-        >
+        <Box sx={{ mt: { md: "auto" }, pt: 1, borderTop: 1, borderColor: "divider" }}>
           <RuntimeStatusEntry port={runtimeStatusPort} />
         </Box>
       </Box>
 
-      <Box
-        component="main"
-        sx={{
-          minWidth: 0,
-          px: { xs: 1.5, sm: 2, lg: 2.5 },
-          py: { xs: 1.25, md: 1.5 },
-        }}
-      >
+      <Box component="main" sx={{ minWidth: 0, px: { xs: 1.5, sm: 2, lg: 2.5 }, py: { xs: 1.25, md: 1.5 } }}>
         <Outlet />
       </Box>
     </Box>
