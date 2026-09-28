@@ -81,8 +81,8 @@ reviews:
     basis: "Topology maps the new corpus-preparation decision to the existing Targets view and routes bulk versus incremental/mixed preparation without introducing a redundant Curation home screen."
 
   - capability: prep.presentation-system
-    revision: 10
-    basis: "Presentation System now defines provisional learner/curator content vocabulary, single-language prototype copy and state/error wording rules in addition to reduced-motion/accessibility contracts."
+    revision: 11
+    basis: "Presentation System now treats 3D as the preferred current prototype candidate rather than an evidence-free production default; production renderer preference is gated on representative-user and accessibility validation."
 
   - capability: prep.screen-view-design
     revision: 8
@@ -129,5 +129,5 @@ reviews:
     basis: "Frontend Test Design now covers completely empty-corpus bootstrap, realistic practice completion without invented evidence and reduced-motion Knowledge behavior."
 
   - capability: prep.frontend-implementation-design
-    revision: 9
-    basis: "Implementation Design is revalidated against the final CI policy: fast validation is the ordinary loop and heavy validation is a manual final-branch checkpoint rather than an automatic push or PR cost."
+    revision: 10
+    basis: "Implementation Design now separates prototype completion/READY FOR USABILITY VALIDATION from the production implementation gate, which requires representative-user, accessibility, content and 3D-default validation evidence."
