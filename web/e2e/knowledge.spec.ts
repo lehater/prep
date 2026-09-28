@@ -158,10 +158,10 @@ test("graph toolbar preserves semantic filters and exposes performance degradati
   await expect(profile).toHaveValue("performance");
 
   const arrowheads = page.getByRole("checkbox", {
-    name: "Стрелки",
+    name: "Arrowheads",
   });
   const particles = page.getByRole("checkbox", {
-    name: "Частицы",
+    name: "Particles",
   });
   await expect(arrowheads).not.toBeChecked();
   await expect(particles).not.toBeChecked();
@@ -194,7 +194,7 @@ test("reduced-motion preference disables automatic graph motion without removing
   await expect(physics).toBeDisabled();
 
   await expect(
-    page.getByRole("application", { name: "Interactive 3D Knowledge graph" }),
+    page.getByRole("region", { name: "3D Knowledge graph" }),
   ).toHaveAttribute("data-reduced-motion", "true");
 
   await page.getByRole("button", { name: "Browse" }).click();
