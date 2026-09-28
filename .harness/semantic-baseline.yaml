@@ -73,8 +73,8 @@ reviews:
     basis: "Machine Interface now exposes target-state, gaps, focus, diagnostics, evidence, progress and explicit import contract/validate/apply operations while keeping concrete transport/backend realization deferred."
 
   - capability: prep.interaction-design
-    revision: 6
-    basis: "Interaction Design now covers the first-use preparation-path decision in the existing target-entry context and carries Observation, evidential basis and learner-claim distinctions through state, diagnostics, progress and assessment interactions."
+    revision: 7
+    basis: "Interaction Design now includes normative shared contracts for navigation/context preservation, dirty drafts, async/long-running behavior, validation/conflict/stale data, focus/keyboard, pointer/touch, destructive-action governance and user feedback in addition to task-specific contexts."
 
   - capability: prep.interface-topology
     revision: 6
