@@ -124,3 +124,24 @@ test("reflows the Knowledge workspace for tablet and mobile widths", async ({
   }));
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.viewportWidth + 1);
 });
+
+
+test("keeps core learner actions usable at narrow width with 200% root text", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/learning/python-backend-fintech/gaps");
+  await page.addStyleTag({
+    content: ":root { font-size: 200% !important; }",
+  });
+
+  await expect(
+    page.getByRole("heading", { name: "What remains between you and the target" }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Learn this" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Diagnose this" }).first()).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Learning target sections" }),
+  ).toBeVisible();
+  await expectNoDocumentHorizontalOverflow(page);
+});
