@@ -52,11 +52,11 @@ export function TargetOverviewView({
           {target.scopeSummary}
         </Typography>
         <Stack component="ul" spacing={1} sx={{ pl: 2 }}>
-          {target.scopeItems.map((item) => (
+          {target.capabilities.map((item) => (
             <li key={item.id}>
               <Typography component="strong">{item.title}</Typography>
               <Typography color="text.secondary">
-                {item.kind === "requirement-set" ? "Capability group" : "Capability requirement"} · {item.summary}
+                Capability requirement · {item.summary}
               </Typography>
             </li>
           ))}
