@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 21
-    basis: "A systematic current-web stress test adds 18 naturalistic 2025–2026 preparation/interview accounts plus current Microsoft/Amazon/Stripe process triangulation. Repeated secondary evidence narrows the candidate model toward layered/refinable targets, multi-driver focus selection, performance-shaped readiness, target-refining feedback and learner-visible bootstrap without assuming learner-owned semantic corpus maintenance; this remains SECONDARY evidence and does not close the human gate."
+    revision: 22
+    basis: "Evidence taxonomy now distinguishes naturalistic public-user data from secondary expert/research material. Digital-ethnography/online-forum methodology supports using concrete public target-user behavior to validate behavioral problem/task claims with explicit self-selection/identity/prevalence limits. The narrowed model therefore reaches EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING while elicited representative concept/usability validation remains a separate later gate."
 
   - capability: prep.product-intent
     revision: 4
@@ -53,12 +53,12 @@ reviews:
     basis: "Application orchestration now separates learner-state evidence from target-refining external information, supports layered/refinable target context and multi-driver focus rationale, and treats reusable corpus preparation as a curator/operator/system responsibility that a learner may opt into rather than an assumed learner job."
 
   - capability: prep.task-model
-    revision: 10
-    basis: "Secondary naturalistic falsification narrows the provisional task model: target is explicitly layered/refinable, focus combines target/state with timing/cost constraints, progress can trigger separate target refinement, and UMC-05 no longer assumes learner ownership of reusable corpus curation. All five UMC evidence statuses remain UNTESTED pending representative users."
+    revision: 11
+    basis: "The five behavioral UMC claims now carry naturalistic-public-user evidence statuses plus separate elicited-representative UNTESTED status. This accepts the narrowed task model for UX prototyping without claiming that Prep-specific concept comprehension or usability has been human-validated."
 
   - capability: prep.user-journeys
-    revision: 7
-    basis: "Provisional journeys now reflect the secondary-evidence narrowing: target refinement is non-destructive, focus rationale includes external constraints, target-change and learner-state-change are separated, and empty-system bootstrap no longer requires the learner to own schema/import/corpus repair work unless self-curation is explicitly chosen."
+    revision: 8
+    basis: "Journeys are now accepted as EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING behavioral compositions grounded in naturalistic public-user evidence, while explicitly remaining unvalidated as Prep-specific interaction/concept models until elicited representative testing."
 
   - capability: prep.conceptual-interface-model
     revision: 4

@@ -15,11 +15,11 @@ Two semantic contexts exist:
 
 These are not security roles, and they are not assumed to belong to the same physical person. A learner may self-curate, but a curator/operator or external preparation workflow may own reusable corpus work.
 
-## Human validation status
+## Validation status
 
-The journeys below are **PROVISIONAL-FOR-RESEARCH**. They are traceable compositions of the current Task Model, not evidence that representative users naturally follow the proposed lifecycle.
+The journeys below are **EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING** as behavioral compositions. Their current responsibilities/order were narrowed against recurring NATURALISTIC-PUBLIC-USER preparation/interview accounts rather than inferred from the existing UI.
 
-Human acceptance is governed by the five claims in `task-model.yaml#human_validation` and the Discovery gate in `problem-space.md#user-model-validation-gate`. A journey becomes evidence-backed only after representative-user observation supports the relevant claims; stakeholder approval, secondary research, automated tests and the existing coded prototype do not satisfy that gate.
+They are **not ELICITED-HUMAN-VALIDATED** as Prep interaction/concept models. Elicited representative sessions remain required to test whether people understand the proposed concepts/grouping and can execute the learner/bootstrap journeys in an interactive concept or prototype. Stakeholder approval, automated tests and the existing coded prototype cannot satisfy that later gate.
 
 ## Representative end-to-end journeys
 

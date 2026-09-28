@@ -277,13 +277,14 @@ goals:
         recovery: Unavailable status remains inspectable and does not imply loss of canonical Prep data.
 
 human_validation:
-  status: PROVISIONAL_FOR_RESEARCH
+  status: EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING
   discovery_gate_ref: "docs/vision/problem-space.md#user-model-validation-gate"
   rule: >-
-    Structural task coverage and Harness closure do not establish that representative
-    users naturally understand or follow this model. The claims below remain unvalidated
-    until representative-user evidence satisfies the Discovery gate; secondary research,
-    stakeholder acceptance, automated tests and implementation behavior cannot close them.
+    Structural closure alone does not establish user behavior. The claims below have now
+    been narrowed against recurring NATURALISTIC-PUBLIC-USER evidence and are accepted as
+    behavioral hypotheses for UX prototyping. ELICITED-REPRESENTATIVE-USER evidence remains
+    required for Prep-specific concept comprehension and production UX authority; stakeholder
+    acceptance, automated tests and implementation behavior cannot substitute for either evidence class.
   claims:
     - id: UMC-01-TARGET
       description: A target context is useful for organizing preparation, but it may begin broad and be layered/refined across role, level, company and interview-loop information.
@@ -295,7 +296,8 @@ human_validation:
       secondary_evidence:
         status: SECONDARY_NARROWED_LAYERED_TARGET
         main_risk: Public and official current evidence repeatedly contradicts a single stable fully-known target; representative research must test whether layered/refinable target context remains understandable and useful.
-      evidence_status: UNTESTED
+      evidence_status: NATURALISTIC_SUPPORTED_NARROWED
+      elicited_representative_status: UNTESTED
     - id: UMC-02-CURRENT-STATE
       description: Users can reason about supported, unresolved and challenged current state without equating missing evidence with failure or familiarity with capability.
       observation_refs: [OBS-P02, OBS-P04]
@@ -306,7 +308,8 @@ human_validation:
       secondary_evidence:
         status: PARTIAL_SUPPORT
         main_risk: False familiarity and interview-performance failures support the need for stronger current-state signals, but user willingness to maintain explicit evidence remains unknown.
-      evidence_status: UNTESTED
+      evidence_status: NATURALISTIC_SUPPORTED_WITH_ADOPTION_RISK
+      elicited_representative_status: UNTESTED
     - id: UMC-03-GAP-FOCUS
       description: Users can understand target-relative gaps/uncertainty and choose a useful next focus while also accounting for deadlines, interview stage, available time and preparation cost.
       observation_refs: [OBS-P05, OBS-P06]
@@ -317,7 +320,8 @@ human_validation:
       secondary_evidence:
         status: SECONDARY_NARROWED_MULTI_DRIVER_PRIORITY
         main_risk: Prioritization is strongly supported as a user need, but public behavior shows target gaps are only one driver alongside deadlines, interview stages, time/energy and preparation ROI.
-      evidence_status: UNTESTED
+      evidence_status: NATURALISTIC_SUPPORTED_NARROWED
+      elicited_representative_status: UNTESTED
     - id: UMC-04-ACTIVITY-EVIDENCE-PROGRESS
       description: Users can distinguish learning/practice from diagnosis, recognize credible evidence and understand progress or valid no-change.
       observation_refs: [OBS-P04, OBS-P06, OBS-P07]
@@ -328,7 +332,8 @@ human_validation:
       secondary_evidence:
         status: STRONG_SECONDARY_SUPPORT_PERFORMANCE_SHAPED
         main_risk: Public and official evidence strongly supports performance-shaped readiness across coding/design/practical/articulation forms, but explicit Prep evidence vocabulary and manual evidence maintenance remain unvalidated.
-      evidence_status: UNTESTED
+      evidence_status: NATURALISTIC_SUPPORTED_PERFORMANCE_SHAPED
+      elicited_representative_status: UNTESTED
     - id: UMC-05-BOOTSTRAP
       description: With no prepared corpus, the learner can preserve the motivating preparation goal while system/curator/external-agent work produces trustworthy usable target/support; learner ownership of reusable corpus maintenance is not assumed.
       observation_refs: [OBS-P03, OBS-P09]
@@ -339,13 +344,13 @@ human_validation:
       secondary_evidence:
         status: SECONDARY_CHALLENGE_LEARNER_CORPUS_OWNERSHIP
         main_risk: Public behavior repeatedly supports fragmented-resource assembly and demand for trustworthy structured paths, but provides little evidence that learners want to author/maintain Prep-style reusable semantic corpus; that responsibility may belong to system/curator/operator.
-      evidence_status: UNTESTED
+      evidence_status: NATURALISTIC_SCOPE_CHANGED_BOOTSTRAP_NOT_CORPUS_OWNERSHIP
+      elicited_representative_status: UNTESTED
 
 sufficiency_review:
   status: ACCEPTED
   rationale: >-
     Structural/model sufficiency is accepted for research and prototyping only; the
-    human_validation block remains PROVISIONAL_FOR_RESEARCH until representative-user
-    evidence satisfies the Discovery gate. Secondary naturalistic evidence has narrowed the candidate model toward a layered/refinable target and multi-driver focus selection while keeping evidence-backed current state and reassessment. Corpus preparation remains structurally covered as a curation/operator capability, but learner ownership of that work is now explicitly challenged rather than assumed.
+    behavioral user/task model now satisfies the Discovery evidence-supported-for-UX-prototyping gate from recurring naturalistic public-user evidence. The human_validation block still records elicited representative status as UNTESTED for later Prep-specific concept/usability validation. Secondary naturalistic evidence has narrowed the candidate model toward a layered/refinable target and multi-driver focus selection while keeping evidence-backed current state and reassessment. Corpus preparation remains structurally covered as a curation/operator capability, but learner ownership of that work is now explicitly challenged rather than assumed.
     UI screens, navigation, graph count/representation and backend realization remain
     downstream decisions.

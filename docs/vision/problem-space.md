@@ -42,25 +42,33 @@ Provenance class: explicit product-owner/stakeholder observations accepted durin
 
 ### Evidence classes and current validation state
 
-The observation set uses three evidence classes that must not be collapsed into one another:
+The observation set uses four evidence classes that must not be collapsed into one another:
 
-- **STAKEHOLDER** — direct product-owner/project observations. This is sufficient to motivate Discovery, but not to prove representative user behavior.
-- **SECONDARY** — external research, practitioner reports or public user discussions that independently support or challenge part of an observation. This can strengthen plausibility and sharpen research questions, but it does not validate Prep's concrete workflow.
-- **REPRESENTATIVE-USER** — observed behavior or attributed statements from people matching the motivating user context while they work through goal-oriented scenarios. This is the evidence required to treat the user model as human-validated.
+- **STAKEHOLDER** — direct product-owner/project observations. Sufficient to motivate Discovery, not to prove user behavior.
+- **SECONDARY-RESEARCH** — learning-science research, practitioner/expert guidance and other evidence not itself produced by motivating users describing their own current behavior.
+- **NATURALISTIC-PUBLIC-USER** — unsolicited public posts/comments from people who self-identify with the motivating context and describe concrete recent preparation/interview behavior. This is qualitative user-generated archival evidence: it can support/challenge problem and task-model behavior when multiple independent cases recur, but it is not a representative sample and cannot establish prevalence.
+- **ELICITED-REPRESENTATIVE-USER** — intentionally recruited target users observed/interviewed against explicit research questions or scenarios. This is required for claims that depend on probing, comprehension of Prep's candidate concepts, end-to-end interaction behavior or usability.
 
-Current user-model gate: **PROVISIONAL-FOR-RESEARCH**. No OBS-Pxx item is yet accepted as representative-user validated.
+Method basis: digital ethnography and qualitative online-forum research recognize publicly available online communications as usable naturalistic/archival qualitative data when scope, platform context, ethics, bias and limitations are explicit. Public-user evidence therefore should not be demoted to expert/secondary evidence merely because it was not elicited by Prep. It also must not be overstated as a representative sample.
 
-| Observation | Secondary evidence status | What secondary evidence supports | Representative-user status |
+Method references:
+- Basaraba (2026), digital ethnography decision framework: https://journals.sagepub.com/doi/10.1177/08912416261476483
+- Im (2012), qualitative research using online forums: https://pmc.ncbi.nlm.nih.gov/articles/PMC3727223/
+- UK ESRC guidance on internet-mediated research and public-domain/identity/privacy limitations: https://www.ukri.org/councils/esrc/guidance-for-applicants/research-ethics-guidance/internet-mediated-research/
+
+Current user-model gate: **EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING**. The behavioral user/task model has been narrowed against recurring naturalistic public-user evidence, but it is **not yet ELICITED-HUMAN-VALIDATED** for interface/production authority.
+
+| Observation | Naturalistic public-user status | Current conclusion | Elicited representative status |
 | --- | --- | --- | --- |
-| OBS-P01 — target uncertainty | PARTIAL-SUPPORT | Developer discussions repeatedly report uncertainty about which backend/interview topics matter for a concrete role and variation between companies/interview loops. | UNTESTED |
-| OBS-P02 — partial observability | SUPPORT-OUTSIDE-TARGET-POPULATION | Learning-science reviews show limits in learners' metacognitive monitoring and strategy judgments; this supports the general problem but does not prove how Prep's target users assess themselves. | UNTESTED |
-| OBS-P03 — fragmented knowledge | PARTIAL-SUPPORT | Practitioner preparation plans commonly assemble multiple resources, topic lists and practice systems rather than relying on one coherent source. | UNTESTED |
-| OBS-P04 — exposure is not capability | STRONG-SECONDARY-SUPPORT | Retrieval-practice and transfer research distinguishes re-exposure from later recall/application and shows that performance depends on retrieval conditions and feedback. | UNTESTED |
-| OBS-P05 — limited resources | PARTIAL-SUPPORT | Developer preparation reports explicitly describe bounded daily/weekly preparation time and the need to choose among many possible topics. | UNTESTED |
-| OBS-P06 — changing state | SECONDARY-UNRESOLVED | Adaptation after new learning is plausible and consistent with self-regulated learning, but the concrete Prep decision loop is not independently established for the motivating population. | UNTESTED |
-| OBS-P07 — retention/transfer risk | STRONG-SECONDARY-SUPPORT | Learning-science reviews and meta-analysis show that retention and transfer differ from immediate study success and depend on practice conditions. | UNTESTED |
-| OBS-P08 — external target translation | PARTIAL-SUPPORT | Developers report tailoring preparation to role/company expectations and job descriptions; the need for a coherent capability profile is still a Prep hypothesis. | UNTESTED |
-| OBS-P09 — corpus bootstrapping | PARTIAL-SUPPORT | Public preparation accounts show manual assembly of topic lists, notes, flash cards and practice resources; the need for Prep's reusable corpus and bulk/manual/mixed preparation choices remains unvalidated. | UNTESTED |
+| OBS-P01 — target uncertainty | SUPPORTED | Current developers repeatedly report uncertainty about role/company/interview expectations and preparation depth. | UNTESTED |
+| OBS-P02 — partial observability | SUPPORTED | Users explicitly report uncertainty, lack of validation and cases where conceptual familiarity does not predict live performance. | UNTESTED |
+| OBS-P03 — fragmented knowledge | SUPPORTED | Users repeatedly assemble many external resources/roadmaps and report overload/conflicting guidance. | UNTESTED |
+| OBS-P04 — exposure is not capability | SUPPORTED | Naturalistic cases plus learning-science evidence repeatedly distinguish reading/familiarity from timed, novel or articulated performance. | UNTESTED |
+| OBS-P05 — limited resources | SUPPORTED | Time, work, family, interview deadlines and preparation cost repeatedly force prioritization. | UNTESTED |
+| OBS-P06 — changing state | SUPPORTED | Mocks, failed screens and real interviews cause users to change what they practise and how ready they believe they are. | UNTESTED |
+| OBS-P07 — retention/transfer risk | SUPPORTED | Users report forgetting reviewed material and failing novel/live variants despite familiarity; learning-science evidence independently supports the distinction. | UNTESTED |
+| OBS-P08 — external target translation | SUPPORTED-NARROWED | Need is real, but target is commonly layered/refinable across role, level, company and interview loop rather than one stable complete profile. | UNTESTED |
+| OBS-P09 — corpus bootstrapping | SCOPE-LIMITED | Users clearly need structured preparation scope/path from fragmented sources; evidence challenges the assumption that learners should own reusable semantic corpus maintenance. | UNTESTED |
 
 Secondary evidence used for this triangulation:
 
@@ -73,7 +81,7 @@ Secondary evidence used for this triangulation:
   - https://www.reddit.com/r/cscareerquestions/comments/o3jevd/preparing_to_apply_for_a_new_role_would_love/
   - https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
 
-The public discussions above are anecdotal convenience evidence. They may expose recurring behaviors or vocabulary, but they are not treated as a representative sample and cannot satisfy the human-validation gate.
+The older public-discussion set above is convenience-sampled. Under the refined evidence model it is NATURALISTIC-PUBLIC-USER evidence when a source is a motivating user describing concrete behavior, but it still cannot establish prevalence or substitute for elicited testing of Prep-specific comprehension/usability.
 
 
 ### Secondary-evidence challenges to falsify
@@ -133,31 +141,39 @@ Additional triangulation sources:
 
 ### User-model validation gate
 
-The model is considered **HUMAN-VALIDATED** only after representative-user evidence closes these critical claims:
+Two different gates are intentionally separated.
 
-1. **Target claim:** a concrete role/opportunity/learning outcome is a useful primary organizing context, and users can establish or correct its expected scope without being forced into Prep's internal model.
-2. **Current-state claim:** users can reason about what is supported, uncertain or challenged without collapsing missing evidence into failure or treating familiarity as demonstrated capability.
-3. **Gap/focus claim:** users can identify why something deserves attention next and make a priority decision under realistic time/attention constraints.
-4. **Activity/evidence/progress claim:** users can distinguish learning/practice from diagnosis, recognize credible new evidence, and explain meaningful progress or legitimate no-change.
-5. **Bootstrap claim:** when no prepared corpus exists, users can choose a sensible preparation path and understand how to get from source material to a usable target without losing the motivating goal.
+**Gate A — EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING**
 
-Exit criteria are evidence-based rather than a magic participant count:
+This gate asks whether the behavioral problem/task model is grounded well enough to design and prototype against. It may be closed by a combination of NATURALISTIC-PUBLIC-USER and SECONDARY-RESEARCH evidence when:
 
-- every critical claim is exercised by multiple independent representative participants;
-- the sample includes meaningful variation in preparation experience and at least the primary motivating Python/backend context;
-- no unresolved **BLOCKING** or repeated **MAJOR** finding contradicts the claimed task model;
-- participants can explain the core model and next action in their own words without being taught internal Prep terminology;
-- at least one full learner loop and one completely-empty-system bootstrap are observed end to end;
-- material changes caused by findings are rechecked with representative users;
-- scope limitations are recorded explicitly instead of generalized beyond the evidence.
+1. each critical behavioral claim appears in multiple independent target-context cases;
+2. current backend/software-interview contexts are included rather than inferred from an old market;
+3. repeated counterexamples are preserved and cause NARROW/CHANGE decisions instead of being explained away;
+4. no material task/actor responsibility is supported only by Prep implementation or stakeholder preference;
+5. limitations such as self-selection, unverifiable identity and unknown prevalence are explicit.
 
-Secondary research, stakeholder approval, automated tests and implementation behavior cannot satisfy these exit criteria.
+The current model **meets Gate A** after the 2026-09-28 naturalistic web stress test and the resulting changes: layered/refinable target, multi-driver focus, performance-shaped evidence/progress, separate target-refining feedback, and non-assumed learner corpus ownership.
+
+**Gate B — ELICITED-HUMAN-VALIDATED**
+
+This later gate asks questions that public archival behavior cannot answer reliably:
+
+- whether representative users understand the candidate concepts/sequence when presented neutrally;
+- whether they can complete one full learner loop and completely-empty-system bootstrap in an interactive concept/prototype;
+- whether Prep terminology/grouping introduces confusion or cognitive burden;
+- whether material changes remain understandable after interaction;
+- usability/accessibility/presentation questions.
+
+Gate B requires intentionally elicited representative-user evidence and remains **UNTESTED**. It is required before treating downstream UX/presentation as production authority, but it no longer blocks UX prototyping intended to test those questions.
+
+Stakeholder approval, automated tests and implementation behavior satisfy neither gate by themselves.
 
 These observations may later be supplemented or challenged by research/user evidence. A conflict that changes the existence, affected actor or desired outcome of the problem must reopen Discovery rather than being reconciled by a downstream design artifact.
 
 ## Discovery validation backlog
 
-The current observation set is **not yet validated with representative users**. The next Discovery step is to challenge the observations before treating the present target-first workflow as proven user behavior.
+The current behavioral observation/task set is **evidence-supported for UX prototyping** from naturalistic public-user research, with explicit scope changes recorded above. Elicited representative research remains the next step for Prep-specific concept comprehension and later usability/production authority, not for pretending the underlying preparation behaviors are still wholly unobserved.
 
 ### Research objectives
 
