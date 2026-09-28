@@ -27,6 +27,7 @@ export function TargetSelectionView({
 }: TargetSelectionViewProps) {
   const [searchParams] = useSearchParams();
   const initialSearch = searchParams.get("search") ?? "";
+  const scenario = searchParams.get("scenario");
   const [query, setQuery] = useState(initialSearch);
   const [draft, setDraft] = useState(initialSearch);
   const [reloadVersion, setReloadVersion] = useState(0);
@@ -63,8 +64,15 @@ export function TargetSelectionView({
   ) => {
     const params = new URLSearchParams();
     params.set("mode", mode);
-    params.set("returnTo", `/learning?search=${encodeURIComponent(query)}`);
+    const returnParams = new URLSearchParams();
+    if (query) returnParams.set("search", query);
+    if (scenario) returnParams.set("scenario", scenario);
+    params.set(
+      "returnTo",
+      `/learning${returnParams.toString() ? `?${returnParams.toString()}` : ""}`,
+    );
     if (query) params.set("intent", query);
+    if (scenario) params.set("scenario", scenario);
     return `/curation/${section}?${params.toString()}`;
   };
 
