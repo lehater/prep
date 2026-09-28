@@ -164,5 +164,6 @@ test("renders accepted server-backed states through the HTTP provider", async ({
 
   await search.fill("missing");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByText("No learning targets found")).toBeVisible();
+  await expect(page.getByText("No suitable target found")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Prepare target" })).toBeVisible();
 });
