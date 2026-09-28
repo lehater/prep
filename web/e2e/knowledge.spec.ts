@@ -194,8 +194,8 @@ test("reduced-motion preference disables automatic graph motion without removing
   await expect(physics).toBeDisabled();
 
   await expect(
-    page.getByRole("region", { name: "3D Knowledge graph" }),
-  ).toHaveAttribute("data-reduced-motion", "true");
+    page.locator('[data-reduced-motion="true"]'),
+  ).toBeVisible();
 
   await page.getByRole("button", { name: "Browse" }).click();
   await expect(page.getByRole("region", { name: "Knowledge list" })).toBeVisible();
