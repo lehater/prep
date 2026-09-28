@@ -57,6 +57,7 @@ export interface GraphRendererProps {
   readonly viewport?: GraphViewportSnapshot;
   readonly performanceProfile?: GraphPerformanceProfile;
   readonly renderPreferences?: GraphRenderPreferences;
+  readonly reducedMotion?: boolean;
   readonly physicsTuning?: GraphPhysicsTuning;
   readonly command?: GraphRendererCommand;
   readonly onNodeActivate: (knowledgeId: string) => void;
