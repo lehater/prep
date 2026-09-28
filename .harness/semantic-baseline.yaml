@@ -73,12 +73,12 @@ reviews:
     basis: "Reduced to the frontend-first semantic boundary: transport-neutral application ports/read models now preserve RequirementExpression/CapabilitySpecification, KnowledgeObject/KnowledgeProposition, Study Set diagnostics and Observation/Performance evidence semantics; HTTP/backend/persistence realization is deferred while current Question/Anki compatibility outcomes remain explicit."
 
   - capability: prep.interaction-design
-    revision: 3
-    basis: "Interaction Design was revalidated against the pinned interaction-design skill; contexts now bind accepted actions/inputs to visible responses, material states, recovery and machine-operation IDs while preserving the existing product behavior."
+    revision: 4
+    basis: "Rebuilt from current tasks, journeys, conceptual model and frontend semantic ports: interaction contexts now use capability requirements, Knowledge propositions, Study Set diagnostics and factual evidence; 3D/camera/layout controls are kept out of this upstream interaction layer while selection/focus and keyboard-completable semantic access remain explicit."
 
   - capability: prep.interface-topology
-    revision: 2
-    basis: "Revalidated after interaction revision 2; exact collection count availability changes no material view/frame or navigation topology."
+    revision: 3
+    basis: "Repartitioned frontend views around Targets, Knowledge, Capabilities and supported Study Material while preserving learner Overview/Knowledge/Study/Statistics continuity; legacy Requirement/RequirementSet editors and KnowledgeRelation entity views were removed without introducing local screen composition."
 
   - capability: prep.presentation-system
     revision: 6
