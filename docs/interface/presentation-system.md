@@ -244,7 +244,23 @@ Narrow:
 - labels do not depend on placeholders;
 - state does not depend on color alone;
 - every core graph-dependent task has a non-graph completion path;
-- semantic reading/focus order survives responsive reflow.
+- semantic reading/focus order survives responsive reflow;
+- zoom/reflow and large-text use must preserve core task actions without requiring page-level horizontal scrolling;
+- validation/error feedback must be programmatically associated or announced rather than conveyed only by visual placement;
+- pointer hover and dragging are never the sole path to task-critical information or actions.
+
+### Reduced motion
+
+When the environment requests reduced motion:
+
+- automatic/repeating graph motion is disabled by default;
+- directional particles are disabled;
+- continuous live force physics is disabled rather than merely slowed;
+- camera fit/reset/focus commands use immediate or materially reduced transitions;
+- the user can still inspect/select/focus Knowledge through list/search/detail and non-animated graph state;
+- motion preference changes presentation only and never semantic membership, relation meaning, target/focus scope or current selection.
+
+A user may deliberately choose a richer graph profile only when the interface makes that override explicit; reduced-motion users are never required to re-enable motion to complete a task.
 
 ## Remaining implementation freedoms
 
