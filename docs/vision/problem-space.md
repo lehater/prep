@@ -91,6 +91,68 @@ Each durable observation remains UNVALIDATED with respect to representative-user
 
 Usability preference for a particular screen, graph, workflow or wording is not evidence that a problem observation exists. Conversely, research that changes the problem actor, desired outcome or material problem dimension must reopen downstream Product/Application/Interface knowledge through Harness.
 
+### Initial discovery session protocol
+
+The first round is qualitative discovery/mental-model validation, not a statistical study. Recruitment should cover the participant hypotheses above and include variation in preparation experience, current seniority and accessibility needs where practicable.
+
+For each session:
+
+1. record participant context relevant to the scenario without collecting unnecessary personal data;
+2. present the goal-oriented scenario without naming Prep screens or expected interaction steps;
+3. ask the participant to show/explain their current process first;
+4. introduce the prototype only after the existing-process discussion where the session includes prototype evaluation;
+5. observe task strategy, uncertainty, workarounds, vocabulary, errors/backtracking and what the participant treats as convincing evidence/progress;
+6. distinguish observed behavior/direct statements from researcher interpretation;
+7. map each material observation to one or more RQ-Pxx / OBS-Pxx entries;
+8. end with unresolved questions and explicit follow-up/retest needs.
+
+### Observation record
+
+Each material finding should capture:
+
+- session/participant pseudonymous identifier;
+- scenario/task;
+- directly observed behavior or short attributed statement;
+- task outcome: complete / partial / blocked / not-attempted;
+- assistance required: none / clarification / procedural-help;
+- relevant RQ-Pxx / OBS-Pxx;
+- researcher interpretation, explicitly separated from the observation;
+- affected product/task/interface artifact if known;
+- severity;
+- proposed decision: retain / change / investigate-more;
+- retest status.
+
+### Usability finding severity
+
+Severity is about impact on the user's ability to achieve the scenario, not implementation effort:
+
+- **BLOCKING** — prevents completion of a primary scenario or causes a materially wrong conclusion/action with no obvious recovery;
+- **MAJOR** — substantial repeated confusion, wrong turn or effort that threatens successful completion;
+- **MINOR** — recoverable friction or local comprehension problem that does not materially threaten completion;
+- **NOTE** — observation/hypothesis worth retaining but not yet an actionable usability defect.
+
+One isolated participant event does not automatically establish a product-wide defect. Severity and scope are revised as evidence accumulates.
+
+### Decision and retest rule
+
+Research output changes canonical knowledge only through the owning Harness capability. A finding that changes a problem observation reopens Discovery and downstream closure. A finding that preserves the problem but changes task flow, vocabulary, IA, interaction or presentation is routed directly to that owner.
+
+A change is not considered human-validated merely because it was implemented. Material BLOCKING/MAJOR changes require a subsequent representative-user check of the affected scenario before the corresponding usability obligation can be treated as satisfied.
+
+### First-round success observations
+
+The round should determine, rather than assume, whether participants can:
+
+- explain the concrete target and what it expects in their own words;
+- distinguish "not enough evidence" from "known failure";
+- identify why a gap/focus deserves attention;
+- choose between learning and diagnosis without needing internal Prep terminology;
+- explain what changed after new evidence, including a legitimate no-change result;
+- bootstrap an empty preparation context by choosing a sensible bulk/manual/mixed path and recover from partial rejection;
+- use spatial Knowledge exploration without losing the target/focus context, and switch to list/search/detail when spatial interaction is not useful.
+
+These are research observations, not pass/fail product KPIs until representative evidence justifies thresholds.
+
 ## Desired outcome
 
 The person can reliably progress toward a chosen learning outcome by being able to:
