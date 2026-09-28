@@ -9,9 +9,19 @@ contexts:
     actions: [search-targets, select-target, start-target-preparation]
     inputs: [text query, target selection, optional external target context]
     machine_operations: [learning.targets.list, learning.targets.get]
-    visible_responses: [target results, target requirement summary, empty results, prepare-new-target path, recoverable failure]
-    states: [loading, empty, ready, failure]
+    visible_responses: [target results, target requirement summary, empty results, preparation-needed state, recoverable failure]
+    states: [loading, empty, ready, preparation-needed, failure]
     recovery: Preserve query and motivating target context when routing to preparation or retrying.
+
+  - id: I-C-SELECT-PREPARATION-PATH
+    task_refs: [TASK-C-SELECT-PREPARATION-PATH]
+    concept_refs: [TARGET, CORPUS, IMPORT-CONTRACT]
+    actions: [inspect-missing-prerequisites, choose-bulk-preparation, choose-incremental-curation, choose-mixed-preparation]
+    inputs: [motivating target/source context, empty or materially incomplete target/corpus state, optional known corpus diagnostics]
+    machine_operations: [learning.targets.list, curation.quality.get, curation.import.contract.get]
+    visible_responses: [missing or unknown preparation prerequisites, bulk/import availability, incremental curation areas, chosen preparation path]
+    states: [not-needed, empty-corpus, partial-corpus, path-selected, diagnostics-unavailable, failure]
+    recovery: Preserve motivating target/source context and accepted corpus data when changing preparation path or retrying diagnostics.
 
   - id: I-L-UNDERSTAND-TARGET
     task_refs: [TASK-L-UNDERSTAND-TARGET]
@@ -25,7 +35,7 @@ contexts:
 
   - id: I-L-CURRENT-STATE
     task_refs: [TASK-L-ESTABLISH-CURRENT-STATE]
-    concept_refs: [CURRENT-STATE, EVIDENCE, TARGET-REQUIREMENTS, DIAGNOSTIC-ACTIVITY]
+    concept_refs: [CURRENT-STATE, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, TARGET-REQUIREMENTS, DIAGNOSTIC-ACTIVITY]
     actions: [inspect-current-state, inspect-evidence-basis, inspect-unresolved-areas, choose-diagnostic-opportunity]
     inputs: [active target, optional requirement fragment]
     machine_operations: [learning.target.state.get, learning.target.evidence.get, learning.target.diagnostics.list]
@@ -67,7 +77,7 @@ contexts:
 
   - id: I-L-DIAGNOSTICS
     task_refs: [TASK-L-COLLECT-EVIDENCE]
-    concept_refs: [DIAGNOSTIC-ACTIVITY, EVIDENCE, CURRENT-STATE]
+    concept_refs: [DIAGNOSTIC-ACTIVITY, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, CURRENT-STATE]
     actions: [inspect-diagnostic-opportunities, start-diagnostic, sync-evidence, inspect-observations, inspect-derived-claims]
     inputs: [active target, optional focus/gap, selected diagnostic, explicit sync]
     machine_operations: [learning.target.diagnostics.list, learning.target.activity.start, learning.evidence.sync, learning.target.evidence.get]
@@ -77,7 +87,7 @@ contexts:
 
   - id: I-L-PROGRESS
     task_refs: [TASK-L-REVIEW-PROGRESS]
-    concept_refs: [PROGRESS, CURRENT-STATE, GAP, EVIDENCE, LEARNING-FOCUS]
+    concept_refs: [PROGRESS, CURRENT-STATE, GAP, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, LEARNING-FOCUS]
     actions: [inspect-state-change, inspect-changed-gaps, inspect-new-evidence, continue-focus, choose-another-focus]
     inputs: [active target, optional prior projection]
     machine_operations: [learning.target.progress.get, learning.target.state.get, learning.target.gaps.get, learning.target.focus.set]
@@ -137,7 +147,7 @@ contexts:
 
   - id: I-C-ASSESSMENT
     task_refs: [TASK-C-MAINTAIN-ASSESSMENT-DESIGN]
-    concept_refs: [DIAGNOSTIC-ACTIVITY, EVIDENCE, CAPABILITY]
+    concept_refs: [DIAGNOSTIC-ACTIVITY, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, CAPABILITY]
     actions: [search-assessment-designs, create-assessment-design, edit-assessment-design, inspect-evidence-semantics]
     inputs: [TaskSpecification, ObservationSpecification, EvidencePattern, EvidentialWarrant, SamplingSpecification]
     machine_operations: [curation.assessment_design.list, curation.assessment_design.get, curation.assessment_design.create, curation.assessment_design.update]
