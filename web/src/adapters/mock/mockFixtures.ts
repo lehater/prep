@@ -23,12 +23,36 @@ export const mockTargets: readonly LearningTargetModel[] = [
     definition:
       "Prepare for a Python backend role where reliable card-payment processing, distributed-system behavior and operational reasoning matter.",
     scopeSummary:
-      "Python backend fundamentals plus payment processing, retry/idempotency safety and reconciliation capability.",
+      "Python/backend engineering plus distributed systems, databases, payments, reliability, reconciliation, security and observability.",
     capabilities: [
       {
         id: "cap-python-backend",
         title: "Python backend engineering",
         summary: "Design, implement and explain production Python backend services.",
+      },
+      {
+        id: "cap-distributed-systems",
+        title: "Distributed backend systems",
+        summary:
+          "Reason about distributed service behavior, partial failure, concurrency and asynchronous coordination.",
+      },
+      {
+        id: "cap-data-persistence",
+        title: "Databases and transactional persistence",
+        summary:
+          "Design persistent data access, transactional boundaries, consistency and schema evolution.",
+      },
+      {
+        id: "cap-backend-security",
+        title: "Backend security and access control",
+        summary:
+          "Design authorization and access-control behavior with explicit trust and enforcement boundaries.",
+      },
+      {
+        id: "cap-observability",
+        title: "Production observability",
+        summary:
+          "Diagnose backend failures using logs, metrics and traces with evidence-backed reasoning.",
       },
       {
         id: "cap-card-processing",
