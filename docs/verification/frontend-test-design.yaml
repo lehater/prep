@@ -12,86 +12,103 @@ content:
 
   tests:
     - id: FTD-END-TO-END-TARGET-LOOP
+      verification_refs: [FV-02, FV-08, FV-09, FV-10]
       precondition: Representative target mock contains requirements, learner state, gaps, support, diagnostics and evidence updates.
       operation: Select target, inspect State, inspect Gaps, choose focus, perform learning/diagnostic path, record new evidence, open Progress.
       oracle: Active target/focus persist; updated evidence changes only justified target-relative state/gaps; the user can continue the adaptation loop.
 
     - id: FTD-EMPTY-CORPUS-BOOTSTRAP
+      verification_refs: [FV-03]
       precondition: No suitable prepared target/corpus data exists.
       operation: Attempt target work.
       oracle: User is routed to explicit target/corpus preparation rather than encountering an unexplained dead end.
 
     - id: FTD-CURRENT-STATE-NOT-SCORE
+      verification_refs: [FV-02, FV-09]
       precondition: Target contains satisfied, unresolved and challenged fragments with mixed evidence.
       operation: Open State.
       oracle: Three semantic states and their basis are visible; unresolved is not rendered as failure; no invented universal proficiency score appears.
 
     - id: FTD-GAP-TO-FOCUS
+      verification_refs: [FV-02, FV-08, FV-09]
       precondition: Target has multiple gaps/uncertainty areas.
       operation: Select one gap and choose learning or diagnostic focus.
       oracle: Focus is explicitly tied to selected target-relative gap/uncertainty with preserved rationale.
 
     - id: FTD-MISSING-SUPPORT
+      verification_refs: [FV-02, FV-03, FV-09]
       precondition: Selected high-priority gap has no usable learning support.
       operation: Open Learning.
       oracle: Missing support is explicit; gap/focus remain intact; user can route to Curation without fabricated material.
 
     - id: FTD-DIAGNOSTIC-EVIDENCE
+      verification_refs: [FV-02, FV-09, FV-10]
       precondition: An unresolved requirement has a supported diagnostic opportunity.
       operation: Perform/simulate diagnostic activity and accept resulting evidence.
       oracle: Performance/Observation facts are distinct from derived claims; target state changes only via accepted evidence semantics.
 
     - id: FTD-PROGRESS-NO-CHANGE-VALID
+      verification_refs: [FV-10]
       precondition: New evidence does not change target satisfaction.
       operation: Open Progress after evidence update.
       oracle: No-change is represented as valid outcome rather than hidden or forced into positive progress.
 
     - id: FTD-IMPORT-CONTRACT-VALIDATE-APPLY
+      verification_refs: [FV-03, FV-04, FV-06]
       precondition: Import mock exposes versioned contract/examples and a document with valid and rejected items.
       operation: Inspect contract, validate document, inspect outcomes, explicitly apply.
       oracle: Validation never applies data; rejected items remain identifiable; apply reports terminal per-item outcomes.
 
     - id: FTD-KNOWLEDGE-SEMANTIC-PROJECTION
+      verification_refs: [FV-07, FV-11]
       precondition: Mock Knowledge contains objects and relational propositions in target/focus scope.
       operation: Search/select/focus in non-spatial and 3D paths.
       oracle: Both preserve canonical identities and proposition meaning; selection does not implicitly narrow scope.
 
     - id: FTD-RENDERER-UNAVAILABLE-FALLBACK
+      verification_refs: [FV-07, FV-11]
       precondition: Knowledge loads but renderer is unavailable.
       operation: Complete Knowledge exploration task.
       oracle: Search/list/detail and relation inspection remain task-complete without camera manipulation.
 
     - id: FTD-RESPONSIVE-TARGET-WORK
+      verification_refs: [FV-08, FV-11]
       precondition: Representative wide, compact and narrow viewport classes.
       operation: Traverse State, Gaps, Learning, Diagnostics, Knowledge and Progress.
       oracle: Active target/focus, required actions and semantic read/focus order remain usable without required horizontal overflow.
 
     - id: FTD-CURATION-SEMANTIC-AREAS
+      verification_refs: [FV-03, FV-05]
       precondition: Mock Curation supports Targets, Capabilities, Knowledge, Learning Support, Assessment, Import and Quality.
       operation: Open each area and one representative editor.
       oracle: Semantic responsibilities remain distinct and no legacy backend/resource organization dictates the UI.
 
     - id: FTD-RECOVERABLE-FAILURE-PRESERVES-CONTEXT
+      verification_refs: [FV-04, FV-08]
       precondition: Feature has active target/focus or editor draft and adapter returns validation/conflict/operational failure.
       operation: Trigger failure and retry/correct.
       oracle: User/task context is preserved until explicit success/cancel.
 
     - id: FTD-FORBIDDEN-DEPENDENCY-EDGES
+      verification_refs: [FV-05]
       precondition: Frontend source/module roots exist.
       operation: Analyze import/dependency graph.
       oracle: No feature-to-concrete-adapter, feature-to-renderer, target-work-to-curation-internal or shared-UI-to-feature-state edge exists.
 
     - id: FTD-ADAPTER-CONTRACT
+      verification_refs: [FV-04, FV-06]
       precondition: Mock adapter implements current consumer ports.
       operation: Execute shared port contract tests.
       oracle: Feature contracts expose frontend-owned models/outcomes only and remain reusable for a future transport adapter.
 
     - id: FTD-GRAPH-PERFORMANCE-PROFILE-SEMANTICS
+      verification_refs: [FV-07, FV-11]
       precondition: Same semantic GraphScene under allowed renderer profiles.
       operation: Change performance/degradation preferences.
       oracle: Canonical Knowledge refs, target/focus scope, selection/focus and non-spatial access remain unchanged.
 
     - id: FTD-HARNESS-TRACE
+      verification_refs: [FV-12]
       precondition: Canonical frontend prerequisite revisions are known.
       operation: Evaluate strict Harness semantic/currentness closure.
       oracle: Changed accepted prerequisite requires downstream revalidation rather than remaining silently current.
