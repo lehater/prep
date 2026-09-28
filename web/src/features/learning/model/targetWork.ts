@@ -60,8 +60,12 @@ export interface DiagnosticEvidenceAcceptanceModel {
     readonly summary: string;
     readonly provenance: string;
   };
-  readonly derivedClaim: {
+  readonly evidenceArgument: {
     readonly capabilityId: string;
+    readonly bearing: "supports" | "challenges";
+    readonly summary: string;
+  };
+  readonly claimProjection: {
     readonly summary: string;
   };
   readonly state: TargetStateModel;
