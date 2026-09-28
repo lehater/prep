@@ -12,16 +12,22 @@ content:
 
   tests:
     - id: FTD-END-TO-END-TARGET-LOOP
-      verification_refs: [FV-02, FV-08, FV-09, FV-10]
-      precondition: Representative target mock contains requirements, learner state, gaps, support, diagnostics and evidence updates.
-      operation: Select target, inspect State, inspect Gaps, choose focus, perform learning/diagnostic path, record new evidence, open Progress.
-      oracle: Active target/focus persist; updated evidence changes only justified target-relative state/gaps; the user can continue the adaptation loop.
+      verification_refs: [FV-02, FV-08, FV-09, FV-10, FV-13]
+      precondition: Representative mocks include a role-capability target, a related selection/interview target, learner state, gaps, support, diagnostics and evidence updates.
+      operation: Select the intended target purpose, inspect State, inspect Gaps, choose focus, perform learning/diagnostic path, record new evidence, open Progress.
+      oracle: Active target purpose/related context/focus persist; updated evidence changes only justified target-relative learner state/gaps; role and interview requirements remain isolated; the user can continue the adaptation loop.
 
     - id: FTD-EMPTY-CORPUS-BOOTSTRAP
-      verification_refs: [FV-03]
-      precondition: Prototype store contains no target, capabilities, Knowledge, learning support or assessment design.
-      operation: Enter Target Work, choose a preparation path, import data with partial rejection, correct/complete required reusable data, compose a target and return to Target Work.
-      oracle: The motivating target context is preserved; partial rejection is recoverable; a usable target can be established without hidden pre-seeded corpus data.
+      verification_refs: [FV-02, FV-03]
+      precondition: Prototype store contains no usable target, capabilities, Knowledge, learning support or assessment design.
+      operation: Enter Target Work, inspect learner-facing missing preparation, request/accept system/agent/curator preparation, review the prepared target/support and continue to Target Overview.
+      oracle: The motivating target context is preserved; a usable reviewable target/support context can be established without exposing import schema, bulk-vs-incremental choice or item-level corpus repair to the learner.
+
+    - id: FTD-CURATION-PREPARATION-PATH
+      verification_refs: [FV-03, FV-04, FV-06]
+      precondition: Curation context has an empty or incomplete reusable corpus and supports bulk, incremental and mixed paths.
+      operation: As curator/operator, choose a preparation path; for bulk, inspect contract, validate a document with partial rejection, apply valid peers and correct a rejected item.
+      oracle: Preparation-path choice is owned by Curation; validation never applies data; partial rejection is recoverable; learner-facing state receives only reviewable prepared context rather than schema/item-repair mechanics.
 
     - id: FTD-CURRENT-STATE-NOT-SCORE
       verification_refs: [FV-02, FV-09]
@@ -33,13 +39,13 @@ content:
       verification_refs: [FV-02, FV-08, FV-09]
       precondition: Target has multiple gaps/uncertainty areas.
       operation: Select one gap and choose learning or diagnostic focus.
-      oracle: Focus is explicitly tied to selected target-relative gap/uncertainty with preserved rationale.
+      oracle: Focus is explicitly tied to selected target-relative gap/uncertainty with preserved rationale, including any material deadline/interview-stage/time/cost driver.
 
     - id: FTD-MISSING-SUPPORT
       verification_refs: [FV-02, FV-03, FV-09]
       precondition: Selected high-priority gap has no usable learning support.
       operation: Open Learning.
-      oracle: Missing support is explicit; gap/focus remain intact; user can route to Curation without fabricated material.
+      oracle: Missing support is explicit; gap/focus remain intact; learner can request preparation support without fabricated material or mandatory Curation, with self-curation remaining an explicit option.
 
     - id: FTD-PRACTICE-COMPLETION-NOT-EVIDENCE
       verification_refs: [FV-02, FV-09]
@@ -58,6 +64,12 @@ content:
       precondition: New evidence does not change target satisfaction.
       operation: Open Progress after evidence update.
       oracle: No-change is represented as valid outcome rather than hidden or forced into positive progress.
+
+    - id: FTD-TARGET-REFINEMENT-NOT-PROGRESS
+      verification_refs: [FV-10, FV-13]
+      precondition: Recruiter information adds an interview-only performance requirement while learner evidence is unchanged.
+      operation: Accept the target refinement and open Progress/Target Overview.
+      oracle: Selection/interview target changes are visible with provenance; learner state is unchanged; professional-role requirements do not inherit the interview-only requirement and no learner progress/regression is fabricated.
 
     - id: FTD-IMPORT-CONTRACT-VALIDATE-APPLY
       verification_refs: [FV-03, FV-04, FV-06]
@@ -81,7 +93,7 @@ content:
       verification_refs: [FV-08, FV-11]
       precondition: Representative wide, compact and narrow viewport classes.
       operation: Traverse State, Gaps, Learning, Diagnostics, Knowledge and Progress.
-      oracle: Active target/focus, required actions and semantic read/focus order remain usable without required horizontal overflow.
+      oracle: Active target identity/purpose/related context and focus, required actions and semantic read/focus order remain usable without required horizontal overflow.
 
     - id: FTD-CURATION-SEMANTIC-AREAS
       verification_refs: [FV-03, FV-05]

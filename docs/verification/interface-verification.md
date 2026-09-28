@@ -16,21 +16,24 @@ Verify that the frontend interaction/topology contract realizes the complete use
 
 **Verifies:** the complete learner loop is traversable without inventing hidden application behavior:
 
-`establish target -> understand target -> current state -> gaps -> choose focus -> learning/diagnostics -> evidence -> progress/reassessment`.
+`establish target -> obtain missing preparation support when needed -> understand target -> current state -> gaps -> choose focus -> learning/diagnostics -> evidence -> progress/reassessment`.
 
 **Method:** ANALYSIS + DEMONSTRATION.
 
 **Evidence:** task/journey/context/topology trace with preserved active target and focus across transitions.
 
-## IV-03 — Corpus bootstrap continuity
+## IV-03 — Empty-preparation boundary continuity
 
-**Verifies:** the corpus can start empty and the interface still exposes the preparation path:
+**Verifies:** an empty system supports two distinct traces without conflation:
 
-`import contract/examples -> validate -> apply -> incremental curation -> learner use`.
+- learner: `preparation need -> request/accept prepared support -> review target/support -> return to target work`;
+- curator/operator: `choose bulk/incremental/mixed path -> validate/apply or incremental curation -> publish reviewable preparation`.
 
-**Method:** ANALYSIS.
+The learner trace does not require import/schema/item-repair interaction unless explicit self-curation is chosen.
 
-**Evidence:** task/journey/interaction/machine-operation trace for bulk import and each curation area.
+**Method:** ANALYSIS + DEMONSTRATION.
+
+**Evidence:** task/journey/interaction/machine-operation traces for learner preparation support plus the separate Curation/import path.
 
 ## IV-04 — Information-location coverage
 
@@ -82,7 +85,7 @@ Verify that the frontend interaction/topology contract realizes the complete use
 
 ## IV-10 — Mode-boundary integrity
 
-**Verifies:** target-work views do not silently mutate reusable target/capability/knowledge/support/assessment semantics, and Curation transitions are explicit.
+**Verifies:** target-work views do not silently mutate reusable target/capability/knowledge/support/assessment semantics; learner missing-preparation recovery does not expose corpus/import machinery by default; Curation transitions require explicit self-curation or curator/operator context.
 
 **Method:** INSPECTION.
 
@@ -98,9 +101,18 @@ Verify that the frontend interaction/topology contract realizes the complete use
 - dirty Curation draft -> validation/conflict -> correction/retry without lost input;
 - long-running/import mutation -> pending -> partial/success/failure without duplicate submission or false cancellation;
 - stale/conflict outcome -> explicit recovery without silent overwrite;
-- Target Work -> temporary Curation -> return with motivating target/focus context;
+- Target Work -> delegated preparation -> review/return without Curation machinery;
+- explicit self-curation -> Curation -> return with motivating target/focus context;
 - keyboard-only navigation/recovery with semantic focus restoration;
 - spatial/drag interaction -> equivalent non-spatial/non-drag task completion.
+
+## IV-12 — Target-purpose and refinement integrity
+
+**Verifies:** professional-role capability and selection/interview performance can be related without requirement inheritance; target-purpose/provenance remain visible; new target information is not presented as learner progress.
+
+**Method:** ANALYSIS + DEMONSTRATION.
+
+**Evidence:** traces with overlapping role/interview targets, one interview-specific requirement, and a later recruiter-format refinement showing that role requirements remain unchanged unless independently revised.
 
 ## Frontend-first boundary check
 

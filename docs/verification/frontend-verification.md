@@ -12,7 +12,8 @@ Verify every user-visible behavior traces to Product Capability plus Task/Screen
 
 Verify against deterministic mocks:
 
-- select or establish target;
+- select or establish a purpose-explicit target and related role/interview context where relevant;
+- obtain missing preparation support without mandatory Curation machinery when required;
 - understand required capabilities;
 - inspect current evidence-backed state;
 - distinguish satisfied / unresolved / challenged;
@@ -24,12 +25,14 @@ Verify against deterministic mocks:
 
 The flow must preserve active target/focus across views.
 
-### FV-03 — Corpus bootstrap and curation
+### FV-03 — Preparation support and curation boundary
 
 Verify:
 
-- missing target/corpus data has an explicit preparation path;
-- import contract/examples are inspectable;
+- learner-facing missing target/support preparation has an explicit request/review path;
+- learner flow does not expose import schema/item repair unless self-curation is explicit;
+- Curation separately owns bulk/incremental/mixed path selection;
+- import contract/examples are inspectable inside Curation;
 - validate and apply are separate;
 - mixed valid/rejected outcomes remain actionable;
 - incremental Curation covers Targets, Capabilities, Knowledge, Learning Support and Assessment.
@@ -57,7 +60,7 @@ Verify canonical Knowledge refs/proposition meaning survive GraphScene projectio
 
 ### FV-08 — State ownership/lifetime
 
-Verify shell/TargetContext owns only active target/focus navigation state; feature/editor/query state remains feature-local; canonical learner/target truth is not promoted into general mutable UI state.
+Verify shell/TargetContext owns only active target identity/purpose/related-target and focus navigation state; feature/editor/query state remains feature-local; canonical learner/target truth is not promoted into general mutable UI state.
 
 ### FV-09 — Evidence/state/gap integrity
 
@@ -65,7 +68,7 @@ Verify raw observations, accepted claims, target-relative state and Gap remain d
 
 ### FV-10 — Progress integrity
 
-Verify progress is derived from accepted before/after target-relative projections and supports changed, unchanged and increased-uncertainty outcomes.
+Verify learner progress is derived from accepted before/after target-relative projections and supports changed, unchanged and increased-uncertainty outcomes; target refinements from recruiter/company information are surfaced separately and are not counted as learner progress.
 
 ### FV-11 — Presentation evidence closure
 
@@ -74,6 +77,10 @@ Verify all applicable Presentation Verification checks have evidence, including 
 ### FV-12 — Harness currentness
 
 Verify frontend closure is rerun whenever accepted prerequisites change; stale frontend knowledge/code cannot be treated as current merely because it builds.
+
+### FV-13 — Target-purpose isolation
+
+Verify related professional-role and selection/interview targets preserve separate requirements/provenance: sharing a CapabilitySpecification is allowed, but interview-only requirements never enter the role target through UI projection, adapter mapping or target relation alone.
 
 ## Completion meaning
 

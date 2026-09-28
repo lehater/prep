@@ -93,12 +93,12 @@ reviews:
     basis: "Revalidated for the explicit contract/validate/apply import workflow and modern corpus data kinds; item-level atomicity, partial peer success, identity and conflict semantics remain unchanged."
 
   - capability: prep.interface-verification
-    revision: 6
-    basis: "Interface Verification now explicitly verifies the shared interaction contracts for drafts, async operations, stale/conflict recovery, context preservation and keyboard/touch/focus behavior."
+    revision: 7
+    basis: "Interface Verification now checks learner-vs-curator bootstrap separation, target-purpose/non-inheritance integrity and separation of target refinement from learner progress in addition to shared interaction contracts."
 
   - capability: prep.presentation-verification
-    revision: 7
-    basis: "Presentation Verification now separates structural closure from representative-user validation, requires a completely empty-system bootstrap demonstration and adds explicit accessibility/reduced-motion/assistive-technology obligations before production readiness."
+    revision: 8
+    basis: "Presentation Verification now tests learner-facing empty bootstrap separately from curator import recovery, requires role-vs-interview target-purpose comprehension, and keeps target refinement distinct from learner progress before production authority."
 
   - capability: prep.system-architecture
     revision: 3
@@ -121,12 +121,12 @@ reviews:
     basis: "Component Design now distinguishes diagnostic activity from evidence acceptance, preserves Observation/provenance separately from evidence arguments and claim projections, and carries explicit supports/challenges evidential bearing without treating challenges as negative claims."
 
   - capability: prep.frontend-verification
-    revision: 7
-    basis: "Frontend Verification preserves the complete target-relative, corpus, evidence, progress and boundary obligations while using the Harness-traceable FV heading structure consumed by integration validation."
+    revision: 8
+    basis: "Frontend Verification now covers purpose-explicit related targets, learner preparation-support boundary, curator-owned corpus paths, target-refinement/progress separation and target requirement isolation."
 
   - capability: prep.frontend-test-design
-    revision: 9
-    basis: "Frontend Test Design now covers completely empty-corpus bootstrap, realistic practice completion without invented evidence and reduced-motion Knowledge behavior."
+    revision: 10
+    basis: "Frontend tests now split learner empty-bootstrap from curator import recovery, exercise multi-driver focus, verify role/interview target isolation and ensure target refinement cannot masquerade as learner progress."
 
   - capability: prep.frontend-implementation-design
     revision: 10
