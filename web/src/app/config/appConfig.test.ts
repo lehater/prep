@@ -8,6 +8,7 @@ describe("frontend foundation", () => {
       name: "Prep",
       documentTitle: "Prep",
       dataProvider: "mock",
+      mockScenario: "prepared",
       apiBaseUrl: "/api",
     });
   });
