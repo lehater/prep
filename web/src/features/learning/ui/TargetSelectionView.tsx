@@ -62,10 +62,10 @@ export function TargetSelectionView({
           Learning
         </Typography>
         <Typography component="h2" variant="h5">
-          Choose a learning target
+          Choose a target
         </Typography>
         <Typography color="text.secondary">
-          Select an existing curated LearningTarget. Target composition is read-only in Learning.
+          Choose the role, vacancy or other outcome you want to work toward. Target requirements stay read-only here.
         </Typography>
       </header>
 
@@ -100,10 +100,17 @@ export function TargetSelectionView({
           onRetry={() => setReloadVersion((value) => value + 1)}
         />
       ) : state.items.length === 0 ? (
-        <StateNotice
-          title="No learning targets found"
-          message="Change the target search."
-        />
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <Stack spacing={1}>
+            <Typography component="h3" variant="h6">No suitable target found</Typography>
+            <Typography color="text.secondary">
+              Prepare a target capability profile first, then return to Target Work.
+            </Typography>
+            <Button component={Link} to="/curation/targets" sx={{ alignSelf: "flex-start" }}>
+              Prepare target
+            </Button>
+          </Stack>
+        </Paper>
       ) : (
         <Stack spacing={2} aria-label="Learning targets">
           {state.items.map((target) => (
