@@ -1,20 +1,67 @@
 version: 1
 kind: conceptual-interface-model
 id: PREP-CONCEPTUAL-INTERFACE
+
 concepts:
-  - {id: LEARNING-TARGET, meaning: A prepared outcome/profile selected by the learner.}
-  - {id: TARGET-SCOPE, meaning: Read-only Requirement/RequirementSet composition of the active target in Learning mode.}
-  - {id: KNOWLEDGE, meaning: Reusable subject knowledge available for reading and relational exploration.}
-  - {id: KNOWLEDGE-RELATION, meaning: Accepted typed semantic relation between KnowledgeNodes.}
-  - {id: REQUIREMENT, meaning: Reusable learning requirement used by curated target scope.}
-  - {id: QUESTION, meaning: Reusable retrieval/diagnostic artifact aligned to Knowledge.}
-  - {id: STUDY-SET, meaning: Current application materialization of resolvable Questions for one target.}
-  - {id: REVIEW-FACTS, meaning: Recorded factual ReviewObservations/statistics without mastery inference.}
-  - {id: EXTERNAL-RUNTIME, meaning: Configured external study runtime such as Anki.}
+  - id: LEARNING-TARGET
+    meaning: A prepared learning outcome selected by the learner; its required scope is already curated.
+    upstream_refs: [LearningTarget]
+  - id: TARGET-REQUIREMENTS
+    meaning: The read-only capability requirements of the active target, expressed through its RequirementExpression<CapabilitySpecification>.
+    upstream_refs: [RequirementExpression, CapabilitySpecification]
+  - id: CAPABILITY
+    meaning: A reusable description of what competent performance is expected to achieve under material conditions and criteria.
+    upstream_refs: [Capability, PerformanceExpectation]
+  - id: KNOWLEDGE
+    meaning: Reusable subject meaning presented as coherent objects or independently addressable propositions.
+    upstream_refs: [KnowledgeObject, KnowledgeProposition]
+  - id: RELATIONAL-KNOWLEDGE
+    meaning: A Knowledge proposition whose predicate and participants express an accepted semantic relationship; it is not a separate relation entity.
+    upstream_refs: [KnowledgeProposition]
+  - id: STUDY-MATERIAL
+    meaning: Learner-facing material available for learning/practice; the current slice includes a Question-compatible projection without making Question the universal semantic type.
+    upstream_refs: [LearningMaterial, TaskSpecification, ObservationSpecification]
+  - id: STUDY-SET
+    meaning: A current-state application materialization of the exact support subset representable by a supported study profile.
+    upstream_refs: [application:Build Study Set]
+  - id: PREPARATION-DIAGNOSTIC
+    meaning: Explicit information about missing, inadequate, unspecified or unrepresentable support for a target requirement fragment.
+    upstream_refs: [LearningSupportRequirement, application:Build Study Set]
+  - id: LEARNING-EVIDENCE
+    meaning: Recorded factual observations with relevant performance/task/provenance context, distinct from evidence-backed learner capability conclusions.
+    upstream_refs: [Observation, Performance]
+  - id: EXTERNAL-RUNTIME
+    meaning: A configured external study runtime used by supported delegated study operations, such as the current Anki-compatible integration.
+    upstream_refs: [application:External study]
+
 modes:
-  - {id: LEARNING, purpose: Consume prepared learning structure without semantic authoring.}
-  - {id: CURATION, purpose: Author and maintain prepared targets and reusable learning knowledge/material.}
+  - id: LEARNING
+    purpose: Select and consume prepared targets without authoring target scope or reusable semantics.
+  - id: CURATION
+    purpose: Author and maintain prepared targets, reusable capabilities, Knowledge and supported study material.
+
 state_vocabulary:
-  - {id: RUNTIME-REACHABLE, meaning: Supported external-runtime operations are currently reachable.}
-  - {id: RUNTIME-UNAVAILABLE, meaning: External runtime cannot currently perform supported operations.}
-  - {id: STUDY-PREVIEW-STALE, meaning: Canonical target/question resolution changed after Study Set preview.}
+  - id: RUNTIME-REACHABLE
+    meaning: Supported external-runtime operations are currently reachable and compatible.
+  - id: RUNTIME-UNAVAILABLE
+    meaning: The external runtime cannot currently perform supported operations.
+  - id: STUDY-PREVIEW-STALE
+    meaning: Target/support resolution changed after the inspected Study Set materialization.
+  - id: SUPPORT-DIAGNOSTIC
+    meaning: A target requirement fragment has explicit support information that must remain visible without being converted into a learner-state conclusion.
+
+relationships:
+  - {source: LEARNING-TARGET, target: TARGET-REQUIREMENTS, relation: has-prepared-requirements}
+  - {source: TARGET-REQUIREMENTS, target: CAPABILITY, relation: constrains-capability}
+  - {source: CAPABILITY, target: KNOWLEDGE, relation: may-focus-on}
+  - {source: STUDY-SET, target: STUDY-MATERIAL, relation: materializes}
+  - {source: STUDY-SET, target: PREPARATION-DIAGNOSTIC, relation: reports}
+  - {source: LEARNING-EVIDENCE, target: STUDY-MATERIAL, relation: may-arise-from-compatible-performance}
+  - {source: STUDY-SET, target: EXTERNAL-RUNTIME, relation: may-be-delegated-to}
+
+deliberately_unconstrained:
+  - concrete navigation locations and routes
+  - screen/view partitioning and layout
+  - graph/list/3D presentation choice
+  - HTTP/backend representation
+  - persistence representation
