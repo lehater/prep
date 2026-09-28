@@ -93,12 +93,12 @@ reviews:
     basis: "Revalidated for the explicit contract/validate/apply import workflow and modern corpus data kinds; item-level atomicity, partial peer success, identity and conflict semantics remain unchanged."
 
   - capability: prep.interface-verification
-    revision: 5
-    basis: "Interface verification now proves continuity of the complete target-relative learner loop, empty-corpus bootstrap, modern Curation coverage and machine-operation/recovery traceability."
+    revision: 6
+    basis: "Interface Verification now explicitly verifies the shared interaction contracts for drafts, async operations, stale/conflict recovery, context preservation and keyboard/touch/focus behavior."
 
   - capability: prep.presentation-verification
-    revision: 6
-    basis: "Presentation verification now requires rendered evidence for target/state/gap/focus/progress semantics, import usability, responsive closure and 3D/non-spatial Knowledge equivalence."
+    revision: 7
+    basis: "Presentation Verification now separates structural closure from representative-user validation, requires a completely empty-system bootstrap demonstration and adds explicit accessibility/reduced-motion/assistive-technology obligations before production readiness."
 
   - capability: prep.system-architecture
     revision: 3
