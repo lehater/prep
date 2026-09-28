@@ -65,7 +65,8 @@ test("diagnostic evidence changes target-relative progress", async ({ page }) =>
   await page.getByRole("button", { name: "Accept mock diagnostic evidence" }).click();
   await expect(page.getByText("New evidence accepted")).toBeVisible();
   await expect(page.getByText(/^Observation:/)).toBeVisible();
-  await expect(page.getByText(/^Derived claim:/)).toBeVisible();
+  await expect(page.getByText(/^Evidence argument:/)).toBeVisible();
+  await expect(page.getByText(/^Claim projection:/)).toBeVisible();
 
   await page.getByRole("link", { name: "Review progress" }).click();
   await expect(page.getByText("Challenged → Satisfied")).toBeVisible();
