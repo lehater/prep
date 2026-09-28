@@ -21,9 +21,12 @@ interface ImportCurationViewProps {
 
 const DATA_KINDS: readonly ImportDataKind[] = [
   "knowledge",
-  "requirements",
-  "questions",
+  "capabilities",
+  "learning_support",
+  "assessment_design",
   "targets",
+  "questions",
+  "requirements",
 ];
 
 export function ImportCurationView({ importPort }: ImportCurationViewProps) {
