@@ -46,7 +46,7 @@ assessments:
   - authority_id: APPLICATION-DESIGN
     applicability: REQUIRED
     evidence: [docs/application/application-design.md, docs/application/user-journeys.md]
-    rationale: Current canonical knowledge defines application orchestration, Study Set materialization and task-oriented user journeys.
+    rationale: Current canonical knowledge defines the target-relative assessment/gap/learning/evidence loop, corpus bootstrap/curation orchestration, compatibility Study Set behavior and task-oriented user journeys.
     depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [application orchestration or accepted journeys change materially]
 
