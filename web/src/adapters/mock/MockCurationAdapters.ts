@@ -835,8 +835,22 @@ export class MockImportAdapter implements CurationImportPort {
       };
     }
 
+    const validation = validatePreparedDocument(documentText, expectedKind);
+    if (validation.status !== "success") {
+      return validation;
+    }
+
     const outcomes: ImportItemOutcomeModel[] = [];
     for (let index = 0; index < envelope.items.length; index += 1) {
+      const validationItem = validation.value.items[index];
+      if (validationItem?.status === "rejected") {
+        outcomes.push({
+          item: validationItem.item,
+          status: "rejected",
+          reason: validationItem.reason ?? "representation/schema rejection",
+        });
+        continue;
+      }
       outcomes.push(await this.applyItem(dataKind, envelope.items[index], index));
     }
     const rejected = outcomes.filter((item) => item.status === "rejected").length;
