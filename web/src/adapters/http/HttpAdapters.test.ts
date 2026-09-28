@@ -168,6 +168,11 @@ describe("FI-06 HTTP adapters", () => {
             name: target.name,
             definition: target.definition,
             scope_summary: target.scopeSummary,
+            capabilities: target.capabilities.map((item) => ({
+              id: item.id,
+              title: item.title,
+              summary: item.summary,
+            })),
             scope_items: target.scopeItems.map((item) => ({
               id: item.id,
               kind: item.kind,
