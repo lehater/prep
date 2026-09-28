@@ -109,16 +109,16 @@ reviews:
     basis: "Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope."
 
   - capability: prep.frontend-system-architecture
-    revision: 3
-    basis: "Frontend architecture was revalidated against the graph performance/capacity prerequisite; Knowledge Exploration owns user presentation intent while the renderer adapter owns private optimization strategy and semantic-preserving degradation."
+    revision: 4
+    basis: "Rebuilt as an independently current frontend subarchitecture against Application Design, frontend semantic ports, Presentation/Screen and Quality constraints rather than full backend System Architecture. Decision review determines one browser deployable, feature/task modules, consumer-owned ports, lifecycle-local state and isolated renderer/provider failures with mock-first composition."
 
   - capability: prep.frontend-engineering-policy
-    revision: 3
-    basis: "Engineering policy now requires bounded graph work, demand-driven idle rendering, semantic-preserving degradation and hardware performance evidence while keeping renderer optimization internals isolated."
+    revision: 4
+    basis: "Revalidated for mock-first frontend architecture: mock and future transport adapters must satisfy the same consumer-owned ports, current KnowledgeProposition semantics replace legacy relation assumptions, and provider/renderer/transport boundaries remain concrete reviewable obligations without speculative abstraction."
 
   - capability: prep.frontend-component-design
-    revision: 3
-    basis: "Graph component contracts now separate user-visible performance profiles/preferences from renderer-private instancing, batching, pixel-ratio, physics and diagnostics strategies."
+    revision: 4
+    basis: "Rebuilt for the complete frontend slice. Decision review determines feature/task ownership, narrow data/renderer/provider seams and lifecycle-local state; public ports/models now cover Targets, Capabilities, KnowledgeObject/KnowledgeProposition, Question-compatible Study Material, Study Set diagnostics, factual evidence, runtime status and mock-first substitution."
 
   - capability: prep.frontend-verification
     revision: 5
