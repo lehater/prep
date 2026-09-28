@@ -8,6 +8,13 @@ import type {
   RequirementCurationPort,
   TargetCurationPort,
 } from "../../features/curation/ports/CurationPorts";
+import type {
+  AssessmentCurationPortV2,
+  CapabilityCurationPortV2,
+  CorpusQualityPort,
+  LearningSupportCurationPortV2,
+  TargetProfileCurationPort,
+} from "../../features/curation/ports/UserCenteredCurationPorts";
 import type { LearningStatisticsPort } from "../../features/learning/ports/LearningStatisticsPort";
 import type { QuestionQueryPort } from "../../features/learning/ports/QuestionQueryPort";
 import type { StudyPort } from "../../features/learning/ports/StudyPort";
@@ -32,6 +39,13 @@ import { HttpOperationClient } from "../../adapters/http/HttpOperationClient";
 import { HttpRuntimeStatusAdapter } from "../../adapters/http/HttpRuntimeStatusAdapter";
 import { PendingHttpTargetWorkAdapter } from "../../adapters/http/PendingTargetWorkAdapter";
 import {
+  PendingAssessmentCurationAdapter,
+  PendingCapabilityCurationAdapter,
+  PendingCorpusQualityAdapter,
+  PendingLearningSupportCurationAdapter,
+  PendingTargetProfileCurationAdapter,
+} from "../../adapters/http/PendingUserCenteredCurationAdapters";
+import {
   MockCurationKnowledgeAdapter,
   MockCurationQuestionAdapter,
   MockCurationTargetAdapter,
@@ -46,6 +60,13 @@ import { MockRuntimeStatusAdapter } from "../../adapters/mock/MockRuntimeStatusA
 import { MockStudyAdapter } from "../../adapters/mock/MockStudyAdapter";
 import { MockTargetAdapter } from "../../adapters/mock/MockTargetAdapter";
 import { MockTargetWorkAdapter } from "../../adapters/mock/MockTargetWorkAdapter";
+import {
+  MockAssessmentCurationAdapter,
+  MockCapabilityCurationAdapter,
+  MockCorpusQualityAdapter,
+  MockLearningSupportCurationAdapter,
+  MockTargetProfileCurationAdapter,
+} from "../../adapters/mock/MockUserCenteredCurationAdapters";
 import type { DataProvider } from "../config/appConfig";
 
 export interface FrontendPorts {
@@ -60,6 +81,11 @@ export interface FrontendPorts {
   readonly curationRequirementPort: RequirementCurationPort;
   readonly curationQuestionPort: QuestionCurationPort;
   readonly curationImportPort: CurationImportPort;
+  readonly targetProfilePort: TargetProfileCurationPort;
+  readonly capabilityPort: CapabilityCurationPortV2;
+  readonly learningSupportPort: LearningSupportCurationPortV2;
+  readonly assessmentPort: AssessmentCurationPortV2;
+  readonly qualityPort: CorpusQualityPort;
   readonly runtimeStatusPort: RuntimeStatusPort;
   readonly Renderer: GraphRenderer;
 }
@@ -82,6 +108,11 @@ export function createFrontendPorts(config: {
       curationRequirementPort: new HttpRequirementAdapter(client),
       curationQuestionPort: new HttpCurationQuestionAdapter(client),
       curationImportPort: new HttpImportAdapter(client),
+      targetProfilePort: new PendingTargetProfileCurationAdapter(),
+      capabilityPort: new PendingCapabilityCurationAdapter(),
+      learningSupportPort: new PendingLearningSupportCurationAdapter(),
+      assessmentPort: new PendingAssessmentCurationAdapter(),
+      qualityPort: new PendingCorpusQualityAdapter(),
       runtimeStatusPort: new HttpRuntimeStatusAdapter(client),
       Renderer: Rfg3dGraphRenderer,
     };
@@ -111,6 +142,11 @@ export function createFrontendPorts(config: {
       curationRequirementPort,
       curationQuestionPort,
     ),
+    targetProfilePort: new MockTargetProfileCurationAdapter(store),
+    capabilityPort: new MockCapabilityCurationAdapter(store),
+    learningSupportPort: new MockLearningSupportCurationAdapter(store),
+    assessmentPort: new MockAssessmentCurationAdapter(store),
+    qualityPort: new MockCorpusQualityAdapter(store),
     runtimeStatusPort: new MockRuntimeStatusAdapter(),
     Renderer: Rfg3dGraphRenderer,
   };
