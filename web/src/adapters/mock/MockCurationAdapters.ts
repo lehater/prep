@@ -18,6 +18,7 @@ import type {
   KnowledgeDraft,
   KnowledgeRelationDraft,
 } from "../../features/curation/model/curationModels";
+import type { LearningSupportCurationModel } from "../../features/curation/model/userCenteredCurationModels";
 import type {
   CurationImportPort,
   KnowledgeCurationPort,
