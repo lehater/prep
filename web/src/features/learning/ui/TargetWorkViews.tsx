@@ -352,7 +352,10 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
               Provenance: {acceptedEvidence.observation.provenance}
             </Typography>
             <Typography variant="body2">
-              Derived claim: {acceptedEvidence.derivedClaim.summary}
+              Evidence argument: {acceptedEvidence.evidenceArgument.summary}
+            </Typography>
+            <Typography variant="body2">
+              Claim projection: {acceptedEvidence.claimProjection.summary}
             </Typography>
           </Stack>
         </Paper>
