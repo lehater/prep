@@ -37,8 +37,8 @@ reviews:
     basis: "Knowledge is replaced by the minimal KnowledgeObject/KnowledgeProposition model with stable semantic identity, open optional knowledge forms and relational propositions; structural KnowledgeUse and mandatory Concept/Model kinds are removed."
 
   - capability: prep.frontend-performance-capacity
-    revision: 1
-    basis: "Measurable visible-graph scale, approximately-30-FPS ordinary interaction, demand-driven idle behavior and semantic-preserving degradation are accepted as Quality Design derived from existing project/experimental evidence rather than invented renderer semantics."
+    revision: 2
+    basis: "Revalidated after Product Capability revision 3 and Knowledge Model revision 4: quality ownership is now presentation-form neutral, KnowledgeNode/KnowledgeRelation are removed as domain assumptions, graph node/link counts are explicitly presentation workload units, accepted performance/capacity and demand-driven-idle constraints are retained, and 3D controls plus renderer mechanics remain downstream."
 
   - capability: prep.learning-design
     revision: 3
