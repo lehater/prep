@@ -77,7 +77,7 @@ export interface KnowledgeRelationDraft {
   readonly type: KnowledgeRelationType;
 }
 
-export type ImportDataKind = "knowledge" | "requirements" | "questions" | "targets";
+export type ImportDataKind = "knowledge" | "capabilities" | "learning_support" | "assessment_design" | "targets" | "questions" | "requirements";
 
 export interface ImportContractModel {
   readonly schemaVersion: string;
