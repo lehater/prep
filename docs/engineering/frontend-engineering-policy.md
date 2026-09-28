@@ -135,7 +135,7 @@ CI separates fast feedback from expensive release-grade evidence.
 
 **Fast validation** is the default development loop and must be independently runnable. It contains deterministic checks whose feedback is useful on ordinary branch pushes: frontend typecheck/lint/boundary/unit checks and lightweight Harness/document closure checks.
 
-**Heavy validation** is reserved for explicit end-of-branch/full-validation checkpoints and post-merge validation on `main`. It may include full Harness revalidation, browser E2E, dependency audit, graph stress evidence, production build/container verification and maintained reference-suite execution.
+**Heavy validation** is reserved for explicit end-of-branch/full-validation checkpoints and is manually dispatched on the branch being finalized. It may include full Harness revalidation, browser E2E, dependency audit, graph stress evidence, production build/container verification and maintained reference-suite execution.
 
 Rules:
 
@@ -143,7 +143,7 @@ Rules:
 - fast and heavy workflows remain separately dispatchable;
 - heavy validation runs fast deterministic checks first so failure is reported before expensive stages;
 - a green fast path is development feedback, not a substitute for required heavy evidence before a large branch is considered fully validated;
-- branch/merge policy may require a final manually dispatched heavy run before merge without forcing that cost onto every intermediate commit.
+- run the final heavy workflow manually on a large branch before treating that branch as fully validated; ordinary pushes, PR updates and main pushes do not trigger it implicitly.
 
 ## Explicit non-rules
 
