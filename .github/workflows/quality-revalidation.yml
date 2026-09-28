@@ -1,0 +1,32 @@
+name: Quality design revalidation
+
+on:
+  push:
+    branches:
+      - model/tactical-domain-redesign
+
+permissions:
+  contents: read
+
+jobs:
+  admit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+      - run: python -m pip install PyYAML
+      - name: Strict semantic admission
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/semantic_baseline.py
+      - name: Documentation validation
+        run: python tools/validate_docs.py
