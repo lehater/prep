@@ -230,6 +230,16 @@ export class MockCurationStore {
     const target = this.targets.find((candidate) => candidate.id === targetId);
     if (!target) return [];
 
+    const knowledgeIds = new Set<string>();
+
+    for (const capabilityId of this.targetCapabilityIds.get(targetId) ?? []) {
+      const capability = this.capabilities.find(
+        (candidate) => candidate.id === capabilityId,
+      );
+      capability?.knowledgeIds.forEach((id) => knowledgeIds.add(id));
+    }
+
+    // Compatibility path for legacy Requirement/RequirementSet-backed donor flows.
     const requirementIds = new Set<string>();
     const visited = new Set<string>();
     const visit = (id: string) => {
@@ -245,9 +255,10 @@ export class MockCurationStore {
     };
     target.scopeItems.forEach((item) => visit(item.id));
 
-    const knowledgeIds = new Set<string>();
     for (const requirementId of requirementIds) {
-      const item = this.requirements.find((candidate) => candidate.id === requirementId);
+      const item = this.requirements.find(
+        (candidate) => candidate.id === requirementId,
+      );
       if (item?.kind === "requirement") {
         item.knowledgeIds.forEach((id) => knowledgeIds.add(id));
       }
