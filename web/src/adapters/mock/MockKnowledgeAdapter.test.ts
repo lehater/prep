@@ -29,7 +29,7 @@ describe("MockKnowledgeAdapter", () => {
         expect.arrayContaining([
           expect.objectContaining({
             id: "demo-payment-idempotency-key",
-            semanticKind: "concept",
+            semanticKind: "mechanism",
           }),
         ]),
       );
