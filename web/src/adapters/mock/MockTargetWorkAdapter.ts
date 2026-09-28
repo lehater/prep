@@ -237,12 +237,19 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
             "The mock diagnostic produced the observation pattern required by its assessment design.",
           provenance: "Prep mock diagnostic",
         },
-        derivedClaim: {
+        evidenceArgument: {
           capabilityId,
+          bearing: assessment.evidenceBearing,
           summary:
             assessment.evidenceBearing === "challenges"
-              ? `Accepted assessment semantics challenge the current positive learner claim for ${capability?.title ?? capabilityId}.`
-              : `Accepted assessment semantics support a current positive learner claim for ${capability?.title ?? capabilityId}.`,
+              ? `Accepted assessment semantics materially challenge the current positive learner claim for ${capability?.title ?? capabilityId}.`
+              : `Accepted assessment semantics support the current positive learner claim for ${capability?.title ?? capabilityId}.`,
+        },
+        claimProjection: {
+          summary:
+            assessment.evidenceBearing === "challenges"
+              ? "The positive learner claim remains explicit, but unresolved challenging evidence prevents it from establishing target satisfaction."
+              : "A current positive learner claim is supported by the accepted evidence argument for the represented conditions.",
         },
         state: this.state(targetId),
       },
