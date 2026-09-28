@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -41,6 +42,9 @@ export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewPro
   const [state, setState] = useState<TargetStateModel | null>(null);
   const [problem, setProblem] = useState<string>();
   const [reload, setReload] = useState(0);
+  const [activePracticeId, setActivePracticeId] = useState<string>();
+  const [practiceResponse, setPracticeResponse] = useState("");
+  const [completedPracticeId, setCompletedPracticeId] = useState<string>();
 
   useEffect(() => {
     let active = true;
@@ -262,9 +266,69 @@ export function LearningFocusView({ targetId, targetWorkPort }: TargetWorkViewPr
         <Stack spacing={1.25} aria-label="Learning support">
           {support.map((item) => (
             <Paper key={item.id} variant="outlined" sx={{ p: 1.5 }}>
-              <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
-              <Typography variant="body2" color="text.secondary">{item.kind}</Typography>
-              <Typography>{item.summary}</Typography>
+              <Stack spacing={1}>
+                <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
+                <Typography variant="body2" color="text.secondary">{item.kind}</Typography>
+                <Typography>{item.summary}</Typography>
+                {item.kind === "practice" ? (
+                  <>
+                    {activePracticeId !== item.id && completedPracticeId !== item.id ? (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => {
+                          setActivePracticeId(item.id);
+                          setPracticeResponse("");
+                        }}
+                        sx={{ alignSelf: "flex-start" }}
+                      >
+                        Start practice
+                      </Button>
+                    ) : null}
+                    {activePracticeId === item.id ? (
+                      <Stack spacing={1} component="section" aria-label={`Practice: ${item.title}`}>
+                        <Typography variant="body2">
+                          Work through the task in your own words. The response is a prototype work product, not accepted capability evidence.
+                        </Typography>
+                        <TextField
+                          label="Your approach"
+                          multiline
+                          minRows={4}
+                          value={practiceResponse}
+                          onChange={(event) => setPracticeResponse(event.target.value)}
+                        />
+                        <Stack direction="row" spacing={1}>
+                          <Button
+                            variant="contained"
+                            disabled={!practiceResponse.trim()}
+                            onClick={() => {
+                              setCompletedPracticeId(item.id);
+                              setActivePracticeId(undefined);
+                            }}
+                          >
+                            Finish practice
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              setActivePracticeId(undefined);
+                              setPracticeResponse("");
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                        </Stack>
+                      </Stack>
+                    ) : null}
+                    {completedPracticeId === item.id ? (
+                      <StateNotice
+                        title="Practice completed"
+                        message="The work product is complete for this prototype session. Completion alone does not establish capability or close the gap; gather diagnostic evidence separately."
+                        severity="success"
+                      />
+                    ) : null}
+                  </>
+                ) : null}
+              </Stack>
             </Paper>
           ))}
         </Stack>
