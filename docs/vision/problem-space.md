@@ -75,6 +75,31 @@ Secondary evidence used for this triangulation:
 
 The public discussions above are anecdotal convenience evidence. They may expose recurring behaviors or vocabulary, but they are not treated as a representative sample and cannot satisfy the human-validation gate.
 
+
+### Secondary-evidence challenges to falsify
+
+The triangulation above also exposes plausible counterexamples to the current model. These are deliberately retained as **challenges**, not silently reconciled into the existing target-first lifecycle.
+
+- **CH-P01 — target granularity/evolution:** developers may begin with a role/level or broad job-search target and only later learn company-specific interview format, technology emphasis or depth. The model must test whether one stable "concrete target" is natural, or whether users need a layered/refinable target that changes as new external information arrives.
+- **CH-P02 — readiness is performance-shaped:** interview preparation reports repeatedly include coding under pressure, system design, practical/backend exercises, communication/behavioral explanation and discussion of past work. The model must test whether "knowledge and knowledge-dependent capability" captures the motivating outcome well enough, or whether the initial target scope is too knowledge-centric.
+- **CH-P03 — users often track activity, not evidence:** common preparation practice uses topic lists, hours, question counts and completed resources as progress proxies. Prep's evidence-backed current-state model may be more trustworthy, but it may also impose cognitive/operational cost users do not naturally accept. Research must test both usefulness and burden rather than assuming richer evidence semantics is automatically better.
+- **CH-P04 — preparation may be opportunistic rather than sequential:** public accounts show people switching among DSA, system design, stack review, practical work and company-specific preparation as interviews appear. Research must test whether target -> state -> gap -> focus -> activity -> evidence -> progress is a useful reasoning model or an overly neat sequence imposed by Prep.
+- **CH-P05 — real interview outcomes can change both state and target knowledge:** an interview can reveal a skill gap and simultaneously reveal previously unknown expectations about the role/company. Research must test whether feedback should revise only learner state/priorities or also the target profile itself.
+- **CH-P06 — reusable corpus may be optional infrastructure from the user's perspective:** users frequently assemble existing external resources rather than curate a durable semantic corpus. Research must distinguish the user's need ("get a usable preparation scope/support") from Prep's internal preference for reusable structured data.
+
+These challenges are supported only at the secondary/anecdotal level. They exist to make Round A/B capable of disproving the current model.
+
+Additional triangulation sources:
+
+- Tech Interview Handbook, software-engineering interview guide (role-dependent coding/system-design/behavioral preparation): https://www.techinterviewhandbook.org/software-engineering-interview-guide/
+- Tech Interview Handbook, coding interview study plan (time-bounded prioritization and progress tracking): https://www.techinterviewhandbook.org/coding-interview-study-plan/
+- Recent backend/developer discussions:
+  - https://www.reddit.com/r/Backend/comments/1rvbhjz/backend_devs_with_35_yoe_how_do_you_prepare_for/
+  - https://www.reddit.com/r/Backend/comments/1spki0u/java_backend_developer_3_yoe_seeking_structured/
+  - https://www.reddit.com/r/cscareerquestions/comments/1m6pr7j/is_anyone_else_overwhelmed_by_how_much_you_have/
+  - https://www.reddit.com/r/SoftwareEngineerJobs/comments/1wo7s6q/5_yoe_java_backend_engineer_what_should_i/
+
+
 ### User-model validation gate
 
 The model is considered **HUMAN-VALIDATED** only after representative-user evidence closes these critical claims:
@@ -129,6 +154,10 @@ These are recruitment hypotheses, not accepted user segments:
 - **RQ-P05 / OBS-P03:** Where do fragmented terminology, duplicated material or conflicting explanations create real preparation cost?
 - **RQ-P06 / OBS-P09:** When preparation data is initially absent, how is it assembled today? When would bulk preparation through an external AI/tool be preferable to manual entry?
 - **RQ-P07 / OBS-P07:** Which retention/transfer failures materially affect target readiness rather than merely recall convenience?
+- **RQ-P08 / CH-P01, CH-P05:** At what granularity does the person's target actually exist over time: role family, level, vacancy, company/interview loop, or a changing combination? What events cause it to be refined?
+- **RQ-P09 / CH-P02:** Which kinds of performance are part of "readiness" for the motivating users (recall/explanation, coding, system design, practical backend work, communication/behavioral evidence, past-project articulation), and which are outside Prep's useful scope?
+- **RQ-P10 / CH-P03, CH-P04:** What lightweight signals do users currently use to decide "I am improving / ready / still weak", and when would a more evidence-backed model be worth the additional effort?
+- **RQ-P11 / CH-P06:** Does the user need to own/curate a reusable structured corpus, or only to obtain a trustworthy usable preparation scope and support regardless of where the underlying structure is maintained?
 
 ### Representative discovery scenarios
 
@@ -160,6 +189,7 @@ User-model validation is intentionally separated from interface usability so the
 - Product owners, contributors already familiar with Prep's model, and people coached on the expected lifecycle may be used for protocol pilots but do **not** count as independent representative-user validation.
 - Do not show Prep navigation, task names or the target -> state -> gap -> focus sequence before the participant has demonstrated/explained their existing process.
 - Primary evidence: observed/currently recalled workflow, artifacts participants actually use, vocabulary, prioritization decisions, uncertainty, workarounds and progress signals.
+- Explicitly capture target changes over time, interview/company feedback, performance types being prepared for, progress proxies, and whether participants maintain structured reusable data or simply assemble resources as needed.
 
 **Round B — user-model challenge**
 

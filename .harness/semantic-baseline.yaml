@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 7
-    basis: "Problem evidence now includes an executable two-round validation programme: recent representative-user current-behavior discovery followed by a UI-independent challenge of the five user-model claims, with recruitment screener, session evidence ledger and synthesis/retest rules."
+    revision: 8
+    basis: "Discovery now includes an explicit falsification pass from secondary developer evidence: target granularity/evolution, performance-shaped readiness, activity-vs-evidence burden, opportunistic preparation order, interview feedback changing target knowledge, and the possibility that reusable corpus ownership is not itself a user need."
 
   - capability: prep.product-intent
     revision: 4
