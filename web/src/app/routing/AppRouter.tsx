@@ -1,7 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
 
-import type { GraphRenderer } from "../../features/knowledge-explorer/ports/GraphRenderer";
-import type { KnowledgeQueryPort } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
 import {
   CurationWorkspace,
   type CurationSection,
@@ -13,24 +11,20 @@ import type {
   RequirementCurationPort,
   TargetCurationPort,
 } from "../../features/curation/ports/CurationPorts";
-import {
-  LearningWorkspace,
-  type LearningSection,
-} from "../../features/learning/LearningWorkspace";
-import type { LearningStatisticsPort } from "../../features/learning/ports/LearningStatisticsPort";
-import type { QuestionQueryPort } from "../../features/learning/ports/QuestionQueryPort";
-import type { StudyPort } from "../../features/learning/ports/StudyPort";
+import type { GraphRenderer } from "../../features/knowledge-explorer/ports/GraphRenderer";
+import type { KnowledgeQueryPort } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
+import { LearningWorkspace } from "../../features/learning/LearningWorkspace";
 import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryPort";
+import type { TargetWorkPort } from "../../features/learning/ports/TargetWorkPort";
+import type { LearningSection } from "../../features/learning/ui/learningRoutes";
 import { TargetSelectionView } from "../../features/learning/ui/TargetSelectionView";
 import { AppShell } from "../shell/AppShell";
 import type { RuntimeStatusPort } from "../shell/RuntimeStatusPort";
 
 interface AppRouterProps {
   readonly targetQueryPort: TargetQueryPort;
+  readonly targetWorkPort: TargetWorkPort;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
-  readonly questionQueryPort: QuestionQueryPort;
-  readonly studyPort: StudyPort;
-  readonly statisticsPort: LearningStatisticsPort;
   readonly curationTargetPort: TargetCurationPort;
   readonly curationKnowledgePort: KnowledgeCurationPort;
   readonly curationRequirementPort: RequirementCurationPort;
@@ -43,26 +37,20 @@ interface AppRouterProps {
 function LearningRoute({
   section,
   targetQueryPort,
+  targetWorkPort,
   knowledgeQueryPort,
-  questionQueryPort,
-  studyPort,
-  statisticsPort,
   Renderer,
 }: AppRouterProps & { readonly section: LearningSection }) {
   const { targetId } = useParams();
-  if (!targetId) {
-    return <Navigate to="/learning" replace />;
-  }
+  if (!targetId) return <Navigate to="/learning" replace />;
 
   return (
     <LearningWorkspace
       targetId={targetId}
       section={section}
       targetQueryPort={targetQueryPort}
+      targetWorkPort={targetWorkPort}
       knowledgeQueryPort={knowledgeQueryPort}
-      questionQueryPort={questionQueryPort}
-      studyPort={studyPort}
-      statisticsPort={statisticsPort}
       Renderer={Renderer}
     />
   );
@@ -85,6 +73,16 @@ function CurationRoute(
   );
 }
 
+const LEARNING_SECTIONS: readonly LearningSection[] = [
+  "overview",
+  "state",
+  "gaps",
+  "learning",
+  "diagnostics",
+  "knowledge",
+  "progress",
+];
+
 export function AppRouter(props: AppRouterProps) {
   return (
     <BrowserRouter>
@@ -102,15 +100,13 @@ export function AppRouter(props: AppRouterProps) {
             path="learning"
             element={<TargetSelectionView targetQueryPort={props.targetQueryPort} />}
           />
-          {(["overview", "knowledge", "study", "statistics"] as const).map(
-            (section) => (
-              <Route
-                key={section}
-                path={`learning/:targetId/${section}`}
-                element={<LearningRoute {...props} section={section} />}
-              />
-            ),
-          )}
+          {LEARNING_SECTIONS.map((section) => (
+            <Route
+              key={section}
+              path={`learning/:targetId/${section}`}
+              element={<LearningRoute {...props} section={section} />}
+            />
+          ))}
           {(["targets", "knowledge", "requirements", "questions", "import"] as const).map(
             (section) => (
               <Route
