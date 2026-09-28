@@ -135,11 +135,25 @@ goals:
         recovery: No-change and increased-uncertainty outcomes remain valid and visible; history is not rewritten to manufacture progress.
 
   - id: GOAL-BOOTSTRAP-AND-CURATE-CORPUS
-    description: Create and maintain the reusable data required for target assessment, knowledge exploration, learning and evidence collection.
+    description: Create and maintain the reusable data required for target assessment, knowledge exploration, learning and evidence collection, including first use when the corpus is empty or materially incomplete.
     tasks:
+      - id: TASK-C-SELECT-PREPARATION-PATH
+        responsibility: USER
+        capability_refs: [PC-02, PC-10]
+        required_information:
+          - which target/corpus prerequisites are currently missing or incomplete
+          - available bulk import contract/data kinds
+          - available incremental curation paths
+          - expected preparation scale and correction needs
+        decision_or_input: Choose bulk preparation, incremental curation or a mixed path appropriate to the missing data and expected volume.
+        system_support: Make missing prerequisites and viable preparation paths explicit; do not route an empty-system user directly to target composition when required capabilities/knowledge/support/assessment data are absent.
+        outcome: A concrete corpus-preparation path is chosen while the motivating target intent remains preservable.
+        recovery: Unknown completeness remains explicit; the user can switch preparation path without discarding accepted corpus data or the motivating target context.
+
       - id: TASK-C-PREPARE-BULK-DATA
         responsibility: USER
         capability_refs: [PC-02]
+        depends_on: [TASK-C-SELECT-PREPARATION-PATH]
         required_information:
           - supported import contract/schema
           - examples/template for externally prepared structured data
@@ -263,7 +277,8 @@ sufficiency_review:
     The task model now covers the complete user-centered loop from establishing a
     concrete target through evidence-backed current-state assessment, target-relative
     gap review, explicit next-focus selection, learning/practice, new evidence and
-    reassessment. It also covers the previously implicit corpus lifecycle: externally
-    prepared structured data, bulk import, incremental curation and quality review.
+    reassessment. It also covers first-use corpus preparation: choosing an appropriate
+    bulk/manual/mixed path, externally prepared structured data, bulk import, incremental
+    curation and quality review.
     UI screens, navigation, graph count/representation and backend realization remain
     downstream decisions.
