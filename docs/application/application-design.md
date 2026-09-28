@@ -152,7 +152,7 @@ The application never treats a raw runtime rating, one correct answer or activit
 
 ### Reassess target state
 
-After accepted evidence changes:
+After new evidence is accepted, whether or not it changes target satisfaction:
 
 1. recompute target satisfaction;
 2. recompute Gap values;
@@ -162,6 +162,18 @@ After accepted evidence changes:
 No-change, increased uncertainty and newly challenged state are valid outcomes.
 
 ## Corpus bootstrap and curation
+
+### Choose preparation path
+
+When a learner reaches target work without the reusable data needed to establish a usable target/capability/support/assessment context, the application exposes the missing preparation prerequisites rather than assuming a target can be composed immediately.
+
+The user may choose:
+
+- bulk preparation/import when the missing corpus is large or can be prepared efficiently by an external agent/tool;
+- incremental curation for small additions/corrections;
+- a mixed path where bulk import establishes a base corpus and incremental curation resolves rejected or missing items.
+
+This decision preserves the motivating target/source context so the user can return to target work after preparation. It does not introduce a separate domain entity for a bootstrap plan.
 
 ### Structured bulk input
 
