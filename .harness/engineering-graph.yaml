@@ -275,11 +275,11 @@ authorities:
           - capability: prep.frontend-performance-capacity
 
   - id: SYSTEM-ARCHITECTURE
-    responsibility: Own current Prep runtime boundaries, deployment topology and technical dependency structure.
+    responsibility: Own Prep runtime/module boundaries, deployment topology and technical dependency structure, including an independently evolvable frontend subarchitecture against accepted application/interface ports.
     boundary:
-      semantic_cohesion: Browser/backend/external-runtime structure, container topology and technical dependency placement.
-      independent_change: Runtime topology can evolve behind stable application and interface semantics.
-      public_contract: Provides accepted system structure and runtime constraints to persistence and later realization.
+      semantic_cohesion: Whole-system runtime/deployment structure plus frontend module/dependency/state topology where those concerns can evolve independently.
+      independent_change: Frontend module architecture may be accepted against stable application/machine/interface contracts before backend runtime topology is designed; whole-system topology remains separately owned by prep.system-architecture.
+      public_contract: Provides accepted whole-system structure to persistence/runtime consumers and accepted frontend structural constraints to frontend realization.
     produces:
       - capability: prep.system-architecture
         knowledge_kind: system-architecture
