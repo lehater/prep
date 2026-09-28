@@ -1,4 +1,5 @@
 import type {
+  DiagnosticEvidenceAcceptanceModel,
   DiagnosticOpportunityModel,
   GapModel,
   LearningFocusModel,
@@ -28,9 +29,10 @@ export interface TargetWorkPort {
     targetId: string,
     gapId?: string,
   ): Promise<LearningOutcome<readonly DiagnosticOpportunityModel[]>>;
-  completeDiagnostic(
+  acceptDiagnosticEvidence(
     targetId: string,
     diagnosticId: string,
-  ): Promise<LearningOutcome<TargetStateModel>>;
+    capabilityId: string,
+  ): Promise<LearningOutcome<DiagnosticEvidenceAcceptanceModel>>;
   getProgress(targetId: string): Promise<LearningOutcome<ProgressComparisonModel>>;
 }
