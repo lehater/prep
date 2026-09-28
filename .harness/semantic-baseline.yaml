@@ -81,8 +81,8 @@ reviews:
     basis: "Topology maps the new corpus-preparation decision to the existing Targets view and routes bulk versus incremental/mixed preparation without introducing a redundant Curation home screen."
 
   - capability: prep.presentation-system
-    revision: 8
-    basis: "Presentation System now prioritizes target context, evidence-backed state, gaps/focus and progress while retaining 3D Knowledge as the preferred spatial projection with task-complete non-spatial access."
+    revision: 9
+    basis: "Presentation System now includes explicit reduced-motion, zoom/reflow, error-announcement and non-drag accessibility contracts while preserving task-complete non-spatial Knowledge access."
 
   - capability: prep.screen-view-design
     revision: 8
