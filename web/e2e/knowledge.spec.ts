@@ -197,7 +197,12 @@ test("reduced-motion preference disables automatic graph motion without removing
     page.locator('[data-reduced-motion="true"]'),
   ).toBeVisible();
 
+  await page.getByRole("textbox", { name: "Search Knowledge" }).fill("idempotency");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByRole("region", { name: "Knowledge list" })).toBeVisible();
+  await expect(
+    page.getByRole("region", { name: "Knowledge list" }).getByText(/Idempotency key/i),
+  ).toBeVisible();
 });
 
 test("Auto graph remains interactive beyond the former settle-pause threshold", async ({ page }) => {
