@@ -24,6 +24,7 @@ jobs:
   frontend-fast:
     name: Frontend fast
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: web
