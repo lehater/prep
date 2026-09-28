@@ -5,7 +5,7 @@ const targetId = "python-backend-fintech";
 test("selects a career target and exposes the complete target-work navigation", async ({ page }) => {
   await page.goto("/learning");
 
-  await expect(page.getByRole("heading", { name: "Choose a learning target" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose a target" })).toBeVisible();
   await expect(page.getByText("Middle Python Backend — Fintech / Card Payments")).toBeVisible();
   await page.getByRole("link", { name: "Open target" }).click();
 
