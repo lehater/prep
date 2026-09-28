@@ -215,72 +215,145 @@ Primary actions:
 Destinations:
 Targets / Capabilities / Knowledge / Learning Support / Assessment / Import / Quality.
 
-## [C-11/C-12] Targets collection/editor
+## [C-11-TARGET-COLLECTION]
 
-Reads/commands: curation target operations + capability lookup.
+**Task:** `TASK-C-MAINTAIN-TARGETS`
 
-Collection regions:
-- search;
-- target results;
-- create/import entry.
-
-Editor regions:
-- target context;
-- RequirementExpression composition;
-- CapabilitySpecification selection/detail;
-- validation/conflict;
-- save/cancel.
-
-## [C-21/C-22] Capabilities collection/editor
+Reads/commands: target collection operations + capability lookup.
 
 Regions:
-- search/results;
-- PerformanceExpectation;
-- condition space;
-- criterion dimensions/constraints;
-- required standard where applicable;
-- Knowledge focus;
-- validation/conflict;
-- save/cancel.
+- search/browse — primary;
+- target results — primary;
+- create-target action — secondary;
+- bulk-import entry — secondary.
+
+Primary action: open an existing target or start a new target profile.
+
+## [C-12-TARGET-EDITOR]
+
+**Task:** `TASK-C-MAINTAIN-TARGETS`
+
+Reads/commands: target detail/update operations + capability lookup.
+
+Regions:
+- target context/definition — primary;
+- required CapabilitySpecification selection/composition — primary;
+- validation/conflict — secondary;
+- save/cancel — primary;
+- Target Work preview/return — secondary.
+
+RequirementExpression semantics remain upstream; the editor must not flatten accepted boolean semantics into an inaccurate list when richer composition is present.
+
+## [C-21-CAPABILITY-COLLECTION]
+
+**Task:** `TASK-C-MAINTAIN-CAPABILITIES`
+
+Regions:
+- search/browse — primary;
+- reusable capability results — primary;
+- create/import entry — secondary.
 
 Learner-specific state is excluded.
 
-## [C-31/C-32] Knowledge workspace/editor
+## [C-22-CAPABILITY-EDITOR]
 
-Collection/workspace uses the same 3D-default + task-complete non-spatial guardrails as target Knowledge, but with broader corpus scope.
-
-Authoring actions remain compact until invoked.
-
-Editor supports KnowledgeObject/KnowledgeProposition semantics and preserves proposition predicate/participants/conditions.
-
-## [C-41/C-42] Learning Support collection/editor
-
-Reads/commands: `curation.learning_support.*`.
+**Task:** `TASK-C-MAINTAIN-CAPABILITIES`
 
 Regions:
-- search/results;
-- support kind/content;
-- intended CapabilitySpecification;
-- related Knowledge;
-- explicit support diagnostics where defined;
-- validation/conflict;
-- save/cancel.
+- capability identity/title — primary;
+- PerformanceExpectation — primary;
+- condition space — primary;
+- criterion dimensions/constraints and required standard where applicable — primary;
+- Knowledge focus — supporting;
+- validation/conflict — secondary;
+- save/cancel — primary.
+
+The editor defines reusable capability semantics and never embeds one learner's evidence, gap or priority.
+
+## [C-31-KNOWLEDGE-WORKSPACE]
+
+**Task:** `TASK-C-MAINTAIN-KNOWLEDGE`
+
+Uses the same 3D-default + task-complete non-spatial guardrails as target Knowledge, with global/corpus scope.
+
+Regions:
+- search/filter controls — secondary;
+- bounded Knowledge results — supporting;
+- 3D graph on capable environments — primary;
+- selected Knowledge detail — supporting;
+- compact create/import entry — secondary.
+
+Authoring actions remain compact until explicitly invoked.
+
+## [C-32-KNOWLEDGE-EDITOR]
+
+**Task:** `TASK-C-MAINTAIN-KNOWLEDGE`
+
+Regions:
+- KnowledgeObject/KnowledgeProposition identity/content — primary;
+- proposition predicate/participants/conditions where applicable — primary;
+- semantic relationship context — supporting;
+- validation/conflict — secondary;
+- save/cancel — primary.
+
+Editing preserves accepted proposition semantics; renderer geometry is never persisted as Knowledge meaning.
+
+## [C-41-LEARNING-SUPPORT-COLLECTION]
+
+**Task:** `TASK-C-MAINTAIN-LEARNING-SUPPORT`
+
+Reads: `curation.learning_support.list/get`.
+
+Regions:
+- search/browse — primary;
+- support results and kind — primary;
+- create/import entry — secondary;
+- explicit support diagnostics where defined — supporting.
 
 Artifact count is never rendered as adequacy.
 
-## [C-51/C-52] Assessment collection/editor
+## [C-42-LEARNING-SUPPORT-EDITOR]
 
-Reads/commands: `curation.assessment_design.*`.
+**Task:** `TASK-C-MAINTAIN-LEARNING-SUPPORT`
+
+Commands: `curation.learning_support.create/update`.
 
 Regions:
-- search/results;
-- target CapabilitySpecifications;
-- TaskSpecifications;
-- ObservationSpecifications;
-- EvidencePatterns/EvidentialWarrants;
-- SamplingSpecification where applicable;
-- semantic validation;
-- save/cancel.
+- support kind/content — primary;
+- intended CapabilitySpecification — primary;
+- related Knowledge — supporting;
+- explicit support diagnostics where defined — secondary;
+- validation/conflict — secondary;
+- save/cancel — primary.
+
+Saving support records design intent only; it does not create learner evidence.
+
+## [C-51-ASSESSMENT-COLLECTION]
+
+**Task:** `TASK-C-MAINTAIN-ASSESSMENT-DESIGN`
+
+Reads: `curation.assessment_design.list/get`.
+
+Regions:
+- search/browse — primary;
+- assessment-design results — primary;
+- target capability summary — supporting;
+- create/import entry — secondary.
+
+## [C-52-ASSESSMENT-EDITOR]
+
+**Task:** `TASK-C-MAINTAIN-ASSESSMENT-DESIGN`
+
+Commands: `curation.assessment_design.create/update`.
+
+Regions:
+- target CapabilitySpecifications — primary;
+- TaskSpecifications — primary;
+- ObservationSpecifications — primary;
+- EvidencePatterns/EvidentialWarrants — primary;
+- SamplingSpecification where applicable — supporting;
+- semantic validation — secondary;
+- save/cancel — primary.
 
 Incomplete design cannot produce a learner capability conclusion.
 
