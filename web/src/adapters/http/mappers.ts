@@ -228,7 +228,14 @@ export function mapLearningTarget(value: unknown): LearningTargetModel {
     definition: stringField(dto, "definition", "LearningTarget"),
     scopeSummary:
       optionalStringField(dto, "scope_summary", "LearningTarget") ??
-      `${scopeItems.length} curated scope item(s)`,
+      `${scopeItems.length} capability requirement(s)`,
+    capabilities: scopeItems
+      .filter((item) => item.kind === "requirement")
+      .map((item) => ({
+        id: item.id,
+        title: item.label,
+        summary: item.content,
+      })),
     scopeItems: scopeItems.map((item) => ({
       id: item.id,
       kind: item.kind,
