@@ -181,7 +181,9 @@ test("renders accepted server-backed states through the HTTP provider", async ({
   await search.fill("missing");
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByText("No suitable target found")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Prepare target" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Prepare in bulk" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Curate manually" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Start mixed preparation" })).toBeVisible();
 
   await page.goto("/learning/linux-backend-interview/state");
   await expect(
