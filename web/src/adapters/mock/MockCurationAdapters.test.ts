@@ -4,6 +4,7 @@ import { MockKnowledgeAdapter } from "./MockKnowledgeAdapter";
 import { MockQuestionAdapter } from "./MockQuestionAdapter";
 import { MockStudyAdapter } from "./MockStudyAdapter";
 import { MockTargetAdapter } from "./MockTargetAdapter";
+import { MockTargetWorkAdapter } from "./MockTargetWorkAdapter";
 import {
   MockCurationKnowledgeAdapter,
   MockCurationQuestionAdapter,
@@ -19,6 +20,50 @@ import {
 } from "./MockUserCenteredCurationAdapters";
 
 describe("Curation mock adapters", () => {
+  test("modern target capabilities drive target-scoped Knowledge and learner state", async () => {
+    const store = createMockCurationStore();
+    const targets = new MockTargetProfileCurationAdapter(store);
+    const knowledge = new MockKnowledgeAdapter("success", store);
+    const targetWork = new MockTargetWorkAdapter(store);
+
+    const created = await targets.create({
+      name: "Reconciliation target",
+      definition: "Focused payment reconciliation target.",
+    });
+    expect(created.status).toBe("success");
+    if (created.status !== "success") return;
+
+    const scoped = await targets.setCapabilities(created.value.id, [
+      "cap-reconciliation",
+    ]);
+    expect(scoped.status).toBe("success");
+
+    const targetKnowledge = await knowledge.list(
+      { kind: "target", targetId: created.value.id },
+      {},
+    );
+    expect(targetKnowledge.status).toBe("success");
+    if (targetKnowledge.status === "success") {
+      expect(targetKnowledge.value.items.map((item) => item.id)).toEqual(
+        expect.arrayContaining([
+          "demo-payment-reconciliation-gap",
+          "demo-payment-reconciliation-service",
+        ]),
+      );
+    }
+
+    const state = await targetWork.getState(created.value.id);
+    expect(state.status).toBe("success");
+    if (state.status === "success") {
+      expect(state.value.items).toEqual([
+        expect.objectContaining({
+          requirementId: "cap-reconciliation",
+          state: "unresolved",
+        }),
+      ]);
+    }
+  });
+
   test("modern target profiles use reusable capabilities and are visible through Target Work", async () => {
     const store = createMockCurationStore();
     const targets = new MockTargetProfileCurationAdapter(store);
