@@ -1,5 +1,8 @@
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { Link, useSearchParams } from "react-router-dom";
 
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
@@ -68,8 +71,35 @@ export function CurationWorkspace({
   importPort,
   Renderer,
 }: CurationWorkspaceProps) {
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get("returnTo");
+  const intent = searchParams.get("intent");
+  const mode = searchParams.get("mode");
+
   return (
     <Stack spacing={{ xs: 1.25, md: 1.5 }}>
+      {returnTo ? (
+        <Alert severity="info">
+          <Stack spacing={0.75}>
+            <Typography>
+              {intent
+                ? `Preparing reusable data for: ${intent}`
+                : "Preparing reusable data before returning to Target Work."}
+            </Typography>
+            {mode ? (
+              <Typography variant="body2">Preparation path: {mode}</Typography>
+            ) : null}
+            <Button
+              component={Link}
+              to={returnTo}
+              color="inherit"
+              sx={{ alignSelf: "flex-start" }}
+            >
+              Return to Target Work
+            </Button>
+          </Stack>
+        </Alert>
+      ) : null}
       <header>
         <Typography component="p" variant="overline" color="text.secondary">
           Curation
