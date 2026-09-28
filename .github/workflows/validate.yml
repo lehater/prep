@@ -2,6 +2,11 @@ name: Heavy validation
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - fix/user-centered-product-flow
+    paths:
+      - "web/.heavy-checkpoint"
 
 permissions:
   contents: read
