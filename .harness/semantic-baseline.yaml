@@ -81,12 +81,12 @@ reviews:
     basis: "Repartitioned frontend views around Targets, Knowledge, Capabilities and supported Study Material while preserving learner Overview/Knowledge/Study/Statistics continuity; legacy Requirement/RequirementSet editors and KnowledgeRelation entity views were removed without introducing local screen composition."
 
   - capability: prep.presentation-system
-    revision: 6
-    basis: "Presentation System REDO-resolved the 3D Knowledge-graph decision using explicit stakeholder preference plus preserved R2 feasibility evidence. Mixed coordinated access with a 3D node-link production default is accepted; list/search/detail remain task-complete, 2D may serve as fallback/alternative, information density stays bounded/progressive, and explicit focus/filter/fit/reset plus non-spatial keyboard access constrain occlusion/orientation risk. No claim of proven educational superiority over 2D is made."
+    revision: 7
+    basis: "Frontend-first revalidation reran the Presentation decision space against rebuilt tasks/concepts/IA/interaction/topology. The same 3D/2D/list/adaptive alternatives were formed and reviewed; no new mixed concern, missing case, constraint conflict or authority error changes viability, so coordinated access with 3D production default remains determined while legacy Requirement/ReviewObservation terminology is replaced by current capability/support/evidence semantics."
 
   - capability: prep.screen-view-design
-    revision: 4
-    basis: "Screen/View Design now consumes the accepted visual specification with explicit shell rail, workspace chrome budget, supporting-pane ranges, graph-fill behavior and selection-without-implicit-focus interaction."
+    revision: 5
+    basis: "Rebuilt from Interface Topology revision 3, Interaction revision 4 and Presentation revision 7. Full screen decision review leaves topology-aligned task views, context-sensitive learner-vs-curation detail placement and semantic responsive reflow as the only viable alternatives; every current topology subject now has an explicit composition contract on current domain/application semantics."
 
   - capability: prep.import-consistency
     revision: 2
