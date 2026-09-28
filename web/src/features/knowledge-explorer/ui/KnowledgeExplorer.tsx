@@ -37,6 +37,7 @@ import type {
 } from "../ports/KnowledgeQueryPort";
 import { buildGraphScene } from "../projection/graphScene";
 import {
+  applyReducedMotionPreferences,
   DEFAULT_GRAPH_PHYSICS_TUNING,
   graphPreferencesForProfile,
   KNOWLEDGE_RELATION_COLORS,
@@ -115,14 +116,41 @@ export function KnowledgeExplorer({
     useState<HTMLButtonElement | null>(null);
   const [performanceProfile, setPerformanceProfile] =
     useState<GraphPerformanceProfile>("auto");
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true,
+  );
   const [renderPreferences, setRenderPreferences] =
-    useState<GraphRenderPreferences>(() => graphPreferencesForProfile("auto"));
+    useState<GraphRenderPreferences>(() => {
+      const preferences = graphPreferencesForProfile("auto");
+      return typeof window !== "undefined" &&
+        window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true
+        ? applyReducedMotionPreferences(preferences)
+        : preferences;
+    });
   const [physicsTuning, setPhysicsTuning] = useState<GraphPhysicsTuning>(
     DEFAULT_GRAPH_PHYSICS_TUNING,
   );
   const [rendererCommand, setRendererCommand] =
     useState<GraphRendererCommand>();
   const commandSequence = useRef(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => {
+      setPrefersReducedMotion(media.matches);
+      setRenderPreferences((current) =>
+        media.matches
+          ? applyReducedMotionPreferences(current)
+          : graphPreferencesForProfile(performanceProfile),
+      );
+    };
+    apply();
+    media.addEventListener?.("change", apply);
+    return () => media.removeEventListener?.("change", apply);
+  }, [performanceProfile]);
 
   useEffect(() => {
     setSearchDraft(routeState.query);
@@ -829,7 +857,12 @@ export function KnowledgeExplorer({
                     onChange={(event) => {
                       const next = event.target.value as GraphPerformanceProfile;
                       setPerformanceProfile(next);
-                      setRenderPreferences(graphPreferencesForProfile(next));
+                      const preferences = graphPreferencesForProfile(next);
+                      setRenderPreferences(
+                        prefersReducedMotion
+                          ? applyReducedMotionPreferences(preferences)
+                          : preferences,
+                      );
                     }}
                   >
                     <option value="auto">Auto</option>
@@ -871,6 +904,7 @@ export function KnowledgeExplorer({
                     <Checkbox
                       size="small"
                       checked={renderPreferences.particles}
+                      disabled={prefersReducedMotion}
                       onChange={(event) =>
                         updatePreference("particles", event.target.checked)
                       }
@@ -883,6 +917,7 @@ export function KnowledgeExplorer({
                   <select
                     aria-label="Graph live physics"
                     value={renderPreferences.physics}
+                    disabled={prefersReducedMotion}
                     onChange={(event) =>
                       updatePreference(
                         "physics",
@@ -895,6 +930,11 @@ export function KnowledgeExplorer({
                     <option value="off">Off</option>
                   </select>
                 </label>
+                {prefersReducedMotion ? (
+                  <Typography variant="caption" color="text.secondary">
+                    Reduced motion is active: automatic graph physics, particles and animated camera transitions are disabled.
+                  </Typography>
+                ) : null}
                 {([
                   ["centerForce", "Притяжение к центру", 0, 2, 0.1],
                   ["repelForce", "Отталкивание узлов", 0, 240, 10],
@@ -941,6 +981,7 @@ export function KnowledgeExplorer({
                 scene={scene}
                 performanceProfile={performanceProfile}
                 renderPreferences={renderPreferences}
+                reducedMotion={prefersReducedMotion}
                 physicsTuning={physicsTuning}
                 command={rendererCommand}
                 onNodeActivate={(knowledgeId) => openDetail(knowledgeId)}
