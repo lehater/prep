@@ -117,8 +117,8 @@ reviews:
     basis: "Engineering policy now makes the CI split explicit and bounded: fast checks are independently runnable with time limits, while heavy browser/performance/container/full-Harness evidence is manual-only at final large-branch checkpoints."
 
   - capability: prep.frontend-component-design
-    revision: 5
-    basis: "Component Design now defines consumer-owned ports/models for target state, gaps, focus, support, diagnostics, evidence, progress and modern Curation while preserving renderer and adapter isolation."
+    revision: 6
+    basis: "Component Design now makes diagnostic activity completion distinct from evidence acceptance and requires Observation/provenance to remain separate from derived learner-claim projections before target-state reassessment."
 
   - capability: prep.frontend-verification
     revision: 7
