@@ -12,8 +12,64 @@ import {
   MockRequirementAdapter,
 } from "./MockCurationAdapters";
 import { createMockCurationStore } from "./MockCurationStore";
+import {
+  MockCapabilityCurationAdapter,
+  MockCorpusQualityAdapter,
+  MockTargetProfileCurationAdapter,
+} from "./MockUserCenteredCurationAdapters";
 
 describe("Curation mock adapters", () => {
+  test("modern target profiles use reusable capabilities and are visible through Target Work", async () => {
+    const store = createMockCurationStore();
+    const targets = new MockTargetProfileCurationAdapter(store);
+    const learning = new MockTargetAdapter("success", store);
+
+    const created = await targets.create({
+      name: "Payments target",
+      definition: "Target composed from reusable capabilities.",
+    });
+    expect(created.status).toBe("success");
+    if (created.status !== "success") return;
+
+    const scoped = await targets.setCapabilities(created.value.id, [
+      "cap-python-backend",
+      "cap-payment-reliability",
+    ]);
+    expect(scoped.status).toBe("success");
+
+    const target = await learning.get(created.value.id);
+    expect(target.status).toBe("success");
+    if (target.status === "success") {
+      expect(target.value.capabilities.map((item) => item.id)).toEqual([
+        "cap-python-backend",
+        "cap-payment-reliability",
+      ]);
+    }
+  });
+
+  test("corpus quality derives missing support from current reusable capability data", async () => {
+    const store = createMockCurationStore();
+    const quality = new MockCorpusQualityAdapter(store);
+    const capabilities = new MockCapabilityCurationAdapter(store);
+
+    const before = await quality.get();
+    expect(before.status).toBe("success");
+    if (before.status === "success") {
+      expect(before.value.map((item) => item.id)).toContain(
+        "missing-support-cap-reconciliation",
+      );
+    }
+
+    const created = await capabilities.create({
+      title: "New capability",
+      performanceExpectation: "Perform a bounded capability.",
+      conditionSummary: "",
+      criterionSummary: "",
+      knowledgeIds: [],
+    });
+    expect(created.status).toBe("success");
+  });
+
   test("curated target changes remain visible through the Learning query boundary", async () => {
     const store = createMockCurationStore();
     const curation = new MockCurationTargetAdapter(store);
@@ -101,18 +157,18 @@ describe("Curation mock adapters", () => {
     const requirements = new MockRequirementAdapter(store);
 
     const outcome = await requirements.addMember(
-      "linux-resource-management",
-      "linux-resource-management",
+      "python-fintech-profile",
+      "python-fintech-profile",
     );
 
     expect(outcome).toEqual({
       status: "validation_rejected",
       message: "RequirementSet membership would create a cycle.",
     });
-    const current = await requirements.get("linux-resource-management");
+    const current = await requirements.get("python-fintech-profile");
     expect(current.status).toBe("success");
     if (current.status === "success" && current.value.kind === "requirement-set") {
-      expect(current.value.memberIds).not.toContain("linux-resource-management");
+      expect(current.value.memberIds).not.toContain("python-fintech-profile");
     }
   });
 
