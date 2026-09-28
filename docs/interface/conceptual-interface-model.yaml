@@ -39,9 +39,17 @@ concepts:
     meaning: A supported activity whose purpose is to reduce uncertainty or produce evidence about capability.
     upstream_refs: [AssessmentDesign, TaskSpecification, ObservationSpecification]
 
-  - id: EVIDENCE
-    meaning: Recorded Performance/Observation facts plus accepted evidence-backed learner conclusions where applicable.
-    upstream_refs: [Performance, Observation, CapabilityEvidenceArgument, LearnerCapabilityClaim]
+  - id: OBSERVATION
+    meaning: A contextual recorded fact/assertion about learner performance with provenance; it is not itself a conclusion that the learner has or lacks a capability.
+    upstream_refs: [Performance, Observation]
+
+  - id: EVIDENCE-BASIS
+    meaning: The accepted supporting or challenging reasoning that explains how one or more observations bear on a learner capability claim.
+    upstream_refs: [CapabilityEvidenceArgument, EvidentialWarrant]
+
+  - id: LEARNER-CLAIM
+    meaning: An accepted evidence-backed conclusion about a learner CapabilitySpecification in a bounded scope/time; absence of a claim is not a negative claim.
+    upstream_refs: [LearnerCapabilityClaim]
 
   - id: PROGRESS
     meaning: A comparison of target-relative state across accepted evidence changes.
@@ -91,14 +99,16 @@ relationships:
   - {source: CAPABILITY, target: KNOWLEDGE, relation: may-focus-on}
   - {source: LEARNING-FOCUS, target: LEARNING-SUPPORT, relation: selects-support-for}
   - {source: LEARNING-FOCUS, target: DIAGNOSTIC-ACTIVITY, relation: may-request}
-  - {source: DIAGNOSTIC-ACTIVITY, target: EVIDENCE, relation: may-produce}
-  - {source: LEARNING-SUPPORT, target: EVIDENCE, relation: may-lead-to-performance-producing}
-  - {source: EVIDENCE, target: CURRENT-STATE, relation: updates}
+  - {source: DIAGNOSTIC-ACTIVITY, target: OBSERVATION, relation: may-produce}
+  - {source: LEARNING-SUPPORT, target: OBSERVATION, relation: may-lead-to-performance-producing}
+  - {source: OBSERVATION, target: EVIDENCE-BASIS, relation: may-support-inference}
+  - {source: EVIDENCE-BASIS, target: LEARNER-CLAIM, relation: supports-or-challenges}
+  - {source: LEARNER-CLAIM, target: CURRENT-STATE, relation: contributes-to-projection}
   - {source: CURRENT-STATE, target: PROGRESS, relation: contributes-to-comparison}
   - {source: IMPORT-CONTRACT, target: CORPUS, relation: defines-preparable-shape-for}
   - {source: IMPORT-RESULT, target: CORPUS, relation: mutates}
   - {source: EXTERNAL-RUNTIME, target: LEARNING-SUPPORT, relation: may-execute}
-  - {source: EXTERNAL-RUNTIME, target: EVIDENCE, relation: may-supply}
+  - {source: EXTERNAL-RUNTIME, target: OBSERVATION, relation: may-supply}
 
 deliberately_unconstrained:
   - concrete screen/view partitioning
