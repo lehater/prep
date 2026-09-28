@@ -297,6 +297,9 @@ authorities:
           - capability: prep.import-consistency
       - capability: prep.frontend-system-architecture
         knowledge_kind: system-architecture
+        semantic_claims:
+          - engineering.architecture.structure
+          - engineering.architecture.boundaries
         requires:
           - capability: prep.application-design
           - capability: prep.presentation-system
