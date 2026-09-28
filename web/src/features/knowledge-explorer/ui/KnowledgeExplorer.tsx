@@ -82,12 +82,17 @@ export function KnowledgeExplorer({
   const [params, setParams] = useSearchParams();
   const routeState = useMemo(() => parseExplorerRouteState(params), [params]);
   const targetScopeId = scope.kind === "target" ? scope.targetId : undefined;
+  const targetFocusId = scope.kind === "target" ? scope.focusId : undefined;
   const stableScope = useMemo<KnowledgeScope>(
     () =>
       targetScopeId === undefined
         ? { kind: "global" }
-        : { kind: "target", targetId: targetScopeId },
-    [targetScopeId],
+        : {
+            kind: "target",
+            targetId: targetScopeId,
+            focusId: targetFocusId,
+          },
+    [targetFocusId, targetScopeId],
   );
   const [searchDraft, setSearchDraft] = useState(routeState.query);
   const [showList, setShowList] = useState(scope.kind === "target");
