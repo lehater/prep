@@ -51,6 +51,20 @@ test("target profile is composed from reusable capabilities and becomes visible 
   await expect(page.getByText("Reliable payment commands")).toBeVisible();
 });
 
+test("curation validation announces failure and preserves the draft", async ({ page }) => {
+  await page.goto("/curation/capabilities");
+
+  const editor = page.getByRole("region", { name: "Capability editor" });
+  await editor.getByRole("textbox", { name: "Capability title" }).fill("Draft capability");
+  await editor.getByRole("button", { name: "Save capability" }).click();
+
+  const alert = page.getByRole("alert");
+  await expect(alert).toContainText("Performance expectation is required");
+  await expect(
+    editor.getByRole("textbox", { name: "Capability title" }),
+  ).toHaveValue("Draft capability");
+});
+
 test("capability editor exposes performance conditions criteria and Knowledge focus", async ({
   page,
 }) => {
