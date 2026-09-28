@@ -19,9 +19,9 @@ content:
 
     - id: FTD-EMPTY-CORPUS-BOOTSTRAP
       verification_refs: [FV-03]
-      precondition: No suitable prepared target/corpus data exists.
-      operation: Attempt target work.
-      oracle: User is routed to explicit target/corpus preparation rather than encountering an unexplained dead end.
+      precondition: Prototype store contains no target, capabilities, Knowledge, learning support or assessment design.
+      operation: Enter Target Work, choose a preparation path, import data with partial rejection, correct/complete required reusable data, compose a target and return to Target Work.
+      oracle: The motivating target context is preserved; partial rejection is recoverable; a usable target can be established without hidden pre-seeded corpus data.
 
     - id: FTD-CURRENT-STATE-NOT-SCORE
       verification_refs: [FV-02, FV-09]
@@ -40,6 +40,12 @@ content:
       precondition: Selected high-priority gap has no usable learning support.
       operation: Open Learning.
       oracle: Missing support is explicit; gap/focus remain intact; user can route to Curation without fabricated material.
+
+    - id: FTD-PRACTICE-COMPLETION-NOT-EVIDENCE
+      verification_refs: [FV-02, FV-09]
+      precondition: Current learning focus has a prepared practice/task support item.
+      operation: Start the practice, produce a representative work product and finish the activity without accepting diagnostic evidence.
+      oracle: Practice completion is visible but target state/gaps/progress do not change merely because the activity was completed.
 
     - id: FTD-DIAGNOSTIC-EVIDENCE
       verification_refs: [FV-02, FV-09, FV-10]
@@ -106,6 +112,12 @@ content:
       precondition: Same semantic GraphScene under allowed renderer profiles.
       operation: Change performance/degradation preferences.
       oracle: Canonical Knowledge refs, target/focus scope, selection/focus and non-spatial access remain unchanged.
+
+    - id: FTD-REDUCED-MOTION-KNOWLEDGE
+      verification_refs: [FV-07, FV-11]
+      precondition: Environment requests prefers-reduced-motion and Knowledge is available through spatial and non-spatial paths.
+      operation: Open Knowledge, inspect graph settings and complete a semantic browse/detail task.
+      oracle: Automatic particles/live physics and animated camera transitions are disabled by default while semantic scope, selection and task-complete list/search/detail access remain available.
 
     - id: FTD-HARNESS-TRACE
       verification_refs: [FV-12]
