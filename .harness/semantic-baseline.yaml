@@ -13,8 +13,8 @@ reviews:
     basis: "Problem evidence now includes an executable representative-user discovery protocol, observation/severity schema, decision/retest rules and first-round success observations while keeping stakeholder assumptions explicitly unvalidated."
 
   - capability: prep.product-intent
-    revision: 3
-    basis: "Product intent is re-centered on moving from a current evidence-backed state toward a concrete target through gap identification, learning/diagnosis and reassessment, with mock-first frontend validation allowed."
+    revision: 4
+    basis: "Product intent now includes explicit product-feedback semantics for the target/gap/activity/evidence/progress loop and empty-corpus bootstrap while prohibiting click/exposure/activity-completion metrics from masquerading as learning evidence."
 
   - capability: prep.product-capabilities
     revision: 4
