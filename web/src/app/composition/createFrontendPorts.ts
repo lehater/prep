@@ -126,7 +126,7 @@ export function createFrontendPorts(config: {
 
   return {
     targetQueryPort: new MockTargetAdapter("success", store),
-    targetWorkPort: new MockTargetWorkAdapter(),
+    targetWorkPort: new MockTargetWorkAdapter(store),
     knowledgeQueryPort: new MockKnowledgeAdapter("success", store),
     questionQueryPort: new MockQuestionAdapter("success", store),
     studyPort: new MockStudyAdapter("success", "success", store),
