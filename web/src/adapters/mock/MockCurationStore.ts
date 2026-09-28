@@ -8,6 +8,11 @@ import type {
   CurationTargetModel,
   ImportDataKind,
 } from "../../features/curation/model/curationModels";
+import type {
+  AssessmentCurationModel,
+  CapabilityCurationModel,
+  LearningSupportCurationModel,
+} from "../../features/curation/model/userCenteredCurationModels";
 import {
   mockKnowledgeNodes,
   mockKnowledgeRelations,
@@ -21,6 +26,10 @@ export class MockCurationStore {
   readonly targets: CurationTargetModel[];
   readonly requirements: CurationRequirementEntity[];
   readonly questions: CurationQuestionModel[];
+  readonly capabilities: CapabilityCurationModel[];
+  readonly learningSupport: LearningSupportCurationModel[];
+  readonly assessmentDesigns: AssessmentCurationModel[];
+  readonly targetCapabilityIds = new Map<string, string[]>();
   readonly importIdentityByKey = new Map<string, string>();
   readonly importFingerprints = new Set<string>();
   private sequence = 100;
@@ -96,6 +105,115 @@ export class MockCurationStore {
       })),
     }));
     this.questions = mockQuestions.map((question) => ({ ...question }));
+    this.capabilities = [
+      {
+        id: "cap-python-backend",
+        title: "Python backend engineering",
+        performanceExpectation: "Design, implement and explain production Python backend services.",
+        conditionSummary: "Production service constraints, ordinary operational tooling and incomplete information.",
+        criterionSummary: "Correctness, maintainability, failure handling and reasoning quality.",
+        knowledgeIds: [],
+      },
+      {
+        id: "cap-card-processing",
+        title: "Card-payment processing",
+        performanceExpectation: "Explain responsibilities and message flow across the card-payment processing chain.",
+        conditionSummary: "Merchant-side card payment from acceptance through clearing and settlement.",
+        criterionSummary: "Correct participant responsibilities, direction of flow and operational boundaries.",
+        knowledgeIds: [
+          "demo-payment-card-processing",
+          "demo-payment-payment-gateway",
+          "demo-payment-payment-processor",
+          "demo-payment-merchant-acquiring",
+          "demo-payment-payment-clearing",
+          "demo-payment-payment-settlement",
+        ],
+      },
+      {
+        id: "cap-payment-reliability",
+        title: "Reliable payment commands",
+        performanceExpectation: "Design payment commands that remain safe under retries and duplicate delivery.",
+        conditionSummary: "Transient failures, client retries and at-least-once delivery.",
+        criterionSummary: "No duplicate logical side effect; bounded retries; explicit non-retryable failures.",
+        knowledgeIds: [
+          "demo-payment-duplicate-payment-processing",
+          "demo-payment-idempotency-key",
+          "demo-payment-transient-payment-failure",
+          "demo-payment-retry-policy",
+        ],
+      },
+      {
+        id: "cap-reconciliation",
+        title: "Payment reconciliation",
+        performanceExpectation: "Detect, explain and resolve mismatches between internal and external payment records.",
+        conditionSummary: "Processor, bank or settlement records may arrive late or disagree with internal state.",
+        criterionSummary: "Correct mismatch identification, traceability and safe resolution.",
+        knowledgeIds: [
+          "demo-payment-reconciliation-gap",
+          "demo-payment-reconciliation-service",
+        ],
+      },
+    ];
+    this.learningSupport = [
+      {
+        id: "support-idempotency-material",
+        title: "Idempotency and retry safety",
+        kind: "material",
+        summary: "Explanation of idempotency keys, duplicate delivery and bounded retry policy.",
+        capabilityIds: ["cap-payment-reliability"],
+        knowledgeIds: [
+          "demo-payment-idempotency-key",
+          "demo-payment-duplicate-payment-processing",
+          "demo-payment-retry-policy",
+        ],
+      },
+      {
+        id: "support-card-processing-material",
+        title: "Card processing responsibility map",
+        kind: "material",
+        summary: "Reference material for gateway, processor, acquiring, clearing and settlement responsibilities.",
+        capabilityIds: ["cap-card-processing"],
+        knowledgeIds: [
+          "demo-payment-payment-gateway",
+          "demo-payment-payment-processor",
+          "demo-payment-merchant-acquiring",
+          "demo-payment-payment-clearing",
+          "demo-payment-payment-settlement",
+        ],
+      },
+      {
+        id: "support-retry-practice",
+        title: "Retry-safe payment endpoint",
+        kind: "practice",
+        summary: "Practice task requiring a retry-safe payment command design.",
+        capabilityIds: ["cap-payment-reliability"],
+        knowledgeIds: ["demo-payment-idempotency-key", "demo-payment-retry-policy"],
+      },
+    ];
+    this.assessmentDesigns = [
+      {
+        id: "assessment-payment-reliability",
+        title: "Payment reliability diagnostic",
+        capabilityIds: ["cap-payment-reliability"],
+        taskSummary: "Explain and design retry-safe payment command handling under duplicate delivery.",
+        observationSummary: "Observe whether idempotency and retry constraints are correctly identified and applied.",
+        evidenceRuleSummary: "A supported positive claim requires correct reasoning across the retry/idempotency scenario; one raw answer is not broad mastery.",
+      },
+      {
+        id: "assessment-card-chain",
+        title: "Card processing chain diagnostic",
+        capabilityIds: ["cap-card-processing"],
+        taskSummary: "Place payment participants and processing stages into their correct responsibility chain.",
+        observationSummary: "Observe participant-role and flow correctness.",
+        evidenceRuleSummary: "Evidence is scoped to the represented processing conditions.",
+      },
+    ];
+    this.targetCapabilityIds.set("python-backend-fintech", [
+      "cap-python-backend",
+      "cap-card-processing",
+      "cap-payment-reliability",
+      "cap-reconciliation",
+    ]);
   }
 
   nextId(prefix: string): string {
