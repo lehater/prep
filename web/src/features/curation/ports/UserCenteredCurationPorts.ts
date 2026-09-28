@@ -64,6 +64,7 @@ export interface AssessmentCurationPortV2 {
     readonly taskSummary: string;
     readonly observationSummary: string;
     readonly evidenceRuleSummary: string;
+    readonly evidenceBearing: "supports" | "challenges";
   }): Promise<UserCenteredCurationOutcome<AssessmentCurationModel>>;
   update(assessmentId: string, input: {
     readonly title: string;
@@ -71,6 +72,7 @@ export interface AssessmentCurationPortV2 {
     readonly taskSummary: string;
     readonly observationSummary: string;
     readonly evidenceRuleSummary: string;
+    readonly evidenceBearing: "supports" | "challenges";
   }): Promise<UserCenteredCurationOutcome<AssessmentCurationModel>>;
 }
 
