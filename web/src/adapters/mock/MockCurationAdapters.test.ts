@@ -244,6 +244,60 @@ describe("Curation mock adapters", () => {
     }
   });
 
+  test("prepared-data capability import never applies items rejected by validation", async () => {
+    const store = createMockCurationStore();
+    const targets = new MockCurationTargetAdapter(store);
+    const knowledge = new MockCurationKnowledgeAdapter(store);
+    const requirements = new MockRequirementAdapter(store);
+    const questions = new MockCurationQuestionAdapter(store);
+    const importer = new MockImportAdapter(
+      store,
+      targets,
+      knowledge,
+      requirements,
+      questions,
+    );
+
+    const outcome = await importer.apply(
+      JSON.stringify({
+        schema_version: "prep-import/v1",
+        data_kind: "capabilities",
+        items: [
+          {
+            key: "payment-observability",
+            title: "Payment observability",
+            performance_expectation:
+              "Diagnose payment-processing failures using logs, metrics and traces.",
+          },
+          {
+            key: "broken",
+            title: "",
+            performance_expectation: "",
+          },
+        ],
+      }),
+      "capabilities",
+    );
+
+    expect(outcome.status).toBe("success");
+    if (outcome.status === "success") {
+      expect(outcome.value).toMatchObject({
+        total: 2,
+        applied: 1,
+        rejected: 1,
+      });
+      expect(outcome.value.items.map((item) => item.status)).toEqual([
+        "created",
+        "rejected",
+      ]);
+    }
+
+    expect(store.capabilities.some((item) => item.title === "")).toBe(false);
+    expect(
+      store.capabilities.some((item) => item.id.includes("broken")),
+    ).toBe(false);
+  });
+
   test("prepared-data Knowledge import rejects unknown kinds and accepts typed relations", async () => {
     const store = createMockCurationStore();
     const targets = new MockCurationTargetAdapter(store);
