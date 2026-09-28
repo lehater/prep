@@ -69,8 +69,8 @@ reviews:
     basis: "Reorganized frontend information around target overview, Knowledge, study material/evidence and Curation of targets, capabilities, Knowledge and supported study material; grouping no longer mirrors legacy Requirement/KnowledgeRelation storage shapes and remains independent of concrete routes/layout."
 
   - capability: prep.machine-interfaces
-    revision: 2
-    basis: "Browser collection contracts now explicitly expose exact total_count for the current scope/query while opaque cursors remain transport mechanics; all other browser/backend and external-runtime semantics were revalidated unchanged."
+    revision: 3
+    basis: "Reduced to the frontend-first semantic boundary: transport-neutral application ports/read models now preserve RequirementExpression/CapabilitySpecification, KnowledgeObject/KnowledgeProposition, Study Set diagnostics and Observation/Performance evidence semantics; HTTP/backend/persistence realization is deferred while current Question/Anki compatibility outcomes remain explicit."
 
   - capability: prep.interaction-design
     revision: 3
