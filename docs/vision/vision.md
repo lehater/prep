@@ -21,6 +21,44 @@ A learner should be able to:
 
 A curator should be able to bootstrap and maintain the reusable data needed by those learner flows, including targets, capabilities, knowledge, learning/practice material and assessment/evidence design.
 
+## Product feedback intent
+
+Before production telemetry exists, product evaluation should already distinguish **user outcome evidence** from implementation activity.
+
+For the primary learner loop, useful observable transitions are:
+
+`target established -> current state inspected -> gap/uncertainty inspected -> focus chosen -> learning/diagnostic activity started -> contextual evidence accepted where appropriate -> progress reviewed -> next action chosen`.
+
+For first-use corpus preparation, useful observable transitions are:
+
+`preparation need recognized -> bulk/manual/mixed path chosen -> validation outcome understood -> rejected items recovered/corrected -> usable target composed -> return to Target Work`.
+
+Evaluation should look for:
+
+- scenario completion / partial completion / abandonment;
+- where clarification or procedural help is required;
+- wrong turns and backtracking;
+- gap-to-focus continuation;
+- focus-to-activity continuation;
+- activity-to-evidence transition where evidence is actually justified;
+- evidence-to-progress review;
+- whether the learner can choose a sensible next action;
+- recovery from validation, conflict, unavailable and partial-success states;
+- effort/time only where it helps explain material friction.
+
+The following are **not** learning-success measures by themselves:
+
+- page/view visits;
+- graph interaction count;
+- material opened or scrolled;
+- practice marked complete;
+- number of questions/reviews;
+- time spent in the product.
+
+No readiness, mastery or learning-outcome claim may be inferred from interaction analytics without accepted evidence semantics.
+
+Concrete event names, storage, telemetry provider, retention policy and numeric success thresholds remain downstream/non-decisions until representative-user research establishes what outcomes are meaningful enough to instrument.
+
 ## Product principles
 
 - **Target before learning activity.** Learning activity is justified by a desired capability profile, not by available content alone.
