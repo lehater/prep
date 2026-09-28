@@ -96,6 +96,13 @@ authorities:
       independent_change: Application orchestration can evolve while domain semantics and technical transports remain stable.
       public_contract: Provides accepted application operations and user journeys to interface and architecture design.
     produces:
+      - capability: prep.task-model
+        knowledge_kind: task-model
+        requires:
+          - capability: prep.product-capabilities
+          - capability: prep.knowledge-model
+          - capability: prep.learning-design
+          - capability: prep.learner-model
       - capability: prep.application-design
         knowledge_kind: application-design
         semantic_claims:
@@ -103,15 +110,11 @@ authorities:
           - engineering.application.orchestration
           - engineering.application.failures
         requires:
+          - capability: prep.task-model
           - capability: prep.product-capabilities
           - capability: prep.knowledge-model
           - capability: prep.learning-design
           - capability: prep.learner-model
-      - capability: prep.task-model
-        knowledge_kind: task-model
-        requires:
-          - capability: prep.application-design
-          - capability: prep.product-capabilities
       - capability: prep.user-journeys
         knowledge_kind: user-journey-design
         semantic_claims: [engineering.interface.human.journeys]
