@@ -197,6 +197,9 @@ test("reduced-motion preference disables automatic graph motion without removing
     page.locator('[data-reduced-motion="true"]'),
   ).toBeVisible();
 
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", { name: "Graph settings" })).toBeFocused();
+
   await page.getByRole("textbox", { name: "Search Knowledge" }).fill("idempotency");
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByRole("region", { name: "Knowledge list" })).toBeVisible();
