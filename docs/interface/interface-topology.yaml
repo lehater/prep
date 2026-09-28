@@ -28,11 +28,11 @@ views:
     exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
 
   - id: L-01-TARGETS
-    responsibility: Find a suitable target or begin target preparation when one is missing.
+    responsibility: Find a suitable target; when target/corpus prerequisites are missing, choose an appropriate preparation path without losing motivating context.
     location_ref: TARGETS
-    interaction_context_refs: [I-L-ESTABLISH-TARGET]
+    interaction_context_refs: [I-L-ESTABLISH-TARGET, I-C-SELECT-PREPARATION-PATH]
     parent: F-00-APPLICATION-SHELL
-    exits: [L-02-TARGET-OVERVIEW, C-12-TARGET-EDITOR]
+    exits: [L-02-TARGET-OVERVIEW, F-C-CURATION-WORKSPACE, C-61-IMPORT, C-12-TARGET-EDITOR]
 
   - id: L-02-TARGET-OVERVIEW
     responsibility: Understand the active target context and required capabilities.
