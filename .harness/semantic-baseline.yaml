@@ -53,8 +53,8 @@ reviews:
     basis: "Application Design now orchestrates explicit empty/partial-corpus preparation-path selection and reassesses after newly accepted evidence even when target satisfaction does not change."
 
   - capability: prep.task-model
-    revision: 8
-    basis: "Each provisional user-model claim now traces not only to supporting observations and research questions but also to explicit falsification challenges: target evolution, evidence burden, opportunistic sequencing, performance-shaped readiness, interview feedback and reusable-corpus assumptions."
+    revision: 9
+    basis: "The five provisional user-model claims now carry explicit secondary-evidence assessments and main risks. Gap/focus has the strongest secondary plausibility; target stability, readiness boundaries and especially Prep-style corpus ownership remain higher-risk hypotheses pending representative-user evidence."
 
   - capability: prep.user-journeys
     revision: 6

@@ -287,6 +287,9 @@ human_validation:
       research_question_refs: [RQ-P01, RQ-P08]
       task_refs: [TASK-L-ESTABLISH-TARGET, TASK-L-UNDERSTAND-TARGET]
       journey_refs: [E2E-L1]
+      secondary_evidence:
+        status: MIXED_PARTIAL_SUPPORT
+        main_risk: Target context appears useful, but public accounts often show a layered/mutable role -> company/interview target rather than one stable target.
       evidence_status: UNTESTED
     - id: UMC-02-CURRENT-STATE
       description: Users can reason about supported, unresolved and challenged current state without equating missing evidence with failure or familiarity with capability.
@@ -295,6 +298,9 @@ human_validation:
       research_question_refs: [RQ-P02, RQ-P10]
       task_refs: [TASK-L-ESTABLISH-CURRENT-STATE, TASK-L-REVIEW-GAPS]
       journey_refs: [E2E-L1]
+      secondary_evidence:
+        status: PARTIAL_SUPPORT
+        main_risk: False familiarity and interview-performance failures support the need for stronger current-state signals, but user willingness to maintain explicit evidence remains unknown.
       evidence_status: UNTESTED
     - id: UMC-03-GAP-FOCUS
       description: Users can understand target-relative gaps/uncertainty and choose a useful next focus under realistic time and attention constraints.
@@ -303,6 +309,9 @@ human_validation:
       research_question_refs: [RQ-P03, RQ-P10]
       task_refs: [TASK-L-REVIEW-GAPS, TASK-L-CHOOSE-NEXT-FOCUS]
       journey_refs: [E2E-L1]
+      secondary_evidence:
+        status: RELATIVELY_STRONG_SUPPORT
+        main_risk: Limited time and prioritization are recurrent, but users may prioritize opportunistically from interview timing/resources rather than from an explicit evidence-backed gap model.
       evidence_status: UNTESTED
     - id: UMC-04-ACTIVITY-EVIDENCE-PROGRESS
       description: Users can distinguish learning/practice from diagnosis, recognize credible evidence and understand progress or valid no-change.
@@ -311,6 +320,9 @@ human_validation:
       research_question_refs: [RQ-P04, RQ-P07, RQ-P09, RQ-P10]
       task_refs: [TASK-L-LEARN-OR-PRACTISE, TASK-L-COLLECT-EVIDENCE, TASK-L-REVIEW-PROGRESS]
       journey_refs: [E2E-L1]
+      secondary_evidence:
+        status: MIXED_PARTIAL_SUPPORT
+        main_risk: Performance/mocks/interviews clearly matter to readiness, but readiness spans several performance forms and users often rely on lightweight activity proxies rather than explicit evidence semantics.
       evidence_status: UNTESTED
     - id: UMC-05-BOOTSTRAP
       description: With no prepared corpus, users can choose a sensible preparation path and reach a usable target while preserving the motivating goal.
@@ -319,6 +331,9 @@ human_validation:
       research_question_refs: [RQ-P05, RQ-P06, RQ-P11]
       task_refs: [TASK-C-SELECT-PREPARATION-PATH, TASK-C-PREPARE-BULK-DATA, TASK-C-IMPORT-BULK-DATA, TASK-C-REVIEW-CORPUS-QUALITY]
       journey_refs: [E2E-C1]
+      secondary_evidence:
+        status: WEAK_SUPPORT_HIGH_RISK
+        main_risk: Users do assemble fragmented resources, but public behavior does not show a clear user need to own or curate Prep-style reusable semantic corpus infrastructure.
       evidence_status: UNTESTED
 
 sufficiency_review:
