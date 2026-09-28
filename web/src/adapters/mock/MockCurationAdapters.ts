@@ -6,6 +6,7 @@ import {
 import type {
   CurationKnowledgeDetailModel,
   CurationOutcome,
+  ImportContractModel,
   CurationQuestionModel,
   CurationRequirementEntity,
   CurationRequirementSetModel,
@@ -13,6 +14,7 @@ import type {
   ImportDataKind,
   ImportItemOutcomeModel,
   ImportResultModel,
+  ImportValidationModel,
   KnowledgeDraft,
   KnowledgeRelationDraft,
 } from "../../features/curation/model/curationModels";
@@ -626,6 +628,100 @@ function stableStringify(value: unknown): string {
   return JSON.stringify(value);
 }
 
+const SUPPORTED_IMPORT_KINDS: readonly ImportDataKind[] = [
+  "knowledge",
+  "requirements",
+  "questions",
+  "targets",
+];
+
+function validatePreparedDocument(
+  documentText: string,
+  expectedKind?: ImportDataKind,
+): CurationOutcome<ImportValidationModel> {
+  let document: unknown;
+  try {
+    document = JSON.parse(documentText);
+  } catch {
+    return {
+      status: "validation_rejected",
+      message: "Prepared-data document is not valid JSON.",
+    };
+  }
+  if (!document || typeof document !== "object" || Array.isArray(document)) {
+    return {
+      status: "validation_rejected",
+      message: "Prepared-data envelope must be an object.",
+    };
+  }
+
+  const envelope = document as Record<string, unknown>;
+  const kind = envelope.data_kind;
+  if (
+    !text(envelope.schema_version) ||
+    typeof kind !== "string" ||
+    !SUPPORTED_IMPORT_KINDS.includes(kind as ImportDataKind) ||
+    !Array.isArray(envelope.items)
+  ) {
+    return {
+      status: "validation_rejected",
+      message: "Envelope requires schema_version, supported data_kind and items[].",
+    };
+  }
+  const dataKind = kind as ImportDataKind;
+  if (expectedKind && dataKind !== expectedKind) {
+    return {
+      status: "validation_rejected",
+      message: `Expected a ${expectedKind} document, received ${dataKind}.`,
+    };
+  }
+
+  const items = envelope.items.map((raw, index) => {
+    const itemLabel = `item ${index + 1}`;
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      return {
+        item: itemLabel,
+        status: "rejected" as const,
+        reason: "representation/schema rejection",
+      };
+    }
+    const item = raw as Record<string, unknown>;
+    const label = text(item.key) || text(item.id) || itemLabel;
+    let valid = true;
+    if (dataKind === "knowledge") {
+      const isRelation =
+        Boolean(text(item.relation_type)) ||
+        Boolean(text(item.source)) ||
+        Boolean(text(item.target));
+      valid = isRelation
+        ? Boolean(text(item.relation_type) && text(item.source) && text(item.target))
+        : Boolean(text(item.semantic_kind) && text(item.content));
+    } else if (dataKind === "questions") {
+      valid = Boolean(text(item.question_text) && text(item.answer_text));
+    } else {
+      valid = Boolean(text(item.definition) || text(item.content));
+    }
+    return valid
+      ? { item: label, status: "valid" as const }
+      : {
+          item: label,
+          status: "rejected" as const,
+          reason: "representation/schema rejection",
+        };
+  });
+
+  const rejected = items.filter((item) => item.status === "rejected").length;
+  return {
+    status: "success",
+    value: {
+      total: items.length,
+      valid: items.length - rejected,
+      rejected,
+      items,
+    },
+  };
+}
+
 export class MockImportAdapter implements CurationImportPort {
   constructor(
     private readonly store: MockCurationStore,
@@ -635,6 +731,40 @@ export class MockImportAdapter implements CurationImportPort {
     private readonly questions: MockCurationQuestionAdapter,
     private readonly mode: MockCurationMode = "success",
   ) {}
+
+  async contract(): Promise<CurationOutcome<ImportContractModel>> {
+    return {
+      status: "success",
+      value: {
+        schemaVersion: "prep-import/v1",
+        supportedKinds: SUPPORTED_IMPORT_KINDS,
+        exampleDocument: JSON.stringify(
+          {
+            schema_version: "prep-import/v1",
+            data_kind: "knowledge",
+            items: [
+              {
+                key: "idempotency-key",
+                semantic_kind: "mechanism",
+                content: "Idempotency key — stable request identity for retry-safe commands.",
+              },
+            ],
+          },
+          null,
+          2,
+        ),
+      },
+    };
+  }
+
+  async validate(
+    documentText: string,
+    expectedKind?: ImportDataKind,
+  ): Promise<CurationOutcome<ImportValidationModel>> {
+    const issue = problem<ImportValidationModel>(this.mode, "Prepared-data validation");
+    if (issue) return issue;
+    return validatePreparedDocument(documentText, expectedKind);
+  }
 
   async apply(documentText: string, expectedKind?: ImportDataKind) {
     const issue = problem<ImportResultModel>(this.mode, "Prepared-data import");
