@@ -283,35 +283,40 @@ human_validation:
     - id: UMC-01-TARGET
       description: A concrete target is a useful primary organizing context and users can establish/understand its scope.
       observation_refs: [OBS-P01, OBS-P08]
-      research_question_refs: [RQ-P01]
+      challenge_refs: [CH-P01, CH-P05]
+      research_question_refs: [RQ-P01, RQ-P08]
       task_refs: [TASK-L-ESTABLISH-TARGET, TASK-L-UNDERSTAND-TARGET]
       journey_refs: [E2E-L1]
       evidence_status: UNTESTED
     - id: UMC-02-CURRENT-STATE
       description: Users can reason about supported, unresolved and challenged current state without equating missing evidence with failure or familiarity with capability.
       observation_refs: [OBS-P02, OBS-P04]
-      research_question_refs: [RQ-P02]
+      challenge_refs: [CH-P03]
+      research_question_refs: [RQ-P02, RQ-P10]
       task_refs: [TASK-L-ESTABLISH-CURRENT-STATE, TASK-L-REVIEW-GAPS]
       journey_refs: [E2E-L1]
       evidence_status: UNTESTED
     - id: UMC-03-GAP-FOCUS
       description: Users can understand target-relative gaps/uncertainty and choose a useful next focus under realistic time and attention constraints.
       observation_refs: [OBS-P05, OBS-P06]
-      research_question_refs: [RQ-P03]
+      challenge_refs: [CH-P04]
+      research_question_refs: [RQ-P03, RQ-P10]
       task_refs: [TASK-L-REVIEW-GAPS, TASK-L-CHOOSE-NEXT-FOCUS]
       journey_refs: [E2E-L1]
       evidence_status: UNTESTED
     - id: UMC-04-ACTIVITY-EVIDENCE-PROGRESS
       description: Users can distinguish learning/practice from diagnosis, recognize credible evidence and understand progress or valid no-change.
       observation_refs: [OBS-P04, OBS-P06, OBS-P07]
-      research_question_refs: [RQ-P04, RQ-P07]
+      challenge_refs: [CH-P02, CH-P03, CH-P05]
+      research_question_refs: [RQ-P04, RQ-P07, RQ-P09, RQ-P10]
       task_refs: [TASK-L-LEARN-OR-PRACTISE, TASK-L-COLLECT-EVIDENCE, TASK-L-REVIEW-PROGRESS]
       journey_refs: [E2E-L1]
       evidence_status: UNTESTED
     - id: UMC-05-BOOTSTRAP
       description: With no prepared corpus, users can choose a sensible preparation path and reach a usable target while preserving the motivating goal.
       observation_refs: [OBS-P03, OBS-P09]
-      research_question_refs: [RQ-P05, RQ-P06]
+      challenge_refs: [CH-P06]
+      research_question_refs: [RQ-P05, RQ-P06, RQ-P11]
       task_refs: [TASK-C-SELECT-PREPARATION-PATH, TASK-C-PREPARE-BULK-DATA, TASK-C-IMPORT-BULK-DATA, TASK-C-REVIEW-CORPUS-QUALITY]
       journey_refs: [E2E-C1]
       evidence_status: UNTESTED

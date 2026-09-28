@@ -53,8 +53,8 @@ reviews:
     basis: "Application Design now orchestrates explicit empty/partial-corpus preparation-path selection and reassesses after newly accepted evidence even when target satisfaction does not change."
 
   - capability: prep.task-model
-    revision: 7
-    basis: "Task Model now separates structural sufficiency from human validation and traces five critical user-model claims to problem observations, research questions, tasks and representative journeys; all claims remain explicitly UNTESTED pending representative-user evidence."
+    revision: 8
+    basis: "Each provisional user-model claim now traces not only to supporting observations and research questions but also to explicit falsification challenges: target evolution, evidence burden, opportunistic sequencing, performance-shaped readiness, interview feedback and reusable-corpus assumptions."
 
   - capability: prep.user-journeys
     revision: 6
