@@ -7,8 +7,10 @@ import type {
   CurationQuestionModel,
   CurationRequirementEntity,
   CurationTargetModel,
+  ImportContractModel,
   ImportDataKind,
   ImportResultModel,
+  ImportValidationModel,
 } from "../model/curationModels";
 
 export interface TargetCurationPort {
@@ -56,6 +58,11 @@ export interface QuestionCurationPort {
 }
 
 export interface CurationImportPort {
+  contract(): Promise<CurationOutcome<ImportContractModel>>;
+  validate(
+    documentText: string,
+    expectedKind?: ImportDataKind,
+  ): Promise<CurationOutcome<ImportValidationModel>>;
   apply(
     documentText: string,
     expectedKind?: ImportDataKind,
