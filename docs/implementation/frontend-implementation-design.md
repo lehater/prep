@@ -175,9 +175,17 @@ Completion:
 
 Implement/update browser and component tests for the current Frontend Test Design and Presentation Verification obligations.
 
+CI realization is deliberately tiered:
+
+- **fast** — frontend typecheck, lint, dependency-boundary checks and unit tests; lightweight semantic/Harness/document closure in a separate repository-fast workflow;
+- **heavy** — full Harness revalidation, maintained reference suites, dependency audit, production build, Playwright E2E, graph stress evidence and container identity verification.
+
+Heavy validation is manually dispatchable for final large-branch checkpoints and runs automatically after changes reach `main`; it is not an every-commit feature-branch tax.
+
 Completion:
 
-- typecheck/build/boundary checks pass;
+- fast typecheck/lint/boundary/unit checks pass during implementation;
+- final heavy validation passes before the large branch is treated as fully verified;
 - applicable mock-first FTD contracts pass;
 - old Overview/Knowledge/Study/Statistics-only navigation is removed from product behavior;
 - no frontend code invents domain/application semantics.
