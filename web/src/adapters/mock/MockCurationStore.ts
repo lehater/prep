@@ -30,33 +30,59 @@ export class MockCurationStore {
     this.knowledgeRelations = mockKnowledgeRelations.map((item) => ({ ...item }));
     this.requirements = [
       {
-        id: "explain-resource-isolation",
+        id: "python-backend-core",
         kind: "requirement",
-        label: "Explain resource isolation",
-        definition:
-          "Explain why resource isolation is needed and how Linux can realize it.",
+        label: "Build and reason about Python backend services",
+        definition: "Design, implement and explain production Python backend behavior.",
+        knowledgeIds: [],
+      },
+      {
+        id: "card-payment-processing",
+        kind: "requirement",
+        label: "Explain the card-payment processing chain",
+        definition: "Explain gateway, processor, acquiring, clearing and settlement responsibilities.",
         knowledgeIds: [
-          "resource-contention",
-          "resource-isolation",
-          "linux-cgroups",
-          "cgroups-enforcement",
+          "demo-payment-card-processing",
+          "demo-payment-payment-gateway",
+          "demo-payment-payment-processor",
+          "demo-payment-merchant-acquiring",
+          "demo-payment-payment-clearing",
+          "demo-payment-payment-settlement",
         ],
       },
       {
-        id: "configure-resource-limits",
+        id: "reliable-payment-commands",
         kind: "requirement",
-        label: "Configure bounded resource limits",
-        definition:
-          "Apply and verify bounded resource controls for a Linux workload.",
-        knowledgeIds: ["configure-cpu-limits", "linux-cgroups"],
+        label: "Design reliable payment commands",
+        definition: "Handle retries, duplicate delivery and idempotent payment-side effects.",
+        knowledgeIds: [
+          "demo-payment-duplicate-payment-processing",
+          "demo-payment-idempotency-key",
+          "demo-payment-transient-payment-failure",
+          "demo-payment-retry-policy",
+        ],
       },
       {
-        id: "linux-resource-management",
+        id: "payment-reconciliation",
+        kind: "requirement",
+        label: "Reason about payment reconciliation",
+        definition: "Detect and resolve mismatches between internal and external financial records.",
+        knowledgeIds: [
+          "demo-payment-reconciliation-gap",
+          "demo-payment-reconciliation-service",
+        ],
+      },
+      {
+        id: "python-fintech-profile",
         kind: "requirement-set",
-        label: "Linux resource management",
-        definition:
-          "Explain isolation mechanisms and apply bounded resource controls.",
-        memberIds: ["explain-resource-isolation", "configure-resource-limits"],
+        label: "Python backend + card payments profile",
+        definition: "Combined capability profile for backend engineering in a card-payments context.",
+        memberIds: [
+          "python-backend-core",
+          "card-payment-processing",
+          "reliable-payment-commands",
+          "payment-reconciliation",
+        ],
       },
     ];
     this.targets = mockTargets.map((target) => ({
@@ -79,9 +105,7 @@ export class MockCurationStore {
 
   scopeItem(scopeItemId: string) {
     const item = this.requirements.find((candidate) => candidate.id === scopeItemId);
-    return item
-      ? { id: item.id, kind: item.kind, label: item.label }
-      : undefined;
+    return item ? { id: item.id, kind: item.kind, label: item.label } : undefined;
   }
 
   knowledgeIdsForTarget(targetId: string): readonly string[] {
@@ -105,9 +129,7 @@ export class MockCurationStore {
 
     const knowledgeIds = new Set<string>();
     for (const requirementId of requirementIds) {
-      const item = this.requirements.find(
-        (candidate) => candidate.id === requirementId,
-      );
+      const item = this.requirements.find((candidate) => candidate.id === requirementId);
       if (item?.kind === "requirement") {
         item.knowledgeIds.forEach((id) => knowledgeIds.add(id));
       }
@@ -126,9 +148,7 @@ export class MockCurationStore {
   }
 
   resolveKnowledgeReference(reference: string): string | undefined {
-    if (this.knowledgeNodes.some((node) => node.id === reference)) {
-      return reference;
-    }
+    if (this.knowledgeNodes.some((node) => node.id === reference)) return reference;
     return this.importIdentityByKey.get(this.importKey("knowledge", reference));
   }
 
