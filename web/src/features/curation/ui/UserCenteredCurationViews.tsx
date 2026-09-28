@@ -399,6 +399,7 @@ export function AssessmentCurationViewV2({
     taskSummary: "",
     observationSummary: "",
     evidenceRuleSummary: "",
+    evidenceBearing: "supports" as "supports" | "challenges",
   });
 
   useEffect(() => {
@@ -420,6 +421,7 @@ export function AssessmentCurationViewV2({
       taskSummary: selected.taskSummary,
       observationSummary: selected.observationSummary,
       evidenceRuleSummary: selected.evidenceRuleSummary,
+      evidenceBearing: selected.evidenceBearing,
     });
   }, [selected]);
 
@@ -447,7 +449,14 @@ export function AssessmentCurationViewV2({
           <Button component={Link} to="/curation/import?kind=assessment_design">Import assessment design</Button>
           <Button onClick={() => {
             setSelected(undefined);
-            setDraft({ title: "", capabilityIds: [], taskSummary: "", observationSummary: "", evidenceRuleSummary: "" });
+            setDraft({
+              title: "",
+              capabilityIds: [],
+              taskSummary: "",
+              observationSummary: "",
+              evidenceRuleSummary: "",
+              evidenceBearing: "supports",
+            });
           }}>New assessment</Button>
         </Paper>
         <Paper component="section" aria-label="Assessment editor" variant="outlined" sx={{ p: 2, flex: 1 }}>
@@ -458,6 +467,22 @@ export function AssessmentCurationViewV2({
             <TextField label="Task specification" multiline value={draft.taskSummary} onChange={(e) => setDraft({ ...draft, taskSummary: e.target.value })} />
             <TextField label="Observation specification" multiline value={draft.observationSummary} onChange={(e) => setDraft({ ...draft, observationSummary: e.target.value })} />
             <TextField label="Evidence warrant / pattern" multiline value={draft.evidenceRuleSummary} onChange={(e) => setDraft({ ...draft, evidenceRuleSummary: e.target.value })} />
+            <label>
+              <Typography component="span" variant="body2">Evidence bearing</Typography>
+              <select
+                aria-label="Evidence bearing"
+                value={draft.evidenceBearing}
+                onChange={(event) =>
+                  setDraft({
+                    ...draft,
+                    evidenceBearing: event.target.value as "supports" | "challenges",
+                  })
+                }
+              >
+                <option value="supports">Supports</option>
+                <option value="challenges">Challenges</option>
+              </select>
+            </label>
             <Button type="submit" variant="contained" sx={{ alignSelf: "flex-start" }}>Save assessment design</Button>
           </Stack>
         </Paper>
