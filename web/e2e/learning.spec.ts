@@ -1,86 +1,64 @@
 import { expect, test } from "@playwright/test";
 
-const targetId = "linux-backend-interview";
+const targetId = "python-backend-fintech";
 
-test("selects a prepared target and preserves it across learner sections", async ({
-  page,
-}) => {
+test("selects a career target and exposes the complete target-work navigation", async ({ page }) => {
   await page.goto("/learning");
 
-  await expect(
-    page.getByRole("heading", { name: "Choose a learning target" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose a learning target" })).toBeVisible();
+  await expect(page.getByText("Middle Python Backend — Fintech / Card Payments")).toBeVisible();
   await page.getByRole("link", { name: "Open target" }).click();
 
   await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/overview`));
-  await expect(
-    page.getByRole("heading", { name: "Linux backend interview" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Study" }).click();
-  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/study`));
-  await page.getByRole("link", { name: "Statistics" }).click();
-  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/statistics`));
+  await expect(page.getByRole("heading", { name: "Middle Python Backend — Fintech / Card Payments" })).toBeVisible();
+
+  for (const section of ["State", "Gaps", "Learning", "Diagnostics", "Knowledge", "Progress"]) {
+    await expect(page.getByRole("link", { name: section, exact: true })).toBeVisible();
+  }
 });
 
-test("overview shows read-only scope and factual material counts", async ({ page }) => {
+test("current state distinguishes satisfied unresolved and challenged", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/state`);
+
+  const state = page.getByRole("region", { name: "Target requirement state" });
+  await expect(state).toContainText("Satisfied");
+  await expect(state).toContainText("Unresolved");
+  await expect(state).toContainText("Challenged");
+  await expect(page.getByText(/proficiency score/i)).toHaveCount(0);
+});
+
+test("gap can become an explicit learning focus", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/gaps`);
+
+  const gap = page.getByText("Design reliable payment commands").locator("..").locator("..");
+  await gap.getByRole("button", { name: "Learn this" }).click();
+
+  await expect(page.getByText("Current focus")).toBeVisible();
+  await page.getByRole("link", { name: "Continue with focus" }).click();
+  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/learning`));
+  await expect(page.getByText("Idempotency and retry safety")).toBeVisible();
+});
+
+test("diagnostic evidence changes target-relative progress", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/gaps`);
+
+  const gap = page.getByText("Design reliable payment commands").locator("..").locator("..");
+  await gap.getByRole("button", { name: "Diagnose this" }).click();
+  await page.getByRole("link", { name: "Continue with focus" }).click();
+
+  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/diagnostics`));
+  await page.getByRole("button", { name: "Complete mock diagnostic" }).click();
+  await expect(page.getByText("New evidence accepted")).toBeVisible();
+
+  await page.getByRole("link", { name: "Review progress" }).click();
+  await expect(page.getByText("Challenged → Satisfied")).toBeVisible();
+});
+
+test("target overview is capability-oriented and Knowledge remains target-scoped", async ({ page }) => {
   await page.goto(`/learning/${targetId}/overview`);
 
-  await expect(page.getByRole("heading", { name: "Scope" })).toBeVisible();
-  await expect(page.getByText("Linux resource management")).toBeVisible();
-  const material = page.getByRole("region", { name: "Available material" });
-  await expect(
-    material.getByText("Knowledge", { exact: true }).locator(".."),
-  ).toContainText("5");
-  await expect(
-    material.getByText("Questions", { exact: true }).locator(".."),
-  ).toContainText("3");
-  await expect(
-    material.getByText("Study Set", { exact: true }).locator(".."),
-  ).toContainText("Available");
-  await expect(page.getByText(/recorded reviews/)).toContainText("4");
-  await expect(page.getByText(/mastery/i)).toHaveCount(0);
-  await expect(page.getByText(/readiness/i)).toHaveCount(0);
-});
-
-test("Question to Knowledge navigation preserves target and focuses all alignments", async ({
-  page,
-}) => {
-  await page.goto(`/learning/${targetId}/study`);
-
-  await expect(
-    page.getByRole("heading", {
-      name: "What problem do Linux cgroups help address?",
-    }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Show in Knowledge Map" }).click();
-
-  await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/knowledge`));
-  const url = new URL(page.url());
-  expect(url.searchParams.get("focus")).toBe(
-    "resource-contention,resource-isolation,linux-cgroups",
-  );
-});
-
-test("builds, inspects and exports the exact Study Set preview", async ({ page }) => {
-  await page.goto(`/learning/${targetId}/study`);
-
-  await page.getByRole("button", { name: "Build Study Set" }).click();
-  await expect(page.getByText("3 Questions in the exact inspected preview.")).toBeVisible();
-  await page.getByRole("button", { name: "Export to Anki" }).click();
-
-  await expect(page.getByText("Study Set export completed")).toBeVisible();
-  await expect(page.getByText(/question-cgroups-purpose: success/)).toBeVisible();
-});
-
-test("statistics remain factual and review sync is explicit", async ({ page }) => {
-  await page.goto(`/learning/${targetId}/statistics`);
-
-  const aggregates = page.getByRole("region", { name: "Review aggregates" });
-  await expect(aggregates).toContainText("Total");
-  await expect(aggregates).toContainText("4");
-  await expect(page.getByText(/question-cgroups-purpose/)).toBeVisible();
-
-  await page.getByRole("button", { name: "Sync reviews from Anki" }).click();
-  await expect(page.getByRole("status")).toContainText("Review sync completed");
-  await expect(page.getByText(/mastery/i)).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Target capabilities" })).toBeVisible();
+  await expect(page.getByText("Explain the card-payment processing chain")).toBeVisible();
+  await expect(page.getByText("Design reliable payment commands")).toBeVisible();
+  await expect(page.getByText("Relevant Knowledge").locator("..")).toContainText("12");
 });
