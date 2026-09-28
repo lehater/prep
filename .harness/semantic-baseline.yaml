@@ -65,28 +65,28 @@ reviews:
     basis: "Conceptual interface semantics now separate Observation, evidential basis and learner claim from target-relative Current State instead of bundling all layers into a generic Evidence concept."
 
   - capability: prep.information-architecture
-    revision: 4
-    basis: "Information Architecture now provides an explicit empty-corpus bootstrap entry/return path and carries the refined observation/evidence-basis/claim concepts through target-state, diagnostics and progress contexts."
+    revision: 5
+    basis: "Information Architecture removes the remaining generic Evidence reference and keeps empty-corpus bootstrap as an explicit entry/return path."
 
   - capability: prep.machine-interfaces
     revision: 4
     basis: "Machine Interface now exposes target-state, gaps, focus, diagnostics, evidence, progress and explicit import contract/validate/apply operations while keeping concrete transport/backend realization deferred."
 
   - capability: prep.interaction-design
-    revision: 5
-    basis: "Interaction Design now realizes current-state inspection, gap/focus decisions, learning/diagnostics/evidence/progress and modern corpus curation while preserving target/focus and recoverable state."
+    revision: 6
+    basis: "Interaction Design now covers the first-use preparation-path decision in the existing target-entry context and carries Observation, evidential basis and learner-claim distinctions through state, diagnostics, progress and assessment interactions."
 
   - capability: prep.interface-topology
-    revision: 5
-    basis: "Topology removes the phantom Curation home view and directly exposes accepted semantic Curation areas from the structural workspace while preserving the target-relative learner topology."
+    revision: 6
+    basis: "Topology maps the new corpus-preparation decision to the existing Targets view and routes bulk versus incremental/mixed preparation without introducing a redundant Curation home screen."
 
   - capability: prep.presentation-system
     revision: 8
     basis: "Presentation System now prioritizes target context, evidence-backed state, gaps/focus and progress while retaining 3D Knowledge as the preferred spatial projection with task-complete non-spatial access."
 
   - capability: prep.screen-view-design
-    revision: 7
-    basis: "Screen/View Design now gives every topology view an explicit 1:1 subject, separating Curation collection and editor responsibilities while preserving the accepted target-relative and modern Curation composition semantics."
+    revision: 8
+    basis: "Screen/View Design expands the Targets entry state to cover empty/partial corpus preparation-path choice while preserving target/source context and avoiding an unusable direct-to-target-editor assumption."
 
   - capability: prep.import-consistency
     revision: 3
