@@ -171,7 +171,7 @@ test("reduced-motion preference disables automatic graph motion without removing
   await page.getByRole("button", { name: "Graph settings" }).click();
   await expect(page.getByText(/Reduced motion is active/)).toBeVisible();
 
-  const particles = page.getByRole("checkbox", { name: "Частицы" });
+  const particles = page.getByRole("checkbox", { name: "Particles" });
   await expect(particles).not.toBeChecked();
   await expect(particles).toBeDisabled();
 
