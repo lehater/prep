@@ -152,6 +152,16 @@ test("contextual import reports applied and rejected item outcomes", async ({ pa
     mimeType: "application/json",
     buffer: Buffer.from(document),
   });
+  await expect(page.getByRole("region", { name: "Import contract" })).toContainText(
+    "prep-import/v1",
+  );
+  await page.getByRole("button", { name: "Validate import" }).click();
+
+  const validation = page.getByRole("region", { name: "Validation outcomes" });
+  await expect(validation).toContainText("Total 2");
+  await expect(validation).toContainText("valid 1");
+  await expect(validation).toContainText("rejected 1");
+
   await page.getByRole("button", { name: "Apply import" }).click();
 
   const outcomes = page.getByRole("region", { name: "Import outcomes" });
