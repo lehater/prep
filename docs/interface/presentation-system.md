@@ -237,6 +237,37 @@ Narrow:
 - results/detail become ordered disclosures;
 - no horizontal page scrolling is required for core tasks.
 
+## Content design baseline
+
+The current prototype uses **English consistently**. Mixed-language controls are not accepted presentation behavior. Localization may be added later, but one interaction surface does not mix languages unless quoting source material.
+
+User-facing terms are derived from, but need not repeat, canonical domain type names:
+
+| Canonical concept | Learner-facing wording | Curation wording |
+| --- | --- | --- |
+| LearningTarget | Target | Target |
+| CapabilitySpecification | required capability / capability | Capability |
+| Observation | what was observed / observation detail | Observation |
+| CapabilityEvidenceArgument / evidential basis | why this evidence counts / evidence basis | Evidence basis / warrant |
+| LearnerCapabilityClaim | current conclusion | Learner claim |
+| Gap | gap / what needs attention | Gap where relevant |
+| LearningFocus | current focus | — |
+| LearningMaterial / TaskSpecification | material / practice task | Learning Support |
+| AssessmentDesign | diagnostic opportunity | Assessment |
+
+Rules:
+
+- internal class/schema names are never required learner vocabulary;
+- headings/actions describe the user's goal or decision rather than a backend/domain resource;
+- Satisfied / Unresolved / Challenged are current prototype labels and remain research hypotheses until comprehension is validated;
+- missing evidence uses uncertainty language, never failure/mastery language;
+- activity completion never uses copy that implies a capability was proved;
+- raw observation, evidence reasoning and current conclusion use visibly different labels where advanced evidence detail is shown;
+- errors and empty states state what happened and the next supported action;
+- Curation may use more domain-specific terminology because the task is semantic authoring, but the same term keeps one meaning across modes.
+
+Critical learner copy and state labels are part of usability validation; implementation text is not design authority merely because it already exists.
+
 ## Accessibility baseline
 
 - core navigation/actions keyboard accessible;
