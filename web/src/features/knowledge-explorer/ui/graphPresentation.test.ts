@@ -1,6 +1,9 @@
 import { describe, expect, test } from "vitest";
 
-import { graphPreferencesForProfile } from "./graphPresentation";
+import {
+  applyReducedMotionPreferences,
+  graphPreferencesForProfile,
+} from "./graphPresentation";
 
 describe("graph presentation profiles", () => {
   test("auto keeps interactive physics live", () => {
@@ -30,6 +33,18 @@ describe("graph presentation profiles", () => {
       particles: false,
       physics: "settle-and-pause",
       nodeDetail: "reduced",
+    });
+  });
+
+  test("reduced motion disables automatic graph motion without changing semantic presentation choices", () => {
+    expect(
+      applyReducedMotionPreferences(graphPreferencesForProfile("quality")),
+    ).toEqual({
+      labels: "normal",
+      arrowheads: true,
+      particles: false,
+      physics: "off",
+      nodeDetail: "normal",
     });
   });
 });
