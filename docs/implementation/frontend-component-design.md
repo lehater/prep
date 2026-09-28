@@ -142,7 +142,9 @@ One adapter may implement multiple ports.
 
 ### AssessmentCurationPort
 
-- list/get/create/update assessment/evidence design.
+- list/get/create/update assessment/evidence design;
+- preserve evidential bearing explicitly as `supports` or `challenges`;
+- never reinterpret a challenging argument as a negative learner claim.
 
 ### ImportPort
 
