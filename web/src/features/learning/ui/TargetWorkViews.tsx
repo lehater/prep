@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 import { LoadingState, StateNotice } from "../../../ui/patterns/ViewState";
 import type {
+  DiagnosticEvidenceAcceptanceModel,
   DiagnosticOpportunityModel,
   GapModel,
   LearningFocusModel,
@@ -215,7 +216,8 @@ export function LearningFocusView({ targetId, targetWorkPort }: TargetWorkViewPr
 export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [focus, setFocus] = useState<LearningFocusModel | null>(null);
   const [items, setItems] = useState<readonly DiagnosticOpportunityModel[] | null>(null);
-  const [completed, setCompleted] = useState<string | null>(null);
+  const [acceptedEvidence, setAcceptedEvidence] =
+    useState<DiagnosticEvidenceAcceptanceModel | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -235,10 +237,12 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
 
   if (!items) return <LoadingState label="Loading diagnostic opportunities" />;
 
-  const complete = (item: DiagnosticOpportunityModel) => {
-    void targetWorkPort.completeDiagnostic(targetId, item.id).then((outcome) => {
-      if (outcome.status === "success") setCompleted(item.id);
-    });
+  const acceptEvidence = (item: DiagnosticOpportunityModel) => {
+    void targetWorkPort
+      .acceptDiagnosticEvidence(targetId, item.id, item.capabilityId)
+      .then((outcome) => {
+        if (outcome.status === "success") setAcceptedEvidence(outcome.value);
+      });
   };
 
   return (
@@ -250,7 +254,22 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
           {focus ? `Current focus: ${focus.title}` : "Choose a diagnostic opportunity to reduce uncertainty."}
         </Typography>
       </header>
-      {completed ? <StateNotice title="New evidence accepted" message="The target-relative state can now be reassessed." severity="success" /> : null}
+      {acceptedEvidence ? (
+        <Paper component="section" aria-label="Accepted diagnostic evidence" variant="outlined" sx={{ p: 1.5 }}>
+          <Stack spacing={0.75}>
+            <Typography component="h4" sx={{ fontWeight: 700 }}>New evidence accepted</Typography>
+            <Typography variant="body2">
+              Observation: {acceptedEvidence.observation.summary}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Provenance: {acceptedEvidence.observation.provenance}
+            </Typography>
+            <Typography variant="body2">
+              Derived claim: {acceptedEvidence.derivedClaim.summary}
+            </Typography>
+          </Stack>
+        </Paper>
+      ) : null}
       {items.length === 0 ? (
         <StateNotice title="No diagnostic opportunity prepared" message="Assessment support for this focus is not currently available." severity="warning" />
       ) : (
@@ -260,8 +279,8 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
               <Stack spacing={1}>
                 <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
                 <Typography>{item.summary}</Typography>
-                <Button size="small" variant="contained" onClick={() => complete(item)} sx={{ alignSelf: "flex-start" }}>
-                  Complete mock diagnostic
+                <Button size="small" variant="contained" onClick={() => acceptEvidence(item)} sx={{ alignSelf: "flex-start" }}>
+                  Accept mock diagnostic evidence
                 </Button>
               </Stack>
             </Paper>
