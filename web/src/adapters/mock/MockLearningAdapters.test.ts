@@ -7,7 +7,7 @@ import { PREPARED_TARGET_ID } from "./mockFixtures";
 
 describe("Learning mock adapters", () => {
   test("target and Question collection results preserve exact total counts", async () => {
-    const targets = await new MockTargetAdapter().list({ search: "Linux" });
+    const targets = await new MockTargetAdapter().list({ search: "Python" });
     const questions = await new MockQuestionAdapter().list(PREPARED_TARGET_ID, {});
 
     expect(targets.status).toBe("success");
