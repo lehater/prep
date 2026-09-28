@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Verify the accepted Presentation System and Screen/View Design, including the 3D-default Knowledge experience, non-spatial task completion, responsive hierarchy and semantic-preserving degradation.
+Verify the accepted Presentation System and Screen/View Design for the complete target-relative workflow, including 3D-default Knowledge exploration, non-spatial completion, responsive hierarchy and semantic-preserving state visualization.
 
 ## PV-01 — Topology / Screen coverage
 
@@ -10,88 +10,96 @@ Verify the accepted Presentation System and Screen/View Design, including the 3D
 
 **Method:** TEST.
 
-**Evidence:** pinned Harness topology -> Screen/View subject coverage.
+## PV-02 — End-to-end target workflow usability
 
-## PV-02 — Shared presentation consistency
+**Verifies:** a representative learner can move through:
 
-**Verifies:** representative Learning and Curation views reuse the same hierarchy, feedback, collection, edit, loading/empty/failure and focus role system.
+`target -> state -> gaps -> focus -> learning/diagnostics -> progress`
+
+without losing active target/focus or needing Curation for ordinary learner work.
+
+**Method:** DEMONSTRATION.
+
+**Evidence:** rendered walkthrough using representative mock data.
+
+## PV-03 — Evidence/state distinction
+
+**Verifies:** raw observations, evidence-backed claims, derived target state and Gap presentation are visually distinguishable; unresolved is not shown as failure and no universal proficiency score is invented.
+
+**Method:** INSPECTION + DEMONSTRATION.
+
+## PV-04 — Gap-to-action clarity
+
+**Verifies:** from a selected gap, the user can understand its basis and reach learning, diagnostics, Knowledge or missing-support curation as appropriate.
+
+**Method:** DEMONSTRATION.
+
+## PV-05 — Progress semantics
+
+**Verifies:** progress shows target-relative change supported by accepted evidence, including valid no-change and increased-uncertainty outcomes.
+
+**Method:** DEMONSTRATION.
+
+## PV-06 — Import usability
+
+**Verifies:** Curation Import clearly separates contract/example discovery, validation and application, and per-item failures remain actionable.
+
+**Method:** DEMONSTRATION.
+
+**Evidence:** mock bulk-import walkthrough including partial rejection.
+
+## PV-07 — Shared presentation consistency
+
+**Verifies:** target-work and Curation views reuse one hierarchy, feedback, collection/edit, loading/empty/failure and focus-role system.
 
 **Method:** INSPECTION.
 
-**Evidence:** rendered representative views plus theme/presentation-role mapping; pixel identity is not required.
-
-## PV-03 — Provider neutrality
-
-**Verifies:** UI/provider capabilities do not introduce product actions/states absent from Screen/View contracts.
-
-**Method:** INSPECTION.
-
-**Evidence:** trace representative controls to accepted screen/presentation responsibilities.
-
-## PV-04 — Accessibility and non-spatial completion
+## PV-08 — Accessibility and non-spatial completion
 
 **Verifies:** core navigation/actions are keyboard accessible with visible focus; semantic state is not color-only; core Knowledge tasks remain completable through search/list/detail without camera manipulation.
 
 **Method:** DEMONSTRATION.
 
-**Evidence:** browser keyboard walkthrough plus applicable automated accessibility checks.
+## PV-09 — 3D semantic fidelity
 
-## PV-05 — 3D semantic fidelity
-
-**Verifies:** the production-default 3D projection preserves canonical Knowledge identity and KnowledgeProposition predicate/participant meaning; geometry, depth and camera state never become semantic truth; selection and explicit focus remain distinct.
+**Verifies:** the 3D projection preserves canonical Knowledge identity and proposition meaning; geometry/depth/camera never become semantic truth; selection and explicit focus remain distinct.
 
 **Method:** TEST.
 
-**Evidence:** deterministic projection/interaction tests plus rendered representative evidence.
+## PV-10 — Target/focus-scoped 3D suitability
 
-## PV-06 — 3D task suitability
-
-**Verifies:** representative relation inspection, neighborhood/context exploration, search-to-focus and Study-material-to-Knowledge navigation remain understandable in the 3D-default experience and a non-spatial path remains available when it is simpler or required.
+**Verifies:** target-scoped and current-focus-scoped Knowledge exploration remain understandable and users can restore broader scope without disorientation.
 
 **Method:** DEMONSTRATION.
 
-**Evidence:** task walkthroughs recording correctness, disorientation/errors and qualitative usability. This evidence may justify later presentation revision but does not redefine Knowledge semantics.
+## PV-11 — Responsive closure
 
-## PV-07 — Responsive spatial closure
-
-**Verifies:** wide layout gives the Knowledge surface the majority of flexible workspace; compact layout preserves primary spatial work while moving secondary detail appropriately; narrow layout avoids horizontal overflow and keeps required controls/non-spatial access reachable.
+**Verifies:** wide/compact/narrow layouts preserve target context, current focus, required actions, semantic read order and task-complete non-spatial access.
 
 **Method:** TEST.
 
-**Evidence:** rendered wide/compact/narrow browser cases with robust structural/range assertions rather than pixel-perfect snapshots.
+## PV-12 — Performance degradation without semantic loss
 
-## PV-08 — Performance degradation without semantic loss
-
-**Verifies:** Auto/Quality/Performance and allowed renderer degradation affect presentation cost only; semantic result set, selection/focus intent, Knowledge identity, proposition predicate/direction and non-spatial access remain preserved; renderer becomes demand-driven when idle.
+**Verifies:** renderer profiles/degradation affect presentation cost only; semantic result set, target/focus scope, selection and non-spatial access remain preserved.
 
 **Method:** TEST.
 
-**Evidence:** deterministic semantic-preservation/profile tests plus separate hardware-accelerated measurements required by Frontend Performance/Capacity.
+## PV-13 — Hardware workload evidence
 
-## PV-09 — Hardware workload evidence
-
-**Verifies:** the selected production renderer has recorded evidence for 1k / 2k / 5k visual-item workloads and the ordinary supported envelope is evaluated against the accepted approximately-30-FPS target on a named reference environment.
+**Verifies:** the selected production renderer has recorded evidence for accepted visual-item workloads on a named reference environment.
 
 **Method:** DEMONSTRATION.
 
-**Evidence:** browser/device-identified runs recording active RAF/FPS, idle activity, layout settle behavior, responsiveness and available renderer diagnostics. Headless runs alone do not satisfy this check.
+## Prototype evidence required
 
-## Current evidence state
+The frontend mock prototype must demonstrate at minimum:
 
-Available immediately:
-
-- topology -> Screen/View subject coverage;
-- canonical traceability of all checks to Presentation/Screen/Quality contracts.
-
-Required from the frontend prototype:
-
-- rendered shared-role consistency;
-- keyboard/non-spatial walkthrough;
-- 3D semantic/task evidence;
-- wide/compact/narrow composition evidence;
-- semantic-preserving degradation tests;
-- hardware workload measurements.
-
-## Out of scope
-
-Backend transport/persistence, source-code dependency direction, exact provider token names, exact font package, exact colors, pixel-perfect coordinates and learner-state inference are outside this verification artifact.
+- one representative technical-career target;
+- initial current-state projection with both known and unresolved areas;
+- visible gaps and focus selection;
+- learning and diagnostic paths;
+- new evidence causing a visible reassessment;
+- target/focus-scoped Knowledge exploration;
+- Curation bulk-import contract/validation/apply flow;
+- wide/compact/narrow behavior;
+- keyboard/non-spatial Knowledge completion.
