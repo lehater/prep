@@ -54,8 +54,8 @@ locations:
     scope: target
 
   - id: CURATION-WORKSPACE
-    purpose: Preserve corpus-authoring context across reusable data areas.
-    concept_refs: [CURATION, CORPUS]
+    purpose: Preserve curator/operator corpus-authoring context, including selection of bulk, incremental or mixed preparation path before entering the owning data areas.
+    concept_refs: [CURATION, CORPUS, IMPORT-CONTRACT]
     scope: global
 
   - id: CURATION-TARGETS

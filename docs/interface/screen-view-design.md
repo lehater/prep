@@ -222,10 +222,20 @@ Primary actions:
 
 ## [F-C-CURATION-WORKSPACE]
 
-**Purpose:** preserve corpus-authoring context.
+**Purpose:** preserve curator/operator corpus-authoring context and select the preparation path before entering the owning data areas when preparation is missing.
+
+**Task:** `TASK-C-SELECT-PREPARATION-PATH`
+
+Regions:
+- missing/incomplete corpus prerequisites — primary when preparation choice is needed;
+- bulk / incremental / mixed preparation choices — primary;
+- retained motivating target/source context for return — supporting;
+- curation destinations — primary.
 
 Destinations:
 Targets / Capabilities / Knowledge / Learning Support / Assessment / Import / Quality.
+
+This path belongs to Curation. A learner sees it only after explicit self-curation.
 
 ## [C-11-TARGET-COLLECTION]
 

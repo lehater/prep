@@ -20,9 +20,9 @@ views:
     exits: [L-02-TARGET-OVERVIEW, L-03-TARGET-STATE, L-04-TARGET-GAPS, L-05-TARGET-LEARNING, L-06-TARGET-DIAGNOSTICS, L-07-TARGET-KNOWLEDGE, L-08-TARGET-PROGRESS]
 
   - id: F-C-CURATION-WORKSPACE
-    responsibility: Preserve curation context while switching among corpus-authoring areas.
+    responsibility: Preserve curator/operator curation context, choose the corpus-preparation path where needed, and switch among corpus-authoring areas.
     location_ref: CURATION-WORKSPACE
-    interaction_context_refs: []
+    interaction_context_refs: [I-C-SELECT-PREPARATION-PATH]
     structural: true
     parent: F-00-APPLICATION-SHELL
     exits: [C-11-TARGET-COLLECTION, C-21-CAPABILITY-COLLECTION, C-31-KNOWLEDGE-WORKSPACE, C-41-LEARNING-SUPPORT-COLLECTION, C-51-ASSESSMENT-COLLECTION, C-61-IMPORT, C-71-QUALITY]
