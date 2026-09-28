@@ -64,8 +64,8 @@ export function CurrentStateView({ targetId, targetWorkPort }: TargetWorkViewPro
         {state.items.map((item) => (
           <Paper key={item.requirementId} variant="outlined" sx={{ p: 1.5 }}>
             <Stack spacing={0.75}>
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                <Typography component="h4" fontWeight={700}>{item.title}</Typography>
+              <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
                 <Chip size="small" label={stateLabel(item.state)} color={stateColor(item.state)} />
               </Stack>
               <Typography>{item.summary}</Typography>
@@ -130,14 +130,14 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
           {gaps.map((gap) => (
             <Paper key={gap.id} variant="outlined" sx={{ p: 1.5 }}>
               <Stack spacing={1}>
-                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                  <Typography component="h4" fontWeight={700}>{gap.title}</Typography>
+                <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                  <Typography component="h4" sx={{ fontWeight: 700 }}>{gap.title}</Typography>
                   <Chip size="small" label={gap.kind === "challenged" ? "Challenged" : "Unresolved"} />
                   {gap.support === "missing" ? <Chip size="small" label="Support missing" color="warning" /> : null}
                 </Stack>
                 <Typography>{gap.summary}</Typography>
                 <Typography variant="body2" color="text.secondary">{gap.basis}</Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap">
+                <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
                   <Button size="small" variant="contained" onClick={() => choose(gap, "learning")}>Learn this</Button>
                   <Button size="small" variant="outlined" onClick={() => choose(gap, "diagnostic")}>Diagnose this</Button>
                   <Button size="small" component={Link} to={targetSectionPath(targetId, "knowledge")}>Knowledge</Button>
@@ -197,7 +197,7 @@ export function LearningFocusView({ targetId, targetWorkPort }: TargetWorkViewPr
         <Stack spacing={1.25} aria-label="Learning support">
           {support.map((item) => (
             <Paper key={item.id} variant="outlined" sx={{ p: 1.5 }}>
-              <Typography component="h4" fontWeight={700}>{item.title}</Typography>
+              <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
               <Typography variant="body2" color="text.secondary">{item.kind}</Typography>
               <Typography>{item.summary}</Typography>
             </Paper>
@@ -258,7 +258,7 @@ export function DiagnosticsView({ targetId, targetWorkPort }: TargetWorkViewProp
           {items.map((item) => (
             <Paper key={item.id} variant="outlined" sx={{ p: 1.5 }}>
               <Stack spacing={1}>
-                <Typography component="h4" fontWeight={700}>{item.title}</Typography>
+                <Typography component="h4" sx={{ fontWeight: 700 }}>{item.title}</Typography>
                 <Typography>{item.summary}</Typography>
                 <Button size="small" variant="contained" onClick={() => complete(item)} sx={{ alignSelf: "flex-start" }}>
                   Complete mock diagnostic
@@ -303,7 +303,7 @@ export function ProgressView({ targetId, targetWorkPort }: TargetWorkViewProps) 
         <Stack spacing={1.25} aria-label="Progress changes">
           {progress.changes.map((change) => (
             <Paper key={change.requirementId} variant="outlined" sx={{ p: 1.5 }}>
-              <Typography component="h4" fontWeight={700}>{change.title}</Typography>
+              <Typography component="h4" sx={{ fontWeight: 700 }}>{change.title}</Typography>
               <Typography>{stateLabel(change.before)} → {stateLabel(change.after)}</Typography>
               <Typography variant="body2" color="text.secondary">{change.evidenceSummary}</Typography>
             </Paper>
