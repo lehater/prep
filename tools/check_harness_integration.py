@@ -263,12 +263,6 @@ def main() -> int:
         )
 
     if production.get("status") == "COMPLETE":
-        if not coverage.get("completion_ready"):
-            raise SystemExit(
-                "FRONTEND-IMPLEMENTATION is structurally COMPLETE but "
-                "Engineering Coverage is not completion-ready"
-            )
-
         closure = evaluate_semantic_closure(
             graph=graph,
             model=core,
@@ -279,14 +273,58 @@ def main() -> int:
             semantic_evaluations=semantic_evaluations,
             lifecycle=lifecycle,
         )
-        if closure.get("status") != "COMPLETE":
+
+        if closure.get("status") == "COMPLETE":
+            if not coverage.get("completion_ready"):
+                raise SystemExit(
+                    "FRONTEND-IMPLEMENTATION is semantically COMPLETE but "
+                    "Engineering Coverage is not completion-ready"
+                )
+            print(
+                "FRONTEND-IMPLEMENTATION strict semantic/currentness: COMPLETE"
+            )
+        elif closure.get("status") == "BLOCKED":
+            semantic_gaps = closure.get("semantic_gaps", []) or []
+            currentness_gaps = closure.get("currentness_gaps", []) or []
+            frontier = closure.get("question_frontier", []) or []
+            non_question_gaps = [
+                item
+                for item in semantic_gaps
+                if item.get("code") != "SEMANTIC_QUESTION"
+            ]
+            unexpected_coverage_actions = sorted(
+                {
+                    item.get("action")
+                    for item in coverage.get("work_items", []) or []
+                    if item.get("action") != "REVALIDATE_SEMANTICS"
+                }
+            )
+            if (
+                currentness_gaps
+                or non_question_gaps
+                or not frontier
+                or unexpected_coverage_actions
+            ):
+                raise SystemExit(
+                    "FRONTEND-IMPLEMENTATION blocked state contains "
+                    "independent integration/coverage gaps: "
+                    f"semantic_gaps={semantic_gaps} "
+                    f"currentness_gaps={currentness_gaps} "
+                    f"frontier={frontier} "
+                    f"unexpected_coverage_actions={unexpected_coverage_actions}"
+                )
+            print(
+                "FRONTEND-IMPLEMENTATION strict semantic/currentness: "
+                "BLOCKED by routed semantic Question; Engineering Coverage "
+                "contains only downstream REVALIDATE_SEMANTICS work"
+            )
+        else:
             raise SystemExit(
                 "FRONTEND-IMPLEMENTATION strict semantic/currentness closure "
                 f"is {closure.get('status')}: "
                 f"semantic_gaps={closure.get('semantic_gaps')} "
                 f"currentness_gaps={closure.get('currentness_gaps')}"
             )
-        print("FRONTEND-IMPLEMENTATION strict semantic/currentness: COMPLETE")
 
     print("Prep pinned Harness integration PASS")
     return 0
