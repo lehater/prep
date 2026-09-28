@@ -810,11 +810,10 @@ export class MockImportAdapter implements CurationImportPort {
     }
     const envelope = document as Record<string, unknown>;
     const kind = envelope.data_kind;
-    const supported = ["knowledge", "requirements", "questions", "targets"] as const;
     if (
       !text(envelope.schema_version) ||
       typeof kind !== "string" ||
-      !supported.includes(kind as ImportDataKind) ||
+      !SUPPORTED_IMPORT_KINDS.includes(kind as ImportDataKind) ||
       !Array.isArray(envelope.items)
     ) {
       return {
@@ -968,7 +967,7 @@ export class MockImportAdapter implements CurationImportPort {
           reason: "representation/schema rejection",
         };
       }
-      const value = {
+      const value: LearningSupportCurationModel = {
         id: updateId || this.store.nextId("support"),
         title: text(item.title),
         kind: supportKind,
