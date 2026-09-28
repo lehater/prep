@@ -53,8 +53,8 @@ reviews:
     basis: "Application Design resolved target-scope authorship through the Harness decision pipeline: learner-direct composition, learner-mode personal-target creation, prepared-target selection and learner-mode overrides were reviewed; only prepared LearningTarget selection remained viable in learning mode, with RequirementExpression<CapabilitySpecification> authored through explicit Curation even when the same person performs both roles."
 
   - capability: prep.task-model
-    revision: 3
-    basis: "The task model was revalidated against Product Capability revision 2 and the pinned task-model skill; every current USER task now also traces to stable PC capability anchors while preserving information, decision, system-support, outcome and recovery semantics."
+    revision: 4
+    basis: "Rebuilt for the frontend-first slice against Application Design revision 4 and Product Capability revision 3: tasks now use CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition and Observation semantics; graph/list presentation choices were removed from task ownership; Question remains only an explicit compatibility profile."
 
   - capability: prep.user-journeys
     revision: 2
