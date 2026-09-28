@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 15
-    basis: "Community recruitment constraints are now channel-specific where current evidence exists: Python Discord requires approval for advertising/recruitment via staff/ModMail, while visible current research posts in developersIndia indicate possible fit but do not override current rules or moderator guidance."
+    revision: 16
+    basis: "Research execution is now versioned and auditable: RA-1/RB-1 protocol identities, session protocol/deviation metadata, an anonymized six-slot Round A execution ledger, contamination rules and a within-round change freeze prevent methodological drift from being mistaken for user evidence."
 
   - capability: prep.product-intent
     revision: 4

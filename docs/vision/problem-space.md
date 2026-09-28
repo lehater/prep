@@ -412,6 +412,92 @@ Round A may close when all critical observations/challenges have been exercised 
 
 Closing Round A does **not** set UMC claims to HUMAN-VALIDATED. It only permits synthesis of Problem Space findings and, if necessary, revision before Round B challenges the candidate Task Model/Journeys.
 
+### Research execution state and protocol versioning
+
+Current execution state:
+
+```text
+research_gate: PROVISIONAL-FOR-RESEARCH
+round_a_protocol: RA-1
+round_b_protocol: RB-1
+round_a_status: READY-TO-RECRUIT
+round_b_status: PREPARED-NOT-RUN
+representative_sessions_completed: 0
+representative_sessions_synthesized: 0
+human_validated_claims: 0/5
+```
+
+These counters are operational status only. They do not imply evidence until actual `USR-*` sessions exist.
+
+**Protocol version rule**
+
+- `RA-1` is the initial counted Round A protocol defined by the current screener, moderator guide, evidence ledger and post-session analysis rules.
+- `RB-1` is the initial Round B protocol defined by the UI-independent task/concept cards and staged scenario.
+- Every `USR-*` record must store the protocol version actually used.
+- Editorial changes that do not alter questions, stimulus, participant qualification or evidence coding may keep the same protocol version.
+- A change that can materially affect what evidence is elicited or how it is classified increments the protocol version before the next counted session.
+- Never retroactively relabel earlier sessions as if they were run under a newer protocol.
+- During synthesis, check whether findings differ by protocol version before treating them as user-context variation.
+
+Add to every session record:
+
+```text
+protocol:
+  id: RA-1 | RB-1 | <later version>
+  deviations:
+    - <none, or exact deviation>
+  deviation_effect_on_evidence: NONE | POSSIBLE | MATERIAL
+```
+
+A `MATERIAL` deviation does not automatically discard a session, but evidence affected by the deviation must not be treated as equivalent to clean sessions without explicit justification.
+
+**Recruitment/execution ledger**
+
+Use pseudonymous operational IDs; do not store participant names/contact details in the repository.
+
+| Slot | Candidate/session state | Protocol | Recruitment source | Counted as representative evidence | Notes |
+| --- | --- | --- | --- | --- | --- |
+| RA-01 | OPEN | RA-1 | TBD | TBD | first independent Round A slot |
+| RA-02 | OPEN | RA-1 | TBD | TBD | seek different network/background from RA-01 |
+| RA-03 | OPEN | RA-1 | TBD | TBD | seek preparation-style variation |
+| RA-04 | OPEN | RA-1 | TBD | TBD | seek seniority/context variation |
+| RA-05 | OPEN | RA-1 | TBD | TBD | interim-synthesis threshold candidate |
+| RA-06 | OPEN | RA-1 | TBD | TBD | reserve for unresolved/underrepresented context |
+
+Allowed operational states:
+
+`OPEN -> CONTACTED -> SCREENED-IN | SCREENED-OUT -> SCHEDULED -> COMPLETED -> SYNTHESIZED`
+
+Additional states:
+
+- `PILOT` — protocol test, never counted as representative validation;
+- `WITHDRAWN` — participant withdrew; preserve no unnecessary data;
+- `INVALID-FOR-CLAIM` — session exists but cannot support one or more claims due to contamination/material protocol deviation.
+
+The ledger is not a participant database. Contact details, real names and scheduling logistics stay outside the repository.
+
+**Evidence contamination guard**
+
+Before a counted session, mark the participant `counts_as_representative_validation: no` if any of these are true:
+
+- they designed/reviewed the current Prep task model;
+- they were coached on target -> state -> gap -> focus -> evidence/progress before the session;
+- they have already seen the Round B cards/scenario before Round A;
+- the moderator substantially explained Prep's intended solution before current-behavior reconstruction.
+
+If contamination becomes apparent during a session, continue only if useful for protocol learning, but do not silently count the contaminated material as independent representative evidence.
+
+**Change freeze during a round**
+
+Once the first counted `RA-1` session begins:
+
+- do not change UMC wording, Round A questions or claim-mapping criteria mid-round merely because an early participant disagrees;
+- record the finding first;
+- change the protocol only for a genuine methodological defect or safety/privacy issue;
+- semantic changes to Problem Space/Task Model wait for cross-session synthesis unless a finding exposes an immediate invalid assumption that makes continuing the same protocol meaningless.
+
+This prevents early participants from progressively teaching the research instrument what answer to seek.
+
 ### Session evidence ledger
 
 Each session gets an identifier `USR-<round>-<nn>`. Do not store unnecessary personal data.
