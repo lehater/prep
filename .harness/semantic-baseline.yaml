@@ -9,125 +9,125 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 2
-    basis: "Problem observations now carry an explicit durable stakeholder-evidence inventory and provenance class; the revalidation confirms they remain problem truth without importing product or solution choices."
+    revision: 3
+    basis: "Problem evidence now explicitly includes external career/role target translation and the need to bootstrap an initially absent reusable corpus, while remaining solution-neutral."
 
   - capability: prep.product-intent
-    revision: 2
-    basis: "Product intent now explicitly covers usable knowledge plus knowledge-dependent capability, contextual evidence and bounded evidence-backed learner-state conclusions without selecting domain or inference structures."
+    revision: 3
+    basis: "Product intent is re-centered on moving from a current evidence-backed state toward a concrete target through gap identification, learning/diagnosis and reassessment, with mock-first frontend validation allowed."
 
   - capability: prep.product-capabilities
-    revision: 3
-    basis: "Product capabilities now define target conditions/standards where material, representation-neutral learning/practice/assessment forms, contextual performance evidence, bounded learner-state conclusions and progress semantics while keeping Question/Anki as optional prototype realizations rather than product definitions."
+    revision: 4
+    basis: "Product capabilities now cover target definition, structured corpus input/curation, current-state assessment, gap/prioritization, learning/practice, evidence and adaptive progress as one observable loop; Question/Anki remains compatibility-only."
 
   - capability: prep.domain-strategy
-    revision: 2
-    basis: "Domain strategy retains Knowledge, Learning Design and Learner Model while clarifying their strategic responsibilities: reusable subject meaning; normative target/learning/practice/assessment/adaptation semantics; and learner-specific performance evidence plus evidence-backed state."
+    revision: 3
+    basis: "Revalidated against the expanded user-centered product loop: existing Knowledge, Learning Design and Learner Model strategic responsibilities remain sufficient and no new strategic domain boundary is required."
 
   - capability: prep.model-context-strategy
-    revision: 2
-    basis: "Model-context strategy now defines only applicability and knowledge flow between reusable subject, normative learning-design and learner-specific descriptive/epistemic languages; tactical entity and inference structures remain downstream."
+    revision: 3
+    basis: "Revalidated against target/gap/corpus capabilities: existing model-context applicability and information-flow boundaries remain sufficient without adding a UI- or import-specific semantic context."
 
   - capability: prep.knowledge-relation-classification
-    revision: 3
-    basis: "Relation classification is retained only as schema-level predicate vocabulary for relational KnowledgePropositions; predicate registration does not create Knowledge entities or assertions, and inference properties remain predicate-specific."
+    revision: 4
+    basis: "Revalidated for target/focus-scoped exploration and bulk corpus preparation; predicate vocabulary remains reusable subject semantics and does not acquire target, gap or learner-state meaning."
 
   - capability: prep.knowledge-model
-    revision: 4
-    basis: "Knowledge is replaced by the minimal KnowledgeObject/KnowledgeProposition model with stable semantic identity, open optional knowledge forms and relational propositions; structural KnowledgeUse and mandatory Concept/Model kinds are removed."
+    revision: 5
+    basis: "Revalidated for the user-centered flow: reusable KnowledgeObject/KnowledgeProposition semantics remain independent from target requirements, learner gaps, priorities and presentation projections."
 
   - capability: prep.frontend-performance-capacity
-    revision: 2
-    basis: "Revalidated after Product Capability revision 3 and Knowledge Model revision 4: quality ownership is now presentation-form neutral, KnowledgeNode/KnowledgeRelation are removed as domain assumptions, graph node/link counts are explicitly presentation workload units, accepted performance/capacity and demand-driven-idle constraints are retained, and 3D controls plus renderer mechanics remain downstream."
+    revision: 3
+    basis: "Revalidated for the expanded target-work and curation surfaces; existing bounded spatial-workload and semantic-preserving degradation constraints remain sufficient."
 
   - capability: prep.learning-design
-    revision: 3
-    basis: "Learning Design now completes the capability-centered tactical model with reusable LearningMaterial, explicit LearningSupportRequirement semantics, target-relative LearningIntent, derived Gap and LearningPriority, concrete Task response affordances, a Question compatibility profile, and clarified EvidentialWarrant target-claim/bearing semantics without introducing a universal coverage score."
+    revision: 4
+    basis: "Revalidated as the semantic basis for the restored target-relative workflow: LearningTarget, CapabilitySpecification, Gap, LearningPriority, LearningIntent, learning support and assessment/evidence design already support the required loop."
 
   - capability: prep.learner-model
-    revision: 3
-    basis: "Learner Model now preserves partial execution context, maps Question/runtime reviews into general Performance/Observation semantics only when justified, keeps learner state as a projection over evidence-backed Claims and supporting/challenging CapabilityEvidenceArguments, and makes challenge distinct from support for the opposite polarity."
+    revision: 4
+    basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 4
-    basis: "Application Design resolved target-scope authorship through the Harness decision pipeline: learner-direct composition, learner-mode personal-target creation, prepared-target selection and learner-mode overrides were reviewed; only prepared LearningTarget selection remained viable in learning mode, with RequirementExpression<CapabilitySpecification> authored through explicit Curation even when the same person performs both roles."
+    revision: 5
+    basis: "Application Design now orchestrates the complete target-relative loop and parallel corpus bootstrap/curation lifecycle; Question/Study Set and Anki are retained only as compatibility paths."
 
   - capability: prep.task-model
-    revision: 4
-    basis: "Rebuilt for the frontend-first slice against Application Design revision 4 and Product Capability revision 3: tasks now use CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition and Observation semantics; graph/list presentation choices were removed from task ownership; Question remains only an explicit compatibility profile."
+    revision: 5
+    basis: "Task Model is rebuilt from user goals rather than prepared Study artifacts and now covers target establishment, current-state assessment, gaps, focus, learning/diagnosis, evidence, progress and corpus bootstrap/curation."
 
   - capability: prep.user-journeys
-    revision: 3
-    basis: "Rebuilt from Task Model revision 4: journeys now preserve CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition, LearningSupportRequirement and Observation/Performance semantics, keep Question as a compatibility realization, and remove graph/screen realization choices from journey ownership."
+    revision: 4
+    basis: "Journeys now follow the complete user-centered flow from target establishment through assessment, gaps, focus, learning/diagnosis, evidence and reassessment, plus bulk and incremental corpus preparation."
 
   - capability: prep.conceptual-interface-model
-    revision: 2
-    basis: "Rebuilt from current tasks/journeys into a user-facing vocabulary for prepared target requirements, Capability, reusable Knowledge, study material, Study Set diagnostics, factual learning evidence and external runtime state; legacy Requirement, KnowledgeRelation entity and ReviewObservation concepts are removed and navigation/presentation remain downstream."
+    revision: 3
+    basis: "Conceptual interface vocabulary is rebuilt around Target, Capability, Current State, Gap, Learning Focus, Evidence, Progress and Corpus/Import concepts rather than Study/Statistics as primary concepts."
 
   - capability: prep.information-architecture
-    revision: 2
-    basis: "Reorganized frontend information around target overview, Knowledge, study material/evidence and Curation of targets, capabilities, Knowledge and supported study material; grouping no longer mirrors legacy Requirement/KnowledgeRelation storage shapes and remains independent of concrete routes/layout."
+    revision: 3
+    basis: "Information architecture is reorganized around Target Work state/gaps/learning/diagnostics/knowledge/progress and Curation targets/capabilities/knowledge/support/assessment/import/quality."
 
   - capability: prep.machine-interfaces
-    revision: 3
-    basis: "Reduced to the frontend-first semantic boundary: transport-neutral application ports/read models now preserve RequirementExpression/CapabilitySpecification, KnowledgeObject/KnowledgeProposition, Study Set diagnostics and Observation/Performance evidence semantics; HTTP/backend/persistence realization is deferred while current Question/Anki compatibility outcomes remain explicit."
+    revision: 4
+    basis: "Machine Interface now exposes target-state, gaps, focus, diagnostics, evidence, progress and explicit import contract/validate/apply operations while keeping concrete transport/backend realization deferred."
 
   - capability: prep.interaction-design
-    revision: 4
-    basis: "Rebuilt from current tasks, journeys, conceptual model and frontend semantic ports: interaction contexts now use capability requirements, Knowledge propositions, Study Set diagnostics and factual evidence; 3D/camera/layout controls are kept out of this upstream interaction layer while selection/focus and keyboard-completable semantic access remain explicit."
+    revision: 5
+    basis: "Interaction Design now realizes current-state inspection, gap/focus decisions, learning/diagnostics/evidence/progress and modern corpus curation while preserving target/focus and recoverable state."
 
   - capability: prep.interface-topology
-    revision: 3
-    basis: "Repartitioned frontend views around Targets, Knowledge, Capabilities and supported Study Material while preserving learner Overview/Knowledge/Study/Statistics continuity; legacy Requirement/RequirementSet editors and KnowledgeRelation entity views were removed without introducing local screen composition."
+    revision: 4
+    basis: "Topology now follows the target-relative learner loop and modern Curation responsibilities; old Study/Statistics and Requirements/Questions primary navigation is removed."
 
   - capability: prep.presentation-system
-    revision: 7
-    basis: "Frontend-first revalidation reran the Presentation decision space against rebuilt tasks/concepts/IA/interaction/topology. The same 3D/2D/list/adaptive alternatives were formed and reviewed; no new mixed concern, missing case, constraint conflict or authority error changes viability, so coordinated access with 3D production default remains determined while legacy Requirement/ReviewObservation terminology is replaced by current capability/support/evidence semantics."
+    revision: 8
+    basis: "Presentation System now prioritizes target context, evidence-backed state, gaps/focus and progress while retaining 3D Knowledge as the preferred spatial projection with task-complete non-spatial access."
 
   - capability: prep.screen-view-design
-    revision: 5
-    basis: "Rebuilt from Interface Topology revision 3, Interaction revision 4 and Presentation revision 7. Full screen decision review leaves topology-aligned task views, context-sensitive learner-vs-curation detail placement and semantic responsive reflow as the only viable alternatives; every current topology subject now has an explicit composition contract on current domain/application semantics."
+    revision: 6
+    basis: "Screen/View composition is rebuilt for Overview, State, Gaps, Learning, Diagnostics, Knowledge and Progress plus Targets, Capabilities, Learning Support, Assessment, Import and Quality curation."
 
   - capability: prep.import-consistency
-    revision: 2
-    basis: "Revalidated against Machine Interface revision 2; collection total_count does not alter import/external-operation atomicity, partial-result, retry or idempotency semantics."
+    revision: 3
+    basis: "Revalidated for the explicit contract/validate/apply import workflow and modern corpus data kinds; item-level atomicity, partial peer success, identity and conflict semantics remain unchanged."
 
   - capability: prep.interface-verification
-    revision: 4
-    basis: "Revalidated against rebuilt Task/IA/Interaction/Topology contracts: verification now explicitly proves transport-neutral mock-substitutable frontend behavior, current operation/outcome recovery, topology closure and Screen/View coverage without depending on backend implementation details."
+    revision: 5
+    basis: "Interface verification now proves continuity of the complete target-relative learner loop, empty-corpus bootstrap, modern Curation coverage and machine-operation/recovery traceability."
 
   - capability: prep.presentation-verification
-    revision: 5
-    basis: "Rebuilt for Presentation revision 7 and Screen/View revision 5: checks now verify 3D-default semantic fidelity, non-spatial task completion, responsive spatial hierarchy, semantic-preserving degradation and named hardware workload evidence using current KnowledgeProposition/evidence semantics."
+    revision: 6
+    basis: "Presentation verification now requires rendered evidence for target/state/gap/focus/progress semantics, import usability, responsive closure and 3D/non-spatial Knowledge equivalence."
 
   - capability: prep.system-architecture
-    revision: 2
-    basis: "Revalidated against Machine Interface revision 2; collection count metadata does not change runtime, trust, deployment or external-integration topology."
+    revision: 3
+    basis: "Revalidated after the frontend/application contract expansion: the separate browser/frontend/backend runtime topology and canonical-state ownership remain sufficient; new frontend flow does not require a backend topology change."
 
   - capability: prep.data-design
     revision: 3
     basis: "Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope."
 
   - capability: prep.frontend-system-architecture
-    revision: 4
-    basis: "Rebuilt as an independently current frontend subarchitecture against Application Design, frontend semantic ports, Presentation/Screen and Quality constraints rather than full backend System Architecture. Decision review determines one browser deployable, feature/task modules, consumer-owned ports, lifecycle-local state and isolated renderer/provider failures with mock-first composition."
+    revision: 5
+    basis: "Frontend architecture is rebuilt around Target Selection/Overview, Learner State/Gaps, Learning, Diagnostics/Evidence, Progress, reusable Knowledge Exploration and modern Curation/Import feature boundaries."
 
   - capability: prep.frontend-engineering-policy
-    revision: 4
-    basis: "Revalidated for mock-first frontend architecture: mock and future transport adapters must satisfy the same consumer-owned ports, current KnowledgeProposition semantics replace legacy relation assumptions, and provider/renderer/transport boundaries remain concrete reviewable obligations without speculative abstraction."
+    revision: 5
+    basis: "Engineering policy is revalidated for the user-centered slice and now requires tiered CI: independently runnable fast feedback plus explicitly invoked release-grade heavy validation."
 
   - capability: prep.frontend-component-design
-    revision: 4
-    basis: "Rebuilt for the complete frontend slice. Decision review determines feature/task ownership, narrow data/renderer/provider seams and lifecycle-local state; public ports/models now cover Targets, Capabilities, KnowledgeObject/KnowledgeProposition, Question-compatible Study Material, Study Set diagnostics, factual evidence, runtime status and mock-first substitution."
+    revision: 5
+    basis: "Component Design now defines consumer-owned ports/models for target state, gaps, focus, support, diagnostics, evidence, progress and modern Curation while preserving renderer and adapter isolation."
 
   - capability: prep.frontend-verification
-    revision: 5
-    basis: "Frontend verification now distinguishes selection from explicit focus and requires idle optimization to preserve interaction readiness; ordinary selection cannot narrow graph membership implicitly."
+    revision: 6
+    basis: "Frontend verification now covers the complete target-relative loop, corpus bootstrap/curation, evidence/gap integrity, progress semantics and preserved dependency/renderer boundaries."
 
   - capability: prep.frontend-test-design
-    revision: 6
-    basis: "Frontend Test Design now adds executable visual-system fidelity ranges for shell navigation, compact density, graph dominance and responsive pane roles while avoiding pixel-perfect provider-specific oracles."
+    revision: 7
+    basis: "Frontend Test Design now traces executable contracts to current verification obligations for the target loop, evidence/gaps, modern Curation/import, responsive Knowledge and Harness currentness."
 
   - capability: prep.frontend-implementation-design
-    revision: 7
-    basis: "Implementation Design is revalidated against the canonical visual specification; exact implementation values must stay within accepted typography/control/pane/shell ranges instead of treating them as arbitrary local CSS choices."
+    revision: 8
+    basis: "Implementation Design now sequences the user-centered mock-first vertical slice and defines fast versus heavy CI realization, with heavy browser/performance/container evidence reserved for final checkpoints."
