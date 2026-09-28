@@ -7,24 +7,24 @@ import { KnowledgeExplorer } from "../knowledge-explorer/ui/KnowledgeExplorer";
 import type { KnowledgeQueryPort } from "../knowledge-explorer/ports/KnowledgeQueryPort";
 import type { GraphRenderer } from "../knowledge-explorer/ports/GraphRenderer";
 import type { LearningTargetModel } from "./model/learningTarget";
-import type { LearningStatisticsPort } from "./ports/LearningStatisticsPort";
-import type { QuestionQueryPort } from "./ports/QuestionQueryPort";
-import type { StudyPort } from "./ports/StudyPort";
 import type { TargetQueryPort } from "./ports/TargetQueryPort";
-import { StatisticsView } from "./ui/StatisticsView";
-import { StudyView } from "./ui/StudyView";
+import type { TargetWorkPort } from "./ports/TargetWorkPort";
+import {
+  CurrentStateView,
+  DiagnosticsView,
+  GapsView,
+  LearningFocusView,
+  ProgressView,
+} from "./ui/TargetWorkViews";
 import { TargetOverviewView } from "./ui/TargetOverviewView";
-
-export type LearningSection = "overview" | "knowledge" | "study" | "statistics";
+import type { LearningSection } from "./ui/learningRoutes";
 
 interface LearningWorkspaceProps {
   readonly targetId: string;
   readonly section: LearningSection;
   readonly targetQueryPort: TargetQueryPort;
+  readonly targetWorkPort: TargetWorkPort;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
-  readonly questionQueryPort: QuestionQueryPort;
-  readonly studyPort: StudyPort;
-  readonly statisticsPort: LearningStatisticsPort;
   readonly Renderer: GraphRenderer;
 }
 
@@ -38,24 +38,18 @@ export function LearningWorkspace({
   targetId,
   section,
   targetQueryPort,
+  targetWorkPort,
   knowledgeQueryPort,
-  questionQueryPort,
-  studyPort,
-  statisticsPort,
   Renderer,
 }: LearningWorkspaceProps) {
-  const [targetState, setTargetState] = useState<TargetState>({
-    status: "loading",
-  });
+  const [targetState, setTargetState] = useState<TargetState>({ status: "loading" });
   const [reloadVersion, setReloadVersion] = useState(0);
 
   useEffect(() => {
     let active = true;
     setTargetState({ status: "loading" });
     void targetQueryPort.get(targetId).then((outcome) => {
-      if (!active) {
-        return;
-      }
+      if (!active) return;
       if (outcome.status === "success") {
         setTargetState({ status: "ready", target: outcome.value });
       } else if (outcome.status === "not_found") {
@@ -70,23 +64,15 @@ export function LearningWorkspace({
   }, [reloadVersion, targetId, targetQueryPort]);
 
   if (targetState.status === "loading") {
-    return <LoadingState label="Loading Learning target" />;
+    return <LoadingState label="Loading target" />;
   }
-
   if (targetState.status === "not_found") {
-    return (
-      <StateNotice
-        title="Learning target not found"
-        message={targetState.message}
-        severity="warning"
-      />
-    );
+    return <StateNotice title="Target not found" message={targetState.message} severity="warning" />;
   }
-
   if (targetState.status === "problem") {
     return (
       <StateNotice
-        title="Learning target unavailable"
+        title="Target unavailable"
         message={targetState.message}
         severity="warning"
         retryLabel="Retry"
@@ -98,10 +84,10 @@ export function LearningWorkspace({
   const target = targetState.target;
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={2.5}>
       <header>
         <Typography component="p" color="text.secondary">
-          Learning / {target.name}
+          Target Work / {target.name}
         </Typography>
         <Typography component="h2" variant="h5">
           {target.name}
@@ -109,28 +95,24 @@ export function LearningWorkspace({
         <Typography>{target.definition}</Typography>
       </header>
 
-
       {section === "overview" ? (
-        <TargetOverviewView
-          target={target}
-          knowledgeQueryPort={knowledgeQueryPort}
-          questionQueryPort={questionQueryPort}
-          statisticsPort={statisticsPort}
-        />
+        <TargetOverviewView target={target} knowledgeQueryPort={knowledgeQueryPort} />
+      ) : section === "state" ? (
+        <CurrentStateView targetId={targetId} targetWorkPort={targetWorkPort} />
+      ) : section === "gaps" ? (
+        <GapsView targetId={targetId} targetWorkPort={targetWorkPort} />
+      ) : section === "learning" ? (
+        <LearningFocusView targetId={targetId} targetWorkPort={targetWorkPort} />
+      ) : section === "diagnostics" ? (
+        <DiagnosticsView targetId={targetId} targetWorkPort={targetWorkPort} />
       ) : section === "knowledge" ? (
         <KnowledgeExplorer
           scope={{ kind: "target", targetId }}
           queryPort={knowledgeQueryPort}
           Renderer={Renderer}
         />
-      ) : section === "study" ? (
-        <StudyView
-          targetId={targetId}
-          questionQueryPort={questionQueryPort}
-          studyPort={studyPort}
-        />
       ) : (
-        <StatisticsView targetId={targetId} statisticsPort={statisticsPort} />
+        <ProgressView targetId={targetId} targetWorkPort={targetWorkPort} />
       )}
     </Stack>
   );
