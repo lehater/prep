@@ -129,6 +129,22 @@ The accepted graph quality contract is normative for production realization.
 - Private implementation structure is not a test oracle by default.
 - Replaceable adapters should be testable against the same consumer-facing contract where that contract has multiple implementations.
 
+### Tiered CI validation
+
+CI separates fast feedback from expensive release-grade evidence.
+
+**Fast validation** is the default development loop and must be independently runnable. It contains deterministic checks whose feedback is useful on ordinary branch pushes: frontend typecheck/lint/boundary/unit checks and lightweight Harness/document closure checks.
+
+**Heavy validation** is reserved for explicit end-of-branch/full-validation checkpoints and post-merge validation on `main`. It may include full Harness revalidation, browser E2E, dependency audit, graph stress evidence, production build/container verification and maintained reference-suite execution.
+
+Rules:
+
+- expensive browser/performance/container jobs must not run automatically on every ordinary feature-branch push;
+- fast and heavy workflows remain separately dispatchable;
+- heavy validation runs fast deterministic checks first so failure is reported before expensive stages;
+- a green fast path is development feedback, not a substitute for required heavy evidence before a large branch is considered fully validated;
+- branch/merge policy may require a final manually dispatched heavy run before merge without forcing that cost onto every intermediate commit.
+
 ## Explicit non-rules
 
 This policy does **not** require:
