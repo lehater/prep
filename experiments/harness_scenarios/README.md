@@ -30,3 +30,19 @@ The initial pool deliberately uses current Prep data:
 4. an in-memory mutation removing recovery semantics from one real task.
 
 No scenario mutates Prep canonical files.
+
+
+## Integration-health contract
+
+The project-level Scenario Suite and the ordinary repository integration check
+have different responsibilities:
+
+- Scenario Suite asserts the exact current Prep behavior, including the known
+  representative-user-validation Question and Task Model mutation response.
+- The fast Harness integration check accepts `BLOCKED` only when it is a clean
+  routed semantic Question frontier. Propagated Engineering Coverage work must
+  be only `REVALIDATE_SEMANTICS`; any independent production/modeling gap still
+  fails the repository check.
+- Harness is consumed by the explicit `experiment/scenario-suite` ref on this
+  experiment branch, so each scenario run exercises the latest protocol and
+  built-in drivers without copying runner logic into Prep.
