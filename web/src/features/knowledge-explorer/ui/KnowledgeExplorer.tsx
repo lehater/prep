@@ -41,7 +41,7 @@ import {
   DEFAULT_GRAPH_PHYSICS_TUNING,
   graphPreferencesForProfile,
   KNOWLEDGE_RELATION_COLORS,
-  KNOWLEDGE_RELATION_DESCRIPTIONS_RU,
+  KNOWLEDGE_RELATION_DESCRIPTIONS,
 } from "./graphPresentation";
 import {
   parseExplorerRouteState,
@@ -640,7 +640,7 @@ export function KnowledgeExplorer({
                     }
                     label={
                       <Tooltip
-                        title={KNOWLEDGE_RELATION_DESCRIPTIONS_RU[type]}
+                        title={KNOWLEDGE_RELATION_DESCRIPTIONS[type]}
                         placement="right"
                         arrow
                       >
@@ -700,7 +700,7 @@ export function KnowledgeExplorer({
                 zIndex: 4,
               }}
             >
-              <Tooltip title="Вписать граф" placement="left">
+              <Tooltip title="Fit graph" placement="left">
                 <Button
                   size="small"
                   aria-label="Fit graph"
@@ -720,7 +720,7 @@ export function KnowledgeExplorer({
                   ⛶
                 </Button>
               </Tooltip>
-              <Tooltip title="Сбросить камеру" placement="left">
+              <Tooltip title="Reset camera" placement="left">
                 <Button
                   size="small"
                   aria-label="Reset camera"
@@ -741,7 +741,7 @@ export function KnowledgeExplorer({
                 </Button>
               </Tooltip>
               {routeState.selectedKnowledgeId ? (
-                <Tooltip title="Фокус камеры на выбранной ноде" placement="left">
+                <Tooltip title="Focus camera on selected item" placement="left">
                   <Button
                     size="small"
                     aria-label="Focus camera on selected node"
@@ -768,7 +768,7 @@ export function KnowledgeExplorer({
               ) : null}
               {routeState.selectedKnowledgeId &&
               routeState.focusedKnowledgeIds.length === 0 ? (
-                <Tooltip title="Показать выбранную ноду и её соседей" placement="left">
+                <Tooltip title="Show selected item and neighbours" placement="left">
                   <Button
                     size="small"
                     aria-label="Show selected neighborhood"
@@ -794,7 +794,7 @@ export function KnowledgeExplorer({
                 </Tooltip>
               ) : null}
               {routeState.focusedKnowledgeIds.length > 0 ? (
-                <Tooltip title="Вернуть полный граф" placement="left">
+                <Tooltip title="Restore full graph" placement="left">
                   <Button
                     size="small"
                     aria-label="Clear neighborhood"
@@ -816,7 +816,7 @@ export function KnowledgeExplorer({
                   </Button>
                 </Tooltip>
               ) : null}
-              <Tooltip title="Настройки графа" placement="left">
+              <Tooltip title="Graph settings" placement="left">
                 <Button
                   size="small"
                   aria-label="Graph settings"
@@ -848,9 +848,9 @@ export function KnowledgeExplorer({
               transformOrigin={{ vertical: "top", horizontal: "right" }}
             >
               <Stack spacing={1.25} sx={{ p: 1.5, width: 300 }}>
-                <Typography variant="subtitle2">Настройки графа</Typography>
+                <Typography variant="subtitle2">Graph settings</Typography>
                 <label>
-                  Профиль{" "}
+                  Profile{" "}
                   <select
                     aria-label="Graph performance profile"
                     value={performanceProfile}
@@ -871,7 +871,7 @@ export function KnowledgeExplorer({
                   </select>
                 </label>
                 <label>
-                  Подписи{" "}
+                  Labels{" "}
                   <select
                     aria-label="Graph labels"
                     value={renderPreferences.labels}
@@ -897,7 +897,7 @@ export function KnowledgeExplorer({
                       }
                     />
                   }
-                  label="Стрелки"
+                  label="Arrowheads"
                 />
                 <FormControlLabel
                   control={
@@ -910,10 +910,10 @@ export function KnowledgeExplorer({
                       }
                     />
                   }
-                  label="Частицы"
+                  label="Particles"
                 />
                 <label>
-                  Физика{" "}
+                  Physics{" "}
                   <select
                     aria-label="Graph live physics"
                     value={renderPreferences.physics}
@@ -936,10 +936,10 @@ export function KnowledgeExplorer({
                   </Typography>
                 ) : null}
                 {([
-                  ["centerForce", "Притяжение к центру", 0, 2, 0.1],
-                  ["repelForce", "Отталкивание узлов", 0, 240, 10],
-                  ["linkForce", "Сила связей", 0, 2, 0.1],
-                  ["linkDistance", "Длина связей", 10, 120, 5],
+                  ["centerForce", "Center force", 0, 2, 0.1],
+                  ["repelForce", "Node repulsion", 0, 240, 10],
+                  ["linkForce", "Link force", 0, 2, 0.1],
+                  ["linkDistance", "Link distance", 10, 120, 5],
                 ] as const).map(([key, label, min, max, step]) => (
                   <Box key={key}>
                     <Stack
@@ -969,7 +969,7 @@ export function KnowledgeExplorer({
                   size="small"
                   onClick={() => setPhysicsTuning(DEFAULT_GRAPH_PHYSICS_TUNING)}
                 >
-                  Сбросить физику
+                  Reset physics
                 </Button>
               </Stack>
             </Popover>
