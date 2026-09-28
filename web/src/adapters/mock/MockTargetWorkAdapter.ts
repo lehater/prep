@@ -1,4 +1,5 @@
 import type {
+  DiagnosticEvidenceAcceptanceModel,
   DiagnosticOpportunityModel,
   GapModel,
   LearningFocusModel,
@@ -45,7 +46,7 @@ const INITIAL_EVIDENCE: Readonly<Record<string, InitialEvidenceState>> = {
 };
 
 export class MockTargetWorkAdapter implements TargetWorkPort {
-  private readonly completedCapabilityDiagnostics = new Set<string>();
+  private readonly acceptedCapabilityEvidence = new Set<string>();
   private readonly focusByTarget = new Map<string, LearningFocusModel>();
 
   constructor(
@@ -177,21 +178,29 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
               (!selectedCapabilityId || capabilityId === selectedCapabilityId),
           ),
         )
-        .map((assessment) => ({
-          id: `diagnostic-${assessment.id}`,
-          gapId: `gap-${
-            assessment.capabilityIds.find((id) => targetCapabilities.has(id)) ?? ""
-          }`,
-          title: assessment.title,
-          summary: assessment.taskSummary,
-        })),
+        .flatMap((assessment) =>
+          assessment.capabilityIds
+            .filter(
+              (capabilityId) =>
+                targetCapabilities.has(capabilityId) &&
+                (!selectedCapabilityId || capabilityId === selectedCapabilityId),
+            )
+            .map((capabilityId) => ({
+              id: `diagnostic-${assessment.id}`,
+              gapId: `gap-${capabilityId}`,
+              capabilityId,
+              title: assessment.title,
+              summary: assessment.taskSummary,
+            })),
+        ),
     };
   }
 
-  async completeDiagnostic(
+  async acceptDiagnosticEvidence(
     targetId: string,
     diagnosticId: string,
-  ): Promise<LearningOutcome<TargetStateModel>> {
+    capabilityId: string,
+  ): Promise<LearningOutcome<DiagnosticEvidenceAcceptanceModel>> {
     if (!this.targetExists(targetId)) {
       return { status: "not_found", message: "Target state not found." };
     }
@@ -200,18 +209,36 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
     const assessment = this.store.assessmentDesigns.find(
       (candidate) => candidate.id === assessmentId,
     );
-    if (!assessment) {
-      return { status: "not_found", message: "Diagnostic not found." };
+    if (
+      !assessment ||
+      !assessment.capabilityIds.includes(capabilityId) ||
+      !this.capabilityIds(targetId).includes(capabilityId)
+    ) {
+      return { status: "not_found", message: "Diagnostic evidence target not found." };
     }
 
-    const targetCapabilities = new Set(this.capabilityIds(targetId));
-    for (const capabilityId of assessment.capabilityIds) {
-      if (targetCapabilities.has(capabilityId)) {
-        this.completedCapabilityDiagnostics.add(capabilityId);
-      }
-    }
+    this.acceptedCapabilityEvidence.add(capabilityId);
+    const capability = this.store.capabilities.find(
+      (candidate) => candidate.id === capabilityId,
+    );
 
-    return { status: "success", value: this.state(targetId) };
+    return {
+      status: "success",
+      value: {
+        diagnosticId,
+        observation: {
+          id: `observation-${assessment.id}-accepted`,
+          summary:
+            "The mock diagnostic produced the observation pattern required by its assessment design.",
+          provenance: "Prep mock diagnostic",
+        },
+        derivedClaim: {
+          capabilityId,
+          summary: `Accepted assessment semantics support a current positive learner claim for ${capability?.title ?? capabilityId}.`,
+        },
+        state: this.state(targetId),
+      },
+    };
   }
 
   async getProgress(
@@ -223,7 +250,7 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
 
     const capabilities = this.capabilities(targetId);
     const changes = capabilities.flatMap((capability) => {
-      if (!this.completedCapabilityDiagnostics.has(capability.id)) return [];
+      if (!this.acceptedCapabilityEvidence.has(capability.id)) return [];
       const before = INITIAL_EVIDENCE[capability.id]?.state ?? "unresolved";
       if (before === "satisfied") return [];
       return [
@@ -261,19 +288,18 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
           basis: [],
         };
 
-        if (this.completedCapabilityDiagnostics.has(capability.id)) {
+        if (this.acceptedCapabilityEvidence.has(capability.id)) {
           return {
             requirementId: capability.id,
             title: capability.title,
             summary: capability.performanceExpectation,
             state: "satisfied",
             basis: [
-              ...initial.basis,
               {
                 id: `evidence-diagnostic-${capability.id}`,
                 summary:
-                  "A completed mock diagnostic now supplies accepted supporting evidence for this capability.",
-                provenance: "Prep diagnostic",
+                  "Accepted diagnostic evidence supports the current learner-capability claim for this target requirement.",
+                provenance: "Prep mock diagnostic evidence",
               },
             ],
           };
@@ -292,7 +318,7 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
     return {
       targetId,
       projectionId:
-        this.completedCapabilityDiagnostics.size > 0
+        this.acceptedCapabilityEvidence.size > 0
           ? "state-after-diagnostic"
           : "state-initial",
       items,
