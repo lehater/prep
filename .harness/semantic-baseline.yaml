@@ -57,8 +57,8 @@ reviews:
     basis: "Rebuilt for the frontend-first slice against Application Design revision 4 and Product Capability revision 3: tasks now use CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition and Observation semantics; graph/list presentation choices were removed from task ownership; Question remains only an explicit compatibility profile."
 
   - capability: prep.user-journeys
-    revision: 2
-    basis: "User Journeys were revalidated against the pinned journey skill and current Task Model; every current USER task now has an explicit journey with actor/context, trigger, preconditions, completion and material alternate/recovery behavior without choosing screens."
+    revision: 3
+    basis: "Rebuilt from Task Model revision 4: journeys now preserve CapabilitySpecification/RequirementExpression, KnowledgeObject/KnowledgeProposition, LearningSupportRequirement and Observation/Performance semantics, keep Question as a compatibility realization, and remove graph/screen realization choices from journey ownership."
 
   - capability: prep.conceptual-interface-model
     revision: 1
