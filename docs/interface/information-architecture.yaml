@@ -9,8 +9,8 @@ locations:
     scope: global
 
   - id: TARGETS
-    purpose: Find an existing target or begin preparing a new one.
-    concept_refs: [TARGET, TARGET-REQUIREMENTS]
+    purpose: Find an existing target; when no usable target/corpus exists, expose entry into corpus preparation before target composition.
+    concept_refs: [TARGET, TARGET-REQUIREMENTS, CORPUS, IMPORT-CONTRACT]
     scope: global
 
   - id: TARGET-WORKSPACE
@@ -25,7 +25,7 @@ locations:
 
   - id: TARGET-STATE
     purpose: Understand evidence-backed current state and uncertainty relative to target requirements.
-    concept_refs: [CURRENT-STATE, EVIDENCE, TARGET-REQUIREMENTS]
+    concept_refs: [CURRENT-STATE, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM, TARGET-REQUIREMENTS]
     scope: target
 
   - id: TARGET-GAPS
@@ -40,7 +40,7 @@ locations:
 
   - id: TARGET-DIAGNOSTICS
     purpose: Reduce material uncertainty or collect capability evidence through supported diagnostic activity.
-    concept_refs: [LEARNING-FOCUS, DIAGNOSTIC-ACTIVITY, EVIDENCE]
+    concept_refs: [LEARNING-FOCUS, DIAGNOSTIC-ACTIVITY, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM]
     scope: target
 
   - id: TARGET-KNOWLEDGE
@@ -50,7 +50,7 @@ locations:
 
   - id: TARGET-PROGRESS
     purpose: Inspect how evidence changed target-relative state, gaps and focus decisions over time.
-    concept_refs: [PROGRESS, CURRENT-STATE, GAP, EVIDENCE]
+    concept_refs: [PROGRESS, CURRENT-STATE, GAP, OBSERVATION, EVIDENCE-BASIS, LEARNER-CLAIM]
     scope: target
 
   - id: CURATION-WORKSPACE
@@ -128,7 +128,9 @@ relationships:
   - {source: CURATION-WORKSPACE, target: CURATION-IMPORT, relation: contains}
   - {source: CURATION-WORKSPACE, target: CURATION-QUALITY, relation: contains}
 
-  - {source: TARGETS, target: CURATION-TARGETS, relation: prepare-missing-target}
+  - {source: TARGETS, target: CURATION-WORKSPACE, relation: bootstrap-missing-corpus}
+  - {source: TARGETS, target: CURATION-TARGETS, relation: prepare-missing-target-after-prerequisites}
+  - {source: CURATION-WORKSPACE, target: TARGETS, relation: return-after-preparation}
   - {source: TARGET-GAPS, target: CURATION-LEARNING-SUPPORT, relation: repair-missing-support}
   - {source: TARGET-STATE, target: CURATION-ASSESSMENT, relation: repair-missing-diagnostic-support}
 
@@ -138,6 +140,8 @@ findability_assumptions:
   - Knowledge exploration must support search/list/detail independently of spatial representation.
   - Graph projections may visualize Knowledge, requirements/capabilities or learner-state overlays only when they preserve the underlying semantic concepts and task context.
   - Curation is organized by user-maintained semantic responsibility rather than backend resource layout.
+  - An empty-system user can understand which corpus prerequisites are missing before target composition and can choose bulk, incremental or mixed preparation.
   - Bulk import is discoverable as the efficient path for mass corpus preparation; incremental curation remains available for correction and small changes.
+  - The motivating target/source context survives a temporary move into Curation and supports an explicit return to Target Work.
 
 unresolved_questions: []
