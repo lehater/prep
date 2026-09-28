@@ -148,6 +148,81 @@ Each durable observation remains UNVALIDATED with respect to representative-user
 
 Usability preference for a particular screen, graph, workflow or wording is not evidence that a problem observation exists. Conversely, research that changes the problem actor, desired outcome or material problem dimension must reopen downstream Product/Application/Interface knowledge through Harness.
 
+### Validation programme
+
+User-model validation is intentionally separated from interface usability so the model is not proven by the interface that was derived from it.
+
+**Round A — current-behavior discovery**
+
+- Recruit an initial qualitative round of approximately 5–6 potential users matching PH-P01/PH-P02; continue beyond that round when materially new patterns are still appearing.
+- Prefer participants who have actively prepared for, changed or seriously evaluated a software-engineering role/interview within roughly the last six months so answers can be grounded in recent behavior.
+- Include variation in seniority, preparation maturity and whether the person already uses structured notes/cards/question banks/AI support.
+- Product owners, contributors already familiar with Prep's model, and people coached on the expected lifecycle may be used for protocol pilots but do **not** count as independent representative-user validation.
+- Do not show Prep navigation, task names or the target -> state -> gap -> focus sequence before the participant has demonstrated/explained their existing process.
+- Primary evidence: observed/currently recalled workflow, artifacts participants actually use, vocabulary, prioritization decisions, uncertainty, workarounds and progress signals.
+
+**Round B — user-model challenge**
+
+Run only after Round A findings have been synthesized into retained/changed observations.
+
+- Present the concrete-target and empty-preparation scenarios using neutral scenario material or a low-fidelity concept walkthrough; production UI is not required.
+- Ask participants to work out what they would need to know/do next rather than asking whether they “like” Prep's proposed sequence.
+- Challenge UMC-01..UMC-05 from `task-model.yaml`: target, current state, gap/focus, activity/evidence/progress and bootstrap.
+- Ask participants to explain important distinctions in their own words, especially unknown vs failed, learning vs diagnosis, activity vs evidence, and progress vs activity completion.
+- Record where participants reorder, merge, skip or add tasks. A repeated natural sequence that differs from the Task Model is evidence against the current model, not a usability problem to patch downstream.
+- Exercise one full learner scenario and one completely-empty-system scenario end to end with each claim tested across multiple independent participants.
+
+**Round boundary**
+
+Round A can validate/challenge the problem observations. Round B can validate/challenge the user task model and journeys. Neither round validates final screens, visual hierarchy, responsive behavior, 3D interaction or accessibility; those remain later interface/presentation validation concerns.
+
+The initial 5–6 participant target is a practical qualitative starting point, not a statistical proof threshold. Recruitment continues when new material patterns are still emerging or when a critical context is underrepresented. This follows task-based qualitative-testing guidance that emphasizes actual/likely users, clear research questions/tasks, small iterative rounds and continued research when necessary.
+
+Useful method references:
+
+- GOV.UK moderated usability testing: https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing
+- GOV.UK qualitative usability testing: https://www.gov.uk/guidance/usability-testing-qualitative-studies
+- GOV.UK qualitative interview studies: https://www.gov.uk/guidance/interview-study-qualitative-studies
+
+### Recruitment screener
+
+A participant is a strong fit for the primary round when most of the following are true:
+
+1. works or recently worked as a software developer, preferably backend-oriented for the motivating sample;
+2. has prepared for or seriously considered a concrete software-engineering role/interview recently;
+3. can bring or describe a real target source such as a vacancy, role profile, recruiter brief or interview loop;
+4. has had to choose what to study/practise under limited time;
+5. has some real way of judging readiness or weak areas, even if informal;
+6. is not already familiar with Prep's canonical task model.
+
+Recruitment should not require fintech experience. Fintech/payment-processing experience is a useful variation case, not a gate for the primary population.
+
+### Session evidence ledger
+
+Each session gets an identifier `USR-<round>-<nn>`. Do not store unnecessary personal data.
+
+For each UMC claim record one of:
+
+- **SUPPORT** — observed behavior/participant explanation is compatible with the claim;
+- **SCOPE-LIMIT** — claim appears valid only under narrower context;
+- **CHALLENGE** — observed behavior materially contradicts the current claim;
+- **NOT-EXERCISED** — session did not provide meaningful evidence.
+
+A claim may move from `UNTESTED` in `task-model.yaml` only after evidence from multiple independent participants is synthesized. Individual session outcomes are evidence inputs, not automatic canonical decisions.
+
+Minimum synthesis record per claim:
+
+| Field | Required content |
+| --- | --- |
+| claim | UMC-01..UMC-05 |
+| session refs | independent USR-* sessions contributing evidence |
+| recurring support | repeated observed behavior/statements supporting the claim |
+| recurring challenge | repeated contradictions, alternative sequences or missing tasks |
+| scope limits | contexts where the claim does/does not appear to hold |
+| decision | RETAIN / NARROW / CHANGE / INVESTIGATE-MORE |
+| affected canonical artifacts | Problem Space / Task Model / User Journeys as applicable |
+| retest required | yes/no plus affected scenario |
+
 ### Initial discovery session protocol
 
 The first round is qualitative discovery/mental-model validation, not a statistical study. Recruitment should cover the participant hypotheses above and include variation in preparation experience, current seniority and accessibility needs where practicable.

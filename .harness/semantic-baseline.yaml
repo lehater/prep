@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 6
-    basis: "Problem evidence now separates stakeholder, secondary and representative-user evidence; triangulates the current OBS-P01..P09 set with external evidence; and defines an explicit five-claim HUMAN-VALIDATED gate that secondary research, stakeholder approval, tests or implementation cannot satisfy."
+    revision: 7
+    basis: "Problem evidence now includes an executable two-round validation programme: recent representative-user current-behavior discovery followed by a UI-independent challenge of the five user-model claims, with recruitment screener, session evidence ledger and synthesis/retest rules."
 
   - capability: prep.product-intent
     revision: 4
