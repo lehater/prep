@@ -109,8 +109,8 @@ reviews:
     basis: "Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope."
 
   - capability: prep.frontend-system-architecture
-    revision: 5
-    basis: "Frontend architecture is rebuilt around Target Selection/Overview, Learner State/Gaps, Learning, Diagnostics/Evidence, Progress, reusable Knowledge Exploration and modern Curation/Import feature boundaries."
+    revision: 6
+    basis: "Frontend System Architecture is revalidated as the production contract for browser-side structural decomposition and dependency/ownership boundaries; the Harness registry now publishes the architecture.structure and architecture.boundaries claims already defined by the canonical artifact."
 
   - capability: prep.frontend-engineering-policy
     revision: 6
