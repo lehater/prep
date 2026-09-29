@@ -88,15 +88,18 @@ def _task_model_semantic_assertions(
         description = goal.get("description")
         if not isinstance(goal_id, str) or not goal_id:
             raise SystemExit(f"{artifact_path} goal requires id")
-        if not isinstance(description, str) or not description.strip():
-            raise SystemExit(f"{artifact_path} goal {goal_id} requires description")
+        goal_value = (
+            description.strip()
+            if isinstance(description, str) and description.strip()
+            else goal_id
+        )
 
         assertions.append(
             {
                 "id": goal_id,
                 "kind": "task-goal",
                 "subject": goal_id,
-                "semantic_value": description.strip(),
+                "semantic_value": goal_value,
                 "decision_authority": authority,
             }
         )
