@@ -397,3 +397,70 @@ Success criterion:
 - the 3D renderer receives only presentation fields;
 - non-spatial detail exposes proposition meaning and provenance;
 - no new universal domain entity is introduced.
+
+
+## Follow-up: lossless proposition read projection
+
+The first spike established that the current flat frontend edge representation
+preserves only 15 of 64 Harness relations without semantic substitution.
+
+A second experiment therefore added an explicitly non-canonical read projection
+inside the fixture:
+
+```text
+HarnessKnowledgePropositionReadModel
+    id
+    predicate
+    participants[]
+        role
+        knowledgeId
+    conditions[]
+    provenance
+        repository
+        revision
+        evidenceMode
+        sourceNativePredicate?
+        sources[]
+```
+
+Result:
+
+```text
+source relations                    64
+lossless proposition read models    64
+flat graph edges                     15
+flat graph projection losses         49
+```
+
+The richer read projection preserves all current corpus semantics without
+changing `KnowledgeObject`, `KnowledgeProposition`, the canonical relation
+catalog or the production `KnowledgeRelationModel`.
+
+This narrows the architecture issue further:
+
+```text
+canonical KnowledgeObject / KnowledgeProposition
+        ↓
+lossless query/read projection
+        ├── list/search projection
+        ├── detail/provenance projection
+        └── graph semantic projection
+                 ↓
+            renderer scene
+```
+
+The current implementation effectively skips the middle semantic projection and
+forces canonical relation meaning into the renderer-oriented enum too early.
+
+The experiment therefore supports a future separation:
+
+1. preserve Knowledge propositions in a rich frontend-owned read contract;
+2. let detail/non-spatial navigation consume that contract directly;
+3. derive renderer-specific edges separately;
+4. treat unsupported visual styling as a presentation fallback rather than
+   semantic loss.
+
+This is still not evidence that the production model should be changed
+immediately. The next production decision should compare this contract against
+at least one second real corpus or an existing Prep proposition use case before
+promoting it from experiment evidence.
