@@ -67,6 +67,114 @@ def _review_index(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return result
 
 
+def _task_model_semantic_assertions(
+    artifact_path: str,
+    *,
+    authority: str,
+) -> list[dict[str, Any]]:
+    document = load_yaml(ROOT / artifact_path)
+    if document.get("kind") != "task-model":
+        raise SystemExit(
+            f"Task Model semantic projection expected kind=task-model in {artifact_path}"
+        )
+
+    assertions: list[dict[str, Any]] = []
+    seen_tasks: set[str] = set()
+
+    for goal in document.get("goals", []) or []:
+        if not isinstance(goal, dict):
+            raise SystemExit(f"{artifact_path} goals must contain mappings")
+        goal_id = goal.get("id")
+        description = goal.get("description")
+        if not isinstance(goal_id, str) or not goal_id:
+            raise SystemExit(f"{artifact_path} goal requires id")
+        if not isinstance(description, str) or not description.strip():
+            raise SystemExit(f"{artifact_path} goal {goal_id} requires description")
+
+        assertions.append(
+            {
+                "id": goal_id,
+                "kind": "task-goal",
+                "subject": goal_id,
+                "semantic_value": description.strip(),
+                "decision_authority": authority,
+            }
+        )
+
+        for task in goal.get("tasks", []) or []:
+            if not isinstance(task, dict):
+                raise SystemExit(f"{artifact_path} goal {goal_id} tasks must be mappings")
+            task_id = task.get("id")
+            if not isinstance(task_id, str) or not task_id:
+                raise SystemExit(f"{artifact_path} goal {goal_id} task requires id")
+            if task_id in seen_tasks:
+                raise SystemExit(f"{artifact_path} duplicate task id: {task_id}")
+            seen_tasks.add(task_id)
+
+            required_information = task.get("required_information")
+            if (
+                not isinstance(required_information, list)
+                or not required_information
+                or any(not isinstance(item, str) or not item.strip() for item in required_information)
+            ):
+                raise SystemExit(
+                    f"{artifact_path} task {task_id} requires non-empty required_information"
+                )
+
+            fields = {
+                "task-goal-ref": goal_id,
+                "task-responsibility": task.get("responsibility"),
+                "task-information": " | ".join(item.strip() for item in required_information),
+                "task-decision-input": task.get("decision_or_input"),
+                "task-outcome": task.get("outcome"),
+                "task-system-support": task.get("system_support"),
+                "task-recovery": task.get("recovery"),
+            }
+            for kind, value in fields.items():
+                if not isinstance(value, str) or not value.strip():
+                    raise SystemExit(
+                        f"{artifact_path} task {task_id} requires {kind}"
+                    )
+
+            assertions.append(
+                {
+                    "id": task_id,
+                    "kind": "task",
+                    "subject": task_id,
+                    "semantic_value": task_id,
+                    "decision_authority": authority,
+                }
+            )
+            for kind, value in fields.items():
+                assertions.append(
+                    {
+                        "id": f"{task_id}::{kind}",
+                        "kind": kind,
+                        "subject": task_id,
+                        "semantic_value": value.strip(),
+                        "decision_authority": authority,
+                    }
+                )
+
+    if not assertions:
+        raise SystemExit(f"{artifact_path} contains no Task Model goals/tasks")
+    return assertions
+
+
+def _artifact_semantic_assertions(
+    *,
+    knowledge_kind: str,
+    artifact_path: str,
+    authority: str,
+) -> list[dict[str, Any]]:
+    if knowledge_kind == "task-model":
+        return _task_model_semantic_assertions(
+            artifact_path,
+            authority=authority,
+        )
+    return []
+
+
 def _topological_existing_capabilities(
     productions: dict[str, dict[str, Any]],
     providers: dict[str, dict[str, Any]],
@@ -179,13 +287,27 @@ def build_strict_semantic_baseline(
             f"{baseline_id}::{capability}::r{review['revision']}"
         )
 
+        authority = next(
+            item["id"]
+            for item in graph.get("authorities", []) or []
+            if any(
+                produced.get("capability") == capability
+                for produced in item.get("produces", []) or []
+            )
+        )
+        semantic_assertions = _artifact_semantic_assertions(
+            knowledge_kind=knowledge_kind,
+            artifact_path=artifact["path"],
+            authority=authority,
+        )
+
         candidate = {
             "id": artifact["id"],
             "path": artifact["path"],
             "capability": capability,
             "changed_paths": [],
             "canonical_references": canonical_references,
-            "semantic_assertions": [],
+            "semantic_assertions": semantic_assertions,
             "semantic_review": {
                 "status": "ACCEPTED",
                 "checks": contract.get("required_review_checks", []) or [],
