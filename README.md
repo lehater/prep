@@ -32,6 +32,6 @@ Implementation, tests and experiments may provide evidence, but they do not rede
 Reusable implementation evidence that is intentionally outside current production architecture lives under `experiments/`.
 
 - `experiments/anki_adapter_reference/` — tested AnkiConnect transport and note/deck reconciliation donor code. It is not backend architecture authority; a future backend may adapt it only behind the accepted ExternalStudyRuntimePort / Machine Interface contracts.
-- the dedicated `experiments/knowledge-representation-3d` branch remains the retained 3D UI/renderer/performance evidence line.
+- `experiments/knowledge_representation/` — preserved 3D UI/renderer/performance donor evidence from historical snapshot `45c193ac0a50b6023a29e9a87f404b794a24a955`; it is not product or UX authority.
 
 Reference implementations are evidence and reusable code, not semantic authority.
