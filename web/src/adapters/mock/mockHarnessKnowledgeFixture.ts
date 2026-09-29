@@ -357,7 +357,6 @@ const core = [src("docs/design/core-v0.md", "Relations")];
 const graph = [src("docs/design/engineering-graph-v0.md")];
 const target = [src("docs/design/target-state-v0.md")];
 const workbench = [src("docs/design/agent-artifact-workbench-v0.md")];
-const semanticAcceptance = [src("spec/semantic-acceptance/artifact-semantic-acceptance-v1.yaml")];
 const semanticDerivation = [src("spec/semantic-derivation/semantic-derivation-v1.yaml")];
 const sourceAssurance = [src("docs/research/source-to-derivation-assurance-closure-v1.md")];
 const engineeringCoverage = [src("docs/design/engineering-coverage-subject-obligations.md")];
