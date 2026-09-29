@@ -10,6 +10,8 @@ import {
   harnessKnowledgeProjectedNodes,
   harnessKnowledgeProjectedRelations,
   harnessKnowledgeProjectionLosses,
+  harnessKnowledgePropositionReadModel,
+  harnessKnowledgePropositionsFor,
 } from "./mockHarnessKnowledgeFixture";
 
 function harnessStore(): MockCurationStore {
@@ -95,6 +97,38 @@ describe("Harness Knowledge corpus spike", () => {
         (relation) => relation.evidenceMode === "curated",
       ),
     ).toBe(true);
+  });
+
+  test("preserves every Harness relation in a proposition read projection before graph degradation", () => {
+    expect(harnessKnowledgePropositionReadModel).toHaveLength(64);
+    expect(
+      new Set(harnessKnowledgePropositionReadModel.map((item) => item.id)).size,
+    ).toBe(64);
+    expect(
+      harnessKnowledgePropositionReadModel.every(
+        (item) =>
+          item.participants.length === 2 &&
+          item.provenance.repository === "lehater/harness" &&
+          item.provenance.revision === HARNESS_KNOWLEDGE_REVISION &&
+          item.provenance.sources.length > 0,
+      ),
+    ).toBe(true);
+
+    const derivation = harnessKnowledgePropositionsFor(
+      "harness.semantic.derivation",
+    );
+    expect(derivation).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          predicate: "requires",
+          conditions: [],
+        }),
+        expect.objectContaining({
+          predicate: "requires",
+          conditions: ["semantic_judgement.required == true"],
+        }),
+      ]),
+    );
   });
 
   test("projects only semantics the current frontend relation model can represent honestly", () => {
