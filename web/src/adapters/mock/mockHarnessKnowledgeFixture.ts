@@ -35,6 +35,25 @@ export interface HarnessKnowledgeFixtureRelation {
   readonly projectionType?: KnowledgeRelationType;
 }
 
+export interface HarnessKnowledgePropositionParticipant {
+  readonly role: "source" | "target";
+  readonly knowledgeId: string;
+}
+
+export interface HarnessKnowledgePropositionReadModel {
+  readonly id: string;
+  readonly predicate: string;
+  readonly participants: readonly HarnessKnowledgePropositionParticipant[];
+  readonly conditions: readonly string[];
+  readonly provenance: {
+    readonly repository: "lehater/harness";
+    readonly revision: string;
+    readonly evidenceMode: HarnessKnowledgeEvidenceMode;
+    readonly sourceNativePredicate?: string;
+    readonly sources: readonly HarnessKnowledgeSourceRef[];
+  };
+}
+
 const src = (path: string, locator?: string): HarnessKnowledgeSourceRef => ({
   path,
   ...(locator ? { locator } : {}),
@@ -467,3 +486,34 @@ export const harnessKnowledgeProjectionLosses =
     (relation) =>
       relation.projectionType === undefined || relation.condition !== undefined,
   );
+
+
+export const harnessKnowledgePropositionReadModel: readonly HarnessKnowledgePropositionReadModel[] =
+  harnessKnowledgeFixtureRelations.map((relation) => ({
+    id: relation.id,
+    predicate: relation.predicate,
+    participants: [
+      { role: "source", knowledgeId: relation.sourceId },
+      { role: "target", knowledgeId: relation.targetId },
+    ],
+    conditions: relation.condition ? [relation.condition] : [],
+    provenance: {
+      repository: "lehater/harness",
+      revision: HARNESS_KNOWLEDGE_REVISION,
+      evidenceMode: relation.evidenceMode,
+      ...(relation.sourceNativePredicate
+        ? { sourceNativePredicate: relation.sourceNativePredicate }
+        : {}),
+      sources: relation.sources,
+    },
+  }));
+
+export function harnessKnowledgePropositionsFor(
+  knowledgeId: string,
+): readonly HarnessKnowledgePropositionReadModel[] {
+  return harnessKnowledgePropositionReadModel.filter((proposition) =>
+    proposition.participants.some(
+      (participant) => participant.knowledgeId === knowledgeId,
+    ),
+  );
+}
