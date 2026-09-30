@@ -43,6 +43,10 @@ describe("Curation mock adapters", () => {
     const created = await targets.create({
       name: "Reconciliation target",
       definition: "Focused payment reconciliation target.",
+      targetPurpose: "role-capability",
+      provenance: ["Test target provenance"],
+      unresolvedExpectations: [],
+      relatedTargetRefs: [],
     });
     expect(created.status).toBe("success");
     if (created.status !== "success") return;
@@ -86,6 +90,10 @@ describe("Curation mock adapters", () => {
     const created = await targets.create({
       name: "Payments target",
       definition: "Target composed from reusable capabilities.",
+      targetPurpose: "role-capability",
+      provenance: ["Test target provenance"],
+      unresolvedExpectations: [],
+      relatedTargetRefs: [],
     });
     expect(created.status).toBe("success");
     if (created.status !== "success") return;

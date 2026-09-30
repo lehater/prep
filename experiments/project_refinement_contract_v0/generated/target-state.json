@@ -1,0 +1,296 @@
+{
+  "create": [],
+  "implementation_consumer": true,
+  "pending": [],
+  "profile": {
+    "expectations": [
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.acceptance-scenarios",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.application-failure-contract",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.application-orchestration",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.completion-criteria",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-COMPLETION-CRITERIA-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "COMPONENT-DESIGN",
+        "capability": "prep-reference-v0.component-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.design-verification-obligations",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.knowledge-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.learner-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.learning-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DOMAIN-STRATEGY",
+        "capability": "prep-reference-v0.domain-strategy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "ENGINEERING-POLICY",
+        "capability": "prep-reference-v0.engineering-policy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.implementation-plan",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.implementation-stack",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "MACHINE-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.machine-interface-contract.external-learning-runtime",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "MACHINE-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.machine-interface-contract.prep-application-api",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "MODEL-CONTEXT-STRATEGY",
+        "capability": "prep-reference-v0.model-context-strategy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DISCOVERY",
+        "capability": "prep-reference-v0.problem-evidence",
+        "id": "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "capability": "prep-reference-v0.product-acceptance",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "capability": "prep-reference-v0.product-intent",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "QUALITY-DESIGN",
+        "capability": "prep-reference-v0.quality-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.realization-verification-plan",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "prep-reference-v0.system-boundary-rules",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "prep-reference-v0.system-structure",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TEST-DESIGN",
+        "capability": "prep-reference-v0.test-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DISCOVERY",
+        "capability": "prep-reference-v0.user-needs",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      }
+    ],
+    "id": "PREP-REFERENCE-V0-FRONTEND-IMPLEMENTATION",
+    "kind": "harness-design-profile",
+    "version": 1
+  },
+  "satisfied": [
+    "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-COMPLETION-CRITERIA-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0"
+  ],
+  "status": "COMPLETE",
+  "target": "FRONTEND-IMPLEMENTATION",
+  "wait": []
+}

@@ -1,0 +1,8 @@
+version: 1
+kind: harness-reference-materialization-request
+project_id: PREP-REFERENCE-V0
+roots: [COMPLETION-CRITERIA]
+consumer_id: FRONTEND-IMPLEMENTATION
+purpose: >-
+  Determine the engineering knowledge required to realize the accepted PREP frontend
+  implementation target from frozen Reference Engineering Model v0 and accepted project truth.

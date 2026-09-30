@@ -1,0 +1,1 @@
+Cannot order current Core capabilities for strict baseline: {'prep-reference-v0.completion-criteria': ['prep-reference-v0.implementation-plan'], 'prep-reference-v0.implementation-plan': ['prep-reference-v0.operability-design', 'prep-reference-v0.security-analysis', 'prep-reference-v0.security-architecture']}

@@ -19,6 +19,7 @@ import type { GraphRenderer } from "../../features/knowledge-explorer/ports/Grap
 import type { KnowledgeQueryPort } from "../../features/knowledge-explorer/ports/KnowledgeQueryPort";
 import { LearningWorkspace } from "../../features/learning/LearningWorkspace";
 import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryPort";
+import type { PreparationSupportPort } from "../../features/learning/ports/PreparationSupportPort";
 import type { TargetWorkPort } from "../../features/learning/ports/TargetWorkPort";
 import type { LearningSection } from "../../features/learning/ui/learningRoutes";
 import { TargetSelectionView } from "../../features/learning/ui/TargetSelectionView";
@@ -27,6 +28,7 @@ import type { RuntimeStatusPort } from "../shell/RuntimeStatusPort";
 
 interface AppRouterProps {
   readonly targetQueryPort: TargetQueryPort;
+  readonly preparationSupportPort: PreparationSupportPort;
   readonly targetWorkPort: TargetWorkPort;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
   readonly curationKnowledgePort: KnowledgeCurationPort;
@@ -116,7 +118,7 @@ export function AppRouter(props: AppRouterProps) {
           <Route index element={<Navigate to="/learning" replace />} />
           <Route
             path="learning"
-            element={<TargetSelectionView targetQueryPort={props.targetQueryPort} />}
+            element={<TargetSelectionView targetQueryPort={props.targetQueryPort} preparationSupportPort={props.preparationSupportPort} />}
           />
           {LEARNING_SECTIONS.map((section) => (
             <Route

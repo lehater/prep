@@ -1,0 +1,327 @@
+version: 1
+kind: prep-semantic-baseline
+baseline_id: PREP-REFERENCE-V0-FROZEN
+reviews:
+- capability: prep-reference-v0.acceptance-scenarios
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/verification/presentation-verification.md
+    is reused for prep-reference-v0.acceptance-scenarios; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.application-failure-contract
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/application/application-design.md
+    is reused for prep-reference-v0.application-failure-contract; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.application-orchestration
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/application/application-design.md
+    is reused for prep-reference-v0.application-orchestration; binding derived from
+    the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.completion-criteria
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/implementation/frontend-implementation-design.md
+    is reused for prep-reference-v0.completion-criteria; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.component-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/implementation/frontend-component-design.md
+    is reused for prep-reference-v0.component-design; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.conceptual-interface-model
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/conceptual-interface-model.yaml
+    is reused for prep-reference-v0.conceptual-interface-model; binding derived from
+    the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.concurrency-consistency
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/import-consistency.md
+    is reused for prep-reference-v0.concurrency-consistency; binding derived from
+    the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.data-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/data-design.md
+    is reused for prep-reference-v0.data-design; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.design-verification-obligations
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/verification/frontend-verification.md
+    is reused for prep-reference-v0.design-verification-obligations; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.domain-model.knowledge-model
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/domain/knowledge-model.md
+    is reused for prep-reference-v0.domain-model.knowledge-model; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.domain-model.learner-model
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/domain/learner-model.md
+    is reused for prep-reference-v0.domain-model.learner-model; binding derived from
+    the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.domain-model.learning-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/domain/learning-design.md
+    is reused for prep-reference-v0.domain-model.learning-design; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.domain-strategy
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/context-map.md
+    is reused for prep-reference-v0.domain-strategy; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.engineering-policy
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/engineering/frontend-engineering-policy.md
+    is reused for prep-reference-v0.engineering-policy; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.implementation-plan
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/implementation/frontend-implementation-design.md
+    is reused for prep-reference-v0.implementation-plan; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.implementation-stack
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/implementation/frontend-implementation-design.md
+    is reused for prep-reference-v0.implementation-stack; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.information-architecture
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/information-architecture.yaml
+    is reused for prep-reference-v0.information-architecture; binding derived from
+    the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.interaction-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/interaction-design.yaml
+    is reused for prep-reference-v0.interaction-design; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.interface-topology
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/interface-topology.yaml
+    is reused for prep-reference-v0.interface-topology; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.machine-interface-contract.external-learning-runtime
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/machine-interface.md
+    is reused for prep-reference-v0.machine-interface-contract.external-learning-runtime;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.machine-interface-contract.prep-application-api
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/machine-interface.md
+    is reused for prep-reference-v0.machine-interface-contract.prep-application-api;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.model-context-strategy
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/model-context-map.md
+    is reused for prep-reference-v0.model-context-strategy; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.presentation-system
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/presentation-system.md
+    is reused for prep-reference-v0.presentation-system; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.problem-evidence
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/vision/problem-space.md
+    is reused for prep-reference-v0.problem-evidence; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.product-acceptance
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/vision/product-capabilities.md
+    is reused for prep-reference-v0.product-acceptance; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.product-intent
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/vision/vision.md
+    is reused for prep-reference-v0.product-intent; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.quality-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/performance-capacity.md
+    is reused for prep-reference-v0.quality-design; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.realization-verification-plan
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/verification/interface-verification.md
+    is reused for prep-reference-v0.realization-verification-plan; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.runtime-architecture
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/system-architecture.md
+    is reused for prep-reference-v0.runtime-architecture; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-01-preparation-path
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-01-preparation-path; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-11-target-collection
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-11-target-collection; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-12-target-editor
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-12-target-editor; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-21-capability-collection
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-21-capability-collection;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-22-capability-editor
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-22-capability-editor; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-31-knowledge-workspace; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-32-knowledge-editor
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-32-knowledge-editor; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-41-learning-support-collection
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-41-learning-support-collection;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-42-learning-support-editor
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-42-learning-support-editor;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-51-assessment-collection
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-51-assessment-collection;
+    binding derived from the NEW capability responsibility/knowledge kind, not OLD
+    CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-52-assessment-editor
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-52-assessment-editor; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.c-61-import
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-61-import; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.c-71-quality
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.c-71-quality; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.f-00-application-shell
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.f-00-application-shell; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.f-c-curation-workspace
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.f-c-curation-workspace; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.f-lt-target-workspace
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.f-lt-target-workspace; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-01-targets
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-01-targets; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.l-02-target-overview
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-02-target-overview; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-03-target-state
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-03-target-state; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-04-target-gaps
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-04-target-gaps; binding derived
+    from the NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.screen-view-design.l-05-target-learning
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-05-target-learning; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-06-target-diagnostics
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-06-target-diagnostics; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-07-target-knowledge
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-07-target-knowledge; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.l-08-target-progress
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.l-08-target-progress; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.screen-view-design.s-01-runtime-status
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/interface/screen-view-design.md
+    is reused for prep-reference-v0.screen-view-design.s-01-runtime-status; binding
+    derived from the NEW capability responsibility/knowledge kind, not OLD CapabilityId
+    topology.'
+- capability: prep-reference-v0.system-boundary-rules
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/frontend-system-architecture.md
+    is reused for prep-reference-v0.system-boundary-rules; binding derived from the
+    NEW capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.system-structure
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/architecture/system-architecture.md
+    is reused for prep-reference-v0.system-structure; binding derived from the NEW
+    capability responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.task-model
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/application/task-model.yaml
+    is reused for prep-reference-v0.task-model; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.test-design
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/verification/frontend-test-design.yaml
+    is reused for prep-reference-v0.test-design; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.user-journey
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/application/user-journeys.md
+    is reused for prep-reference-v0.user-journey; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'
+- capability: prep-reference-v0.user-needs
+  revision: 1
+  basis: 'Frozen v0 rematerialization provider binding: canonical docs/vision/problem-space.md
+    is reused for prep-reference-v0.user-needs; binding derived from the NEW capability
+    responsibility/knowledge kind, not OLD CapabilityId topology.'

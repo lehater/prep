@@ -1,0 +1,772 @@
+authorities:
+- boundary:
+    independent_change: Evidence can be refined before accepted product requirements
+      change.
+    public_contract: Provides accepted problem evidence and unresolved discovery questions.
+    semantic_cohesion: Evidence and observations about the problem space.
+  id: DISCOVERY
+  produces:
+  - capability: prep-reference-v0.problem-evidence
+    knowledge_kind: problem-evidence
+    requires: []
+    semantic_claims:
+    - engineering.intent.problem
+  - capability: prep-reference-v0.user-needs
+    knowledge_kind: user-needs
+    requires:
+    - capability: prep-reference-v0.problem-evidence
+  responsibility: Own problem observations, actors, desired outcomes and motivating
+    evidence without deciding product requirements or solution semantics.
+- boundary:
+    independent_change: Product intent can change without directly deciding domain
+      or technical realization.
+    public_contract: Provides accepted behavioral and acceptance semantics to downstream
+      design.
+    semantic_cohesion: Decisions about what the product must achieve.
+  id: PRODUCT-REQUIREMENTS
+  produces:
+  - capability: prep-reference-v0.product-acceptance
+    knowledge_kind: product-requirements
+    requires:
+    - capability: prep-reference-v0.product-intent
+  - capability: prep-reference-v0.product-intent
+    knowledge_kind: product-requirements
+    requires:
+    - capability: prep-reference-v0.problem-evidence
+    - capability: prep-reference-v0.user-needs
+    semantic_claims:
+    - engineering.intent.behavior
+    - engineering.intent.scope
+  responsibility: Own accepted product intent, scope, externally observable behavior,
+    constraints and acceptance expectations.
+- boundary:
+    independent_change: Strategic classification can change without redefining model-context
+      relationships or tactical realization.
+    public_contract: Provides accepted subdomain landscape and strategic classification
+      to relevant downstream consumers.
+    semantic_cohesion: Strategic decisions about domain responsibilities and investment.
+  id: DOMAIN-STRATEGY
+  produces:
+  - capability: prep-reference-v0.domain-strategy
+    knowledge_kind: domain-strategy
+    requires:
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - engineering.domain.boundaries
+  responsibility: Own problem-space domain decomposition, subdomain landscape, strategic
+    classification and domain investment intent without deciding model-language boundaries
+    or tactical structures.
+- boundary:
+    independent_change: Context boundaries and translations can change while strategic
+      domain classification remains stable.
+    public_contract: Provides accepted model-context and translation knowledge to
+      tactical, application and interface consumers.
+    semantic_cohesion: Model-language applicability, context relationships and translation
+      contracts.
+  id: MODEL-CONTEXT-STRATEGY
+  produces:
+  - capability: prep-reference-v0.model-context-strategy
+    knowledge_kind: model-context-strategy
+    requires:
+    - capability: prep-reference-v0.domain-strategy
+    - capability: prep-reference-v0.product-intent
+  responsibility: Own where models/languages apply and how independently modeled contexts
+    relate or translate without re-owning domain investment strategy or tactical internals.
+- boundary:
+    independent_change: Tactical semantics can evolve behind stable strategic/use-case
+      contracts without selecting storage or transport.
+    public_contract: Provides accepted tactical domain semantics to application and
+      technical design.
+    semantic_cohesion: Decisions about how accepted domain behavior is modeled semantically.
+  id: TACTICAL-DOMAIN-DESIGN
+  produces:
+  - capability: prep-reference-v0.domain-model.knowledge-model
+    knowledge_kind: domain-model
+    requires:
+    - capability: prep-reference-v0.domain-strategy
+    - capability: prep-reference-v0.model-context-strategy
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - claim: engineering.domain.model
+      subject: KNOWLEDGE-MODEL
+  - capability: prep-reference-v0.domain-model.learner-model
+    knowledge_kind: domain-model
+    requires:
+    - capability: prep-reference-v0.domain-strategy
+    - capability: prep-reference-v0.model-context-strategy
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - claim: engineering.domain.model
+      subject: LEARNER-MODEL
+  - capability: prep-reference-v0.domain-model.learning-design
+    knowledge_kind: domain-model
+    requires:
+    - capability: prep-reference-v0.domain-strategy
+    - capability: prep-reference-v0.model-context-strategy
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - claim: engineering.domain.model
+      subject: LEARNING-DESIGN
+  responsibility: Own tactical domain language, identities, lifecycles, invariants,
+    decisions and public domain semantics.
+- boundary:
+    independent_change: Application composition can evolve without re-owning underlying
+      domain truth or technical architecture.
+    public_contract: Provides accepted application flows and orchestration semantics.
+    semantic_cohesion: Decisions about orchestration across domain responsibilities
+      and user/system journeys.
+  id: APPLICATION-DESIGN
+  produces:
+  - capability: prep-reference-v0.application-failure-contract
+    knowledge_kind: application-design
+    requires:
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - engineering.application.failures
+  - capability: prep-reference-v0.application-orchestration
+    knowledge_kind: application-design
+    requires:
+    - capability: prep-reference-v0.application-failure-contract
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - engineering.application.orchestration
+  - capability: prep-reference-v0.task-model
+    knowledge_kind: task-model
+    requires:
+    - capability: prep-reference-v0.application-orchestration
+    - capability: prep-reference-v0.product-intent
+  - capability: prep-reference-v0.user-journey
+    knowledge_kind: user-journey-design
+    requires:
+    - capability: prep-reference-v0.product-intent
+    - capability: prep-reference-v0.task-model
+    semantic_claims:
+    - engineering.interface.human.journeys
+  responsibility: Own application-level composition of accepted domain/product behavior.
+- boundary:
+    independent_change: Architecture can evolve behind stable product/domain contracts
+      without changing their semantic ownership.
+    public_contract: Provides accepted system topology and architectural constraints.
+    semantic_cohesion: Structural and runtime decisions that constrain implementation.
+  id: SYSTEM-ARCHITECTURE
+  produces:
+  - capability: prep-reference-v0.runtime-architecture
+    knowledge_kind: system-architecture
+    requires:
+    - capability: prep-reference-v0.system-structure
+    semantic_claims:
+    - engineering.architecture.deployment
+  - capability: prep-reference-v0.system-boundary-rules
+    knowledge_kind: system-architecture
+    requires:
+    - capability: prep-reference-v0.system-structure
+    semantic_claims:
+    - engineering.architecture.boundaries
+  - capability: prep-reference-v0.system-structure
+    knowledge_kind: system-architecture
+    requires:
+    - capability: prep-reference-v0.application-orchestration
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - engineering.architecture.structure
+  responsibility: Own system structure, runtime boundaries, dependency topology and
+    technical interaction topology.
+- boundary:
+    independent_change: Concurrency semantics can change when execution/delivery behavior
+      changes while system decomposition remains stable.
+    public_contract: Provides accepted concurrency/consistency constraints to data,
+      component, implementation and verification consumers.
+    semantic_cohesion: Ordering, isolation, atomicity, conflict, retry/idempotency
+      and consistency semantics for interacting executions.
+  id: CONCURRENCY-CONSISTENCY-DESIGN
+  produces:
+  - capability: prep-reference-v0.concurrency-consistency
+    knowledge_kind: concurrency-consistency-design
+    requires:
+    - capability: prep-reference-v0.application-failure-contract
+    - capability: prep-reference-v0.data-design
+    - capability: prep-reference-v0.system-structure
+    semantic_claims:
+    - engineering.reliability.consistency
+  responsibility: Own concurrent-state correctness contracts without re-owning domain
+    invariants, storage representation or system topology.
+- boundary:
+    independent_change: Security architecture can evolve independently from product/domain
+      entitlement semantics, interface representation and later threat analysis.
+    public_contract: Provides accepted security constraints to system/interface/data/component/operability/verification/implementation
+      consumers without re-owning their semantics.
+    semantic_cohesion: Decisions about security trust boundaries, trusted identity,
+      credential/session protection, admission and enforcement structure.
+  id: SECURITY-ARCHITECTURE
+  produces:
+  - capability: prep-reference-v0.security-architecture
+    knowledge_kind: security-architecture
+    requires:
+    - capability: prep-reference-v0.product-intent
+    - capability: prep-reference-v0.system-boundary-rules
+    semantic_claims:
+    - engineering.security.boundaries
+  responsibility: Own security-specific trust, identity, admission, protection and
+    enforcement structure derived from accepted product, domain and system truth.
+- boundary:
+    independent_change: Machine interface contracts can evolve while preserving accepted
+      product/domain semantics and human interaction design.
+    public_contract: Provides canonical machine interface contracts to integrations
+      and technical consumers.
+    semantic_cohesion: Machine-consumed protocol, API, message and representation
+      semantics.
+  id: MACHINE-INTERFACE-DESIGN
+  produces:
+  - capability: prep-reference-v0.machine-interface-contract.external-learning-runtime
+    knowledge_kind: interface-contract
+    requires:
+    - capability: prep-reference-v0.product-intent
+    - capability: prep-reference-v0.system-boundary-rules
+    semantic_claims:
+    - claim: engineering.interface.machine.contract
+      subject: EXTERNAL-LEARNING-RUNTIME
+  - capability: prep-reference-v0.machine-interface-contract.prep-application-api
+    knowledge_kind: interface-contract
+    requires:
+    - capability: prep-reference-v0.product-intent
+    - capability: prep-reference-v0.system-boundary-rules
+    semantic_claims:
+    - claim: engineering.interface.machine.contract
+      subject: PREP-APPLICATION-API
+  responsibility: Own supported external machine interaction and representation contracts.
+- boundary:
+    independent_change: Human interface realization can evolve while product/domain
+      and machine-interface semantics remain stable.
+    public_contract: Provides accepted human-interface and presentation/view contracts
+      to architecture, component, implementation and test consumers.
+    semantic_cohesion: Human interaction, information/navigation structure, presentation
+      system and screen/view composition.
+  id: HUMAN-INTERFACE-DESIGN
+  produces:
+  - capability: prep-reference-v0.conceptual-interface-model
+    knowledge_kind: conceptual-interface-model
+    requires:
+    - capability: prep-reference-v0.user-journey
+    semantic_claims:
+    - engineering.interface.human.conceptual-model
+  - capability: prep-reference-v0.information-architecture
+    knowledge_kind: information-architecture-design
+    requires:
+    - capability: prep-reference-v0.conceptual-interface-model
+    semantic_claims:
+    - engineering.interface.human.information-architecture
+  - capability: prep-reference-v0.interaction-design
+    knowledge_kind: interaction-design
+    requires:
+    - capability: prep-reference-v0.conceptual-interface-model
+    - capability: prep-reference-v0.information-architecture
+    semantic_claims:
+    - engineering.interface.human.interaction
+  - capability: prep-reference-v0.interface-topology
+    knowledge_kind: interface-topology-design
+    requires:
+    - capability: prep-reference-v0.information-architecture
+    semantic_claims:
+    - engineering.interface.human.navigation-topology
+  - capability: prep-reference-v0.presentation-system
+    knowledge_kind: presentation-system-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    semantic_claims:
+    - engineering.interface.human.presentation-system
+  - capability: prep-reference-v0.screen-view-design.c-01-preparation-path
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-01-PREPARATION-PATH
+  - capability: prep-reference-v0.screen-view-design.c-11-target-collection
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-11-TARGET-COLLECTION
+  - capability: prep-reference-v0.screen-view-design.c-12-target-editor
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-12-TARGET-EDITOR
+  - capability: prep-reference-v0.screen-view-design.c-21-capability-collection
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-21-CAPABILITY-COLLECTION
+  - capability: prep-reference-v0.screen-view-design.c-22-capability-editor
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-22-CAPABILITY-EDITOR
+  - capability: prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-31-KNOWLEDGE-WORKSPACE
+  - capability: prep-reference-v0.screen-view-design.c-32-knowledge-editor
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-32-KNOWLEDGE-EDITOR
+  - capability: prep-reference-v0.screen-view-design.c-41-learning-support-collection
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-41-LEARNING-SUPPORT-COLLECTION
+  - capability: prep-reference-v0.screen-view-design.c-42-learning-support-editor
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-42-LEARNING-SUPPORT-EDITOR
+  - capability: prep-reference-v0.screen-view-design.c-51-assessment-collection
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-51-ASSESSMENT-COLLECTION
+  - capability: prep-reference-v0.screen-view-design.c-52-assessment-editor
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-52-ASSESSMENT-EDITOR
+  - capability: prep-reference-v0.screen-view-design.c-61-import
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-61-IMPORT
+  - capability: prep-reference-v0.screen-view-design.c-71-quality
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: C-71-QUALITY
+  - capability: prep-reference-v0.screen-view-design.f-00-application-shell
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: F-00-APPLICATION-SHELL
+  - capability: prep-reference-v0.screen-view-design.f-c-curation-workspace
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: F-C-CURATION-WORKSPACE
+  - capability: prep-reference-v0.screen-view-design.f-lt-target-workspace
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: F-LT-TARGET-WORKSPACE
+  - capability: prep-reference-v0.screen-view-design.l-01-targets
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-01-TARGETS
+  - capability: prep-reference-v0.screen-view-design.l-02-target-overview
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-02-TARGET-OVERVIEW
+  - capability: prep-reference-v0.screen-view-design.l-03-target-state
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-03-TARGET-STATE
+  - capability: prep-reference-v0.screen-view-design.l-04-target-gaps
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-04-TARGET-GAPS
+  - capability: prep-reference-v0.screen-view-design.l-05-target-learning
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-05-TARGET-LEARNING
+  - capability: prep-reference-v0.screen-view-design.l-06-target-diagnostics
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-06-TARGET-DIAGNOSTICS
+  - capability: prep-reference-v0.screen-view-design.l-07-target-knowledge
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-07-TARGET-KNOWLEDGE
+  - capability: prep-reference-v0.screen-view-design.l-08-target-progress
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: L-08-TARGET-PROGRESS
+  - capability: prep-reference-v0.screen-view-design.s-01-runtime-status
+    knowledge_kind: screen-view-design
+    requires:
+    - capability: prep-reference-v0.interaction-design
+    - capability: prep-reference-v0.interface-topology
+    - capability: prep-reference-v0.presentation-system
+    semantic_claims:
+    - claim: engineering.interface.human.screen-composition
+      subject: S-01-RUNTIME-STATUS
+  responsibility: Own human interaction semantics and presentation/view composition
+    without re-owning product behavior or machine interface contracts.
+- boundary:
+    independent_change: Storage design can evolve behind stable domain/application
+      contracts.
+    public_contract: Provides accepted persistence model and storage constraints.
+    semantic_cohesion: Decisions about durable physical data representation and constraints.
+  id: DATA-DESIGN
+  produces:
+  - capability: prep-reference-v0.data-design
+    knowledge_kind: data-design
+    requires:
+    - capability: prep-reference-v0.system-structure
+    semantic_claims:
+    - engineering.data.model
+  responsibility: Own physical persistence and storage representation.
+- boundary:
+    independent_change: Quality constraints can evolve without reallocating semantic
+      ownership.
+    public_contract: Provides measurable or explicitly unresolved quality constraints
+      to architecture, implementation and verification.
+    semantic_cohesion: Cross-cutting non-functional constraints on realization.
+  id: QUALITY-DESIGN
+  produces:
+  - capability: prep-reference-v0.quality-design
+    knowledge_kind: quality-design
+    requires:
+    - capability: prep-reference-v0.product-intent
+  responsibility: Own explicit realization quality constraints derived from accepted
+    product/design truth.
+- boundary:
+    independent_change: Threat knowledge and coverage can evolve without itself owning
+      product/domain/security/system/interface/data decisions.
+    public_contract: Provides security coverage evidence, verification obligations
+      and blocking Questions; it never silently repairs missing upstream design.
+    semantic_cohesion: Analysis of applicable threats, accepted controls, not-applicable/deferred
+      concerns and unresolved security gaps against an accepted design baseline.
+  id: SECURITY-ANALYSIS
+  produces:
+  - capability: prep-reference-v0.security-analysis
+    knowledge_kind: security-analysis
+    requires:
+    - capability: prep-reference-v0.security-architecture
+    - capability: prep-reference-v0.system-boundary-rules
+    semantic_claims:
+    - engineering.security.threat-analysis
+  responsibility: Own threat, control and applicability coverage against accepted
+    design and route material gaps to the Authority that owns their resolution.
+- boundary:
+    independent_change: Operability evidence can evolve without redefining product/domain/interface
+      semantics or selecting telemetry implementation mechanics.
+    public_contract: Provides runtime evidence requirements to component, verification/test
+      and implementation consumers while routing configuration, failure, security
+      and reliability semantics to their owning Authorities.
+    semantic_cohesion: Decisions about what runtime evidence must exist so accepted
+      behavior, lifecycle state and technical failure are diagnosable.
+  id: OPERABILITY-DESIGN
+  produces:
+  - capability: prep-reference-v0.operability-design
+    knowledge_kind: operability-design
+    requires:
+    - capability: prep-reference-v0.application-failure-contract
+    - capability: prep-reference-v0.runtime-architecture
+  responsibility: Own runtime evidence and diagnosability requirements derived from
+    accepted product, architecture, interface, security and quality truth.
+- boundary:
+    independent_change: Engineering discipline can be refined without redefining product/domain
+      semantics, while downstream realization may require reevaluation.
+    public_contract: Provides reviewable engineering obligations to applicable design
+      and implementation consumers.
+    semantic_cohesion: Normative cross-cutting rules for how accepted engineering
+      knowledge may be realized.
+  id: ENGINEERING-POLICY
+  produces:
+  - capability: prep-reference-v0.engineering-policy
+    knowledge_kind: engineering-policy
+    requires:
+    - capability: prep-reference-v0.product-intent
+    semantic_claims:
+    - engineering.engineering.principles
+  responsibility: Own project-selected engineering design obligations and explicit
+    anti-pattern constraints without owning the project semantics to which they apply.
+- boundary:
+    independent_change: Component realization can evolve behind accepted architecture/application/interface
+      contracts without changing their semantics.
+    public_contract: Provides code-design boundaries sufficient for implementation
+      agents to avoid inventing architecturally significant structure.
+    semantic_cohesion: Public component responsibilities, consumer/provider contracts,
+      dependency direction, abstraction ownership and composition/mapping boundaries.
+  id: COMPONENT-DESIGN
+  produces:
+  - capability: prep-reference-v0.component-design
+    knowledge_kind: component-design
+    requires:
+    - capability: prep-reference-v0.application-orchestration
+    - capability: prep-reference-v0.engineering-policy
+    - capability: prep-reference-v0.system-boundary-rules
+    semantic_claims:
+    - engineering.engineering.components
+  responsibility: Own implementation-facing component decomposition and dependency
+    contracts without deciding implementation sequencing or private code structure.
+- boundary:
+    independent_change: Test contracts can survive changes in implementation slicing,
+      code structure, frameworks and test mechanics while accepted behavior remains
+      stable.
+    public_contract: Provides traceable executable test semantics sufficient for test-first
+      or implementation work without allowing tests to invent upstream truth.
+    semantic_cohesion: Preconditions, controlled operations, observable oracles, invariants,
+      state transitions, failure/atomicity distinctions and property/state-machine
+      obligations.
+  id: TEST-DESIGN
+  produces:
+  - capability: prep-reference-v0.test-design
+    knowledge_kind: test-design
+    requires:
+    - capability: prep-reference-v0.acceptance-scenarios
+    - capability: prep-reference-v0.realization-verification-plan
+  responsibility: Own executable observable test contracts derived from accepted verification
+    and semantic design without owning production semantics or concrete test-code
+    mechanics.
+- boundary:
+    independent_change: Realization order, physical mapping and replaceable tools
+      can change without redefining upstream truth when accepted boundaries and obligations
+      remain satisfied.
+    public_contract: Provides implementation plan, repository/tooling realization,
+      quality-gate wiring and completion criteria while routing missing semantic decisions
+      upstream.
+    semantic_cohesion: Decisions about how accepted design will be realized as bounded
+      implementation work and a reproducible physical codebase/toolchain.
+  id: IMPLEMENTATION-DESIGN
+  produces:
+  - capability: prep-reference-v0.completion-criteria
+    knowledge_kind: implementation-design
+    requires:
+    - capability: prep-reference-v0.implementation-plan
+    - capability: prep-reference-v0.realization-verification-plan
+  - capability: prep-reference-v0.implementation-plan
+    knowledge_kind: implementation-design
+    requires:
+    - capability: prep-reference-v0.acceptance-scenarios
+    - capability: prep-reference-v0.application-failure-contract
+    - capability: prep-reference-v0.application-orchestration
+    - capability: prep-reference-v0.component-design
+    - capability: prep-reference-v0.concurrency-consistency
+    - capability: prep-reference-v0.data-design
+    - capability: prep-reference-v0.domain-model.knowledge-model
+      subject: KNOWLEDGE-MODEL
+    - capability: prep-reference-v0.domain-model.learner-model
+      subject: LEARNER-MODEL
+    - capability: prep-reference-v0.domain-model.learning-design
+      subject: LEARNING-DESIGN
+    - capability: prep-reference-v0.domain-strategy
+    - capability: prep-reference-v0.engineering-policy
+    - capability: prep-reference-v0.implementation-stack
+    - capability: prep-reference-v0.machine-interface-contract.external-learning-runtime
+      subject: EXTERNAL-LEARNING-RUNTIME
+    - capability: prep-reference-v0.machine-interface-contract.prep-application-api
+      subject: PREP-APPLICATION-API
+    - capability: prep-reference-v0.model-context-strategy
+    - capability: prep-reference-v0.operability-design
+    - capability: prep-reference-v0.presentation-system
+    - capability: prep-reference-v0.product-intent
+    - capability: prep-reference-v0.quality-design
+    - capability: prep-reference-v0.realization-verification-plan
+    - capability: prep-reference-v0.runtime-architecture
+    - capability: prep-reference-v0.screen-view-design.c-01-preparation-path
+      subject: C-01-PREPARATION-PATH
+    - capability: prep-reference-v0.screen-view-design.c-11-target-collection
+      subject: C-11-TARGET-COLLECTION
+    - capability: prep-reference-v0.screen-view-design.c-12-target-editor
+      subject: C-12-TARGET-EDITOR
+    - capability: prep-reference-v0.screen-view-design.c-21-capability-collection
+      subject: C-21-CAPABILITY-COLLECTION
+    - capability: prep-reference-v0.screen-view-design.c-22-capability-editor
+      subject: C-22-CAPABILITY-EDITOR
+    - capability: prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+      subject: C-31-KNOWLEDGE-WORKSPACE
+    - capability: prep-reference-v0.screen-view-design.c-32-knowledge-editor
+      subject: C-32-KNOWLEDGE-EDITOR
+    - capability: prep-reference-v0.screen-view-design.c-41-learning-support-collection
+      subject: C-41-LEARNING-SUPPORT-COLLECTION
+    - capability: prep-reference-v0.screen-view-design.c-42-learning-support-editor
+      subject: C-42-LEARNING-SUPPORT-EDITOR
+    - capability: prep-reference-v0.screen-view-design.c-51-assessment-collection
+      subject: C-51-ASSESSMENT-COLLECTION
+    - capability: prep-reference-v0.screen-view-design.c-52-assessment-editor
+      subject: C-52-ASSESSMENT-EDITOR
+    - capability: prep-reference-v0.screen-view-design.c-61-import
+      subject: C-61-IMPORT
+    - capability: prep-reference-v0.screen-view-design.c-71-quality
+      subject: C-71-QUALITY
+    - capability: prep-reference-v0.screen-view-design.f-00-application-shell
+      subject: F-00-APPLICATION-SHELL
+    - capability: prep-reference-v0.screen-view-design.f-c-curation-workspace
+      subject: F-C-CURATION-WORKSPACE
+    - capability: prep-reference-v0.screen-view-design.f-lt-target-workspace
+      subject: F-LT-TARGET-WORKSPACE
+    - capability: prep-reference-v0.screen-view-design.l-01-targets
+      subject: L-01-TARGETS
+    - capability: prep-reference-v0.screen-view-design.l-02-target-overview
+      subject: L-02-TARGET-OVERVIEW
+    - capability: prep-reference-v0.screen-view-design.l-03-target-state
+      subject: L-03-TARGET-STATE
+    - capability: prep-reference-v0.screen-view-design.l-04-target-gaps
+      subject: L-04-TARGET-GAPS
+    - capability: prep-reference-v0.screen-view-design.l-05-target-learning
+      subject: L-05-TARGET-LEARNING
+    - capability: prep-reference-v0.screen-view-design.l-06-target-diagnostics
+      subject: L-06-TARGET-DIAGNOSTICS
+    - capability: prep-reference-v0.screen-view-design.l-07-target-knowledge
+      subject: L-07-TARGET-KNOWLEDGE
+    - capability: prep-reference-v0.screen-view-design.l-08-target-progress
+      subject: L-08-TARGET-PROGRESS
+    - capability: prep-reference-v0.screen-view-design.s-01-runtime-status
+      subject: S-01-RUNTIME-STATUS
+    - capability: prep-reference-v0.security-analysis
+    - capability: prep-reference-v0.security-architecture
+    - capability: prep-reference-v0.system-boundary-rules
+    - capability: prep-reference-v0.task-model
+    - capability: prep-reference-v0.test-design
+    - capability: prep-reference-v0.user-journey
+    semantic_claims:
+    - engineering.delivery.release
+  - capability: prep-reference-v0.implementation-stack
+    knowledge_kind: implementation-design
+    requires:
+    - capability: prep-reference-v0.system-structure
+  responsibility: Own implementation slicing, sequencing, repository realization,
+    concrete toolchain/gate wiring and completion criteria after upstream engineering
+    decisions are available.
+- boundary:
+    independent_change: Verification strategy can evolve without taking ownership
+      of product/domain/architecture semantics.
+    public_contract: Provides verification strategy and acceptance evidence; routes
+      design gaps to owning Authorities.
+    semantic_cohesion: Decisions about what executable or inspectable evidence proves
+      accepted design.
+  id: VERIFICATION-DESIGN
+  produces:
+  - capability: prep-reference-v0.acceptance-scenarios
+    knowledge_kind: acceptance-scenarios
+    requires:
+    - capability: prep-reference-v0.design-verification-obligations
+  - capability: prep-reference-v0.design-verification-obligations
+    knowledge_kind: verification-strategy
+    requires:
+    - capability: prep-reference-v0.product-acceptance
+    - capability: prep-reference-v0.system-structure
+    semantic_claims:
+    - engineering.verification.requirement-traceability
+    - engineering.verification.strategy
+  - capability: prep-reference-v0.realization-verification-plan
+    knowledge_kind: verification-strategy
+    requires:
+    - capability: prep-reference-v0.component-design
+    - capability: prep-reference-v0.design-verification-obligations
+  responsibility: Own verification levels, traceability, scenarios and evidence proving
+    implementation realizes accepted engineering knowledge.
+consumers:
+- id: FRONTEND-IMPLEMENTATION
+  purpose: Determine the engineering knowledge required to realize the accepted PREP
+    frontend implementation target from frozen Reference Engineering Model v0 and
+    accepted project truth.
+  requires:
+  - capability: prep-reference-v0.completion-criteria
+default_subject: PREP-REFERENCE-V0
+id: PREP-REFERENCE-V0
+kind: harness-engineering-graph
+terminal_capabilities: []
+version: 1

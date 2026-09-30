@@ -1,0 +1,43 @@
+version: 1
+kind: prep-reference-validation-results
+checks:
+- phase: old
+  check: bootstrap
+  exit_code: 0
+  passed: true
+- phase: old
+  check: semantic-baseline
+  exit_code: 0
+  passed: true
+- phase: old
+  check: integration
+  exit_code: 0
+  passed: true
+- phase: old
+  check: full-revalidate
+  exit_code: 0
+  passed: true
+- phase: old
+  check: docs
+  exit_code: 0
+  passed: true
+- phase: new
+  check: semantic-baseline
+  exit_code: 1
+  passed: false
+- phase: new
+  check: integration
+  exit_code: 1
+  passed: false
+- phase: new
+  check: full-revalidate
+  exit_code: 1
+  passed: false
+- phase: new
+  check: docs
+  exit_code: 1
+  passed: false
+- phase: new
+  check: coverage
+  exit_code: 0
+  passed: true

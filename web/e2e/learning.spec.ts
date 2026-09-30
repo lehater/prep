@@ -17,6 +17,16 @@ test("selects a career target and exposes the complete target-work navigation", 
   }
 });
 
+test("target overview exposes purpose and keeps interview target related but separate", async ({ page }) => {
+  await page.goto(`/learning/${targetId}/overview`);
+
+  await expect(page.getByRole("heading", { name: "Target purpose" })).toBeVisible();
+  await expect(page.getByText("Professional role capability")).toBeVisible();
+  await expect(page.getByText(/Related target:/)).toContainText("selection");
+  await expect(page.getByText(/do not inherit requirements automatically/i)).toBeVisible();
+  await expect(page.getByText(/Company-specific interview format/)).toBeVisible();
+});
+
 test("current state distinguishes satisfied unresolved and challenged", async ({ page }) => {
   await page.goto(`/learning/${targetId}/state`);
 
@@ -30,10 +40,14 @@ test("current state distinguishes satisfied unresolved and challenged", async ({
 test("gap can become an explicit learning focus", async ({ page }) => {
   await page.goto(`/learning/${targetId}/gaps`);
 
+  await page.getByRole("textbox", { name: "Why this focus now?" }).fill(
+    "Interview in 10 days; limited evening study time.",
+  );
   const gap = page.getByText("Reliable payment commands", { exact: true }).locator("..").locator("..");
   await gap.getByRole("button", { name: "Learn this" }).click();
 
   await expect(page.getByText("Current focus")).toBeVisible();
+  await expect(page.getByText(/Interview in 10 days/)).toBeVisible();
   await page.getByRole("link", { name: "Continue with focus" }).click();
   await expect(page).toHaveURL(new RegExp(`/learning/${targetId}/learning`));
   await expect(page.getByText("Idempotency and retry safety")).toBeVisible();
@@ -94,6 +108,8 @@ test("diagnostic evidence changes target-relative progress", async ({ page }) =>
 
   await page.getByRole("link", { name: "Review progress" }).click();
   await expect(page.getByText("Challenged → Satisfied")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Target refinement" })).toBeVisible();
+  await expect(page.getByText(/Learner-state change is shown separately from target refinement/)).toBeVisible();
 });
 
 test("new accepted evidence may validly leave target satisfaction unchanged", async ({ page }) => {

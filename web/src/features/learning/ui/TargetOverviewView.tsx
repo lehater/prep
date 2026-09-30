@@ -44,6 +44,39 @@ export function TargetOverviewView({
 
   return (
     <Stack spacing={2.5}>
+      <section aria-labelledby="target-purpose-heading">
+        <Typography id="target-purpose-heading" component="h3" variant="h6">
+          Target purpose
+        </Typography>
+        <Stack spacing={0.75}>
+          <Typography>
+            {target.targetPurpose === "selection-interview"
+              ? "Selection / interview performance"
+              : target.targetPurpose === "role-capability"
+                ? "Professional role capability"
+                : "Other target purpose"}
+          </Typography>
+          {target.provenance?.length ? (
+            <Typography variant="body2" color="text.secondary">
+              Provenance: {target.provenance.join(" ")}
+            </Typography>
+          ) : null}
+          {target.unresolvedExpectations?.length ? (
+            <Paper variant="outlined" sx={{ p: 1.25 }}>
+              <Typography sx={{ fontWeight: 700 }}>Still unresolved</Typography>
+              <Stack component="ul" sx={{ pl: 2, mb: 0 }}>
+                {target.unresolvedExpectations.map((item) => <li key={item}>{item}</li>)}
+              </Stack>
+            </Paper>
+          ) : null}
+          {target.relatedTargets?.length ? (
+            <Typography variant="body2" color="text.secondary">
+              Related target: {target.relatedTargets.map((item) => `${item.name} (${item.purpose})`).join(", ")}. Related targets do not inherit requirements automatically.
+            </Typography>
+          ) : null}
+        </Stack>
+      </section>
+
       <section aria-labelledby="target-scope-heading">
         <Typography id="target-scope-heading" component="h3" variant="h6">
           Target capabilities

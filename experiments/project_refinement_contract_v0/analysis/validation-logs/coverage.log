@@ -1,0 +1,2529 @@
+{
+  "activated_count": 46,
+  "activation_signals": {
+    "authorities": [
+      "APPLICATION-DESIGN",
+      "COMPONENT-DESIGN",
+      "DISCOVERY",
+      "DOMAIN-STRATEGY",
+      "ENGINEERING-POLICY",
+      "IMPLEMENTATION-DESIGN",
+      "MACHINE-INTERFACE-DESIGN",
+      "MODEL-CONTEXT-STRATEGY",
+      "PRODUCT-REQUIREMENTS",
+      "QUALITY-DESIGN",
+      "SYSTEM-ARCHITECTURE",
+      "TACTICAL-DOMAIN-DESIGN",
+      "TEST-DESIGN",
+      "VERIFICATION-DESIGN"
+    ],
+    "authority_roles": [
+      "application",
+      "architecture",
+      "delivery",
+      "domain",
+      "engineering",
+      "interface",
+      "product",
+      "quality",
+      "verification"
+    ],
+    "capabilities": [
+      "prep-reference-v0.acceptance-scenarios",
+      "prep-reference-v0.application-failure-contract",
+      "prep-reference-v0.application-orchestration",
+      "prep-reference-v0.completion-criteria",
+      "prep-reference-v0.component-design",
+      "prep-reference-v0.design-verification-obligations",
+      "prep-reference-v0.domain-model.knowledge-model",
+      "prep-reference-v0.domain-model.learner-model",
+      "prep-reference-v0.domain-model.learning-design",
+      "prep-reference-v0.domain-strategy",
+      "prep-reference-v0.engineering-policy",
+      "prep-reference-v0.implementation-plan",
+      "prep-reference-v0.implementation-stack",
+      "prep-reference-v0.machine-interface-contract.external-learning-runtime",
+      "prep-reference-v0.machine-interface-contract.prep-application-api",
+      "prep-reference-v0.model-context-strategy",
+      "prep-reference-v0.problem-evidence",
+      "prep-reference-v0.product-acceptance",
+      "prep-reference-v0.product-intent",
+      "prep-reference-v0.quality-design",
+      "prep-reference-v0.realization-verification-plan",
+      "prep-reference-v0.system-boundary-rules",
+      "prep-reference-v0.system-structure",
+      "prep-reference-v0.test-design",
+      "prep-reference-v0.user-needs"
+    ],
+    "consumers": [
+      "FRONTEND-IMPLEMENTATION"
+    ],
+    "knowledge_kinds": [
+      "acceptance-scenarios",
+      "application-design",
+      "component-design",
+      "domain-model",
+      "domain-strategy",
+      "engineering-policy",
+      "implementation-design",
+      "interface-contract",
+      "model-context-strategy",
+      "problem-evidence",
+      "product-requirements",
+      "quality-design",
+      "system-architecture",
+      "test-design",
+      "user-needs",
+      "verification-strategy"
+    ]
+  },
+  "authority_roles": {
+    "bindings": {
+      "APPLICATION-DESIGN": [
+        "application"
+      ],
+      "COMPONENT-DESIGN": [
+        "engineering"
+      ],
+      "CONCURRENCY-CONSISTENCY-DESIGN": [
+        "concurrency"
+      ],
+      "DATA-DESIGN": [
+        "data"
+      ],
+      "DISCOVERY": [
+        "product"
+      ],
+      "DOMAIN-STRATEGY": [
+        "domain"
+      ],
+      "ENGINEERING-POLICY": [
+        "engineering"
+      ],
+      "HUMAN-INTERFACE-DESIGN": [
+        "interface"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "delivery"
+      ],
+      "MACHINE-INTERFACE-DESIGN": [
+        "interface"
+      ],
+      "MODEL-CONTEXT-STRATEGY": [
+        "domain"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "product"
+      ],
+      "QUALITY-DESIGN": [
+        "quality"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "architecture"
+      ],
+      "TACTICAL-DOMAIN-DESIGN": [
+        "domain"
+      ],
+      "TEST-DESIGN": [
+        "verification"
+      ],
+      "VERIFICATION-DESIGN": [
+        "verification"
+      ]
+    },
+    "kind": "harness-derived-authority-role-bindings",
+    "project": "PREP-REFERENCE-V0",
+    "provenance": {
+      "APPLICATION-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "COMPONENT-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "CONCURRENCY-CONSISTENCY-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "DATA-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "DISCOVERY": [
+        "STANDARD_ID"
+      ],
+      "DOMAIN-STRATEGY": [
+        "STANDARD_ID"
+      ],
+      "ENGINEERING-POLICY": [
+        "STANDARD_ID"
+      ],
+      "HUMAN-INTERFACE-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "MACHINE-INTERFACE-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "MODEL-CONTEXT-STRATEGY": [
+        "STANDARD_ID"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "STANDARD_ID"
+      ],
+      "QUALITY-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "STANDARD_ID"
+      ],
+      "TACTICAL-DOMAIN-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "TEST-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "VERIFICATION-DESIGN": [
+        "STANDARD_ID"
+      ]
+    },
+    "unresolved_authorities": [],
+    "version": 1
+  },
+  "completion_ready": false,
+  "consumer": "FRONTEND-IMPLEMENTATION",
+  "kind": "harness-engineering-coverage-evaluation",
+  "project": "PREP-REFERENCE-V0",
+  "question_frontier": [],
+  "question_frontier_count": 0,
+  "remaining_work": [
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.rollback",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.inventory"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.inventory",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.license"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.license",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.trust"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.trust",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.versioning"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.versioning",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.vulnerability"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.vulnerability",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.code-quality",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.engineering.code-quality": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "engineering.error-handling",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.engineering.error-handling": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.quality-targets"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "intent.quality-targets",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.quality-targets": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.accessibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.accessibility",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.accessibility": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.conceptual-model"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.conceptual-model",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.conceptual-model": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.i18n"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.i18n",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.i18n": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.information-architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.information-architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.information-architecture": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.interaction"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.interaction",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.interaction": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.journeys"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.journeys",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.journeys": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.navigation-topology"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.navigation-topology",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.navigation-topology": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.responsiveness"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.responsiveness",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.responsiveness": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.usability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.usability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.usability": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.compatibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.machine.compatibility",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.machine.compatibility": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.errors"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.machine.errors",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.machine.errors": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.analysability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.analysability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.analysability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modifiability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.modifiability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.modifiability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modularity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.modularity",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.modularity": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.testability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.testability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.testability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.capacity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.capacity",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.capacity": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.latency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.latency",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.latency": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.resource-efficiency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.resource-efficiency",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.resource-efficiency": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.throughput"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.throughput",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.throughput": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.reliability.dependency-failure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "reliability.dependency-failure",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.reliability.dependency-failure": [
+          "APPLICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "transition.revalidation",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.transition.revalidation": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.architecture": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.functional",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.functional": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.human"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.interface.human",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.interface.human": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.machine"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.interface.machine",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.interface.machine": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.quality",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.quality": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    }
+  ],
+  "remaining_work_count": 35,
+  "routed_production_count": 0,
+  "rows": [
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "application.failures",
+      "proof": {
+        "engineering.application.failures": [
+          "prep-reference-v0.application-failure-contract"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.boundaries",
+      "proof": {
+        "engineering.architecture.boundaries": [
+          "prep-reference-v0.system-boundary-rules"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.structure",
+      "proof": {
+        "engineering.architecture.structure": [
+          "prep-reference-v0.system-structure"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.release",
+      "proof": {
+        "engineering.delivery.release": [
+          "prep-reference-v0.implementation-plan"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.rollback",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.inventory"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.inventory",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.license"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.license",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.trust"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.trust",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.versioning"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.versioning",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.vulnerability"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "dependency.vulnerability",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.code-quality",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.engineering.code-quality": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.components",
+      "proof": {
+        "engineering.engineering.components": [
+          "prep-reference-v0.component-design"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "engineering.error-handling",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.engineering.error-handling": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.principles",
+      "proof": {
+        "engineering.engineering.principles": [
+          "prep-reference-v0.engineering-policy"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.behavior",
+      "proof": {
+        "engineering.intent.behavior": [
+          "prep-reference-v0.product-intent"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.quality-targets"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "intent.quality-targets",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.quality-targets": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.scope",
+      "proof": {
+        "engineering.intent.scope": [
+          "prep-reference-v0.product-intent"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.accessibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.accessibility",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.accessibility": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.conceptual-model"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.conceptual-model",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.conceptual-model": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.i18n"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.i18n",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.i18n": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.information-architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.information-architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.information-architecture": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.interaction"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.interaction",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.interaction": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.journeys"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.journeys",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.journeys": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.navigation-topology"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.navigation-topology",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.navigation-topology": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.responsiveness"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.responsiveness",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.responsiveness": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.usability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.human.usability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.human.usability": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.compatibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.machine.compatibility",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.machine.compatibility": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.machine.contract",
+      "proof_instances": [
+        {
+          "capability": "prep-reference-v0.machine-interface-contract.external-learning-runtime",
+          "claim": "engineering.interface.machine.contract",
+          "realized": true,
+          "subject": "EXTERNAL-LEARNING-RUNTIME"
+        },
+        {
+          "capability": "prep-reference-v0.machine-interface-contract.prep-application-api",
+          "claim": "engineering.interface.machine.contract",
+          "realized": true,
+          "subject": "PREP-APPLICATION-API"
+        }
+      ],
+      "state": "COVERED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.errors"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "interface.machine.errors",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.interface.machine.errors": [
+          "HUMAN-INTERFACE-DESIGN",
+          "MACHINE-INTERFACE-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.analysability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.analysability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.analysability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modifiability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.modifiability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.modifiability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modularity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.modularity",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.modularity": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.testability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        },
+        {
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.maintainability.testability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.maintainability.testability": [
+          "COMPONENT-DESIGN",
+          "ENGINEERING-POLICY",
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.capacity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.capacity",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.capacity": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.latency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.latency",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.latency": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.resource-efficiency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.resource-efficiency",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.resource-efficiency": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.throughput"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "quality.performance.throughput",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.quality.performance.throughput": [
+          "QUALITY-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.reliability.dependency-failure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "EXTERNAL-DEPENDENCIES",
+          "signals": [
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "reliability.dependency-failure",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.reliability.dependency-failure": [
+          "APPLICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "transition.revalidation",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.transition.revalidation": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.architecture": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.functional",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.functional": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.human"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "HUMAN-INTERFACE",
+          "signals": [
+            "consumer:FRONTEND-IMPLEMENTATION"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.interface.human",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.interface.human": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.machine"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract",
+            "capability:prep-reference-v0.machine-interface-contract.external-learning-runtime",
+            "capability:prep-reference-v0.machine-interface-contract.prep-application-api"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.interface.machine",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.interface.machine": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "QUALITY-DESIGN",
+          "signals": [
+            "knowledge_kind:quality-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "verification.quality",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.quality": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.requirement-traceability",
+      "proof": {
+        "engineering.verification.requirement-traceability": [
+          "prep-reference-v0.design-verification-obligations"
+        ]
+      },
+      "state": "COVERED"
+    },
+    {
+      "action": "NONE",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.strategy",
+      "proof": {
+        "engineering.verification.strategy": [
+          "prep-reference-v0.design-verification-obligations"
+        ]
+      },
+      "state": "COVERED"
+    }
+  ],
+  "scope": "frontend",
+  "scope_roots": [],
+  "status": "canonical",
+  "subject_obligation_evaluation": {
+    "completion_ready": true,
+    "consumer": "FRONTEND-IMPLEMENTATION",
+    "kind": "harness-derived-subject-obligation-evaluation",
+    "remaining_work": [],
+    "rows": [
+      {
+        "action": "NONE",
+        "concern": "meta.subject-inventory",
+        "reason": "First frozen run intentionally does not copy OLD coverage decisions; coverage is evaluated from the NEW graph before any project overlay is accepted.",
+        "state": "DEFERRED",
+        "subject": "__accepted_scope__"
+      }
+    ],
+    "scope": "frontend",
+    "source_validation": null
+  },
+  "subject_obligation_rows": [
+    {
+      "action": "NONE",
+      "concern": "meta.subject-inventory",
+      "reason": "First frozen run intentionally does not copy OLD coverage decisions; coverage is evaluated from the NEW graph before any project overlay is accepted.",
+      "state": "DEFERRED",
+      "subject": "__accepted_scope__"
+    }
+  ],
+  "summary": {
+    "actions": {
+      "ASSIGN_AUTHORITY": 5,
+      "MODEL_PRODUCTION_CONTRACT": 30,
+      "NONE": 11
+    },
+    "states": {
+      "BLOCKED": 5,
+      "COVERED": 11,
+      "MISSING": 30
+    }
+  },
+  "version": 1,
+  "work_item_count": 35,
+  "work_items": [
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "IMPLEMENTATION-DESIGN"
+      ],
+      "concern": "delivery.rollback"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.inventory"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "dependency.inventory"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.license"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "dependency.license"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.trust"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "dependency.trust"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.versioning"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "dependency.versioning"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.dependency.vulnerability"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "dependency.vulnerability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY"
+      ],
+      "concern": "engineering.code-quality"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY"
+      ],
+      "concern": "engineering.error-handling"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.quality-targets"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "DISCOVERY",
+        "PRODUCT-REQUIREMENTS"
+      ],
+      "concern": "intent.quality-targets"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.accessibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.accessibility"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.conceptual-model"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.conceptual-model"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.i18n"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.i18n"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.information-architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.information-architecture"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.interaction"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.interaction"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.journeys"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.journeys"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.navigation-topology"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.navigation-topology"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.responsiveness"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.responsiveness"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.human.usability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.human.usability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.compatibility"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.machine.compatibility"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.interface.machine.errors"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "HUMAN-INTERFACE-DESIGN",
+        "MACHINE-INTERFACE-DESIGN"
+      ],
+      "concern": "interface.machine.errors"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.analysability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY",
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.maintainability.analysability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modifiability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY",
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.maintainability.modifiability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.modularity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY",
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.maintainability.modularity"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.maintainability.testability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "COMPONENT-DESIGN",
+        "ENGINEERING-POLICY",
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.maintainability.testability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.capacity"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.performance.capacity"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.latency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.performance.latency"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.resource-efficiency"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.performance.resource-efficiency"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.quality.performance.throughput"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "QUALITY-DESIGN"
+      ],
+      "concern": "quality.performance.throughput"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.reliability.dependency-failure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "APPLICATION-DESIGN"
+      ],
+      "concern": "reliability.dependency-failure"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "transition.revalidation"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.architecture"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.functional"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.human"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.interface.human"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.interface.machine"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.interface.machine"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.quality"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.quality"
+    }
+  ]
+}

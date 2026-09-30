@@ -1,0 +1,13 @@
+version: 1
+kind: prep-project-refinement-semantic-pass
+coverage_completion_ready: false
+coverage_remaining_work_count: 35
+raw_concern_count: 46
+excluded_concern_count: 2
+excluded_concerns:
+- delivery.rollback
+- transition.revalidation
+activated_concern_count: 44
+materialization_status: STABLE
+diagnostics: []
+refined_semantic_capability_count: 60

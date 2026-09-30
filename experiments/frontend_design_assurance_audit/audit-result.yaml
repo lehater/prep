@@ -1,0 +1,270 @@
+version: 1
+kind: prep-frontend-design-assurance-audit
+scope:
+  source_branch: experiment/frontend-design-assurance-audit
+  purpose: Audit current PREP frontend design completeness and readiness before production
+    implementation.
+structural_traceability:
+  status: PASS
+  task_count: 20
+  product_capability_count: 10
+  interaction_context_count: 18
+  topology_view_count: 25
+  machine_operation_ref_count: 42
+  journey_missing_tasks: []
+  interaction_missing_tasks: []
+  unplaced_interaction_contexts: []
+  screen_missing_views: []
+  missing_machine_operations: []
+  uncovered_product_capabilities: []
+  unknown_interaction_task_refs: []
+  unknown_topology_context_refs: []
+  unknown_location_refs: []
+  tasks:
+  - task: TASK-C-IMPORT-BULK-DATA
+    capability_refs:
+    - PC-02
+    journey: true
+    interaction_contexts:
+    - I-C-IMPORT
+    views:
+    - C-61-IMPORT
+    screen_view_covered: true
+  - task: TASK-C-MAINTAIN-ASSESSMENT-DESIGN
+    capability_refs:
+    - PC-02
+    - PC-07
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-C-ASSESSMENT
+    views:
+    - C-51-ASSESSMENT-COLLECTION
+    - C-52-ASSESSMENT-EDITOR
+    screen_view_covered: true
+  - task: TASK-C-MAINTAIN-CAPABILITIES
+    capability_refs:
+    - PC-01
+    - PC-02
+    journey: true
+    interaction_contexts:
+    - I-C-CAPABILITIES
+    views:
+    - C-21-CAPABILITY-COLLECTION
+    - C-22-CAPABILITY-EDITOR
+    screen_view_covered: true
+  - task: TASK-C-MAINTAIN-KNOWLEDGE
+    capability_refs:
+    - PC-02
+    - PC-03
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-C-KNOWLEDGE
+    views:
+    - C-31-KNOWLEDGE-WORKSPACE
+    - C-32-KNOWLEDGE-EDITOR
+    screen_view_covered: true
+  - task: TASK-C-MAINTAIN-LEARNING-SUPPORT
+    capability_refs:
+    - PC-02
+    - PC-04
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-C-LEARNING-SUPPORT
+    views:
+    - C-41-LEARNING-SUPPORT-COLLECTION
+    - C-42-LEARNING-SUPPORT-EDITOR
+    screen_view_covered: true
+  - task: TASK-C-MAINTAIN-TARGETS
+    capability_refs:
+    - PC-01
+    - PC-02
+    journey: true
+    interaction_contexts:
+    - I-C-TARGETS
+    views:
+    - C-11-TARGET-COLLECTION
+    - C-12-TARGET-EDITOR
+    screen_view_covered: true
+  - task: TASK-C-PREPARE-BULK-DATA
+    capability_refs:
+    - PC-02
+    journey: true
+    interaction_contexts:
+    - I-C-IMPORT
+    views:
+    - C-61-IMPORT
+    screen_view_covered: true
+  - task: TASK-C-REVIEW-CORPUS-QUALITY
+    capability_refs:
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-C-QUALITY
+    views:
+    - C-71-QUALITY
+    screen_view_covered: true
+  - task: TASK-C-SELECT-PREPARATION-PATH
+    capability_refs:
+    - PC-02
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-C-SELECT-PREPARATION-PATH
+    views:
+    - C-01-PREPARATION-PATH
+    screen_view_covered: true
+  - task: TASK-I-CHECK-RUNTIME
+    capability_refs:
+    - PC-06
+    - PC-07
+    - PC-08
+    journey: true
+    interaction_contexts:
+    - I-RUNTIME-STATUS
+    views:
+    - S-01-RUNTIME-STATUS
+    screen_view_covered: true
+  - task: TASK-L-CHOOSE-NEXT-FOCUS
+    capability_refs:
+    - PC-05
+    journey: true
+    interaction_contexts:
+    - I-L-GAPS
+    views:
+    - L-04-TARGET-GAPS
+    screen_view_covered: true
+  - task: TASK-L-COLLECT-EVIDENCE
+    capability_refs:
+    - PC-07
+    journey: true
+    interaction_contexts:
+    - I-L-DIAGNOSTICS
+    views:
+    - L-06-TARGET-DIAGNOSTICS
+    screen_view_covered: true
+  - task: TASK-L-ESTABLISH-CURRENT-STATE
+    capability_refs:
+    - PC-07
+    journey: true
+    interaction_contexts:
+    - I-L-CURRENT-STATE
+    views:
+    - L-03-TARGET-STATE
+    screen_view_covered: true
+  - task: TASK-L-ESTABLISH-TARGET
+    capability_refs:
+    - PC-01
+    journey: true
+    interaction_contexts:
+    - I-L-ESTABLISH-TARGET
+    views:
+    - L-01-TARGETS
+    screen_view_covered: true
+  - task: TASK-L-EXPLORE-RELEVANT-KNOWLEDGE
+    capability_refs:
+    - PC-03
+    journey: true
+    interaction_contexts:
+    - I-L-KNOWLEDGE
+    views:
+    - L-07-TARGET-KNOWLEDGE
+    screen_view_covered: true
+  - task: TASK-L-LEARN-OR-PRACTISE
+    capability_refs:
+    - PC-04
+    - PC-06
+    journey: true
+    interaction_contexts:
+    - I-L-LEARNING
+    views:
+    - L-05-TARGET-LEARNING
+    screen_view_covered: true
+  - task: TASK-L-OBTAIN-PREPARATION-SUPPORT
+    capability_refs:
+    - PC-01
+    - PC-02
+    - PC-04
+    - PC-10
+    journey: true
+    interaction_contexts:
+    - I-L-OBTAIN-PREPARATION-SUPPORT
+    views:
+    - L-01-TARGETS
+    screen_view_covered: true
+  - task: TASK-L-REVIEW-GAPS
+    capability_refs:
+    - PC-05
+    - PC-09
+    journey: true
+    interaction_contexts:
+    - I-L-GAPS
+    views:
+    - L-04-TARGET-GAPS
+    screen_view_covered: true
+  - task: TASK-L-REVIEW-PROGRESS
+    capability_refs:
+    - PC-09
+    - PC-05
+    journey: true
+    interaction_contexts:
+    - I-L-PROGRESS
+    views:
+    - L-08-TARGET-PROGRESS
+    screen_view_covered: true
+  - task: TASK-L-UNDERSTAND-TARGET
+    capability_refs:
+    - PC-01
+    - PC-03
+    journey: true
+    interaction_contexts:
+    - I-L-UNDERSTAND-TARGET
+    views:
+    - L-02-TARGET-OVERVIEW
+    screen_view_covered: true
+verification_contracts:
+  frontend_verification_ids:
+  - FV-01
+  - FV-02
+  - FV-03
+  - FV-04
+  - FV-05
+  - FV-06
+  - FV-07
+  - FV-08
+  - FV-09
+  - FV-10
+  - FV-11
+  - FV-12
+  - FV-13
+  frontend_verification_without_test_contract:
+  - FV-01
+  presentation_verification_ids:
+  - PV-01
+  - PV-02
+  - PV-03
+  - PV-04
+  - PV-05
+  - PV-06
+  - PV-07
+  - PV-08
+  - PV-09
+  - PV-10
+  - PV-11
+  - PV-12
+  - PV-13
+  - PV-14
+  - PV-15
+  - PV-16
+  - PV-17
+  representative_user_required:
+  - PV-13
+  - PV-15
+  - PV-17
+evidence_readiness:
+  elicited_representative_user_status_unresolved: true
+  implementation_explicitly_prototype_only: true
+  production_gate_declared: true
+  production_implementation_ready: false

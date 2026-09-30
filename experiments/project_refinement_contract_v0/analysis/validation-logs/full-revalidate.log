@@ -1,0 +1,2 @@
+Authority registry: RECONCILED (23 reference Authorities)
+Strict semantic admission rejected prep-reference-v0.user-needs: [{'code': 'MISSING_OBLIGATION', 'obligation': 'actors'}, {'code': 'MISSING_OBLIGATION', 'obligation': 'context-of-use'}, {'code': 'MISSING_OBLIGATION', 'obligation': 'goals'}, {'code': 'MISSING_OBLIGATION', 'obligation': 'needs-for-goals'}, {'code': 'MISSING_OBLIGATION', 'obligation': 'evidence-for-needs'}]

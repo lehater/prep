@@ -256,10 +256,50 @@ export function mapLearningTarget(value: unknown): LearningTargetModel {
           title: item.label,
           summary: item.content,
         }));
+  const targetPurposeRaw = optionalStringField(dto, "target_purpose", "LearningTarget");
+  const targetPurpose =
+    targetPurposeRaw === "role-capability" ||
+    targetPurposeRaw === "selection-interview" ||
+    targetPurposeRaw === "other"
+      ? targetPurposeRaw
+      : undefined;
+  const provenance = optionalArrayField(dto, "provenance", "LearningTarget")
+    ?.filter((item): item is string => typeof item === "string");
+  const unresolvedExpectations = optionalArrayField(
+    dto,
+    "unresolved_expectations",
+    "LearningTarget",
+  )?.filter((item): item is string => typeof item === "string");
+  const relatedTargets = optionalArrayField(dto, "related_targets", "LearningTarget")
+    ?.flatMap((raw) => {
+      const item = record(raw, "RelatedTarget");
+      const id = optionalStringField(item, "id", "RelatedTarget");
+      const name = optionalStringField(item, "name", "RelatedTarget");
+      const purpose = optionalStringField(item, "purpose", "RelatedTarget");
+      if (
+        !id ||
+        !name ||
+        (purpose !== "role-capability" &&
+          purpose !== "selection-interview" &&
+          purpose !== "other")
+      ) {
+        return [];
+      }
+      return [{
+        id,
+        name,
+        purpose: purpose as "role-capability" | "selection-interview" | "other",
+      }];
+    });
+
   return {
     id: stringField(dto, "id", "LearningTarget"),
     name: stringField(dto, "name", "LearningTarget"),
     definition: stringField(dto, "definition", "LearningTarget"),
+    targetPurpose,
+    provenance,
+    unresolvedExpectations,
+    relatedTargets,
     scopeSummary:
       optionalStringField(dto, "scope_summary", "LearningTarget") ??
       `${scopeItems.length} capability requirement(s)`,

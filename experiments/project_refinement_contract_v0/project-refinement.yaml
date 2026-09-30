@@ -1,0 +1,140 @@
+version: 1
+kind: harness-project-refinement-contract
+project: PREP
+baseline:
+  prep_commit: ac9d97af3357663207d7c063c415a84327ab71f7
+  reference_model_commit: b172fd1c7519f88454d2135c1435dd0e45dbb403
+  base_graph: experiments/reference_model_rematerialization/generated/engineering-graph.yaml
+principles:
+  - refine only project semantics not expressible by frozen Reference Model v0
+  - every refinement must cite project-owned canonical evidence
+  - do not copy OLD Harness topology as refinement input
+  - applicability exclusions require explicit reopening conditions
+dependency_refinements:
+  add:
+    - capability: prep-reference-v0.domain-model.learning-design
+      requires:
+        - prep-reference-v0.domain-model.knowledge-model
+      evidence:
+        - docs/architecture/model-context-map.md
+        - docs/domain/learning-design.md
+      rationale: Learning Design consumes reusable Knowledge Model semantics.
+    - capability: prep-reference-v0.domain-model.learner-model
+      requires:
+        - prep-reference-v0.domain-model.knowledge-model
+      evidence:
+        - docs/architecture/model-context-map.md
+        - docs/domain/learner-model.md
+      rationale: Learner state/evidence is interpreted against stable Knowledge Model semantics.
+    - capability: prep-reference-v0.application-orchestration
+      requires:
+        - prep-reference-v0.domain-model.knowledge-model
+        - prep-reference-v0.domain-model.learning-design
+        - prep-reference-v0.domain-model.learner-model
+      evidence:
+        - docs/application/application-design.md
+        - docs/architecture/model-context-map.md
+      rationale: Application orchestration composes accepted behavior from all three PREP model languages.
+    - capability: prep-reference-v0.interaction-design
+      requires:
+        - prep-reference-v0.machine-interface-contract.prep-application-api
+        - prep-reference-v0.machine-interface-contract.external-learning-runtime
+      evidence:
+        - docs/interface/interaction-design.yaml
+        - docs/interface/machine-interface.md
+      rationale: Accepted interaction behavior is bounded by the application and external-runtime machine contracts.
+    - capability: prep-reference-v0.concurrency-consistency
+      requires:
+        - prep-reference-v0.machine-interface-contract.prep-application-api
+        - prep-reference-v0.machine-interface-contract.external-learning-runtime
+      evidence:
+        - docs/architecture/import-consistency.md
+        - docs/interface/machine-interface.md
+      rationale: Retry, import and external-operation consistency semantics depend on the machine contracts.
+    - capability: prep-reference-v0.component-design
+      requires:
+        - prep-reference-v0.machine-interface-contract.prep-application-api
+        - prep-reference-v0.machine-interface-contract.external-learning-runtime
+        - prep-reference-v0.quality-design
+      evidence:
+        - docs/implementation/frontend-component-design.md
+        - docs/interface/machine-interface.md
+        - docs/architecture/performance-capacity.md
+      rationale: Code-facing components are bounded by machine ports and accepted quality constraints.
+    - capability: prep-reference-v0.design-verification-obligations
+      requires:
+        - prep-reference-v0.machine-interface-contract.prep-application-api
+        - prep-reference-v0.machine-interface-contract.external-learning-runtime
+        - prep-reference-v0.quality-design
+      evidence:
+        - docs/verification/frontend-verification.md
+        - docs/interface/machine-interface.md
+        - docs/architecture/performance-capacity.md
+      rationale: Frontend verification explicitly covers machine-interface and quality obligations.
+  replace:
+    - capability: prep-reference-v0.implementation-plan
+      requires:
+        - prep-reference-v0.component-design
+        - prep-reference-v0.realization-verification-plan
+        - prep-reference-v0.test-design
+        - prep-reference-v0.implementation-stack
+      evidence:
+        - docs/implementation/frontend-implementation-design.md
+        - docs/implementation/frontend-component-design.md
+        - docs/verification/frontend-verification.md
+        - docs/verification/frontend-test-design.yaml
+      rationale: Implementation consumes integrated implementation-facing contracts rather than directly reading the entire upstream graph.
+applicability_refinements:
+  not_applicable_capabilities:
+    - capability: prep-reference-v0.security-architecture
+      evidence:
+        - docs/architecture/system-architecture.md
+        - docs/vision/vision.md
+      rationale: Current accepted scope is local single-user deployment with no independent product security architecture contract.
+      reopen_when:
+        - internet-facing or multi-user deployment becomes accepted
+        - privileged operations or independent identity/session lifecycle becomes accepted
+    - capability: prep-reference-v0.security-analysis
+      evidence:
+        - docs/architecture/system-architecture.md
+      rationale: No independent threat/control analysis is part of the current accepted target.
+      reopen_when:
+        - security architecture becomes applicable
+        - an independent threat/control analysis becomes accepted
+    - capability: prep-reference-v0.operability-design
+      evidence:
+        - docs/architecture/system-architecture.md
+        - docs/implementation/frontend-implementation-design.md
+      rationale: Current target is not a production runtime and production operability remains deferred.
+      reopen_when:
+        - production runtime becomes accepted
+        - independent observability or operations contract becomes accepted
+concern_refinements:
+  not_applicable:
+    - concern: delivery.migration
+      evidence:
+        - docs/architecture/data-design.md
+        - docs/architecture/system-architecture.md
+      rationale: No separate schema migration or irreversible transform is accepted.
+      reopen_when:
+        - separate schema migration becomes accepted
+        - irreversible transform becomes accepted
+    - concern: delivery.rollback
+      evidence:
+        - docs/implementation/frontend-implementation-design.md
+        - docs/architecture/system-architecture.md
+      rationale: Current prototype realization has no independently accepted rollout/rollback contract.
+      reopen_when:
+        - production deployment or mixed-version rollout becomes accepted
+    - concern: transition.revalidation
+      evidence:
+        - docs/interface/machine-interface.md
+        - docs/architecture/system-architecture.md
+      rationale: No accepted mixed-version transition window exists in the current target.
+      reopen_when:
+        - mixed-version compatibility window becomes accepted
+acceptance:
+  must_preserve_reference_graph_validity: true
+  must_not_create_dependency_cycles: true
+  must_not_reference_missing_evidence_paths: true
+  must_not_leave_retained_capabilities_depending_on_not_applicable_capabilities: true

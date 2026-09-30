@@ -1,0 +1,98 @@
+version: 1
+kind: prep-reference-model-counterexamples
+baseline:
+  prep_commit: ac9d97af3357663207d7c063c415a84327ab71f7
+  reference_model_commit: b172fd1c7519f88454d2135c1435dd0e45dbb403
+
+counterexamples:
+  - id: CE-01
+    severity: P0
+    title: Scoped capability instances cannot express project-specific dependencies
+    observed:
+      - DOMAIN-MODEL@KNOWLEDGE-MODEL, @LEARNING-DESIGN and @LEARNER-MODEL are siblings
+      - canonical PREP states that Knowledge Model supplies reusable semantics to Learning Design
+      - relation-classification-catalog.yaml is canonical input to Knowledge Model but has no NEW capability
+    consequence:
+      lifecycle_mutation:
+        source: knowledge-model
+        old_stale_count: 24
+        new_stale_count: 2
+    classification: REFERENCE_MODEL_GAP
+
+  - id: CE-02
+    severity: P0
+    title: Generic Machine Interface prerequisites omit accepted application/domain causality
+    observed:
+      - frozen MACHINE-INTERFACE-CONTRACT requires only PRODUCT-INTENT and SYSTEM-BOUNDARY-RULES
+      - PREP machine interface realizes application/domain semantics and external-runtime behavior
+    consequence:
+      lifecycle_mutation:
+        source: machine-interface
+        old_stale_count: 15
+        new_stale_count: 2
+    classification: REFERENCE_MODEL_GAP
+
+  - id: CE-03
+    severity: P0
+    title: Implementation Plan flattens the graph and expands execution context
+    observed:
+      old_direct_requirements: 3
+      new_direct_requirements: 52
+      old_allowed_read_paths: 6
+      new_allowed_read_paths: 28
+    consequence:
+      - NEW Implementation Design context is BLOCKED by three design gaps
+      - topology-only context still requires 31 read paths with synthetic missing providers
+    classification: REFERENCE_MODEL_GAP
+
+  - id: CE-04
+    severity: P0
+    title: Existence predicates over-activate independent Security and Operability contracts
+    observed:
+      - network_exposed or credentials force SECURITY-ARCHITECTURE
+      - credentials force SECURITY-ANALYSIS
+      - external_dependencies force OPERABILITY-DESIGN
+      - PREP production_runtime is false and current trust scope is local single-user
+    consequence:
+      unbound_new_capabilities:
+        - prep-reference-v0.security-architecture
+        - prep-reference-v0.security-analysis
+        - prep-reference-v0.operability-design
+      target_state: READY
+    classification: REFERENCE_MODEL_GAP
+
+  - id: CE-05
+    severity: P0
+    title: Concern activation and template applicability are inconsistent
+    observed:
+      independently_derived_concern_count: 67
+      semantic_materialization_status: MATERIALIZATION_CONFLICT
+      conflicts:
+        - delivery.migration requires N/A TRANSITION-CONTRACT
+        - delivery.rollback requires N/A TRANSITION-CONTRACT
+        - transition.revalidation requires N/A TRANSITION-CONTRACT
+    consequence:
+      - frozen semantic completion cannot converge from NEW topology/reference policy alone
+    classification: REFERENCE_MODEL_GAP
+
+  - id: CE-06
+    severity: P1
+    title: Initial concern applicability is not derivable inside materialization request flow
+    observed:
+      - first accepted Project Facts had no OLD-derived concern ids
+      - NEW coverage policy later derives 67 concerns
+      - initial NEW graph therefore carries only primary claims for many templates
+    consequence:
+      - full semantic claim coverage needs an explicit independent concern-derivation/reconcile stage
+    classification: PROJECT_FACT_GAP
+
+  - id: CE-07
+    severity: P1
+    title: Per-subject expansion exceeds provider/currentness granularity
+    observed:
+      - 25 Screen/View capabilities bind to one screen-view-design.md
+      - two Machine Interface capabilities bind to one machine-interface.md
+    consequence:
+      - topology cardinality increases without independently accepted provider revisions
+      - presentation mutation marks 27 NEW capabilities stale versus 8 OLD aggregate capabilities
+    classification: UNRESOLVED

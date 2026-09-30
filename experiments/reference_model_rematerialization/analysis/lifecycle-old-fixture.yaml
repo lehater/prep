@@ -1,0 +1,292 @@
+version: 1
+kind: harness-capability-lifecycle
+providers:
+- artifact: PROBLEM-SPACE
+  capability: prep.problem-evidence
+  acceptance_id: acceptance-v1::prep.problem-evidence
+  accepted_prerequisites: {}
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: PRODUCT-VISION
+  capability: prep.product-intent
+  acceptance_id: acceptance-v1::prep.product-intent
+  accepted_prerequisites:
+    prep.problem-evidence: acceptance-v1::prep.problem-evidence
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: PRODUCT-CAPABILITIES
+  capability: prep.product-capabilities
+  acceptance_id: acceptance-v1::prep.product-capabilities
+  accepted_prerequisites:
+    prep.product-intent: acceptance-v1::prep.product-intent
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: CONTEXT-MAP
+  capability: prep.domain-strategy
+  acceptance_id: acceptance-v1::prep.domain-strategy
+  accepted_prerequisites:
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: MODEL-CONTEXT-MAP
+  capability: prep.model-context-strategy
+  acceptance_id: acceptance-v1::prep.model-context-strategy
+  accepted_prerequisites:
+    prep.domain-strategy: acceptance-v1::prep.domain-strategy
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  capability: prep.knowledge-relation-classification
+  acceptance_id: acceptance-v1::prep.knowledge-relation-classification
+  accepted_prerequisites:
+    prep.model-context-strategy: acceptance-v1::prep.model-context-strategy
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: KNOWLEDGE-MODEL
+  capability: prep.knowledge-model
+  acceptance_id: acceptance-v1::prep.knowledge-model
+  accepted_prerequisites:
+    prep.knowledge-relation-classification: acceptance-v1::prep.knowledge-relation-classification
+    prep.model-context-strategy: acceptance-v1::prep.model-context-strategy
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: LEARNING-DESIGN
+  capability: prep.learning-design
+  acceptance_id: acceptance-v1::prep.learning-design
+  accepted_prerequisites:
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.model-context-strategy: acceptance-v1::prep.model-context-strategy
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: LEARNER-MODEL
+  capability: prep.learner-model
+  acceptance_id: acceptance-v1::prep.learner-model
+  accepted_prerequisites:
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.model-context-strategy: acceptance-v1::prep.model-context-strategy
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: TASK-MODEL
+  capability: prep.task-model
+  acceptance_id: acceptance-v1::prep.task-model
+  accepted_prerequisites:
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.learner-model: acceptance-v1::prep.learner-model
+    prep.learning-design: acceptance-v1::prep.learning-design
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: APPLICATION-DESIGN
+  capability: prep.application-design
+  acceptance_id: acceptance-v1::prep.application-design
+  accepted_prerequisites:
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.learner-model: acceptance-v1::prep.learner-model
+    prep.learning-design: acceptance-v1::prep.learning-design
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+    prep.task-model: acceptance-v1::prep.task-model
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: USER-JOURNEYS
+  capability: prep.user-journeys
+  acceptance_id: acceptance-v1::prep.user-journeys
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.task-model: acceptance-v1::prep.task-model
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-PERFORMANCE-CAPACITY
+  capability: prep.frontend-performance-capacity
+  acceptance_id: acceptance-v1::prep.frontend-performance-capacity
+  accepted_prerequisites:
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: CONCEPTUAL-INTERFACE-MODEL
+  capability: prep.conceptual-interface-model
+  acceptance_id: acceptance-v1::prep.conceptual-interface-model
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.learner-model: acceptance-v1::prep.learner-model
+    prep.learning-design: acceptance-v1::prep.learning-design
+    prep.task-model: acceptance-v1::prep.task-model
+    prep.user-journeys: acceptance-v1::prep.user-journeys
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: INFORMATION-ARCHITECTURE
+  capability: prep.information-architecture
+  acceptance_id: acceptance-v1::prep.information-architecture
+  accepted_prerequisites:
+    prep.conceptual-interface-model: acceptance-v1::prep.conceptual-interface-model
+    prep.task-model: acceptance-v1::prep.task-model
+    prep.user-journeys: acceptance-v1::prep.user-journeys
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: INTERACTION-DESIGN
+  capability: prep.interaction-design
+  acceptance_id: acceptance-v1::prep.interaction-design
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.conceptual-interface-model: acceptance-v1::prep.conceptual-interface-model
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+    prep.task-model: acceptance-v1::prep.task-model
+    prep.user-journeys: acceptance-v1::prep.user-journeys
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: INTERFACE-TOPOLOGY
+  capability: prep.interface-topology
+  acceptance_id: acceptance-v1::prep.interface-topology
+  accepted_prerequisites:
+    prep.information-architecture: acceptance-v1::prep.information-architecture
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: PRESENTATION-SYSTEM
+  capability: prep.presentation-system
+  acceptance_id: acceptance-v1::prep.presentation-system
+  accepted_prerequisites:
+    prep.conceptual-interface-model: acceptance-v1::prep.conceptual-interface-model
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.information-architecture: acceptance-v1::prep.information-architecture
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+    prep.interface-topology: acceptance-v1::prep.interface-topology
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: SCREEN-VIEW-DESIGN
+  capability: prep.screen-view-design
+  acceptance_id: acceptance-v1::prep.screen-view-design
+  accepted_prerequisites:
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+    prep.interface-topology: acceptance-v1::prep.interface-topology
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+    prep.presentation-system: acceptance-v1::prep.presentation-system
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: MACHINE-INTERFACES
+  capability: prep.machine-interfaces
+  acceptance_id: acceptance-v1::prep.machine-interfaces
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.learner-model: acceptance-v1::prep.learner-model
+    prep.learning-design: acceptance-v1::prep.learning-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: IMPORT-CONSISTENCY
+  capability: prep.import-consistency
+  acceptance_id: acceptance-v1::prep.import-consistency
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: INTERFACE-VERIFICATION
+  capability: prep.interface-verification
+  acceptance_id: acceptance-v1::prep.interface-verification
+  accepted_prerequisites:
+    prep.information-architecture: acceptance-v1::prep.information-architecture
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+    prep.interface-topology: acceptance-v1::prep.interface-topology
+    prep.task-model: acceptance-v1::prep.task-model
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: PRESENTATION-VERIFICATION
+  capability: prep.presentation-verification
+  acceptance_id: acceptance-v1::prep.presentation-verification
+  accepted_prerequisites:
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.interface-verification: acceptance-v1::prep.interface-verification
+    prep.presentation-system: acceptance-v1::prep.presentation-system
+    prep.screen-view-design: acceptance-v1::prep.screen-view-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-VERIFICATION
+  capability: prep.frontend-verification
+  acceptance_id: acceptance-v1::prep.frontend-verification
+  accepted_prerequisites:
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.frontend-system-architecture: acceptance-v1::prep.frontend-system-architecture
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+    prep.presentation-verification: acceptance-v1::prep.presentation-verification
+    prep.product-capabilities: acceptance-v1::prep.product-capabilities
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: SYSTEM-ARCHITECTURE
+  capability: prep.system-architecture
+  acceptance_id: acceptance-v1::prep.system-architecture
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.import-consistency: acceptance-v1::prep.import-consistency
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+    prep.interface-topology: acceptance-v1::prep.interface-topology
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-SYSTEM-ARCHITECTURE
+  capability: prep.frontend-system-architecture
+  acceptance_id: acceptance-v1::prep.frontend-system-architecture
+  accepted_prerequisites:
+    prep.application-design: acceptance-v1::prep.application-design
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+    prep.presentation-system: acceptance-v1::prep.presentation-system
+    prep.screen-view-design: acceptance-v1::prep.screen-view-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: DATA-DESIGN
+  capability: prep.data-design
+  acceptance_id: acceptance-v1::prep.data-design
+  accepted_prerequisites:
+    prep.import-consistency: acceptance-v1::prep.import-consistency
+    prep.knowledge-model: acceptance-v1::prep.knowledge-model
+    prep.learner-model: acceptance-v1::prep.learner-model
+    prep.learning-design: acceptance-v1::prep.learning-design
+    prep.system-architecture: acceptance-v1::prep.system-architecture
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-ENGINEERING-POLICY
+  capability: prep.frontend-engineering-policy
+  acceptance_id: acceptance-v1::prep.frontend-engineering-policy
+  accepted_prerequisites:
+    prep.frontend-system-architecture: acceptance-v1::prep.frontend-system-architecture
+    prep.presentation-system: acceptance-v1::prep.presentation-system
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-COMPONENT-DESIGN
+  capability: prep.frontend-component-design
+  acceptance_id: acceptance-v1::prep.frontend-component-design
+  accepted_prerequisites:
+    prep.frontend-engineering-policy: acceptance-v1::prep.frontend-engineering-policy
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.frontend-system-architecture: acceptance-v1::prep.frontend-system-architecture
+    prep.machine-interfaces: acceptance-v1::prep.machine-interfaces
+    prep.screen-view-design: acceptance-v1::prep.screen-view-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-TEST-DESIGN
+  capability: prep.frontend-test-design
+  acceptance_id: acceptance-v1::prep.frontend-test-design
+  accepted_prerequisites:
+    prep.frontend-performance-capacity: acceptance-v1::prep.frontend-performance-capacity
+    prep.frontend-verification: acceptance-v1::prep.frontend-verification
+    prep.interaction-design: acceptance-v1::prep.interaction-design
+    prep.screen-view-design: acceptance-v1::prep.screen-view-design
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}
+- artifact: FRONTEND-IMPLEMENTATION-DESIGN
+  capability: prep.frontend-implementation-design
+  acceptance_id: acceptance-v1::prep.frontend-implementation-design
+  accepted_prerequisites:
+    prep.frontend-component-design: acceptance-v1::prep.frontend-component-design
+    prep.frontend-test-design: acceptance-v1::prep.frontend-test-design
+    prep.frontend-verification: acceptance-v1::prep.frontend-verification
+  semantic_atom_fingerprints: {}
+  accepted_prerequisite_semantics: {}

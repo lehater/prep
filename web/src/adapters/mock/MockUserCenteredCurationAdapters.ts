@@ -32,35 +32,35 @@ function required(value: string, message: string): CurationOutcome<never> | null
 export class MockTargetProfileCurationAdapter implements TargetProfileCurationPort {
   constructor(private readonly store: MockCurationStore) {}
 
+  private profile(target: MockCurationStore["targets"][number]): TargetProfileModel {
+    return {
+      id: target.id,
+      name: target.name,
+      definition: target.definition,
+      targetPurpose: target.targetPurpose ?? "other",
+      provenance: target.provenance ?? [],
+      unresolvedExpectations: target.unresolvedExpectations ?? [],
+      relatedTargetRefs: target.relatedTargetRefs ?? [],
+      capabilityIds: this.store.targetCapabilityIds.get(target.id) ?? [],
+    };
+  }
+
   async list(query: { readonly search?: string }) {
     const search = query.search ?? "";
     const items = this.store.targets
       .filter((target) => matches(search, target.name, target.definition))
-      .map((target): TargetProfileModel => ({
-        id: target.id,
-        name: target.name,
-        definition: target.definition,
-        capabilityIds: this.store.targetCapabilityIds.get(target.id) ?? [],
-      }));
+      .map((target) => this.profile(target));
     return { status: "success" as const, value: { items, totalCount: items.length } };
   }
 
   async get(targetId: string): Promise<CurationOutcome<TargetProfileModel>> {
     const target = this.store.targets.find((item) => item.id === targetId);
     return target
-      ? {
-          status: "success",
-          value: {
-            id: target.id,
-            name: target.name,
-            definition: target.definition,
-            capabilityIds: this.store.targetCapabilityIds.get(target.id) ?? [],
-          },
-        }
+      ? { status: "success", value: this.profile(target) }
       : { status: "not_found", message: "Target not found." };
   }
 
-  async create(input: { readonly name: string; readonly definition: string }) {
+  async create(input: Omit<TargetProfileModel, "id" | "capabilityIds">) {
     const issue =
       required(input.name, "Target name is required.") ??
       required(input.definition, "Target definition is required.");
@@ -69,19 +69,23 @@ export class MockTargetProfileCurationAdapter implements TargetProfileCurationPo
       id: this.store.nextId("target"),
       name: input.name.trim(),
       definition: input.definition.trim(),
+      targetPurpose: input.targetPurpose,
+      provenance: [...input.provenance],
+      unresolvedExpectations: [...input.unresolvedExpectations],
+      relatedTargetRefs: [...new Set(input.relatedTargetRefs)],
       scopeItems: [],
     };
     this.store.targets.push(target);
     this.store.targetCapabilityIds.set(target.id, []);
     return {
       status: "success" as const,
-      value: { ...target, capabilityIds: [] },
+      value: this.profile(target),
     };
   }
 
   async update(
     targetId: string,
-    input: { readonly name: string; readonly definition: string },
+    input: Omit<TargetProfileModel, "id" | "capabilityIds">,
   ) {
     const issue =
       required(input.name, "Target name is required.") ??
@@ -93,16 +97,15 @@ export class MockTargetProfileCurationAdapter implements TargetProfileCurationPo
       ...this.store.targets[index],
       name: input.name.trim(),
       definition: input.definition.trim(),
+      targetPurpose: input.targetPurpose,
+      provenance: [...input.provenance],
+      unresolvedExpectations: [...input.unresolvedExpectations],
+      relatedTargetRefs: [...new Set(input.relatedTargetRefs.filter((id) => id !== targetId))],
     };
     this.store.targets[index] = target;
     return {
       status: "success" as const,
-      value: {
-        id: target.id,
-        name: target.name,
-        definition: target.definition,
-        capabilityIds: this.store.targetCapabilityIds.get(target.id) ?? [],
-      },
+      value: this.profile(target),
     };
   }
 
@@ -115,7 +118,7 @@ export class MockTargetProfileCurationAdapter implements TargetProfileCurationPo
     if (missing) {
       return {
         status: "validation_rejected" as const,
-        message: `Capability ${missing} does not exist.`,
+        message: "Capability " + missing + " does not exist.",
       };
     }
     this.store.targetCapabilityIds.set(targetId, [...new Set(capabilityIds)]);

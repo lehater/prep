@@ -1,0 +1,158 @@
+version: 1
+kind: prep-project-refinement-build-summary
+base_capability_count: 63
+refined_capability_count: 60
+refinement_rule_count: 14
+target_status: COMPLETE
+create: []
+wait: []
+pending: []
+changes:
+  added_dependencies:
+  - capability: prep-reference-v0.domain-model.learning-design
+    requires:
+    - prep-reference-v0.domain-model.knowledge-model
+    evidence:
+    - docs/architecture/model-context-map.md
+    - docs/domain/learning-design.md
+  - capability: prep-reference-v0.domain-model.learner-model
+    requires:
+    - prep-reference-v0.domain-model.knowledge-model
+    evidence:
+    - docs/architecture/model-context-map.md
+    - docs/domain/learner-model.md
+  - capability: prep-reference-v0.application-orchestration
+    requires:
+    - prep-reference-v0.domain-model.knowledge-model
+    - prep-reference-v0.domain-model.learning-design
+    - prep-reference-v0.domain-model.learner-model
+    evidence:
+    - docs/application/application-design.md
+    - docs/architecture/model-context-map.md
+  - capability: prep-reference-v0.interaction-design
+    requires:
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    evidence:
+    - docs/interface/interaction-design.yaml
+    - docs/interface/machine-interface.md
+  - capability: prep-reference-v0.concurrency-consistency
+    requires:
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    evidence:
+    - docs/architecture/import-consistency.md
+    - docs/interface/machine-interface.md
+  - capability: prep-reference-v0.component-design
+    requires:
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    - prep-reference-v0.quality-design
+    evidence:
+    - docs/implementation/frontend-component-design.md
+    - docs/interface/machine-interface.md
+    - docs/architecture/performance-capacity.md
+  - capability: prep-reference-v0.design-verification-obligations
+    requires:
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    - prep-reference-v0.quality-design
+    evidence:
+    - docs/verification/frontend-verification.md
+    - docs/interface/machine-interface.md
+    - docs/architecture/performance-capacity.md
+  replaced_dependencies:
+  - capability: prep-reference-v0.implementation-plan
+    old_count: 52
+    new_count: 4
+    old_requires:
+    - prep-reference-v0.acceptance-scenarios
+    - prep-reference-v0.application-failure-contract
+    - prep-reference-v0.application-orchestration
+    - prep-reference-v0.component-design
+    - prep-reference-v0.concurrency-consistency
+    - prep-reference-v0.data-design
+    - prep-reference-v0.domain-model.knowledge-model
+    - prep-reference-v0.domain-model.learner-model
+    - prep-reference-v0.domain-model.learning-design
+    - prep-reference-v0.domain-strategy
+    - prep-reference-v0.engineering-policy
+    - prep-reference-v0.implementation-stack
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.model-context-strategy
+    - prep-reference-v0.operability-design
+    - prep-reference-v0.presentation-system
+    - prep-reference-v0.product-intent
+    - prep-reference-v0.quality-design
+    - prep-reference-v0.realization-verification-plan
+    - prep-reference-v0.runtime-architecture
+    - prep-reference-v0.screen-view-design.c-01-preparation-path
+    - prep-reference-v0.screen-view-design.c-11-target-collection
+    - prep-reference-v0.screen-view-design.c-12-target-editor
+    - prep-reference-v0.screen-view-design.c-21-capability-collection
+    - prep-reference-v0.screen-view-design.c-22-capability-editor
+    - prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+    - prep-reference-v0.screen-view-design.c-32-knowledge-editor
+    - prep-reference-v0.screen-view-design.c-41-learning-support-collection
+    - prep-reference-v0.screen-view-design.c-42-learning-support-editor
+    - prep-reference-v0.screen-view-design.c-51-assessment-collection
+    - prep-reference-v0.screen-view-design.c-52-assessment-editor
+    - prep-reference-v0.screen-view-design.c-61-import
+    - prep-reference-v0.screen-view-design.c-71-quality
+    - prep-reference-v0.screen-view-design.f-00-application-shell
+    - prep-reference-v0.screen-view-design.f-c-curation-workspace
+    - prep-reference-v0.screen-view-design.f-lt-target-workspace
+    - prep-reference-v0.screen-view-design.l-01-targets
+    - prep-reference-v0.screen-view-design.l-02-target-overview
+    - prep-reference-v0.screen-view-design.l-03-target-state
+    - prep-reference-v0.screen-view-design.l-04-target-gaps
+    - prep-reference-v0.screen-view-design.l-05-target-learning
+    - prep-reference-v0.screen-view-design.l-06-target-diagnostics
+    - prep-reference-v0.screen-view-design.l-07-target-knowledge
+    - prep-reference-v0.screen-view-design.l-08-target-progress
+    - prep-reference-v0.screen-view-design.s-01-runtime-status
+    - prep-reference-v0.security-analysis
+    - prep-reference-v0.security-architecture
+    - prep-reference-v0.system-boundary-rules
+    - prep-reference-v0.task-model
+    - prep-reference-v0.test-design
+    - prep-reference-v0.user-journey
+    new_requires:
+    - prep-reference-v0.component-design
+    - prep-reference-v0.realization-verification-plan
+    - prep-reference-v0.test-design
+    - prep-reference-v0.implementation-stack
+    evidence:
+    - docs/implementation/frontend-implementation-design.md
+    - docs/implementation/frontend-component-design.md
+    - docs/verification/frontend-verification.md
+    - docs/verification/frontend-test-design.yaml
+  suppressed_capabilities:
+  - capability: prep-reference-v0.security-architecture
+    authority: SECURITY-ARCHITECTURE
+    evidence:
+    - docs/architecture/system-architecture.md
+    - docs/vision/vision.md
+    reopen_when:
+    - internet-facing or multi-user deployment becomes accepted
+    - privileged operations or independent identity/session lifecycle becomes accepted
+  - capability: prep-reference-v0.security-analysis
+    authority: SECURITY-ANALYSIS
+    evidence:
+    - docs/architecture/system-architecture.md
+    reopen_when:
+    - security architecture becomes applicable
+    - an independent threat/control analysis becomes accepted
+  - capability: prep-reference-v0.operability-design
+    authority: OPERABILITY-DESIGN
+    evidence:
+    - docs/architecture/system-architecture.md
+    - docs/implementation/frontend-implementation-design.md
+    reopen_when:
+    - production runtime becomes accepted
+    - independent observability or operations contract becomes accepted
+  removed_authorities:
+  - SECURITY-ARCHITECTURE
+  - SECURITY-ANALYSIS
+  - OPERABILITY-DESIGN

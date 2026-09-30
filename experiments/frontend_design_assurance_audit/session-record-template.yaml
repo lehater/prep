@@ -1,0 +1,36 @@
+version: 1
+kind: prep-representative-user-session
+session_id: USR-YYYYMMDD-NN
+round: A
+participant:
+  recruitment_source: ""
+  recent_preparation_context: ""
+  role_family: ""
+  prior_prep_model_exposure: false
+consent:
+  recording_allowed: false
+  notes_allowed: true
+scenarios: []
+observations:
+  - observation_id: OBS-01
+    expected_task: ""
+    participant_intent: ""
+    participant_words: ""
+    observed_action: ""
+    outcome: ""
+    assistance_required: none
+    misconception: ""
+    severity: OBSERVATION
+    affected_artifacts: []
+    evidence_reference: ""
+findings: []
+gate_evidence:
+  pv_14: NOT_TESTED
+  pv_15: NOT_TESTED
+  pv_17: NOT_TESTED
+  graph_default_evidence: NOT_TESTED
+summary:
+  supported_current_model: []
+  challenged_current_model: []
+  new_questions: []
+  recommended_routing: []

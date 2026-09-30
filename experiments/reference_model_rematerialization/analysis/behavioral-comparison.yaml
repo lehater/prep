@@ -1,0 +1,450 @@
+version: 1
+kind: prep-reference-behavioral-comparison
+lifecycle_mutations:
+  product_intent:
+    old_mutated_capabilities:
+    - prep.product-intent
+    - prep.product-capabilities
+    old_stale_count: 29
+    old_stale:
+    - prep.application-design
+    - prep.conceptual-interface-model
+    - prep.data-design
+    - prep.domain-strategy
+    - prep.frontend-component-design
+    - prep.frontend-engineering-policy
+    - prep.frontend-implementation-design
+    - prep.frontend-performance-capacity
+    - prep.frontend-system-architecture
+    - prep.frontend-test-design
+    - prep.frontend-verification
+    - prep.import-consistency
+    - prep.information-architecture
+    - prep.interaction-design
+    - prep.interface-topology
+    - prep.interface-verification
+    - prep.knowledge-model
+    - prep.knowledge-relation-classification
+    - prep.learner-model
+    - prep.learning-design
+    - prep.machine-interfaces
+    - prep.model-context-strategy
+    - prep.presentation-system
+    - prep.presentation-verification
+    - prep.product-capabilities
+    - prep.screen-view-design
+    - prep.system-architecture
+    - prep.task-model
+    - prep.user-journeys
+    new_mutated_capabilities:
+    - prep-reference-v0.product-intent
+    - prep-reference-v0.product-acceptance
+    new_stale_count: 60
+    new_stale:
+    - prep-reference-v0.acceptance-scenarios
+    - prep-reference-v0.application-failure-contract
+    - prep-reference-v0.application-orchestration
+    - prep-reference-v0.completion-criteria
+    - prep-reference-v0.component-design
+    - prep-reference-v0.conceptual-interface-model
+    - prep-reference-v0.concurrency-consistency
+    - prep-reference-v0.data-design
+    - prep-reference-v0.design-verification-obligations
+    - prep-reference-v0.domain-model.knowledge-model
+    - prep-reference-v0.domain-model.learner-model
+    - prep-reference-v0.domain-model.learning-design
+    - prep-reference-v0.domain-strategy
+    - prep-reference-v0.engineering-policy
+    - prep-reference-v0.implementation-plan
+    - prep-reference-v0.implementation-stack
+    - prep-reference-v0.information-architecture
+    - prep-reference-v0.interaction-design
+    - prep-reference-v0.interface-topology
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.model-context-strategy
+    - prep-reference-v0.operability-design
+    - prep-reference-v0.presentation-system
+    - prep-reference-v0.product-acceptance
+    - prep-reference-v0.quality-design
+    - prep-reference-v0.realization-verification-plan
+    - prep-reference-v0.runtime-architecture
+    - prep-reference-v0.screen-view-design.c-01-preparation-path
+    - prep-reference-v0.screen-view-design.c-11-target-collection
+    - prep-reference-v0.screen-view-design.c-12-target-editor
+    - prep-reference-v0.screen-view-design.c-21-capability-collection
+    - prep-reference-v0.screen-view-design.c-22-capability-editor
+    - prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+    - prep-reference-v0.screen-view-design.c-32-knowledge-editor
+    - prep-reference-v0.screen-view-design.c-41-learning-support-collection
+    - prep-reference-v0.screen-view-design.c-42-learning-support-editor
+    - prep-reference-v0.screen-view-design.c-51-assessment-collection
+    - prep-reference-v0.screen-view-design.c-52-assessment-editor
+    - prep-reference-v0.screen-view-design.c-61-import
+    - prep-reference-v0.screen-view-design.c-71-quality
+    - prep-reference-v0.screen-view-design.f-00-application-shell
+    - prep-reference-v0.screen-view-design.f-c-curation-workspace
+    - prep-reference-v0.screen-view-design.f-lt-target-workspace
+    - prep-reference-v0.screen-view-design.l-01-targets
+    - prep-reference-v0.screen-view-design.l-02-target-overview
+    - prep-reference-v0.screen-view-design.l-03-target-state
+    - prep-reference-v0.screen-view-design.l-04-target-gaps
+    - prep-reference-v0.screen-view-design.l-05-target-learning
+    - prep-reference-v0.screen-view-design.l-06-target-diagnostics
+    - prep-reference-v0.screen-view-design.l-07-target-knowledge
+    - prep-reference-v0.screen-view-design.l-08-target-progress
+    - prep-reference-v0.screen-view-design.s-01-runtime-status
+    - prep-reference-v0.security-analysis
+    - prep-reference-v0.security-architecture
+    - prep-reference-v0.system-boundary-rules
+    - prep-reference-v0.system-structure
+    - prep-reference-v0.task-model
+    - prep-reference-v0.test-design
+    - prep-reference-v0.user-journey
+  knowledge_domain:
+    old_mutated_capabilities:
+    - prep.knowledge-model
+    old_stale_count: 24
+    old_stale:
+    - prep.application-design
+    - prep.conceptual-interface-model
+    - prep.data-design
+    - prep.frontend-component-design
+    - prep.frontend-engineering-policy
+    - prep.frontend-implementation-design
+    - prep.frontend-performance-capacity
+    - prep.frontend-system-architecture
+    - prep.frontend-test-design
+    - prep.frontend-verification
+    - prep.import-consistency
+    - prep.information-architecture
+    - prep.interaction-design
+    - prep.interface-topology
+    - prep.interface-verification
+    - prep.learner-model
+    - prep.learning-design
+    - prep.machine-interfaces
+    - prep.presentation-system
+    - prep.presentation-verification
+    - prep.screen-view-design
+    - prep.system-architecture
+    - prep.task-model
+    - prep.user-journeys
+    new_mutated_capabilities:
+    - prep-reference-v0.domain-model.knowledge-model
+    new_stale_count: 2
+    new_stale:
+    - prep-reference-v0.completion-criteria
+    - prep-reference-v0.implementation-plan
+  machine_interface:
+    old_mutated_capabilities:
+    - prep.machine-interfaces
+    old_stale_count: 15
+    old_stale:
+    - prep.data-design
+    - prep.frontend-component-design
+    - prep.frontend-engineering-policy
+    - prep.frontend-implementation-design
+    - prep.frontend-system-architecture
+    - prep.frontend-test-design
+    - prep.frontend-verification
+    - prep.import-consistency
+    - prep.interaction-design
+    - prep.interface-topology
+    - prep.interface-verification
+    - prep.presentation-system
+    - prep.presentation-verification
+    - prep.screen-view-design
+    - prep.system-architecture
+    new_mutated_capabilities:
+    - prep-reference-v0.machine-interface-contract.prep-application-api
+    - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    new_stale_count: 2
+    new_stale:
+    - prep-reference-v0.completion-criteria
+    - prep-reference-v0.implementation-plan
+  presentation:
+    old_mutated_capabilities:
+    - prep.presentation-system
+    old_stale_count: 8
+    old_stale:
+    - prep.frontend-component-design
+    - prep.frontend-engineering-policy
+    - prep.frontend-implementation-design
+    - prep.frontend-system-architecture
+    - prep.frontend-test-design
+    - prep.frontend-verification
+    - prep.presentation-verification
+    - prep.screen-view-design
+    new_mutated_capabilities:
+    - prep-reference-v0.presentation-system
+    new_stale_count: 27
+    new_stale:
+    - prep-reference-v0.completion-criteria
+    - prep-reference-v0.implementation-plan
+    - prep-reference-v0.screen-view-design.c-01-preparation-path
+    - prep-reference-v0.screen-view-design.c-11-target-collection
+    - prep-reference-v0.screen-view-design.c-12-target-editor
+    - prep-reference-v0.screen-view-design.c-21-capability-collection
+    - prep-reference-v0.screen-view-design.c-22-capability-editor
+    - prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+    - prep-reference-v0.screen-view-design.c-32-knowledge-editor
+    - prep-reference-v0.screen-view-design.c-41-learning-support-collection
+    - prep-reference-v0.screen-view-design.c-42-learning-support-editor
+    - prep-reference-v0.screen-view-design.c-51-assessment-collection
+    - prep-reference-v0.screen-view-design.c-52-assessment-editor
+    - prep-reference-v0.screen-view-design.c-61-import
+    - prep-reference-v0.screen-view-design.c-71-quality
+    - prep-reference-v0.screen-view-design.f-00-application-shell
+    - prep-reference-v0.screen-view-design.f-c-curation-workspace
+    - prep-reference-v0.screen-view-design.f-lt-target-workspace
+    - prep-reference-v0.screen-view-design.l-01-targets
+    - prep-reference-v0.screen-view-design.l-02-target-overview
+    - prep-reference-v0.screen-view-design.l-03-target-state
+    - prep-reference-v0.screen-view-design.l-04-target-gaps
+    - prep-reference-v0.screen-view-design.l-05-target-learning
+    - prep-reference-v0.screen-view-design.l-06-target-diagnostics
+    - prep-reference-v0.screen-view-design.l-07-target-knowledge
+    - prep-reference-v0.screen-view-design.l-08-target-progress
+    - prep-reference-v0.screen-view-design.s-01-runtime-status
+  persistence:
+    old_mutated_capabilities:
+    - prep.data-design
+    - prep.import-consistency
+    old_stale_count: 2
+    old_stale:
+    - prep.data-design
+    - prep.system-architecture
+    new_mutated_capabilities:
+    - prep-reference-v0.data-design
+    - prep-reference-v0.concurrency-consistency
+    new_stale_count: 3
+    new_stale:
+    - prep-reference-v0.completion-criteria
+    - prep-reference-v0.concurrency-consistency
+    - prep-reference-v0.implementation-plan
+lifecycle_method:
+  old: Canonical Core providers with synthetic acceptance ids; only selected upstream
+    acceptance ids changed.
+  new: Same method; three unrelated missing providers are filled by explicitly synthetic
+    topology-only fixtures so propagation can be compared independently of realization
+    gaps.
+  synthetic_new_capabilities:
+  - prep-reference-v0.operability-design
+  - prep-reference-v0.security-analysis
+  - prep-reference-v0.security-architecture
+agent_routing:
+  old:
+    target_status: COMPLETE
+    routed: []
+    unrouted: []
+    wait_count: 0
+    pending_count: 0
+  new:
+    target_status: READY
+    routed:
+    - authority: OPERABILITY-DESIGN
+      subject: PREP-REFERENCE-V0
+      knowledge_kind: operability-design
+      capabilities:
+      - prep-reference-v0.operability-design
+      expectations:
+      - E-PREP-REFERENCE-V0-OPERABILITY-DESIGN-PREP-REFERENCE-V0
+      skill: skills/artifacts/operability-design/SKILL.md
+    - authority: SECURITY-ARCHITECTURE
+      subject: PREP-REFERENCE-V0
+      knowledge_kind: security-architecture
+      capabilities:
+      - prep-reference-v0.security-architecture
+      expectations:
+      - E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0
+      skill: skills/artifacts/security-architecture/SKILL.md
+    unrouted: []
+    wait_count: 0
+    pending_count: 3
+consumer_context:
+  old_frontend_implementation:
+    capability_count: 28
+    unique_provider_path_count: 28
+    provider_paths:
+    - docs/application/application-design.md
+    - docs/application/task-model.yaml
+    - docs/application/user-journeys.md
+    - docs/architecture/context-map.md
+    - docs/architecture/frontend-system-architecture.md
+    - docs/architecture/model-context-map.md
+    - docs/architecture/performance-capacity.md
+    - docs/domain/knowledge-model.md
+    - docs/domain/learner-model.md
+    - docs/domain/learning-design.md
+    - docs/domain/relation-classification-catalog.yaml
+    - docs/engineering/frontend-engineering-policy.md
+    - docs/implementation/frontend-component-design.md
+    - docs/implementation/frontend-implementation-design.md
+    - docs/interface/conceptual-interface-model.yaml
+    - docs/interface/information-architecture.yaml
+    - docs/interface/interaction-design.yaml
+    - docs/interface/interface-topology.yaml
+    - docs/interface/machine-interface.md
+    - docs/interface/presentation-system.md
+    - docs/interface/screen-view-design.md
+    - docs/verification/frontend-test-design.yaml
+    - docs/verification/frontend-verification.md
+    - docs/verification/interface-verification.md
+    - docs/verification/presentation-verification.md
+    - docs/vision/problem-space.md
+    - docs/vision/product-capabilities.md
+    - docs/vision/vision.md
+    missing_provider_capabilities: []
+  new_frontend_implementation:
+    capability_count: 63
+    unique_provider_path_count: 30
+    provider_paths:
+    - docs/application/application-design.md
+    - docs/application/task-model.yaml
+    - docs/application/user-journeys.md
+    - docs/architecture/context-map.md
+    - docs/architecture/data-design.md
+    - docs/architecture/frontend-system-architecture.md
+    - docs/architecture/import-consistency.md
+    - docs/architecture/model-context-map.md
+    - docs/architecture/performance-capacity.md
+    - docs/architecture/system-architecture.md
+    - docs/domain/knowledge-model.md
+    - docs/domain/learner-model.md
+    - docs/domain/learning-design.md
+    - docs/engineering/frontend-engineering-policy.md
+    - docs/implementation/frontend-component-design.md
+    - docs/implementation/frontend-implementation-design.md
+    - docs/interface/conceptual-interface-model.yaml
+    - docs/interface/information-architecture.yaml
+    - docs/interface/interaction-design.yaml
+    - docs/interface/interface-topology.yaml
+    - docs/interface/machine-interface.md
+    - docs/interface/presentation-system.md
+    - docs/interface/screen-view-design.md
+    - docs/verification/frontend-test-design.yaml
+    - docs/verification/frontend-verification.md
+    - docs/verification/interface-verification.md
+    - docs/verification/presentation-verification.md
+    - docs/vision/problem-space.md
+    - docs/vision/product-capabilities.md
+    - docs/vision/vision.md
+    missing_provider_capabilities:
+    - prep-reference-v0.operability-design
+    - prep-reference-v0.security-analysis
+    - prep-reference-v0.security-architecture
+implementation_authority_context:
+  old:
+    status: READY
+    selected_outputs:
+    - prep.frontend-implementation-design
+    requirement_count: 3
+    satisfied_requirement_count: 3
+    gap_requirement_count: 0
+    input_artifact_count: 3
+    supporting_input_artifact_count: 2
+    owned_artifact_count: 1
+    allowed_read_path_count: 6
+    allowed_read_paths:
+    - docs/implementation/frontend-component-design.md
+    - docs/implementation/frontend-implementation-design.md
+    - docs/verification/frontend-test-design.yaml
+    - docs/verification/frontend-verification.md
+    - docs/verification/interface-verification.md
+    - docs/verification/presentation-verification.md
+    blockers: []
+  new_real:
+    status: BLOCKED
+    selected_outputs:
+    - prep-reference-v0.implementation-plan
+    requirement_count: 52
+    satisfied_requirement_count: 49
+    gap_requirement_count: 3
+    input_artifact_count: 23
+    supporting_input_artifact_count: 5
+    owned_artifact_count: 1
+    allowed_read_path_count: 28
+    allowed_read_paths:
+    - docs/application/application-design.md
+    - docs/application/task-model.yaml
+    - docs/application/user-journeys.md
+    - docs/architecture/context-map.md
+    - docs/architecture/data-design.md
+    - docs/architecture/frontend-system-architecture.md
+    - docs/architecture/import-consistency.md
+    - docs/architecture/model-context-map.md
+    - docs/architecture/performance-capacity.md
+    - docs/architecture/system-architecture.md
+    - docs/domain/knowledge-model.md
+    - docs/domain/learner-model.md
+    - docs/domain/learning-design.md
+    - docs/engineering/frontend-engineering-policy.md
+    - docs/implementation/frontend-component-design.md
+    - docs/implementation/frontend-implementation-design.md
+    - docs/interface/conceptual-interface-model.yaml
+    - docs/interface/information-architecture.yaml
+    - docs/interface/interaction-design.yaml
+    - docs/interface/interface-topology.yaml
+    - docs/interface/machine-interface.md
+    - docs/interface/presentation-system.md
+    - docs/interface/screen-view-design.md
+    - docs/verification/frontend-test-design.yaml
+    - docs/verification/frontend-verification.md
+    - docs/verification/interface-verification.md
+    - docs/verification/presentation-verification.md
+    - docs/vision/vision.md
+    blockers:
+    - capability: prep-reference-v0.operability-design
+      status: DESIGN_GAP
+      authority: OPERABILITY-DESIGN
+    - capability: prep-reference-v0.security-analysis
+      status: DESIGN_GAP
+      authority: SECURITY-ANALYSIS
+    - capability: prep-reference-v0.security-architecture
+      status: DESIGN_GAP
+      authority: SECURITY-ARCHITECTURE
+  new_topology_only:
+    status: READY
+    selected_outputs:
+    - prep-reference-v0.implementation-plan
+    requirement_count: 52
+    satisfied_requirement_count: 52
+    gap_requirement_count: 0
+    input_artifact_count: 26
+    supporting_input_artifact_count: 5
+    owned_artifact_count: 1
+    allowed_read_path_count: 31
+    allowed_read_paths:
+    - docs/application/application-design.md
+    - docs/application/task-model.yaml
+    - docs/application/user-journeys.md
+    - docs/architecture/context-map.md
+    - docs/architecture/data-design.md
+    - docs/architecture/frontend-system-architecture.md
+    - docs/architecture/import-consistency.md
+    - docs/architecture/model-context-map.md
+    - docs/architecture/performance-capacity.md
+    - docs/architecture/system-architecture.md
+    - docs/domain/knowledge-model.md
+    - docs/domain/learner-model.md
+    - docs/domain/learning-design.md
+    - docs/engineering/frontend-engineering-policy.md
+    - docs/implementation/frontend-component-design.md
+    - docs/implementation/frontend-implementation-design.md
+    - docs/interface/conceptual-interface-model.yaml
+    - docs/interface/information-architecture.yaml
+    - docs/interface/interaction-design.yaml
+    - docs/interface/interface-topology.yaml
+    - docs/interface/machine-interface.md
+    - docs/interface/presentation-system.md
+    - docs/interface/screen-view-design.md
+    - docs/verification/frontend-test-design.yaml
+    - docs/verification/frontend-verification.md
+    - docs/verification/interface-verification.md
+    - docs/verification/presentation-verification.md
+    - docs/vision/vision.md
+    - experiments/reference_model_rematerialization/synthetic/1.yaml
+    - experiments/reference_model_rematerialization/synthetic/2.yaml
+    - experiments/reference_model_rematerialization/synthetic/3.yaml
+    blockers: []

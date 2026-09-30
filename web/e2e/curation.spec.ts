@@ -35,6 +35,11 @@ test("target profile is composed from reusable capabilities and becomes visible 
   await page
     .getByRole("textbox", { name: "Target context / definition" })
     .fill("Middle Python backend interview with payment reliability responsibilities.");
+  await page.getByRole("combobox", { name: "Target purpose" }).selectOption("selection-interview");
+  await page.getByRole("textbox", { name: "Target provenance" }).fill("Recruiter interview brief");
+  await page
+    .getByRole("textbox", { name: "Unresolved expectations" })
+    .fill("Final system-design round format is still unknown.");
   await page.getByRole("button", { name: "Create target" }).click();
 
   const editor = page.getByRole("region", { name: "Target profile editor" });
@@ -47,6 +52,9 @@ test("target profile is composed from reusable capabilities and becomes visible 
 
   await editor.getByRole("link", { name: "Preview in Target Work" }).click();
   await expect(page.getByRole("heading", { name: "Python payments interview" })).toBeVisible();
+  await expect(page.getByText("Selection / interview performance")).toBeVisible();
+  await expect(page.getByText(/Recruiter interview brief/)).toBeVisible();
+  await expect(page.getByText(/Final system-design round format is still unknown/)).toBeVisible();
   await expect(page.getByText("Python backend engineering")).toBeVisible();
   await expect(page.getByText("Reliable payment commands")).toBeVisible();
 });

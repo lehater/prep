@@ -1,0 +1,50 @@
+version: 1
+kind: prep-project-refinement-experiment-result
+branch: experiment/project-refinement-contract-v0
+reference_model_commit: b172fd1c7519f88454d2135c1435dd0e45dbb403
+verdict: SMALL_REFINEMENT_VIABLE_REFERENCE_CHANGES_STILL_REQUIRED
+refinement:
+  total_rules: 14
+  dependency_add_rules: 7
+  dependency_replace_rules: 1
+  capability_applicability_rules: 3
+  concern_applicability_rules: 3
+  base_capabilities: 63
+  refined_capabilities: 60
+results:
+  target:
+    before: READY
+    after: COMPLETE
+  implementation_context_read_paths:
+    old: 6
+    new: 31
+    refined: 5
+  implementation_direct_requirements:
+    old: 3
+    new: 52
+    refined: 4
+  knowledge_mutation_provider_paths:
+    old: 24
+    new: 1
+    refined: 22
+  machine_interface_mutation_provider_paths:
+    old: 15
+    new: 1
+    refined: 10
+  semantic_materialization:
+    before: MATERIALIZATION_CONFLICT
+    after: STABLE
+remaining:
+  - strict semantic admission still fails because PREP baseline tooling does not project semantic assertions for user-needs and other new knowledge kinds
+  - relation-classification-catalog.yaml still has no independent NEW capability/provider binding
+  - machine-interface propagation is improved but not yet equivalent to OLD
+  - knowledge-domain propagation is close at provider-path level but not identical
+  - coverage remains incomplete because semantic proof/evaluation migration is not part of this topology refinement experiment
+interpretation:
+  - a small declarative project refinement layer is sufficient to fix the largest topology/context/applicability failures
+  - the refinement did not become a second manually authored Engineering Graph
+  - frozen Reference Model v0 still needs reference-level corrections and semantic-admission migration before it can replace OLD Harness
+next:
+  - promote the refinement contract concept into Harness research
+  - generalize only the proven rule types
+  - do not merge the experimental PREP graph as production Harness yet

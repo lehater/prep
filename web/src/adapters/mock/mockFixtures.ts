@@ -22,6 +22,20 @@ export const mockTargets: readonly LearningTargetModel[] = [
     name: "Middle Python Backend — Fintech / Card Payments",
     definition:
       "Prepare for a Python backend role where reliable card-payment processing, distributed-system behavior and operational reasoning matter.",
+    targetPurpose: "role-capability",
+    provenance: [
+      "Role-capability profile prepared from the motivating backend/fintech target context.",
+    ],
+    unresolvedExpectations: [
+      "Company-specific interview format and interview-only constraints are not yet known.",
+    ],
+    relatedTargets: [
+      {
+        id: "python-backend-fintech-interview",
+        name: "Python Backend — selection/interview performance",
+        purpose: "selection-interview",
+      },
+    ],
     scopeSummary:
       "Python/backend engineering plus distributed systems, databases, payments, reliability, reconciliation, security and observability.",
     capabilities: [

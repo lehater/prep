@@ -48,6 +48,10 @@ export class MockTargetAdapter implements TargetQueryPort {
     readonly id: string;
     readonly name: string;
     readonly definition: string;
+    readonly targetPurpose?: "role-capability" | "selection-interview" | "other";
+    readonly provenance?: readonly string[];
+    readonly unresolvedExpectations?: readonly string[];
+    readonly relatedTargetRefs?: readonly string[];
     readonly scopeItems: readonly {
       readonly id: string;
       readonly kind: "requirement" | "requirement-set";
@@ -69,6 +73,14 @@ export class MockTargetAdapter implements TargetQueryPort {
       id: target.id,
       name: target.name,
       definition: target.definition,
+      targetPurpose: target.targetPurpose,
+      provenance: target.provenance,
+      unresolvedExpectations: target.unresolvedExpectations,
+      relatedTargets: target.relatedTargetRefs?.map((id) => ({
+        id,
+        name: id,
+        purpose: "selection-interview" as const,
+      })),
       scopeSummary:
         capabilities.length > 0
           ? `${capabilities.length} required capability(s)`

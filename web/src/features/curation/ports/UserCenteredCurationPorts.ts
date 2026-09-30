@@ -5,6 +5,7 @@ import type {
   LearningSupportCurationModel,
   LearningSupportKind,
   TargetProfileModel,
+  TargetProfilePurpose,
   UserCenteredCurationCollection,
   UserCenteredCurationOutcome,
 } from "../model/userCenteredCurationModels";
@@ -12,8 +13,22 @@ import type {
 export interface TargetProfileCurationPort {
   list(query: { readonly search?: string }): Promise<UserCenteredCurationOutcome<UserCenteredCurationCollection<TargetProfileModel>>>;
   get(targetId: string): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
-  create(input: { readonly name: string; readonly definition: string }): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
-  update(targetId: string, input: { readonly name: string; readonly definition: string }): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
+  create(input: {
+    readonly name: string;
+    readonly definition: string;
+    readonly targetPurpose: TargetProfilePurpose;
+    readonly provenance: readonly string[];
+    readonly unresolvedExpectations: readonly string[];
+    readonly relatedTargetRefs: readonly string[];
+  }): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
+  update(targetId: string, input: {
+    readonly name: string;
+    readonly definition: string;
+    readonly targetPurpose: TargetProfilePurpose;
+    readonly provenance: readonly string[];
+    readonly unresolvedExpectations: readonly string[];
+    readonly relatedTargetRefs: readonly string[];
+  }): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
   setCapabilities(targetId: string, capabilityIds: readonly string[]): Promise<UserCenteredCurationOutcome<TargetProfileModel>>;
 }
 

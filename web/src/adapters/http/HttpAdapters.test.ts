@@ -167,6 +167,10 @@ describe("FI-06 HTTP adapters", () => {
             id: target.id,
             name: target.name,
             definition: target.definition,
+            target_purpose: target.targetPurpose,
+            provenance: target.provenance,
+            unresolved_expectations: target.unresolvedExpectations,
+            related_targets: target.relatedTargets,
             scope_summary: target.scopeSummary,
             capabilities: target.capabilities.map((item) => ({
               id: item.id,

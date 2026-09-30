@@ -1,0 +1,815 @@
+{
+  "create": [
+    {
+      "action": "CREATE",
+      "authority": "OPERABILITY-DESIGN",
+      "capability": "prep-reference-v0.operability-design",
+      "expectation": "E-PREP-REFERENCE-V0-OPERABILITY-DESIGN-PREP-REFERENCE-V0",
+      "subject": "PREP-REFERENCE-V0"
+    },
+    {
+      "action": "CREATE",
+      "authority": "SECURITY-ARCHITECTURE",
+      "capability": "prep-reference-v0.security-architecture",
+      "expectation": "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0",
+      "subject": "PREP-REFERENCE-V0"
+    }
+  ],
+  "implementation_consumer": true,
+  "pending": [
+    {
+      "action": "PENDING",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "prep-reference-v0.completion-criteria",
+      "depends_on": [
+        "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0"
+      ],
+      "expectation": "E-PREP-REFERENCE-V0-COMPLETION-CRITERIA-PREP-REFERENCE-V0",
+      "subject": "PREP-REFERENCE-V0"
+    },
+    {
+      "action": "PENDING",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "prep-reference-v0.implementation-plan",
+      "depends_on": [
+        "E-PREP-REFERENCE-V0-OPERABILITY-DESIGN-PREP-REFERENCE-V0",
+        "E-PREP-REFERENCE-V0-SECURITY-ANALYSIS-PREP-REFERENCE-V0",
+        "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0"
+      ],
+      "expectation": "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+      "subject": "PREP-REFERENCE-V0"
+    },
+    {
+      "action": "PENDING",
+      "authority": "SECURITY-ANALYSIS",
+      "capability": "prep-reference-v0.security-analysis",
+      "depends_on": [
+        "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0"
+      ],
+      "expectation": "E-PREP-REFERENCE-V0-SECURITY-ANALYSIS-PREP-REFERENCE-V0",
+      "subject": "PREP-REFERENCE-V0"
+    }
+  ],
+  "profile": {
+    "expectations": [
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.acceptance-scenarios",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.application-failure-contract",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.application-orchestration",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.completion-criteria",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-COMPLETION-CRITERIA-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "COMPONENT-DESIGN",
+        "capability": "prep-reference-v0.component-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.conceptual-interface-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-USER-JOURNEY-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-CONCEPTUAL-INTERFACE-MODEL-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "CONCURRENCY-CONSISTENCY-DESIGN",
+        "capability": "prep-reference-v0.concurrency-consistency",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DATA-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-CONCURRENCY-CONSISTENCY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DATA-DESIGN",
+        "capability": "prep-reference-v0.data-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DATA-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.design-verification-obligations",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.knowledge-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-KNOWLEDGE-MODEL",
+        "subject": "KNOWLEDGE-MODEL"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.learner-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-LEARNER-MODEL",
+        "subject": "LEARNER-MODEL"
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "capability": "prep-reference-v0.domain-model.learning-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-LEARNING-DESIGN",
+        "subject": "LEARNING-DESIGN"
+      },
+      {
+        "authority": "DOMAIN-STRATEGY",
+        "capability": "prep-reference-v0.domain-strategy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "ENGINEERING-POLICY",
+        "capability": "prep-reference-v0.engineering-policy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.implementation-plan",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-CONCURRENCY-CONSISTENCY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DATA-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-KNOWLEDGE-MODEL",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-LEARNER-MODEL",
+          "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-LEARNING-DESIGN",
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-EXTERNAL-LEARNING-RUNTIME",
+          "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-APPLICATION-API",
+          "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-OPERABILITY-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-RUNTIME-ARCHITECTURE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-01-PREPARATION-PATH-C-01-PREPARATION-PATH",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-11-TARGET-COLLECTION-C-11-TARGET-COLLECTION",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-12-TARGET-EDITOR-C-12-TARGET-EDITOR",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-21-CAPABILITY-COLLECTION-C-21-CAPABILITY-COLLECTION",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-22-CAPABILITY-EDITOR-C-22-CAPABILITY-EDITOR",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-31-KNOWLEDGE-WORKSPACE-C-31-KNOWLEDGE-WORKSPACE",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-32-KNOWLEDGE-EDITOR-C-32-KNOWLEDGE-EDITOR",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-41-LEARNING-SUPPORT-COLLECTION-C-41-LEARNING-SUPPORT-COLLECTION",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-42-LEARNING-SUPPORT-EDITOR-C-42-LEARNING-SUPPORT-EDITOR",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-51-ASSESSMENT-COLLECTION-C-51-ASSESSMENT-COLLECTION",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-52-ASSESSMENT-EDITOR-C-52-ASSESSMENT-EDITOR",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-61-IMPORT-C-61-IMPORT",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-71-QUALITY-C-71-QUALITY",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-00-APPLICATION-SHELL-F-00-APPLICATION-SHELL",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-C-CURATION-WORKSPACE-F-C-CURATION-WORKSPACE",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-LT-TARGET-WORKSPACE-F-LT-TARGET-WORKSPACE",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-01-TARGETS-L-01-TARGETS",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-02-TARGET-OVERVIEW-L-02-TARGET-OVERVIEW",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-03-TARGET-STATE-L-03-TARGET-STATE",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-04-TARGET-GAPS-L-04-TARGET-GAPS",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-05-TARGET-LEARNING-L-05-TARGET-LEARNING",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-06-TARGET-DIAGNOSTICS-L-06-TARGET-DIAGNOSTICS",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-07-TARGET-KNOWLEDGE-L-07-TARGET-KNOWLEDGE",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-08-TARGET-PROGRESS-L-08-TARGET-PROGRESS",
+          "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-S-01-RUNTIME-STATUS-S-01-RUNTIME-STATUS",
+          "E-PREP-REFERENCE-V0-SECURITY-ANALYSIS-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-TASK-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-USER-JOURNEY-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-IMPLEMENTATION-PLAN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "prep-reference-v0.implementation-stack",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.information-architecture",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-CONCEPTUAL-INTERFACE-MODEL-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-INFORMATION-ARCHITECTURE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.interaction-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-CONCEPTUAL-INTERFACE-MODEL-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INFORMATION-ARCHITECTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.interface-topology",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INFORMATION-ARCHITECTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "MACHINE-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.machine-interface-contract.external-learning-runtime",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-EXTERNAL-LEARNING-RUNTIME",
+        "subject": "EXTERNAL-LEARNING-RUNTIME"
+      },
+      {
+        "authority": "MACHINE-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.machine-interface-contract.prep-application-api",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-APPLICATION-API",
+        "subject": "PREP-APPLICATION-API"
+      },
+      {
+        "authority": "MODEL-CONTEXT-STRATEGY",
+        "capability": "prep-reference-v0.model-context-strategy",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "OPERABILITY-DESIGN",
+        "capability": "prep-reference-v0.operability-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-RUNTIME-ARCHITECTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-OPERABILITY-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.presentation-system",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DISCOVERY",
+        "capability": "prep-reference-v0.problem-evidence",
+        "id": "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "capability": "prep-reference-v0.product-acceptance",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "capability": "prep-reference-v0.product-intent",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "QUALITY-DESIGN",
+        "capability": "prep-reference-v0.quality-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "prep-reference-v0.realization-verification-plan",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "prep-reference-v0.runtime-architecture",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-RUNTIME-ARCHITECTURE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-01-preparation-path",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-01-PREPARATION-PATH-C-01-PREPARATION-PATH",
+        "subject": "C-01-PREPARATION-PATH"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-11-target-collection",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-11-TARGET-COLLECTION-C-11-TARGET-COLLECTION",
+        "subject": "C-11-TARGET-COLLECTION"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-12-target-editor",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-12-TARGET-EDITOR-C-12-TARGET-EDITOR",
+        "subject": "C-12-TARGET-EDITOR"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-21-capability-collection",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-21-CAPABILITY-COLLECTION-C-21-CAPABILITY-COLLECTION",
+        "subject": "C-21-CAPABILITY-COLLECTION"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-22-capability-editor",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-22-CAPABILITY-EDITOR-C-22-CAPABILITY-EDITOR",
+        "subject": "C-22-CAPABILITY-EDITOR"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-31-knowledge-workspace",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-31-KNOWLEDGE-WORKSPACE-C-31-KNOWLEDGE-WORKSPACE",
+        "subject": "C-31-KNOWLEDGE-WORKSPACE"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-32-knowledge-editor",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-32-KNOWLEDGE-EDITOR-C-32-KNOWLEDGE-EDITOR",
+        "subject": "C-32-KNOWLEDGE-EDITOR"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-41-learning-support-collection",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-41-LEARNING-SUPPORT-COLLECTION-C-41-LEARNING-SUPPORT-COLLECTION",
+        "subject": "C-41-LEARNING-SUPPORT-COLLECTION"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-42-learning-support-editor",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-42-LEARNING-SUPPORT-EDITOR-C-42-LEARNING-SUPPORT-EDITOR",
+        "subject": "C-42-LEARNING-SUPPORT-EDITOR"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-51-assessment-collection",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-51-ASSESSMENT-COLLECTION-C-51-ASSESSMENT-COLLECTION",
+        "subject": "C-51-ASSESSMENT-COLLECTION"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-52-assessment-editor",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-52-ASSESSMENT-EDITOR-C-52-ASSESSMENT-EDITOR",
+        "subject": "C-52-ASSESSMENT-EDITOR"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-61-import",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-61-IMPORT-C-61-IMPORT",
+        "subject": "C-61-IMPORT"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.c-71-quality",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-71-QUALITY-C-71-QUALITY",
+        "subject": "C-71-QUALITY"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.f-00-application-shell",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-00-APPLICATION-SHELL-F-00-APPLICATION-SHELL",
+        "subject": "F-00-APPLICATION-SHELL"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.f-c-curation-workspace",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-C-CURATION-WORKSPACE-F-C-CURATION-WORKSPACE",
+        "subject": "F-C-CURATION-WORKSPACE"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.f-lt-target-workspace",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-LT-TARGET-WORKSPACE-F-LT-TARGET-WORKSPACE",
+        "subject": "F-LT-TARGET-WORKSPACE"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-01-targets",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-01-TARGETS-L-01-TARGETS",
+        "subject": "L-01-TARGETS"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-02-target-overview",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-02-TARGET-OVERVIEW-L-02-TARGET-OVERVIEW",
+        "subject": "L-02-TARGET-OVERVIEW"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-03-target-state",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-03-TARGET-STATE-L-03-TARGET-STATE",
+        "subject": "L-03-TARGET-STATE"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-04-target-gaps",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-04-TARGET-GAPS-L-04-TARGET-GAPS",
+        "subject": "L-04-TARGET-GAPS"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-05-target-learning",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-05-TARGET-LEARNING-L-05-TARGET-LEARNING",
+        "subject": "L-05-TARGET-LEARNING"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-06-target-diagnostics",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-06-TARGET-DIAGNOSTICS-L-06-TARGET-DIAGNOSTICS",
+        "subject": "L-06-TARGET-DIAGNOSTICS"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-07-target-knowledge",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-07-TARGET-KNOWLEDGE-L-07-TARGET-KNOWLEDGE",
+        "subject": "L-07-TARGET-KNOWLEDGE"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.l-08-target-progress",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-08-TARGET-PROGRESS-L-08-TARGET-PROGRESS",
+        "subject": "L-08-TARGET-PROGRESS"
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "capability": "prep-reference-v0.screen-view-design.s-01-runtime-status",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-S-01-RUNTIME-STATUS-S-01-RUNTIME-STATUS",
+        "subject": "S-01-RUNTIME-STATUS"
+      },
+      {
+        "authority": "SECURITY-ANALYSIS",
+        "capability": "prep-reference-v0.security-analysis",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SECURITY-ANALYSIS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SECURITY-ARCHITECTURE",
+        "capability": "prep-reference-v0.security-architecture",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SECURITY-ARCHITECTURE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "prep-reference-v0.system-boundary-rules",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "prep-reference-v0.system-structure",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.task-model",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-TASK-MODEL-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "TEST-DESIGN",
+        "capability": "prep-reference-v0.test-design",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "capability": "prep-reference-v0.user-journey",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+          "E-PREP-REFERENCE-V0-TASK-MODEL-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-USER-JOURNEY-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      },
+      {
+        "authority": "DISCOVERY",
+        "capability": "prep-reference-v0.user-needs",
+        "depends_on": [
+          "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0"
+        ],
+        "id": "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0",
+        "subject": "PREP-REFERENCE-V0"
+      }
+    ],
+    "id": "PREP-REFERENCE-V0-FRONTEND-IMPLEMENTATION",
+    "kind": "harness-design-profile",
+    "version": 1
+  },
+  "satisfied": [
+    "E-PREP-REFERENCE-V0-ACCEPTANCE-SCENARIOS-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-APPLICATION-FAILURE-CONTRACT-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-APPLICATION-ORCHESTRATION-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-COMPONENT-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-CONCEPTUAL-INTERFACE-MODEL-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-CONCURRENCY-CONSISTENCY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DATA-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DESIGN-VERIFICATION-OBLIGATIONS-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-KNOWLEDGE-MODEL-KNOWLEDGE-MODEL",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNER-MODEL-LEARNER-MODEL",
+    "E-PREP-REFERENCE-V0-DOMAIN-MODEL-LEARNING-DESIGN-LEARNING-DESIGN",
+    "E-PREP-REFERENCE-V0-DOMAIN-STRATEGY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-ENGINEERING-POLICY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-IMPLEMENTATION-STACK-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-INFORMATION-ARCHITECTURE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-INTERACTION-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-INTERFACE-TOPOLOGY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-EXTERNAL-LEARNING-RUNTIME-EXTERNAL-LEARNING-RUNTIME",
+    "E-PREP-REFERENCE-V0-MACHINE-INTERFACE-CONTRACT-PREP-APPLICATION-API-PREP-APPLICATION-API",
+    "E-PREP-REFERENCE-V0-MODEL-CONTEXT-STRATEGY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PRESENTATION-SYSTEM-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PROBLEM-EVIDENCE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PRODUCT-ACCEPTANCE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-PRODUCT-INTENT-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-QUALITY-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-REALIZATION-VERIFICATION-PLAN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-RUNTIME-ARCHITECTURE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-01-PREPARATION-PATH-C-01-PREPARATION-PATH",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-11-TARGET-COLLECTION-C-11-TARGET-COLLECTION",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-12-TARGET-EDITOR-C-12-TARGET-EDITOR",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-21-CAPABILITY-COLLECTION-C-21-CAPABILITY-COLLECTION",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-22-CAPABILITY-EDITOR-C-22-CAPABILITY-EDITOR",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-31-KNOWLEDGE-WORKSPACE-C-31-KNOWLEDGE-WORKSPACE",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-32-KNOWLEDGE-EDITOR-C-32-KNOWLEDGE-EDITOR",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-41-LEARNING-SUPPORT-COLLECTION-C-41-LEARNING-SUPPORT-COLLECTION",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-42-LEARNING-SUPPORT-EDITOR-C-42-LEARNING-SUPPORT-EDITOR",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-51-ASSESSMENT-COLLECTION-C-51-ASSESSMENT-COLLECTION",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-52-ASSESSMENT-EDITOR-C-52-ASSESSMENT-EDITOR",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-61-IMPORT-C-61-IMPORT",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-C-71-QUALITY-C-71-QUALITY",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-00-APPLICATION-SHELL-F-00-APPLICATION-SHELL",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-C-CURATION-WORKSPACE-F-C-CURATION-WORKSPACE",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-F-LT-TARGET-WORKSPACE-F-LT-TARGET-WORKSPACE",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-01-TARGETS-L-01-TARGETS",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-02-TARGET-OVERVIEW-L-02-TARGET-OVERVIEW",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-03-TARGET-STATE-L-03-TARGET-STATE",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-04-TARGET-GAPS-L-04-TARGET-GAPS",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-05-TARGET-LEARNING-L-05-TARGET-LEARNING",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-06-TARGET-DIAGNOSTICS-L-06-TARGET-DIAGNOSTICS",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-07-TARGET-KNOWLEDGE-L-07-TARGET-KNOWLEDGE",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-L-08-TARGET-PROGRESS-L-08-TARGET-PROGRESS",
+    "E-PREP-REFERENCE-V0-SCREEN-VIEW-DESIGN-S-01-RUNTIME-STATUS-S-01-RUNTIME-STATUS",
+    "E-PREP-REFERENCE-V0-SYSTEM-BOUNDARY-RULES-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-SYSTEM-STRUCTURE-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-TASK-MODEL-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-TEST-DESIGN-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-USER-JOURNEY-PREP-REFERENCE-V0",
+    "E-PREP-REFERENCE-V0-USER-NEEDS-PREP-REFERENCE-V0"
+  ],
+  "status": "READY",
+  "target": "FRONTEND-IMPLEMENTATION",
+  "wait": []
+}

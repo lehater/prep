@@ -1,0 +1,2 @@
+Documentation validation failed:
+- docs/ contains files outside Harness Core: docs/domain/relation-classification-catalog.yaml

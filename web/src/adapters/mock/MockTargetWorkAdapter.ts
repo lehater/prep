@@ -292,6 +292,11 @@ export class MockTargetWorkAdapter implements TargetWorkPort {
         fromProjectionId: "state-initial",
         toProjectionId: changed ? "state-after-diagnostic" : "state-initial",
         changes,
+        targetRefinement: {
+          changed: false,
+          summary:
+            "No target-definition change was accepted in this comparison. Learner-state change is shown separately from target refinement.",
+        },
         summary: changed
           ? `${changes.length} target requirement(s) changed after new diagnostic evidence.`
           : "No target-relative state change is established yet.",

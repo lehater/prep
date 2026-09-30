@@ -19,6 +19,7 @@ import type { LearningStatisticsPort } from "../../features/learning/ports/Learn
 import type { QuestionQueryPort } from "../../features/learning/ports/QuestionQueryPort";
 import type { StudyPort } from "../../features/learning/ports/StudyPort";
 import type { TargetQueryPort } from "../../features/learning/ports/TargetQueryPort";
+import type { PreparationSupportPort } from "../../features/learning/ports/PreparationSupportPort";
 import type { TargetWorkPort } from "../../features/learning/ports/TargetWorkPort";
 import { Rfg3dGraphRenderer } from "../../adapters/graph-rfg3d/Rfg3dGraphRenderer";
 import {
@@ -37,6 +38,7 @@ import {
 } from "../../adapters/http/HttpLearningAdapters";
 import { HttpOperationClient } from "../../adapters/http/HttpOperationClient";
 import { HttpRuntimeStatusAdapter } from "../../adapters/http/HttpRuntimeStatusAdapter";
+import { HttpPreparationSupportAdapter } from "../../adapters/http/HttpPreparationSupportAdapter";
 import { PendingHttpTargetWorkAdapter } from "../../adapters/http/PendingTargetWorkAdapter";
 import {
   PendingAssessmentCurationAdapter,
@@ -57,6 +59,7 @@ import { MockKnowledgeAdapter } from "../../adapters/mock/MockKnowledgeAdapter";
 import { MockLearningStatisticsAdapter } from "../../adapters/mock/MockLearningStatisticsAdapter";
 import { MockQuestionAdapter } from "../../adapters/mock/MockQuestionAdapter";
 import { MockRuntimeStatusAdapter } from "../../adapters/mock/MockRuntimeStatusAdapter";
+import { MockPreparationSupportAdapter } from "../../adapters/mock/MockPreparationSupportAdapter";
 import { MockStudyAdapter } from "../../adapters/mock/MockStudyAdapter";
 import { MockTargetAdapter } from "../../adapters/mock/MockTargetAdapter";
 import { MockTargetWorkAdapter } from "../../adapters/mock/MockTargetWorkAdapter";
@@ -71,6 +74,7 @@ import type { DataProvider, MockDataScenario } from "../config/appConfig";
 
 export interface FrontendPorts {
   readonly targetQueryPort: TargetQueryPort;
+  readonly preparationSupportPort: PreparationSupportPort;
   readonly targetWorkPort: TargetWorkPort;
   readonly knowledgeQueryPort: KnowledgeQueryPort;
   readonly questionQueryPort: QuestionQueryPort;
@@ -99,6 +103,7 @@ export function createFrontendPorts(config: {
     const client = new HttpOperationClient(config.apiBaseUrl);
     return {
       targetQueryPort: new HttpTargetAdapter(client),
+      preparationSupportPort: new HttpPreparationSupportAdapter(client),
       targetWorkPort: new PendingHttpTargetWorkAdapter(),
       knowledgeQueryPort: new HttpKnowledgeAdapter(client),
       questionQueryPort: new HttpQuestionAdapter(client),
@@ -129,6 +134,7 @@ export function createFrontendPorts(config: {
 
   return {
     targetQueryPort: new MockTargetAdapter("success", store),
+    preparationSupportPort: new MockPreparationSupportAdapter(store),
     targetWorkPort: new MockTargetWorkAdapter(store),
     knowledgeQueryPort: new MockKnowledgeAdapter("success", store),
     questionQueryPort: new MockQuestionAdapter("success", store),

@@ -75,6 +75,34 @@ test("renders accepted server-backed states through the HTTP provider", async ({
         );
       }
 
+      if (operation === "learning.preparation.options.get") {
+        return new Response(
+          JSON.stringify({
+            outcome: "success",
+            result: {
+              target_context: "missing",
+              missing: ["Prepared target profile", "Initial learning support"],
+              options: [
+                {
+                  id: "delegated",
+                  label: "Ask Prep to prepare it",
+                  summary: "Delegate preparation and review the result.",
+                },
+                {
+                  id: "self-curation",
+                  label: "Prepare it yourself",
+                  summary: "Enter Curation explicitly.",
+                },
+              ],
+            },
+          }),
+          {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          },
+        );
+      }
+
       if (operation === "learning.targets.list") {
         if (state.delayNextList) {
           state.delayNextList = false;
@@ -180,10 +208,10 @@ test("renders accepted server-backed states through the HTTP provider", async ({
 
   await search.fill("missing");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByText("No suitable target found")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Prepare in bulk" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Curate manually" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Start mixed preparation" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Preparation is missing" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Ask Prep to prepare it" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Self-curate instead" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Prepare in bulk" })).toHaveCount(0);
 
   await page.goto("/learning/linux-backend-interview/state");
   await expect(

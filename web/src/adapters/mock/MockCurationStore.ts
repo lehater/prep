@@ -112,6 +112,10 @@ export class MockCurationStore {
       id: target.id,
       name: target.name,
       definition: target.definition,
+      targetPurpose: target.targetPurpose,
+      provenance: target.provenance,
+      unresolvedExpectations: target.unresolvedExpectations,
+      relatedTargetRefs: target.relatedTargets?.map((item) => item.id),
       scopeItems: target.scopeItems.map((item) => ({
         id: item.id,
         kind: item.kind,

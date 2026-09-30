@@ -1,0 +1,397 @@
+version: 1
+kind: harness-project-facts
+snapshot:
+  project: PREP
+  baseline_commit: ac9d97af3357663207d7c063c415a84327ab71f7
+  reference_model_commit: b172fd1c7519f88454d2135c1435dd0e45dbb403
+  independence_rule: Derived only from project-owned canonical knowledge. Existing
+    .harness topology, CapabilityIds, dependency edges and Authority topology are
+    not evidence for these facts.
+facts:
+- predicate: user_needs_material
+  value: true
+  evidence:
+  - docs/vision/problem-space.md
+  - docs/vision/vision.md
+  basis: Accepted learner problems and desired learner outcomes are explicit project
+    truth.
+- predicate: human_interface
+  value: true
+  evidence:
+  - docs/application/user-journeys.md
+  - docs/interface/interface-topology.yaml
+  basis: The accepted product has explicit human journeys and interface topology.
+- predicate: task_model_material
+  value: true
+  evidence:
+  - docs/application/task-model.yaml
+  basis: A canonical Task Model is accepted.
+- predicate: screen_view_design_material
+  value: true
+  evidence:
+  - docs/interface/screen-view-design.md
+  basis: Stable implementation-independent screen/view responsibilities are accepted.
+- predicate: presentation_system_material
+  value: true
+  evidence:
+  - docs/interface/presentation-system.md
+  basis: Shared presentation roles and behavior are accepted independently of implementation.
+- predicate: domain_strategy_material
+  value: true
+  evidence:
+  - docs/architecture/context-map.md
+  basis: Strategic domain responsibility boundaries and context relationships are
+    explicit.
+- predicate: multiple_model_languages
+  value: true
+  evidence:
+  - docs/architecture/model-context-map.md
+  basis: Knowledge Model, Learning Design and Learner Model are distinct accepted
+    model languages.
+- predicate: translation_boundary
+  value: true
+  evidence:
+  - docs/architecture/model-context-map.md
+  basis: Cross-model relationships preserve participating model identities rather
+    than collapsing them.
+- predicate: domain_use_case_contract_material
+  value: false
+  evidence:
+  - docs/application/application-design.md
+  - docs/architecture/model-context-map.md
+  basis: Accepted use-case composition is owned at Application Design; no separate
+    domain-behavior contract is part of the current model boundary.
+- predicate: domain_semantics_material
+  value: true
+  evidence:
+  - docs/domain/knowledge-model.md
+  - docs/domain/learning-design.md
+  - docs/domain/learner-model.md
+  basis: Tactical domain identities, invariants and semantics are material.
+- predicate: domain_subjects
+  value:
+  - KNOWLEDGE-MODEL
+  - LEARNING-DESIGN
+  - LEARNER-MODEL
+  evidence:
+  - docs/architecture/context-map.md
+  - docs/architecture/model-context-map.md
+  basis: These are the finite accepted independently modeled domain subjects; relation
+    classification remains knowledge-model vocabulary rather than a fabricated fourth
+    model context.
+- predicate: application_orchestration
+  value: true
+  evidence:
+  - docs/application/application-design.md
+  basis: The target/state/gap/focus/learning/evidence/progress loop and curation lifecycle
+    require explicit application composition.
+- predicate: runtime_topology_material
+  value: true
+  evidence:
+  - docs/architecture/system-architecture.md
+  - docs/architecture/frontend-system-architecture.md
+  basis: Browser/frontend/backend/external-runtime boundaries and deployment topology
+    are explicit.
+- predicate: machine_interface
+  value: true
+  evidence:
+  - docs/interface/machine-interface.md
+  basis: Transport-neutral machine-consumed contracts are accepted.
+- predicate: machine_interface_subjects
+  value:
+  - PREP-APPLICATION-API
+  - EXTERNAL-LEARNING-RUNTIME
+  evidence:
+  - docs/interface/machine-interface.md
+  - docs/architecture/system-architecture.md
+  basis: The finite independently meaningful machine boundaries are the frontend/application
+    API surface and the external learning-runtime integration boundary.
+- predicate: screen_subjects
+  value:
+  - F-00-APPLICATION-SHELL
+  - F-LT-TARGET-WORKSPACE
+  - F-C-CURATION-WORKSPACE
+  - L-01-TARGETS
+  - L-02-TARGET-OVERVIEW
+  - L-03-TARGET-STATE
+  - L-04-TARGET-GAPS
+  - L-05-TARGET-LEARNING
+  - L-06-TARGET-DIAGNOSTICS
+  - L-07-TARGET-KNOWLEDGE
+  - L-08-TARGET-PROGRESS
+  - C-01-PREPARATION-PATH
+  - C-11-TARGET-COLLECTION
+  - C-12-TARGET-EDITOR
+  - C-21-CAPABILITY-COLLECTION
+  - C-22-CAPABILITY-EDITOR
+  - C-31-KNOWLEDGE-WORKSPACE
+  - C-32-KNOWLEDGE-EDITOR
+  - C-41-LEARNING-SUPPORT-COLLECTION
+  - C-42-LEARNING-SUPPORT-EDITOR
+  - C-51-ASSESSMENT-COLLECTION
+  - C-52-ASSESSMENT-EDITOR
+  - C-61-IMPORT
+  - C-71-QUALITY
+  - S-01-RUNTIME-STATUS
+  evidence:
+  - docs/interface/interface-topology.yaml
+  - docs/interface/screen-view-design.md
+  basis: Each accepted topology view/frame has one stable Screen/View subject; non-view
+    navigation contexts are excluded.
+- predicate: durable_state
+  value: true
+  evidence:
+  - docs/architecture/data-design.md
+  basis: Canonical data is required to survive ordinary backend/container restarts.
+- predicate: persistence_independent
+  value: true
+  evidence:
+  - docs/architecture/data-design.md
+  basis: Physical persistence constraints, uniqueness and transaction boundaries form
+    an independently accepted design contract.
+- predicate: concurrent_mutation
+  value: true
+  evidence:
+  - docs/architecture/import-consistency.md
+  - docs/architecture/data-design.md
+  basis: Concurrent import attempts and conflicting updates have explicit correctness
+    semantics.
+- predicate: retries
+  value: true
+  evidence:
+  - docs/architecture/import-consistency.md
+  basis: Repeated delivery, retry and idempotency semantics are explicit.
+- predicate: multiple_writers
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  - docs/architecture/data-design.md
+  basis: Current scope has one backend application boundary and one user/data scope;
+    concurrency is handled separately without an accepted multi-writer topology.
+- predicate: replicated_state
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: Current topology explicitly excludes distributed synchronization/event infrastructure;
+    offline synchronization is a reopening condition.
+- predicate: quality_constraints_material
+  value: true
+  evidence:
+  - docs/architecture/performance-capacity.md
+  basis: Explicit workload, responsiveness, idle-resource and semantic-preservation
+    constraints are accepted.
+- predicate: hard_realtime
+  value: false
+  evidence:
+  - docs/architecture/performance-capacity.md
+  basis: Performance targets are interactive browser envelopes, not hard real-time
+    correctness constraints.
+- predicate: internet_exposed
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: Current accepted deployment/trust scope is local; later remote deployment
+    is anticipated but not current exposure truth.
+- predicate: network_exposed
+  value: true
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: Browser/frontend, backend and configured external-runtime endpoints cross
+    machine-consumed runtime boundaries even within the current trusted deployment.
+- predicate: credentials
+  value: true
+  evidence:
+  - docs/architecture/system-architecture.md
+  - docs/architecture/data-design.md
+  basis: The configured external-runtime boundary may use an API key as deployment
+    configuration.
+- predicate: privileged_operations
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  - docs/vision/vision.md
+  basis: No privileged administrative operation or multi-user administration is accepted
+    in the current scope.
+- predicate: external_identity_provider
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: Authentication and multi-user identity are explicitly deferred.
+- predicate: security_analysis_material
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: The current canonical architecture defines a local trust boundary but no
+    independently accepted threat/control analysis artifact; security activation may
+    still follow from concrete exposure/credential facts.
+- predicate: normative_source
+  value: false
+  evidence:
+  - docs/architecture/context-map.md
+  - docs/vision/vision.md
+  basis: External standards/literature are research evidence rather than binding project
+    obligations in the current accepted scope.
+- predicate: production_runtime
+  value: false
+  evidence:
+  - docs/implementation/frontend-implementation-design.md
+  basis: The selected current realization is explicitly a coded interactive prototype
+    and usability-validation target, not production UI deployment.
+- predicate: external_dependencies
+  value: true
+  evidence:
+  - docs/architecture/system-architecture.md
+  - docs/implementation/frontend-implementation-design.md
+  basis: The accepted realization includes external runtime/provider and selected
+    frontend toolchain dependencies.
+- predicate: operability_contract_material
+  value: false
+  evidence:
+  - docs/architecture/system-architecture.md
+  basis: Hostnames, TLS termination, reverse proxy and production orchestration remain
+    deferred deployment/operability decisions.
+- predicate: mixed_version_window
+  value: false
+  evidence:
+  - docs/interface/machine-interface.md
+  - docs/architecture/system-architecture.md
+  basis: Compatibility is required when representations change, but no accepted simultaneous
+    mixed-version rollout window exists.
+- predicate: irreversible_transform
+  value: false
+  evidence:
+  - docs/architecture/data-design.md
+  - docs/architecture/system-architecture.md
+  basis: No accepted irreversible migration/transform is part of the current implementation
+    target.
+- predicate: separate_schema_migration
+  value: false
+  evidence:
+  - docs/architecture/data-design.md
+  basis: Migration tooling remains an implementation freedom; no separate migration
+    contract is currently accepted.
+- predicate: engineering_policy_selected
+  value: true
+  evidence:
+  - docs/engineering/frontend-engineering-policy.md
+  basis: Project-wide frontend engineering obligations are explicitly accepted.
+- predicate: component_contract_needed
+  value: true
+  evidence:
+  - docs/implementation/frontend-component-design.md
+  basis: Public component, port, mapping and dependency boundaries are required before
+    coding.
+- predicate: executable_oracle_gap
+  value: true
+  evidence:
+  - docs/verification/frontend-test-design.yaml
+  - docs/implementation/frontend-implementation-design.md
+  basis: A distinct Test Design is required to turn verification obligations into
+    executable observable contracts.
+- predicate: acceptance_scenarios_material
+  value: true
+  evidence:
+  - docs/verification/frontend-test-design.yaml
+  - docs/application/user-journeys.md
+  basis: Accepted end-to-end and recovery scenarios are explicit and independently
+    consumed by verification.
+- predicate: verification_scenarios_complete
+  value: true
+  evidence:
+  - docs/verification/frontend-test-design.yaml
+  - docs/verification/frontend-verification.md
+  basis: Current prototype verification obligations have explicit executable contract
+    coverage; evidence execution is a later concern.
+- predicate: toolchain_selection_material
+  value: true
+  evidence:
+  - docs/implementation/frontend-implementation-design.md
+  basis: React/TypeScript/Vite/MUI/Vitest/Playwright and the renderer adapter are
+    selected realization dependencies.
+- predicate: repository_realization_material
+  value: true
+  evidence:
+  - docs/implementation/frontend-implementation-design.md
+  basis: Repository layout, implementation slices and completion criteria are explicit.
+- predicate: safety_harm_potential
+  value: false
+  evidence:
+  - docs/vision/vision.md
+  - docs/vision/product-capabilities.md
+  basis: Current product scope is learning/preparation support and has no accepted
+    safety-critical control function.
+- predicate: ai_behavior
+  value: false
+  evidence:
+  - docs/vision/product-capabilities.md
+  - docs/implementation/frontend-implementation-design.md
+  basis: Automatic generation/derivation and AI behavior are not accepted current
+    product behavior.
+activated_concerns:
+- application.failures
+- architecture.boundaries
+- architecture.structure
+- data.classification
+- data.integrity
+- data.lifecycle
+- data.model
+- delivery.migration
+- delivery.release
+- delivery.rollback
+- dependency.inventory
+- dependency.license
+- dependency.trust
+- dependency.versioning
+- dependency.vulnerability
+- engineering.code-quality
+- engineering.components
+- engineering.error-handling
+- engineering.principles
+- intent.behavior
+- intent.quality-targets
+- intent.scope
+- interface.human.accessibility
+- interface.human.conceptual-model
+- interface.human.i18n
+- interface.human.information-architecture
+- interface.human.interaction
+- interface.human.journeys
+- interface.human.navigation-topology
+- interface.human.presentation-system
+- interface.human.responsiveness
+- interface.human.screen-composition
+- interface.human.usability
+- interface.machine.compatibility
+- interface.machine.contract
+- interface.machine.errors
+- quality.maintainability.analysability
+- quality.maintainability.modifiability
+- quality.maintainability.modularity
+- quality.maintainability.testability
+- quality.performance.capacity
+- quality.performance.latency
+- quality.performance.resource-efficiency
+- quality.performance.throughput
+- reliability.consistency
+- reliability.dependency-failure
+- reliability.durability
+- reliability.retry-idempotency
+- security.availability-abuse
+- security.boundaries
+- security.confidentiality
+- security.identity
+- security.integrity
+- security.secure-development
+- security.threat-analysis
+- security.vulnerability-management
+- transition.revalidation
+- verification.architecture
+- verification.data
+- verification.functional
+- verification.interface.human
+- verification.interface.machine
+- verification.interface.presentation
+- verification.quality
+- verification.requirement-traceability
+- verification.security
+- verification.strategy

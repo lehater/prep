@@ -13,10 +13,22 @@ export interface TargetCapabilityModel {
   readonly summary: string;
 }
 
+export type TargetPurpose = "role-capability" | "selection-interview" | "other";
+
+export interface RelatedTargetModel {
+  readonly id: string;
+  readonly name: string;
+  readonly purpose: TargetPurpose;
+}
+
 export interface LearningTargetModel {
   readonly id: string;
   readonly name: string;
   readonly definition: string;
+  readonly targetPurpose?: TargetPurpose;
+  readonly provenance?: readonly string[];
+  readonly unresolvedExpectations?: readonly string[];
+  readonly relatedTargets?: readonly RelatedTargetModel[];
   readonly scopeSummary: string;
   readonly capabilities: readonly TargetCapabilityModel[];
 

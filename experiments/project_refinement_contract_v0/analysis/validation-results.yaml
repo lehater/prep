@@ -1,0 +1,18 @@
+version: 1
+kind: prep-project-refinement-validation-results
+checks:
+- check: semantic-baseline
+  exit_code: 1
+  passed: false
+- check: integration
+  exit_code: 1
+  passed: false
+- check: full-revalidate
+  exit_code: 1
+  passed: false
+- check: docs
+  exit_code: 1
+  passed: false
+- check: coverage
+  exit_code: 0
+  passed: true

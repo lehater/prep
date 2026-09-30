@@ -1,0 +1,10 @@
+old	bootstrap	0
+old	semantic-baseline	0
+old	integration	0
+old	full-revalidate	0
+old	docs	0
+new	semantic-baseline	1
+new	integration	1
+new	full-revalidate	1
+new	docs	1
+new	coverage	0

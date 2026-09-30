@@ -79,10 +79,17 @@ export interface ProgressChangeModel {
   readonly evidenceSummary: string;
 }
 
+export interface TargetRefinementComparisonModel {
+  readonly changed: boolean;
+  readonly summary: string;
+  readonly provenance?: string;
+}
+
 export interface ProgressComparisonModel {
   readonly targetId: string;
   readonly fromProjectionId: string;
   readonly toProjectionId: string;
   readonly changes: readonly ProgressChangeModel[];
+  readonly targetRefinement: TargetRefinementComparisonModel;
   readonly summary: string;
 }

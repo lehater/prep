@@ -1,0 +1,761 @@
+baseline_commit: ac9d97af3357663207d7c063c415a84327ab71f7
+graph:
+  graph_id: PREP-REVALIDATION
+  authority_count: 17
+  authorities:
+  - DISCOVERY
+  - PRODUCT-REQUIREMENTS
+  - DOMAIN-STRATEGY
+  - MODEL-CONTEXT-STRATEGY
+  - TACTICAL-DOMAIN-DESIGN
+  - APPLICATION-DESIGN
+  - QUALITY-DESIGN
+  - HUMAN-INTERFACE-DESIGN
+  - MACHINE-INTERFACE-DESIGN
+  - CONCURRENCY-CONSISTENCY-DESIGN
+  - VERIFICATION-DESIGN
+  - SYSTEM-ARCHITECTURE
+  - DATA-DESIGN
+  - ENGINEERING-POLICY
+  - COMPONENT-DESIGN
+  - TEST-DESIGN
+  - IMPLEMENTATION-DESIGN
+  capability_count: 31
+  consumer_count: 3
+  consumers:
+  - CURRENT-REVALIDATION
+  - FRONTEND-PROTOTYPE
+  - FRONTEND-IMPLEMENTATION
+  selected_consumer: FRONTEND-IMPLEMENTATION
+  selected_consumer_closure_count: 28
+  selected_consumer_closure:
+  - prep.application-design
+  - prep.conceptual-interface-model
+  - prep.domain-strategy
+  - prep.frontend-component-design
+  - prep.frontend-engineering-policy
+  - prep.frontend-implementation-design
+  - prep.frontend-performance-capacity
+  - prep.frontend-system-architecture
+  - prep.frontend-test-design
+  - prep.frontend-verification
+  - prep.information-architecture
+  - prep.interaction-design
+  - prep.interface-topology
+  - prep.interface-verification
+  - prep.knowledge-model
+  - prep.knowledge-relation-classification
+  - prep.learner-model
+  - prep.learning-design
+  - prep.machine-interfaces
+  - prep.model-context-strategy
+  - prep.presentation-system
+  - prep.presentation-verification
+  - prep.problem-evidence
+  - prep.product-capabilities
+  - prep.product-intent
+  - prep.screen-view-design
+  - prep.task-model
+  - prep.user-journeys
+  knowledge_kind_counts:
+    application-design: 1
+    component-design: 1
+    conceptual-interface-model: 1
+    concurrency-consistency-design: 1
+    data-design: 1
+    domain-model: 4
+    domain-strategy: 1
+    engineering-policy: 1
+    implementation-design: 1
+    information-architecture-design: 1
+    interaction-design: 1
+    interface-contract: 1
+    interface-topology-design: 1
+    model-context-strategy: 1
+    presentation-system-design: 1
+    problem-evidence: 1
+    product-requirements: 2
+    quality-design: 1
+    screen-view-design: 1
+    system-architecture: 2
+    task-model: 1
+    test-design: 1
+    user-journey-design: 1
+    verification-strategy: 3
+  semantic_claim_counts:
+    engineering.application.failures: 1
+    engineering.application.orchestration: 1
+    engineering.application.use-cases: 1
+    engineering.architecture.boundaries: 2
+    engineering.architecture.structure: 2
+    engineering.delivery.release: 1
+    engineering.delivery.rollback: 1
+    engineering.engineering.code-quality: 1
+    engineering.engineering.components: 1
+    engineering.engineering.error-handling: 1
+    engineering.engineering.principles: 1
+    engineering.intent.behavior: 1
+    engineering.intent.quality-targets: 1
+    engineering.intent.scope: 1
+    engineering.interface.human.accessibility: 1
+    engineering.interface.human.conceptual-model: 1
+    engineering.interface.human.information-architecture: 1
+    engineering.interface.human.interaction: 1
+    engineering.interface.human.journeys: 1
+    engineering.interface.human.navigation-topology: 1
+    engineering.interface.human.presentation-system: 1
+    engineering.interface.human.responsiveness: 1
+    engineering.interface.human.screen-composition: 1
+    engineering.interface.human.usability: 1
+    engineering.interface.machine.compatibility: 1
+    engineering.interface.machine.contract: 1
+    engineering.interface.machine.errors: 1
+    engineering.quality.maintainability.analysability: 1
+    engineering.quality.maintainability.modifiability: 1
+    engineering.quality.maintainability.modularity: 1
+    engineering.quality.maintainability.testability: 1
+    engineering.quality.performance.capacity: 1
+    engineering.quality.performance.latency: 1
+    engineering.quality.performance.resource-efficiency: 1
+    engineering.reliability.consistency: 1
+    engineering.reliability.retry-idempotency: 1
+    engineering.transition.revalidation: 1
+    engineering.verification.architecture: 1
+    engineering.verification.functional: 1
+    engineering.verification.interface.human: 1
+    engineering.verification.interface.machine: 1
+    engineering.verification.interface.presentation: 1
+    engineering.verification.quality: 1
+    engineering.verification.requirement-traceability: 1
+    engineering.verification.strategy: 1
+  productions:
+    prep.application-design:
+      authority: APPLICATION-DESIGN
+      knowledge_kind: application-design
+      semantic_claims:
+      - engineering.application.use-cases
+      - engineering.application.orchestration
+      - engineering.application.failures
+      requires:
+      - prep.task-model
+      - prep.product-capabilities
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+    prep.conceptual-interface-model:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: conceptual-interface-model
+      semantic_claims:
+      - engineering.interface.human.conceptual-model
+      requires:
+      - prep.task-model
+      - prep.user-journeys
+      - prep.application-design
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+    prep.data-design:
+      authority: DATA-DESIGN
+      knowledge_kind: data-design
+      semantic_claims: []
+      requires:
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+      - prep.import-consistency
+      - prep.system-architecture
+    prep.domain-strategy:
+      authority: DOMAIN-STRATEGY
+      knowledge_kind: domain-strategy
+      semantic_claims: []
+      requires:
+      - prep.product-capabilities
+    prep.frontend-component-design:
+      authority: COMPONENT-DESIGN
+      knowledge_kind: component-design
+      semantic_claims:
+      - engineering.engineering.components
+      requires:
+      - prep.frontend-system-architecture
+      - prep.frontend-engineering-policy
+      - prep.screen-view-design
+      - prep.machine-interfaces
+      - prep.frontend-performance-capacity
+    prep.frontend-engineering-policy:
+      authority: ENGINEERING-POLICY
+      knowledge_kind: engineering-policy
+      semantic_claims:
+      - engineering.engineering.principles
+      - engineering.engineering.code-quality
+      - engineering.engineering.error-handling
+      - engineering.quality.maintainability.modularity
+      - engineering.quality.maintainability.analysability
+      - engineering.quality.maintainability.modifiability
+      - engineering.quality.maintainability.testability
+      requires:
+      - prep.frontend-system-architecture
+      - prep.presentation-system
+    prep.frontend-implementation-design:
+      authority: IMPLEMENTATION-DESIGN
+      knowledge_kind: implementation-design
+      semantic_claims:
+      - engineering.delivery.release
+      - engineering.delivery.rollback
+      requires:
+      - prep.frontend-component-design
+      - prep.frontend-verification
+      - prep.frontend-test-design
+    prep.frontend-performance-capacity:
+      authority: QUALITY-DESIGN
+      knowledge_kind: quality-design
+      semantic_claims:
+      - engineering.intent.quality-targets
+      - engineering.quality.performance.latency
+      - engineering.quality.performance.resource-efficiency
+      - engineering.quality.performance.capacity
+      requires:
+      - prep.product-capabilities
+      - prep.knowledge-model
+    prep.frontend-system-architecture:
+      authority: SYSTEM-ARCHITECTURE
+      knowledge_kind: system-architecture
+      semantic_claims:
+      - engineering.architecture.structure
+      - engineering.architecture.boundaries
+      requires:
+      - prep.application-design
+      - prep.presentation-system
+      - prep.screen-view-design
+      - prep.machine-interfaces
+      - prep.frontend-performance-capacity
+    prep.frontend-test-design:
+      authority: TEST-DESIGN
+      knowledge_kind: test-design
+      semantic_claims: []
+      requires:
+      - prep.frontend-verification
+      - prep.interaction-design
+      - prep.screen-view-design
+      - prep.frontend-performance-capacity
+    prep.frontend-verification:
+      authority: VERIFICATION-DESIGN
+      knowledge_kind: verification-strategy
+      semantic_claims:
+      - engineering.verification.strategy
+      - engineering.verification.requirement-traceability
+      - engineering.verification.functional
+      - engineering.verification.architecture
+      - engineering.verification.quality
+      - engineering.verification.interface.machine
+      - engineering.transition.revalidation
+      requires:
+      - prep.product-capabilities
+      - prep.presentation-verification
+      - prep.frontend-system-architecture
+      - prep.machine-interfaces
+      - prep.frontend-performance-capacity
+    prep.import-consistency:
+      authority: CONCURRENCY-CONSISTENCY-DESIGN
+      knowledge_kind: concurrency-consistency-design
+      semantic_claims:
+      - engineering.reliability.consistency
+      - engineering.reliability.retry-idempotency
+      requires:
+      - prep.application-design
+      - prep.machine-interfaces
+    prep.information-architecture:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: information-architecture-design
+      semantic_claims:
+      - engineering.interface.human.information-architecture
+      requires:
+      - prep.conceptual-interface-model
+      - prep.task-model
+      - prep.user-journeys
+    prep.interaction-design:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: interaction-design
+      semantic_claims:
+      - engineering.interface.human.interaction
+      requires:
+      - prep.conceptual-interface-model
+      - prep.task-model
+      - prep.user-journeys
+      - prep.application-design
+      - prep.machine-interfaces
+    prep.interface-topology:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: interface-topology-design
+      semantic_claims:
+      - engineering.interface.human.navigation-topology
+      requires:
+      - prep.information-architecture
+      - prep.interaction-design
+    prep.interface-verification:
+      authority: VERIFICATION-DESIGN
+      knowledge_kind: verification-strategy
+      semantic_claims:
+      - engineering.verification.interface.human
+      requires:
+      - prep.task-model
+      - prep.information-architecture
+      - prep.interaction-design
+      - prep.interface-topology
+    prep.knowledge-model:
+      authority: TACTICAL-DOMAIN-DESIGN
+      knowledge_kind: domain-model
+      semantic_claims: []
+      requires:
+      - prep.model-context-strategy
+      - prep.product-capabilities
+      - prep.knowledge-relation-classification
+    prep.knowledge-relation-classification:
+      authority: TACTICAL-DOMAIN-DESIGN
+      knowledge_kind: domain-model
+      semantic_claims: []
+      requires:
+      - prep.model-context-strategy
+      - prep.product-capabilities
+    prep.learner-model:
+      authority: TACTICAL-DOMAIN-DESIGN
+      knowledge_kind: domain-model
+      semantic_claims: []
+      requires:
+      - prep.model-context-strategy
+      - prep.knowledge-model
+      - prep.product-capabilities
+    prep.learning-design:
+      authority: TACTICAL-DOMAIN-DESIGN
+      knowledge_kind: domain-model
+      semantic_claims: []
+      requires:
+      - prep.model-context-strategy
+      - prep.knowledge-model
+      - prep.product-capabilities
+    prep.machine-interfaces:
+      authority: MACHINE-INTERFACE-DESIGN
+      knowledge_kind: interface-contract
+      semantic_claims:
+      - engineering.interface.machine.contract
+      - engineering.interface.machine.errors
+      - engineering.interface.machine.compatibility
+      requires:
+      - prep.application-design
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+    prep.model-context-strategy:
+      authority: MODEL-CONTEXT-STRATEGY
+      knowledge_kind: model-context-strategy
+      semantic_claims: []
+      requires:
+      - prep.product-capabilities
+      - prep.domain-strategy
+    prep.presentation-system:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: presentation-system-design
+      semantic_claims:
+      - engineering.interface.human.presentation-system
+      - engineering.interface.human.usability
+      - engineering.interface.human.accessibility
+      - engineering.interface.human.responsiveness
+      requires:
+      - prep.conceptual-interface-model
+      - prep.information-architecture
+      - prep.interface-topology
+      - prep.interaction-design
+      - prep.frontend-performance-capacity
+    prep.presentation-verification:
+      authority: VERIFICATION-DESIGN
+      knowledge_kind: verification-strategy
+      semantic_claims:
+      - engineering.verification.interface.presentation
+      requires:
+      - prep.interface-verification
+      - prep.presentation-system
+      - prep.screen-view-design
+      - prep.frontend-performance-capacity
+    prep.problem-evidence:
+      authority: DISCOVERY
+      knowledge_kind: problem-evidence
+      semantic_claims: []
+      requires: []
+    prep.product-capabilities:
+      authority: PRODUCT-REQUIREMENTS
+      knowledge_kind: product-requirements
+      semantic_claims:
+      - engineering.intent.behavior
+      requires:
+      - prep.product-intent
+    prep.product-intent:
+      authority: PRODUCT-REQUIREMENTS
+      knowledge_kind: product-requirements
+      semantic_claims:
+      - engineering.intent.scope
+      requires:
+      - prep.problem-evidence
+    prep.screen-view-design:
+      authority: HUMAN-INTERFACE-DESIGN
+      knowledge_kind: screen-view-design
+      semantic_claims:
+      - engineering.interface.human.screen-composition
+      requires:
+      - prep.interface-topology
+      - prep.interaction-design
+      - prep.presentation-system
+      - prep.machine-interfaces
+      - prep.frontend-performance-capacity
+    prep.system-architecture:
+      authority: SYSTEM-ARCHITECTURE
+      knowledge_kind: system-architecture
+      semantic_claims:
+      - engineering.architecture.structure
+      - engineering.architecture.boundaries
+      requires:
+      - prep.application-design
+      - prep.interaction-design
+      - prep.interface-topology
+      - prep.machine-interfaces
+      - prep.import-consistency
+    prep.task-model:
+      authority: APPLICATION-DESIGN
+      knowledge_kind: task-model
+      semantic_claims: []
+      requires:
+      - prep.product-capabilities
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+    prep.user-journeys:
+      authority: APPLICATION-DESIGN
+      knowledge_kind: user-journey-design
+      semantic_claims:
+      - engineering.interface.human.journeys
+      requires:
+      - prep.application-design
+      - prep.task-model
+core:
+  artifact_count: 31
+  question_count: 0
+  providers:
+    PROBLEM-SPACE:
+      authority: DISCOVERY
+      path: docs/vision/problem-space.md
+      provides:
+      - prep.problem-evidence
+      depends_on: []
+    PRODUCT-VISION:
+      authority: PRODUCT-REQUIREMENTS
+      path: docs/vision/vision.md
+      provides:
+      - prep.product-intent
+      depends_on:
+      - PROBLEM-SPACE
+    PRODUCT-CAPABILITIES:
+      authority: PRODUCT-REQUIREMENTS
+      path: docs/vision/product-capabilities.md
+      provides:
+      - prep.product-capabilities
+      depends_on:
+      - PRODUCT-VISION
+    CONTEXT-MAP:
+      authority: DOMAIN-STRATEGY
+      path: docs/architecture/context-map.md
+      provides:
+      - prep.domain-strategy
+      depends_on:
+      - PRODUCT-CAPABILITIES
+    MODEL-CONTEXT-MAP:
+      authority: MODEL-CONTEXT-STRATEGY
+      path: docs/architecture/model-context-map.md
+      provides:
+      - prep.model-context-strategy
+      depends_on:
+      - PRODUCT-CAPABILITIES
+      - CONTEXT-MAP
+    KNOWLEDGE-RELATION-CLASSIFICATION:
+      authority: TACTICAL-DOMAIN-DESIGN
+      path: docs/domain/relation-classification-catalog.yaml
+      provides:
+      - prep.knowledge-relation-classification
+      depends_on:
+      - MODEL-CONTEXT-MAP
+      - PRODUCT-CAPABILITIES
+    KNOWLEDGE-MODEL:
+      authority: TACTICAL-DOMAIN-DESIGN
+      path: docs/domain/knowledge-model.md
+      provides:
+      - prep.knowledge-model
+      depends_on:
+      - MODEL-CONTEXT-MAP
+      - PRODUCT-CAPABILITIES
+      - KNOWLEDGE-RELATION-CLASSIFICATION
+    FRONTEND-PERFORMANCE-CAPACITY:
+      authority: QUALITY-DESIGN
+      path: docs/architecture/performance-capacity.md
+      provides:
+      - prep.frontend-performance-capacity
+      depends_on:
+      - PRODUCT-CAPABILITIES
+      - KNOWLEDGE-MODEL
+    LEARNING-DESIGN:
+      authority: TACTICAL-DOMAIN-DESIGN
+      path: docs/domain/learning-design.md
+      provides:
+      - prep.learning-design
+      depends_on:
+      - MODEL-CONTEXT-MAP
+      - KNOWLEDGE-MODEL
+      - PRODUCT-CAPABILITIES
+    LEARNER-MODEL:
+      authority: TACTICAL-DOMAIN-DESIGN
+      path: docs/domain/learner-model.md
+      provides:
+      - prep.learner-model
+      depends_on:
+      - MODEL-CONTEXT-MAP
+      - KNOWLEDGE-MODEL
+      - PRODUCT-CAPABILITIES
+    TASK-MODEL:
+      authority: APPLICATION-DESIGN
+      path: docs/application/task-model.yaml
+      provides:
+      - prep.task-model
+      depends_on:
+      - PRODUCT-CAPABILITIES
+      - KNOWLEDGE-MODEL
+      - LEARNING-DESIGN
+      - LEARNER-MODEL
+    APPLICATION-DESIGN:
+      authority: APPLICATION-DESIGN
+      path: docs/application/application-design.md
+      provides:
+      - prep.application-design
+      depends_on:
+      - TASK-MODEL
+      - PRODUCT-CAPABILITIES
+      - KNOWLEDGE-MODEL
+      - LEARNING-DESIGN
+      - LEARNER-MODEL
+    USER-JOURNEYS:
+      authority: APPLICATION-DESIGN
+      path: docs/application/user-journeys.md
+      provides:
+      - prep.user-journeys
+      depends_on:
+      - APPLICATION-DESIGN
+      - TASK-MODEL
+    CONCEPTUAL-INTERFACE-MODEL:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/conceptual-interface-model.yaml
+      provides:
+      - prep.conceptual-interface-model
+      depends_on:
+      - TASK-MODEL
+      - USER-JOURNEYS
+      - APPLICATION-DESIGN
+      - KNOWLEDGE-MODEL
+      - LEARNING-DESIGN
+      - LEARNER-MODEL
+    INFORMATION-ARCHITECTURE:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/information-architecture.yaml
+      provides:
+      - prep.information-architecture
+      depends_on:
+      - CONCEPTUAL-INTERFACE-MODEL
+      - TASK-MODEL
+      - USER-JOURNEYS
+    INTERACTION-DESIGN:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/interaction-design.yaml
+      provides:
+      - prep.interaction-design
+      depends_on:
+      - CONCEPTUAL-INTERFACE-MODEL
+      - TASK-MODEL
+      - USER-JOURNEYS
+      - APPLICATION-DESIGN
+      - MACHINE-INTERFACES
+    INTERFACE-TOPOLOGY:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/interface-topology.yaml
+      provides:
+      - prep.interface-topology
+      depends_on:
+      - INFORMATION-ARCHITECTURE
+      - INTERACTION-DESIGN
+    PRESENTATION-SYSTEM:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/presentation-system.md
+      provides:
+      - prep.presentation-system
+      depends_on:
+      - CONCEPTUAL-INTERFACE-MODEL
+      - INFORMATION-ARCHITECTURE
+      - INTERFACE-TOPOLOGY
+      - INTERACTION-DESIGN
+      - FRONTEND-PERFORMANCE-CAPACITY
+    SCREEN-VIEW-DESIGN:
+      authority: HUMAN-INTERFACE-DESIGN
+      path: docs/interface/screen-view-design.md
+      provides:
+      - prep.screen-view-design
+      depends_on:
+      - INTERFACE-TOPOLOGY
+      - INTERACTION-DESIGN
+      - PRESENTATION-SYSTEM
+      - MACHINE-INTERFACES
+      - FRONTEND-PERFORMANCE-CAPACITY
+    MACHINE-INTERFACES:
+      authority: MACHINE-INTERFACE-DESIGN
+      path: docs/interface/machine-interface.md
+      provides:
+      - prep.machine-interfaces
+      depends_on:
+      - APPLICATION-DESIGN
+      - KNOWLEDGE-MODEL
+      - LEARNING-DESIGN
+      - LEARNER-MODEL
+    IMPORT-CONSISTENCY:
+      authority: CONCURRENCY-CONSISTENCY-DESIGN
+      path: docs/architecture/import-consistency.md
+      provides:
+      - prep.import-consistency
+      depends_on:
+      - APPLICATION-DESIGN
+      - MACHINE-INTERFACES
+    INTERFACE-VERIFICATION:
+      authority: VERIFICATION-DESIGN
+      path: docs/verification/interface-verification.md
+      provides:
+      - prep.interface-verification
+      depends_on:
+      - TASK-MODEL
+      - INFORMATION-ARCHITECTURE
+      - INTERACTION-DESIGN
+      - INTERFACE-TOPOLOGY
+    PRESENTATION-VERIFICATION:
+      authority: VERIFICATION-DESIGN
+      path: docs/verification/presentation-verification.md
+      provides:
+      - prep.presentation-verification
+      depends_on:
+      - INTERFACE-VERIFICATION
+      - PRESENTATION-SYSTEM
+      - SCREEN-VIEW-DESIGN
+      - FRONTEND-PERFORMANCE-CAPACITY
+    SYSTEM-ARCHITECTURE:
+      authority: SYSTEM-ARCHITECTURE
+      path: docs/architecture/system-architecture.md
+      provides:
+      - prep.system-architecture
+      depends_on:
+      - APPLICATION-DESIGN
+      - INTERACTION-DESIGN
+      - INTERFACE-TOPOLOGY
+      - MACHINE-INTERFACES
+      - IMPORT-CONSISTENCY
+    DATA-DESIGN:
+      authority: DATA-DESIGN
+      path: docs/architecture/data-design.md
+      provides:
+      - prep.data-design
+      depends_on:
+      - KNOWLEDGE-MODEL
+      - LEARNING-DESIGN
+      - LEARNER-MODEL
+      - IMPORT-CONSISTENCY
+      - SYSTEM-ARCHITECTURE
+    FRONTEND-SYSTEM-ARCHITECTURE:
+      authority: SYSTEM-ARCHITECTURE
+      path: docs/architecture/frontend-system-architecture.md
+      provides:
+      - prep.frontend-system-architecture
+      depends_on:
+      - SYSTEM-ARCHITECTURE
+      - PRESENTATION-SYSTEM
+      - SCREEN-VIEW-DESIGN
+      - MACHINE-INTERFACES
+      - FRONTEND-PERFORMANCE-CAPACITY
+    FRONTEND-ENGINEERING-POLICY:
+      authority: ENGINEERING-POLICY
+      path: docs/engineering/frontend-engineering-policy.md
+      provides:
+      - prep.frontend-engineering-policy
+      depends_on:
+      - FRONTEND-SYSTEM-ARCHITECTURE
+      - PRESENTATION-SYSTEM
+    FRONTEND-COMPONENT-DESIGN:
+      authority: COMPONENT-DESIGN
+      path: docs/implementation/frontend-component-design.md
+      provides:
+      - prep.frontend-component-design
+      depends_on:
+      - FRONTEND-SYSTEM-ARCHITECTURE
+      - FRONTEND-ENGINEERING-POLICY
+      - SCREEN-VIEW-DESIGN
+      - MACHINE-INTERFACES
+      - FRONTEND-PERFORMANCE-CAPACITY
+    FRONTEND-VERIFICATION:
+      authority: VERIFICATION-DESIGN
+      path: docs/verification/frontend-verification.md
+      provides:
+      - prep.frontend-verification
+      depends_on:
+      - PRODUCT-CAPABILITIES
+      - PRESENTATION-VERIFICATION
+      - FRONTEND-SYSTEM-ARCHITECTURE
+      - MACHINE-INTERFACES
+      - FRONTEND-PERFORMANCE-CAPACITY
+    FRONTEND-TEST-DESIGN:
+      authority: TEST-DESIGN
+      path: docs/verification/frontend-test-design.yaml
+      provides:
+      - prep.frontend-test-design
+      depends_on:
+      - FRONTEND-VERIFICATION
+      - INTERACTION-DESIGN
+      - SCREEN-VIEW-DESIGN
+      - FRONTEND-PERFORMANCE-CAPACITY
+    FRONTEND-IMPLEMENTATION-DESIGN:
+      authority: IMPLEMENTATION-DESIGN
+      path: docs/implementation/frontend-implementation-design.md
+      provides:
+      - prep.frontend-implementation-design
+      depends_on:
+      - FRONTEND-COMPONENT-DESIGN
+      - FRONTEND-VERIFICATION
+      - FRONTEND-TEST-DESIGN
+authority_applicability:
+  REQUIRED: 17
+  NOT_APPLICABLE: 6
+authority_assessments:
+  DISCOVERY: REQUIRED
+  PRODUCT-REQUIREMENTS: REQUIRED
+  DOMAIN-STRATEGY: REQUIRED
+  MODEL-CONTEXT-STRATEGY: REQUIRED
+  DOMAIN-USE-CASE-DESIGN: NOT_APPLICABLE
+  TACTICAL-DOMAIN-DESIGN: REQUIRED
+  APPLICATION-DESIGN: REQUIRED
+  SYSTEM-ARCHITECTURE: REQUIRED
+  CONCURRENCY-CONSISTENCY-DESIGN: REQUIRED
+  SECURITY-ARCHITECTURE: NOT_APPLICABLE
+  MACHINE-INTERFACE-DESIGN: REQUIRED
+  HUMAN-INTERFACE-DESIGN: REQUIRED
+  DATA-DESIGN: REQUIRED
+  QUALITY-DESIGN: REQUIRED
+  SECURITY-ANALYSIS: NOT_APPLICABLE
+  OBLIGATION-ANALYSIS: NOT_APPLICABLE
+  CHANGE-TRANSITION-DESIGN: NOT_APPLICABLE
+  OPERABILITY-DESIGN: NOT_APPLICABLE
+  ENGINEERING-POLICY: REQUIRED
+  COMPONENT-DESIGN: REQUIRED
+  TEST-DESIGN: REQUIRED
+  IMPLEMENTATION-DESIGN: REQUIRED
+  VERIFICATION-DESIGN: REQUIRED
+coverage_decision_counts:
+  COVERED: 4
+  NOT_APPLICABLE: 1
+  DEFERRED: 1
+semantic_review_count: 31

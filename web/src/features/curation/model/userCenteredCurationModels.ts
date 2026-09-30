@@ -1,9 +1,15 @@
 import type { CurationCollection, CurationOutcome } from "./curationModels";
 
+export type TargetProfilePurpose = "role-capability" | "selection-interview" | "other";
+
 export interface TargetProfileModel {
   readonly id: string;
   readonly name: string;
   readonly definition: string;
+  readonly targetPurpose: TargetProfilePurpose;
+  readonly provenance: readonly string[];
+  readonly unresolvedExpectations: readonly string[];
+  readonly relatedTargetRefs: readonly string[];
   readonly capabilityIds: readonly string[];
 }
 

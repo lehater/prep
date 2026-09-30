@@ -1,0 +1,19 @@
+version: 1
+kind: prep-reference-semantic-pass-summary
+derived_concern_count: 67
+initial_coverage_completion_ready: false
+initial_coverage_remaining_work_count: 53
+semantic_materialization_status: MATERIALIZATION_CONFLICT
+diagnostics:
+- code: MATERIALIZATION_CONFLICT
+  message: delivery.migration requires N/A template TRANSITION-CONTRACT
+  concern: delivery.migration
+  template: TRANSITION-CONTRACT
+- code: MATERIALIZATION_CONFLICT
+  message: delivery.rollback requires N/A template TRANSITION-CONTRACT
+  concern: delivery.rollback
+  template: TRANSITION-CONTRACT
+- code: MATERIALIZATION_CONFLICT
+  message: transition.revalidation requires N/A template TRANSITION-CONTRACT
+  concern: transition.revalidation
+  template: TRANSITION-CONTRACT

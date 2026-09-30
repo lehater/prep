@@ -1,0 +1,8 @@
+version: 1
+kind: prep-engineering-coverage-overlay
+project: PREP-REFERENCE-V0
+subject_inventory:
+  state: DEFERRED
+  rationale: First frozen run intentionally does not copy OLD coverage decisions;
+    coverage is evaluated from the NEW graph before any project overlay is accepted.
+decisions: []

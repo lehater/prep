@@ -1,0 +1,18 @@
+version: 1
+kind: prep-reference-new-harness-build-summary
+graph_capability_count: 63
+bound_capability_count: 60
+unbound_capabilities:
+- prep-reference-v0.operability-design
+- prep-reference-v0.security-analysis
+- prep-reference-v0.security-architecture
+artifact_count: 30
+target_status: READY
+create:
+- prep-reference-v0.operability-design
+- prep-reference-v0.security-architecture
+wait: []
+pending:
+- prep-reference-v0.completion-criteria
+- prep-reference-v0.implementation-plan
+- prep-reference-v0.security-analysis

@@ -1,0 +1,183 @@
+{
+  "diagnostics": [
+    {
+      "code": "MATERIALIZATION_CONFLICT",
+      "concern": "delivery.migration",
+      "message": "delivery.migration requires N/A template TRANSITION-CONTRACT",
+      "template": "TRANSITION-CONTRACT"
+    },
+    {
+      "code": "MATERIALIZATION_CONFLICT",
+      "concern": "delivery.rollback",
+      "message": "delivery.rollback requires N/A template TRANSITION-CONTRACT",
+      "template": "TRANSITION-CONTRACT"
+    },
+    {
+      "code": "MATERIALIZATION_CONFLICT",
+      "concern": "transition.revalidation",
+      "message": "transition.revalidation requires N/A template TRANSITION-CONTRACT",
+      "template": "TRANSITION-CONTRACT"
+    }
+  ],
+  "kind": "harness-reference-materialization-result",
+  "status": "MATERIALIZATION_CONFLICT",
+  "template_status": [
+    {
+      "status": "REQUIRED",
+      "template": "ACCEPTANCE-SCENARIOS"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "APPLICATION-FAILURE-CONTRACT"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "APPLICATION-ORCHESTRATION"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "COMPLETION-CRITERIA"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "COMPONENT-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "CONCEPTUAL-INTERFACE-MODEL"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "CONCURRENCY-CONSISTENCY"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "DATA-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "DESIGN-VERIFICATION-OBLIGATIONS"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "DOMAIN-MODEL"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "DOMAIN-STRATEGY"
+    },
+    {
+      "status": "NOT_APPLICABLE",
+      "template": "DOMAIN-USE-CASE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "ENGINEERING-POLICY"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "IMPLEMENTATION-PLAN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "IMPLEMENTATION-STACK"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "INFORMATION-ARCHITECTURE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "INTERACTION-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "INTERFACE-TOPOLOGY"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "MACHINE-INTERFACE-CONTRACT"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "MODEL-CONTEXT-STRATEGY"
+    },
+    {
+      "status": "NOT_APPLICABLE",
+      "template": "OBLIGATION-COVERAGE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "OPERABILITY-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "PRESENTATION-SYSTEM"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "PROBLEM-EVIDENCE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "PRODUCT-ACCEPTANCE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "PRODUCT-INTENT"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "QUALITY-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "REALIZATION-VERIFICATION-PLAN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "RUNTIME-ARCHITECTURE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "SCREEN-VIEW-DESIGN"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "SECURITY-ANALYSIS"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "SECURITY-ARCHITECTURE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "SYSTEM-BOUNDARY-RULES"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "SYSTEM-STRUCTURE"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "TASK-MODEL"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "TEST-DESIGN"
+    },
+    {
+      "status": "NOT_APPLICABLE",
+      "template": "TRANSITION-CONTRACT"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "USER-JOURNEY"
+    },
+    {
+      "status": "REQUIRED",
+      "template": "USER-NEEDS"
+    }
+  ],
+  "version": 1
+}

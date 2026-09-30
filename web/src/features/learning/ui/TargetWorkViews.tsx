@@ -109,6 +109,7 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
   const [focus, setFocus] = useState<LearningFocusModel | null>(null);
   const [problem, setProblem] = useState<string>();
   const [reload, setReload] = useState(0);
+  const [focusRationale, setFocusRationale] = useState("");
 
   const load = () => {
     setGaps(null);
@@ -147,7 +148,11 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
 
   const choose = (gap: GapModel, intentKind: "learning" | "diagnostic") => {
     void targetWorkPort
-      .setFocus(targetId, { gapId: gap.id, intentKind })
+      .setFocus(targetId, {
+        gapId: gap.id,
+        intentKind,
+        rationale: focusRationale.trim() || undefined,
+      })
       .then((outcome) => {
         if (outcome.status === "success") setFocus(outcome.value);
         else setProblem(outcome.message);
@@ -167,6 +172,13 @@ export function GapsView({ targetId, targetWorkPort }: TargetWorkViewProps) {
           severity="info"
         />
       ) : null}
+      <TextField
+        label="Why this focus now?"
+        helperText="Optional: deadline, interview stage, available time, preparation cost or other material constraint."
+        value={focusRationale}
+        onChange={(event) => setFocusRationale(event.target.value)}
+        size="small"
+      />
       {gaps.length === 0 ? (
         <StateNotice title="No current gaps" message="Current accepted evidence establishes the target requirements represented by this prototype." severity="success" />
       ) : (
@@ -487,6 +499,15 @@ export function ProgressView({ targetId, targetWorkPort }: TargetWorkViewProps) 
         <Typography component="h3" variant="h6">What changed</Typography>
         <Typography color="text.secondary">{progress.summary}</Typography>
       </header>
+      <Paper variant="outlined" sx={{ p: 1.5 }}>
+        <Typography component="h4" sx={{ fontWeight: 700 }}>Target refinement</Typography>
+        <Typography>{progress.targetRefinement.summary}</Typography>
+        {progress.targetRefinement.provenance ? (
+          <Typography variant="body2" color="text.secondary">
+            Provenance: {progress.targetRefinement.provenance}
+          </Typography>
+        ) : null}
+      </Paper>
       {progress.changes.length === 0 ? (
         <StateNotice title="No established change yet" message="No-change is a valid result until new evidence changes target-relative state." severity="info" />
       ) : (

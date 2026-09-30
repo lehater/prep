@@ -1,0 +1,15 @@
+Authority registry: RECONCILED (23 reference Authorities)
+CURRENT-REVALIDATION Graph Doctor: errors=0 warnings=0 info=0
+CURRENT-REVALIDATION structural: COMPLETE
+CURRENT-REVALIDATION strict semantic/currentness: COMPLETE
+FRONTEND-PROTOTYPE Graph Doctor: errors=0 warnings=0 info=0
+FRONTEND-PROTOTYPE structural: COMPLETE
+FRONTEND-PROTOTYPE strict semantic/currentness: COMPLETE
+FRONTEND-IMPLEMENTATION Graph Doctor: errors=0 warnings=0 info=0
+FRONTEND-IMPLEMENTATION structural: COMPLETE
+FRONTEND-IMPLEMENTATION strict semantic/currentness: COMPLETE
+FRONTEND-IMPLEMENTATION Engineering Coverage[frontend]: completion_ready=True remaining_work=0 questions=0
+Graph Doctor: no warnings across declared Consumers
+Project Engineering Status applicability: NOT_APPLICABLE=6, REQUIRED=17
+Core unresolved semantic frontier: 0 question(s): -
+FULL HARNESS REVALIDATION PASS (machine-checkable closure)

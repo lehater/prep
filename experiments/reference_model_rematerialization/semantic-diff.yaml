@@ -1,0 +1,304 @@
+version: 1
+kind: prep-reference-semantic-ab-diff
+experiment:
+  prep_baseline_commit: ac9d97af3357663207d7c063c415a84327ab71f7
+  reference_model_commit: b172fd1c7519f88454d2135c1435dd0e45dbb403
+  frozen_first_pass: true
+  old_harness_used_as_new_input: false
+
+summary:
+  old_authorities: 17
+  new_authorities: 20
+  old_capabilities: 31
+  new_capabilities: 63
+  old_frontend_consumer_closure: 28
+  new_frontend_consumer_closure: 63
+  old_frontend_unique_provider_paths: 28
+  new_frontend_unique_provider_paths: 30
+  new_missing_provider_capabilities: 3
+  old_meaningful_capabilities_with_recognizable_new_responsibility_counterpart: 30
+  old_meaningful_capability_count: 31
+  note: >-
+    Responsibility-level mapping is high, but it must not be interpreted as semantic
+    equivalence because prerequisite topology, lifecycle propagation, applicability
+    and execution context differ materially.
+
+mappings:
+  - unit: problem-evidence
+    old: [prep.problem-evidence]
+    new: [prep-reference-v0.problem-evidence, prep-reference-v0.user-needs]
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: Discovery/problem evidence is preserved; NEW additionally separates User Needs.
+
+  - unit: product-intent-and-acceptance
+    old: [prep.product-intent, prep.product-capabilities]
+    new: [prep-reference-v0.product-intent, prep-reference-v0.product-acceptance]
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: Product intent and accepted behavior/scope remain explicit upstream knowledge.
+
+  - unit: domain-strategy
+    old: [prep.domain-strategy]
+    new: [prep-reference-v0.domain-strategy]
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: Strategic domain boundary responsibility is preserved.
+
+  - unit: model-context-strategy
+    old: [prep.model-context-strategy]
+    new: [prep-reference-v0.model-context-strategy]
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: Independent model languages and translation boundaries remain explicit.
+
+  - unit: knowledge-relation-classification
+    old: [prep.knowledge-relation-classification]
+    new: []
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Canonical relation-classification-catalog.yaml is independently referenced by
+      knowledge-model.md, but frozen v0 has no capability instance/refinement for it.
+    consequences:
+      - docs validation reports relation-classification-catalog.yaml outside NEW Core
+      - no independent lifecycle/currentness unit exists for relation vocabulary
+
+  - unit: domain-model-instance-causality
+    old:
+      - prep.knowledge-model
+      - prep.learning-design
+      - prep.learner-model
+    new:
+      - prep-reference-v0.domain-model.knowledge-model
+      - prep-reference-v0.domain-model.learning-design
+      - prep-reference-v0.domain-model.learner-model
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Responsibilities are recognizable, but all NEW DOMAIN-MODEL subjects are sibling
+      instances with identical generic prerequisites. Canonical PREP truth states that
+      Knowledge Model supplies reusable semantics to Learning Design; frozen v0 cannot
+      express dependency edges between per-subject instances.
+    lifecycle_observation:
+      mutation: knowledge-model
+      old_stale_count: 24
+      new_stale_count: 2
+
+  - unit: application-orchestration
+    old: [prep.application-design]
+    new:
+      - prep-reference-v0.application-orchestration
+      - prep-reference-v0.application-failure-contract
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Responsibility decomposition is plausible, but frozen APPLICATION-ORCHESTRATION
+      does not depend on project domain-model instances. Domain semantic changes therefore
+      do not propagate through Task/User Journey/Application downstream topology.
+
+  - unit: task-and-user-journey
+    old: [prep.task-model, prep.user-journeys]
+    new: [prep-reference-v0.task-model, prep-reference-v0.user-journey]
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: >-
+      Local responsibility chain Application -> Task -> User Journey is retained.
+      Its currentness still inherits the upstream Application/Domain gap.
+
+  - unit: human-interface-chain
+    old:
+      - prep.conceptual-interface-model
+      - prep.information-architecture
+      - prep.interaction-design
+      - prep.interface-topology
+      - prep.presentation-system
+    new:
+      - prep-reference-v0.conceptual-interface-model
+      - prep-reference-v0.information-architecture
+      - prep-reference-v0.interaction-design
+      - prep-reference-v0.interface-topology
+      - prep-reference-v0.presentation-system
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: >-
+      The local human-interface ordering is substantially preserved. Loss of domain-driven
+      invalidation is inherited from the missing upstream project-specific dependencies.
+
+  - unit: screen-view-design
+    old: [prep.screen-view-design]
+    new: [prep-reference-v0.screen-view-design.*]
+    classification: UNRESOLVED
+    rationale: >-
+      Per-subject capability identity is potentially useful, but all 25 NEW capabilities
+      currently bind to one canonical screen-view-design.md. Finer topology therefore
+      does not yet provide finer provider/currentness granularity.
+    lifecycle_observation:
+      mutation: presentation-system
+      old_stale_count: 8
+      new_stale_count: 27
+
+  - unit: machine-interface
+    old: [prep.machine-interfaces]
+    new:
+      - prep-reference-v0.machine-interface-contract.prep-application-api
+      - prep-reference-v0.machine-interface-contract.external-learning-runtime
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Per-boundary subjects are useful, but frozen MACHINE-INTERFACE-CONTRACT depends only
+      on Product Intent and System Boundary Rules. Accepted PREP machine contracts also
+      realize application/domain semantics, so their currentness does not propagate.
+    lifecycle_observation:
+      old_stale_count: 15
+      new_stale_count: 2
+
+  - unit: concurrency-consistency
+    old: [prep.import-consistency]
+    new: [prep-reference-v0.concurrency-consistency]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      The responsibility exists, but the generic dependency set omits the machine-interface
+      semantic dependency present in accepted PREP import/external-runtime behavior.
+
+  - unit: system-architecture
+    old: [prep.system-architecture, prep.frontend-system-architecture]
+    new:
+      - prep-reference-v0.system-structure
+      - prep-reference-v0.system-boundary-rules
+      - prep-reference-v0.runtime-architecture
+    classification: SEMANTICALLY_EQUIVALENT
+    rationale: >-
+      Structural/boundary/runtime responsibilities are recognizable after decomposition.
+      Some project-specific downstream links still require refinement elsewhere.
+
+  - unit: data-design
+    old: [prep.data-design]
+    new: [prep-reference-v0.data-design]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Frozen DATA-DESIGN only requires System Structure. PREP durable representation
+      depends materially on accepted domain and consistency semantics.
+
+  - unit: quality-performance
+    old: [prep.frontend-performance-capacity]
+    new: [prep-reference-v0.quality-design]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Quality responsibility is preserved, but PREP performance/capacity constraints are
+      coupled to Knowledge exploration semantics while frozen QUALITY-DESIGN depends only
+      on Product Intent.
+
+  - unit: engineering-policy
+    old: [prep.frontend-engineering-policy]
+    new: [prep-reference-v0.engineering-policy]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      The capability exists, but accepted PREP policy depends on frontend architecture and
+      presentation decisions; frozen v0 has only Product Intent as prerequisite.
+
+  - unit: component-design
+    old: [prep.frontend-component-design]
+    new: [prep-reference-v0.component-design]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Frozen COMPONENT-DESIGN omits direct accepted dependencies on Screen/View, machine
+      interface and quality contracts that bound PREP code-facing components.
+
+  - unit: verification-design
+    old:
+      - prep.interface-verification
+      - prep.presentation-verification
+      - prep.frontend-verification
+    new:
+      - prep-reference-v0.design-verification-obligations
+      - prep-reference-v0.acceptance-scenarios
+      - prep-reference-v0.realization-verification-plan
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Responsibility decomposition is plausible, but frozen prerequisites do not preserve
+      PREP interface/presentation/machine/quality-specific verification dependencies.
+
+  - unit: test-design
+    old: [prep.frontend-test-design]
+    new: [prep-reference-v0.test-design]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Test Design survives, but frozen dependencies do not preserve accepted direct
+      interaction/screen/quality oracle inputs.
+
+  - unit: implementation-design
+    old: [prep.frontend-implementation-design]
+    new:
+      - prep-reference-v0.implementation-stack
+      - prep-reference-v0.implementation-plan
+      - prep-reference-v0.completion-criteria
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Splitting stack/plan/completion is reasonable, but IMPLEMENTATION-PLAN directly
+      requires 52 capabilities. This flattens intermediate ownership and destroys
+      consumer-specific context minimization.
+    context_observation:
+      old_direct_requirements: 3
+      old_allowed_read_paths: 6
+      new_direct_requirements: 52
+      new_allowed_read_paths_with_real_core: 28
+
+  - unit: security-applicability
+    old: []
+    new:
+      - prep-reference-v0.security-architecture
+      - prep-reference-v0.security-analysis
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      network_exposed/credentials force independent Security Architecture/Analysis even
+      though accepted PREP scope is a local single-user trust boundary and the credential
+      is deployment configuration rather than a product-owned identity/session lifecycle.
+    consequences:
+      - NEW Core has no honest canonical provider for either capability
+      - target state is READY rather than COMPLETE
+
+  - unit: operability-applicability
+    old: []
+    new: [prep-reference-v0.operability-design]
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      external_dependencies alone forces independent Operability Design although current
+      accepted runtime-status/failure semantics are owned by System Architecture,
+      Machine Interface and Verification and production_runtime is false.
+    consequences:
+      - NEW Core has no honest canonical provider
+      - agent router creates Operability Design work that OLD does not require
+
+  - unit: concern-activation-input
+    old: []
+    new: []
+    classification: PROJECT_FACT_GAP
+    rationale: >-
+      Initial Project Facts deliberately contained no accepted activated_concerns because
+      OLD coverage was forbidden input. Reference coverage policy later derives 67 concerns
+      from NEW topology; a normal bootstrap/reconcile flow needs an explicit independent
+      concern-applicability derivation stage.
+
+  - unit: concern-applicability-consistency
+    old: []
+    new: []
+    classification: REFERENCE_MODEL_GAP
+    rationale: >-
+      Feeding the independently derived 67 concern set back into the unchanged frozen
+      materializer yields MATERIALIZATION_CONFLICT: delivery.migration, delivery.rollback
+      and transition.revalidation route to TRANSITION-CONTRACT while its accepted predicates
+      make that template NOT_APPLICABLE.
+
+  - unit: consumer-set
+    old: [CURRENT-REVALIDATION, FRONTEND-PROTOTYPE, FRONTEND-IMPLEMENTATION]
+    new: [FRONTEND-IMPLEMENTATION]
+    classification: UNRESOLVED
+    rationale: >-
+      The experiment intentionally requested the production implementation target.
+      Frozen materializer produces one requested Consumer; full multi-consumer replacement
+      would need an explicit composition/reconciliation contract.
+
+classification_counts:
+  SEMANTICALLY_EQUIVALENT: 7
+  NEW_BETTER: 0
+  OLD_BETTER: 0
+  REFERENCE_MODEL_GAP: 15
+  PROJECT_FACT_GAP: 1
+  OLD_LEGACY_OR_REDUNDANT: 0
+  UNRESOLVED: 2
+
+decision_signal:
+  old_legacy_proven: false
+  new_drop_in_replacement_proven: false
+  project_specific_refinement_needed: true

@@ -19,6 +19,7 @@ import type {
   LearningSupportCurationModel,
   LearningSupportKind,
   TargetProfileModel,
+  TargetProfilePurpose,
 } from "../model/userCenteredCurationModels";
 import type {
   AssessmentCurationPortV2,
@@ -73,12 +74,31 @@ export function TargetProfilesCurationView({
   const [selected, setSelected] = useState<TargetProfileModel>();
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string>();
-  const [newName, setNewName] = useState("");
-  const [newDefinition, setNewDefinition] = useState("");
-  const [editName, setEditName] = useState("");
-  const [editDefinition, setEditDefinition] = useState("");
-  const [editCapabilities, setEditCapabilities] = useState<string[]>([]);
   const [reload, setReload] = useState(0);
+
+  const [newDraft, setNewDraft] = useState({
+    name: "",
+    definition: "",
+    targetPurpose: "role-capability" as TargetProfilePurpose,
+    provenance: "",
+    unresolvedExpectations: "",
+    relatedTargetRefs: [] as string[],
+  });
+  const [editDraft, setEditDraft] = useState({
+    name: "",
+    definition: "",
+    targetPurpose: "role-capability" as TargetProfilePurpose,
+    provenance: "",
+    unresolvedExpectations: "",
+    relatedTargetRefs: [] as string[],
+    capabilityIds: [] as string[],
+  });
+
+  const lines = (value: string) =>
+    value
+      .split(/\n+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
 
   useEffect(() => {
     let active = true;
@@ -96,18 +116,37 @@ export function TargetProfilesCurationView({
 
   useEffect(() => {
     if (!selected) return;
-    setEditName(selected.name);
-    setEditDefinition(selected.definition);
-    setEditCapabilities([...selected.capabilityIds]);
+    setEditDraft({
+      name: selected.name,
+      definition: selected.definition,
+      targetPurpose: selected.targetPurpose,
+      provenance: selected.provenance.join("\n"),
+      unresolvedExpectations: selected.unresolvedExpectations.join("\n"),
+      relatedTargetRefs: [...selected.relatedTargetRefs],
+      capabilityIds: [...selected.capabilityIds],
+    });
   }, [selected]);
 
   const create = async (event: FormEvent) => {
     event.preventDefault();
-    const outcome = await targetPort.create({ name: newName, definition: newDefinition });
+    const outcome = await targetPort.create({
+      name: newDraft.name,
+      definition: newDraft.definition,
+      targetPurpose: newDraft.targetPurpose,
+      provenance: lines(newDraft.provenance),
+      unresolvedExpectations: lines(newDraft.unresolvedExpectations),
+      relatedTargetRefs: newDraft.relatedTargetRefs,
+    });
     if (outcome.status === "success") {
       setSelected(outcome.value);
-      setNewName("");
-      setNewDefinition("");
+      setNewDraft({
+        name: "",
+        definition: "",
+        targetPurpose: "role-capability",
+        provenance: "",
+        unresolvedExpectations: "",
+        relatedTargetRefs: [],
+      });
       setMessage("Target created. Add required capabilities before using it for assessment.");
       setReload((value) => value + 1);
     } else setMessage(outcome.message);
@@ -117,20 +156,29 @@ export function TargetProfilesCurationView({
     event.preventDefault();
     if (!selected) return;
     const updated = await targetPort.update(selected.id, {
-      name: editName,
-      definition: editDefinition,
+      name: editDraft.name,
+      definition: editDraft.definition,
+      targetPurpose: editDraft.targetPurpose,
+      provenance: lines(editDraft.provenance),
+      unresolvedExpectations: lines(editDraft.unresolvedExpectations),
+      relatedTargetRefs: editDraft.relatedTargetRefs,
     });
     if (updated.status !== "success") {
       setMessage(updated.message);
       return;
     }
-    const scoped = await targetPort.setCapabilities(selected.id, editCapabilities);
+    const scoped = await targetPort.setCapabilities(selected.id, editDraft.capabilityIds);
     if (scoped.status === "success") {
       setSelected(scoped.value);
       setMessage("Target capability profile saved.");
       setReload((value) => value + 1);
     } else setMessage(scoped.message);
   };
+
+  const targetOptions = items.map((item) => ({
+    id: item.id,
+    label: item.name + " (" + item.targetPurpose + ")",
+  }));
 
   return (
     <Stack spacing={2}>
@@ -142,7 +190,8 @@ export function TargetProfilesCurationView({
             <Stack component="ul" sx={{ listStyle: "none", p: 0 }}>
               {items.map((item) => (
                 <li key={item.id}>
-                  <Button onClick={() => setSelected(item)}>{item.name}</Button>
+                  <Button onClick={() => setSelected(item)}>{item.name}</Button>{" "}
+                  <Chip size="small" label={item.targetPurpose} />
                 </li>
               ))}
             </Stack>
@@ -153,8 +202,28 @@ export function TargetProfilesCurationView({
         <Paper variant="outlined" sx={{ p: 2, flex: 1 }}>
           <Typography component="h3" variant="h6">New target</Typography>
           <Stack component="form" spacing={1} onSubmit={create}>
-            <TextField label="Target name" value={newName} onChange={(e) => setNewName(e.target.value)} />
-            <TextField label="Target context / definition" multiline value={newDefinition} onChange={(e) => setNewDefinition(e.target.value)} />
+            <TextField label="Target name" value={newDraft.name} onChange={(e) => setNewDraft({ ...newDraft, name: e.target.value })} />
+            <TextField label="Target context / definition" multiline value={newDraft.definition} onChange={(e) => setNewDraft({ ...newDraft, definition: e.target.value })} />
+            <label>
+              <Typography component="span" variant="body2">Target purpose</Typography>
+              <select
+                aria-label="Target purpose"
+                value={newDraft.targetPurpose}
+                onChange={(e) => setNewDraft({ ...newDraft, targetPurpose: e.target.value as TargetProfilePurpose })}
+              >
+                <option value="role-capability">Professional role capability</option>
+                <option value="selection-interview">Selection / interview performance</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <TextField label="Target provenance" multiline value={newDraft.provenance} onChange={(e) => setNewDraft({ ...newDraft, provenance: e.target.value })} />
+            <TextField label="Unresolved expectations" multiline value={newDraft.unresolvedExpectations} onChange={(e) => setNewDraft({ ...newDraft, unresolvedExpectations: e.target.value })} />
+            <MultiSelect
+              label="Related targets"
+              value={newDraft.relatedTargetRefs}
+              options={targetOptions}
+              onChange={(values) => setNewDraft({ ...newDraft, relatedTargetRefs: values })}
+            />
             <Button type="submit" variant="contained" sx={{ alignSelf: "flex-start" }}>Create target</Button>
           </Stack>
         </Paper>
@@ -164,16 +233,40 @@ export function TargetProfilesCurationView({
         <Paper component="section" aria-label="Target profile editor" variant="outlined" sx={{ p: 2 }}>
           <Stack component="form" spacing={1.5} onSubmit={save}>
             <Typography component="h3" variant="h6">Target profile</Typography>
-            <TextField label="Target name" value={editName} onChange={(e) => setEditName(e.target.value)} />
-            <TextField label="Target context / definition" multiline value={editDefinition} onChange={(e) => setEditDefinition(e.target.value)} />
+            <TextField label="Target name" value={editDraft.name} onChange={(e) => setEditDraft({ ...editDraft, name: e.target.value })} />
+            <TextField label="Target context / definition" multiline value={editDraft.definition} onChange={(e) => setEditDraft({ ...editDraft, definition: e.target.value })} />
+            <label>
+              <Typography component="span" variant="body2">Target purpose</Typography>
+              <select
+                aria-label="Target purpose"
+                value={editDraft.targetPurpose}
+                onChange={(e) => setEditDraft({ ...editDraft, targetPurpose: e.target.value as TargetProfilePurpose })}
+              >
+                <option value="role-capability">Professional role capability</option>
+                <option value="selection-interview">Selection / interview performance</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <TextField label="Target provenance" multiline value={editDraft.provenance} onChange={(e) => setEditDraft({ ...editDraft, provenance: e.target.value })} />
+            <TextField label="Unresolved expectations" multiline value={editDraft.unresolvedExpectations} onChange={(e) => setEditDraft({ ...editDraft, unresolvedExpectations: e.target.value })} />
+            <MultiSelect
+              label="Related targets"
+              value={editDraft.relatedTargetRefs}
+              options={targetOptions.filter((item) => item.id !== selected.id)}
+              onChange={(values) => setEditDraft({ ...editDraft, relatedTargetRefs: values })}
+            />
             <MultiSelect
               label="Required capabilities"
-              value={editCapabilities}
+              value={editDraft.capabilityIds}
               options={capabilities.map((item) => ({ id: item.id, label: item.title }))}
-              onChange={setEditCapabilities}
+              onChange={(values) => setEditDraft({ ...editDraft, capabilityIds: values })}
             />
             <Button type="submit" variant="contained" sx={{ alignSelf: "flex-start" }}>Save target profile</Button>
-            <Button component={Link} to={`/learning/${encodeURIComponent(selected.id)}/overview`} sx={{ alignSelf: "flex-start" }}>
+            <Button
+              component={Link}
+              to={"/learning/" + encodeURIComponent(selected.id) + "/overview"}
+              sx={{ alignSelf: "flex-start" }}
+            >
               Preview in Target Work
             </Button>
           </Stack>

@@ -30,6 +30,10 @@ export interface CurationTargetModel {
   readonly id: string;
   readonly name: string;
   readonly definition: string;
+  readonly targetPurpose?: "role-capability" | "selection-interview" | "other";
+  readonly provenance?: readonly string[];
+  readonly unresolvedExpectations?: readonly string[];
+  readonly relatedTargetRefs?: readonly string[];
   readonly scopeItems: readonly CurationScopeItemModel[];
 }
 

@@ -1,0 +1,256 @@
+version: 1
+kind: harness-project-authority-assessments
+assessments:
+- authority_id: DISCOVERY
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: PRODUCT-REQUIREMENTS
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: DOMAIN-STRATEGY
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: MODEL-CONTEXT-STRATEGY
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: DOMAIN-USE-CASE-DESIGN
+  applicability: NOT_APPLICABLE
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized no required project capability
+    under this Authority for the accepted Project Facts snapshot.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: TACTICAL-DOMAIN-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: APPLICATION-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: SYSTEM-ARCHITECTURE
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: CONCURRENCY-CONSISTENCY-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: SECURITY-ARCHITECTURE
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: MACHINE-INTERFACE-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: HUMAN-INTERFACE-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: DATA-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: QUALITY-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: SECURITY-ANALYSIS
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: OBLIGATION-ANALYSIS
+  applicability: NOT_APPLICABLE
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized no required project capability
+    under this Authority for the accepted Project Facts snapshot.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: CHANGE-TRANSITION-DESIGN
+  applicability: NOT_APPLICABLE
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized no required project capability
+    under this Authority for the accepted Project Facts snapshot.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: OPERABILITY-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: ENGINEERING-POLICY
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: COMPONENT-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: TEST-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: IMPLEMENTATION-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change
+- authority_id: VERIFICATION-DESIGN
+  applicability: REQUIRED
+  evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  - experiments/reference_model_rematerialization/generated/materialization-result.json
+  rationale: Frozen Reference Model v0 materialized at least one required project
+    capability under this Authority from accepted Project Facts.
+  depends_on_evidence:
+  - experiments/reference_model_rematerialization/project-facts.yaml
+  reopening_conditions:
+  - accepted Project Facts or frozen Reference Model applicability rules change

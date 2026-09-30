@@ -1,0 +1,278 @@
+authorities: []
+artifacts:
+- id: PROBLEM-SPACE
+  authority: DISCOVERY
+  path: docs/vision/problem-space.md
+  provides:
+  - prep-reference-v0.problem-evidence
+  - prep-reference-v0.user-needs
+  depends_on: []
+- id: PRODUCT-VISION
+  authority: PRODUCT-REQUIREMENTS
+  path: docs/vision/vision.md
+  provides:
+  - prep-reference-v0.product-intent
+  depends_on:
+  - PROBLEM-SPACE
+- id: PRODUCT-CAPABILITIES
+  authority: PRODUCT-REQUIREMENTS
+  path: docs/vision/product-capabilities.md
+  provides:
+  - prep-reference-v0.product-acceptance
+  depends_on:
+  - PRODUCT-VISION
+- id: CONTEXT-MAP
+  authority: DOMAIN-STRATEGY
+  path: docs/architecture/context-map.md
+  provides:
+  - prep-reference-v0.domain-strategy
+  depends_on:
+  - PRODUCT-VISION
+- id: MODEL-CONTEXT-MAP
+  authority: MODEL-CONTEXT-STRATEGY
+  path: docs/architecture/model-context-map.md
+  provides:
+  - prep-reference-v0.model-context-strategy
+  depends_on:
+  - CONTEXT-MAP
+  - PRODUCT-VISION
+- id: KNOWLEDGE-MODEL
+  authority: TACTICAL-DOMAIN-DESIGN
+  path: docs/domain/knowledge-model.md
+  provides:
+  - prep-reference-v0.domain-model.knowledge-model
+  depends_on:
+  - CONTEXT-MAP
+  - MODEL-CONTEXT-MAP
+  - PRODUCT-VISION
+- id: LEARNING-DESIGN
+  authority: TACTICAL-DOMAIN-DESIGN
+  path: docs/domain/learning-design.md
+  provides:
+  - prep-reference-v0.domain-model.learning-design
+  depends_on:
+  - CONTEXT-MAP
+  - KNOWLEDGE-MODEL
+  - MODEL-CONTEXT-MAP
+  - PRODUCT-VISION
+- id: LEARNER-MODEL
+  authority: TACTICAL-DOMAIN-DESIGN
+  path: docs/domain/learner-model.md
+  provides:
+  - prep-reference-v0.domain-model.learner-model
+  depends_on:
+  - CONTEXT-MAP
+  - KNOWLEDGE-MODEL
+  - MODEL-CONTEXT-MAP
+  - PRODUCT-VISION
+- id: APPLICATION-DESIGN
+  authority: APPLICATION-DESIGN
+  path: docs/application/application-design.md
+  provides:
+  - prep-reference-v0.application-failure-contract
+  - prep-reference-v0.application-orchestration
+  depends_on:
+  - KNOWLEDGE-MODEL
+  - LEARNER-MODEL
+  - LEARNING-DESIGN
+  - PRODUCT-VISION
+- id: TASK-MODEL
+  authority: APPLICATION-DESIGN
+  path: docs/application/task-model.yaml
+  provides:
+  - prep-reference-v0.task-model
+  depends_on:
+  - APPLICATION-DESIGN
+  - PRODUCT-VISION
+- id: USER-JOURNEYS
+  authority: APPLICATION-DESIGN
+  path: docs/application/user-journeys.md
+  provides:
+  - prep-reference-v0.user-journey
+  depends_on:
+  - PRODUCT-VISION
+  - TASK-MODEL
+- id: SYSTEM-ARCHITECTURE
+  authority: SYSTEM-ARCHITECTURE
+  path: docs/architecture/system-architecture.md
+  provides:
+  - prep-reference-v0.runtime-architecture
+  - prep-reference-v0.system-structure
+  depends_on:
+  - APPLICATION-DESIGN
+  - PRODUCT-VISION
+- id: FRONTEND-SYSTEM-ARCHITECTURE
+  authority: SYSTEM-ARCHITECTURE
+  path: docs/architecture/frontend-system-architecture.md
+  provides:
+  - prep-reference-v0.system-boundary-rules
+  depends_on:
+  - SYSTEM-ARCHITECTURE
+- id: IMPORT-CONSISTENCY
+  authority: CONCURRENCY-CONSISTENCY-DESIGN
+  path: docs/architecture/import-consistency.md
+  provides:
+  - prep-reference-v0.concurrency-consistency
+  depends_on:
+  - APPLICATION-DESIGN
+  - DATA-DESIGN
+  - MACHINE-INTERFACES
+  - SYSTEM-ARCHITECTURE
+- id: MACHINE-INTERFACES
+  authority: MACHINE-INTERFACE-DESIGN
+  path: docs/interface/machine-interface.md
+  provides:
+  - prep-reference-v0.machine-interface-contract.external-learning-runtime
+  - prep-reference-v0.machine-interface-contract.prep-application-api
+  depends_on:
+  - FRONTEND-SYSTEM-ARCHITECTURE
+  - PRODUCT-VISION
+- id: CONCEPTUAL-INTERFACE-MODEL
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/conceptual-interface-model.yaml
+  provides:
+  - prep-reference-v0.conceptual-interface-model
+  depends_on:
+  - USER-JOURNEYS
+- id: INFORMATION-ARCHITECTURE
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/information-architecture.yaml
+  provides:
+  - prep-reference-v0.information-architecture
+  depends_on:
+  - CONCEPTUAL-INTERFACE-MODEL
+- id: INTERACTION-DESIGN
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/interaction-design.yaml
+  provides:
+  - prep-reference-v0.interaction-design
+  depends_on:
+  - CONCEPTUAL-INTERFACE-MODEL
+  - INFORMATION-ARCHITECTURE
+  - MACHINE-INTERFACES
+- id: INTERFACE-TOPOLOGY
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/interface-topology.yaml
+  provides:
+  - prep-reference-v0.interface-topology
+  depends_on:
+  - INFORMATION-ARCHITECTURE
+- id: PRESENTATION-SYSTEM
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/presentation-system.md
+  provides:
+  - prep-reference-v0.presentation-system
+  depends_on:
+  - INTERACTION-DESIGN
+  - INTERFACE-TOPOLOGY
+- id: SCREEN-VIEW-DESIGN
+  authority: HUMAN-INTERFACE-DESIGN
+  path: docs/interface/screen-view-design.md
+  provides:
+  - prep-reference-v0.screen-view-design.c-01-preparation-path
+  - prep-reference-v0.screen-view-design.c-11-target-collection
+  - prep-reference-v0.screen-view-design.c-12-target-editor
+  - prep-reference-v0.screen-view-design.c-21-capability-collection
+  - prep-reference-v0.screen-view-design.c-22-capability-editor
+  - prep-reference-v0.screen-view-design.c-31-knowledge-workspace
+  - prep-reference-v0.screen-view-design.c-32-knowledge-editor
+  - prep-reference-v0.screen-view-design.c-41-learning-support-collection
+  - prep-reference-v0.screen-view-design.c-42-learning-support-editor
+  - prep-reference-v0.screen-view-design.c-51-assessment-collection
+  - prep-reference-v0.screen-view-design.c-52-assessment-editor
+  - prep-reference-v0.screen-view-design.c-61-import
+  - prep-reference-v0.screen-view-design.c-71-quality
+  - prep-reference-v0.screen-view-design.f-00-application-shell
+  - prep-reference-v0.screen-view-design.f-c-curation-workspace
+  - prep-reference-v0.screen-view-design.f-lt-target-workspace
+  - prep-reference-v0.screen-view-design.l-01-targets
+  - prep-reference-v0.screen-view-design.l-02-target-overview
+  - prep-reference-v0.screen-view-design.l-03-target-state
+  - prep-reference-v0.screen-view-design.l-04-target-gaps
+  - prep-reference-v0.screen-view-design.l-05-target-learning
+  - prep-reference-v0.screen-view-design.l-06-target-diagnostics
+  - prep-reference-v0.screen-view-design.l-07-target-knowledge
+  - prep-reference-v0.screen-view-design.l-08-target-progress
+  - prep-reference-v0.screen-view-design.s-01-runtime-status
+  depends_on:
+  - INTERACTION-DESIGN
+  - INTERFACE-TOPOLOGY
+  - PRESENTATION-SYSTEM
+- id: DATA-DESIGN
+  authority: DATA-DESIGN
+  path: docs/architecture/data-design.md
+  provides:
+  - prep-reference-v0.data-design
+  depends_on:
+  - SYSTEM-ARCHITECTURE
+- id: FRONTEND-PERFORMANCE-CAPACITY
+  authority: QUALITY-DESIGN
+  path: docs/architecture/performance-capacity.md
+  provides:
+  - prep-reference-v0.quality-design
+  depends_on:
+  - PRODUCT-VISION
+- id: FRONTEND-ENGINEERING-POLICY
+  authority: ENGINEERING-POLICY
+  path: docs/engineering/frontend-engineering-policy.md
+  provides:
+  - prep-reference-v0.engineering-policy
+  depends_on:
+  - PRODUCT-VISION
+- id: FRONTEND-COMPONENT-DESIGN
+  authority: COMPONENT-DESIGN
+  path: docs/implementation/frontend-component-design.md
+  provides:
+  - prep-reference-v0.component-design
+  depends_on:
+  - APPLICATION-DESIGN
+  - FRONTEND-ENGINEERING-POLICY
+  - FRONTEND-PERFORMANCE-CAPACITY
+  - FRONTEND-SYSTEM-ARCHITECTURE
+  - MACHINE-INTERFACES
+- id: FRONTEND-VERIFICATION
+  authority: VERIFICATION-DESIGN
+  path: docs/verification/frontend-verification.md
+  provides:
+  - prep-reference-v0.design-verification-obligations
+  depends_on:
+  - FRONTEND-PERFORMANCE-CAPACITY
+  - MACHINE-INTERFACES
+  - PRODUCT-CAPABILITIES
+  - SYSTEM-ARCHITECTURE
+- id: INTERFACE-VERIFICATION
+  authority: VERIFICATION-DESIGN
+  path: docs/verification/interface-verification.md
+  provides:
+  - prep-reference-v0.realization-verification-plan
+  depends_on:
+  - FRONTEND-COMPONENT-DESIGN
+  - FRONTEND-VERIFICATION
+- id: PRESENTATION-VERIFICATION
+  authority: VERIFICATION-DESIGN
+  path: docs/verification/presentation-verification.md
+  provides:
+  - prep-reference-v0.acceptance-scenarios
+  depends_on:
+  - FRONTEND-VERIFICATION
+- id: FRONTEND-TEST-DESIGN
+  authority: TEST-DESIGN
+  path: docs/verification/frontend-test-design.yaml
+  provides:
+  - prep-reference-v0.test-design
+  depends_on:
+  - INTERFACE-VERIFICATION
+  - PRESENTATION-VERIFICATION
+- id: FRONTEND-IMPLEMENTATION-DESIGN
+  authority: IMPLEMENTATION-DESIGN
+  path: docs/implementation/frontend-implementation-design.md
+  provides:
+  - prep-reference-v0.completion-criteria
+  - prep-reference-v0.implementation-plan
+  - prep-reference-v0.implementation-stack
+  depends_on:
+  - FRONTEND-COMPONENT-DESIGN
+  - FRONTEND-TEST-DESIGN
+  - INTERFACE-VERIFICATION
+  - SYSTEM-ARCHITECTURE
+questions: []

@@ -1,0 +1,68 @@
+version: 1
+kind: prep-frontend-implementation-conformance-audit
+verdict: PROTOTYPE_REALIGNED_FOR_HUMAN_VALIDATION
+scope:
+  branch: experiment/frontend-design-assurance-audit
+  canonical_design_source: current PREP Harness artifacts
+findings:
+  - id: IC-01
+    severity: P1
+    status: CORRECTED
+    issue: Empty-system learner path exposed bulk/manual/mixed corpus mechanics and routed directly into Curation.
+    expected:
+      - learner-facing preparation need
+      - delegated preparation request
+      - review prepared result
+      - self-curation only by explicit choice
+    corrections:
+      - web/src/features/learning/model/preparationSupport.ts
+      - web/src/features/learning/ports/PreparationSupportPort.ts
+      - web/src/adapters/mock/MockPreparationSupportAdapter.ts
+      - web/src/adapters/http/HttpPreparationSupportAdapter.ts
+      - web/src/features/learning/ui/TargetSelectionView.tsx
+  - id: IC-02
+    severity: P1
+    status: CORRECTED
+    issue: Learner target model/UI could not represent target purpose, provenance, unresolved expectations or related targets.
+    corrections:
+      - web/src/features/learning/model/learningTarget.ts
+      - web/src/features/learning/ui/TargetOverviewView.tsx
+      - web/src/adapters/mock/mockFixtures.ts
+      - web/src/adapters/mock/MockTargetAdapter.ts
+      - web/src/adapters/http/mappers.ts
+  - id: IC-03
+    severity: P1
+    status: CORRECTED
+    issue: Curation target authoring could not express purpose-explicit related targets and provenance.
+    corrections:
+      - web/src/features/curation/model/userCenteredCurationModels.ts
+      - web/src/features/curation/ports/UserCenteredCurationPorts.ts
+      - web/src/adapters/mock/MockUserCenteredCurationAdapters.ts
+      - web/src/features/curation/ui/UserCenteredCurationViews.tsx
+  - id: IC-04
+    severity: P2
+    status: CORRECTED
+    issue: Focus UI ignored accepted external rationale such as deadline/interview stage/time/cost.
+    corrections:
+      - web/src/features/learning/ui/TargetWorkViews.tsx
+  - id: IC-05
+    severity: P1
+    status: CORRECTED
+    issue: Progress model did not separately represent target refinement from learner-state change.
+    corrections:
+      - web/src/features/learning/model/targetWork.ts
+      - web/src/adapters/mock/MockTargetWorkAdapter.ts
+      - web/src/features/learning/ui/TargetWorkViews.tsx
+machine_evidence:
+  structural_design_audit: PASS
+  frontend_fast: PASS
+  production_build: PASS
+  browser_e2e_first_corrected_run: PASS
+human_evidence:
+  representative_user_validation: NOT_DONE
+  production_ux_authority: BLOCKED
+next_gate:
+  - PV-14 empty-system bootstrap usability with representative users
+  - PV-15 core mental-model validation with representative users
+  - PV-17 role-vs-interview target comprehension with representative users
+  - 3D vs non-spatial task-value evidence
