@@ -21,8 +21,8 @@ semantic_assertions:
   - id: IA-LOC-TARGET
     kind: information-location
     subject: target-location
-    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement and Required capability, not around backend resource types."
-    derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
+    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement, Required capability and direct Knowledge focus, keeping the cross-context focus distinct from Subject Knowledge predicates and learner state."
+    derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, CIM-KNOWLEDGE, CIM-REL-CAPABILITY-KNOWLEDGE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-CURRENT
@@ -36,7 +36,7 @@ semantic_assertions:
     kind: information-location
     subject: knowledge-location
     semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context."
-    derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, UJ-KNOWLEDGE]
+    derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE, UJ-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-ACTIVITIES
@@ -50,14 +50,14 @@ semantic_assertions:
     kind: information-location
     subject: evidence-changes-location
     semantic_value: "Evidence & changes groups observed evidence, inspectable why-this-state reasoning and previous/current change so capability conclusions remain explainable without dominating all preparation content."
-    derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, UJ-ACTIVITY-EVIDENCE]
+    derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, CIM-REL-EVIDENCE-STATE, UJ-ACTIVITY-EVIDENCE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-PREP-SUPPORT
     kind: information-location
     subject: prepare-support-location
     semantic_value: "Prepare missing support is a contextual recovery location entered from the work that found a missing preparation need and returns to that originating work with accepted support and remaining gaps."
-    derived_from: [CIM-PREPARATION-REQUEST, CIM-SUPPORT, UJ-PREPARE-SUPPORT]
+    derived_from: [CIM-PREPARATION-REQUEST, CIM-SUPPORT, CIM-REL-PREPARATION-SUPPORT, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-SCOPE-TARGET
@@ -92,7 +92,7 @@ semantic_assertions:
     kind: information-crosslink
     subject: preparation-cross-links
     semantic_value: "Cross-links preserve the preparation loop: Target→Current position; Current position→Evidence/Knowledge/Activities; Knowledge→Activities; Activities→Evidence; Evidence→Current position; missing support→Prepare missing support→origin."
-    derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    derived_from: [CIM-REL-ACTIVITY-EVIDENCE, CIM-REL-PREPARATION-SUPPORT, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-TAXONOMY

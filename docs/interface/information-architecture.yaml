@@ -20,8 +20,8 @@ root:
 locations:
   - id: LOC-TARGET
     label: Target
-    purpose: Establish/select/refine the active target and understand its requirements, required capabilities, conditions, quality and uncertainty.
-    conceptual_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY]
+    purpose: Establish/select/refine the active target and understand its requirements, required capabilities, conditions, quality, direct Knowledge focus and uncertainty.
+    conceptual_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY, C-KNOWLEDGE]
     task_refs: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]
     journey_refs: [J-TARGET-SETUP]
     scope: active-preparation
@@ -85,6 +85,7 @@ context_scopes:
 
 cross_links:
   - {from: LOC-TARGET, to: LOC-CURRENT-POSITION, rationale: Assess the learner against the currently understood target requirements.}
+  - {from: LOC-TARGET, to: LOC-KNOWLEDGE, rationale: Inspect Subject Knowledge that a required PerformanceExpectation directly focuses on; this is a cross-context reference, not a Subject Knowledge predicate or learner-state claim.}
   - {from: LOC-CURRENT-POSITION, to: LOC-EVIDENCE-CHANGES, rationale: Inspect why a demonstrated/challenged/unknown conclusion is justified or limited.}
   - {from: LOC-CURRENT-POSITION, to: LOC-KNOWLEDGE, rationale: Orient in subject meaning relevant to a gap or current focus.}
   - {from: LOC-CURRENT-POSITION, to: LOC-ACTIVITIES, rationale: Act on the selected PreparationIntent.}
@@ -139,6 +140,7 @@ deliberately_unconstrained:
   - screen regions and layout
   - mobile/desktop composition
   - graph/list/2D/3D representation
+  - inverse Knowledge-to-Required-Capability browsing unless a later accepted user task requires it
   - component hierarchy
 
 unresolved_questions: []

@@ -8,7 +8,7 @@ The system covers the current human-interface surface: Target, Current position,
 
 ## Shared principles
 
-- **Task-first hierarchy.** Each view has one dominant task surface; active Target and optional Next focus remain supporting context rather than competing workspaces.
+- **Task-first hierarchy.** Each view has one dominant task surface; active Target and optional Next focus remain supporting context rather than competing workspaces. In Target requirement inspection, required Capability performance and its direct Knowledge focus remain visibly distinct but colocated.
 - **Evidence before confidence.** Demonstrated/challenged/unknown and why-this-state remain distinguishable; missing evidence is not styled as failure.
 - **Progressive focus + context.** Secondary detail is inspectable on demand without forcing all context to remain simultaneously visible.
 - **No visual proof inflation.** Color, completion, animation or spatial proximity never imply learner capability beyond accepted evidence.
@@ -26,7 +26,8 @@ Canonical requirements:
 - selected Knowledge detail;
 - inspectable relationship meaning/direction;
 - an optional 2D node-link overview for relationship orientation on capable surfaces;
-- equivalent non-spatial traversal/inspection for every task-critical Knowledge action.
+- equivalent non-spatial traversal/inspection for every task-critical Knowledge action;
+- target/focus relevance may identify Knowledge reached from a required Capability's direct focus, but does not require inverse Knowledge-to-Capability browsing or turn the focus into a Subject Knowledge predicate.
 
 The 2D overview is presentation state only. Node position, edge geometry, zoom, pan and focus camera state are not Knowledge semantics.
 
@@ -89,11 +90,11 @@ Selection reveals detail; it does not silently mutate semantic scope.
 
 ### PATTERN-STATE-BASIS
 
-Shows demonstrated/challenged/unknown or gap/uncertainty conclusions with a clear path to why-this-state evidence. Evidence detail remains inspectable but secondary to the current decision.
+Shows demonstrated/challenged/unknown or gap/uncertainty conclusions with a clear path to why-this-state evidence. For Next-focus choice it also exposes priority rationale, material external constraints and a bounded support-availability summary. Evidence detail remains inspectable but secondary to the current decision.
 
 ### PATTERN-ACTIVITY-ATTEMPT
 
-Shows selected support, active attempt, pending evidence processing and reviewed result as distinct states. Activity completion never visually equals capability completion.
+Shows support options with intended CapabilitySpecification, expected conditions, fit basis and limitations before selection, then selected support, active attempt, pending evidence processing and reviewed result as distinct states. Activity completion never visually equals capability completion.
 
 ### PATTERN-PREPARE-SUPPORT
 

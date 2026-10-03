@@ -24,9 +24,9 @@ views:
     interaction_refs: [IX-TARGET]
     regions:
       - {id: target-context, role: input-and-context, priority: primary, content: [target/source context, purpose, uncertainty]}
-      - {id: target-requirements, role: requirement-detail, priority: primary, content: [RequirementExpression, required Capability performance, conditions, quality]}
+      - {id: target-requirements, role: requirement-detail, priority: primary, content: [RequirementExpression, required Capability performance, conditions, quality, direct Knowledge focus per PerformanceExpectation]}
       - {id: target-provenance, role: supporting-detail, priority: secondary, content: [provenance, unresolved expectations]}
-      - {id: target-actions, role: actions, priority: primary, content: [establish/refine Target, inspect requirements, request missing support]}
+      - {id: target-actions, role: actions, priority: primary, content: [establish/refine Target, inspect requirements, inspect required Knowledge focus, request missing support]}
     reads: [prep.target.requirements.get]
     commands: [prep.target.establish, prep.support.prepare.request]
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-OUTCOME]
@@ -44,7 +44,7 @@ views:
     regions:
       - {id: current-state, role: primary-decision-context, priority: primary, content: [demonstrated/challenged/unknown projection]}
       - {id: gaps, role: primary-decision-context, priority: primary, content: [gap or uncertainty, requirement fragment]}
-      - {id: next-focus, role: action-context, priority: primary, content: [PreparationIntent purpose and rationale]}
+      - {id: next-focus, role: action-context, priority: primary, content: [PreparationIntent purpose and rationale, target relevance, priority rationale, material time/attention constraints, support-availability summary]}
       - {id: evidence-basis, role: supporting-detail, priority: secondary, content: [why-this-state, supports/challenges, applicability limits]}
     reads: [prep.current_state.get, prep.evidence.get, prep.gaps.get]
     commands: [prep.focus.set]
@@ -85,7 +85,7 @@ views:
     interaction_refs: [IX-ACTIVITY]
     regions:
       - {id: active-focus, role: context, priority: supporting, content: [Next focus and rationale]}
-      - {id: support-options, role: selection, priority: primary, content: [available support, explicit limitations]}
+      - {id: support-options, role: selection, priority: primary, content: [available support, intended CapabilitySpecification, expected conditions, support-fit basis, explicit limitations]}
       - {id: activity-attempt, role: primary-work, priority: primary, content: [selected support, activity task, attempt state]}
       - {id: processing-status, role: status, priority: secondary, content: [capture/evidence processing outcome state]}
     reads: [prep.support.list]
@@ -103,7 +103,7 @@ views:
     topology_ref: VIEW-EVIDENCE-CHANGE
     interaction_refs: [IX-ACTIVITY]
     regions:
-      - {id: change-summary, role: primary-result, priority: primary, content: [changed, no-change, challenged or increased-uncertainty result]}
+      - {id: change-summary, role: primary-result, priority: primary, content: [learner-evidence change, target-information refinement, changed, no-change, challenged or increased-uncertainty result]}
       - {id: current-state-after, role: primary-context, priority: primary, content: [current target-relative state/gaps]}
       - {id: evidence-detail, role: supporting-detail, priority: secondary, content: [Performance/Observation facts, evidence argument/claim basis, provenance]}
       - {id: continuation-actions, role: actions, priority: primary, content: [continue current focus, return to Current position, inspect Knowledge]}

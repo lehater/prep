@@ -37,7 +37,7 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 ### Target requirement
 
-`TargetRequirementRepresentation` exposes RequirementExpression structure plus required Capability performance, conditions and quality criteria. Supporting Knowledge is referenced separately.
+`TargetRequirementRepresentation` exposes RequirementExpression structure plus required Capability performance, conditions and quality criteria. Each PerformanceExpectation may expose its direct `knowledge_focus_refs`; these references remain separate from Subject Knowledge predicates, Capability identity and learner state.
 
 ### Current state
 
@@ -51,17 +51,19 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 `GapRepresentation` exposes target-relative satisfied/challenged/unresolved requirement fragments and the accepted basis for the gap/uncertainty.
 
+`FocusDecisionContext` is returned alongside the current gap projection and exposes accepted target relevance, PreparationPriority rationale, material external constraints such as available time/attention or deadlines when known, and a bounded support-availability summary for candidate gap/capability focus. It is decision context only: it does not select support or assert learner Capability.
+
 ### Next focus
 
 `FocusRepresentation` exposes the current PreparationIntent, purpose, relevant capability/gap refs and rationale.
 
 ### Knowledge
 
-`KnowledgeProjection` preserves KnowledgeObject/KnowledgeProposition identity and predicate semantics with explicit overview/detail scope. Graph/list/2D/3D coordinates are never contract fields.
+`KnowledgeProjection` preserves KnowledgeObject/KnowledgeProposition identity and predicate semantics with explicit overview/detail scope. Target/focus relevance may be included as contextual references, but the current contract does not require inverse Knowledge-to-Required-Capability browsing. Graph/list/2D/3D coordinates are never contract fields.
 
 ### Preparation support
 
-`SupportRepresentation` exposes applicable LearningMaterial, LearningSupportRequirement, TaskSpecification and ObservationSpecification references for the current focus, including explicit inadequacy/limitations.
+`SupportRepresentation` exposes applicable LearningMaterial, LearningSupportRequirement, TaskSpecification and ObservationSpecification references for the current focus, including the intended CapabilitySpecification, expected condition scope, inspectable support-fit basis and explicit inadequacy/limitations. Fit never implies Capability possession.
 
 ### Activity attempt
 
@@ -83,7 +85,7 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 | `prep.target.requirements.get` | query | target_ref | TargetRequirementRepresentation + semantic basis |
 | `prep.current_state.get` | query | target_ref | CurrentStateRepresentation + semantic basis |
 | `prep.evidence.get` | query | target_ref, optional capability/evidence ref | EvidenceRepresentation |
-| `prep.gaps.get` | query | target_ref | GapRepresentation[] + semantic basis |
+| `prep.gaps.get` | query | target_ref | GapRepresentation[] + FocusDecisionContext + semantic basis |
 | `prep.focus.set` | command | target_ref, selected gap/capability refs, purpose/rationale, semantic_basis_ref | accepted FocusRepresentation or stale/rejected outcome |
 | `prep.knowledge.query` | query | target_ref, optional focus_ref, semantic scope/query | KnowledgeProjection |
 | `prep.support.list` | query | target_ref, focus_ref | SupportRepresentation[] with explicit limitations |
