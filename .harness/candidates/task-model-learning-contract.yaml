@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.learning-design
+target_capability: prep.task-model
+obligations:
+  - {id: learning-domain-model, source_kind: domain-model, min_count: 12, allow_not_applicable: true}
+  - {id: learning-domain-invariants, source_kind: domain-invariant, min_count: 3, allow_not_applicable: true}
+lifecycle_dependency:
+  exhaustive: true

@@ -1,0 +1,181 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.application-design
+knowledge_kind: application-design
+explorer_request_id: sha256:b6617b8b41259c6dfc0058a4ba552d9beaaf321adb29450f4a13fc94b09df199
+research_sources: []
+axes:
+  - axis: operation-boundaries
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: split-operation
+        challenge: Compare one coarse preparation workflow with operations split by user-visible outcome and semantic mutation owner.
+        alternatives: [workflow-monolith, task-owner-bounded, resource-crud]
+      - strategy: command-query-perturbation
+        challenge: Compare combined read/write operations with explicit query/materialization versus command boundaries.
+        alternatives: [workflow-monolith, task-owner-bounded, resource-crud]
+    decision_points:
+      - id: application-operation-partition
+        alternatives:
+          - id: workflow-monolith
+            difference: One coarse operation owns most target, learning, evidence, and adaptation work.
+            material_effects:
+              operation-granularity: coarse-workflow
+              mutation-owner: application-cross-owner
+              query-write-split: combined
+          - id: task-owner-bounded
+            difference: Operations follow observable task outcomes while each write is delegated to the accepted semantic owner; read projections are separate from commands.
+            material_effects:
+              operation-granularity: task-outcome
+              mutation-owner: semantic-owner
+              query-write-split: explicit
+          - id: resource-crud
+            difference: Operations primarily mirror tactical entities and expose generic create/read/update operations independent of user task outcomes.
+            material_effects:
+              operation-granularity: domain-resource
+              mutation-owner: semantic-owner
+              query-write-split: explicit
+
+  - axis: orchestration
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: move-orchestrator
+        challenge: Compare Application-owned cross-owner orchestration with domain-owner choreography.
+        alternatives: [application-sequenced, domain-choreography, async-fire-and-forget]
+      - strategy: reorder-steps
+        challenge: Perturb evidence processing order around historical fact capture, inference, and target-relative projection.
+        alternatives: [application-sequenced, domain-choreography, async-fire-and-forget]
+    decision_points:
+      - id: evidence-and-adaptation-orchestration
+        alternatives:
+          - id: application-sequenced
+            difference: Application coordinates accepted owner operations in the semantic order capture Performance/Observation, evaluate evidence, then derive current target-relative projections.
+            material_effects:
+              orchestration-owner: application
+              ordering: capture-infer-project
+              sync-async: bounded-request-response
+          - id: domain-choreography
+            difference: A domain owner coordinates cross-context target, evidence, and preparation changes through internal choreography.
+            material_effects:
+              orchestration-owner: tactical-domain
+              ordering: owner-choreographed
+              sync-async: mixed
+          - id: async-fire-and-forget
+            difference: Activity completion queues evidence processing and immediately continues without an accepted current-state boundary.
+            material_effects:
+              orchestration-owner: application
+              ordering: deferred-infer-project
+              sync-async: asynchronous
+
+  - axis: failure-semantics
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: fail-vs-recover
+        challenge: Compare explicit semantic outcomes and recovery with one generic application failure.
+        alternatives: [typed-outcomes, generic-failure, automatic-retry]
+      - strategy: retry-vs-no-retry
+        challenge: Compare preserving unresolved/dependency outcomes for caller choice with application-level automatic retry.
+        alternatives: [typed-outcomes, generic-failure, automatic-retry]
+    decision_points:
+      - id: application-outcome-model
+        alternatives:
+          - id: typed-outcomes
+            difference: Distinguish success, owner rejection, unresolved/insufficient meaning, dependency unavailability, cancellation, and stale-basis outcomes while leaving retry mechanics downstream unless semantics require them.
+            material_effects:
+              failure-classification: semantic-outcomes
+              recovery-owner: caller-or-owning-workflow
+              retry-policy: unspecified-downstream
+          - id: generic-failure
+            difference: Collapse domain rejection, unresolved uncertainty, dependency failure, and cancellation into one application error.
+            material_effects:
+              failure-classification: generic-error
+              recovery-owner: caller
+              retry-policy: none
+          - id: automatic-retry
+            difference: Treat most unsuccessful outcomes as transient and retry automatically at Application level.
+            material_effects:
+              failure-classification: transient-dominant
+              recovery-owner: application
+              retry-policy: automatic
+
+  - axis: partial-results
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: all-or-nothing-vs-partial
+        challenge: Compare global atomic preparation with owner-scoped valid results plus unresolved remainder.
+        alternatives: [global-all-or-nothing, owner-scoped-partial, discard-and-restart]
+      - strategy: resumability-perturbation
+        challenge: Compare preserving accepted partial preparation for continuation with forcing the whole preparation request to restart.
+        alternatives: [global-all-or-nothing, owner-scoped-partial, discard-and-restart]
+    decision_points:
+      - id: preparation-support-partial-result
+        alternatives:
+          - id: global-all-or-nothing
+            difference: Target, capability, knowledge, and learning-support preparation succeeds or fails as one cross-owner unit.
+            material_effects:
+              all-or-nothing: global
+              partial-validity: rejected
+              continuation: restart-whole-request
+          - id: owner-scoped-partial
+            difference: Independently valid owner-scoped results may be accepted while unsupported/conflicting candidates remain explicit and preparation can continue from the remaining gaps.
+            material_effects:
+              all-or-nothing: per-owner-operation
+              partial-validity: preserved
+              continuation: remaining-gaps
+          - id: discard-and-restart
+            difference: Partial candidate results are discarded and any unresolved source forces a new preparation attempt.
+            material_effects:
+              all-or-nothing: attempt-level
+              partial-validity: discarded
+              continuation: restart
+
+  - axis: continuation-currentness
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: recompute-vs-materialize
+        challenge: Compare unversioned live recomputation with an explicit semantic basis for multi-step user work.
+        alternatives: [live-unversioned, basis-aware-refresh, sticky-snapshot]
+      - strategy: stale-vs-refresh
+        challenge: Perturb target/evidence/focus changes between review, selection, and execution and compare continuation behavior.
+        alternatives: [live-unversioned, basis-aware-refresh, sticky-snapshot]
+    decision_points:
+      - id: multi-step-currentness
+        alternatives:
+          - id: live-unversioned
+            difference: Each step reads current state independently and provides no inspectable basis identity for detecting that relevant inputs changed between steps.
+            material_effects:
+              snapshot-vs-live: live
+              staleness-policy: implicit-overwrite
+              continuation-token: absent
+          - id: basis-aware-refresh
+            difference: Read models/materializations expose a semantic basis identity; dependent commands reject or refresh when target/evidence/focus inputs materially changed, while the user can continue from recomputed current state.
+            material_effects:
+              snapshot-vs-live: basis-bound-current
+              staleness-policy: detect-and-refresh
+              continuation-token: semantic-basis
+          - id: sticky-snapshot
+            difference: A multi-step flow remains bound to the original snapshot until explicit restart even when newer accepted evidence or target information exists.
+            material_effects:
+              snapshot-vs-live: snapshot
+              staleness-policy: tolerate-until-restart
+              continuation-token: snapshot-id
+
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  reviewed_decisions:
+    - application-operation-partition
+    - evidence-and-adaptation-orchestration
+    - application-outcome-model
+    - preparation-support-partial-result
+    - multi-step-currentness
+  open_gaps: []

@@ -1,0 +1,12 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.application-process.activity-evidence-cycle
+target_capability: prep.user-journeys
+obligations:
+  - {id: boundary, source_kind: application-process-boundary, min_count: 1, allow_not_applicable: false}
+  - {id: work, source_kind: application-process-work-reference, min_count: 1, allow_not_applicable: false}
+  - {id: composition, source_kind: application-process-composition, min_count: 1, allow_not_applicable: false}
+  - {id: continuation, source_kind: application-process-continuation, min_count: 1, allow_not_applicable: false}
+  - {id: recovery, source_kind: application-process-recovery, min_count: 1, allow_not_applicable: false}
+  - {id: completion, source_kind: application-process-completion, min_count: 1, allow_not_applicable: false}
+lifecycle_dependency: {exhaustive: true}

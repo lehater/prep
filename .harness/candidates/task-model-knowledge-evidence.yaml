@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.task-model
+links:
+  - {sources: [KM-KNOWLEDGE-FAMILY], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-KNOWLEDGE-OBJECT-IDENTITY], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-KNOWLEDGE-PROPOSITION], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-RELATIONAL-PROPOSITION], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-SCOPE-OVERVIEW-DEPTH], relation: TRANSFORMS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-CROSS-CONTEXT-BOUNDARY], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE, TM-TASK-PREPARE-SUPPORT, TM-TASK-EVALUATE-EVIDENCE]}
+  - {sources: [KM-BOOTSTRAP-CORRECTION], relation: TRANSFORMS, targets: [TM-TASK-PREPARE-SUPPORT]}
+  - {sources: [KM-GRAPH-IS-PROJECTION], relation: CONSTRAINS, targets: [TM-TASK-EXPLORE-KNOWLEDGE]}
+dispositions:
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "Optional KnowledgeObject form classification does not create distinct application work; downstream interface may expose it only if useful."}

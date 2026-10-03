@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.task-model
+target_capability: prep.information-architecture
+obligations:
+  - {id: task-goals, source_kind: task-goal, min_count: 2, allow_not_applicable: true}
+  - {id: tasks, source_kind: task, min_count: 13, allow_not_applicable: true}
+  - {id: task-goal-refs, source_kind: task-goal-ref, min_count: 13, allow_not_applicable: true}
+  - {id: task-responsibilities, source_kind: task-responsibility, min_count: 13, allow_not_applicable: true}
+  - {id: task-information, source_kind: task-information, min_count: 13, allow_not_applicable: true}
+  - {id: task-decision-input, source_kind: task-decision-input, min_count: 13, allow_not_applicable: true}
+  - {id: task-outcomes, source_kind: task-outcome, min_count: 13, allow_not_applicable: true}
+  - {id: task-system-support, source_kind: task-system-support, min_count: 13, allow_not_applicable: true}
+  - {id: task-recovery, source_kind: task-recovery, min_count: 13, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

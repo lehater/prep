@@ -1,0 +1,1012 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+  - id: TM-GOAL-PREPARE
+    kind: task-goal
+    subject: GOAL-PREPARE-FOR-TARGET
+    semantic_value: "Reach and maintain an evidence-backed target-relative preparation direction by understanding required performance, current evidence, gaps, next focus, relevant knowledge, suitable support, and the effect of new evidence."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-STATE, REQ-CAP-FOCUS, REQ-CAP-PRACTICE, REQ-CAP-ADAPT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GOAL-SUPPORT
+    kind: task-goal
+    subject: GOAL-OBTAIN-USABLE-PREPARATION-SUPPORT
+    semantic_value: "Turn fragmented or incomplete source material into usable preparation support without requiring the learner to maintain Prep's reusable semantic corpus."
+    derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-ESTABLISH-TARGET
+    kind: task
+    subject: TASK-U-ESTABLISH-TARGET
+    semantic_value: "Establish or refine the active preparation target and its purpose while keeping unresolved target information explicit."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-ESTABLISH-TARGET
+    kind: task-goal-ref
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-ESTABLISH-TARGET
+    kind: task-responsibility
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-ESTABLISH-TARGET
+    kind: task-information
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "Known target purpose/context, available target information or source material, known requirement scope, provenance, and unresolved target uncertainty."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-ESTABLISH-TARGET
+    kind: task-decision-input
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "Select an existing target or provide/refine target information sufficiently to establish the active preparation purpose and context."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-ESTABLISH-TARGET
+    kind: task-outcome
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "An active PreparationTarget is available with explicit purpose/context and unresolved target information preserved."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-ESTABLISH-TARGET
+    kind: task-system-support
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "Expose existing target context, preserve purpose and uncertainty, keep related targets distinct, and route missing preparation support without forcing corpus/schema work."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-ESTABLISH-TARGET
+    kind: task-recovery
+    subject: TM-TASK-ESTABLISH-TARGET
+    semantic_value: "If target/support data is insufficient, preserve the motivating context and route to TASK-U-REQUEST-PREPARATION-SUPPORT rather than inventing requirements."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-UNDERSTAND-REQUIREMENTS
+    kind: task
+    subject: TASK-U-UNDERSTAND-REQUIREMENTS
+    semantic_value: "Understand what the active target requires as human performance, including material conditions and acceptable quality, separately from subject coverage."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-UNDERSTAND-REQUIREMENTS
+    kind: task-goal-ref
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-UNDERSTAND-REQUIREMENTS
+    kind: task-responsibility
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-UNDERSTAND-REQUIREMENTS
+    kind: task-information
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "PreparationTarget purpose/context, RequirementExpression structure, CapabilitySpecifications, PerformanceExpectations, condition scope, CapabilityStandards, and direct Knowledge focus where applicable."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-UNDERSTAND-REQUIREMENTS
+    kind: task-decision-input
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "Determine whether the currently known required performance is understood well enough to prepare against and identify unresolved target requirements."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-UNDERSTAND-REQUIREMENTS
+    kind: task-outcome
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "The learner can distinguish required capabilities/performance from supporting Subject Knowledge and knows which target expectations remain unresolved."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-UNDERSTAND-REQUIREMENTS
+    kind: task-system-support
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "Present requirement structure without flattening all_of/any_of meaning, explain capability/performance semantics in learner-facing terms, and expose uncertainty without fabricating completeness."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-UNDERSTAND-REQUIREMENTS
+    kind: task-recovery
+    subject: TM-TASK-UNDERSTAND-REQUIREMENTS
+    semantic_value: "Unclear or incomplete requirements remain unresolved target information and may trigger target refinement or preparation support."
+    derived_from: [REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT, LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-REVIEW-CURRENT-STATE
+    kind: task
+    subject: TASK-U-REVIEW-CURRENT-STATE
+    semantic_value: "Review current target-relative learner state and inspect why each relevant capability is demonstrated, challenged, or unknown."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-REVIEW-CURRENT-STATE
+    kind: task-goal-ref
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-REVIEW-CURRENT-STATE
+    kind: task-responsibility
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-REVIEW-CURRENT-STATE
+    kind: task-information
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "Applicable LearnerCapabilityClaims, CapabilityEvidenceArguments, supporting/challenging Observations, claim and evidence time scopes, condition coverage, transfer limitations, provenance, and target-relative demonstrated/challenged/unknown projection."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-REVIEW-CURRENT-STATE
+    kind: task-decision-input
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "Decide which current-state conclusions are sufficiently applicable for planning and which uncertainties require further diagnosis or newer/broader evidence."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-REVIEW-CURRENT-STATE
+    kind: task-outcome
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "A usable evidence-backed view of current state exists without converting missing evidence into failure or into a mastery score."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-REVIEW-CURRENT-STATE
+    kind: task-system-support
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "Project claims and evidence arguments against target requirements, expose evidence reasoning and limitations, and keep stale/narrow/conflicting evidence visible."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-REVIEW-CURRENT-STATE
+    kind: task-recovery
+    subject: TM-TASK-REVIEW-CURRENT-STATE
+    semantic_value: "Insufficient, stale, dependent, conflicting, or out-of-scope evidence remains unknown or challenged as justified and can route to diagnosis."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-REVIEW-GAPS
+    kind: task
+    subject: TASK-U-REVIEW-GAPS
+    semantic_value: "Review target-relative gaps and unresolved uncertainty while preserving the evidence basis and target requirement structure."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-REVIEW-GAPS
+    kind: task-goal-ref
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-REVIEW-GAPS
+    kind: task-responsibility
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-REVIEW-GAPS
+    kind: task-information
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "Target RequirementExpression, demonstrated/challenged/unknown state, derived Gap semantics, evidence limitations, and requirement-fragment rationale."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-REVIEW-GAPS
+    kind: task-decision-input
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "Identify which target-relevant differences or uncertainties matter for preparation and inspect the basis of each gap."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-REVIEW-GAPS
+    kind: task-outcome
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "The learner can explain current target-relative gaps and unresolved uncertainty without a fabricated scalar proficiency score."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-REVIEW-GAPS
+    kind: task-system-support
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "Derive Gap semantics from accepted target requirements and learner-state projection while preserving all_of/any_of structure and evidence limitations."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-REVIEW-GAPS
+    kind: task-recovery
+    subject: TM-TASK-REVIEW-GAPS
+    semantic_value: "When evidence or target semantics do not justify a gap conclusion, keep the affected requirement unresolved rather than forcing a binary result."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, LD-GAP-PRIORITY, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-CHOOSE-NEXT-FOCUS
+    kind: task
+    subject: TASK-U-CHOOSE-NEXT-FOCUS
+    semantic_value: "Choose or confirm the next preparation focus from target relevance, current gaps or uncertainty, available time, and available support."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-CHOOSE-NEXT-FOCUS
+    kind: task-goal-ref
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-CHOOSE-NEXT-FOCUS
+    kind: task-responsibility
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-CHOOSE-NEXT-FOCUS
+    kind: task-information
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "Current gaps/uncertainty, target relevance, PreparationPriority rationale, available time or attention constraints, and currently available learning/practice/diagnostic support."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-CHOOSE-NEXT-FOCUS
+    kind: task-decision-input
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "Choose or confirm one or more current PreparationIntents, including whether the immediate purpose is acquisition, practice, diagnosis, transfer, or retention support."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-CHOOSE-NEXT-FOCUS
+    kind: task-outcome
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "The current preparation focus is explicit and traceable to target-relative need or uncertainty plus material external constraints."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-CHOOSE-NEXT-FOCUS
+    kind: task-system-support
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "Expose prioritization rationale and support availability without deriving priority from graph position, content popularity, or artifact count."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-CHOOSE-NEXT-FOCUS
+    kind: task-recovery
+    subject: TM-TASK-CHOOSE-NEXT-FOCUS
+    semantic_value: "If a relevant focus lacks suitable support, preserve the priority and route to TASK-U-REQUEST-PREPARATION-SUPPORT."
+    derived_from: [REQ-CAP-FOCUS, REQ-CAP-SUPPORT-FIT, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-EXPLORE-KNOWLEDGE
+    kind: task
+    subject: TASK-U-EXPLORE-KNOWLEDGE
+    semantic_value: "Orient within Subject Knowledge relevant to the active target or focus, inspect meaningful relationships, and move between scope and depth without confusing knowledge with capability."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-EXPLORE-KNOWLEDGE
+    kind: task-goal-ref
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-EXPLORE-KNOWLEDGE
+    kind: task-responsibility
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-EXPLORE-KNOWLEDGE
+    kind: task-information
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, and target/focus relevance where provided by upstream semantics."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-EXPLORE-KNOWLEDGE
+    kind: task-decision-input
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "Narrow or expand scope, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-EXPLORE-KNOWLEDGE
+    kind: task-outcome
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "The learner gains coherent subject orientation while Knowledge identity remains independent of learner state, target, capability, and presentation."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-EXPLORE-KNOWLEDGE
+    kind: task-system-support
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; presentation may be graph or non-graph and must preserve semantic access."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-EXPLORE-KNOWLEDGE
+    kind: task-recovery
+    subject: TM-TASK-EXPLORE-KNOWLEDGE
+    semantic_value: "If a richer visualization is unavailable or unusable, retain task-complete semantic access through another representation without changing Knowledge meaning."
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-SELECT-SUPPORT
+    kind: task
+    subject: TASK-U-SELECT-SUPPORT
+    semantic_value: "Select learning, practice, or diagnostic support appropriate to the current PreparationIntent and required capability conditions."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-SELECT-SUPPORT
+    kind: task-goal-ref
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-SELECT-SUPPORT
+    kind: task-responsibility
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-SELECT-SUPPORT
+    kind: task-information
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "PreparationIntent, CapabilitySpecification, available LearningMaterial, LearningSupportRequirements, TaskSpecifications, ObservationSpecifications, expected conditions, and support limitations."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-SELECT-SUPPORT
+    kind: task-decision-input
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "Choose a suitable learning/practice/diagnostic opportunity or decide that available support is inadequate for the current intent."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-SELECT-SUPPORT
+    kind: task-outcome
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "A support opportunity is selected with its intended capability purpose and limitations understood; completion is not treated as evidence of capability."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-SELECT-SUPPORT
+    kind: task-system-support
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "Resolve support by intended capability and conditions, keep LearningMaterial/TaskSpecification/ObservationSpecification roles distinct, and treat question/card forms as optional projections."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-SELECT-SUPPORT
+    kind: task-recovery
+    subject: TM-TASK-SELECT-SUPPORT
+    semantic_value: "Missing or inadequate support remains explicit and routes to preparation support without closing a gap or asserting capability."
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-PERFORM-ACTIVITY
+    kind: task
+    subject: TASK-U-PERFORM-ACTIVITY
+    semantic_value: "Perform the selected learning, practice, or diagnostic activity under its actual conditions, whether executed in Prep or a supported external runtime."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-PERFORM-ACTIVITY
+    kind: task-goal-ref
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-PERFORM-ACTIVITY
+    kind: task-responsibility
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-PERFORM-ACTIVITY
+    kind: task-information
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "Selected support, TaskSpecification or LearningMaterial, intended capability, prescribed conditions/affordances, and any supported external-runtime handoff context."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-PERFORM-ACTIVITY
+    kind: task-decision-input
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "Carry out the activity and provide the responses, work product, actions, or reasoning that the activity calls for."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-PERFORM-ACTIVITY
+    kind: task-outcome
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "A concrete activity attempt occurs; when performance is observable it can become a historical Performance, but activity completion alone proves no capability change."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-PERFORM-ACTIVITY
+    kind: task-system-support
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "Present or delegate the opportunity while preserving its semantic intent and correlation context; do not convert completion or a raw runtime score directly into learner state."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-PERFORM-ACTIVITY
+    kind: task-recovery
+    subject: TM-TASK-PERFORM-ACTIVITY
+    semantic_value: "Unavailable/partial external execution or abandoned activity remains distinguishable from completed Performance and does not fabricate evidence."
+    derived_from: [REQ-CAP-PRACTICE, LD-TASK-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-CAPTURE-PERFORMANCE
+    kind: task
+    subject: TASK-S-CAPTURE-PERFORMANCE
+    semantic_value: "Capture attributable historical Performance and provenance-bearing Observations from supported activity or translatable external records."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-CAPTURE-PERFORMANCE
+    kind: task-goal-ref
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-CAPTURE-PERFORMANCE
+    kind: task-responsibility
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "SYSTEM"
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-CAPTURE-PERFORMANCE
+    kind: task-information
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "Actual actions/traces/work products or expressed reasoning, actual known conditions, participant attribution, time, provenance, relevant ObservationSpecifications, and supported external records."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-CAPTURE-PERFORMANCE
+    kind: task-decision-input
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "Determine which actual facts can be represented faithfully as Performance/Observation and leave unknown conditions or semantically incomplete external records unresolved."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-CAPTURE-PERFORMANCE
+    kind: task-outcome
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "Historical Performance and Observation tokens exist with attributable context, time, and provenance sufficient for later evidence reasoning."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-CAPTURE-PERFORMANCE
+    kind: task-system-support
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "Persist/correlate facts without turning an Observation into a capability conclusion and preserve integration-boundary records when faithful translation is unavailable."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-CAPTURE-PERFORMANCE
+    kind: task-recovery
+    subject: TM-TASK-CAPTURE-PERFORMANCE
+    semantic_value: "Incomplete, ambiguous, unattributable, or semantically lossy records remain integration-boundary data and do not enter learner-state inference as if complete."
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION, LM-INDIVIDUAL-ATTRIBUTION, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-EVALUATE-EVIDENCE
+    kind: task
+    subject: TASK-S-EVALUATE-EVIDENCE
+    semantic_value: "Evaluate whether captured Observations support or challenge learner-specific Capability claims and derive the target-relative demonstrated/challenged/unknown projection."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-EVALUATE-EVIDENCE
+    kind: task-goal-ref
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-EVALUATE-EVIDENCE
+    kind: task-responsibility
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "SYSTEM"
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-EVALUATE-EVIDENCE
+    kind: task-information
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "Observations and provenance, reusable Capability scope, proposed claim/time scope, observed versus claim conditions, temporal applicability, coverage/transfer limitations, dependence, individual attribution, and target relevance."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-EVALUATE-EVIDENCE
+    kind: task-decision-input
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "Form inspectable CapabilityEvidenceArguments with supports/challenges bearing and admit LearnerCapabilityClaims only when the accepted evidence argument justifies them."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-EVALUATE-EVIDENCE
+    kind: task-outcome
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "Applicable learner capability claims and evidence arguments are available and target-relative state can be recomputed without mutable CapabilityState or mastery score."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-EVALUATE-EVIDENCE
+    kind: task-system-support
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "Preserve direct evidence reasoning on CapabilityEvidenceArgument, time/condition/transfer limitations, target-relative projection, and the absence of a fundamental EvidentialWarrant."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-EVALUATE-EVIDENCE
+    kind: task-recovery
+    subject: TM-TASK-EVALUATE-EVIDENCE
+    semantic_value: "When evidence is conflicting, dependent, too narrow, stale, unattributable, or otherwise insufficient, preserve limitations and unknown/challenged outcomes rather than overclaiming."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-REVIEW-CHANGE
+    kind: task
+    subject: TASK-U-REVIEW-CHANGE
+    semantic_value: "Review what changed after new evidence or target information and choose whether to continue, refocus, diagnose further, or refine the target."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-REVIEW-CHANGE
+    kind: task-goal-ref
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: TM-GOAL-PREPARE
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-REVIEW-CHANGE
+    kind: task-responsibility
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-REVIEW-CHANGE
+    kind: task-information
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "Previous and current target-relative state, new LearnerCapabilityClaims/CapabilityEvidenceArguments, changed gaps/priorities, evidence limitations, and separately identified new target information."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-REVIEW-CHANGE
+    kind: task-decision-input
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "Distinguish learner-state change from target-understanding change and choose the next continuation: keep focus, choose another focus, gather more evidence, or refine the target."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-REVIEW-CHANGE
+    kind: task-outcome
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "The preparation loop continues from an inspectable current projection; no-change and increased-uncertainty outcomes remain valid."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-REVIEW-CHANGE
+    kind: task-system-support
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "Show material changes and their reasons, preserve history, recompute gaps/priorities from accepted semantics, and route target information separately from learner evidence."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-REVIEW-CHANGE
+    kind: task-recovery
+    subject: TM-TASK-REVIEW-CHANGE
+    semantic_value: "Conflicting/no-change/increased-uncertainty results remain visible; the system does not rewrite history or manufacture progress."
+    derived_from: [REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    kind: task
+    subject: TASK-U-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "Request low-overhead preparation support when target, knowledge, learning/practice, or diagnostic support is missing or incomplete."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-REQUEST-PREPARATION-SUPPORT
+    kind: task-goal-ref
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: TM-GOAL-SUPPORT
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-REQUEST-PREPARATION-SUPPORT
+    kind: task-responsibility
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-REQUEST-PREPARATION-SUPPORT
+    kind: task-information
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "Motivating target/focus, available fragmented source material, visible missing or uncertain preparation prerequisites, and any already accepted reusable support."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-REQUEST-PREPARATION-SUPPORT
+    kind: task-decision-input
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "Provide/select relevant source material and request preparation while preserving the original preparation purpose; explicit self-curation is optional, not assumed."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-REQUEST-PREPARATION-SUPPORT
+    kind: task-outcome
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "A preparation request exists with motivating context and sources without requiring the learner to understand Prep's internal corpus schema."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-REQUEST-PREPARATION-SUPPORT
+    kind: task-system-support
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "Explain missing support in learner language, accept fragmented inputs, preserve purpose/context, and delegate semantic preparation to system/agent/operator mechanisms."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-REQUEST-PREPARATION-SUPPORT
+    kind: task-recovery
+    subject: TM-TASK-REQUEST-PREPARATION-SUPPORT
+    semantic_value: "Partial/failed preparation preserves sources and motivating context so it can be retried or supplemented without destructive reset."
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT, LD-APPLICATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-TASK-PREPARE-SUPPORT
+    kind: task
+    subject: TASK-S-PREPARE-SUPPORT
+    semantic_value: "Transform fragmented source material into reviewable candidate preparation support and route accepted meaning to the existing semantic owners without inventing a new assessment/evidence domain."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-GREF-PREPARE-SUPPORT
+    kind: task-goal-ref
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: TM-GOAL-SUPPORT
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RESP-PREPARE-SUPPORT
+    kind: task-responsibility
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "SYSTEM"
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-INFO-PREPARE-SUPPORT
+    kind: task-information
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "Source material and provenance, motivating target/focus, accepted target/capability/knowledge/learning/observation semantics, existing reusable corpus, and unresolved extraction uncertainty."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-DECISION-PREPARE-SUPPORT
+    kind: task-decision-input
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "Derive/propose only target, capability, Subject Knowledge, LearningMaterial/TaskSpecification/ObservationSpecification or other already accepted semantics that source evidence supports; retain unsupported meaning as unresolved."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-OUTCOME-PREPARE-SUPPORT
+    kind: task-outcome
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "Usable prepared/refined support is available where evidence permits, with provenance and unresolved uncertainty preserved; accepted reusable truth remains owned by its canonical model context."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-SUPPORT-PREPARE-SUPPORT
+    kind: task-system-support
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "Validate candidate references against semantic owners, preserve Knowledge identity/cross-context boundaries, and do not synthesize EvidencePattern/EvidentialWarrant/AssessmentDesign as fundamental semantics."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+  - id: TM-RECOVERY-PREPARE-SUPPORT
+    kind: task-recovery
+    subject: TM-TASK-PREPARE-SUPPORT
+    semantic_value: "Rejected, conflicting, partial, or unsupported candidate meaning remains explicit and does not mutate accepted reusable truth; the learner is not forced into item-level schema repair."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, KM-CROSS-CONTEXT-BOUNDARY, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LM-NO-FUNDAMENTAL-WARRANT, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: TASK-MODEL
+
+
+  - id: AD-PREPARATION-LOOP
+    kind: application-orchestration
+    subject: target-preparation-loop
+    semantic_value: "Application composes target understanding, evidence-backed current state, gaps, focus, support/activity, evidence update, and change review in dependency order without becoming a semantic owner."
+    derived_from: [TM-GOAL-PREPARE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-SUPPORT-LOOP
+    kind: application-orchestration
+    subject: preparation-support-loop
+    semantic_value: "Application preserves the motivating target/focus and coordinates preparation of missing support through existing semantic owners, returning accepted results plus remaining unresolved preparation needs."
+    derived_from: [TM-GOAL-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-ESTABLISH-TARGET
+    kind: application-operation
+    subject: establish-target
+    semantic_value: "Establish the active preparation target by selecting accepted target meaning or routing/refining target information through its owner while preserving purpose, uncertainty, provenance, and missing-support recovery."
+    derived_from: [TM-TASK-ESTABLISH-TARGET]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-UNDERSTAND-REQUIREMENTS
+    kind: application-materialization
+    subject: understand-target-requirements
+    semantic_value: "Materialize target requirements in terms of required Capability performance, conditions, quality and Boolean requirement structure while keeping supporting Subject Knowledge distinct."
+    derived_from: [TM-TASK-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-REVIEW-CURRENT-STATE
+    kind: application-materialization
+    subject: review-current-state
+    semantic_value: "Materialize target-relative demonstrated, challenged and unknown learner state from applicable claims and evidence arguments with time, condition, transfer, dependence and provenance limitations inspectable."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-REVIEW-GAPS
+    kind: application-materialization
+    subject: review-target-gaps
+    semantic_value: "Materialize target-relative satisfied, challenged and unresolved requirement fragments and Gap basis without fabricating a scalar proficiency score."
+    derived_from: [TM-TASK-REVIEW-GAPS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-CHOOSE-NEXT-FOCUS
+    kind: application-operation
+    subject: choose-next-focus
+    semantic_value: "Create or revise the current PreparationIntent through its semantic owner from target-relative gaps/uncertainty, explicit external constraints and support availability, preserving rationale."
+    derived_from: [TM-TASK-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-EXPLORE-KNOWLEDGE
+    kind: application-materialization
+    subject: explore-subject-knowledge
+    semantic_value: "Materialize semantic overview/detail projections over stable Knowledge identity, propositions and meaningful relations for the current scope without requiring graph presentation."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-SELECT-SUPPORT
+    kind: application-materialization
+    subject: select-preparation-support
+    semantic_value: "Resolve available LearningMaterial, LearningSupportRequirements, TaskSpecifications and ObservationSpecifications against the current PreparationIntent and Capability scope, returning explicit inadequacy/limitations."
+    derived_from: [TM-TASK-SELECT-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-PERFORM-ACTIVITY
+    kind: application-orchestration
+    subject: perform-preparation-activity
+    semantic_value: "Orchestrate local or supported external execution of selected learning/practice/diagnostic support while preserving correlation context and without treating completion as learner-state change."
+    derived_from: [TM-TASK-PERFORM-ACTIVITY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-CAPTURE-PERFORMANCE
+    kind: application-operation
+    subject: capture-performance-observation
+    semantic_value: "Record attributable historical Performance and provenance-bearing Observations through Learner Evidence & State ownership; incomplete external records remain unresolved integration-boundary records."
+    derived_from: [TM-TASK-CAPTURE-PERFORMANCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-EVALUATE-EVIDENCE
+    kind: application-operation
+    subject: evaluate-capability-evidence
+    semantic_value: "Evaluate Observations into inspectable CapabilityEvidenceArguments and admit LearnerCapabilityClaims only where capability relevance, conditions, time, coverage, transfer, dependence and attribution justify them; no fundamental EvidentialWarrant is introduced."
+    derived_from: [TM-TASK-EVALUATE-EVIDENCE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-REVIEW-CHANGE
+    kind: application-materialization
+    subject: review-preparation-change
+    semantic_value: "Compare previous and current semantic bases to expose learner-state change separately from target-understanding change and support continuation/refocus/diagnosis/refinement decisions."
+    derived_from: [TM-TASK-REVIEW-CHANGE]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-REQUEST-PREPARATION-SUPPORT
+    kind: application-operation
+    subject: request-preparation-support
+    semantic_value: "Accept fragmented source material plus motivating target/focus as a preparation request without requiring learner corpus/schema maintenance and preserve context across partial/unavailable outcomes."
+    derived_from: [TM-TASK-REQUEST-PREPARATION-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-PREPARE-SUPPORT
+    kind: application-orchestration
+    subject: prepare-support
+    semantic_value: "Transform supported source meaning into owner-scoped candidate target/capability/Knowledge/learning/observation-spec semantics and route acceptance to each semantic owner while preserving unresolved or rejected meaning."
+    derived_from: [TM-TASK-PREPARE-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-WRITE-OWNERSHIP
+    kind: application-invariant
+    subject: semantic-write-ownership
+    semantic_value: "Every application write is validated and accepted by the semantic owner of the affected meaning; Application may coordinate owners but cannot become a cross-context aggregate owner."
+    derived_from: [LD-APPLICATION-BOUNDARY, KM-CROSS-CONTEXT-BOUNDARY, LM-KNOWLEDGE-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-OUTCOME-MODEL
+    kind: application-outcome
+    subject: application-outcomes
+    semantic_value: "Application outcomes distinguish SUCCESS, UNRESOLVED, REJECTED, DEPENDENCY_UNAVAILABLE and STALE_BASIS where applicable; no application-level automatic retry policy is accepted."
+    derived_from: [REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-BOOTSTRAP]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-PARTIAL-PREPARATION
+    kind: application-outcome
+    subject: preparation-partial-results
+    semantic_value: "Preparation support may return independently accepted owner-scoped results together with rejected/unresolved remainder; no global cross-owner transaction semantic is invented."
+    derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, LD-EVIDENCE-DESIGN-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-CURRENTNESS-BASIS
+    kind: application-invariant
+    subject: semantic-currentness-basis
+    semantic_value: "Task-oriented materializations expose an opaque semantic basis over the accepted target/evidence/focus inputs they used; dependent commands detect materially changed inputs and refresh/reject stale continuation rather than silently applying to different meaning."
+    derived_from: [REQ-CAP-ADAPT, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+
+  - id: AD-RUNTIME-TIMING-FREEDOM
+    kind: application-invariant
+    subject: runtime-timing-freedom
+    semantic_value: "Application semantics require completion/order/currentness outcomes but do not require synchronous transport or queue technology; asynchronous realization is allowed only when it preserves the same semantic contract."
+    derived_from: [LD-APPLICATION-BOUNDARY, LM-INTEGRATION-BOUNDARY]
+    decision_authority: APPLICATION-DESIGN
+    source_artifact: APPLICATION-DESIGN
+

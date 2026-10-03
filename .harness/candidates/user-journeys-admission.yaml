@@ -1,0 +1,147 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: USER-JOURNEYS
+capability: prep.user-journeys
+path: docs/application/user-journeys.md
+changed_paths:
+  - docs/application/user-journeys.md
+canonical_references:
+  - artifact: USER-JOURNEYS
+    referenced_path: docs/application/task-model.yaml
+  - artifact: USER-JOURNEYS
+    referenced_path: docs/application/application-design.md
+
+semantic_assertions:
+  - id: UJ-TARGET-SETUP
+    kind: user-journey
+    subject: J-TARGET-SETUP
+    semantic_value: "Learner establishes/refines an active preparation target, inspects required performance/conditions/quality and preserves unresolved target uncertainty without choosing any screen/navigation structure."
+    derived_from: [TM-GOAL-PREPARE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, AD-ESTABLISH-TARGET, AD-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-RECOVERY
+    kind: journey-alternate
+    subject: J-TARGET-SETUP
+    semantic_value: "Missing or unresolved target/support meaning remains explicit, may route to preparation support, and stale target basis must refresh before dependent decisions; target refinement never becomes learner evidence."
+    derived_from: [TM-RECOVERY-ESTABLISH-TARGET, TM-RECOVERY-UNDERSTAND-REQUIREMENTS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-OUTCOME
+    kind: journey-outcome
+    subject: J-TARGET-SETUP
+    semantic_value: "Journey completes when an active target exists and the learner can distinguish known required capability performance from supporting Knowledge and unresolved expectations."
+    derived_from: [TM-OUTCOME-ESTABLISH-TARGET, TM-OUTCOME-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION
+    semantic_value: "Learner inspects evidence-backed demonstrated/challenged/unknown current state, reviews target-relative gaps/uncertainty, then chooses or confirms the next PreparationIntent from accepted rationale."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-RECOVERY
+    kind: journey-alternate
+    subject: J-PREPARATION-DIRECTION
+    semantic_value: "Insufficient or conflicting evidence remains unknown/challenged, missing support preserves the selected priority, and a stale semantic basis forces refresh rather than silent continuation."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-REVIEW-GAPS, TM-RECOVERY-CHOOSE-NEXT-FOCUS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-OUTCOME
+    kind: journey-outcome
+    subject: J-PREPARATION-DIRECTION
+    semantic_value: "Journey completes when the learner understands current target-relative gaps/uncertainty and an explicit next PreparationIntent with rationale exists."
+    derived_from: [TM-OUTCOME-REVIEW-CURRENT-STATE, TM-OUTCOME-REVIEW-GAPS, TM-OUTCOME-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION
+    semantic_value: "Learner narrows/expands semantic scope, moves between overview and detail, selects Subject Knowledge and follows meaningful relations for target/focus orientation without conflating Knowledge with Capability or learner state."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-RECOVERY
+    kind: journey-alternate
+    subject: J-KNOWLEDGE-ORIENTATION
+    semantic_value: "Sparse or missing useful Knowledge remains an explicit preparation limitation; scope/depth changes do not mutate Knowledge and no graph/list/2D/3D representation is mandated."
+    derived_from: [TM-RECOVERY-EXPLORE-KNOWLEDGE, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-OUTCOME
+    kind: journey-outcome
+    subject: J-KNOWLEDGE-ORIENTATION
+    semantic_value: "Journey completes when the learner has coherent subject orientation and can inspect the meaning of material relationships in the relevant scope."
+    derived_from: [TM-OUTCOME-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-EVIDENCE
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE
+    semantic_value: "Learner selects suitable support, performs learning/practice/diagnostic activity, the system captures attributable Performance/Observations and evaluates inspectable evidence arguments, then the learner reviews evidence-backed change or valid no-change."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-EVIDENCE-RECOVERY
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE
+    semantic_value: "Inadequate support routes to preparation; unavailable dependencies preserve context; unresolved/rejected evidence does not fabricate capability; no-change/challenge/increased uncertainty are valid; stale basis refreshes."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-EVIDENCE-OUTCOME
+    kind: journey-outcome
+    subject: J-ACTIVITY-EVIDENCE
+    semantic_value: "Journey completes when meaningful activity has occurred and the learner can explain what the resulting evidence does or does not establish and choose a continuation."
+    derived_from: [TM-OUTCOME-SELECT-SUPPORT, TM-OUTCOME-PERFORM-ACTIVITY, TM-OUTCOME-CAPTURE-PERFORMANCE, TM-OUTCOME-EVALUATE-EVIDENCE, TM-OUTCOME-REVIEW-CHANGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT
+    semantic_value: "Learner requests missing preparation support from fragmented sources while the system prepares owner-scoped candidate semantics and returns accepted support plus remaining unresolved/rejected gaps without requiring learner corpus/schema maintenance."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-RECOVERY
+    kind: journey-alternate
+    subject: J-PREPARE-SUPPORT
+    semantic_value: "Partial accepted owner-scoped results remain usable; unresolved/rejected/dependency-unavailable outcomes preserve source and motivating context for continuation and do not mutate accepted truth."
+    derived_from: [TM-RECOVERY-REQUEST-PREPARATION-SUPPORT, TM-RECOVERY-PREPARE-SUPPORT, AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-OUTCOME
+    kind: journey-outcome
+    subject: J-PREPARE-SUPPORT
+    semantic_value: "Journey completes when usable support has been accepted where justified, remaining preparation gaps are explicit and the learner can return to the originating preparation work."
+    derived_from: [TM-OUTCOME-REQUEST-PREPARATION-SUPPORT, TM-OUTCOME-PREPARE-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-SHARED-CURRENTNESS
+    kind: journey-invariant
+    subject: journey-currentness
+    semantic_value: "A dependent user action never silently applies to materially changed target/evidence/focus meaning: STALE_BASIS causes refresh/reconsideration while history remains preserved."
+    derived_from: [AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-SHARED-OWNERSHIP
+    kind: journey-invariant
+    subject: journey-semantic-ownership
+    semantic_value: "Visible application work may coordinate multiple semantic owners, but journey behavior never treats Application or UI as owner of target, Capability, Knowledge, learner evidence/state or support semantics."
+    derived_from: [AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-SHARED-OUTCOMES
+    kind: journey-invariant
+    subject: journey-outcome-semantics
+    semantic_value: "Journeys preserve meaningful distinctions among SUCCESS, UNRESOLVED, REJECTED, DEPENDENCY_UNAVAILABLE and STALE_BASIS instead of collapsing them into one generic failure."
+    derived_from: [AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - journey-not-screen-design

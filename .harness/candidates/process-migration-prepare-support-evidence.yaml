@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-design
+target_capability: prep.application-process.prepare-support
+links:
+  - {sources: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT], relation: TRANSFORMS, targets: [PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]}
+  - {sources: [AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP], relation: CONSTRAINS, targets: [PROC-SUP-COMPOSITION, PROC-SUP-RECOVERY, PROC-SUP-COMPLETION]}
+  - {sources: [AD-OUTCOME-MODEL], relation: CONSTRAINS, targets: [PROC-SUP-RECOVERY, PROC-SUP-COMPLETION]}
+  - {sources: [AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM], relation: CONSTRAINS, targets: [PROC-SUP-CONTINUATION]}
+  - {sources: [AD-PROCESS-HANDOFF], relation: TRANSFORMS, targets: [PROC-SUP-BOUNDARY]}
+dispositions:
+  - {source: AD-ESTABLISH-TARGET, status: NOT_APPLICABLE, rationale: "The process preserves motivating target context but does not establish target meaning."}
+  - {source: AD-UNDERSTAND-REQUIREMENTS, status: NOT_APPLICABLE, rationale: "Requirement materialization is not process work for missing-support preparation."}
+  - {source: AD-REVIEW-CURRENT-STATE, status: NOT_APPLICABLE, rationale: "Learner-state review is outside support preparation."}
+  - {source: AD-REVIEW-GAPS, status: NOT_APPLICABLE, rationale: "Gap review may motivate the request but is outside this occurrence."}
+  - {source: AD-CHOOSE-NEXT-FOCUS, status: NOT_APPLICABLE, rationale: "Focus is input context, not prepared by this process."}
+  - {source: AD-EXPLORE-KNOWLEDGE, status: NOT_APPLICABLE, rationale: "Knowledge exploration is distinct from preparing missing reusable support."}
+  - {source: AD-SELECT-SUPPORT, status: NOT_APPLICABLE, rationale: "Selection consumes support after preparation and is not inside this process."}
+  - {source: AD-PERFORM-ACTIVITY, status: NOT_APPLICABLE, rationale: "Activity execution belongs to the activity/evidence process."}
+  - {source: AD-CAPTURE-PERFORMANCE, status: NOT_APPLICABLE, rationale: "Learner evidence capture is not support preparation."}
+  - {source: AD-EVALUATE-EVIDENCE, status: NOT_APPLICABLE, rationale: "Evidence inference is not support preparation."}
+  - {source: AD-REVIEW-CHANGE, status: NOT_APPLICABLE, rationale: "Reviewing learner-state change belongs to the activity/evidence process."}

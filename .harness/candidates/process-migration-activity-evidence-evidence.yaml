@@ -1,0 +1,20 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-design
+target_capability: prep.application-process.activity-evidence-cycle
+links:
+  - {sources: [AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE], relation: TRANSFORMS, targets: [PROC-ACT-WORK, PROC-ACT-COMPOSITION]}
+  - {sources: [AD-OUTCOME-MODEL], relation: CONSTRAINS, targets: [PROC-ACT-RECOVERY, PROC-ACT-COMPLETION]}
+  - {sources: [AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM], relation: CONSTRAINS, targets: [PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]}
+  - {sources: [AD-PROCESS-HANDOFF], relation: TRANSFORMS, targets: [PROC-ACT-BOUNDARY]}
+dispositions:
+  - {source: AD-ESTABLISH-TARGET, status: NOT_APPLICABLE, rationale: "Target establishment occurs before this bounded activity/evidence occurrence."}
+  - {source: AD-UNDERSTAND-REQUIREMENTS, status: NOT_APPLICABLE, rationale: "Requirement understanding is an upstream preparation-direction concern, not work inside this occurrence."}
+  - {source: AD-REVIEW-CURRENT-STATE, status: NOT_APPLICABLE, rationale: "Initial state review may motivate focus but is outside this occurrence boundary."}
+  - {source: AD-REVIEW-GAPS, status: NOT_APPLICABLE, rationale: "Gap review precedes the selected-focus activity occurrence."}
+  - {source: AD-CHOOSE-NEXT-FOCUS, status: NOT_APPLICABLE, rationale: "The occurrence starts with an active focus rather than owning focus selection."}
+  - {source: AD-EXPLORE-KNOWLEDGE, status: NOT_APPLICABLE, rationale: "General Knowledge orientation is optional neighboring work and not required process composition."}
+  - {source: AD-REQUEST-PREPARATION-SUPPORT, status: NOT_APPLICABLE, rationale: "Missing support routes to the separate prepare-support process."}
+  - {source: AD-PREPARE-SUPPORT, status: NOT_APPLICABLE, rationale: "Support preparation belongs to its separate process occurrence."}
+  - {source: AD-WRITE-OWNERSHIP, status: NOT_APPLICABLE, rationale: "Operation ownership remains referenced Application semantics and does not add independent activity-process composition."}
+  - {source: AD-PARTIAL-PREPARATION, status: NOT_APPLICABLE, rationale: "Owner-scoped partial preparation applies to the separate prepare-support process."}

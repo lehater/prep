@@ -1,0 +1,220 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.application-design
+knowledge_kind: application-design
+explorer_request_id: sha256:61f710e0a0be494af1756fbcd6d8497db1946fbd3d001b0abf2057a2176dda10
+research_sources: []
+axes:
+- axis: operation-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: split-operation
+    challenge: Compare one broad preparation workflow with task-outcome operations
+      split by semantic mutation owner.
+    alternatives:
+    - workflow-monolith
+    - task-owner-bounded
+    - resource-crud
+  - strategy: command-query-perturbation
+    challenge: Compare combined read/write operations with explicit materialization
+      versus command boundaries.
+    alternatives:
+    - workflow-monolith
+    - task-owner-bounded
+    - resource-crud
+  decision_points:
+  - id: application-operation-partition
+    alternatives:
+    - id: workflow-monolith
+      difference: One broad Application operation owns most preparation work.
+      material_effects:
+        operation-granularity: coarse-workflow
+        mutation-owner: application-cross-owner
+        query-write-split: combined
+    - id: task-owner-bounded
+      difference: Operations follow observable task outcomes while writes remain with
+        accepted semantic owners and materializations remain distinct.
+      material_effects:
+        operation-granularity: task-outcome
+        mutation-owner: semantic-owner
+        query-write-split: explicit
+    - id: resource-crud
+      difference: Operations mirror tactical resources rather than intended work.
+      material_effects:
+        operation-granularity: domain-resource
+        mutation-owner: semantic-owner
+        query-write-split: explicit
+- axis: orchestration
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-orchestrator
+    challenge: Compare broad Application-owned loops, operation-local orchestration
+      plus Process contracts, and tactical-domain choreography.
+    alternatives:
+    - broad-application-loop
+    - operation-local-plus-process
+    - domain-choreography
+  - strategy: reorder-steps
+    challenge: Test whether evidence/support cross-operation order is independently
+      consumable rather than merely an operation precondition.
+    alternatives:
+    - broad-application-loop
+    - operation-local-plus-process
+    - domain-choreography
+  decision_points:
+  - id: application-vs-process-composition
+    alternatives:
+    - id: broad-application-loop
+      difference: Application Design owns the full repeated preparation/support flow.
+      material_effects:
+        orchestration-owner: application-design
+        ordering: broad-cross-operation
+        sync-async: mixed
+    - id: operation-local-plus-process
+      difference: Application Design owns operations/local constraints; dedicated
+        Process capabilities own independently consumable cross-operation composition.
+      material_effects:
+        orchestration-owner: split-within-application-authority
+        ordering: process-owned-when-independent
+        sync-async: unconstrained-by-application
+    - id: domain-choreography
+      difference: Tactical domain owners coordinate cross-context work.
+      material_effects:
+        orchestration-owner: tactical-domain
+        ordering: owner-choreographed
+        sync-async: mixed
+- axis: failure-semantics
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: fail-vs-recover
+    challenge: Compare typed semantic outcomes with one generic failure and retry-dominant
+      handling.
+    alternatives:
+    - typed-outcomes
+    - generic-failure
+    - automatic-retry
+  - strategy: retry-vs-no-retry
+    challenge: Compare preserving semantic outcomes for callers/processes with Application-level
+      automatic retry.
+    alternatives:
+    - typed-outcomes
+    - generic-failure
+    - automatic-retry
+  decision_points:
+  - id: application-outcome-model
+    alternatives:
+    - id: typed-outcomes
+      difference: Preserve success, unresolved, rejection, dependency unavailable
+        and stale-basis semantics.
+      material_effects:
+        failure-classification: semantic-outcomes
+        recovery-owner: caller-or-process
+        retry-policy: downstream
+    - id: generic-failure
+      difference: Collapse unsuccessful results.
+      material_effects:
+        failure-classification: generic-error
+        recovery-owner: caller
+        retry-policy: none
+    - id: automatic-retry
+      difference: Treat most unsuccessful results as transient.
+      material_effects:
+        failure-classification: transient-dominant
+        recovery-owner: application
+        retry-policy: automatic
+- axis: partial-results
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: all-or-nothing-vs-partial
+    challenge: Compare global atomic preparation with owner-scoped accepted results
+      plus explicit remainder.
+    alternatives:
+    - global-all-or-nothing
+    - owner-scoped-partial
+    - discard-and-restart
+  - strategy: resumability-perturbation
+    challenge: Compare preserving accepted results with discarding them when unresolved
+      source meaning remains.
+    alternatives:
+    - global-all-or-nothing
+    - owner-scoped-partial
+    - discard-and-restart
+  decision_points:
+  - id: preparation-operation-partial-result
+    alternatives:
+    - id: global-all-or-nothing
+      difference: All semantic-owner outputs succeed/fail together.
+      material_effects:
+        all-or-nothing: global
+        partial-validity: rejected
+        continuation: restart
+    - id: owner-scoped-partial
+      difference: Independently valid owner outputs remain accepted while remainder
+        stays explicit.
+      material_effects:
+        all-or-nothing: per-owner
+        partial-validity: preserved
+        continuation: process-owned
+    - id: discard-and-restart
+      difference: Any unresolved source discards valid results.
+      material_effects:
+        all-or-nothing: attempt
+        partial-validity: discarded
+        continuation: restart
+- axis: continuation-currentness
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: recompute-vs-materialize
+    challenge: Compare unversioned live reads with basis-aware dependent actions and
+      sticky snapshots.
+    alternatives:
+    - live-unversioned
+    - basis-aware-refresh
+    - sticky-snapshot
+  - strategy: stale-vs-refresh
+    challenge: Perturb target/evidence/focus between review and dependent action.
+    alternatives:
+    - live-unversioned
+    - basis-aware-refresh
+    - sticky-snapshot
+  decision_points:
+  - id: operation-currentness
+    alternatives:
+    - id: live-unversioned
+      difference: Dependent actions cannot identify the inspected semantic basis.
+      material_effects:
+        snapshot-vs-live: live
+        staleness-policy: implicit
+        continuation-token: absent
+    - id: basis-aware-refresh
+      difference: Dependent actions carry opaque semantic basis and refresh/reject
+        when material inputs change.
+      material_effects:
+        snapshot-vs-live: basis-bound-current
+        staleness-policy: detect-and-refresh
+        continuation-token: semantic-basis
+    - id: sticky-snapshot
+      difference: Actions intentionally remain on an old snapshot until restart.
+      material_effects:
+        snapshot-vs-live: snapshot
+        staleness-policy: tolerate
+        continuation-token: snapshot-id
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - application-operation-partition
+  - application-vs-process-composition
+  - application-outcome-model
+  - preparation-operation-partial-result
+  - operation-currentness
+  open_gaps: []

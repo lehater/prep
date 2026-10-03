@@ -1,0 +1,87 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: APPLICATION-DESIGN
+capability: prep.application-design
+path: docs/application/application-design.md
+changed_paths: [docs/application/application-design.md]
+canonical_references:
+  - {artifact: APPLICATION-DESIGN, referenced_path: docs/application/task-model.yaml}
+  - {artifact: APPLICATION-DESIGN, referenced_path: .harness/knowledge/product-capabilities.yaml}
+  - {artifact: APPLICATION-DESIGN, referenced_path: docs/domain/knowledge-model.md}
+  - {artifact: APPLICATION-DESIGN, referenced_path: docs/domain/learning-design.md}
+  - {artifact: APPLICATION-DESIGN, referenced_path: docs/domain/learner-model.md}
+decision_review:
+  axes:
+    - axis: operation-boundaries
+      decisions:
+        - id: application-operation-partition
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: workflow-monolith, state: REJECTED, rationale: "Would merge distinct task outcomes and semantic owners into one application-owned workflow."}
+            - {id: task-owner-bounded, state: VIABLE}
+            - {id: resource-crud, state: REJECTED, rationale: "Would mirror tactical resources and leave intended task outcomes for downstream consumers to reconstruct."}
+          disposition: DETERMINED
+          selected: task-owner-bounded
+    - axis: orchestration
+      decisions:
+        - id: application-vs-process-composition
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: broad-application-loop, state: REJECTED, rationale: "Would keep independently consumable process occurrence/composition inside broad Application Design after Process v1 establishes a dedicated contract."}
+            - {id: operation-local-plus-process, state: VIABLE}
+            - {id: domain-choreography, state: REJECTED, rationale: "Would move cross-context application coordination into tactical semantic owners."}
+          disposition: DETERMINED
+          selected: operation-local-plus-process
+    - axis: failure-semantics
+      decisions:
+        - id: application-outcome-model
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: typed-outcomes, state: VIABLE}
+            - {id: generic-failure, state: REJECTED, rationale: "Erases unresolved, owner rejection, dependency-unavailable and stale-basis distinctions."}
+            - {id: automatic-retry, state: REJECTED, rationale: "Invents retry semantics and can retry semantic rejection as if transient."}
+          disposition: DETERMINED
+          selected: typed-outcomes
+    - axis: partial-results
+      decisions:
+        - id: preparation-operation-partial-result
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: global-all-or-nothing, state: REJECTED, rationale: "Invents a cross-owner transaction."}
+            - {id: owner-scoped-partial, state: VIABLE}
+            - {id: discard-and-restart, state: REJECTED, rationale: "Discards independently accepted semantic meaning."}
+          disposition: DETERMINED
+          selected: owner-scoped-partial
+    - axis: continuation-currentness
+      decisions:
+        - id: operation-currentness
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: live-unversioned, state: REJECTED, rationale: "Cannot detect materially changed target/evidence/focus inputs between dependent actions."}
+            - {id: basis-aware-refresh, state: VIABLE}
+            - {id: sticky-snapshot, state: REJECTED, rationale: "Would intentionally continue against superseded accepted meaning."}
+          disposition: DETERMINED
+          selected: basis-aware-refresh
+semantic_assertions:
+  - {id: AD-ESTABLISH-TARGET, kind: application-operation, subject: establish-target, semantic_value: "Establish the active preparation target by selecting accepted target meaning or routing/refining target information through its owner while preserving purpose, uncertainty, provenance and missing-support recovery.", derived_from: [TM-TASK-ESTABLISH-TARGET], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-UNDERSTAND-REQUIREMENTS, kind: application-materialization, subject: understand-target-requirements, semantic_value: "Materialize target requirements in terms of required Capability performance, conditions, quality and Boolean requirement structure while keeping supporting Subject Knowledge distinct.", derived_from: [TM-TASK-UNDERSTAND-REQUIREMENTS], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-REVIEW-CURRENT-STATE, kind: application-materialization, subject: review-current-state, semantic_value: "Materialize target-relative demonstrated, challenged and unknown learner state from applicable claims and evidence arguments with time, condition, transfer, dependence and provenance limitations inspectable.", derived_from: [TM-TASK-REVIEW-CURRENT-STATE], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-REVIEW-GAPS, kind: application-materialization, subject: review-target-gaps, semantic_value: "Materialize target-relative satisfied, challenged and unresolved requirement fragments and Gap basis without fabricating a scalar proficiency score.", derived_from: [TM-TASK-REVIEW-GAPS], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-CHOOSE-NEXT-FOCUS, kind: application-operation, subject: choose-next-focus, semantic_value: "Create or revise the current PreparationIntent through its semantic owner from target-relative gaps/uncertainty, explicit external constraints and support availability, preserving rationale.", derived_from: [TM-TASK-CHOOSE-NEXT-FOCUS], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-EXPLORE-KNOWLEDGE, kind: application-materialization, subject: explore-subject-knowledge, semantic_value: "Materialize semantic overview/detail projections over stable Knowledge identity, propositions and meaningful relations for the current scope without requiring graph presentation.", derived_from: [TM-TASK-EXPLORE-KNOWLEDGE], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-SELECT-SUPPORT, kind: application-materialization, subject: select-preparation-support, semantic_value: "Resolve available LearningMaterial, LearningSupportRequirements, TaskSpecifications and ObservationSpecifications against the current PreparationIntent and Capability scope, returning explicit inadequacy/limitations.", derived_from: [TM-TASK-SELECT-SUPPORT], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-PERFORM-ACTIVITY, kind: application-orchestration, subject: perform-preparation-activity, semantic_value: "Orchestrate one local or supported external execution operation for selected learning/practice/diagnostic support while preserving attempt correlation and without treating completion as learner-state change.", derived_from: [TM-TASK-PERFORM-ACTIVITY], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-CAPTURE-PERFORMANCE, kind: application-operation, subject: capture-performance-observation, semantic_value: "Record attributable historical Performance and provenance-bearing Observations through Learner Evidence & State ownership; incomplete external records remain unresolved integration-boundary records.", derived_from: [TM-TASK-CAPTURE-PERFORMANCE], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-EVALUATE-EVIDENCE, kind: application-operation, subject: evaluate-capability-evidence, semantic_value: "Evaluate accepted Observations into inspectable CapabilityEvidenceArguments and admit LearnerCapabilityClaims only where relevance, conditions, time, coverage, transfer, dependence and attribution justify them.", derived_from: [TM-TASK-EVALUATE-EVIDENCE], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-REVIEW-CHANGE, kind: application-materialization, subject: review-preparation-change, semantic_value: "Compare previous and current semantic bases to expose learner-state change separately from target-understanding change and support continuation/refocus/diagnosis/refinement decisions.", derived_from: [TM-TASK-REVIEW-CHANGE], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-REQUEST-PREPARATION-SUPPORT, kind: application-operation, subject: request-preparation-support, semantic_value: "Accept fragmented source material plus motivating target/focus as a preparation request without requiring learner corpus/schema maintenance and preserve context across partial/unavailable outcomes.", derived_from: [TM-TASK-REQUEST-PREPARATION-SUPPORT], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-PREPARE-SUPPORT, kind: application-orchestration, subject: prepare-support, semantic_value: "Prepare supported source meaning into owner-scoped candidate target/capability/Knowledge/learning/observation-spec semantics and route acceptance to each semantic owner while preserving unresolved or rejected meaning.", derived_from: [TM-TASK-PREPARE-SUPPORT], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-WRITE-OWNERSHIP, kind: application-invariant, subject: semantic-write-ownership, semantic_value: "Every application write is validated and accepted by the semantic owner of the affected meaning; Application may coordinate owners but cannot become a cross-context aggregate owner.", derived_from: [LD-APPLICATION-BOUNDARY, KM-CROSS-CONTEXT-BOUNDARY, LM-KNOWLEDGE-BOUNDARY], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-OUTCOME-MODEL, kind: application-outcome, subject: application-outcomes, semantic_value: "Application outcomes distinguish SUCCESS, UNRESOLVED, REJECTED, DEPENDENCY_UNAVAILABLE and STALE_BASIS where applicable; no application-level automatic retry policy is accepted.", derived_from: [REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-BOOTSTRAP], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-PARTIAL-PREPARATION, kind: application-outcome, subject: preparation-partial-results, semantic_value: "APP-PREPARE-SUPPORT may return independently accepted owner-scoped results together with rejected/unresolved remainder; this does not define a process-wide transaction or rollback rule.", derived_from: [REQ-CAP-BOOTSTRAP, KM-BOOTSTRAP-CORRECTION, LD-EVIDENCE-DESIGN-BOUNDARY], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-CURRENTNESS-BASIS, kind: application-invariant, subject: semantic-currentness-basis, semantic_value: "Task-oriented materializations expose an opaque semantic basis over accepted target/evidence/focus inputs; dependent commands detect materially changed inputs and refresh/reject stale action rather than silently applying to different meaning.", derived_from: [REQ-CAP-ADAPT, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-RUNTIME-TIMING-FREEDOM, kind: application-invariant, subject: runtime-timing-freedom, semantic_value: "Application operations require semantic completion/currentness outcomes but do not require synchronous transport or queue technology; asynchronous realization is allowed only when it preserves the same operation contract.", derived_from: [LD-APPLICATION-BOUNDARY, LM-INTEGRATION-BOUNDARY], decision_authority: APPLICATION-DESIGN}
+  - {id: AD-PROCESS-HANDOFF, kind: application-invariant, subject: process-ownership-handoff, semantic_value: "Independently consumable cross-operation occurrence, composition, continuation/recovery and completion semantics are owned by dedicated Application Process capabilities that reference these operations rather than being duplicated in broad Application Design.", derived_from: [TM-GOAL-PREPARE, TM-GOAL-SUPPORT], decision_authority: APPLICATION-DESIGN}
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, orchestration-not-domain-reownership]

@@ -1,0 +1,101 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: APPLICATION-PROCESS-PREPARE-SUPPORT
+capability: prep.application-process.prepare-support
+path: docs/application/process-prepare-support.md
+changed_paths: [docs/application/process-prepare-support.md]
+canonical_references:
+  - {artifact: APPLICATION-PROCESS-PREPARE-SUPPORT, referenced_path: docs/application/application-design.md}
+decision_review:
+  axes:
+    - axis: occurrence-boundary
+      decisions:
+        - id: prepare-support-occurrence
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: global-corpus-preparation-session, state: REJECTED, rationale: "Would turn one contextual recovery need into an open-ended corpus-maintenance process."}
+            - {id: one-contextual-request, state: VIABLE}
+            - {id: owner-operation-fragment, state: REJECTED, rationale: "Too narrow: downstream would reconstruct request preservation, partial owner results and return-to-origin completion."}
+          disposition: DETERMINED
+          selected: one-contextual-request
+    - axis: composition
+      decisions:
+        - id: prepare-support-composition
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: request-prepare-return-partial, state: VIABLE}
+            - {id: global-all-or-nothing, state: REJECTED, rationale: "Invents one transaction over independent semantic owners and discards valid accepted meaning."}
+            - {id: uncoordinated-owner-operations, state: REJECTED, rationale: "Loses the motivating request/context and a coherent return outcome for the learner."}
+          disposition: DETERMINED
+          selected: request-prepare-return-partial
+    - axis: continuation
+      decisions:
+        - id: prepare-support-continuation
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: request-context-resume, state: VIABLE}
+            - {id: restart-whole-request, state: REJECTED, rationale: "Needlessly discards accepted owner-scoped results and preserved source context."}
+            - {id: runtime-job-correlation, state: REJECTED, rationale: "Promotes technical job identity to canonical process meaning."}
+          disposition: DETERMINED
+          selected: request-context-resume
+    - axis: completion-recovery
+      decisions:
+        - id: prepare-support-completion
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: accepted-plus-remainder, state: VIABLE}
+            - {id: all-requested-support-accepted, state: REJECTED, rationale: "Conflicts with accepted partial-result semantics and would misclassify explicit unresolved remainder as process failure."}
+            - {id: first-owner-result, state: REJECTED, rationale: "Completes before the process has exposed the remaining preparation gap and return-to-origin result."}
+          disposition: DETERMINED
+          selected: accepted-plus-remainder
+semantic_assertions:
+  - id: PROC-SUP-BOUNDARY
+    kind: application-process-boundary
+    subject: prepare-missing-support
+    semantic_value: "One occurrence begins with a contextual missing-support request carrying motivating target/focus and sources and ends when accepted support plus explicit remainder is returned to the originating preparation work, or continuation is explicitly unavailable/abandoned."
+    derived_from: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PROCESS-HANDOFF]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-SUP-WORK
+    kind: application-process-work-reference
+    subject: prepare-missing-support-work
+    semantic_value: "The occurrence references APP-REQUEST-PREPARATION-SUPPORT and APP-PREPARE-SUPPORT; owner-specific semantic acceptance remains owned by each canonical semantic owner."
+    derived_from: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-SUP-COMPOSITION
+    kind: application-process-composition
+    subject: prepare-missing-support
+    semantic_value: "Request context/provenance precedes preparation; independently valid owner-scoped results may remain accepted while unsupported/conflicting candidates remain explicit; return to origin uses accepted support plus the remaining gap rather than one global transaction."
+    derived_from: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-SUP-CONTINUATION
+    kind: application-process-continuation
+    subject: prepare-missing-support
+    semantic_value: "A paused occurrence may continue when source/dependency support changes only while the preparation request and motivating target/focus basis remain semantically usable; correlation is request/context/provenance, not runtime job identity."
+    derived_from: [AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, AD-REQUEST-PREPARATION-SUPPORT]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-SUP-RECOVERY
+    kind: application-process-recovery
+    subject: prepare-missing-support
+    semantic_value: "Accepted owner-scoped results are not rolled back because other candidates remain unresolved/rejected; dependency unavailability preserves request/source/context for continuation; no cross-owner automatic retry or compensation is introduced."
+    derived_from: [AD-PARTIAL-PREPARATION, AD-OUTCOME-MODEL, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-SUP-COMPLETION
+    kind: application-process-completion
+    subject: prepare-missing-support
+    semantic_value: "The occurrence completes when justified accepted support and an explicit unresolved/rejected remainder are available for return to the originating preparation work; complete acceptance of every candidate is not required."
+    derived_from: [AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - process-boundary-complete
+    - process-references-not-reowned
+    - process-composition-explicit
+    - process-continuation-explicit-when-material
+    - process-recovery-explicit-when-material
+    - process-progress-semantic-only
+    - process-completion-explicit
+    - process-not-runtime-topology

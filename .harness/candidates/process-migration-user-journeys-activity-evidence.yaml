@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-process.activity-evidence-cycle
+target_capability: prep.user-journeys
+links:
+  - {sources: [PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION], relation: TRANSFORMS, targets: [UJ-ACTIVITY-EVIDENCE]}
+  - {sources: [PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY], relation: CONSTRAINS, targets: [UJ-ACTIVITY-EVIDENCE-RECOVERY]}
+  - {sources: [PROC-ACT-COMPLETION], relation: TRANSFORMS, targets: [UJ-ACTIVITY-EVIDENCE-OUTCOME]}
+dispositions: []

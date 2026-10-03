@@ -136,8 +136,6 @@ These journeys describe meaningful user actions, visible system responses, recov
 
 **Preconditions:** suitable support may or may not exist; external execution may or may not be available.
 
-**Process contract:** cross-operation occurrence/composition/continuation/completion is owned by `prep.application-process.activity-evidence-cycle`; this journey describes the learner-visible goal path over that accepted process.
-
 ### Meaningful interactions
 
 1. The learner asks for support appropriate to the current PreparationIntent.
@@ -165,7 +163,7 @@ These journeys describe meaningful user actions, visible system responses, recov
 - **STALE_BASIS:** refresh the target/evidence/focus materialization before applying a dependent selection or continuation.
 - Asynchronous runtime mechanics are acceptable only when the same semantic order and visible completion outcomes are preserved.
 
-**Upstream:** `TASK-U-SELECT-SUPPORT`, `TASK-U-PERFORM-ACTIVITY`, `TASK-S-CAPTURE-PERFORMANCE`, `TASK-S-EVALUATE-EVIDENCE`, `TASK-U-REVIEW-CHANGE`, `APP-SELECT-SUPPORT`, `APP-PERFORM-ACTIVITY`, `APP-CAPTURE-PERFORMANCE`, `APP-EVALUATE-EVIDENCE`, `APP-REVIEW-CHANGE`, `PROC-ACT-BOUNDARY`, `PROC-ACT-COMPOSITION`, `PROC-ACT-CONTINUATION`, `PROC-ACT-RECOVERY`, `PROC-ACT-COMPLETION`.
+**Upstream:** `TASK-U-SELECT-SUPPORT`, `TASK-U-PERFORM-ACTIVITY`, `TASK-S-CAPTURE-PERFORMANCE`, `TASK-S-EVALUATE-EVIDENCE`, `TASK-U-REVIEW-CHANGE`, `APP-SELECT-SUPPORT`, `APP-PERFORM-ACTIVITY`, `APP-CAPTURE-PERFORMANCE`, `APP-EVALUATE-EVIDENCE`, `APP-REVIEW-CHANGE`, `AD-OUTCOME-MODEL`, `AD-CURRENTNESS-BASIS`, `AD-RUNTIME-TIMING-FREEDOM`.
 
 ---
 
@@ -180,8 +178,6 @@ These journeys describe meaningful user actions, visible system responses, recov
 **Entry condition:** a motivating target/focus or source context exists.
 
 **Preconditions:** source material may be incomplete, conflicting or unstructured.
-
-**Process contract:** request preservation, owner-scoped partial preparation, continuation/recovery and return-to-origin completion are owned by `prep.application-process.prepare-support`.
 
 ### Meaningful interactions
 
@@ -205,7 +201,7 @@ These journeys describe meaningful user actions, visible system responses, recov
 - Learner self-curation may be a later explicit interface option, but this journey does not require schema-level or item-level corpus maintenance.
 - No EvidencePattern, EvidentialWarrant or AssessmentDesign is synthesized as fundamental meaning.
 
-**Upstream:** `TASK-U-REQUEST-PREPARATION-SUPPORT`, `TASK-S-PREPARE-SUPPORT`, `APP-REQUEST-PREPARATION-SUPPORT`, `APP-PREPARE-SUPPORT`, `PROC-SUP-BOUNDARY`, `PROC-SUP-COMPOSITION`, `PROC-SUP-CONTINUATION`, `PROC-SUP-RECOVERY`, `PROC-SUP-COMPLETION`.
+**Upstream:** `TASK-U-REQUEST-PREPARATION-SUPPORT`, `TASK-S-PREPARE-SUPPORT`, `APP-REQUEST-PREPARATION-SUPPORT`, `APP-PREPARE-SUPPORT`, `AD-WRITE-OWNERSHIP`, `AD-OUTCOME-MODEL`, `AD-PARTIAL-PREPARATION`.
 
 ## Coverage
 

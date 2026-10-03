@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "kind": "harness-decision-explorer-request",
+  "capability": "prep.application-process.activity-evidence-cycle",
+  "knowledge_kind": "application-process-design",
+  "authority": "APPLICATION-DESIGN",
+  "mode": "CREATE",
+  "accepted_prerequisites": {
+    "prep.application-design": "PREP-APPLICATION-DESIGN-STRICT-2"
+  },
+  "canonical_inputs": [
+    {
+      "id": "APPLICATION-DESIGN",
+      "authority": "APPLICATION-DESIGN",
+      "path": "docs/application/application-design.md",
+      "provides": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "id": "TASK-MODEL",
+      "authority": "APPLICATION-DESIGN",
+      "path": "docs/application/task-model.yaml",
+      "provides": [
+        "prep.task-model"
+      ]
+    }
+  ],
+  "downstream_consumers": [
+    {
+      "kind": "production",
+      "consumer": "prep.user-journeys",
+      "authority": "APPLICATION-DESIGN",
+      "capabilities": [
+        "prep.application-process.activity-evidence-cycle"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "axis": "occurrence-boundary",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "scope",
+        "entry",
+        "occurrence-identity",
+        "completion-boundary"
+      ],
+      "challenge_strategies": [
+        "narrow-vs-widen-scope",
+        "merge-vs-split-occurrence",
+        "entry-boundary-perturbation"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "composition",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "ordering",
+        "choice",
+        "concurrency",
+        "decomposition"
+      ],
+      "challenge_strategies": [
+        "reorder-constraints",
+        "imperative-vs-declarative",
+        "split-vs-compose"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "continuation",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "wait-condition",
+        "continuation-identity",
+        "correlation-semantics"
+      ],
+      "challenge_strategies": [
+        "wait-vs-no-wait",
+        "continuation-identity-perturbation",
+        "correlation-boundary-shift"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "completion-recovery",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "completion-outcomes",
+        "cancellation",
+        "recovery",
+        "compensation"
+      ],
+      "challenge_strategies": [
+        "completion-outcome-perturbation",
+        "recover-vs-terminate",
+        "compensate-vs-no-compensation"
+      ],
+      "minimum_probes": 2
+    }
+  ],
+  "forbidden_inputs": [
+    "future_candidate",
+    "decision_review",
+    "preferred_solution",
+    "selected_solution",
+    "write_set"
+  ],
+  "request_id": "sha256:18f07cb7137d0a9edabd6a5fd58d79bb7c7a74496187ce0b6f4436f84db8df81"
+}

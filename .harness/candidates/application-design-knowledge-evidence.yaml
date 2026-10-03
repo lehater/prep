@@ -1,0 +1,10 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.application-design
+links:
+  - {sources: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION], relation: TRANSFORMS, targets: [AD-EXPLORE-KNOWLEDGE]}
+  - {sources: [KM-CROSS-CONTEXT-BOUNDARY], relation: CONSTRAINS, targets: [AD-WRITE-OWNERSHIP, AD-PREPARE-SUPPORT]}
+  - {sources: [KM-BOOTSTRAP-CORRECTION], relation: TRANSFORMS, targets: [AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION]}
+dispositions:
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "Optional KnowledgeObject form classification does not alter application operation/orchestration semantics."}

@@ -1,0 +1,101 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: APPLICATION-PROCESS-ACTIVITY-EVIDENCE
+capability: prep.application-process.activity-evidence-cycle
+path: docs/application/process-activity-evidence-cycle.md
+changed_paths: [docs/application/process-activity-evidence-cycle.md]
+canonical_references:
+  - {artifact: APPLICATION-PROCESS-ACTIVITY-EVIDENCE, referenced_path: docs/application/application-design.md}
+decision_review:
+  axes:
+    - axis: occurrence-boundary
+      decisions:
+        - id: activity-evidence-occurrence
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: target-lifetime-session, state: REJECTED, rationale: "Has no accepted terminal condition and would merge repeated cycles, target refinement and unrelated Knowledge exploration."}
+            - {id: one-activity-evidence-cycle, state: VIABLE}
+            - {id: evidence-evaluation-only, state: REJECTED, rationale: "Too narrow: downstream would still reconstruct the material support/activity/capture/evaluate/review coordination."}
+          disposition: DETERMINED
+          selected: one-activity-evidence-cycle
+    - axis: composition
+      decisions:
+        - id: activity-evidence-composition
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: semantic-partial-order, state: VIABLE}
+            - {id: activity-completion-is-evidence, state: REJECTED, rationale: "Violates accepted evidence semantics by letting activity completion stand in for Performance/Observation and justified inference."}
+            - {id: fire-and-forget-evaluation, state: REJECTED, rationale: "Allows review/continuation before required evidence evaluation is semantically complete."}
+          disposition: DETERMINED
+          selected: semantic-partial-order
+    - axis: continuation
+      decisions:
+        - id: activity-evidence-continuation
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: semantic-attempt-and-basis, state: VIABLE}
+            - {id: transport-token-correlation, state: REJECTED, rationale: "Promotes runtime identifiers to canonical process meaning."}
+            - {id: restart-after-any-wait, state: REJECTED, rationale: "Unnecessarily loses a still-valid attributable activity attempt and basis."}
+          disposition: DETERMINED
+          selected: semantic-attempt-and-basis
+    - axis: completion-recovery
+      decisions:
+        - id: activity-evidence-completion
+          owner_authority: APPLICATION-DESIGN
+          alternatives:
+            - {id: reviewed-evidence-result, state: VIABLE}
+            - {id: activity-finished, state: REJECTED, rationale: "Activity completion alone is not the accepted process outcome."}
+            - {id: positive-capability-change, state: REJECTED, rationale: "No-change, challenge and unresolved evidence are accepted outcomes and must not be converted into process failure."}
+          disposition: DETERMINED
+          selected: reviewed-evidence-result
+semantic_assertions:
+  - id: PROC-ACT-BOUNDARY
+    kind: application-process-boundary
+    subject: activity-evidence-cycle
+    semantic_value: "One occurrence begins when an active target/focus requests preparation support and ends after one resulting activity/evidence outcome is reviewed against its semantic basis; target establishment and later cycles are outside the occurrence."
+    derived_from: [AD-SELECT-SUPPORT, AD-REVIEW-CHANGE, AD-PROCESS-HANDOFF]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-ACT-WORK
+    kind: application-process-work-reference
+    subject: activity-evidence-work
+    semantic_value: "The occurrence references APP-SELECT-SUPPORT, APP-PERFORM-ACTIVITY, APP-CAPTURE-PERFORMANCE, APP-EVALUATE-EVIDENCE and APP-REVIEW-CHANGE without redefining those operations."
+    derived_from: [AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-ACT-COMPOSITION
+    kind: application-process-composition
+    subject: activity-evidence-cycle
+    semantic_value: "Selected suitable support enables an activity attempt; attributable activity facts enable capture; accepted attributable Observations enable evidence evaluation; completed evaluation enables change review. These are semantic enabling constraints, not transport sequencing."
+    derived_from: [AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-ACT-CONTINUATION
+    kind: application-process-continuation
+    subject: activity-evidence-cycle
+    semantic_value: "A paused/external occurrence may continue only for the same semantic activity attempt and a still-valid target/focus basis; correlation uses attempt context plus semantic basis, never transport/runtime identifiers."
+    derived_from: [AD-PERFORM-ACTIVITY, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-ACT-RECOVERY
+    kind: application-process-recovery
+    subject: activity-evidence-cycle
+    semantic_value: "Dependency unavailability may suspend a still-current attempt; unresolved/rejected inference preserves historical facts and never fabricates progress; no process-level automatic retry or compensation of accepted evidence exists."
+    derived_from: [AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM]
+    decision_authority: APPLICATION-DESIGN
+  - id: PROC-ACT-COMPLETION
+    kind: application-process-completion
+    subject: activity-evidence-cycle
+    semantic_value: "The occurrence completes when APP-REVIEW-CHANGE exposes an inspectable result and continuation choice for the attempt; no-change, increased uncertainty, challenge or unresolved inference remain valid completion outcomes."
+    derived_from: [AD-REVIEW-CHANGE, AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - process-boundary-complete
+    - process-references-not-reowned
+    - process-composition-explicit
+    - process-continuation-explicit-when-material
+    - process-recovery-explicit-when-material
+    - process-progress-semantic-only
+    - process-completion-explicit
+    - process-not-runtime-topology

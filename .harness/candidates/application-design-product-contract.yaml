@@ -1,0 +1,8 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.product-capabilities
+target_capability: prep.application-design
+obligations:
+  - {id: product-capabilities, source_kind: product-requirement, min_count: 16, allow_not_applicable: true}
+lifecycle_dependency:
+  exhaustive: true

@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-process.prepare-support
+target_capability: prep.user-journeys
+links:
+  - {sources: [PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION], relation: TRANSFORMS, targets: [UJ-PREPARE-SUPPORT]}
+  - {sources: [PROC-SUP-CONTINUATION, PROC-SUP-RECOVERY], relation: CONSTRAINS, targets: [UJ-PREPARE-SUPPORT-RECOVERY]}
+  - {sources: [PROC-SUP-COMPLETION], relation: TRANSFORMS, targets: [UJ-PREPARE-SUPPORT-OUTCOME]}
+dispositions: []

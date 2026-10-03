@@ -1,0 +1,241 @@
+{
+  "version": 1,
+  "kind": "harness-decision-explorer-request",
+  "capability": "prep.application-design",
+  "knowledge_kind": "application-design",
+  "authority": "APPLICATION-DESIGN",
+  "mode": "REVISION",
+  "accepted_prerequisites": {
+    "prep.knowledge-model": "PREP-KNOWLEDGE-MODEL-STRICT-1",
+    "prep.learner-model": "PREP-LEARNER-MODEL-STRICT-1",
+    "prep.learning-design": "PREP-LEARNING-DESIGN-STRICT-1",
+    "prep.product-capabilities": "PREP-PRODUCT-CAPABILITIES-STRICT-3",
+    "prep.task-model": "PREP-TASK-MODEL-STRICT-1"
+  },
+  "canonical_inputs": [
+    {
+      "id": "APPLICATION-DESIGN",
+      "authority": "APPLICATION-DESIGN",
+      "path": "docs/application/application-design.md",
+      "provides": [
+        "prep.application-design"
+      ],
+      "purpose": "CURRENT_ACCEPTED_BASELINE"
+    },
+    {
+      "id": "KNOWLEDGE-MODEL",
+      "authority": "TACTICAL-DOMAIN-DESIGN",
+      "path": "docs/domain/knowledge-model.md",
+      "provides": [
+        "prep.knowledge-model"
+      ]
+    },
+    {
+      "id": "KNOWLEDGE-RELATION-CLASSIFICATION",
+      "authority": "TACTICAL-DOMAIN-DESIGN",
+      "path": "docs/domain/relation-classification-catalog.yaml",
+      "provides": [
+        "prep.knowledge-relation-classification"
+      ]
+    },
+    {
+      "id": "LEARNER-MODEL",
+      "authority": "TACTICAL-DOMAIN-DESIGN",
+      "path": "docs/domain/learner-model.md",
+      "provides": [
+        "prep.learner-model"
+      ]
+    },
+    {
+      "id": "LEARNING-DESIGN",
+      "authority": "TACTICAL-DOMAIN-DESIGN",
+      "path": "docs/domain/learning-design.md",
+      "provides": [
+        "prep.learning-design"
+      ]
+    },
+    {
+      "id": "PRODUCT-CAPABILITIES",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "path": ".harness/knowledge/product-capabilities.yaml",
+      "provides": [
+        "prep.product-capabilities"
+      ]
+    },
+    {
+      "id": "PRODUCT-VISION",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "path": ".harness/knowledge/product-intent.yaml",
+      "provides": [
+        "prep.product-intent"
+      ]
+    },
+    {
+      "id": "TASK-MODEL",
+      "authority": "APPLICATION-DESIGN",
+      "path": "docs/application/task-model.yaml",
+      "provides": [
+        "prep.task-model"
+      ]
+    }
+  ],
+  "downstream_consumers": [
+    {
+      "kind": "production",
+      "consumer": "prep.application-process.activity-evidence-cycle",
+      "authority": "APPLICATION-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.application-process.prepare-support",
+      "authority": "APPLICATION-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.conceptual-interface-model",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.frontend-system-architecture",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.import-consistency",
+      "authority": "CONCURRENCY-CONSISTENCY-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.interaction-design",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.machine-interfaces",
+      "authority": "MACHINE-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.system-architecture",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.user-journeys",
+      "authority": "APPLICATION-DESIGN",
+      "capabilities": [
+        "prep.application-design"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "axis": "operation-boundaries",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "operation-granularity",
+        "mutation-owner",
+        "query-write-split"
+      ],
+      "challenge_strategies": [
+        "split-operation",
+        "merge-operations",
+        "command-query-perturbation"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "orchestration",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "orchestration-owner",
+        "ordering",
+        "sync-async"
+      ],
+      "challenge_strategies": [
+        "move-orchestrator",
+        "reorder-steps",
+        "sync-vs-async"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "failure-semantics",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "failure-classification",
+        "recovery-owner",
+        "retry-policy"
+      ],
+      "challenge_strategies": [
+        "fail-vs-recover",
+        "retry-vs-no-retry",
+        "move-recovery-owner"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "partial-results",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "all-or-nothing",
+        "partial-validity",
+        "continuation"
+      ],
+      "challenge_strategies": [
+        "all-or-nothing-vs-partial",
+        "drop-partial-result",
+        "resumability-perturbation"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "continuation-currentness",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "snapshot-vs-live",
+        "staleness-policy",
+        "continuation-token"
+      ],
+      "challenge_strategies": [
+        "recompute-vs-materialize",
+        "stale-vs-refresh",
+        "continuation-token-perturbation"
+      ],
+      "minimum_probes": 2
+    }
+  ],
+  "forbidden_inputs": [
+    "future_candidate",
+    "decision_review",
+    "preferred_solution",
+    "selected_solution",
+    "write_set"
+  ],
+  "request_id": "sha256:61f710e0a0be494af1756fbcd6d8497db1946fbd3d001b0abf2057a2176dda10"
+}
