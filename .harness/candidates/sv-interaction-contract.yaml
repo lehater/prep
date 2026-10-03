@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.interaction-design
+target_capability: prep.screen-view-design
+obligations:
+  - {id: contexts, source_kind: interaction-context, min_count: 5, allow_not_applicable: true}
+  - {id: states, source_kind: interaction-state-contract, min_count: 3, allow_not_applicable: true}
+  - {id: invariants, source_kind: interaction-invariant, min_count: 3, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

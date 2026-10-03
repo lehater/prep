@@ -1,0 +1,25 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-design
+target_capability: prep.conceptual-interface-model
+links:
+  - {sources: [AD-PREPARATION-LOOP], relation: TRANSFORMS, targets: [CIM-TARGET, CIM-CURRENT-STATE, CIM-GAP, CIM-NEXT-FOCUS, CIM-CHANGE]}
+  - {sources: [AD-SUPPORT-LOOP], relation: TRANSFORMS, targets: [CIM-PREPARATION-REQUEST, CIM-SUPPORT]}
+  - {sources: [AD-ESTABLISH-TARGET], relation: TRANSFORMS, targets: [CIM-TARGET]}
+  - {sources: [AD-UNDERSTAND-REQUIREMENTS], relation: TRANSFORMS, targets: [CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY]}
+  - {sources: [AD-REVIEW-CURRENT-STATE], relation: TRANSFORMS, targets: [CIM-CURRENT-STATE, CIM-EVIDENCE-BASIS, CIM-STATE-CAPABILITY]}
+  - {sources: [AD-REVIEW-GAPS], relation: TRANSFORMS, targets: [CIM-GAP]}
+  - {sources: [AD-CHOOSE-NEXT-FOCUS], relation: TRANSFORMS, targets: [CIM-NEXT-FOCUS, CIM-STATE-ACTIVITY-PURPOSE]}
+  - {sources: [AD-EXPLORE-KNOWLEDGE], relation: TRANSFORMS, targets: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-PRESENTATION-FREEDOM]}
+  - {sources: [AD-SELECT-SUPPORT], relation: TRANSFORMS, targets: [CIM-SUPPORT]}
+  - {sources: [AD-PERFORM-ACTIVITY], relation: TRANSFORMS, targets: [CIM-ACTIVITY, CIM-REL-ACTIVITY-EVIDENCE]}
+  - {sources: [AD-CAPTURE-PERFORMANCE], relation: TRANSFORMS, targets: [CIM-EVIDENCE, CIM-REL-ACTIVITY-EVIDENCE]}
+  - {sources: [AD-EVALUATE-EVIDENCE], relation: TRANSFORMS, targets: [CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-STATE-EVIDENCE-BEARING]}
+  - {sources: [AD-REVIEW-CHANGE], relation: TRANSFORMS, targets: [CIM-CHANGE]}
+  - {sources: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT], relation: TRANSFORMS, targets: [CIM-PREPARATION-REQUEST, CIM-REL-PREPARATION-SUPPORT]}
+  - {sources: [AD-WRITE-OWNERSHIP], relation: CONSTRAINS, targets: [CIM-SEMANTIC-BOUNDARIES]}
+  - {sources: [AD-OUTCOME-MODEL], relation: TRANSFORMS, targets: [CIM-STATE-OUTCOMES]}
+  - {sources: [AD-PARTIAL-PREPARATION], relation: CONSTRAINS, targets: [CIM-PREPARATION-REQUEST, CIM-REL-PREPARATION-SUPPORT]}
+  - {sources: [AD-CURRENTNESS-BASIS], relation: TRANSFORMS, targets: [CIM-STATE-OUTCOMES]}
+  - {sources: [AD-RUNTIME-TIMING-FREEDOM], relation: CONSTRAINS, targets: [CIM-ACTIVITY]}
+dispositions: []

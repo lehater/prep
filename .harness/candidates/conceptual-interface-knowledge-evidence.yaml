@@ -1,0 +1,13 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.conceptual-interface-model
+links:
+  - {sources: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION], relation: TRANSFORMS, targets: [CIM-KNOWLEDGE]}
+  - {sources: [KM-RELATIONAL-PROPOSITION], relation: TRANSFORMS, targets: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE]}
+  - {sources: [KM-SCOPE-OVERVIEW-DEPTH], relation: TRANSFORMS, targets: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE]}
+  - {sources: [KM-CROSS-CONTEXT-BOUNDARY], relation: CONSTRAINS, targets: [CIM-SEMANTIC-BOUNDARIES, CIM-REL-CAPABILITY-KNOWLEDGE]}
+  - {sources: [KM-BOOTSTRAP-CORRECTION], relation: CONSTRAINS, targets: [CIM-PREPARATION-REQUEST, CIM-REL-PREPARATION-SUPPORT]}
+  - {sources: [KM-GRAPH-IS-PROJECTION], relation: CONSTRAINS, targets: [CIM-PRESENTATION-FREEDOM, CIM-KNOWLEDGE-SCOPE]}
+dispositions:
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "The optional open KnowledgeObject form vocabulary need not be exposed as a stable user-facing concept for the accepted tasks/journeys."}

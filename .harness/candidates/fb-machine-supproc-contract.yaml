@@ -1,0 +1,12 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.application-process.prepare-support
+target_capability: prep.machine-interfaces
+obligations:
+  - {id: boundary, source_kind: application-process-boundary, min_count: 1, allow_not_applicable: true}
+  - {id: work, source_kind: application-process-work-reference, min_count: 1, allow_not_applicable: true}
+  - {id: composition, source_kind: application-process-composition, min_count: 1, allow_not_applicable: true}
+  - {id: continuation, source_kind: application-process-continuation, min_count: 1, allow_not_applicable: true}
+  - {id: recovery, source_kind: application-process-recovery, min_count: 1, allow_not_applicable: true}
+  - {id: completion, source_kind: application-process-completion, min_count: 1, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

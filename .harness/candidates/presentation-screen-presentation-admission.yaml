@@ -1,0 +1,63 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRESENTATION-SYSTEM
+capability: prep.presentation-system
+path: docs/interface/presentation-system.md
+changed_paths: [docs/interface/presentation-system.md]
+canonical_references:
+  - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/interface/conceptual-interface-model.yaml}
+  - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/interface/information-architecture.yaml}
+  - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/interface/interface-topology.yaml}
+  - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/interface/interaction-design.yaml}
+  - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/architecture/performance-capacity.md}
+decision_review:
+  axes:
+    - axis: knowledge-representation
+      decisions:
+        - id: shared-knowledge-representation
+          owner_authority: HUMAN-INTERFACE-DESIGN
+          alternatives:
+            - {id: nonspatial-only, state: VIABLE}
+            - {id: mixed-2d-plus-nonspatial, state: VIABLE}
+            - {id: three-d-primary-plus-nonspatial, state: REJECTED, rationale: "Standard web/channel constraints do not establish a 3D-only advantage; viewpoint/occlusion and accessibility costs would become canonical without evidence."}
+            - {id: dual-2d-3d-plus-nonspatial, state: REJECTED, rationale: "Maintaining two simultaneous spatial metaphors adds presentation/control complexity without accepted task need."}
+          disposition: DELEGATED
+          selected: mixed-2d-plus-nonspatial
+    - axis: information-density
+      decisions:
+        - id: shared-density-model
+          owner_authority: HUMAN-INTERFACE-DESIGN
+          alternatives:
+            - {id: dense-simultaneous-workspace, state: REJECTED, rationale: "Would keep provenance/detail/control context permanently competing with the primary preparation decision."}
+            - {id: progressive-focus-context, state: VIABLE}
+            - {id: sparse-stepper, state: REJECTED, rationale: "Would hide useful target/focus/relationship context and force excessive sequencing for inspection tasks."}
+          disposition: DETERMINED
+          selected: progressive-focus-context
+    - axis: control-surface
+      decisions:
+        - id: shared-control-surface
+          owner_authority: HUMAN-INTERFACE-DESIGN
+          alternatives:
+            - {id: persistent-global-toolbars, state: REJECTED, rationale: "Most controls are task-local and global persistence would increase noise and imply unsupported global modes."}
+            - {id: contextual-controls-keyboard-equivalent, state: VIABLE}
+            - {id: direct-manipulation-dominant, state: REJECTED, rationale: "Would make pointer/spatial manipulation a de facto task prerequisite contrary to accepted interaction semantics."}
+          disposition: DETERMINED
+          selected: contextual-controls-keyboard-equivalent
+semantic_assertions:
+  - {id: PS-TASK-HIERARCHY, kind: presentation-principle, subject: task-first-hierarchy, semantic_value: "Each view has one dominant task surface; active Target/focus remain supporting recoverable context rather than competing workspaces.", derived_from: [TOP-ROOT, TOP-VIEW-TARGET, TOP-VIEW-CURRENT, TOP-VIEW-KNOWLEDGE, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE, TOP-VIEW-PREP-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-KNOWLEDGE-REPRESENTATION, kind: presentation-pattern, subject: knowledge-representation, semantic_value: "Shared Knowledge presentation is task-complete query/result/detail plus optional 2D relationship overview; 3D is controlled experimental freedom and never the only task path.", derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-PRESENTATION-FREEDOM, IA-LOC-KNOWLEDGE, IX-KNOWLEDGE, QD-GRAPH-CONDITIONAL], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-DENSITY, kind: presentation-principle, subject: progressive-focus-context, semantic_value: "Default information density keeps one primary work surface and discloses secondary basis/provenance/detail progressively while preserving essential target/focus context.", derived_from: [IA-STRUCTURE, IX-CONTEXT-CONTINUITY, TOP-CONTEXT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-CONTROLS, kind: presentation-principle, subject: contextual-controls, semantic_value: "Task controls are contextual and keyboard-operable; persistent controls are limited to preparation navigation and active semantic context; direct manipulation is supplementary.", derived_from: [IX-KEYBOARD, IX-CONTEXT-CONTINUITY, TOP-CROSSLINKS], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-PATTERN-CONTEXT, kind: presentation-pattern, subject: context-header, semantic_value: "Context header exposes active Target and optional Next focus with explicit recovery/change actions without becoming a second navigation hierarchy.", derived_from: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS, TOP-CONTEXT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-PATTERN-QUERY-DETAIL, kind: presentation-pattern, subject: query-result-detail, semantic_value: "Inspectable collections use query/scope controls, bounded results and selected detail; selection never silently changes semantic scope.", derived_from: [IX-KNOWLEDGE, QD-ACTIVE-WORKING-SET-FREEDOM], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-PATTERN-STATE-BASIS, kind: presentation-pattern, subject: state-basis, semantic_value: "Current-state/gap conclusions remain primary while why-this-state evidence is directly inspectable as secondary detail; unknown is not failure.", derived_from: [CIM-CURRENT-STATE, CIM-EVIDENCE-BASIS, IX-DIRECTION], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-PATTERN-ACTIVITY, kind: presentation-pattern, subject: activity-attempt, semantic_value: "Selected support, active attempt, pending evidence processing and reviewed result are distinct; activity completion never visually implies capability completion.", derived_from: [CIM-ACTIVITY, CIM-EVIDENCE, IX-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-PATTERN-PREP-SUPPORT, kind: presentation-pattern, subject: prepare-support, semantic_value: "Missing-support presentation preserves motivating context/source input, accepted owner-scoped support, explicit remainder and return-to-origin; partial acceptance is not global success/failure.", derived_from: [CIM-PREPARATION-REQUEST, IX-PREP-SUPPORT, TOP-VIEW-PREP-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-OUTCOMES, kind: presentation-state, subject: outcome-presentation, semantic_value: "SUCCESS, UNRESOLVED, REJECTED, DEPENDENCY_UNAVAILABLE, STALE_BASIS and nonsemantic OPERATIONAL_FAILURE remain distinguishable and preserve valid next actions.", derived_from: [IX-OUTCOMES, IX-CURRENTNESS], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-RESPONSIVE, kind: presentation-responsive-default, subject: priority-preserving-reflow, semantic_value: "Responsive behavior preserves semantic/read/focus order; narrow surfaces keep primary task first and disclose/reflow secondary detail, with nonspatial Knowledge access primary when space is constrained.", derived_from: [TOP-NO-COMPOSITION, IX-NO-LAYOUT, IX-KEYBOARD], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-ACCESSIBILITY, kind: presentation-accessibility-default, subject: task-accessibility, semantic_value: "Task-critical actions are keyboard/nonspatial, focus is visible, statuses have non-color redundancy and motion/spatial manipulation are never sole semantic carriers.", derived_from: [IX-KEYBOARD, IX-NO-LAYOUT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-DEGRADATION, kind: presentation-quality-rule, subject: semantic-preserving-degradation, semantic_value: "Presentation may bound/reduce visual richness while preserving Knowledge identity, scope, relationship meaning and task-complete nonspatial access; no numeric production target is invented.", derived_from: [QD-SEMANTIC-PRESERVATION, QD-ACTIVE-WORKING-SET-FREEDOM, QD-GRAPH-CONDITIONAL, QD-NUMERIC-TARGETS-DEFERRED], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: PS-FREEDOMS, kind: presentation-invariant, subject: presentation-implementation-freedom, semantic_value: "Exact typography/color/spacing values, CSS/DOM/framework mechanics, graph renderer/library and optional 3D prototype remain implementation or controlled freedoms unless later evidence makes them material.", derived_from: [CIM-PRESENTATION-FREEDOM, QD-IDLE-TARGET-DEFERRED], decision_authority: HUMAN-INTERFACE-DESIGN}
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, presentation-not-domain-semantics]

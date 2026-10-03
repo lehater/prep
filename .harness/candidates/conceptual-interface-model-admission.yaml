@@ -1,0 +1,219 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: CONCEPTUAL-INTERFACE-MODEL
+capability: prep.conceptual-interface-model
+path: docs/interface/conceptual-interface-model.yaml
+changed_paths:
+  - docs/interface/conceptual-interface-model.yaml
+canonical_references:
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/application/task-model.yaml}
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/application/user-journeys.md}
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/application/application-design.md}
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/domain/knowledge-model.md}
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/domain/learning-design.md}
+  - {artifact: CONCEPTUAL-INTERFACE-MODEL, referenced_path: docs/domain/learner-model.md}
+
+semantic_assertions:
+  - id: CIM-TARGET
+    kind: interface-concept
+    subject: target
+    semantic_value: "The interface exposes Target as the current preparation purpose/context with explicit uncertainty, distinct from required capability and learner state."
+    derived_from: [TM-TASK-ESTABLISH-TARGET, AD-ESTABLISH-TARGET, UJ-TARGET-SETUP]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-TARGET-REQUIREMENT
+    kind: interface-concept
+    subject: target-requirement
+    semantic_value: "The interface exposes target-specific requirements as required capability performance/conditions/quality while preserving target requirement composition and keeping Knowledge separate."
+    derived_from: [TM-TASK-UNDERSTAND-REQUIREMENTS, AD-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP, LD-REQUIREMENT-EXPRESSION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REQUIRED-CAPABILITY
+    kind: interface-concept
+    subject: required-capability
+    semantic_value: "Required capability means what the learner must be able to do under material conditions and acceptable quality, independent of learner evidence/state and of topic coverage."
+    derived_from: [LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, AD-UNDERSTAND-REQUIREMENTS]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-KNOWLEDGE
+    kind: interface-concept
+    subject: subject-knowledge
+    semantic_value: "Knowledge is user-visible reusable subject meaning/relationships, distinct from capability, learner state and evidence."
+    derived_from: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, AD-EXPLORE-KNOWLEDGE, UJ-KNOWLEDGE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-KNOWLEDGE-SCOPE
+    kind: interface-concept
+    subject: knowledge-scope
+    semantic_value: "Knowledge scope is a contextual overview/detail projection over stable Knowledge; representation dimensionality is not conceptual truth."
+    derived_from: [KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-CURRENT-STATE
+    kind: interface-concept
+    subject: current-state
+    semantic_value: "Current state is an evidence-backed target-relative projection of required capabilities as demonstrated, challenged or unknown, not a mutable mastery score."
+    derived_from: [LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION, AD-REVIEW-CURRENT-STATE, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-EVIDENCE
+    kind: interface-concept
+    subject: evidence
+    semantic_value: "Evidence is attributable observed performance facts with relevant conditions, time and provenance and remains distinct from capability conclusions and activity completion."
+    derived_from: [LM-PERFORMANCE, LM-OBSERVATION, AD-CAPTURE-PERFORMANCE, UJ-ACTIVITY-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-EVIDENCE-BASIS
+    kind: interface-concept
+    subject: evidence-basis
+    semantic_value: "Why-this-state exposes the inspectable CapabilityEvidenceArgument including bearing, applicability and time/condition/coverage/transfer/dependence/attribution limitations, without a fundamental EvidentialWarrant concept."
+    derived_from: [LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-TEMPORAL-TRANSFER, LM-INDIVIDUAL-ATTRIBUTION, AD-EVALUATE-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-GAP
+    kind: interface-concept
+    subject: gap-or-uncertainty
+    semantic_value: "Gap or uncertainty is target-relative to requirements and current evidence-backed state, not an intrinsic Knowledge/Capability property."
+    derived_from: [LD-GAP-PRIORITY, AD-REVIEW-GAPS, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-NEXT-FOCUS
+    kind: interface-concept
+    subject: next-focus
+    semantic_value: "Next focus is the explicit PreparationIntent selected from target relevance, gap/uncertainty, external constraints and support context with visible rationale."
+    derived_from: [LD-PREPARATION-INTENT, AD-CHOOSE-NEXT-FOCUS, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-SUPPORT
+    kind: interface-concept
+    subject: preparation-support
+    semantic_value: "Preparation support is learning material or a practice/diagnostic opportunity intended for the current capability/focus; availability or completion does not establish capability."
+    derived_from: [LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, AD-SELECT-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-ACTIVITY
+    kind: interface-concept
+    subject: activity
+    semantic_value: "Activity is a concrete learning/practice/diagnostic attempt using selected support; it is distinct from evidence and from the application Task Model."
+    derived_from: [LD-APPLICATION-BOUNDARY, AD-PERFORM-ACTIVITY, UJ-ACTIVITY-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-CHANGE
+    kind: interface-concept
+    subject: preparation-change
+    semantic_value: "What-changed compares previous/current preparation projections after evidence or target information and preserves no-change or increased-uncertainty outcomes."
+    derived_from: [AD-REVIEW-CHANGE, UJ-ACTIVITY-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-PREPARATION-REQUEST
+    kind: interface-concept
+    subject: preparation-request
+    semantic_value: "Preparation request preserves the motivating target/focus and fragmented sources while requesting usable missing semantic support without learner corpus/schema maintenance."
+    derived_from: [AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-STATE-CAPABILITY
+    kind: interface-state-vocabulary
+    subject: capability-state-vocabulary
+    semantic_value: "Shared capability-state vocabulary is demonstrated, challenged and unknown; unknown is insufficient evidence rather than failure, and demonstrated does not exceed its evidence scope/time/transfer limits."
+    derived_from: [LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-STATE-EVIDENCE-BEARING
+    kind: interface-state-vocabulary
+    subject: evidence-bearing-vocabulary
+    semantic_value: "Shared evidence-bearing vocabulary is supports and challenges, scoped by the evidence argument's applicability and limitations."
+    derived_from: [LM-EVIDENCE-ARGUMENT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-STATE-ACTIVITY-PURPOSE
+    kind: interface-state-vocabulary
+    subject: activity-purpose-vocabulary
+    semantic_value: "PreparationIntent purpose may be communicated as acquisition, practice, diagnosis, transfer or retention support without making those global application modes."
+    derived_from: [LD-PREPARATION-INTENT, TM-TASK-CHOOSE-NEXT-FOCUS]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-STATE-OUTCOMES
+    kind: interface-state-vocabulary
+    subject: application-outcome-vocabulary
+    semantic_value: "Visible application outcome semantics preserve success, unresolved, rejected, dependency unavailable and updated-context/stale-basis distinctions where applicable."
+    derived_from: [AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, UJ-SHARED-OUTCOMES, UJ-SHARED-CURRENTNESS]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-TARGET-CAPABILITY
+    kind: interface-concept-relationship
+    subject: target-to-capability
+    semantic_value: "Target requirements reference reusable required capability performance; target and capability remain distinct."
+    derived_from: [LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LD-CAPABILITY-SPECIFICATION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-CAPABILITY-KNOWLEDGE
+    kind: interface-concept-relationship
+    subject: capability-to-knowledge
+    semantic_value: "Required performance may focus on Subject Knowledge while Knowledge remains reusable subject truth rather than ability/state."
+    derived_from: [LD-KNOWLEDGE-FOCUS, KM-CROSS-CONTEXT-BOUNDARY]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-EVIDENCE-STATE
+    kind: interface-concept-relationship
+    subject: evidence-to-current-state
+    semantic_value: "Observed facts become relevant to current state only through inspectable evidence arguments/claims; observation and capability conclusion remain distinct."
+    derived_from: [LM-OBSERVATION, LM-EVIDENCE-ARGUMENT, LM-CAPABILITY-CLAIM, LM-STATE-PROJECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-GAP-FOCUS
+    kind: interface-concept-relationship
+    subject: gap-to-focus
+    semantic_value: "Next focus addresses target-relative gaps/uncertainty with explicit rationale; gap and focus are distinct."
+    derived_from: [LD-GAP-PRIORITY, LD-PREPARATION-INTENT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-ACTIVITY-EVIDENCE
+    kind: interface-concept-relationship
+    subject: activity-to-evidence
+    semantic_value: "An activity may produce attributable Performance/Observations, but completion alone is not evidence of capability."
+    derived_from: [LD-EVIDENCE-DESIGN-BOUNDARY, LM-PERFORMANCE, LM-OBSERVATION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-SCOPE-KNOWLEDGE
+    kind: interface-concept-relationship
+    subject: scope-to-knowledge
+    semantic_value: "Knowledge scope/overview/depth are projections over stable Knowledge identity and relationships rather than separate truth objects."
+    derived_from: [KM-SCOPE-OVERVIEW-DEPTH]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-PREPARATION-SUPPORT
+    kind: interface-concept-relationship
+    subject: preparation-request-to-support
+    semantic_value: "A preparation request seeks missing target/Knowledge/learning/observation support while accepted meaning remains owned by its canonical semantic owner."
+    derived_from: [KM-BOOTSTRAP-CORRECTION, LD-EVIDENCE-DESIGN-BOUNDARY, AD-PARTIAL-PREPARATION, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-NO-GLOBAL-MODES
+    kind: interface-mode-disposition
+    subject: global-interface-modes
+    semantic_value: "No global user mode is canonical: accepted work changes context through target, focus, knowledge scope and activity purpose; downstream organization must not turn those contexts into domain truth or authorization roles."
+    derived_from: [TM-GOAL-PREPARE, TM-GOAL-SUPPORT, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-SEMANTIC-BOUNDARIES
+    kind: interface-invariant
+    subject: user-visible-semantic-boundaries
+    semantic_value: "The interface must preserve Target != Capability, Knowledge != Capability, Capability != learner state, activity != evidence, and Observation != capability conclusion without requiring users to learn internal type names."
+    derived_from: [KM-CROSS-CONTEXT-BOUNDARY, LD-EVIDENCE-DESIGN-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-KNOWLEDGE-BOUNDARY, UJ-SHARED-OWNERSHIP]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-PRESENTATION-FREEDOM
+    kind: interface-invariant
+    subject: conceptual-presentation-freedom
+    semantic_value: "Conceptual Knowledge orientation requires inspectable meaning, scope/depth and relationships but does not require graph/list, 2D/3D, route, page or layout choices."
+    derived_from: [KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - conceptual-interface-not-domain-model

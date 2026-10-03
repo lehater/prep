@@ -1,0 +1,125 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: INFORMATION-ARCHITECTURE
+capability: prep.information-architecture
+path: docs/interface/information-architecture.yaml
+changed_paths:
+  - docs/interface/information-architecture.yaml
+canonical_references:
+  - {artifact: INFORMATION-ARCHITECTURE, referenced_path: docs/interface/conceptual-interface-model.yaml}
+  - {artifact: INFORMATION-ARCHITECTURE, referenced_path: docs/application/task-model.yaml}
+  - {artifact: INFORMATION-ARCHITECTURE, referenced_path: docs/application/user-journeys.md}
+
+semantic_assertions:
+  - id: IA-ROOT
+    kind: information-location
+    subject: active-preparation
+    semantic_value: "Preparation is the root conceptual location that keeps active Target and current preparation direction coherent across Target, Current position, Knowledge, Activities and Evidence & changes without deciding navigation UI."
+    derived_from: [CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-TARGET
+    kind: information-location
+    subject: target-location
+    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement and Required capability, not around backend resource types."
+    derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-CURRENT
+    kind: information-location
+    subject: current-position-location
+    semantic_value: "Current position groups evidence-backed current state, why-this-state, gaps/uncertainty and next focus so the learner can understand position and decide direction without a scalar mastery view."
+    derived_from: [CIM-CURRENT-STATE, CIM-EVIDENCE-BASIS, CIM-GAP, CIM-NEXT-FOCUS, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-KNOWLEDGE
+    kind: information-location
+    subject: knowledge-location
+    semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context."
+    derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, UJ-KNOWLEDGE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-ACTIVITIES
+    kind: information-location
+    subject: activities-location
+    semantic_value: "Activities groups support selection and concrete learning/practice/diagnostic activity under the current focus while preserving target context and the activity-versus-evidence distinction."
+    derived_from: [CIM-NEXT-FOCUS, CIM-SUPPORT, CIM-ACTIVITY, UJ-ACTIVITY-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-EVIDENCE
+    kind: information-location
+    subject: evidence-changes-location
+    semantic_value: "Evidence & changes groups observed evidence, inspectable why-this-state reasoning and previous/current change so capability conclusions remain explainable without dominating all preparation content."
+    derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, UJ-ACTIVITY-EVIDENCE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-PREP-SUPPORT
+    kind: information-location
+    subject: prepare-support-location
+    semantic_value: "Prepare missing support is a contextual recovery location entered from the work that found a missing preparation need and returns to that originating work with accepted support and remaining gaps."
+    derived_from: [CIM-PREPARATION-REQUEST, CIM-SUPPORT, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-SCOPE-TARGET
+    kind: information-scope
+    subject: active-target-context
+    semantic_value: "Active Target is shared contextual scope across preparation locations; it changes interpretation of target-relative state/gaps/focus without mutating reusable Capability/Knowledge or historical evidence."
+    derived_from: [CIM-TARGET, CIM-REL-TARGET-CAPABILITY, UJ-SHARED-OWNERSHIP]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-SCOPE-FOCUS
+    kind: information-scope
+    subject: active-focus-context
+    semantic_value: "Next focus scopes Knowledge/Activities/Evidence work when present but its absence does not block Target or Current position inspection."
+    derived_from: [CIM-NEXT-FOCUS, CIM-REL-GAP-FOCUS]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-SCOPE-KNOWLEDGE
+    kind: information-scope
+    subject: knowledge-exploration-scope
+    semantic_value: "Knowledge scope/depth is local exploration state under Knowledge and never becomes global truth or Knowledge identity."
+    derived_from: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-STRUCTURE
+    kind: information-structure
+    subject: preparation-information-hierarchy
+    semantic_value: "The information hierarchy is task/concept cohesive: Preparation root contains Target, Current position, Knowledge, Activities and Evidence & changes; missing-support preparation is a contextual recovery branch rather than a learner corpus area."
+    derived_from: [TM-GOAL-PREPARE, TM-GOAL-SUPPORT, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-CROSSLINKS
+    kind: information-crosslink
+    subject: preparation-cross-links
+    semantic_value: "Cross-links preserve the preparation loop: Target→Current position; Current position→Evidence/Knowledge/Activities; Knowledge→Activities; Activities→Evidence; Evidence→Current position; missing support→Prepare missing support→origin."
+    derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-TAXONOMY
+    kind: information-taxonomy
+    subject: learner-facing-terminology
+    semantic_value: "Stable information labels use learner-facing Target, Current state/position, Gap or uncertainty, Next focus, Knowledge, Preparation support and Evidence; internal model-context/entity jargon and graph dimensionality are not primary information categories."
+    derived_from: [CIM-SEMANTIC-BOUNDARIES, CIM-PRESENTATION-FREEDOM]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-FINDABILITY
+    kind: information-findability-assumption
+    subject: findability-assumptions
+    semantic_value: "Target context recovery, the Current position label, direct evidence-basis access, contextual missing-support recovery and independent Knowledge findability are explicit UX assumptions to validate downstream rather than hidden architecture facts."
+    derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-PREPARE-SUPPORT]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-NO-SCREEN
+    kind: information-invariant
+    subject: ia-screen-boundary
+    semantic_value: "Information locations/hierarchy/cross-links do not decide URL routes, pages/views, menus/tabs, screen regions, responsive layout, graph representation or components."
+    derived_from: [CIM-PRESENTATION-FREEDOM]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - information-structure-not-screen-layout

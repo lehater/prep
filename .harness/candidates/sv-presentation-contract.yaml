@@ -1,0 +1,13 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.presentation-system
+target_capability: prep.screen-view-design
+obligations:
+  - {id: principles, source_kind: presentation-principle, min_count: 3, allow_not_applicable: true}
+  - {id: patterns, source_kind: presentation-pattern, min_count: 6, allow_not_applicable: true}
+  - {id: states, source_kind: presentation-state, min_count: 1, allow_not_applicable: true}
+  - {id: responsive, source_kind: presentation-responsive-default, min_count: 1, allow_not_applicable: true}
+  - {id: accessibility, source_kind: presentation-accessibility-default, min_count: 1, allow_not_applicable: true}
+  - {id: quality, source_kind: presentation-quality-rule, min_count: 1, allow_not_applicable: true}
+  - {id: invariants, source_kind: presentation-invariant, min_count: 1, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

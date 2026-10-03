@@ -1,0 +1,13 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.information-architecture
+target_capability: prep.interface-topology
+obligations:
+  - {id: locations, source_kind: information-location, min_count: 7, allow_not_applicable: true}
+  - {id: scopes, source_kind: information-scope, min_count: 3, allow_not_applicable: true}
+  - {id: structure, source_kind: information-structure, min_count: 1, allow_not_applicable: true}
+  - {id: crosslinks, source_kind: information-crosslink, min_count: 1, allow_not_applicable: true}
+  - {id: taxonomy, source_kind: information-taxonomy, min_count: 1, allow_not_applicable: true}
+  - {id: findability, source_kind: information-findability-assumption, min_count: 1, allow_not_applicable: true}
+  - {id: invariants, source_kind: information-invariant, min_count: 1, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

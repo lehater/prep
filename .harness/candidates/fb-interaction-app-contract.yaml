@@ -1,0 +1,11 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.application-design
+target_capability: prep.interaction-design
+obligations:
+  - {id: operations, source_kind: application-operation, min_count: 5, allow_not_applicable: true}
+  - {id: materializations, source_kind: application-materialization, min_count: 6, allow_not_applicable: true}
+  - {id: orchestrations, source_kind: application-orchestration, min_count: 2, allow_not_applicable: true}
+  - {id: outcomes, source_kind: application-outcome, min_count: 2, allow_not_applicable: true}
+  - {id: invariants, source_kind: application-invariant, min_count: 4, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

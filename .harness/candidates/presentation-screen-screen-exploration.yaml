@@ -1,0 +1,189 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.screen-view-design
+knowledge_kind: screen-view-design
+explorer_request_id: sha256:e35aa992f8cf80547a6ad22625968e3433250adfe679313607578ac02268982e
+research_sources: []
+axes:
+- axis: view-composition
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: single-vs-split
+    challenge: Compare a single task stream with a primary task region plus contextual
+      secondary detail and peer panels.
+    alternatives:
+    - task-primary-with-contextual-secondary
+    - peer-panel-workspace
+    - single-stream-only
+  - strategy: co-locate-vs-separate
+    challenge: Move evidence/detail/supporting context between the same view and separate
+      surfaces while preserving task continuity.
+    alternatives:
+    - task-primary-with-contextual-secondary
+    - peer-panel-workspace
+    - single-stream-only
+  - strategy: region-priority-shift
+    challenge: Promote secondary provenance/detail to peer priority and test whether
+      the task hierarchy remains clear.
+    alternatives:
+    - task-primary-with-contextual-secondary
+    - peer-panel-workspace
+    - single-stream-only
+  decision_points:
+  - id: shared-view-composition
+    alternatives:
+    - id: task-primary-with-contextual-secondary
+      difference: Each task view has one primary work/decision region with contextual
+        detail secondary.
+      material_effects:
+        primary-region: task-specific
+        secondary-context: contextual-inspectable
+        task-colocation: same-view-where-useful
+    - id: peer-panel-workspace
+      difference: Primary and supporting regions have similar persistent weight.
+      material_effects:
+        primary-region: multiple-peers
+        secondary-context: always-visible
+        task-colocation: high
+    - id: single-stream-only
+      difference: All views use one sequential region with no simultaneous secondary
+        context.
+      material_effects:
+        primary-region: single-stream
+        secondary-context: subsequent-only
+        task-colocation: low
+- axis: detail-edit-placement
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: inline-vs-overlay
+    challenge: Compare same-view contextual detail with overlay detail while preserving
+      invoking context/focus.
+    alternatives:
+    - same-view-contextual-detail
+    - overlay-detail
+    - dedicated-detail-view
+    - no-edit-surface
+    - inline-edit
+    - dedicated-editor-view
+  - strategy: same-view-vs-dedicated
+    challenge: Compare contextual detail in the task view with dedicated detail/editor
+      views not present in topology.
+    alternatives:
+    - same-view-contextual-detail
+    - overlay-detail
+    - dedicated-detail-view
+    - no-edit-surface
+    - inline-edit
+    - dedicated-editor-view
+  - strategy: context-preservation-perturbation
+    challenge: Test whether detail/edit placement preserves Target/focus and task
+      context across narrow/wide composition.
+    alternatives:
+    - same-view-contextual-detail
+    - overlay-detail
+    - dedicated-detail-view
+    - no-edit-surface
+    - inline-edit
+    - dedicated-editor-view
+  decision_points:
+  - id: shared-detail-placement
+    alternatives:
+    - id: same-view-contextual-detail
+      difference: Supporting detail stays in the task view as region/disclosure.
+      material_effects:
+        detail-placement: same-view
+        edit-placement: none
+        context-preservation: direct
+    - id: overlay-detail
+      difference: Supporting detail opens as temporary overlay.
+      material_effects:
+        detail-placement: overlay
+        edit-placement: none
+        context-preservation: invoking-control
+    - id: dedicated-detail-view
+      difference: Supporting detail becomes another navigable view.
+      material_effects:
+        detail-placement: dedicated-view
+        edit-placement: none
+        context-preservation: navigation-return
+  - id: editing-capability
+    alternatives:
+    - id: no-edit-surface
+      difference: No screen offers reusable semantic editing.
+      material_effects:
+        detail-placement: inspect-only
+        edit-placement: none
+        context-preservation: unchanged
+    - id: inline-edit
+      difference: Task screens expose inline editing.
+      material_effects:
+        detail-placement: same-view
+        edit-placement: inline
+        context-preservation: draft-local
+    - id: dedicated-editor-view
+      difference: Editing uses separate editor screens.
+      material_effects:
+        detail-placement: dedicated
+        edit-placement: dedicated-view
+        context-preservation: navigation-draft
+- axis: responsive-composition
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: collapse-vs-reflow
+    challenge: Compare semantic-priority reflow/disclosure with fixed wide composition
+      and a separate mobile topology.
+    alternatives:
+    - priority-preserving-reflow-disclosure
+    - fixed-wide-composition
+    - separate-mobile-view-set
+  - strategy: persistent-vs-disclosed
+    challenge: Move secondary detail/visualization from simultaneous wide placement
+      to ordered narrow disclosure.
+    alternatives:
+    - priority-preserving-reflow-disclosure
+    - fixed-wide-composition
+    - separate-mobile-view-set
+  - strategy: primary-surface-perturbation
+    challenge: Test whether the same primary task remains first when width is constrained.
+    alternatives:
+    - priority-preserving-reflow-disclosure
+    - fixed-wide-composition
+    - separate-mobile-view-set
+  decision_points:
+  - id: shared-responsive-model
+    alternatives:
+    - id: priority-preserving-reflow-disclosure
+      difference: Same view topology reflows by semantic priority and discloses secondary
+        regions.
+      material_effects:
+        narrow-layout: reflow
+        disclosure: secondary-on-demand
+        projection-priority: primary-task-preserved
+    - id: fixed-wide-composition
+      difference: Wide multi-region composition remains fixed on narrow screens.
+      material_effects:
+        narrow-layout: overflow-or-shrink
+        disclosure: none
+        projection-priority: geometry-preserved
+    - id: separate-mobile-view-set
+      difference: A separate set of mobile views represents the same tasks.
+      material_effects:
+        narrow-layout: separate-topology
+        disclosure: mobile-specific
+        projection-priority: independently-defined
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - shared-view-composition
+  - shared-detail-placement
+  - editing-capability
+  - shared-responsive-model
+  open_gaps: []

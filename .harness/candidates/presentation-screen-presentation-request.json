@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "kind": "harness-decision-explorer-request",
+  "capability": "prep.presentation-system",
+  "knowledge_kind": "presentation-system-design",
+  "authority": "HUMAN-INTERFACE-DESIGN",
+  "mode": "CREATE",
+  "accepted_prerequisites": {
+    "prep.conceptual-interface-model": "PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-2",
+    "prep.frontend-performance-capacity": "PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-1",
+    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-1",
+    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-1",
+    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-1"
+  },
+  "canonical_inputs": [
+    {
+      "id": "CONCEPTUAL-INTERFACE-MODEL",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/conceptual-interface-model.yaml",
+      "provides": [
+        "prep.conceptual-interface-model"
+      ]
+    },
+    {
+      "id": "FRONTEND-PERFORMANCE-CAPACITY",
+      "authority": "QUALITY-DESIGN",
+      "path": "docs/architecture/performance-capacity.md",
+      "provides": [
+        "prep.frontend-performance-capacity"
+      ]
+    },
+    {
+      "id": "INFORMATION-ARCHITECTURE",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/information-architecture.yaml",
+      "provides": [
+        "prep.information-architecture"
+      ]
+    },
+    {
+      "id": "INTERACTION-DESIGN",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/interaction-design.yaml",
+      "provides": [
+        "prep.interaction-design"
+      ]
+    },
+    {
+      "id": "INTERFACE-TOPOLOGY",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/interface-topology.yaml",
+      "provides": [
+        "prep.interface-topology"
+      ]
+    }
+  ],
+  "downstream_consumers": [
+    {
+      "kind": "production",
+      "consumer": "prep.frontend-engineering-policy",
+      "authority": "ENGINEERING-POLICY",
+      "capabilities": [
+        "prep.presentation-system"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.frontend-system-architecture",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capabilities": [
+        "prep.presentation-system"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.presentation-verification",
+      "authority": "VERIFICATION-DESIGN",
+      "capabilities": [
+        "prep.presentation-system"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.screen-view-design",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.presentation-system"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "axis": "knowledge-representation",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "representation-form",
+        "spatial-dimensionality",
+        "relation-encoding"
+      ],
+      "challenge_strategies": [
+        "graph-vs-nongraph",
+        "2d-vs-3d",
+        "single-vs-mixed"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "information-density",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "simultaneous-context",
+        "detail-disclosure",
+        "label-density"
+      ],
+      "challenge_strategies": [
+        "dense-vs-progressive",
+        "focus-context-shift",
+        "always-visible-vs-on-demand"
+      ],
+      "minimum_probes": 2
+    },
+    {
+      "axis": "control-surface",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "control-persistence",
+        "direct-manipulation",
+        "keyboard-equivalence"
+      ],
+      "challenge_strategies": [
+        "inline-vs-dedicated-controls",
+        "direct-manipulation-vs-command",
+        "pointer-vs-keyboard"
+      ],
+      "minimum_probes": 2
+    }
+  ],
+  "forbidden_inputs": [
+    "future_candidate",
+    "decision_review",
+    "preferred_solution",
+    "selected_solution",
+    "write_set"
+  ],
+  "request_id": "sha256:7799ade5454e1612b9c52f53fc06edb6911d6a67219c1a0e1a9e43c737637188"
+}

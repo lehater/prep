@@ -1,0 +1,7 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.frontend-performance-capacity
+target_capability: prep.presentation-system
+obligations:
+  - {id: quality, source_kind: quality-constraint, min_count: 6, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

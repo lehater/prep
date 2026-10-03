@@ -1,0 +1,243 @@
+version: 1
+kind: prep-knowledge-orientation-revalidation-map
+noncanonical: true
+source_record: docs/research/knowledge-orientation-stakeholder-input.md
+accepted_upstream:
+  capability: prep.problem-evidence
+  acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-2
+  new_atoms:
+    - OBS-P10
+    - OBS-P11
+    - OBS-P12
+    - OBS-P13
+    - PE-KNOWLEDGE-ORIENTATION-OUTCOME
+
+rules:
+  - This file is a disposable revalidation map under .harness/candidates and provides no CapabilityId.
+  - Harness lifecycle currentness is authoritative; do not encode manual CURRENT/STALE truth here.
+  - Each downstream capability must be re-derived from its accepted prerequisites before canonical publication.
+  - 3D graph, graph layout, graph database, concrete relation types, and curator role are not upstream facts.
+
+capability_deltas:
+  prep.user-needs:
+    authority: DISCOVERY
+    atoms_to_consider:
+      - id: GOAL-KNOWLEDGE-ORIENTATION
+        meaning: Form a coherent initial mental model of the relevant subject when the area is unfamiliar.
+        provenance: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+      - id: GOAL-RELATIONAL-UNDERSTANDING
+        meaning: Understand how relevant concepts meaningfully relate rather than learning isolated descriptions only.
+        provenance: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+      - id: GOAL-KNOWLEDGE-SCOPE
+        meaning: Control the scope of knowledge under consideration so a large subject can be made cognitively manageable without losing relevant context.
+        provenance: [OBS-P10, OBS-P12]
+      - id: GOAL-KNOWLEDGE-DEPTH
+        meaning: Move between overview and deeper detail as understanding develops.
+        provenance: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+      - id: NEED-KNOWLEDGE-ORIENTATION
+        meaning: The learner needs an intelligible overview of the important concepts in the relevant subject scope and how they fit together.
+      - id: NEED-RELATIONSHIPS
+        meaning: The learner needs relationship meaning to remain inspectable so connected concepts can be understood in context.
+      - id: NEED-KNOWLEDGE-SCOPE
+        meaning: The learner needs to narrow and expand the considered subject scope using meaningful criteria relevant to the learning purpose.
+      - id: NEED-KNOWLEDGE-DEPTH
+        meaning: The learner needs to move between high-level orientation and deeper detail without losing the surrounding context.
+    existing_need_to_revisit:
+      id: NEED-BOOTSTRAP
+      concern: Supporting knowledge data must be incrementally introducible/correctable while learner ownership of internal corpus maintenance remains unrequired.
+    open_question:
+      - Who or what maintains reusable supporting knowledge data is not yet an accepted actor/responsibility decision.
+
+  prep.product-intent:
+    authority: PRODUCT-REQUIREMENTS
+    proposed_observable_commitments:
+      - id: REQ-KNOWLEDGE-ORIENTATION
+        meaning: Provide support for understanding the relevant subject as a coherent body of concepts rather than isolated material.
+      - id: REQ-KNOWLEDGE-RELATIONSHIPS
+        meaning: Make meaningful relationships among relevant knowledge inspectable with their semantics preserved.
+      - id: REQ-KNOWLEDGE-SCOPE
+        meaning: Support narrowing and expanding the relevant knowledge scope by meaningful criteria.
+      - id: REQ-KNOWLEDGE-DEPTH
+        meaning: Support movement between overview and deeper detail while preserving context.
+      - id: REQ-KNOWLEDGE-CORPUS-EVOLUTION
+        meaning: Support incremental introduction and correction of supporting knowledge structure without requiring the learner to maintain the internal corpus.
+    non_decisions:
+      - no graph requirement
+      - no 3D requirement
+      - no persistence model
+      - no curator-role requirement
+
+  prep.product-capabilities:
+    authority: PRODUCT-REQUIREMENTS
+    proposed_capabilities:
+      - knowledge-landscape exploration
+      - relation-aware knowledge inspection and traversal
+      - meaningful knowledge-scope control
+      - overview-to-detail knowledge exploration
+      - incremental knowledge-corpus population/correction support
+    revisit:
+      - The historical removal of Knowledge organization/exploration must be re-evaluated against revised User Needs and Product Intent.
+      - Corpus support must not silently make curation a learner responsibility.
+
+  prep.domain-strategy:
+    authority: DOMAIN-STRATEGY
+    responsibilities_to_reconsider:
+      - reusable Subject Knowledge semantics as an independently changing strategic responsibility
+      - knowledge-corpus preparation/curation as a possible supporting responsibility
+    unresolved:
+      - CORE versus SUPPORTING classification must be re-derived; do not preselect it here.
+      - whether corpus preparation is a distinct strategic subdomain depends on accepted product behavior and ownership.
+
+  prep.model-context-strategy:
+    authority: MODEL-CONTEXT-STRATEGY
+    model_contexts_to_reconsider:
+      - reusable Subject Knowledge as an independently modeled language
+    translations_to_reconsider:
+      - Subject Knowledge -> Preparation Direction
+      - Subject Knowledge -> Practice Enablement
+      - Bootstrap/source input -> Subject Knowledge
+      - Learner Evidence & State may reference subject semantics but must not mutate reusable subject truth
+    non_decisions:
+      - no service/package/database/UI-boundary inference
+
+  prep.knowledge-relation-classification:
+    authority: TACTICAL-DOMAIN-DESIGN
+    semantic_questions:
+      - Which relation meanings are independently necessary for subject understanding?
+      - Which relations are directed, symmetric, transitive, hierarchical, causal, representational, prerequisite-like, or otherwise constrained?
+      - Which relation semantics are useful for traversal/filtering without collapsing distinct meanings into a generic edge?
+    donor:
+      - docs/domain/relation-classification-catalog.yaml
+    constraint:
+      - Historical relation types are candidates only; do not preserve them merely because the old UI used them.
+
+  prep.knowledge-model:
+    authority: TACTICAL-DOMAIN-DESIGN
+    semantic_questions:
+      - What has stable reusable subject identity independent of learner, target and presentation?
+      - Which distinctions among knowledge object, proposition, concept, mechanism, procedure, strategy, decomposition and relation are actually necessary?
+      - How are knowledge semantics related to target capabilities without claiming that exposure equals capability?
+      - How should overview/detail or decomposition be represented semantically, if at all?
+      - How can corpus evolution preserve semantic identity and provenance?
+    donor:
+      - docs/domain/knowledge-model.md
+    invariant_candidates:
+      - learner evidence cannot mutate reusable subject truth
+      - representation/layout does not define knowledge identity
+      - relation predicate vocabulary and relation assertion must not be conflated
+
+  prep.task-model:
+    authority: APPLICATION-DESIGN
+    task_outcomes_to_reconsider:
+      - orient in an unfamiliar subject
+      - inspect a concept in surrounding context
+      - inspect the meaning of a relationship
+      - traverse related knowledge
+      - narrow or expand the relevant knowledge scope
+      - move between overview and deeper detail and return without losing context
+      - if a maintenance actor is accepted later, add incremental corpus maintenance tasks under that actor rather than the learner by default
+
+  prep.application-design:
+    authority: APPLICATION-DESIGN
+    orchestration_to_reconsider:
+      - preserve active target/focus while entering and leaving knowledge exploration
+      - translate selected knowledge context into learning/practice and back into evidence-oriented preparation flow
+      - keep subject exploration distinct from learner-state mutation
+      - route missing/incomplete supporting knowledge to an accepted preparation/maintenance path
+
+  prep.user-journeys:
+    authority: APPLICATION-DESIGN
+    journeys_to_reconsider:
+      - unfamiliar subject -> orient -> narrow scope -> inspect relationships -> deepen -> choose/continue preparation
+      - current focus -> inspect surrounding knowledge -> return to focus with context preserved
+      - incomplete knowledge support -> request/perform accepted maintenance path -> resume learner flow
+
+  prep.conceptual-interface-model:
+    authority: HUMAN-INTERFACE-DESIGN
+    concepts_to_reconsider:
+      - knowledge item/concept
+      - relationship with visible meaning
+      - knowledge scope
+      - overview/detail context
+      - selection versus explicit learning focus
+    non_decisions:
+      - no graph, 3D, route or screen commitment
+
+  prep.information-architecture:
+    authority: HUMAN-INTERFACE-DESIGN
+    concerns_to_reconsider:
+      - make subject exploration discoverable from target/focus context
+      - preserve return path and semantic context between overview and detail
+      - separate learner exploration from corpus maintenance if both actors/flows are accepted
+
+  prep.interaction-design:
+    authority: HUMAN-INTERFACE-DESIGN
+    interaction_needs_to_reconsider:
+      - search
+      - semantic scope narrowing/expansion
+      - relation-type/meaning inspection where domain semantics support it
+      - selection
+      - traversal
+      - overview/detail transitions
+      - context-preserving return
+    design_hypothesis:
+      - spatial/3D graph is one candidate interaction/projection, not a requirement
+
+  prep.interface-topology:
+    authority: HUMAN-INTERFACE-DESIGN
+    concern:
+      - topology must support knowledge exploration without forcing it to become the universal product interface
+
+  prep.presentation-system:
+    authority: HUMAN-INTERFACE-DESIGN
+    hypotheses_to_compare:
+      - spatial/3D graph projection
+      - non-spatial list/search/detail
+      - mixed projections over the same semantic identities
+    donor:
+      - experiments/knowledge_representation/
+    constraint:
+      - feasibility evidence does not establish learning efficacy or preferred presentation
+
+  prep.screen-view-design:
+    authority: HUMAN-INTERFACE-DESIGN
+    concern:
+      - if spatial exploration survives verification, integrate it as one knowledge-oriented view/region while preserving usable non-spatial access and target/focus context
+
+  prep.machine-interfaces:
+    authority: MACHINE-INTERFACE-DESIGN
+    operations_to_reconsider:
+      - query relevant knowledge projection by accepted semantic scope
+      - inspect knowledge detail and typed relationships
+      - create/update knowledge and relationships only if a maintenance capability/actor is accepted
+    non_decision:
+      - no HTTP shape or backend topology chosen here
+
+  prep.data-design:
+    authority: DATA-DESIGN
+    persistence_questions:
+      - persist stable knowledge identity
+      - persist relationship semantics and provenance
+      - support incremental correction/evolution
+      - support query/projection needs accepted by Machine Interface Design
+    non_decisions:
+      - graph database is not implied
+      - semantic graph shape does not require graph-native storage
+
+  prep.interface-verification:
+    authority: VERIFICATION-DESIGN
+    research_and_verification_questions:
+      - Does an overview improve a learner's mental model of an unfamiliar subject?
+      - Can users correctly understand relationship meaning rather than merely see edges?
+      - Which scope controls actually reduce overload without hiding relevant context?
+      - Which overview/detail transitions preserve orientation?
+      - At what density does a spatial projection become a hairball?
+
+  prep.presentation-verification:
+    authority: VERIFICATION-DESIGN
+    comparisons_to_plan:
+      - 3D/spatial versus 2D/non-spatial/mixed projections
+      - readability and orientation at realistic graph densities
+      - search-to-focus and filter-to-understanding behavior
+      - accessibility and equivalent non-spatial paths
+      - renderer performance as a separate concern from comprehension

@@ -1,0 +1,173 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.presentation-system
+knowledge_kind: presentation-system-design
+explorer_request_id: sha256:7799ade5454e1612b9c52f53fc06edb6911d6a67219c1a0e1a9e43c737637188
+research_sources: []
+axes:
+- axis: knowledge-representation
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: graph-vs-nongraph
+    challenge: Compare task-complete semantic query/result/detail without graph against
+      mixed relationship visualization and graph-primary variants.
+    alternatives:
+    - nonspatial-only
+    - mixed-2d-plus-nonspatial
+    - three-d-primary-plus-nonspatial
+    - dual-2d-3d-plus-nonspatial
+  - strategy: 2d-vs-3d
+    challenge: Perturb spatial dimensionality while preserving identical Knowledge
+      identity, relationship meaning and nonspatial task completion.
+    alternatives:
+    - mixed-2d-plus-nonspatial
+    - three-d-primary-plus-nonspatial
+    - dual-2d-3d-plus-nonspatial
+  - strategy: single-vs-mixed
+    challenge: Compare one canonical representation with linked/parallel semantic
+      plus spatial representations.
+    alternatives:
+    - nonspatial-only
+    - mixed-2d-plus-nonspatial
+    - three-d-primary-plus-nonspatial
+    - dual-2d-3d-plus-nonspatial
+  decision_points:
+  - id: shared-knowledge-representation
+    alternatives:
+    - id: nonspatial-only
+      difference: Knowledge uses query/list/detail and explicit relation traversal
+        only.
+      material_effects:
+        representation-form: semantic-query-detail
+        spatial-dimensionality: none
+        relation-encoding: textual-structured
+    - id: mixed-2d-plus-nonspatial
+      difference: Task-complete nonspatial path is combined with optional 2D node-link
+        relationship overview.
+      material_effects:
+        representation-form: mixed
+        spatial-dimensionality: 2d
+        relation-encoding: node-link-plus-explicit-semantic-detail
+    - id: three-d-primary-plus-nonspatial
+      difference: 3D graph is the primary orientation surface with a nonspatial fallback/equivalent
+        path.
+      material_effects:
+        representation-form: graph-primary-mixed
+        spatial-dimensionality: 3d
+        relation-encoding: 3d-node-link-plus-semantic-detail
+    - id: dual-2d-3d-plus-nonspatial
+      difference: 2D and 3D graph modes are both first-class alongside nonspatial
+        access.
+      material_effects:
+        representation-form: multi-spatial-mixed
+        spatial-dimensionality: 2d-and-3d
+        relation-encoding: multiple-linked-metaphors
+- axis: information-density
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: dense-vs-progressive
+    challenge: Compare persistent simultaneous context/basis/details with progressive
+      focus+context and sparse sequencing.
+    alternatives:
+    - dense-simultaneous-workspace
+    - progressive-focus-context
+    - sparse-stepper
+  - strategy: focus-context-shift
+    challenge: Move secondary evidence/detail from always-visible to disclosed while
+      preserving direct inspectability.
+    alternatives:
+    - dense-simultaneous-workspace
+    - progressive-focus-context
+    - sparse-stepper
+  - strategy: always-visible-vs-on-demand
+    challenge: Test whether provenance, evidence basis and detail must remain visible
+      continuously for accepted tasks.
+    alternatives:
+    - dense-simultaneous-workspace
+    - progressive-focus-context
+    - sparse-stepper
+  decision_points:
+  - id: shared-density-model
+    alternatives:
+    - id: dense-simultaneous-workspace
+      difference: Primary task, basis, provenance and controls remain concurrently
+        visible.
+      material_effects:
+        simultaneous-context: high
+        detail-disclosure: always-visible
+        label-density: high
+    - id: progressive-focus-context
+      difference: Primary task dominates while essential context remains recoverable
+        and secondary detail is disclosed.
+      material_effects:
+        simultaneous-context: moderate
+        detail-disclosure: progressive
+        label-density: adaptive
+    - id: sparse-stepper
+      difference: Most context is hidden behind sequential task steps.
+      material_effects:
+        simultaneous-context: low
+        detail-disclosure: sequential
+        label-density: low
+- axis: control-surface
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: inline-vs-dedicated-controls
+    challenge: Compare global/persistent toolbars with controls near the task information
+      they affect.
+    alternatives:
+    - persistent-global-toolbars
+    - contextual-controls-keyboard-equivalent
+    - direct-manipulation-dominant
+  - strategy: direct-manipulation-vs-command
+    challenge: Compare named/queryable actions with graph/spatial direct manipulation
+      as the dominant control model.
+    alternatives:
+    - persistent-global-toolbars
+    - contextual-controls-keyboard-equivalent
+    - direct-manipulation-dominant
+  - strategy: pointer-vs-keyboard
+    challenge: Perturb pointer availability and require equivalent task completion
+      from keyboard/nonspatial controls.
+    alternatives:
+    - persistent-global-toolbars
+    - contextual-controls-keyboard-equivalent
+    - direct-manipulation-dominant
+  decision_points:
+  - id: shared-control-surface
+    alternatives:
+    - id: persistent-global-toolbars
+      difference: Many task controls persist globally across views.
+      material_effects:
+        control-persistence: high-global
+        direct-manipulation: optional
+        keyboard-equivalence: mixed
+    - id: contextual-controls-keyboard-equivalent
+      difference: Only context/navigation persists; task controls stay local and have
+        keyboard/named equivalents.
+      material_effects:
+        control-persistence: context-only
+        direct-manipulation: supplemental
+        keyboard-equivalence: required
+    - id: direct-manipulation-dominant
+      difference: Spatial/pointer manipulation is the main interaction surface with
+        secondary named controls.
+      material_effects:
+        control-persistence: spatial-surface
+        direct-manipulation: dominant
+        keyboard-equivalence: secondary
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - shared-knowledge-representation
+  - shared-density-model
+  - shared-control-surface
+  open_gaps: []

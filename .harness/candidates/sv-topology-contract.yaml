@@ -1,0 +1,10 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.interface-topology
+target_capability: prep.screen-view-design
+obligations:
+  - {id: frame, source_kind: topology-structural-frame, min_count: 1, allow_not_applicable: true}
+  - {id: views, source_kind: topology-task-view, min_count: 6, allow_not_applicable: true}
+  - {id: navigation, source_kind: topology-navigation, min_count: 4, allow_not_applicable: true}
+  - {id: invariants, source_kind: topology-invariant, min_count: 1, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

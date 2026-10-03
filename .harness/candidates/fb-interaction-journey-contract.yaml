@@ -1,0 +1,10 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.user-journeys
+target_capability: prep.interaction-design
+obligations:
+  - {id: journeys, source_kind: user-journey, min_count: 5, allow_not_applicable: true}
+  - {id: alternates, source_kind: journey-alternate, min_count: 5, allow_not_applicable: true}
+  - {id: outcomes, source_kind: journey-outcome, min_count: 5, allow_not_applicable: true}
+  - {id: invariants, source_kind: journey-invariant, min_count: 3, allow_not_applicable: true}
+lifecycle_dependency: {exhaustive: true}

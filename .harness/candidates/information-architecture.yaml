@@ -121,7 +121,7 @@ findability_assumptions:
     assumption: Learners need the active Target to remain easy to recover while moving through Current position, Knowledge, Activities and Evidence; exact visual persistence is downstream.
   - id: IA-FIND-CURRENT-POSITION
     status: VALIDATE
-    assumption: '"Current position" is more understandable as a location label than exposing internal learner-state terminology while still supporting demonstrated/challenged/unknown semantics.'
+    assumption: "Current position" is more understandable as a location label than exposing internal learner-state terminology while still supporting demonstrated/challenged/unknown semantics.
   - id: IA-FIND-EVIDENCE
     status: VALIDATE
     assumption: Evidence and why-this-state should be directly reachable from current-state conclusions without making provenance detail dominate the primary preparation path.

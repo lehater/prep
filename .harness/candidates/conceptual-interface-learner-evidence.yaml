@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.learner-model
+target_capability: prep.conceptual-interface-model
+links:
+  - {sources: [LM-PERFORMANCE, LM-OBSERVATION], relation: TRANSFORMS, targets: [CIM-EVIDENCE, CIM-REL-ACTIVITY-EVIDENCE]}
+  - {sources: [LM-CAPABILITY-CLAIM], relation: CONSTRAINS, targets: [CIM-CURRENT-STATE, CIM-REL-EVIDENCE-STATE]}
+  - {sources: [LM-EVIDENCE-ARGUMENT], relation: TRANSFORMS, targets: [CIM-EVIDENCE-BASIS, CIM-STATE-EVIDENCE-BEARING, CIM-REL-EVIDENCE-STATE]}
+  - {sources: [LM-NO-FUNDAMENTAL-WARRANT], relation: CONSTRAINS, targets: [CIM-EVIDENCE-BASIS, CIM-SEMANTIC-BOUNDARIES]}
+  - {sources: [LM-STATE-PROJECTION], relation: TRANSFORMS, targets: [CIM-CURRENT-STATE, CIM-STATE-CAPABILITY]}
+  - {sources: [LM-TEMPORAL-TRANSFER], relation: CONSTRAINS, targets: [CIM-EVIDENCE-BASIS, CIM-STATE-CAPABILITY]}
+  - {sources: [LM-TARGET-RELATIVE-PROJECTION], relation: CONSTRAINS, targets: [CIM-CURRENT-STATE, CIM-GAP]}
+  - {sources: [LM-INDIVIDUAL-ATTRIBUTION], relation: CONSTRAINS, targets: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS]}
+  - {sources: [LM-KNOWLEDGE-BOUNDARY], relation: CONSTRAINS, targets: [CIM-SEMANTIC-BOUNDARIES]}
+  - {sources: [LM-INTEGRATION-BOUNDARY], relation: CONSTRAINS, targets: [CIM-EVIDENCE, CIM-ACTIVITY]}
+dispositions: []
