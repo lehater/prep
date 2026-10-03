@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.frontend-performance-capacity
+links:
+  - {sources: [KM-KNOWLEDGE-OBJECT-IDENTITY], relation: CONSTRAINS, targets: [QD-SEMANTIC-PRESERVATION, QD-ACTIVE-WORKING-SET-FREEDOM]}
+  - {sources: [KM-KNOWLEDGE-PROPOSITION], relation: CONSTRAINS, targets: [QD-SEMANTIC-PRESERVATION]}
+  - {sources: [KM-RELATIONAL-PROPOSITION], relation: CONSTRAINS, targets: [QD-SEMANTIC-PRESERVATION]}
+  - {sources: [KM-SCOPE-OVERVIEW-DEPTH], relation: TRANSFORMS, targets: [QD-EXPLORE-QUALITY-SCOPE, QD-ACTIVE-WORKING-SET-FREEDOM]}
+  - {sources: [KM-GRAPH-IS-PROJECTION], relation: CONSTRAINS, targets: [QD-GRAPH-CONDITIONAL, QD-NUMERIC-TARGETS-DEFERRED, QD-IDLE-TARGET-DEFERRED]}
+dispositions:
+  - {source: KM-KNOWLEDGE-FAMILY, status: NOT_APPLICABLE, rationale: "The Knowledge semantic family is preserved but does not itself establish a frontend quality target."}
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "Open knowledge-form classification does not define frontend performance or capacity."}
+  - {source: KM-CROSS-CONTEXT-BOUNDARY, status: NOT_APPLICABLE, rationale: "Cross-context ownership does not establish this runtime quality envelope."}
+  - {source: KM-BOOTSTRAP-CORRECTION, status: NOT_APPLICABLE, rationale: "Knowledge correction lifecycle does not establish frontend performance or capacity targets."}

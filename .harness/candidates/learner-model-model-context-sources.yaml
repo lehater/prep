@@ -1,0 +1,83 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: MC-PREPARATION-DIRECTION
+      kind: model-context
+      subject: preparation-direction
+      semantic_value: Preparation Direction is the independent normative language for active target, target purpose, target-relative requirements, uncertainty, next focus, target refinement, and focus adaptation.
+      derived_from: [DS-PREPARATION-DIRECTION, REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-CAPABILITY-PERFORMANCE
+      kind: model-context
+      subject: capability-performance
+      semantic_value: Capability and Performance is the independent reusable normative language for required human performance, material conditions or constraints, acceptable quality, and the stable performance meaning referenced by targets, support, transfer judgments, and learner-state conclusions.
+      derived_from: [DS-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-LEARNER-EVIDENCE-STATE
+      kind: model-context
+      subject: learner-evidence-state
+      semantic_value: Learner Evidence and State is the independent learner-specific descriptive and epistemic language for contextualized observations, provenance, evidence applicability, and evidence-bounded capability conclusions.
+      derived_from: [DS-LEARNER-EVIDENCE-STATE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-SUBJECT-KNOWLEDGE
+      kind: model-context
+      subject: subject-knowledge
+      semantic_value: Subject Knowledge is the independent reusable subject-semantic language for concepts or subject meanings, meaningful relationships, relevant scope, and coherent overview-to-detail structure.
+      derived_from: [DS-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-KNOWLEDGE-TO-CAPABILITY
+      kind: model-context-translation
+      subject: subject-knowledge-to-capability-performance
+      semantic_value: Capability and Performance may reference reusable Subject Knowledge while preserving the distinction between subject meaning and the ability to perform with or about that knowledge.
+      derived_from: [DS-SUBJECT-KNOWLEDGE, DS-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-CAPABILITY-TO-DIRECTION
+      kind: model-context-translation
+      subject: capability-performance-to-preparation-direction
+      semantic_value: Preparation Direction may select target-relative required performance from reusable Capability and Performance meaning while preserving target purpose, applicable conditions, required quality, and no automatic inheritance across related targets.
+      derived_from: [DS-CAPABILITY-PERFORMANCE, DS-PREPARATION-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-SEMANTICS-TO-PRACTICE
+      kind: model-context-translation
+      subject: capability-knowledge-to-practice-learning
+      semantic_value: Practice, learning, or diagnostic execution may receive required performance meaning and relevant subject context to provide suitable opportunities without acquiring ownership of those semantics.
+      derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-CAPABILITY-PERFORMANCE, DS-SUBJECT-KNOWLEDGE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-PRACTICE-TO-EVIDENCE
+      kind: model-context-translation
+      subject: practice-learning-to-learner-evidence
+      semantic_value: Practice or diagnostic execution may return contextualized observations into Learner Evidence and State while preserving performance context, provenance, time, semantic references, and the observation-versus-conclusion distinction.
+      derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-LEARNER-EVIDENCE-STATE, REQ-CAP-PRACTICE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-EVIDENCE-JUSTIFICATION]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-EVIDENCE-TO-DIRECTION
+      kind: model-context-translation
+      subject: learner-evidence-to-preparation-direction
+      semantic_value: Accepted learner-state conclusions and uncertainty may inform next focus and adaptation while preserving evidence limitations and without redefining target requirements or reusable capability meaning.
+      derived_from: [DS-LEARNER-EVIDENCE-STATE, DS-PREPARATION-DIRECTION, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS
+      kind: model-context-translation
+      subject: bootstrap-source-to-semantic-owners
+      semantic_value: Fragmented source material may produce candidate target, capability-performance, subject-knowledge, or evidence-support information while accepted meaning remains owned by the corresponding model context.
+      derived_from: [DS-PREPARATION-BOOTSTRAP, REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-KNOWLEDGE-OVERVIEW]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  

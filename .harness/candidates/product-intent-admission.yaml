@@ -1,0 +1,62 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRODUCT-VISION
+capability: prep.product-intent
+path: .harness/knowledge/product-intent.yaml
+changed_paths:
+  - .harness/knowledge/product-intent.yaml
+canonical_references:
+  - artifact: PRODUCT-VISION
+    referenced_path: docs/vision/user-needs.yaml
+
+semantic_assertions:
+  - id: REQ-TARGET-REFINEMENT
+    kind: product-requirement
+    subject: GOAL-TARGET
+    semantic_value: The product enables the learner to establish and refine a selected preparation target while keeping uncertainty and later target changes explicit.
+    derived_from: [GOAL-TARGET, NEED-TARGET]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-STATE-EVIDENCE
+    kind: product-requirement
+    subject: GOAL-STATE
+    semantic_value: The product presents current capability in terms of accepted evidence and distinguishes demonstrated, challenged, and unknown state.
+    derived_from: [GOAL-STATE, NEED-STATE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-NEXT-FOCUS
+    kind: product-requirement
+    subject: GOAL-PRIORITY
+    semantic_value: The product supports choosing the next preparation focus using target relevance, uncertainty, available evidence, and available time.
+    derived_from: [GOAL-PRIORITY, NEED-PRIORITY]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-PERFORMANCE-EVIDENCE
+    kind: product-requirement
+    subject: GOAL-PROGRESS
+    semantic_value: The product supports preparation and practice that can produce target-relevant capability or performance evidence without treating activity or exposure as proof.
+    derived_from: [GOAL-PROGRESS, NEED-PROGRESS]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-ADAPTIVE-UPDATE
+    kind: product-requirement
+    subject: GOAL-ADAPT
+    semantic_value: The product reflects accepted new evidence in preparation state and priorities and permits target understanding to be revised when warranted.
+    derived_from: [GOAL-ADAPT, NEED-ADAPT]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-LOW-OVERHEAD-BOOTSTRAP
+    kind: product-requirement
+    subject: GOAL-BOOTSTRAP
+    semantic_value: The product supports turning fragmented or incomplete source material into usable preparation scope without requiring learner-maintained reusable semantic corpus.
+    derived_from: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - observable-product-level
+    - no-downstream-design-promotion

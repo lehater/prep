@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.model-context-strategy
+target_capability: prep.learner-model
+links:
+  - {sources: [MC-LEARNER-EVIDENCE-STATE], relation: TRANSFORMS, targets: [LM-PERFORMANCE, LM-OBSERVATION, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY]}
+  - {sources: [MC-CAPABILITY-PERFORMANCE], relation: CONSTRAINS, targets: [LM-CAPABILITY-CLAIM, LM-TEMPORAL-TRANSFER]}
+  - {sources: [TR-PRACTICE-TO-EVIDENCE], relation: TRANSFORMS, targets: [LM-PERFORMANCE, LM-OBSERVATION, LM-EVIDENCE-ARGUMENT, LM-INTEGRATION-BOUNDARY]}
+  - {sources: [TR-EVIDENCE-TO-DIRECTION], relation: TRANSFORMS, targets: [LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]}
+dispositions:
+  - {source: MC-PREPARATION-DIRECTION, status: NOT_APPLICABLE, rationale: "Preparation Direction consumes learner-state projections but does not define learner evidence identity."}
+  - {source: MC-SUBJECT-KNOWLEDGE, status: NOT_APPLICABLE, rationale: "Subject Knowledge remains a separate reusable semantic language and is only referenced for context."}
+  - {source: TR-KNOWLEDGE-TO-CAPABILITY, status: NOT_APPLICABLE, rationale: "Knowledge-to-capability focus is Capability & Performance semantics, not learner evidence."}
+  - {source: TR-CAPABILITY-TO-DIRECTION, status: NOT_APPLICABLE, rationale: "Target requirement selection does not define learner evidence."}
+  - {source: TR-SEMANTICS-TO-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice design feeds execution but is not learner-evidence identity."}
+  - {source: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS, status: NOT_APPLICABLE, rationale: "Bootstrap may introduce evidence-support data but does not define actual learner evidence/state."}

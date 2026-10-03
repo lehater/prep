@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-intent
+target_capability: prep.product-capabilities
+links:
+  - {sources: [REQ-TARGET-REFINEMENT], relation: TRANSFORMS, targets: [REQ-CAP-TARGET]}
+  - {sources: [REQ-STATE-EVIDENCE], relation: TRANSFORMS, targets: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE]}
+  - {sources: [REQ-NEXT-FOCUS], relation: TRANSFORMS, targets: [REQ-CAP-FOCUS]}
+  - {sources: [REQ-PERFORMANCE-EVIDENCE], relation: TRANSFORMS, targets: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-PRACTICE]}
+  - {sources: [REQ-ADAPTIVE-UPDATE], relation: TRANSFORMS, targets: [REQ-CAP-ADAPT]}
+  - {sources: [REQ-LOW-OVERHEAD-BOOTSTRAP], relation: TRANSFORMS, targets: [REQ-CAP-BOOTSTRAP]}
+  - {sources: [REQ-KNOWLEDGE-ORIENTATION], relation: TRANSFORMS, targets: [REQ-CAP-KNOWLEDGE-OVERVIEW]}
+  - {sources: [REQ-KNOWLEDGE-RELATIONSHIPS], relation: TRANSFORMS, targets: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS]}
+  - {sources: [REQ-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [REQ-CAP-KNOWLEDGE-SCOPE]}
+  - {sources: [REQ-KNOWLEDGE-DEPTH], relation: TRANSFORMS, targets: [REQ-CAP-KNOWLEDGE-DEPTH]}
+dispositions: []

@@ -1,0 +1,35 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: DS-PREPARATION-DIRECTION
+      kind: domain-strategy-responsibility
+      subject: preparation-direction
+      semantic_value: CORE responsibility for active target, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction as evidence or target information changes.
+      derived_from: [REQ-CAP-TARGET, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-LEARNER-EVIDENCE-STATE
+      kind: domain-strategy-responsibility
+      subject: learner-evidence-state
+      semantic_value: CORE responsibility for contextualized learner evidence and evidence-bounded conclusions about demonstrated, challenged, and unknown target-relative capability.
+      derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-ADAPT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-PRACTICE-ENABLEMENT
+      kind: domain-strategy-responsibility
+      subject: practice-enablement
+      semantic_value: SUPPORTING responsibility for enabling or delegating learning, practice, and diagnostic activity capable of producing target-relevant evidence.
+      derived_from: [REQ-CAP-PRACTICE, REQ-CAP-EVIDENCE-CONTEXT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-PREPARATION-BOOTSTRAP
+      kind: domain-strategy-responsibility
+      subject: preparation-bootstrap
+      semantic_value: SUPPORTING responsibility for turning fragmented or incomplete source material into enough usable preparation scope to begin work with low learner overhead.
+      derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  

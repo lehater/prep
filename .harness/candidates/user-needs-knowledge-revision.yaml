@@ -1,0 +1,117 @@
+version: 1
+kind: user-needs
+id: PREP-USER-NEEDS-KNOWLEDGE-REVISION-CANDIDATE
+noncanonical: true
+
+context_of_use:
+  users:
+    - id: primary-learner
+      description: Person preparing toward an external or self-defined capability/performance target.
+  environment:
+    - Preparation happens under incomplete target information, partial self-knowledge, fragmented sources, limited time/attention, and potentially unfamiliar subject structure.
+
+goals:
+  - id: GOAL-TARGET
+    outcome: Establish and refine a usable preparation target as expectations become clearer.
+    evidence_refs: [OBS-P01, OBS-P08, OBS-P06]
+  - id: GOAL-STATE
+    outcome: Understand current capability, gaps, and uncertainty from evidence rather than familiarity alone.
+    evidence_refs: [OBS-P02, OBS-P04, OBS-P07]
+  - id: GOAL-PRIORITY
+    outcome: Decide what deserves attention next under limited time and changing conditions.
+    evidence_refs: [OBS-P05, OBS-P06, OBS-P01]
+  - id: GOAL-PROGRESS
+    outcome: Improve toward the target using learning or practice that produces credible evidence of capability.
+    evidence_refs: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+  - id: GOAL-ADAPT
+    outcome: Adapt preparation when new evidence changes priorities or understanding of the target.
+    evidence_refs: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+  - id: GOAL-BOOTSTRAP
+    outcome: Get to a usable preparation scope when starting from fragmented or incomplete sources.
+    evidence_refs: [OBS-P03, OBS-P09, OBS-P13]
+  - id: GOAL-KNOWLEDGE-ORIENTATION
+    outcome: Form a coherent initial mental model of the relevant subject when the area is unfamiliar.
+    evidence_refs: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+  - id: GOAL-RELATIONAL-UNDERSTANDING
+    outcome: Understand how relevant concepts meaningfully relate rather than learning isolated descriptions only.
+    evidence_refs: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+  - id: GOAL-KNOWLEDGE-SCOPE
+    outcome: Keep the considered knowledge scope cognitively manageable while retaining what is relevant to the learning purpose.
+    evidence_refs: [OBS-P10, OBS-P12]
+  - id: GOAL-KNOWLEDGE-DEPTH
+    outcome: Move between overview and deeper detail as understanding develops.
+    evidence_refs: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+
+observed_current_work:
+  - People assemble role/company/interview expectations from multiple sources and revise them as new information appears.
+  - People commonly use activity counts or topic coverage as weak proxies until mocks or real interviews expose capability gaps.
+  - People switch priorities across coding, system design, stack knowledge, practical work, and behavioral preparation under time pressure.
+  - People usually assemble external guides, notes, question sets, and company-specific material rather than maintain a reusable semantic corpus.
+  - Stakeholder input reports that isolated material makes unfamiliar subject structure and concept relationships difficult to grasp; representative-user confirmation remains open.
+
+user_needs:
+  - id: NEED-TARGET
+    user_ref: primary-learner
+    goal_ref: GOAL-TARGET
+    statement: The learner needs a coherent but refinable understanding of what the selected target expects, including uncertainty and later target refinement.
+    evidence_refs: [OBS-P01, OBS-P08, OBS-P06]
+  - id: NEED-STATE
+    user_ref: primary-learner
+    goal_ref: GOAL-STATE
+    statement: The learner needs an evidence-based view of what is demonstrated, challenged, or still unknown about their current capability.
+    evidence_refs: [OBS-P02, OBS-P04, OBS-P07]
+  - id: NEED-PRIORITY
+    user_ref: primary-learner
+    goal_ref: GOAL-PRIORITY
+    statement: The learner needs to identify the highest-value next preparation focus using target relevance, uncertainty, evidence, and available time.
+    evidence_refs: [OBS-P05, OBS-P06, OBS-P01]
+  - id: NEED-PROGRESS
+    user_ref: primary-learner
+    goal_ref: GOAL-PROGRESS
+    statement: The learner needs preparation activities and feedback that generate evidence relevant to the capability or performance the target actually requires.
+    evidence_refs: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+  - id: NEED-ADAPT
+    user_ref: primary-learner
+    goal_ref: GOAL-ADAPT
+    statement: The learner needs new evidence to update both preparation priorities and, when warranted, understanding of the target itself.
+    evidence_refs: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+  - id: NEED-BOOTSTRAP
+    user_ref: primary-learner
+    goal_ref: GOAL-BOOTSTRAP
+    statement: The learner needs a low-overhead path from fragmented source material to usable preparation support while supporting knowledge data can be added or corrected without requiring learner ownership of internal corpus maintenance.
+    evidence_refs: [OBS-P03, OBS-P09, OBS-P13]
+  - id: NEED-KNOWLEDGE-ORIENTATION
+    user_ref: primary-learner
+    goal_ref: GOAL-KNOWLEDGE-ORIENTATION
+    statement: The learner needs an intelligible overview of the important concepts in the relevant subject scope and how they fit together.
+    evidence_refs: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+  - id: NEED-RELATIONSHIPS
+    user_ref: primary-learner
+    goal_ref: GOAL-RELATIONAL-UNDERSTANDING
+    statement: The learner needs the meaning of relationships among relevant concepts to remain inspectable so connected concepts can be understood in context.
+    evidence_refs: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+  - id: NEED-KNOWLEDGE-SCOPE
+    user_ref: primary-learner
+    goal_ref: GOAL-KNOWLEDGE-SCOPE
+    statement: The learner needs to narrow and expand the considered subject scope using meaningful criteria relevant to the learning purpose.
+    evidence_refs: [OBS-P10, OBS-P12]
+  - id: NEED-KNOWLEDGE-DEPTH
+    user_ref: primary-learner
+    goal_ref: GOAL-KNOWLEDGE-DEPTH
+    statement: The learner needs to move between high-level orientation and deeper detail without losing the surrounding conceptual context.
+    evidence_refs: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+
+scope:
+  assumptions:
+    - Existing preparation-loop needs retain their prior evidence status.
+    - Knowledge-orientation needs are currently supported by explicit stakeholder input accepted in Problem Evidence and remain to be triangulated with independent target users.
+    - No graph, spatial layout, 3D representation, graph database, or mandatory curator role is implied.
+  research_questions:
+    - Do representative users experience the proposed structural-orientation and relationship-understanding needs in the motivating preparation context?
+    - Which scope/depth distinctions are useful rather than cognitively burdensome?
+    - Who or what should maintain reusable supporting knowledge data without shifting internal corpus work onto the learner?
+    - Usability, accessibility, and concrete interface presentation remain downstream questions.
+
+sufficiency_review:
+  status: CANDIDATE
+  rationale: This revision covers every proposed knowledge-orientation goal with a solution-independent need, but requires Harness semantic revision/admission before it can replace the accepted canonical User Needs.

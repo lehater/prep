@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.model-context-strategy
+target_capability: prep.knowledge-relation-classification
+links:
+  - {sources: [MC-SUBJECT-KNOWLEDGE], relation: TRANSFORMS, targets: [KRC-SUBJECT-KNOWLEDGE-SCOPE, KRC-PREDICATE-NOT-ASSERTION, KRC-PRESERVE-RELATION-MEANING, KRC-EVIDENCE-BOUNDED-CLASSIFICATION, KRC-EXISTING-VOCABULARY-CONTINUITY]}
+  - {sources: [TR-KNOWLEDGE-TO-CAPABILITY], relation: TRANSFORMS, targets: [KRC-SUBJECT-KNOWLEDGE-SCOPE]}
+dispositions:
+  - {source: MC-PREPARATION-DIRECTION, status: NOT_APPLICABLE, rationale: "Preparation Direction does not own reusable Subject Knowledge relation predicates."}
+  - {source: MC-CAPABILITY-PERFORMANCE, status: NOT_APPLICABLE, rationale: "Capability and Performance is an independent model language; its relationships are not Subject Knowledge predicate classification."}
+  - {source: MC-LEARNER-EVIDENCE-STATE, status: NOT_APPLICABLE, rationale: "Learner-specific evidence/state relationships are outside reusable Subject Knowledge relation vocabulary."}
+  - {source: TR-CAPABILITY-TO-DIRECTION, status: NOT_APPLICABLE, rationale: "Target requirement translation is cross-context and excluded from Subject Knowledge relation classification."}
+  - {source: TR-SEMANTICS-TO-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice/learning translation is a cross-context contract, not a Subject Knowledge relation predicate."}
+  - {source: TR-PRACTICE-TO-EVIDENCE, status: NOT_APPLICABLE, rationale: "Observation transfer is learner-evidence semantics, not Subject Knowledge relation classification."}
+  - {source: TR-EVIDENCE-TO-DIRECTION, status: NOT_APPLICABLE, rationale: "Learner-state-to-direction translation is outside Subject Knowledge."}
+  - {source: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS, status: NOT_APPLICABLE, rationale: "Bootstrap routes candidate semantics to owners and does not define Subject Knowledge relation predicates."}

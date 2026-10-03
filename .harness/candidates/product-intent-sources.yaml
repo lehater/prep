@@ -1,0 +1,163 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: ACTOR-PRIMARY-LEARNER
+      kind: user-actor
+      subject: primary-learner
+      semantic_value: Person preparing toward an external or self-defined capability or performance target.
+      derived_from: [PE-ACTOR]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: CONTEXT-PREPARATION
+      kind: context-of-use
+      subject: primary-preparation-context
+      semantic_value: Preparation occurs under incomplete target information, partial self-knowledge, fragmented sources, and limited time or attention.
+      derived_from: [OBS-P01, OBS-P02, OBS-P03, OBS-P05]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-TARGET
+      kind: user-goal
+      subject: target-understanding
+      semantic_value: Establish and refine a usable preparation target as expectations become clearer.
+      derived_from: [OBS-P01, OBS-P08, OBS-P06]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-STATE
+      kind: user-goal
+      subject: current-state-understanding
+      semantic_value: Understand current capability, gaps, and uncertainty from evidence rather than familiarity alone.
+      derived_from: [OBS-P02, OBS-P04, OBS-P07]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-PRIORITY
+      kind: user-goal
+      subject: next-focus
+      semantic_value: Decide what deserves attention next under limited time and changing conditions.
+      derived_from: [OBS-P05, OBS-P06, OBS-P01]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-PROGRESS
+      kind: user-goal
+      subject: credible-progress
+      semantic_value: Improve toward the target using learning or practice that produces credible evidence of capability.
+      derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-ADAPT
+      kind: user-goal
+      subject: preparation-adaptation
+      semantic_value: Adapt preparation when new evidence changes priorities or understanding of the target.
+      derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: GOAL-BOOTSTRAP
+      kind: user-goal
+      subject: preparation-bootstrap
+      semantic_value: Get to a usable preparation scope when starting from fragmented or incomplete sources.
+      derived_from: [OBS-P03, OBS-P09, OBS-P08]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-TARGET
+      kind: user-need
+      subject: GOAL-TARGET
+      semantic_value: The learner needs a coherent but refinable understanding of what the selected target expects, including uncertainty and later target refinement.
+      derived_from: [OBS-P01, OBS-P08, OBS-P06]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-STATE
+      kind: user-need
+      subject: GOAL-STATE
+      semantic_value: The learner needs an evidence-based view of what is demonstrated, challenged, or still unknown about current capability.
+      derived_from: [OBS-P02, OBS-P04, OBS-P07]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-PRIORITY
+      kind: user-need
+      subject: GOAL-PRIORITY
+      semantic_value: The learner needs to identify the highest-value next preparation focus using target relevance, uncertainty, evidence, and available time.
+      derived_from: [OBS-P05, OBS-P06, OBS-P01]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-PROGRESS
+      kind: user-need
+      subject: GOAL-PROGRESS
+      semantic_value: The learner needs preparation activities and feedback that generate evidence relevant to the capability or performance the target actually requires.
+      derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-ADAPT
+      kind: user-need
+      subject: GOAL-ADAPT
+      semantic_value: The learner needs new evidence to update both preparation priorities and, when warranted, understanding of the target itself.
+      derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: NEED-BOOTSTRAP
+      kind: user-need
+      subject: GOAL-BOOTSTRAP
+      semantic_value: The learner needs a low-overhead path from fragmented source material to usable preparation support without being required to maintain an internal reusable semantic corpus.
+      derived_from: [OBS-P03, OBS-P09]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-TARGET
+      kind: need-evidence
+      subject: NEED-TARGET
+      semantic_value: Supported by target uncertainty, external-target translation, and changing-state evidence.
+      derived_from: [OBS-P01, OBS-P08, OBS-P06]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-STATE
+      kind: need-evidence
+      subject: NEED-STATE
+      semantic_value: Supported by partial observability, exposure-versus-capability, and retention or transfer risk.
+      derived_from: [OBS-P02, OBS-P04, OBS-P07]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-PRIORITY
+      kind: need-evidence
+      subject: NEED-PRIORITY
+      semantic_value: Supported by limited resources, changing state, and target uncertainty.
+      derived_from: [OBS-P05, OBS-P06, OBS-P01]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-PROGRESS
+      kind: need-evidence
+      subject: NEED-PROGRESS
+      semantic_value: Supported by exposure-versus-capability, retention or transfer risk, and the accepted desired outcome.
+      derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-ADAPT
+      kind: need-evidence
+      subject: NEED-ADAPT
+      semantic_value: Supported by changing-state, external-target-translation, and accepted desired-outcome evidence.
+      derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  
+    - id: EVIDENCE-NEED-BOOTSTRAP
+      kind: need-evidence
+      subject: NEED-BOOTSTRAP
+      semantic_value: Supported by fragmented knowledge and preparation bootstrap evidence.
+      derived_from: [OBS-P03, OBS-P09]
+      decision_authority: DISCOVERY
+      source_artifact: USER-NEEDS
+  

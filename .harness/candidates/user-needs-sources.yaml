@@ -1,0 +1,14 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+  - {id: PE-ACTOR, kind: problem-actor, subject: primary-learner, semantic_value: "A person preparing toward an external or self-defined learning target.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P01, kind: problem-observation, subject: target-uncertainty, semantic_value: "A real learning goal can require uncertain scope and different depths of capability.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P02, kind: problem-observation, subject: partial-observability, semantic_value: "The learner's current state is not directly known and must be approached through imperfect evidence.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P03, kind: problem-observation, subject: fragmented-knowledge, semantic_value: "Relevant material may be incomplete, inconsistent, redundant, or expressed with different terminology.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P04, kind: problem-observation, subject: exposure-vs-capability, semantic_value: "Encountering information does not establish later recall, explanation, reasoning, or application.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P05, kind: problem-observation, subject: limited-resources, semantic_value: "Time and attention force choices about what deserves attention next.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P06, kind: problem-observation, subject: changing-state, semantic_value: "New learning or evidence can change what should be learned or checked next.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P07, kind: problem-observation, subject: retention-transfer-risk, semantic_value: "Immediate success does not guarantee later availability or transfer to another context.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P08, kind: problem-observation, subject: external-target-translation, semantic_value: "External role or opportunity descriptions may need to be translated into a coherent, reviewable, refinable target capability profile.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: OBS-P09, kind: problem-observation, subject: preparation-bootstrap, semantic_value: "Useful preparation may start without ready target, knowledge, task-material, or evidence-design data and must be bootstrapped from sources or prepared structure.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}
+  - {id: PE-DESIRED-OUTCOME, kind: desired-outcome, subject: reliable-progress, semantic_value: "The learner can reliably decide what matters next, act on it, obtain evidence of change, and adapt preparation as target understanding or learner state changes.", decision_authority: DISCOVERY, source_artifact: PROBLEM-SPACE}

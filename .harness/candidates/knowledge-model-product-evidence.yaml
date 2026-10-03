@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.knowledge-model
+links:
+  - {sources: [REQ-CAP-PERFORMANCE-REQUIREMENT], relation: CONSTRAINS, targets: [KM-CROSS-CONTEXT-BOUNDARY]}
+  - {sources: [REQ-CAP-BOOTSTRAP], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-PROPOSITION, KM-BOOTSTRAP-CORRECTION]}
+  - {sources: [REQ-CAP-KNOWLEDGE-OVERVIEW], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-OPEN-KNOWLEDGE-FORM, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION]}
+  - {sources: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-GRAPH-IS-PROJECTION]}
+  - {sources: [REQ-CAP-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-OBJECT-IDENTITY, KM-SCOPE-OVERVIEW-DEPTH]}
+  - {sources: [REQ-CAP-KNOWLEDGE-DEPTH], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-OBJECT-IDENTITY, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION]}
+dispositions:
+  - {source: REQ-CAP-TARGET, status: NOT_APPLICABLE, rationale: "Target lifecycle is Preparation Direction semantics."}
+  - {source: REQ-CAP-TARGET-PURPOSE, status: NOT_APPLICABLE, rationale: "Target purpose may select knowledge relevance downstream but does not define reusable Subject Knowledge."}
+  - {source: REQ-CAP-EVIDENCE-CONTEXT, status: NOT_APPLICABLE, rationale: "Learner evidence context is outside Subject Knowledge."}
+  - {source: REQ-CAP-STATE, status: NOT_APPLICABLE, rationale: "Learner state cannot define reusable Subject Knowledge."}
+  - {source: REQ-CAP-EVIDENCE-JUSTIFICATION, status: NOT_APPLICABLE, rationale: "Capability evidence justification is outside Subject Knowledge."}
+  - {source: REQ-CAP-FOCUS, status: NOT_APPLICABLE, rationale: "Next preparation focus selects what is relevant but is not intrinsic Knowledge semantics."}
+  - {source: REQ-CAP-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice consumes knowledge but is not Subject Knowledge."}
+  - {source: REQ-CAP-DURABLE-TRANSFER, status: NOT_APPLICABLE, rationale: "Retention and transfer are capability/evidence semantics."}
+  - {source: REQ-CAP-SUPPORT-FIT, status: NOT_APPLICABLE, rationale: "Support fit is practice/capability semantics rather than reusable Subject Knowledge."}
+  - {source: REQ-CAP-ADAPT, status: NOT_APPLICABLE, rationale: "Learner-state/focus adaptation does not redefine Subject Knowledge."}

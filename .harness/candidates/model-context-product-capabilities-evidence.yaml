@@ -1,0 +1,13 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.model-context-strategy
+links:
+  - {sources: [REQ-CAP-TARGET], relation: TRANSFORMS, targets: [MC-PREPARATION-DIRECTION, TR-BOOTSTRAP-TO-DIRECTION]}
+  - {sources: [REQ-CAP-EVIDENCE-CONTEXT], relation: TRANSFORMS, targets: [MC-LEARNER-EVIDENCE-STATE, TR-PRACTICE-TO-EVIDENCE]}
+  - {sources: [REQ-CAP-STATE], relation: TRANSFORMS, targets: [MC-LEARNER-EVIDENCE-STATE]}
+  - {sources: [REQ-CAP-FOCUS], relation: TRANSFORMS, targets: [MC-PREPARATION-DIRECTION, TR-DIRECTION-TO-PRACTICE]}
+  - {sources: [REQ-CAP-PRACTICE], relation: TRANSFORMS, targets: [TR-DIRECTION-TO-PRACTICE, TR-PRACTICE-TO-EVIDENCE]}
+  - {sources: [REQ-CAP-ADAPT], relation: TRANSFORMS, targets: [MC-PREPARATION-DIRECTION, MC-LEARNER-EVIDENCE-STATE, TR-LEARNER-STATE-TO-DIRECTION]}
+  - {sources: [REQ-CAP-BOOTSTRAP], relation: TRANSFORMS, targets: [TR-BOOTSTRAP-TO-DIRECTION]}
+dispositions: []

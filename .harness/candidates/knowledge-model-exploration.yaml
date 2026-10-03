@@ -1,0 +1,48 @@
+version: 1
+kind: prep-domain-model-exploration
+capability: prep.knowledge-model
+knowledge_kind: domain-model
+mode: CREATE
+donor_baseline: docs/domain/knowledge-model.md
+axes:
+  - axis: semantic-identity
+    alternatives:
+      - {id: universal-node, effect: "One generic node identity for all subject meaning."}
+      - {id: object-plus-proposition, effect: "Separate coherent subject objects from independently addressable propositions."}
+      - {id: closed-typed-entities, effect: "Separate fixed Concept/Mechanism/Procedure/Strategy entity classes."}
+    selected_basis: object-plus-proposition
+    rationale: "Preserves independently addressable propositions without forcing every subject referent into a closed ontology or a universal graph carrier."
+  - axis: invariants
+    alternatives:
+      - {id: context-mutates-knowledge, effect: "Target/learner/scope/presentation changes can mutate knowledge truth or identity."}
+      - {id: reusable-subject-truth, effect: "Learner, target, scope and presentation remain external to reusable subject identity."}
+    selected_basis: reusable-subject-truth
+    rationale: "Required by the accepted Subject Knowledge context boundary."
+  - axis: lifecycle
+    alternatives:
+      - {id: source-identity, effect: "Knowledge continuity follows source/document identity."}
+      - {id: semantic-identity, effect: "Continuity follows reusable subject meaning; material semantic change may create new identity."}
+    selected_basis: semantic-identity
+    rationale: "Supports incremental correction without equating file/source changes with subject changes."
+  - axis: relationships
+    alternatives:
+      - {id: first-class-generic-edge, effect: "Generic KnowledgeRelation entity carries all links."}
+      - {id: proposition-plus-predicate, effect: "Relational assertion is a KnowledgeProposition classified by predicate vocabulary."}
+      - {id: free-text-only, effect: "Relations remain unstructured prose."}
+    selected_basis: proposition-plus-predicate
+    rationale: "Preserves relation meaning and addressability while keeping predicate vocabulary separate from assertions."
+  - axis: responsibility-boundaries
+    alternatives:
+      - {id: absorb-cross-context-links, effect: "Capability/target/evidence links become Knowledge graph edges."}
+      - {id: subject-only, effect: "Only reusable subject propositions live here; cross-context links stay with their semantic owners."}
+    selected_basis: subject-only
+    rationale: "Required by current Model Context Strategy and prevents graph convenience from collapsing contexts."
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  open_gaps: []
+note: "The historical model is donor evidence. The accepted choices above are re-derived from current upstream semantics and relation-classification invariants."

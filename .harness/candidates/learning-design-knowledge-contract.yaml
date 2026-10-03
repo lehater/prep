@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.knowledge-model
+target_capability: prep.learning-design
+obligations:
+  - id: knowledge-domain-model
+    source_kind: domain-model
+    min_count: 4
+    allow_not_applicable: true
+  - id: knowledge-domain-invariants
+    source_kind: domain-invariant
+    min_count: 5
+    allow_not_applicable: true
+lifecycle_dependency:
+  exhaustive: true

@@ -1,0 +1,75 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: KM-KNOWLEDGE-FAMILY
+      kind: domain-model
+      subject: subject-knowledge-family
+      semantic_value: Reusable Subject Knowledge has two independently addressable semantic forms, KnowledgeObject and KnowledgeProposition, without requiring either a universal graph-node carrier or a closed hierarchy of knowledge entity subtypes.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-KNOWLEDGE-OBJECT-IDENTITY
+      kind: domain-model
+      subject: knowledge-object-identity
+      semantic_value: A KnowledgeObject has stable reusable subject-semantic identity independent of learner, target, capability reference, task, source location, graph position, selected scope, and interface representation.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-KNOWLEDGE-PROPOSITION
+      kind: domain-model
+      subject: knowledge-proposition
+      semantic_value: A KnowledgeProposition is an independently addressable reusable subject proposition with participants or conditions when needed; provenance/support may justify acceptance but does not define semantic identity.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-BOOTSTRAP]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-RELATIONAL-PROPOSITION
+      kind: domain-invariant
+      subject: relational-subject-knowledge
+      semantic_value: Relational Subject Knowledge is a KnowledgeProposition classified by the accepted relation predicate vocabulary; a predicate is not an assertion, and predicate-specific direction and inference semantics must be preserved.
+      derived_from: [KRC-PREDICATE-NOT-ASSERTION, KRC-PRESERVE-RELATION-MEANING, KRC-EVIDENCE-BOUNDED-CLASSIFICATION, KRC-EXISTING-VOCABULARY-CONTINUITY]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-OPEN-KNOWLEDGE-FORM
+      kind: domain-model
+      subject: knowledge-form
+      semantic_value: KnowledgeObject may use an optional open semantic-form classification such as concept, mechanism, procedure, strategy, model, or property; relation-derived roles such as solution/problem or realization/abstraction are not permanent global entity kinds.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, KRC-EXISTING-VOCABULARY-CONTINUITY]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-SCOPE-OVERVIEW-DEPTH
+      kind: domain-invariant
+      subject: knowledge-projection-semantics
+      semantic_value: Overview, current scope, and overview-to-detail depth are contextual projections or disclosures over stable KnowledgeObjects and KnowledgePropositions; changing them does not clone or mutate Knowledge identity, and relevance/importance are not intrinsic immutable Knowledge properties.
+      derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, MC-SUBJECT-KNOWLEDGE]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-CROSS-CONTEXT-BOUNDARY
+      kind: domain-invariant
+      subject: knowledge-cross-context-boundary
+      semantic_value: Capability-to-Knowledge focus, target requirements, practice/support links, observations, and learner-state claims remain owned by their model contexts or translations and must not be reclassified as Subject Knowledge propositions solely to connect them to Knowledge.
+      derived_from: [TR-KNOWLEDGE-TO-CAPABILITY, KRC-SUBJECT-KNOWLEDGE-SCOPE, REQ-CAP-PERFORMANCE-REQUIREMENT]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-BOOTSTRAP-CORRECTION
+      kind: domain-invariant
+      subject: knowledge-bootstrap-correction
+      semantic_value: Fragmented sources may propose new or corrected Subject Knowledge, but source/extraction mechanics do not own accepted truth; a material change in reusable meaning may require a new semantic identity rather than silently changing historical meaning.
+      derived_from: [TR-BOOTSTRAP-TO-SEMANTIC-OWNERS, REQ-CAP-BOOTSTRAP, KRC-EVIDENCE-BOUNDED-CLASSIFICATION]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-GRAPH-IS-PROJECTION
+      kind: domain-invariant
+      subject: knowledge-graph-boundary
+      semantic_value: A graph, including any 2D or 3D spatial arrangement, is one downstream projection of addressable Subject Knowledge and meaningful relationships rather than the semantic identity or mandatory interface of the domain model.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  

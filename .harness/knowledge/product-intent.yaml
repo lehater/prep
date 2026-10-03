@@ -1,0 +1,111 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: PRODUCT-VISION
+schema: product-requirements/v1
+title: Prep Product Intent
+
+content:
+  purpose: Define observable product commitments that support a learner from uncertain and potentially multi-purpose preparation targets through performance-shaped capability, evidence-backed state, appropriate learning support, durable transfer, and orientation within unfamiliar subject knowledge.
+
+  requirements:
+    - id: REQ-TARGET-REFINEMENT
+      statement: The product shall enable the learner to establish and refine a selected preparation target while keeping uncertainty and later target changes explicit.
+      status: ACCEPTED
+      source_refs: [GOAL-TARGET, NEED-TARGET]
+      rationale: A usable target must remain coherent without pretending that target expectations are complete or static.
+
+    - id: REQ-TARGET-PURPOSE
+      statement: The product shall keep related target purposes distinguishable and shall not silently treat requirements for one target purpose as requirements for another.
+      status: ACCEPTED
+      source_refs: [GOAL-TARGET-PURPOSE, NEED-TARGET-PURPOSE]
+      rationale: Professional-role, interview/selection, certification, and other targets may overlap without being equivalent.
+
+    - id: REQ-CAPABILITY-PERFORMANCE
+      statement: The product shall represent what the selected target requires the learner to be able to perform, including relevant conditions or constraints and acceptable quality, rather than reducing readiness to topic exposure or coverage.
+      status: ACCEPTED
+      source_refs: [GOAL-CAPABILITY-PERFORMANCE, NEED-CAPABILITY-PERFORMANCE]
+      rationale: The required outcome is performance-shaped and may differ even when subject topics overlap.
+
+    - id: REQ-STATE-EVIDENCE
+      statement: The product shall present the learner's current capability state in terms of accepted evidence, distinguishing demonstrated, challenged, and unknown state while preserving material limits from performance context, evidence age, or insufficient coverage.
+      status: ACCEPTED
+      source_refs: [GOAL-STATE, NEED-STATE]
+      rationale: Familiarity, activity, or narrow success alone is not sufficient evidence of current target-relative capability.
+
+    - id: REQ-EVIDENCE-JUSTIFICATION
+      statement: The product shall make the basis of a capability conclusion inspectable enough to show which observations matter and how performance context, provenance, target relevance, and temporal applicability affect that conclusion.
+      status: ACCEPTED
+      source_refs: [GOAL-EVIDENCE-JUSTIFICATION, NEED-EVIDENCE-JUSTIFICATION]
+      rationale: Learners need to understand why available evidence supports, challenges, or fails to establish readiness.
+
+    - id: REQ-NEXT-FOCUS
+      statement: The product shall support choosing the next preparation focus using target relevance, uncertainty, available evidence, and available time.
+      status: ACCEPTED
+      source_refs: [GOAL-PRIORITY, NEED-PRIORITY]
+      rationale: Preparation must remain actionable under limited time and changing conditions.
+
+    - id: REQ-PERFORMANCE-EVIDENCE
+      statement: The product shall support preparation and practice that can produce evidence relevant to the capability and performance required by the selected target without treating activity or exposure as proof of capability.
+      status: ACCEPTED
+      source_refs: [GOAL-PROGRESS, NEED-PROGRESS]
+      rationale: Progress requires evidence that bears on the performance the target actually demands.
+
+    - id: REQ-DURABLE-TRANSFER
+      statement: The product shall support judging whether relevant capability remains available over the required time horizon and transfers to target-relevant conditions rather than inferring durable readiness from immediate or narrow success alone.
+      status: ACCEPTED
+      source_refs: [GOAL-DURABLE-TRANSFER, NEED-DURABLE-TRANSFER]
+      rationale: Immediate performance can decay or fail to transfer to the context in which capability is ultimately needed.
+
+    - id: REQ-SUPPORT-FIT
+      statement: The product shall support learning, practice, or diagnostic opportunities appropriate to the required outcome and shall not treat completion of those opportunities as proof that the capability was developed.
+      status: ACCEPTED
+      source_refs: [GOAL-SUPPORT-FIT, NEED-SUPPORT-FIT]
+      rationale: Different required performances may need different forms of support, while support exposure remains distinct from evidence of learning.
+
+    - id: REQ-ADAPTIVE-UPDATE
+      statement: The product shall use accepted new evidence to update learner-state conclusions or preparation priorities and shall allow new external target information to refine target understanding without conflating those two changes.
+      status: ACCEPTED
+      source_refs: [GOAL-ADAPT, NEED-ADAPT]
+      rationale: The same preparation process can receive information about the learner and information about the target, but they have different meanings.
+
+    - id: REQ-LOW-OVERHEAD-BOOTSTRAP
+      statement: The product shall support turning fragmented or incomplete source material into usable preparation support and shall allow supporting target, capability, knowledge, and evidence-design data to be introduced or corrected incrementally without requiring the learner to maintain the internal reusable corpus.
+      status: ACCEPTED
+      source_refs: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP]
+      rationale: Preparation must be able to start before complete structured support data exists while avoiding mandatory learner-owned corpus maintenance.
+
+    - id: REQ-KNOWLEDGE-ORIENTATION
+      statement: The product shall support forming an intelligible overview of the important concepts within the relevant subject scope so the learner can understand how the subject fits together at a high level.
+      status: ACCEPTED
+      source_refs: [GOAL-KNOWLEDGE-ORIENTATION, NEED-KNOWLEDGE-ORIENTATION]
+      rationale: Unfamiliar subject material is difficult to learn when important concepts appear only as isolated fragments.
+
+    - id: REQ-KNOWLEDGE-RELATIONSHIPS
+      statement: The product shall make meaningful relationships among relevant concepts inspectable with their relationship meaning preserved.
+      status: ACCEPTED
+      source_refs: [GOAL-RELATIONAL-UNDERSTANDING, NEED-RELATIONSHIPS]
+      rationale: Relationship meaning is part of understanding the subject and must not be collapsed into generic connectivity.
+
+    - id: REQ-KNOWLEDGE-SCOPE
+      statement: The product shall support narrowing and expanding the considered subject-knowledge scope using meaningful criteria relevant to the learner's preparation purpose.
+      status: ACCEPTED
+      source_refs: [GOAL-KNOWLEDGE-SCOPE, NEED-KNOWLEDGE-SCOPE]
+      rationale: Large subject areas must be cognitively manageable without silently losing relevant context.
+
+    - id: REQ-KNOWLEDGE-DEPTH
+      statement: The product shall support movement between high-level orientation and deeper knowledge detail while preserving enough surrounding conceptual context to remain oriented.
+      status: ACCEPTED
+      source_refs: [GOAL-KNOWLEDGE-DEPTH, NEED-KNOWLEDGE-DEPTH]
+      rationale: One fixed level of detail can either hide useful structure or create overload.
+
+  non_goals:
+    - Define Capability, CapabilitySpecification, PerformanceExpectation, EvidencePattern, EvidentialWarrant, AssessmentDesign, LearningMaterial, or any other domain entity.
+    - Require one particular assessment, learning-support, practice, retention, or scheduling mechanism.
+    - Require automatic requirement inheritance between related targets.
+    - Require a graph, 2D graph, 3D graph, spatial layout, or any specific visualization technique.
+    - Define interface navigation, views, filtering controls, gestures, or screen composition.
+    - Define relation taxonomy, decomposition rules, aggregates, or semantic ownership.
+    - Define ranking, learner-state inference, extraction, generation, or graph-layout algorithms.
+    - Require the learner to own reusable corpus maintenance.
+    - Require a curator or operator role before ownership is accepted downstream.
+    - Define persistence model, graph database, API, deployment, or implementation technology.

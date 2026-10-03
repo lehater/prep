@@ -1,0 +1,80 @@
+version: 1
+kind: user-needs
+id: PREP-USER-NEEDS-CANDIDATE
+
+context_of_use:
+  users:
+    - id: primary-learner
+      description: Person preparing toward an external or self-defined capability/performance target.
+  environment:
+    - Preparation happens under incomplete target information, partial self-knowledge, fragmented sources, and limited time/attention.
+
+goals:
+  - id: GOAL-TARGET
+    outcome: Establish and refine a usable preparation target as expectations become clearer.
+    evidence_refs: [OBS-P01, OBS-P08, OBS-P06]
+  - id: GOAL-STATE
+    outcome: Understand current capability, gaps, and uncertainty from evidence rather than familiarity alone.
+    evidence_refs: [OBS-P02, OBS-P04, OBS-P07]
+  - id: GOAL-PRIORITY
+    outcome: Decide what deserves attention next under limited time and changing conditions.
+    evidence_refs: [OBS-P05, OBS-P06, OBS-P01]
+  - id: GOAL-PROGRESS
+    outcome: Improve toward the target using learning or practice that produces credible evidence of capability.
+    evidence_refs: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+  - id: GOAL-ADAPT
+    outcome: Adapt preparation when new evidence changes priorities or understanding of the target.
+    evidence_refs: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+  - id: GOAL-BOOTSTRAP
+    outcome: Get to a usable preparation scope when starting from fragmented or incomplete sources.
+    evidence_refs: [OBS-P03, OBS-P09, OBS-P08]
+
+observed_current_work:
+  - People assemble role/company/interview expectations from multiple sources and revise them as new information appears.
+  - People commonly use activity counts or topic coverage as weak proxies until mocks or real interviews expose capability gaps.
+  - People switch priorities across coding, system design, stack knowledge, practical work, and behavioral preparation under time pressure.
+  - People usually assemble external guides, notes, question sets, and company-specific material rather than maintain a reusable semantic corpus.
+
+user_needs:
+  - id: NEED-TARGET
+    user_ref: primary-learner
+    goal_ref: GOAL-TARGET
+    statement: The learner needs a coherent but refinable understanding of what the selected target expects, including uncertainty and later target refinement.
+    evidence_refs: [OBS-P01, OBS-P08, OBS-P06]
+  - id: NEED-STATE
+    user_ref: primary-learner
+    goal_ref: GOAL-STATE
+    statement: The learner needs an evidence-based view of what is demonstrated, challenged, or still unknown about their current capability.
+    evidence_refs: [OBS-P02, OBS-P04, OBS-P07]
+  - id: NEED-PRIORITY
+    user_ref: primary-learner
+    goal_ref: GOAL-PRIORITY
+    statement: The learner needs to identify the highest-value next preparation focus using target relevance, uncertainty, evidence, and available time.
+    evidence_refs: [OBS-P05, OBS-P06, OBS-P01]
+  - id: NEED-PROGRESS
+    user_ref: primary-learner
+    goal_ref: GOAL-PROGRESS
+    statement: The learner needs preparation activities and feedback that generate evidence relevant to the capability or performance the target actually requires.
+    evidence_refs: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+  - id: NEED-ADAPT
+    user_ref: primary-learner
+    goal_ref: GOAL-ADAPT
+    statement: The learner needs new evidence to update both preparation priorities and, when warranted, understanding of the target itself.
+    evidence_refs: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+  - id: NEED-BOOTSTRAP
+    user_ref: primary-learner
+    goal_ref: GOAL-BOOTSTRAP
+    statement: The learner needs a low-overhead path from fragmented source material to usable preparation support without being required to maintain an internal reusable semantic corpus.
+    evidence_refs: [OBS-P03, OBS-P09]
+
+scope:
+  assumptions:
+    - These needs are accepted for the motivating preparation context and are solution-independent.
+    - Naturalistic public-user evidence supports UX prototyping but does not establish population prevalence.
+  research_questions:
+    - Whether representative users understand the resulting product concepts and workflow without Prep-specific explanation remains to be tested through elicited sessions.
+    - Usability, accessibility, and concrete interface presentation remain downstream questions.
+
+sufficiency_review:
+  status: ACCEPTED
+  rationale: Every accepted goal has at least one solution-independent user need with explicit accepted evidence; no UI, domain model, or implementation behavior is used as evidence.

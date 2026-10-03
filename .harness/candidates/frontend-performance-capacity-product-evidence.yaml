@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.frontend-performance-capacity
+links:
+  - {sources: [REQ-CAP-KNOWLEDGE-OVERVIEW], relation: CONSTRAINS, targets: [QD-EXPLORE-QUALITY-SCOPE, QD-SEMANTIC-PRESERVATION, QD-GRAPH-CONDITIONAL, QD-NUMERIC-TARGETS-DEFERRED, QD-IDLE-TARGET-DEFERRED]}
+  - {sources: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS], relation: CONSTRAINS, targets: [QD-EXPLORE-QUALITY-SCOPE, QD-SEMANTIC-PRESERVATION, QD-ACTIVE-WORKING-SET-FREEDOM, QD-GRAPH-CONDITIONAL]}
+  - {sources: [REQ-CAP-KNOWLEDGE-SCOPE], relation: CONSTRAINS, targets: [QD-EXPLORE-QUALITY-SCOPE, QD-SEMANTIC-PRESERVATION, QD-ACTIVE-WORKING-SET-FREEDOM, QD-NUMERIC-TARGETS-DEFERRED, QD-IDLE-TARGET-DEFERRED]}
+  - {sources: [REQ-CAP-KNOWLEDGE-DEPTH], relation: CONSTRAINS, targets: [QD-EXPLORE-QUALITY-SCOPE, QD-ACTIVE-WORKING-SET-FREEDOM, QD-GRAPH-CONDITIONAL, QD-NUMERIC-TARGETS-DEFERRED]}
+dispositions:
+  - {source: REQ-CAP-TARGET, status: NOT_APPLICABLE, rationale: "Target creation/refinement does not establish frontend Knowledge-exploration performance or capacity targets."}
+  - {source: REQ-CAP-TARGET-PURPOSE, status: NOT_APPLICABLE, rationale: "Target-purpose distinctions do not supply frontend performance measurements."}
+  - {source: REQ-CAP-PERFORMANCE-REQUIREMENT, status: NOT_APPLICABLE, rationale: "Required learner performance quality is domain meaning, not frontend runtime quality."}
+  - {source: REQ-CAP-EVIDENCE-CONTEXT, status: NOT_APPLICABLE, rationale: "Evidence provenance/context does not define Knowledge-exploration runtime quality."}
+  - {source: REQ-CAP-STATE, status: NOT_APPLICABLE, rationale: "Learner-state semantics do not supply frontend performance targets."}
+  - {source: REQ-CAP-EVIDENCE-JUSTIFICATION, status: NOT_APPLICABLE, rationale: "Evidence justification does not define Knowledge-exploration runtime quality."}
+  - {source: REQ-CAP-FOCUS, status: NOT_APPLICABLE, rationale: "Next-focus semantics do not supply frontend performance targets."}
+  - {source: REQ-CAP-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice/diagnostic execution quality is outside this Knowledge-exploration quality contract."}
+  - {source: REQ-CAP-DURABLE-TRANSFER, status: NOT_APPLICABLE, rationale: "Learner retention/transfer semantics do not define frontend runtime quality."}
+  - {source: REQ-CAP-SUPPORT-FIT, status: NOT_APPLICABLE, rationale: "Support-fit semantics do not supply frontend Knowledge-exploration performance targets."}
+  - {source: REQ-CAP-ADAPT, status: NOT_APPLICABLE, rationale: "Adaptation semantics do not define frontend runtime quality."}
+  - {source: REQ-CAP-BOOTSTRAP, status: NOT_APPLICABLE, rationale: "Bootstrap support does not establish production frontend workload or latency targets."}

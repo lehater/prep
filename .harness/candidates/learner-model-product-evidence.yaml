@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.learner-model
+links:
+  - {sources: [REQ-CAP-TARGET-PURPOSE], relation: CONSTRAINS, targets: [LM-TARGET-RELATIVE-PROJECTION]}
+  - {sources: [REQ-CAP-PERFORMANCE-REQUIREMENT], relation: CONSTRAINS, targets: [LM-CAPABILITY-CLAIM, LM-INDIVIDUAL-ATTRIBUTION]}
+  - {sources: [REQ-CAP-EVIDENCE-CONTEXT], relation: TRANSFORMS, targets: [LM-PERFORMANCE, LM-OBSERVATION, LM-EVIDENCE-ARGUMENT, LM-TEMPORAL-TRANSFER, LM-INTEGRATION-BOUNDARY]}
+  - {sources: [REQ-CAP-STATE], relation: TRANSFORMS, targets: [LM-CAPABILITY-CLAIM, LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]}
+  - {sources: [REQ-CAP-EVIDENCE-JUSTIFICATION], relation: TRANSFORMS, targets: [LM-OBSERVATION, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-INDIVIDUAL-ATTRIBUTION]}
+  - {sources: [REQ-CAP-PRACTICE], relation: TRANSFORMS, targets: [LM-PERFORMANCE, LM-INTEGRATION-BOUNDARY]}
+  - {sources: [REQ-CAP-DURABLE-TRANSFER], relation: TRANSFORMS, targets: [LM-EVIDENCE-ARGUMENT, LM-TEMPORAL-TRANSFER]}
+  - {sources: [REQ-CAP-ADAPT], relation: TRANSFORMS, targets: [LM-STATE-PROJECTION, LM-TARGET-RELATIVE-PROJECTION]}
+dispositions:
+  - {source: REQ-CAP-TARGET, status: NOT_APPLICABLE, rationale: "Target creation/refinement belongs to Preparation Direction; learner evidence only projects against target requirements."}
+  - {source: REQ-CAP-FOCUS, status: NOT_APPLICABLE, rationale: "Next-focus decisions consume learner state but are not learner-evidence semantics."}
+  - {source: REQ-CAP-SUPPORT-FIT, status: NOT_APPLICABLE, rationale: "Support fit belongs to practice/learning design, not actual learner evidence."}
+  - {source: REQ-CAP-BOOTSTRAP, status: NOT_APPLICABLE, rationale: "Bootstrap data preparation does not define actual learner performance/evidence identity."}
+  - {source: REQ-CAP-KNOWLEDGE-OVERVIEW, status: NOT_APPLICABLE, rationale: "Knowledge overview is Subject Knowledge/interface semantics."}
+  - {source: REQ-CAP-KNOWLEDGE-RELATIONSHIPS, status: NOT_APPLICABLE, rationale: "Subject Knowledge relations are outside learner evidence."}
+  - {source: REQ-CAP-KNOWLEDGE-SCOPE, status: NOT_APPLICABLE, rationale: "Knowledge-scope projection is outside learner evidence."}
+  - {source: REQ-CAP-KNOWLEDGE-DEPTH, status: NOT_APPLICABLE, rationale: "Knowledge-depth projection is outside learner evidence."}

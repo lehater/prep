@@ -1,0 +1,243 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: USER-NEEDS
+capability: prep.user-needs
+path: docs/vision/user-needs.yaml
+changed_paths:
+  - docs/vision/user-needs.yaml
+canonical_references:
+  - artifact: USER-NEEDS
+    referenced_path: docs/vision/problem-space.md
+
+semantic_assertions:
+  - id: ACTOR-PRIMARY-LEARNER
+    kind: user-actor
+    subject: primary-learner
+    semantic_value: Person preparing toward an external or self-defined capability or performance target.
+    derived_from: [PE-ACTOR]
+    decision_authority: DISCOVERY
+
+  - id: CONTEXT-PREPARATION
+    kind: context-of-use
+    subject: primary-preparation-context
+    semantic_value: Preparation occurs under incomplete target information, partial self-knowledge, fragmented sources, limited time or attention, and potentially unfamiliar subject structure.
+    derived_from: [OBS-P01, OBS-P02, OBS-P03, OBS-P05, OBS-P10]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-TARGET
+    kind: user-goal
+    subject: target-understanding
+    semantic_value: Establish and refine a usable preparation target as expectations become clearer.
+    derived_from: [OBS-P01, OBS-P08, OBS-P06]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-STATE
+    kind: user-goal
+    subject: current-state-understanding
+    semantic_value: Understand current capability, gaps, and uncertainty from evidence rather than familiarity alone.
+    derived_from: [OBS-P02, OBS-P04, OBS-P07]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-PRIORITY
+    kind: user-goal
+    subject: next-focus
+    semantic_value: Decide what deserves attention next under limited time and changing conditions.
+    derived_from: [OBS-P05, OBS-P06, OBS-P01]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-PROGRESS
+    kind: user-goal
+    subject: credible-progress
+    semantic_value: Improve toward the target using learning or practice that produces credible evidence of capability.
+    derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-ADAPT
+    kind: user-goal
+    subject: preparation-adaptation
+    semantic_value: Adapt preparation when new evidence changes priorities or understanding of the target.
+    derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-BOOTSTRAP
+    kind: user-goal
+    subject: preparation-bootstrap
+    semantic_value: Get to a usable preparation scope when starting from fragmented or incomplete sources.
+    derived_from: [OBS-P03, OBS-P09, OBS-P13]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-KNOWLEDGE-ORIENTATION
+    kind: user-goal
+    subject: knowledge-orientation
+    semantic_value: Form a coherent initial mental model of the relevant subject when the area is unfamiliar.
+    derived_from: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-RELATIONAL-UNDERSTANDING
+    kind: user-goal
+    subject: relational-understanding
+    semantic_value: Understand how relevant concepts meaningfully relate rather than learning isolated descriptions only.
+    derived_from: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-KNOWLEDGE-SCOPE
+    kind: user-goal
+    subject: knowledge-scope
+    semantic_value: Keep the considered knowledge scope cognitively manageable while retaining what is relevant to the learning purpose.
+    derived_from: [OBS-P10, OBS-P12]
+    decision_authority: DISCOVERY
+
+  - id: GOAL-KNOWLEDGE-DEPTH
+    kind: user-goal
+    subject: knowledge-depth
+    semantic_value: Move between overview and deeper detail as understanding develops.
+    derived_from: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: NEED-TARGET
+    kind: user-need
+    subject: GOAL-TARGET
+    semantic_value: The learner needs a coherent but refinable understanding of what the selected target expects, including uncertainty and later target refinement.
+    derived_from: [OBS-P01, OBS-P08, OBS-P06]
+    decision_authority: DISCOVERY
+
+  - id: NEED-STATE
+    kind: user-need
+    subject: GOAL-STATE
+    semantic_value: The learner needs an evidence-based view of what is demonstrated, challenged, or still unknown about current capability.
+    derived_from: [OBS-P02, OBS-P04, OBS-P07]
+    decision_authority: DISCOVERY
+
+  - id: NEED-PRIORITY
+    kind: user-need
+    subject: GOAL-PRIORITY
+    semantic_value: The learner needs to identify the highest-value next preparation focus using target relevance, uncertainty, evidence, and available time.
+    derived_from: [OBS-P05, OBS-P06, OBS-P01]
+    decision_authority: DISCOVERY
+
+  - id: NEED-PROGRESS
+    kind: user-need
+    subject: GOAL-PROGRESS
+    semantic_value: The learner needs preparation activities and feedback that generate evidence relevant to the capability or performance the target actually requires.
+    derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: NEED-ADAPT
+    kind: user-need
+    subject: GOAL-ADAPT
+    semantic_value: The learner needs new evidence to update both preparation priorities and, when warranted, understanding of the target itself.
+    derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: NEED-BOOTSTRAP
+    kind: user-need
+    subject: GOAL-BOOTSTRAP
+    semantic_value: The learner needs a low-overhead path from fragmented source material to usable preparation support while supporting knowledge data can be added or corrected without requiring learner ownership of internal corpus maintenance.
+    derived_from: [OBS-P03, OBS-P09, OBS-P13]
+    decision_authority: DISCOVERY
+
+  - id: NEED-KNOWLEDGE-ORIENTATION
+    kind: user-need
+    subject: GOAL-KNOWLEDGE-ORIENTATION
+    semantic_value: The learner needs an intelligible overview of the important concepts in the relevant subject scope and how they fit together.
+    derived_from: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: NEED-RELATIONSHIPS
+    kind: user-need
+    subject: GOAL-RELATIONAL-UNDERSTANDING
+    semantic_value: The learner needs the meaning of relationships among relevant concepts to remain inspectable so connected concepts can be understood in context.
+    derived_from: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: NEED-KNOWLEDGE-SCOPE
+    kind: user-need
+    subject: GOAL-KNOWLEDGE-SCOPE
+    semantic_value: The learner needs to narrow and expand the considered subject scope using meaningful criteria relevant to the learning purpose.
+    derived_from: [OBS-P10, OBS-P12]
+    decision_authority: DISCOVERY
+
+  - id: NEED-KNOWLEDGE-DEPTH
+    kind: user-need
+    subject: GOAL-KNOWLEDGE-DEPTH
+    semantic_value: The learner needs to move between high-level orientation and deeper detail without losing the surrounding conceptual context.
+    derived_from: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-TARGET
+    kind: need-evidence
+    subject: NEED-TARGET
+    semantic_value: Supported by target uncertainty, external-target translation, and changing-state evidence.
+    derived_from: [OBS-P01, OBS-P08, OBS-P06]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-STATE
+    kind: need-evidence
+    subject: NEED-STATE
+    semantic_value: Supported by partial observability, exposure-versus-capability, and retention or transfer risk.
+    derived_from: [OBS-P02, OBS-P04, OBS-P07]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-PRIORITY
+    kind: need-evidence
+    subject: NEED-PRIORITY
+    semantic_value: Supported by limited resources, changing state, and target uncertainty.
+    derived_from: [OBS-P05, OBS-P06, OBS-P01]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-PROGRESS
+    kind: need-evidence
+    subject: NEED-PROGRESS
+    semantic_value: Supported by exposure-versus-capability, retention or transfer risk, and the accepted desired outcome.
+    derived_from: [OBS-P04, OBS-P07, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-ADAPT
+    kind: need-evidence
+    subject: NEED-ADAPT
+    semantic_value: Supported by changing-state, external-target-translation, and accepted desired-outcome evidence.
+    derived_from: [OBS-P06, OBS-P08, PE-DESIRED-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-BOOTSTRAP
+    kind: need-evidence
+    subject: NEED-BOOTSTRAP
+    semantic_value: Supported by fragmented knowledge, preparation bootstrap, and corpus-maintenance responsibility evidence.
+    derived_from: [OBS-P03, OBS-P09, OBS-P13]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-KNOWLEDGE-ORIENTATION
+    kind: need-evidence
+    subject: NEED-KNOWLEDGE-ORIENTATION
+    semantic_value: Supported by structural-orientation evidence and the accepted knowledge-orientation desired outcome.
+    derived_from: [OBS-P10, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-RELATIONSHIPS
+    kind: need-evidence
+    subject: NEED-RELATIONSHIPS
+    semantic_value: Supported by relational-understanding evidence and the accepted knowledge-orientation desired outcome.
+    derived_from: [OBS-P11, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-KNOWLEDGE-SCOPE
+    kind: need-evidence
+    subject: NEED-KNOWLEDGE-SCOPE
+    semantic_value: Supported by structural-orientation and abstraction/granularity evidence.
+    derived_from: [OBS-P10, OBS-P12]
+    decision_authority: DISCOVERY
+
+  - id: EVIDENCE-NEED-KNOWLEDGE-DEPTH
+    kind: need-evidence
+    subject: NEED-KNOWLEDGE-DEPTH
+    semantic_value: Supported by abstraction/granularity evidence and the accepted knowledge-orientation desired outcome.
+    derived_from: [OBS-P12, PE-KNOWLEDGE-ORIENTATION-OUTCOME]
+    decision_authority: DISCOVERY
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - need-not-normative-solution

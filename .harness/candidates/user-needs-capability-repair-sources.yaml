@@ -1,0 +1,158 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: PE-ACTOR
+      kind: problem-actor
+      subject: primary-learner
+      semantic_value: A person preparing toward an external or self-defined learning target.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+  
+    - id: PE-PROBLEM
+      kind: problem-observation
+      subject: learning-transition
+      semantic_value: The learner lacks a sufficiently reliable way to manage the transition from current capability to the desired target state.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+  
+    - id: OBS-P01
+      kind: problem-observation
+      subject: target-uncertainty
+      semantic_value: A real learning goal can require uncertain scope and different depths of capability.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P02
+      kind: problem-observation
+      subject: partial-observability
+      semantic_value: The learner's current state is not directly known and must be approached through imperfect evidence.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P03
+      kind: problem-observation
+      subject: fragmented-knowledge
+      semantic_value: Relevant material may be incomplete, inconsistent, redundant, or expressed with different terminology.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P04
+      kind: problem-observation
+      subject: exposure-vs-capability
+      semantic_value: Encountering information does not establish later recall, explanation, reasoning, or application.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P05
+      kind: problem-observation
+      subject: limited-resources
+      semantic_value: Time and attention force choices about what deserves attention next.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P06
+      kind: problem-observation
+      subject: changing-state
+      semantic_value: New learning or evidence can change what should be learned or checked next.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P07
+      kind: problem-observation
+      subject: retention-transfer-risk
+      semantic_value: Immediate success does not guarantee later availability or transfer to another context.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P08
+      kind: problem-observation
+      subject: external-target-translation
+      semantic_value: External role or opportunity descriptions may need to be translated into a coherent, reviewable, refinable target capability profile.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P09
+      kind: problem-observation
+      subject: preparation-bootstrap
+      semantic_value: Useful preparation may start without ready target, knowledge, task-material, or evidence-design data and must be bootstrapped from sources or prepared structure.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P10
+      kind: problem-observation
+      subject: structural-orientation
+      semantic_value: In an unfamiliar subject, fragmented linear material may not provide a coherent high-level map of important concepts, their relative scope, or how they fit together.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P11
+      kind: problem-observation
+      subject: relational-understanding
+      semantic_value: Understanding a subject may require seeing meaningful relationships between concepts because isolated concept descriptions do not explain how concepts interact or constrain one another.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P12
+      kind: problem-observation
+      subject: abstraction-granularity
+      semantic_value: Useful understanding may require movement between overview and deeper levels of detail because one fixed granularity can hide structure or create overload.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P13
+      kind: problem-observation
+      subject: corpus-maintenance-responsibility
+      semantic_value: Supporting target, capability, knowledge, and relation data may require incremental addition and correction over time; that maintenance must exist somewhere in the supporting system without assuming learner ownership.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P14
+      kind: problem-observation
+      subject: target-purpose-divergence
+      semantic_value: Related external goals can require overlapping but non-equivalent capability profiles; professional-role capability and selection/interview performance must not be assumed to be the same target.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P15
+      kind: problem-observation
+      subject: performance-shaped-capability
+      semantic_value: Readiness depends on required performance, including relevant conditions, constraints, and quality, not on topic exposure or subject coverage alone.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P16
+      kind: problem-observation
+      subject: evidence-adequacy-context
+      semantic_value: An observation has different evidential meaning depending on what performance was observed, under which conditions, with what provenance, and how current and relevant it is to the target claim.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: OBS-P17
+      kind: problem-observation
+      subject: learning-support-fit
+      semantic_value: Different required outcomes may need different learning, practice, or diagnostic support; activity completion or material exposure alone does not establish adequate preparation.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+  
+    - id: PE-DESIRED-OUTCOME
+      kind: desired-outcome
+      subject: reliable-progress
+      semantic_value: The learner can reliably decide what matters next, act on it, obtain evidence of change, and adapt preparation as target understanding or learner state changes.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: PE-KNOWLEDGE-ORIENTATION-OUTCOME
+      kind: desired-outcome
+      subject: knowledge-orientation
+      semantic_value: The learner can form an orienting mental model of relevant subject concepts, meaningful relationships, and useful levels of detail without requiring a specific visualization technique.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: PE-TARGET-PURPOSE-OUTCOME
+      kind: desired-outcome
+      subject: target-purpose-clarity
+      semantic_value: The learner can distinguish related target purposes and understand which required performances belong to each without assuming automatic equivalence or requirement inheritance.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: PE-CAPABILITY-PERFORMANCE-OUTCOME
+      kind: desired-outcome
+      subject: capability-performance-clarity
+      semantic_value: The learner can understand the required capability as performance under relevant conditions and quality expectations rather than as topic exposure alone.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+    - id: PE-EVIDENCE-JUSTIFICATION-OUTCOME
+      kind: desired-outcome
+      subject: evidence-justified-state
+      semantic_value: The learner can base readiness and progress conclusions on evidence whose relevance, performance context, provenance, and temporal applicability are explicit enough to justify the conclusion.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+  
+    - id: PE-NON-SOLUTION
+      kind: scope-boundary
+      subject: solution-neutrality
+      semantic_value: The problem evidence does not choose a capability model, assessment model, learning-support model, 2D or 3D graph, spatial layout, cards, scheduling mechanism, external study system, import format, or implementation architecture.
+      decision_authority: DISCOVERY
+      source_artifact: PROBLEM-SPACE
+  

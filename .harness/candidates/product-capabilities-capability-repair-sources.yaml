@@ -1,0 +1,109 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: REQ-TARGET-REFINEMENT
+      kind: product-requirement
+      subject: GOAL-TARGET
+      semantic_value: The product enables the learner to establish and refine a selected preparation target while keeping uncertainty and later target changes explicit.
+      derived_from: [GOAL-TARGET, NEED-TARGET]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-TARGET-PURPOSE
+      kind: product-requirement
+      subject: GOAL-TARGET-PURPOSE
+      semantic_value: The product keeps related target purposes distinguishable and does not silently treat requirements for one target purpose as requirements for another.
+      derived_from: [GOAL-TARGET-PURPOSE, NEED-TARGET-PURPOSE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-CAPABILITY-PERFORMANCE
+      kind: product-requirement
+      subject: GOAL-CAPABILITY-PERFORMANCE
+      semantic_value: The product represents what the selected target requires the learner to perform, including relevant conditions or constraints and acceptable quality, rather than reducing readiness to topic exposure or coverage.
+      derived_from: [GOAL-CAPABILITY-PERFORMANCE, NEED-CAPABILITY-PERFORMANCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-STATE-EVIDENCE
+      kind: product-requirement
+      subject: GOAL-STATE
+      semantic_value: The product presents current capability in terms of accepted evidence and distinguishes demonstrated, challenged, and unknown state while preserving material limits from performance context, evidence age, or insufficient coverage.
+      derived_from: [GOAL-STATE, NEED-STATE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-EVIDENCE-JUSTIFICATION
+      kind: product-requirement
+      subject: GOAL-EVIDENCE-JUSTIFICATION
+      semantic_value: The product makes the basis of a capability conclusion inspectable enough to show which observations matter and how performance context, provenance, target relevance, and temporal applicability affect that conclusion.
+      derived_from: [GOAL-EVIDENCE-JUSTIFICATION, NEED-EVIDENCE-JUSTIFICATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-NEXT-FOCUS
+      kind: product-requirement
+      subject: GOAL-PRIORITY
+      semantic_value: The product supports choosing the next preparation focus using target relevance, uncertainty, available evidence, and available time.
+      derived_from: [GOAL-PRIORITY, NEED-PRIORITY]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-PERFORMANCE-EVIDENCE
+      kind: product-requirement
+      subject: GOAL-PROGRESS
+      semantic_value: The product supports preparation and practice that can produce evidence relevant to the capability and performance required by the selected target without treating activity or exposure as proof.
+      derived_from: [GOAL-PROGRESS, NEED-PROGRESS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-DURABLE-TRANSFER
+      kind: product-requirement
+      subject: GOAL-DURABLE-TRANSFER
+      semantic_value: The product supports judging whether relevant capability remains available over the required time horizon and transfers to target-relevant conditions rather than inferring durable readiness from immediate or narrow success alone.
+      derived_from: [GOAL-DURABLE-TRANSFER, NEED-DURABLE-TRANSFER]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-SUPPORT-FIT
+      kind: product-requirement
+      subject: GOAL-SUPPORT-FIT
+      semantic_value: The product supports learning, practice, or diagnostic opportunities appropriate to the required outcome and does not treat completion of those opportunities as proof that capability was developed.
+      derived_from: [GOAL-SUPPORT-FIT, NEED-SUPPORT-FIT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-ADAPTIVE-UPDATE
+      kind: product-requirement
+      subject: GOAL-ADAPT
+      semantic_value: The product uses accepted new evidence to update learner-state conclusions or preparation priorities and permits new external target information to refine target understanding without conflating those changes.
+      derived_from: [GOAL-ADAPT, NEED-ADAPT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-LOW-OVERHEAD-BOOTSTRAP
+      kind: product-requirement
+      subject: GOAL-BOOTSTRAP
+      semantic_value: The product turns fragmented or incomplete source material into usable preparation support and permits supporting target, capability, knowledge, and evidence-design data to be introduced or corrected incrementally without requiring learner-maintained reusable corpus.
+      derived_from: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-KNOWLEDGE-ORIENTATION
+      kind: product-requirement
+      subject: GOAL-KNOWLEDGE-ORIENTATION
+      semantic_value: The product supports an intelligible high-level overview of important concepts within the relevant subject scope and how the subject fits together.
+      derived_from: [GOAL-KNOWLEDGE-ORIENTATION, NEED-KNOWLEDGE-ORIENTATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-KNOWLEDGE-RELATIONSHIPS
+      kind: product-requirement
+      subject: GOAL-RELATIONAL-UNDERSTANDING
+      semantic_value: The product makes meaningful relationships among relevant concepts inspectable while preserving relationship meaning.
+      derived_from: [GOAL-RELATIONAL-UNDERSTANDING, NEED-RELATIONSHIPS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-KNOWLEDGE-SCOPE
+      kind: product-requirement
+      subject: GOAL-KNOWLEDGE-SCOPE
+      semantic_value: The product supports narrowing and expanding the considered subject-knowledge scope using meaningful criteria relevant to the preparation purpose.
+      derived_from: [GOAL-KNOWLEDGE-SCOPE, NEED-KNOWLEDGE-SCOPE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+    - id: REQ-KNOWLEDGE-DEPTH
+      kind: product-requirement
+      subject: GOAL-KNOWLEDGE-DEPTH
+      semantic_value: The product supports movement between high-level orientation and deeper knowledge detail while preserving surrounding conceptual context.
+      derived_from: [GOAL-KNOWLEDGE-DEPTH, NEED-KNOWLEDGE-DEPTH]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-VISION
+  

@@ -1,0 +1,90 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRODUCT-VISION
+capability: prep.product-intent
+path: .harness/knowledge/product-intent.yaml
+changed_paths:
+  - .harness/knowledge/product-intent.yaml
+canonical_references:
+  - artifact: PRODUCT-VISION
+    referenced_path: docs/vision/user-needs.yaml
+
+semantic_assertions:
+  - id: REQ-TARGET-REFINEMENT
+    kind: product-requirement
+    subject: GOAL-TARGET
+    semantic_value: The product enables the learner to establish and refine a selected preparation target while keeping uncertainty and later target changes explicit.
+    derived_from: [GOAL-TARGET, NEED-TARGET]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-STATE-EVIDENCE
+    kind: product-requirement
+    subject: GOAL-STATE
+    semantic_value: The product presents current capability in terms of accepted evidence and distinguishes demonstrated, challenged, and unknown state.
+    derived_from: [GOAL-STATE, NEED-STATE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-NEXT-FOCUS
+    kind: product-requirement
+    subject: GOAL-PRIORITY
+    semantic_value: The product supports choosing the next preparation focus using target relevance, uncertainty, available evidence, and available time.
+    derived_from: [GOAL-PRIORITY, NEED-PRIORITY]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-PERFORMANCE-EVIDENCE
+    kind: product-requirement
+    subject: GOAL-PROGRESS
+    semantic_value: The product supports preparation and practice that can produce target-relevant capability or performance evidence without treating activity or exposure as proof.
+    derived_from: [GOAL-PROGRESS, NEED-PROGRESS]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-ADAPTIVE-UPDATE
+    kind: product-requirement
+    subject: GOAL-ADAPT
+    semantic_value: The product reflects accepted new evidence in preparation state and priorities and permits target understanding to be revised when warranted.
+    derived_from: [GOAL-ADAPT, NEED-ADAPT]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-LOW-OVERHEAD-BOOTSTRAP
+    kind: product-requirement
+    subject: GOAL-BOOTSTRAP
+    semantic_value: The product turns fragmented or incomplete source material into usable preparation support and permits supporting knowledge data to be introduced or corrected incrementally without requiring learner-maintained reusable corpus.
+    derived_from: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-KNOWLEDGE-ORIENTATION
+    kind: product-requirement
+    subject: GOAL-KNOWLEDGE-ORIENTATION
+    semantic_value: The product supports an intelligible high-level overview of important concepts within the relevant subject scope and how the subject fits together.
+    derived_from: [GOAL-KNOWLEDGE-ORIENTATION, NEED-KNOWLEDGE-ORIENTATION]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-KNOWLEDGE-RELATIONSHIPS
+    kind: product-requirement
+    subject: GOAL-RELATIONAL-UNDERSTANDING
+    semantic_value: The product makes meaningful relationships among relevant concepts inspectable while preserving relationship meaning.
+    derived_from: [GOAL-RELATIONAL-UNDERSTANDING, NEED-RELATIONSHIPS]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-KNOWLEDGE-SCOPE
+    kind: product-requirement
+    subject: GOAL-KNOWLEDGE-SCOPE
+    semantic_value: The product supports narrowing and expanding the considered subject-knowledge scope using meaningful criteria relevant to the preparation purpose.
+    derived_from: [GOAL-KNOWLEDGE-SCOPE, NEED-KNOWLEDGE-SCOPE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-KNOWLEDGE-DEPTH
+    kind: product-requirement
+    subject: GOAL-KNOWLEDGE-DEPTH
+    semantic_value: The product supports movement between high-level orientation and deeper knowledge detail while preserving surrounding conceptual context.
+    derived_from: [GOAL-KNOWLEDGE-DEPTH, NEED-KNOWLEDGE-DEPTH]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - observable-product-level
+    - no-downstream-design-promotion

@@ -1,0 +1,52 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: PRODUCT-VISION
+schema: product-requirements/v1
+title: Prep Product Intent
+
+content:
+  purpose: Define observable product commitments that support a learner from an uncertain preparation target and partially observed current state toward evidence-backed progress.
+
+  requirements:
+    - id: REQ-TARGET-REFINEMENT
+      statement: The product shall enable the learner to establish and refine a selected preparation target while keeping uncertainty and later target changes explicit.
+      status: ACCEPTED
+      source_refs: [GOAL-TARGET, NEED-TARGET]
+      rationale: A usable target must remain coherent without pretending that target expectations are complete or static.
+
+    - id: REQ-STATE-EVIDENCE
+      statement: The product shall present the learner's current capability state in terms of accepted evidence, distinguishing what is demonstrated, challenged, or still unknown.
+      status: ACCEPTED
+      source_refs: [GOAL-STATE, NEED-STATE]
+      rationale: Familiarity or exposure alone is not sufficient evidence of capability.
+
+    - id: REQ-NEXT-FOCUS
+      statement: The product shall support choosing the next preparation focus using target relevance, uncertainty, available evidence, and available time.
+      status: ACCEPTED
+      source_refs: [GOAL-PRIORITY, NEED-PRIORITY]
+      rationale: Preparation must remain actionable under limited time and changing conditions.
+
+    - id: REQ-PERFORMANCE-EVIDENCE
+      statement: The product shall support preparation and practice that can produce evidence relevant to the capability or performance required by the selected target, without treating activity or exposure as proof of capability.
+      status: ACCEPTED
+      source_refs: [GOAL-PROGRESS, NEED-PROGRESS]
+      rationale: Progress requires evidence that is relevant to the performance the target actually demands.
+
+    - id: REQ-ADAPTIVE-UPDATE
+      statement: The product shall reflect accepted new evidence in preparation state and priorities and shall allow the target understanding to be revised when that evidence warrants it.
+      status: ACCEPTED
+      source_refs: [GOAL-ADAPT, NEED-ADAPT]
+      rationale: New evidence may change both what should be done next and what the target is understood to require.
+
+    - id: REQ-LOW-OVERHEAD-BOOTSTRAP
+      statement: The product shall support turning fragmented or incomplete source material into a usable preparation scope without requiring the learner to maintain a reusable internal semantic corpus.
+      status: ACCEPTED
+      source_refs: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP]
+      rationale: Preparation must be able to start before a complete structured corpus exists.
+
+  non_goals:
+    - Define interface representation, navigation, views, or screen composition.
+    - Define domain entities, aggregates, or semantic ownership.
+    - Define ranking, scheduling, or learner-state inference algorithms.
+    - Require the learner to own reusable corpus maintenance.
+    - Define persistence, API, deployment, or implementation technology.

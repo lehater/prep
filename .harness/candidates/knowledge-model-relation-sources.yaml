@@ -1,0 +1,43 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: KRC-SUBJECT-KNOWLEDGE-SCOPE
+      kind: domain-invariant
+      subject: relation-classification-scope
+      semantic_value: The relation-classification catalog applies only to reusable Subject Knowledge relation predicates and does not classify cross-context structural relationships owned by Capability and Performance, Preparation Direction, Learner Evidence and State, practice execution, or bootstrap translations.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, TR-KNOWLEDGE-TO-CAPABILITY, TR-CAPABILITY-TO-DIRECTION, TR-PRACTICE-TO-EVIDENCE, TR-EVIDENCE-TO-DIRECTION]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  
+    - id: KRC-PREDICATE-NOT-ASSERTION
+      kind: domain-invariant
+      subject: predicate-vocabulary
+      semantic_value: A registered relation predicate is vocabulary for classifying a relational Knowledge proposition and does not itself assert that a relation exists.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  
+    - id: KRC-PRESERVE-RELATION-MEANING
+      kind: domain-invariant
+      subject: relation-semantic-precision
+      semantic_value: Relation classification preserves predicate-specific meaning, direction, and inference properties; broad families support classification and filtering but do not erase leaf semantics.
+      derived_from: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS, MC-SUBJECT-KNOWLEDGE]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  
+    - id: KRC-EVIDENCE-BOUNDED-CLASSIFICATION
+      kind: domain-invariant
+      subject: relation-classification-evidence
+      semantic_value: A relation is classified only when source evidence supports a precise proposition; unsupported relations produce no edge, and supported relations without a fitting accepted leaf remain candidates rather than being forced into a broader predicate.
+      derived_from: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS, MC-SUBJECT-KNOWLEDGE]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  
+    - id: KRC-EXISTING-VOCABULARY-CONTINUITY
+      kind: domain-model
+      subject: relation-vocabulary-continuity
+      semantic_value: The existing family-plus-leaf vocabulary, including preferred versus candidate leaf status, remains the current reusable Subject Knowledge classifier; this revision changes ownership scope rather than promoting new leaf predicates.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+  

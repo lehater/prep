@@ -1,0 +1,10 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.domain-strategy
+target_capability: prep.model-context-strategy
+links:
+  - {sources: [DS-PREPARATION-DIRECTION], relation: TRANSFORMS, targets: [MC-PREPARATION-DIRECTION, TR-LEARNER-STATE-TO-DIRECTION]}
+  - {sources: [DS-LEARNER-EVIDENCE-STATE], relation: TRANSFORMS, targets: [MC-LEARNER-EVIDENCE-STATE, TR-LEARNER-STATE-TO-DIRECTION]}
+  - {sources: [DS-PRACTICE-ENABLEMENT], relation: TRANSFORMS, targets: [TR-DIRECTION-TO-PRACTICE, TR-PRACTICE-TO-EVIDENCE]}
+  - {sources: [DS-PREPARATION-BOOTSTRAP], relation: TRANSFORMS, targets: [TR-BOOTSTRAP-TO-DIRECTION]}
+dispositions: []

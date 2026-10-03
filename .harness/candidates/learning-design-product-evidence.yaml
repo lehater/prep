@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.learning-design
+links:
+  - {sources: [REQ-CAP-TARGET], relation: TRANSFORMS, targets: [LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]}
+  - {sources: [REQ-CAP-TARGET-PURPOSE], relation: TRANSFORMS, targets: [LD-PREPARATION-TARGET]}
+  - {sources: [REQ-CAP-PERFORMANCE-REQUIREMENT], relation: TRANSFORMS, targets: [LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-KNOWLEDGE-FOCUS]}
+  - {sources: [REQ-CAP-EVIDENCE-CONTEXT], relation: CONSTRAINS, targets: [LD-OBSERVATION-SPECIFICATION]}
+  - {sources: [REQ-CAP-STATE], relation: CONSTRAINS, targets: [LD-EVIDENCE-DESIGN-BOUNDARY, LD-GAP-PRIORITY]}
+  - {sources: [REQ-CAP-EVIDENCE-JUSTIFICATION], relation: CONSTRAINS, targets: [LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY]}
+  - {sources: [REQ-CAP-FOCUS], relation: TRANSFORMS, targets: [LD-GAP-PRIORITY, LD-PREPARATION-INTENT]}
+  - {sources: [REQ-CAP-PRACTICE], relation: TRANSFORMS, targets: [LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]}
+  - {sources: [REQ-CAP-DURABLE-TRANSFER], relation: TRANSFORMS, targets: [LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-PREPARATION-INTENT, LD-SUPPORT-REQUIREMENT]}
+  - {sources: [REQ-CAP-SUPPORT-FIT], relation: TRANSFORMS, targets: [LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-APPLICATION-BOUNDARY]}
+  - {sources: [REQ-CAP-ADAPT], relation: TRANSFORMS, targets: [LD-GAP-PRIORITY]}
+dispositions:
+  - {source: REQ-CAP-BOOTSTRAP, status: NOT_APPLICABLE, rationale: "Bootstrap introduces candidate support semantics but is not part of the accepted reusable Learning Design language."}
+  - {source: REQ-CAP-KNOWLEDGE-OVERVIEW, status: NOT_APPLICABLE, rationale: "Knowledge overview is owned by Subject Knowledge and downstream presentation."}
+  - {source: REQ-CAP-KNOWLEDGE-RELATIONSHIPS, status: NOT_APPLICABLE, rationale: "Subject Knowledge relationship semantics are owned by Knowledge Model and relation classification."}
+  - {source: REQ-CAP-KNOWLEDGE-SCOPE, status: NOT_APPLICABLE, rationale: "Knowledge-scope projection is owned outside Learning Design."}
+  - {source: REQ-CAP-KNOWLEDGE-DEPTH, status: NOT_APPLICABLE, rationale: "Knowledge depth/overview projection is owned outside Learning Design."}

@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.model-context-strategy
+target_capability: prep.knowledge-relation-classification
+obligations:
+  - id: accepted-model-context-semantics
+    source_kind: model-context
+    min_count: 4
+    allow_not_applicable: true
+  - id: accepted-translation-semantics
+    source_kind: model-context-translation
+    min_count: 6
+    allow_not_applicable: true
+lifecycle_dependency:
+  exhaustive: true

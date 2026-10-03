@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.learner-model
+links:
+  - {sources: [KM-KNOWLEDGE-OBJECT-IDENTITY], relation: CONSTRAINS, targets: [LM-KNOWLEDGE-BOUNDARY]}
+  - {sources: [KM-CROSS-CONTEXT-BOUNDARY], relation: TRANSFORMS, targets: [LM-KNOWLEDGE-BOUNDARY]}
+dispositions:
+  - {source: KM-KNOWLEDGE-FAMILY, status: NOT_APPLICABLE, rationale: "Learner Model may reference Knowledge but does not redefine its semantic family."}
+  - {source: KM-KNOWLEDGE-PROPOSITION, status: NOT_APPLICABLE, rationale: "Learner evidence does not create reusable Subject Knowledge propositions."}
+  - {source: KM-RELATIONAL-PROPOSITION, status: NOT_APPLICABLE, rationale: "Subject Knowledge relational semantics are outside learner evidence."}
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "Knowledge-form classification does not define learner evidence."}
+  - {source: KM-SCOPE-OVERVIEW-DEPTH, status: NOT_APPLICABLE, rationale: "Knowledge projection semantics are outside learner evidence."}
+  - {source: KM-BOOTSTRAP-CORRECTION, status: NOT_APPLICABLE, rationale: "Subject Knowledge correction lifecycle is independent of learner evidence."}
+  - {source: KM-GRAPH-IS-PROJECTION, status: NOT_APPLICABLE, rationale: "Knowledge graph presentation is unrelated to learner-evidence identity."}

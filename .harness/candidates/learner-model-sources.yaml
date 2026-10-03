@@ -1,0 +1,268 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: MC-PREPARATION-DIRECTION
+      kind: model-context
+      subject: preparation-direction
+      semantic_value: Preparation Direction is the independent normative language for active target, target purpose, target-relative requirements, uncertainty, next focus, target refinement, and focus adaptation.
+      derived_from: [DS-PREPARATION-DIRECTION, REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-CAPABILITY-PERFORMANCE
+      kind: model-context
+      subject: capability-performance
+      semantic_value: Capability and Performance is the independent reusable normative language for required human performance, material conditions or constraints, acceptable quality, and the stable performance meaning referenced by targets, support, transfer judgments, and learner-state conclusions.
+      derived_from: [DS-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-LEARNER-EVIDENCE-STATE
+      kind: model-context
+      subject: learner-evidence-state
+      semantic_value: Learner Evidence and State is the independent learner-specific descriptive and epistemic language for contextualized observations, provenance, evidence applicability, and evidence-bounded capability conclusions.
+      derived_from: [DS-LEARNER-EVIDENCE-STATE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: MC-SUBJECT-KNOWLEDGE
+      kind: model-context
+      subject: subject-knowledge
+      semantic_value: Subject Knowledge is the independent reusable subject-semantic language for concepts or subject meanings, meaningful relationships, relevant scope, and coherent overview-to-detail structure.
+      derived_from: [DS-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-KNOWLEDGE-TO-CAPABILITY
+      kind: model-context-translation
+      subject: subject-knowledge-to-capability-performance
+      semantic_value: Capability and Performance may reference reusable Subject Knowledge while preserving the distinction between subject meaning and the ability to perform with or about that knowledge.
+      derived_from: [DS-SUBJECT-KNOWLEDGE, DS-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-CAPABILITY-TO-DIRECTION
+      kind: model-context-translation
+      subject: capability-performance-to-preparation-direction
+      semantic_value: Preparation Direction may select target-relative required performance from reusable Capability and Performance meaning while preserving target purpose, applicable conditions, required quality, and no automatic inheritance across related targets.
+      derived_from: [DS-CAPABILITY-PERFORMANCE, DS-PREPARATION-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-PERFORMANCE-REQUIREMENT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-SEMANTICS-TO-PRACTICE
+      kind: model-context-translation
+      subject: capability-knowledge-to-practice-learning
+      semantic_value: Practice, learning, or diagnostic execution may receive required performance meaning and relevant subject context to provide suitable opportunities without acquiring ownership of those semantics.
+      derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-CAPABILITY-PERFORMANCE, DS-SUBJECT-KNOWLEDGE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-PRACTICE-TO-EVIDENCE
+      kind: model-context-translation
+      subject: practice-learning-to-learner-evidence
+      semantic_value: Practice or diagnostic execution may return contextualized observations into Learner Evidence and State while preserving performance context, provenance, time, semantic references, and the observation-versus-conclusion distinction.
+      derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-LEARNER-EVIDENCE-STATE, REQ-CAP-PRACTICE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-EVIDENCE-JUSTIFICATION]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-EVIDENCE-TO-DIRECTION
+      kind: model-context-translation
+      subject: learner-evidence-to-preparation-direction
+      semantic_value: Accepted learner-state conclusions and uncertainty may inform next focus and adaptation while preserving evidence limitations and without redefining target requirements or reusable capability meaning.
+      derived_from: [DS-LEARNER-EVIDENCE-STATE, DS-PREPARATION-DIRECTION, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-ADAPT]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS
+      kind: model-context-translation
+      subject: bootstrap-source-to-semantic-owners
+      semantic_value: Fragmented source material may produce candidate target, capability-performance, subject-knowledge, or evidence-support information while accepted meaning remains owned by the corresponding model context.
+      derived_from: [DS-PREPARATION-BOOTSTRAP, REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-KNOWLEDGE-OVERVIEW]
+      decision_authority: MODEL-CONTEXT-STRATEGY
+      source_artifact: MODEL-CONTEXT-MAP
+  
+    - id: REQ-CAP-TARGET
+      kind: product-requirement
+      subject: capability-target-management
+      semantic_value: The product lets the learner create, inspect, and revise an active preparation target while preserving uncertainty and distinguishing target refinement from learner-state change.
+      derived_from: [REQ-TARGET-REFINEMENT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-TARGET-PURPOSE
+      kind: product-requirement
+      subject: capability-target-purpose
+      semantic_value: The product lets the learner distinguish related target purposes and inspect which requirements belong to each without automatic requirement inheritance.
+      derived_from: [REQ-TARGET-PURPOSE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-PERFORMANCE-REQUIREMENT
+      kind: product-requirement
+      subject: capability-performance-requirement
+      semantic_value: The product lets the learner inspect required performance, material conditions or constraints, and acceptable quality separately from topic coverage.
+      derived_from: [REQ-CAPABILITY-PERFORMANCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-EVIDENCE-CONTEXT
+      kind: product-requirement
+      subject: capability-evidence-context
+      semantic_value: The product accepts or records capability-relevant observations with performance context, provenance, target relevance, and time information while keeping observation distinct from conclusion.
+      derived_from: [REQ-STATE-EVIDENCE, REQ-EVIDENCE-JUSTIFICATION, REQ-PERFORMANCE-EVIDENCE, REQ-DURABLE-TRANSFER]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-STATE
+      kind: product-requirement
+      subject: capability-learner-state
+      semantic_value: The product derives or presents target-relative learner state distinguishing demonstrated, challenged, and unknown capability while preserving evidence limitations.
+      derived_from: [REQ-STATE-EVIDENCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-EVIDENCE-JUSTIFICATION
+      kind: product-requirement
+      subject: capability-evidence-justification
+      semantic_value: The product lets the learner inspect why observations support, challenge, or fail to establish a capability conclusion.
+      derived_from: [REQ-EVIDENCE-JUSTIFICATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-FOCUS
+      kind: product-requirement
+      subject: capability-next-focus
+      semantic_value: The product supports establishing an explicit next preparation focus from target relevance, current evidence, unresolved uncertainty, and available time.
+      derived_from: [REQ-NEXT-FOCUS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-PRACTICE
+      kind: product-requirement
+      subject: capability-practice
+      semantic_value: The product supports or delegates learning, practice, or diagnostic activity that can generate evidence relevant to the performance required by the active target.
+      derived_from: [REQ-PERFORMANCE-EVIDENCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-DURABLE-TRANSFER
+      kind: product-requirement
+      subject: capability-durable-transfer
+      semantic_value: The product supports judging whether relevant capability remains available over a required time horizon and transfers to target-relevant conditions.
+      derived_from: [REQ-DURABLE-TRANSFER]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-SUPPORT-FIT
+      kind: product-requirement
+      subject: capability-support-fit
+      semantic_value: The product supports selecting or providing learning, practice, or diagnostic opportunities appropriate to the required outcome while keeping support completion distinct from evidence of developed capability.
+      derived_from: [REQ-SUPPORT-FIT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-ADAPT
+      kind: product-requirement
+      subject: capability-adaptation
+      semantic_value: The product updates target-relative learner state or preparation focus when accepted evidence changes them and revises target understanding separately when external target information changes.
+      derived_from: [REQ-ADAPTIVE-UPDATE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-BOOTSTRAP
+      kind: product-requirement
+      subject: capability-bootstrap
+      semantic_value: The product constructs usable preparation support from fragmented or incomplete sources and supports incremental introduction or correction of target, capability, knowledge, and evidence-design data without requiring learner-maintained corpus curation.
+      derived_from: [REQ-LOW-OVERHEAD-BOOTSTRAP]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-OVERVIEW
+      kind: product-requirement
+      subject: capability-knowledge-overview
+      semantic_value: The product provides an inspectable high-level overview of important concepts within the currently relevant subject scope and how that scope fits together.
+      derived_from: [REQ-KNOWLEDGE-ORIENTATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-RELATIONSHIPS
+      kind: product-requirement
+      subject: capability-knowledge-relationships
+      semantic_value: The product lets the learner inspect meaningful relationships among relevant concepts while preserving relationship meaning rather than generic connectivity only.
+      derived_from: [REQ-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-SCOPE
+      kind: product-requirement
+      subject: capability-knowledge-scope
+      semantic_value: The product lets the learner narrow and expand considered subject-knowledge scope using meaningful criteria relevant to the active preparation purpose.
+      derived_from: [REQ-KNOWLEDGE-SCOPE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-DEPTH
+      kind: product-requirement
+      subject: capability-knowledge-depth
+      semantic_value: The product lets the learner move between high-level orientation and deeper knowledge detail while retaining surrounding conceptual context.
+      derived_from: [REQ-KNOWLEDGE-DEPTH]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+  
+    - id: KM-KNOWLEDGE-FAMILY
+      kind: domain-model
+      subject: subject-knowledge-family
+      semantic_value: Reusable Subject Knowledge has two independently addressable semantic forms, KnowledgeObject and KnowledgeProposition, without requiring either a universal graph-node carrier or a closed hierarchy of knowledge entity subtypes.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-KNOWLEDGE-OBJECT-IDENTITY
+      kind: domain-model
+      subject: knowledge-object-identity
+      semantic_value: A KnowledgeObject has stable reusable subject-semantic identity independent of learner, target, capability reference, task, source location, graph position, selected scope, and interface representation.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-KNOWLEDGE-PROPOSITION
+      kind: domain-model
+      subject: knowledge-proposition
+      semantic_value: A KnowledgeProposition is an independently addressable reusable subject proposition with participants or conditions when needed; provenance/support may justify acceptance but does not define semantic identity.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-BOOTSTRAP]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-RELATIONAL-PROPOSITION
+      kind: domain-invariant
+      subject: relational-subject-knowledge
+      semantic_value: Relational Subject Knowledge is a KnowledgeProposition classified by the accepted relation predicate vocabulary; a predicate is not an assertion, and predicate-specific direction and inference semantics must be preserved.
+      derived_from: [KRC-PREDICATE-NOT-ASSERTION, KRC-PRESERVE-RELATION-MEANING, KRC-EVIDENCE-BOUNDED-CLASSIFICATION, KRC-EXISTING-VOCABULARY-CONTINUITY]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-OPEN-KNOWLEDGE-FORM
+      kind: domain-model
+      subject: knowledge-form
+      semantic_value: KnowledgeObject may use an optional open semantic-form classification such as concept, mechanism, procedure, strategy, model, or property; relation-derived roles such as solution/problem or realization/abstraction are not permanent global entity kinds.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, KRC-EXISTING-VOCABULARY-CONTINUITY]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-SCOPE-OVERVIEW-DEPTH
+      kind: domain-invariant
+      subject: knowledge-projection-semantics
+      semantic_value: Overview, current scope, and overview-to-detail depth are contextual projections or disclosures over stable KnowledgeObjects and KnowledgePropositions; changing them does not clone or mutate Knowledge identity, and relevance/importance are not intrinsic immutable Knowledge properties.
+      derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, MC-SUBJECT-KNOWLEDGE]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-CROSS-CONTEXT-BOUNDARY
+      kind: domain-invariant
+      subject: knowledge-cross-context-boundary
+      semantic_value: Capability-to-Knowledge focus, target requirements, practice/support links, observations, and learner-state claims remain owned by their model contexts or translations and must not be reclassified as Subject Knowledge propositions solely to connect them to Knowledge.
+      derived_from: [TR-KNOWLEDGE-TO-CAPABILITY, KRC-SUBJECT-KNOWLEDGE-SCOPE, REQ-CAP-PERFORMANCE-REQUIREMENT]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-BOOTSTRAP-CORRECTION
+      kind: domain-invariant
+      subject: knowledge-bootstrap-correction
+      semantic_value: Fragmented sources may propose new or corrected Subject Knowledge, but source/extraction mechanics do not own accepted truth; a material change in reusable meaning may require a new semantic identity rather than silently changing historical meaning.
+      derived_from: [TR-BOOTSTRAP-TO-SEMANTIC-OWNERS, REQ-CAP-BOOTSTRAP, KRC-EVIDENCE-BOUNDED-CLASSIFICATION]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  
+    - id: KM-GRAPH-IS-PROJECTION
+      kind: domain-invariant
+      subject: knowledge-graph-boundary
+      semantic_value: A graph, including any 2D or 3D spatial arrangement, is one downstream projection of addressable Subject Knowledge and meaningful relationships rather than the semantic identity or mandatory interface of the domain model.
+      derived_from: [MC-SUBJECT-KNOWLEDGE, REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: TACTICAL-DOMAIN-DESIGN
+      source_artifact: KNOWLEDGE-MODEL
+  

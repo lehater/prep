@@ -1,0 +1,26 @@
+version: 1
+kind: prep-domain-revision-analysis
+capability: prep.knowledge-relation-classification
+mode: CREATE
+donor_baseline: docs/domain/relation-classification-catalog.yaml
+decision_axes:
+  semantic_identity:
+    result: PRESERVE
+    reason: Relation predicates remain vocabulary; relational assertions remain separately addressable Subject Knowledge propositions.
+  invariants:
+    result: TIGHTEN_BOUNDARY
+    reason: Cross-context structural relationships must not be classified as reusable Subject Knowledge predicates.
+  lifecycle:
+    result: PRESERVE
+    reason: Preferred, candidate, and legacy-only vocabulary lifecycle is unchanged.
+  relationships:
+    result: PRESERVE
+    alternatives_considered:
+      - flat_generic_relation_enum
+      - family_plus_semantically_specific_leaf_predicates
+      - unconstrained_free_text_predicates
+    reason: Existing family-plus-leaf classifier preserves inspectable relationship meaning without forcing unsupported relations.
+  responsibility_boundaries:
+    result: TIGHTEN_BOUNDARY
+    reason: New Model Context Strategy assigns this catalog only to MC-SUBJECT-KNOWLEDGE; cross-context links stay with their owners.
+selection_note: No new predicate taxonomy is selected or promoted in this acceptance; only upstream-determined ownership scope changes.

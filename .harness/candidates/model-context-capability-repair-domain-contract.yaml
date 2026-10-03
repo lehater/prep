@@ -1,0 +1,10 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.domain-strategy
+target_capability: prep.model-context-strategy
+obligations:
+  - id: strategic-responsibilities
+    source_kind: domain-strategy-responsibility
+    min_count: 6
+lifecycle_dependency:
+  exhaustive: true

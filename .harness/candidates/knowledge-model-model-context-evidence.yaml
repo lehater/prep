@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.model-context-strategy
+target_capability: prep.knowledge-model
+links:
+  - {sources: [MC-SUBJECT-KNOWLEDGE], relation: TRANSFORMS, targets: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-OPEN-KNOWLEDGE-FORM, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION]}
+  - {sources: [TR-KNOWLEDGE-TO-CAPABILITY], relation: CONSTRAINS, targets: [KM-CROSS-CONTEXT-BOUNDARY]}
+  - {sources: [TR-BOOTSTRAP-TO-SEMANTIC-OWNERS], relation: CONSTRAINS, targets: [KM-BOOTSTRAP-CORRECTION]}
+dispositions:
+  - {source: MC-PREPARATION-DIRECTION, status: NOT_APPLICABLE, rationale: "Preparation Direction consumes/selects reusable knowledge but does not define Subject Knowledge entities or identity."}
+  - {source: MC-CAPABILITY-PERFORMANCE, status: NOT_APPLICABLE, rationale: "Capability and Performance is an independent semantic language; its model is not owned by Subject Knowledge."}
+  - {source: MC-LEARNER-EVIDENCE-STATE, status: NOT_APPLICABLE, rationale: "Learner Evidence and State is learner-specific and cannot define reusable Subject Knowledge."}
+  - {source: TR-CAPABILITY-TO-DIRECTION, status: NOT_APPLICABLE, rationale: "Target requirement translation does not define Subject Knowledge semantics."}
+  - {source: TR-SEMANTICS-TO-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice execution consumes Subject Knowledge but does not define its identity or internal semantics."}
+  - {source: TR-PRACTICE-TO-EVIDENCE, status: NOT_APPLICABLE, rationale: "Observation transfer is outside Subject Knowledge."}
+  - {source: TR-EVIDENCE-TO-DIRECTION, status: NOT_APPLICABLE, rationale: "Learner-state adaptation is outside Subject Knowledge."}

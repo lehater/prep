@@ -1,0 +1,128 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: LEARNING-DESIGN
+capability: prep.learning-design
+path: docs/domain/learning-design.md
+changed_paths:
+  - docs/domain/learning-design.md
+canonical_references:
+  - artifact: LEARNING-DESIGN
+    referenced_path: docs/architecture/model-context-map.md
+  - artifact: LEARNING-DESIGN
+    referenced_path: docs/domain/knowledge-model.md
+  - artifact: LEARNING-DESIGN
+    referenced_path: .harness/knowledge/product-capabilities.yaml
+
+semantic_assertions:
+  - id: LD-CAPABILITY
+    kind: domain-model
+    subject: capability
+    semantic_value: Capability is reusable normative meaning for expected human performance, with a performance expectation, condition space, constitutive constraints, and criterion dimensions, independent of one learner, target, task, or observed performance.
+    derived_from: [MC-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-CAPABILITY-SPECIFICATION
+    kind: domain-model
+    subject: capability-specification
+    semantic_value: CapabilitySpecification is a reusable value combining a Capability with an optional condition-scope refinement and optional CapabilityStandard; entailment between specifications is never automatic from apparent scope or strength alone.
+    derived_from: [MC-CAPABILITY-PERFORMANCE, TR-CAPABILITY-TO-DIRECTION, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-CAPABILITY-STANDARD
+    kind: domain-model
+    subject: capability-standard
+    semantic_value: CapabilityStandard may constrain performance thresholds and consistency across admissible occasions; normative consistency is distinct from epistemic confidence about a learner.
+    derived_from: [MC-CAPABILITY-PERFORMANCE, REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-KNOWLEDGE-FOCUS
+    kind: domain-model
+    subject: capability-knowledge-focus
+    semantic_value: PerformanceExpectation may focus on reusable Subject Knowledge when that Knowledge is a direct semantic object of the expected performance; this cross-context reference is owned by Capability and Performance and is not a Subject Knowledge predicate or a required realization method.
+    derived_from: [TR-KNOWLEDGE-TO-CAPABILITY, KM-CROSS-CONTEXT-BOUNDARY, REQ-CAP-PERFORMANCE-REQUIREMENT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-PREPARATION-TARGET
+    kind: domain-model
+    subject: preparation-target
+    semantic_value: PreparationTarget defines one explicit target purpose/context and a RequirementExpression over CapabilitySpecifications; related targets provide context without automatic inheritance of requirements, satisfaction, gaps, standards, or evidence.
+    derived_from: [MC-PREPARATION-DIRECTION, TR-CAPABILITY-TO-DIRECTION, REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-REQUIREMENT-EXPRESSION
+    kind: domain-model
+    subject: target-requirement-expression
+    semantic_value: Target requirements compose CapabilitySpecifications using a minimal recursive expression of leaf, all_of, and any_of while preserving the Boolean meaning of the target.
+    derived_from: [MC-PREPARATION-DIRECTION, TR-CAPABILITY-TO-DIRECTION, REQ-CAP-TARGET]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-GAP-PRIORITY
+    kind: domain-model
+    subject: target-relative-gap-priority
+    semantic_value: Gap and PreparationPriority are target-relative derivations over accepted requirement semantics and accepted learner state; unresolved or challenged status does not copy learner evidence or turn priority into an intrinsic Knowledge or Capability property.
+    derived_from: [MC-PREPARATION-DIRECTION, TR-EVIDENCE-TO-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-PREPARATION-INTENT
+    kind: domain-model
+    subject: preparation-intent
+    semantic_value: PreparationIntent records the target-relative capability focus, gaps or uncertainty to address, and an open preparation purpose such as acquisition, practice, diagnosis, transfer, or retention support without asserting that change occurred.
+    derived_from: [MC-PREPARATION-DIRECTION, TR-SEMANTICS-TO-PRACTICE, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-LEARNING-MATERIAL
+    kind: domain-model
+    subject: learning-material
+    semantic_value: LearningMaterial is reusable learner-facing support that may present Subject Knowledge and be intended to support CapabilitySpecifications while exposure or completion remains distinct from evidence of learning or capability.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, KM-KNOWLEDGE-OBJECT-IDENTITY, REQ-CAP-SUPPORT-FIT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-SUPPORT-REQUIREMENT
+    kind: domain-model
+    subject: learning-support-requirement
+    semantic_value: LearningSupportRequirement defines explicit support and coverage constraints relative to a CapabilitySpecification; adequacy is not inferred from artifact count and does not imply learner capability.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-DURABLE-TRANSFER]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-TASK-SPECIFICATION
+    kind: domain-model
+    subject: task-specification
+    semantic_value: TaskSpecification is a reusable performer-facing performance-opportunity specification with expectation, prescribed condition constraints, variability, and response affordances; it is distinct from concrete application/user tasks and actual performance.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-OBSERVATION-SPECIFICATION
+    kind: domain-model
+    subject: observation-specification
+    semantic_value: ObservationSpecification defines a feature of actual Performance intended to be observable and an optional identification/evaluation method; an affordance to observe does not imply an Observation exists or justify a Capability conclusion.
+    derived_from: [TR-PRACTICE-TO-EVIDENCE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-PRACTICE]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-EVIDENCE-DESIGN-BOUNDARY
+    kind: domain-invariant
+    subject: evidence-design-boundary
+    semantic_value: Learning Design stops at reusable performance opportunities and observation specifications; actual Performance, Observation, evidence arguments, and learner capability conclusions belong to Learner Evidence and State, while no independent EvidencePattern/Warrant/AssessmentDesign language is accepted yet.
+    derived_from: [MC-LEARNER-EVIDENCE-STATE, TR-PRACTICE-TO-EVIDENCE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-STATE]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-APPLICATION-BOUNDARY
+    kind: domain-invariant
+    subject: learning-design-application-boundary
+    semantic_value: Reusable TaskSpecification and preparation/support semantics do not own concrete user tasks, workflows, runtime sessions, external-runtime delegation, screens, routes, or navigation, which remain downstream Application and Interface concerns.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+  - id: LD-QUESTION-NONFUNDAMENTAL
+    kind: domain-invariant
+    subject: question-compatibility
+    semantic_value: Question/card interactions are compatibility projections over TaskSpecification, ObservationSpecification, optional LearningMaterial, Subject Knowledge references, and CapabilitySpecification rather than a universal tactical-domain entity.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, TR-PRACTICE-TO-EVIDENCE, REQ-CAP-PRACTICE]
+    decision_authority: TACTICAL-DOMAIN-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - domain-model-authority-boundary

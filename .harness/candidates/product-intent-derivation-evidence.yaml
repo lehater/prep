@@ -1,0 +1,37 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.user-needs
+target_capability: prep.product-intent
+links:
+  - {sources: [GOAL-TARGET, NEED-TARGET], relation: TRANSFORMS, targets: [REQ-TARGET-REFINEMENT]}
+  - {sources: [GOAL-STATE, NEED-STATE], relation: TRANSFORMS, targets: [REQ-STATE-EVIDENCE]}
+  - {sources: [GOAL-PRIORITY, NEED-PRIORITY], relation: TRANSFORMS, targets: [REQ-NEXT-FOCUS]}
+  - {sources: [GOAL-PROGRESS, NEED-PROGRESS], relation: TRANSFORMS, targets: [REQ-PERFORMANCE-EVIDENCE]}
+  - {sources: [GOAL-ADAPT, NEED-ADAPT], relation: TRANSFORMS, targets: [REQ-ADAPTIVE-UPDATE]}
+  - {sources: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP], relation: TRANSFORMS, targets: [REQ-LOW-OVERHEAD-BOOTSTRAP]}
+dispositions:
+  - source: ACTOR-PRIMARY-LEARNER
+    status: NOT_APPLICABLE
+    rationale: The actor scopes interpretation of all product requirements but does not independently create an additional normative product behavior.
+  - source: CONTEXT-PREPARATION
+    status: NOT_APPLICABLE
+    rationale: Context of use constrains interpretation of the derived requirements but is not itself a separate product behavior requirement.
+  - source: EVIDENCE-NEED-TARGET
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-TARGET and is preserved through the requirement derived from that accepted need.
+  - source: EVIDENCE-NEED-STATE
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-STATE and is preserved through the requirement derived from that accepted need.
+  - source: EVIDENCE-NEED-PRIORITY
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-PRIORITY and is preserved through the requirement derived from that accepted need.
+  - source: EVIDENCE-NEED-PROGRESS
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-PROGRESS and is preserved through the requirement derived from that accepted need.
+  - source: EVIDENCE-NEED-ADAPT
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-ADAPT and is preserved through the requirement derived from that accepted need.
+  - source: EVIDENCE-NEED-BOOTSTRAP
+    status: NOT_APPLICABLE
+    rationale: This evidence is provenance for NEED-BOOTSTRAP and is preserved through the requirement derived from that accepted need.
+

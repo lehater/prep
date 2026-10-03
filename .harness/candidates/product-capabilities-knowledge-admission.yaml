@@ -1,0 +1,97 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRODUCT-CAPABILITIES
+capability: prep.product-capabilities
+path: .harness/knowledge/product-capabilities.yaml
+changed_paths:
+  - .harness/knowledge/product-capabilities.yaml
+canonical_references:
+  - artifact: PRODUCT-CAPABILITIES
+    referenced_path: .harness/knowledge/product-intent.yaml
+
+semantic_assertions:
+  - id: REQ-CAP-TARGET
+    kind: product-requirement
+    subject: capability-target-management
+    semantic_value: The product lets the learner create, inspect, and revise an active preparation target while preserving explicit uncertainty and distinguishing target refinement from learner-state change.
+    derived_from: [REQ-TARGET-REFINEMENT]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-EVIDENCE-CONTEXT
+    kind: product-requirement
+    subject: capability-evidence-context
+    semantic_value: The product accepts or records capability-relevant evidence with enough context to distinguish observations from conclusions.
+    derived_from: [REQ-STATE-EVIDENCE, REQ-PERFORMANCE-EVIDENCE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-STATE
+    kind: product-requirement
+    subject: capability-learner-state
+    semantic_value: The product derives or presents target-relative learner state that distinguishes demonstrated, challenged, and unknown capability from unsupported familiarity or activity.
+    derived_from: [REQ-STATE-EVIDENCE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-FOCUS
+    kind: product-requirement
+    subject: capability-next-focus
+    semantic_value: The product supports establishing an explicit next preparation focus from target relevance, current evidence, unresolved uncertainty, and available time.
+    derived_from: [REQ-NEXT-FOCUS]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-PRACTICE
+    kind: product-requirement
+    subject: capability-practice
+    semantic_value: The product supports or delegates learning, practice, or diagnostic activity that can generate evidence relevant to the performance required by the active target.
+    derived_from: [REQ-PERFORMANCE-EVIDENCE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-ADAPT
+    kind: product-requirement
+    subject: capability-adaptation
+    semantic_value: The product updates target-relative state or preparation focus when accepted evidence changes them and separately permits target expectations to be revised when new target information warrants it.
+    derived_from: [REQ-ADAPTIVE-UPDATE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-BOOTSTRAP
+    kind: product-requirement
+    subject: capability-bootstrap
+    semantic_value: The product constructs usable preparation support from fragmented or incomplete sources and supports incremental introduction or correction of supporting knowledge data without requiring learner-maintained reusable corpus curation.
+    derived_from: [REQ-LOW-OVERHEAD-BOOTSTRAP]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-KNOWLEDGE-OVERVIEW
+    kind: product-requirement
+    subject: capability-knowledge-overview
+    semantic_value: The product provides an inspectable high-level overview of important concepts within the currently relevant subject scope and how that scope fits together.
+    derived_from: [REQ-KNOWLEDGE-ORIENTATION]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-KNOWLEDGE-RELATIONSHIPS
+    kind: product-requirement
+    subject: capability-knowledge-relationships
+    semantic_value: The product lets the learner inspect meaningful relationships among relevant concepts while preserving relationship meaning rather than exposing generic connectivity only.
+    derived_from: [REQ-KNOWLEDGE-RELATIONSHIPS]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-KNOWLEDGE-SCOPE
+    kind: product-requirement
+    subject: capability-knowledge-scope
+    semantic_value: The product lets the learner narrow and expand the considered subject-knowledge scope using meaningful criteria relevant to the active preparation purpose.
+    derived_from: [REQ-KNOWLEDGE-SCOPE]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+  - id: REQ-CAP-KNOWLEDGE-DEPTH
+    kind: product-requirement
+    subject: capability-knowledge-depth
+    semantic_value: The product lets the learner move between high-level orientation and deeper knowledge detail while retaining enough surrounding conceptual context to stay oriented.
+    derived_from: [REQ-KNOWLEDGE-DEPTH]
+    decision_authority: PRODUCT-REQUIREMENTS
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - observable-product-level
+    - no-downstream-design-promotion

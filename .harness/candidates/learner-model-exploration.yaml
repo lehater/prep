@@ -1,0 +1,49 @@
+version: 1
+kind: prep-domain-model-exploration
+capability: prep.learner-model
+knowledge_kind: domain-model
+mode: CREATE
+donor_baseline: docs/domain/learner-model.md
+axes:
+  - axis: semantic-identity
+    alternatives:
+      - {id: mutable-state-record, effect: "One mutable learner mastery/state record absorbs observations and conclusions."}
+      - {id: fact-argument-claim, effect: "Performance and Observation are historical tokens; evidence arguments and claims are separately addressable; state is projected."}
+      - {id: score-only, effect: "Learner truth is represented primarily by scalar proficiency/mastery scores."}
+    selected_basis: fact-argument-claim
+    rationale: "Preserves observable facts, inspectable justification, uncertainty, and conflicting evidence without rewriting history."
+  - axis: invariants
+    alternatives:
+      - {id: direct-observation-inference, effect: "Success/failure observations can directly become learner capability state."}
+      - {id: explicit-inference-boundary, effect: "Observation remains separate from claim and requires explicit evidence argument."}
+    selected_basis: explicit-inference-boundary
+    rationale: "Required by accepted evidence-justification and partial-observability semantics."
+  - axis: lifecycle
+    alternatives:
+      - {id: overwrite-state, effect: "New evidence overwrites prior learner state."}
+      - {id: append-history-project-current, effect: "Performance/Observation/arguments remain historical; current state is re-projected from applicable evidence."}
+    selected_basis: append-history-project-current
+    rationale: "Supports time applicability, retention/transfer, conflict, and auditability."
+  - axis: relationships
+    alternatives:
+      - {id: reusable-warrant-required, effect: "Every evidence inference depends on a separately modeled reusable EvidentialWarrant/EvidencePattern."}
+      - {id: direct-inspectable-argument, effect: "The evidence argument itself records bearing, applicability, limits, reasoning, and provenance."}
+      - {id: opaque-model-output, effect: "A model score directly determines learner state."}
+    selected_basis: direct-inspectable-argument
+    rationale: "Satisfies evidence justification without inventing the not-yet-accepted Assessment/Evidence Design context."
+  - axis: responsibility-boundaries
+    alternatives:
+      - {id: learner-model-owns-target-and-capability, effect: "Learner state mutates target/capability/knowledge semantics."}
+      - {id: learner-specific-only, effect: "Learner Model owns actual evidence and claims while referencing reusable capability/knowledge and projecting into Preparation Direction."}
+    selected_basis: learner-specific-only
+    rationale: "Required by current Model Context Strategy."
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  open_gaps:
+    - "Reusable evidence-pattern/warrant/sampling semantics remain intentionally deferred until independent lifecycle/consumers justify an Assessment/Evidence Design context."
+note: "Historical warrant-based learner semantics are donor evidence; direct evidence arguments are selected because current upstream requires inspectability but no independent warrant language."

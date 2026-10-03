@@ -1,0 +1,16 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.model-context-strategy
+target_capability: prep.learning-design
+links:
+  - {sources: [MC-PREPARATION-DIRECTION], relation: TRANSFORMS, targets: [LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LD-GAP-PRIORITY, LD-PREPARATION-INTENT]}
+  - {sources: [MC-CAPABILITY-PERFORMANCE], relation: TRANSFORMS, targets: [LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD]}
+  - {sources: [MC-LEARNER-EVIDENCE-STATE], relation: CONSTRAINS, targets: [LD-EVIDENCE-DESIGN-BOUNDARY]}
+  - {sources: [TR-KNOWLEDGE-TO-CAPABILITY], relation: TRANSFORMS, targets: [LD-KNOWLEDGE-FOCUS]}
+  - {sources: [TR-CAPABILITY-TO-DIRECTION], relation: TRANSFORMS, targets: [LD-CAPABILITY-SPECIFICATION, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION]}
+  - {sources: [TR-SEMANTICS-TO-PRACTICE], relation: TRANSFORMS, targets: [LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]}
+  - {sources: [TR-PRACTICE-TO-EVIDENCE], relation: TRANSFORMS, targets: [LD-OBSERVATION-SPECIFICATION, LD-EVIDENCE-DESIGN-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]}
+  - {sources: [TR-EVIDENCE-TO-DIRECTION], relation: TRANSFORMS, targets: [LD-GAP-PRIORITY]}
+dispositions:
+  - {source: MC-SUBJECT-KNOWLEDGE, status: NOT_APPLICABLE, rationale: "Subject Knowledge is consumed through accepted Knowledge Model references rather than redefined by Learning Design."}
+  - {source: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS, status: NOT_APPLICABLE, rationale: "Bootstrap may propose learning-design data but does not change the tactical semantics defined here."}

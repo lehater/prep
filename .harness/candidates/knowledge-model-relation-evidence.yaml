@@ -1,0 +1,11 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-relation-classification
+target_capability: prep.knowledge-model
+links:
+  - {sources: [KRC-SUBJECT-KNOWLEDGE-SCOPE], relation: CONSTRAINS, targets: [KM-RELATIONAL-PROPOSITION, KM-CROSS-CONTEXT-BOUNDARY]}
+  - {sources: [KRC-PREDICATE-NOT-ASSERTION], relation: TRANSFORMS, targets: [KM-RELATIONAL-PROPOSITION]}
+  - {sources: [KRC-PRESERVE-RELATION-MEANING], relation: CONSTRAINS, targets: [KM-RELATIONAL-PROPOSITION]}
+  - {sources: [KRC-EVIDENCE-BOUNDED-CLASSIFICATION], relation: CONSTRAINS, targets: [KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-BOOTSTRAP-CORRECTION]}
+  - {sources: [KRC-EXISTING-VOCABULARY-CONTINUITY], relation: TRANSFORMS, targets: [KM-RELATIONAL-PROPOSITION, KM-OPEN-KNOWLEDGE-FORM]}
+dispositions: []

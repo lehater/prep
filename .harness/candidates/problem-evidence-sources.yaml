@@ -1,0 +1,3 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions: []

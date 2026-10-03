@@ -1,0 +1,59 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: PRODUCT-CAPABILITIES
+schema: product-requirements/v1
+title: Prep Product Capabilities
+
+content:
+  purpose: Decompose accepted product intent into observable product capabilities without selecting domain ownership, interface form, algorithms, persistence, or implementation technology.
+
+  requirements:
+    - id: REQ-CAP-TARGET
+      statement: The product shall let the learner create, inspect, and revise an active preparation target while preserving explicit uncertainty and distinguishing later target refinement from learner-state change.
+      status: ACCEPTED
+      source_refs: [REQ-TARGET-REFINEMENT]
+      rationale: Target definition is an observable product capability and must remain revisable without forcing downstream representation choices.
+
+    - id: REQ-CAP-EVIDENCE-CONTEXT
+      statement: The product shall accept or record capability-relevant evidence with enough context to distinguish the observation itself from any conclusion drawn from it.
+      status: ACCEPTED
+      source_refs: [REQ-STATE-EVIDENCE, REQ-PERFORMANCE-EVIDENCE]
+      rationale: Evidence-backed state and target-relevant performance both require observable evidence to remain distinguishable from inferred state.
+
+    - id: REQ-CAP-STATE
+      statement: The product shall derive or present target-relative learner state so demonstrated, challenged, and unknown capability can be distinguished from unsupported familiarity or activity.
+      status: ACCEPTED
+      source_refs: [REQ-STATE-EVIDENCE]
+      rationale: Current state is useful only when its evidence basis and uncertainty remain visible.
+
+    - id: REQ-CAP-FOCUS
+      statement: The product shall support establishing an explicit next preparation focus from target relevance, current evidence, unresolved uncertainty, and available time.
+      status: ACCEPTED
+      source_refs: [REQ-NEXT-FOCUS]
+      rationale: Limited time requires an actionable product capability for choosing what deserves attention next.
+
+    - id: REQ-CAP-PRACTICE
+      statement: The product shall support or delegate learning, practice, or diagnostic activity that can generate evidence relevant to the performance required by the active target.
+      status: ACCEPTED
+      source_refs: [REQ-PERFORMANCE-EVIDENCE]
+      rationale: The product must enable evidence-producing preparation without prescribing one study runtime, question format, or exercise mechanism.
+
+    - id: REQ-CAP-ADAPT
+      statement: The product shall update target-relative state or preparation focus when accepted new evidence changes them and shall allow target expectations to be revised separately when new target information warrants it.
+      status: ACCEPTED
+      source_refs: [REQ-ADAPTIVE-UPDATE]
+      rationale: Adaptation must distinguish learner change from target refinement.
+
+    - id: REQ-CAP-BOOTSTRAP
+      statement: The product shall support constructing a usable preparation scope from fragmented or incomplete source material with low learner overhead and without requiring learner-maintained reusable corpus curation.
+      status: ACCEPTED
+      source_refs: [REQ-LOW-OVERHEAD-BOOTSTRAP]
+      rationale: A usable preparation flow must be able to start before complete structured product data exists.
+
+  non_goals:
+    - Require a curator/operator role as part of the learner product flow.
+    - Require a reusable internal knowledge corpus to be maintained by the learner.
+    - Require graph exploration, cards, questions, spaced repetition, or any other specific learning representation.
+    - Define target, evidence, learner-state, or knowledge domain entities and ownership.
+    - Define ranking, scheduling, inference, extraction, or generation algorithms.
+    - Define import schema, API, persistence, interface layout, or implementation architecture.

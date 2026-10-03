@@ -1,0 +1,38 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.user-needs
+target_capability: prep.product-intent
+links:
+  - {sources: [GOAL-TARGET, NEED-TARGET], relation: TRANSFORMS, targets: [REQ-TARGET-REFINEMENT]}
+  - {sources: [GOAL-TARGET-PURPOSE, NEED-TARGET-PURPOSE], relation: TRANSFORMS, targets: [REQ-TARGET-PURPOSE]}
+  - {sources: [GOAL-CAPABILITY-PERFORMANCE, NEED-CAPABILITY-PERFORMANCE], relation: TRANSFORMS, targets: [REQ-CAPABILITY-PERFORMANCE]}
+  - {sources: [GOAL-STATE, NEED-STATE], relation: TRANSFORMS, targets: [REQ-STATE-EVIDENCE]}
+  - {sources: [GOAL-EVIDENCE-JUSTIFICATION, NEED-EVIDENCE-JUSTIFICATION], relation: TRANSFORMS, targets: [REQ-EVIDENCE-JUSTIFICATION]}
+  - {sources: [GOAL-PRIORITY, NEED-PRIORITY], relation: TRANSFORMS, targets: [REQ-NEXT-FOCUS]}
+  - {sources: [GOAL-PROGRESS, NEED-PROGRESS], relation: TRANSFORMS, targets: [REQ-PERFORMANCE-EVIDENCE]}
+  - {sources: [GOAL-DURABLE-TRANSFER, NEED-DURABLE-TRANSFER], relation: TRANSFORMS, targets: [REQ-DURABLE-TRANSFER]}
+  - {sources: [GOAL-SUPPORT-FIT, NEED-SUPPORT-FIT], relation: TRANSFORMS, targets: [REQ-SUPPORT-FIT]}
+  - {sources: [GOAL-ADAPT, NEED-ADAPT], relation: TRANSFORMS, targets: [REQ-ADAPTIVE-UPDATE]}
+  - {sources: [GOAL-BOOTSTRAP, NEED-BOOTSTRAP], relation: TRANSFORMS, targets: [REQ-LOW-OVERHEAD-BOOTSTRAP]}
+  - {sources: [GOAL-KNOWLEDGE-ORIENTATION, NEED-KNOWLEDGE-ORIENTATION], relation: TRANSFORMS, targets: [REQ-KNOWLEDGE-ORIENTATION]}
+  - {sources: [GOAL-RELATIONAL-UNDERSTANDING, NEED-RELATIONSHIPS], relation: TRANSFORMS, targets: [REQ-KNOWLEDGE-RELATIONSHIPS]}
+  - {sources: [GOAL-KNOWLEDGE-SCOPE, NEED-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [REQ-KNOWLEDGE-SCOPE]}
+  - {sources: [GOAL-KNOWLEDGE-DEPTH, NEED-KNOWLEDGE-DEPTH], relation: TRANSFORMS, targets: [REQ-KNOWLEDGE-DEPTH]}
+dispositions:
+  - {source: ACTOR-PRIMARY-LEARNER, status: NOT_APPLICABLE, rationale: "The actor scopes all product requirements but is not a separate observable product behavior."}
+  - {source: CONTEXT-PREPARATION, status: NOT_APPLICABLE, rationale: "Context constrains all requirements but is not itself an additional product behavior."}
+  - {source: EVIDENCE-NEED-TARGET, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-TARGET and its derived requirement."}
+  - {source: EVIDENCE-NEED-TARGET-PURPOSE, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-TARGET-PURPOSE and its derived requirement."}
+  - {source: EVIDENCE-NEED-CAPABILITY-PERFORMANCE, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-CAPABILITY-PERFORMANCE and its derived requirement."}
+  - {source: EVIDENCE-NEED-STATE, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-STATE and its derived requirement."}
+  - {source: EVIDENCE-NEED-EVIDENCE-JUSTIFICATION, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-EVIDENCE-JUSTIFICATION and its derived requirement."}
+  - {source: EVIDENCE-NEED-PRIORITY, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-PRIORITY and its derived requirement."}
+  - {source: EVIDENCE-NEED-PROGRESS, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-PROGRESS and its derived requirement."}
+  - {source: EVIDENCE-NEED-DURABLE-TRANSFER, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-DURABLE-TRANSFER and its derived requirement."}
+  - {source: EVIDENCE-NEED-SUPPORT-FIT, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-SUPPORT-FIT and its derived requirement."}
+  - {source: EVIDENCE-NEED-ADAPT, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-ADAPT and its derived requirement."}
+  - {source: EVIDENCE-NEED-BOOTSTRAP, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-BOOTSTRAP and its derived requirement."}
+  - {source: EVIDENCE-NEED-KNOWLEDGE-ORIENTATION, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-KNOWLEDGE-ORIENTATION and its derived requirement."}
+  - {source: EVIDENCE-NEED-RELATIONSHIPS, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-RELATIONSHIPS and its derived requirement."}
+  - {source: EVIDENCE-NEED-KNOWLEDGE-SCOPE, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-KNOWLEDGE-SCOPE and its derived requirement."}
+  - {source: EVIDENCE-NEED-KNOWLEDGE-DEPTH, status: NOT_APPLICABLE, rationale: "Provenance is preserved through NEED-KNOWLEDGE-DEPTH and its derived requirement."}

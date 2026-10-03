@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.domain-strategy
+links:
+  - {sources: [REQ-CAP-TARGET], relation: TRANSFORMS, targets: [DS-PREPARATION-DIRECTION, DS-PREPARATION-BOOTSTRAP]}
+  - {sources: [REQ-CAP-TARGET-PURPOSE], relation: TRANSFORMS, targets: [DS-PREPARATION-DIRECTION]}
+  - {sources: [REQ-CAP-PERFORMANCE-REQUIREMENT], relation: TRANSFORMS, targets: [DS-CAPABILITY-PERFORMANCE]}
+  - {sources: [REQ-CAP-EVIDENCE-CONTEXT], relation: TRANSFORMS, targets: [DS-LEARNER-EVIDENCE-STATE, DS-PRACTICE-LEARNING-ENABLEMENT]}
+  - {sources: [REQ-CAP-STATE], relation: TRANSFORMS, targets: [DS-LEARNER-EVIDENCE-STATE]}
+  - {sources: [REQ-CAP-EVIDENCE-JUSTIFICATION], relation: TRANSFORMS, targets: [DS-LEARNER-EVIDENCE-STATE]}
+  - {sources: [REQ-CAP-FOCUS], relation: TRANSFORMS, targets: [DS-PREPARATION-DIRECTION]}
+  - {sources: [REQ-CAP-PRACTICE], relation: TRANSFORMS, targets: [DS-PRACTICE-LEARNING-ENABLEMENT]}
+  - {sources: [REQ-CAP-DURABLE-TRANSFER], relation: TRANSFORMS, targets: [DS-CAPABILITY-PERFORMANCE, DS-LEARNER-EVIDENCE-STATE]}
+  - {sources: [REQ-CAP-SUPPORT-FIT], relation: TRANSFORMS, targets: [DS-CAPABILITY-PERFORMANCE, DS-PRACTICE-LEARNING-ENABLEMENT]}
+  - {sources: [REQ-CAP-ADAPT], relation: TRANSFORMS, targets: [DS-PREPARATION-DIRECTION, DS-LEARNER-EVIDENCE-STATE]}
+  - {sources: [REQ-CAP-BOOTSTRAP], relation: TRANSFORMS, targets: [DS-PREPARATION-BOOTSTRAP]}
+  - {sources: [REQ-CAP-KNOWLEDGE-OVERVIEW], relation: TRANSFORMS, targets: [DS-SUBJECT-KNOWLEDGE]}
+  - {sources: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS], relation: TRANSFORMS, targets: [DS-SUBJECT-KNOWLEDGE]}
+  - {sources: [REQ-CAP-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [DS-SUBJECT-KNOWLEDGE]}
+  - {sources: [REQ-CAP-KNOWLEDGE-DEPTH], relation: TRANSFORMS, targets: [DS-SUBJECT-KNOWLEDGE]}
+dispositions: []

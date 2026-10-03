@@ -1,0 +1,63 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: MODEL-CONTEXT-MAP
+capability: prep.model-context-strategy
+path: docs/architecture/model-context-map.md
+changed_paths:
+  - docs/architecture/model-context-map.md
+canonical_references:
+  - artifact: MODEL-CONTEXT-MAP
+    referenced_path: .harness/knowledge/product-capabilities.yaml
+  - artifact: MODEL-CONTEXT-MAP
+    referenced_path: docs/architecture/context-map.md
+
+semantic_assertions:
+  - id: MC-PREPARATION-DIRECTION
+    kind: model-context
+    subject: preparation-direction
+    semantic_value: Preparation Direction is the independent normative model language for active target, explicit target uncertainty, target-relative next focus, target refinement, and focus adaptation.
+    derived_from: [DS-PREPARATION-DIRECTION, REQ-CAP-TARGET, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+  - id: MC-LEARNER-EVIDENCE-STATE
+    kind: model-context
+    subject: learner-evidence-state
+    semantic_value: Learner Evidence and State is the independent learner-specific descriptive and epistemic language for contextualized observations, evidence provenance, and evidence-bounded demonstrated, challenged, unknown, or uncertain capability conclusions.
+    derived_from: [DS-LEARNER-EVIDENCE-STATE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-ADAPT]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+  - id: TR-LEARNER-STATE-TO-DIRECTION
+    kind: model-context-translation
+    subject: learner-state-to-preparation-direction
+    semantic_value: Accepted learner-state conclusions and uncertainty may inform preparation focus and adaptation while preserving evidence basis and without redefining target expectations.
+    derived_from: [DS-PREPARATION-DIRECTION, DS-LEARNER-EVIDENCE-STATE, REQ-CAP-ADAPT]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+  - id: TR-DIRECTION-TO-PRACTICE
+    kind: model-context-translation
+    subject: preparation-direction-to-practice-execution
+    semantic_value: Preparation Direction may supply target-relative purpose, focus, or required performance context to internal or external practice execution without making that runtime a semantic owner.
+    derived_from: [DS-PRACTICE-ENABLEMENT, REQ-CAP-PRACTICE, REQ-CAP-FOCUS]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+  - id: TR-PRACTICE-TO-EVIDENCE
+    kind: model-context-translation
+    subject: practice-execution-to-learner-evidence
+    semantic_value: Practice or diagnostic execution may return observations into Learner Evidence and State with enough context to keep observations distinct from inferred conclusions.
+    derived_from: [DS-PRACTICE-ENABLEMENT, REQ-CAP-PRACTICE, REQ-CAP-EVIDENCE-CONTEXT]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+  - id: TR-BOOTSTRAP-TO-DIRECTION
+    kind: model-context-translation
+    subject: bootstrap-source-to-preparation-direction
+    semantic_value: Fragmented source material may be translated into candidate preparation scope or target information while accepted target meaning remains owned by Preparation Direction and unresolved ambiguity remains explicit.
+    derived_from: [DS-PREPARATION-BOOTSTRAP, REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET]
+    decision_authority: MODEL-CONTEXT-STRATEGY
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - model-context-not-domain-investment-or-tactical

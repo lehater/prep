@@ -1,0 +1,63 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-PERFORMANCE-CAPACITY
+capability: prep.frontend-performance-capacity
+path: docs/architecture/performance-capacity.md
+changed_paths:
+  - docs/architecture/performance-capacity.md
+canonical_references:
+  - artifact: FRONTEND-PERFORMANCE-CAPACITY
+    referenced_path: .harness/knowledge/product-capabilities.yaml
+  - artifact: FRONTEND-PERFORMANCE-CAPACITY
+    referenced_path: docs/domain/knowledge-model.md
+
+semantic_assertions:
+  - id: QD-EXPLORE-QUALITY-SCOPE
+    kind: quality-constraint
+    subject: frontend-knowledge-exploration
+    semantic_value: Frontend quality design applies to inspectable knowledge overview, meaningful relationship inspection, scope changes, and overview-to-detail movement while preserving the accepted subject semantics.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-SCOPE-OVERVIEW-DEPTH]
+    decision_authority: QUALITY-DESIGN
+
+  - id: QD-SEMANTIC-PRESERVATION
+    kind: quality-constraint
+    subject: degradation-semantic-preservation
+    semantic_value: Performance degradation or bounded presentation work may reduce presentation richness but must preserve selected Knowledge identity, proposition meaning, meaningful relation semantics, and a task-complete way to inspect the accepted scope.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION]
+    decision_authority: QUALITY-DESIGN
+
+  - id: QD-ACTIVE-WORKING-SET-FREEDOM
+    kind: quality-constraint
+    subject: active-presentation-working-set
+    semantic_value: Accepted product and knowledge semantics do not require the entire reusable Knowledge corpus to be rendered simultaneously; realization may bound the active presentation working set as long as scope expansion, depth movement, relationship inspection, and semantic identity remain available.
+    derived_from: [REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, KM-SCOPE-OVERVIEW-DEPTH, KM-KNOWLEDGE-OBJECT-IDENTITY]
+    decision_authority: QUALITY-DESIGN
+
+  - id: QD-GRAPH-CONDITIONAL
+    kind: quality-constraint
+    subject: graph-performance-applicability
+    semantic_value: Graph-specific workload and renderer metrics are conditional on a downstream graph presentation decision; neither 2D nor 3D graph presentation is a quality requirement or domain assumption.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-DEPTH, KM-GRAPH-IS-PROJECTION]
+    decision_authority: QUALITY-DESIGN
+
+  - id: QD-NUMERIC-TARGETS-DEFERRED
+    kind: quality-constraint
+    subject: quantitative-performance-targets
+    semantic_value: Current accepted upstream supplies no production latency, FPS, throughput, corpus-size, visible-item, or relationship-count target; quantitative production targets are DEFERRED_NONBLOCKING until a concrete presentation workload and representative benchmark evidence exist, and must be reopened before any implementation choice depends on such a number.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-GRAPH-IS-PROJECTION]
+    decision_authority: QUALITY-DESIGN
+
+  - id: QD-IDLE-TARGET-DEFERRED
+    kind: quality-constraint
+    subject: idle-resource-target
+    semantic_value: Current accepted upstream supplies no measurable idle CPU, GPU, animation-loop, power, or memory budget; idle-resource targets are DEFERRED_NONBLOCKING until a selected presentation/runtime and representative measurement make them decision-relevant.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-SCOPE, KM-GRAPH-IS-PROJECTION]
+    decision_authority: QUALITY-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - no-invented-quality-target

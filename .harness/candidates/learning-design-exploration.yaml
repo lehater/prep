@@ -1,0 +1,48 @@
+version: 1
+kind: prep-domain-model-exploration
+capability: prep.learning-design
+knowledge_kind: domain-model
+mode: CREATE
+donor_baseline: docs/domain/learning-design.md
+axes:
+  - axis: semantic-identity
+    alternatives:
+      - {id: topic-capability, effect: "Capability identity follows topic/knowledge labels."}
+      - {id: performance-contract, effect: "Capability identity follows reusable performance expectation plus material conditions/criteria."}
+      - {id: learner-state-capability, effect: "Capability identity is merged with one learner's demonstrated state."}
+    selected_basis: performance-contract
+    rationale: "Accepted upstream explicitly separates topic exposure, reusable capability meaning, and learner-specific state."
+  - axis: invariants
+    alternatives:
+      - {id: activity-implies-learning, effect: "Support/practice completion can directly establish capability."}
+      - {id: design-versus-evidence, effect: "Support intent and observation affordance remain distinct from actual evidence and capability conclusions."}
+    selected_basis: design-versus-evidence
+    rationale: "Required by support-fit, evidence-justification, and Learner Evidence & State boundaries."
+  - axis: lifecycle
+    alternatives:
+      - {id: target-owned-capability, effect: "Each target owns its own capability definitions."}
+      - {id: reusable-capability-target-selection, effect: "Capability meaning is reusable; targets select CapabilitySpecifications for explicit purposes."}
+    selected_basis: reusable-capability-target-selection
+    rationale: "Supports related but non-equivalent role/interview/certification targets without duplicating capability semantics."
+  - axis: relationships
+    alternatives:
+      - {id: knowledge-edge-reuse, effect: "Capability/target/practice links are encoded as Subject Knowledge edges."}
+      - {id: explicit-cross-context-links, effect: "focuses_on and support/target links remain owned by learning/capability semantics."}
+    selected_basis: explicit-cross-context-links
+    rationale: "Required by current Model Context and Knowledge Model boundaries."
+  - axis: responsibility-boundaries
+    alternatives:
+      - {id: monolithic-learning-design, effect: "Learning Design owns tasks, performances, observations, evidence claims, assessment design, learner state, and application flow."}
+      - {id: reusable-design-core, effect: "Learning Design owns capability/target/support specifications; Learner Model owns actual evidence/state; Application owns concrete flow/runtime."}
+    selected_basis: reusable-design-core
+    rationale: "Preserves the four accepted model contexts and avoids re-merging tactical and application semantics."
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  open_gaps:
+    - "Reusable EvidencePattern/Warrant/AssessmentDesign remains intentionally deferred until a separate model-context need is established."
+note: "The historical Learning Design is donor evidence; retained constructs are re-selected only where current accepted upstream semantics require them."

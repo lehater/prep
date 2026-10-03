@@ -1,0 +1,61 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: CONTEXT-MAP
+capability: prep.domain-strategy
+path: docs/architecture/context-map.md
+changed_paths:
+  - docs/architecture/context-map.md
+canonical_references:
+  - artifact: CONTEXT-MAP
+    referenced_path: .harness/knowledge/product-capabilities.yaml
+
+semantic_assertions:
+  - id: DS-PREPARATION-DIRECTION
+    kind: domain-strategy-responsibility
+    subject: preparation-direction
+    semantic_value: CORE responsibility for active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction.
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+    decision_authority: DOMAIN-STRATEGY
+
+  - id: DS-CAPABILITY-PERFORMANCE
+    kind: domain-strategy-responsibility
+    subject: capability-performance-semantics
+    semantic_value: CORE responsibility for reusable meaning of required human performance, including material conditions or constraints and acceptable quality, used consistently by targets, support, evidence, and transfer judgments.
+    derived_from: [REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
+    decision_authority: DOMAIN-STRATEGY
+
+  - id: DS-LEARNER-EVIDENCE-STATE
+    kind: domain-strategy-responsibility
+    subject: learner-evidence-state
+    semantic_value: CORE responsibility for contextualized learner observations and evidence-bounded target-relative capability conclusions, including justification and material limits from provenance, context, coverage, age, and transfer conditions.
+    derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT]
+    decision_authority: DOMAIN-STRATEGY
+
+  - id: DS-SUBJECT-KNOWLEDGE
+    kind: domain-strategy-responsibility
+    subject: subject-knowledge
+    semantic_value: CORE responsibility for reusable subject meaning needed for orientation and learning, including important concepts, meaningful relationships, relevant subject scope, and coherent overview-to-detail structure.
+    derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+    decision_authority: DOMAIN-STRATEGY
+
+  - id: DS-PRACTICE-LEARNING-ENABLEMENT
+    kind: domain-strategy-responsibility
+    subject: practice-learning-enablement
+    semantic_value: SUPPORTING responsibility for enabling or delegating learning, practice, and diagnostic opportunities appropriate to required performance and capable of producing relevant observations without treating support completion as proof of capability.
+    derived_from: [REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-EVIDENCE-CONTEXT]
+    decision_authority: DOMAIN-STRATEGY
+
+  - id: DS-PREPARATION-BOOTSTRAP
+    kind: domain-strategy-responsibility
+    subject: preparation-bootstrap
+    semantic_value: SUPPORTING responsibility for turning fragmented or incomplete sources into usable preparation support and allowing target, capability, knowledge, and evidence-design support data to be introduced or corrected incrementally without learner-maintained corpus curation.
+    derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET]
+    decision_authority: DOMAIN-STRATEGY
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - domain-strategy-not-model-context-or-tactical

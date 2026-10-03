@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.learning-design
+links:
+  - {sources: [KM-KNOWLEDGE-OBJECT-IDENTITY], relation: CONSTRAINS, targets: [LD-LEARNING-MATERIAL]}
+  - {sources: [KM-CROSS-CONTEXT-BOUNDARY], relation: TRANSFORMS, targets: [LD-KNOWLEDGE-FOCUS]}
+dispositions:
+  - {source: KM-KNOWLEDGE-FAMILY, status: NOT_APPLICABLE, rationale: "Learning Design references accepted Knowledge identity but does not redefine the Subject Knowledge family."}
+  - {source: KM-KNOWLEDGE-PROPOSITION, status: NOT_APPLICABLE, rationale: "Knowledge propositions remain Subject Knowledge semantics."}
+  - {source: KM-RELATIONAL-PROPOSITION, status: NOT_APPLICABLE, rationale: "Subject Knowledge relation assertions are not Learning Design relationships."}
+  - {source: KM-OPEN-KNOWLEDGE-FORM, status: NOT_APPLICABLE, rationale: "Knowledge form classification is consumed as subject semantics without redefining learning-design concepts."}
+  - {source: KM-SCOPE-OVERVIEW-DEPTH, status: NOT_APPLICABLE, rationale: "Scope/overview/depth are Subject Knowledge projections and downstream interface concerns."}
+  - {source: KM-BOOTSTRAP-CORRECTION, status: NOT_APPLICABLE, rationale: "Knowledge bootstrap/correction is outside reusable Learning Design semantics."}
+  - {source: KM-GRAPH-IS-PROJECTION, status: NOT_APPLICABLE, rationale: "Graph representation remains downstream presentation and is not part of Learning Design."}

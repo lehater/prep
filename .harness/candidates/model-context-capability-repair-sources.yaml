@@ -1,0 +1,164 @@
+version: 1
+kind: harness-semantic-source-set
+semantic_assertions:
+    - id: REQ-CAP-TARGET
+      kind: product-requirement
+      subject: capability-target-management
+      semantic_value: The product lets the learner create, inspect, and revise an active preparation target while preserving uncertainty and distinguishing target refinement from learner-state change.
+      derived_from: [REQ-TARGET-REFINEMENT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-TARGET-PURPOSE
+      kind: product-requirement
+      subject: capability-target-purpose
+      semantic_value: The product lets the learner distinguish related target purposes and inspect which requirements belong to each without automatic requirement inheritance.
+      derived_from: [REQ-TARGET-PURPOSE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-PERFORMANCE-REQUIREMENT
+      kind: product-requirement
+      subject: capability-performance-requirement
+      semantic_value: The product lets the learner inspect required performance, material conditions or constraints, and acceptable quality separately from topic coverage.
+      derived_from: [REQ-CAPABILITY-PERFORMANCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-EVIDENCE-CONTEXT
+      kind: product-requirement
+      subject: capability-evidence-context
+      semantic_value: The product accepts or records capability-relevant observations with performance context, provenance, target relevance, and time information while keeping observation distinct from conclusion.
+      derived_from: [REQ-STATE-EVIDENCE, REQ-EVIDENCE-JUSTIFICATION, REQ-PERFORMANCE-EVIDENCE, REQ-DURABLE-TRANSFER]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-STATE
+      kind: product-requirement
+      subject: capability-learner-state
+      semantic_value: The product derives or presents target-relative learner state distinguishing demonstrated, challenged, and unknown capability while preserving evidence limitations.
+      derived_from: [REQ-STATE-EVIDENCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-EVIDENCE-JUSTIFICATION
+      kind: product-requirement
+      subject: capability-evidence-justification
+      semantic_value: The product lets the learner inspect why observations support, challenge, or fail to establish a capability conclusion.
+      derived_from: [REQ-EVIDENCE-JUSTIFICATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-FOCUS
+      kind: product-requirement
+      subject: capability-next-focus
+      semantic_value: The product supports establishing an explicit next preparation focus from target relevance, current evidence, unresolved uncertainty, and available time.
+      derived_from: [REQ-NEXT-FOCUS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-PRACTICE
+      kind: product-requirement
+      subject: capability-practice
+      semantic_value: The product supports or delegates learning, practice, or diagnostic activity that can generate evidence relevant to the performance required by the active target.
+      derived_from: [REQ-PERFORMANCE-EVIDENCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-DURABLE-TRANSFER
+      kind: product-requirement
+      subject: capability-durable-transfer
+      semantic_value: The product supports judging whether relevant capability remains available over a required time horizon and transfers to target-relevant conditions.
+      derived_from: [REQ-DURABLE-TRANSFER]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-SUPPORT-FIT
+      kind: product-requirement
+      subject: capability-support-fit
+      semantic_value: The product supports selecting or providing learning, practice, or diagnostic opportunities appropriate to the required outcome while keeping support completion distinct from evidence of developed capability.
+      derived_from: [REQ-SUPPORT-FIT]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-ADAPT
+      kind: product-requirement
+      subject: capability-adaptation
+      semantic_value: The product updates target-relative learner state or preparation focus when accepted evidence changes them and revises target understanding separately when external target information changes.
+      derived_from: [REQ-ADAPTIVE-UPDATE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-BOOTSTRAP
+      kind: product-requirement
+      subject: capability-bootstrap
+      semantic_value: The product constructs usable preparation support from fragmented or incomplete sources and supports incremental introduction or correction of target, capability, knowledge, and evidence-design data without requiring learner-maintained corpus curation.
+      derived_from: [REQ-LOW-OVERHEAD-BOOTSTRAP]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-OVERVIEW
+      kind: product-requirement
+      subject: capability-knowledge-overview
+      semantic_value: The product provides an inspectable high-level overview of important concepts within the currently relevant subject scope and how that scope fits together.
+      derived_from: [REQ-KNOWLEDGE-ORIENTATION]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-RELATIONSHIPS
+      kind: product-requirement
+      subject: capability-knowledge-relationships
+      semantic_value: The product lets the learner inspect meaningful relationships among relevant concepts while preserving relationship meaning rather than generic connectivity only.
+      derived_from: [REQ-KNOWLEDGE-RELATIONSHIPS]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-SCOPE
+      kind: product-requirement
+      subject: capability-knowledge-scope
+      semantic_value: The product lets the learner narrow and expand considered subject-knowledge scope using meaningful criteria relevant to the active preparation purpose.
+      derived_from: [REQ-KNOWLEDGE-SCOPE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-KNOWLEDGE-DEPTH
+      kind: product-requirement
+      subject: capability-knowledge-depth
+      semantic_value: The product lets the learner move between high-level orientation and deeper knowledge detail while retaining surrounding conceptual context.
+      derived_from: [REQ-KNOWLEDGE-DEPTH]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
+  
+    - id: DS-PREPARATION-DIRECTION
+      kind: domain-strategy-responsibility
+      subject: preparation-direction
+      semantic_value: CORE responsibility for active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction.
+      derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-CAPABILITY-PERFORMANCE
+      kind: domain-strategy-responsibility
+      subject: capability-performance-semantics
+      semantic_value: CORE responsibility for reusable meaning of required human performance, including material conditions or constraints and acceptable quality, used consistently by targets, support, evidence, and transfer judgments.
+      derived_from: [REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-LEARNER-EVIDENCE-STATE
+      kind: domain-strategy-responsibility
+      subject: learner-evidence-state
+      semantic_value: CORE responsibility for contextualized learner observations and evidence-bounded target-relative capability conclusions, including justification and material limits from provenance, context, coverage, age, and transfer conditions.
+      derived_from: [REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-SUBJECT-KNOWLEDGE
+      kind: domain-strategy-responsibility
+      subject: subject-knowledge
+      semantic_value: CORE responsibility for reusable subject meaning needed for orientation and learning, including important concepts, meaningful relationships, relevant subject scope, and coherent overview-to-detail structure.
+      derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-PRACTICE-LEARNING-ENABLEMENT
+      kind: domain-strategy-responsibility
+      subject: practice-learning-enablement
+      semantic_value: SUPPORTING responsibility for enabling or delegating learning, practice, and diagnostic opportunities appropriate to required performance and capable of producing relevant observations without treating support completion as proof of capability.
+      derived_from: [REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-EVIDENCE-CONTEXT]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  
+    - id: DS-PREPARATION-BOOTSTRAP
+      kind: domain-strategy-responsibility
+      subject: preparation-bootstrap
+      semantic_value: SUPPORTING responsibility for turning fragmented or incomplete sources into usable preparation support and allowing target, capability, knowledge, and evidence-design support data to be introduced or corrected incrementally without learner-maintained corpus curation.
+      derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET]
+      decision_authority: DOMAIN-STRATEGY
+      source_artifact: CONTEXT-MAP
+  

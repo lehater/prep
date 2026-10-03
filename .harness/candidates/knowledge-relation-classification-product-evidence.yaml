@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.product-capabilities
+target_capability: prep.knowledge-relation-classification
+links:
+  - {sources: [REQ-CAP-KNOWLEDGE-RELATIONSHIPS], relation: TRANSFORMS, targets: [KRC-PREDICATE-NOT-ASSERTION, KRC-PRESERVE-RELATION-MEANING, KRC-EVIDENCE-BOUNDED-CLASSIFICATION, KRC-EXISTING-VOCABULARY-CONTINUITY]}
+dispositions:
+  - {source: REQ-CAP-TARGET, status: NOT_APPLICABLE, rationale: "Target management does not define Subject Knowledge predicate classification."}
+  - {source: REQ-CAP-TARGET-PURPOSE, status: NOT_APPLICABLE, rationale: "Target-purpose relationships are Preparation Direction semantics."}
+  - {source: REQ-CAP-PERFORMANCE-REQUIREMENT, status: NOT_APPLICABLE, rationale: "Required performance belongs to Capability and Performance."}
+  - {source: REQ-CAP-EVIDENCE-CONTEXT, status: NOT_APPLICABLE, rationale: "Evidence-context relationships belong to Learner Evidence and State."}
+  - {source: REQ-CAP-STATE, status: NOT_APPLICABLE, rationale: "Learner state is outside reusable Subject Knowledge relation classification."}
+  - {source: REQ-CAP-EVIDENCE-JUSTIFICATION, status: NOT_APPLICABLE, rationale: "Evidence justification is outside reusable Subject Knowledge relation classification."}
+  - {source: REQ-CAP-FOCUS, status: NOT_APPLICABLE, rationale: "Next focus belongs to Preparation Direction."}
+  - {source: REQ-CAP-PRACTICE, status: NOT_APPLICABLE, rationale: "Practice activity semantics are outside Subject Knowledge predicate vocabulary."}
+  - {source: REQ-CAP-DURABLE-TRANSFER, status: NOT_APPLICABLE, rationale: "Retention/transfer judgments concern capability/evidence semantics."}
+  - {source: REQ-CAP-SUPPORT-FIT, status: NOT_APPLICABLE, rationale: "Support-fit relationships are cross-context practice semantics."}
+  - {source: REQ-CAP-ADAPT, status: NOT_APPLICABLE, rationale: "Adaptation belongs to Preparation Direction and Learner Evidence/State."}
+  - {source: REQ-CAP-BOOTSTRAP, status: NOT_APPLICABLE, rationale: "Bootstrap introduces candidate data but does not define accepted relation vocabulary."}
+  - {source: REQ-CAP-KNOWLEDGE-OVERVIEW, status: NOT_APPLICABLE, rationale: "Overview consumes Subject Knowledge but does not independently constrain relation classification beyond the relationship capability."}
+  - {source: REQ-CAP-KNOWLEDGE-SCOPE, status: NOT_APPLICABLE, rationale: "Scope control does not independently define predicate semantics."}
+  - {source: REQ-CAP-KNOWLEDGE-DEPTH, status: NOT_APPLICABLE, rationale: "Depth navigation does not independently define predicate semantics."}
