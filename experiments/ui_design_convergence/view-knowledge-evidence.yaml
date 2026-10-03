@@ -1,0 +1,142 @@
+version: 1
+kind: harness-ui-design-convergence-evidence
+subject: PREP / VIEW-KNOWLEDGE
+
+coverage:
+  - id: critical-task-disposition
+    status: COVERED
+    evidence_refs:
+      - docs/application/task-model.yaml#TASK-U-EXPLORE-KNOWLEDGE
+      - docs/application/user-journeys.md#J-KNOWLEDGE-ORIENTATION
+
+  - id: semantic-traceability
+    status: COVERED
+    evidence_refs:
+      - docs/interface/interaction-design.yaml#IX-KNOWLEDGE
+      - docs/interface/interface-topology.yaml#VIEW-KNOWLEDGE
+      - docs/interface/screen-view-design.md#VIEW-KNOWLEDGE
+
+  - id: accessibility-obligations
+    status: COVERED
+    evidence_refs:
+      - docs/interface/interaction-design.yaml#IX-KNOWLEDGE.accessibility
+      - docs/interface/presentation-system.md#Accessibility-defaults
+
+  - id: critical-executable-paths
+    status: COVERED
+    evidence_refs:
+      - experiments/knowledge_representation/src/knowledge/KnowledgeWorkspace.stories.tsx
+      - experiments/knowledge_representation/src/r2/R2GraphSpike.stories.tsx
+
+  - id: prototype-contract-consistency
+    status: COVERED
+    evidence_refs:
+      - experiments/frontend_design_assurance_audit/implementation-conformance.yaml
+      - experiments/frontend_design_assurance_audit/audit-report.md
+
+material_decisions:
+  - id: KD-01
+    axis: knowledge-representation
+    question: Which representation family carries task-complete exact symbolic Knowledge inspection?
+    materiality: MATERIAL
+    disposition: DETERMINED
+    selected: structured-query-results-detail
+    basis_refs:
+      - docs/application/task-model.yaml#TASK-U-EXPLORE-KNOWLEDGE
+      - docs/interface/interaction-design.yaml#IX-KNOWLEDGE
+      - docs/interface/screen-view-design.md#VIEW-KNOWLEDGE
+    applied_rules:
+      - UI-RULE-SYMBOLIC-EXACT-INSPECTION
+    residual_uncertainty: []
+    controlled_freedom:
+      - table versus list versus cards inside the structured semantic baseline
+    required_evidence_levels: [E0, E2]
+    evaluation_evidence:
+      E0:
+        - docs/application/task-model.yaml#TASK-U-EXPLORE-KNOWLEDGE
+        - docs/interface/interaction-design.yaml#IX-KNOWLEDGE
+      E2:
+        - experiments/knowledge_representation/src/knowledge/KnowledgeWorkspace.stories.tsx
+
+  - id: KD-02
+    axis: knowledge-representation
+    question: Should a relationship visualization be a production-default or primary representation for Knowledge orientation?
+    materiality: MATERIAL
+    disposition: EMPIRICAL_VALIDATION_REQUIRED
+    basis_refs:
+      - docs/application/task-model.yaml#TASK-U-EXPLORE-KNOWLEDGE
+      - docs/application/user-journeys.md#J-KNOWLEDGE-ORIENTATION
+      - docs/interface/presentation-system.md#Knowledge-representation
+    applied_rules:
+      - UI-RULE-SYMBOLIC-EXACT-INSPECTION
+    residual_uncertainty: []
+    controlled_freedom:
+      - optional spatial prototype while production prominence remains unresolved
+    required_evidence_levels: [E0, E2, E3]
+    evaluation_evidence:
+      E0:
+        - docs/interface/presentation-system.md#Knowledge-representation
+      E2:
+        - experiments/knowledge_representation/src/knowledge/KnowledgeWorkspace.stories.tsx
+        - experiments/knowledge_representation/src/r2/R2GraphSpike.stories.tsx
+
+  - id: KD-03
+    axis: knowledge-representation
+    question: If a spatial overview is useful, should the accepted production form be 2D, 3D, or another spatial representation?
+    materiality: MATERIAL
+    disposition: EMPIRICAL_VALIDATION_REQUIRED
+    basis_refs:
+      - docs/interface/presentation-system.md#Knowledge-representation
+      - experiments/frontend_design_assurance_audit/human-validation-pack.md#Scenario-B4
+    applied_rules: []
+    residual_uncertainty: []
+    controlled_freedom:
+      - 2D and 3D prototype forms remain evaluation candidates
+    required_evidence_levels: [E2, E3]
+    evaluation_evidence:
+      E2:
+        - experiments/knowledge_representation/src/r2/R2GraphSpike.stories.tsx
+        - experiments/knowledge_representation/README.md
+
+  - id: KD-04
+    axis: control-surface
+    question: May task-critical Knowledge exploration depend only on direct graph manipulation?
+    materiality: CRITICAL
+    disposition: DETERMINED
+    selected: semantic-keyboard-path-with-optional-direct-manipulation
+    basis_refs:
+      - docs/interface/interaction-design.yaml#IX-KNOWLEDGE.accessibility
+      - docs/interface/presentation-system.md#Accessibility-defaults
+    applied_rules:
+      - UI-RULE-TASK-CRITICAL-KEYBOARD
+    residual_uncertainty: []
+    controlled_freedom:
+      - pointer, hover, pan, zoom and spatial selection as supplemental controls
+    required_evidence_levels: [E0, E2]
+    evaluation_evidence:
+      E0:
+        - docs/interface/interaction-design.yaml#IX-KNOWLEDGE.accessibility
+      E2:
+        - experiments/knowledge_representation/src/knowledge/KnowledgeWorkspace.stories.tsx
+
+  - id: KD-05
+    axis: responsive-composition
+    question: What semantic behavior must survive when spatial rendering is unavailable, constrained, or too expensive?
+    materiality: CRITICAL
+    disposition: DETERMINED
+    selected: preserve-query-results-detail-and-relation-meaning-while-reducing-spatial-richness
+    basis_refs:
+      - docs/application/task-model.yaml#TASK-U-EXPLORE-KNOWLEDGE.recovery
+      - docs/interface/presentation-system.md#Performance-degradation
+      - docs/interface/screen-view-design.md#VIEW-KNOWLEDGE.performance
+    applied_rules: []
+    residual_uncertainty: []
+    controlled_freedom:
+      - renderer-specific optimization and visual simplification
+    required_evidence_levels: [E0, E2]
+    evaluation_evidence:
+      E0:
+        - docs/interface/presentation-system.md#Performance-degradation
+      E2:
+        - experiments/knowledge_representation/src/knowledge/KnowledgeWorkspace.stories.tsx
+        - experiments/knowledge_representation/src/r2/R2GraphSpike.stories.tsx
