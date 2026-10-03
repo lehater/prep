@@ -20,6 +20,11 @@ IGNORED_PATH_PARTS = {
     "playwright-report",
     "test-results",
 }
+NONCANONICAL_DOC_PREFIXES = ("docs/research/",)
+HUMAN_PROJECTION_DOCS = {
+    "docs/vision/vision.md",
+    "docs/vision/product-capabilities.md",
+}
 
 
 def _target_from_markdown(raw: str) -> str:
@@ -47,18 +52,23 @@ def _canonical_doc_paths() -> set[str]:
 
 
 def validate_doc_inventory() -> list[str]:
-    allowed = _canonical_doc_paths() | {"docs/README.md"}
+    allowed = _canonical_doc_paths() | {"docs/README.md"} | HUMAN_PROJECTION_DOCS
     actual = {
         path.relative_to(ROOT).as_posix()
         for path in (ROOT / "docs").rglob("*")
         if path.is_file()
     }
-    extra = sorted(actual - allowed)
+    extra = sorted(
+        path
+        for path in actual - allowed
+        if not path.startswith(NONCANONICAL_DOC_PREFIXES)
+    )
     missing = sorted(allowed - actual)
     errors: list[str] = []
     if extra:
         errors.append(
-            "docs/ contains files outside Harness Core: " + ", ".join(extra)
+            "docs/ contains unclassified files outside Harness Core, research, or human projections: "
+            + ", ".join(extra)
         )
     if missing:
         errors.append(
@@ -141,6 +151,7 @@ def main() -> int:
 
     print(
         f"OK: Harness owns {len(_canonical_doc_paths())} canonical docs artifacts; "
+        f"research/human projections are explicitly noncanonical; "
         f"{len(markdown_files)} repository markdown file(s) have resolved relative links"
     )
     return 0

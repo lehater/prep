@@ -10,24 +10,27 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 HARNESS_ROOT = Path(os.environ.get("HARNESS_ROOT", ROOT / ".harness-tool"))
+if not HARNESS_ROOT.is_absolute():
+    HARNESS_ROOT = (ROOT / HARNESS_ROOT).resolve()
+HARNESS_SRC = HARNESS_ROOT / "src"
 
-if not (HARNESS_ROOT / "engineering_graph.py").exists():
+if not (HARNESS_SRC / "harness/project_model/engineering_graph.py").exists():
     raise SystemExit(
-        "Pinned Harness runtime not found. Run python tools/bootstrap_harness.py "
-        "or set HARNESS_ROOT."
+        "Pinned Harness package runtime not found. Run python tools/bootstrap_harness.py "
+        "or set HARNESS_ROOT to a current Harness checkout."
     )
 
-sys.path.insert(0, str(HARNESS_ROOT))
+sys.path.insert(0, str(HARNESS_SRC))
 
-from engineering_graph import evaluate_engineering_target  # noqa: E402
-from engineering_coverage import evaluate_with_repository_policy  # noqa: E402
-from graph_doctor import diagnose_project  # noqa: E402
-from project_status import (  # noqa: E402
+from harness.project_model.engineering_graph import evaluate_engineering_target  # noqa: E402
+from harness.coverage.engineering_coverage import evaluate_with_repository_policy  # noqa: E402
+from harness.application.graph_doctor import diagnose_project  # noqa: E402
+from harness.reference_model.project_status import (  # noqa: E402
     bootstrap_registry,
     status as project_status,
     validate_registry,
 )
-from semantic_closure import evaluate_semantic_closure  # noqa: E402
+from harness.application.semantic_closure import evaluate_semantic_closure  # noqa: E402
 
 from semantic_baseline import build_strict_semantic_baseline  # noqa: E402
 
@@ -59,33 +62,23 @@ def main() -> int:
         )
     if reconciled.get("assessments") != assessments.get("assessments"):
         raise SystemExit(
-            "Authority assessment registry is not reconciled with the pinned "
-            "Harness catalog. Run project bootstrap/reconcile."
+            "Authority assessment registry is not reconciled with the pinned Harness catalog."
         )
-    print(
-        f"Authority registry: RECONCILED "
-        f"({len(assessments.get('assessments', []))} reference Authorities)"
-    )
 
     consumers = [
         item["id"]
-        for item in graph.get("consumers", []) or []
+        for item in graph.get("consumers", [])
         if isinstance(item, dict) and item.get("id")
     ]
     semantic_evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
 
-    # Graph Doctor consumes the generic Core v0 model, whose validator expects
-    # explicit Authority declarations. Prep uses Engineering-Graph direct
-    # declaration mode, so create an in-memory compatibility projection only
-    # for diagnostics; canonical ownership remains in engineering-graph.yaml.
     doctor_model = dict(core)
     doctor_model["authorities"] = [
         {"id": item["id"]}
-        for item in graph.get("authorities", []) or []
+        for item in graph.get("authorities", [])
         if isinstance(item, dict) and item.get("id")
     ]
 
-    doctor_warnings = []
     for consumer in consumers:
         doctor = diagnose_project(
             graph,
@@ -93,21 +86,10 @@ def main() -> int:
             target=consumer,
             source_root=ROOT,
         )
-        summary = doctor["summary"]
-        print(
-            f"{consumer} Graph Doctor: "
-            f"errors={summary['ERROR']} warnings={summary['WARN']} info={summary['INFO']}"
-        )
-        if summary["ERROR"]:
-            raise SystemExit(
-                f"{consumer} Graph Doctor errors: {doctor['findings']}"
-            )
-        doctor_warnings.extend(
-            row for row in doctor["findings"] if row["severity"] == "WARN"
-        )
+        if doctor["summary"]["ERROR"]:
+            raise SystemExit(f"{consumer} Graph Doctor errors: {doctor['findings']}")
 
         structural = evaluate_engineering_target(graph, consumer, core)
-        print(f"{consumer} structural: {structural['status']}")
         if structural["status"] != "COMPLETE":
             raise SystemExit(
                 f"{consumer} structural closure is {structural['status']}: "
@@ -141,12 +123,6 @@ def main() -> int:
                 project_overlay=coverage_overlay,
                 semantic_evaluations=semantic_evaluations,
             )
-            print(
-                f"{consumer} Engineering Coverage[{scope}]: "
-                f"completion_ready={coverage['completion_ready']} "
-                f"remaining_work={coverage['remaining_work_count']} "
-                f"questions={coverage['question_frontier_count']}"
-            )
             if (
                 not coverage["completion_ready"]
                 or coverage["remaining_work_count"]
@@ -157,54 +133,19 @@ def main() -> int:
                     f"{coverage['work_items']}"
                 )
 
-    if doctor_warnings:
-        print("Graph Doctor warnings:")
-        for row in doctor_warnings:
-            print(f"  {row['code']}: {row['message']}")
-    else:
-        print("Graph Doctor: no warnings across declared Consumers")
-
     status_doc = project_status(catalog, assessments, core)
-    states: dict[str, int] = {}
-    blocked = []
-    unassessed = []
-    for row in status_doc["rows"]:
-        key = row["applicability"]
-        states[key] = states.get(key, 0) + 1
-        if row.get("applicability") == "UNASSESSED":
-            unassessed.append(row["authority"])
-        if row.get("operational_status") == "BLOCKED":
-            blocked.append(
-                {
-                    "authority": row["authority"],
-                    "questions": row.get("blocking", []),
-                }
-            )
-    print(
-        "Project Engineering Status applicability: "
-        + ", ".join(f"{k}={v}" for k, v in sorted(states.items()))
-    )
+    unassessed = [
+        row["authority"]
+        for row in status_doc["rows"]
+        if row.get("applicability") == "UNASSESSED"
+    ]
     if unassessed:
         raise SystemExit(
             "Full Harness revalidation requires every reference Authority to be assessed; "
             "UNASSESSED: " + ", ".join(sorted(unassessed))
         )
-    if blocked:
-        print("Project-wide unresolved Authority questions (may be outside selected Consumer closure):")
-        for row in blocked:
-            print(f"  {row['authority']}: {', '.join(row['questions'])}")
 
-    unresolved = [
-        q
-        for q in core.get("questions", []) or []
-        if isinstance(q, dict) and q.get("resolution") is None
-    ]
-    print(
-        f"Core unresolved semantic frontier: {len(unresolved)} "
-        f"question(s): {', '.join(q['id'] for q in unresolved) if unresolved else '-'}"
-    )
-
-    print("FULL HARNESS REVALIDATION PASS (machine-checkable closure)")
+    print("FULL HARNESS REVALIDATION PASS (all selected consumers CURRENT)")
     return 0
 
 

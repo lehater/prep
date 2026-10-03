@@ -4,43 +4,38 @@
 
 This repository is the system of record for Prep. Chat history is transient working context.
 
+## Harness Consumer API v1
+
+This repository uses the Harness Consumer Surface with `consumer_api: v1`.
+
+Before Harness-controlled engineering work:
+
+1. Run `python .harness/harnessw.py sync`.
+2. Treat the printed directory as the active pinned Harness Consumer Pack.
+3. From that directory invoke the typed procedure router through `python -m harness.application.skill_router ...`.
+4. Load the returned `instruction_contracts` before consuming project/tool payloads, then read the returned `SKILL.md`.
+5. Do not discover Harness procedures from remote GitHub links, the vendored legacy `harness/` directory, or a different checkout. Development/dogfooding uses only explicit `--dev-source`.
+
+The project binding is `.harness/harness-binding.json`: tooling metadata, not project semantic truth. `.harness-version` is retained only as a legacy compatibility pin for old repository tooling and is not a procedure-discovery surface.
+
 ## Canonical engineering knowledge
 
 Harness is the only routing mechanism for current engineering meaning.
-
-Before substantive engineering work:
-
-1. read `.harness-version`;
-2. read `.harness/core.yaml` and `.harness/engineering-graph.yaml`;
-3. identify the affected capability and its prerequisites;
-4. read only the registered canonical artifacts required by that closure;
-5. persist durable semantic changes back through the owning Harness capability/artifact;
-6. rerun Harness and repository validation.
-
-`docs/README.md` is an index only. Every other engineering-knowledge file under `docs/` must be registered in `.harness/core.yaml`.
-
-Do not use Git history, removed documentation, experimental branches, commit messages or implementation details to reconstruct product/domain/interface/architecture semantics unless the task explicitly asks for archaeology or evidence review.
-
-Maintained reference implementations under `experiments/` may be reused as donor code only after checking them against current canonical contracts. Their tests prove implementation behavior, not current product/domain/interface/architecture meaning.
-
-## Open decisions
-
-Durable unresolved semantic decisions belong in the `questions` section of `.harness/core.yaml`.
-
-Do not create parallel ADR, research, plan or design-document systems that can become an alternative source of truth. Implementation execution state belongs in the branch/PR/commit workflow unless Harness requires a canonical artifact.
-
-## Canonical Harness
-
-`lehater/harness` is pinned by `.harness-version`.
 
 Prep owns:
 - project Authority/Capability/Consumer topology in `.harness/engineering-graph.yaml`;
 - canonical artifact realization and Questions in `.harness/core.yaml`;
 - Authority applicability evidence in `.harness/authority-assessments.yaml`;
-- semantic acceptance/currentness baseline in `.harness/semantic-baseline.yaml`;
+- semantic acceptance/currentness evidence in project Harness records;
 - project engineering-coverage policy in `.harness/engineering-coverage.yaml`.
 
-Harness owns generic validation, routing, semantic admission/currentness and target-state evaluation.
+Harness owns generic validation, routing, semantic admission/currentness, Engineering Coverage, target-state evaluation and materialization mechanisms.
+
+`docs/README.md` is an index only. Every engineering-knowledge file under `docs/` that carries canonical meaning must be registered through the active Harness/Core realization.
+
+Do not create parallel ADR, research, plan, workflow-state or design-document systems that can become an alternative source of truth. Candidate artifacts may exist only where the routed Harness procedure explicitly permits them; accepted knowledge must be materialized through the owning CanonicalArtifact.
+
+Do not use Git history, removed documentation, experimental branches, commit messages or implementation details to reconstruct product/domain/interface/architecture semantics unless the routed procedure explicitly admits them as evidence.
 
 ## Architecture discipline
 
@@ -63,11 +58,4 @@ Commit coherent semantic blocks. When canonical upstream knowledge changes, reva
 
 ## Validation
 
-```text
-python tools/bootstrap_harness.py
-python tools/semantic_baseline.py
-python tools/check_harness_integration.py
-python tools/full_harness_revalidate.py
-python tools/validate_docs.py
-python -m unittest discover -s experiments/anki_adapter_reference/tests -v
-```
+Use the active Consumer Pack returned by `.harness/harnessw.py sync` and the routed Harness operations/artifact procedures. Repository-specific tests remain downstream evidence and do not replace Harness semantic closure.

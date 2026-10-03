@@ -1,0 +1,88 @@
+name: Harness current consumer experiment
+
+on:
+  push:
+    branches:
+      - experiment/harness-current-consumer-ui-path
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  current-consumer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out Prep experiment
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Harness runtime dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Materialize pinned Harness Consumer Pack
+        id: pack
+        shell: bash
+        run: |
+          mkdir -p .harness/diagnostics
+          PACK="$(python .harness/harnessw.py sync)"
+          echo "path=$PACK" >> "$GITHUB_OUTPUT"
+          echo "$PACK" > .harness/diagnostics/consumer-pack-path.txt
+
+      - name: Route public operations
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-project-bootstrap-reconcile.json"
+          python -m harness.application.skill_router operation --surface consumer --operation design-profile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-design-profile.json"
+
+      - name: Validate current Prep Engineering Graph with current Harness
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.project_model.engineering_graph validate "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" | tee "$GITHUB_WORKSPACE/.harness/diagnostics/engineering-graph-validation.json"
+
+      - name: Derive and evaluate current consumer profiles
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          for TARGET in CURRENT-REVALIDATION FRONTEND-PROTOTYPE FRONTEND-IMPLEMENTATION; do
+            python -m harness.project_model.engineering_graph profile "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" "$TARGET" > "$GITHUB_WORKSPACE/.harness/diagnostics/profile-$TARGET.json"
+            python -m harness.project_model.engineering_graph evaluate "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" "$TARGET" "$GITHUB_WORKSPACE/.harness/core.yaml" > "$GITHUB_WORKSPACE/.harness/diagnostics/evaluate-$TARGET.json"
+          done
+
+      - name: Run Graph Doctor for the user-interface target
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.application.graph_doctor "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" --core-model "$GITHUB_WORKSPACE/.harness/core.yaml" --target FRONTEND-PROTOTYPE --source-root "$GITHUB_WORKSPACE" --json | tee "$GITHUB_WORKSPACE/.harness/diagnostics/graph-doctor-FRONTEND-PROTOTYPE.json"
+
+      - name: Validate published project publication
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python - <<'PY'
+          from pathlib import Path
+          import os, yaml
+          from harness.application.project_publication import read_project_publication
+
+          root = Path(os.environ["GITHUB_WORKSPACE"])
+          graph = yaml.safe_load((root / ".harness/engineering-graph.yaml").read_text())
+          publication = read_project_publication(
+              root / ".harness/project-publication.yaml",
+              graph=graph,
+          )
+          print(publication["revision"])
+          PY
+
+      - name: Upload Harness diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-current-consumer-diagnostics
+          path: .harness/diagnostics
