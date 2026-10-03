@@ -1,0 +1,47 @@
+name: Audit Harness publication revalidation
+
+on:
+  push:
+    branches:
+      - audit/user-visible-semantic-realization
+    paths:
+      - "docs/**"
+      - ".harness/**"
+      - "tools/revalidate_human_interface_publication.py"
+      - ".github/workflows/audit-harness-revalidation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Read pinned Harness version
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+      - name: Check out pinned Harness
+        uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Revalidate affected publication
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/revalidate_human_interface_publication.py
+      - name: Upload next publication
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: human-interface-revalidation
+          path: |
+            .harness/project-publication.next.yaml
+            .harness/revalidation-report.yaml
