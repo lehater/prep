@@ -66,8 +66,8 @@ def candidate_index() -> dict[str, list[tuple[Path, dict[str, Any]]]]:
     return result
 
 
-def contract_index() -> dict[tuple[str, str], dict[str, Any]]:
-    result: dict[tuple[str, str], dict[str, Any]] = {}
+def contract_index() -> dict[tuple[str, str], list[tuple[Path, dict[str, Any]]]]:
+    result: dict[tuple[str, str], list[tuple[Path, dict[str, Any]]]] = {}
     for path in sorted((ROOT / ".harness/candidates").glob("*-contract.yaml")):
         try:
             doc = load(path)
@@ -78,9 +78,7 @@ def contract_index() -> dict[tuple[str, str], dict[str, Any]]:
         key = (doc.get("source_capability"), doc.get("target_capability"))
         if not all(isinstance(x, str) and x for x in key):
             continue
-        if key in result:
-            raise SystemExit(f"duplicate derivation contract for {key}: {path}")
-        result[key] = doc
+        result.setdefault(key, []).append((path, doc))
     return result
 
 
@@ -240,9 +238,9 @@ def main() -> int:
                 sources["semantic_assertions"].append(copied)
 
             key = (source_capability, capability)
-            contract = contracts.get(key)
+            contract_rows = contracts.get(key, [])
             previous = derivations.get(key)
-            if contract is None or previous is None:
+            if not contract_rows or previous is None:
                 raise SystemExit(f"missing derivation contract/evidence for {key}")
 
             evidence = {
@@ -253,17 +251,46 @@ def main() -> int:
                 "links": copy.deepcopy(previous.get("links", [])),
                 "dispositions": copy.deepcopy(previous.get("dispositions", [])),
             }
-            evaluated = evaluate_derivation(
-                graph=graph,
-                contract=contract,
-                source=source_candidate,
-                candidate=candidate,
-                evidence=evidence,
-            )
-            if evaluated.get("status") != "ACCEPTED":
-                raise SystemExit(
-                    f"derivation rejected for {key}: {evaluated.get('findings')}"
+
+            evaluated_candidates: list[tuple[Path, dict[str, Any]]] = []
+            for contract_path, contract in contract_rows:
+                evaluated_try = evaluate_derivation(
+                    graph=graph,
+                    contract=contract,
+                    source=source_candidate,
+                    candidate=candidate,
+                    evidence=evidence,
                 )
+                if evaluated_try.get("status") == "ACCEPTED":
+                    evaluated_candidates.append((contract_path, evaluated_try))
+
+            previous_required = set(previous.get("required_sources", []) or [])
+            compatible = [
+                (contract_path, evaluation)
+                for contract_path, evaluation in evaluated_candidates
+                if set(evaluation.get("required_sources", []) or []) == previous_required
+            ]
+            if len(compatible) == 1:
+                _selected_path, evaluated = compatible[0]
+            elif len(compatible) > 1:
+                normalized = {
+                    yaml.safe_dump(evaluation, sort_keys=True, allow_unicode=True)
+                    for _path, evaluation in compatible
+                }
+                if len(normalized) != 1:
+                    raise SystemExit(
+                        f"ambiguous current derivation contracts for {key}: "
+                        f"{[str(path) for path, _ in compatible]}"
+                    )
+                _selected_path, evaluated = compatible[0]
+            elif len(evaluated_candidates) == 1:
+                _selected_path, evaluated = evaluated_candidates[0]
+            else:
+                raise SystemExit(
+                    f"no unique current derivation contract for {key}; "
+                    f"accepted={[str(path) for path, _ in evaluated_candidates]}"
+                )
+
             incoming.append(evaluated)
 
         old_provider = lifecycle_rows[capability]
