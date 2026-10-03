@@ -62,6 +62,11 @@ jobs:
           cd "${{ steps.pack.outputs.path }}"
           python -m harness.application.graph_doctor "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" --core-model "$GITHUB_WORKSPACE/.harness/core.yaml" --target FRONTEND-PROTOTYPE --source-root "$GITHUB_WORKSPACE" --json | tee "$GITHUB_WORKSPACE/.harness/diagnostics/graph-doctor-FRONTEND-PROTOTYPE.json"
 
+      - name: Evaluate VIEW-KNOWLEDGE UI design convergence
+        shell: bash
+        run: |
+          python "$GITHUB_WORKSPACE/experiments/ui_design_convergence/evaluate.py" "${{ steps.pack.outputs.path }}" | tee "$GITHUB_WORKSPACE/.harness/diagnostics/ui-design-convergence-VIEW-KNOWLEDGE.json"
+
       - name: Validate published project publication
         shell: bash
         run: |
