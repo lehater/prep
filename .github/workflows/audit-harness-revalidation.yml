@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   revalidate:
@@ -37,6 +37,21 @@ jobs:
         env:
           HARNESS_ROOT: .harness-tool
         run: python tools/revalidate_human_interface_publication.py
+      - name: Publish revalidated Harness snapshot to audit branch
+        if: success()
+        shell: bash
+        run: |
+          cp .harness/project-publication.next.yaml .harness/project-publication.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/project-publication.yaml
+          if git diff --cached --quiet; then
+            echo "Publication already current"
+          else
+            git commit -m "Publish revalidated human-interface semantics"
+            git push origin HEAD:audit/user-visible-semantic-realization
+          fi
+
       - name: Upload next publication
         if: always()
         uses: actions/upload-artifact@v4
