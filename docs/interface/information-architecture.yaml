@@ -53,7 +53,7 @@ locations:
 
   - id: LOC-ACTIVITIES
     label: Activities
-    purpose: Find support appropriate to the current PreparationIntent and carry out learning, practice or diagnostic activity while retaining target/focus context.
+    purpose: Find contextually suitable support for the current PreparationIntent and learner basis, then carry out learning/practice/diagnostic/retention/transfer activity as applicable while retaining target/focus context.
     conceptual_refs: [C-NEXT-FOCUS, C-SUPPORT, C-ACTIVITY]
     task_refs: [TASK-U-SELECT-SUPPORT, TASK-U-PERFORM-ACTIVITY]
     journey_refs: [J-ACTIVITY-EVIDENCE]
