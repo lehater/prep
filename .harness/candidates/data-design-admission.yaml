@@ -1,0 +1,78 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: DATA-DESIGN
+capability: prep.data-design
+path: docs/architecture/data-design.md
+changed_paths:
+  - docs/architecture/data-design.md
+canonical_references:
+  - {artifact: DATA-DESIGN, referenced_path: docs/domain/knowledge-model.md}
+  - {artifact: DATA-DESIGN, referenced_path: docs/domain/learning-design.md}
+  - {artifact: DATA-DESIGN, referenced_path: docs/domain/learner-model.md}
+  - {artifact: DATA-DESIGN, referenced_path: docs/architecture/import-consistency.md}
+  - {artifact: DATA-DESIGN, referenced_path: docs/architecture/system-architecture.md}
+
+semantic_assertions:
+  - id: DD-OWNERSHIP
+    kind: data-ownership
+    subject: physical-persistence-ownership
+    semantic_value: "One logical physical persistence boundary may co-locate current records, but writes remain owner-scoped and storage never becomes a second owner of Knowledge, Capability/target/support or Learner Evidence semantics."
+    derived_from: [KM-CROSS-CONTEXT-BOUNDARY, LD-APPLICATION-BOUNDARY, LM-KNOWLEDGE-BOUNDARY, IC-OWNER-ATOMICITY, SA-STATE-PLACEMENT]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-KNOWLEDGE
+    kind: data-representation
+    subject: subject-knowledge-persistence
+    semantic_value: "Durable Subject Knowledge preserves KnowledgeObject and KnowledgeProposition identity/meaning, relational predicate semantics and accepted provenance without introducing a universal KnowledgeNode carrier or spatial graph truth."
+    derived_from: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-GRAPH-IS-PROJECTION, SA-STATE-PLACEMENT]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-LEARNING
+    kind: data-representation
+    subject: learning-design-persistence
+    semantic_value: "Durable Learning Design records preserve accepted Capability/performance/condition/standard semantics, PreparationTarget/RequirementExpression, current PreparationIntent and reusable support specifications; Gap/priority/support-fit may remain derived projections and Question/card forms are not required persistence entities."
+    derived_from: [LD-CAPABILITY, LD-CAPABILITY-SPECIFICATION, LD-CAPABILITY-STANDARD, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LD-GAP-PRIORITY, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-QUESTION-NONFUNDAMENTAL]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-LEARNER-HISTORY
+    kind: data-representation
+    subject: learner-evidence-persistence
+    semantic_value: "Performance, Observation, CapabilityEvidenceArgument and LearnerCapabilityClaim remain distinct durable historical/inferential records with time, conditions/assistance, attribution, applicability, reasoning and provenance; target-relative current state is a projection rather than a mandatory mutable mastery row."
+    derived_from: [LM-PERFORMANCE, LM-OBSERVATION, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-INDIVIDUAL-ATTRIBUTION]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-CROSS-OWNER-REFS
+    kind: data-reference
+    subject: cross-owner-reference-representation
+    semantic_value: "Cross-owner physical references use stable semantic IDs and may enforce existence where co-located, but do not create shared-write aggregates or reclassify Capability-to-Knowledge, target or learner-evidence relationships as Subject Knowledge."
+    derived_from: [KM-CROSS-CONTEXT-BOUNDARY, LD-KNOWLEDGE-FOCUS, LM-KNOWLEDGE-BOUNDARY, DD-OWNERSHIP]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-CONSISTENCY
+    kind: data-consistency
+    subject: physical-consistency-realization
+    semantic_value: "Physical transactions/versioning/locking/idempotency records must realize owner-scoped atomicity, partial owner acceptance, stale-basis rejection and replay safety without silently collapsing distinct Performance events or introducing cross-owner rollback."
+    derived_from: [IC-OWNER-ATOMICITY, IC-PARTIAL-PREPARATION, IC-CURRENTNESS-CONFLICT, IC-RETRY-IDEMPOTENCY, IC-DISTINCT-PERFORMANCE, SA-STATE-PLACEMENT, SA-FAILURE-ISOLATION]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-INTEGRATION
+    kind: data-integration
+    subject: external-runtime-integration-persistence
+    semantic_value: "External provider mappings/checkpoints are integration records only and may correlate supported activity/Performance/Observation provenance; provider identifiers never replace Prep semantic identity or require Anki/Question-specific schema."
+    derived_from: [LM-INTEGRATION-BOUNDARY, SA-EXTERNAL-RUNTIME, IC-RETRY-IDEMPOTENCY]
+    decision_authority: DATA-DESIGN
+
+  - id: DD-LEGACY-BOUNDARY
+    kind: data-invariant
+    subject: superseded-persistence-semantics
+    semantic_value: "KnowledgeNode/KnowledgeRelation, legacy Requirement/RequirementSet, fundamental Question/LearningTarget, Question-specific ReviewObservation and canonical Question-to-Anki mappings are not current production persistence semantics."
+    derived_from: [KM-KNOWLEDGE-FAMILY, KM-RELATIONAL-PROPOSITION, LD-REQUIREMENT-EXPRESSION, LD-QUESTION-NONFUNDAMENTAL, LM-PERFORMANCE, LM-OBSERVATION, SA-NONGOALS]
+    decision_authority: DATA-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - storage-not-semantic-owner
