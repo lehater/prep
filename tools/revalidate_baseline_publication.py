@@ -268,5 +268,6 @@ def main() -> int:
     return 0
 
 
+# Revalidation runner is temporary and removed before merge.
 if __name__ == "__main__":
     raise SystemExit(main())
