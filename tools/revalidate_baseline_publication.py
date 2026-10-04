@@ -184,8 +184,6 @@ def main() -> int:
 
         decision_exploration = None
         if capability == "prep.system-architecture":
-            exploration_path = ROOT / ".harness/candidates/system-architecture-exploration.yaml"
-            decision_exploration = load(exploration_path)
             request = derive_decision_explorer_request(
                 graph=graph,
                 model=core,
@@ -195,13 +193,12 @@ def main() -> int:
                 lifecycle=lifecycle,
                 mode="CREATE",
             )
-            if request is None:
-                raise SystemExit("system architecture decision exploration unexpectedly not required")
-            decision_exploration["explorer_request_id"] = request["request_id"]
-            exploration_path.write_text(
-                yaml.safe_dump(decision_exploration, sort_keys=False, allow_unicode=True),
-                encoding="utf-8",
-            )
+            if request is not None:
+                exploration_path = ROOT / ".harness/candidates/system-architecture-exploration.yaml"
+                if not exploration_path.exists():
+                    raise SystemExit("active decision policy requires system architecture exploration evidence")
+                decision_exploration = load(exploration_path)
+                decision_exploration["explorer_request_id"] = request["request_id"]
 
         admitted = admit_artifact(
             graph=graph,
