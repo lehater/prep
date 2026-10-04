@@ -36,7 +36,7 @@ No accepted driver currently requires microservices, distributed domain ownershi
 | deployment-environment | RESOLVED | Initial local Docker deployment with separate frontend/backend; boundaries must remain usable for later remote deployment. |
 | concurrency | RESOLVED | Current material concurrency is repeated/concurrent import identity handling defined by Import Consistency; no multi-user concurrency semantics are required. |
 | integration-boundaries | RESOLVED | Prepared-data exchange is versioned; automated Anki v1 uses backend-to-AnkiConnect behind a transport-independent external-runtime boundary. |
-| persistence-history | RESOLVED | Canonical model data and append-oriented ReviewObservations are durable; broader audit/version history is not required. |
+| persistence-history | RESOLVED | Canonical model data plus historical Performance/Observation and accepted evidence-argument/claim records are durable; raw external runtime telemetry remains integration data unless faithfully translated; broader audit/version history is not required. |
 | security-trust-boundary | RESOLVED | Current trust scope is one local user/deployment plus configured Anki endpoint; no tenant authorization boundary exists in v1. Network exposure remains deployment configuration and must not broaden this trust assumption silently. |
 
 All baseline concerns are classified for the current scope. Deferred concerns are non-material to the selected topology until a corresponding requirement is accepted.
@@ -95,7 +95,7 @@ AnkiConnect is not the architectural identity of the external-learning-runtime b
 
 Anki's native sync service, including a self-hosted sync server, may be used to support the Anki environment but is not Prep's machine API: Prep does not couple application behavior to the Anki sync protocol.
 
-Anki identifiers, schemas and transport behavior do not leak into canonical domain models.
+Anki identifiers, schemas, scheduler ratings/intervals and transport behavior do not leak into canonical domain models. External card/note records are integration projections, not canonical Questions. Imported runtime records enter Learner Model Performance/Observation semantics only when their attribution, actual conditions/meaning, time and provenance can be preserved faithfully; otherwise they remain integration-boundary data.
 
 ## Dependency direction
 
