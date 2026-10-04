@@ -21,8 +21,8 @@ reviews:
     basis: "Product capabilities now require inspectable multi-target comparison of shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty over the same learner evidence basis."
 
   - capability: prep.domain-strategy
-    revision: 3
-    basis: "Revalidated against the expanded user-centered product loop: existing Knowledge, Learning Design and Learner Model strategic responsibilities remain sufficient and no new strategic domain boundary is required."
+    revision: 4
+    basis: "Preparation Direction now explicitly owns candidate-target comparison as cross-context direction semantics while learner evidence/state remains reusable and independently owned; no new learner-state owner or scalar target-fit model is introduced."
 
   - capability: prep.model-context-strategy
     revision: 3

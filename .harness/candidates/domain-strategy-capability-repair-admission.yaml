@@ -13,8 +13,8 @@ semantic_assertions:
   - id: DS-PREPARATION-DIRECTION
     kind: domain-strategy-responsibility
     subject: preparation-direction
-    semantic_value: CORE responsibility for active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction.
-    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+    semantic_value: CORE responsibility for candidate-target comparison before commitment, active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction; comparison coordinates distinct target requirements with target-relative learner-state projections without creating a second learner-state owner.
+    derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-TARGET-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
     decision_authority: DOMAIN-STRATEGY
 
   - id: DS-CAPABILITY-PERFORMANCE
