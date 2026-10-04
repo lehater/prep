@@ -103,21 +103,21 @@ semantic_assertions:
   - id: UJ-ACTIVITY-EVIDENCE
     kind: user-journey
     subject: J-ACTIVITY-EVIDENCE
-    semantic_value: "Learner selects suitable support, performs learning/practice/diagnostic activity, the system captures attributable Performance/Observations and evaluates inspectable evidence arguments, then the learner reviews evidence-backed change or valid no-change."
+    semantic_value: "Learner inspects contextual support fit to the current PreparationIntent and learner basis, selects suitable learning/practice/diagnostic/retention/transfer support, may receive adaptive guidance/feedback/repetition/variation, performs under actual assistance/conditions, then the system preserves distinct attributable Performances/Observations, evaluates inspectable evidence arguments, and the learner reviews evidence-backed change or valid no-change."
     derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
     decision_authority: APPLICATION-DESIGN
 
   - id: UJ-ACTIVITY-EVIDENCE-RECOVERY
     kind: journey-alternate
     subject: J-ACTIVITY-EVIDENCE
-    semantic_value: "Inadequate support routes to preparation; unavailable dependencies preserve context; unresolved/rejected evidence does not fabricate capability; no-change/challenge/increased uncertainty are valid; stale basis refreshes."
+    semantic_value: "Inadequate contextual support fit routes to preparation or another support choice; unavailable dependencies preserve context; feedback/repetition do not fabricate learning evidence; unresolved/rejected evidence does not fabricate capability; no-change/challenge/increased uncertainty are valid; stale basis refreshes."
     derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
     decision_authority: APPLICATION-DESIGN
 
   - id: UJ-ACTIVITY-EVIDENCE-OUTCOME
     kind: journey-outcome
     subject: J-ACTIVITY-EVIDENCE
-    semantic_value: "Journey completes when meaningful activity has occurred and the learner can explain what the resulting evidence does or does not establish and choose a continuation."
+    semantic_value: "Journey completes when meaningful activity has occurred and the learner can explain what the resulting evidence does or does not establish and choose continuation such as changing support, diagnosing further, revisiting after delay, broadening conditions for transfer, refocusing, or returning to direction."
     derived_from: [TM-OUTCOME-SELECT-SUPPORT, TM-OUTCOME-PERFORM-ACTIVITY, TM-OUTCOME-CAPTURE-PERFORMANCE, TM-OUTCOME-EVALUATE-EVIDENCE, TM-OUTCOME-REVIEW-CHANGE, PROC-ACT-COMPLETION]
     decision_authority: APPLICATION-DESIGN
 
