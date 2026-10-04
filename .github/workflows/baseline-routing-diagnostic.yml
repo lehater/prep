@@ -1,0 +1,41 @@
+name: Baseline revalidation routing diagnostic
+
+on:
+  push:
+    branches:
+      - revalidate/baseline-architecture-verification
+    paths:
+      - ".github/workflows/baseline-routing-diagnostic.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Sync active Harness Consumer Pack
+        id: sync
+        shell: bash
+        run: |
+          python .harness/harnessw.py sync | tee /tmp/harness-sync.txt
+          PACK="$(tail -n 1 /tmp/harness-sync.txt)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
+
+      - name: Route required artifact procedures
+        env:
+          PACK: ${{ steps.sync.outputs.pack }}
+        shell: bash
+        run: |
+          for kind in concurrency-consistency-design verification-strategy system-architecture data-design; do
+            echo "===== $kind ====="
+            PYTHONPATH="$PACK/src" python -m harness.application.skill_router artifact --knowledge-kind "$kind"
+          done
