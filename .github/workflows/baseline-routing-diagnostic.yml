@@ -58,11 +58,10 @@ jobs:
             cat "$PACK/$path"
           done
 
-      - name: Route decision explorer
+      - name: Inspect method registry for decision exploration
         env:
           PACK: ${{ steps.sync.outputs.pack }}
         shell: bash
         run: |
-          PYTHONPATH="$PACK/src" python -m harness.application.skill_router method --method decision-explorer --root "$PACK"
-          echo "===== FILE: skills/methods/decision-explorer/SKILL.md ====="
-          cat "$PACK/skills/methods/decision-explorer/SKILL.md"
+          echo "===== METHOD REGISTRY ====="
+          cat "$PACK/skills/method-skill-registry-v0.yaml"
