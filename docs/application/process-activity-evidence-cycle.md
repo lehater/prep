@@ -6,6 +6,14 @@ Define one bounded occurrence that coordinates selected preparation support, an 
 
 The process references accepted Application operations; it does not redefine those operations, domain evidence meaning, runtime transport or UI flow.
 
+## Boundary with learning progression
+
+This process is an evidence-oriented Application Process occurrence, not the canonical pedagogical learning progression.
+
+Learning Design may justify adaptive guidance, feedback/correction, repetition, delay, condition variation, or other progression before or between evidence-bearing performances. Those choices do not become mandatory steps of this process.
+
+A selected support/runtime may realize multiple instructional interactions. Materially distinct learner executions remain distinct historical Performance semantics and must not be collapsed merely because they occurred within one instructional session. How multiple such performances are grouped or correlated by Application Design remains downstream of the Learning Design semantics.
+
 ## Occurrence boundary
 
 One occurrence starts when an active target/focus exists and the learner requests support for that focus.
@@ -35,7 +43,7 @@ Material enabling constraints are:
 3. accepted attributable Observations enable evidence evaluation;
 4. completed evidence evaluation enables change review.
 
-The contract is a semantic partial order, not a transport sequence. It does not require synchronous execution or prohibit independent work that is not constrained by these relations.
+The contract is a semantic partial order, not a transport sequence. It does not require synchronous execution, prohibit instructional interactions that are not evidence-process steps, or prescribe the internal learning progression of selected support.
 
 ## Continuation and correlation
 

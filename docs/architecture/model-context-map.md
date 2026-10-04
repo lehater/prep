@@ -86,13 +86,15 @@ Translation must preserve:
 
 Related targets do not inherit requirements automatically.
 
-### TR-03 Capability & Performance + Subject Knowledge → practice/learning execution
+### TR-03 Capability & Performance + Subject Knowledge + Preparation Direction + Learner Evidence & State → practice/learning execution
 
-Internal or external practice, learning, or diagnostic mechanisms may receive required performance meaning and relevant subject context to choose or provide suitable opportunities.
+Internal or external practice, learning, or diagnostic mechanisms may receive required performance meaning, relevant subject context, the current PreparationIntent, and applicable evidence-backed learner-state context to choose or adapt suitable opportunities.
 
-The runtime does not thereby become owner of Capability & Performance or Subject Knowledge semantics.
+Translation must preserve the distinction between reusable support requirements and contextual support fit. The same CapabilitySpecification may legitimately receive different guidance, feedback, condition variation, retention timing, or transfer support under different PreparationIntents or learner evidence/state.
 
-Support completion is not learner-state evidence by itself.
+The execution mechanism does not thereby become owner of Capability & Performance, Subject Knowledge, Preparation Direction, or Learner Evidence & State semantics.
+
+Support completion, feedback delivery, repetition, or runtime success is not learner-state evidence by itself.
 
 ### TR-04 practice/learning execution → Learner Evidence & State
 
@@ -124,9 +126,9 @@ Accepted meaning belongs to the corresponding model context; unresolved source a
 
 ### No independent Practice/Learning context yet
 
-Practice & Learning Enablement is a supporting strategic responsibility, and accepted behavior requires support-fit and evidence-producing opportunities. Current evidence does not yet require a separate durable Prep-owned practice language with independent lifecycle beyond translation among Capability & Performance, Subject Knowledge, execution mechanisms, and Learner Evidence.
+Practice & Learning Enablement is a supporting strategic responsibility. Learning Design may define reusable support-fit and learning-progression constraints, while concrete sequencing remains execution/application policy. Current evidence does not yet require those semantics to form a separate durable model context with independent identity or lifecycle beyond translation among Preparation Direction, Capability & Performance, Subject Knowledge, execution mechanisms, and Learner Evidence & State.
 
-Reopen if learning/practice design gains independently changing semantics or consumers that cannot be expressed as those translation contracts.
+Reopen if instructional strategy, progression, feedback/correction, preparation planning, or other learning/practice semantics acquire independently changing identities, lifecycle, or consumers that cannot remain coherent within the current translation contracts and Learning Design boundary.
 
 ### No independent Assessment/Evidence Design context yet
 

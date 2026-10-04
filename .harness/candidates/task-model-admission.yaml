@@ -432,7 +432,7 @@ semantic_assertions:
   - id: TM-TASK-SELECT-SUPPORT
     kind: task
     subject: TASK-U-SELECT-SUPPORT
-    semantic_value: "Select learning, practice, or diagnostic support appropriate to the current PreparationIntent and required capability conditions."
+    semantic_value: "Select learning, practice, diagnostic, retention, or transfer support contextually appropriate to the current PreparationIntent, required Capability conditions, and applicable learner evidence/state."
     derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
     decision_authority: APPLICATION-DESIGN
 
@@ -453,28 +453,28 @@ semantic_assertions:
   - id: TM-INFO-SELECT-SUPPORT
     kind: task-information
     subject: TM-TASK-SELECT-SUPPORT
-    semantic_value: "PreparationIntent, CapabilitySpecification, available LearningMaterial, LearningSupportRequirements, TaskSpecifications, ObservationSpecifications, expected conditions, and support limitations."
+    semantic_value: "PreparationIntent and purpose, CapabilitySpecification, applicable accepted learner evidence/state, available LearningMaterial, LearningSupportRequirements, TaskSpecifications, ObservationSpecifications, expected conditions/variation, available guidance or feedback, material time/attention constraints where known, and support limitations."
     derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-DECISION-SELECT-SUPPORT
     kind: task-decision-input
     subject: TM-TASK-SELECT-SUPPORT
-    semantic_value: "Choose a suitable learning/practice/diagnostic opportunity or decide that available support is inadequate for the current intent."
+    semantic_value: "Choose a suitable learning/practice/diagnostic/retention/transfer opportunity for the current intent and learner basis, or decide that available support is inadequate."
     derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-OUTCOME-SELECT-SUPPORT
     kind: task-outcome
     subject: TM-TASK-SELECT-SUPPORT
-    semantic_value: "A support opportunity is selected with its intended capability purpose and limitations understood; completion is not treated as evidence of capability."
+    semantic_value: "A support opportunity is selected with its intended capability purpose, contextual fit basis and limitations understood; completion, feedback or repetition is not treated as evidence of capability."
     derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-SUPPORT-SELECT-SUPPORT
     kind: task-system-support
     subject: TM-TASK-SELECT-SUPPORT
-    semantic_value: "Resolve support by intended capability and conditions, keep LearningMaterial/TaskSpecification/ObservationSpecification roles distinct, and treat question/card forms as optional projections."
+    semantic_value: "Resolve contextual support fit from intent, intended CapabilitySpecification, accepted learner basis, expected assistance/conditions and material support properties; keep LearningMaterial/TaskSpecification/ObservationSpecification roles distinct, preserve fit limitations, and treat question/card forms as optional projections."
     derived_from: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
     decision_authority: APPLICATION-DESIGN
 

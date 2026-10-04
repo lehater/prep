@@ -52,7 +52,7 @@ semantic_assertions:
   - id: PROC-ACT-BOUNDARY
     kind: application-process-boundary
     subject: activity-evidence-cycle
-    semantic_value: "One occurrence begins when an active target/focus requests preparation support and ends after one resulting activity/evidence outcome is reviewed against its semantic basis; target establishment and later cycles are outside the occurrence."
+    semantic_value: "One evidence-oriented Application Process occurrence begins when an active target/focus requests preparation support and ends after one resulting activity/evidence outcome is reviewed against its semantic basis; it is not the pedagogical learning progression, which may contain adaptive instructional interactions before or between evidence-bearing Performances."
     derived_from: [AD-SELECT-SUPPORT, AD-REVIEW-CHANGE, AD-PROCESS-HANDOFF]
     decision_authority: APPLICATION-DESIGN
   - id: PROC-ACT-WORK
@@ -64,7 +64,7 @@ semantic_assertions:
   - id: PROC-ACT-COMPOSITION
     kind: application-process-composition
     subject: activity-evidence-cycle
-    semantic_value: "Selected suitable support enables an activity attempt; attributable activity facts enable capture; accepted attributable Observations enable evidence evaluation; completed evaluation enables change review. These are semantic enabling constraints, not transport sequencing."
+    semantic_value: "Selected suitable support enables an activity attempt; attributable activity facts enable capture; accepted attributable Observations enable evidence evaluation; completed evaluation enables change review. These are semantic enabling constraints, not transport or instructional sequencing; selected support may contain guidance/feedback/repetition outside the process steps, and materially distinct learner executions remain distinct Performance semantics."
     derived_from: [AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE]
     decision_authority: APPLICATION-DESIGN
   - id: PROC-ACT-CONTINUATION

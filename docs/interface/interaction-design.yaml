@@ -74,7 +74,7 @@ contexts:
     accessibility: Every task-critical inspect/traverse action has a non-spatial keyboard-operable path; graph/direct-manipulation is optional downstream presentation.
 
   - id: IX-ACTIVITY
-    purpose: Choose support, perform one learning/practice/diagnostic attempt, then understand what its resulting evidence does or does not establish.
+    purpose: Inspect learner-adaptive support fit, carry out the selected learning/practice/diagnostic/retention/transfer activity as applicable, then understand what resulting evidence does or does not establish.
     task_refs: [TASK-U-SELECT-SUPPORT, TASK-U-PERFORM-ACTIVITY, TASK-U-REVIEW-CHANGE]
     system_task_refs: [TASK-S-CAPTURE-PERFORMANCE, TASK-S-EVALUATE-EVIDENCE]
     concept_refs: [C-NEXT-FOCUS, C-REQUIRED-CAPABILITY, C-SUPPORT, C-ACTIVITY, C-EVIDENCE, C-EVIDENCE-BASIS, C-CHANGE]
@@ -90,9 +90,9 @@ contexts:
     machine_operations: [prep.support.list, prep.activity.start, prep.activity.complete, prep.evidence.get, prep.change.get]
     states: [loading-support, no-suitable-support, ready, activity-active, submitting-attempt, evidence-processing, reviewed, unresolved, challenged, no-change, increased-uncertainty, dependency-unavailable, stale-context]
     transition_rules:
-      - "support option + inspect fit -> intended CapabilitySpecification, expected conditions, fit basis and limitations"
-      - "selected support + current basis -> semantic activity attempt"
-      - "attributable attempt result -> accepted capture/evaluate/review process; activity completion alone never becomes capability evidence"
+      - "support option + inspect fit -> intended CapabilitySpecification, PreparationIntent purpose, applicable learner basis, expected assistance/conditions, fit basis and limitations"
+      - "selected support + current basis -> semantic activity attempt; runtime guidance/feedback/repetition may adapt within Learning Design constraints without becoming evidence by themselves"
+      - "materially distinct attributable executions -> distinct Performance semantics before accepted capture/evaluate/review inference; activity completion alone never becomes capability evidence"
       - "reviewed result -> explicit continuation choice even for no-change/challenge/unresolved inference"
     recovery: Dependency unavailability may preserve the same current activity attempt; historical accepted Performance/Observations are never rolled back because later inference is unresolved/rejected.
     cancellation: Leaving the interaction is not represented as cancelling a machine/process occurrence unless a future accepted machine contract explicitly supports cancellation.

@@ -107,10 +107,10 @@ tasks:
     description: "Select learning, practice, or diagnostic support appropriate to the current PreparationIntent and required capability conditions."
     depends_on: [TASK-U-CHOOSE-NEXT-FOCUS]
     upstream_refs: [REQ-CAP-PRACTICE, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT, LD-PREPARATION-INTENT, LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, LD-APPLICATION-BOUNDARY, LD-QUESTION-NONFUNDAMENTAL]
-    required_information: "PreparationIntent, CapabilitySpecification, available LearningMaterial, LearningSupportRequirements, TaskSpecifications, ObservationSpecifications, expected conditions, and support limitations."
-    decision_or_input: "Choose a suitable learning/practice/diagnostic opportunity or decide that available support is inadequate for the current intent."
-    expected_outcome: "A support opportunity is selected with its intended capability purpose and limitations understood; completion is not treated as evidence of capability."
-    required_system_support: "Resolve support by intended capability and conditions, keep LearningMaterial/TaskSpecification/ObservationSpecification roles distinct, and treat question/card forms as optional projections."
+    required_information: "PreparationIntent and purpose, CapabilitySpecification, accepted learner evidence/state relevant to support fit, available LearningMaterial, LearningSupportRequirements, TaskSpecifications, ObservationSpecifications, expected conditions/variation, available guidance or feedback, material time/attention constraints where known, and support limitations."
+    decision_or_input: "Choose a suitable learning/practice/diagnostic/retention/transfer opportunity for the current intent and learner basis, or decide that available support is inadequate."
+    expected_outcome: "A support opportunity is selected with its intended capability purpose, fit basis and limitations understood; completion, feedback or repetition is not treated as evidence of capability."
+    required_system_support: "Resolve contextual support fit from intent, intended capability, accepted learner basis, conditions and material support properties; keep LearningMaterial/TaskSpecification/ObservationSpecification roles distinct; preserve assistance/condition limitations; and treat question/card forms as optional projections."
     recovery: "Missing or inadequate support remains explicit and routes to preparation support without closing a gap or asserting capability."
 
   - id: TASK-U-PERFORM-ACTIVITY
@@ -190,7 +190,7 @@ plans:
     note: "Comparison is optional: a learner with an already chosen Target may enter TASK-U-ESTABLISH-TARGET directly. Choosing a direction does not itself change learner evidence or Capability."
   - id: PLAN-TARGET-PREPARATION-LOOP
     tasks: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS, TASK-U-REVIEW-CURRENT-STATE, TASK-U-REVIEW-GAPS, TASK-U-CHOOSE-NEXT-FOCUS, TASK-U-SELECT-SUPPORT, TASK-U-PERFORM-ACTIVITY, TASK-S-CAPTURE-PERFORMANCE, TASK-S-EVALUATE-EVIDENCE, TASK-U-REVIEW-CHANGE]
-    note: "TASK-U-EXPLORE-KNOWLEDGE may be entered whenever subject orientation is needed; TASK-U-REQUEST-PREPARATION-SUPPORT/TASK-S-PREPARE-SUPPORT may be entered whenever required preparation support is missing."
+    note: "TASK-U-EXPLORE-KNOWLEDGE may be entered whenever subject orientation is needed; TASK-U-REQUEST-PREPARATION-SUPPORT/TASK-S-PREPARE-SUPPORT may be entered whenever required preparation support is missing. This is an application work plan, not a pedagogical curriculum or durable multi-step PreparationPlan; adaptive learning progression remains governed by Learning Design semantics and downstream sequencing policy."
 
 sufficiency_review:
   status: ACCEPTED

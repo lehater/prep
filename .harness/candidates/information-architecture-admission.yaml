@@ -49,7 +49,7 @@ semantic_assertions:
   - id: IA-LOC-ACTIVITIES
     kind: information-location
     subject: activities-location
-    semantic_value: "Activities groups support selection and concrete learning/practice/diagnostic activity under the current focus while preserving target context and the activity-versus-evidence distinction."
+    semantic_value: "Activities groups contextual support-fit inspection/selection and concrete learning/practice/diagnostic/retention/transfer activity under the current focus and learner basis while preserving target context and the activity-versus-evidence distinction."
     derived_from: [CIM-NEXT-FOCUS, CIM-SUPPORT, CIM-ACTIVITY, UJ-ACTIVITY-EVIDENCE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 

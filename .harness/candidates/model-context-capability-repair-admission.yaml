@@ -57,14 +57,14 @@ semantic_assertions:
   - id: TR-SEMANTICS-TO-PRACTICE
     kind: model-context-translation
     subject: capability-knowledge-to-practice-learning
-    semantic_value: Practice, learning, or diagnostic execution may receive required performance meaning and relevant subject context to provide suitable opportunities without acquiring ownership of those semantics.
-    derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-CAPABILITY-PERFORMANCE, DS-SUBJECT-KNOWLEDGE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
+    semantic_value: Practice, learning, diagnostic, retention, or transfer execution may receive required performance meaning, relevant subject context, the current preparation purpose, and applicable evidence-backed learner-state context to choose or adapt suitable opportunities; reusable support requirements remain distinct from contextual support fit, and different learner bases may justify different guidance, feedback, delay, or condition variation without making the execution mechanism a semantic owner.
+    derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-CAPABILITY-PERFORMANCE, DS-SUBJECT-KNOWLEDGE, DS-PREPARATION-DIRECTION, DS-LEARNER-EVIDENCE-STATE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-STATE, REQ-CAP-FOCUS]
     decision_authority: MODEL-CONTEXT-STRATEGY
 
   - id: TR-PRACTICE-TO-EVIDENCE
     kind: model-context-translation
     subject: practice-learning-to-learner-evidence
-    semantic_value: Practice or diagnostic execution may return contextualized observations into Learner Evidence and State while preserving performance context, provenance, time, semantic references, and the observation-versus-conclusion distinction.
+    semantic_value: Learning, practice, diagnostic, retention, or transfer execution may return contextualized observations into Learner Evidence and State while preserving actual assistance/conditions, performance context, provenance, time, semantic references, and the observation-versus-conclusion distinction; support completion, feedback, repetition, or runtime success alone is not learner-state evidence.
     derived_from: [DS-PRACTICE-LEARNING-ENABLEMENT, DS-LEARNER-EVIDENCE-STATE, REQ-CAP-PRACTICE, REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-EVIDENCE-JUSTIFICATION]
     decision_authority: MODEL-CONTEXT-STRATEGY
 

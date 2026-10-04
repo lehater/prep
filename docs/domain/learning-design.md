@@ -213,6 +213,64 @@ PreparationIntent does not assert that change occurred.
 
 ## Practice & Learning Enablement
 
+### Learning progression semantics
+
+Learning progression is the adaptive selection and adjustment of learning, practice, diagnostic, retention, or transfer support used to pursue a current `PreparationIntent`.
+
+It is reusable semantic guidance for support selection. It is **not** a mandatory pedagogical pipeline, a concrete application workflow, or a separate `LearningProcess` entity.
+
+The same CapabilitySpecification may require different support for different learner situations. A support-fit decision may therefore consider, where materially available:
+
+- the current `PreparationIntent` and its purpose;
+- the intended `CapabilitySpecification`;
+- accepted learner evidence/state and its limitations;
+- relevant Subject Knowledge or known learner-specific error/misconception context without mutating Subject Knowledge;
+- support properties, including available guidance and feedback;
+- expected performance conditions and condition variation;
+- material time, attention, or availability constraints.
+
+Support fit is a contextual evaluation. It does not become an intrinsic property of the support artifact, Capability, or learner.
+
+#### Semantic consequences of intent
+
+`PreparationIntent.purpose` remains open semantic content rather than a closed instructional-method taxonomy, but materially different purposes constrain suitable support:
+
+- **acquisition / reconstruction / explanation** may use stronger guidance, examples, reference material, generation, or self-explanation; success with assistance establishes only the conditions actually observed;
+- **practice** may target accuracy, completeness, speed, consistency, strategy selection, coordination, or another accepted Capability criterion;
+- **diagnosis** requires opportunities whose conditions preserve the uncertainty being tested; instruction or hints supplied before or during performance may change what can be inferred;
+- **retention support** requires meaningful temporal separation when the intent is to establish durable availability; immediate repetition does not establish retention;
+- **transfer preparation** requires materially relevant variation or novelty when the intent is to establish performance beyond already demonstrated conditions; familiar-condition success does not establish transfer.
+
+These consequences constrain support suitability without requiring every learner to pass through every purpose.
+
+#### Guidance, feedback, and correction
+
+Support may vary the amount or form of assistance, including worked solutions, partial solutions, hints, references, procedural prompts, tool assistance, or no assistance.
+
+Assistance is semantically material when it changes what a resulting Performance can establish. When a target Capability requires independent performance, support selection may reduce unnecessary assistance as evidence develops. When tools, references, collaboration, or other assistance are part of the target Capability conditions, removing them is not inherently desirable.
+
+Learner-facing feedback is information contingent on Performance and intended to affect subsequent Performance, for example by identifying an error, explaining a discrepancy from a criterion, exposing a misconception, or directing attention to a better strategy.
+
+Feedback is distinct from:
+
+- `Observation`, which records or attributes what occurred;
+- `CapabilityEvidenceArgument`, which explains what observations imply for a Capability claim;
+- `LearnerCapabilityClaim`, which is the learner-specific proposition being supported or challenged.
+
+No separate fundamental `Feedback` entity is currently required. `LearningSupportRequirement` may constrain availability or properties of feedback when adequate support depends on them.
+
+One error does not uniquely identify its cause. Corrective support may require further diagnosis before attributing the error to missing Knowledge, incorrect Knowledge, procedure, strategy selection, condition misunderstanding, fluency, or another cause.
+
+#### Progression patterns and policy boundary
+
+Worked examples, partially worked tasks, generation, retrieval practice, whole-task practice, part-task drills, varied practice, interleaving, guidance fading, delayed retrieval, and similar mechanisms are support/progression patterns rather than fundamental Prep entities.
+
+A progression may repeat, branch, increase or reduce guidance, switch purpose, vary conditions, introduce a delay, or terminate without positive learner-state change.
+
+No universal sequence such as `material -> example -> exercise -> test` is required. Selection and ordering remain policy constrained by accepted semantics.
+
+Repeated execution creates distinct historical Performance semantics. A runtime or application workflow must not collapse materially distinct learner executions merely because they belong to one instructional session.
+
 ### LearningMaterial
 
 ```text
@@ -238,15 +296,18 @@ LearningSupportRequirement
     coverage_constraints
 ```
 
-LearningSupportRequirement states what kinds and coverage of learning/practice opportunities are needed before support can be called adequate for the specified Capability.
+LearningSupportRequirement states what kinds and coverage of learning/practice opportunities are needed before a support set can be called adequate for the specified Capability.
 
 It does not prescribe one universal learning-method taxonomy or one coverage score.
+
+The requirement itself remains reusable and Capability-relative. Whether a particular support opportunity is suitable **now** is a contextual support-fit evaluation that may additionally depend on the current PreparationIntent, accepted learner evidence/state, expected conditions, available guidance/feedback, and material constraints.
 
 Support adequacy:
 
 - is relative to an explicit CapabilitySpecification;
-- may depend on material, practice, relevant conditions, or other accepted support properties;
-- is not inferred from artifact count;
+- may depend on material, practice, feedback/correction availability, relevant conditions, condition variation, or other accepted support properties;
+- does not imply that the same support fits every learner state or PreparationIntent;
+- is not inferred from artifact count or repetition count;
 - does not imply that the learner acquired the Capability.
 
 ### TaskSpecification
@@ -360,12 +421,14 @@ Learning Design defines reusable normative/design semantics.
 Application Design decides:
 
 - concrete user tasks and workflows;
-- creation/selection of concrete practice or diagnostic interactions;
-- runtime/session coordination;
+- creation/selection of concrete learning, practice, or diagnostic interactions under the support-fit semantics above;
+- runtime/session coordination, including any concrete adaptive sequence of interactions;
 - external-runtime delegation;
 - UI actions and navigation.
 
 A reusable TaskSpecification is therefore not a screen, route, workflow, or concrete task instance.
+
+Learning progression semantics do not define an Application Process occurrence. An application/runtime may realize zero or many instructional interactions before or between evidence-bearing Performances while preserving actual Performance identity and conditions.
 
 ## Allowed inference
 
@@ -374,6 +437,7 @@ The model permits:
 - `all_of` -> every child requirement is required;
 - `any_of` -> at least one child can satisfy that branch;
 - a set of support artifacts/opportunities -> may be tested against an explicit LearningSupportRequirement;
+- PreparationIntent + CapabilitySpecification + accepted learner evidence/state + material support properties/constraints -> may inform a contextual support-fit decision;
 - accepted learner state + RequirementExpression -> may yield target-relative satisfaction/gap projections;
 - accepted learner-state changes -> may justify a new PreparationPriority or PreparationIntent.
 
@@ -385,6 +449,10 @@ The model does not permit:
 - LearningMaterial presents K -> learner knows K;
 - `intended_to_support(C)` -> learner possesses C;
 - support adequacy -> learner Capability;
+- support intended for a Capability -> suitable for every learner state or PreparationIntent;
+- feedback delivered -> learner Capability or learning occurred;
+- repetition count -> retention or evidence strength;
+- familiar-condition success -> transfer;
 - TaskSpecification affordance -> Observation exists;
 - one successful task/performance -> broad Capability possession;
 - one failed task/performance -> negative Capability claim;
@@ -416,6 +484,11 @@ The following old constructs are not current fundamentals:
 - AssessmentEpisode;
 - TaskFamily / TaskTemplate / TaskInstance;
 - Attempt;
-- LearningSupportDesign as a separate aggregate.
+- LearningSupportDesign as a separate aggregate;
+- universal LearningUnit;
+- LearningProcess or LearningProgression as a fundamental entity;
+- InstructionalStrategy as a fundamental entity;
+- Feedback as a fundamental entity;
+- PreparationPlan without an accepted product requirement for a durable multi-step plan.
 
 A future accepted counterexample may reintroduce a distinction when the current minimal model causes material semantic loss.

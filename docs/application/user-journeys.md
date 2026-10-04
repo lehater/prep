@@ -164,7 +164,7 @@ These journeys describe meaningful user actions, visible system responses, recov
 
 **Actor:** learner
 
-**Goal:** perform suitable learning, practice or diagnostic activity for the current focus and understand what new evidence does or does not establish.
+**Goal:** use support suitable to the current PreparationIntent and learner basis, perform the resulting learning/practice/diagnostic/retention/transfer activity as applicable, and understand what new evidence does or does not establish.
 
 **Trigger:** a PreparationIntent exists and the learner is ready to act on it.
 
@@ -172,19 +172,20 @@ These journeys describe meaningful user actions, visible system responses, recov
 
 **Preconditions:** suitable support may or may not exist; external execution may or may not be available.
 
-**Process contract:** cross-operation occurrence/composition/continuation/completion is owned by `prep.application-process.activity-evidence-cycle`; this journey describes the learner-visible goal path over that accepted process.
+**Process contract:** cross-operation occurrence/composition/continuation/completion is owned by `prep.application-process.activity-evidence-cycle`; this journey describes the learner-visible goal path over that accepted evidence-oriented process. Learning progression may include adaptive instructional interactions before or between evidence-bearing Performances and is not reduced to the Application Process sequence.
 
 ### Meaningful interactions
 
 1. The learner asks for support appropriate to the current PreparationIntent.
-2. The system performs `APP-SELECT-SUPPORT`, returning applicable LearningMaterial, TaskSpecifications and ObservationSpecifications with their intended capability scope and limitations.
-3. The learner selects an opportunity or recognizes that available support is inadequate.
-4. For selected support, the system begins `APP-PERFORM-ACTIVITY` locally or through a supported external runtime while preserving target/focus correlation.
-5. The learner performs the activity under the actual conditions and provides the resulting actions, work product or reasoning.
-6. The system performs `APP-CAPTURE-PERFORMANCE`: attributable facts become historical Performance and provenance-bearing Observations; semantically incomplete external records remain unresolved at the integration boundary.
-7. The system performs `APP-EVALUATE-EVIDENCE`: observations are evaluated for capability relevance, conditions, time, coverage/transfer, dependence and attribution; inspectable CapabilityEvidenceArguments support/challenge claims only where justified.
-8. The system recomputes the target-relative projection and performs `APP-REVIEW-CHANGE`.
-9. The learner reviews what changed, what did not change, why, and whether to keep focus, refocus, gather more diagnostic evidence or refine the target.
+2. The system performs `APP-SELECT-SUPPORT`, evaluating contextual fit from the intent/purpose, intended CapabilitySpecification, applicable accepted learner evidence/state, expected conditions and material support properties/constraints.
+3. The system returns applicable LearningMaterial, TaskSpecifications and ObservationSpecifications with their intended capability scope, inspectable fit basis and explicit limitations; the same CapabilitySpecification may legitimately receive different support under a different learner basis or intent.
+4. The learner selects an opportunity or recognizes that available support is inadequate.
+5. For selected support, the system begins `APP-PERFORM-ACTIVITY` locally or through a supported external runtime while preserving target/focus correlation and the actual assistance/conditions that constrain later evidence.
+6. The learner performs the activity under the actual conditions and provides the resulting actions, work product or reasoning. Selected support may internally use guidance, feedback/correction, repetition, delay or condition variation according to Learning Design semantics; those instructional interactions are not themselves capability conclusions.
+7. The system performs `APP-CAPTURE-PERFORMANCE`: materially distinct attributable executions remain distinct historical Performance semantics and provenance-bearing Observations; semantically incomplete external records remain unresolved at the integration boundary.
+8. The system performs `APP-EVALUATE-EVIDENCE`: observations are evaluated for capability relevance, assistance/conditions, time, coverage/transfer, dependence and attribution; inspectable CapabilityEvidenceArguments support/challenge claims only where justified.
+9. The system recomputes the target-relative projection and performs `APP-REVIEW-CHANGE`.
+10. The learner reviews what changed, what did not change, why, and whether to keep focus, change support, refocus, diagnose further, revisit after delay, broaden conditions for transfer, or refine the target.
 
 **Completion:** the learner has completed meaningful activity and can explain the evidence-backed effect—or valid lack of effect—on current preparation direction.
 
