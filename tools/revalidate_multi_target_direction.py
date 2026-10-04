@@ -25,6 +25,7 @@ EXPLICIT = {
  "prep.product-intent": ".harness/candidates/product-intent-capability-repair-admission.yaml",
  "prep.product-capabilities": ".harness/candidates/product-capabilities-capability-repair-admission.yaml",
  "prep.domain-strategy": ".harness/candidates/domain-strategy-capability-repair-admission.yaml",
+ "prep.model-context-strategy": ".harness/candidates/model-context-capability-repair-admission.yaml",
  "prep.task-model": ".harness/candidates/task-model-admission.yaml",
  "prep.application-design": ".harness/candidates/process-migration-application-design-admission.yaml",
  "prep.application-process.activity-evidence-cycle": ".harness/candidates/process-migration-activity-evidence-admission.yaml",

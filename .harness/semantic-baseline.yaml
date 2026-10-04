@@ -25,8 +25,8 @@ reviews:
     basis: "Preparation Direction now explicitly owns candidate-target comparison as cross-context direction semantics while learner evidence/state remains reusable and independently owned; no new learner-state owner or scalar target-fit model is introduced."
 
   - capability: prep.model-context-strategy
-    revision: 3
-    basis: "Revalidated against target/gap/corpus capabilities: existing model-context applicability and information-flow boundaries remain sufficient without adding a UI- or import-specific semantic context."
+    revision: 4
+    basis: "Preparation Direction now includes candidate-target comparison, and Learner Evidence & State translates one reusable evidence basis into separate target-relative projections without creating per-target learner state or mutating state during comparison."
 
   - capability: prep.knowledge-relation-classification
     revision: 4
