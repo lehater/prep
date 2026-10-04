@@ -93,14 +93,14 @@ semantic_assertions:
   - id: CIM-SUPPORT
     kind: interface-concept
     subject: preparation-support
-    semantic_value: "Preparation support is learning material or a practice/diagnostic opportunity intended for the current capability/focus; availability or completion does not establish capability."
+    semantic_value: "Preparation support is learning material or a learning/practice/diagnostic/retention/transfer opportunity whose contextual fit may depend on the current intent, Capability and learner basis; fit, availability, feedback or completion does not establish capability."
     derived_from: [LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, AD-SELECT-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: CIM-ACTIVITY
     kind: interface-concept
     subject: activity
-    semantic_value: "Activity is a concrete learning/practice/diagnostic attempt using selected support; it is distinct from evidence and from the application Task Model."
+    semantic_value: "Activity is concrete learning/practice/diagnostic/retention/transfer execution using selected support under actual assistance and conditions; materially distinct executions remain distinct Performance semantics, and activity remains distinct from evidence and from the application Task Model."
     derived_from: [LD-APPLICATION-BOUNDARY, AD-PERFORM-ACTIVITY, UJ-ACTIVITY-EVIDENCE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
