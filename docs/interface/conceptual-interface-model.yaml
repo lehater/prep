@@ -82,13 +82,13 @@ concepts:
 
   - id: C-SUPPORT
     label: Preparation support
-    meaning: Learning material or a practice/diagnostic opportunity intended to support the current capability/focus; availability or completion does not establish learner capability.
+    meaning: Learning material or a learning/practice/diagnostic/retention/transfer opportunity contextually suitable to the current intent/capability and learner basis; fit, availability, feedback or completion does not establish learner capability.
     upstream_refs: [LD-LEARNING-MATERIAL, LD-SUPPORT-REQUIREMENT, LD-TASK-SPECIFICATION, LD-OBSERVATION-SPECIFICATION, AD-SELECT-SUPPORT]
     user_must_distinguish_from: [C-EVIDENCE, C-ACTIVITY]
 
   - id: C-ACTIVITY
     label: Activity
-    meaning: A concrete learning, practice or diagnostic attempt performed locally or in a supported external runtime; activity is the opportunity/attempt, not the evidence conclusion.
+    meaning: A concrete learning/practice/diagnostic/retention/transfer activity performed locally or in a supported external runtime under actual assistance and conditions; activity is the opportunity/execution context, not the evidence conclusion.
     upstream_refs: [AD-PERFORM-ACTIVITY, UJ-ACTIVITY-EVIDENCE]
     user_must_distinguish_from: [C-SUPPORT, C-EVIDENCE]
 
