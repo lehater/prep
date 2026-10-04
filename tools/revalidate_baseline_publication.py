@@ -269,5 +269,6 @@ def main() -> int:
 
 
 # Revalidation runner is temporary and removed before merge.
+# Rerun after Data Design provenance correction.
 if __name__ == "__main__":
     raise SystemExit(main())
