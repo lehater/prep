@@ -35,11 +35,7 @@ Fingerprints are technical duplicate guards, not semantic comparison.
 
 They derive from versioned deterministic canonicalization of identity-bearing representation fields followed by a stable hash algorithm.
 
-Fallback identity must be defined per importable representation kind from fields that actually bear identity for that representation. There is no canonical `Question` identity rule because Question/card interactions are non-fundamental projections.
-
-For integration-owned question/card-like runtime representations, any text-based or field-based fallback fingerprint is technical integration identity only. It must not create or redefine canonical Knowledge, Capability, TaskSpecification, ObservationSpecification, Performance or Observation identity.
-
-Canonicalization rules must be deterministic and versioned. Unicode normalization, leading/trailing whitespace removal or whitespace normalization may be used only where the corresponding representation contract declares them identity-preserving; case folding, punctuation removal, stemming, embeddings, LLM similarity or fuzzy transformations are never implied automatically.
+For Question fallback identity, normalized question text is sufficient for the current contract. Unicode normalization, leading/trailing whitespace removal and whitespace normalization are permitted. Case folding, punctuation removal, stemming, embeddings, LLM similarity or fuzzy transformations are not implied.
 
 The fingerprint algorithm/canonicalization version must be recoverable when changing it could alter duplicate recognition.
 
