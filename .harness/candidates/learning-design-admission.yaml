@@ -66,7 +66,7 @@ semantic_assertions:
   - id: LD-PREPARATION-INTENT
     kind: domain-model
     subject: preparation-intent
-    semantic_value: PreparationIntent records the target-relative capability focus, gaps or uncertainty to address, and an open preparation purpose such as acquisition, practice, diagnosis, transfer, or retention support without asserting that change occurred.
+    semantic_value: PreparationIntent records the target-relative capability focus, gaps or uncertainty to address, and an open preparation purpose such as acquisition, practice, diagnosis, transfer, or retention support without asserting that change occurred; materially different purposes constrain suitable support while remaining distinct from a closed instructional-method taxonomy.
     derived_from: [MC-PREPARATION-DIRECTION, TR-SEMANTICS-TO-PRACTICE, REQ-CAP-FOCUS, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT]
     decision_authority: TACTICAL-DOMAIN-DESIGN
 
@@ -80,8 +80,8 @@ semantic_assertions:
   - id: LD-SUPPORT-REQUIREMENT
     kind: domain-model
     subject: learning-support-requirement
-    semantic_value: LearningSupportRequirement defines explicit support and coverage constraints relative to a CapabilitySpecification; adequacy is not inferred from artifact count and does not imply learner capability.
-    derived_from: [TR-SEMANTICS-TO-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-DURABLE-TRANSFER]
+    semantic_value: LearningSupportRequirement defines reusable support and coverage constraints relative to a CapabilitySpecification, while suitability of a particular opportunity is a contextual support-fit evaluation that may additionally depend on PreparationIntent, accepted learner evidence/state, expected assistance/conditions, feedback availability and material constraints; adequacy is not inferred from artifact/repetition count, need not imply the same support for every learner basis, and never implies learner capability.
+    derived_from: [TR-SEMANTICS-TO-PRACTICE, MC-LEARNER-EVIDENCE-STATE, REQ-CAP-SUPPORT-FIT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-STATE]
     decision_authority: TACTICAL-DOMAIN-DESIGN
 
   - id: LD-TASK-SPECIFICATION
@@ -101,14 +101,14 @@ semantic_assertions:
   - id: LD-EVIDENCE-DESIGN-BOUNDARY
     kind: domain-invariant
     subject: evidence-design-boundary
-    semantic_value: Learning Design stops at reusable performance opportunities and observation specifications; actual Performance, Observation, evidence arguments, and learner capability conclusions belong to Learner Evidence and State, while no independent EvidencePattern/Warrant/AssessmentDesign language is accepted yet.
+    semantic_value: Learning Design stops at reusable support/progression constraints, performance opportunities and observation specifications; learner-facing feedback/correction is support intended to affect subsequent Performance and is distinct from Observation/evidence interpretation, while actual Performance, Observation, evidence arguments, and learner capability conclusions belong to Learner Evidence and State and no independent EvidencePattern/Warrant/AssessmentDesign language is accepted yet.
     derived_from: [MC-LEARNER-EVIDENCE-STATE, TR-PRACTICE-TO-EVIDENCE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-STATE]
     decision_authority: TACTICAL-DOMAIN-DESIGN
 
   - id: LD-APPLICATION-BOUNDARY
     kind: domain-invariant
     subject: learning-design-application-boundary
-    semantic_value: Reusable TaskSpecification and preparation/support semantics do not own concrete user tasks, workflows, runtime sessions, external-runtime delegation, screens, routes, or navigation, which remain downstream Application and Interface concerns.
+    semantic_value: Reusable TaskSpecification and preparation/support semantics may constrain adaptive guidance, feedback/correction, repetition, delay and condition variation, but they do not define a mandatory pedagogical pipeline or own concrete user tasks, Application Process occurrences, runtime/session sequencing, external-runtime delegation, screens, routes, or navigation; materially distinct learner executions remain distinct Performance semantics.
     derived_from: [TR-SEMANTICS-TO-PRACTICE, REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT]
     decision_authority: TACTICAL-DOMAIN-DESIGN
 
