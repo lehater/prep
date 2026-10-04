@@ -1,0 +1,214 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.system-architecture
+knowledge_kind: system-architecture
+explorer_request_id: PENDING_REQUEST
+research_sources: []
+axes:
+  - axis: runtime-boundaries
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: merge-vs-split
+        challenge: Compare one application/domain execution boundary with per-semantic-context runtimes and with interface-owned semantic execution while preserving the same accepted behavior.
+        alternatives: [human-interface-plus-application-boundary, semantic-context-runtimes, interface-owned-domain-runtime]
+      - strategy: boundary-shift
+        challenge: Move the semantic write boundary toward the client and toward context-specific runtimes and inspect whether accepted ownership/currentness still holds.
+        alternatives: [human-interface-plus-application-boundary, semantic-context-runtimes, interface-owned-domain-runtime]
+    decision_points:
+      - id: system-runtime-boundary
+        alternatives:
+          - id: human-interface-plus-application-boundary
+            difference: Human-interface consumption is separated from one application/domain execution boundary while semantic contexts remain logical ownership boundaries.
+            material_effects:
+              runtime-count: minimal-logical-two-role
+              process-boundary: interface-to-application
+              independent-deployment: optional
+          - id: semantic-context-runtimes
+            difference: Major semantic contexts become separately executing runtime boundaries.
+            material_effects:
+              runtime-count: multiple
+              process-boundary: per-semantic-context
+              independent-deployment: required
+          - id: interface-owned-domain-runtime
+            difference: Human-interface runtime directly owns or executes canonical domain/application semantics.
+            material_effects:
+              runtime-count: one-or-client-heavy
+              process-boundary: collapsed-into-interface
+              independent-deployment: no
+
+  - axis: deployment-topology
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: co-locate-vs-separate
+        challenge: Compare fixed separate deployables, co-located packaging and per-context services while preserving accepted logical boundaries.
+        alternatives: [logical-boundaries-packaging-free, fixed-multi-container, per-context-microservices]
+      - strategy: deployment-boundary-shift
+        challenge: Shift deployment boundaries without changing semantic ownership and identify whether any accepted upstream driver requires the extra boundary.
+        alternatives: [logical-boundaries-packaging-free, fixed-multi-container, per-context-microservices]
+    decision_points:
+      - id: system-deployment-topology
+        alternatives:
+          - id: logical-boundaries-packaging-free
+            difference: Architecture fixes logical boundaries but leaves process/container packaging to downstream realization.
+            material_effects:
+              deployable-count: unconstrained-minimal
+              colocation: allowed
+              scaling-boundary: not-preselected
+          - id: fixed-multi-container
+            difference: Human-interface and application responsibilities are required to run as separately packaged containers.
+            material_effects:
+              deployable-count: at-least-two
+              colocation: prohibited
+              scaling-boundary: frontend-backend
+          - id: per-context-microservices
+            difference: Semantic contexts become independently deployed/scaled services.
+            material_effects:
+              deployable-count: many
+              colocation: mostly-prohibited
+              scaling-boundary: semantic-context
+
+  - axis: interaction-model
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: sync-vs-async
+        challenge: Compare contract-driven operations whose transport may be synchronous/asynchronous with mandatory event-bus choreography.
+        alternatives: [contract-driven-operations, mandatory-event-bus, direct-persistence-ui]
+      - strategy: transport-boundary-shift
+        challenge: Shift the human-interface interaction boundary from accepted operations to a broker or directly to persistence and test semantic outcome/currentness preservation.
+        alternatives: [contract-driven-operations, mandatory-event-bus, direct-persistence-ui]
+    decision_points:
+      - id: system-interaction-model
+        alternatives:
+          - id: contract-driven-operations
+            difference: Accepted Machine Interface operations remain the interaction boundary; transport timing may vary while semantic outcomes remain stable.
+            material_effects:
+              sync-async: either-preserving-contract
+              protocol-boundary: machine-interface
+              coupling: semantic-contract
+          - id: mandatory-event-bus
+            difference: Cross-boundary behavior is required to use asynchronous event choreography.
+            material_effects:
+              sync-async: asynchronous
+              protocol-boundary: event-bus
+              coupling: event-schema
+          - id: direct-persistence-ui
+            difference: Human-interface consumers query/mutate physical persistence directly.
+            material_effects:
+              sync-async: direct
+              protocol-boundary: storage
+              coupling: physical-schema
+
+  - axis: state-placement
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: move-source-of-truth
+        challenge: Move canonical state among application-side semantic owners, client state and replicated context stores.
+        alternatives: [application-side-canonical, client-canonical, replicated-per-context-authorities]
+      - strategy: replication-perturbation
+        challenge: Add authoritative replication/per-context stores and test whether accepted semantics require the extra consistency model.
+        alternatives: [application-side-canonical, client-canonical, replicated-per-context-authorities]
+    decision_points:
+      - id: system-state-placement
+        alternatives:
+          - id: application-side-canonical
+            difference: Canonical state remains behind application/domain owners; client state is ephemeral/projection state.
+            material_effects:
+              source-of-truth: application-domain-owners
+              state-locality: application-side
+              replication: optional-cache-only
+          - id: client-canonical
+            difference: Human-interface state becomes authoritative for accepted target/domain/learner meaning.
+            material_effects:
+              source-of-truth: human-interface
+              state-locality: client
+              replication: client-to-backend
+          - id: replicated-per-context-authorities
+            difference: Each semantic context keeps an independently authoritative replicated store.
+            material_effects:
+              source-of-truth: multiple-context-stores
+              state-locality: distributed
+              replication: authoritative
+
+  - axis: dependency-direction
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: reverse-dependency
+        challenge: Reverse accepted inward dependency direction so semantic layers depend on provider/framework or UI details and inspect ownership leakage.
+        alternatives: [inward-contract-dependencies, framework-owned-domain, ui-to-infrastructure]
+      - strategy: invert-port
+        challenge: Compare contract/port inversion with direct provider dependencies at persistence and external-runtime boundaries.
+        alternatives: [inward-contract-dependencies, framework-owned-domain, ui-to-infrastructure]
+    decision_points:
+      - id: system-dependency-direction
+        alternatives:
+          - id: inward-contract-dependencies
+            difference: Human-interface and infrastructure/provider adapters depend on accepted machine/application/domain contracts.
+            material_effects:
+              dependency-owner: semantic-contracts
+              inversion-boundary: machine-and-adapter-ports
+              framework-coupling: isolated
+          - id: framework-owned-domain
+            difference: Domain/application code depends directly on selected framework/provider abstractions.
+            material_effects:
+              dependency-owner: framework
+              inversion-boundary: absent
+              framework-coupling: high
+          - id: ui-to-infrastructure
+            difference: Human-interface code depends directly on persistence/provider implementations.
+            material_effects:
+              dependency-owner: infrastructure
+              inversion-boundary: bypassed
+              framework-coupling: high
+
+  - axis: failure-isolation
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+      - strategy: collapse-failure-boundary
+        challenge: Collapse operational, dependency and semantic failures into one global failure/rollback outcome and compare with typed isolation.
+        alternatives: [typed-boundary-isolation, global-rollback, fire-and-forget]
+      - strategy: dependency-outage-perturbation
+        challenge: Remove an external dependency during an in-progress operation and test preservation of accepted owner-scoped results, historical facts and currentness.
+        alternatives: [typed-boundary-isolation, global-rollback, fire-and-forget]
+    decision_points:
+      - id: system-failure-isolation
+        alternatives:
+          - id: typed-boundary-isolation
+            difference: Dependency/operational failure stays distinct from semantic outcomes; owner-scoped accepted results and historical facts remain preserved.
+            material_effects:
+              failure-domain: typed-semantic-vs-operational
+              containment-boundary: operation-or-dependency
+              fallback: explicit-recovery
+          - id: global-rollback
+            difference: Any peer/dependency failure rolls back all coordinated work including independently valid owner results.
+            material_effects:
+              failure-domain: global
+              containment-boundary: process-wide
+              fallback: rollback
+          - id: fire-and-forget
+            difference: Cross-boundary work completes without explicit dependency/currentness outcome.
+            material_effects:
+              failure-domain: hidden
+              containment-boundary: none
+              fallback: implicit
+
+decision_space_review:
+  status: COMPLETE
+  checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+  reviewed_decisions:
+    - system-runtime-boundary
+    - system-deployment-topology
+    - system-interaction-model
+    - system-state-placement
+    - system-dependency-direction
+    - system-failure-isolation
+  open_gaps: []
