@@ -7,9 +7,6 @@ changed_paths:
   - docs/verification/presentation-verification.md
 canonical_references:
   - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/verification/interface-verification.md}
-  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/interface/presentation-system.yaml}
-  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/interface/screen-view-design.yaml}
-  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/quality/frontend-performance-capacity.md}
 
 semantic_assertions:
   - id: PV-SCOPE
