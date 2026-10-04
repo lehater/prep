@@ -16,6 +16,42 @@ These journeys describe meaningful user actions, visible system responses, recov
 - `SUCCESS`, `UNRESOLVED`, `REJECTED`, `DEPENDENCY_UNAVAILABLE` and `STALE_BASIS` remain distinguishable where applicable.
 - No journey requires a graph, 2D/3D representation, page, modal, route or specific navigation pattern.
 
+## J-TARGET-DIRECTION — Compare plausible targets and choose a direction
+
+**Actor:** learner
+
+**Goal:** compare several plausible preparation targets against the same evidence-backed capability base and decide which direction to pursue.
+
+**Trigger:** the learner has more than one plausible role/vacancy/other target and has not yet committed preparation to one of them.
+
+**Entry condition:** at least two candidate targets have enough requirement meaning to compare; learner evidence may be partial or absent.
+
+**Preconditions:** comparison does not require an active Target and does not create a second learner profile.
+
+### Meaningful interactions
+
+1. The learner selects two or more candidate Targets.
+2. The system performs `APP-COMPARE-TARGETS`, projecting the same accepted learner claims/evidence against each Target's own RequirementExpression and CapabilitySpecifications.
+3. The learner inspects shared required capabilities, target-specific requirements, and demonstrated/challenged/unknown plus gap/uncertainty projections for each candidate.
+4. Evidence limitations and incomplete target requirements remain visible per Target; no scalar fit/readiness score is fabricated.
+5. The learner chooses one candidate to continue with, or leaves the direction decision unresolved.
+6. Choosing a candidate continues into **J-TARGET-SETUP**, where that Target is established/refined as the active preparation Target.
+
+**Completion:** the learner can explain the material trade-offs among candidate Targets and either chooses a direction or explicitly keeps the decision unresolved.
+
+**Visible side effects:** none to learner capability/evidence merely from comparing Targets; active Target establishment occurs in **J-TARGET-SETUP**.
+
+### Alternate / recovery paths
+
+- Incomplete Target requirements remain visibly incomparable/uncertain rather than being treated as poor fit.
+- Missing or stale learner evidence remains `unknown` for the affected Target requirements.
+- Missing reusable target/support meaning may route through **J-PREPARE-SUPPORT**.
+- Comparison may end without a selected direction.
+
+**Upstream:** `TASK-U-COMPARE-TARGETS`, `APP-COMPARE-TARGETS`, `LM-TARGET-RELATIVE-PROJECTION`.
+
+---
+
 ## J-TARGET-SETUP — Establish and understand the preparation target
 
 **Actor:** learner
@@ -104,10 +140,10 @@ These journeys describe meaningful user actions, visible system responses, recov
 
 ### Meaningful interactions
 
-1. The learner requests subject orientation for the active target or focus.
-2. The system performs `APP-EXPLORE-KNOWLEDGE` over stable KnowledgeObjects, KnowledgePropositions and meaningful relation predicates.
-3. The learner narrows or expands semantic scope, moves between overview and deeper detail, selects Knowledge and follows meaningful relationships.
-4. The system preserves Knowledge identity and relation meaning across scope/depth changes and keeps target/focus relevance external to reusable Knowledge truth.
+1. The learner requests subject orientation for the active target/focus or selects one Required Capability whose supporting Knowledge they want to inspect.
+2. The system performs `APP-EXPLORE-KNOWLEDGE` over stable KnowledgeObjects, KnowledgePropositions and meaningful relation predicates; when Capability scope is selected, its direct Knowledge focus supplies the scope anchors.
+3. The learner narrows or expands semantic scope, including applying or clearing the Required Capability criterion, moves between overview and deeper detail, selects Knowledge and follows meaningful relationships.
+4. The system bounds results/relationship projection to the selected Capability-derived scope and any accepted semantic expansion while preserving Knowledge identity and relation meaning; the filter is contextual projection state, not reusable Knowledge truth.
 5. The learner returns to preparation with enough subject context to understand or perform the next learning/diagnostic work.
 
 **Completion:** the learner has coherent orientation in the relevant subject scope and can inspect the meaning of material relationships.
@@ -117,7 +153,7 @@ These journeys describe meaningful user actions, visible system responses, recov
 ### Alternate / recovery paths
 
 - Sparse or missing useful Knowledge remains an explicit preparation limitation and may lead to **J-PREPARE-SUPPORT**.
-- Changing scope/depth does not mutate or clone Knowledge.
+- Changing scope/depth or applying/clearing a Required Capability filter does not mutate or clone Knowledge or Capability.
 - Representation choice is downstream; the journey does not require graph, list, 2D or 3D.
 
 **Upstream:** `TASK-U-EXPLORE-KNOWLEDGE`, `APP-EXPLORE-KNOWLEDGE`, `AD-WRITE-OWNERSHIP`.

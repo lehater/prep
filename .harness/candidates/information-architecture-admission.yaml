@@ -14,15 +14,22 @@ semantic_assertions:
   - id: IA-ROOT
     kind: information-location
     subject: active-preparation
-    semantic_value: "Preparation is the root conceptual location that keeps active Target and current preparation direction coherent across Target, Current position, Knowledge, Activities and Evidence & changes without deciding navigation UI."
-    derived_from: [CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-DIRECTION]
+    semantic_value: "Preparation is the root conceptual location that supports candidate Target comparison before commitment and keeps active Target/current preparation direction coherent across Target, Current position, Knowledge, Activities and Evidence & changes without deciding navigation UI."
+    derived_from: [CIM-TARGET-COMPARISON, CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-TARGET-DIRECTION, UJ-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-TARGETS
+    kind: information-location
+    subject: target-comparison-location
+    semantic_value: "Targets groups comparison of two or more candidate Targets against the same evidence-backed learner capability basis, exposing shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty before one Target is chosen."
+    derived_from: [CIM-TARGET-COMPARISON, CIM-REL-COMPARISON-TARGET, CIM-REL-COMPARISON-STATE, TM-TASK-COMPARE-TARGETS, UJ-TARGET-DIRECTION]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-TARGET
     kind: information-location
     subject: target-location
-    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement and Required capability, not around backend resource types."
-    derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
+    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement, Required capability and direct Knowledge focus, keeping the cross-context focus distinct from Subject Knowledge predicates and learner state."
+    derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, CIM-KNOWLEDGE, CIM-REL-CAPABILITY-KNOWLEDGE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-CURRENT
@@ -35,8 +42,8 @@ semantic_assertions:
   - id: IA-LOC-KNOWLEDGE
     kind: information-location
     subject: knowledge-location
-    semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context."
-    derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, UJ-KNOWLEDGE]
+    semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context, optionally bounded by a selected Required Capability."
+    derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE, UJ-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-ACTIVITIES
@@ -50,14 +57,14 @@ semantic_assertions:
     kind: information-location
     subject: evidence-changes-location
     semantic_value: "Evidence & changes groups observed evidence, inspectable why-this-state reasoning and previous/current change so capability conclusions remain explainable without dominating all preparation content."
-    derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, UJ-ACTIVITY-EVIDENCE]
+    derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, CIM-REL-EVIDENCE-STATE, UJ-ACTIVITY-EVIDENCE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-PREP-SUPPORT
     kind: information-location
     subject: prepare-support-location
     semantic_value: "Prepare missing support is a contextual recovery location entered from the work that found a missing preparation need and returns to that originating work with accepted support and remaining gaps."
-    derived_from: [CIM-PREPARATION-REQUEST, CIM-SUPPORT, UJ-PREPARE-SUPPORT]
+    derived_from: [CIM-PREPARATION-REQUEST, CIM-SUPPORT, CIM-REL-PREPARATION-SUPPORT, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-SCOPE-TARGET
@@ -77,8 +84,8 @@ semantic_assertions:
   - id: IA-SCOPE-KNOWLEDGE
     kind: information-scope
     subject: knowledge-exploration-scope
-    semantic_value: "Knowledge scope/depth is local exploration state under Knowledge and never becomes global truth or Knowledge identity."
-    derived_from: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE]
+    semantic_value: "Knowledge scope/depth is local exploration state under Knowledge; a selected Required Capability may anchor that scope through its direct Knowledge focus, and applying/clearing the criterion never becomes global truth or Knowledge/Capability identity."
+    derived_from: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE, CIM-REL-CAPABILITY-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-STRUCTURE
@@ -91,8 +98,8 @@ semantic_assertions:
   - id: IA-CROSSLINKS
     kind: information-crosslink
     subject: preparation-cross-links
-    semantic_value: "Cross-links preserve the preparation loop: Target→Current position; Current position→Evidence/Knowledge/Activities; Knowledge→Activities; Activities→Evidence; Evidence→Current position; missing support→Prepare missing support→origin."
-    derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    semantic_value: "Cross-links preserve target-direction and preparation work: Targets↔Target for compare/choose/reconsider; Target→Current position; Current position→Evidence/Knowledge/Activities; Knowledge→Activities; Activities→Evidence; Evidence→Current position; missing support→Prepare missing support→origin."
+    derived_from: [CIM-REL-COMPARISON-TARGET, CIM-REL-COMPARISON-STATE, CIM-REL-ACTIVITY-EVIDENCE, CIM-REL-PREPARATION-SUPPORT, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-TAXONOMY

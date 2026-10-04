@@ -5,7 +5,7 @@ target_capability: prep.presentation-system
 obligations:
   - {id: concepts, source_kind: interface-concept, min_count: 14, allow_not_applicable: true}
   - {id: states, source_kind: interface-state-vocabulary, min_count: 4, allow_not_applicable: true}
-  - {id: relationships, source_kind: interface-concept-relationship, min_count: 7, allow_not_applicable: true}
+  - {id: relationships, source_kind: interface-concept-relationship, min_count: 7, allow_not_applicable: true, require_target_provenance: true}
   - {id: modes, source_kind: interface-mode-disposition, min_count: 1, allow_not_applicable: true}
   - {id: invariants, source_kind: interface-invariant, min_count: 2, allow_not_applicable: true}
 lifecycle_dependency: {exhaustive: true}

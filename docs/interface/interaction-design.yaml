@@ -3,52 +3,73 @@ kind: interaction-design
 id: PREP-INTERACTION-DESIGN
 
 contexts:
+  - id: IX-TARGET-DIRECTION
+    purpose: Compare plausible Targets against the same evidence-backed learner capability basis and choose which direction to continue with.
+    task_refs: [TASK-U-COMPARE-TARGETS]
+    concept_refs: [C-TARGET-COMPARISON, C-TARGET, C-CURRENT-STATE, C-GAP]
+    actions:
+      - select-candidate-targets
+      - inspect-shared-and-target-specific-requirements
+      - inspect-per-target-current-state-and-gaps
+      - choose-target-to-continue
+      - leave-direction-unresolved
+    machine_operations: [prep.targets.compare]
+    states: [loading, ready, partial, unresolved, dependency-unavailable]
+    transition_rules:
+      - "candidate Targets + compare -> per-target requirement/state/gap projections over the same learner evidence basis"
+      - "choose candidate -> continue to IX-TARGET with the chosen target context; comparison itself does not activate or mutate Target/learner state"
+    recovery: Incomplete target requirements and insufficient/stale evidence remain explicit per candidate; comparison may remain unresolved and no scalar fit/readiness score is synthesized.
+
   - id: IX-TARGET
     purpose: Establish or refine the active Target and understand what performance is required.
     task_refs: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]
-    concept_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY]
+    concept_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY, C-KNOWLEDGE]
     actions:
       - provide-or-select-target-context
       - refine-unresolved-target
       - inspect-requirements
+      - inspect-required-knowledge-focus
       - request-missing-preparation-support
     machine_operations: [prep.target.establish, prep.target.requirements.get, prep.support.prepare.request]
     states: [loading, ready, unresolved, submitting, rejected, dependency-unavailable, stale-context]
     transition_rules:
       - "target context + establish -> accepted Target or explicit unresolved/rejected result"
-      - "accepted Target + inspect requirements -> requirement projection with semantic basis"
+      - "accepted Target + inspect requirements -> requirement projection with semantic basis, including direct Knowledge focus per required performance where present"
+      - "required Capability performance + inspect Knowledge focus -> reusable Subject Knowledge refs without implying learner state, sufficiency or a Subject Knowledge predicate"
       - "missing usable target/support -> enter IX-PREP-SUPPORT while preserving motivating context"
     recovery: Preserve target/source input after unresolved, rejected, unavailable or stale outcomes; target refinement never becomes learner evidence.
 
   - id: IX-DIRECTION
-    purpose: Understand current evidence-backed position, inspect gaps/uncertainty and choose the next focus.
+    purpose: Understand current evidence-backed position, inspect gaps/uncertainty and choose the next focus from explicit priority/external-constraint/support-availability context.
     task_refs: [TASK-U-REVIEW-CURRENT-STATE, TASK-U-REVIEW-GAPS, TASK-U-CHOOSE-NEXT-FOCUS]
     concept_refs: [C-CURRENT-STATE, C-EVIDENCE-BASIS, C-GAP, C-NEXT-FOCUS]
     actions:
       - inspect-current-state
       - inspect-why-this-state
       - inspect-gaps-and-uncertainty
+      - inspect-focus-decision-context
       - choose-or-revise-next-focus
     machine_operations: [prep.current_state.get, prep.evidence.get, prep.gaps.get, prep.focus.set]
     states: [loading, ready, insufficient-evidence, challenged, submitting-focus, rejected, dependency-unavailable, stale-context]
     transition_rules:
       - "current state -> inspect evidence basis without converting unknown into failure"
-      - "gaps/uncertainty + choose focus + current basis -> accepted PreparationIntent or stale/rejected outcome"
+      - "gaps/uncertainty + priority rationale + accepted external constraints + support-availability summary + choose focus + current basis -> accepted PreparationIntent or stale/rejected outcome"
     recovery: STALE_BASIS refreshes the visible basis before reconsideration; rejected/unavailable focus changes preserve the inspected gap and user rationale.
 
   - id: IX-KNOWLEDGE
-    purpose: Orient within relevant reusable Subject Knowledge while retaining target/focus context.
+    purpose: Orient within relevant reusable Subject Knowledge while retaining target/focus context and optionally bounding exploration by a selected Required Capability.
     task_refs: [TASK-U-EXPLORE-KNOWLEDGE]
     concept_refs: [C-KNOWLEDGE, C-KNOWLEDGE-SCOPE, C-REQUIRED-CAPABILITY, C-NEXT-FOCUS]
     actions:
       - query-knowledge
       - narrow-or-expand-scope
+      - apply-or-clear-required-capability-scope
       - select-knowledge
       - follow-meaningful-relation
       - move-between-overview-and-detail
     machine_operations: [prep.knowledge.query]
     states: [loading, empty, ready, selected, dependency-unavailable]
-    focus_semantics: Selection reveals meaning/detail without silently changing target/focus or Knowledge identity; scope changes are reversible projections.
+    focus_semantics: Selection reveals meaning/detail without silently changing target/focus or Knowledge identity; scope changes are reversible projections. A selected Required Capability may bound the Knowledge projection using its direct Knowledge focus as anchors plus accepted bounded semantic expansion. Clearing the filter restores the broader target/focus scope. This does not require inverse Knowledge-to-Capability browsing.
     recovery: Query/unavailable outcomes preserve target/focus and current semantic scope.
     accessibility: Every task-critical inspect/traverse action has a non-spatial keyboard-operable path; graph/direct-manipulation is optional downstream presentation.
 
@@ -56,9 +77,10 @@ contexts:
     purpose: Choose support, perform one learning/practice/diagnostic attempt, then understand what its resulting evidence does or does not establish.
     task_refs: [TASK-U-SELECT-SUPPORT, TASK-U-PERFORM-ACTIVITY, TASK-U-REVIEW-CHANGE]
     system_task_refs: [TASK-S-CAPTURE-PERFORMANCE, TASK-S-EVALUATE-EVIDENCE]
-    concept_refs: [C-NEXT-FOCUS, C-SUPPORT, C-ACTIVITY, C-EVIDENCE, C-EVIDENCE-BASIS, C-CHANGE]
+    concept_refs: [C-NEXT-FOCUS, C-REQUIRED-CAPABILITY, C-SUPPORT, C-ACTIVITY, C-EVIDENCE, C-EVIDENCE-BASIS, C-CHANGE]
     actions:
       - inspect-support
+      - inspect-support-fit
       - choose-support
       - start-activity
       - submit-or-complete-attempt
@@ -68,6 +90,7 @@ contexts:
     machine_operations: [prep.support.list, prep.activity.start, prep.activity.complete, prep.evidence.get, prep.change.get]
     states: [loading-support, no-suitable-support, ready, activity-active, submitting-attempt, evidence-processing, reviewed, unresolved, challenged, no-change, increased-uncertainty, dependency-unavailable, stale-context]
     transition_rules:
+      - "support option + inspect fit -> intended CapabilitySpecification, expected conditions, fit basis and limitations"
       - "selected support + current basis -> semantic activity attempt"
       - "attributable attempt result -> accepted capture/evaluate/review process; activity completion alone never becomes capability evidence"
       - "reviewed result -> explicit continuation choice even for no-change/challenge/unresolved inference"

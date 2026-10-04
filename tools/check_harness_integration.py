@@ -28,6 +28,10 @@ from harness.project_model.engineering_graph import (  # noqa: E402
     validate_engineering_graph,
 )
 from harness.application.project_publication import read_project_publication  # noqa: E402
+from harness.assurance.semantic_derivation import (  # noqa: E402
+    derivation_evaluation_index,
+    evaluate_derivation,
+)
 from harness.application.graph_doctor import diagnose_project  # noqa: E402
 from harness.workspace.workspace import validate_knowledge_document  # noqa: E402
 from harness.workspace.frontend_interface_knowledge import (  # noqa: E402
@@ -200,6 +204,84 @@ def project_topology_for_frontend_closure(topology: dict) -> dict:
     return projected
 
 
+def validate_human_interface_relation_realization(
+    graph: dict,
+    publication: dict,
+) -> None:
+    """Re-evaluate conceptual relationships against explicit downstream provenance."""
+    source = load(".harness/candidates/conceptual-interface-model-admission.yaml")
+    current_derivations = derivation_evaluation_index(
+        [publication["state"]["semantic_evaluations"]]
+    )
+    checks = (
+        (
+            ".harness/candidates/information-architecture-conceptual-contract.yaml",
+            ".harness/candidates/information-architecture-admission.yaml",
+        ),
+        (
+            ".harness/candidates/fb-interaction-concept-contract.yaml",
+            ".harness/candidates/frontend-boundary-interaction-admission.yaml",
+        ),
+        (
+            ".harness/candidates/ps-concept-contract.yaml",
+            ".harness/candidates/presentation-screen-presentation-admission.yaml",
+        ),
+    )
+
+    rejected: list[dict] = []
+    for contract_path, candidate_path in checks:
+        contract = load(contract_path)
+        candidate = load(candidate_path)
+        key = (
+            contract["source_capability"],
+            contract["target_capability"],
+        )
+        accepted = current_derivations.get(key)
+        if accepted is None:
+            raise SystemExit(
+                "Published derivation evidence missing for "
+                f"{key[0]} -> {key[1]}"
+            )
+        evidence = {
+            "version": 1,
+            "kind": "harness-semantic-derivation-evidence",
+            "source_capability": key[0],
+            "target_capability": key[1],
+            "links": copy.deepcopy(accepted.get("links", [])),
+            "dispositions": copy.deepcopy(accepted.get("dispositions", [])),
+        }
+        result = evaluate_derivation(
+            graph=graph,
+            contract=contract,
+            source=source,
+            candidate=candidate,
+            evidence=evidence,
+        )
+        if result.get("status") != "ACCEPTED":
+            rejected.append(
+                {
+                    "target_capability": key[1],
+                    "coverage": result.get("coverage"),
+                    "findings": [
+                        item
+                        for item in result.get("findings", [])
+                        if item.get("code")
+                        in {
+                            "DERIVATION_TARGET_PROVENANCE_MISSING",
+                            "UNDISPOSITIONED_SOURCE",
+                            "DERIVATION_QUESTION",
+                        }
+                    ],
+                }
+            )
+
+    if rejected:
+        raise SystemExit(
+            "Human-interface conceptual-relationship realization rejected: "
+            + repr(rejected)
+        )
+
+
 def main() -> int:
     graph = load(".harness/engineering-graph.yaml")
     core = load(".harness/core.yaml")
@@ -213,6 +295,8 @@ def main() -> int:
         raise SystemExit(
             ".harness/core.yaml differs from the atomically published Core model"
         )
+
+    validate_human_interface_relation_realization(graph, publication)
 
     for artifact in core.get("artifacts", []):
         path = artifact.get("path")

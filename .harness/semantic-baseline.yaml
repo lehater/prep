@@ -9,24 +9,24 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 24
-    basis: "Evidence-language cleanup aligns the entire Discovery artifact with the four-class taxonomy: concrete public developer behavior is NATURALISTIC-PUBLIC-USER evidence rather than generic secondary evidence, Gate A behavioral UMC statuses may change from it, while elicited representative status remains separately UNTESTED for Prep-specific comprehension/usability."
+    revision: 25
+    basis: "Discovery now records multi-target direction choice as OBS-P18: a learner may compare several plausible Targets against the same evidence-backed capability base before choosing where to grow; this is a stakeholder hypothesis with prevalence/usability still unvalidated."
 
   - capability: prep.product-intent
-    revision: 5
-    basis: "Product intent now distinguishes professional-role capability from selection/interview performance as related target purposes, preventing interview-specific mechanics from being presented as intrinsic role requirements while preserving target-relative learning/evidence semantics."
+    revision: 6
+    basis: "Product intent now explicitly supports comparing multiple plausible Targets against one reusable learner capability/evidence basis before choosing a preparation direction, while rejecting a universal scalar fit/readiness score."
 
   - capability: prep.product-capabilities
-    revision: 5
-    basis: "Target capability now supports purpose-explicit related/refinable targets, especially role capability versus selection/interview performance; curation actor scope is explicit, prioritization accepts timing/cost constraints and progress separates learner-state change from target refinement."
+    revision: 6
+    basis: "Product capabilities now require inspectable multi-target comparison of shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty over the same learner evidence basis."
 
   - capability: prep.domain-strategy
-    revision: 3
-    basis: "Revalidated against the expanded user-centered product loop: existing Knowledge, Learning Design and Learner Model strategic responsibilities remain sufficient and no new strategic domain boundary is required."
+    revision: 4
+    basis: "Preparation Direction now explicitly owns candidate-target comparison as cross-context direction semantics while learner evidence/state remains reusable and independently owned; no new learner-state owner or scalar target-fit model is introduced."
 
   - capability: prep.model-context-strategy
-    revision: 3
-    basis: "Revalidated against target/gap/corpus capabilities: existing model-context applicability and information-flow boundaries remain sufficient without adding a UI- or import-specific semantic context."
+    revision: 4
+    basis: "Preparation Direction now includes candidate-target comparison, and Learner Evidence & State translates one reusable evidence basis into separate target-relative projections without creating per-target learner state or mutating state during comparison."
 
   - capability: prep.knowledge-relation-classification
     revision: 4
@@ -49,44 +49,44 @@ reviews:
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 9
-    basis: "Learner-facing missing-preparation recovery is now separated from Curation mechanics: learners request/accept prepared support or explicitly self-curate, while bulk/incremental/import decisions remain curator/operator responsibilities by default."
+    revision: 11
+    basis: "APP-COMPARE-TARGETS materializes multiple target-relative projections over the same learner claims/evidence without activating a Target, mutating learner state or inventing a universal fit score."
 
   - capability: prep.task-model
-    revision: 13
-    basis: "UMC-05 traceability now matches the naturalistic scope change: TASK-L-OBTAIN-PREPARATION-SUPPORT models the learner job, while GOAL-BOOTSTRAP-AND-CURATE-CORPUS is explicitly curator/operator context and schema/import/repair work is opt-in for self-curating learners."
+    revision: 15
+    basis: "Task Model adds GOAL-CHOOSE-TARGET-DIRECTION and TASK-U-COMPARE-TARGETS before active-target preparation, preserving one learner evidence base and allowing the direction decision to remain unresolved."
 
   - capability: prep.user-journeys
-    revision: 10
-    basis: "Empty-system recovery now follows the learner task TASK-L-OBTAIN-PREPARATION-SUPPORT and keeps corpus/import repair inside curator/operator Curation unless self-curation is explicitly selected, eliminating the remaining learner-corpus-ownership contradiction."
+    revision: 12
+    basis: "J-TARGET-DIRECTION lets the learner compare candidate Targets, inspect requirement/state/gap differences and continue with one candidate into target setup or leave the choice unresolved."
 
   - capability: prep.conceptual-interface-model
-    revision: 5
-    basis: "Conceptual interface now exposes target purpose, related-target context without requirement inheritance, learner-facing PREPARATION-NEED and a progress distinction between learner-state change and target refinement."
+    revision: 7
+    basis: "Conceptual Interface adds Target comparison as a contextual projection over distinct Targets and one reusable evidence-backed learner capability basis, explicitly separate from learner state and ranking."
 
   - capability: prep.information-architecture
-    revision: 7
-    basis: "Curation Workspace now explicitly owns curator/operator bulk-vs-incremental-vs-mixed preparation-path selection, while learner Targets retains only learner-facing preparation support and optional self-curation entry."
+    revision: 10
+    basis: "IA adds LOC-TARGETS for multi-target direction comparison before active Target establishment, with Targets↔Target navigation and no duplicated learner profile."
 
   - capability: prep.machine-interfaces
-    revision: 5
-    basis: "Machine contracts now expose target purpose/related-target provenance, multi-driver focus rationale and learner-facing preparation options/request operations while keeping import/schema mechanics in Curation."
+    revision: 8
+    basis: "Machine contract adds TargetComparisonRepresentation and prep.targets.compare for two or more candidate Targets over the same learner evidence basis, with no activation or scalar fit score."
 
   - capability: prep.interaction-design
-    revision: 8
-    basis: "Interaction Design now covers TASK-L-OBTAIN-PREPARATION-SUPPORT in the learner path, preserves target purpose/related-target context, exposes multi-driver focus rationale and separates target refinement from learner-state progress."
+    revision: 11
+    basis: "Interaction adds IX-TARGET-DIRECTION for candidate selection, shared/target-specific requirement inspection, per-target state/gap comparison and choosing a Target to continue with."
 
   - capability: prep.interface-topology
-    revision: 9
-    basis: "Preparation-path selection now has a dedicated non-structural C-01-PREPARATION-PATH view under the structural Curation frame, satisfying task/view closure without putting task interaction semantics on a structural container."
+    revision: 11
+    basis: "Topology adds VIEW-TARGETS as a task view available without an active Target and routes a chosen candidate into VIEW-TARGET for establishment/refinement."
 
   - capability: prep.presentation-system
-    revision: 11
-    basis: "Presentation System now treats 3D as the preferred current prototype candidate rather than an evidence-free production default; production renderer preference is gated on representative-user and accessibility validation."
+    revision: 14
+    basis: "Presentation adds PATTERN-TARGET-COMPARISON with aligned target requirements/state/gaps, visible uncertainty, explicit continue action and no universal scalar fit/readiness/preparation-distance score."
 
   - capability: prep.screen-view-design
-    revision: 11
-    basis: "Screen/View Design separates the structural Curation workspace from the task-bearing C-01 preparation-path view; learner Targets remains limited to preparation need/request/review and explicit self-curation entry."
+    revision: 14
+    basis: "Screen/View adds VIEW-TARGETS with candidate selection, comparison, evidence/target limitations and direction actions while preserving VIEW-TARGET as the single-target establishment/detail view."
 
   - capability: prep.import-consistency
     revision: 3

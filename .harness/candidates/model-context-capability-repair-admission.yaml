@@ -15,8 +15,8 @@ semantic_assertions:
   - id: MC-PREPARATION-DIRECTION
     kind: model-context
     subject: preparation-direction
-    semantic_value: Preparation Direction is the independent normative language for active target, target purpose, target-relative requirements, uncertainty, next focus, target refinement, and focus adaptation.
-    derived_from: [DS-PREPARATION-DIRECTION, REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+    semantic_value: Preparation Direction is the independent normative language for candidate-target comparison before commitment, active target, target purpose, target-relative requirements, uncertainty, next focus, target refinement, and focus adaptation.
+    derived_from: [DS-PREPARATION-DIRECTION, REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-TARGET-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
     decision_authority: MODEL-CONTEXT-STRATEGY
 
   - id: MC-CAPABILITY-PERFORMANCE
@@ -71,8 +71,8 @@ semantic_assertions:
   - id: TR-EVIDENCE-TO-DIRECTION
     kind: model-context-translation
     subject: learner-evidence-to-preparation-direction
-    semantic_value: Accepted learner-state conclusions and uncertainty may inform next focus and adaptation while preserving evidence limitations and without redefining target requirements or reusable capability meaning.
-    derived_from: [DS-LEARNER-EVIDENCE-STATE, DS-PREPARATION-DIRECTION, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-ADAPT]
+    semantic_value: Accepted learner-state conclusions and uncertainty may be projected against multiple candidate target requirement sets for direction comparison and may inform next focus/adaptation after target activation, while preserving one learner evidence basis, applicability limitations, and the rule that comparison does not mutate learner state or redefine target requirements/reusable capability meaning.
+    derived_from: [DS-LEARNER-EVIDENCE-STATE, DS-PREPARATION-DIRECTION, REQ-CAP-TARGET-DIRECTION, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-ADAPT]
     decision_authority: MODEL-CONTEXT-STRATEGY
 
   - id: TR-BOOTSTRAP-TO-SEMANTIC-OWNERS

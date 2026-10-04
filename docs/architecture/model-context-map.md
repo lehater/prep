@@ -10,6 +10,7 @@ Define where Prep's independently modeled semantic languages apply and how they 
 
 Owns the normative language of:
 
+- candidate preparation targets and target-direction comparison before active-target commitment;
 - active preparation target and target purpose;
 - explicit uncertainty about target expectations;
 - target-relative required outcomes;
@@ -17,7 +18,7 @@ Owns the normative language of:
 - target refinement;
 - focus adaptation when accepted learner-state conclusions change.
 
-It answers: **what is this learner preparing toward, for what purpose, and what deserves attention next?**
+It answers: **which plausible target should this learner pursue, what are they preparing toward now, for what purpose, and what deserves attention next?**
 
 It does not define reusable capability meaning, subject truth, or learner evidence.
 
@@ -101,12 +102,14 @@ Translation must preserve enough performance context, provenance, time, and rele
 
 ### TR-05 Learner Evidence & State → Preparation Direction
 
-Accepted learner-state conclusions and explicit uncertainty may inform next focus and adaptation.
+Accepted learner-state conclusions and explicit uncertainty may be projected against multiple candidate target requirement sets to support target-direction comparison, and may inform next focus and adaptation after a target is active.
 
 Translation must preserve:
 
-- evidence limitations;
+- one reusable learner evidence/state basis rather than a separate learner profile per target;
+- evidence limitations and target-relative applicability;
 - the distinction between learner change and target change;
+- the rule that comparison does not itself mutate learner state or activate a target;
 - the rule that learner evidence does not redefine target requirements or reusable capability meaning.
 
 ### TR-06 bootstrap/source material → semantic owners

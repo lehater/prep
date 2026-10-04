@@ -20,6 +20,12 @@ semantic_assertions:
     semantic_value: "The interface exposes Target as the current preparation purpose/context with explicit uncertainty, distinct from required capability and learner state."
     derived_from: [TM-TASK-ESTABLISH-TARGET, AD-ESTABLISH-TARGET, UJ-TARGET-SETUP]
     decision_authority: HUMAN-INTERFACE-DESIGN
+  - id: CIM-TARGET-COMPARISON
+    kind: interface-concept
+    subject: target-comparison
+    semantic_value: "Target comparison is a contextual projection comparing two or more candidate Targets against the same evidence-backed learner capability basis, preserving target-specific requirements, demonstrated/challenged/unknown interpretations, gaps and uncertainty without creating a second learner state or universal fit score."
+    derived_from: [TM-TASK-COMPARE-TARGETS, AD-COMPARE-TARGETS, UJ-TARGET-DIRECTION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: CIM-TARGET-REQUIREMENT
     kind: interface-concept
@@ -45,7 +51,7 @@ semantic_assertions:
   - id: CIM-KNOWLEDGE-SCOPE
     kind: interface-concept
     subject: knowledge-scope
-    semantic_value: "Knowledge scope is a contextual overview/detail projection over stable Knowledge; representation dimensionality is not conceptual truth."
+    semantic_value: "Knowledge scope is a contextual overview/detail projection over stable Knowledge and may be anchored by a selected Required Capability's direct Knowledge focus; representation dimensionality is not conceptual truth."
     derived_from: [KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -140,6 +146,20 @@ semantic_assertions:
     derived_from: [AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, UJ-SHARED-OUTCOMES, UJ-SHARED-CURRENTNESS]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
+  - id: CIM-REL-COMPARISON-TARGET
+    kind: interface-concept-relationship
+    subject: target-comparison-to-target
+    semantic_value: "Target comparison references multiple distinct candidate Targets without merging their identities or requirement sets."
+    derived_from: [AD-COMPARE-TARGETS, UJ-TARGET-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: CIM-REL-COMPARISON-STATE
+    kind: interface-concept-relationship
+    subject: target-comparison-to-current-state
+    semantic_value: "Target comparison reuses one accepted learner capability/evidence basis to derive separate target-relative interpretations; changing the candidate Target does not mutate learner state."
+    derived_from: [LM-TARGET-RELATIVE-PROJECTION, AD-COMPARE-TARGETS, UJ-TARGET-DIRECTION]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
   - id: CIM-REL-TARGET-CAPABILITY
     kind: interface-concept-relationship
     subject: target-to-capability
@@ -150,7 +170,7 @@ semantic_assertions:
   - id: CIM-REL-CAPABILITY-KNOWLEDGE
     kind: interface-concept-relationship
     subject: capability-to-knowledge
-    semantic_value: "Required performance may focus on Subject Knowledge while Knowledge remains reusable subject truth rather than ability/state."
+    semantic_value: "Required performance may focus on Subject Knowledge; selecting that Required Capability may use its direct Knowledge focus as anchors for a reversible bounded Knowledge scope while Knowledge remains reusable subject truth rather than ability/state."
     derived_from: [LD-KNOWLEDGE-FOCUS, KM-CROSS-CONTEXT-BOUNDARY]
     decision_authority: HUMAN-INTERFACE-DESIGN
 

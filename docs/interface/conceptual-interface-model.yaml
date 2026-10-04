@@ -20,6 +20,11 @@ concepts:
     meaning: The concrete purpose/context the learner is preparing for now, including known scope and explicit uncertainty.
     upstream_refs: [AD-ESTABLISH-TARGET, UJ-TARGET-SETUP]
     user_must_distinguish_from: [C-REQUIRED-CAPABILITY, C-CURRENT-STATE]
+  - id: C-TARGET-COMPARISON
+    label: Target comparison
+    meaning: A contextual projection that compares two or more candidate Targets against the same evidence-backed learner capability basis, preserving each Target's distinct requirements, demonstrated/challenged/unknown interpretation, gaps and uncertainty without creating a second learner state or universal fit score.
+    upstream_refs: [AD-COMPARE-TARGETS, UJ-TARGET-DIRECTION, LM-TARGET-RELATIVE-PROJECTION]
+    user_must_distinguish_from: [C-TARGET, C-CURRENT-STATE]
 
   - id: C-TARGET-REQUIREMENT
     label: Target requirement
@@ -41,7 +46,7 @@ concepts:
 
   - id: C-KNOWLEDGE-SCOPE
     label: Knowledge scope
-    meaning: The currently considered projection of relevant Subject Knowledge, with overview-to-detail movement and meaningful relationship context.
+    meaning: The currently considered projection of relevant Subject Knowledge, optionally anchored by a selected Required Capability's direct Knowledge focus, with overview-to-detail movement and meaningful relationship context.
     upstream_refs: [KM-SCOPE-OVERVIEW-DEPTH, KM-RELATIONAL-PROPOSITION, KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
     user_must_distinguish_from: [C-TARGET, C-NEXT-FOCUS]
 
@@ -137,9 +142,11 @@ shared_state_vocabulary:
       - {id: updated-context, meaning: Material target/evidence/focus inputs changed since the dependent work was reviewed and the current projection must be refreshed.}
 
 conceptual_relationships:
+  - {from: C-TARGET-COMPARISON, relation: compares, to: C-TARGET, meaning: A comparison holds multiple candidate Targets side by side without merging their identities or requirements.}
+  - {from: C-TARGET-COMPARISON, relation: reuses, to: C-CURRENT-STATE, meaning: Comparison reuses the same evidence-backed learner capability basis to derive separate target-relative interpretations; switching candidate Target does not mutate learner state.}
   - {from: C-TARGET, relation: contains, to: C-TARGET-REQUIREMENT, meaning: A target is explained through target-specific requirements.}
   - {from: C-TARGET-REQUIREMENT, relation: requires, to: C-REQUIRED-CAPABILITY, meaning: A target requirement references reusable capability performance with target-relevant scope/standard.}
-  - {from: C-REQUIRED-CAPABILITY, relation: may-focus-on, to: C-KNOWLEDGE, meaning: Required performance may directly concern reusable Subject Knowledge without making Knowledge equal capability.}
+  - {from: C-REQUIRED-CAPABILITY, relation: may-focus-on, to: C-KNOWLEDGE, meaning: Required performance may directly concern reusable Subject Knowledge without making Knowledge equal capability; selecting the Required Capability may use those direct focus references as anchors for a reversible bounded Knowledge scope.}
   - {from: C-CURRENT-STATE, relation: evaluates-relative-to, to: C-REQUIRED-CAPABILITY, meaning: Learner state is interpreted against required capability scope rather than against topic exposure.}
   - {from: C-EVIDENCE, relation: interpreted-by, to: C-EVIDENCE-BASIS, meaning: Observed facts require an inspectable evidence argument before supporting/challenging a capability conclusion.}
   - {from: C-EVIDENCE-BASIS, relation: explains, to: C-CURRENT-STATE, meaning: The learner can inspect why a visible capability state is justified and where it is limited.}

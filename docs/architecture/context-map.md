@@ -8,9 +8,9 @@ Define Prep's strategic problem-space responsibilities from accepted product cap
 
 ### DS-01 Preparation Direction — CORE
 
-Owns the problem-space responsibility for maintaining usable preparation direction: active target, target purpose, explicit uncertainty, target-relative next focus, and adaptation when accepted evidence or external target information changes.
+Owns the problem-space responsibility for maintaining usable preparation direction: candidate-target comparison before commitment, active target, target purpose, explicit uncertainty, target-relative next focus, and adaptation when accepted evidence or external target information changes. Multi-target comparison coordinates distinct target requirements with target-relative learner-state projections; it does not create a second learner-state owner.
 
-**Derived from:** REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT.
+**Derived from:** REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-TARGET-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT.
 
 **Why CORE:** deciding what the learner is preparing toward and what deserves attention next under uncertainty is central to Prep's differentiating value.
 

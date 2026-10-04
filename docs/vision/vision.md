@@ -38,6 +38,21 @@ Rationale:
 
 Professional-role, interview/selection, certification, and other targets may overlap without being equivalent.
 
+### REQ-TARGET-DIRECTION
+
+The product shall let the learner compare multiple plausible preparation targets against the same evidence-backed capability basis, preserving each target's distinct requirements and uncertainty, so the learner can choose a preparation direction without the comparison itself changing learner state.
+
+Status: ACCEPTED
+
+Sources:
+
+- GOAL-TARGET-DIRECTION
+- NEED-TARGET-DIRECTION
+
+Rationale:
+
+Target choice can depend on how existing capability maps to alternative target requirements and on which gaps the learner is willing to grow toward.
+
 ### REQ-CAPABILITY-PERFORMANCE
 
 The product shall represent what the selected target requires the learner to be able to perform, including relevant conditions or constraints and acceptable quality, rather than reducing readiness to topic exposure or coverage.
@@ -238,6 +253,7 @@ One fixed level of detail can either hide useful structure or create overload.
 - Define Capability, CapabilitySpecification, PerformanceExpectation, EvidencePattern, EvidentialWarrant, AssessmentDesign, LearningMaterial, or any other domain entity.
 - Require one particular assessment, learning-support, practice, retention, or scheduling mechanism.
 - Require automatic requirement inheritance between related targets.
+- Require a universal scalar target-fit, readiness, or preparation-distance score.
 - Require a graph, 2D graph, 3D graph, spatial layout, or any specific visualization technique.
 - Define interface navigation, views, filtering controls, gestures, or screen composition.
 - Define relation taxonomy, decomposition rules, aggregates, or semantic ownership.

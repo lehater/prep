@@ -16,6 +16,9 @@ goals:
   - id: GOAL-TARGET-PURPOSE
     outcome: Distinguish related target purposes and understand which required performances belong to each.
     evidence_refs: [OBS-P14, PE-TARGET-PURPOSE-OUTCOME]
+  - id: GOAL-TARGET-DIRECTION
+    outcome: Compare several plausible preparation targets against the same evidence-backed current capability and choose which direction is worth pursuing without treating the comparison as a change in learner state.
+    evidence_refs: [OBS-P18]
   - id: GOAL-CAPABILITY-PERFORMANCE
     outcome: Understand what the target actually requires the learner to be able to do, under relevant conditions and quality expectations.
     evidence_refs: [OBS-P04, OBS-P15, PE-CAPABILITY-PERFORMANCE-OUTCOME]
@@ -75,6 +78,11 @@ user_needs:
     goal_ref: GOAL-TARGET-PURPOSE
     statement: The learner needs related target purposes to remain distinguishable so requirements for one purpose are not silently treated as requirements for another.
     evidence_refs: [OBS-P14, PE-TARGET-PURPOSE-OUTCOME]
+  - id: NEED-TARGET-DIRECTION
+    user_ref: primary-learner
+    goal_ref: GOAL-TARGET-DIRECTION
+    statement: The learner needs to compare multiple plausible targets using the same evidence-backed capability base, seeing shared and target-specific requirements, demonstrated/challenged/unknown coverage, gaps and uncertainty, so they can choose a direction without an invented universal fit score.
+    evidence_refs: [OBS-P18]
   - id: NEED-CAPABILITY-PERFORMANCE
     user_ref: primary-learner
     goal_ref: GOAL-CAPABILITY-PERFORMANCE

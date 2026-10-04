@@ -8,7 +8,7 @@ The system covers the current human-interface surface: Target, Current position,
 
 ## Shared principles
 
-- **Task-first hierarchy.** Each view has one dominant task surface; active Target and optional Next focus remain supporting context rather than competing workspaces.
+- **Task-first hierarchy.** Each view has one dominant task surface; active Target and optional Next focus remain supporting context rather than competing workspaces. In Target requirement inspection, required Capability performance and its direct Knowledge focus remain visibly distinct but colocated.
 - **Evidence before confidence.** Demonstrated/challenged/unknown and why-this-state remain distinguishable; missing evidence is not styled as failure.
 - **Progressive focus + context.** Secondary detail is inspectable on demand without forcing all context to remain simultaneously visible.
 - **No visual proof inflation.** Color, completion, animation or spatial proximity never imply learner capability beyond accepted evidence.
@@ -26,7 +26,9 @@ Canonical requirements:
 - selected Knowledge detail;
 - inspectable relationship meaning/direction;
 - an optional 2D node-link overview for relationship orientation on capable surfaces;
-- equivalent non-spatial traversal/inspection for every task-critical Knowledge action.
+- equivalent non-spatial traversal/inspection for every task-critical Knowledge action;
+- a Required Capability is an explicit optional Knowledge-scope control: selecting it visibly limits results/relationship overview to the Capability-derived scope anchored by direct Knowledge focus; clearing it restores broader target/focus scope;
+- capability-derived scope does not require inverse Knowledge-to-Capability browsing or turn the focus relation into a Subject Knowledge predicate.
 
 The 2D overview is presentation state only. Node position, edge geometry, zoom, pan and focus camera state are not Knowledge semantics.
 
@@ -76,11 +78,26 @@ Exact typography family, font sizes, color values, border radii, spacing values 
 
 Shows current Target and optional Next focus with explicit change/recovery actions. It does not become a second navigation tree.
 
+### PATTERN-TARGET-COMPARISON
+
+For choosing among plausible preparation directions:
+
+- compare two or more candidate Targets against the same learner evidence basis;
+- preserve each Target's own requirement identity and uncertainty;
+- make shared versus target-specific Required Capabilities inspectable;
+- expose demonstrated/challenged/unknown and gap/uncertainty per Target with evidence limitations;
+- keep the comparison dimensions aligned enough to support a decision without implying that all requirements have equal weight;
+- do not synthesize a universal scalar fit/readiness/preparation-distance score;
+- provide an explicit continue-with-target action while allowing the decision to remain unresolved.
+
+Wide surfaces may compare candidates simultaneously. Narrow surfaces may serialize candidates, but must preserve the same comparison dimensions and make the currently compared Targets explicit.
+
 ### PATTERN-QUERY-RESULT-DETAIL
 
 For Knowledge and other inspectable collections:
 
-- query/scope controls;
+- query/scope controls including an explicit optional Required Capability filter;
+- visible active scope basis and a clear-filter action;
 - bounded result set;
 - selected detail;
 - optional relationship overview when semantically useful.
@@ -89,11 +106,11 @@ Selection reveals detail; it does not silently mutate semantic scope.
 
 ### PATTERN-STATE-BASIS
 
-Shows demonstrated/challenged/unknown or gap/uncertainty conclusions with a clear path to why-this-state evidence. Evidence detail remains inspectable but secondary to the current decision.
+Shows demonstrated/challenged/unknown or gap/uncertainty conclusions with a clear path to why-this-state evidence. For Next-focus choice it also exposes priority rationale, material external constraints and a bounded support-availability summary. Evidence detail remains inspectable but secondary to the current decision.
 
 ### PATTERN-ACTIVITY-ATTEMPT
 
-Shows selected support, active attempt, pending evidence processing and reviewed result as distinct states. Activity completion never visually equals capability completion.
+Shows support options with intended CapabilitySpecification, expected conditions, fit basis and limitations before selection, then selected support, active attempt, pending evidence processing and reviewed result as distinct states. Activity completion never visually equals capability completion.
 
 ### PATTERN-PREPARE-SUPPORT
 

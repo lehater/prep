@@ -23,11 +23,74 @@ semantic_assertions:
     derived_from: [REQ-CAP-TARGET, REQ-CAP-STATE, REQ-CAP-FOCUS, REQ-CAP-PRACTICE, REQ-CAP-ADAPT]
     decision_authority: APPLICATION-DESIGN
 
+  - id: TM-GOAL-TARGET-DIRECTION
+    kind: task-goal
+    subject: GOAL-CHOOSE-TARGET-DIRECTION
+    semantic_value: "Choose which plausible preparation target to pursue by comparing target-relative requirements, current evidence-backed capability, gaps and uncertainty over one reusable learner evidence base."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-STATE]
+    decision_authority: APPLICATION-DESIGN
+
   - id: TM-GOAL-SUPPORT
     kind: task-goal
     subject: GOAL-OBTAIN-USABLE-PREPARATION-SUPPORT
     semantic_value: "Turn fragmented or incomplete source material into usable preparation support without requiring the learner to maintain Prep's reusable semantic corpus."
     derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-TASK-COMPARE-TARGETS
+    kind: task
+    subject: TASK-U-COMPARE-TARGETS
+    semantic_value: "Compare two or more plausible preparation targets against the same evidence-backed learner capability basis before committing to one direction."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-GREF-COMPARE-TARGETS
+    kind: task-goal-ref
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: TM-GOAL-TARGET-DIRECTION
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-RESP-COMPARE-TARGETS
+    kind: task-responsibility
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-INFO-COMPARE-TARGETS
+    kind: task-information
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Candidate PreparationTargets and their RequirementExpressions/CapabilitySpecifications, shared versus target-specific requirements, target-relative demonstrated/challenged/unknown projections from the same learner claims/evidence, gaps/uncertainty, provenance and target uncertainty."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-DECISION-COMPARE-TARGETS
+    kind: task-decision-input
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Select candidate targets to compare, inspect material differences and decide which target to continue with, or keep the direction decision unresolved."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-OUTCOME-COMPARE-TARGETS
+    kind: task-outcome
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "The learner can explain capability overlap, target-specific requirements, evidence-backed fit/uncertainty for each target, and can choose a direction without changing the underlying learner state."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-SUPPORT-COMPARE-TARGETS
+    kind: task-system-support
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Project the same evidence-backed learner capability basis against multiple target requirement sets, expose comparable demonstrated/challenged/unknown and gap/uncertainty semantics, preserve evidence limitations, and avoid inventing a universal scalar fit/readiness/preparation-distance score."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-RECOVERY-COMPARE-TARGETS
+    kind: task-recovery
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Incomplete target requirements or insufficient/stale evidence remain explicit per target; comparison may remain unresolved or route missing target/support information to preparation without forcing a choice."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-TASK-ESTABLISH-TARGET
@@ -313,7 +376,7 @@ semantic_assertions:
   - id: TM-TASK-EXPLORE-KNOWLEDGE
     kind: task
     subject: TASK-U-EXPLORE-KNOWLEDGE
-    semantic_value: "Orient within Subject Knowledge relevant to the active target or focus, inspect meaningful relationships, and move between scope and depth without confusing knowledge with capability."
+    semantic_value: "Orient within Subject Knowledge relevant to the active target, a selected Required Capability or current focus; inspect meaningful relationships and move between scope and depth without confusing Knowledge with Capability."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
@@ -334,28 +397,28 @@ semantic_assertions:
   - id: TM-INFO-EXPLORE-KNOWLEDGE
     kind: task-information
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, and target/focus relevance where provided by upstream semantics."
+    semantic_value: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, target/focus relevance and direct Knowledge focus of a selected Required Capability where applicable."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-DECISION-EXPLORE-KNOWLEDGE
     kind: task-decision-input
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Narrow or expand scope, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
+    semantic_value: "Narrow or expand scope by meaningful criteria including a selected Required Capability, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-OUTCOME-EXPLORE-KNOWLEDGE
     kind: task-outcome
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "The learner gains coherent subject orientation while Knowledge identity remains independent of learner state, target, capability, and presentation."
+    semantic_value: "The learner gains coherent subject orientation and can isolate Knowledge relevant to a selected Required Capability while Knowledge identity remains independent of learner state, target, capability and presentation."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-SUPPORT-EXPLORE-KNOWLEDGE
     kind: task-system-support
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; presentation may be graph or non-graph and must preserve semantic access."
+    semantic_value: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; a Required Capability may act as a reversible Knowledge-scope criterion anchored by its direct Knowledge focus with bounded semantic expansion, without mutating Knowledge or Capability meaning."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 

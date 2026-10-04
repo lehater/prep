@@ -106,6 +106,12 @@ semantic_assertions:
     semantic_value: Different required outcomes may need different learning, practice, or diagnostic support; activity completion or material exposure alone does not establish adequate preparation.
     decision_authority: DISCOVERY
 
+  - id: OBS-P18
+    kind: problem-observation
+    subject: multi-target-direction-choice
+    semantic_value: A learner may face several plausible external targets simultaneously and need to compare how the same evidence-backed capability base maps to each target's distinct requirements before deciding which direction to pursue; changing the compared target does not itself change learner capability.
+    decision_authority: DISCOVERY
+
   - id: PE-DESIRED-OUTCOME
     kind: desired-outcome
     subject: reliable-progress

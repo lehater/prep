@@ -35,9 +35,13 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 `TargetRepresentation` exposes target identity/context, purpose, known uncertainty and provenance needed by the active preparation context. Target remains distinct from required Capability.
 
+### Target comparison
+
+`TargetComparisonRepresentation` exposes two or more candidate Target refs evaluated against the same accepted learner claim/evidence basis. For each Target it preserves requirement identity, shared versus target-specific required capabilities, demonstrated/challenged/unknown projections, gaps/uncertainty, evidence applicability limits and target uncertainty. It is a read projection only: it does not mutate learner state, activate a Target, or expose a universal scalar fit/readiness/preparation-distance score.
+
 ### Target requirement
 
-`TargetRequirementRepresentation` exposes RequirementExpression structure plus required Capability performance, conditions and quality criteria. Supporting Knowledge is referenced separately.
+`TargetRequirementRepresentation` exposes RequirementExpression structure plus required Capability performance, conditions and quality criteria. Each PerformanceExpectation may expose its direct `knowledge_focus_refs`; these references remain separate from Subject Knowledge predicates, Capability identity and learner state.
 
 ### Current state
 
@@ -51,17 +55,19 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 `GapRepresentation` exposes target-relative satisfied/challenged/unresolved requirement fragments and the accepted basis for the gap/uncertainty.
 
+`FocusDecisionContext` is returned alongside the current gap projection and exposes accepted target relevance, PreparationPriority rationale, material external constraints such as available time/attention or deadlines when known, and a bounded support-availability summary for candidate gap/capability focus. It is decision context only: it does not select support or assert learner Capability.
+
 ### Next focus
 
 `FocusRepresentation` exposes the current PreparationIntent, purpose, relevant capability/gap refs and rationale.
 
 ### Knowledge
 
-`KnowledgeProjection` preserves KnowledgeObject/KnowledgeProposition identity and predicate semantics with explicit overview/detail scope. Graph/list/2D/3D coordinates are never contract fields.
+`KnowledgeProjection` preserves KnowledgeObject/KnowledgeProposition identity and predicate semantics with explicit overview/detail scope. It may include an optional `required_capability_ref` as scope basis plus the direct Knowledge-focus anchors used to derive that scope. Capability-scoped results are bounded to those anchors and accepted semantic expansion; this remains projection metadata and does not require inverse Knowledge-to-Required-Capability browsing. Graph/list/2D/3D coordinates are never contract fields.
 
 ### Preparation support
 
-`SupportRepresentation` exposes applicable LearningMaterial, LearningSupportRequirement, TaskSpecification and ObservationSpecification references for the current focus, including explicit inadequacy/limitations.
+`SupportRepresentation` exposes applicable LearningMaterial, LearningSupportRequirement, TaskSpecification and ObservationSpecification references for the current focus, including the intended CapabilitySpecification, expected condition scope, inspectable support-fit basis and explicit inadequacy/limitations. Fit never implies Capability possession.
 
 ### Activity attempt
 
@@ -79,13 +85,14 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 | Operation | Kind | Minimum input | Result |
 |---|---|---|---|
+| `prep.targets.compare` | query | candidate_target_refs[2..N] | TargetComparisonRepresentation + semantic basis |
 | `prep.target.establish` | command | target/source context, optional prior basis | active TargetRepresentation or explicit unresolved/rejected outcome |
 | `prep.target.requirements.get` | query | target_ref | TargetRequirementRepresentation + semantic basis |
 | `prep.current_state.get` | query | target_ref | CurrentStateRepresentation + semantic basis |
 | `prep.evidence.get` | query | target_ref, optional capability/evidence ref | EvidenceRepresentation |
-| `prep.gaps.get` | query | target_ref | GapRepresentation[] + semantic basis |
+| `prep.gaps.get` | query | target_ref | GapRepresentation[] + FocusDecisionContext + semantic basis |
 | `prep.focus.set` | command | target_ref, selected gap/capability refs, purpose/rationale, semantic_basis_ref | accepted FocusRepresentation or stale/rejected outcome |
-| `prep.knowledge.query` | query | target_ref, optional focus_ref, semantic scope/query | KnowledgeProjection |
+| `prep.knowledge.query` | query | target_ref, optional focus_ref, optional required_capability_ref, semantic scope/query | KnowledgeProjection; when required_capability_ref is present, scope is anchored by that Capability's direct Knowledge focus |
 | `prep.support.list` | query | target_ref, focus_ref | SupportRepresentation[] with explicit limitations |
 | `prep.activity.start` | command | target_ref, focus_ref, support_ref, semantic_basis_ref | ActivityAttemptRepresentation |
 | `prep.activity.complete` | command | activity_attempt_ref, attributable activity result/provenance, semantic_basis_ref | activity/evidence-cycle result; historical facts may be accepted even when inference is unresolved/rejected |

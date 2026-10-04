@@ -36,6 +36,21 @@ Rationale:
 
 Related role, interview, certification, or other targets may overlap without being equivalent.
 
+### REQ-CAP-TARGET-DIRECTION
+
+The product shall let the learner compare two or more plausible targets against the same evidence-backed learner capability basis, exposing shared and target-specific requirements plus demonstrated, challenged, unknown and gap/uncertainty projections for each, and continue with a chosen target without requiring a scalar fit score.
+
+Status: ACCEPTED
+
+Sources:
+
+- REQ-TARGET-DIRECTION
+- REQ-STATE-EVIDENCE
+
+Rationale:
+
+Direction choice needs an inspectable comparison while learner capability/evidence remains reusable and target-independent.
+
 ### REQ-CAP-PERFORMANCE-REQUIREMENT
 
 The product shall let the learner inspect what performance a target requires, including material conditions or constraints and acceptable quality, separately from topic coverage.
@@ -244,4 +259,5 @@ Progressive depth does not require a specific hierarchy, graph layout, or naviga
 - Define target, evidence, learner-state, capability, knowledge, assessment, or relation ownership.
 - Define a concrete relation taxonomy, performance taxonomy, evidence-warrant model, or decomposition model.
 - Define ranking, scheduling, inference, extraction, generation, or graph-layout algorithms.
+- Define a universal scalar target-fit/readiness/preparation-distance algorithm.
 - Define import schema, API, persistence, graph database, interface layout, or implementation architecture.
