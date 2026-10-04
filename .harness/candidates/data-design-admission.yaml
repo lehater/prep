@@ -45,7 +45,7 @@ semantic_assertions:
     kind: data-reference
     subject: cross-owner-reference-representation
     semantic_value: "Cross-owner physical references use stable semantic IDs and may enforce existence where co-located, but do not create shared-write aggregates or reclassify Capability-to-Knowledge, target or learner-evidence relationships as Subject Knowledge."
-    derived_from: [KM-CROSS-CONTEXT-BOUNDARY, LD-KNOWLEDGE-FOCUS, LM-KNOWLEDGE-BOUNDARY, DD-OWNERSHIP]
+    derived_from: [KM-CROSS-CONTEXT-BOUNDARY, LD-KNOWLEDGE-FOCUS, LD-APPLICATION-BOUNDARY, LM-KNOWLEDGE-BOUNDARY, IC-OWNER-ATOMICITY, SA-STATE-PLACEMENT]
     decision_authority: DATA-DESIGN
 
   - id: DD-CONSISTENCY
