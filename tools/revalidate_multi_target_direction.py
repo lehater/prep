@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Re-run after completing User Needs evidence trace.
+# Re-run after completing User Needs evidence trace.\n# Re-run after machine-operation provenance correction.
 from __future__ import annotations
 import copy, os, re, sys
 from collections import deque
