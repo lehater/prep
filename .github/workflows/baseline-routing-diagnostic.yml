@@ -40,5 +40,5 @@ jobs:
         run: |
           for kind in concurrency-consistency-design verification-strategy system-architecture data-design; do
             echo "===== $kind ====="
-            PYTHONPATH="$PACK/src" python -m harness.application.skill_router artifact --knowledge-kind "$kind"
+            PYTHONPATH="$PACK/src" python -m harness.application.skill_router artifact --knowledge-kind "$kind" --root "$PACK"
           done
