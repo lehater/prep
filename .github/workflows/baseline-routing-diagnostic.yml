@@ -57,3 +57,12 @@ jobs:
             echo "===== FILE: $path ====="
             cat "$PACK/$path"
           done
+
+      - name: Route decision explorer
+        env:
+          PACK: ${{ steps.sync.outputs.pack }}
+        shell: bash
+        run: |
+          PYTHONPATH="$PACK/src" python -m harness.application.skill_router method --method decision-explorer --root "$PACK"
+          echo "===== FILE: skills/methods/decision-explorer/SKILL.md ====="
+          cat "$PACK/skills/methods/decision-explorer/SKILL.md"
