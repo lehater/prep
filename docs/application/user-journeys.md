@@ -16,6 +16,42 @@ These journeys describe meaningful user actions, visible system responses, recov
 - `SUCCESS`, `UNRESOLVED`, `REJECTED`, `DEPENDENCY_UNAVAILABLE` and `STALE_BASIS` remain distinguishable where applicable.
 - No journey requires a graph, 2D/3D representation, page, modal, route or specific navigation pattern.
 
+## J-TARGET-DIRECTION — Compare plausible targets and choose a direction
+
+**Actor:** learner
+
+**Goal:** compare several plausible preparation targets against the same evidence-backed capability base and decide which direction to pursue.
+
+**Trigger:** the learner has more than one plausible role/vacancy/other target and has not yet committed preparation to one of them.
+
+**Entry condition:** at least two candidate targets have enough requirement meaning to compare; learner evidence may be partial or absent.
+
+**Preconditions:** comparison does not require an active Target and does not create a second learner profile.
+
+### Meaningful interactions
+
+1. The learner selects two or more candidate Targets.
+2. The system performs `APP-COMPARE-TARGETS`, projecting the same accepted learner claims/evidence against each Target's own RequirementExpression and CapabilitySpecifications.
+3. The learner inspects shared required capabilities, target-specific requirements, and demonstrated/challenged/unknown plus gap/uncertainty projections for each candidate.
+4. Evidence limitations and incomplete target requirements remain visible per Target; no scalar fit/readiness score is fabricated.
+5. The learner chooses one candidate to continue with, or leaves the direction decision unresolved.
+6. Choosing a candidate continues into **J-TARGET-SETUP**, where that Target is established/refined as the active preparation Target.
+
+**Completion:** the learner can explain the material trade-offs among candidate Targets and either chooses a direction or explicitly keeps the decision unresolved.
+
+**Visible side effects:** none to learner capability/evidence merely from comparing Targets; active Target establishment occurs in **J-TARGET-SETUP**.
+
+### Alternate / recovery paths
+
+- Incomplete Target requirements remain visibly incomparable/uncertain rather than being treated as poor fit.
+- Missing or stale learner evidence remains `unknown` for the affected Target requirements.
+- Missing reusable target/support meaning may route through **J-PREPARE-SUPPORT**.
+- Comparison may end without a selected direction.
+
+**Upstream:** `TASK-U-COMPARE-TARGETS`, `APP-COMPARE-TARGETS`, `LM-TARGET-RELATIVE-PROJECTION`.
+
+---
+
 ## J-TARGET-SETUP — Establish and understand the preparation target
 
 **Actor:** learner

@@ -3,6 +3,23 @@ kind: interaction-design
 id: PREP-INTERACTION-DESIGN
 
 contexts:
+  - id: IX-TARGET-DIRECTION
+    purpose: Compare plausible Targets against the same evidence-backed learner capability basis and choose which direction to continue with.
+    task_refs: [TASK-U-COMPARE-TARGETS]
+    concept_refs: [C-TARGET-COMPARISON, C-TARGET, C-CURRENT-STATE, C-GAP]
+    actions:
+      - select-candidate-targets
+      - inspect-shared-and-target-specific-requirements
+      - inspect-per-target-current-state-and-gaps
+      - choose-target-to-continue
+      - leave-direction-unresolved
+    machine_operations: [prep.targets.compare]
+    states: [loading, ready, partial, unresolved, dependency-unavailable]
+    transition_rules:
+      - "candidate Targets + compare -> per-target requirement/state/gap projections over the same learner evidence basis"
+      - "choose candidate -> continue to IX-TARGET with the chosen target context; comparison itself does not activate or mutate Target/learner state"
+    recovery: Incomplete target requirements and insufficient/stale evidence remain explicit per candidate; comparison may remain unresolved and no scalar fit/readiness score is synthesized.
+
   - id: IX-TARGET
     purpose: Establish or refine the active Target and understand what performance is required.
     task_refs: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]

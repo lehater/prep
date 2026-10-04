@@ -16,6 +16,27 @@ canonical_references:
     referenced_path: docs/application/process-prepare-support.md
 
 semantic_assertions:
+  - id: UJ-TARGET-DIRECTION
+    kind: user-journey
+    subject: J-TARGET-DIRECTION
+    semantic_value: "Learner compares two or more plausible Targets against the same reusable evidence-backed capability basis, inspecting shared/target-specific requirements and per-target demonstrated/challenged/unknown plus gap/uncertainty projections before choosing a direction."
+    derived_from: [TM-GOAL-TARGET-DIRECTION, TM-TASK-COMPARE-TARGETS, TM-GREF-COMPARE-TARGETS, TM-RESP-COMPARE-TARGETS, TM-INFO-COMPARE-TARGETS, TM-DECISION-COMPARE-TARGETS, TM-SUPPORT-COMPARE-TARGETS, AD-COMPARE-TARGETS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-RECOVERY
+    kind: journey-alternate
+    subject: J-TARGET-DIRECTION
+    semantic_value: "Incomplete target requirements or insufficient/stale learner evidence remain explicit per candidate Target; comparison may remain unresolved and no universal scalar fit score or learner-state mutation is fabricated."
+    derived_from: [TM-RECOVERY-COMPARE-TARGETS, AD-COMPARE-TARGETS, AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-OUTCOME
+    kind: journey-outcome
+    subject: J-TARGET-DIRECTION
+    semantic_value: "Journey completes when the learner can explain material trade-offs among candidate Targets and either chooses one to continue into target setup or explicitly keeps the direction unresolved."
+    derived_from: [TM-OUTCOME-COMPARE-TARGETS, AD-COMPARE-TARGETS]
+    decision_authority: APPLICATION-DESIGN
+
   - id: UJ-TARGET-SETUP
     kind: user-journey
     subject: J-TARGET-SETUP

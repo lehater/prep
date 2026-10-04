@@ -35,6 +35,10 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 `TargetRepresentation` exposes target identity/context, purpose, known uncertainty and provenance needed by the active preparation context. Target remains distinct from required Capability.
 
+### Target comparison
+
+`TargetComparisonRepresentation` exposes two or more candidate Target refs evaluated against the same accepted learner claim/evidence basis. For each Target it preserves requirement identity, shared versus target-specific required capabilities, demonstrated/challenged/unknown projections, gaps/uncertainty, evidence applicability limits and target uncertainty. It is a read projection only: it does not mutate learner state, activate a Target, or expose a universal scalar fit/readiness/preparation-distance score.
+
 ### Target requirement
 
 `TargetRequirementRepresentation` exposes RequirementExpression structure plus required Capability performance, conditions and quality criteria. Each PerformanceExpectation may expose its direct `knowledge_focus_refs`; these references remain separate from Subject Knowledge predicates, Capability identity and learner state.
@@ -81,6 +85,7 @@ Read results that can drive dependent mutations expose an opaque `semantic_basis
 
 | Operation | Kind | Minimum input | Result |
 |---|---|---|---|
+| `prep.targets.compare` | query | candidate_target_refs[2..N] | TargetComparisonRepresentation + semantic basis |
 | `prep.target.establish` | command | target/source context, optional prior basis | active TargetRepresentation or explicit unresolved/rejected outcome |
 | `prep.target.requirements.get` | query | target_ref | TargetRequirementRepresentation + semantic basis |
 | `prep.current_state.get` | query | target_ref | CurrentStateRepresentation + semantic basis |

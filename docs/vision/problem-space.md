@@ -52,6 +52,7 @@ The problem observations above are accepted direct stakeholder/project evidence 
 - **OBS-P15 — performance-shaped capability:** readiness depends on required performance, including relevant conditions, constraints and quality, not on topic exposure or subject coverage alone.
 - **OBS-P16 — evidence adequacy and context:** an observation has different evidential meaning depending on what performance was observed, under which conditions, with what provenance, and how current and relevant it is to the target claim.
 - **OBS-P17 — learning-support fit:** different required outcomes may need different learning, practice or diagnostic support; activity completion or material exposure alone does not establish adequate preparation.
+- **OBS-P18 — multi-target direction choice:** a learner may have several plausible external targets at the same time and need to compare how the same evidence-backed capability base maps to each target's distinct requirements before deciding which direction to pursue; changing the compared target does not itself change learner capability.
 
 Provenance class: explicit product-owner/stakeholder observations accepted during Prep's Harness revalidation. No downstream UI, graph, Anki, persistence or implementation behavior is used as evidence that these problems exist.
 
@@ -92,6 +93,7 @@ Current user-model gate: **EVIDENCE-SUPPORTED-FOR-UX-PROTOTYPING**. The behavior
 | OBS-P15 — performance-shaped capability | SUPPORTED | Public-user cases repeatedly distinguish topic familiarity from coding, explanation, design and other performance under target conditions. | UNTESTED |
 | OBS-P16 — evidence adequacy and context | SUPPORTED | Naturalistic cases and learning-science evidence show that immediate or context-specific success has bounded evidential meaning and can become stale or fail to transfer. | UNTESTED |
 | OBS-P17 — learning-support fit | SUPPORTED-NARROWED | Evidence supports matching preparation to the required kind of performance rather than treating generic activity as sufficient; exact support forms remain downstream and untested. | UNTESTED |
+| OBS-P18 — multi-target direction choice | STAKEHOLDER-HYPOTHESIS | Product-owner input identifies choosing among several plausible role/vacancy targets by comparing the same learner capability/evidence against different target requirements. Prevalence and preferred comparison presentation remain unvalidated. | UNTESTED |
 
 Earlier triangulation sources (SECONDARY-RESEARCH plus NATURALISTIC-PUBLIC-USER where applicable):
 
@@ -118,6 +120,7 @@ The triangulation above also exposes plausible counterexamples to the current mo
 - **CH-P05 — real interview outcomes can change both state and target knowledge:** an interview can reveal a skill gap and simultaneously reveal previously unknown expectations about the role/company. Research must test whether feedback should revise only learner state/priorities or also the target profile itself.
 - **CH-P06 — reusable corpus may be optional infrastructure from the user's perspective:** users frequently assemble existing external resources rather than curate a durable semantic corpus. Research must distinguish the user's need ("get a usable preparation scope/support") from Prep's internal preference for reusable structured data.
 - **CH-P07 — role capability and selection/interview capability can diverge:** this negative-case finding is now materialized as OBS-P14. The remaining challenge is to determine when related target purposes legitimately share requirements and when they must remain distinct.
+- **CH-P08 — target direction may itself be a preparation decision:** OBS-P18 introduces the hypothesis that learners need to compare several plausible targets against one reusable evidence-backed capability base before committing preparation effort. Research must test whether the comparison dimensions are understandable and useful without reducing fit to an opaque scalar score.
 
 These challenges are supported at different evidence strengths. Recurring concrete developer self-reports count as NATURALISTIC-PUBLIC-USER evidence; expert/research material remains SECONDARY-RESEARCH. Elicited sessions are still needed where probing or Prep-specific comprehension matters.
 

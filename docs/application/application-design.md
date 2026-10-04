@@ -19,6 +19,7 @@ Application Design defines the work units that Process capabilities may coordina
 
 | Operation | Kind | Task | Reads | Writes / owner | Observable result |
 |---|---|---|---|---|---|
+| `APP-COMPARE-TARGETS` | materialization/query | `TASK-U-COMPARE-TARGETS` | candidate targets, RequirementExpressions/CapabilitySpecifications, reusable learner claims/evidence and target-relative projection rules | none | per-target comparison of shared/target-specific requirements, demonstrated/challenged/unknown state and gaps/uncertainty over the same learner evidence basis |
 | `APP-ESTABLISH-TARGET` | command/query composition | `TASK-U-ESTABLISH-TARGET` | prepared targets, source context, purpose/uncertainty | target/refinement through its tactical owner; active application context | active target or explicit unresolved preparation need |
 | `APP-UNDERSTAND-REQUIREMENTS` | materialization/query | `TASK-U-UNDERSTAND-REQUIREMENTS` | target purpose, RequirementExpression, CapabilitySpecifications, standards, Knowledge focus | none | target requirements preserving performance/conditions/quality and Boolean structure |
 | `APP-REVIEW-CURRENT-STATE` | materialization/query | `TASK-U-REVIEW-CURRENT-STATE` | claims, evidence arguments, Observations, applicability limits | none | demonstrated/challenged/unknown projection with inspectable basis |
@@ -42,6 +43,8 @@ Application Design defines the work units that Process capabilities may coordina
 - Multi-owner preparation may coordinate writes, but every owner accepts only its own meaning.
 
 ## Operation-local semantic constraints
+
+`APP-COMPARE-TARGETS` reuses one accepted learner claim/evidence basis across multiple target requirement sets. It may expose overlap, target-specific requirements and per-target demonstrated/challenged/unknown plus gap/uncertainty projections, but it does not mutate learner state, automatically activate a target or invent a universal scalar fit/readiness/preparation-distance score. Choosing a candidate direction can continue into `APP-ESTABLISH-TARGET`.
 
 `APP-EVALUATE-EVIDENCE` consumes accepted attributable Observations; it cannot infer capability first and backfill observations later. `APP-REVIEW-CHANGE` consumes a completed evidence/target-relative projection rather than manufacturing progress. Target-information changes are classified separately from learner evidence.
 

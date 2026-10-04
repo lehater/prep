@@ -22,6 +22,12 @@ semantic_assertions:
     semantic_value: The product keeps related target purposes distinguishable and does not silently treat requirements for one target purpose as requirements for another.
     derived_from: [GOAL-TARGET-PURPOSE, NEED-TARGET-PURPOSE]
     decision_authority: PRODUCT-REQUIREMENTS
+  - id: REQ-TARGET-DIRECTION
+    kind: product-requirement
+    subject: GOAL-TARGET-DIRECTION
+    semantic_value: The product lets the learner compare multiple plausible preparation targets against the same evidence-backed capability basis, preserving each target's distinct requirements and uncertainty, so the learner can choose a preparation direction without the comparison itself changing learner state.
+    derived_from: [GOAL-TARGET-DIRECTION, NEED-TARGET-DIRECTION]
+    decision_authority: PRODUCT-REQUIREMENTS
   - id: REQ-CAPABILITY-PERFORMANCE
     kind: product-requirement
     subject: GOAL-CAPABILITY-PERFORMANCE

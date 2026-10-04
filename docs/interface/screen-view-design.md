@@ -5,11 +5,11 @@ inherits: PREP-PRESENTATION-SYSTEM
 
 views:
   - id: FRAME-PREPARATION
-    purpose: Preserve application-level preparation navigation plus active Target/focus context while task views change.
+    purpose: Preserve application-level preparation navigation, support candidate Target comparison before commitment, and retain active Target/focus context when established.
     topology_ref: FRAME-PREPARATION
     regions:
-      - {id: prep-navigation, role: navigation, priority: primary, content: [Target, Current position, Knowledge, Activity, Evidence & changes]}
-      - {id: active-context, role: context, priority: supporting, content: [active Target, optional Next focus]}
+      - {id: prep-navigation, role: navigation, priority: primary, content: [Targets, Target, Current position, Knowledge, Activity, Evidence & changes]}
+      - {id: active-context, role: context, priority: supporting, content: [active Target when established, optional Next focus]}
       - {id: active-child, role: task-surface, priority: primary, content: [current task view]}
     patterns: [PATTERN-CONTEXT-HEADER]
     responsive:
@@ -17,6 +17,25 @@ views:
       - narrow: Navigation becomes ordered disclosure; active Target remains recoverable before the child task surface.
       - focus_order: navigation -> active context -> child view
     exclusions: [global curation mode, runtime-status workspace, edit tools]
+
+  - id: VIEW-TARGETS
+    purpose: Compare plausible preparation Targets against the same evidence-backed learner capability basis and decide which candidate to continue with.
+    topology_ref: VIEW-TARGETS
+    interaction_refs: [IX-TARGET-DIRECTION]
+    regions:
+      - {id: candidate-targets, role: selection-context, priority: primary, content: [two or more candidate Targets, purpose/context, target uncertainty]}
+      - {id: target-comparison, role: primary-decision-context, priority: primary, content: [shared Required Capabilities, target-specific requirements, per-target demonstrated/challenged/unknown projection, gaps/uncertainty]}
+      - {id: comparison-basis, role: supporting-detail, priority: secondary, content: [same learner evidence basis, applicability/coverage/time limitations, incomplete target requirement warnings]}
+      - {id: direction-actions, role: actions, priority: primary, content: [continue with selected Target, change compared Targets, leave decision unresolved]}
+    reads: [prep.targets.compare]
+    commands: []
+    patterns: [PATTERN-TARGET-COMPARISON, PATTERN-OUTCOME]
+    states: [loading, ready, partial, unresolved, dependency-unavailable]
+    responsive:
+      - wide: Candidate Targets may be compared simultaneously with aligned requirement/state/gap dimensions and supporting limitations secondary.
+      - narrow: Candidate Targets may be serialized, but each preserves the same comparison dimensions and the set of compared Targets stays explicit.
+      - focus_order: candidate selection -> comparison -> direction action -> comparison basis detail
+    exclusions: [universal fit score, readiness percentage, preparation-distance score, target activation as a side effect of comparison, duplicated learner profile per Target]
 
   - id: VIEW-TARGET
     purpose: Establish/refine Target and understand required performance.

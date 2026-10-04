@@ -5,12 +5,21 @@ id: PREP-INTERFACE-TOPOLOGY
 views:
   - id: FRAME-PREPARATION
     structural: true
-    responsibility: Preserve active Target and optional Next focus context while the user moves among preparation task views.
+    responsibility: Support candidate Target-direction comparison before commitment and preserve active Target plus optional Next focus context when one is established.
     ia_location_ref: LOC-ACTIVE-PREPARATION
     interaction_context_refs: []
     parent: ROOT
     entries: [application-entry]
-    exits: [VIEW-TARGET, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-EVIDENCE-CHANGE]
+    exits: [VIEW-TARGETS, VIEW-TARGET, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-EVIDENCE-CHANGE]
+
+  - id: VIEW-TARGETS
+    structural: false
+    responsibility: Compare plausible Targets against the same evidence-backed learner capability basis and choose which candidate to continue with.
+    ia_location_ref: LOC-TARGETS
+    interaction_context_refs: [IX-TARGET-DIRECTION]
+    parent: FRAME-PREPARATION
+    entries: [application-entry, VIEW-TARGET, direct-link-with-candidate-targets]
+    exits: [VIEW-TARGET, VIEW-PREPARE-SUPPORT]
 
   - id: VIEW-TARGET
     structural: false
@@ -18,7 +27,7 @@ views:
     ia_location_ref: LOC-TARGET
     interaction_context_refs: [IX-TARGET]
     parent: FRAME-PREPARATION
-    entries: [application-entry, direct-link-with-target-context, missing-target-context]
+    entries: [application-entry, VIEW-TARGETS, direct-link-with-target-context, missing-target-context]
     exits: [VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-PREPARE-SUPPORT]
 
   - id: VIEW-CURRENT
@@ -68,7 +77,7 @@ views:
 
 navigation_contracts:
   - id: TOP-ACTIVE-TARGET
-    rule: VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY and VIEW-EVIDENCE-CHANGE require an active Target context; a direct link without resolvable Target context routes to VIEW-TARGET rather than inventing one.
+    rule: VIEW-TARGETS may compare candidate Targets without an active Target; VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY and VIEW-EVIDENCE-CHANGE require an active Target context, and a direct link without resolvable Target context routes to VIEW-TARGET rather than inventing one.
   - id: TOP-ACTIVE-FOCUS
     rule: VIEW-ACTIVITY requires an explicit Next focus; entry without one routes to VIEW-CURRENT so the user can choose/revise focus. VIEW-KNOWLEDGE and VIEW-EVIDENCE-CHANGE may exist without a focus.
   - id: TOP-PREP-RETURN
@@ -78,6 +87,7 @@ navigation_contracts:
 
 coverage:
   user_tasks:
+    TASK-U-COMPARE-TARGETS: VIEW-TARGETS
     TASK-U-ESTABLISH-TARGET: VIEW-TARGET
     TASK-U-UNDERSTAND-REQUIREMENTS: VIEW-TARGET
     TASK-U-REVIEW-CURRENT-STATE: VIEW-CURRENT

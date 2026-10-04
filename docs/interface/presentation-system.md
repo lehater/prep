@@ -78,6 +78,20 @@ Exact typography family, font sizes, color values, border radii, spacing values 
 
 Shows current Target and optional Next focus with explicit change/recovery actions. It does not become a second navigation tree.
 
+### PATTERN-TARGET-COMPARISON
+
+For choosing among plausible preparation directions:
+
+- compare two or more candidate Targets against the same learner evidence basis;
+- preserve each Target's own requirement identity and uncertainty;
+- make shared versus target-specific Required Capabilities inspectable;
+- expose demonstrated/challenged/unknown and gap/uncertainty per Target with evidence limitations;
+- keep the comparison dimensions aligned enough to support a decision without implying that all requirements have equal weight;
+- do not synthesize a universal scalar fit/readiness/preparation-distance score;
+- provide an explicit continue-with-target action while allowing the decision to remain unresolved.
+
+Wide surfaces may compare candidates simultaneously. Narrow surfaces may serialize candidates, but must preserve the same comparison dimensions and make the currently compared Targets explicit.
+
 ### PATTERN-QUERY-RESULT-DETAIL
 
 For Knowledge and other inspectable collections:

@@ -22,6 +22,12 @@ semantic_assertions:
     semantic_value: The product lets the learner distinguish related target purposes and inspect which requirements belong to each without automatic requirement inheritance.
     derived_from: [REQ-TARGET-PURPOSE]
     decision_authority: PRODUCT-REQUIREMENTS
+  - id: REQ-CAP-TARGET-DIRECTION
+    kind: product-requirement
+    subject: capability-target-direction
+    semantic_value: The product lets the learner compare two or more plausible targets against the same evidence-backed learner capability basis, exposing shared and target-specific requirements plus demonstrated, challenged, unknown and gap/uncertainty projections for each, and continue with a chosen target without requiring a scalar fit score.
+    derived_from: [REQ-TARGET-DIRECTION, REQ-STATE-EVIDENCE]
+    decision_authority: PRODUCT-REQUIREMENTS
   - id: REQ-CAP-PERFORMANCE-REQUIREMENT
     kind: product-requirement
     subject: capability-performance-requirement

@@ -23,11 +23,74 @@ semantic_assertions:
     derived_from: [REQ-CAP-TARGET, REQ-CAP-STATE, REQ-CAP-FOCUS, REQ-CAP-PRACTICE, REQ-CAP-ADAPT]
     decision_authority: APPLICATION-DESIGN
 
+  - id: TM-GOAL-TARGET-DIRECTION
+    kind: task-goal
+    subject: GOAL-CHOOSE-TARGET-DIRECTION
+    semantic_value: "Choose which plausible preparation target to pursue by comparing target-relative requirements, current evidence-backed capability, gaps and uncertainty over one reusable learner evidence base."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-STATE]
+    decision_authority: APPLICATION-DESIGN
+
   - id: TM-GOAL-SUPPORT
     kind: task-goal
     subject: GOAL-OBTAIN-USABLE-PREPARATION-SUPPORT
     semantic_value: "Turn fragmented or incomplete source material into usable preparation support without requiring the learner to maintain Prep's reusable semantic corpus."
     derived_from: [REQ-CAP-BOOTSTRAP, REQ-CAP-SUPPORT-FIT]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-TASK-COMPARE-TARGETS
+    kind: task
+    subject: TASK-U-COMPARE-TARGETS
+    semantic_value: "Compare two or more plausible preparation targets against the same evidence-backed learner capability basis before committing to one direction."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-GREF-COMPARE-TARGETS
+    kind: task-goal-ref
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: TM-GOAL-TARGET-DIRECTION
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-RESP-COMPARE-TARGETS
+    kind: task-responsibility
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "USER"
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-INFO-COMPARE-TARGETS
+    kind: task-information
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Candidate PreparationTargets and their RequirementExpressions/CapabilitySpecifications, shared versus target-specific requirements, target-relative demonstrated/challenged/unknown projections from the same learner claims/evidence, gaps/uncertainty, provenance and target uncertainty."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-DECISION-COMPARE-TARGETS
+    kind: task-decision-input
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Select candidate targets to compare, inspect material differences and decide which target to continue with, or keep the direction decision unresolved."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-OUTCOME-COMPARE-TARGETS
+    kind: task-outcome
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "The learner can explain capability overlap, target-specific requirements, evidence-backed fit/uncertainty for each target, and can choose a direction without changing the underlying learner state."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-SUPPORT-COMPARE-TARGETS
+    kind: task-system-support
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Project the same evidence-backed learner capability basis against multiple target requirement sets, expose comparable demonstrated/challenged/unknown and gap/uncertainty semantics, preserve evidence limitations, and avoid inventing a universal scalar fit/readiness/preparation-distance score."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: TM-RECOVERY-COMPARE-TARGETS
+    kind: task-recovery
+    subject: TM-TASK-COMPARE-TARGETS
+    semantic_value: "Incomplete target requirements or insufficient/stale evidence remain explicit per target; comparison may remain unresolved or route missing target/support information to preparation without forcing a choice."
+    derived_from: [REQ-CAP-TARGET-DIRECTION, REQ-CAP-TARGET-PURPOSE, REQ-CAP-STATE, LD-PREPARATION-TARGET, LD-REQUIREMENT-EXPRESSION, LM-TARGET-RELATIVE-PROJECTION]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-TASK-ESTABLISH-TARGET

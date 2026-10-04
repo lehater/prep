@@ -36,6 +36,12 @@ semantic_assertions:
     semantic_value: Distinguish related target purposes and understand which required performances belong to each.
     derived_from: [OBS-P14, PE-TARGET-PURPOSE-OUTCOME]
     decision_authority: DISCOVERY
+  - id: GOAL-TARGET-DIRECTION
+    kind: user-goal
+    subject: target-direction
+    semantic_value: Compare several plausible preparation targets against the same evidence-backed current capability and choose which direction is worth pursuing without treating the comparison as a change in learner state.
+    derived_from: [OBS-P18]
+    decision_authority: DISCOVERY
   - id: GOAL-CAPABILITY-PERFORMANCE
     kind: user-goal
     subject: capability-performance
@@ -126,6 +132,12 @@ semantic_assertions:
     subject: GOAL-TARGET-PURPOSE
     semantic_value: The learner needs related target purposes to remain distinguishable so requirements for one purpose are not silently treated as requirements for another.
     derived_from: [OBS-P14, PE-TARGET-PURPOSE-OUTCOME]
+    decision_authority: DISCOVERY
+  - id: NEED-TARGET-DIRECTION
+    kind: user-need
+    subject: GOAL-TARGET-DIRECTION
+    semantic_value: The learner needs to compare multiple plausible targets using the same evidence-backed capability base, seeing shared and target-specific requirements, demonstrated/challenged/unknown coverage, gaps and uncertainty, so they can choose a direction without an invented universal fit score.
+    derived_from: [OBS-P18]
     decision_authority: DISCOVERY
   - id: NEED-CAPABILITY-PERFORMANCE
     kind: user-need
