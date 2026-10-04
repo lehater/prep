@@ -182,7 +182,10 @@ def main():
             for assertion in source_candidate.get("semantic_assertions",[]) or []:
                 copied=copy.deepcopy(assertion); copied["source_artifact"]=source_artifact; sources["semantic_assertions"].append(copied)
             key=(source_capability,capability); previous=derivations.get(key); rows=contracts.get(key,[])
-            if previous is None or not rows: raise SystemExit("missing derivation contract/evidence: %r" % (key,))
+            if previous is None and not rows:
+                continue
+            if previous is None or not rows:
+                raise SystemExit("incomplete derivation contract/evidence pair: %r" % (key,))
             evidence=enrich_evidence(source_capability,capability,source_candidate,candidate,previous)
             accepted=[]; rejected=[]
             for contract_path,contract in rows:
