@@ -230,6 +230,12 @@ semantic_assertions:
     semantic_value: Supported by accepted target-purpose-divergence evidence and its desired outcome.
     derived_from: [OBS-P14, PE-TARGET-PURPOSE-OUTCOME]
     decision_authority: DISCOVERY
+  - id: EVIDENCE-NEED-TARGET-DIRECTION
+    kind: need-evidence
+    subject: NEED-TARGET-DIRECTION
+    semantic_value: Supported by the accepted multi-target direction-choice observation; prevalence and preferred comparison presentation remain unvalidated.
+    derived_from: [OBS-P18]
+    decision_authority: DISCOVERY
   - id: EVIDENCE-NEED-CAPABILITY-PERFORMANCE
     kind: need-evidence
     subject: NEED-CAPABILITY-PERFORMANCE
