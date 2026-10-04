@@ -45,7 +45,64 @@ jobs:
         shell: bash
         run: |
           cp .harness/project-publication.next.yaml .harness/project-publication.yaml
-          python tools/full_harness_revalidate.py
+          python - <<'PY'
+          import os
+          import sys
+          from pathlib import Path
+          import yaml
+
+          root = Path(".").resolve()
+          harness_root = Path(os.environ["HARNESS_ROOT"]).resolve()
+          sys.path.insert(0, str(harness_root / "src"))
+          sys.path.insert(0, str(root / "tools"))
+
+          from harness.application.graph_doctor import diagnose_project
+          from harness.application.semantic_closure import evaluate_semantic_closure
+          from harness.project_model.engineering_graph import evaluate_engineering_target
+          from semantic_baseline import build_strict_semantic_baseline
+
+          def load(path):
+              value = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+              if not isinstance(value, dict):
+                  raise SystemExit(f"{path} must contain a mapping")
+              return value
+
+          target = "CURRENT-REVALIDATION"
+          graph = load(root / ".harness/engineering-graph.yaml")
+          core = load(root / ".harness/core.yaml")
+          registry = load(harness_root / "skills/artifact-skill-registry-v0.yaml")
+
+          doctor_model = dict(core)
+          doctor_model["authorities"] = [
+              {"id": item["id"]}
+              for item in graph.get("authorities", [])
+              if isinstance(item, dict) and item.get("id")
+          ]
+          doctor = diagnose_project(graph, model=doctor_model, target=target, source_root=root)
+          if doctor["summary"]["ERROR"]:
+              raise SystemExit(f"{target} Graph Doctor errors: {doctor['findings']}")
+
+          structural = evaluate_engineering_target(graph, target, core)
+          if structural["status"] != "COMPLETE":
+              raise SystemExit(f"{target} structural closure: {structural}")
+
+          semantic_evaluations, lifecycle = build_strict_semantic_baseline(graph, core)
+          closure = evaluate_semantic_closure(
+              graph=graph,
+              model=core,
+              target=target,
+              skill_registry=registry,
+              semantic_evaluations=semantic_evaluations,
+              lifecycle=lifecycle,
+          )
+          print(f"{target} strict semantic/currentness: {closure['status']}")
+          if closure["status"] != "COMPLETE":
+              raise SystemExit(
+                  f"{target} semantic closure incomplete: "
+                  f"semantic_gaps={closure['semantic_gaps']} "
+                  f"currentness_gaps={closure['currentness_gaps']}"
+              )
+          PY
 
       - name: Publish accepted state to branch
         if: success()
