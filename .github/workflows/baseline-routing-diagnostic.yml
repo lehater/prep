@@ -42,3 +42,18 @@ jobs:
             echo "===== $kind ====="
             PYTHONPATH="$PACK/src" python -m harness.application.skill_router artifact --knowledge-kind "$kind" --root "$PACK"
           done
+
+      - name: Print routed instruction contracts
+        env:
+          PACK: ${{ steps.sync.outputs.pack }}
+        shell: bash
+        run: |
+          for path in \
+            docs/design/agent-instruction-architecture-v0.md \
+            skills/artifacts/concurrency-consistency-design/SKILL.md \
+            skills/artifacts/verification-strategy/SKILL.md \
+            skills/artifacts/system-architecture/SKILL.md \
+            skills/artifacts/data-design/SKILL.md; do
+            echo "===== FILE: $path ====="
+            cat "$PACK/$path"
+          done
