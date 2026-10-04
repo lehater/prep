@@ -1,0 +1,72 @@
+name: Baseline semantic publication revalidation
+
+on:
+  push:
+    branches:
+      - revalidate/baseline-architecture-verification
+    paths:
+      - "tools/revalidate_baseline_publication.py"
+      - ".github/workflows/baseline-publication-revalidation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Harness runtime dependency
+        run: python -m pip install PyYAML==6.0.3
+
+      - name: Sync active Harness Consumer Pack
+        id: sync
+        shell: bash
+        run: |
+          python .harness/harnessw.py sync | tee /tmp/harness-sync.txt
+          PACK="$(tail -n 1 /tmp/harness-sync.txt)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
+
+      - name: Revalidate and build semantic publication
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+        run: python tools/revalidate_baseline_publication.py
+
+      - name: Validate resulting CURRENT-REVALIDATION closure
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+        shell: bash
+        run: |
+          cp .harness/project-publication.next.yaml .harness/project-publication.yaml
+          python tools/full_harness_revalidate.py
+
+      - name: Publish accepted state to branch
+        if: success()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/project-publication.yaml .harness/candidates/system-architecture-exploration.yaml
+          if git diff --cached --quiet; then
+            echo "Publication already current"
+          else
+            git commit -m "Publish baseline architecture and verification semantics"
+            git push origin HEAD:revalidate/baseline-architecture-verification
+          fi
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseline-semantic-revalidation
+          path: |
+            .harness/project-publication.next.yaml
+            .harness/baseline-revalidation-report.yaml
+            .harness/candidates/system-architecture-exploration.yaml
