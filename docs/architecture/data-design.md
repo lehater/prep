@@ -18,40 +18,33 @@ The first version has one user/data scope. Canonical records therefore do not re
 
 ### Knowledge Model
 
-Persist enough accepted semantic representation to preserve:
+Persist:
 
-- `KnowledgeObject` stable semantic identity, accepted subject meaning, optional open `knowledge_form` classification and relevant provenance/support;
-- `KnowledgeProposition` stable identity, predicate/conclusion, participants, conditions and relevant provenance/support.
+- KnowledgeNode stable ID, semantic kind and content;
+- KnowledgeRelation stable ID, type, source KnowledgeNode ID and target KnowledgeNode ID.
 
-Relational Subject Knowledge is persisted as `KnowledgeProposition` meaning rather than as a generic `KnowledgeRelation` edge type. References to proposition participants must resolve to the accepted semantic subjects they identify.
+Relation endpoints must reference existing KnowledgeNodes.
 
 ### Learning Design
 
-Persist enough accepted representation to reconstruct the current reusable preparation semantics, including where applicable:
+Persist:
 
-- `Capability` identity and its PerformanceExpectation, condition space, constitutive constraints, criterion dimensions and direct Knowledge-focus references;
-- reusable or selected `CapabilitySpecification` scope/standard values referenced by targets, support or evidence;
-- `PreparationTarget`, its purpose/context and RequirementExpression structure without flattening `all_of` / `any_of`;
-- current accepted `PreparationPriority` / `PreparationIntent` when the application must preserve preparation direction across restarts;
-- reusable `LearningMaterial`, `LearningSupportRequirement`, `TaskSpecification` and `ObservationSpecification` semantics and their cross-context references.
+- Requirement stable ID and accepted content;
+- RequirementSet stable ID and accepted content;
+- RequirementSet membership edges;
+- Requirement-to-Knowledge alignment edges;
+- Question stable ID, question text and direct answer;
+- Question-to-Knowledge alignment edges;
+- LearningTarget stable ID and accepted target content;
+- Target-to-Requirement/RequirementSet selection edges.
 
-Derived target-relative Gap/state projections do not need to become independent durable truth when they can be recomputed from accepted target requirements and learner evidence/state.
-
-Contextual support fit is not persisted as an intrinsic property of Capability, support or learner. If a concrete selection decision needs durable provenance, store the decision context/reference separately from the reusable support meaning.
-
-`Question` is not a canonical persistence entity. A question/card-like interaction is a runtime/interface projection over accepted Learning Design and Subject Knowledge semantics.
+RequirementSet composition must preserve the accepted acyclicity invariant. Its physical enforcement may combine storage constraints with application transaction validation where a simple declarative database constraint is insufficient.
 
 ### Learner Model
 
-Persist historical `Performance` records with their temporal extent, actual known conditions, attributable actions/traces/work products or expressed reasoning and provenance.
+Persist ReviewObservations as append-oriented historical records attributable to canonical Question ID, including occurred_at, rating, previous_interval, next_interval, duration and review_phase.
 
-Persist `Observation` tokens with their Performance reference, subject attribution, assertion/value, time/provenance and semantic-context references.
-
-Persist accepted `CapabilityEvidenceArgument` and `LearnerCapabilityClaim` records with the exact claim scope, bearing, applicability/coverage/transfer/dependence limits, reasoning, time and provenance needed to reproduce the accepted inference.
-
-Learner state such as demonstrated/challenged/unknown remains a projection over applicable accepted claims and evidence arguments rather than a mutable persisted mastery/state truth.
-
-Accepted historical Performance/Observation/evidence records are not overwritten merely to represent a new current projection.
+Accepted history is not overwritten to represent current inferred state.
 
 ## Cross-model references
 
@@ -83,19 +76,15 @@ Conflicting concurrent updates to the same stable identity must not silently use
 
 ## External learning-system mapping
 
-Persist integration-owned mapping sufficient to reconcile external study-runtime item identifiers with the Prep semantic basis from which the external representation was projected.
+Persist a technical mapping sufficient to reconcile external Anki study/review identifiers to canonical Question IDs.
 
-For Anki this may include note/card identifiers, synchronization cursor/checkpoint data, external item/version identity and references to the applicable accepted semantic basis such as TaskSpecification, ObservationSpecification, LearningMaterial or CapabilitySpecification identities where present.
+The mapping belongs to integration persistence, not Question semantics. External identifiers never replace Prep IDs.
 
-The mapping is integration persistence. An external note/card is not a canonical `Question` entity and its identifier never replaces Prep semantic identity.
-
-Raw runtime telemetry such as rating, interval, duration, scheduling phase or similar scheduler state may be retained as integration-boundary data when needed for synchronization or audit. It becomes canonical `Performance` / `Observation` only when attribution, actual meaning/conditions, time and provenance can be translated faithfully under Learner Model semantics. Otherwise it must remain integration-boundary telemetry and must not be treated as capability evidence.
-
-The first concrete adapter is AnkiConnect. Persist only identifiers, mapping basis and cursor/checkpoint data actually required to reconcile exported runtime representations and avoid replaying the same external record as a new historical event.
+The first concrete adapter is AnkiConnect. Persist only the Anki note/card identifiers and synchronization cursor/checkpoint data actually required to reconcile exported Questions and ingest review history without replaying the same event as a new observation.
 
 Endpoint, bind address, port and API key are deployment configuration and are not canonical learning data.
 
-The exact identifier/cursor representation remains an implementation decision constrained by the external-runtime adapter contract.
+The exact identifier/cursor representation remains an implementation decision constrained by the AnkiConnect adapter contract.
 
 ## Bulk outcome durability
 
