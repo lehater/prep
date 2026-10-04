@@ -58,10 +58,12 @@ jobs:
             cat "$PACK/$path"
           done
 
-      - name: Inspect method registry for decision exploration
+      - name: Load explicitly required decision explorer agent skill
         env:
           PACK: ${{ steps.sync.outputs.pack }}
         shell: bash
         run: |
-          echo "===== METHOD REGISTRY ====="
-          cat "$PACK/skills/method-skill-registry-v0.yaml"
+          SKILL="$(find "$PACK/skills" -type f -path '*/decision-explorer/SKILL.md' -print -quit)"
+          test -n "$SKILL"
+          echo "===== DECISION EXPLORER: $SKILL ====="
+          cat "$SKILL"
