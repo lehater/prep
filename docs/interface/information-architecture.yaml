@@ -36,7 +36,7 @@ locations:
 
   - id: LOC-KNOWLEDGE
     label: Knowledge
-    purpose: Orient within reusable Subject Knowledge relevant to the active target/focus, including semantic relationships and overview-to-detail scope.
+    purpose: Orient within reusable Subject Knowledge relevant to the active target/focus or a selected Required Capability, including semantic relationships and overview-to-detail scope.
     conceptual_refs: [C-KNOWLEDGE, C-KNOWLEDGE-SCOPE, C-REQUIRED-CAPABILITY]
     task_refs: [TASK-U-EXPLORE-KNOWLEDGE]
     journey_refs: [J-KNOWLEDGE-ORIENTATION]
@@ -79,13 +79,13 @@ context_scopes:
     applies_to: [LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES, LOC-EVIDENCE-CHANGES, LOC-PREPARE-SUPPORT]
 
   - id: SCOPE-KNOWLEDGE
-    meaning: Knowledge scope/depth is local exploration state under LOC-KNOWLEDGE and does not become global product state or mutate Knowledge identity.
+    meaning: Knowledge scope/depth is local exploration state under LOC-KNOWLEDGE; it may be anchored by a selected Required Capability and its direct Knowledge focus, and applying/clearing that criterion does not become global product state or mutate Knowledge/Capability identity.
     conceptual_refs: [C-KNOWLEDGE-SCOPE]
     applies_to: [LOC-KNOWLEDGE]
 
 cross_links:
   - {from: LOC-TARGET, to: LOC-CURRENT-POSITION, rationale: Assess the learner against the currently understood target requirements.}
-  - {from: LOC-TARGET, to: LOC-KNOWLEDGE, rationale: Inspect Subject Knowledge that a required PerformanceExpectation directly focuses on; this is a cross-context reference, not a Subject Knowledge predicate or learner-state claim.}
+  - {from: LOC-TARGET, to: LOC-KNOWLEDGE, rationale: Inspect Subject Knowledge for a required Capability; entry may carry that Capability as the initial Knowledge-scope criterion anchored by its direct Knowledge focus. This is a contextual projection, not a Subject Knowledge predicate or learner-state claim.}
   - {from: LOC-CURRENT-POSITION, to: LOC-EVIDENCE-CHANGES, rationale: Inspect why a demonstrated/challenged/unknown conclusion is justified or limited.}
   - {from: LOC-CURRENT-POSITION, to: LOC-KNOWLEDGE, rationale: Orient in subject meaning relevant to a gap or current focus.}
   - {from: LOC-CURRENT-POSITION, to: LOC-ACTIVITIES, rationale: Act on the selected PreparationIntent.}

@@ -24,7 +24,7 @@ Application Design defines the work units that Process capabilities may coordina
 | `APP-REVIEW-CURRENT-STATE` | materialization/query | `TASK-U-REVIEW-CURRENT-STATE` | claims, evidence arguments, Observations, applicability limits | none | demonstrated/challenged/unknown projection with inspectable basis |
 | `APP-REVIEW-GAPS` | materialization/query | `TASK-U-REVIEW-GAPS` | target requirements plus current learner-state projection | none | satisfied/challenged/unresolved fragments and Gap basis |
 | `APP-CHOOSE-NEXT-FOCUS` | command | `TASK-U-CHOOSE-NEXT-FOCUS` | gaps/uncertainty, target relevance, explicit external constraints, support availability | PreparationIntent / priority through Learning Design owner | explicit current focus with rationale |
-| `APP-EXPLORE-KNOWLEDGE` | materialization/query | `TASK-U-EXPLORE-KNOWLEDGE` | KnowledgeObjects, KnowledgePropositions, relation predicates, semantic scope/depth and permitted target/focus refs | none | semantic overview/detail projection independent of presentation form |
+| `APP-EXPLORE-KNOWLEDGE` | materialization/query | `TASK-U-EXPLORE-KNOWLEDGE` | KnowledgeObjects, KnowledgePropositions, relation predicates, semantic scope/depth, permitted target/focus refs and optional Required Capability with direct Knowledge-focus anchors | none | semantic overview/detail projection optionally bounded by a selected Required Capability, independent of presentation form |
 | `APP-SELECT-SUPPORT` | materialization/query | `TASK-U-SELECT-SUPPORT` | PreparationIntent, CapabilitySpecification, LearningMaterial, LearningSupportRequirement, TaskSpecification, ObservationSpecification | none | applicable support options and explicit inadequacy/limitations |
 | `APP-PERFORM-ACTIVITY` | orchestration operation | `TASK-U-PERFORM-ACTIVITY` | selected support and correlation context | no learner-state write; delegates local/external execution | activity attempt context and, when observable, input for Performance capture |
 | `APP-CAPTURE-PERFORMANCE` | command | `TASK-S-CAPTURE-PERFORMANCE` | attributable actions/work product/reasoning, conditions, time, provenance | Performance and Observation through Learner Evidence & State owner | historical facts or explicit unresolved integration-boundary result |
@@ -44,6 +44,8 @@ Application Design defines the work units that Process capabilities may coordina
 ## Operation-local semantic constraints
 
 `APP-EVALUATE-EVIDENCE` consumes accepted attributable Observations; it cannot infer capability first and backfill observations later. `APP-REVIEW-CHANGE` consumes a completed evidence/target-relative projection rather than manufacturing progress. Target-information changes are classified separately from learner evidence.
+
+`APP-EXPLORE-KNOWLEDGE` may use a selected Required Capability as a reversible scope criterion. Its direct Knowledge focus supplies scope anchors; bounded expansion follows accepted Knowledge relation/scope semantics. This projection never turns the Capability-to-Knowledge relation into Subject Knowledge truth and never mutates either owner.
 
 `APP-PREPARE-SUPPORT` may return independently accepted owner-scoped results plus unresolved/rejected remainder. This is an operation outcome contract, not a process-wide transaction or rollback rule.
 

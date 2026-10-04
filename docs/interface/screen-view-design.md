@@ -26,7 +26,7 @@ views:
       - {id: target-context, role: input-and-context, priority: primary, content: [target/source context, purpose, uncertainty]}
       - {id: target-requirements, role: requirement-detail, priority: primary, content: [RequirementExpression, required Capability performance, conditions, quality, direct Knowledge focus per PerformanceExpectation]}
       - {id: target-provenance, role: supporting-detail, priority: secondary, content: [provenance, unresolved expectations]}
-      - {id: target-actions, role: actions, priority: primary, content: [establish/refine Target, inspect requirements, inspect required Knowledge focus, request missing support]}
+      - {id: target-actions, role: actions, priority: primary, content: [establish/refine Target, inspect requirements, inspect required Knowledge focus, explore Knowledge scoped to a selected Required Capability, request missing support]}
     reads: [prep.target.requirements.get]
     commands: [prep.target.establish, prep.support.prepare.request]
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-OUTCOME]
@@ -61,9 +61,9 @@ views:
     topology_ref: VIEW-KNOWLEDGE
     interaction_refs: [IX-KNOWLEDGE]
     regions:
-      - {id: knowledge-query, role: query-controls, priority: supporting, content: [query, semantic scope, relation filters when backed]}
+      - {id: knowledge-query, role: query-controls, priority: supporting, content: [query, semantic scope, optional Required Capability filter, visible Capability-derived scope basis, clear-filter action, relation filters when backed]}
       - {id: knowledge-results, role: task-complete-nonspatial-results, priority: primary, content: [bounded Knowledge results, relation text/structure]}
-      - {id: relationship-overview, role: optional-spatial-overview, priority: primary, content: [2D node-link overview for current semantic scope]}
+      - {id: relationship-overview, role: optional-spatial-overview, priority: primary, content: [2D node-link overview bounded to current semantic scope including selected Required Capability scope when active]}
       - {id: knowledge-detail, role: selected-detail, priority: supporting, content: [Knowledge meaning, proposition/relationship detail]}
     reads: [prep.knowledge.query]
     commands: []

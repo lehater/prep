@@ -104,10 +104,10 @@ These journeys describe meaningful user actions, visible system responses, recov
 
 ### Meaningful interactions
 
-1. The learner requests subject orientation for the active target or focus.
-2. The system performs `APP-EXPLORE-KNOWLEDGE` over stable KnowledgeObjects, KnowledgePropositions and meaningful relation predicates.
-3. The learner narrows or expands semantic scope, moves between overview and deeper detail, selects Knowledge and follows meaningful relationships.
-4. The system preserves Knowledge identity and relation meaning across scope/depth changes and keeps target/focus relevance external to reusable Knowledge truth.
+1. The learner requests subject orientation for the active target/focus or selects one Required Capability whose supporting Knowledge they want to inspect.
+2. The system performs `APP-EXPLORE-KNOWLEDGE` over stable KnowledgeObjects, KnowledgePropositions and meaningful relation predicates; when Capability scope is selected, its direct Knowledge focus supplies the scope anchors.
+3. The learner narrows or expands semantic scope, including applying or clearing the Required Capability criterion, moves between overview and deeper detail, selects Knowledge and follows meaningful relationships.
+4. The system bounds results/relationship projection to the selected Capability-derived scope and any accepted semantic expansion while preserving Knowledge identity and relation meaning; the filter is contextual projection state, not reusable Knowledge truth.
 5. The learner returns to preparation with enough subject context to understand or perform the next learning/diagnostic work.
 
 **Completion:** the learner has coherent orientation in the relevant subject scope and can inspect the meaning of material relationships.
@@ -117,7 +117,7 @@ These journeys describe meaningful user actions, visible system responses, recov
 ### Alternate / recovery paths
 
 - Sparse or missing useful Knowledge remains an explicit preparation limitation and may lead to **J-PREPARE-SUPPORT**.
-- Changing scope/depth does not mutate or clone Knowledge.
+- Changing scope/depth or applying/clearing a Required Capability filter does not mutate or clone Knowledge or Capability.
 - Representation choice is downstream; the journey does not require graph, list, 2D or 3D.
 
 **Upstream:** `TASK-U-EXPLORE-KNOWLEDGE`, `APP-EXPLORE-KNOWLEDGE`, `AD-WRITE-OWNERSHIP`.

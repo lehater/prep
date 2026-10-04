@@ -35,7 +35,7 @@ semantic_assertions:
   - id: IA-LOC-KNOWLEDGE
     kind: information-location
     subject: knowledge-location
-    semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context."
+    semantic_value: "Knowledge is an independently findable conceptual location for Subject Knowledge orientation, relationship meaning and overview-to-detail scope under target/focus context, optionally bounded by a selected Required Capability."
     derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE, UJ-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -77,8 +77,8 @@ semantic_assertions:
   - id: IA-SCOPE-KNOWLEDGE
     kind: information-scope
     subject: knowledge-exploration-scope
-    semantic_value: "Knowledge scope/depth is local exploration state under Knowledge and never becomes global truth or Knowledge identity."
-    derived_from: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE]
+    semantic_value: "Knowledge scope/depth is local exploration state under Knowledge; a selected Required Capability may anchor that scope through its direct Knowledge focus, and applying/clearing the criterion never becomes global truth or Knowledge/Capability identity."
+    derived_from: [CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE, CIM-REL-CAPABILITY-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-STRUCTURE

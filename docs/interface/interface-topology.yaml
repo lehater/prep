@@ -32,7 +32,7 @@ views:
 
   - id: VIEW-KNOWLEDGE
     structural: false
-    responsibility: Orient within target/focus-relevant Subject Knowledge and semantic relationships.
+    responsibility: Orient within target/focus-relevant Subject Knowledge and semantic relationships, optionally bounded by a selected Required Capability.
     ia_location_ref: LOC-KNOWLEDGE
     interaction_context_refs: [IX-KNOWLEDGE]
     parent: FRAME-PREPARATION
@@ -74,7 +74,7 @@ navigation_contracts:
   - id: TOP-PREP-RETURN
     rule: VIEW-PREPARE-SUPPORT is contextual rather than primary global navigation; it preserves an originating view/context and returns there after review of accepted support/remainder.
   - id: TOP-DIRECT-LINK
-    rule: Direct links preserve referenced target/focus/knowledge/evidence identity where valid, but never silently create missing semantic context.
+    rule: Direct links preserve referenced target/focus/knowledge/evidence identity where valid; Target-to-Knowledge entry may additionally preserve a selected Required Capability as local Knowledge-scope context, but no link silently creates missing semantic context.
 
 coverage:
   user_tasks:

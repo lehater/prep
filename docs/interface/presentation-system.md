@@ -27,7 +27,8 @@ Canonical requirements:
 - inspectable relationship meaning/direction;
 - an optional 2D node-link overview for relationship orientation on capable surfaces;
 - equivalent non-spatial traversal/inspection for every task-critical Knowledge action;
-- target/focus relevance may identify Knowledge reached from a required Capability's direct focus, but does not require inverse Knowledge-to-Capability browsing or turn the focus into a Subject Knowledge predicate.
+- a Required Capability is an explicit optional Knowledge-scope control: selecting it visibly limits results/relationship overview to the Capability-derived scope anchored by direct Knowledge focus; clearing it restores broader target/focus scope;
+- capability-derived scope does not require inverse Knowledge-to-Capability browsing or turn the focus relation into a Subject Knowledge predicate.
 
 The 2D overview is presentation state only. Node position, edge geometry, zoom, pan and focus camera state are not Knowledge semantics.
 
@@ -81,7 +82,8 @@ Shows current Target and optional Next focus with explicit change/recovery actio
 
 For Knowledge and other inspectable collections:
 
-- query/scope controls;
+- query/scope controls including an explicit optional Required Capability filter;
+- visible active scope basis and a clear-filter action;
 - bounded result set;
 - selected detail;
 - optional relationship overview when semantically useful.

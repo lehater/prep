@@ -49,44 +49,44 @@ reviews:
     basis: "Revalidated for current-state, diagnostics and progress views: evidence-backed claims and supporting/challenging arguments remain the only accepted basis for learner-state conclusions; missing evidence remains uncertainty."
 
   - capability: prep.application-design
-    revision: 9
-    basis: "Learner-facing missing-preparation recovery is now separated from Curation mechanics: learners request/accept prepared support or explicitly self-curate, while bulk/incremental/import decisions remain curator/operator responsibilities by default."
+    revision: 10
+    basis: "APP-EXPLORE-KNOWLEDGE now materializes optional Capability-bounded Knowledge scope from direct Knowledge-focus anchors plus accepted semantic expansion while preserving owner boundaries."
 
   - capability: prep.task-model
-    revision: 13
-    basis: "UMC-05 traceability now matches the naturalistic scope change: TASK-L-OBTAIN-PREPARATION-SUPPORT models the learner job, while GOAL-BOOTSTRAP-AND-CURATE-CORPUS is explicitly curator/operator context and schema/import/repair work is opt-in for self-curating learners."
+    revision: 14
+    basis: "Knowledge exploration now treats a selected Required Capability as an explicit reversible scope criterion anchored by its direct Knowledge focus, allowing the learner to isolate capability-relevant Knowledge without changing Knowledge identity."
 
   - capability: prep.user-journeys
-    revision: 10
-    basis: "Empty-system recovery now follows the learner task TASK-L-OBTAIN-PREPARATION-SUPPORT and keeps corpus/import repair inside curator/operator Curation unless self-curation is explicitly selected, eliminating the remaining learner-corpus-ownership contradiction."
+    revision: 11
+    basis: "Knowledge orientation now supports selecting or clearing a Required Capability as the active Knowledge-scope criterion and preserves that filter as projection state rather than reusable Knowledge truth."
 
   - capability: prep.conceptual-interface-model
-    revision: 5
-    basis: "Conceptual interface now exposes target purpose, related-target context without requirement inheritance, learner-facing PREPARATION-NEED and a progress distinction between learner-state change and target refinement."
+    revision: 6
+    basis: "Knowledge scope may now be anchored by a selected Required Capability through the existing Capability-to-Knowledge focus relation; the relationship remains cross-context and does not redefine Knowledge or Capability."
 
   - capability: prep.information-architecture
-    revision: 8
-    basis: "Revalidated Capability→Knowledge placement: Target owns forward inspection of direct Knowledge focus, Knowledge remains independently findable, and inverse Knowledge→Capability browsing is not required by the current Task Model."
+    revision: 9
+    basis: "LOC-KNOWLEDGE and local Knowledge scope now explicitly support a selected Required Capability as a reversible scope criterion carried from Target or Current context."
 
   - capability: prep.machine-interfaces
-    revision: 6
-    basis: "Machine contract now exposes direct Knowledge focus in target requirements, complete pre-focus decision context through gaps.get, and inspectable CapabilitySpecification/condition support-fit basis without adding a circular support query."
+    revision: 7
+    basis: "prep.knowledge.query now accepts optional required_capability_ref and returns the Capability-derived scope basis/Knowledge-focus anchors without exposing presentation coordinates or inverse capability browsing."
 
   - capability: prep.interaction-design
-    revision: 9
-    basis: "Interaction now makes required Knowledge focus inspectable from Target requirements, exposes explicit pre-focus decision context and support-fit inspection, while keeping inverse Knowledge→Capability browsing out of scope."
+    revision: 10
+    basis: "Knowledge interaction now exposes apply/clear Required Capability scope, bounding the Knowledge projection from direct focus anchors while retaining target/focus context and reversible scope semantics."
 
   - capability: prep.interface-topology
-    revision: 9
-    basis: "Preparation-path selection now has a dedicated non-structural C-01-PREPARATION-PATH view under the structural Curation frame, satisfying task/view closure without putting task interaction semantics on a structural container."
+    revision: 10
+    basis: "VIEW-KNOWLEDGE may carry a selected Required Capability as local scope context and Target-to-Knowledge entry preserves that criterion without introducing a separate Capabilities view."
 
   - capability: prep.presentation-system
-    revision: 12
-    basis: "Presentation rules now preserve direct Capability→Knowledge focus in Target requirement inspection, focus-decision context in state/basis presentation and support-fit basis before activity selection."
+    revision: 13
+    basis: "Knowledge presentation now requires an explicit optional Required Capability scope control with visible active scope basis, clear-filter action and scope-bounded result/relationship presentation."
 
   - capability: prep.screen-view-design
-    revision: 12
-    basis: "Screen contracts now materialize direct Knowledge focus in Target, pre-focus rationale/constraints/support availability in Current, support-fit basis in Activity and learner-evidence versus target-information change in Evidence."
+    revision: 13
+    basis: "VIEW-TARGET can enter Knowledge scoped to a Required Capability and VIEW-KNOWLEDGE exposes the Capability filter, visible scope basis, clear action and scope-bounded relationship overview."
 
   - capability: prep.import-consistency
     revision: 3

@@ -61,7 +61,7 @@ semantic_assertions:
   - id: UJ-KNOWLEDGE
     kind: user-journey
     subject: J-KNOWLEDGE-ORIENTATION
-    semantic_value: "Learner narrows/expands semantic scope, moves between overview and detail, selects Subject Knowledge and follows meaningful relations for target/focus orientation without conflating Knowledge with Capability or learner state."
+    semantic_value: "Learner may select a Required Capability as a Knowledge-scope criterion, then narrows/expands semantic scope, moves between overview and detail, selects Subject Knowledge and follows meaningful relations while the Capability filter remains a reversible projection rather than Knowledge truth."
     derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
     decision_authority: APPLICATION-DESIGN
 
@@ -75,7 +75,7 @@ semantic_assertions:
   - id: UJ-KNOWLEDGE-OUTCOME
     kind: journey-outcome
     subject: J-KNOWLEDGE-ORIENTATION
-    semantic_value: "Journey completes when the learner has coherent subject orientation and can inspect the meaning of material relationships in the relevant scope."
+    semantic_value: "Journey completes when the learner has coherent subject orientation, can isolate the Knowledge relevant to a selected Required Capability when useful, and can inspect the meaning of material relationships in the resulting scope."
     derived_from: [TM-OUTCOME-EXPLORE-KNOWLEDGE]
     decision_authority: APPLICATION-DESIGN
 

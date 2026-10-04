@@ -79,13 +79,13 @@ tasks:
   - id: TASK-U-EXPLORE-KNOWLEDGE
     goal_ref: GOAL-PREPARE-FOR-TARGET
     responsibility: USER
-    description: "Orient within Subject Knowledge relevant to the active target or focus, inspect meaningful relationships, and move between scope and depth without confusing knowledge with capability."
+    description: "Orient within Subject Knowledge relevant to the active target, a selected required capability, or current focus; inspect meaningful relationships and move between scope and depth without confusing knowledge with capability."
     depends_on: [TASK-U-UNDERSTAND-REQUIREMENTS]
     upstream_refs: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
-    required_information: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, and target/focus relevance where provided by upstream semantics."
-    decision_or_input: "Narrow or expand scope, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
-    expected_outcome: "The learner gains coherent subject orientation while Knowledge identity remains independent of learner state, target, capability, and presentation."
-    required_system_support: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; presentation may be graph or non-graph and must preserve semantic access."
+    required_information: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, target/focus relevance, and direct Knowledge focus of a selected Required Capability where applicable."
+    decision_or_input: "Narrow or expand scope by meaningful criteria including a selected Required Capability, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
+    expected_outcome: "The learner gains coherent subject orientation and can isolate Knowledge relevant to a selected Required Capability while Knowledge identity remains independent of learner state, target, capability, and presentation."
+    required_system_support: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; allow Required Capability to act as a reversible Knowledge-scope criterion anchored by its direct Knowledge focus, with bounded semantic expansion, without mutating Knowledge or Capability meaning."
     recovery: "If a richer visualization is unavailable or unusable, retain task-complete semantic access through another representation without changing Knowledge meaning."
 
   - id: TASK-U-SELECT-SUPPORT

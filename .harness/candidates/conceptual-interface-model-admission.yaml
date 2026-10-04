@@ -45,7 +45,7 @@ semantic_assertions:
   - id: CIM-KNOWLEDGE-SCOPE
     kind: interface-concept
     subject: knowledge-scope
-    semantic_value: "Knowledge scope is a contextual overview/detail projection over stable Knowledge; representation dimensionality is not conceptual truth."
+    semantic_value: "Knowledge scope is a contextual overview/detail projection over stable Knowledge and may be anchored by a selected Required Capability's direct Knowledge focus; representation dimensionality is not conceptual truth."
     derived_from: [KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -150,7 +150,7 @@ semantic_assertions:
   - id: CIM-REL-CAPABILITY-KNOWLEDGE
     kind: interface-concept-relationship
     subject: capability-to-knowledge
-    semantic_value: "Required performance may focus on Subject Knowledge while Knowledge remains reusable subject truth rather than ability/state."
+    semantic_value: "Required performance may focus on Subject Knowledge; selecting that Required Capability may use its direct Knowledge focus as anchors for a reversible bounded Knowledge scope while Knowledge remains reusable subject truth rather than ability/state."
     derived_from: [LD-KNOWLEDGE-FOCUS, KM-CROSS-CONTEXT-BOUNDARY]
     decision_authority: HUMAN-INTERFACE-DESIGN
 

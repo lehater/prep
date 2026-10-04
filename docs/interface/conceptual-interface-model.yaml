@@ -41,7 +41,7 @@ concepts:
 
   - id: C-KNOWLEDGE-SCOPE
     label: Knowledge scope
-    meaning: The currently considered projection of relevant Subject Knowledge, with overview-to-detail movement and meaningful relationship context.
+    meaning: The currently considered projection of relevant Subject Knowledge, optionally anchored by a selected Required Capability's direct Knowledge focus, with overview-to-detail movement and meaningful relationship context.
     upstream_refs: [KM-SCOPE-OVERVIEW-DEPTH, KM-RELATIONAL-PROPOSITION, KM-GRAPH-IS-PROJECTION, UJ-KNOWLEDGE]
     user_must_distinguish_from: [C-TARGET, C-NEXT-FOCUS]
 
@@ -147,6 +147,7 @@ conceptual_relationships:
   - {from: C-GAP, relation: informed-by, to: C-CURRENT-STATE, meaning: Current evidence-backed state determines which target requirements are satisfied, challenged or unresolved.}
   - {from: C-NEXT-FOCUS, relation: addresses, to: C-GAP, meaning: The current PreparationIntent selects target-relative gaps/uncertainty to address with explicit rationale.}
   - {from: C-KNOWLEDGE-SCOPE, relation: projects, to: C-KNOWLEDGE, meaning: Scope/overview/depth are contextual projections over stable reusable Knowledge.}
+  - {from: C-REQUIRED-CAPABILITY, relation: may-anchor, to: C-KNOWLEDGE-SCOPE, meaning: Selecting a Required Capability may anchor Knowledge scope in the Knowledge directly focused by its PerformanceExpectations; bounded expansion follows accepted Knowledge relation/scope semantics and does not redefine either Capability or Knowledge.}
   - {from: C-SUPPORT, relation: intended-for, to: C-NEXT-FOCUS, meaning: Support is selected for the current preparation intent/capability context.}
   - {from: C-ACTIVITY, relation: uses, to: C-SUPPORT, meaning: An activity instantiates or uses selected support.}
   - {from: C-ACTIVITY, relation: may-produce, to: C-EVIDENCE, meaning: Actual attributable performance may yield observations, but activity completion alone is not evidence of capability.}

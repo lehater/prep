@@ -40,18 +40,19 @@ contexts:
     recovery: STALE_BASIS refreshes the visible basis before reconsideration; rejected/unavailable focus changes preserve the inspected gap and user rationale.
 
   - id: IX-KNOWLEDGE
-    purpose: Orient within relevant reusable Subject Knowledge while retaining target/focus context.
+    purpose: Orient within relevant reusable Subject Knowledge while retaining target/focus context and optionally bounding exploration by a selected Required Capability.
     task_refs: [TASK-U-EXPLORE-KNOWLEDGE]
     concept_refs: [C-KNOWLEDGE, C-KNOWLEDGE-SCOPE, C-REQUIRED-CAPABILITY, C-NEXT-FOCUS]
     actions:
       - query-knowledge
       - narrow-or-expand-scope
+      - apply-or-clear-required-capability-scope
       - select-knowledge
       - follow-meaningful-relation
       - move-between-overview-and-detail
     machine_operations: [prep.knowledge.query]
     states: [loading, empty, ready, selected, dependency-unavailable]
-    focus_semantics: Selection reveals meaning/detail without silently changing target/focus or Knowledge identity; scope changes are reversible projections. Target/focus relevance may reflect a Required Capability's direct Knowledge focus, but inverse Knowledge-to-Capability browsing is not required by the current task model.
+    focus_semantics: Selection reveals meaning/detail without silently changing target/focus or Knowledge identity; scope changes are reversible projections. A selected Required Capability may bound the Knowledge projection using its direct Knowledge focus as anchors plus accepted bounded semantic expansion. Clearing the filter restores the broader target/focus scope. This does not require inverse Knowledge-to-Capability browsing.
     recovery: Query/unavailable outcomes preserve target/focus and current semantic scope.
     accessibility: Every task-critical inspect/traverse action has a non-spatial keyboard-operable path; graph/direct-manipulation is optional downstream presentation.
 

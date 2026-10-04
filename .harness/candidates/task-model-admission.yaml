@@ -313,7 +313,7 @@ semantic_assertions:
   - id: TM-TASK-EXPLORE-KNOWLEDGE
     kind: task
     subject: TASK-U-EXPLORE-KNOWLEDGE
-    semantic_value: "Orient within Subject Knowledge relevant to the active target or focus, inspect meaningful relationships, and move between scope and depth without confusing knowledge with capability."
+    semantic_value: "Orient within Subject Knowledge relevant to the active target, a selected Required Capability or current focus; inspect meaningful relationships and move between scope and depth without confusing Knowledge with Capability."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
@@ -334,28 +334,28 @@ semantic_assertions:
   - id: TM-INFO-EXPLORE-KNOWLEDGE
     kind: task-information
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, and target/focus relevance where provided by upstream semantics."
+    semantic_value: "Relevant KnowledgeObjects, KnowledgePropositions, relation predicate meaning/direction, current semantic scope, surrounding context, target/focus relevance and direct Knowledge focus of a selected Required Capability where applicable."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-DECISION-EXPLORE-KNOWLEDGE
     kind: task-decision-input
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Narrow or expand scope, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
+    semantic_value: "Narrow or expand scope by meaningful criteria including a selected Required Capability, move between overview and detail, select Knowledge, and inspect meaningful relationships needed for orientation or learning."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-OUTCOME-EXPLORE-KNOWLEDGE
     kind: task-outcome
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "The learner gains coherent subject orientation while Knowledge identity remains independent of learner state, target, capability, and presentation."
+    semantic_value: "The learner gains coherent subject orientation and can isolate Knowledge relevant to a selected Required Capability while Knowledge identity remains independent of learner state, target, capability and presentation."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
   - id: TM-SUPPORT-EXPLORE-KNOWLEDGE
     kind: task-system-support
     subject: TM-TASK-EXPLORE-KNOWLEDGE
-    semantic_value: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; presentation may be graph or non-graph and must preserve semantic access."
+    semantic_value: "Provide inspectable overview/detail and relationship semantics over stable Knowledge; a Required Capability may act as a reversible Knowledge-scope criterion anchored by its direct Knowledge focus with bounded semantic expansion, without mutating Knowledge or Capability meaning."
     derived_from: [REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH, KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-SCOPE-OVERVIEW-DEPTH, KM-GRAPH-IS-PROJECTION, LD-KNOWLEDGE-FOCUS]
     decision_authority: APPLICATION-DESIGN
 
