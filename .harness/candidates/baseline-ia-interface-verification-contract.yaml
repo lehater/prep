@@ -1,10 +1,10 @@
 version: 1
 kind: harness-semantic-derivation-contract
-source_capability: prep.machine-interfaces
-target_capability: prep.import-consistency
+source_capability: prep.information-architecture
+target_capability: prep.interface-verification
 obligations:
   - id: source-surface
-    source_kind: machine-outcome
+    source_kind: information-location
     min_count: 1
     allow_not_applicable: true
 lifecycle_dependency:
