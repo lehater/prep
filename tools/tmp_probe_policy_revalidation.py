@@ -108,6 +108,10 @@ def select_contract(key,rows,previous,graph,source,candidate,evidence):
     prev=set(previous.get("required_sources",[]) or [])
     comp=[(p,e) for p,e in acc if set(e.get("required_sources",[]) or [])==prev]
     if len(comp)==1:return comp[0][1]
+    if len(comp)>1:
+        normalized={yaml.safe_dump(e,sort_keys=True,allow_unicode=True) for _,e in comp}
+        if len(normalized)==1:return comp[0][1]
+        raise RuntimeError(f"ambiguous current derivation contracts {key}: {[str(p) for p,_ in comp]}")
     if len(acc)==1:return acc[0][1]
     raise RuntimeError(f"derivation contract {key}: {[str(p) for p,_ in acc]}")
 
