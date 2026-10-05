@@ -1,0 +1,105 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-SYSTEM-ARCHITECTURE
+capability: prep.frontend-system-architecture
+path: docs/architecture/frontend-system-architecture.md
+changed_paths: [docs/architecture/frontend-system-architecture.md]
+canonical_references:
+  - {artifact: FRONTEND-SYSTEM-ARCHITECTURE, referenced_path: docs/application/application-design.md}
+  - {artifact: FRONTEND-SYSTEM-ARCHITECTURE, referenced_path: docs/interface/presentation-system.md}
+  - {artifact: FRONTEND-SYSTEM-ARCHITECTURE, referenced_path: docs/interface/screen-view-design.md}
+  - {artifact: FRONTEND-SYSTEM-ARCHITECTURE, referenced_path: docs/interface/machine-interface.md}
+  - {artifact: FRONTEND-SYSTEM-ARCHITECTURE, referenced_path: docs/architecture/performance-capacity.md}
+decision_review:
+  axes:
+    - axis: runtime-boundaries
+      decisions:
+        - id: browser-runtime-count
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: single-browser-runtime, state: VIABLE}
+            - {id: learner-curation-split, state: REJECTED, rationale: "No accepted learner-visible Curation runtime exists in the current Task/Topology/Machine contracts."}
+            - {id: feature-runtime-split, state: REJECTED, rationale: "No accepted independent-runtime driver justifies microfrontend boundaries."}
+          disposition: DETERMINED
+          selected: single-browser-runtime
+    - axis: deployment-topology
+      decisions:
+        - id: frontend-deployable-count
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: single-frontend-deployable, state: VIABLE}
+            - {id: split-frontend-deployables, state: REJECTED, rationale: "No accepted independent deployment/scaling driver exists inside the frontend."}
+          disposition: DETERMINED
+          selected: single-frontend-deployable
+    - axis: interaction-model
+      decisions:
+        - id: frontend-machine-interaction
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: consumer-owned-async-ports, state: VIABLE}
+            - {id: frontend-event-bus, state: REJECTED, rationale: "No fanout/ordering driver requires a general frontend event bus."}
+            - {id: direct-provider-calls, state: REJECTED, rationale: "Would leak provider/transport contracts into task features."}
+          disposition: DETERMINED
+          selected: consumer-owned-async-ports
+    - axis: state-placement
+      decisions:
+        - id: canonical-state-placement
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: external-canonical-local-ephemeral, state: VIABLE}
+            - {id: browser-canonical-store, state: REJECTED, rationale: "Canonical Target/Knowledge/learner truth remains outside the frontend."}
+          disposition: DETERMINED
+          selected: external-canonical-local-ephemeral
+    - axis: dependency-direction
+      decisions:
+        - id: frontend-dependency-direction
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: ports-inward-adapters-outward, state: VIABLE}
+            - {id: features-to-adapters, state: REJECTED, rationale: "Would couple task features to concrete providers."}
+            - {id: provider-owned-general-client, state: REJECTED, rationale: "Would shape frontend contracts around provider resources rather than consumer tasks."}
+          disposition: DETERMINED
+          selected: ports-inward-adapters-outward
+    - axis: failure-isolation
+      decisions:
+        - id: frontend-failure-containment
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: task-local-failure-with-context, state: VIABLE}
+            - {id: app-wide-fail-fast, state: REJECTED, rationale: "Localized provider/query/renderer failures must not destroy independent preparation context."}
+          disposition: DETERMINED
+          selected: task-local-failure-with-context
+semantic_assertions:
+  - id: FSA-RUNTIME
+    kind: architecture-boundary
+    subject: frontend-runtime-and-deployable
+    semantic_value: One browser runtime and one frontend deployable compose the accepted learner preparation views; no Curation or feature-specific runtime boundary is required.
+    derived_from: [AD-RUNTIME-TIMING-FREEDOM, PS-FREEDOMS, SV-NO-IMPLEMENTATION, MI-NO-LEAK, QD-SEMANTIC-PRESERVATION]
+    decision_authority: SYSTEM-ARCHITECTURE
+  - id: FSA-FEATURES
+    kind: architecture-boundary
+    subject: task-feature-boundaries
+    semantic_value: Frontend modules follow Targets, Target, Current Position, Knowledge, Activity, Evidence & Change and Preparation Support responsibilities rather than backend resources or obsolete Curation/Progress/Diagnostics modes.
+    derived_from: [PS-TASK-HIERARCHY, SV-FRAME, SV-TARGETS, SV-TARGET, SV-CURRENT, SV-KNOWLEDGE, SV-ACTIVITY, SV-EVIDENCE, SV-PREP-SUPPORT]
+    decision_authority: SYSTEM-ARCHITECTURE
+  - id: FSA-DEPENDENCY
+    kind: architecture-dependency
+    subject: consumer-owned-ports
+    semantic_value: Task features depend inward on narrow consumer-owned ports; mock, transport and optional spatial providers implement those contracts without leaking provider DTOs or renderer types.
+    derived_from: [SV-NO-IMPLEMENTATION, MI-NO-LEAK, QD-GRAPH-CONDITIONAL]
+    decision_authority: SYSTEM-ARCHITECTURE
+  - id: FSA-STATE
+    kind: architecture-state-placement
+    subject: canonical-state-outside-frontend
+    semantic_value: Canonical Target, Knowledge, learner and application truth stays outside the frontend; the browser owns only active Target/focus continuity, transient interaction state and caches.
+    derived_from: [PS-PATTERN-CONTEXT, MI-BASIS, MI-NO-LEAK]
+    decision_authority: SYSTEM-ARCHITECTURE
+  - id: FSA-FAILURE
+    kind: architecture-failure-isolation
+    subject: task-local-recovery
+    semantic_value: Provider and optional renderer failures are isolated to affected task capabilities while accepted context and the nonspatial Knowledge path remain recoverable.
+    derived_from: [PS-OUTCOMES, QD-SEMANTIC-PRESERVATION, QD-GRAPH-CONDITIONAL]
+    decision_authority: SYSTEM-ARCHITECTURE
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, architecture-not-product-requirement, dependency-topology-explicit-where-material]
