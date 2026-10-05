@@ -1,4 +1,4 @@
-name: temporary decision exploration contract
+name: temporary decision explorer skill
 
 on:
   push:
@@ -19,14 +19,19 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect current request and exploration contracts
+      - name: Read decision explorer skill and domain-model contract
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          echo "=== decision explorer request source ==="
-          sed -n '1,320p' src/harness/application/decision_explorer_request.py
-          echo "=== decision exploration evaluator source ==="
-          sed -n '1,360p' src/harness/decision/decision_exploration.py
-          echo "=== request schema ==="
-          cat spec/decision-governance/decision-explorer-request-contract-v1.yaml
+          echo "=== DECISION EXPLORER SKILL ==="
+          cat skills/agent/decision-explorer/SKILL.md
+          echo "=== DOMAIN MODEL CONTRACT ==="
+          python - <<'PY'
+          import yaml
+          p='spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'
+          d=yaml.safe_load(open(p))
+          for x in d.get('contracts',[]):
+              if x.get('knowledge_kind')=='domain-model':
+                  print(yaml.safe_dump(x,sort_keys=False,allow_unicode=True))
+          PY
