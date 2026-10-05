@@ -16,19 +16,6 @@ from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprin
 from harness.project_model.engineering_graph import production_index
 
 STOP_BEFORE={"prep.interface-topology"}
-OVERRIDES={
- "prep.product-intent":".harness/candidates/product-intent-capability-repair-admission.yaml",
- "prep.product-capabilities":".harness/candidates/product-capabilities-capability-repair-admission.yaml",
- "prep.domain-strategy":".harness/candidates/domain-strategy-capability-repair-admission.yaml",
- "prep.model-context-strategy":".harness/candidates/model-context-capability-repair-admission.yaml",
- "prep.application-design":".harness/candidates/process-migration-application-design-admission.yaml",
- "prep.application-process.activity-evidence-cycle":".harness/candidates/process-migration-activity-evidence-admission.yaml",
- "prep.application-process.prepare-support":".harness/candidates/process-migration-prepare-support-admission.yaml",
- "prep.user-journeys":".harness/candidates/process-migration-user-journeys-admission.yaml",
- "prep.machine-interfaces":".harness/candidates/frontend-boundary-machine-admission.yaml",
- "prep.interaction-design":".harness/candidates/frontend-boundary-interaction-admission.yaml",
-}
-
 def load(p:Path)->dict[str,Any]:
     v=yaml.safe_load(p.read_text())
     if not isinstance(v,dict): raise SystemExit(f"{p} not mapping")
@@ -62,9 +49,12 @@ def current_surface(cap,derivs):
         if sf:return sf
     return None
 
-def choose(cap,cands,derivs):
-    if cap in OVERRIDES:return load(ROOT/OVERRIDES[cap])
+def choose(cap,cands,derivs,lifeidx):
     rows=cands.get(cap,[])
+    lifecycle_expected=(lifeidx.get(cap) or {}).get("semantic_atom_fingerprints")
+    if lifecycle_expected:
+        m=[v for _,v in rows if semantic_assertion_fingerprints(v)==lifecycle_expected]
+        if len(m)==1:return copy.deepcopy(m[0])
     if len(rows)==1:return copy.deepcopy(rows[0][1])
     expected=current_surface(cap,derivs)
     if expected:
@@ -137,10 +127,10 @@ def main():
     for cap in topo(graph):
         if cap in STOP_BEFORE: break
         try:
-            candidate=choose(cap,cands,derivs)
+            candidate=choose(cap,cands,derivs,lifeidx)
             incoming=[]; sources={"semantic_assertions":[]}
             for req in prod[cap].get("requires",[]) or []:
-                sc=req["capability"]; source=choose(sc,cands,derivs)
+                sc=req["capability"]; source=choose(sc,cands,derivs,lifeidx)
                 sa=artifact(core,sc)
                 for a in source.get("semantic_assertions",[]) or []:
                     z=copy.deepcopy(a);z["source_artifact"]=sa;sources["semantic_assertions"].append(z)
