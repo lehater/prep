@@ -1,4 +1,4 @@
-name: temporary frontend decision roadmap
+name: temporary frontend admission contracts
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - ".github/workflows/tmp-application-revalidation.yml"
 
 jobs:
-  roadmap:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,28 +19,24 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Evaluate frontend roadmap from publication
-        env:
-          PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
+      - name: Print frontend admission contracts
+        shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          import yaml
-          from harness.application.project_publication import read_project_publication
-          graph=yaml.safe_load(Path('.harness/engineering-graph.yaml').read_text())
-          p=read_project_publication(Path('.harness/project-publication.yaml'), graph=graph)
-          s=p['state']
-          Path('/tmp/core.yaml').write_text(yaml.safe_dump(s['core_model'],sort_keys=False))
-          Path('/tmp/lifecycle.yaml').write_text(yaml.safe_dump(s['lifecycle'],sort_keys=False))
-          Path('/tmp/failures.yaml').write_text(yaml.safe_dump(s['decision_failures'],sort_keys=False))
-          print('PUBLICATION',p['revision'])
-          PY
           cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.decision_pipeline \
-            "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" \
-            /tmp/core.yaml \
-            FRONTEND-IMPLEMENTATION \
-            /tmp/lifecycle.yaml \
-            "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml" \
-            --decision-failures /tmp/failures.yaml
+          python - <<'PY'
+          import yaml
+          kinds=[
+            'system-architecture','engineering-policy','component-design',
+            'verification-strategy','test-design','implementation-design'
+          ]
+          sem=yaml.safe_load(open('spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml'))
+          dec=yaml.safe_load(open('spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'))
+          sm={x['knowledge_kind']:x for x in sem.get('contracts',[])}
+          dm={x['knowledge_kind']:x for x in dec.get('contracts',[])}
+          for k in kinds:
+              print('=== SEMANTIC',k,'===')
+              print(yaml.safe_dump(sm.get(k),sort_keys=False,allow_unicode=True))
+              print('=== DECISION',k,'===')
+              print(yaml.safe_dump(dm.get(k),sort_keys=False,allow_unicode=True))
+          PY
