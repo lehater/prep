@@ -13,6 +13,55 @@ canonical_references:
   - artifact: LEARNING-DESIGN
     referenced_path: .harness/knowledge/product-capabilities.yaml
 
+decision_review:
+  axes:
+    - axis: semantic-identity
+      decisions:
+        - id: capability-semantic-identity
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: topic-capability, state: REJECTED, rationale: "Topic labels do not define observable performance capability."}
+            - {id: performance-contract, state: VIABLE}
+            - {id: learner-state-capability, state: REJECTED, rationale: "Would merge reusable capability meaning with one learner's state."}
+          disposition: DETERMINED
+          selected: performance-contract
+    - axis: invariants
+      decisions:
+        - id: learning-design-evidence-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: activity-implies-learning, state: REJECTED, rationale: "Activity completion is not evidence-backed capability change."}
+            - {id: design-versus-evidence, state: VIABLE}
+          disposition: DETERMINED
+          selected: design-versus-evidence
+    - axis: lifecycle
+      decisions:
+        - id: capability-target-lifecycle
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: target-owned-capability, state: REJECTED, rationale: "Would duplicate reusable capability semantics per Target."}
+            - {id: reusable-capability-target-selection, state: VIABLE}
+          disposition: DETERMINED
+          selected: reusable-capability-target-selection
+    - axis: relationships
+      decisions:
+        - id: learning-cross-context-links
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: knowledge-edge-reuse, state: REJECTED, rationale: "Would encode capability/target/support semantics as Subject Knowledge relations."}
+            - {id: explicit-cross-context-links, state: VIABLE}
+          disposition: DETERMINED
+          selected: explicit-cross-context-links
+    - axis: responsibility-boundaries
+      decisions:
+        - id: learning-design-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: monolithic-learning-design, state: REJECTED, rationale: "Would absorb learner evidence and application orchestration."}
+            - {id: reusable-design-core, state: VIABLE}
+          disposition: DETERMINED
+          selected: reusable-design-core
+
 semantic_assertions:
   - id: LD-CAPABILITY
     kind: domain-model
