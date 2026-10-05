@@ -10,24 +10,13 @@ canonical_references:
   - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/interface/interaction-design.yaml}
   - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/interface/interface-topology.yaml}
 semantic_assertions:
-  - id: IVF-TASK-COVERAGE
-    kind: verification-obligation
-    subject: user-task-interface-coverage
-    semantic_value: Verify that current USER tasks, information locations, interaction contexts and topology views form one traversable learner preparation contract with no hidden product behavior.
-    derived_from: [TM-TASK-COMPARE-TARGETS, IA-CROSSLINKS, IX-CONTEXT-CONTINUITY, TOP-CROSSLINKS]
-    decision_authority: VERIFICATION-DESIGN
-  - id: IVF-RECOVERY
-    kind: verification-obligation
-    subject: interface-recovery-and-currentness
-    semantic_value: Verify explicit unresolved, rejected, dependency-unavailable and stale-basis recovery while preserving active Target/focus and return-to-origin context.
-    derived_from: [IX-OUTCOMES, IX-CURRENTNESS, TOP-CONTEXT, TOP-DIRECT-LINK]
-    decision_authority: VERIFICATION-DESIGN
-  - id: IVF-VIEW-RESPONSIBILITY
-    kind: verification-obligation
-    subject: topology-responsibility-integrity
-    semantic_value: Verify that each accepted view has one coherent responsibility, navigation preserves accepted IA cross-links and the frontend does not expose unaccepted maintenance workspaces.
-    derived_from: [IA-CROSSLINKS, IX-NO-LAYOUT, TOP-NO-COMPOSITION]
-    decision_authority: VERIFICATION-DESIGN
+  - {id: IV-TRACEABILITY, kind: verification-obligation, subject: interface-traceability, semantic_value: "Verify every task-view responsibility and transition traces to accepted Task Model, IA, Interaction and Topology meaning without inventing hidden application behavior.", derived_from: [TOP-ROOT, TOP-CROSSLINKS], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-LEARNER-LOOP, kind: verification-obligation, subject: complete-learner-loop, semantic_value: "Verify the traversable learner loop compare targets when needed -> establish/refine target -> requirements -> current state/gaps -> focus -> Knowledge/support/activity -> evidence/change -> reassessment or target refinement.", derived_from: [TOP-VIEW-TARGETS, TOP-VIEW-TARGET, TOP-VIEW-CURRENT, TOP-VIEW-KNOWLEDGE, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-PREP-SUPPORT, kind: verification-obligation, subject: preparation-support-boundary, semantic_value: "Verify missing preparation is a contextual request/review/recovery/return flow that preserves motivating context and does not expose corpus/import/schema maintenance as ordinary learner work.", derived_from: [TOP-VIEW-PREP-SUPPORT], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-LOCATION, kind: verification-obligation, subject: information-location-coverage, semantic_value: "Verify accepted information and actions have reachable task locations and shared evidence/change detail is reachable from both Current and Activity contexts.", derived_from: [TOP-VIEW-EVIDENCE, TOP-CROSSLINKS], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-CONTEXT, kind: verification-obligation, subject: context-continuity, semantic_value: "Verify active Target and required focus continuity survive accepted navigation and missing context routes to the owning preparation view rather than being silently created.", derived_from: [TOP-CONTEXT, TOP-DIRECT-LINK], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-MODE-BOUNDARY, kind: verification-obligation, subject: ownership-integrity, semantic_value: "Verify learner-facing views do not silently mutate reusable Target/Capability/Knowledge/support semantics outside accepted commands and do not acquire corpus/import maintenance responsibility.", derived_from: [TOP-NO-COMPOSITION, TOP-VIEW-PREP-SUPPORT], decision_authority: VERIFICATION-DESIGN}
+  - {id: IV-TARGET-PURPOSE, kind: verification-obligation, subject: target-purpose-isolation, semantic_value: "Verify related Targets preserve distinct purpose and target-specific requirements without inheriting learner state or requirements merely because capabilities overlap.", derived_from: [TOP-VIEW-TARGETS, TOP-VIEW-TARGET], decision_authority: VERIFICATION-DESIGN}
 semantic_review:
   status: ACCEPTED
   checks: [source-discipline, authority-boundary, no-invention, verification-not-semantic-owner]
