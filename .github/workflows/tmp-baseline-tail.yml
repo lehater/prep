@@ -1,4 +1,5 @@
 name: temporary full policy revalidation
+# rerun after exhaustive derivation normalization
 
 on:
   push:
