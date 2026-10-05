@@ -37,3 +37,5 @@ jobs:
             .harness/project-publication.next.yaml
             .harness/full-policy-revalidation-report.yaml
             .harness/candidates/*exploration*.yaml
+
+# rerun after selector normalization
