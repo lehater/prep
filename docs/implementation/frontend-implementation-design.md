@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Translate the accepted/draft frontend architecture, component contracts, verification
+Translate the accepted frontend architecture, component contracts, verification
 obligations and executable test design into bounded implementation work for the current
 Prep learner-facing frontend.
 
@@ -15,11 +15,8 @@ evidence, not authority over the current task/view/component boundaries.
 
 ## Decision basis and semantic status
 
-Pre-choice implementation exploration and review for this revision are recorded as
-noncanonical draft evidence:
-
-- `.harness/candidates/frontend-implementation-design-exploration-draft.yaml`
-- `.harness/candidates/frontend-implementation-design-decision-review-draft.yaml`
+Request-bound pre-choice implementation exploration for this revision is recorded in
+`.harness/candidates/frontend-implementation-design-exploration.yaml`.
 
 Selected implementation direction:
 
@@ -31,10 +28,9 @@ Selected implementation direction:
 - optional spatial renderer isolated behind its provider seam;
 - existing fast automatic / explicit heavy validation split retained.
 
-Formal semantic admission remains blocked by the legacy Harness lifecycle gap and by
-upstream frontend architecture/component revisions that have not yet received
-lifecycle-backed revalidation. This file is therefore a draft implementation revision
-until that closure exists.
+The revision has passed strict semantic admission and both
+`FRONTEND-PROTOTYPE` and `FRONTEND-IMPLEMENTATION` are semantically current in the
+current Harness Project Publication.
 
 ## Implementation boundary
 
