@@ -51,12 +51,12 @@ decisions:
       - {id: replace-ui-or-state-toolchain, status: REJECTED, reason: Adds migration/tool risk without an accepted architecture/interface/quality driver.}
 
   - id: optional-spatial-dependency
-    disposition: DELEGATED
+    disposition: DETERMINED
     selected: retain-base-tools-and-isolate-optional-renderer
     alternatives:
-      - {id: retain-base-tools-and-isolate-optional-renderer, status: VIABLE, reason: Supports existing prototype evidence while removing 3D from task-critical/default semantics.}
-      - {id: eager-renderer-removal, status: VIABLE, reason: Also compatible if no retained prototype/evidence path needs the dependency.}
-    rationale: Keep optional renderer dependencies only while referenced; remove them as ordinary cleanup once the optional adapter/prototype no longer consumes them.
+      - {id: retain-base-tools-and-isolate-optional-renderer, status: VIABLE, reason: Supports the currently retained prototype/provider path while keeping 3D outside task-critical/default semantics.}
+      - {id: eager-renderer-removal, status: REJECTED, reason: The current graph-rfg3d prototype/provider path is still referenced; forcing its removal before feature migration would broaden scope into an unrelated provider rewrite and violate the selected implementation ordering.}
+    rationale: Keep optional renderer dependencies only while the retained adapter/prototype path references them; remove them as ordinary cleanup once unreferenced.
 
   - id: boundary-enforcement
     disposition: DETERMINED
