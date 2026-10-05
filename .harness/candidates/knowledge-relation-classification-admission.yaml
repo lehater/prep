@@ -11,6 +11,59 @@ canonical_references:
   - artifact: KNOWLEDGE-RELATION-CLASSIFICATION
     referenced_path: .harness/knowledge/product-capabilities.yaml
 
+decision_review:
+  axes:
+    - axis: semantic-identity
+      decisions:
+        - id: relation-classifier-identity
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: generic-relation-edge, state: REJECTED, rationale: "Collapses predicate vocabulary and asserted relationship identity into one carrier."}
+            - {id: predicate-vocabulary-entry, state: VIABLE}
+            - {id: assertion-identity, state: REJECTED, rationale: "Makes the classifier own concrete relation assertions rather than vocabulary."}
+          disposition: DETERMINED
+          selected: predicate-vocabulary-entry
+    - axis: invariants
+      decisions:
+        - id: relation-classification-validity
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: broad-family-fallback, state: REJECTED, rationale: "Would erase leaf-level semantic precision when evidence is insufficient."}
+            - {id: evidence-bounded-precise, state: VIABLE}
+            - {id: forced-leaf-classification, state: REJECTED, rationale: "Would invent unsupported relation meaning."}
+          disposition: DETERMINED
+          selected: evidence-bounded-precise
+    - axis: lifecycle
+      decisions:
+        - id: relation-vocabulary-lifecycle
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: auto-promote-candidates, state: REJECTED, rationale: "Candidate vocabulary cannot become accepted solely through use."}
+            - {id: accepted-plus-candidate, state: VIABLE}
+            - {id: immutable-catalog, state: REJECTED, rationale: "Would prevent evidence-backed vocabulary evolution."}
+          disposition: DETERMINED
+          selected: accepted-plus-candidate
+    - axis: relationships
+      decisions:
+        - id: relation-model-shape
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: first-class-relation-entity, state: REJECTED, rationale: "Adds a generic relation entity that duplicates proposition semantics."}
+            - {id: proposition-plus-predicate, state: VIABLE}
+            - {id: free-text-relation, state: REJECTED, rationale: "Loses machine-addressable predicate meaning."}
+          disposition: DETERMINED
+          selected: proposition-plus-predicate
+    - axis: responsibility-boundaries
+      decisions:
+        - id: relation-classification-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: absorb-cross-context-links, state: REJECTED, rationale: "Would re-own capability, direction and learner-state relationships."}
+            - {id: subject-knowledge-only, state: VIABLE}
+            - {id: presentation-owned, state: REJECTED, rationale: "Presentation cannot own reusable subject semantics."}
+          disposition: DETERMINED
+          selected: subject-knowledge-only
+
 semantic_assertions:
   - id: KRC-SUBJECT-KNOWLEDGE-SCOPE
     kind: domain-invariant
