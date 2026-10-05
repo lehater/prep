@@ -1,4 +1,4 @@
-name: temporary admission contract audit
+name: temporary semantic contract defaults
 
 on:
   push:
@@ -17,27 +17,14 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect selected semantic and decision contracts
+      - name: Print semantic contract defaults
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
           python - <<'PY'
-          from pathlib import Path
           import yaml
-          sem=yaml.safe_load(Path("spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text())
-          dec=yaml.safe_load(Path("spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml").read_text())
-          kinds={
-            "concurrency-consistency-design","verification-strategy","system-architecture",
-            "data-design","engineering-policy","component-design","test-design",
-            "implementation-design","interface-topology-design","screen-view-design"
-          }
-          print("=== SEMANTIC CONTRACTS ===")
-          for item in sem.get("contracts", []):
-              if item.get("knowledge_kind") in kinds:
-                  print(yaml.safe_dump(item,sort_keys=False,allow_unicode=True))
-          print("=== DECISION CONTRACTS ===")
-          for item in dec.get("contracts", []):
-              if item.get("knowledge_kind") in kinds:
-                  print(yaml.safe_dump(item,sort_keys=False,allow_unicode=True))
+          from pathlib import Path
+          d=yaml.safe_load(Path("spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text())
+          print(yaml.safe_dump(d.get("defaults",{}),sort_keys=False,allow_unicode=True))
           PY
