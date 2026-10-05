@@ -1,0 +1,78 @@
+name: temporary normalize strict derivation contracts
+
+on:
+  push:
+    branches:
+      - audit/ui-view-boundaries-clean
+    paths:
+      - ".github/workflows/tmp-normalize-derivations.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Normalize production derivation lifecycle dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          root=Path(".")
+          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
+          productions={
+              row["capability"]: row
+              for row in graph.get("productions", [])
+              if isinstance(row,dict) and isinstance(row.get("capability"),str)
+          }
+          files=sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml"))
+          changed=[]
+          checked=[]
+          for path in files:
+              doc=yaml.safe_load(path.read_text())
+              if doc.get("kind")!="harness-semantic-derivation-contract":
+                  continue
+              source=doc.get("source_capability")
+              target=doc.get("target_capability")
+              prod=productions.get(target)
+              if prod is None:
+                  raise SystemExit(f"{path}: missing target production {target}")
+              requires={
+                  item.get("capability")
+                  for item in prod.get("requires", []) or []
+                  if isinstance(item,dict)
+              }
+              if source not in requires:
+                  raise SystemExit(f"{path}: {source} is not a direct production prerequisite of {target}")
+              checked.append(str(path))
+              dep=doc.setdefault("lifecycle_dependency", {})
+              if dep.get("exhaustive") is not True:
+                  dep["exhaustive"]=True
+                  path.write_text(yaml.safe_dump(doc,sort_keys=False,allow_unicode=True),encoding="utf-8")
+                  changed.append(str(path))
+          if not checked:
+              raise SystemExit("no frontend derivation contracts found")
+          print(f"checked={len(checked)} changed={len(changed)}")
+          for path in changed:
+              print(path)
+          PY
+      - name: Commit normalized contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- .harness/candidates/frontend-*-derivation-contract.yaml; then
+            echo "No normalization changes required"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/candidates/frontend-*-derivation-contract.yaml
+          git commit -m "Normalize strict derivation lifecycle dependencies"
+          git push origin HEAD:audit/ui-view-boundaries-clean
