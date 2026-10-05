@@ -67,15 +67,6 @@ decision_review:
             - {id: convention-only, state: REJECTED, rationale: "Would weaken an existing deterministic architecture check."}
           disposition: DETERMINED
           selected: retain-versioned-boundary-check
-    - axis: migration-transition
-      decisions:
-        - id: frontend-transition-mode
-          owner_authority: IMPLEMENTATION-DESIGN
-          alternatives:
-            - {id: whole-artifact-replacement, state: VIABLE}
-            - {id: mixed-version-coexistence, state: REJECTED, rationale: "No persistent browser migration or mixed-version runtime contract is accepted."}
-          disposition: DETERMINED
-          selected: whole-artifact-replacement
     - axis: verification-enforcement
       decisions:
         - id: verification-layering
