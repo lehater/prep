@@ -1,21 +1,23 @@
-name: temporary full policy revalidation
-# rerun after exhaustive derivation normalization
+name: temporary publish full policy revalidation
 
 on:
   push:
     branches:
       - audit/ui-view-boundaries-clean
     paths:
-      - "tools/tmp_revalidate_full_publication.py"
-      - ".harness/candidates/**"
       - ".github/workflows/tmp-baseline-tail.yml"
 
+permissions:
+  contents: write
+
 jobs:
-  revalidate:
+  publish:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Sync pinned Harness Consumer Pack
         id: sync
         shell: bash
@@ -23,19 +25,30 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Revalidate entire published capability set
+      - name: Revalidate and atomically publish entire capability set
         env:
           HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+          PUBLISH: "1"
         run: python tools/tmp_revalidate_full_publication.py
-      - name: Upload revalidation result
+      - name: Commit published semantic state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/project-publication.yaml .harness/candidates/*exploration*.yaml
+          if git diff --cached --quiet; then
+            echo "No publication changes to commit"
+            exit 0
+          fi
+          git commit -m "Publish unified strict Harness policy baseline"
+          git push origin HEAD:audit/ui-view-boundaries-clean
+      - name: Upload publication evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: full-policy-revalidation
+          name: full-policy-publication
           include-hidden-files: true
           path: |
             .harness/project-publication.next.yaml
             .harness/full-policy-revalidation-report.yaml
-            .harness/candidates/*exploration*.yaml
-
-# rerun after selector normalization
