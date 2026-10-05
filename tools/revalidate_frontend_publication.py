@@ -463,17 +463,27 @@ def main() -> int:
                 sources["semantic_assertions"].append(copied)
 
             key = (source_capability, capability)
-            rows = contracts.get(key, [])
-            if not rows:
-                raise SystemExit(f"missing derivation contract for {key}")
-            evaluated = select_derivation(
-                key,
-                rows,
-                derivations.get(key),
-                graph=graph,
-                source=source_candidate,
-                candidate=candidate,
-            )
+            previous = derivations.get(key)
+            # Existing Publication derivations are authoritative accepted evidence.
+            # Reuse them when target semantic atoms are unchanged; re-evaluate the two
+            # changed Human Interface targets and every newly admitted target.
+            if previous is not None and capability not in {
+                "prep.interface-topology",
+                "prep.screen-view-design",
+            }:
+                evaluated = copy.deepcopy(previous)
+            else:
+                rows = contracts.get(key, [])
+                if not rows:
+                    raise SystemExit(f"missing derivation contract for {key}")
+                evaluated = select_derivation(
+                    key,
+                    rows,
+                    previous,
+                    graph=graph,
+                    source=source_candidate,
+                    candidate=candidate,
+                )
             incoming.append(evaluated)
 
         old_provider = lifecycle_rows.get(capability)
