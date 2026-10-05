@@ -1,0 +1,85 @@
+name: temporary final heavy validation
+
+on:
+  push:
+    branches:
+      - audit/ui-view-boundaries-clean
+    paths:
+      - ".github/workflows/tmp-final-heavy.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  repository-heavy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Sync pinned Harness Consumer Pack
+        id: harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
+      - name: Install Harness runtime dependency
+        run: python -m pip install PyYAML
+      - name: Validate strict semantic baseline
+        env:
+          HARNESS_ROOT: ${{ steps.harness.outputs.pack }}
+        run: python tools/semantic_baseline.py
+      - name: Validate Harness integration
+        env:
+          HARNESS_ROOT: ${{ steps.harness.outputs.pack }}
+        run: python tools/check_harness_integration.py
+      - name: Full Harness revalidation
+        env:
+          HARNESS_ROOT: ${{ steps.harness.outputs.pack }}
+        run: python tools/full_harness_revalidate.py
+      - name: Validate documentation links
+        run: python tools/validate_docs.py
+      - name: Validate maintained Anki reference implementation
+        run: python -m unittest discover -s experiments/anki_adapter_reference/tests -v
+
+  frontend-heavy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Run fast deterministic checks first
+        run: npm run verify:fast
+      - name: Audit frontend dependencies
+        run: npm audit --audit-level=high
+      - name: Build production frontend
+        run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run frontend browser tests
+        run: npm run test:e2e
+      - name: Run graph stress evidence
+        run: npm run benchmark:graph
+      - name: Build frontend container
+        env:
+          FRONTEND_IMAGE: prep-web-ci:${{ github.sha }}
+        run: |
+          docker build             --build-arg PREP_FRONTEND_VERSION="${GITHUB_SHA}"             --tag "${FRONTEND_IMAGE}"             .
+      - name: Verify frontend image identity
+        env:
+          FRONTEND_IMAGE: prep-web-ci:${{ github.sha }}
+        run: |
+          test "$(docker image inspect "${FRONTEND_IMAGE}" --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')" = "${GITHUB_SHA}"
+          docker image inspect "${FRONTEND_IMAGE}" --format 'image={{.Id}} revision={{ index .Config.Labels "org.opencontainers.image.revision" }}'
