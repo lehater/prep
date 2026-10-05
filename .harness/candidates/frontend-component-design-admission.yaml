@@ -1,0 +1,81 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-COMPONENT-DESIGN
+capability: prep.frontend-component-design
+path: docs/implementation/frontend-component-design.md
+changed_paths: [docs/implementation/frontend-component-design.md]
+canonical_references:
+  - {artifact: FRONTEND-COMPONENT-DESIGN, referenced_path: docs/architecture/frontend-system-architecture.md}
+  - {artifact: FRONTEND-COMPONENT-DESIGN, referenced_path: docs/engineering/frontend-engineering-policy.md}
+  - {artifact: FRONTEND-COMPONENT-DESIGN, referenced_path: docs/interface/screen-view-design.md}
+  - {artifact: FRONTEND-COMPONENT-DESIGN, referenced_path: docs/interface/machine-interface.md}
+  - {artifact: FRONTEND-COMPONENT-DESIGN, referenced_path: docs/architecture/performance-capacity.md}
+decision_review:
+  axes:
+    - axis: responsibility-boundaries
+      decisions:
+        - id: public-feature-boundaries
+          owner_authority: COMPONENT-DESIGN
+          alternatives:
+            - {id: view-responsibility-features, state: VIABLE}
+            - {id: fine-grained-domainish-features, state: REJECTED, rationale: "Would reintroduce Learning/Diagnostics/Progress boundaries absent from accepted view responsibilities."}
+            - {id: resource-oriented-features, state: REJECTED, rationale: "Would shape UI code around provider/domain resource nouns."}
+            - {id: monolithic-preparation-feature, state: REJECTED, rationale: "Would erase independently changing task-feature responsibilities and provider seams."}
+          disposition: DETERMINED
+          selected: view-responsibility-features
+    - axis: provider-seams
+      decisions:
+        - id: machine-provider-seams
+          owner_authority: COMPONENT-DESIGN
+          alternatives:
+            - {id: narrow-consumer-ports, state: VIABLE}
+            - {id: aggregated-prep-port, state: VIABLE}
+            - {id: direct-provider-use, state: REJECTED, rationale: "Would leak provider/transport details into task features."}
+          disposition: DELEGATED
+          selected: narrow-consumer-ports
+        - id: spatial-renderer-seam
+          owner_authority: COMPONENT-DESIGN
+          alternatives:
+            - {id: optional-renderer-port, state: VIABLE}
+            - {id: renderer-inside-feature, state: REJECTED, rationale: "Would make concrete renderer objects part of task-semantic contracts."}
+          disposition: DETERMINED
+          selected: optional-renderer-port
+    - axis: state-ownership
+      decisions:
+        - id: frontend-state-ownership
+          owner_authority: COMPONENT-DESIGN
+          alternatives:
+            - {id: local-plus-preparation-context, state: VIABLE}
+            - {id: general-global-store, state: REJECTED, rationale: "No accepted broad cross-feature mutable-state requirement exists."}
+            - {id: client-canonical-projections, state: REJECTED, rationale: "Would re-own canonical Target/Knowledge/learner truth in the browser."}
+            - {id: cross-feature-workflow-store, state: REJECTED, rationale: "Attempt/request/review transient state has narrower accepted lifecycles."}
+          disposition: DETERMINED
+          selected: local-plus-preparation-context
+semantic_assertions:
+  - id: FCD-RESPONSIBILITY
+    kind: component-responsibility
+    subject: task-feature-ownership
+    semantic_value: Public frontend feature components align to accepted task/view responsibilities; finer visual decomposition remains private to the owning feature.
+    derived_from: [FSA-FEATURES, FEP-DEPENDENCY, SV-NO-IMPLEMENTATION]
+    decision_authority: COMPONENT-DESIGN
+  - id: FCD-DEPENDENCY
+    kind: component-dependency
+    subject: inward-consumer-ports
+    semantic_value: Features consume narrow ports they own; adapters depend on those contracts and raw provider/transport types remain outside feature contracts.
+    derived_from: [FSA-DEPENDENCY, FEP-DEPENDENCY, MI-NO-LEAK]
+    decision_authority: COMPONENT-DESIGN
+  - id: FCD-ADAPTER
+    kind: component-adapter
+    subject: mock-transport-spatial-provider-seams
+    semantic_value: Mock and future transport adapters may implement several consumer ports; optional spatial rendering is isolated behind a renderer-neutral Knowledge seam and can be removed without breaking task completion.
+    derived_from: [FSA-FAILURE, FEP-SPATIAL, MI-NO-LEAK, QD-GRAPH-CONDITIONAL]
+    decision_authority: COMPONENT-DESIGN
+  - id: FCD-STATE
+    kind: component-state
+    subject: feature-local-plus-preparation-context
+    semantic_value: Active Target/focus identity is the only shared cross-view interaction context; candidate, query, attempt, evidence-review and preparation-request state remains with its owning feature/provider cache.
+    derived_from: [FSA-STATE, FEP-STATE]
+    decision_authority: COMPONENT-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, component-not-upstream-owner, implementation-facing-boundaries-complete-for-scope]
