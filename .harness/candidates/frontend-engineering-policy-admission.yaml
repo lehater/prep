@@ -8,24 +8,15 @@ canonical_references:
   - {artifact: FRONTEND-ENGINEERING-POLICY, referenced_path: docs/architecture/frontend-system-architecture.md}
   - {artifact: FRONTEND-ENGINEERING-POLICY, referenced_path: docs/interface/presentation-system.md}
 semantic_assertions:
-  - id: FEP-DEPENDENCY
-    kind: engineering-obligation
-    subject: frontend-dependency-direction
-    semantic_value: Task features depend on consumer-owned contracts, not concrete adapters, provider DTOs or another feature's private mutable state; shared presentation code owns no task/domain state.
-    derived_from: [FSA-DEPENDENCY, PS-FREEDOMS]
-    decision_authority: ENGINEERING-POLICY
-  - id: FEP-STATE
-    kind: engineering-obligation
-    subject: frontend-state-discipline
-    semantic_value: Shared mutable state is limited to accepted cross-view Target/focus continuity; canonical server/domain projections are not promoted into a browser-owned semantic source of truth.
-    derived_from: [FSA-STATE, PS-PATTERN-CONTEXT]
-    decision_authority: ENGINEERING-POLICY
-  - id: FEP-SPATIAL
-    kind: engineering-obligation
-    subject: optional-spatial-provider
-    semantic_value: Renderer-specific mechanics and metrics remain provider/presentation state; no 2D/3D renderer, item-count or FPS target becomes normative without an accepted presentation/quality boundary.
-    derived_from: [FSA-FAILURE, PS-KNOWLEDGE-REPRESENTATION]
-    decision_authority: ENGINEERING-POLICY
+  - {id: EP-OWNERSHIP, kind: engineering-policy-obligation, subject: explicit-ownership, semantic_value: "Every public frontend module/component/port has one coherent responsibility; mutable state stays with its owner unless an accepted shared lifetime requires otherwise.", derived_from: [FSA-TASK-MODULES, PS-TASK-HIERARCHY], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-DEPENDENCY, kind: engineering-policy-obligation, subject: dependency-direction, semantic_value: "Feature dependencies follow accepted frontend architecture: task features depend on frontend-owned contracts, not concrete adapters, renderer packages, provider DTOs or another feature's private mutable state.", derived_from: [FSA-DEPENDENCY], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-PORTS, kind: engineering-policy-obligation, subject: consumer-owned-contracts, semantic_value: "Ports are introduced only for meaningful provider/substitution boundaries and are shaped from consumer needs rather than provider APIs; ceremonial one-to-one wrappers are not required.", derived_from: [FSA-PORTS], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-PROVIDERS, kind: engineering-policy-obligation, subject: provider-isolation, semantic_value: "UI/rendering/framework providers remain implementation dependencies; provider-specific types do not become shared product contracts and spatial renderer types remain isolated.", derived_from: [FSA-SPATIAL, PS-FREEDOMS], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-STATE, kind: engineering-policy-obligation, subject: state-discipline, semantic_value: "Frontend state ownership follows accepted architecture: small cross-view Target/focus context plus feature-local transient state; no speculative global semantic store is introduced.", derived_from: [FSA-STATE], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-PRESENTATION, kind: engineering-policy-obligation, subject: presentation-consistency, semantic_value: "Cross-feature visual decisions reuse accepted presentation roles/patterns; provider theme/token names and local styling mechanics do not become product/domain semantics.", derived_from: [PS-TASK-HIERARCHY, PS-RESPONSIVE, PS-ACCESSIBILITY], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-MOCK, kind: engineering-policy-obligation, subject: mock-substitutability, semantic_value: "Task features execute against deterministic mock adapters and future transport adapters through the same consumer-owned semantic ports.", derived_from: [FSA-PORTS], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-PERFORMANCE, kind: engineering-policy-obligation, subject: conditional-performance-evidence, semantic_value: "Quality Design is authoritative for performance/capacity; renderer/FPS/item-count assumptions remain conditional until an accepted representative workload boundary exists.", derived_from: [FSA-SPATIAL, PS-DEGRADATION], decision_authority: ENGINEERING-POLICY}
+  - {id: EP-VALIDATION, kind: engineering-policy-obligation, subject: validation-layering, semantic_value: "Deterministic type/lint/boundary/unit checks are fast automated feedback; expensive browser/performance/container/full-Harness evidence remains an explicit heavy final checkpoint and does not replace semantic closure.", derived_from: [FSA-DEPENDENCY], decision_authority: ENGINEERING-POLICY}
 semantic_review:
   status: ACCEPTED
   checks: [source-discipline, authority-boundary, no-invention, policy-not-product-domain-owner, obligations-concrete-and-reviewable, optional-patterns-not-defaults]
