@@ -8,6 +8,7 @@ on:
       - "tools/tmp_admit_frontend_tail.py"
       - ".harness/candidates/frontend-*-admission.yaml"
       - ".harness/candidates/presentation-verification-admission.yaml"
+      - ".harness/candidates/frontend-*-exploration-draft.yaml"
       - ".github/workflows/tmp-application-revalidation.yml"
 
 jobs:
