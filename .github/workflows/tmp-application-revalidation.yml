@@ -1,4 +1,4 @@
-name: temporary derivation contract discovery
+name: temporary derivation schema audit
 
 on:
   push:
@@ -17,12 +17,11 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Discover derivation contract surfaces
+      - name: Inspect derivation schema
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          echo "=== modules ==="
-          find src/harness/application src/harness/assurance -maxdepth 1 -type f -printf '%p\n' | sort | grep -E 'deriv|semantic' || true
-          echo "=== contract builders ==="
-          grep -RIn --exclude='*.pyc' -E 'build_.*derivation|derivation_contract|semantic derivation contract|harness-semantic-derivation-contract' src/harness skills docs/design spec | head -n 260 || true
+          sed -n '1,260p' spec/semantic-derivation/semantic-derivation-v1.yaml
+          echo "=== EVALUATOR RULES ==="
+          sed -n '280,520p' src/harness/assurance/semantic_derivation.py
