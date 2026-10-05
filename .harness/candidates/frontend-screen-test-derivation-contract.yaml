@@ -4,12 +4,12 @@ id: screen-test
 source_capability: prep.screen-view-design
 target_capability: prep.frontend-test-design
 obligations:
-  - id: direct-semantic-input
-    source_kind: screen-invariant
-    subject: screen-implementation-boundary
-    min_count: 1
-    require_target_provenance: true
+- id: direct-semantic-input
+  source_kind: screen-invariant
+  subject: screen-implementation-boundary
+  min_count: 1
+  require_target_provenance: true
 lifecycle_dependency:
-  exhaustive: false
+  exhaustive: true
 semantic_judgement:
   required: false

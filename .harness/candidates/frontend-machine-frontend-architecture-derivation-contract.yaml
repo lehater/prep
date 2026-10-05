@@ -4,12 +4,12 @@ id: machine-frontend-architecture
 source_capability: prep.machine-interfaces
 target_capability: prep.frontend-system-architecture
 obligations:
-  - id: direct-semantic-input
-    source_kind: machine-invariant
-    subject: machine-boundary-ownership
-    min_count: 1
-    require_target_provenance: true
+- id: direct-semantic-input
+  source_kind: machine-invariant
+  subject: machine-boundary-ownership
+  min_count: 1
+  require_target_provenance: true
 lifecycle_dependency:
-  exhaustive: false
+  exhaustive: true
 semantic_judgement:
   required: false

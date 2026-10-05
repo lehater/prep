@@ -4,12 +4,12 @@ id: policy-component
 source_capability: prep.frontend-engineering-policy
 target_capability: prep.frontend-component-design
 obligations:
-  - id: direct-semantic-input
-    source_kind: engineering-obligation
-    subject: frontend-dependency-direction
-    min_count: 1
-    require_target_provenance: true
+- id: direct-semantic-input
+  source_kind: engineering-obligation
+  subject: frontend-dependency-direction
+  min_count: 1
+  require_target_provenance: true
 lifecycle_dependency:
-  exhaustive: false
+  exhaustive: true
 semantic_judgement:
   required: false

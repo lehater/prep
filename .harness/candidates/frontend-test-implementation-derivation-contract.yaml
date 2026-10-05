@@ -4,12 +4,12 @@ id: test-implementation
 source_capability: prep.frontend-test-design
 target_capability: prep.frontend-implementation-design
 obligations:
-  - id: direct-semantic-input
-    source_kind: test-contract
-    subject: preparation-user-flow
-    min_count: 1
-    require_target_provenance: true
+- id: direct-semantic-input
+  source_kind: test-contract
+  subject: preparation-user-flow
+  min_count: 1
+  require_target_provenance: true
 lifecycle_dependency:
-  exhaustive: false
+  exhaustive: true
 semantic_judgement:
   required: false

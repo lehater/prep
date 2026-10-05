@@ -4,12 +4,12 @@ id: architecture-component
 source_capability: prep.frontend-system-architecture
 target_capability: prep.frontend-component-design
 obligations:
-  - id: direct-semantic-input
-    source_kind: architecture-boundary
-    subject: task-feature-boundaries
-    min_count: 1
-    require_target_provenance: true
+- id: direct-semantic-input
+  source_kind: architecture-boundary
+  subject: task-feature-boundaries
+  min_count: 1
+  require_target_provenance: true
 lifecycle_dependency:
-  exhaustive: false
+  exhaustive: true
 semantic_judgement:
   required: false
