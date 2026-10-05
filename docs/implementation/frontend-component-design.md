@@ -11,20 +11,16 @@ are absent from the accepted learner interface.
 
 ## Decision basis
 
-Pre-choice exploration and review for this revision are recorded as noncanonical draft
-evidence:
-
-- `.harness/candidates/frontend-component-design-exploration-draft.yaml`
-- `.harness/candidates/frontend-component-design-decision-review-draft.yaml`
+Request-bound pre-choice exploration for this revision is recorded in
+`.harness/candidates/frontend-component-design-exploration.yaml`.
 
 The selected public boundaries follow accepted view responsibilities. Narrow
 consumer-owned ports are retained as the smallest useful provider seams; one concrete
 adapter may implement several ports. Active Target/focus continuity is the only shared
 cross-view mutable context.
 
-Formal semantic admission remains blocked by the legacy lifecycle gap and by the
-upstream frontend-system-architecture revision still awaiting lifecycle-backed
-revalidation.
+The revision has passed strict semantic admission and is represented by the current
+Harness Project Publication.
 
 ## Public feature responsibilities
 
