@@ -1,4 +1,4 @@
-name: temporary normalize stale derivation subjects
+name: temporary route missing lifecycle capabilities
 
 on:
   push:
@@ -7,52 +7,35 @@ on:
     paths:
       - ".github/workflows/tmp-normalize-derivations.yml"
 
-permissions:
-  contents: write
-
 jobs:
-  normalize:
+  route:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Normalize stale source kind/subject selectors
+      - name: Sync pinned Harness Consumer Pack
+        id: sync
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          import yaml
-
-          updates={
-            "frontend-architecture-component-derivation-contract.yaml": ("architecture-boundary","task-feature-topology"),
-            "frontend-architecture-engineering-policy-derivation-contract.yaml": ("architecture-dependency","frontend-dependency-direction"),
-            "frontend-architecture-frontend-verification-derivation-contract.yaml": ("architecture-dependency","frontend-dependency-direction"),
-            "frontend-component-implementation-derivation-contract.yaml": ("component-boundary","public-task-features"),
-            "frontend-interface-presentation-verification-derivation-contract.yaml": ("verification-obligation","interface-traceability"),
-            "frontend-policy-component-derivation-contract.yaml": ("engineering-policy-obligation","dependency-direction"),
-            "frontend-presentation-frontend-verification-derivation-contract.yaml": ("verification-obligation","dominant-task-composition"),
-            "frontend-test-implementation-derivation-contract.yaml": ("test-obligation","frontend-workflow-tests"),
-            "frontend-verification-implementation-derivation-contract.yaml": ("verification-obligation","product-interface-traceability"),
-            "frontend-verification-test-derivation-contract.yaml": ("verification-obligation","product-interface-traceability"),
-          }
-          root=Path(".harness/candidates")
-          for name,(kind,subject) in updates.items():
-              path=root/name
-              doc=yaml.safe_load(path.read_text())
-              obligations=doc.get("obligations",[]) or []
-              if len(obligations)!=1:
-                  raise SystemExit(f"{name}: expected one obligation")
-              obligations[0]["source_kind"]=kind
-              obligations[0]["subject"]=subject
-              path.write_text(yaml.safe_dump(doc,sort_keys=False,allow_unicode=True),encoding="utf-8")
-              print(name,kind,subject)
+          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
+      - name: Route missing capability artifact skills
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "${{ steps.sync.outputs.pack }}"
+          python -m harness.application.skill_router --help
+          for kind in concurrency-consistency-design system-architecture data-design; do
+            echo "=== ROUTE $kind ==="
+            python -m harness.application.skill_router artifact --surface consumer --knowledge-kind "$kind" | tee "/tmp/$kind.json"
+            python - "$kind" <<'PY'
+          import json, pathlib, sys
+          kind=sys.argv[1]
+          r=json.loads(pathlib.Path(f"/tmp/{kind}.json").read_text())
+          for p in r.get("instruction_contracts", []):
+              print(f"=== CONTRACT {p} ===")
+              print(pathlib.Path(p).read_text())
+          print("=== SKILL ===")
+          print(pathlib.Path(r["skill"]).read_text())
           PY
-      - name: Commit normalized contracts
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .harness/candidates/frontend-*-derivation-contract.yaml
-          git commit -m "Align strict derivation selectors with current semantics"
-          git push origin HEAD:audit/ui-view-boundaries-clean
+          done
