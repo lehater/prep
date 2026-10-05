@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: architecture-frontend-verification
+source_capability: prep.frontend-system-architecture
+target_capability: prep.frontend-verification
+obligations:
+  - id: direct-semantic-input
+    source_kind: architecture-dependency
+    subject: consumer-owned-ports
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
