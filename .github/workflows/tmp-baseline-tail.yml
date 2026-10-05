@@ -1,4 +1,4 @@
-name: temporary baseline tail routing
+name: temporary Harness closure API inspection
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - ".github/workflows/tmp-baseline-tail.yml"
 
 jobs:
-  route:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,24 +19,23 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Route baseline artifacts
+      - name: Inspect strict closure API
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
         shell: bash
         run: |
           set -euo pipefail
-          cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.skill_router --help
-          for kind in import-consistency system-architecture data-design; do
-            echo "=== ROUTE $kind ==="
-            python -m harness.application.skill_router artifact --knowledge-kind "$kind" > "/tmp/$kind.json"
-            cat "/tmp/$kind.json"
-            python - "$kind" <<'PY'
-          import json, pathlib, sys
-          kind=sys.argv[1]
-          r=json.loads(pathlib.Path(f"/tmp/{kind}.json").read_text())
-          for p in r.get("instruction_contracts", []):
-              print(f"=== CONTRACT {p} ===")
-              print(pathlib.Path(p).read_text())
-          print("=== SKILL ===")
-          print(pathlib.Path(r["skill"]).read_text())
+          python - <<'PY'
+          import inspect, os, sys
+          from pathlib import Path
+          root=Path(os.environ["HARNESS_ROOT"])
+          sys.path.insert(0,str(root/"src"))
+          from harness.application.semantic_closure import evaluate_semantic_closure
+          from harness.application.semantic_admission import derive_acceptance_policy_fingerprints
+          print("CLOSURE_SIGNATURE", inspect.signature(evaluate_semantic_closure))
+          print("POLICY_SIGNATURE", inspect.signature(derive_acceptance_policy_fingerprints))
+          print("=== CLOSURE SOURCE ===")
+          print(inspect.getsource(evaluate_semantic_closure))
+          print("=== POLICY SOURCE ===")
+          print(inspect.getsource(derive_acceptance_policy_fingerprints))
           PY
-          done
