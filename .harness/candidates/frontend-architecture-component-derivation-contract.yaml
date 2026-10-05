@@ -6,7 +6,7 @@ target_capability: prep.frontend-component-design
 obligations:
 - id: direct-semantic-input
   source_kind: architecture-boundary
-  subject: task-feature-boundaries
+  subject: task-feature-topology
   min_count: 1
   require_target_provenance: true
 lifecycle_dependency:

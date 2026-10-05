@@ -5,8 +5,8 @@ source_capability: prep.frontend-test-design
 target_capability: prep.frontend-implementation-design
 obligations:
 - id: direct-semantic-input
-  source_kind: test-contract
-  subject: preparation-user-flow
+  source_kind: test-obligation
+  subject: frontend-workflow-tests
   min_count: 1
   require_target_provenance: true
 lifecycle_dependency:

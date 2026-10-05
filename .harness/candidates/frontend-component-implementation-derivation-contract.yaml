@@ -5,8 +5,8 @@ source_capability: prep.frontend-component-design
 target_capability: prep.frontend-implementation-design
 obligations:
 - id: direct-semantic-input
-  source_kind: component-responsibility
-  subject: task-feature-ownership
+  source_kind: component-boundary
+  subject: public-task-features
   min_count: 1
   require_target_provenance: true
 lifecycle_dependency:
