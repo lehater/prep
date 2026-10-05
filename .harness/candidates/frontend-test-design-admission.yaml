@@ -1,0 +1,39 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-TEST-DESIGN
+capability: prep.frontend-test-design
+path: docs/verification/frontend-test-design.yaml
+changed_paths: [docs/verification/frontend-test-design.yaml]
+canonical_references:
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/verification/frontend-verification.md}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/interface/interaction-design.yaml}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/interface/screen-view-design.md}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/architecture/performance-capacity.md}
+semantic_assertions:
+  - id: FTD-USER-FLOW
+    kind: test-contract
+    subject: preparation-user-flow
+    semantic_value: Executable tests cover target comparison/setup, current position/focus, Knowledge, Activity, evidence/change and contextual preparation-support paths with accepted context continuity and observable outcomes.
+    derived_from: [FVF-TRACE, IX-CONTEXT-CONTINUITY, SV-NO-IMPLEMENTATION, QD-SEMANTIC-PRESERVATION]
+    decision_authority: TEST-DESIGN
+  - id: FTD-RECOVERY
+    kind: test-contract
+    subject: recovery-and-degradation
+    semantic_value: Executable tests distinguish semantic outcomes, preserve safe user context across recovery, and prove optional spatial failure does not remove nonspatial Knowledge completion.
+    derived_from: [FVF-KNOWLEDGE, IX-OUTCOMES, SV-RESPONSIVE, QD-GRAPH-CONDITIONAL]
+    decision_authority: TEST-DESIGN
+  - id: FTD-STRUCTURE
+    kind: test-contract
+    subject: dependency-and-adapter-boundaries
+    semantic_value: Structural/contract tests reject feature-to-concrete-adapter, feature-to-renderer, private-state and obsolete public feature dependency edges while proving adapter model fidelity.
+    derived_from: [FVF-PORTS, IX-NO-LAYOUT, SV-NO-IMPLEMENTATION, QD-SEMANTIC-PRESERVATION]
+    decision_authority: TEST-DESIGN
+  - id: FTD-CURRENTNESS
+    kind: test-contract
+    subject: strict-semantic-currentness
+    semantic_value: Repository validation fails when the selected frontend consumer closure is not semantically ACCEPTED and CURRENT under the pinned Harness policy.
+    derived_from: [FVF-CURRENTNESS, IX-CURRENTNESS, SV-NO-IMPLEMENTATION, QD-SEMANTIC-PRESERVATION]
+    decision_authority: TEST-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, test-not-semantic-owner]
