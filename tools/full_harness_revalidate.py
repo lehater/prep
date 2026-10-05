@@ -49,6 +49,9 @@ def main() -> int:
     coverage_overlay = load(ROOT / ".harness/engineering-coverage.yaml")
     catalog = load(HARNESS_ROOT / "catalogs/software-authorities-v0.yaml")
     skill_registry = load(HARNESS_ROOT / "skills/artifact-skill-registry-v0.yaml")
+    decision_policy = load(
+        ROOT / ".harness/candidates/application-design-decision-policy.yaml"
+    )
 
     errors = validate_registry(catalog, assessments)
     if errors:
@@ -104,6 +107,7 @@ def main() -> int:
             skill_registry=skill_registry,
             semantic_evaluations=semantic_evaluations,
             lifecycle=lifecycle,
+            decision_policy=decision_policy,
         )
         print(f"{consumer} strict semantic/currentness: {closure['status']}")
         if closure["status"] != "COMPLETE":
