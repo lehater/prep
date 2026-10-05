@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: task-interface
+source_capability: prep.task-model
+target_capability: prep.interface-verification
+obligations:
+  - id: direct-semantic-input
+    source_kind: task
+    subject: TASK-U-COMPARE-TARGETS
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
