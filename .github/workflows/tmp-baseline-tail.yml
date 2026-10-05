@@ -1,4 +1,4 @@
-name: temporary Harness closure API inspection
+name: temporary Harness revalidation API discovery
 
 on:
   push:
@@ -19,23 +19,17 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect strict closure API
-        env:
-          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+      - name: Discover revalidation/publication application surfaces
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import inspect, os, sys
-          from pathlib import Path
-          root=Path(os.environ["HARNESS_ROOT"])
-          sys.path.insert(0,str(root/"src"))
-          from harness.application.semantic_closure import evaluate_semantic_closure
-          from harness.application.semantic_admission import derive_acceptance_policy_fingerprints
-          print("CLOSURE_SIGNATURE", inspect.signature(evaluate_semantic_closure))
-          print("POLICY_SIGNATURE", inspect.signature(derive_acceptance_policy_fingerprints))
-          print("=== CLOSURE SOURCE ===")
-          print(inspect.getsource(evaluate_semantic_closure))
-          print("=== POLICY SOURCE ===")
-          print(inspect.getsource(derive_acceptance_policy_fingerprints))
-          PY
+          PACK="${{ steps.sync.outputs.pack }}"
+          cd "$PACK"
+          echo "=== APPLICATION MODULES ==="
+          find src/harness/application -maxdepth 1 -type f -printf '%f\n' | sort | grep -E 'admission|closure|decision|publication|revalid|lifecycle|pipeline|status'
+          echo "=== REVALIDATE SYMBOLS ==="
+          grep -R -nE 'def .*revalid|class .*Revalid|revalidate_target|revalidation' src/harness/application src/harness/assurance | head -n 200 || true
+          echo "=== PUBLICATION SYMBOLS ==="
+          grep -R -nE '^def (build|publish|read)_project_publication|project_publication' src/harness/application/project_publication.py | head -n 120 || true
+          echo "=== ROUTER OPERATIONS ==="
+          python -m harness.application.skill_router operation --help || true
