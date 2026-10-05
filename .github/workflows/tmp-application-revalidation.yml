@@ -1,4 +1,4 @@
-name: temporary semantic contract defaults
+name: temporary derivation contract discovery
 
 on:
   push:
@@ -17,14 +17,12 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Print semantic contract defaults
+      - name: Discover derivation contract surfaces
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          python - <<'PY'
-          import yaml
-          from pathlib import Path
-          d=yaml.safe_load(Path("spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text())
-          print(yaml.safe_dump(d.get("defaults",{}),sort_keys=False,allow_unicode=True))
-          PY
+          echo "=== modules ==="
+          find src/harness/application src/harness/assurance -maxdepth 1 -type f -printf '%p\n' | sort | grep -E 'deriv|semantic' || true
+          echo "=== contract builders ==="
+          grep -RIn --exclude='*.pyc' -E 'build_.*derivation|derivation_contract|semantic derivation contract|harness-semantic-derivation-contract' src/harness skills docs/design spec | head -n 260 || true
