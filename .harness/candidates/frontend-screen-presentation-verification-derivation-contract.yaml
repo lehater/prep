@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: screen-presentation-verification
+source_capability: prep.screen-view-design
+target_capability: prep.presentation-verification
+obligations:
+  - id: direct-semantic-input
+    source_kind: screen-invariant
+    subject: screen-implementation-boundary
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
