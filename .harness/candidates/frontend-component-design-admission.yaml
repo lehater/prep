@@ -18,9 +18,9 @@ decision_review:
           owner_authority: COMPONENT-DESIGN
           alternatives:
             - {id: view-responsibility-features, state: VIABLE}
-            - {id: fine-grained-domainish-features, state: REJECTED, rationale: "Would reintroduce Learning/Diagnostics/Progress boundaries absent from accepted view responsibilities."}
-            - {id: resource-oriented-features, state: REJECTED, rationale: "Would shape UI code around provider/domain resource nouns."}
-            - {id: monolithic-preparation-feature, state: REJECTED, rationale: "Would erase independently changing task-feature responsibilities and provider seams."}
+            - {id: fine-grained-domainish-features, state: REJECTED, rationale: "Reintroduces Learning/Diagnostics/Progress splits absent from accepted UI responsibilities."}
+            - {id: resource-oriented-features, state: REJECTED, rationale: "Shapes UI components around provider/domain resources rather than task responsibilities."}
+            - {id: monolithic-preparation-feature, state: REJECTED, rationale: "Loses independently changing task responsibilities and provider seams."}
           disposition: DETERMINED
           selected: view-responsibility-features
     - axis: provider-seams
@@ -30,14 +30,14 @@ decision_review:
           alternatives:
             - {id: narrow-consumer-ports, state: VIABLE}
             - {id: aggregated-prep-port, state: VIABLE}
-            - {id: direct-provider-use, state: REJECTED, rationale: "Would leak provider/transport details into task features."}
+            - {id: direct-provider-use, state: REJECTED, rationale: "Leaks provider/transport details and prevents substitution."}
           disposition: DELEGATED
           selected: narrow-consumer-ports
         - id: spatial-renderer-seam
           owner_authority: COMPONENT-DESIGN
           alternatives:
             - {id: optional-renderer-port, state: VIABLE}
-            - {id: renderer-inside-feature, state: REJECTED, rationale: "Would make concrete renderer objects part of task-semantic contracts."}
+            - {id: renderer-inside-feature, state: REJECTED, rationale: "Makes concrete renderer mechanics part of task-feature contracts."}
           disposition: DETERMINED
           selected: optional-renderer-port
     - axis: state-ownership
@@ -46,36 +46,20 @@ decision_review:
           owner_authority: COMPONENT-DESIGN
           alternatives:
             - {id: local-plus-preparation-context, state: VIABLE}
-            - {id: general-global-store, state: REJECTED, rationale: "No accepted broad cross-feature mutable-state requirement exists."}
-            - {id: client-canonical-projections, state: REJECTED, rationale: "Would re-own canonical Target/Knowledge/learner truth in the browser."}
-            - {id: cross-feature-workflow-store, state: REJECTED, rationale: "Attempt/request/review transient state has narrower accepted lifecycles."}
+            - {id: general-global-store, state: REJECTED, rationale: "Adds broad mutable coordination with no accepted shared-state need."}
+            - {id: client-canonical-projections, state: REJECTED, rationale: "Violates external ownership of canonical semantic truth."}
+            - {id: cross-feature-workflow-store, state: REJECTED, rationale: "Transient attempt/request/review state has task-bounded lifetimes."}
           disposition: DETERMINED
           selected: local-plus-preparation-context
 semantic_assertions:
-  - id: FCD-RESPONSIBILITY
-    kind: component-responsibility
-    subject: task-feature-ownership
-    semantic_value: Public frontend feature components align to accepted task/view responsibilities; finer visual decomposition remains private to the owning feature.
-    derived_from: [FSA-FEATURES, FEP-DEPENDENCY, SV-NO-IMPLEMENTATION]
-    decision_authority: COMPONENT-DESIGN
-  - id: FCD-DEPENDENCY
-    kind: component-dependency
-    subject: inward-consumer-ports
-    semantic_value: Features consume narrow ports they own; adapters depend on those contracts and raw provider/transport types remain outside feature contracts.
-    derived_from: [FSA-DEPENDENCY, FEP-DEPENDENCY, MI-NO-LEAK]
-    decision_authority: COMPONENT-DESIGN
-  - id: FCD-ADAPTER
-    kind: component-adapter
-    subject: mock-transport-spatial-provider-seams
-    semantic_value: Mock and future transport adapters may implement several consumer ports; optional spatial rendering is isolated behind a renderer-neutral Knowledge seam and can be removed without breaking task completion.
-    derived_from: [FSA-FAILURE, FEP-SPATIAL, MI-NO-LEAK, QD-GRAPH-CONDITIONAL]
-    decision_authority: COMPONENT-DESIGN
-  - id: FCD-STATE
-    kind: component-state
-    subject: feature-local-plus-preparation-context
-    semantic_value: Active Target/focus identity is the only shared cross-view interaction context; candidate, query, attempt, evidence-review and preparation-request state remains with its owning feature/provider cache.
-    derived_from: [FSA-STATE, FEP-STATE]
-    decision_authority: COMPONENT-DESIGN
+  - {id: CD-COMPOSITION, kind: component-boundary, subject: frontend-composition-root, semantic_value: "FrontendCompositionRoot selects adapters and composes PreparationShell/PreparationContext plus public task features without owning semantic truth.", derived_from: [FSA-RUNTIME, FSA-TASK-MODULES, EP-OWNERSHIP], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-SHELL, kind: component-boundary, subject: preparation-shell, semantic_value: "PreparationShell owns structural navigation/active-child composition only; PreparationContext owns active Target and accepted Next-focus continuity.", derived_from: [FSA-STATE, SV-FRAME], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-FEATURES, kind: component-boundary, subject: public-task-features, semantic_value: "Public features are TargetDirectionFeature, TargetFeature, CurrentPositionFeature, KnowledgeExplorerFeature, ActivityFeature, EvidenceChangeFeature and PreparationSupportFeature, aligned to current Screen/View responsibilities.", derived_from: [FSA-TASK-MODULES, SV-TARGETS, SV-TARGET, SV-CURRENT, SV-KNOWLEDGE, SV-ACTIVITY, SV-EVIDENCE, SV-PREP-SUPPORT], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-PORTS, kind: component-port, subject: consumer-ports, semantic_value: "Task features consume narrow TargetDirection, Target, CurrentPosition, Knowledge, Activity, EvidenceChange and PreparationSupport ports mapped only to accepted machine operations; one adapter may implement several ports.", derived_from: [FSA-PORTS, EP-PORTS, MI-OP-TARGETS-COMPARE, MI-OP-TARGET-ESTABLISH, MI-OP-STATE-GET, MI-OP-KNOWLEDGE-QUERY, MI-OP-ACTIVITY-START, MI-OP-PREP-REQUEST], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-SPATIAL, kind: component-provider-seam, subject: optional-spatial-renderer, semantic_value: "Knowledge spatial rendering is an optional renderer-neutral provider seam; task-complete non-spatial Knowledge behavior does not depend on it.", derived_from: [FSA-SPATIAL, QD-GRAPH-CONDITIONAL], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-STATE, kind: component-state, subject: frontend-state-ownership, semantic_value: "Active Target/focus continuity lives in a small PreparationContext; selections, attempts, requests and review state remain with the owning task feature/provider cache.", derived_from: [FSA-STATE, EP-STATE], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-DEPENDENCY, kind: component-dependency, subject: component-dependency-direction, semantic_value: "Public task features do not depend on concrete adapters, renderer packages, provider DTOs or another feature's private state; adapters depend on consumer contracts.", derived_from: [FSA-DEPENDENCY, EP-DEPENDENCY], decision_authority: COMPONENT-DESIGN}
+  - {id: CD-NO-LEGACY, kind: component-invariant, subject: obsolete-public-components, semantic_value: "No public Curation, Import, Progress, standalone Diagnostics or RuntimeStatus component/port is retained without a current accepted task/machine responsibility.", derived_from: [FSA-NO-LEGACY], decision_authority: COMPONENT-DESIGN}
 semantic_review:
   status: ACCEPTED
   checks: [source-discipline, authority-boundary, no-invention, component-not-upstream-owner, implementation-facing-boundaries-complete-for-scope]
