@@ -58,8 +58,9 @@ decision_review:
           alternatives:
             - {id: retain-base-tools-and-isolate-optional-renderer, state: VIABLE}
             - {id: eager-renderer-removal, state: VIABLE}
-          disposition: DETERMINED
+          disposition: DELEGATED
           selected: retain-base-tools-and-isolate-optional-renderer
+          rationale: "Both options preserve accepted semantics; CONSERVATIVE implementation autonomy selects retention only while the optional adapter/prototype path still references the renderer, with removal as ordinary cleanup once unreferenced."
         - id: boundary-enforcement
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
