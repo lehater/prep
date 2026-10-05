@@ -1,0 +1,33 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRESENTATION-VERIFICATION
+capability: prep.presentation-verification
+path: docs/verification/presentation-verification.md
+changed_paths: [docs/verification/presentation-verification.md]
+canonical_references:
+  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/verification/interface-verification.md}
+  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/interface/presentation-system.md}
+  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/interface/screen-view-design.md}
+  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/architecture/performance-capacity.md}
+semantic_assertions:
+  - id: PVF-COMPOSITION
+    kind: verification-obligation
+    subject: task-primary-composition
+    semantic_value: Verify that each concrete Screen/View state has one dominant task surface, preserves required context and responsive semantic order, and does not invent new routes or domain modes.
+    derived_from: [IVF-TASK-COVERAGE, PS-TASK-HIERARCHY, SV-NO-IMPLEMENTATION, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+  - id: PVF-KNOWLEDGE
+    kind: verification-obligation
+    subject: knowledge-presentation-fidelity
+    semantic_value: Verify task-complete nonspatial Knowledge access and, only when a spatial view is present, semantic identity/scope preservation and graceful degradation independent of 2D or 3D geometry.
+    derived_from: [IVF-VIEW-RESPONSIBILITY, PS-KNOWLEDGE-REPRESENTATION, SV-KNOWLEDGE, QD-GRAPH-CONDITIONAL]
+    decision_authority: VERIFICATION-DESIGN
+  - id: PVF-ACCESSIBILITY
+    kind: verification-obligation
+    subject: responsive-accessible-completion
+    semantic_value: Verify keyboard/nonspatial completion, focus continuity, reduced-motion compatibility and responsive disclosure without a separate mobile product topology.
+    derived_from: [IVF-RECOVERY, PS-ACCESSIBILITY, SV-RESPONSIVE, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, verification-not-semantic-owner]
