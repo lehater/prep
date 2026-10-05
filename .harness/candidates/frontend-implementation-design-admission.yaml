@@ -57,10 +57,9 @@ decision_review:
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
             - {id: retain-base-tools-and-isolate-optional-renderer, state: VIABLE}
-            - {id: eager-renderer-removal, state: VIABLE}
-          disposition: DELEGATED
+            - {id: eager-renderer-removal, state: REJECTED, rationale: "The current repository still contains a retained graph-rfg3d prototype/provider path; forcing renderer removal before feature migration would broaden this semantic correction into an unrelated provider rewrite and violate the selected foundation-then-feature sequencing."}
+          disposition: DETERMINED
           selected: retain-base-tools-and-isolate-optional-renderer
-          rationale: "Both options preserve accepted semantics; CONSERVATIVE implementation autonomy selects retention only while the optional adapter/prototype path still references the renderer, with removal as ordinary cleanup once unreferenced."
         - id: boundary-enforcement
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
