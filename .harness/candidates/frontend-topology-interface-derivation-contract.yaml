@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: topology-interface
+source_capability: prep.interface-topology
+target_capability: prep.interface-verification
+obligations:
+  - id: direct-semantic-input
+    source_kind: topology-navigation
+    subject: preparation-crosslinks
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
