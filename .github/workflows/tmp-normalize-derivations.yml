@@ -12,15 +12,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Sync pinned Harness Consumer Pack
+        id: sync
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
       - name: Audit required target provenance
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import yaml
-
+          import os,sys,yaml
           root=Path(".")
+          harness_root=Path(os.environ["HARNESS_ROOT"])
+          sys.path.insert(0,str(harness_root/"src"))
+          from harness.application.project_publication import read_project_publication
+          from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
+
+          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
+          pub=read_project_publication(root/".harness/project-publication.yaml",graph=graph)
+          life={
+              row["capability"]:row
+              for row in pub["state"]["lifecycle"].get("providers",[]) or []
+              if isinstance(row,dict) and isinstance(row.get("capability"),str)
+          }
           candidates={}
           for path in sorted((root/".harness/candidates").glob("*-admission.yaml")):
               try: doc=yaml.safe_load(path.read_text())
@@ -30,12 +50,12 @@ jobs:
 
           def choose(cap):
               rows=candidates.get(cap,[])
-              if len(rows)==1: return rows[0]
-              # Prefer canonical artifact id matching the target artifact/capability slug only for audit;
-              # report ambiguity instead of guessing.
-              canonical=[r for r in rows if r[1].get("id")]
-              if len(canonical)==1: return canonical[0]
-              raise SystemExit(f"ambiguous candidate for {cap}: {[str(p) for p,_ in rows]}")
+              expected=(life.get(cap) or {}).get("semantic_atom_fingerprints")
+              if isinstance(expected,dict) and expected:
+                  matches=[r for r in rows if semantic_assertion_fingerprints(r[1])==expected]
+                  if len(matches)==1:return matches[0]
+              if len(rows)==1:return rows[0]
+              raise SystemExit(f"ambiguous current candidate for {cap}: {[str(p) for p,_ in rows]}")
 
           missing=[]
           checked=[]
@@ -43,7 +63,7 @@ jobs:
               doc=yaml.safe_load(path.read_text())
               if doc.get("kind")!="harness-semantic-derivation-contract": continue
               source_cap=doc["source_capability"]; target_cap=doc["target_capability"]
-              source_path,source=choose(source_cap)
+              _,source=choose(source_cap)
               target_path,target=choose(target_cap)
               target_derived={
                   d
