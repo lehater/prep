@@ -1,4 +1,4 @@
-name: temporary inspect artifact router
+name: temporary route missing lifecycle capabilities
 
 on:
   push:
@@ -19,8 +19,22 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect artifact route syntax
+      - name: Route missing capability artifact skills
         shell: bash
         run: |
+          set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.skill_router artifact --help
+          for kind in concurrency-consistency-design system-architecture data-design; do
+            echo "=== ROUTE $kind ==="
+            python -m harness.application.skill_router artifact --knowledge-kind "$kind" | tee "/tmp/$kind.json"
+            python - "$kind" <<'PY'
+          import json, pathlib, sys
+          kind=sys.argv[1]
+          r=json.loads(pathlib.Path(f"/tmp/{kind}.json").read_text())
+          for p in r.get("instruction_contracts", []):
+              print(f"=== CONTRACT {p} ===")
+              print(pathlib.Path(p).read_text())
+          print("=== SKILL ===")
+          print(pathlib.Path(r["skill"]).read_text())
+          PY
+          done
