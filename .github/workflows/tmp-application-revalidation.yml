@@ -1,4 +1,4 @@
-name: temporary decision explorer skill
+name: temporary decision request signature
 
 on:
   push:
@@ -19,20 +19,16 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Locate decision explorer and print contract
-        shell: bash
+      - name: Inspect request builder signatures
+        env:
+          PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
         run: |
-          set -euo pipefail
-          cd "${{ steps.sync.outputs.pack }}"
-          echo "=== MATCHING SKILLS ==="
-          find skills -type f -name SKILL.md -print | grep -E 'decision|explor' || true
-          echo "=== DECISION PIPELINE SKILL ==="
-          cat skills/agent/decision-pipeline/SKILL.md
-          echo "=== DOMAIN MODEL CONTRACT ==="
           python - <<'PY'
-          import yaml
-          d=yaml.safe_load(open('spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'))
-          for x in d.get('contracts',[]):
-              if x.get('knowledge_kind')=='domain-model':
-                  print(yaml.safe_dump(x,sort_keys=False,allow_unicode=True))
+          import inspect
+          from harness.application.decision_explorer_request import build_decision_explorer_request
+          from harness.decision.decision_exploration import validate_explorer_request_binding
+          print("BUILD", inspect.signature(build_decision_explorer_request))
+          print(inspect.getsource(build_decision_explorer_request))
+          print("BIND", inspect.signature(validate_explorer_request_binding))
+          print(inspect.getsource(validate_explorer_request_binding))
           PY
