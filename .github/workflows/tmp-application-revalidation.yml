@@ -59,8 +59,6 @@ jobs:
         run: |
           set -euo pipefail
           cp .harness/project-publication.next.yaml .harness/project-publication.yaml
-          cp .harness/candidates/frontend-component-design-exploration.yaml .harness/candidates/frontend-component-design-exploration.yaml
-          cp .harness/candidates/frontend-implementation-design-exploration.yaml .harness/candidates/frontend-implementation-design-exploration.yaml
           rm -f .harness/project-publication.next.yaml .harness/frontend-tail-report.yaml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
