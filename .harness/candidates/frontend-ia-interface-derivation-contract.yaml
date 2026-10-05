@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: ia-interface
+source_capability: prep.information-architecture
+target_capability: prep.interface-verification
+obligations:
+  - id: direct-semantic-input
+    source_kind: information-crosslink
+    subject: preparation-cross-links
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
