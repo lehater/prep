@@ -10,6 +10,7 @@ HARNESS_ROOT=Path(os.environ["HARNESS_ROOT"]).resolve()
 sys.path.insert(0,str(HARNESS_ROOT/"src"))
 
 from harness.application.project_publication import read_project_publication, build_project_publication
+import harness.application.semantic_admission as semantic_admission_module
 from harness.application.semantic_admission import admit_artifact, derive_acceptance_policy_fingerprints
 from harness.assurance.capability_lifecycle import lifecycle_states
 from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
@@ -92,6 +93,14 @@ def main():
     dcontracts=load(HARNESS_ROOT/"spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml")
     policy=load(ROOT/".harness/candidates/application-design-decision-policy.yaml")
     report=[]; bound={}
+    captured_requests={}
+    original_builder=semantic_admission_module.build_decision_explorer_request
+    def capture_builder(**kwargs):
+        req=original_builder(**kwargs)
+        if req is not None:
+            captured_requests[kwargs["capability"]]=copy.deepcopy(req)
+        return req
+    semantic_admission_module.build_decision_explorer_request=capture_builder
     for cap,path,aid in ORDER:
         if cap in lifeidx:
             raise RuntimeError(f"{cap} already has lifecycle row")
@@ -115,7 +124,9 @@ def main():
         exploration=formal_exploration(cap,request_id) if request_id else None
         admitted=admit_artifact(**kwargs,decision_exploration=exploration) if exploration else probe
         if admitted.get("status")!="ACCEPTED":
+            req=captured_requests.get(cap)
             raise RuntimeError(yaml.safe_dump({
+              "explorer_request_canonical_inputs": (req or {}).get("canonical_inputs"),
               "capability":cap,"status":admitted.get("status"),
               "findings":admitted.get("findings"),"admission":admitted.get("admission")
             },sort_keys=False,allow_unicode=True))
