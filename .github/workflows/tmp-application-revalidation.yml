@@ -32,10 +32,15 @@ jobs:
           p=read_project_publication(Path('.harness/project-publication.yaml'), graph=graph)
           s=p['state']
           Path('/tmp/core.yaml').write_text(yaml.safe_dump(s['core_model'],sort_keys=False))
-          Path('/tmp/evals.yaml').write_text(yaml.safe_dump(s['semantic_evaluations'],sort_keys=False))
           Path('/tmp/lifecycle.yaml').write_text(yaml.safe_dump(s['lifecycle'],sort_keys=False))
           Path('/tmp/failures.yaml').write_text(yaml.safe_dump(s['decision_failures'],sort_keys=False))
           print('PUBLICATION',p['revision'])
           PY
           cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.decision_pipeline             "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml"             FRONTEND-IMPLEMENTATION             /tmp/core.yaml             /tmp/lifecycle.yaml             --semantic-evaluations /tmp/evals.yaml             --decision-failures /tmp/failures.yaml             --decision-policy "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml"
+          python -m harness.application.decision_pipeline \
+            "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" \
+            /tmp/core.yaml \
+            FRONTEND-IMPLEMENTATION \
+            /tmp/lifecycle.yaml \
+            "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml" \
+            --decision-failures /tmp/failures.yaml
