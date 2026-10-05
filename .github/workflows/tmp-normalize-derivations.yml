@@ -58,6 +58,7 @@ jobs:
               raise SystemExit(f"ambiguous current candidate for {cap}: {[str(p) for p,_ in rows]}")
 
           missing=[]
+          zero=[]
           checked=[]
           for path in sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml")):
               doc=yaml.safe_load(path.read_text())
@@ -82,6 +83,15 @@ jobs:
                       matches.append(assertion.get("id"))
                   matches=[m for m in matches if isinstance(m,str)]
                   checked.append((str(path),source_cap,target_cap,obligation.get("id"),matches))
+                  if not matches:
+                      zero.append({
+                          "contract":str(path),
+                          "source":source_cap,
+                          "target":target_cap,
+                          "obligation":obligation.get("id"),
+                          "source_kind":obligation.get("source_kind"),
+                          "subject":obligation.get("subject"),
+                      })
                   absent=[m for m in matches if m not in target_derived]
                   if absent:
                       missing.append({
@@ -93,6 +103,8 @@ jobs:
                           "required_source_ids":absent,
                       })
           print("CHECKED",len(checked))
-          print("MISSING",len(missing))
+          print("ZERO_SOURCE_MATCH",len(zero))
+          print(yaml.safe_dump(zero,sort_keys=False,allow_unicode=True))
+          print("MISSING_PROVENANCE",len(missing))
           print(yaml.safe_dump(missing,sort_keys=False,allow_unicode=True))
           PY
