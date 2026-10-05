@@ -1,4 +1,4 @@
-name: temporary Harness reconcile route
+name: temporary publication currentness audit
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - audit/ui-view-boundaries-clean
 
 jobs:
-  route:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,18 +17,46 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Route reconcile
+      - name: Inspect publication and strict closure
         shell: bash
+        env:
+          PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
         run: |
           set -euo pipefail
-          cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile | tee /tmp/route.json
           python - <<'PY'
-          import json, pathlib
-          r=json.loads(pathlib.Path('/tmp/route.json').read_text())
-          for p in r.get('instruction_contracts', []):
-              print(f'=== CONTRACT {p} ===')
-              print(pathlib.Path(p).read_text())
-          print('=== SKILL ===')
-          print(pathlib.Path(r['skill']).read_text())
+          from pathlib import Path
+          import yaml
+          from harness.application.project_publication import read_project_publication
+
+          root=Path(".")
+          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
+          publication=read_project_publication(root/".harness/project-publication.yaml", graph=graph)
+          state=publication["state"]
+          print("REVISION", publication["revision"])
+          print("PARENT", publication.get("parent_revision"))
+          print("SEMANTIC_EVALUATIONS", len(state["semantic_evaluations"].get("semantic_evaluations", [])))
+          print("DERIVATIONS", len(state["semantic_evaluations"].get("derivation_evaluations", [])))
+          print("LIFECYCLE_PROVIDERS", len(state["lifecycle"].get("providers", [])))
+          print("DECISION_FAILURES", len(state["decision_failures"].get("failures", [])))
+          idx={x["capability"]:x for x in state["lifecycle"].get("providers", [])}
+          for cap in [
+            "prep.problem-evidence","prep.user-needs","prep.product-intent",
+            "prep.interface-topology","prep.screen-view-design",
+            "prep.frontend-system-architecture","prep.frontend-component-design",
+            "prep.frontend-verification","prep.frontend-test-design",
+            "prep.frontend-implementation-design"
+          ]:
+              row=idx.get(cap)
+              print("LIFECYCLE", cap, row.get("acceptance_id") if row else "MISSING")
+          for name,key in [
+              ("/tmp/core.yaml","core_model"),
+              ("/tmp/evals.yaml","semantic_evaluations"),
+              ("/tmp/lifecycle.yaml","lifecycle"),
+          ]:
+              Path(name).write_text(yaml.safe_dump(state[key],sort_keys=False,allow_unicode=True))
           PY
+          cd "${{ steps.sync.outputs.pack }}"
+          echo "=== FRONTEND-PROTOTYPE STRICT CLOSURE ==="
+          python -m harness.application.semantic_closure             "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" FRONTEND-PROTOTYPE             /tmp/core.yaml /tmp/evals.yaml /tmp/lifecycle.yaml             --decision-policy "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml"
+          echo "=== FRONTEND-IMPLEMENTATION STRICT CLOSURE ==="
+          python -m harness.application.semantic_closure             "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" FRONTEND-IMPLEMENTATION             /tmp/core.yaml /tmp/evals.yaml /tmp/lifecycle.yaml             --decision-policy "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml"
