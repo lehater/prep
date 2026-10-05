@@ -11,30 +11,17 @@ canonical_references:
   - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/interface/machine-interface.md}
   - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/architecture/performance-capacity.md}
 semantic_assertions:
-  - id: FVF-TRACE
-    kind: verification-obligation
-    subject: frontend-task-traceability
-    semantic_value: Verify the complete learner preparation path from target direction through evidence/change and contextual preparation support against accepted Product, Presentation and architecture boundaries.
-    derived_from: [REQ-CAP-TARGET-DIRECTION, PVF-COMPOSITION, FSA-FEATURES, MI-NO-LEAK, QD-SEMANTIC-PRESERVATION]
-    decision_authority: VERIFICATION-DESIGN
-  - id: FVF-PORTS
-    kind: verification-obligation
-    subject: frontend-port-and-dependency-fidelity
-    semantic_value: Verify consumer-owned port/outcome fidelity, adapter representation isolation, dependency direction and task-local state ownership without legacy public Curation/Import/Progress/Diagnostics edges.
-    derived_from: [PVF-COMPOSITION, FSA-DEPENDENCY, MI-NO-LEAK, QD-SEMANTIC-PRESERVATION]
-    decision_authority: VERIFICATION-DESIGN
-  - id: FVF-KNOWLEDGE
-    kind: verification-obligation
-    subject: optional-spatial-knowledge
-    semantic_value: Verify Knowledge remains task-complete without a spatial renderer and preserves semantic identity/scope when an optional renderer is present or degraded.
-    derived_from: [PVF-KNOWLEDGE, FSA-FAILURE, MI-NO-LEAK, QD-GRAPH-CONDITIONAL]
-    decision_authority: VERIFICATION-DESIGN
-  - id: FVF-CURRENTNESS
-    kind: verification-obligation
-    subject: harness-semantic-currentness
-    semantic_value: Verify stale or lifecycle-unknown frontend knowledge cannot be reported current merely because files, structural graph checks or executable tests pass.
-    derived_from: [REQ-CAP-TARGET-DIRECTION, PVF-COMPOSITION, FSA-DEPENDENCY, MI-BASIS, QD-SEMANTIC-PRESERVATION]
-    decision_authority: VERIFICATION-DESIGN
+  - {id: FV-TRACEABILITY, kind: verification-obligation, subject: product-interface-traceability, semantic_value: "Verify every user-visible frontend behavior traces to accepted Product plus Task/Interaction/Screen responsibility; provider or legacy code does not create product behavior.", derived_from: [FSA-TASK-MODULES, PV-COVERAGE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-WORKFLOW, kind: verification-obligation, subject: complete-preparation-workflow, semantic_value: "Verify deterministic mocks support the complete current preparation workflow from target comparison through evidence/change review and valid continuation while preserving active Target/focus.", derived_from: [PV-FLOW, FSA-TASK-MODULES], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PREP-SUPPORT, kind: verification-obligation, subject: contextual-preparation-support, semantic_value: "Verify preparation support remains contextual learner request/review/recovery and never requires a learner-facing corpus/import/schema workflow.", derived_from: [PV-PREP-SUPPORT, FSA-NO-LEGACY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PORT-FIDELITY, kind: verification-obligation, subject: machine-port-fidelity, semantic_value: "Verify consumer ports preserve accepted Machine Interface identities, basis/currentness and typed outcomes and do not leak transport/provider representations.", derived_from: [FSA-PORTS, MI-COMPATIBILITY, MI-NO-LEAK], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-DEPENDENCIES, kind: verification-obligation, subject: frontend-dependency-direction, semantic_value: "Verify no task feature depends on concrete adapters/renderer packages/other feature private state and no obsolete Curation/Import/Progress/Diagnostics edge remains public.", derived_from: [FSA-DEPENDENCY, FSA-NO-LEGACY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-SPATIAL, kind: verification-obligation, subject: optional-spatial-renderer, semantic_value: "Verify non-spatial Knowledge is task-complete and optional spatial rendering cannot alter semantic identities/scope or become required/default merely because a provider dependency exists.", derived_from: [PV-KNOWLEDGE, FSA-SPATIAL, QD-GRAPH-CONDITIONAL], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-STATE, kind: verification-obligation, subject: frontend-state-ownership, semantic_value: "Verify PreparationContext contains only active Target/focus continuity and task-local state has bounded ownership/lifecycle.", derived_from: [FSA-STATE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-EVIDENCE, kind: verification-obligation, subject: evidence-state-gap-integrity, semantic_value: "Verify current state/gaps/focus/evidence/change remain accepted projections/outcomes rather than frontend inference, score synthesis or activity-completion side effects.", derived_from: [MI-REP-CURRENT, MI-REP-EVIDENCE, MI-REP-GAP, MI-REP-CHANGE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PRESENTATION, kind: verification-obligation, subject: presentation-evidence-closure, semantic_value: "Verify current composition variants, responsive hierarchy, accessibility and conditional spatial obligations have corresponding evidence before production authority.", derived_from: [PV-COMPOSITION, PV-RESPONSIVE, PV-ACCESSIBILITY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-HARNESS, kind: verification-obligation, subject: harness-currentness, semantic_value: "Verify strict Harness semantic/currentness closure: file existence or green executable tests never make a lifecycle-unknown/stale frontend capability CURRENT.", derived_from: [FSA-DEPENDENCY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-TARGET-ISOLATION, kind: verification-obligation, subject: target-purpose-isolation, semantic_value: "Verify related Targets may share reusable capability identity without transferring target-specific requirements or learner state.", derived_from: [PV-FLOW], decision_authority: VERIFICATION-DESIGN}
 semantic_review:
   status: ACCEPTED
   checks: [source-discipline, authority-boundary, no-invention, verification-not-semantic-owner]
