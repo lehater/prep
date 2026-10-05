@@ -1,4 +1,4 @@
-name: temporary derivation schema audit
+name: temporary publication api audit
 
 on:
   push:
@@ -17,11 +17,9 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect derivation schema
+      - name: Inspect project publication API
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          sed -n '1,260p' spec/semantic-derivation/semantic-derivation-v1.yaml
-          echo "=== EVALUATOR RULES ==="
-          sed -n '280,520p' src/harness/assurance/semantic_derivation.py
+          grep -n -A80 -B20 -E '^def (build_project_publication|publish_project_publication|read_project_publication)' src/harness/application/project_publication.py
