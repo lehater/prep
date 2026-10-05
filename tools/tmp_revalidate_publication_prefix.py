@@ -19,7 +19,7 @@ from harness.project_model.engineering_graph import production_index
 
 TARGET="prep.screen-view-design"
 EXPLORATION_FILES={
- "prep.application-design":".harness/candidates/application-design-exploration.yaml",
+ "prep.application-design":".harness/candidates/process-migration-application-design-exploration.yaml",
  "prep.application-process.activity-evidence-cycle":".harness/candidates/process-migration-activity-evidence-exploration.yaml",
  "prep.application-process.prepare-support":".harness/candidates/process-migration-prepare-support-exploration.yaml",
  "prep.presentation-system":".harness/candidates/presentation-screen-presentation-exploration.yaml",
