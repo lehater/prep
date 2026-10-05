@@ -1,4 +1,4 @@
-name: temporary decision request signature
+name: temporary publication semantic surface audit
 
 on:
   push:
@@ -19,16 +19,24 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect request builder signatures
+      - name: Print frontend publication semantic evaluations
         env:
           PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
         run: |
           python - <<'PY'
-          import inspect
-          from harness.application.decision_explorer_request import build_decision_explorer_request
-          from harness.decision.decision_exploration import validate_explorer_request_binding
-          print("BUILD", inspect.signature(build_decision_explorer_request))
-          print(inspect.getsource(build_decision_explorer_request))
-          print("BIND", inspect.signature(validate_explorer_request_binding))
-          print(inspect.getsource(validate_explorer_request_binding))
+          from pathlib import Path
+          import yaml
+          from harness.application.project_publication import read_project_publication
+          graph=yaml.safe_load(Path('.harness/engineering-graph.yaml').read_text())
+          p=read_project_publication(Path('.harness/project-publication.yaml'),graph=graph)
+          wanted={
+            'prep.frontend-system-architecture','prep.frontend-engineering-policy',
+            'prep.frontend-component-design','prep.interface-verification',
+            'prep.presentation-verification','prep.frontend-verification',
+            'prep.frontend-test-design','prep.frontend-implementation-design'
+          }
+          for e in p['state']['semantic_evaluations'].get('semantic_evaluations',[]):
+              if e.get('capability') in wanted:
+                  print('===',e['capability'],'===')
+                  print(yaml.safe_dump(e,sort_keys=False,allow_unicode=True))
           PY
