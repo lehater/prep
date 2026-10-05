@@ -8,7 +8,7 @@ views:
     purpose: Preserve application-level preparation navigation, support candidate Target comparison before commitment, and retain active Target/focus context when established.
     topology_ref: FRAME-PREPARATION
     regions:
-      - {id: prep-navigation, role: navigation, priority: primary, content: [Targets, Target, Current position, Knowledge, Activity, Evidence & changes]}
+      - {id: prep-navigation, role: navigation, priority: primary, content: [Targets, Target, Current position, Knowledge, Activity]}
       - {id: active-context, role: context, priority: supporting, content: [active Target when established, optional Next focus]}
       - {id: active-child, role: task-surface, priority: primary, content: [current task view]}
     patterns: [PATTERN-CONTEXT-HEADER]
@@ -118,11 +118,11 @@ views:
     exclusions: [activity-complete-equals-capability-complete, implicit retry, cancellation not backed by machine contract]
 
   - id: VIEW-EVIDENCE-CHANGE
-    purpose: Inspect evidence/why-state and understand what changed or remained unresolved after an attempt.
+    purpose: Review the evaluated result of one activity attempt, understand what changed or remained unresolved, and choose the next continuation.
     topology_ref: VIEW-EVIDENCE-CHANGE
     interaction_refs: [IX-ACTIVITY]
     regions:
-      - {id: change-summary, role: primary-result, priority: primary, content: [learner-evidence change, target-information refinement, changed, no-change, challenged or increased-uncertainty result]}
+      - {id: change-summary, role: primary-result, priority: primary, content: [reviewed activity/attempt context, learner-evidence change, target-information refinement, changed, no-change, challenged or increased-uncertainty result]}
       - {id: current-state-after, role: primary-context, priority: primary, content: [current target-relative state/gaps]}
       - {id: evidence-detail, role: supporting-detail, priority: secondary, content: [Performance/Observation facts, evidence argument/claim basis, provenance]}
       - {id: continuation-actions, role: actions, priority: primary, content: [continue current focus, return to Current position, inspect Knowledge]}

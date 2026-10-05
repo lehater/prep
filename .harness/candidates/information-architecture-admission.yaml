@@ -14,7 +14,7 @@ semantic_assertions:
   - id: IA-ROOT
     kind: information-location
     subject: active-preparation
-    semantic_value: "Preparation is the root conceptual location that supports candidate Target comparison before commitment and keeps active Target/current preparation direction coherent across Target, Current position, Knowledge, Activities and Evidence & changes without deciding navigation UI."
+    semantic_value: "Preparation is the root conceptual location that supports candidate Target comparison before commitment and keeps active Target/current preparation direction coherent across Targets, Target, Current position, Knowledge and Activities; evaluated activity Evidence & changes review is contextual rather than a peer global destination."
     derived_from: [CIM-TARGET-COMPARISON, CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-TARGET-DIRECTION, UJ-DIRECTION]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -56,7 +56,7 @@ semantic_assertions:
   - id: IA-LOC-EVIDENCE
     kind: information-location
     subject: evidence-changes-location
-    semantic_value: "Evidence & changes groups observed evidence, inspectable why-this-state reasoning and previous/current change so capability conclusions remain explainable without dominating all preparation content."
+    semantic_value: "Evidence & changes is a contextual review location for one evaluated activity result, exposing evidence, changed/no-change/challenged/unresolved meaning and continuation while Current position retains ownership of ordinary why-this-state inspection."
     derived_from: [CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-CURRENT-STATE, CIM-CHANGE, CIM-REL-EVIDENCE-STATE, UJ-ACTIVITY-EVIDENCE]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -91,14 +91,14 @@ semantic_assertions:
   - id: IA-STRUCTURE
     kind: information-structure
     subject: preparation-information-hierarchy
-    semantic_value: "The information hierarchy is task/concept cohesive: Preparation root contains Target, Current position, Knowledge, Activities and Evidence & changes; missing-support preparation is a contextual recovery branch rather than a learner corpus area."
+    semantic_value: "The information hierarchy is task/concept cohesive: Preparation root contains Targets, Target, Current position, Knowledge and Activities; Evidence & changes and Prepare missing support are contextual branches entered from the work that requires them rather than peer global areas."
     derived_from: [TM-GOAL-PREPARE, TM-GOAL-SUPPORT, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-CROSSLINKS
     kind: information-crosslink
     subject: preparation-cross-links
-    semantic_value: "Cross-links preserve target-direction and preparation work: Targets↔Target for compare/choose/reconsider; Target→Current position; Current position→Evidence/Knowledge/Activities; Knowledge→Activities; Activities→Evidence; Evidence→Current position; missing support→Prepare missing support→origin."
+    semantic_value: "Cross-links preserve target-direction and preparation work: Targets↔Target for compare/choose/reconsider; Target→Current position; Current position→Knowledge/Activities; Knowledge→Activities; Activities→contextual Evidence/change review; Evidence/change→Current position/continuation; missing support→Prepare missing support→origin."
     derived_from: [CIM-REL-COMPARISON-TARGET, CIM-REL-COMPARISON-STATE, CIM-REL-ACTIVITY-EVIDENCE, CIM-REL-PREPARATION-SUPPORT, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -112,7 +112,7 @@ semantic_assertions:
   - id: IA-FINDABILITY
     kind: information-findability-assumption
     subject: findability-assumptions
-    semantic_value: "Target context recovery, the Current position label, direct evidence-basis access, contextual missing-support recovery and independent Knowledge findability are explicit UX assumptions to validate downstream rather than hidden architecture facts."
+    semantic_value: "Target context recovery, the Current position label, same-view why-this-state evidence access, contextual post-activity Evidence/change review, contextual missing-support recovery and independent Knowledge findability are explicit UX assumptions to validate downstream rather than hidden architecture facts."
     derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
