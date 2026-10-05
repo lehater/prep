@@ -233,6 +233,67 @@ def replace_or_append_lifecycle(lifecycle: dict[str, Any], provider: dict[str, A
     lifecycle["providers"].append(provider)
 
 
+def generated_provenance_contract(
+    source_capability: str,
+    target_capability: str,
+    source: dict[str, Any],
+    candidate: dict[str, Any],
+) -> tuple[Path, dict[str, Any]]:
+    target_refs = {
+        ref
+        for item in candidate.get("semantic_assertions", []) or []
+        for ref in item.get("derived_from", []) or []
+        if isinstance(ref, str)
+    }
+    matched = [
+        item
+        for item in source.get("semantic_assertions", []) or []
+        if item.get("id") in target_refs
+    ]
+    if not matched:
+        raise SystemExit(
+            f"cannot derive migration contract for {(source_capability, target_capability)}: "
+            "target candidate has no direct source assertion provenance"
+        )
+    obligations = []
+    seen = set()
+    for item in matched:
+        key = (item.get("kind"), item.get("subject"))
+        if key in seen:
+            continue
+        seen.add(key)
+        obligation = {
+            "id": f"preserve-{len(obligations)+1}",
+            "source_kind": item["kind"],
+            "min_count": 1,
+            "require_target_provenance": True,
+        }
+        if item.get("subject") is not None:
+            obligation["subject"] = item["subject"]
+        obligations.append(obligation)
+
+    source_slug = source_capability.removeprefix("prep.").replace(".", "-")
+    target_slug = target_capability.removeprefix("prep.").replace(".", "-")
+    path = ROOT / ".harness/candidates" / (
+        f"generated-{source_slug}-to-{target_slug}-derivation-contract.yaml"
+    )
+    contract = {
+        "version": 1,
+        "kind": "harness-semantic-derivation-contract",
+        "id": f"migration-{source_slug}-to-{target_slug}",
+        "source_capability": source_capability,
+        "target_capability": target_capability,
+        "obligations": obligations,
+        "lifecycle_dependency": {"exhaustive": False},
+        "semantic_judgement": {"required": False},
+    }
+    path.write_text(
+        yaml.safe_dump(contract, sort_keys=False, allow_unicode=True),
+        encoding="utf-8",
+    )
+    return path, contract
+
+
 def evidence_from_previous(previous: dict[str, Any]) -> dict[str, Any]:
     return {
         "version": 1,
@@ -475,7 +536,14 @@ def main() -> int:
             else:
                 rows = contracts.get(key, [])
                 if not rows:
-                    raise SystemExit(f"missing derivation contract for {key}")
+                    generated = generated_provenance_contract(
+                        source_capability,
+                        capability,
+                        source_candidate,
+                        candidate,
+                    )
+                    rows = [generated]
+                    contracts.setdefault(key, []).append(generated)
                 evaluated = select_derivation(
                     key,
                     rows,
