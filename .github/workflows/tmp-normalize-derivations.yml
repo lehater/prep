@@ -1,4 +1,4 @@
-name: temporary frontend derivation provenance audit
+name: temporary normalize stale derivation subjects
 
 on:
   push:
@@ -7,104 +7,52 @@ on:
     paths:
       - ".github/workflows/tmp-normalize-derivations.yml"
 
+permissions:
+  contents: write
+
 jobs:
-  audit:
+  normalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Sync pinned Harness Consumer Pack
-        id: sync
-        shell: bash
-        run: |
-          set -euo pipefail
-          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
-          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Audit required target provenance
-        env:
-          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+      - name: Normalize stale source kind/subject selectors
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import os,sys,yaml
-          root=Path(".")
-          harness_root=Path(os.environ["HARNESS_ROOT"])
-          sys.path.insert(0,str(harness_root/"src"))
-          from harness.application.project_publication import read_project_publication
-          from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
+          import yaml
 
-          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
-          pub=read_project_publication(root/".harness/project-publication.yaml",graph=graph)
-          life={
-              row["capability"]:row
-              for row in pub["state"]["lifecycle"].get("providers",[]) or []
-              if isinstance(row,dict) and isinstance(row.get("capability"),str)
+          updates={
+            "frontend-architecture-component-derivation-contract.yaml": ("architecture-boundary","task-feature-topology"),
+            "frontend-architecture-engineering-policy-derivation-contract.yaml": ("architecture-dependency","frontend-dependency-direction"),
+            "frontend-architecture-frontend-verification-derivation-contract.yaml": ("architecture-dependency","frontend-dependency-direction"),
+            "frontend-component-implementation-derivation-contract.yaml": ("component-boundary","public-task-features"),
+            "frontend-interface-presentation-verification-derivation-contract.yaml": ("verification-obligation","interface-traceability"),
+            "frontend-policy-component-derivation-contract.yaml": ("engineering-policy-obligation","dependency-direction"),
+            "frontend-presentation-frontend-verification-derivation-contract.yaml": ("verification-obligation","dominant-task-composition"),
+            "frontend-test-implementation-derivation-contract.yaml": ("test-obligation","frontend-workflow-tests"),
+            "frontend-verification-implementation-derivation-contract.yaml": ("verification-obligation","product-interface-traceability"),
+            "frontend-verification-test-derivation-contract.yaml": ("verification-obligation","product-interface-traceability"),
           }
-          candidates={}
-          for path in sorted((root/".harness/candidates").glob("*-admission.yaml")):
-              try: doc=yaml.safe_load(path.read_text())
-              except Exception: continue
-              if doc.get("kind")=="harness-artifact-admission-candidate" and isinstance(doc.get("capability"),str):
-                  candidates.setdefault(doc["capability"],[]).append((path,doc))
-
-          def choose(cap):
-              rows=candidates.get(cap,[])
-              expected=(life.get(cap) or {}).get("semantic_atom_fingerprints")
-              if isinstance(expected,dict) and expected:
-                  matches=[r for r in rows if semantic_assertion_fingerprints(r[1])==expected]
-                  if len(matches)==1:return matches[0]
-              if len(rows)==1:return rows[0]
-              raise SystemExit(f"ambiguous current candidate for {cap}: {[str(p) for p,_ in rows]}")
-
-          missing=[]
-          zero=[]
-          checked=[]
-          for path in sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml")):
+          root=Path(".harness/candidates")
+          for name,(kind,subject) in updates.items():
+              path=root/name
               doc=yaml.safe_load(path.read_text())
-              if doc.get("kind")!="harness-semantic-derivation-contract": continue
-              source_cap=doc["source_capability"]; target_cap=doc["target_capability"]
-              _,source=choose(source_cap)
-              target_path,target=choose(target_cap)
-              target_derived={
-                  d
-                  for assertion in target.get("semantic_assertions",[]) or []
-                  if isinstance(assertion,dict)
-                  for d in assertion.get("derived_from",[]) or []
-                  if isinstance(d,str)
-              }
-              for obligation in doc.get("obligations",[]) or []:
-                  if not obligation.get("require_target_provenance"): continue
-                  matches=[]
-                  for assertion in source.get("semantic_assertions",[]) or []:
-                      if not isinstance(assertion,dict): continue
-                      if obligation.get("source_kind") and assertion.get("kind")!=obligation.get("source_kind"): continue
-                      if obligation.get("subject") and assertion.get("subject")!=obligation.get("subject"): continue
-                      matches.append(assertion.get("id"))
-                  matches=[m for m in matches if isinstance(m,str)]
-                  checked.append((str(path),source_cap,target_cap,obligation.get("id"),matches))
-                  if not matches:
-                      zero.append({
-                          "contract":str(path),
-                          "source":source_cap,
-                          "target":target_cap,
-                          "obligation":obligation.get("id"),
-                          "source_kind":obligation.get("source_kind"),
-                          "subject":obligation.get("subject"),
-                      })
-                  absent=[m for m in matches if m not in target_derived]
-                  if absent:
-                      missing.append({
-                          "contract":str(path),
-                          "source":source_cap,
-                          "target":target_cap,
-                          "target_candidate":str(target_path),
-                          "obligation":obligation.get("id"),
-                          "required_source_ids":absent,
-                      })
-          print("CHECKED",len(checked))
-          print("ZERO_SOURCE_MATCH",len(zero))
-          print(yaml.safe_dump(zero,sort_keys=False,allow_unicode=True))
-          print("MISSING_PROVENANCE",len(missing))
-          print(yaml.safe_dump(missing,sort_keys=False,allow_unicode=True))
+              obligations=doc.get("obligations",[]) or []
+              if len(obligations)!=1:
+                  raise SystemExit(f"{name}: expected one obligation")
+              obligations[0]["source_kind"]=kind
+              obligations[0]["subject"]=subject
+              path.write_text(yaml.safe_dump(doc,sort_keys=False,allow_unicode=True),encoding="utf-8")
+              print(name,kind,subject)
           PY
+      - name: Commit normalized contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/candidates/frontend-*-derivation-contract.yaml
+          git commit -m "Align strict derivation selectors with current semantics"
+          git push origin HEAD:audit/ui-view-boundaries-clean
