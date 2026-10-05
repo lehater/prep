@@ -6,6 +6,7 @@ on:
       - audit/ui-view-boundaries-clean
     paths:
       - "tools/tmp_revalidate_full_publication.py"
+      - ".harness/candidates/**"
       - ".github/workflows/tmp-baseline-tail.yml"
 
 jobs:
