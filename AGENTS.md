@@ -59,3 +59,5 @@ Commit coherent semantic blocks. When canonical upstream knowledge changes, reva
 ## Validation
 
 Use the active Consumer Pack returned by `.harness/harnessw.py sync` and the routed Harness operations/artifact procedures. Repository-specific tests remain downstream evidence and do not replace Harness semantic closure.
+
+Do not treat Engineering Graph `COMPLETE`, Graph Doctor health or green repository-fast checks as sufficient semantic acceptance. Before declaring a Harness-controlled semantic branch complete, verify the selected Consumer closure against the current atomically published `.harness/project-publication.yaml`; affected capabilities must have matching ACCEPTED semantic admission and CURRENT lifecycle assertions. Final large-branch validation still uses the routed/heavy Harness revalidation path.
