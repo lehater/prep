@@ -65,6 +65,9 @@ axes:
       - strategy: provider-substitution
         challenge: Replace mock with future transport and spatial renderer independently.
         alternatives: [narrow-consumer-ports, aggregated-prep-port]
+      - strategy: provider-substitution
+        challenge: Replace or remove the spatial renderer provider and test whether Knowledge task semantics remain intact.
+        alternatives: [optional-renderer-port, renderer-inside-feature]
     decision_points:
       - id: machine-provider-seams
         alternatives:
