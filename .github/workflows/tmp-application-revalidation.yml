@@ -1,4 +1,4 @@
-name: temporary publication semantic surface audit
+name: temporary publication coverage audit
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Print frontend publication semantic evaluations
+      - name: Compare publication semantic and lifecycle coverage
         env:
           PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
         run: |
@@ -27,16 +27,18 @@ jobs:
           from pathlib import Path
           import yaml
           from harness.application.project_publication import read_project_publication
+          from harness.project_model.engineering_graph import production_index
           graph=yaml.safe_load(Path('.harness/engineering-graph.yaml').read_text())
+          prod=production_index(graph)
           p=read_project_publication(Path('.harness/project-publication.yaml'),graph=graph)
-          wanted={
-            'prep.frontend-system-architecture','prep.frontend-engineering-policy',
-            'prep.frontend-component-design','prep.interface-verification',
-            'prep.presentation-verification','prep.frontend-verification',
-            'prep.frontend-test-design','prep.frontend-implementation-design'
-          }
-          for e in p['state']['semantic_evaluations'].get('semantic_evaluations',[]):
-              if e.get('capability') in wanted:
-                  print('===',e['capability'],'===')
-                  print(yaml.safe_dump(e,sort_keys=False,allow_unicode=True))
+          sem={x.get('capability') for x in p['state']['semantic_evaluations'].get('semantic_evaluations',[])}
+          life={x.get('capability') for x in p['state']['lifecycle'].get('providers',[])}
+          seen=set(); order=[]
+          def visit(c):
+              if c in seen:return
+              for r in prod[c].get('requires',[]) or []: visit(r['capability'])
+              seen.add(c);order.append(c)
+          visit('prep.frontend-implementation-design')
+          for c in order:
+              print(c, 'SEM='+('yes' if c in sem else 'NO'), 'LIFE='+('yes' if c in life else 'NO'))
           PY
