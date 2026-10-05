@@ -1,0 +1,190 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.application-process.prepare-support
+knowledge_kind: application-process-design
+explorer_request_id: sha256:4682f8b58117d1228358fc3204ee33c0380a9263f7d5ab00f8df8f926f64de8e
+research_sources: []
+axes:
+- axis: occurrence-boundary
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: narrow-vs-widen-scope
+    challenge: Compare contextual missing-support preparation with open-ended corpus
+      preparation and one owner-operation fragment.
+    alternatives:
+    - global-corpus-preparation-session
+    - one-contextual-request
+    - owner-operation-fragment
+  - strategy: merge-vs-split-occurrence
+    challenge: Test whether unrelated future curation belongs to the same occurrence
+      as one learner-visible missing-support request.
+    alternatives:
+    - global-corpus-preparation-session
+    - one-contextual-request
+    - owner-operation-fragment
+  decision_points:
+  - id: prepare-support-occurrence
+    alternatives:
+    - id: global-corpus-preparation-session
+      difference: Occurrence spans ongoing corpus maintenance beyond one motivating
+        need.
+      material_effects:
+        scope: open-ended-corpus
+        entry: any-curation
+        occurrence-identity: corpus-session
+        completion-boundary: indefinite
+    - id: one-contextual-request
+      difference: Occurrence spans one learner-visible missing-support request through
+        return of accepted support/remainder.
+      material_effects:
+        scope: one-contextual-request
+        entry: missing-support-request
+        occurrence-identity: preparation-request
+        completion-boundary: return-to-origin
+    - id: owner-operation-fragment
+      difference: Occurrence is only one semantic-owner acceptance call.
+      material_effects:
+        scope: one-owner-operation
+        entry: owner-candidate
+        occurrence-identity: owner-call
+        completion-boundary: owner-result
+- axis: composition
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: reorder-constraints
+    challenge: Compare preserved request/provenance -> owner-scoped preparation ->
+      explicit return with all-or-nothing and uncoordinated owner calls.
+    alternatives:
+    - request-prepare-return-partial
+    - global-all-or-nothing
+    - uncoordinated-owner-operations
+  - strategy: split-vs-compose
+    challenge: Test whether independent owner acceptance can remain partial while
+      one contextual request remains coherent.
+    alternatives:
+    - request-prepare-return-partial
+    - global-all-or-nothing
+    - uncoordinated-owner-operations
+  decision_points:
+  - id: prepare-support-composition
+    alternatives:
+    - id: request-prepare-return-partial
+      difference: Preserve request/source context, accept independent owner results,
+        expose remainder, return to origin.
+      material_effects:
+        ordering: request-before-prepare-before-return
+        choice: owner-scoped-accept-reject-unresolved
+        concurrency: unconstrained-across-independent-owners
+        decomposition: owner-acceptance-inside-prepare
+    - id: global-all-or-nothing
+      difference: All owner candidates succeed/fail together.
+      material_effects:
+        ordering: global-transaction
+        choice: all-or-none
+        concurrency: atomic-group
+        decomposition: hidden
+    - id: uncoordinated-owner-operations
+      difference: Each owner call is independent with no process-level request/return
+        composition.
+      material_effects:
+        ordering: none
+        choice: per-owner
+        concurrency: independent
+        decomposition: separate-occurrences
+- axis: continuation
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: wait-vs-no-wait
+    challenge: Test continuation after missing source/dependency while preserving
+      accepted partial results.
+    alternatives:
+    - request-context-resume
+    - restart-whole-request
+    - runtime-job-correlation
+  - strategy: correlation-boundary-shift
+    challenge: Compare semantic request/context correlation with runtime job identity.
+    alternatives:
+    - request-context-resume
+    - restart-whole-request
+    - runtime-job-correlation
+  decision_points:
+  - id: prepare-support-continuation
+    alternatives:
+    - id: request-context-resume
+      difference: Resume same preparation request while motivating context remains
+        usable.
+      material_effects:
+        wait-condition: source-or-dependency-available
+        continuation-identity: preparation-request
+        correlation-semantics: request-plus-context-provenance
+    - id: restart-whole-request
+      difference: Any wait forces a new request.
+      material_effects:
+        wait-condition: none
+        continuation-identity: restart
+        correlation-semantics: none
+    - id: runtime-job-correlation
+      difference: Resume by technical job id.
+      material_effects:
+        wait-condition: runtime-completion
+        continuation-identity: job
+        correlation-semantics: technical-id
+- axis: completion-recovery
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: completion-outcome-perturbation
+    challenge: Compare accepted-support-plus-remainder completion with all-success
+      and first-result completion.
+    alternatives:
+    - accepted-plus-remainder
+    - all-requested-support-accepted
+    - first-owner-result
+  - strategy: compensate-vs-no-compensation
+    challenge: Test whether accepted owner results should be rolled back when another
+      candidate is unresolved.
+    alternatives:
+    - accepted-plus-remainder
+    - all-requested-support-accepted
+    - first-owner-result
+  decision_points:
+  - id: prepare-support-completion
+    alternatives:
+    - id: accepted-plus-remainder
+      difference: Complete with all justified accepted results plus explicit unresolved/rejected
+        remainder.
+      material_effects:
+        completion-outcomes: accepted-plus-remainder
+        cancellation: explicit-abandonment
+        recovery: preserve-partial-and-resume
+        compensation: none
+    - id: all-requested-support-accepted
+      difference: Complete only when every candidate is accepted.
+      material_effects:
+        completion-outcomes: all-success
+        cancellation: partial-is-failure
+        recovery: retry-until-complete
+        compensation: rollback-partial
+    - id: first-owner-result
+      difference: Complete as soon as any owner result exists.
+      material_effects:
+        completion-outcomes: first-result
+        cancellation: remainder-ignored
+        recovery: none
+        compensation: none
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - prepare-support-occurrence
+  - prepare-support-composition
+  - prepare-support-continuation
+  - prepare-support-completion
+  open_gaps: []

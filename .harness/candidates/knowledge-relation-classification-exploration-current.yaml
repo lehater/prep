@@ -1,0 +1,206 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.knowledge-relation-classification
+knowledge_kind: domain-model
+explorer_request_id: sha256:c6e81ff8f8b5e7f8f87ef38c3e1b67bf89441054af50f9ea79b912be8199be23
+research_sources: []
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: identity-substitution
+    challenge: Substitute the identity basis and test whether accepted meaning and
+      continuity still hold.
+    alternatives: &id001
+    - generic-relation-edge
+    - predicate-vocabulary-entry
+    - assertion-identity
+  - strategy: merge-vs-split
+    challenge: Merge or split the modeled identities and test whether materially distinct
+      meanings collapse.
+    alternatives: *id001
+  decision_points:
+  - id: relation-classifier-identity
+    alternatives:
+    - id: generic-relation-edge
+      difference: One generic relation edge owns both vocabulary and asserted relation
+        identity.
+      material_effects:
+        identity-basis: generic-edge
+        continuity: edge-instance
+        merge-split: merged
+    - id: predicate-vocabulary-entry
+      difference: A stable predicate vocabulary entry classifies relational propositions
+        without becoming the assertion.
+      material_effects:
+        identity-basis: predicate-vocabulary
+        continuity: predicate-meaning
+        merge-split: vocabulary-separate-from-assertion
+    - id: assertion-identity
+      difference: Classifier entries are identified by the concrete asserted relationship.
+      material_effects:
+        identity-basis: assertion-instance
+        continuity: assertion
+        merge-split: classifier-merged-with-assertion
+- axis: invariants
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: relax-invariant
+    challenge: Relax the accepted invariant and test which invalid states become representable.
+    alternatives: &id002
+    - broad-family-fallback
+    - evidence-bounded-precise
+    - forced-leaf-classification
+  - strategy: move-enforcement-owner
+    challenge: Move invariant enforcement across the accepted Authority boundary and
+      test ownership leakage.
+    alternatives: *id002
+  decision_points:
+  - id: relation-classification-validity
+    alternatives:
+    - id: broad-family-fallback
+      difference: Unsupported leaf meaning falls back to a broad relation family.
+      material_effects:
+        valid-state-space: broad-family-permitted
+        enforcement-owner: classifier
+        exception-policy: fallback
+    - id: evidence-bounded-precise
+      difference: Only evidence-supported precise predicates are accepted; unsupported
+        meaning remains unclassified/candidate.
+      material_effects:
+        valid-state-space: evidence-supported-only
+        enforcement-owner: subject-knowledge
+        exception-policy: candidate-or-none
+    - id: forced-leaf-classification
+      difference: Every observed relation must be assigned an accepted leaf predicate.
+      material_effects:
+        valid-state-space: forced-leaf
+        enforcement-owner: classifier
+        exception-policy: none
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: state-split
+    challenge: Split lifecycle states and test whether the extra state has independent
+      semantic meaning.
+    alternatives: &id003
+    - auto-promote-candidates
+    - accepted-plus-candidate
+    - immutable-catalog
+  - strategy: transition-perturbation
+    challenge: Perturb transition ownership and test whether historical/current semantics
+      remain valid.
+    alternatives: *id003
+  decision_points:
+  - id: relation-vocabulary-lifecycle
+    alternatives:
+    - id: auto-promote-candidates
+      difference: Candidate predicates become accepted through use.
+      material_effects:
+        state-set: candidate-accepted
+        transition-ownership: usage-driven
+        terminality: accepted
+    - id: accepted-plus-candidate
+      difference: Accepted and candidate predicate statuses remain explicit and promotion
+        requires semantic acceptance.
+      material_effects:
+        state-set: candidate-and-accepted
+        transition-ownership: semantic-owner
+        terminality: none
+    - id: immutable-catalog
+      difference: The accepted vocabulary cannot evolve.
+      material_effects:
+        state-set: accepted-only
+        transition-ownership: none
+        terminality: catalog-final
+- axis: relationships
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: entity-vs-relation
+    challenge: Represent the same meaning as entity versus relation and test identity/ownership
+      consequences.
+    alternatives: &id004
+    - first-class-relation-entity
+    - proposition-plus-predicate
+    - free-text-relation
+  - strategy: reverse-direction
+    challenge: Reverse or symmetrize relationship direction and test whether accepted
+      meaning is preserved.
+    alternatives: *id004
+  decision_points:
+  - id: relation-model-shape
+    alternatives:
+    - id: first-class-relation-entity
+      difference: A generic relation entity owns relationship identity.
+      material_effects:
+        relation-vs-entity: entity
+        directionality: entity-defined
+        cardinality: entity-defined
+    - id: proposition-plus-predicate
+      difference: A relational proposition carries participants and is classified
+        by predicate vocabulary.
+      material_effects:
+        relation-vs-entity: relation-proposition
+        directionality: predicate-specific
+        cardinality: predicate-specific
+    - id: free-text-relation
+      difference: Relationship meaning remains unstructured prose.
+      material_effects:
+        relation-vs-entity: text
+        directionality: implicit
+        cardinality: implicit
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-owner-upstream
+    challenge: Move the responsibility upstream and test whether the upstream Authority
+      would own downstream semantics.
+    alternatives: &id005
+    - absorb-cross-context-links
+    - subject-knowledge-only
+    - presentation-owned
+  - strategy: split-responsibility
+    challenge: Split responsibility across owners and test whether a stable semantic
+      owner remains.
+    alternatives: *id005
+  decision_points:
+  - id: relation-classification-boundary
+    alternatives:
+    - id: absorb-cross-context-links
+      difference: The catalog classifies capability, target, learner-state and execution
+        links.
+      material_effects:
+        semantic-owner: subject-knowledge
+        boundary-placement: cross-context
+        downstream-freedom: low
+    - id: subject-knowledge-only
+      difference: The catalog owns reusable Subject Knowledge predicates only.
+      material_effects:
+        semantic-owner: subject-knowledge
+        boundary-placement: subject-context
+        downstream-freedom: high
+    - id: presentation-owned
+      difference: The UI/graph layer owns relation classification.
+      material_effects:
+        semantic-owner: presentation
+        boundary-placement: downstream-ui
+        downstream-freedom: low
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - relation-classifier-identity
+  - relation-classification-validity
+  - relation-vocabulary-lifecycle
+  - relation-model-shape
+  - relation-classification-boundary
+  open_gaps: []

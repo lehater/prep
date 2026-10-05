@@ -1,0 +1,179 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.learning-design
+knowledge_kind: domain-model
+explorer_request_id: sha256:36061782697eaa2fb172d831a7d34d7ba5c3c3d7092eb127a94e06efe74d89e5
+research_sources: []
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: identity-substitution
+    challenge: Substitute the identity basis and test whether accepted meaning and
+      continuity still hold.
+    alternatives: &id001
+    - topic-capability
+    - performance-contract
+    - learner-state-capability
+  - strategy: merge-vs-split
+    challenge: Merge or split the modeled identities and test whether materially distinct
+      meanings collapse.
+    alternatives: *id001
+  decision_points:
+  - id: capability-semantic-identity
+    alternatives:
+    - id: topic-capability
+      difference: Capability identity follows topic/knowledge labels.
+      material_effects:
+        identity-basis: topic-label
+        continuity: topic
+        merge-split: topic-capability-merged
+    - id: performance-contract
+      difference: Capability identity follows reusable performance expectations and
+        material conditions/criteria.
+      material_effects:
+        identity-basis: performance-contract
+        continuity: performance-meaning
+        merge-split: capability-distinct-from-knowledge
+    - id: learner-state-capability
+      difference: Capability identity is merged with one learner's current state.
+      material_effects:
+        identity-basis: learner-state
+        continuity: learner-specific
+        merge-split: capability-state-merged
+- axis: invariants
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: relax-invariant
+    challenge: Relax the accepted invariant and test which invalid states become representable.
+    alternatives: &id002
+    - activity-implies-learning
+    - design-versus-evidence
+  - strategy: move-enforcement-owner
+    challenge: Move invariant enforcement across the accepted Authority boundary and
+      test ownership leakage.
+    alternatives: *id002
+  decision_points:
+  - id: learning-design-evidence-boundary
+    alternatives:
+    - id: activity-implies-learning
+      difference: Completing support/practice can directly establish capability.
+      material_effects:
+        valid-state-space: completion-implies-state
+        enforcement-owner: learning-design
+        exception-policy: none
+    - id: design-versus-evidence
+      difference: Support intent/observation affordance remain distinct from actual
+        learner evidence and conclusions.
+      material_effects:
+        valid-state-space: design-evidence-separated
+        enforcement-owner: learning-plus-learner-owners
+        exception-policy: evidence-required
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: state-split
+    challenge: Split lifecycle states and test whether the extra state has independent
+      semantic meaning.
+    alternatives: &id003
+    - target-owned-capability
+    - reusable-capability-target-selection
+  - strategy: transition-perturbation
+    challenge: Perturb transition ownership and test whether historical/current semantics
+      remain valid.
+    alternatives: *id003
+  decision_points:
+  - id: capability-target-lifecycle
+    alternatives:
+    - id: target-owned-capability
+      difference: Each Target owns separate capability definitions.
+      material_effects:
+        state-set: per-target-capabilities
+        transition-ownership: target-owner
+        terminality: target-lifetime
+    - id: reusable-capability-target-selection
+      difference: Reusable capabilities persist while Targets select/specify them
+        for purposes.
+      material_effects:
+        state-set: reusable-capability-plus-target-spec
+        transition-ownership: capability-and-target-owners
+        terminality: none
+- axis: relationships
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: entity-vs-relation
+    challenge: Represent the same meaning as entity versus relation and test identity/ownership
+      consequences.
+    alternatives: &id004
+    - knowledge-edge-reuse
+    - explicit-cross-context-links
+  - strategy: reverse-direction
+    challenge: Reverse or symmetrize relationship direction and test whether accepted
+      meaning is preserved.
+    alternatives: *id004
+  decision_points:
+  - id: learning-cross-context-links
+    alternatives:
+    - id: knowledge-edge-reuse
+      difference: Capability/target/support links are encoded as Subject Knowledge
+        edges.
+      material_effects:
+        relation-vs-entity: knowledge-relation
+        directionality: knowledge-owned
+        cardinality: knowledge-owned
+    - id: explicit-cross-context-links
+      difference: Learning/capability semantics own explicit references to Knowledge,
+        Targets and support.
+      material_effects:
+        relation-vs-entity: cross-context-reference
+        directionality: owner-specific
+        cardinality: owner-specific
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-owner-upstream
+    challenge: Move the responsibility upstream and test whether the upstream Authority
+      would own downstream semantics.
+    alternatives: &id005
+    - monolithic-learning-design
+    - reusable-design-core
+  - strategy: split-responsibility
+    challenge: Split responsibility across owners and test whether a stable semantic
+      owner remains.
+    alternatives: *id005
+  decision_points:
+  - id: learning-design-boundary
+    alternatives:
+    - id: monolithic-learning-design
+      difference: Learning Design owns reusable design, learner evidence and application
+        flow.
+      material_effects:
+        semantic-owner: learning-design
+        boundary-placement: multi-context
+        downstream-freedom: low
+    - id: reusable-design-core
+      difference: Learning Design owns reusable capability/target/support specifications
+        only.
+      material_effects:
+        semantic-owner: learning-design
+        boundary-placement: reusable-design-context
+        downstream-freedom: high
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - capability-semantic-identity
+  - learning-design-evidence-boundary
+  - capability-target-lifecycle
+  - learning-cross-context-links
+  - learning-design-boundary
+  open_gaps: []

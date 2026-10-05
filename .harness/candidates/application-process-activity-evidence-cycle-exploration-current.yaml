@@ -1,0 +1,185 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.application-process.activity-evidence-cycle
+knowledge_kind: application-process-design
+explorer_request_id: sha256:9e2efbc8c7b707ab93d48dbdea0e12e044d39598f2cac1f5547f6a72cac087b6
+research_sources: []
+axes:
+- axis: occurrence-boundary
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: narrow-vs-widen-scope
+    challenge: Compare a target-lifetime preparation session with one activity/evidence
+      cycle and evidence-only work.
+    alternatives:
+    - target-lifetime-session
+    - one-activity-evidence-cycle
+    - evidence-evaluation-only
+  - strategy: merge-vs-split-occurrence
+    challenge: Test whether target setup, repeated cycles or Knowledge orientation
+      belong to the same occurrence.
+    alternatives:
+    - target-lifetime-session
+    - one-activity-evidence-cycle
+    - evidence-evaluation-only
+  decision_points:
+  - id: activity-evidence-occurrence
+    alternatives:
+    - id: target-lifetime-session
+      difference: One occurrence spans target setup through repeated preparation until
+        an unspecified end.
+      material_effects:
+        scope: target-lifetime
+        entry: target-start
+        occurrence-identity: target-session
+        completion-boundary: undefined-target-finish
+    - id: one-activity-evidence-cycle
+      difference: One occurrence spans support selection through review of one resulting
+        activity/evidence outcome.
+      material_effects:
+        scope: one-evidence-bearing-cycle
+        entry: support-request-under-active-focus
+        occurrence-identity: semantic-attempt
+        completion-boundary: reviewed-result
+    - id: evidence-evaluation-only
+      difference: Occurrence starts only after Observations exist and ends at inference.
+      material_effects:
+        scope: inference-only
+        entry: observations-ready
+        occurrence-identity: evidence-evaluation
+        completion-boundary: inference-result
+- axis: composition
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: reorder-constraints
+    challenge: Perturb capture/evaluation/review order and test evidence correctness.
+    alternatives:
+    - semantic-partial-order
+    - activity-completion-is-evidence
+    - fire-and-forget-evaluation
+  - strategy: imperative-vs-declarative
+    challenge: Compare narrow enabling constraints with implicit activity-completion
+      or fire-and-forget control flow.
+    alternatives:
+    - semantic-partial-order
+    - activity-completion-is-evidence
+    - fire-and-forget-evaluation
+  decision_points:
+  - id: activity-evidence-composition
+    alternatives:
+    - id: semantic-partial-order
+      difference: Only accepted enabling constraints are canonical.
+      material_effects:
+        ordering: select-perform-capture-evaluate-review
+        choice: support-or-missing-support
+        concurrency: unconstrained-where-not-semantic
+        decomposition: referenced-operations
+    - id: activity-completion-is-evidence
+      difference: Finishing activity directly enables state review.
+      material_effects:
+        ordering: select-perform-review
+        choice: implicit-evidence
+        concurrency: unspecified
+        decomposition: collapsed-capture-evaluate
+    - id: fire-and-forget-evaluation
+      difference: Evidence evaluation may lag while user continuation proceeds.
+      material_effects:
+        ordering: capture-and-continue-before-evaluate
+        choice: deferred-evidence
+        concurrency: evaluation-concurrent-with-continuation
+        decomposition: async-evaluation
+- axis: continuation
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: wait-vs-no-wait
+    challenge: Test external/paused activity continuation without requiring restart.
+    alternatives:
+    - semantic-attempt-and-basis
+    - transport-token-correlation
+    - restart-after-any-wait
+  - strategy: correlation-boundary-shift
+    challenge: Compare semantic attempt/basis correlation with transport identity.
+    alternatives:
+    - semantic-attempt-and-basis
+    - transport-token-correlation
+    - restart-after-any-wait
+  decision_points:
+  - id: activity-evidence-continuation
+    alternatives:
+    - id: semantic-attempt-and-basis
+      difference: Resume same attributable attempt only while its target/focus basis
+        remains current.
+      material_effects:
+        wait-condition: attributable-result-or-dependency-return
+        continuation-identity: semantic-attempt
+        correlation-semantics: attempt-plus-basis
+    - id: transport-token-correlation
+      difference: Resume by external job/request id.
+      material_effects:
+        wait-condition: runtime-completion
+        continuation-identity: transport-job
+        correlation-semantics: technical-id
+    - id: restart-after-any-wait
+      difference: Any pause terminates the occurrence.
+      material_effects:
+        wait-condition: none
+        continuation-identity: restart
+        correlation-semantics: none
+- axis: completion-recovery
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: completion-outcome-perturbation
+    challenge: Compare review completion with activity completion and positive-change-only
+      completion.
+    alternatives:
+    - reviewed-evidence-result
+    - activity-finished
+    - positive-capability-change
+  - strategy: recover-vs-terminate
+    challenge: Test dependency-unavailable and unresolved evidence without fabricating
+      failure or progress.
+    alternatives:
+    - reviewed-evidence-result
+    - activity-finished
+    - positive-capability-change
+  decision_points:
+  - id: activity-evidence-completion
+    alternatives:
+    - id: reviewed-evidence-result
+      difference: Complete after inspectable review, including no-change/challenge/unresolved.
+      material_effects:
+        completion-outcomes: reviewed-result
+        cancellation: explicit-if-abandoned
+        recovery: preserve-facts-and-resume-if-current
+        compensation: none
+    - id: activity-finished
+      difference: Complete when activity execution returns.
+      material_effects:
+        completion-outcomes: activity-finished
+        cancellation: activity-only
+        recovery: retry-activity
+        compensation: none
+    - id: positive-capability-change
+      difference: Complete only when capability projection improves.
+      material_effects:
+        completion-outcomes: positive-change
+        cancellation: otherwise-failure
+        recovery: repeat-until-progress
+        compensation: none
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - activity-evidence-occurrence
+  - activity-evidence-composition
+  - activity-evidence-continuation
+  - activity-evidence-completion
+  open_gaps: []

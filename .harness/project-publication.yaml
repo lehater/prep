@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:acbf8bcefd6406936450e653f0610ae78dfd521daf6e50130258ba169e0ddf53
-parent_revision: sha256:eb8aadfa3df0bdfe331c4b3a95c523079a088ac671df7f306ceb3ff20caf6591
+revision: sha256:30e0ddf4742d6bd2a27f2fb7f98bb92c55c85d5bda2d168a7c514cab6cd70dac
+parent_revision: sha256:acbf8bcefd6406936450e653f0610ae78dfd521daf6e50130258ba169e0ddf53
 state:
   core_model:
     authorities:
@@ -359,7 +359,7 @@ state:
         status: ACCEPTED
         knowledge_kind: problem-evidence
         skill: skills/artifacts/problem-evidence/SKILL.md
-        acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
+        acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-5
         authority: DISCOVERY
         allowed_source_authorities:
         - DISCOVERY
@@ -373,8 +373,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
-        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+          fingerprint: sha256:ac0e950dc42f926d9eceb5054654b178852d50f24a870a36b74a177462280283
+        acceptance_policy_fingerprint: sha256:ac0e950dc42f926d9eceb5054654b178852d50f24a870a36b74a177462280283
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -383,8 +383,8 @@ state:
       lifecycle_assertion:
         artifact: PROBLEM-SPACE
         capability: prep.problem-evidence
-        acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
-        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-5
+        acceptance_policy_fingerprint: sha256:ac0e950dc42f926d9eceb5054654b178852d50f24a870a36b74a177462280283
         accepted_prerequisites: *id001
         semantic_atom_fingerprints:
           PE-ACTOR: SAF-d49d11eed6b2edfc8bec7516976522a1964da45b9ceb5098c67413e9d8529a69
@@ -440,7 +440,7 @@ state:
         status: ACCEPTED
         knowledge_kind: user-needs
         skill: skills/artifacts/user-needs/SKILL.md
-        acceptance_id: PREP-USER-NEEDS-STRICT-5
+        acceptance_id: PREP-USER-NEEDS-STRICT-6
         authority: DISCOVERY
         allowed_source_authorities:
         - DISCOVERY
@@ -450,15 +450,15 @@ state:
         - artifact: USER-NEEDS
           referenced_path: docs/vision/problem-space.md
         accepted_prerequisites: &id002
-          prep.problem-evidence: PREP-PROBLEM-EVIDENCE-STRICT-4
+          prep.problem-evidence: PREP-PROBLEM-EVIDENCE-STRICT-5
         accepted_prerequisite_semantics: {}
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
-        acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+          fingerprint: sha256:34eee0b585f55bc2b09eb0902f0dea3154178919f72d16c0c1ffc85b3dadfc5a
+        acceptance_policy_fingerprint: sha256:34eee0b585f55bc2b09eb0902f0dea3154178919f72d16c0c1ffc85b3dadfc5a
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -467,8 +467,8 @@ state:
       lifecycle_assertion:
         artifact: USER-NEEDS
         capability: prep.user-needs
-        acceptance_id: PREP-USER-NEEDS-STRICT-5
-        acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+        acceptance_id: PREP-USER-NEEDS-STRICT-6
+        acceptance_policy_fingerprint: sha256:34eee0b585f55bc2b09eb0902f0dea3154178919f72d16c0c1ffc85b3dadfc5a
         accepted_prerequisites: *id002
         semantic_atom_fingerprints:
           ACTOR-PRIMARY-LEARNER: SAF-1c1993c38245802e1036c99073906da7d709abf1576ae59319f23fff81f7a025
@@ -539,7 +539,7 @@ state:
         status: ACCEPTED
         knowledge_kind: product-requirements
         skill: skills/artifacts/product-requirements/SKILL.md
-        acceptance_id: PREP-PRODUCT-INTENT-STRICT-4
+        acceptance_id: PREP-PRODUCT-INTENT-STRICT-5
         authority: PRODUCT-REQUIREMENTS
         allowed_source_authorities:
         - DISCOVERY
@@ -550,7 +550,7 @@ state:
         - artifact: PRODUCT-VISION
           referenced_path: docs/vision/user-needs.yaml
         accepted_prerequisites: &id003
-          prep.user-needs: PREP-USER-NEEDS-STRICT-5
+          prep.user-needs: PREP-USER-NEEDS-STRICT-6
         accepted_prerequisite_semantics: &id004
           prep.user-needs:
             exhaustive: true
@@ -643,8 +643,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
-        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+          fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
+        acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -653,8 +653,8 @@ state:
       lifecycle_assertion:
         artifact: PRODUCT-VISION
         capability: prep.product-intent
-        acceptance_id: PREP-PRODUCT-INTENT-STRICT-4
-        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_id: PREP-PRODUCT-INTENT-STRICT-5
+        acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
         accepted_prerequisites: *id003
         accepted_prerequisite_semantics: *id004
         semantic_atom_fingerprints:
@@ -692,7 +692,7 @@ state:
         status: ACCEPTED
         knowledge_kind: product-requirements
         skill: skills/artifacts/product-requirements/SKILL.md
-        acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-5
         authority: PRODUCT-REQUIREMENTS
         allowed_source_authorities:
         - PRODUCT-REQUIREMENTS
@@ -702,7 +702,7 @@ state:
         - artifact: PRODUCT-CAPABILITIES
           referenced_path: .harness/knowledge/product-intent.yaml
         accepted_prerequisites: &id005
-          prep.product-intent: PREP-PRODUCT-INTENT-STRICT-4
+          prep.product-intent: PREP-PRODUCT-INTENT-STRICT-5
         accepted_prerequisite_semantics: &id006
           prep.product-intent:
             exhaustive: true
@@ -745,8 +745,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
-        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+          fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
+        acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -755,8 +755,8 @@ state:
       lifecycle_assertion:
         artifact: PRODUCT-CAPABILITIES
         capability: prep.product-capabilities
-        acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
         accepted_prerequisites: *id005
         accepted_prerequisite_semantics: *id006
         semantic_atom_fingerprints:
@@ -794,7 +794,7 @@ state:
         status: ACCEPTED
         knowledge_kind: domain-strategy
         skill: skills/artifacts/domain-strategy/SKILL.md
-        acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-4
+        acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-5
         authority: DOMAIN-STRATEGY
         allowed_source_authorities:
         - DOMAIN-STRATEGY
@@ -805,7 +805,7 @@ state:
         - artifact: CONTEXT-MAP
           referenced_path: .harness/knowledge/product-capabilities.yaml
         accepted_prerequisites: &id007
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
         accepted_prerequisite_semantics: &id008
           prep.product-capabilities:
             exhaustive: true
@@ -850,8 +850,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
-        acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+          fingerprint: sha256:d252d0f93962286449821bb909ec2cb48430b92f3c2b482e741d80cab96b0887
+        acceptance_policy_fingerprint: sha256:d252d0f93962286449821bb909ec2cb48430b92f3c2b482e741d80cab96b0887
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -860,8 +860,8 @@ state:
       lifecycle_assertion:
         artifact: CONTEXT-MAP
         capability: prep.domain-strategy
-        acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-4
-        acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+        acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-5
+        acceptance_policy_fingerprint: sha256:d252d0f93962286449821bb909ec2cb48430b92f3c2b482e741d80cab96b0887
         accepted_prerequisites: *id007
         accepted_prerequisite_semantics: *id008
         semantic_atom_fingerprints:
@@ -888,7 +888,7 @@ state:
         status: ACCEPTED
         knowledge_kind: model-context-strategy
         skill: skills/artifacts/model-context-strategy/SKILL.md
-        acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
+        acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
         authority: MODEL-CONTEXT-STRATEGY
         allowed_source_authorities:
         - DOMAIN-STRATEGY
@@ -902,8 +902,8 @@ state:
         - artifact: MODEL-CONTEXT-MAP
           referenced_path: docs/architecture/context-map.md
         accepted_prerequisites: &id009
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-          prep.domain-strategy: PREP-DOMAIN-STRATEGY-STRICT-4
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.domain-strategy: PREP-DOMAIN-STRATEGY-STRICT-5
         accepted_prerequisite_semantics: &id010
           prep.product-capabilities:
             exhaustive: true
@@ -964,8 +964,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
-        acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+          fingerprint: sha256:be6d01dff107f5413e69460aaa34d48358951a8c9c832eb952bca01cb908cc3b
+        acceptance_policy_fingerprint: sha256:be6d01dff107f5413e69460aaa34d48358951a8c9c832eb952bca01cb908cc3b
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -974,8 +974,8 @@ state:
       lifecycle_assertion:
         artifact: MODEL-CONTEXT-MAP
         capability: prep.model-context-strategy
-        acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-        acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+        acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+        acceptance_policy_fingerprint: sha256:be6d01dff107f5413e69460aaa34d48358951a8c9c832eb952bca01cb908cc3b
         accepted_prerequisites: *id009
         accepted_prerequisite_semantics: *id010
         semantic_atom_fingerprints:
@@ -1001,12 +1001,155 @@ state:
       findings: []
       semantic_claims:
         accepted: []
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.knowledge-relation-classification
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - identity-substitution
+          - merge-vs-split
+          decision_points:
+          - id: relation-classifier-identity
+            alternatives:
+            - generic-relation-edge
+            - predicate-vocabulary-entry
+            - assertion-identity
+        - axis: invariants
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-enforcement-owner
+          - relax-invariant
+          decision_points:
+          - id: relation-classification-validity
+            alternatives:
+            - broad-family-fallback
+            - evidence-bounded-precise
+            - forced-leaf-classification
+        - axis: lifecycle
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - state-split
+          - transition-perturbation
+          decision_points:
+          - id: relation-vocabulary-lifecycle
+            alternatives:
+            - auto-promote-candidates
+            - accepted-plus-candidate
+            - immutable-catalog
+        - axis: relationships
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - entity-vs-relation
+          - reverse-direction
+          decision_points:
+          - id: relation-model-shape
+            alternatives:
+            - first-class-relation-entity
+            - proposition-plus-predicate
+            - free-text-relation
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-owner-upstream
+          - split-responsibility
+          decision_points:
+          - id: relation-classification-boundary
+            alternatives:
+            - absorb-cross-context-links
+            - subject-knowledge-only
+            - presentation-owned
+        explorer_request_id: sha256:c6e81ff8f8b5e7f8f87ef38c3e1b67bf89441054af50f9ea79b912be8199be23
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: domain-model
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: KNOWLEDGE-RELATION-CLASSIFICATION
+        capability: prep.knowledge-relation-classification
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: relation-classifier-identity
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - predicate-vocabulary-entry
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: invariants
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: relation-classification-validity
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - evidence-bounded-precise
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: lifecycle
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: relation-vocabulary-lifecycle
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - accepted-plus-candidate
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: relationships
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: relation-model-shape
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - proposition-plus-predicate
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: relation-classification-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - subject-knowledge-only
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: domain-model
         skill: skills/artifacts/domain-model/SKILL.md
-        acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-3
+        acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-4
         authority: TACTICAL-DOMAIN-DESIGN
         allowed_source_authorities:
         - MODEL-CONTEXT-STRATEGY
@@ -1020,8 +1163,8 @@ state:
         - artifact: KNOWLEDGE-RELATION-CLASSIFICATION
           referenced_path: .harness/knowledge/product-capabilities.yaml
         accepted_prerequisites: &id011
-          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
         accepted_prerequisite_semantics: &id012
           prep.model-context-strategy:
             exhaustive: true
@@ -1066,18 +1209,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:c6e81ff8f8b5e7f8f87ef38c3e1b67bf89441054af50f9ea79b912be8199be23
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: KNOWLEDGE-RELATION-CLASSIFICATION
         capability: prep.knowledge-relation-classification
-        acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+        acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-4
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
         accepted_prerequisites: *id011
         accepted_prerequisite_semantics: *id012
         semantic_atom_fingerprints:
@@ -1098,12 +1241,152 @@ state:
       findings: []
       semantic_claims:
         accepted: []
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.knowledge-model
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - identity-substitution
+          - merge-vs-split
+          decision_points:
+          - id: knowledge-semantic-identity
+            alternatives:
+            - universal-node
+            - object-plus-proposition
+            - closed-typed-entities
+        - axis: invariants
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-enforcement-owner
+          - relax-invariant
+          decision_points:
+          - id: knowledge-context-invariant
+            alternatives:
+            - context-mutates-knowledge
+            - reusable-subject-truth
+        - axis: lifecycle
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - state-split
+          - transition-perturbation
+          decision_points:
+          - id: knowledge-identity-lifecycle
+            alternatives:
+            - source-identity
+            - semantic-identity
+        - axis: relationships
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - entity-vs-relation
+          - reverse-direction
+          decision_points:
+          - id: knowledge-relationship-shape
+            alternatives:
+            - first-class-generic-edge
+            - proposition-plus-predicate
+            - free-text-only
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-owner-upstream
+          - split-responsibility
+          decision_points:
+          - id: knowledge-responsibility-boundary
+            alternatives:
+            - absorb-cross-context-links
+            - subject-only
+        explorer_request_id: sha256:12095acfb84add5b8e608125e99bcf8247027e1ef4de504f1c7b300af4eca496
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: domain-model
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: KNOWLEDGE-MODEL
+        capability: prep.knowledge-model
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: knowledge-semantic-identity
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - object-plus-proposition
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: invariants
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: knowledge-context-invariant
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - reusable-subject-truth
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: lifecycle
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: knowledge-identity-lifecycle
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - semantic-identity
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: relationships
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: knowledge-relationship-shape
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - proposition-plus-predicate
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: knowledge-responsibility-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - subject-only
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: domain-model
         skill: skills/artifacts/domain-model/SKILL.md
-        acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-3
+        acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-4
         authority: TACTICAL-DOMAIN-DESIGN
         allowed_source_authorities:
         - MODEL-CONTEXT-STRATEGY
@@ -1119,9 +1402,9 @@ state:
         - artifact: KNOWLEDGE-MODEL
           referenced_path: docs/domain/relation-classification-catalog.yaml
         accepted_prerequisites: &id013
-          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-          prep.knowledge-relation-classification: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-3
+          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.knowledge-relation-classification: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-4
         accepted_prerequisite_semantics: &id014
           prep.model-context-strategy:
             exhaustive: true
@@ -1186,18 +1469,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:12095acfb84add5b8e608125e99bcf8247027e1ef4de504f1c7b300af4eca496
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: KNOWLEDGE-MODEL
         capability: prep.knowledge-model
-        acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+        acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-4
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
         accepted_prerequisites: *id013
         accepted_prerequisite_semantics: *id014
         semantic_atom_fingerprints:
@@ -1222,12 +1505,151 @@ state:
       findings: []
       semantic_claims:
         accepted: []
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.learning-design
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - identity-substitution
+          - merge-vs-split
+          decision_points:
+          - id: capability-semantic-identity
+            alternatives:
+            - topic-capability
+            - performance-contract
+            - learner-state-capability
+        - axis: invariants
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-enforcement-owner
+          - relax-invariant
+          decision_points:
+          - id: learning-design-evidence-boundary
+            alternatives:
+            - activity-implies-learning
+            - design-versus-evidence
+        - axis: lifecycle
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - state-split
+          - transition-perturbation
+          decision_points:
+          - id: capability-target-lifecycle
+            alternatives:
+            - target-owned-capability
+            - reusable-capability-target-selection
+        - axis: relationships
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - entity-vs-relation
+          - reverse-direction
+          decision_points:
+          - id: learning-cross-context-links
+            alternatives:
+            - knowledge-edge-reuse
+            - explicit-cross-context-links
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-owner-upstream
+          - split-responsibility
+          decision_points:
+          - id: learning-design-boundary
+            alternatives:
+            - monolithic-learning-design
+            - reusable-design-core
+        explorer_request_id: sha256:36061782697eaa2fb172d831a7d34d7ba5c3c3d7092eb127a94e06efe74d89e5
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: domain-model
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: LEARNING-DESIGN
+        capability: prep.learning-design
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: capability-semantic-identity
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - performance-contract
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: invariants
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learning-design-evidence-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - design-versus-evidence
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: lifecycle
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: capability-target-lifecycle
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - reusable-capability-target-selection
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: relationships
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learning-cross-context-links
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - explicit-cross-context-links
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learning-design-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - reusable-design-core
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: domain-model
         skill: skills/artifacts/domain-model/SKILL.md
-        acceptance_id: PREP-LEARNING-DESIGN-STRICT-3
+        acceptance_id: PREP-LEARNING-DESIGN-STRICT-4
         authority: TACTICAL-DOMAIN-DESIGN
         allowed_source_authorities:
         - MODEL-CONTEXT-STRATEGY
@@ -1243,9 +1665,9 @@ state:
         - artifact: LEARNING-DESIGN
           referenced_path: .harness/knowledge/product-capabilities.yaml
         accepted_prerequisites: &id015
-          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
         accepted_prerequisite_semantics: &id016
           prep.model-context-strategy:
             exhaustive: true
@@ -1321,18 +1743,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:36061782697eaa2fb172d831a7d34d7ba5c3c3d7092eb127a94e06efe74d89e5
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: LEARNING-DESIGN
         capability: prep.learning-design
-        acceptance_id: PREP-LEARNING-DESIGN-STRICT-3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+        acceptance_id: PREP-LEARNING-DESIGN-STRICT-4
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
         accepted_prerequisites: *id015
         accepted_prerequisite_semantics: *id016
         semantic_atom_fingerprints:
@@ -1363,12 +1785,152 @@ state:
       findings: []
       semantic_claims:
         accepted: []
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.learner-model
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - identity-substitution
+          - merge-vs-split
+          decision_points:
+          - id: learner-evidence-identity
+            alternatives:
+            - mutable-state-record
+            - fact-argument-claim
+            - score-only
+        - axis: invariants
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-enforcement-owner
+          - relax-invariant
+          decision_points:
+          - id: learner-inference-boundary
+            alternatives:
+            - direct-observation-inference
+            - explicit-inference-boundary
+        - axis: lifecycle
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - state-split
+          - transition-perturbation
+          decision_points:
+          - id: learner-evidence-lifecycle
+            alternatives:
+            - overwrite-state
+            - append-history-project-current
+        - axis: relationships
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - entity-vs-relation
+          - reverse-direction
+          decision_points:
+          - id: learner-evidence-argument-shape
+            alternatives:
+            - reusable-warrant-required
+            - direct-inspectable-argument
+            - opaque-model-output
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-owner-upstream
+          - split-responsibility
+          decision_points:
+          - id: learner-model-boundary
+            alternatives:
+            - learner-model-owns-target-and-capability
+            - learner-specific-only
+        explorer_request_id: sha256:1616d5e9a8823c4dd507d87093206c1ea58e07b12268fe223f0a98ede79cd0e1
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: domain-model
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: LEARNER-MODEL
+        capability: prep.learner-model
+        knowledge_kind: domain-model
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: semantic-identity
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learner-evidence-identity
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - fact-argument-claim
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: invariants
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learner-inference-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - explicit-inference-boundary
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: lifecycle
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learner-evidence-lifecycle
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - append-history-project-current
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: relationships
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learner-evidence-argument-shape
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - direct-inspectable-argument
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: learner-model-boundary
+            owner_authority: TACTICAL-DOMAIN-DESIGN
+            viable:
+            - learner-specific-only
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: domain-model
         skill: skills/artifacts/domain-model/SKILL.md
-        acceptance_id: PREP-LEARNER-MODEL-STRICT-3
+        acceptance_id: PREP-LEARNER-MODEL-STRICT-4
         authority: TACTICAL-DOMAIN-DESIGN
         allowed_source_authorities:
         - MODEL-CONTEXT-STRATEGY
@@ -1384,9 +1946,9 @@ state:
         - artifact: LEARNER-MODEL
           referenced_path: .harness/knowledge/product-capabilities.yaml
         accepted_prerequisites: &id017
-          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
         accepted_prerequisite_semantics: &id018
           prep.model-context-strategy:
             exhaustive: true
@@ -1455,18 +2017,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:1616d5e9a8823c4dd507d87093206c1ea58e07b12268fe223f0a98ede79cd0e1
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: LEARNER-MODEL
         capability: prep.learner-model
-        acceptance_id: PREP-LEARNER-MODEL-STRICT-3
-        acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+        acceptance_id: PREP-LEARNER-MODEL-STRICT-4
+        acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
         accepted_prerequisites: *id017
         accepted_prerequisite_semantics: *id018
         semantic_atom_fingerprints:
@@ -1502,7 +2064,7 @@ state:
         status: ACCEPTED
         knowledge_kind: quality-design
         skill: skills/artifacts/quality-design/SKILL.md
-        acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
         authority: QUALITY-DESIGN
         allowed_source_authorities:
         - PRODUCT-REQUIREMENTS
@@ -1516,8 +2078,8 @@ state:
         - artifact: FRONTEND-PERFORMANCE-CAPACITY
           referenced_path: docs/domain/knowledge-model.md
         accepted_prerequisites: &id019
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
         accepted_prerequisite_semantics: &id020
           prep.product-capabilities:
             exhaustive: true
@@ -1567,8 +2129,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:3c8129a51dacddf1d991005d6e028803f1eebbc41a7ca36e40765b1f9ebad9c6
-        acceptance_policy_fingerprint: sha256:3c8129a51dacddf1d991005d6e028803f1eebbc41a7ca36e40765b1f9ebad9c6
+          fingerprint: sha256:6c4abb388b19b3f42d9abf8b2c31a5516ae39826c1e7d2911c37346e7d0b9651
+        acceptance_policy_fingerprint: sha256:6c4abb388b19b3f42d9abf8b2c31a5516ae39826c1e7d2911c37346e7d0b9651
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -1577,8 +2139,8 @@ state:
       lifecycle_assertion:
         artifact: FRONTEND-PERFORMANCE-CAPACITY
         capability: prep.frontend-performance-capacity
-        acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        acceptance_policy_fingerprint: sha256:3c8129a51dacddf1d991005d6e028803f1eebbc41a7ca36e40765b1f9ebad9c6
+        acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        acceptance_policy_fingerprint: sha256:6c4abb388b19b3f42d9abf8b2c31a5516ae39826c1e7d2911c37346e7d0b9651
         accepted_prerequisites: *id019
         accepted_prerequisite_semantics: *id020
         semantic_atom_fingerprints:
@@ -1623,7 +2185,7 @@ state:
         status: ACCEPTED
         knowledge_kind: task-model
         skill: skills/artifacts/task-model/SKILL.md
-        acceptance_id: PREP-TASK-MODEL-STRICT-4
+        acceptance_id: PREP-TASK-MODEL-STRICT-5
         authority: APPLICATION-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -1641,10 +2203,10 @@ state:
         - artifact: TASK-MODEL
           referenced_path: docs/domain/learner-model.md
         accepted_prerequisites: &id021
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
         accepted_prerequisite_semantics: &id022
           prep.product-capabilities:
             exhaustive: true
@@ -1770,8 +2332,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:20b24c38e25e1ebc301da82ce734cf47fe53fba2e609bfe679f0f8c58ded527a
-        acceptance_policy_fingerprint: sha256:20b24c38e25e1ebc301da82ce734cf47fe53fba2e609bfe679f0f8c58ded527a
+          fingerprint: sha256:a3b7fe0b64b159385faa0c93d8ada317b73dfda51770e25d268caa74296b2c42
+        acceptance_policy_fingerprint: sha256:a3b7fe0b64b159385faa0c93d8ada317b73dfda51770e25d268caa74296b2c42
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -1780,8 +2342,8 @@ state:
       lifecycle_assertion:
         artifact: TASK-MODEL
         capability: prep.task-model
-        acceptance_id: PREP-TASK-MODEL-STRICT-4
-        acceptance_policy_fingerprint: sha256:20b24c38e25e1ebc301da82ce734cf47fe53fba2e609bfe679f0f8c58ded527a
+        acceptance_id: PREP-TASK-MODEL-STRICT-5
+        acceptance_policy_fingerprint: sha256:a3b7fe0b64b159385faa0c93d8ada317b73dfda51770e25d268caa74296b2c42
         accepted_prerequisites: *id021
         accepted_prerequisite_semantics: *id022
         semantic_atom_fingerprints:
@@ -1915,12 +2477,155 @@ state:
         - engineering.application.use-cases
         - engineering.application.orchestration
         - engineering.application.failures
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.application-design
+        knowledge_kind: application-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: operation-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - command-query-perturbation
+          - split-operation
+          decision_points:
+          - id: application-operation-partition
+            alternatives:
+            - workflow-monolith
+            - task-owner-bounded
+            - resource-crud
+        - axis: orchestration
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - move-orchestrator
+          - reorder-steps
+          decision_points:
+          - id: application-vs-process-composition
+            alternatives:
+            - broad-application-loop
+            - operation-local-plus-process
+            - domain-choreography
+        - axis: failure-semantics
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - fail-vs-recover
+          - retry-vs-no-retry
+          decision_points:
+          - id: application-outcome-model
+            alternatives:
+            - typed-outcomes
+            - generic-failure
+            - automatic-retry
+        - axis: partial-results
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - all-or-nothing-vs-partial
+          - resumability-perturbation
+          decision_points:
+          - id: preparation-operation-partial-result
+            alternatives:
+            - global-all-or-nothing
+            - owner-scoped-partial
+            - discard-and-restart
+        - axis: continuation-currentness
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - recompute-vs-materialize
+          - stale-vs-refresh
+          decision_points:
+          - id: operation-currentness
+            alternatives:
+            - live-unversioned
+            - basis-aware-refresh
+            - sticky-snapshot
+        explorer_request_id: sha256:20262c958ff0bb4e3bbf9250d974610769e705e6f174e3217c2dff7ad44ae22b
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: application-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: APPLICATION-DESIGN
+        capability: prep.application-design
+        knowledge_kind: application-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: operation-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: application-operation-partition
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - task-owner-bounded
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: orchestration
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: application-vs-process-composition
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - operation-local-plus-process
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: failure-semantics
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: application-outcome-model
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - typed-outcomes
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: partial-results
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: preparation-operation-partial-result
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - owner-scoped-partial
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: continuation-currentness
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: operation-currentness
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - basis-aware-refresh
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: application-design
         skill: skills/artifacts/application-design/SKILL.md
-        acceptance_id: PREP-APPLICATION-DESIGN-STRICT-5
+        acceptance_id: PREP-APPLICATION-DESIGN-STRICT-6
         authority: APPLICATION-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -1940,11 +2645,11 @@ state:
         - artifact: APPLICATION-DESIGN
           referenced_path: docs/domain/learner-model.md
         accepted_prerequisites: &id023
-          prep.task-model: PREP-TASK-MODEL-STRICT-4
-          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
         accepted_prerequisite_semantics: &id024
           prep.task-model:
             exhaustive: true
@@ -2303,18 +3008,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:46153514b3727f902fcd44f4c68d108c9c8814a2f1988c161eaa5933fabd2b0a
-        acceptance_policy_fingerprint: sha256:46153514b3727f902fcd44f4c68d108c9c8814a2f1988c161eaa5933fabd2b0a
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:044fb25ae9ac0553ac451581734a6d74c6cce32349cc6c5e161bcf17c1427f0b
+        acceptance_policy_fingerprint: sha256:044fb25ae9ac0553ac451581734a6d74c6cce32349cc6c5e161bcf17c1427f0b
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:20262c958ff0bb4e3bbf9250d974610769e705e6f174e3217c2dff7ad44ae22b
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: APPLICATION-DESIGN
         capability: prep.application-design
-        acceptance_id: PREP-APPLICATION-DESIGN-STRICT-5
-        acceptance_policy_fingerprint: sha256:46153514b3727f902fcd44f4c68d108c9c8814a2f1988c161eaa5933fabd2b0a
+        acceptance_id: PREP-APPLICATION-DESIGN-STRICT-6
+        acceptance_policy_fingerprint: sha256:044fb25ae9ac0553ac451581734a6d74c6cce32349cc6c5e161bcf17c1427f0b
         accepted_prerequisites: *id023
         accepted_prerequisite_semantics: *id024
         semantic_atom_fingerprints:
@@ -2359,12 +3064,132 @@ state:
       semantic_claims:
         accepted:
         - engineering.application.process
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.application-process.activity-evidence-cycle
+        knowledge_kind: application-process-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: occurrence-boundary
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - merge-vs-split-occurrence
+          - narrow-vs-widen-scope
+          decision_points:
+          - id: activity-evidence-occurrence
+            alternatives:
+            - target-lifetime-session
+            - one-activity-evidence-cycle
+            - evidence-evaluation-only
+        - axis: composition
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - imperative-vs-declarative
+          - reorder-constraints
+          decision_points:
+          - id: activity-evidence-composition
+            alternatives:
+            - semantic-partial-order
+            - activity-completion-is-evidence
+            - fire-and-forget-evaluation
+        - axis: continuation
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - correlation-boundary-shift
+          - wait-vs-no-wait
+          decision_points:
+          - id: activity-evidence-continuation
+            alternatives:
+            - semantic-attempt-and-basis
+            - transport-token-correlation
+            - restart-after-any-wait
+        - axis: completion-recovery
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - completion-outcome-perturbation
+          - recover-vs-terminate
+          decision_points:
+          - id: activity-evidence-completion
+            alternatives:
+            - reviewed-evidence-result
+            - activity-finished
+            - positive-capability-change
+        explorer_request_id: sha256:9e2efbc8c7b707ab93d48dbdea0e12e044d39598f2cac1f5547f6a72cac087b6
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: application-process-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: APPLICATION-PROCESS-ACTIVITY-EVIDENCE
+        capability: prep.application-process.activity-evidence-cycle
+        knowledge_kind: application-process-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: occurrence-boundary
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: activity-evidence-occurrence
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - one-activity-evidence-cycle
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: composition
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: activity-evidence-composition
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - semantic-partial-order
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: continuation
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: activity-evidence-continuation
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - semantic-attempt-and-basis
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: completion-recovery
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: activity-evidence-completion
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - reviewed-evidence-result
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: application-process-design
         skill: skills/artifacts/application-process-design/SKILL.md
-        acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
+        acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
         authority: APPLICATION-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -2374,7 +3199,7 @@ state:
         - artifact: APPLICATION-PROCESS-ACTIVITY-EVIDENCE
           referenced_path: docs/application/application-design.md
         accepted_prerequisites: &id025
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
         accepted_prerequisite_semantics: &id026
           prep.application-design:
             exhaustive: true
@@ -2414,18 +3239,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
-        acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
+        acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:9e2efbc8c7b707ab93d48dbdea0e12e044d39598f2cac1f5547f6a72cac087b6
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: APPLICATION-PROCESS-ACTIVITY-EVIDENCE
         capability: prep.application-process.activity-evidence-cycle
-        acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-        acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
+        acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+        acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
         accepted_prerequisites: *id025
         accepted_prerequisite_semantics: *id026
         semantic_atom_fingerprints:
@@ -2456,12 +3281,132 @@ state:
       semantic_claims:
         accepted:
         - engineering.application.process
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.application-process.prepare-support
+        knowledge_kind: application-process-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: occurrence-boundary
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - merge-vs-split-occurrence
+          - narrow-vs-widen-scope
+          decision_points:
+          - id: prepare-support-occurrence
+            alternatives:
+            - global-corpus-preparation-session
+            - one-contextual-request
+            - owner-operation-fragment
+        - axis: composition
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - reorder-constraints
+          - split-vs-compose
+          decision_points:
+          - id: prepare-support-composition
+            alternatives:
+            - request-prepare-return-partial
+            - global-all-or-nothing
+            - uncoordinated-owner-operations
+        - axis: continuation
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - correlation-boundary-shift
+          - wait-vs-no-wait
+          decision_points:
+          - id: prepare-support-continuation
+            alternatives:
+            - request-context-resume
+            - restart-whole-request
+            - runtime-job-correlation
+        - axis: completion-recovery
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - compensate-vs-no-compensation
+          - completion-outcome-perturbation
+          decision_points:
+          - id: prepare-support-completion
+            alternatives:
+            - accepted-plus-remainder
+            - all-requested-support-accepted
+            - first-owner-result
+        explorer_request_id: sha256:4682f8b58117d1228358fc3204ee33c0380a9263f7d5ab00f8df8f926f64de8e
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: application-process-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: APPLICATION-PROCESS-PREPARE-SUPPORT
+        capability: prep.application-process.prepare-support
+        knowledge_kind: application-process-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: occurrence-boundary
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: prepare-support-occurrence
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - one-contextual-request
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: composition
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: prepare-support-composition
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - request-prepare-return-partial
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: continuation
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: prepare-support-continuation
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - request-context-resume
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: completion-recovery
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: prepare-support-completion
+            owner_authority: APPLICATION-DESIGN
+            viable:
+            - accepted-plus-remainder
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: application-process-design
         skill: skills/artifacts/application-process-design/SKILL.md
-        acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
+        acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
         authority: APPLICATION-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -2471,7 +3416,7 @@ state:
         - artifact: APPLICATION-PROCESS-PREPARE-SUPPORT
           referenced_path: docs/application/application-design.md
         accepted_prerequisites: &id027
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
         accepted_prerequisite_semantics: &id028
           prep.application-design:
             exhaustive: true
@@ -2510,18 +3455,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
-        acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
+        acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:4682f8b58117d1228358fc3204ee33c0380a9263f7d5ab00f8df8f926f64de8e
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: APPLICATION-PROCESS-PREPARE-SUPPORT
         capability: prep.application-process.prepare-support
-        acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
-        acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
+        acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
+        acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
         accepted_prerequisites: *id027
         accepted_prerequisite_semantics: *id028
         semantic_atom_fingerprints:
@@ -2549,7 +3494,7 @@ state:
         status: ACCEPTED
         knowledge_kind: user-journey-design
         skill: skills/artifacts/user-journey-design/SKILL.md
-        acceptance_id: PREP-USER-JOURNEYS-STRICT-5
+        acceptance_id: PREP-USER-JOURNEYS-STRICT-6
         authority: APPLICATION-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -2565,10 +3510,10 @@ state:
         - artifact: USER-JOURNEYS
           referenced_path: docs/application/process-prepare-support.md
         accepted_prerequisites: &id029
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-          prep.task-model: PREP-TASK-MODEL-STRICT-4
-          prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-          prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+          prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
         accepted_prerequisite_semantics: &id030
           prep.application-design:
             exhaustive: true
@@ -2885,8 +3830,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:70254659a41e29f564258ed969f056f671e4b81ae7430bacd9c29f22f38b8ef2
-        acceptance_policy_fingerprint: sha256:70254659a41e29f564258ed969f056f671e4b81ae7430bacd9c29f22f38b8ef2
+          fingerprint: sha256:6f88cddfcc94cc2bf41a83c635e252617959a078fd1054a7150327ba0727ee85
+        acceptance_policy_fingerprint: sha256:6f88cddfcc94cc2bf41a83c635e252617959a078fd1054a7150327ba0727ee85
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -2895,8 +3840,8 @@ state:
       lifecycle_assertion:
         artifact: USER-JOURNEYS
         capability: prep.user-journeys
-        acceptance_id: PREP-USER-JOURNEYS-STRICT-5
-        acceptance_policy_fingerprint: sha256:70254659a41e29f564258ed969f056f671e4b81ae7430bacd9c29f22f38b8ef2
+        acceptance_id: PREP-USER-JOURNEYS-STRICT-6
+        acceptance_policy_fingerprint: sha256:6f88cddfcc94cc2bf41a83c635e252617959a078fd1054a7150327ba0727ee85
         accepted_prerequisites: *id029
         accepted_prerequisite_semantics: *id030
         semantic_atom_fingerprints:
@@ -2939,7 +3884,7 @@ state:
         status: ACCEPTED
         knowledge_kind: conceptual-interface-model
         skill: skills/artifacts/conceptual-interface-model/SKILL.md
-        acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
+        acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -2961,12 +3906,12 @@ state:
         - artifact: CONCEPTUAL-INTERFACE-MODEL
           referenced_path: docs/domain/learner-model.md
         accepted_prerequisites: &id031
-          prep.task-model: PREP-TASK-MODEL-STRICT-4
-          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
         accepted_prerequisite_semantics: &id032
           prep.task-model:
             exhaustive: true
@@ -3366,8 +4311,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:a034581f53cb181eeb04f9d3c14fb2d2fed7831960ec2948a8b3831d6d341710
-        acceptance_policy_fingerprint: sha256:a034581f53cb181eeb04f9d3c14fb2d2fed7831960ec2948a8b3831d6d341710
+          fingerprint: sha256:77e016db11b35a5aea744a45c645d7cc9f8c2753889363ee45bbffd7461d6313
+        acceptance_policy_fingerprint: sha256:77e016db11b35a5aea744a45c645d7cc9f8c2753889363ee45bbffd7461d6313
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -3376,8 +4321,8 @@ state:
       lifecycle_assertion:
         artifact: CONCEPTUAL-INTERFACE-MODEL
         capability: prep.conceptual-interface-model
-        acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-        acceptance_policy_fingerprint: sha256:a034581f53cb181eeb04f9d3c14fb2d2fed7831960ec2948a8b3831d6d341710
+        acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+        acceptance_policy_fingerprint: sha256:77e016db11b35a5aea744a45c645d7cc9f8c2753889363ee45bbffd7461d6313
         accepted_prerequisites: *id031
         accepted_prerequisite_semantics: *id032
         semantic_atom_fingerprints:
@@ -3430,7 +4375,7 @@ state:
         status: ACCEPTED
         knowledge_kind: information-architecture-design
         skill: skills/artifacts/information-architecture-design/SKILL.md
-        acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-5
+        acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -3445,9 +4390,9 @@ state:
         - artifact: INFORMATION-ARCHITECTURE
           referenced_path: docs/application/user-journeys.md
         accepted_prerequisites: &id033
-          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-          prep.task-model: PREP-TASK-MODEL-STRICT-4
-          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
+          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
         accepted_prerequisite_semantics: &id034
           prep.conceptual-interface-model:
             exhaustive: true
@@ -3790,8 +4735,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:8fa8f0d3bbcb1aff921892c9b53227c581da6d41e44801651dc35d521757a547
-        acceptance_policy_fingerprint: sha256:8fa8f0d3bbcb1aff921892c9b53227c581da6d41e44801651dc35d521757a547
+          fingerprint: sha256:a1c25cba9c47593ed2e8f5682814ffc5a62471040f5fffeef86ee222f3bba407
+        acceptance_policy_fingerprint: sha256:a1c25cba9c47593ed2e8f5682814ffc5a62471040f5fffeef86ee222f3bba407
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -3800,8 +4745,8 @@ state:
       lifecycle_assertion:
         artifact: INFORMATION-ARCHITECTURE
         capability: prep.information-architecture
-        acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-        acceptance_policy_fingerprint: sha256:8fa8f0d3bbcb1aff921892c9b53227c581da6d41e44801651dc35d521757a547
+        acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        acceptance_policy_fingerprint: sha256:a1c25cba9c47593ed2e8f5682814ffc5a62471040f5fffeef86ee222f3bba407
         accepted_prerequisites: *id033
         accepted_prerequisite_semantics: *id034
         semantic_atom_fingerprints:
@@ -3841,7 +4786,7 @@ state:
         status: ACCEPTED
         knowledge_kind: interface-contract
         skill: skills/artifacts/interface-contract/SKILL.md
-        acceptance_id: PREP-MACHINE-INTERFACES-STRICT-5
+        acceptance_id: PREP-MACHINE-INTERFACES-STRICT-6
         authority: MACHINE-INTERFACE-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -3863,12 +4808,12 @@ state:
         - artifact: MACHINE-INTERFACES
           referenced_path: docs/domain/learner-model.md
         accepted_prerequisites: &id035
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
-          prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-          prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
+          prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+          prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
         accepted_prerequisite_semantics: &id036
           prep.application-design:
             exhaustive: true
@@ -4033,8 +4978,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
-        acceptance_policy_fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+          fingerprint: sha256:47492a16f82a151550de5c299987ea12fc4fd4a02705c501cf2e0d02d3c527fd
+        acceptance_policy_fingerprint: sha256:47492a16f82a151550de5c299987ea12fc4fd4a02705c501cf2e0d02d3c527fd
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -4043,8 +4988,8 @@ state:
       lifecycle_assertion:
         artifact: MACHINE-INTERFACES
         capability: prep.machine-interfaces
-        acceptance_id: PREP-MACHINE-INTERFACES-STRICT-5
-        acceptance_policy_fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+        acceptance_id: PREP-MACHINE-INTERFACES-STRICT-6
+        acceptance_policy_fingerprint: sha256:47492a16f82a151550de5c299987ea12fc4fd4a02705c501cf2e0d02d3c527fd
         accepted_prerequisites: *id035
         accepted_prerequisite_semantics: *id036
         semantic_atom_fingerprints:
@@ -4098,7 +5043,7 @@ state:
         status: ACCEPTED
         knowledge_kind: interaction-design
         skill: skills/artifacts/interaction-design/SKILL.md
-        acceptance_id: PREP-INTERACTION-DESIGN-STRICT-5
+        acceptance_id: PREP-INTERACTION-DESIGN-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - APPLICATION-DESIGN
@@ -4118,11 +5063,11 @@ state:
         - artifact: INTERACTION-DESIGN
           referenced_path: docs/interface/machine-interface.md
         accepted_prerequisites: &id037
-          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-          prep.task-model: PREP-TASK-MODEL-STRICT-4
-          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
-          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
         accepted_prerequisite_semantics: &id038
           prep.conceptual-interface-model:
             exhaustive: true
@@ -4576,8 +5521,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:e05397f76cb83beadc435dda0d8e392a1cf852ee9fd25a4e86e56bc23df888bf
-        acceptance_policy_fingerprint: sha256:e05397f76cb83beadc435dda0d8e392a1cf852ee9fd25a4e86e56bc23df888bf
+          fingerprint: sha256:d70c13c5f3272e2f62e11a9de3fa5886d18e54589a8ba6d5b06e65d67ddcc16b
+        acceptance_policy_fingerprint: sha256:d70c13c5f3272e2f62e11a9de3fa5886d18e54589a8ba6d5b06e65d67ddcc16b
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -4586,8 +5531,8 @@ state:
       lifecycle_assertion:
         artifact: INTERACTION-DESIGN
         capability: prep.interaction-design
-        acceptance_id: PREP-INTERACTION-DESIGN-STRICT-5
-        acceptance_policy_fingerprint: sha256:e05397f76cb83beadc435dda0d8e392a1cf852ee9fd25a4e86e56bc23df888bf
+        acceptance_id: PREP-INTERACTION-DESIGN-STRICT-6
+        acceptance_policy_fingerprint: sha256:d70c13c5f3272e2f62e11a9de3fa5886d18e54589a8ba6d5b06e65d67ddcc16b
         accepted_prerequisites: *id037
         accepted_prerequisite_semantics: *id038
         semantic_atom_fingerprints:
@@ -4621,7 +5566,7 @@ state:
         status: ACCEPTED
         knowledge_kind: interface-topology-design
         skill: skills/artifacts/interface-topology-design/SKILL.md
-        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
+        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - HUMAN-INTERFACE-DESIGN
@@ -4633,8 +5578,8 @@ state:
         - artifact: INTERFACE-TOPOLOGY
           referenced_path: docs/interface/interaction-design.yaml
         accepted_prerequisites: &id039
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
         accepted_prerequisite_semantics: &id040
           prep.information-architecture:
             exhaustive: true
@@ -4705,8 +5650,8 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
-        acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
+          fingerprint: sha256:1d498b410bb8437beec7c460dd57b8b45c447a19a476e90136eb3ca626260749
+        acceptance_policy_fingerprint: sha256:1d498b410bb8437beec7c460dd57b8b45c447a19a476e90136eb3ca626260749
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
@@ -4715,8 +5660,8 @@ state:
       lifecycle_assertion:
         artifact: INTERFACE-TOPOLOGY
         capability: prep.interface-topology
-        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
+        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        acceptance_policy_fingerprint: sha256:1d498b410bb8437beec7c460dd57b8b45c447a19a476e90136eb3ca626260749
         accepted_prerequisites: *id039
         accepted_prerequisite_semantics: *id040
         semantic_atom_fingerprints:
@@ -4726,10 +5671,10 @@ state:
           TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
           TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
           TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+          TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
           TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+          TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
           TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
@@ -4749,12 +5694,114 @@ state:
         - engineering.interface.human.usability
         - engineering.interface.human.accessibility
         - engineering.interface.human.responsiveness
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.presentation-system
+        knowledge_kind: presentation-system-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: knowledge-representation
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - 2d-vs-3d
+          - graph-vs-nongraph
+          - single-vs-mixed
+          decision_points:
+          - id: shared-knowledge-representation
+            alternatives:
+            - nonspatial-only
+            - mixed-2d-plus-nonspatial
+            - three-d-primary-plus-nonspatial
+            - dual-2d-3d-plus-nonspatial
+        - axis: information-density
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - always-visible-vs-on-demand
+          - dense-vs-progressive
+          - focus-context-shift
+          decision_points:
+          - id: shared-density-model
+            alternatives:
+            - dense-simultaneous-workspace
+            - progressive-focus-context
+            - sparse-stepper
+        - axis: control-surface
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - direct-manipulation-vs-command
+          - inline-vs-dedicated-controls
+          - pointer-vs-keyboard
+          decision_points:
+          - id: shared-control-surface
+            alternatives:
+            - persistent-global-toolbars
+            - contextual-controls-keyboard-equivalent
+            - direct-manipulation-dominant
+        explorer_request_id: sha256:6c2004c8a9318c2aaca472d28f51763b24a86ad4f90a7a7e40ee0cd44bdff952
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: presentation-system-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: PRESENTATION-SYSTEM
+        capability: prep.presentation-system
+        knowledge_kind: presentation-system-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: knowledge-representation
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-knowledge-representation
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - mixed-2d-plus-nonspatial
+            - nonspatial-only
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+        - axis: information-density
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-density-model
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - progressive-focus-context
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: control-surface
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-control-surface
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - contextual-controls-keyboard-equivalent
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: presentation-system-design
         skill: skills/artifacts/presentation-system-design/SKILL.md
-        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
+        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - HUMAN-INTERFACE-DESIGN
@@ -4773,11 +5820,11 @@ state:
         - artifact: PRESENTATION-SYSTEM
           referenced_path: docs/architecture/performance-capacity.md
         accepted_prerequisites: &id041
-          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
         accepted_prerequisite_semantics: &id042
           prep.conceptual-interface-model:
             exhaustive: true
@@ -4885,28 +5932,28 @@ state:
             exhaustive: true
             semantic_atoms:
               TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-              TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+              TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
               TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
               TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
               TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
               TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
               TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
               TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-              TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+              TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
               TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
               TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
               TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
               TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
             source_surface_fingerprints:
               TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-              TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+              TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
               TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
               TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
               TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
               TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
               TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
               TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-              TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+              TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
               TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
               TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
               TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -4960,18 +6007,18 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
-        acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:4040ccf1e39ca2a92fbe6eccef5500f4e144f05bcedb49a53e005b63384e993c
+        acceptance_policy_fingerprint: sha256:4040ccf1e39ca2a92fbe6eccef5500f4e144f05bcedb49a53e005b63384e993c
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:6c2004c8a9318c2aaca472d28f51763b24a86ad4f90a7a7e40ee0cd44bdff952
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: PRESENTATION-SYSTEM
         capability: prep.presentation-system
-        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
-        acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
+        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
+        acceptance_policy_fingerprint: sha256:4040ccf1e39ca2a92fbe6eccef5500f4e144f05bcedb49a53e005b63384e993c
         accepted_prerequisites: *id041
         accepted_prerequisite_semantics: *id042
         semantic_atom_fingerprints:
@@ -5003,12 +6050,124 @@ state:
       semantic_claims:
         accepted:
         - engineering.interface.human.screen-composition
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.screen-view-design
+        knowledge_kind: screen-view-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: view-composition
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - co-locate-vs-separate
+          - region-priority-shift
+          - single-vs-split
+          decision_points:
+          - id: shared-view-composition
+            alternatives:
+            - task-primary-with-contextual-secondary
+            - peer-panel-workspace
+            - single-stream-only
+        - axis: detail-edit-placement
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - context-preservation-perturbation
+          - inline-vs-overlay
+          - same-view-vs-dedicated
+          decision_points:
+          - id: shared-detail-placement
+            alternatives:
+            - same-view-contextual-detail
+            - overlay-detail
+            - dedicated-detail-view
+          - id: editing-capability
+            alternatives:
+            - no-edit-surface
+            - inline-edit
+            - dedicated-editor-view
+        - axis: responsive-composition
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - collapse-vs-reflow
+          - persistent-vs-disclosed
+          - primary-surface-perturbation
+          decision_points:
+          - id: shared-responsive-model
+            alternatives:
+            - priority-preserving-reflow-disclosure
+            - fixed-wide-composition
+            - separate-mobile-view-set
+        explorer_request_id: sha256:bfdf74f43c1a0942e1973455b40ada5505c21a55cfce35069252bd9f0d5ac2f4
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: screen-view-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: SCREEN-VIEW-DESIGN
+        capability: prep.screen-view-design
+        knowledge_kind: screen-view-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: view-composition
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-view-composition
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - task-primary-with-contextual-secondary
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: detail-edit-placement
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-detail-placement
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - same-view-contextual-detail
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+          - id: editing-capability
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - no-edit-surface
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: responsive-composition
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: shared-responsive-model
+            owner_authority: HUMAN-INTERFACE-DESIGN
+            viable:
+            - priority-preserving-reflow-disclosure
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
       question_proposals: []
       admission:
         status: ACCEPTED
         knowledge_kind: screen-view-design
         skill: skills/artifacts/screen-view-design/SKILL.md
-        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
+        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
         authority: HUMAN-INTERFACE-DESIGN
         allowed_source_authorities:
         - HUMAN-INTERFACE-DESIGN
@@ -5028,38 +6187,38 @@ state:
         - artifact: SCREEN-VIEW-DESIGN
           referenced_path: docs/architecture/performance-capacity.md
         accepted_prerequisites: &id043
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-5
-          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
         accepted_prerequisite_semantics: &id044
           prep.interface-topology:
             exhaustive: true
             semantic_atoms:
               TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-              TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+              TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
               TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
               TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
               TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
               TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
               TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
               TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-              TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+              TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
               TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
               TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
               TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
               TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
             source_surface_fingerprints:
               TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-              TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+              TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
               TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
               TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
               TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
               TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
               TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
               TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-              TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+              TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
               TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
               TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
               TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -5215,29 +6374,30 @@ state:
           version: 1
           kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
-        acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
+          fingerprint: sha256:11f7037757711e64263e94518698e312feb13a0d6c85b44a20ad905ca986cbf0
+        acceptance_policy_fingerprint: sha256:11f7037757711e64263e94518698e312feb13a0d6c85b44a20ad905ca986cbf0
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:bfdf74f43c1a0942e1973455b40ada5505c21a55cfce35069252bd9f0d5ac2f4
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
         decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: SCREEN-VIEW-DESIGN
         capability: prep.screen-view-design
-        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
-        acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
+        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        acceptance_policy_fingerprint: sha256:11f7037757711e64263e94518698e312feb13a0d6c85b44a20ad905ca986cbf0
         accepted_prerequisites: *id043
         accepted_prerequisite_semantics: *id044
         semantic_atom_fingerprints:
           SV-FRAME: SAF-1f2e37036a3a9c80600b757118082dd70028c1bc40c59eaa568af58e06e5961d
-          SV-TARGETS: SAF-630033fdcdfb185e7e4ca947ec3edaea79291f992fe23671f3c7271d1159f7d9
-          SV-TARGET: SAF-150088717d4b4e8dbe171bebb5f48bd452bc9c026ac2ae450f62505a85efb26f
+          SV-TARGETS: SAF-3c9f0079625c0b6a2933f8cb674e2d6d989743fa27665735be3c979fb99fc392
+          SV-TARGET: SAF-07c6f3c442928a045e13cfbcfdb1d6b46ccea41d5f04e143a31a7fadcdaee1b8
           SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
           SV-KNOWLEDGE: SAF-ee09b1f8470286d431cc1302f55972bdb04e9ee927d17f9535b9ecac6ec74dfc
-          SV-ACTIVITY: SAF-651a91c335107b3dfc8868dd37b4b162b2cd442e2932f7b071ff771c1607e884
-          SV-EVIDENCE: SAF-06929304b6106937506e912bd8c9a41aaf1f31568ef20118f4a97929750d5cf6
-          SV-PREP-SUPPORT: SAF-b8ca42b5d3892d44ede5be7de727d74015f82cd74c94159198730990355b25fa
+          SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
+          SV-EVIDENCE: SAF-b2ec0b66b030f4ad98c0e8b52ab119844655ba9adc73fcfa82c293bd9f54d778
+          SV-PREP-SUPPORT: SAF-1413d2b47c73d090fb8fcf281ae65d8499353ab36aec3eed1b3fe62193123dd4
+          SV-COMPOSITION-VARIANTS: SAF-11b37177da8c84e50734ec9d85139f54a3ee06451afcabc4254171e4af3c624c
           SV-DETAIL: SAF-b0ba5e56e508d1f52c1f61c73be2b388d05a8146f739568b2aa81e30d39aa16b
           SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
           SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79
@@ -17357,28 +18517,28 @@ state:
         exhaustive: true
         semantic_atoms:
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+          TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
           TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
           TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
           TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
           TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+          TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
           TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
           TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
           TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
           TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
         source_surface_fingerprints:
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+          TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
           TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
           TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
           TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
           TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+          TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
           TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
           TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
           TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -17718,28 +18878,28 @@ state:
         exhaustive: true
         semantic_atoms:
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+          TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
           TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
           TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
           TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
           TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+          TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
           TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
           TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
           TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
           TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
         source_surface_fingerprints:
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+          TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
           TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
           TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
           TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
           TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+          TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
           TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
           TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
           TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -18476,8 +19636,8 @@ state:
     providers:
     - artifact: PROBLEM-SPACE
       capability: prep.problem-evidence
-      acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
-      acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+      acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-5
+      acceptance_policy_fingerprint: sha256:ac0e950dc42f926d9eceb5054654b178852d50f24a870a36b74a177462280283
       accepted_prerequisites: {}
       semantic_atom_fingerprints:
         PE-ACTOR: SAF-d49d11eed6b2edfc8bec7516976522a1964da45b9ceb5098c67413e9d8529a69
@@ -18508,10 +19668,10 @@ state:
         PE-NON-SOLUTION: SAF-9e49648367ed545421cf16e3201a5b10b7e836ca8b185d6d7940321c821e23f9
     - artifact: USER-NEEDS
       capability: prep.user-needs
-      acceptance_id: PREP-USER-NEEDS-STRICT-5
-      acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+      acceptance_id: PREP-USER-NEEDS-STRICT-6
+      acceptance_policy_fingerprint: sha256:34eee0b585f55bc2b09eb0902f0dea3154178919f72d16c0c1ffc85b3dadfc5a
       accepted_prerequisites:
-        prep.problem-evidence: PREP-PROBLEM-EVIDENCE-STRICT-4
+        prep.problem-evidence: PREP-PROBLEM-EVIDENCE-STRICT-5
       semantic_atom_fingerprints:
         ACTOR-PRIMARY-LEARNER: SAF-1c1993c38245802e1036c99073906da7d709abf1576ae59319f23fff81f7a025
         CONTEXT-PREPARATION: SAF-da37ba461164c10b9da579a23089d77299bcb221fcec9486fede857b344fe33f
@@ -18565,10 +19725,10 @@ state:
         EVIDENCE-NEED-KNOWLEDGE-DEPTH: SAF-69d14162c9477769efb14b5105fcf6cb814237dc15ff7c1544c81db573426151
     - artifact: PRODUCT-VISION
       capability: prep.product-intent
-      acceptance_id: PREP-PRODUCT-INTENT-STRICT-4
-      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      acceptance_id: PREP-PRODUCT-INTENT-STRICT-5
+      acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
       accepted_prerequisites:
-        prep.user-needs: PREP-USER-NEEDS-STRICT-5
+        prep.user-needs: PREP-USER-NEEDS-STRICT-6
       accepted_prerequisite_semantics:
         prep.user-needs:
           exhaustive: true
@@ -18675,10 +19835,10 @@ state:
         REQ-KNOWLEDGE-DEPTH: SAF-b79d205d3d88aa01efc6bf5ab88cde5f62c0ffc5b16db9fcbc54b4dc5b138985
     - artifact: PRODUCT-CAPABILITIES
       capability: prep.product-capabilities
-      acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-4
-      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      acceptance_id: PREP-PRODUCT-CAPABILITIES-STRICT-5
+      acceptance_policy_fingerprint: sha256:19a70b05eba8e20b186997dd867df11c9ef4b3e8fa5e442caf03ccfe4514d3c4
       accepted_prerequisites:
-        prep.product-intent: PREP-PRODUCT-INTENT-STRICT-4
+        prep.product-intent: PREP-PRODUCT-INTENT-STRICT-5
       accepted_prerequisite_semantics:
         prep.product-intent:
           exhaustive: true
@@ -18736,10 +19896,10 @@ state:
         REQ-CAP-KNOWLEDGE-DEPTH: SAF-cabefc52ad621a52e27a8078cabaf0562aaf85113061678e763dcdca180152c1
     - artifact: CONTEXT-MAP
       capability: prep.domain-strategy
-      acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-4
-      acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+      acceptance_id: PREP-DOMAIN-STRATEGY-STRICT-5
+      acceptance_policy_fingerprint: sha256:d252d0f93962286449821bb909ec2cb48430b92f3c2b482e741d80cab96b0887
       accepted_prerequisites:
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
       accepted_prerequisite_semantics:
         prep.product-capabilities:
           exhaustive: true
@@ -18788,11 +19948,11 @@ state:
         DS-PREPARATION-BOOTSTRAP: SAF-b6c744a4634d35c3151982be7c2c1b00b6c74f15f4c5fc7fa00d89e23338944b
     - artifact: MODEL-CONTEXT-MAP
       capability: prep.model-context-strategy
-      acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-      acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+      acceptance_id: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+      acceptance_policy_fingerprint: sha256:be6d01dff107f5413e69460aaa34d48358951a8c9c832eb952bca01cb908cc3b
       accepted_prerequisites:
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        prep.domain-strategy: PREP-DOMAIN-STRATEGY-STRICT-4
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.domain-strategy: PREP-DOMAIN-STRATEGY-STRICT-5
       accepted_prerequisite_semantics:
         prep.product-capabilities:
           exhaustive: true
@@ -18861,11 +20021,11 @@ state:
         TR-BOOTSTRAP-TO-SEMANTIC-OWNERS: SAF-ab68fd7e1c065c0e32347fcbaaf4ffaf23fe5f18334ddda27952d8a2346336c3
     - artifact: KNOWLEDGE-RELATION-CLASSIFICATION
       capability: prep.knowledge-relation-classification
-      acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-3
-      acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+      acceptance_id: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-4
+      acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
       accepted_prerequisites:
-        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
       accepted_prerequisite_semantics:
         prep.model-context-strategy:
           exhaustive: true
@@ -18913,12 +20073,12 @@ state:
         KRC-EXISTING-VOCABULARY-CONTINUITY: SAF-2d7babe20f6973e1b2bcb0212007ae934a65a46cc7925043625bfe01079531eb
     - artifact: KNOWLEDGE-MODEL
       capability: prep.knowledge-model
-      acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-3
-      acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+      acceptance_id: PREP-KNOWLEDGE-MODEL-STRICT-4
+      acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
       accepted_prerequisites:
-        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        prep.knowledge-relation-classification: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-3
+        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.knowledge-relation-classification: PREP-KNOWLEDGE-RELATION-CLASSIFICATION-STRICT-4
       accepted_prerequisite_semantics:
         prep.model-context-strategy:
           exhaustive: true
@@ -18990,12 +20150,12 @@ state:
         KM-GRAPH-IS-PROJECTION: SAF-c208d3570a0b7b5fd67e894acaa1bf87a355a85bccfc0955a8226df4bf9c9cb5
     - artifact: LEARNING-DESIGN
       capability: prep.learning-design
-      acceptance_id: PREP-LEARNING-DESIGN-STRICT-3
-      acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+      acceptance_id: PREP-LEARNING-DESIGN-STRICT-4
+      acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
       accepted_prerequisites:
-        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
       accepted_prerequisite_semantics:
         prep.model-context-strategy:
           exhaustive: true
@@ -19084,12 +20244,12 @@ state:
         LD-QUESTION-NONFUNDAMENTAL: SAF-f722ac885b63ad8c27327cab59147cf34bf7ff11b1f0d9b7699829dc70579965
     - artifact: LEARNER-MODEL
       capability: prep.learner-model
-      acceptance_id: PREP-LEARNER-MODEL-STRICT-3
-      acceptance_policy_fingerprint: sha256:5166a978d17ab24fd0af41e0fe19a05d0323c2bfc7e13871cc834cfe61f282e3
+      acceptance_id: PREP-LEARNER-MODEL-STRICT-4
+      acceptance_policy_fingerprint: sha256:4c750e810c4fe9f18667bfbbc91f16e75e2f6b946f3002c3a1c3a2426b9a2a8f
       accepted_prerequisites:
-        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-4
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        prep.model-context-strategy: PREP-MODEL-CONTEXT-STRATEGY-STRICT-5
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
       accepted_prerequisite_semantics:
         prep.model-context-strategy:
           exhaustive: true
@@ -19167,11 +20327,11 @@ state:
         LM-INTEGRATION-BOUNDARY: SAF-7e0d0f6028b8d01c31b775d992354000cefd6d8fbf2caeb7484d283fff7cd49b
     - artifact: FRONTEND-PERFORMANCE-CAPACITY
       capability: prep.frontend-performance-capacity
-      acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-      acceptance_policy_fingerprint: sha256:3c8129a51dacddf1d991005d6e028803f1eebbc41a7ca36e40765b1f9ebad9c6
+      acceptance_id: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      acceptance_policy_fingerprint: sha256:6c4abb388b19b3f42d9abf8b2c31a5516ae39826c1e7d2911c37346e7d0b9651
       accepted_prerequisites:
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
       accepted_prerequisite_semantics:
         prep.product-capabilities:
           exhaustive: true
@@ -19225,13 +20385,13 @@ state:
         QD-IDLE-TARGET-DEFERRED: SAF-aefb789b7eaae9c876528da525200f769e4984d32d4624c9ac4a31d9bcddf74f
     - artifact: TASK-MODEL
       capability: prep.task-model
-      acceptance_id: PREP-TASK-MODEL-STRICT-4
-      acceptance_policy_fingerprint: sha256:20b24c38e25e1ebc301da82ce734cf47fe53fba2e609bfe679f0f8c58ded527a
+      acceptance_id: PREP-TASK-MODEL-STRICT-5
+      acceptance_policy_fingerprint: sha256:a3b7fe0b64b159385faa0c93d8ada317b73dfda51770e25d268caa74296b2c42
       accepted_prerequisites:
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-        prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+        prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
       accepted_prerequisite_semantics:
         prep.product-capabilities:
           exhaustive: true
@@ -19470,14 +20630,14 @@ state:
         TM-RECOVERY-PREPARE-SUPPORT: SAF-cd653eab71ebba4dafe30347b8ceef0a441fa4a24e3fb3adf107c27ed08162de
     - artifact: APPLICATION-DESIGN
       capability: prep.application-design
-      acceptance_id: PREP-APPLICATION-DESIGN-STRICT-5
-      acceptance_policy_fingerprint: sha256:46153514b3727f902fcd44f4c68d108c9c8814a2f1988c161eaa5933fabd2b0a
+      acceptance_id: PREP-APPLICATION-DESIGN-STRICT-6
+      acceptance_policy_fingerprint: sha256:044fb25ae9ac0553ac451581734a6d74c6cce32349cc6c5e161bcf17c1427f0b
       accepted_prerequisites:
-        prep.task-model: PREP-TASK-MODEL-STRICT-4
-        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-        prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+        prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
       accepted_prerequisite_semantics:
         prep.task-model:
           exhaustive: true
@@ -19854,10 +21014,10 @@ state:
         AD-PROCESS-HANDOFF: SAF-3614ac4074bf31682de3121f157acf9353cbc5e09728489c90ba42f1bf36f599
     - artifact: APPLICATION-PROCESS-ACTIVITY-EVIDENCE
       capability: prep.application-process.activity-evidence-cycle
-      acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-      acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
+      acceptance_id: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+      acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
       accepted_prerequisites:
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
@@ -19901,10 +21061,10 @@ state:
         PROC-ACT-COMPLETION: SAF-0f5e693b008a586ccc4ecb583927b57768902e322c22a3465222e4b97066af0d
     - artifact: APPLICATION-PROCESS-PREPARE-SUPPORT
       capability: prep.application-process.prepare-support
-      acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
-      acceptance_policy_fingerprint: sha256:4b6e84f58cb0eaee55926b406b9723b1695b7349f75e68fab99eadb162e3c37f
+      acceptance_id: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
+      acceptance_policy_fingerprint: sha256:b26dd2131edd4ccc4c63dc79937a446dd9e03c073d8307e3163f6cc72aa27aeb
       accepted_prerequisites:
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
@@ -19947,13 +21107,13 @@ state:
         PROC-SUP-COMPLETION: SAF-12ff50492e599e075660acc9d5e9d38c3d33719f5b281fadfdbd27226a3802e7
     - artifact: USER-JOURNEYS
       capability: prep.user-journeys
-      acceptance_id: PREP-USER-JOURNEYS-STRICT-5
-      acceptance_policy_fingerprint: sha256:70254659a41e29f564258ed969f056f671e4b81ae7430bacd9c29f22f38b8ef2
+      acceptance_id: PREP-USER-JOURNEYS-STRICT-6
+      acceptance_policy_fingerprint: sha256:6f88cddfcc94cc2bf41a83c635e252617959a078fd1054a7150327ba0727ee85
       accepted_prerequisites:
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-        prep.task-model: PREP-TASK-MODEL-STRICT-4
-        prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-        prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+        prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
@@ -20289,15 +21449,15 @@ state:
         UJ-SHARED-OUTCOMES: SAF-0ce0b7ffbb53514c4ddbfcb2003c40c70065099474bbed7126283a4a0d612cbf
     - artifact: CONCEPTUAL-INTERFACE-MODEL
       capability: prep.conceptual-interface-model
-      acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-      acceptance_policy_fingerprint: sha256:a034581f53cb181eeb04f9d3c14fb2d2fed7831960ec2948a8b3831d6d341710
+      acceptance_id: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+      acceptance_policy_fingerprint: sha256:77e016db11b35a5aea744a45c645d7cc9f8c2753889363ee45bbffd7461d6313
       accepted_prerequisites:
-        prep.task-model: PREP-TASK-MODEL-STRICT-4
-        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-        prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+        prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
       accepted_prerequisite_semantics:
         prep.task-model:
           exhaustive: true
@@ -20726,12 +21886,12 @@ state:
         CIM-PRESENTATION-FREEDOM: SAF-0328d94a00fce787416e66ac53b108aeb806e8f08487bfbfb09ac6cc873dd6b5
     - artifact: INFORMATION-ARCHITECTURE
       capability: prep.information-architecture
-      acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-      acceptance_policy_fingerprint: sha256:8fa8f0d3bbcb1aff921892c9b53227c581da6d41e44801651dc35d521757a547
+      acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+      acceptance_policy_fingerprint: sha256:a1c25cba9c47593ed2e8f5682814ffc5a62471040f5fffeef86ee222f3bba407
       accepted_prerequisites:
-        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-        prep.task-model: PREP-TASK-MODEL-STRICT-4
-        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
+        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
       accepted_prerequisite_semantics:
         prep.conceptual-interface-model:
           exhaustive: true
@@ -21088,15 +22248,15 @@ state:
         IA-NO-SCREEN: SAF-a87ea46c69ef9548b2f890a8c4d9c13667fe8e6df254672a40d42e7a8b285bd1
     - artifact: MACHINE-INTERFACES
       capability: prep.machine-interfaces
-      acceptance_id: PREP-MACHINE-INTERFACES-STRICT-5
-      acceptance_policy_fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+      acceptance_id: PREP-MACHINE-INTERFACES-STRICT-6
+      acceptance_policy_fingerprint: sha256:47492a16f82a151550de5c299987ea12fc4fd4a02705c501cf2e0d02d3c527fd
       accepted_prerequisites:
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
-        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
-        prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
-        prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-4
-        prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-4
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-4
+        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-4
+        prep.learner-model: PREP-LEARNER-MODEL-STRICT-4
+        prep.application-process.activity-evidence-cycle: PREP-APPLICATION-PROCESS-ACTIVITY-EVIDENCE-STRICT-5
+        prep.application-process.prepare-support: PREP-APPLICATION-PROCESS-PREPARE-SUPPORT-STRICT-5
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
@@ -21291,14 +22451,14 @@ state:
         MI-NO-LEAK: SAF-bf66948cc8d5d535a327f7753ae519fa5226d28991775e1a55c07d1a3ba943c0
     - artifact: INTERACTION-DESIGN
       capability: prep.interaction-design
-      acceptance_id: PREP-INTERACTION-DESIGN-STRICT-5
-      acceptance_policy_fingerprint: sha256:e05397f76cb83beadc435dda0d8e392a1cf852ee9fd25a4e86e56bc23df888bf
+      acceptance_id: PREP-INTERACTION-DESIGN-STRICT-6
+      acceptance_policy_fingerprint: sha256:d70c13c5f3272e2f62e11a9de3fa5886d18e54589a8ba6d5b06e65d67ddcc16b
       accepted_prerequisites:
-        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-        prep.task-model: PREP-TASK-MODEL-STRICT-4
-        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
-        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
-        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.user-journeys: PREP-USER-JOURNEYS-STRICT-6
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
       accepted_prerequisite_semantics:
         prep.conceptual-interface-model:
           exhaustive: true
@@ -21762,11 +22922,11 @@ state:
         IX-NO-LAYOUT: SAF-2f9f5d076d8710fcbd0f3db49c9998471eba51484a5ee5f8ebb0fb6d2ca8a043
     - artifact: INTERFACE-TOPOLOGY
       capability: prep.interface-topology
-      acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
-      acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
+      acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
+      acceptance_policy_fingerprint: sha256:1d498b410bb8437beec7c460dd57b8b45c447a19a476e90136eb3ca626260749
       accepted_prerequisites:
-        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
       accepted_prerequisite_semantics:
         prep.information-architecture:
           exhaustive: true
@@ -21839,23 +22999,23 @@ state:
         TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
         TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
         TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
-        TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+        TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
         TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
         TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-        TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+        TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
         TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
         TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
         TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
     - artifact: PRESENTATION-SYSTEM
       capability: prep.presentation-system
-      acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
-      acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
+      acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
+      acceptance_policy_fingerprint: sha256:4040ccf1e39ca2a92fbe6eccef5500f4e144f05bcedb49a53e005b63384e993c
       accepted_prerequisites:
-        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-6
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
       accepted_prerequisite_semantics:
         prep.conceptual-interface-model:
           exhaustive: true
@@ -21963,28 +23123,28 @@ state:
           exhaustive: true
           semantic_atoms:
             TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-            TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+            TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
             TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
             TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
             TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
             TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
             TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
             TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-            TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+            TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
             TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
             TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
             TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
             TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
           source_surface_fingerprints:
             TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-            TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+            TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
             TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
             TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
             TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
             TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
             TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
             TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-            TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+            TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
             TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
             TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
             TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -22051,41 +23211,41 @@ state:
         PS-FREEDOMS: SAF-6108c1583726d2d6cfb064693461cefeaef5777ab1460c0358258803eda7cc35
     - artifact: SCREEN-VIEW-DESIGN
       capability: prep.screen-view-design
-      acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
-      acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
+      acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+      acceptance_policy_fingerprint: sha256:11f7037757711e64263e94518698e312feb13a0d6c85b44a20ad905ca986cbf0
       accepted_prerequisites:
-        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-5
-        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
-        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
       accepted_prerequisite_semantics:
         prep.interface-topology:
           exhaustive: true
           semantic_atoms:
             TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-            TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+            TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
             TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
             TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
             TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
             TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
             TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
             TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-            TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+            TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
             TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
             TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
             TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
             TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
           source_surface_fingerprints:
             TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-            TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
+            TOP-CROSSLINKS: SAF-739db9a1c5f07dfcfd50cd902cad30d84c2e5690a3f805c1eadb69bf0448b83b
             TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
             TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
             TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
             TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
             TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
             TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-            TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
+            TOP-VIEW-EVIDENCE: SAF-7a54777ad38cb8dae264ff72dc21b238c7ff36a413ebe9cbf8b7987e30ab4911
             TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
             TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
             TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
@@ -22238,13 +23398,14 @@ state:
             QD-SEMANTIC-PRESERVATION: SAF-78d8ec48c33081770f888f5ad89e142bc5041b4eb3918d0cd2d7b720719550f0
       semantic_atom_fingerprints:
         SV-FRAME: SAF-1f2e37036a3a9c80600b757118082dd70028c1bc40c59eaa568af58e06e5961d
-        SV-TARGETS: SAF-630033fdcdfb185e7e4ca947ec3edaea79291f992fe23671f3c7271d1159f7d9
-        SV-TARGET: SAF-150088717d4b4e8dbe171bebb5f48bd452bc9c026ac2ae450f62505a85efb26f
+        SV-TARGETS: SAF-3c9f0079625c0b6a2933f8cb674e2d6d989743fa27665735be3c979fb99fc392
+        SV-TARGET: SAF-07c6f3c442928a045e13cfbcfdb1d6b46ccea41d5f04e143a31a7fadcdaee1b8
         SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
         SV-KNOWLEDGE: SAF-ee09b1f8470286d431cc1302f55972bdb04e9ee927d17f9535b9ecac6ec74dfc
-        SV-ACTIVITY: SAF-651a91c335107b3dfc8868dd37b4b162b2cd442e2932f7b071ff771c1607e884
-        SV-EVIDENCE: SAF-06929304b6106937506e912bd8c9a41aaf1f31568ef20118f4a97929750d5cf6
-        SV-PREP-SUPPORT: SAF-b8ca42b5d3892d44ede5be7de727d74015f82cd74c94159198730990355b25fa
+        SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
+        SV-EVIDENCE: SAF-b2ec0b66b030f4ad98c0e8b52ab119844655ba9adc73fcfa82c293bd9f54d778
+        SV-PREP-SUPPORT: SAF-1413d2b47c73d090fb8fcf281ae65d8499353ab36aec3eed1b3fe62193123dd4
+        SV-COMPOSITION-VARIANTS: SAF-11b37177da8c84e50734ec9d85139f54a3ee06451afcabc4254171e4af3c624c
         SV-DETAIL: SAF-b0ba5e56e508d1f52c1f61c73be2b388d05a8146f739568b2aa81e30d39aa16b
         SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
         SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79

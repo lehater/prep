@@ -1,0 +1,186 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.learner-model
+knowledge_kind: domain-model
+explorer_request_id: sha256:1616d5e9a8823c4dd507d87093206c1ea58e07b12268fe223f0a98ede79cd0e1
+research_sources: []
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: identity-substitution
+    challenge: Substitute the identity basis and test whether accepted meaning and
+      continuity still hold.
+    alternatives: &id001
+    - mutable-state-record
+    - fact-argument-claim
+    - score-only
+  - strategy: merge-vs-split
+    challenge: Merge or split the modeled identities and test whether materially distinct
+      meanings collapse.
+    alternatives: *id001
+  decision_points:
+  - id: learner-evidence-identity
+    alternatives:
+    - id: mutable-state-record
+      difference: One mutable mastery/state record absorbs observations and conclusions.
+      material_effects:
+        identity-basis: mutable-state
+        continuity: latest-record
+        merge-split: facts-claims-merged
+    - id: fact-argument-claim
+      difference: Performance/Observation, evidence arguments and claims are separately
+        addressable.
+      material_effects:
+        identity-basis: fact-argument-claim
+        continuity: historical-plus-projected
+        merge-split: facts-arguments-claims-split
+    - id: score-only
+      difference: Learner truth is primarily a scalar score.
+      material_effects:
+        identity-basis: score
+        continuity: latest-score
+        merge-split: collapsed
+- axis: invariants
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: relax-invariant
+    challenge: Relax the accepted invariant and test which invalid states become representable.
+    alternatives: &id002
+    - direct-observation-inference
+    - explicit-inference-boundary
+  - strategy: move-enforcement-owner
+    challenge: Move invariant enforcement across the accepted Authority boundary and
+      test ownership leakage.
+    alternatives: *id002
+  decision_points:
+  - id: learner-inference-boundary
+    alternatives:
+    - id: direct-observation-inference
+      difference: Success/failure observations directly become learner capability
+        state.
+      material_effects:
+        valid-state-space: observation-equals-claim
+        enforcement-owner: observation-capture
+        exception-policy: none
+    - id: explicit-inference-boundary
+      difference: Observation remains distinct and requires an inspectable evidence
+        argument before a claim.
+      material_effects:
+        valid-state-space: fact-argument-claim-separated
+        enforcement-owner: learner-evidence-owner
+        exception-policy: insufficient-evidence-remains-unknown
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: state-split
+    challenge: Split lifecycle states and test whether the extra state has independent
+      semantic meaning.
+    alternatives: &id003
+    - overwrite-state
+    - append-history-project-current
+  - strategy: transition-perturbation
+    challenge: Perturb transition ownership and test whether historical/current semantics
+      remain valid.
+    alternatives: *id003
+  decision_points:
+  - id: learner-evidence-lifecycle
+    alternatives:
+    - id: overwrite-state
+      difference: New evidence overwrites prior learner state.
+      material_effects:
+        state-set: current-only
+        transition-ownership: latest-write
+        terminality: none
+    - id: append-history-project-current
+      difference: Historical facts/arguments remain append-oriented and current state
+        is re-projected.
+      material_effects:
+        state-set: history-plus-current-projection
+        transition-ownership: learner-evidence-owner
+        terminality: none
+- axis: relationships
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: entity-vs-relation
+    challenge: Represent the same meaning as entity versus relation and test identity/ownership
+      consequences.
+    alternatives: &id004
+    - reusable-warrant-required
+    - direct-inspectable-argument
+    - opaque-model-output
+  - strategy: reverse-direction
+    challenge: Reverse or symmetrize relationship direction and test whether accepted
+      meaning is preserved.
+    alternatives: *id004
+  decision_points:
+  - id: learner-evidence-argument-shape
+    alternatives:
+    - id: reusable-warrant-required
+      difference: Every inference requires a separate reusable warrant entity.
+      material_effects:
+        relation-vs-entity: warrant-entity
+        directionality: warrant-to-claim
+        cardinality: many-to-many
+    - id: direct-inspectable-argument
+      difference: Evidence argument directly records bearing, applicability, limits,
+        reasoning and provenance.
+      material_effects:
+        relation-vs-entity: argument-relation
+        directionality: evidence-to-claim
+        cardinality: many-to-many
+    - id: opaque-model-output
+      difference: A model score directly determines state.
+      material_effects:
+        relation-vs-entity: opaque-output
+        directionality: model-to-state
+        cardinality: one-output-many-claims
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-owner-upstream
+    challenge: Move the responsibility upstream and test whether the upstream Authority
+      would own downstream semantics.
+    alternatives: &id005
+    - learner-model-owns-target-and-capability
+    - learner-specific-only
+  - strategy: split-responsibility
+    challenge: Split responsibility across owners and test whether a stable semantic
+      owner remains.
+    alternatives: *id005
+  decision_points:
+  - id: learner-model-boundary
+    alternatives:
+    - id: learner-model-owns-target-and-capability
+      difference: Learner Model owns reusable target/capability semantics as part
+        of state.
+      material_effects:
+        semantic-owner: learner-model
+        boundary-placement: cross-context
+        downstream-freedom: low
+    - id: learner-specific-only
+      difference: Learner Model owns actual learner evidence/claims and references
+        reusable semantics.
+      material_effects:
+        semantic-owner: learner-model
+        boundary-placement: learner-context
+        downstream-freedom: high
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - learner-evidence-identity
+  - learner-inference-boundary
+  - learner-evidence-lifecycle
+  - learner-evidence-argument-shape
+  - learner-model-boundary
+  open_gaps: []

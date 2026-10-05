@@ -1,0 +1,183 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.knowledge-model
+knowledge_kind: domain-model
+explorer_request_id: sha256:12095acfb84add5b8e608125e99bcf8247027e1ef4de504f1c7b300af4eca496
+research_sources: []
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: identity-substitution
+    challenge: Substitute the identity basis and test whether accepted meaning and
+      continuity still hold.
+    alternatives: &id001
+    - universal-node
+    - object-plus-proposition
+    - closed-typed-entities
+  - strategy: merge-vs-split
+    challenge: Merge or split the modeled identities and test whether materially distinct
+      meanings collapse.
+    alternatives: *id001
+  decision_points:
+  - id: knowledge-semantic-identity
+    alternatives:
+    - id: universal-node
+      difference: One generic node identity carries all subject meaning.
+      material_effects:
+        identity-basis: universal-node
+        continuity: node-id
+        merge-split: merged
+    - id: object-plus-proposition
+      difference: KnowledgeObject and KnowledgeProposition have distinct reusable
+        semantic identities.
+      material_effects:
+        identity-basis: subject-meaning
+        continuity: semantic
+        merge-split: object-proposition-split
+    - id: closed-typed-entities
+      difference: Fixed entity subtypes define identity.
+      material_effects:
+        identity-basis: closed-type
+        continuity: type-plus-meaning
+        merge-split: closed-subtypes
+- axis: invariants
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: relax-invariant
+    challenge: Relax the accepted invariant and test which invalid states become representable.
+    alternatives: &id002
+    - context-mutates-knowledge
+    - reusable-subject-truth
+  - strategy: move-enforcement-owner
+    challenge: Move invariant enforcement across the accepted Authority boundary and
+      test ownership leakage.
+    alternatives: *id002
+  decision_points:
+  - id: knowledge-context-invariant
+    alternatives:
+    - id: context-mutates-knowledge
+      difference: Target/learner/scope/presentation context may mutate reusable knowledge
+        identity.
+      material_effects:
+        valid-state-space: context-dependent
+        enforcement-owner: context-consumer
+        exception-policy: context-overrides
+    - id: reusable-subject-truth
+      difference: Reusable subject identity remains independent from learner, target,
+        scope and presentation.
+      material_effects:
+        valid-state-space: context-independent
+        enforcement-owner: subject-knowledge
+        exception-policy: none
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: state-split
+    challenge: Split lifecycle states and test whether the extra state has independent
+      semantic meaning.
+    alternatives: &id003
+    - source-identity
+    - semantic-identity
+  - strategy: transition-perturbation
+    challenge: Perturb transition ownership and test whether historical/current semantics
+      remain valid.
+    alternatives: *id003
+  decision_points:
+  - id: knowledge-identity-lifecycle
+    alternatives:
+    - id: source-identity
+      difference: Knowledge continuity follows source/document identity.
+      material_effects:
+        state-set: source-revisions
+        transition-ownership: source-ingestion
+        terminality: source-bound
+    - id: semantic-identity
+      difference: Continuity follows subject meaning and material semantic change
+        may create a new identity.
+      material_effects:
+        state-set: semantic-revisions
+        transition-ownership: subject-owner
+        terminality: none
+- axis: relationships
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: entity-vs-relation
+    challenge: Represent the same meaning as entity versus relation and test identity/ownership
+      consequences.
+    alternatives: &id004
+    - first-class-generic-edge
+    - proposition-plus-predicate
+    - free-text-only
+  - strategy: reverse-direction
+    challenge: Reverse or symmetrize relationship direction and test whether accepted
+      meaning is preserved.
+    alternatives: *id004
+  decision_points:
+  - id: knowledge-relationship-shape
+    alternatives:
+    - id: first-class-generic-edge
+      difference: Generic edge objects carry all relationship meaning.
+      material_effects:
+        relation-vs-entity: entity-edge
+        directionality: generic
+        cardinality: generic
+    - id: proposition-plus-predicate
+      difference: Relational propositions are classified by predicate vocabulary.
+      material_effects:
+        relation-vs-entity: relation-proposition
+        directionality: predicate-specific
+        cardinality: predicate-specific
+    - id: free-text-only
+      difference: Relations remain prose only.
+      material_effects:
+        relation-vs-entity: text
+        directionality: implicit
+        cardinality: implicit
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-owner-upstream
+    challenge: Move the responsibility upstream and test whether the upstream Authority
+      would own downstream semantics.
+    alternatives: &id005
+    - absorb-cross-context-links
+    - subject-only
+  - strategy: split-responsibility
+    challenge: Split responsibility across owners and test whether a stable semantic
+      owner remains.
+    alternatives: *id005
+  decision_points:
+  - id: knowledge-responsibility-boundary
+    alternatives:
+    - id: absorb-cross-context-links
+      difference: Subject Knowledge owns target/capability/evidence/support links.
+      material_effects:
+        semantic-owner: subject-knowledge
+        boundary-placement: cross-context
+        downstream-freedom: low
+    - id: subject-only
+      difference: Subject Knowledge owns reusable subject objects/propositions only.
+      material_effects:
+        semantic-owner: subject-knowledge
+        boundary-placement: subject-context
+        downstream-freedom: high
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - knowledge-semantic-identity
+  - knowledge-context-invariant
+  - knowledge-identity-lifecycle
+  - knowledge-relationship-shape
+  - knowledge-responsibility-boundary
+  open_gaps: []
