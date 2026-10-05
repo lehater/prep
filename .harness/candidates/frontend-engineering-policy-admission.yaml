@@ -1,0 +1,31 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-ENGINEERING-POLICY
+capability: prep.frontend-engineering-policy
+path: docs/engineering/frontend-engineering-policy.md
+changed_paths: [docs/engineering/frontend-engineering-policy.md]
+canonical_references:
+  - {artifact: FRONTEND-ENGINEERING-POLICY, referenced_path: docs/architecture/frontend-system-architecture.md}
+  - {artifact: FRONTEND-ENGINEERING-POLICY, referenced_path: docs/interface/presentation-system.md}
+semantic_assertions:
+  - id: FEP-DEPENDENCY
+    kind: engineering-obligation
+    subject: frontend-dependency-direction
+    semantic_value: Task features depend on consumer-owned contracts, not concrete adapters, provider DTOs or another feature's private mutable state; shared presentation code owns no task/domain state.
+    derived_from: [FSA-DEPENDENCY, PS-FREEDOMS]
+    decision_authority: ENGINEERING-POLICY
+  - id: FEP-STATE
+    kind: engineering-obligation
+    subject: frontend-state-discipline
+    semantic_value: Shared mutable state is limited to accepted cross-view Target/focus continuity; canonical server/domain projections are not promoted into a browser-owned semantic source of truth.
+    derived_from: [FSA-STATE, PS-PATTERN-CONTEXT]
+    decision_authority: ENGINEERING-POLICY
+  - id: FEP-SPATIAL
+    kind: engineering-obligation
+    subject: optional-spatial-provider
+    semantic_value: Renderer-specific mechanics and metrics remain provider/presentation state; no 2D/3D renderer, item-count or FPS target becomes normative without an accepted presentation/quality boundary.
+    derived_from: [FSA-FAILURE, PS-KNOWLEDGE-REPRESENTATION]
+    decision_authority: ENGINEERING-POLICY
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, policy-not-product-domain-owner, obligations-concrete-and-reviewable, optional-patterns-not-defaults]
