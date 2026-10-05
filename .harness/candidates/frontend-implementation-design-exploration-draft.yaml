@@ -143,6 +143,7 @@ axes:
   - axis: migration-transition
     applicability: NOT_APPLICABLE
     exploration_level: EXPLORE
+    applicability_evidence: [FRONTEND-COMPONENT-DESIGN]
     evidence: >-
       Project Authority Assessment marks CHANGE-TRANSITION-DESIGN NOT_APPLICABLE:
       frontend release/rollback is whole-artifact replacement with no accepted data
