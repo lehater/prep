@@ -28,6 +28,7 @@ from harness.project_model.engineering_graph import (  # noqa: E402
     validate_engineering_graph,
 )
 from harness.application.project_publication import read_project_publication  # noqa: E402
+from harness.application.semantic_closure import evaluate_semantic_closure  # noqa: E402
 from harness.assurance.semantic_derivation import (  # noqa: E402
     derivation_evaluation_index,
     evaluate_derivation,
@@ -296,6 +297,36 @@ def main() -> int:
             ".harness/core.yaml differs from the atomically published Core model"
         )
 
+    # Lightweight read-only guard: a structurally valid publication must also remain
+    # semantically CURRENT against the policy in the active pinned Harness pack.
+    skill_registry = yaml.safe_load(
+        (HARNESS_ROOT / "skills/artifact-skill-registry-v0.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    decision_policy = load(
+        ".harness/candidates/application-design-decision-policy.yaml"
+    )
+    published_state = publication["state"]
+    for target in ("FRONTEND-PROTOTYPE", "FRONTEND-IMPLEMENTATION"):
+        closure = evaluate_semantic_closure(
+            graph=graph,
+            model=core,
+            target=target,
+            skill_registry=skill_registry,
+            semantic_evaluations=published_state["semantic_evaluations"],
+            lifecycle=published_state["lifecycle"],
+            decision_policy=decision_policy,
+        )
+        if closure.get("status") != "COMPLETE":
+            raise SystemExit(
+                f"{target} published semantic/currentness closure is "
+                f"{closure.get('status')}: "
+                f"semantic_gaps={closure.get('semantic_gaps')} "
+                f"currentness_gaps={closure.get('currentness_gaps')} "
+                f"revalidate={closure.get('revalidate')}"
+            )
+
     validate_human_interface_relation_realization(graph, publication)
 
     for artifact in core.get("artifacts", []):
@@ -399,8 +430,8 @@ def main() -> int:
 
     print(
         "Prep pinned Harness integration PASS "
-        "(publication integrity + structural/frontend consistency; "
-        "semantic currentness is enforced by lifecycle/full revalidation)"
+        "(publication integrity + lightweight semantic/currentness closure + "
+        "structural/frontend consistency)"
     )
     return 0
 
