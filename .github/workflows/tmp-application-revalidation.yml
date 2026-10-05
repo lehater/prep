@@ -1,4 +1,4 @@
-name: temporary application admission help
+name: temporary Harness reconcile route
 
 on:
   push:
@@ -17,9 +17,18 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect strict semantic admission options
+      - name: Route reconcile
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          python -m harness.application.semantic_admission --help
+          python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile | tee /tmp/route.json
+          python - <<'PY'
+          import json, pathlib
+          r=json.loads(pathlib.Path('/tmp/route.json').read_text())
+          for p in r.get('instruction_contracts', []):
+              print(f'=== CONTRACT {p} ===')
+              print(pathlib.Path(p).read_text())
+          print('=== SKILL ===')
+          print(pathlib.Path(r['skill']).read_text())
+          PY
