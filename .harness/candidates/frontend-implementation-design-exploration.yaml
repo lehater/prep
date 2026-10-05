@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.frontend-implementation-design
 knowledge_kind: implementation-design
-explorer_request_id: sha256:869661a9cf8b379836abe3abaef4467fa1346a39bc94d84e577b37f1f5d670cf
+explorer_request_id: sha256:eb874dc44db75816052b47da6114cea11a0d2f28e34d4f6b5405cced59ce58a3
 research_sources: []
 axes:
 - axis: slice-boundaries

@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.screen-view-design
 knowledge_kind: screen-view-design
-explorer_request_id: sha256:bfdf74f43c1a0942e1973455b40ada5505c21a55cfce35069252bd9f0d5ac2f4
+explorer_request_id: sha256:84dcd8f6412033d096cb9349c33ce65bd843fb5e1a4a1846d2431c35baea87b5
 research_sources: []
 axes:
 - axis: view-composition

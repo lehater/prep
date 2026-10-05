@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.frontend-system-architecture
 knowledge_kind: system-architecture
-explorer_request_id: sha256:bae48c939f746e9085cffe77eb4d9da852e7746f86c1ef31330943822a4e60c0
+explorer_request_id: sha256:e385dd34e9d211df8559f7a34f713f22e6d8f5b191978e541a9771975a776b17
 research_sources: []
 axes:
 - axis: runtime-boundaries

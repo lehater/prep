@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.frontend-component-design
 knowledge_kind: component-design
-explorer_request_id: sha256:7acedec9604b2c5b94c476f33d6dfea190a37d2500fac64473f1fa0b0250c990
+explorer_request_id: sha256:e7a19d7d4795f6d3574a8196593c017b32537316a54bf2f365e5b576ab68f4e1
 research_sources: []
 axes:
 - axis: responsibility-boundaries

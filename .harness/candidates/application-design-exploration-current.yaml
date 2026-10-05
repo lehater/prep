@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.application-design
 knowledge_kind: application-design
-explorer_request_id: sha256:20262c958ff0bb4e3bbf9250d974610769e705e6f174e3217c2dff7ad44ae22b
+explorer_request_id: sha256:fd47b757bce101d054eefb62dbfd5d5083cbc666f2bce29d5e62753f2ba887fd
 research_sources: []
 axes:
 - axis: operation-boundaries

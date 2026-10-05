@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.presentation-system
 knowledge_kind: presentation-system-design
-explorer_request_id: sha256:6c2004c8a9318c2aaca472d28f51763b24a86ad4f90a7a7e40ee0cd44bdff952
+explorer_request_id: sha256:51a2fe6c18c00727e34425f5e4ebcc8fd9c74aaa27e965f2451b3667d344cee8
 research_sources: []
 axes:
 - axis: knowledge-representation
