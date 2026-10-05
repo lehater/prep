@@ -13,6 +13,56 @@ canonical_references:
   - artifact: KNOWLEDGE-MODEL
     referenced_path: docs/domain/relation-classification-catalog.yaml
 
+decision_review:
+  axes:
+    - axis: semantic-identity
+      decisions:
+        - id: knowledge-semantic-identity
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: universal-node, state: REJECTED, rationale: "A universal node carrier conflates distinct reusable knowledge forms."}
+            - {id: object-plus-proposition, state: VIABLE}
+            - {id: closed-typed-entities, state: REJECTED, rationale: "A closed ontology overconstrains currently open subject semantics."}
+          disposition: DETERMINED
+          selected: object-plus-proposition
+    - axis: invariants
+      decisions:
+        - id: knowledge-context-invariant
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: context-mutates-knowledge, state: REJECTED, rationale: "Target, learner and presentation context must not redefine reusable subject truth."}
+            - {id: reusable-subject-truth, state: VIABLE}
+          disposition: DETERMINED
+          selected: reusable-subject-truth
+    - axis: lifecycle
+      decisions:
+        - id: knowledge-identity-lifecycle
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: source-identity, state: REJECTED, rationale: "Source/document identity is provenance, not semantic continuity."}
+            - {id: semantic-identity, state: VIABLE}
+          disposition: DETERMINED
+          selected: semantic-identity
+    - axis: relationships
+      decisions:
+        - id: knowledge-relationship-shape
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: first-class-generic-edge, state: REJECTED, rationale: "A generic edge loses proposition and predicate-specific meaning."}
+            - {id: proposition-plus-predicate, state: VIABLE}
+            - {id: free-text-only, state: REJECTED, rationale: "Free text alone cannot preserve addressable relation semantics."}
+          disposition: DETERMINED
+          selected: proposition-plus-predicate
+    - axis: responsibility-boundaries
+      decisions:
+        - id: knowledge-responsibility-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: absorb-cross-context-links, state: REJECTED, rationale: "Would collapse target, capability and learner-state ownership into Subject Knowledge."}
+            - {id: subject-only, state: VIABLE}
+          disposition: DETERMINED
+          selected: subject-only
+
 semantic_assertions:
   - id: KM-KNOWLEDGE-FAMILY
     kind: domain-model
