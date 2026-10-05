@@ -13,6 +13,56 @@ canonical_references:
   - artifact: LEARNER-MODEL
     referenced_path: .harness/knowledge/product-capabilities.yaml
 
+decision_review:
+  axes:
+    - axis: semantic-identity
+      decisions:
+        - id: learner-evidence-identity
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: mutable-state-record, state: REJECTED, rationale: "Overwriting one state record loses historical evidence and justification."}
+            - {id: fact-argument-claim, state: VIABLE}
+            - {id: score-only, state: REJECTED, rationale: "A scalar score cannot preserve conflicting evidence and uncertainty."}
+          disposition: DETERMINED
+          selected: fact-argument-claim
+    - axis: invariants
+      decisions:
+        - id: learner-inference-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: direct-observation-inference, state: REJECTED, rationale: "Observation alone cannot establish capability state."}
+            - {id: explicit-inference-boundary, state: VIABLE}
+          disposition: DETERMINED
+          selected: explicit-inference-boundary
+    - axis: lifecycle
+      decisions:
+        - id: learner-evidence-lifecycle
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: overwrite-state, state: REJECTED, rationale: "Would erase historical evidence and prior applicability context."}
+            - {id: append-history-project-current, state: VIABLE}
+          disposition: DETERMINED
+          selected: append-history-project-current
+    - axis: relationships
+      decisions:
+        - id: learner-evidence-argument-shape
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: reusable-warrant-required, state: REJECTED, rationale: "No independent reusable warrant model is currently accepted."}
+            - {id: direct-inspectable-argument, state: VIABLE}
+            - {id: opaque-model-output, state: REJECTED, rationale: "Opaque scoring cannot satisfy evidence inspectability."}
+          disposition: DETERMINED
+          selected: direct-inspectable-argument
+    - axis: responsibility-boundaries
+      decisions:
+        - id: learner-model-boundary
+          owner_authority: TACTICAL-DOMAIN-DESIGN
+          alternatives:
+            - {id: learner-model-owns-target-and-capability, state: REJECTED, rationale: "Would mutate reusable target/capability semantics from learner-specific evidence."}
+            - {id: learner-specific-only, state: VIABLE}
+          disposition: DETERMINED
+          selected: learner-specific-only
+
 semantic_assertions:
   - id: LM-PERFORMANCE
     kind: domain-model
