@@ -1,4 +1,4 @@
-name: temporary normalize strict derivation contracts
+name: temporary frontend derivation provenance audit
 
 on:
   push:
@@ -7,81 +7,72 @@ on:
     paths:
       - ".github/workflows/tmp-normalize-derivations.yml"
 
-permissions:
-  contents: write
-
 jobs:
-  normalize:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-      - name: Sync pinned Harness Consumer Pack
-        id: sync
-        shell: bash
-        run: |
-          set -euo pipefail
-          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
-          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Normalize production derivation lifecycle dependencies
-        env:
-          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
+      - name: Audit required target provenance
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import os, sys, yaml
+          import yaml
 
           root=Path(".")
-          harness_root=Path(os.environ["HARNESS_ROOT"])
-          sys.path.insert(0,str(harness_root/"src"))
-          from harness.project_model.engineering_graph import production_index
+          candidates={}
+          for path in sorted((root/".harness/candidates").glob("*-admission.yaml")):
+              try: doc=yaml.safe_load(path.read_text())
+              except Exception: continue
+              if doc.get("kind")=="harness-artifact-admission-candidate" and isinstance(doc.get("capability"),str):
+                  candidates.setdefault(doc["capability"],[]).append((path,doc))
 
-          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
-          productions=production_index(graph)
-          files=sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml"))
-          changed=[]
+          def choose(cap):
+              rows=candidates.get(cap,[])
+              if len(rows)==1: return rows[0]
+              # Prefer canonical artifact id matching the target artifact/capability slug only for audit;
+              # report ambiguity instead of guessing.
+              canonical=[r for r in rows if r[1].get("id")]
+              if len(canonical)==1: return canonical[0]
+              raise SystemExit(f"ambiguous candidate for {cap}: {[str(p) for p,_ in rows]}")
+
+          missing=[]
           checked=[]
-          for path in files:
+          for path in sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml")):
               doc=yaml.safe_load(path.read_text())
-              if doc.get("kind")!="harness-semantic-derivation-contract":
-                  continue
-              source=doc.get("source_capability")
-              target=doc.get("target_capability")
-              prod=productions.get(target)
-              if prod is None:
-                  raise SystemExit(f"{path}: missing target production {target}")
-              requires={
-                  item.get("capability")
-                  for item in prod.get("requires", []) or []
-                  if isinstance(item,dict)
+              if doc.get("kind")!="harness-semantic-derivation-contract": continue
+              source_cap=doc["source_capability"]; target_cap=doc["target_capability"]
+              source_path,source=choose(source_cap)
+              target_path,target=choose(target_cap)
+              target_derived={
+                  d
+                  for assertion in target.get("semantic_assertions",[]) or []
+                  if isinstance(assertion,dict)
+                  for d in assertion.get("derived_from",[]) or []
+                  if isinstance(d,str)
               }
-              if source not in requires:
-                  raise SystemExit(f"{path}: {source} is not a direct production prerequisite of {target}")
-              checked.append(str(path))
-              dep=doc.setdefault("lifecycle_dependency", {})
-              if dep.get("exhaustive") is not True:
-                  dep["exhaustive"]=True
-                  path.write_text(yaml.safe_dump(doc,sort_keys=False,allow_unicode=True),encoding="utf-8")
-                  changed.append(str(path))
-          if not checked:
-              raise SystemExit("no frontend derivation contracts found")
-          print(f"checked={len(checked)} changed={len(changed)}")
-          for path in changed:
-              print(path)
+              for obligation in doc.get("obligations",[]) or []:
+                  if not obligation.get("require_target_provenance"): continue
+                  matches=[]
+                  for assertion in source.get("semantic_assertions",[]) or []:
+                      if not isinstance(assertion,dict): continue
+                      if obligation.get("source_kind") and assertion.get("kind")!=obligation.get("source_kind"): continue
+                      if obligation.get("subject") and assertion.get("subject")!=obligation.get("subject"): continue
+                      matches.append(assertion.get("id"))
+                  matches=[m for m in matches if isinstance(m,str)]
+                  checked.append((str(path),source_cap,target_cap,obligation.get("id"),matches))
+                  absent=[m for m in matches if m not in target_derived]
+                  if absent:
+                      missing.append({
+                          "contract":str(path),
+                          "source":source_cap,
+                          "target":target_cap,
+                          "target_candidate":str(target_path),
+                          "obligation":obligation.get("id"),
+                          "required_source_ids":absent,
+                      })
+          print("CHECKED",len(checked))
+          print("MISSING",len(missing))
+          print(yaml.safe_dump(missing,sort_keys=False,allow_unicode=True))
           PY
-      - name: Commit normalized contracts
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git diff --quiet -- .harness/candidates/frontend-*-derivation-contract.yaml; then
-            echo "No normalization changes required"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .harness/candidates/frontend-*-derivation-contract.yaml
-          git commit -m "Normalize strict derivation lifecycle dependencies"
-          git push origin HEAD:audit/ui-view-boundaries-clean
