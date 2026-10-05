@@ -1,0 +1,40 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-VERIFICATION
+capability: prep.frontend-verification
+path: docs/verification/frontend-verification.md
+changed_paths: [docs/verification/frontend-verification.md]
+canonical_references:
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: .harness/knowledge/product-capabilities.yaml}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/verification/presentation-verification.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/architecture/frontend-system-architecture.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/interface/machine-interface.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/architecture/performance-capacity.md}
+semantic_assertions:
+  - id: FVF-TRACE
+    kind: verification-obligation
+    subject: frontend-task-traceability
+    semantic_value: Verify the complete learner preparation path from target direction through evidence/change and contextual preparation support against accepted Product, Presentation and architecture boundaries.
+    derived_from: [REQ-CAP-TARGET-DIRECTION, PVF-COMPOSITION, FSA-FEATURES, MI-NO-LEAK, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+  - id: FVF-PORTS
+    kind: verification-obligation
+    subject: frontend-port-and-dependency-fidelity
+    semantic_value: Verify consumer-owned port/outcome fidelity, adapter representation isolation, dependency direction and task-local state ownership without legacy public Curation/Import/Progress/Diagnostics edges.
+    derived_from: [PVF-COMPOSITION, FSA-DEPENDENCY, MI-NO-LEAK, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+  - id: FVF-KNOWLEDGE
+    kind: verification-obligation
+    subject: optional-spatial-knowledge
+    semantic_value: Verify Knowledge remains task-complete without a spatial renderer and preserves semantic identity/scope when an optional renderer is present or degraded.
+    derived_from: [PVF-KNOWLEDGE, FSA-FAILURE, MI-NO-LEAK, QD-GRAPH-CONDITIONAL]
+    decision_authority: VERIFICATION-DESIGN
+  - id: FVF-CURRENTNESS
+    kind: verification-obligation
+    subject: harness-semantic-currentness
+    semantic_value: Verify stale or lifecycle-unknown frontend knowledge cannot be reported current merely because files, structural graph checks or executable tests pass.
+    derived_from: [REQ-CAP-TARGET-DIRECTION, PVF-COMPOSITION, FSA-DEPENDENCY, MI-BASIS, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, verification-not-semantic-owner]
