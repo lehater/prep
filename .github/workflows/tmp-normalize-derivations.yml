@@ -17,21 +17,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Sync pinned Harness Consumer Pack
+        id: sync
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACK="$(python .harness/harnessw.py sync | tail -n 1)"
+          echo "pack=$PACK" >> "$GITHUB_OUTPUT"
       - name: Normalize production derivation lifecycle dependencies
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import yaml
+          import os, sys, yaml
 
           root=Path(".")
+          harness_root=Path(os.environ["HARNESS_ROOT"])
+          sys.path.insert(0,str(harness_root/"src"))
+          from harness.project_model.engineering_graph import production_index
+
           graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
-          productions={
-              row["capability"]: row
-              for row in graph.get("productions", [])
-              if isinstance(row,dict) and isinstance(row.get("capability"),str)
-          }
+          productions=production_index(graph)
           files=sorted((root/".harness/candidates").glob("frontend-*-derivation-contract.yaml"))
           changed=[]
           checked=[]
