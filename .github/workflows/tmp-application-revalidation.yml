@@ -19,18 +19,19 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Read decision explorer skill and domain-model contract
+      - name: Locate decision explorer and print contract
         shell: bash
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          echo "=== DECISION EXPLORER SKILL ==="
-          cat skills/agent/decision-explorer/SKILL.md
+          echo "=== MATCHING SKILLS ==="
+          find skills -type f -name SKILL.md -print | grep -E 'decision|explor' || true
+          echo "=== DECISION PIPELINE SKILL ==="
+          cat skills/agent/decision-pipeline/SKILL.md
           echo "=== DOMAIN MODEL CONTRACT ==="
           python - <<'PY'
           import yaml
-          p='spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'
-          d=yaml.safe_load(open(p))
+          d=yaml.safe_load(open('spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'))
           for x in d.get('contracts',[]):
               if x.get('knowledge_kind')=='domain-model':
                   print(yaml.safe_dump(x,sort_keys=False,allow_unicode=True))
