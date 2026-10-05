@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: component-implementation
+source_capability: prep.frontend-component-design
+target_capability: prep.frontend-implementation-design
+obligations:
+  - id: direct-semantic-input
+    source_kind: component-responsibility
+    subject: task-feature-ownership
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
