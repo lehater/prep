@@ -1,4 +1,4 @@
-name: temporary not applicable contract inspection
+name: temporary implementation request inspection
 
 on:
   push:
@@ -19,9 +19,20 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Inspect NOT_APPLICABLE evaluator
-        shell: bash
+      - name: Inspect request builder and admission invocation
+        env:
+          PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
         run: |
-          set -euo pipefail
-          cd "${{ steps.sync.outputs.pack }}"
-          grep -RIn -A25 -B25 "DECISION_NOT_APPLICABLE_EVIDENCE_REQUIRED" src/harness
+          python - <<'PY'
+          import inspect
+          import harness.application.semantic_admission as sa
+          from harness.application.decision_explorer_request import build_decision_explorer_request
+          print("=== SIGNATURE ===")
+          print(inspect.signature(build_decision_explorer_request))
+          print("=== BUILDER ===")
+          print(inspect.getsource(build_decision_explorer_request))
+          print("=== ADMISSION CALL SITE ===")
+          src=inspect.getsource(sa.admit_artifact)
+          i=src.find("build_decision_explorer_request")
+          print(src[max(0,i-3500):i+5000])
+          PY
