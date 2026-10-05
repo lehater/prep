@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:a0516d09483d4302db75b20a2c43ec1acf3462d5c50c8efe86a9bb698d8d7089
-parent_revision: sha256:30e0ddf4742d6bd2a27f2fb7f98bb92c55c85d5bda2d168a7c514cab6cd70dac
+revision: sha256:a1e7c4ea2fffabe419f9ff8cf56bb61d75c1f00b49ec74c8e9fd9abba3b73654
+parent_revision: sha256:a0516d09483d4302db75b20a2c43ec1acf3462d5c50c8efe86a9bb698d8d7089
 state:
   core_model:
     authorities:
@@ -6706,6 +6706,760 @@ state:
           IV-CONTEXT: SAF-75311c17d8888eabc4211f944324f455722e95d31001a9e377a2c3e345d49033
           IV-MODE-BOUNDARY: SAF-a886da21402fe6e0c019364d46e04bb92973984dd114b17133e6d8cfb23904e0
           IV-TARGET-PURPOSE: SAF-cb193ecabceb0691a4ef775056c833a8590ee03ce96127c5d42eb03e91975fb7
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-ENGINEERING-POLICY
+      capability: prep.frontend-engineering-policy
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.engineering.principles
+        - engineering.engineering.code-quality
+        - engineering.engineering.error-handling
+        - engineering.quality.maintainability.modularity
+        - engineering.quality.maintainability.analysability
+        - engineering.quality.maintainability.modifiability
+        - engineering.quality.maintainability.testability
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: engineering-policy
+        skill: skills/artifacts/engineering-policy/SKILL.md
+        acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        authority: ENGINEERING-POLICY
+        allowed_source_authorities:
+        - ENGINEERING-POLICY
+        - HUMAN-INTERFACE-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/engineering/frontend-engineering-policy.md
+        canonical_references:
+        - artifact: FRONTEND-ENGINEERING-POLICY
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-ENGINEERING-POLICY
+          referenced_path: docs/interface/presentation-system.md
+        accepted_prerequisites: &id047
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:dc63da1019d7f36c0135341b3e9b21908d859b25cbc64030faac73d5a7206244
+        acceptance_policy_fingerprint: sha256:dc63da1019d7f36c0135341b3e9b21908d859b25cbc64030faac73d5a7206244
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-ENGINEERING-POLICY
+        capability: prep.frontend-engineering-policy
+        acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        acceptance_policy_fingerprint: sha256:dc63da1019d7f36c0135341b3e9b21908d859b25cbc64030faac73d5a7206244
+        accepted_prerequisites: *id047
+        semantic_atom_fingerprints:
+          EP-OWNERSHIP: SAF-f4a45a51e9ba30c42aad51ca0251f5200c10546048ac1605cf2b768bf1aaf89f
+          EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
+          EP-PORTS: SAF-fd9ff42c52389081889c805929794a3b813389552c81def6a00bb02c88d7f202
+          EP-PROVIDERS: SAF-234674f0fa4240050af9c983ae085b62b89fb94f158d7e2609b44829480d366c
+          EP-STATE: SAF-b90a1a58e952e3e4df80eb2e7efd06399ea2da14b0b53f806cc8958e2f5780cc
+          EP-PRESENTATION: SAF-843ca1e32541a5599c4fed7150361a2e46a0de5917874c3503a0ec709735483c
+          EP-MOCK: SAF-107c788b9361cbd6e3a9003bd11cce2e2dcde7243f4ba50429408f97edb86945
+          EP-PERFORMANCE: SAF-c4ac693ecc42a712d0e6b55838ab066dfe5adf6febc89c8195e2f932ddf522a0
+          EP-VALIDATION: SAF-550b9dba21299d0148e403f5e76c7c7f17d41881c9547582650d8e834c53190c
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-COMPONENT-DESIGN
+      capability: prep.frontend-component-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.engineering.components
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.frontend-component-design
+        knowledge_kind: component-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - feature-vs-technical
+          - local-vs-shared
+          - split-vs-merge
+          decision_points:
+          - id: public-feature-boundaries
+            alternatives:
+            - view-responsibility-features
+            - fine-grained-domainish-features
+            - resource-oriented-features
+            - monolithic-preparation-feature
+        - axis: provider-seams
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - direct-vs-port
+          - provider-substitution
+          - wrapper-scope-perturbation
+          decision_points:
+          - id: machine-provider-seams
+            alternatives:
+            - narrow-consumer-ports
+            - aggregated-prep-port
+            - direct-provider-use
+          - id: spatial-renderer-seam
+            alternatives:
+            - optional-renderer-port
+            - renderer-inside-feature
+        - axis: state-ownership
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - lifecycle-perturbation
+          - local-vs-global
+          - server-vs-client-owner
+          decision_points:
+          - id: frontend-state-ownership
+            alternatives:
+            - local-plus-preparation-context
+            - general-global-store
+            - client-canonical-projections
+            - cross-feature-workflow-store
+        explorer_request_id: sha256:7acedec9604b2c5b94c476f33d6dfea190a37d2500fac64473f1fa0b0250c990
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: component-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: FRONTEND-COMPONENT-DESIGN
+        capability: prep.frontend-component-design
+        knowledge_kind: component-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: responsibility-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: public-feature-boundaries
+            owner_authority: COMPONENT-DESIGN
+            viable:
+            - view-responsibility-features
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: provider-seams
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: machine-provider-seams
+            owner_authority: COMPONENT-DESIGN
+            viable:
+            - aggregated-prep-port
+            - narrow-consumer-ports
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+          - id: spatial-renderer-seam
+            owner_authority: COMPONENT-DESIGN
+            viable:
+            - optional-renderer-port
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: state-ownership
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-state-ownership
+            owner_authority: COMPONENT-DESIGN
+            viable:
+            - local-plus-preparation-context
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: component-design
+        skill: skills/artifacts/component-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        authority: COMPONENT-DESIGN
+        allowed_source_authorities:
+        - COMPONENT-DESIGN
+        - ENGINEERING-POLICY
+        - HUMAN-INTERFACE-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/implementation/frontend-component-design.md
+        canonical_references:
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/engineering/frontend-engineering-policy.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id048
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:747f3e0ceb22979203b9eb598354d912f05c3bb45df3693d109003c2cc66aa31
+        acceptance_policy_fingerprint: sha256:747f3e0ceb22979203b9eb598354d912f05c3bb45df3693d109003c2cc66aa31
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:7acedec9604b2c5b94c476f33d6dfea190a37d2500fac64473f1fa0b0250c990
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-COMPONENT-DESIGN
+        capability: prep.frontend-component-design
+        acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:747f3e0ceb22979203b9eb598354d912f05c3bb45df3693d109003c2cc66aa31
+        accepted_prerequisites: *id048
+        semantic_atom_fingerprints:
+          CD-COMPOSITION: SAF-9f8aa46f9ebb50fb8d259f2f29e2734016d1157d6adbafd745d829a6e3519f47
+          CD-SHELL: SAF-f2f91244542c704bcafa7ff9d97333ca0d56b73de8aa9d1ab047f62d327d29d7
+          CD-FEATURES: SAF-9e96a75b7940018558af37024f10abc5abb18af7c19c1de275441454ea19bbd2
+          CD-PORTS: SAF-05196d20d5bb74276502089f0c8ca12d36b80cdb9cd0bbfb48efca94bce41ad4
+          CD-SPATIAL: SAF-57407c0d5c822f07301e196d91baff72abbec9f66962421c5a661cd6c726b33f
+          CD-STATE: SAF-795604fc5e1dc7d317d566d5698d746ed32ee19f0def297da6d08f84e3b824e0
+          CD-DEPENDENCY: SAF-b7569fc8592a0802eddf7d1caa31ca3a04e999cd44444db34c61aa35b8c51a1d
+          CD-NO-LEGACY: SAF-2d885555014ec8fe700a59790bcac2e388bf306e693fd57a24b508276899d236
+          CD-TRANSITION-BOUNDARY: SAF-03b350553d4ef30dd5d957c096ce8b879c5311772f53adf1c2eb04b7ea845590
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PRESENTATION-VERIFICATION
+      capability: prep.presentation-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.interface.presentation
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - HUMAN-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/presentation-verification.md
+        canonical_references:
+        - artifact: PRESENTATION-VERIFICATION
+          referenced_path: docs/verification/interface-verification.md
+        - artifact: PRESENTATION-VERIFICATION
+          referenced_path: docs/interface/presentation-system.md
+        - artifact: PRESENTATION-VERIFICATION
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: PRESENTATION-VERIFICATION
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id049
+          prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PRESENTATION-VERIFICATION
+        capability: prep.presentation-verification
+        acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        accepted_prerequisites: *id049
+        semantic_atom_fingerprints:
+          PV-COVERAGE: SAF-a587c931e799f7652b9cbc7996c1cff0af0480e7c7212c509355f86a2fd7757a
+          PV-FLOW: SAF-76cd4f8546ea6e6fb14512c380ae640b9f43c6a4485e293eb6327bb8113d2c31
+          PV-KNOWLEDGE: SAF-dbead844f07891bdcfbf3f712f26d667574daf2ebf74e42c6b983fdaee404009
+          PV-EVIDENCE: SAF-bd21750b0f9bf1234e57f2a2eafbc868bb6ff77e4ad1ad767c4807610c7f8cc0
+          PV-PREP-SUPPORT: SAF-faa36c077de7fa384117a3488e82af15ba27ae892dcba60e401cf6650f31f066
+          PV-COMPOSITION: SAF-97263b192511ff81caa8bfbb6e37659314a98028f797cdfbc336bb9ca5ccd280
+          PV-RESPONSIVE: SAF-251528c43fdd6d53e4f09e7db923f7418cfe5df1bf1dad5d2d9983bf0273ffe8
+          PV-ACCESSIBILITY: SAF-9aae063217cd43bf5eb14b3e83fb79f39a2521caa61cf7d811fdb1a42f59743e
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-VERIFICATION
+      capability: prep.frontend-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.strategy
+        - engineering.verification.requirement-traceability
+        - engineering.verification.functional
+        - engineering.verification.architecture
+        - engineering.verification.quality
+        - engineering.verification.interface.machine
+        - engineering.transition.revalidation
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - MACHINE-INTERFACE-DESIGN
+        - PRODUCT-REQUIREMENTS
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/frontend-verification.md
+        canonical_references:
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: .harness/knowledge/product-capabilities.yaml
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/verification/presentation-verification.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id050
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+          prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-VERIFICATION
+        capability: prep.frontend-verification
+        acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        accepted_prerequisites: *id050
+        semantic_atom_fingerprints:
+          FV-TRACEABILITY: SAF-3788300eada884fa9349f7c990e61798fa55813202c6f636aeb7fb55c1a22e3d
+          FV-WORKFLOW: SAF-d729aa65ce913da6f72614424c0553ff73192af16cca868f062b4726cd4a3e0c
+          FV-PREP-SUPPORT: SAF-d5b61020e5635b371a961ece5747be3759111f3ff20a8a41c0d8e9fbe8fbb49e
+          FV-PORT-FIDELITY: SAF-d76b58cc1ba8ad5df2998911fcaad72dd282a12c36d43332f1c4c6c7fda74ba2
+          FV-DEPENDENCIES: SAF-61bb0c060f24fce816a544b0439f5c97c4d0f555e7313963a489d058a49d4fe6
+          FV-SPATIAL: SAF-df7681c341f2e9ae6399cce570e249f910aff82874964027d98ffab3a6105504
+          FV-STATE: SAF-d192cdb3765e5d8a60570dbe842caa762967c1001f48f8e48f9184990d555393
+          FV-EVIDENCE: SAF-0d5c4f3b16a388783a669b80a709a96cdce267e2199cde3b8acf4e2863d8857d
+          FV-PRESENTATION: SAF-21de91a833e68f161737feff7be2c5a34d33f569026f0c6eae8d6d85d9964ecd
+          FV-HARNESS: SAF-f0be7674647e73334ad9089f6e1adcd868a47b94b539dd7dd7ee145fce6d519f
+          FV-TARGET-ISOLATION: SAF-f875ba3313fc030974139a09ee411d6401336730d16fb8880325f0dc28602455
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-TEST-DESIGN
+      capability: prep.frontend-test-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: test-design
+        skill: skills/artifacts/test-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        authority: TEST-DESIGN
+        allowed_source_authorities:
+        - HUMAN-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - TEST-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/frontend-test-design.yaml
+        canonical_references:
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/verification/frontend-verification.md
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/interface/interaction-design.yaml
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id051
+          prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:d6a27645be4776206d85df2d727260abec0989ae3cf47afb320665f77534d46a
+        acceptance_policy_fingerprint: sha256:d6a27645be4776206d85df2d727260abec0989ae3cf47afb320665f77534d46a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-TEST-DESIGN
+        capability: prep.frontend-test-design
+        acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:d6a27645be4776206d85df2d727260abec0989ae3cf47afb320665f77534d46a
+        accepted_prerequisites: *id051
+        semantic_atom_fingerprints:
+          FTD-WORKFLOW: SAF-4a09ce2914c6fd713fdbe4ddceab131ea6e2251a172264476c60035484b4d317
+          FTD-SEMANTIC-ORACLES: SAF-5278fca9ce36d37dcab50754b12510ec402060d58eada4e9099a7e3af22d6e1a
+          FTD-SPATIAL: SAF-45656e7f587767412aff033b84c1baba2838250d6465a13eb20eb6d2d3e9d8ab
+          FTD-RECOVERY: SAF-54f3ff63cdc3924c68f53a061d870b90c6e26332100e77b2137c336bfcd5606b
+          FTD-BOUNDARIES: SAF-dc635b918b0d0d11d51e8c17f016572d202dfdb709133126cebc8a7e57812f57
+          FTD-ADAPTER: SAF-ef9b6b6861ab55b7c29491fdd66dd23a77070d321127c63d703d8df4129782ce
+          FTD-CURRENTNESS: SAF-238cadcbac567f2007368d37e9ab39a0f1ae8d2e04c26be921f830ef7c24c88d
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-IMPLEMENTATION-DESIGN
+      capability: prep.frontend-implementation-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.delivery.release
+        - engineering.delivery.rollback
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.frontend-implementation-design
+        knowledge_kind: implementation-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: slice-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - dependency-order-perturbation
+          - merge-slices
+          - split-slice
+          decision_points:
+          - id: implementation-slice-shape
+            alternatives:
+            - feature-capability-slices
+            - micro-operation-slices
+            - one-big-rewrite
+          - id: initial-ordering
+            alternatives:
+            - foundation-then-feature-slices
+            - feature-first-with-temporary-contracts
+        - axis: repository-realization
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - boundary-remap
+          - composition-root-shift
+          - generated-source-perturbation
+          decision_points:
+          - id: source-module-topology
+            alternatives:
+            - task-feature-roots
+            - legacy-roots-with-facades
+            - flat-view-root
+          - id: contract-realization
+            alternatives:
+            - handwritten-consumer-contracts
+            - generated-contract-layer
+        - axis: dependency-tooling
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - enforcement-point-shift
+          - remove-tool
+          - tool-substitution
+          decision_points:
+          - id: base-toolchain
+            alternatives:
+            - retain-current-base-toolchain
+            - replace-ui-or-state-toolchain
+          - id: optional-spatial-dependency
+            alternatives:
+            - retain-base-tools-and-isolate-optional-renderer
+            - eager-renderer-removal
+          - id: boundary-enforcement
+            alternatives:
+            - retain-versioned-boundary-check
+            - convention-only
+        - axis: migration-transition
+          applicability: NOT_APPLICABLE
+          exploration: EXPLORE
+          decision_points: []
+        - axis: verification-enforcement
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - gate-failure-perturbation
+          - manual-vs-automated
+          - move-verification-layer
+          decision_points:
+          - id: verification-layering
+            alternatives:
+            - layered-fast-plus-e2e
+            - browser-only
+          - id: deterministic-fast-enforcement
+            alternatives:
+            - automated-fast-deterministic
+            - manual-deterministic
+        - axis: delivery-gates
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - gate-owner-shift
+          - local-vs-ci
+          - reproducibility-perturbation
+          decision_points:
+          - id: frontend-delivery-gate
+            alternatives:
+            - fast-automatic-heavy-explicit
+            - always-heavy
+            - unversioned-local-gate
+            - environment-dependent-gate
+        explorer_request_id: sha256:869661a9cf8b379836abe3abaef4467fa1346a39bc94d84e577b37f1f5d670cf
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: implementation-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: FRONTEND-IMPLEMENTATION-DESIGN
+        capability: prep.frontend-implementation-design
+        knowledge_kind: implementation-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: slice-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: implementation-slice-shape
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - feature-capability-slices
+            - micro-operation-slices
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+          - id: initial-ordering
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - foundation-then-feature-slices
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: repository-realization
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: source-module-topology
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - legacy-roots-with-facades
+            - task-feature-roots
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+          - id: contract-realization
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - handwritten-consumer-contracts
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: dependency-tooling
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: base-toolchain
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - retain-current-base-toolchain
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+          - id: optional-spatial-dependency
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - retain-base-tools-and-isolate-optional-renderer
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+          - id: boundary-enforcement
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - retain-versioned-boundary-check
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: migration-transition
+          applicability: NOT_APPLICABLE
+          decisions: []
+        - axis: verification-enforcement
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: verification-layering
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - layered-fast-plus-e2e
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+          - id: deterministic-fast-enforcement
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - automated-fast-deterministic
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: delivery-gates
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-delivery-gate
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - fast-automatic-heavy-explicit
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: implementation-design
+        skill: skills/artifacts/implementation-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        authority: IMPLEMENTATION-DESIGN
+        allowed_source_authorities:
+        - COMPONENT-DESIGN
+        - IMPLEMENTATION-DESIGN
+        - TEST-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/implementation/frontend-implementation-design.md
+        canonical_references:
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/implementation/frontend-component-design.md
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/verification/frontend-verification.md
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/verification/frontend-test-design.yaml
+        accepted_prerequisites: &id052
+          prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+          prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+          prep.frontend-test-design: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:a2628ec443085a8a08bbd3e1e19c259411620fd23f2ca9eded3e0109b3050ce6
+        acceptance_policy_fingerprint: sha256:a2628ec443085a8a08bbd3e1e19c259411620fd23f2ca9eded3e0109b3050ce6
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:869661a9cf8b379836abe3abaef4467fa1346a39bc94d84e577b37f1f5d670cf
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-IMPLEMENTATION-DESIGN
+        capability: prep.frontend-implementation-design
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:a2628ec443085a8a08bbd3e1e19c259411620fd23f2ca9eded3e0109b3050ce6
+        accepted_prerequisites: *id052
+        semantic_atom_fingerprints:
+          FI-BOUNDARY: SAF-a57faaa228c27281ca1554791f31e528169e6803c6358cb7e04dcacae4eb0c80
+          FI-TOOLCHAIN: SAF-a608e2875dcc2ec22eb44709976fa832c76668ffaaeee2264c0cf610d156d055
+          FI-REPOSITORY: SAF-d512154263965e1d723c80c79f8b9a63306d9a5940ddbdba747cea4adfc9a19a
+          FI-SLICES: SAF-1fac1fdc8ab318609ba3b1d13c73636f157ffeb84817c6e9cc22ba3c993393f6
+          FI-ORDER: SAF-007b145030a8d1334ecbd3bb47386ba311f3843f5a1407ccd20a754eefd03f1d
+          FI-SPATIAL: SAF-5b34d106a6f63f1fd274bdea635da376b20aa7f144de4289d3fc5bd477362210
+          FI-VERIFICATION: SAF-08df28c7cf327ee4ea2124987ae721df02413508806bfee7b2baf4966004367a
+          FI-GATE: SAF-637742e7088e95c6743c78e55e0e6b5e7343fe1752b5e267b2f1ec2a5fff7ee2
+          FI-ROLLBACK: SAF-193f2d528b4aec441002c946bd46d936217993f4617ca2490eb509d07cbbf382
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -23750,6 +24504,118 @@ state:
         IV-CONTEXT: SAF-75311c17d8888eabc4211f944324f455722e95d31001a9e377a2c3e345d49033
         IV-MODE-BOUNDARY: SAF-a886da21402fe6e0c019364d46e04bb92973984dd114b17133e6d8cfb23904e0
         IV-TARGET-PURPOSE: SAF-cb193ecabceb0691a4ef775056c833a8590ee03ce96127c5d42eb03e91975fb7
+    - artifact: FRONTEND-ENGINEERING-POLICY
+      capability: prep.frontend-engineering-policy
+      acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+      acceptance_policy_fingerprint: sha256:dc63da1019d7f36c0135341b3e9b21908d859b25cbc64030faac73d5a7206244
+      accepted_prerequisites:
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+      semantic_atom_fingerprints:
+        EP-OWNERSHIP: SAF-f4a45a51e9ba30c42aad51ca0251f5200c10546048ac1605cf2b768bf1aaf89f
+        EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
+        EP-PORTS: SAF-fd9ff42c52389081889c805929794a3b813389552c81def6a00bb02c88d7f202
+        EP-PROVIDERS: SAF-234674f0fa4240050af9c983ae085b62b89fb94f158d7e2609b44829480d366c
+        EP-STATE: SAF-b90a1a58e952e3e4df80eb2e7efd06399ea2da14b0b53f806cc8958e2f5780cc
+        EP-PRESENTATION: SAF-843ca1e32541a5599c4fed7150361a2e46a0de5917874c3503a0ec709735483c
+        EP-MOCK: SAF-107c788b9361cbd6e3a9003bd11cce2e2dcde7243f4ba50429408f97edb86945
+        EP-PERFORMANCE: SAF-c4ac693ecc42a712d0e6b55838ab066dfe5adf6febc89c8195e2f932ddf522a0
+        EP-VALIDATION: SAF-550b9dba21299d0148e403f5e76c7c7f17d41881c9547582650d8e834c53190c
+    - artifact: FRONTEND-COMPONENT-DESIGN
+      capability: prep.frontend-component-design
+      acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:747f3e0ceb22979203b9eb598354d912f05c3bb45df3693d109003c2cc66aa31
+      accepted_prerequisites:
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      semantic_atom_fingerprints:
+        CD-COMPOSITION: SAF-9f8aa46f9ebb50fb8d259f2f29e2734016d1157d6adbafd745d829a6e3519f47
+        CD-SHELL: SAF-f2f91244542c704bcafa7ff9d97333ca0d56b73de8aa9d1ab047f62d327d29d7
+        CD-FEATURES: SAF-9e96a75b7940018558af37024f10abc5abb18af7c19c1de275441454ea19bbd2
+        CD-PORTS: SAF-05196d20d5bb74276502089f0c8ca12d36b80cdb9cd0bbfb48efca94bce41ad4
+        CD-SPATIAL: SAF-57407c0d5c822f07301e196d91baff72abbec9f66962421c5a661cd6c726b33f
+        CD-STATE: SAF-795604fc5e1dc7d317d566d5698d746ed32ee19f0def297da6d08f84e3b824e0
+        CD-DEPENDENCY: SAF-b7569fc8592a0802eddf7d1caa31ca3a04e999cd44444db34c61aa35b8c51a1d
+        CD-NO-LEGACY: SAF-2d885555014ec8fe700a59790bcac2e388bf306e693fd57a24b508276899d236
+        CD-TRANSITION-BOUNDARY: SAF-03b350553d4ef30dd5d957c096ce8b879c5311772f53adf1c2eb04b7ea845590
+    - artifact: PRESENTATION-VERIFICATION
+      capability: prep.presentation-verification
+      acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+      accepted_prerequisites:
+        prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      semantic_atom_fingerprints:
+        PV-COVERAGE: SAF-a587c931e799f7652b9cbc7996c1cff0af0480e7c7212c509355f86a2fd7757a
+        PV-FLOW: SAF-76cd4f8546ea6e6fb14512c380ae640b9f43c6a4485e293eb6327bb8113d2c31
+        PV-KNOWLEDGE: SAF-dbead844f07891bdcfbf3f712f26d667574daf2ebf74e42c6b983fdaee404009
+        PV-EVIDENCE: SAF-bd21750b0f9bf1234e57f2a2eafbc868bb6ff77e4ad1ad767c4807610c7f8cc0
+        PV-PREP-SUPPORT: SAF-faa36c077de7fa384117a3488e82af15ba27ae892dcba60e401cf6650f31f066
+        PV-COMPOSITION: SAF-97263b192511ff81caa8bfbb6e37659314a98028f797cdfbc336bb9ca5ccd280
+        PV-RESPONSIVE: SAF-251528c43fdd6d53e4f09e7db923f7418cfe5df1bf1dad5d2d9983bf0273ffe8
+        PV-ACCESSIBILITY: SAF-9aae063217cd43bf5eb14b3e83fb79f39a2521caa61cf7d811fdb1a42f59743e
+    - artifact: FRONTEND-VERIFICATION
+      capability: prep.frontend-verification
+      acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+      accepted_prerequisites:
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-5
+        prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      semantic_atom_fingerprints:
+        FV-TRACEABILITY: SAF-3788300eada884fa9349f7c990e61798fa55813202c6f636aeb7fb55c1a22e3d
+        FV-WORKFLOW: SAF-d729aa65ce913da6f72614424c0553ff73192af16cca868f062b4726cd4a3e0c
+        FV-PREP-SUPPORT: SAF-d5b61020e5635b371a961ece5747be3759111f3ff20a8a41c0d8e9fbe8fbb49e
+        FV-PORT-FIDELITY: SAF-d76b58cc1ba8ad5df2998911fcaad72dd282a12c36d43332f1c4c6c7fda74ba2
+        FV-DEPENDENCIES: SAF-61bb0c060f24fce816a544b0439f5c97c4d0f555e7313963a489d058a49d4fe6
+        FV-SPATIAL: SAF-df7681c341f2e9ae6399cce570e249f910aff82874964027d98ffab3a6105504
+        FV-STATE: SAF-d192cdb3765e5d8a60570dbe842caa762967c1001f48f8e48f9184990d555393
+        FV-EVIDENCE: SAF-0d5c4f3b16a388783a669b80a709a96cdce267e2199cde3b8acf4e2863d8857d
+        FV-PRESENTATION: SAF-21de91a833e68f161737feff7be2c5a34d33f569026f0c6eae8d6d85d9964ecd
+        FV-HARNESS: SAF-f0be7674647e73334ad9089f6e1adcd868a47b94b539dd7dd7ee145fce6d519f
+        FV-TARGET-ISOLATION: SAF-f875ba3313fc030974139a09ee411d6401336730d16fb8880325f0dc28602455
+    - artifact: FRONTEND-TEST-DESIGN
+      capability: prep.frontend-test-design
+      acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:d6a27645be4776206d85df2d727260abec0989ae3cf47afb320665f77534d46a
+      accepted_prerequisites:
+        prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      semantic_atom_fingerprints:
+        FTD-WORKFLOW: SAF-4a09ce2914c6fd713fdbe4ddceab131ea6e2251a172264476c60035484b4d317
+        FTD-SEMANTIC-ORACLES: SAF-5278fca9ce36d37dcab50754b12510ec402060d58eada4e9099a7e3af22d6e1a
+        FTD-SPATIAL: SAF-45656e7f587767412aff033b84c1baba2838250d6465a13eb20eb6d2d3e9d8ab
+        FTD-RECOVERY: SAF-54f3ff63cdc3924c68f53a061d870b90c6e26332100e77b2137c336bfcd5606b
+        FTD-BOUNDARIES: SAF-dc635b918b0d0d11d51e8c17f016572d202dfdb709133126cebc8a7e57812f57
+        FTD-ADAPTER: SAF-ef9b6b6861ab55b7c29491fdd66dd23a77070d321127c63d703d8df4129782ce
+        FTD-CURRENTNESS: SAF-238cadcbac567f2007368d37e9ab39a0f1ae8d2e04c26be921f830ef7c24c88d
+    - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+      capability: prep.frontend-implementation-design
+      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:a2628ec443085a8a08bbd3e1e19c259411620fd23f2ca9eded3e0109b3050ce6
+      accepted_prerequisites:
+        prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+        prep.frontend-test-design: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+      semantic_atom_fingerprints:
+        FI-BOUNDARY: SAF-a57faaa228c27281ca1554791f31e528169e6803c6358cb7e04dcacae4eb0c80
+        FI-TOOLCHAIN: SAF-a608e2875dcc2ec22eb44709976fa832c76668ffaaeee2264c0cf610d156d055
+        FI-REPOSITORY: SAF-d512154263965e1d723c80c79f8b9a63306d9a5940ddbdba747cea4adfc9a19a
+        FI-SLICES: SAF-1fac1fdc8ab318609ba3b1d13c73636f157ffeb84817c6e9cc22ba3c993393f6
+        FI-ORDER: SAF-007b145030a8d1334ecbd3bb47386ba311f3843f5a1407ccd20a754eefd03f1d
+        FI-SPATIAL: SAF-5b34d106a6f63f1fd274bdea635da376b20aa7f144de4289d3fc5bd477362210
+        FI-VERIFICATION: SAF-08df28c7cf327ee4ea2124987ae721df02413508806bfee7b2baf4966004367a
+        FI-GATE: SAF-637742e7088e95c6743c78e55e0e6b5e7343fe1752b5e267b2f1ec2a5fff7ee2
+        FI-ROLLBACK: SAF-193f2d528b4aec441002c946bd46d936217993f4617ca2490eb509d07cbbf382
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
