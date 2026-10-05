@@ -1,0 +1,139 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-IMPLEMENTATION-DESIGN
+capability: prep.frontend-implementation-design
+path: docs/implementation/frontend-implementation-design.md
+changed_paths: [docs/implementation/frontend-implementation-design.md]
+canonical_references:
+  - {artifact: FRONTEND-IMPLEMENTATION-DESIGN, referenced_path: docs/implementation/frontend-component-design.md}
+  - {artifact: FRONTEND-IMPLEMENTATION-DESIGN, referenced_path: docs/verification/frontend-verification.md}
+  - {artifact: FRONTEND-IMPLEMENTATION-DESIGN, referenced_path: docs/verification/frontend-test-design.yaml}
+decision_review:
+  axes:
+    - axis: slice-boundaries
+      decisions:
+        - id: implementation-slice-shape
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: feature-capability-slices, state: VIABLE}
+            - {id: micro-operation-slices, state: VIABLE}
+            - {id: one-big-rewrite, state: REJECTED, rationale: "Would hide ownership/verification boundaries and increase integration risk."}
+          disposition: DELEGATED
+          selected: feature-capability-slices
+        - id: initial-ordering
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: foundation-then-feature-slices, state: VIABLE}
+            - {id: feature-first-with-temporary-contracts, state: REJECTED, rationale: "Would create temporary provider/semantic coupling that must later be reconciled."}
+          disposition: DETERMINED
+          selected: foundation-then-feature-slices
+    - axis: repository-realization
+      decisions:
+        - id: source-module-topology
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: task-feature-roots, state: VIABLE}
+            - {id: legacy-roots-with-facades, state: VIABLE}
+            - {id: flat-view-root, state: REJECTED, rationale: "Would remove public feature ownership boundaries."}
+          disposition: DELEGATED
+          selected: task-feature-roots
+        - id: contract-realization
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: handwritten-consumer-contracts, state: VIABLE}
+            - {id: generated-contract-layer, state: REJECTED, rationale: "No accepted generator/source contract justifies a generated layer."}
+          disposition: DETERMINED
+          selected: handwritten-consumer-contracts
+    - axis: dependency-tooling
+      decisions:
+        - id: base-toolchain
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: retain-current-base-toolchain, state: VIABLE}
+            - {id: replace-ui-or-state-toolchain, state: REJECTED, rationale: "Framework/provider replacement is unrelated to the accepted semantic correction."}
+          disposition: DETERMINED
+          selected: retain-current-base-toolchain
+        - id: optional-spatial-dependency
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: retain-base-tools-and-isolate-optional-renderer, state: VIABLE}
+            - {id: eager-renderer-removal, state: VIABLE}
+          disposition: DELEGATED
+          selected: retain-base-tools-and-isolate-optional-renderer
+        - id: boundary-enforcement
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: retain-versioned-boundary-check, state: VIABLE}
+            - {id: convention-only, state: REJECTED, rationale: "Would weaken an existing deterministic architecture check."}
+          disposition: DETERMINED
+          selected: retain-versioned-boundary-check
+    - axis: migration-transition
+      decisions:
+        - id: frontend-transition-mode
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: whole-artifact-replacement, state: VIABLE}
+            - {id: mixed-version-coexistence, state: REJECTED, rationale: "No persistent browser migration or mixed-version runtime contract is accepted."}
+          disposition: DETERMINED
+          selected: whole-artifact-replacement
+    - axis: verification-enforcement
+      decisions:
+        - id: verification-layering
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: layered-fast-plus-e2e, state: VIABLE}
+            - {id: browser-only, state: REJECTED, rationale: "Would defer deterministic structural/semantic failures to a slower layer."}
+          disposition: DETERMINED
+          selected: layered-fast-plus-e2e
+        - id: deterministic-fast-enforcement
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: automated-fast-deterministic, state: VIABLE}
+            - {id: manual-deterministic, state: REJECTED, rationale: "Contradicts accepted fast-validation policy."}
+          disposition: DETERMINED
+          selected: automated-fast-deterministic
+    - axis: delivery-gates
+      decisions:
+        - id: frontend-delivery-gate
+          owner_authority: IMPLEMENTATION-DESIGN
+          alternatives:
+            - {id: fast-automatic-heavy-explicit, state: VIABLE}
+            - {id: always-heavy, state: REJECTED, rationale: "Contradicts the accepted cost-bounded validation split."}
+            - {id: unversioned-local-gate, state: REJECTED, rationale: "Not authoritative or reproducible."}
+            - {id: environment-dependent-gate, state: REJECTED, rationale: "Not reproducible from versioned project inputs."}
+          disposition: DETERMINED
+          selected: fast-automatic-heavy-explicit
+semantic_assertions:
+  - id: FID-FOUNDATION
+    kind: implementation-slice
+    subject: semantic-foundation
+    semantic_value: First establish current frontend semantic models/consumer ports, narrow PreparationContext/Shell and deterministic mock scenario before dependent task-feature slices.
+    derived_from: [FCD-DEPENDENCY, FVF-PORTS, FTD-STRUCTURE]
+    decision_authority: IMPLEMENTATION-DESIGN
+  - id: FID-FEATURES
+    kind: implementation-slice
+    subject: task-feature-slices
+    semantic_value: Realize Target Direction, Target, Current Position, Knowledge, Activity, Evidence & Change and Preparation Support as bounded feature-capability slices after the semantic foundation.
+    derived_from: [FCD-RESPONSIBILITY, FVF-TRACE, FTD-USER-FLOW]
+    decision_authority: IMPLEMENTATION-DESIGN
+  - id: FID-CLEANUP
+    kind: implementation-slice
+    subject: legacy-boundary-cleanup
+    semantic_value: After replacement paths exist, remove obsolete public Curation/Import/Progress/Diagnostics paths and unused renderer dependencies while preserving optional provider isolation.
+    derived_from: [FCD-ADAPTER, FVF-KNOWLEDGE, FTD-RECOVERY]
+    decision_authority: IMPLEMENTATION-DESIGN
+  - id: FID-REPOSITORY
+    kind: implementation-repository
+    subject: task-feature-source-layout
+    semantic_value: Repository public module roots follow accepted task-feature ownership; legacy roots are migration evidence rather than future semantic boundaries.
+    derived_from: [FCD-RESPONSIBILITY, FCD-DEPENDENCY]
+    decision_authority: IMPLEMENTATION-DESIGN
+  - id: FID-GATE
+    kind: implementation-gate
+    subject: frontend-delivery-validation
+    semantic_value: Fast deterministic checks include strict Harness currentness; explicit heavy validation remains the final large-branch/browser/build evidence gate.
+    derived_from: [FVF-CURRENTNESS, FTD-CURRENTNESS]
+    decision_authority: IMPLEMENTATION-DESIGN
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, implementation-not-upstream-owner, implementation-slices-explicit, repository-realization-derived-from-accepted-boundaries]
