@@ -1,4 +1,4 @@
-name: temporary Harness revalidation API discovery
+name: temporary publication API inspection
 
 on:
   push:
@@ -19,17 +19,15 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Discover revalidation/publication application surfaces
-        shell: bash
+      - name: Inspect publication API
+        env:
+          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
         run: |
-          set -euo pipefail
-          PACK="${{ steps.sync.outputs.pack }}"
-          cd "$PACK"
-          echo "=== APPLICATION MODULES ==="
-          find src/harness/application -maxdepth 1 -type f -printf '%f\n' | sort | grep -E 'admission|closure|decision|publication|revalid|lifecycle|pipeline|status'
-          echo "=== REVALIDATE SYMBOLS ==="
-          grep -R -nE 'def .*revalid|class .*Revalid|revalidate_target|revalidation' src/harness/application src/harness/assurance | head -n 200 || true
-          echo "=== PUBLICATION SYMBOLS ==="
-          grep -R -nE '^def (build|publish|read)_project_publication|project_publication' src/harness/application/project_publication.py | head -n 120 || true
-          echo "=== ROUTER OPERATIONS ==="
-          python -m harness.application.skill_router operation --help || true
+          python - <<'PY'
+          import inspect, os, sys
+          from pathlib import Path
+          root=Path(os.environ["HARNESS_ROOT"]); sys.path.insert(0,str(root/"src"))
+          from harness.application.project_publication import publish_project_publication
+          print(inspect.signature(publish_project_publication))
+          print(inspect.getsource(publish_project_publication))
+          PY
