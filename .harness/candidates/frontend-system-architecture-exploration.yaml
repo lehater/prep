@@ -1,0 +1,237 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.frontend-system-architecture
+knowledge_kind: system-architecture
+explorer_request_id: sha256:bae48c939f746e9085cffe77eb4d9da852e7746f86c1ef31330943822a4e60c0
+research_sources: []
+axes:
+- axis: runtime-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: merge-vs-split
+    challenge: Compare one browser runtime with separate learner/curation runtimes
+      and microfrontend-style feature runtimes.
+    alternatives:
+    - single-browser-runtime
+    - learner-curation-split
+    - feature-runtime-split
+  - strategy: boundary-shift
+    challenge: Move preparation-support and Knowledge concerns across browser/runtime
+      boundaries and test whether accepted machine/application ownership changes.
+    alternatives:
+    - single-browser-runtime
+    - learner-curation-split
+    - feature-runtime-split
+  decision_points:
+  - id: browser-runtime-count
+    alternatives:
+    - id: single-browser-runtime
+      difference: One browser runtime composes all accepted learner preparation views.
+      material_effects:
+        runtime-count: 1
+        process-boundary: browser-frontend
+        independent-deployment: none-inside-frontend
+    - id: learner-curation-split
+      difference: Separate learner and curation browser runtimes/deployables.
+      material_effects:
+        runtime-count: 2
+        process-boundary: learner-vs-curation
+        independent-deployment: possible
+    - id: feature-runtime-split
+      difference: Major task areas execute as independently composed frontend runtimes.
+      material_effects:
+        runtime-count: many
+        process-boundary: per-feature
+        independent-deployment: high
+- axis: deployment-topology
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: co-locate-vs-separate
+    challenge: Compare one frontend deployable with multiple frontend deployables
+      while preserving the accepted browser/backend boundary.
+    alternatives:
+    - single-frontend-deployable
+    - split-frontend-deployables
+  - strategy: scaling-perturbation
+    challenge: Test whether any accepted workload requires an independently scalable
+      frontend sub-deployable.
+    alternatives:
+    - single-frontend-deployable
+    - split-frontend-deployables
+  decision_points:
+  - id: frontend-deployable-count
+    alternatives:
+    - id: single-frontend-deployable
+      difference: All accepted preparation UI ships as one frontend artifact/container.
+      material_effects:
+        deployable-count: 1
+        colocation: all-preparation-ui
+        scaling-boundary: frontend
+    - id: split-frontend-deployables
+      difference: Task areas or modes ship independently.
+      material_effects:
+        deployable-count: multiple
+        colocation: partial
+        scaling-boundary: per-ui-area
+- axis: interaction-model
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: sync-vs-async
+    challenge: Compare direct request/response consumer ports with event-bus-mediated
+      feature interaction for accepted user-driven operations.
+    alternatives:
+    - consumer-owned-async-ports
+    - frontend-event-bus
+    - direct-provider-calls
+  - strategy: adapter-substitution
+    challenge: Replace mock with transport realization and test whether feature contracts
+      remain unchanged.
+    alternatives:
+    - consumer-owned-async-ports
+    - direct-provider-calls
+  decision_points:
+  - id: frontend-machine-interaction
+    alternatives:
+    - id: consumer-owned-async-ports
+      difference: Features consume narrow frontend-owned ports implemented by mock
+        or transport adapters.
+      material_effects:
+        sync-async: async-operations
+        protocol-boundary: adapter
+        coupling: low
+    - id: frontend-event-bus
+      difference: Feature commands/queries are mediated through a general frontend
+        bus.
+      material_effects:
+        sync-async: mixed
+        protocol-boundary: event-bus
+        coupling: indirect-global
+    - id: direct-provider-calls
+      difference: Features call concrete HTTP/mock/provider APIs and consume their
+        DTOs directly.
+      material_effects:
+        sync-async: provider-defined
+        protocol-boundary: feature
+        coupling: high
+- axis: state-placement
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-source-of-truth
+    challenge: Compare external canonical truth with browser-canonical learner/target
+      state.
+    alternatives:
+    - external-canonical-local-ephemeral
+    - browser-canonical-store
+  - strategy: cache-vs-canonical
+    challenge: Promote cached projections/navigation context into canonical frontend
+      truth and test ownership violations.
+    alternatives:
+    - external-canonical-local-ephemeral
+    - browser-canonical-store
+  decision_points:
+  - id: canonical-state-placement
+    alternatives:
+    - id: external-canonical-local-ephemeral
+      difference: Backend/application contracts own canonical truth; browser owns
+        navigation, transient interaction and cached projections only.
+      material_effects:
+        source-of-truth: external
+        state-locality: feature-or-preparation-context
+        replication: cache-only
+    - id: browser-canonical-store
+      difference: A global browser store becomes authoritative for target/learner/Knowledge
+        state.
+      material_effects:
+        source-of-truth: browser
+        state-locality: global
+        replication: canonical-client-copy
+- axis: dependency-direction
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: reverse-dependency
+    challenge: Compare adapters depending on consumer contracts with feature code
+      depending on concrete adapters/provider types.
+    alternatives:
+    - ports-inward-adapters-outward
+    - features-to-adapters
+  - strategy: invert-port
+    challenge: Move port ownership from consuming task modules to transport/provider
+      modules.
+    alternatives:
+    - ports-inward-adapters-outward
+    - provider-owned-general-client
+  decision_points:
+  - id: frontend-dependency-direction
+    alternatives:
+    - id: ports-inward-adapters-outward
+      difference: Task features own required contracts; mock/transport/renderer providers
+        implement them.
+      material_effects:
+        dependency-owner: consumer
+        inversion-boundary: feature-port
+        framework-coupling: isolated
+    - id: features-to-adapters
+      difference: Task features import concrete adapters directly.
+      material_effects:
+        dependency-owner: provider
+        inversion-boundary: none
+        framework-coupling: feature-level
+    - id: provider-owned-general-client
+      difference: Features share one provider-shaped general API/DTO client.
+      material_effects:
+        dependency-owner: provider
+        inversion-boundary: shared-client
+        framework-coupling: shared
+- axis: failure-isolation
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: collapse-failure-boundary
+    challenge: Escalate query, activity, preparation-support or spatial-renderer failure
+      into application-wide failure.
+    alternatives:
+    - task-local-failure-with-context
+    - app-wide-fail-fast
+  - strategy: dependency-outage-perturbation
+    challenge: Remove spatial renderer or one operation dependency and test whether
+      unrelated accepted tasks remain usable.
+    alternatives:
+    - task-local-failure-with-context
+    - app-wide-fail-fast
+  decision_points:
+  - id: frontend-failure-containment
+    alternatives:
+    - id: task-local-failure-with-context
+      difference: Failure affects the dependent task/region while active target/focus
+        and independent paths remain recoverable.
+      material_effects:
+        failure-domain: task-or-provider
+        containment-boundary: feature-adapter
+        fallback: accepted-alternative-path
+    - id: app-wide-fail-fast
+      difference: Any material provider/query/renderer failure invalidates the whole
+        frontend session.
+      material_effects:
+        failure-domain: application
+        containment-boundary: shell
+        fallback: none
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - browser-runtime-count
+  - frontend-deployable-count
+  - frontend-machine-interaction
+  - canonical-state-placement
+  - frontend-dependency-direction
+  - frontend-failure-containment
+  open_gaps: []

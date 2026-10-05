@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:30e0ddf4742d6bd2a27f2fb7f98bb92c55c85d5bda2d168a7c514cab6cd70dac
-parent_revision: sha256:acbf8bcefd6406936450e653f0610ae78dfd521daf6e50130258ba169e0ddf53
+revision: sha256:a0516d09483d4302db75b20a2c43ec1acf3462d5c50c8efe86a9bb698d8d7089
+parent_revision: sha256:30e0ddf4742d6bd2a27f2fb7f98bb92c55c85d5bda2d168a7c514cab6cd70dac
 state:
   core_model:
     authorities:
@@ -6402,6 +6402,310 @@ state:
           SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
           SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79
           SV-NO-IMPLEMENTATION: SAF-588cd04b7ab0b6c2a2afb32b990a912c3edc310125fa2eae7dd8a161d03f4a20
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-SYSTEM-ARCHITECTURE
+      capability: prep.frontend-system-architecture
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.architecture.structure
+        - engineering.architecture.boundaries
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: prep.frontend-system-architecture
+        knowledge_kind: system-architecture
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: runtime-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - boundary-shift
+          - merge-vs-split
+          decision_points:
+          - id: browser-runtime-count
+            alternatives:
+            - single-browser-runtime
+            - learner-curation-split
+            - feature-runtime-split
+        - axis: deployment-topology
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - co-locate-vs-separate
+          - scaling-perturbation
+          decision_points:
+          - id: frontend-deployable-count
+            alternatives:
+            - single-frontend-deployable
+            - split-frontend-deployables
+        - axis: interaction-model
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - adapter-substitution
+          - sync-vs-async
+          decision_points:
+          - id: frontend-machine-interaction
+            alternatives:
+            - consumer-owned-async-ports
+            - frontend-event-bus
+            - direct-provider-calls
+        - axis: state-placement
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - cache-vs-canonical
+          - move-source-of-truth
+          decision_points:
+          - id: canonical-state-placement
+            alternatives:
+            - external-canonical-local-ephemeral
+            - browser-canonical-store
+        - axis: dependency-direction
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - invert-port
+          - reverse-dependency
+          decision_points:
+          - id: frontend-dependency-direction
+            alternatives:
+            - ports-inward-adapters-outward
+            - features-to-adapters
+            - provider-owned-general-client
+        - axis: failure-isolation
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - collapse-failure-boundary
+          - dependency-outage-perturbation
+          decision_points:
+          - id: frontend-failure-containment
+            alternatives:
+            - task-local-failure-with-context
+            - app-wide-fail-fast
+        explorer_request_id: sha256:bae48c939f746e9085cffe77eb4d9da852e7746f86c1ef31330943822a4e60c0
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: system-architecture
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: FRONTEND-SYSTEM-ARCHITECTURE
+        capability: prep.frontend-system-architecture
+        knowledge_kind: system-architecture
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: runtime-boundaries
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: browser-runtime-count
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - single-browser-runtime
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: deployment-topology
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-deployable-count
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - single-frontend-deployable
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: interaction-model
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-machine-interaction
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - consumer-owned-async-ports
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: state-placement
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: canonical-state-placement
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - external-canonical-local-ephemeral
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: dependency-direction
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-dependency-direction
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - ports-inward-adapters-outward
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+        - axis: failure-isolation
+          applicability: APPLICABLE
+          autonomy: CONSERVATIVE
+          decisions:
+          - id: frontend-failure-containment
+            owner_authority: SYSTEM-ARCHITECTURE
+            viable:
+            - task-local-failure-with-context
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: false
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: system-architecture
+        skill: skills/artifacts/system-architecture/SKILL.md
+        acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        authority: SYSTEM-ARCHITECTURE
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - HUMAN-INTERFACE-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/architecture/frontend-system-architecture.md
+        canonical_references:
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/application/application-design.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/presentation-system.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id045
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:38b0d88a3c5057389781cd3cd7d99962133185d870242f58ba36cd842c39eb1b
+        acceptance_policy_fingerprint: sha256:38b0d88a3c5057389781cd3cd7d99962133185d870242f58ba36cd842c39eb1b
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:bae48c939f746e9085cffe77eb4d9da852e7746f86c1ef31330943822a4e60c0
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-SYSTEM-ARCHITECTURE
+        capability: prep.frontend-system-architecture
+        acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        acceptance_policy_fingerprint: sha256:38b0d88a3c5057389781cd3cd7d99962133185d870242f58ba36cd842c39eb1b
+        accepted_prerequisites: *id045
+        semantic_atom_fingerprints:
+          FSA-RUNTIME: SAF-4151b5149a1f3462982f7d9e51f1ea3da6a54b6de4c7ef25aa023223df01a1ee
+          FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
+          FSA-PORTS: SAF-acb2d2d65c3df6c390f3e7185f2a9e2003afaa480b160c2a5f355dfa19122155
+          FSA-STATE: SAF-5783423e8df46d97074717264da24a5a013f0ca2f93f2e2a39ebf1b2c2bf07a7
+          FSA-DEPENDENCY: SAF-9140761b51ae442e1ee5c39dc7b6fd5d522d1a9efd0081f0c94d6129445c00f2
+          FSA-FAILURE: SAF-ff182706b292c2ecf6a9f44a2b0b565410974daa24d92da2469e26273bdef910
+          FSA-SPATIAL: SAF-b1f8db75241fc05918ef1e9c96fcf5718658e65212ca2f843a695687137920e7
+          FSA-NO-LEGACY: SAF-083b3233f8d4fc8eca495adcc4d7d506e0fac15fa0f29f4c51ac1ed47c9d61f0
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: INTERFACE-VERIFICATION
+      capability: prep.interface-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.interface.human
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - HUMAN-INTERFACE-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/interface-verification.md
+        canonical_references:
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/application/task-model.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/information-architecture.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/interaction-design.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/interface-topology.yaml
+        accepted_prerequisites: &id046
+          prep.task-model: PREP-TASK-MODEL-STRICT-5
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: INTERFACE-VERIFICATION
+        capability: prep.interface-verification
+        acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+        accepted_prerequisites: *id046
+        semantic_atom_fingerprints:
+          IV-TRACEABILITY: SAF-9f1d1c55caecf2450de43b0ff2690ea4576bef9522a0aef2321e36e92ab65c76
+          IV-LEARNER-LOOP: SAF-5d0a0c0620db37df566c9b35a5364c6f2b26e4513470e106ffb5378d3855d2a0
+          IV-PREP-SUPPORT: SAF-2d79a733444fca0a38722e20295cc3c583dc9cca1e2541ed95f98bb63093573d
+          IV-LOCATION: SAF-97d141b47a48a53c650b76d3e77a844f45d0828f1d65550a21791a21c5907a6a
+          IV-CONTEXT: SAF-75311c17d8888eabc4211f944324f455722e95d31001a9e377a2c3e345d49033
+          IV-MODE-BOUNDARY: SAF-a886da21402fe6e0c019364d46e04bb92973984dd114b17133e6d8cfb23904e0
+          IV-TARGET-PURPOSE: SAF-cb193ecabceb0691a4ef775056c833a8590ee03ce96127c5d42eb03e91975fb7
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -23410,6 +23714,42 @@ state:
         SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
         SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79
         SV-NO-IMPLEMENTATION: SAF-588cd04b7ab0b6c2a2afb32b990a912c3edc310125fa2eae7dd8a161d03f4a20
+    - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+      capability: prep.frontend-system-architecture
+      acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+      acceptance_policy_fingerprint: sha256:38b0d88a3c5057389781cd3cd7d99962133185d870242f58ba36cd842c39eb1b
+      accepted_prerequisites:
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-6
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-4
+      semantic_atom_fingerprints:
+        FSA-RUNTIME: SAF-4151b5149a1f3462982f7d9e51f1ea3da6a54b6de4c7ef25aa023223df01a1ee
+        FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
+        FSA-PORTS: SAF-acb2d2d65c3df6c390f3e7185f2a9e2003afaa480b160c2a5f355dfa19122155
+        FSA-STATE: SAF-5783423e8df46d97074717264da24a5a013f0ca2f93f2e2a39ebf1b2c2bf07a7
+        FSA-DEPENDENCY: SAF-9140761b51ae442e1ee5c39dc7b6fd5d522d1a9efd0081f0c94d6129445c00f2
+        FSA-FAILURE: SAF-ff182706b292c2ecf6a9f44a2b0b565410974daa24d92da2469e26273bdef910
+        FSA-SPATIAL: SAF-b1f8db75241fc05918ef1e9c96fcf5718658e65212ca2f843a695687137920e7
+        FSA-NO-LEGACY: SAF-083b3233f8d4fc8eca495adcc4d7d506e0fac15fa0f29f4c51ac1ed47c9d61f0
+    - artifact: INTERFACE-VERIFICATION
+      capability: prep.interface-verification
+      acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:753b6c4a61a65ca631f82574e4585d7ef6371edd76750fb89089c57bdc4dc2bd
+      accepted_prerequisites:
+        prep.task-model: PREP-TASK-MODEL-STRICT-5
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-6
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+      semantic_atom_fingerprints:
+        IV-TRACEABILITY: SAF-9f1d1c55caecf2450de43b0ff2690ea4576bef9522a0aef2321e36e92ab65c76
+        IV-LEARNER-LOOP: SAF-5d0a0c0620db37df566c9b35a5364c6f2b26e4513470e106ffb5378d3855d2a0
+        IV-PREP-SUPPORT: SAF-2d79a733444fca0a38722e20295cc3c583dc9cca1e2541ed95f98bb63093573d
+        IV-LOCATION: SAF-97d141b47a48a53c650b76d3e77a844f45d0828f1d65550a21791a21c5907a6a
+        IV-CONTEXT: SAF-75311c17d8888eabc4211f944324f455722e95d31001a9e377a2c3e345d49033
+        IV-MODE-BOUNDARY: SAF-a886da21402fe6e0c019364d46e04bb92973984dd114b17133e6d8cfb23904e0
+        IV-TARGET-PURPOSE: SAF-cb193ecabceb0691a4ef775056c833a8590ee03ce96127c5d42eb03e91975fb7
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
