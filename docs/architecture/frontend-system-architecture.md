@@ -17,19 +17,15 @@ frontend architecture drivers.
 
 ## Decision basis
 
-Pre-choice exploration and review for this revision are recorded as noncanonical draft
-evidence:
-
-- `.harness/candidates/frontend-system-architecture-exploration-draft.yaml`
-- `.harness/candidates/frontend-system-architecture-decision-review-draft.yaml`
+Request-bound pre-choice exploration for this revision is recorded in
+`.harness/candidates/frontend-system-architecture-exploration.yaml`.
 
 All six system-architecture decision axes retain the existing minimal structural model:
 one browser runtime/deployable, consumer-owned ports, external canonical truth,
 inward-facing contracts and task-local failure isolation.
 
-Formal semantic admission remains blocked because the legacy accepted provider has no
-current Harness lifecycle assertion/acceptance identity. The architecture below is
-therefore a draft revision until lifecycle-backed revalidation is performed.
+The revision has passed strict semantic admission and is represented by the current
+Harness Project Publication.
 
 ## Architecture drivers
 
