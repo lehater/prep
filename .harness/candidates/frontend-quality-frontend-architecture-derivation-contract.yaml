@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: quality-frontend-architecture
+source_capability: prep.frontend-performance-capacity
+target_capability: prep.frontend-system-architecture
+obligations:
+  - id: direct-semantic-input
+    source_kind: quality-constraint
+    subject: degradation-semantic-preservation
+    min_count: 1
+    require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: false
+semantic_judgement:
+  required: false
