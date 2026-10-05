@@ -1,4 +1,4 @@
-name: temporary decision policy audit
+name: temporary decision exploration contract
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - ".github/workflows/tmp-application-revalidation.yml"
 
 jobs:
-  audit:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,33 +19,14 @@ jobs:
           set -euo pipefail
           PACK="$(python .harness/harnessw.py sync | tail -n 1)"
           echo "pack=$PACK" >> "$GITHUB_OUTPUT"
-      - name: Audit decision requirements in frontend closure
-        env:
-          HARNESS_ROOT: ${{ steps.sync.outputs.pack }}
-          PYTHONPATH: ${{ steps.sync.outputs.pack }}/src
+      - name: Inspect current request and exploration contracts
+        shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import yaml
-          from harness.project_model.engineering_graph import production_index
-          from harness.decision.decision_governance import decision_contract_index, axis_policies
-          from harness.decision.decision_execution_assurance import effective_execution_assurance
-          root=Path("."); hr=Path(__import__("os").environ["HARNESS_ROOT"])
-          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
-          prod=production_index(graph)
-          dc=yaml.safe_load((hr/"spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml").read_text())
-          dci=decision_contract_index(dc)
-          pol=yaml.safe_load((root/".harness/candidates/application-design-decision-policy.yaml").read_text())
-          seen=set(); order=[]
-          def visit(c):
-              if c in seen:return
-              for r in prod[c].get("requires",[]) or []: visit(r["capability"])
-              seen.add(c);order.append(c)
-          visit("prep.frontend-implementation-design")
-          for c in order:
-              k=prod[c]["knowledge_kind"]; con=dci.get(k)
-              aps=axis_policies(con,pol)
-              print("CAP",c,"KIND",k,"ASSURANCE",effective_execution_assurance(pol,k))
-              if con:
-                  print(yaml.safe_dump({"axes":aps},sort_keys=False,allow_unicode=True).rstrip())
-          PY
+          set -euo pipefail
+          cd "${{ steps.sync.outputs.pack }}"
+          echo "=== decision explorer request source ==="
+          sed -n '1,320p' src/harness/application/decision_explorer_request.py
+          echo "=== decision exploration evaluator source ==="
+          sed -n '1,360p' src/harness/decision/decision_exploration.py
+          echo "=== request schema ==="
+          cat spec/decision-governance/decision-explorer-request-contract-v1.yaml
