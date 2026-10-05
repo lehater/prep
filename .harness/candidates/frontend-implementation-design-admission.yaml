@@ -58,7 +58,7 @@ decision_review:
           alternatives:
             - {id: retain-base-tools-and-isolate-optional-renderer, state: VIABLE}
             - {id: eager-renderer-removal, state: VIABLE}
-          disposition: DELEGATED
+          disposition: DETERMINED
           selected: retain-base-tools-and-isolate-optional-renderer
         - id: boundary-enforcement
           owner_authority: IMPLEMENTATION-DESIGN
