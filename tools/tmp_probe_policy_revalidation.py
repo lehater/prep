@@ -135,7 +135,10 @@ def main():
                 for a in source.get("semantic_assertions",[]) or []:
                     z=copy.deepcopy(a);z["source_artifact"]=sa;sources["semantic_assertions"].append(z)
                 key=(sc,cap); prev=derivs.get(key); rows=cons.get(key,[])
-                if prev is None or not rows: raise RuntimeError(f"missing derivation input {key}")
+                if prev is None and not rows:
+                    continue
+                if prev is None or not rows:
+                    raise RuntimeError(f"incomplete derivation contract/evidence pair {key}")
                 evidence={"version":1,"kind":"harness-semantic-derivation-evidence","source_capability":sc,"target_capability":cap,
                           "links":copy.deepcopy(prev.get("links",[])),"dispositions":copy.deepcopy(prev.get("dispositions",[]))}
                 incoming.append(select_contract(key,rows,prev,graph,source,candidate,evidence))
