@@ -182,13 +182,13 @@ def replace_artifact_evaluation(bundle: dict[str, Any], evaluation: dict[str, An
     raise RuntimeError(f"artifact evaluation missing: {key}")
 
 
-def replace_derivation_evaluation(bundle: dict[str, Any], evaluation: dict[str, Any]) -> None:
+def upsert_derivation_evaluation(bundle: dict[str, Any], evaluation: dict[str, Any]) -> None:
     key = (evaluation["source_capability"], evaluation["target_capability"])
     for index, row in enumerate(bundle["derivation_evaluations"]):
         if (row.get("source_capability"), row.get("target_capability")) == key:
             bundle["derivation_evaluations"][index] = evaluation
             return
-    raise RuntimeError(f"derivation evaluation missing: {key}")
+    bundle["derivation_evaluations"].append(evaluation)
 
 
 def replace_provider(lifecycle: dict[str, Any], provider: dict[str, Any]) -> None:
@@ -446,23 +446,27 @@ def main() -> int:
             rows = contracts.get(key, [])
             if previous is None and not rows:
                 continue
-            if previous is None or not rows:
+            if not rows:
                 raise RuntimeError(
-                    f"incomplete derivation contract/evidence pair for {key}: "
-                    f"previous={previous is not None} contracts={len(rows)}"
+                    f"published derivation evidence has no current contract for {key}"
                 )
+            baseline_derivation = previous or {
+                "links": [],
+                "dispositions": [],
+                "required_sources": [],
+            }
             evidence = enrich_evidence(
                 source_capability,
                 capability,
                 source_candidate,
                 candidate,
-                previous,
+                baseline_derivation,
             )
             incoming.append(
                 select_derivation(
                     key,
                     rows,
-                    previous,
+                    baseline_derivation,
                     graph=graph,
                     source=source_candidate,
                     candidate=candidate,
@@ -495,7 +499,7 @@ def main() -> int:
 
         replace_artifact_evaluation(semantic_set, admitted)
         for edge in incoming:
-            replace_derivation_evaluation(semantic_set, edge)
+            upsert_derivation_evaluation(semantic_set, edge)
             derivations[(edge["source_capability"], edge["target_capability"])] = edge
         replace_provider(lifecycle, admitted["lifecycle_assertion"])
         lifecycle_rows[capability] = admitted["lifecycle_assertion"]
