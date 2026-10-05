@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HARNESS_ROOT = Path(os.environ["HARNESS_ROOT"]).resolve()
 sys.path.insert(0, str(HARNESS_ROOT / "src"))
 
-from harness.application.project_publication import build_project_publication, read_project_publication
+from harness.application.project_publication import build_project_publication, publish_project_publication, read_project_publication
 from harness.application.semantic_admission import admit_artifact, derive_acceptance_policy_fingerprints
 from harness.application.semantic_closure import evaluate_semantic_closure
 from harness.assurance.capability_lifecycle import lifecycle_states
@@ -590,6 +590,13 @@ def main() -> int:
         path.write_text(
             yaml.safe_dump(exploration, sort_keys=False, allow_unicode=True),
             encoding="utf-8",
+        )
+    if os.environ.get("PUBLISH") == "1":
+        publish_project_publication(
+            ROOT / ".harness/project-publication.yaml",
+            graph=graph,
+            publication=next_publication,
+            expected_revision=publication["revision"],
         )
     (ROOT / ".harness/full-policy-revalidation-report.yaml").write_text(
         yaml.safe_dump(
