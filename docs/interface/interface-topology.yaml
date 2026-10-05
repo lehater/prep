@@ -5,7 +5,7 @@ id: PREP-INTERFACE-TOPOLOGY
 views:
   - id: FRAME-PREPARATION
     structural: true
-    responsibility: Support candidate Target-direction comparison before commitment and preserve active Target plus optional Next focus context when one is established.
+    responsibility: Provide the structural preparation navigation context, permit candidate Target comparison before an active Target is established, and preserve active Target plus optional Next focus context across child task views.
     ia_location_ref: LOC-ACTIVE-PREPARATION
     interaction_context_refs: []
     parent: ROOT
@@ -28,7 +28,7 @@ views:
     interaction_context_refs: [IX-TARGET]
     parent: FRAME-PREPARATION
     entries: [application-entry, VIEW-TARGETS, direct-link-with-target-context, missing-target-context]
-    exits: [VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-PREPARE-SUPPORT]
+    exits: [VIEW-TARGETS, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-PREPARE-SUPPORT]
 
   - id: VIEW-CURRENT
     structural: false
@@ -59,12 +59,12 @@ views:
 
   - id: VIEW-EVIDENCE-CHANGE
     structural: false
-    responsibility: Inspect activity evidence/why-this-state and review what changed or remained unresolved.
+    responsibility: Inspect evidence/change detail that explains a current-state conclusion or post-activity result, including what changed or remained unresolved, and choose a continuation.
     ia_location_ref: LOC-EVIDENCE-CHANGES
-    interaction_context_refs: [IX-ACTIVITY]
+    interaction_context_refs: [IX-DIRECTION, IX-ACTIVITY]
     parent: FRAME-PREPARATION
     entries: [VIEW-ACTIVITY, VIEW-CURRENT, direct-link-with-target-context]
-    exits: [VIEW-CURRENT, VIEW-ACTIVITY, VIEW-KNOWLEDGE]
+    exits: [VIEW-CURRENT, VIEW-TARGET, VIEW-ACTIVITY, VIEW-KNOWLEDGE]
 
   - id: VIEW-PREPARE-SUPPORT
     structural: false
@@ -84,6 +84,8 @@ navigation_contracts:
     rule: VIEW-PREPARE-SUPPORT is contextual rather than primary global navigation; it preserves an originating view/context and returns there after review of accepted support/remainder.
   - id: TOP-DIRECT-LINK
     rule: Direct links preserve referenced target/focus/knowledge/evidence identity where valid; Target-to-Knowledge entry may additionally preserve a selected Required Capability as local Knowledge-scope context, but no link silently creates missing semantic context.
+  - id: TOP-EVIDENCE-DETAIL
+    rule: VIEW-EVIDENCE-CHANGE is a shared evidence/change detail destination for IX-DIRECTION and IX-ACTIVITY; entry from VIEW-CURRENT explains a selected current-state conclusion, post-activity entry reviews the resulting change/evidence context, and neither path mutates learner state merely by inspection.
 
 coverage:
   user_tasks:

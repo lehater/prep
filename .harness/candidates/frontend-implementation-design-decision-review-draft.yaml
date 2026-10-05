@@ -1,0 +1,97 @@
+version: 1
+kind: prep-noncanonical-decision-review
+noncanonical: true
+capability: prep.frontend-implementation-design
+knowledge_kind: implementation-design
+exploration_ref: .harness/candidates/frontend-implementation-design-exploration-draft.yaml
+admission_status: NOT_REQUEST_BOUND
+admission_blocker: >-
+  Legacy lifecycle is incomplete and direct upstream frontend architecture/component
+  revisions are non-admitted drafts. This review may guide a draft implementation plan
+  but cannot provide semantic admission.
+
+decisions:
+  - id: implementation-slice-shape
+    disposition: DELEGATED
+    selected: feature-capability-slices
+    alternatives:
+      - {id: feature-capability-slices, status: VIABLE, reason: Aligns work and verification with accepted public task-feature responsibilities.}
+      - {id: micro-operation-slices, status: VIABLE, reason: Could realize the same contracts but adds coordination/temporary integration overhead.}
+      - {id: one-big-rewrite, status: REJECTED, reason: Hides ownership/verification boundaries and increases migration risk without need.}
+    rationale: CONSERVATIVE autonomy permits implementation-owned slice selection; feature slices minimize coordination while preserving semantics.
+
+  - id: initial-ordering
+    disposition: DETERMINED
+    selected: foundation-then-feature-slices
+    alternatives:
+      - {id: foundation-then-feature-slices, status: VIABLE, reason: Public ports/context/mock scenario are direct prerequisites for independently testable feature slices.}
+      - {id: feature-first-with-temporary-contracts, status: REJECTED, reason: Requires temporary semantics/DTO coupling that would later need reconciliation.}
+
+  - id: source-module-topology
+    disposition: DELEGATED
+    selected: task-feature-roots
+    alternatives:
+      - {id: task-feature-roots, status: VIABLE, reason: Directly represents accepted Component Design boundaries and makes dependency checks meaningful.}
+      - {id: legacy-roots-with-facades, status: VIABLE, reason: Could preserve behavior temporarily but retains misleading public ownership and duplicated facades.}
+      - {id: flat-view-root, status: REJECTED, reason: Removes feature ownership and encourages shared mutable presentation code.}
+    rationale: CONSERVATIVE autonomy permits repository realization choice; task-feature roots minimize semantic ambiguity.
+
+  - id: contract-realization
+    disposition: DETERMINED
+    selected: handwritten-consumer-contracts
+    alternatives:
+      - {id: handwritten-consumer-contracts, status: VIABLE, reason: Current machine contract is small and no generation source/tooling contract exists.}
+      - {id: generated-contract-layer, status: REJECTED, reason: Adds a generator and generated source boundary with no accepted need.}
+
+  - id: base-toolchain
+    disposition: DETERMINED
+    selected: retain-current-base-toolchain
+    alternatives:
+      - {id: retain-current-base-toolchain, status: VIABLE, reason: Existing selected React/Vite/MUI/React Query/TypeScript/Vitest/Playwright stack can realize all current contracts.}
+      - {id: replace-ui-or-state-toolchain, status: REJECTED, reason: Adds migration/tool risk without an accepted architecture/interface/quality driver.}
+
+  - id: optional-spatial-dependency
+    disposition: DELEGATED
+    selected: retain-base-tools-and-isolate-optional-renderer
+    alternatives:
+      - {id: retain-base-tools-and-isolate-optional-renderer, status: VIABLE, reason: Supports existing prototype evidence while removing 3D from task-critical/default semantics.}
+      - {id: eager-renderer-removal, status: VIABLE, reason: Also compatible if no retained prototype/evidence path needs the dependency.}
+    rationale: Keep optional renderer dependencies only while referenced; remove them as ordinary cleanup once the optional adapter/prototype no longer consumes them.
+
+  - id: boundary-enforcement
+    disposition: DETERMINED
+    selected: retain-versioned-boundary-check
+    alternatives:
+      - {id: retain-versioned-boundary-check, status: VIABLE, reason: Engineering Policy requires mechanical enforcement where available and repository already provides it.}
+      - {id: convention-only, status: REJECTED, reason: Weakens an existing deterministic architecture check without benefit.}
+
+  - id: verification-layering
+    disposition: DETERMINED
+    selected: layered-fast-plus-e2e
+    alternatives:
+      - {id: layered-fast-plus-e2e, status: VIABLE, reason: Matches accepted Frontend Verification/Test Design and current Engineering Policy.}
+      - {id: browser-only, status: REJECTED, reason: Defers structural/semantic failures to a slower and less precise layer.}
+
+  - id: deterministic-fast-enforcement
+    disposition: DETERMINED
+    selected: automated-fast-deterministic
+    alternatives:
+      - {id: automated-fast-deterministic, status: VIABLE, reason: Explicitly required by current Engineering Policy and already implemented by package scripts/CI.}
+      - {id: manual-deterministic, status: REJECTED, reason: Contradicts the accepted fast-validation policy.}
+
+  - id: frontend-delivery-gate
+    disposition: DETERMINED
+    selected: fast-automatic-heavy-explicit
+    alternatives:
+      - {id: fast-automatic-heavy-explicit, status: VIABLE, reason: Current accepted Engineering Policy explicitly selects this split.}
+      - {id: always-heavy, status: REJECTED, reason: Contradicts project policy for expensive browser/performance/container evidence.}
+      - {id: unversioned-local-gate, status: REJECTED, reason: Not authoritative or reproducible.}
+      - {id: environment-dependent-gate, status: REJECTED, reason: Not reproducible from versioned project inputs.}
+
+candidate_constraints:
+  - Establish current semantic models/ports, PreparationContext/Shell and deterministic mocks before dependent task-feature slices.
+  - Realize public task features under ownership-aligned source roots; legacy curation/learning roots are migration evidence, not future public boundaries.
+  - Keep the current base toolchain; do not combine semantic UI correction with provider/framework replacement.
+  - Treat spatial/3D code as optional adapter/prototype realization only and remove unused dependencies when no retained path requires them.
+  - Keep fast deterministic checks and explicit heavy final validation as already required by Engineering Policy.
+  - No special runtime/data migration contract is introduced for this source refactor.

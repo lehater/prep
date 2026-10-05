@@ -16,7 +16,7 @@ Verify that the frontend interaction/topology contract realizes the complete use
 
 **Verifies:** the complete learner loop is traversable without inventing hidden application behavior:
 
-`establish target -> obtain missing preparation support when needed -> understand target -> current state -> gaps -> choose focus -> learning/diagnostics -> evidence -> progress/reassessment`.
+`compare plausible targets when needed -> establish/refine target -> understand requirements -> current state -> gaps -> choose focus -> knowledge/support/activity as needed -> evidence/change review -> reassessment or target refinement`.
 
 **Method:** ANALYSIS + DEMONSTRATION.
 
@@ -24,16 +24,13 @@ Verify that the frontend interaction/topology contract realizes the complete use
 
 ## IV-03 — Empty-preparation boundary continuity
 
-**Verifies:** an empty system supports two distinct traces without conflation:
+**Verifies:** an empty or incomplete preparation context supports the accepted learner trace without exposing internal corpus/import/schema responsibilities:
 
-- learner: `preparation need -> request/accept prepared support -> review target/support -> return to target work`;
-- curator/operator: `choose bulk/incremental/mixed path -> validate/apply or incremental curation -> publish reviewable preparation`.
-
-The learner trace does not require import/schema/item-repair interaction unless explicit self-curation is chosen.
+`preparation need -> request preparation support with source/motivating context -> inspect accepted partial/complete support plus explicit remainder -> return to the originating preparation work`.
 
 **Method:** ANALYSIS + DEMONSTRATION.
 
-**Evidence:** task/journey/interaction/machine-operation traces for learner preparation support plus the separate Curation/import path.
+**Evidence:** Task Model -> J-PREPARE-SUPPORT -> IX-PREP-SUPPORT -> VIEW-PREPARE-SUPPORT -> accepted machine-operation trace, including partial/unresolved/dependency-unavailable recovery.
 
 ## IV-04 — Information-location coverage
 
@@ -85,11 +82,11 @@ The learner trace does not require import/schema/item-repair interaction unless 
 
 ## IV-10 — Mode-boundary integrity
 
-**Verifies:** target-work views do not silently mutate reusable target/capability/knowledge/support/assessment semantics; learner missing-preparation recovery does not expose corpus/import machinery by default; Curation transitions require explicit self-curation or curator/operator context.
+**Verifies:** learner-facing views do not silently mutate reusable Target/Capability/Knowledge/support semantics outside accepted commands; missing-preparation recovery remains a contextual request/review flow and does not expose corpus/import/schema maintenance as learner work.
 
 **Method:** INSPECTION.
 
-**Evidence:** action/command ownership trace.
+**Evidence:** Screen/View action -> Interaction action -> Machine operation/application-owner trace, plus explicit exclusions in VIEW-PREPARE-SUPPORT.
 
 ## IV-11 — Shared interaction-contract closure
 
@@ -98,11 +95,10 @@ The learner trace does not require import/schema/item-repair interaction unless 
 **Method:** INSPECTION + DEMONSTRATION.
 
 **Evidence:** representative traces covering:
-- dirty Curation draft -> validation/conflict -> correction/retry without lost input;
-- long-running/import mutation -> pending -> partial/success/failure without duplicate submission or false cancellation;
-- stale/conflict outcome -> explicit recovery without silent overwrite;
-- Target Work -> delegated preparation -> review/return without Curation machinery;
-- explicit self-curation -> Curation -> return with motivating target/focus context;
+- Target establishment/refinement rejection or stale basis -> correction/reconsideration without lost target/source input;
+- activity completion -> evidence processing -> reviewed/unresolved/challenged/no-change outcome without duplicate submission or false cancellation;
+- stale focus decision -> refreshed current state/gaps before reconsideration;
+- contextual preparation request -> partial/unresolved/dependency-unavailable -> resume/review/return with motivating target/focus preserved;
 - keyboard-only navigation/recovery with semantic focus restoration;
 - spatial/drag interaction -> equivalent non-spatial/non-drag task completion.
 

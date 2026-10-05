@@ -15,6 +15,13 @@ semantic_assertions:
     derived_from: [REQ-TARGET-PURPOSE]
     decision_authority: PRODUCT-REQUIREMENTS
     source_artifact: PRODUCT-CAPABILITIES
+  - id: REQ-CAP-TARGET-DIRECTION
+    kind: product-requirement
+    subject: capability-target-direction
+    semantic_value: The product lets the learner compare two or more plausible targets against the same evidence-backed learner capability basis, exposing shared and target-specific requirements plus demonstrated, challenged, unknown and gap/uncertainty projections for each, and continue with a chosen target without requiring a scalar fit score.
+    derived_from: [REQ-TARGET-DIRECTION, REQ-STATE-EVIDENCE]
+    decision_authority: PRODUCT-REQUIREMENTS
+    source_artifact: PRODUCT-CAPABILITIES
   - id: REQ-CAP-PERFORMANCE-REQUIREMENT
     kind: product-requirement
     subject: capability-performance-requirement

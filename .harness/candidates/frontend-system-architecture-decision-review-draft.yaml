@@ -1,0 +1,63 @@
+version: 1
+kind: prep-noncanonical-decision-review
+noncanonical: true
+capability: prep.frontend-system-architecture
+knowledge_kind: system-architecture
+exploration_ref: .harness/candidates/frontend-system-architecture-exploration-draft.yaml
+admission_status: NOT_REQUEST_BOUND
+admission_blocker: Legacy provider lifecycle assertion is missing; dispositions may guide a draft candidate but cannot be semantically admitted.
+
+decisions:
+  - id: browser-runtime-count
+    disposition: DETERMINED
+    selected: single-browser-runtime
+    alternatives:
+      - {id: single-browser-runtime, status: VIABLE, reason: Accepted System Architecture requires browser frontend and current Human Interface defines one preparation surface.}
+      - {id: learner-curation-split, status: REJECTED, reason: No accepted learner-visible Curation mode/workspace exists in current Task/IA/Topology/Machine Interface.}
+      - {id: feature-runtime-split, status: REJECTED, reason: No accepted independent deployment/runtime driver justifies microfrontend-style boundaries.}
+
+  - id: frontend-deployable-count
+    disposition: DETERMINED
+    selected: single-frontend-deployable
+    alternatives:
+      - {id: single-frontend-deployable, status: VIABLE, reason: Accepted whole-system topology already defines one frontend container and no frontend sub-scaling boundary.}
+      - {id: split-frontend-deployables, status: REJECTED, reason: Adds unsupported deployment/scaling complexity without an accepted driver.}
+
+  - id: frontend-machine-interaction
+    disposition: DETERMINED
+    selected: consumer-owned-async-ports
+    alternatives:
+      - {id: consumer-owned-async-ports, status: VIABLE, reason: Preserves mock-first substitution and the transport-neutral Machine Interface boundary.}
+      - {id: frontend-event-bus, status: REJECTED, reason: No ordering/fanout/decoupling driver requires a general frontend bus.}
+      - {id: direct-provider-calls, status: REJECTED, reason: Leaks provider/transport contracts into task features and defeats adapter substitution.}
+
+  - id: canonical-state-placement
+    disposition: DETERMINED
+    selected: external-canonical-local-ephemeral
+    alternatives:
+      - {id: external-canonical-local-ephemeral, status: VIABLE, reason: Accepted System Architecture places canonical domain/application behavior behind backend contracts while browser owns interaction state.}
+      - {id: browser-canonical-store, status: REJECTED, reason: Re-owns canonical Target/Knowledge/learner semantics in the frontend without an accepted offline-first requirement.}
+
+  - id: frontend-dependency-direction
+    disposition: DETERMINED
+    selected: ports-inward-adapters-outward
+    alternatives:
+      - {id: ports-inward-adapters-outward, status: VIABLE, reason: Satisfies accepted architecture/policy dependency inversion and keeps mock/transport/renderer providers substitutable.}
+      - {id: features-to-adapters, status: REJECTED, reason: Couples task features to concrete providers.}
+      - {id: provider-owned-general-client, status: REJECTED, reason: Shapes the frontend around provider/resource structure rather than consuming use cases.}
+
+  - id: frontend-failure-containment
+    disposition: DETERMINED
+    selected: task-local-failure-with-context
+    alternatives:
+      - {id: task-local-failure-with-context, status: VIABLE, reason: Accepted Interaction/Presentation contracts preserve target/focus and explicit recovery; Knowledge also requires non-spatial degradation.}
+      - {id: app-wide-fail-fast, status: REJECTED, reason: Destroys recoverable independent context for localized query/provider/renderer failures.}
+
+candidate_constraints:
+  - Keep one browser runtime and one frontend deployable.
+  - Preserve consumer-owned ports with mock and future transport adapters.
+  - Keep canonical Target/Knowledge/learner/application truth outside the frontend.
+  - Keep active Target/focus plus transient task state in the narrowest frontend owner that needs them.
+  - Isolate provider/renderer failures and preserve accepted recovery/fallback paths.
+  - Derive frontend feature responsibilities from current Interaction/Screen/View responsibilities, not legacy Curation/Import/backend-resource structure.
+  - Treat spatial Knowledge rendering as optional provider realization; 3D remains experimental, not an architecture driver.

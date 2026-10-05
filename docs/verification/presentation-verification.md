@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Verify the accepted Presentation System and Screen/View Design for the complete target-relative workflow, including 3D-default Knowledge exploration, non-spatial completion, responsive hierarchy and semantic-preserving state visualization.
+Verify the accepted Presentation System and Screen/View Design for the complete target-relative workflow, including task-complete Knowledge exploration, optional spatial enhancement, non-spatial completion, responsive hierarchy and semantic-preserving state visualization.
 
 ## PV-01 — Topology / Screen coverage
 
@@ -14,9 +14,9 @@ Verify the accepted Presentation System and Screen/View Design for the complete 
 
 **Verifies:** a representative learner can move through:
 
-target -> preparation support when needed -> state -> gaps -> focus -> learning/diagnostics -> observations/evidence -> progress -> next action
+candidate-target comparison when needed -> target establishment/refinement -> requirements -> current state -> gaps -> focus -> Knowledge/support/activity as needed -> observations/evidence -> change review -> next action
 
-without losing active target/focus or needing Curation for ordinary learner work.
+without losing active target/focus or exposing corpus/import/schema work as ordinary learner responsibility.
 
 **Method:** DEMONSTRATION.
 
@@ -30,27 +30,27 @@ without losing active target/focus or needing Curation for ordinary learner work
 
 ## PV-04 — Gap-to-action clarity
 
-**Verifies:** from a selected gap, the user can understand its basis and reach learning, diagnostics, Knowledge or learner-facing missing-preparation support as appropriate; Curation is entered only through an explicit self-curation/curator context.
+**Verifies:** from a selected gap, the user can understand its basis and reach Knowledge, suitable support/activity or learner-facing missing-preparation support as appropriate, without exposing internal corpus/import/schema maintenance.
 
 **Method:** DEMONSTRATION.
 
-## PV-05 — Progress semantics
+## PV-05 — Evidence/change semantics
 
-**Verifies:** progress shows learner-state change supported by accepted evidence, including valid no-change and increased-uncertainty outcomes, and presents target refinement separately from learner progress.
-
-**Method:** DEMONSTRATION.
-
-## PV-06 — Import usability
-
-**Verifies:** Curation Import clearly separates contract/example discovery, validation and application, and per-item failures remain actionable.
+**Verifies:** change review shows learner-state change only when supported by accepted evidence, preserves valid no-change and increased-uncertainty outcomes, and presents target-information refinement separately from learner-state change.
 
 **Method:** DEMONSTRATION.
 
-**Evidence:** mock bulk-import walkthrough including partial rejection.
+## PV-06 — Preparation-support review usability
+
+**Verifies:** the learner can provide source context, inspect independently accepted preparation support, understand explicit unresolved/rejected remainder, recover from stale/dependency-unavailable outcomes and return to the originating preparation work.
+
+**Method:** DEMONSTRATION.
+
+**Evidence:** VIEW-PREPARE-SUPPORT walkthrough covering request input, partial result review, continuation/recovery and return-to-origin.
 
 ## PV-07 — Shared presentation consistency
 
-**Verifies:** target-work and Curation views reuse one hierarchy, feedback, collection/edit, loading/empty/failure and focus-role system.
+**Verifies:** learner preparation views reuse the accepted hierarchy, context, feedback, loading/empty/outcome and focus-role system without introducing competing workspaces.
 
 **Method:** INSPECTION.
 
@@ -60,17 +60,21 @@ without losing active target/focus or needing Curation for ordinary learner work
 
 **Method:** DEMONSTRATION.
 
-## PV-09 — 3D semantic fidelity
+## PV-09 — Spatial-view semantic fidelity
 
-**Verifies:** the 3D projection preserves canonical Knowledge identity and proposition meaning; geometry/depth/camera never become semantic truth; selection and explicit focus remain distinct.
+**Applicability:** CONDITIONAL when a 2D or experimental 3D spatial Knowledge projection is present.
+
+**Verifies:** the spatial projection preserves canonical Knowledge identity and proposition meaning; geometry/depth/camera never become semantic truth; selection and semantic scope remain distinct.
 
 **Method:** TEST.
 
-## PV-10 — Target/focus-scoped 3D suitability
+## PV-10 — Spatial-view usability
 
-**Verifies:** target-scoped and current-focus-scoped Knowledge exploration remain understandable and users can restore broader scope without disorientation.
+**Applicability:** CONDITIONAL when a spatial Knowledge projection is presented to users.
 
-**Method:** DEMONSTRATION.
+**Verifies:** target/focus/Required-Capability-scoped Knowledge exploration remains understandable, users can restore broader scope without disorientation, and the spatial view does not displace the task-complete non-spatial path.
+
+**Method:** DEMONSTRATION + REPRESENTATIVE-USER VALIDATION.
 
 ## PV-11 — Responsive closure
 
@@ -84,9 +88,11 @@ without losing active target/focus or needing Curation for ordinary learner work
 
 **Method:** TEST.
 
-## PV-13 — Hardware workload evidence
+## PV-13 — Renderer workload evidence
 
-**Verifies:** the selected production renderer has recorded evidence for accepted visual-item workloads on a named reference environment.
+**Applicability:** DEFERRED until a production renderer choice or quantitative quality boundary depends on renderer workload.
+
+**Verifies:** when applicable, the selected production renderer has recorded evidence for the representative browser/device/workload required by the accepted Quality Design boundary.
 
 **Method:** DEMONSTRATION.
 
@@ -96,7 +102,7 @@ without losing active target/focus or needing Curation for ordinary learner work
 
 **Method:** DEMONSTRATION + REPRESENTATIVE-USER VALIDATION.
 
-**Evidence:** end-to-end prototype walkthrough of E2E-C1 plus observed learner behavior, with a separate curator/operator demonstration for preparation-path/import recovery. Direct routing to import or an unusable target editor does not satisfy the learner obligation.
+**Evidence:** end-to-end prototype walkthrough of the accepted learner empty/incomplete-preparation path plus observed learner behavior. Direct routing to corpus/import/schema machinery or an unusable target editor does not satisfy the learner obligation.
 
 ## PV-15 — Representative-user mental-model validation
 
@@ -114,7 +120,7 @@ target purpose/expectations (including role vs selection/interview where relevan
 
 **Method:** TEST + DEMONSTRATION + ASSISTIVE-TECHNOLOGY REVIEW.
 
-**Evidence:** representative Target Work, learner empty-system preparation support, separate Curation/import and Knowledge exploration checks; 3D motion/physics cannot be the only task-complete presentation under reduced-motion or assistive-technology constraints.
+**Evidence:** representative target/setup, current-position, learner preparation-support, activity/evidence and Knowledge exploration checks; spatial motion/physics cannot be the only task-complete presentation under reduced-motion or assistive-technology constraints.
 
 ## PV-17 — Related target-purpose comprehension
 
@@ -132,16 +138,15 @@ Pinned Harness structural/currentness checks prove document/trace closure, not t
 
 The frontend mock prototype must demonstrate at minimum:
 
-- one representative technical-career target;
-- initial current-state projection with both known and unresolved areas;
-- visible gaps and focus selection;
-- learning and diagnostic paths;
-- new evidence causing a visible reassessment;
-- target/focus-scoped Knowledge exploration;
-- learner-facing completely empty-system bootstrap through missing-preparation explanation, preparation request/review and return to Target Work without mandatory corpus machinery;
-- separate curator/operator Curation path covering bulk/import contract/validation/apply, partial rejection and incremental correction;
+- multi-target comparison using one learner evidence basis and a continuation into target establishment;
+- one representative technical-career target with explicit purpose/context and unresolved requirement meaning where applicable;
+- initial current-state projection with demonstrated/challenged/unknown areas, visible gaps and focus selection;
+- support selection plus at least one learning/practice/diagnostic activity attempt;
+- new evidence causing a visible evidence/change review, including valid no-change or increased-uncertainty handling;
+- target/focus/Required-Capability-scoped Knowledge exploration with task-complete non-spatial access;
+- learner-facing completely empty/incomplete preparation recovery through missing-support explanation, preparation request/result review and return to the originating work without corpus/import/schema machinery;
 - visible Observation -> evidence-basis/claim -> Current State distinction where those layers are exposed;
-- shared interaction-contract examples for draft preservation, async mutation, conflict/stale recovery and focus restoration;
+- shared interaction-contract examples for input preservation, async mutation, stale recovery and focus restoration;
 - wide/compact/narrow behavior;
 - keyboard/non-spatial Knowledge completion;
 - zoom/reflow/large-text and reduced-motion/accessibility evidence for supported core flows.

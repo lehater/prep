@@ -32,7 +32,7 @@ Rationale: shared ownership and low-cohesion utility layers make later change an
 
 - Source dependencies must follow accepted frontend architecture.
 - Feature modules depend on frontend-owned contracts, not concrete transport or renderer implementations.
-- Learning and Curation may share stable frontend models/presentation assets but must not depend on each other's feature internals.
+- Task features may share stable presentation primitives and semantic value types, but must not depend on another task feature's private mutable state or provider-specific representation.
 - Dependency rules that protect architectural boundaries should be mechanically enforceable when implementation tooling permits it.
 
 ### Consumer-owned contracts and dependency inversion
@@ -112,16 +112,14 @@ Exact palette, font family, spacing values and provider token syntax remain down
 
 ### Performance degradation preserves semantics
 
-The accepted graph quality contract is normative for production realization.
+The accepted Quality Design contract is normative; a graph or specific renderer is conditional presentation realization.
 
-- visible graph work is bounded; the frontend must not require rendering the full canonical corpus merely because the backend can store it;
-- Auto / Quality / Performance are presentation profiles, not domain/application state;
-- user-visible degradation may reduce labels, arrowheads, decorative particles, pixel ratio, node detail or live-physics work only while canonical Knowledge identity, KnowledgeProposition predicate/direction, current semantic scope, selection/focus and readable list/search/detail access remain intact;
-- relational proposition direction/predicate may not become unknowable merely because arrowheads or another visual encoding are disabled;
-- renderer optimization mechanics such as instancing, batching, buffer layout and shader/object choices stay inside the renderer adapter;
-- the renderer must become demand-driven when idle rather than consuming continuous RAF/CPU solely to preserve a static scene;
-- performance evidence must use representative hardware-accelerated 1k/2k/5k stress workloads; headless tests may verify semantics/configuration but must not claim GPU/frame-rate performance;
-- developer diagnostics may expose RAF/FPS, settle time, draw calls, triangles, buffer size and pixel ratio as engineering evidence without becoming product semantics.
+- the frontend must not require rendering the full canonical Knowledge corpus merely because a provider can store or return it;
+- bounded working sets, filtering, progressive disclosure, virtualization or reduced spatial richness may be used only while canonical Knowledge identity, relation meaning, selected semantic scope and task-complete query/result/detail access remain intact;
+- if a spatial renderer is present, its optimization mechanics and diagnostics remain inside the renderer/provider boundary;
+- renderer-specific settings, profiles, geometry and frame metrics are engineering/presentation state, not product/domain state;
+- no 1k/2k/5k item target, FPS threshold, 2D/3D requirement or named rendering profile is normative until Quality Design accepts a representative workload/measurement boundary;
+- headless/structural tests may verify semantic preservation and configuration but must not claim browser/GPU performance evidence.
 
 ### Testability
 
@@ -163,19 +161,11 @@ KISS and YAGNI take precedence over ceremonial abstraction.
 
 ## Reusable frontend presentation contracts
 
-Project-wide reusable presentation code should be created around stable repeated patterns, not vendor widgets.
+Project-wide reusable presentation code should be created around stable repeated accepted patterns, not vendor widgets or backend-resource shapes.
 
-Current justified reusable pattern families include:
+Reuse should follow the current Presentation System and Screen/View Design, especially where the same responsibility recurs across views: context continuity, outcome/failure presentation, evidence-basis detail, query/result/detail behavior, action hierarchy, responsive disclosure and accessibility/focus treatment.
 
-- application/shell framing and mode context;
-- collection search/filter controls used across reusable-data catalogues;
-- entity/detail presentation framing;
-- loading/empty/failure feedback states;
-- form completion/cancel/action framing;
-- confirmation for destructive or irreversible user actions when such actions are accepted;
-- consistent focus/accessibility treatment.
-
-These describe project responsibilities. Exact component names, props and provider composition remain Component/Implementation Design decisions.
+Do not predeclare generic catalogue, CRUD, editor, dashboard or modal frameworks unless current accepted views repeatedly require them. Exact component names, props and provider composition remain Component/Implementation Design decisions.
 
 ## Provider replacement acceptance
 

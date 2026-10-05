@@ -15,6 +15,13 @@ semantic_assertions:
       derived_from: [REQ-TARGET-PURPOSE]
       decision_authority: PRODUCT-REQUIREMENTS
       source_artifact: PRODUCT-CAPABILITIES
+    - id: REQ-CAP-TARGET-DIRECTION
+      kind: product-requirement
+      subject: capability-target-direction
+      semantic_value: The product lets the learner compare two or more plausible targets against the same evidence-backed learner capability basis, exposing shared and target-specific requirements plus demonstrated, challenged, unknown and gap/uncertainty projections for each, and continue with a chosen target without requiring a scalar fit score.
+      derived_from: [REQ-TARGET-DIRECTION, REQ-STATE-EVIDENCE]
+      decision_authority: PRODUCT-REQUIREMENTS
+      source_artifact: PRODUCT-CAPABILITIES
     - id: REQ-CAP-PERFORMANCE-REQUIREMENT
       kind: product-requirement
       subject: capability-performance-requirement
@@ -117,8 +124,8 @@ semantic_assertions:
     - id: DS-PREPARATION-DIRECTION
       kind: domain-strategy-responsibility
       subject: preparation-direction
-      semantic_value: CORE responsibility for active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction.
-      derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
+      semantic_value: CORE responsibility for candidate-target comparison before commitment, active target, target purpose, explicit target uncertainty, target-relative next focus, and adaptation of preparation direction; comparison coordinates distinct target requirements with target-relative learner-state projections without creating a second learner-state owner.
+      derived_from: [REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-TARGET-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT]
       decision_authority: DOMAIN-STRATEGY
       source_artifact: CONTEXT-MAP
   
