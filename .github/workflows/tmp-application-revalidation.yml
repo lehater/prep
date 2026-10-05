@@ -22,4 +22,4 @@ jobs:
         run: |
           set -euo pipefail
           cd "${{ steps.sync.outputs.pack }}"
-          grep -n -A180 -B20 '^def build_decision_explorer_request' src/harness/application/decision_explorer_request.py
+          grep -n -A180 -B20 -E '^def .*decision.*request|^def build_.*request|build_decision_explorer_request' src/harness/application/decision_explorer_request.py || true
