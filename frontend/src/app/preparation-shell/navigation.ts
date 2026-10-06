@@ -1,4 +1,9 @@
-import type { CapabilityRef, FocusRef, TargetRef } from "../../features/contracts";
+import type {
+  ActivityAttemptRef,
+  CapabilityRef,
+  FocusRef,
+  TargetRef,
+} from "../../features/contracts";
 
 export type PreparationDestination =
   | "targets"
@@ -6,12 +11,14 @@ export type PreparationDestination =
   | "current"
   | "knowledge"
   | "activity"
+  | "evidence-change"
   | "prepare-support";
 
 export interface PreparationNavigationRequest {
   readonly destination: PreparationDestination;
   readonly candidateTargetRef?: TargetRef;
   readonly requiredCapabilityRef?: CapabilityRef;
+  readonly activityAttemptRef?: ActivityAttemptRef;
 }
 
 export interface PreparationNavigationContext {
@@ -28,6 +35,32 @@ export function resolvePreparationNavigation(
   context: PreparationNavigationContext,
 ): ResolvedPreparationNavigation {
   if (request.destination === "targets" || request.destination === "target") {
+    return request;
+  }
+
+  if (request.destination === "evidence-change") {
+    if (!context.activeTargetRef) {
+      return {
+        destination: "target",
+        recoveryReason:
+          "Establish a Target before reviewing Activity evidence and changes.",
+      };
+    }
+
+    if (!request.activityAttemptRef) {
+      return context.activeFocusRef
+        ? {
+            destination: "activity",
+            recoveryReason:
+              "Complete a reviewable Activity attempt before opening Evidence & changes.",
+          }
+        : {
+            destination: "current",
+            recoveryReason:
+              "Choose a Next focus and complete an Activity before opening Evidence & changes.",
+          };
+    }
+
     return request;
   }
 

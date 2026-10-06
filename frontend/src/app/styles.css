@@ -962,3 +962,76 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+.change-summary-region,
+.current-state-after-region,
+.evidence-change-actions,
+.evidence-review-detail {
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.change-summary-region,
+.current-state-after-region,
+.evidence-change-actions {
+  display: grid;
+  gap: 16px;
+}
+
+.change-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.change-outcome-grid div {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #e2e6ed;
+  border-radius: 12px;
+  background: #f8f9fb;
+  padding: 14px;
+}
+
+.change-outcome-grid span {
+  color: #687487;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.change-outcome-grid strong {
+  font-size: 1.05rem;
+}
+
+.change-outcome-grid strong[data-change-outcome="changed"] {
+  color: #1d6b49;
+}
+
+.change-outcome-grid strong[data-change-outcome="challenged"],
+.change-outcome-grid strong[data-change-outcome="increased-uncertainty"] {
+  color: #9b5615;
+}
+
+.change-outcome-grid strong[data-change-outcome="no-change"],
+.change-outcome-grid strong[data-change-outcome="unresolved"] {
+  color: #687487;
+}
+
+.change-explanation {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.evidence-review-detail summary {
+  cursor: pointer;
+  font-weight: 750;
+}
+
+@media (max-width: 720px) {
+  .change-outcome-grid {
+    grid-template-columns: 1fr;
+  }
+}

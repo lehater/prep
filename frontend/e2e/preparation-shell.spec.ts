@@ -317,6 +317,12 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
       "Practice review found unclear consistency assumptions in a cache design.",
     ),
   ).toBeVisible();
+  await expect(
+    page.getByText(
+      "Follow-up activity exposed another unresolved consistency assumption.",
+      { exact: true },
+    ),
+  ).toHaveCount(0);
 
   await expect(page.getByText(/mastery percentage/i)).toHaveCount(0);
   await expect(page.getByText(/readiness percentage/i)).toHaveCount(0);
@@ -497,7 +503,52 @@ test("performs one Activity attempt without fabricating learner progress", async
     page.getByRole("button", { name: "Submit completed attempt" }),
   ).toHaveCount(0);
 
-  await page.getByRole("button", { name: "Current position" }).click();
+  await page
+    .getByRole("button", { name: "Review evidence & changes" })
+    .click();
+
+  await expect(
+    page.getByRole("heading", { name: "Review what changed after the Activity" }),
+  ).toBeVisible();
+  await expect(page.getByText("Increased uncertainty", { exact: true })).toBeVisible();
+  await expect(page.getByText("No change", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "The activity added attributable evidence but exposed another unresolved assumption; target requirements did not change.",
+      { exact: true },
+    ),
+  ).toBeVisible();
+
+  await page.getByText("Inspect evidence facts and provenance").click();
+  await expect(
+    page.getByText(
+      "Follow-up activity exposed another unresolved consistency assumption.",
+      { exact: true },
+    ),
+  ).toBeVisible();
+  await expect(
+    page.getByText("System-design activity review", { exact: true }),
+  ).toBeVisible();
+
+  const reviewedSystemDesignState = page
+    .locator(".current-state-after-region .state-card")
+    .filter({ hasText: "System design" });
+  await expect(
+    reviewedSystemDesignState.getByText("challenged", { exact: true }),
+  ).toBeVisible();
+
+  await expect(page.getByText(/progress score/i)).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Continue current focus" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Return to Current position" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Inspect Knowledge" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Return to Current position" }).click();
   const systemDesignState = page
     .locator(".state-card")
     .filter({ hasText: "System design" });

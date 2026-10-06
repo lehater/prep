@@ -7,6 +7,7 @@ import type {
   SupportModel,
 } from "./contract";
 import type {
+  ActivityAttemptRef,
   FocusRef,
   SemanticBasisRef,
   SupportRef,
@@ -21,6 +22,7 @@ export interface ActivityFeatureProps {
   readonly focusRationale: string;
   readonly focusBasisRef: SemanticBasisRef;
   readonly onRequestPreparationSupport: () => void;
+  readonly onReviewEvidenceChange: (activityAttemptRef: ActivityAttemptRef) => void;
 }
 
 type ActivityViewState =
@@ -39,6 +41,7 @@ export function ActivityFeature({
   focusRationale,
   focusBasisRef,
   onRequestPreparationSupport,
+  onReviewEvidenceChange,
 }: ActivityFeatureProps) {
   const [supportOptions, setSupportOptions] = useState<readonly SupportModel[]>(
     [],
@@ -353,9 +356,20 @@ export function ActivityFeature({
               : "The submitted facts remain unresolved for evidence review."}
           </p>
           <p className="supporting-text">
-            The evaluated change outcome belongs to the Evidence & changes task
-            implemented in FI-07.
+            The evaluated change outcome belongs to the contextual Evidence &
+            changes review.
           </p>
+          <div className="action-row">
+            <button
+              type="button"
+              className="primary-action"
+              onClick={() =>
+                onReviewEvidenceChange(completion.activityAttemptRef)
+              }
+            >
+              Review evidence &amp; changes
+            </button>
+          </div>
         </section>
       ) : null}
     </section>
