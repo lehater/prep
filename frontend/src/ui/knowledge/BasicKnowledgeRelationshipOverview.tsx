@@ -42,7 +42,6 @@ export function BasicKnowledgeRelationshipOverview({
     <div
       className="knowledge-relationship-canvas"
       data-relationship-renderer="basic-2d"
-      aria-label="Обзор связей знаний"
     >
       {positioned.length > 0 ? (
         <>
