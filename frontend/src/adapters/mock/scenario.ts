@@ -1,3 +1,4 @@
+import type { CandidateTargetOption } from "../../features/target-direction/contract";
 import { ref } from "../../features/contracts";
 
 export const mockScenarioRefs = {
@@ -298,3 +299,12 @@ export const rawMockScenario = {
     stateCode: "partial",
   },
 } as const;
+
+
+export const mockCandidateTargetOptions: readonly CandidateTargetOption[] =
+  rawMockScenario.targets.map((target) => ({
+    targetRef: target.recordId,
+    label: target.title,
+    purpose: target.purposeText,
+    uncertainty: target.uncertaintyNotes,
+  }));
