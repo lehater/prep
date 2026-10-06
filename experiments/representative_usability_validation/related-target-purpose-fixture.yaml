@@ -1,0 +1,37 @@
+version: 1
+kind: prep-research-stimulus
+id: RELATED-TARGET-PURPOSE-V1
+purpose: Representative-user stimulus for PV-11 only; not canonical Product or Target data.
+learner_evidence_basis:
+  label: Same learner evidence basis for both Targets
+  evidence:
+    - capability: TypeScript
+      state: demonstrated
+      note: Production implementation evidence exists.
+    - capability: System design
+      state: challenged
+      note: Recent practice exposed unclear consistency assumptions.
+targets:
+  - id: BACKEND-ROLE
+    label: Backend Engineer role capability
+    purpose: Be able to perform the day-to-day backend engineering role.
+    requirements:
+      - capability: TypeScript
+        scope: shared
+      - capability: System design
+        scope: shared
+  - id: BACKEND-INTERVIEW
+    label: Backend Engineer interview loop
+    purpose: Perform successfully in this employer's current selection process.
+    related_to: BACKEND-ROLE
+    requirements:
+      - capability: TypeScript
+        scope: shared
+      - capability: System design
+        scope: shared
+      - capability: Behavioral communication
+        scope: interview-specific
+        constraint: Explain one consequential engineering decision in a time-bounded interview format.
+change_probe:
+  prompt: If the employer removes the behavioral interview tomorrow but the role remains the same, which requirements should change and why?
+success_signal: Participant keeps shared role capability reusable while treating the interview-only performance constraint as independent Target meaning rather than inherited role truth.
