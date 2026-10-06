@@ -606,8 +606,10 @@ export function KnowledgeExplorerFeature({
             }
           >
             <option value="all">Все виды</option>
-            <option value="object">Объекты</option>
-            <option value="proposition">Утверждения</option>
+            <option value="object">{knowledgeKindLabel("object")}</option>
+            <option value="proposition">
+              {knowledgeKindLabel("proposition")}
+            </option>
           </select>
 
           <select
