@@ -582,4 +582,49 @@ test("routes an Activity with no suitable support to contextual preparation", as
   await expect(
     page.getByLabel("Active preparation context").getByText("Selected"),
   ).toBeVisible();
+  await expect(page.getByText("Return destination: Activity", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Missing-support context")).toHaveValue(
+    "No suitable support is currently prepared for the accepted Next focus.",
+  );
+  await expect(page.getByLabel("Provenance")).toHaveValue(
+    "Current preparation context from Activity",
+  );
+  await expect(page.getByText(/corpus CRUD|import schema|item repair/i)).toHaveCount(0);
+
+  await page.getByRole("button", { name: "Request preparation support" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Prepared support and explicit remainder" }),
+  ).toBeVisible();
+  await expect(page.getByText("Behavioral decision story guide", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("Intended capability: Behavioral communication", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Interview-specific observation rubric", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("unresolved", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("Mock interviewer availability", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("rejected", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "Accepted support remains usable even when other requested support is unresolved or rejected.",
+      { exact: false },
+    ),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Refresh preparation result" }).click();
+  await expect(page.getByText("Behavioral decision story guide", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Return to Activity" }).last().click();
+
+  await expect(
+    page.getByRole("heading", { name: "Work on the accepted Next focus" }),
+  ).toBeVisible();
+  await expect(page.getByText("Behavioral decision story guide", { exact: true })).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
 });

@@ -279,6 +279,38 @@ describe("MockFrontendAdapter semantic contract", () => {
     );
     expect(continued.acceptedSupport).toEqual(request.acceptedSupport);
     expect(continued.remainder).toHaveLength(2);
+
+    const nowAvailable = acceptedValue(
+      await adapter.listSupport({
+        targetRef: mockScenarioRefs.targetPrimary,
+        focusRef: mockScenarioRefs.focusMissingSupport,
+      }),
+    );
+    expect(nowAvailable.map((item) => item.label)).toEqual([
+      "Behavioral decision story guide",
+    ]);
+  });
+
+  it("preserves preparation context on stale basis without accepting new support", async () => {
+    const preparationAdapter = new MockFrontendAdapter();
+
+    const stale = await preparationAdapter.requestPreparation({
+      targetRef: mockScenarioRefs.targetPrimary,
+      focusRef: mockScenarioRefs.focusMissingSupport,
+      sourceContext: "Behavioral preparation support is missing.",
+      sourceProvenance: [{ label: "Backend interview brief" }],
+      semanticBasisRef: ref<"semantic-basis">("basis:stale"),
+    });
+
+    expect(stale.status).toBe("stale-basis");
+
+    const support = acceptedValue(
+      await preparationAdapter.listSupport({
+        targetRef: mockScenarioRefs.targetPrimary,
+        focusRef: mockScenarioRefs.focusMissingSupport,
+      }),
+    );
+    expect(support).toEqual([]);
   });
 
   it("returns explicit semantic rejection instead of leaking fixture/provider failure", async () => {

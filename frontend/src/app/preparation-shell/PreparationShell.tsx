@@ -8,6 +8,8 @@ import type { EvidenceChangePort } from "../../features/evidence-change/contract
 import { EvidenceChangeFeature } from "../../features/evidence-change/EvidenceChangeFeature";
 import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
 import { KnowledgeExplorerFeature } from "../../features/knowledge-explorer/KnowledgeExplorerFeature";
+import type { PreparationSupportPort } from "../../features/preparation-support/contract";
+import { PreparationSupportFeature } from "../../features/preparation-support/PreparationSupportFeature";
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
 import type { TargetPort } from "../../features/target/contract";
@@ -37,6 +39,7 @@ export interface PreparationShellProps {
   readonly knowledgePort: KnowledgePort;
   readonly activityPort: ActivityPort;
   readonly evidenceChangePort: EvidenceChangePort;
+  readonly preparationSupportPort: PreparationSupportPort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -73,10 +76,12 @@ export function PreparationShell({
   knowledgePort,
   activityPort,
   evidenceChangePort,
+  preparationSupportPort,
   candidateTargets,
 }: PreparationShellProps) {
   const {
     activeTargetRef,
+    activeTargetBasisRef,
     activeFocus,
     activeFocusRef,
     setAcceptedTarget,
@@ -107,6 +112,12 @@ export function PreparationShell({
       ...(resolved.activityAttemptRef
         ? { activityAttemptRef: resolved.activityAttemptRef }
         : {}),
+      ...(resolved.returnDestination
+        ? { returnDestination: resolved.returnDestination }
+        : {}),
+      ...(resolved.motivatingContext
+        ? { motivatingContext: resolved.motivatingContext }
+        : {}),
     });
     setRecoveryReason(resolved.recoveryReason ?? null);
   }
@@ -134,15 +145,21 @@ export function PreparationShell({
           candidateTargetRef={navigation.candidateTargetRef}
           activeTargetRef={activeTargetRef}
           recoveryReason={recoveryReason ?? undefined}
-          onAcceptedTarget={(target) => {
-            setAcceptedTarget(target.targetRef);
+          onAcceptedTarget={(target, semanticBasisRef) => {
+            setAcceptedTarget(target.targetRef, semanticBasisRef);
             setRecoveryReason(null);
           }}
           onExploreKnowledge={(requiredCapabilityRef) =>
             navigate({ destination: "knowledge", requiredCapabilityRef })
           }
           onRequestPreparationSupport={(candidateTargetRef) =>
-            navigate({ destination: "prepare-support", candidateTargetRef })
+            navigate({
+              destination: "prepare-support",
+              candidateTargetRef,
+              returnDestination: "target",
+              motivatingContext:
+                "Resolve missing support needed for this Target preparation context.",
+            })
           }
           onReconsiderDirection={() => navigate({ destination: "targets" })}
         />
@@ -168,6 +185,9 @@ export function PreparationShell({
             navigate({
               destination: "prepare-support",
               candidateTargetRef: activeTargetRef,
+              returnDestination: "current",
+              motivatingContext:
+                "Prepare suitable support for the accepted Next focus.",
             })
           }
         />
@@ -215,6 +235,9 @@ export function PreparationShell({
               navigate({
                 destination: "prepare-support",
                 candidateTargetRef: activeTargetRef,
+                returnDestination: "activity",
+                motivatingContext:
+                  "No suitable support is currently prepared for the accepted Next focus.",
               })
             }
             onReviewEvidenceChange={(activityAttemptRef) =>
@@ -264,19 +287,63 @@ export function PreparationShell({
           />
         );
       break;
-    case "prepare-support":
-      child = (
-        <StructuralPlaceholder
-          title="Prepare Support"
-          description={
-            navigation.candidateTargetRef && !activeTargetRef
-              ? "Resolve missing support for the selected candidate Target while preserving its setup context."
-              : "Resolve a contextual missing-support need and return to the originating Target work."
+    case "prepare-support": {
+      const preparationTargetRef =
+        navigation.candidateTargetRef ?? activeTargetRef;
+      const preparationTarget = preparationTargetRef
+        ? candidateTargets.find(
+            (candidate) => candidate.targetRef === preparationTargetRef,
+          ) ?? null
+        : null;
+      const targetIsActive =
+        preparationTargetRef !== undefined &&
+        preparationTargetRef !== null &&
+        preparationTargetRef === activeTargetRef;
+      const semanticBasisRef = targetIsActive
+        ? activeFocus?.semanticBasisRef ?? activeTargetBasisRef
+        : null;
+      const returnDestination = navigation.returnDestination ?? "target";
+      const originLabel =
+        returnDestination === "current"
+          ? "Current position"
+          : returnDestination === "activity"
+            ? "Activity"
+            : "Target";
+
+      child = preparationTargetRef && preparationTarget ? (
+        <PreparationSupportFeature
+          port={preparationSupportPort}
+          targetRef={preparationTargetRef}
+          targetLabel={preparationTarget.label}
+          focusRef={targetIsActive ? activeFocusRef ?? undefined : undefined}
+          focusPurpose={targetIsActive ? activeFocus?.purpose : undefined}
+          semanticBasisRef={semanticBasisRef}
+          motivatingContext={
+            navigation.motivatingContext ??
+            "Resolve the current bounded missing-support need."
           }
-          recoveryReason={recoveryReason ?? undefined}
+          originLabel={originLabel}
+          onReturn={() =>
+            navigate({
+              destination: returnDestination,
+              ...(returnDestination === "target"
+                ? { candidateTargetRef: preparationTargetRef }
+                : {}),
+            })
+          }
+        />
+      ) : (
+        <StructuralPlaceholder
+          title="Target"
+          description="Choose or establish a Target before requesting preparation support."
+          recoveryReason={
+            recoveryReason ??
+            "Choose or establish a Target context before requesting preparation support."
+          }
         />
       );
       break;
+    }
   }
 
   return (

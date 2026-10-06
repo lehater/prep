@@ -21,9 +21,13 @@ export interface AcceptedFocusContext {
 
 export interface PreparationContextValue {
   readonly activeTargetRef: TargetRef | null;
+  readonly activeTargetBasisRef: SemanticBasisRef | null;
   readonly activeFocus: AcceptedFocusContext | null;
   readonly activeFocusRef: FocusRef | null;
-  readonly setAcceptedTarget: (targetRef: TargetRef | null) => void;
+  readonly setAcceptedTarget: (
+    targetRef: TargetRef | null,
+    semanticBasisRef: SemanticBasisRef | null,
+  ) => void;
   readonly setAcceptedFocus: (focus: AcceptedFocusContext | null) => void;
 }
 
@@ -35,6 +39,8 @@ export function PreparationContextProvider({
   readonly children: ReactNode;
 }) {
   const [activeTargetRef, setActiveTargetRef] = useState<TargetRef | null>(null);
+  const [activeTargetBasisRef, setActiveTargetBasisRef] =
+    useState<SemanticBasisRef | null>(null);
   const [activeFocus, setActiveFocus] = useState<AcceptedFocusContext | null>(
     null,
   );
@@ -42,19 +48,21 @@ export function PreparationContextProvider({
   const value = useMemo<PreparationContextValue>(
     () => ({
       activeTargetRef,
+      activeTargetBasisRef,
       activeFocus,
       activeFocusRef: activeFocus?.focusRef ?? null,
-      setAcceptedTarget: (targetRef) => {
+      setAcceptedTarget: (targetRef, semanticBasisRef) => {
         setActiveTargetRef((current) => {
           if (current !== targetRef) {
             setActiveFocus(null);
           }
           return targetRef;
         });
+        setActiveTargetBasisRef(semanticBasisRef);
       },
       setAcceptedFocus: setActiveFocus,
     }),
-    [activeFocus, activeTargetRef],
+    [activeFocus, activeTargetBasisRef, activeTargetRef],
   );
 
   return (

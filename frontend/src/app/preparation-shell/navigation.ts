@@ -5,6 +5,8 @@ import type {
   TargetRef,
 } from "../../features/contracts";
 
+export type PrepareSupportReturnDestination = "target" | "current" | "activity";
+
 export type PreparationDestination =
   | "targets"
   | "target"
@@ -19,6 +21,8 @@ export interface PreparationNavigationRequest {
   readonly candidateTargetRef?: TargetRef;
   readonly requiredCapabilityRef?: CapabilityRef;
   readonly activityAttemptRef?: ActivityAttemptRef;
+  readonly returnDestination?: PrepareSupportReturnDestination;
+  readonly motivatingContext?: string;
 }
 
 export interface PreparationNavigationContext {
