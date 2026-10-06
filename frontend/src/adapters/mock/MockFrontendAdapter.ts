@@ -45,7 +45,6 @@ import type {
 import type {
   CapabilityRef,
   EvidenceRef,
-  FocusRef,
   Limitation,
   PreparationRequestRef,
   Provenance,
@@ -86,6 +85,21 @@ function provenance(
   sourceRef: Provenance["sourceRef"],
 ): Provenance {
   return sourceRef ? { label, sourceRef } : { label };
+}
+
+function capabilityLabel(capabilityRef: CapabilityRef): string {
+  switch (capabilityRef) {
+    case mockScenarioRefs.capabilityTypeScript:
+      return "TypeScript";
+    case mockScenarioRefs.capabilitySystemDesign:
+      return "System design";
+    case mockScenarioRefs.capabilityBehavioral:
+      return "Behavioral communication";
+    case mockScenarioRefs.capabilityKubernetes:
+      return "Kubernetes operations";
+    default:
+      return "Capability";
+  }
 }
 
 function targetByRef(targetRef: TargetRef) {
@@ -134,6 +148,7 @@ function mapComparedTarget(targetRef: TargetRef): ComparedTargetModel | null {
     targetSpecificCapabilityRefs: target.specificCapabilityIds,
     currentState: rows.map((row) => ({
       capabilityRef: row.capabilityId,
+      capabilityLabel: capabilityLabel(row.capabilityId),
       state: row.stateCode,
       evidenceRefs: row.evidenceIds,
       limitations: row.limitationTexts.map(coverageLimit),
@@ -278,6 +293,7 @@ export class MockFrontendAdapter
       targetRef,
       capabilities: rows.map((row) => ({
         capabilityRef: row.capabilityId,
+        capabilityLabel: capabilityLabel(row.capabilityId),
         state: row.stateCode,
         evidenceRefs: row.evidenceIds,
         limitations: row.limitationTexts.map(coverageLimit),

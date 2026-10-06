@@ -9,8 +9,16 @@ import type {
   TargetRef,
 } from "../contracts";
 
+export interface CandidateTargetOption {
+  readonly targetRef: TargetRef;
+  readonly label: string;
+  readonly purpose: string;
+  readonly uncertainty: readonly string[];
+}
+
 export interface CapabilityStateSummary {
   readonly capabilityRef: CapabilityRef;
+  readonly capabilityLabel: string;
   readonly state: "demonstrated" | "challenged" | "unknown";
   readonly evidenceRefs: readonly EvidenceRef[];
   readonly limitations: readonly Limitation[];

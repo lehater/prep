@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import { BootstrapShell } from "./BootstrapShell";
+import { FrontendCompositionRoot } from "./composition/FrontendCompositionRoot";
+import "./styles.css";
 
 const rootElement = document.getElementById("root");
 
@@ -11,6 +12,6 @@ if (!(rootElement instanceof HTMLElement)) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <BootstrapShell />
+    <FrontendCompositionRoot />
   </StrictMode>,
 );
