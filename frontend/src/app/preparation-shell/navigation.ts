@@ -31,6 +31,17 @@ export function resolvePreparationNavigation(
     return request;
   }
 
+  if (request.destination === "prepare-support") {
+    if (context.activeTargetRef || request.candidateTargetRef) {
+      return request;
+    }
+    return {
+      destination: "target",
+      recoveryReason:
+        "Choose or establish a Target context before requesting preparation support.",
+    };
+  }
+
   if (!context.activeTargetRef) {
     return {
       destination: "target",
