@@ -6,6 +6,28 @@ import * as ts from "typescript";
 
 const SOURCE_EXTENSIONS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
 
+const ACCEPTED_FEATURE_OWNERS = new Set([
+  "target-direction",
+  "target",
+  "current-position",
+  "knowledge-explorer",
+  "activity",
+  "evidence-change",
+  "preparation-support",
+]);
+
+const FORBIDDEN_EXTERNAL_IMPORTS = [
+  "three",
+  "react-force-graph-3d",
+];
+
+function isForbiddenExternalImport(specifier) {
+  return FORBIDDEN_EXTERNAL_IMPORTS.some(
+    (packageName) =>
+      specifier === packageName || specifier.startsWith(`${packageName}/`),
+  );
+}
+
 function walkFiles(root) {
   const files = [];
 
@@ -159,7 +181,24 @@ export function validateSourceTree(sourceRoot) {
     const from = describeModule(fromRelative);
     const sourceText = fs.readFileSync(file, "utf8");
 
+    if (
+      from.layer === "feature" &&
+      from.owner &&
+      !ACCEPTED_FEATURE_OWNERS.has(from.owner)
+    ) {
+      violations.push(
+        `${fromRelative}: feature owner "${from.owner}" is not an accepted task-feature root`,
+      );
+    }
+
     for (const specifier of moduleSpecifiers(sourceText, file)) {
+      if (isForbiddenExternalImport(specifier)) {
+        violations.push(
+          `${fromRelative}: external import "${specifier}" is forbidden in the nonspatial prototype baseline`,
+        );
+        continue;
+      }
+
       const target = normalizeInternalTarget(sourceRoot, file, specifier);
       if (!target) {
         continue;
