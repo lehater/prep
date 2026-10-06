@@ -43,6 +43,7 @@ import type {
   TargetRequirementModel,
 } from "../../features/target/contract";
 import type {
+  ActivityAttemptRef,
   CapabilityRef,
   EvidenceRef,
   KnowledgeRef,
@@ -208,6 +209,7 @@ export class MockFrontendAdapter
     EvidenceChangePort,
     PreparationSupportPort
 {
+  private readonly completedActivityAttempts = new Set<ActivityAttemptRef>();
   async compareTargets(
     input: CompareTargetsInput,
   ): Promise<SemanticOutcome<TargetComparisonModel>> {
@@ -326,9 +328,15 @@ export class MockFrontendAdapter
       return rejected("Unknown Target.");
     }
 
+    const visibleEvidence = rawMockScenario.evidence.filter(
+      (item) =>
+        item.evidenceId !== mockScenarioRefs.evidenceActivity ||
+        this.completedActivityAttempts.has(mockScenarioRefs.activityAttempt),
+    );
+
     const rows = evidenceRef
-      ? rawMockScenario.evidence.filter((item) => item.evidenceId === evidenceRef)
-      : rawMockScenario.evidence;
+      ? visibleEvidence.filter((item) => item.evidenceId === evidenceRef)
+      : visibleEvidence;
 
     return accepted({
       targetRef,
@@ -561,6 +569,8 @@ export class MockFrontendAdapter
       return rejected("Activity completion does not match the current attempt.");
     }
 
+    this.completedActivityAttempts.add(mockScenarioRefs.activityAttempt);
+
     return accepted(
       {
         activityAttemptRef: mockScenarioRefs.activityAttempt,
@@ -577,6 +587,18 @@ export class MockFrontendAdapter
   ): Promise<SemanticOutcome<ChangeModel>> {
     if (input.targetRef !== mockScenarioRefs.targetPrimary) {
       return rejected("Change scenario is only defined for the established Target.");
+    }
+
+    if (
+      input.activityAttemptRef === mockScenarioRefs.activityAttempt &&
+      !this.completedActivityAttempts.has(mockScenarioRefs.activityAttempt)
+    ) {
+      return {
+        status: "unresolved",
+        message:
+          "The ActivityAttempt has not reached a reviewable evidence/change result.",
+        currentBasisRef: mockScenarioRefs.basis,
+      };
     }
 
     return accepted(

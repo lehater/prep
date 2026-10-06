@@ -16,6 +16,7 @@ export function FrontendCompositionRoot() {
           currentPositionPort={mockAdapter}
           knowledgePort={mockAdapter}
           activityPort={mockAdapter}
+          evidenceChangePort={mockAdapter}
           candidateTargets={mockCandidateTargetOptions}
         />
       </KnowledgeExplorerStateProvider>

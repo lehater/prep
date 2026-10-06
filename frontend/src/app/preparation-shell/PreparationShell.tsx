@@ -4,6 +4,8 @@ import type { ActivityPort } from "../../features/activity/contract";
 import { ActivityFeature } from "../../features/activity/ActivityFeature";
 import type { CurrentPositionPort } from "../../features/current-position/contract";
 import { CurrentPositionFeature } from "../../features/current-position/CurrentPositionFeature";
+import type { EvidenceChangePort } from "../../features/evidence-change/contract";
+import { EvidenceChangeFeature } from "../../features/evidence-change/EvidenceChangeFeature";
 import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
 import { KnowledgeExplorerFeature } from "../../features/knowledge-explorer/KnowledgeExplorerFeature";
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
@@ -34,6 +36,7 @@ export interface PreparationShellProps {
   readonly currentPositionPort: CurrentPositionPort;
   readonly knowledgePort: KnowledgePort;
   readonly activityPort: ActivityPort;
+  readonly evidenceChangePort: EvidenceChangePort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -69,6 +72,7 @@ export function PreparationShell({
   currentPositionPort,
   knowledgePort,
   activityPort,
+  evidenceChangePort,
   candidateTargets,
 }: PreparationShellProps) {
   const {
@@ -99,6 +103,9 @@ export function PreparationShell({
         : {}),
       ...(resolved.requiredCapabilityRef
         ? { requiredCapabilityRef: resolved.requiredCapabilityRef }
+        : {}),
+      ...(resolved.activityAttemptRef
+        ? { activityAttemptRef: resolved.activityAttemptRef }
         : {}),
     });
     setRecoveryReason(resolved.recoveryReason ?? null);
@@ -210,6 +217,12 @@ export function PreparationShell({
                 candidateTargetRef: activeTargetRef,
               })
             }
+            onReviewEvidenceChange={(activityAttemptRef) =>
+              navigate({
+                destination: "evidence-change",
+                activityAttemptRef,
+              })
+            }
           />
         ) : (
           <StructuralPlaceholder
@@ -224,6 +237,29 @@ export function PreparationShell({
               (activeTargetRef
                 ? "Choose a Next focus before starting an Activity."
                 : "Establish a Target before entering Target-dependent preparation work.")
+            }
+          />
+        );
+      break;
+    case "evidence-change":
+      child =
+        activeTargetRef && navigation.activityAttemptRef ? (
+          <EvidenceChangeFeature
+            port={evidenceChangePort}
+            activeTargetRef={activeTargetRef}
+            activityAttemptRef={navigation.activityAttemptRef}
+            canContinueCurrentFocus={activeFocusRef !== null}
+            onContinueCurrentFocus={() => navigate({ destination: "activity" })}
+            onReturnCurrent={() => navigate({ destination: "current" })}
+            onInspectKnowledge={() => navigate({ destination: "knowledge" })}
+          />
+        ) : (
+          <StructuralPlaceholder
+            title={activeTargetRef ? "Activity" : "Target"}
+            description="A reviewable Activity result is required before opening Evidence & changes."
+            recoveryReason={
+              recoveryReason ??
+              "Complete a reviewable Activity attempt before opening Evidence & changes."
             }
           />
         );

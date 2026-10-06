@@ -331,4 +331,59 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(staleCompletion.status).toBe("stale-basis");
   });
 
+
+  it("does not expose post-Activity evidence or Change before accepted completion", async () => {
+    const occurrenceAdapter = new MockFrontendAdapter();
+
+    const beforeEvidence = acceptedValue(
+      await occurrenceAdapter.getEvidence(mockScenarioRefs.targetPrimary),
+    );
+    expect(
+      beforeEvidence.facts.some(
+        (fact) => fact.evidenceRef === mockScenarioRefs.evidenceActivity,
+      ),
+    ).toBe(false);
+
+    const beforeChange = await occurrenceAdapter.getChange({
+      targetRef: mockScenarioRefs.targetPrimary,
+      activityAttemptRef: mockScenarioRefs.activityAttempt,
+    });
+    expect(beforeChange.status).toBe("unresolved");
+
+    const attempt = acceptedValue(
+      await occurrenceAdapter.startActivity({
+        targetRef: mockScenarioRefs.targetPrimary,
+        focusRef: mockScenarioRefs.focusCurrent,
+        supportRef: mockScenarioRefs.supportSystemDesign,
+        semanticBasisRef: mockScenarioRefs.basis,
+      }),
+    );
+    acceptedValue(
+      await occurrenceAdapter.completeActivity({
+        activityAttemptRef: attempt.activityAttemptRef,
+        resultSummary: "Completed deterministic system-design activity.",
+        provenance: "Observed deterministic prototype attempt",
+        semanticBasisRef: attempt.semanticBasisRef,
+      }),
+    );
+
+    const afterEvidence = acceptedValue(
+      await occurrenceAdapter.getEvidence(mockScenarioRefs.targetPrimary),
+    );
+    expect(
+      afterEvidence.facts.some(
+        (fact) => fact.evidenceRef === mockScenarioRefs.evidenceActivity,
+      ),
+    ).toBe(true);
+
+    const afterChange = acceptedValue(
+      await occurrenceAdapter.getChange({
+        targetRef: mockScenarioRefs.targetPrimary,
+        activityAttemptRef: attempt.activityAttemptRef,
+      }),
+    );
+    expect(afterChange.learnerEvidenceChange).toBe("increased-uncertainty");
+    expect(afterChange.targetInformationChange).toBe("no-change");
+  });
+
 });
