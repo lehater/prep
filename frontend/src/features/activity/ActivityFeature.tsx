@@ -13,6 +13,7 @@ import type {
   SupportRef,
   TargetRef,
 } from "../contracts";
+import { activityAttemptStateLabel } from "../../ui/presentationLabels";
 
 export interface ActivityFeatureProps {
   readonly port: ActivityPort;
@@ -101,7 +102,7 @@ export function ActivityFeature({
 
   async function startAttempt() {
     if (!selectedSupport) {
-      setMessage("Choose suitable support before starting an Activity.");
+      setMessage("Перед началом практики выберите подходящую поддержку.");
       return;
     }
 
@@ -127,7 +128,7 @@ export function ActivityFeature({
 
   async function completeAttempt() {
     if (!attempt) {
-      setMessage("No accepted ActivityAttempt is active.");
+      setMessage("Нет активной принятой попытки практики.");
       return;
     }
 
@@ -136,7 +137,7 @@ export function ActivityFeature({
       provenance.trim().length === 0
     ) {
       setMessage(
-        "Record what happened and its provenance before submitting the attempt.",
+        "Перед отправкой опишите результат попытки и укажите его источник.",
       );
       return;
     }
@@ -169,16 +170,16 @@ export function ActivityFeature({
       aria-labelledby="activity-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Activity</p>
-        <h1 id="activity-heading">Work on the accepted Next focus</h1>
+        <p className="eyebrow">Практика</p>
+        <h1 id="activity-heading">Проработайте выбранный фокус</h1>
         <p>
-          Choose support that fits this Focus, perform one attributable attempt,
-          then submit what happened for evidence processing.
+          Выберите подходящую поддержку, выполните одну проверяемую попытку
+          и зафиксируйте результат для последующего анализа свидетельств.
         </p>
       </header>
 
-      <section className="activity-focus-context" aria-label="Active focus">
-        <p className="eyebrow">Active Next focus</p>
+      <section className="activity-focus-context" aria-label="Текущий фокус">
+        <p className="eyebrow">Текущий фокус</p>
         <strong>{focusPurpose}</strong>
         <p>{focusRationale}</p>
       </section>
@@ -190,7 +191,7 @@ export function ActivityFeature({
       ) : null}
 
       {viewState === "loading-support" ? (
-        <p role="status">Loading suitable support…</p>
+        <p role="status">Загрузка подходящей поддержки…</p>
       ) : null}
 
       {viewState !== "loading-support" ? (
@@ -199,28 +200,28 @@ export function ActivityFeature({
           aria-labelledby="support-options-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Support selection</p>
-            <h2 id="support-options-heading">Available support</h2>
+            <p className="eyebrow">Выбор поддержки</p>
+            <h2 id="support-options-heading">Доступная поддержка</h2>
           </div>
 
           {supportOptions.length === 0 ? (
             <div className="activity-no-support">
-              <strong>No suitable support is currently prepared.</strong>
+              <strong>Подходящая поддержка пока не подготовлена.</strong>
               <p>
-                Keep the accepted Target and Next focus, prepare the missing
-                support contextually, then return to this work.
+                Сохраните выбранную цель и фокус, подготовьте недостающую
+                поддержку и затем вернитесь к практике.
               </p>
               <button
                 type="button"
                 className="primary-action"
                 onClick={onRequestPreparationSupport}
               >
-                Prepare missing support
+                Подготовить поддержку
               </button>
             </div>
           ) : (
             <fieldset className="support-options">
-              <legend>Support for this attempt</legend>
+              <legend>Поддержка для этой попытки</legend>
               {supportOptions.map((support) => (
                 <label className="support-option" key={support.supportRef}>
                   <input
@@ -233,11 +234,11 @@ export function ActivityFeature({
                   <span className="support-option-body">
                     <strong>{support.label}</strong>
                     <small>
-                      Intended capability: {support.intendedCapabilityLabel}
+                      Компетенция: {support.intendedCapabilityLabel}
                     </small>
                     <span>{support.fitBasis}</span>
                     <span>
-                      Expected conditions:{" "}
+                      Ожидаемые условия:{" "}
                       {support.expectedConditions.join(", ")}
                     </span>
                     {support.limitations.length > 0 ? (
@@ -264,8 +265,8 @@ export function ActivityFeature({
                 onClick={() => void startAttempt()}
               >
                 {viewState === "starting-attempt"
-                  ? "Starting attempt…"
-                  : "Start Activity"}
+                  ? "Запуск попытки…"
+                  : "Начать практику"}
               </button>
             </div>
           ) : null}
@@ -278,25 +279,25 @@ export function ActivityFeature({
           aria-labelledby="activity-attempt-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Accepted occurrence</p>
-            <h2 id="activity-attempt-heading">Activity attempt</h2>
+            <p className="eyebrow">Зафиксированная попытка</p>
+            <h2 id="activity-attempt-heading">Попытка практики</h2>
           </div>
 
           <dl className="activity-attempt-context">
             <div>
-              <dt>Support</dt>
-              <dd>{selectedSupport?.label ?? "Selected support"}</dd>
+              <dt>Поддержка</dt>
+              <dd>{selectedSupport?.label ?? "Выбранная поддержка"}</dd>
             </div>
             <div>
-              <dt>Attempt state</dt>
-              <dd>{attempt.state}</dd>
+              <dt>Состояние попытки</dt>
+              <dd>{activityAttemptStateLabel(attempt.state)}</dd>
             </div>
           </dl>
 
           {viewState !== "evidence-processing" ? (
             <div className="activity-completion-form">
               <label className="field">
-                <span>What happened</span>
+                <span>Что произошло</span>
                 <textarea
                   rows={4}
                   value={resultSummary}
@@ -304,19 +305,19 @@ export function ActivityFeature({
                   onChange={(event) =>
                     setResultSummary(event.currentTarget.value)
                   }
-                  placeholder="Record the observable result of this attempt."
+                  placeholder="Опишите наблюдаемый результат этой попытки."
                 />
               </label>
 
               <label className="field">
-                <span>Provenance / source</span>
+                <span>Источник результата</span>
                 <input
                   value={provenance}
                   disabled={viewState === "submitting-attempt"}
                   onChange={(event) =>
                     setProvenance(event.currentTarget.value)
                   }
-                  placeholder="Identify where this result came from."
+                  placeholder="Укажите, откуда получен этот результат."
                 />
               </label>
 
@@ -328,8 +329,8 @@ export function ActivityFeature({
                   onClick={() => void completeAttempt()}
                 >
                   {viewState === "submitting-attempt"
-                    ? "Submitting attempt…"
-                    : "Submit completed attempt"}
+                    ? "Отправка результата…"
+                    : "Завершить попытку"}
                 </button>
               </div>
             </div>
@@ -343,21 +344,20 @@ export function ActivityFeature({
           aria-labelledby="activity-processing-heading"
           role="status"
         >
-          <p className="eyebrow">Evidence processing</p>
-          <h2 id="activity-processing-heading">Attempt submitted</h2>
+          <p className="eyebrow">Анализ свидетельств</p>
+          <h2 id="activity-processing-heading">Результат попытки отправлен</h2>
           <p>
-            The accepted ActivityAttempt remains the occurrence being evaluated.
-            Completion does not mark the capability demonstrated and does not
-            close a gap.
+            Завершённая попытка остаётся отдельным наблюдаемым событием.
+            Сам факт завершения не подтверждает компетенцию и не закрывает пробел.
           </p>
           <p>
             {completion.historicalFactsAccepted
-              ? "Attributable facts were accepted for evidence/change review."
-              : "The submitted facts remain unresolved for evidence review."}
+              ? "Проверяемые факты приняты для анализа свидетельств и изменений."
+              : "Отправленные факты пока не приняты для анализа свидетельств."}
           </p>
           <p className="supporting-text">
-            The evaluated change outcome belongs to the contextual Evidence &
-            changes review.
+            Итоговая интерпретация изменений выполняется отдельно в разделе
+            анализа свидетельств и изменений.
           </p>
           <div className="action-row">
             <button
@@ -367,7 +367,7 @@ export function ActivityFeature({
                 onReviewEvidenceChange(completion.activityAttemptRef)
               }
             >
-              Review evidence &amp; changes
+              Проверить свидетельства и изменения
             </button>
           </div>
         </section>
