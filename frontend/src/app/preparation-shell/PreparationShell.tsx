@@ -33,12 +33,10 @@ function StructuralPlaceholder({
   title,
   description,
   recoveryReason,
-  candidateTarget,
 }: {
   readonly title: string;
   readonly description: string;
   readonly recoveryReason?: string | undefined;
-  readonly candidateTarget?: CandidateTargetOption | undefined;
 }) {
   return (
     <section className="task-view structural-placeholder" data-view={title.toLowerCase()}>
@@ -48,15 +46,6 @@ function StructuralPlaceholder({
         <p className="recovery-message" role="status">
           {recoveryReason}
         </p>
-      ) : null}
-      {candidateTarget ? (
-        <div className="candidate-continuation">
-          <strong>Candidate: {candidateTarget.label}</strong>
-          <p>
-            This candidate has not become the active Target. Establishment is
-            implemented in the next slice.
-          </p>
-        </div>
       ) : null}
       <p>{description}</p>
       <p className="supporting-text">
@@ -102,11 +91,6 @@ export function PreparationShell({
     setRecoveryReason(resolved.recoveryReason ?? null);
   }
 
-  function candidateFor(ref?: TargetRef) {
-    return ref
-      ? candidateTargets.find((candidate) => candidate.targetRef === ref)
-      : undefined;
-  }
 
   let child: ReactNode;
 
@@ -181,9 +165,6 @@ export function PreparationShell({
           title="Prepare Support"
           description="Resolve a contextual missing-support need and return to the originating Target work."
           recoveryReason={recoveryReason ?? undefined}
-          candidateTarget={candidateFor(
-            navigation.candidateTargetRef ?? activeTargetRef ?? undefined,
-          )}
         />
       );
       break;
