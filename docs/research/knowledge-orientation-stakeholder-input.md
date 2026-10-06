@@ -28,7 +28,7 @@ This is explicitly a downstream hypothesis, not Problem Evidence and not a Produ
 The repository contains preserved donor evidence:
 
 - `experiments/knowledge_representation/` — a historical interactive 3D renderer/interaction/performance experiment;
-- `web/src/adapters/graph-rfg3d/` — implementation donor code;
+- deleted production renderer code is not a donor surface; any reusable spatial implementation evidence is preserved only under `experiments/knowledge_representation/`;
 - historical interface artifacts that exercised knowledge search/filter/detail/spatial projections.
 
 That evidence may support feasibility and future interface option exploration. It does not establish that 3D is the best representation, that spatial interaction improves learning, or that a graph is required.

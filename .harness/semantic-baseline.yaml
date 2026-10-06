@@ -129,5 +129,5 @@ reviews:
     basis: "Frontend Test Design now exercises the current task flow and ownership boundaries: same-view Current evidence detail, contextual post-Activity Evidence/change, declared composition variants, adapter substitution, legacy-edge rejection and Harness currentness."
 
   - capability: prep.frontend-implementation-design
-    revision: 11
-    basis: "Implementation Design slices realization by current task-feature owners from semantic foundation through shell/Target/Current/Knowledge/Activity/contextual Evidence/Prepare Support and legacy cleanup, while keeping prototype completion separate from representative-user/accessibility production authority."
+    revision: 12
+    basis: "Implementation Design is rebaselined after deliberate removal of all production frontend code: FI-00 selects a fresh versioned tool/build/test environment from current accepted needs, no package/layout/provider decision is inherited from deleted implementation, task-feature realization then proceeds from semantic contracts/mocks through the accepted flow, and prototype completion remains separate from human-validated production authority."
