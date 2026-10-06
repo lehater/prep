@@ -113,6 +113,11 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/check_harness_integration.py
 
+      - name: Revalidate UI materiality through Harness APIs
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/revalidate_ui_materiality.py
+
       - name: Probe full Harness currentness
         env:
           HARNESS_ROOT: .harness-tool
