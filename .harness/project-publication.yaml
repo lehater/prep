@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:e7e916b9585f5d7062e89ab574eafdda303749596b3eb67839f2d64a149d4830
-parent_revision: sha256:7f37f03f64ab69c8627402eaee64674a51464eabd31389e503401158844acfd9
+revision: sha256:8aa143539e53b3d2d889a1d3dcbea491ff786ddb121d3a537513e12c16286410
+parent_revision: sha256:e7e916b9585f5d7062e89ab574eafdda303749596b3eb67839f2d64a149d4830
 state:
   core_model:
     authorities:
@@ -386,7 +386,7 @@ state:
         acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id043
+        semantic_atom_fingerprints: &id071
           PE-ACTOR: SAF-d49d11eed6b2edfc8bec7516976522a1964da45b9ceb5098c67413e9d8529a69
           PE-PROBLEM: SAF-6fc4598edff6726ae1f68c1d9807c4056f1b129f37a22f4ae5966932fdf13394
           OBS-P01: SAF-d412b68713d318d0db5ba25ef444ecad5e3e05b95a1494ca964ae0868e9cf1d1
@@ -3031,7 +3031,7 @@ state:
           prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
         artifact: SCREEN-VIEW-DESIGN
         capability: prep.screen-view-design
-        semantic_atom_fingerprints: &id044
+        semantic_atom_fingerprints: &id054
           SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
           SV-COMPOSITION-VARIANTS: SAF-11b37177da8c84e50734ec9d85139f54a3ee06451afcabc4254171e4af3c624c
           SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
@@ -3055,6 +3055,491 @@ state:
         - engineering.interface.human.screen-composition
       status: ACCEPTED
       version: 1
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: IMPORT-CONSISTENCY
+      capability: prep.import-consistency
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.reliability.consistency
+        - engineering.reliability.retry-idempotency
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: concurrency-consistency-design
+        skill: skills/artifacts/concurrency-consistency-design/SKILL.md
+        acceptance_id: PREP-IMPORT-CONSISTENCY-STRICT-1
+        authority: CONCURRENCY-CONSISTENCY-DESIGN
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - CONCURRENCY-CONSISTENCY-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        changed_paths:
+        - docs/architecture/import-consistency.md
+        canonical_references:
+        - artifact: IMPORT-CONSISTENCY
+          referenced_path: docs/application/application-design.md
+        - artifact: IMPORT-CONSISTENCY
+          referenced_path: docs/interface/machine-interface.md
+        accepted_prerequisites: &id043
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        accepted_prerequisite_semantics: &id044
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: *id025
+            source_surface_fingerprints: *id025
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: &id049
+              MI-OUTCOME-MODEL: SAF-697dff22e8dba26bd0b2f288067947d10e3bdf1247074389656d083ad13e9a01
+            source_surface_fingerprints: *id036
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:58c58c55b610527bb9bfade91acb690a2237242f400f55428e3923d76bcce74c
+        acceptance_policy_fingerprint: sha256:58c58c55b610527bb9bfade91acb690a2237242f400f55428e3923d76bcce74c
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: IMPORT-CONSISTENCY
+        capability: prep.import-consistency
+        acceptance_id: PREP-IMPORT-CONSISTENCY-STRICT-1
+        acceptance_policy_fingerprint: sha256:58c58c55b610527bb9bfade91acb690a2237242f400f55428e3923d76bcce74c
+        accepted_prerequisites: *id043
+        accepted_prerequisite_semantics: *id044
+        semantic_atom_fingerprints: &id050
+          IC-CURRENT-SCOPE: SAF-d30389c6ac632c95ec6d360b600f2cf15477a925f3275a218becee0bc196eb46
+          IC-OWNER-ATOMICITY: SAF-9ceecd862fb716395176d7fbdb88ccb592bffa8680f618847b40f9e3838d6f8d
+          IC-PARTIAL-PREPARATION: SAF-2b2a71bd6d014aa3558e30d5c5feaeb2361d0d2f056cacb122e42b4c502106f7
+          IC-CURRENTNESS-CONFLICT: SAF-05c9f838af8617e403276fb566d369b4a5095b83ec418e99014141db27aab016
+          IC-RETRY-IDEMPOTENCY: SAF-052ca5bf2de39a94913cf8eed55c5868ae4eea7069f07c2b224f56b36c5d6221
+          IC-DISTINCT-PERFORMANCE: SAF-1d3db7cbee132e85deb4ce77d3caa7d8af4fbefd6834bbf8082d0ac865f4824a
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: INTERFACE-VERIFICATION
+      capability: prep.interface-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.interface.human
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - HUMAN-INTERFACE-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/interface-verification.md
+        canonical_references:
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/application/task-model.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/information-architecture.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/interaction-design.yaml
+        - artifact: INTERFACE-VERIFICATION
+          referenced_path: docs/interface/interface-topology.yaml
+        accepted_prerequisites: &id045
+          prep.task-model: PREP-TASK-MODEL-STRICT-4
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        accepted_prerequisite_semantics: &id046
+          prep.task-model:
+            exhaustive: true
+            semantic_atoms: &id061
+              TM-GOAL-PREPARE: SAF-9336ab26e98860b167783241e3dae69835613ec9db56940d0b7f7426847ab9e7
+              TM-GOAL-SUPPORT: SAF-27b74433343c04e7d473cdc49837956ebafc438f0894f131156fa1c0d6b38895
+              TM-GOAL-TARGET-DIRECTION: SAF-bcc7ac59f42a854a51044d731f4337e34d4fa051802635a31fde06d7812d195f
+            source_surface_fingerprints: *id023
+          prep.information-architecture:
+            exhaustive: true
+            semantic_atoms: &id062
+              IA-LOC-ACTIVITIES: SAF-1509046030063e164c0620f44897804fe37a5ed183172a84baf1a4c0a18bd0aa
+              IA-LOC-CURRENT: SAF-b633a31a32de573308dfc14bedc71f19689adfbaa295d8579aa0a95fdb1f777c
+              IA-LOC-EVIDENCE: SAF-28e511d519af6d9873ce43a67616fa9b149afad6c146d05234a08b33d6a86958
+              IA-LOC-KNOWLEDGE: SAF-8b373dee50bd23e8dac32aa4a144bde36d6a8055e981c171a1ae773baa38017f
+              IA-LOC-PREP-SUPPORT: SAF-f96eaf6ddb24dfaf3f09167e67e30782c9f83101c6ba2923dffc89110caa28bc
+              IA-LOC-TARGET: SAF-6d7f43c1a88fc8186f12904b08bd014f596b80cbe25f2264d92c201ba340fd09
+              IA-LOC-TARGETS: SAF-9b7688cb22bc60623767907a062217b842d201bc013c63c773ecb6a5a5966e25
+              IA-ROOT: SAF-429ad7d3abbc3d696eedb9c393617f6d6ab933d9bbdd56f9f0e42d3ede5d8f62
+            source_surface_fingerprints: *id038
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: &id047
+              IX-ACTIVITY: SAF-8af3de6e67fe231bf725cd6826412c867a5327fa1c0bfa42a51405215eed7027
+              IX-DIRECTION: SAF-de0eddfbea0a0dec62c8a9028c6cf1797d2fd9876bfb64058035266d47aa567f
+              IX-KNOWLEDGE: SAF-e52053113d200cb16fc3bec2a587d983fe26055253092c6c68cb0112e7bff2e9
+              IX-PREP-SUPPORT: SAF-515cf88b7c34a8d67515a5611d2810a1650358602fd17da3e0c2f8424161df50
+              IX-TARGET: SAF-4c279af9424cf5ff3149f4c2cb600865c5476aa27f5a28371e19dac0065ababc
+              IX-TARGET-DIRECTION: SAF-ba410d618838130b609532dbbdb66b89a49b5edd657e3df419b7b56561021cc7
+            source_surface_fingerprints: *id039
+          prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: &id048
+              TOP-ROOT: SAF-7b83df7504b0ee8319e66fa6e3c6a58ce0401d9857c91519867dc1c25351e421
+            source_surface_fingerprints: *id041
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: INTERFACE-VERIFICATION
+        capability: prep.interface-verification
+        acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        accepted_prerequisites: *id045
+        accepted_prerequisite_semantics: *id046
+        semantic_atom_fingerprints: &id053
+          IV-SCOPE: SAF-49d091f736f9fc1d005518646344682263668acf99ff5b8465e44ea173f03904
+          IV-TASK-INTERACTION: SAF-a44c9be6e58a871675329182c265f2ee8a00c5f9cacc7ea49409610593109175
+          IV-IA-TOPOLOGY: SAF-0a5abea0e4ff506f3670215b7a924947a54353594337e57da9010b76e86e03d6
+          IV-TARGET-DIRECTION: SAF-483a17014e7b1f3527631c965630e1bd3874dfb0cf640c064aa6abbe9534c72b
+          IV-PREPARATION-SUPPORT: SAF-de7a20d0ac3c63f3fca9810fe05343e5e1d0a14287ce44c2bd372b20ecdbab91
+          IV-KNOWLEDGE: SAF-67563c2c02f6acc0e3f857a9e7342a6400d58267f1f1c01154134962e0e4df43
+          IV-ACTIVITY-EVIDENCE: SAF-38a255b6c2e40fadd75a60a07cfa0d179b24b6f1b86795ac2772d19ccabe5369
+          IV-OUTCOME-RECOVERY: SAF-c857e242c2e1bc15b63ec67992a1380ac44d4c985d1a19547e6cab09d6d080a6
+          IV-NONSPATIAL: SAF-b1bf2f828a3f2b159cc56b7597be27c593ae801c75c4e08ed458ecd2f0f8c69e
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: SYSTEM-ARCHITECTURE
+      capability: prep.system-architecture
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.architecture.structure
+        - engineering.architecture.boundaries
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: system-architecture
+        skill: skills/artifacts/system-architecture/SKILL.md
+        acceptance_id: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+        authority: SYSTEM-ARCHITECTURE
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - CONCURRENCY-CONSISTENCY-DESIGN
+        - HUMAN-INTERFACE-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/architecture/system-architecture.md
+        canonical_references:
+        - artifact: SYSTEM-ARCHITECTURE
+          referenced_path: docs/application/application-design.md
+        - artifact: SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/interaction-design.yaml
+        - artifact: SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/interface-topology.yaml
+        - artifact: SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: SYSTEM-ARCHITECTURE
+          referenced_path: docs/architecture/import-consistency.md
+        accepted_prerequisites: &id051
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+        accepted_prerequisite_semantics: &id052
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: &id063
+              AD-COMPARE-TARGETS: SAF-0854fb52a0af7b7d5647a49dd422b5e3040a434486701f50fc4831a50d069d8e
+              AD-EXPLORE-KNOWLEDGE: SAF-211304dfcb67587c210e2bac70eddf8c7fe409d311f30ebf97b1e8fc97881ea9
+              AD-REVIEW-CHANGE: SAF-756a2a1dc3aa47dc50f7cb59afc206ec27b9daab323e4a9fec2758490eecb819
+              AD-REVIEW-CURRENT-STATE: SAF-5eaca233fd8afa4da29f24395c080a1796198bc07fb9b82a9864d86a26986a2c
+              AD-REVIEW-GAPS: SAF-06e2b016c6fe19d9b112939c45d51733c892cea06f81b5328da1de1ae2f1e466
+              AD-SELECT-SUPPORT: SAF-152404377bbc08fe3e11569ec87c64c157871030fbf91d57389ea1c4a0095b9e
+              AD-UNDERSTAND-REQUIREMENTS: SAF-fd2d31c9cf9ad8d441f66db2a72118b5f7dbdcae79a97a73a1131762b407a7b6
+            source_surface_fingerprints: *id025
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id047
+            source_surface_fingerprints: *id039
+          prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: *id048
+            source_surface_fingerprints: *id041
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id049
+            source_surface_fingerprints: *id036
+          prep.import-consistency:
+            exhaustive: true
+            semantic_atoms: &id057
+              IC-CURRENT-SCOPE: SAF-d30389c6ac632c95ec6d360b600f2cf15477a925f3275a218becee0bc196eb46
+            source_surface_fingerprints: *id050
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: SYSTEM-ARCHITECTURE
+        capability: prep.system-architecture
+        acceptance_id: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+        acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        accepted_prerequisites: *id051
+        accepted_prerequisite_semantics: *id052
+        semantic_atom_fingerprints: &id058
+          SA-DRIVER-CLOSURE: SAF-952965597f0fb60fd599679498d6971a277eeb05d19fd46b5275a203783828f5
+          SA-RUNTIME-BOUNDARIES: SAF-86d25b54b71e510604d7c4730045c1a96ee7721eb67bf746a22ba5d1ad062857
+          SA-DEPLOYMENT-FREEDOM: SAF-d68fc7bdade5093b09da030eea74630360c7c12edb55f848488adf71a4c38cb4
+          SA-INTERACTION-MODEL: SAF-0ff5dbb1b55df522b5566e641ab410bd57141e40c388971a613d0590b2530e44
+          SA-STATE-PLACEMENT: SAF-e0d9ac04d9182982d82d4d1ff898f17ceb365f8f2b4be37ac6243eaa37fc76b3
+          SA-DEPENDENCY-DIRECTION: SAF-e9570438fb71e6cd1a700ad9ac65febc6fa4fba67634909e71ebf1141c38cfd7
+          SA-FAILURE-ISOLATION: SAF-932827ce0925dab780e11460a2dcb6c71746f4cf075edd924c9d6b8026bae438
+          SA-EXTERNAL-RUNTIME: SAF-1b6f19e7fb4c7237840d9b88768ccc4cd54207ecaf978f541c3b680f89b3d323
+          SA-NONGOALS: SAF-854cbe2bdd92b94580db6d902074dbe6ea21a0501d0f5e9d4c6582af2e170f11
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PRESENTATION-VERIFICATION
+      capability: prep.presentation-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.interface.presentation
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - HUMAN-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/presentation-verification.md
+        canonical_references:
+        - artifact: PRESENTATION-VERIFICATION
+          referenced_path: docs/verification/interface-verification.md
+        accepted_prerequisites: &id055
+          prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics: &id056
+          prep.interface-verification:
+            exhaustive: true
+            semantic_atoms: &id064
+              IV-SCOPE: SAF-49d091f736f9fc1d005518646344682263668acf99ff5b8465e44ea173f03904
+            source_surface_fingerprints: *id053
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: &id065
+              PS-CONTROLS: SAF-f9ad281b42a07df3540967f685e80071846f96213ef340c2285e3d652d9ca978
+              PS-DENSITY: SAF-36ac408d7d4d8eb30ae473520cbd1b0a9325362f0123a14eba0a4af50d504f4b
+              PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
+            source_surface_fingerprints: *id042
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: &id066
+              SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
+              SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
+              SV-EVIDENCE: SAF-85c69a011c8df501995e7307e73287a7f1b44de4eda8903f0c2e6af9fd4385e9
+              SV-FRAME: SAF-2a66df9266c6acc3affac9ec39a52109e45aed2b7450ce826f59b381576ebde1
+              SV-KNOWLEDGE: SAF-ee09b1f8470286d431cc1302f55972bdb04e9ee927d17f9535b9ecac6ec74dfc
+              SV-PREP-SUPPORT: SAF-1413d2b47c73d090fb8fcf281ae65d8499353ab36aec3eed1b3fe62193123dd4
+              SV-TARGET: SAF-07c6f3c442928a045e13cfbcfdb1d6b46ccea41d5f04e143a31a7fadcdaee1b8
+              SV-TARGETS: SAF-3c9f0079625c0b6a2933f8cb674e2d6d989743fa27665735be3c979fb99fc392
+            source_surface_fingerprints: *id054
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id040
+            source_surface_fingerprints: *id040
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PRESENTATION-VERIFICATION
+        capability: prep.presentation-verification
+        acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        accepted_prerequisites: *id055
+        accepted_prerequisite_semantics: *id056
+        semantic_atom_fingerprints: &id072
+          PV-SCOPE: SAF-5f42b1b0a8af071c1477d95263588828f1c48b227b0ea5b2189c6e677f57b008
+          PV-WORKFLOW: SAF-3d84dd82d1d9db9cf5f2c879fa1ca7839a4eabec8123c468321c74c68ce717cd
+          PV-STATE-BASIS: SAF-3177a41a535c6176492d7fcca6d8bfba0dea20895be22f2876e09dac70b3745a
+          PV-SUPPORT-PROGRESSION: SAF-e412d37055448fce46c03666ee943e8228407bfdda365c547bb3d57528354efa
+          PV-KNOWLEDGE: SAF-983e6609d64486302a6ebbfa88a64edc968171a6feae69370fe50076a76309dc
+          PV-COMPOSITION-VARIANTS: SAF-bb3ab7c3c40d7a87c4c9f8feafd5a2288b03b8876a570a5dd1d2bf2dc8837f11
+          PV-RESPONSIVE-ACCESSIBILITY: SAF-ae2dac1c4e24f7dc5b06c9893268d46fbf81b5444a2fc5a5cc2ce8318cca4383
+          PV-DEGRADATION: SAF-3d23341a2c262861805f825859073a1c96d8fbe26c45765e7121196bffd9b7ce
+          PV-HUMAN-EVIDENCE: SAF-92bf7ce8539027e2b30058e37165f519ce70d87ac36aba5dc69073363985d6a6
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: DATA-DESIGN
+      capability: prep.data-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: data-design
+        skill: skills/artifacts/data-design/SKILL.md
+        acceptance_id: PREP-DATA-DESIGN-STRICT-1
+        authority: DATA-DESIGN
+        allowed_source_authorities:
+        - CONCURRENCY-CONSISTENCY-DESIGN
+        - DATA-DESIGN
+        - SYSTEM-ARCHITECTURE
+        - TACTICAL-DOMAIN-DESIGN
+        changed_paths:
+        - docs/architecture/data-design.md
+        canonical_references:
+        - artifact: DATA-DESIGN
+          referenced_path: docs/domain/knowledge-model.md
+        - artifact: DATA-DESIGN
+          referenced_path: docs/domain/learning-design.md
+        - artifact: DATA-DESIGN
+          referenced_path: docs/domain/learner-model.md
+        - artifact: DATA-DESIGN
+          referenced_path: docs/architecture/import-consistency.md
+        - artifact: DATA-DESIGN
+          referenced_path: docs/architecture/system-architecture.md
+        accepted_prerequisites: &id059
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+          prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+          prep.system-architecture: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+        accepted_prerequisite_semantics: &id060
+          prep.knowledge-model:
+            exhaustive: true
+            semantic_atoms: &id067
+              KM-KNOWLEDGE-FAMILY: SAF-37f8716a532b05cf5f5ad42575c8b22156263a8570fb130a22be6fce7362cf49
+              KM-KNOWLEDGE-OBJECT-IDENTITY: SAF-abcaf3de445132c8bfdc6e953d25380b901a5d42dd114cdf0154267434197fa5
+              KM-KNOWLEDGE-PROPOSITION: SAF-0f541766f686ce1924ad56921306dc1fc635c0944db5cf9ff7837e9fcfe62471
+              KM-OPEN-KNOWLEDGE-FORM: SAF-da6778c6924dfa6612207ece5108e386acf15f12405bd20b2318f44a6f04f21b
+            source_surface_fingerprints: *id012
+          prep.learning-design:
+            exhaustive: true
+            semantic_atoms: &id068
+              LD-CAPABILITY: SAF-699d233bd68c4a798658dbdf6b82f46554b5127d577fdca2b4d66afa66954024
+              LD-CAPABILITY-SPECIFICATION: SAF-7f6016d846bea90c9631465da252e6e552a50e35b7132a5ce441839ba2535342
+              LD-CAPABILITY-STANDARD: SAF-b753aaf3199c4b9946b664f6ee02205fff8539a9fe71038a3699c1434a2195ac
+              LD-GAP-PRIORITY: SAF-cf900519688d824a83b415b03d415cd313b6f6f87ec9f363b6ecdc4d7162fbdc
+              LD-KNOWLEDGE-FOCUS: SAF-4ded4f3fcca4ae5fc20821f2e2f9a0edb0975797b66f6b6e502f4f463c324174
+              LD-LEARNING-MATERIAL: SAF-3ec837d367ed94023f04ee91bef7a8b26ec5191872d007dbcba2809a099ed739
+              LD-OBSERVATION-SPECIFICATION: SAF-beee88c4eebfb76dfd38272cca1ca2e5466066653b0b125293dbd047d7e8ae93
+              LD-PREPARATION-INTENT: SAF-d7a3f5e9af425ad561239ed168f504e13b1a578575e8e493f316cef738d318e0
+              LD-PREPARATION-TARGET: SAF-ae06a59eaeac9a1c2611fc10288f9f99b7912aa2c75a5c3807816b307b5794c7
+              LD-REQUIREMENT-EXPRESSION: SAF-0346106b2a885093d42396f1bba9b3e4921f5c7322ad893fa385ea9796facc3e
+              LD-SUPPORT-REQUIREMENT: SAF-17a8d83f64ffdbca8655b093934c935f9fe6e460e17ad1f4d594cd4291f9402f
+              LD-TASK-SPECIFICATION: SAF-13e88ba509187d903ce9d26bfbafec2ed8ad8fe911fa82ed7baec1b12f7991e5
+            source_surface_fingerprints: *id020
+          prep.learner-model:
+            exhaustive: true
+            semantic_atoms: &id069
+              LM-CAPABILITY-CLAIM: SAF-1a594cfcb89383c4ebd3a71f73bf749b379dc691e7ff72a078dffe142e435119
+              LM-EVIDENCE-ARGUMENT: SAF-5549f7942db756cde079ce0c4de509250d68804723e6aab4cd05e3bcc8b55e92
+              LM-OBSERVATION: SAF-d0208417db3d66746d0d859f56134defac9d69ebce35adb14d3a6d154fce706d
+              LM-PERFORMANCE: SAF-0f20ec62aa2dd2cdef8b7f75f82b3d8694d159b90b99a4f410d01711296e6a10
+              LM-STATE-PROJECTION: SAF-b45b4d5a1462e24ab25716d1ca21ccaf7d6fb675c0770f7d84e7ee09734258fc
+            source_surface_fingerprints: *id021
+          prep.import-consistency:
+            exhaustive: true
+            semantic_atoms: *id057
+            source_surface_fingerprints: *id050
+          prep.system-architecture:
+            exhaustive: true
+            semantic_atoms: &id070
+              SA-DRIVER-CLOSURE: SAF-952965597f0fb60fd599679498d6971a277eeb05d19fd46b5275a203783828f5
+            source_surface_fingerprints: *id058
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:927a711467a4e82335a15cc34ca946e49e0a693fa1a79ad704a6ea8da04fecb7
+        acceptance_policy_fingerprint: sha256:927a711467a4e82335a15cc34ca946e49e0a693fa1a79ad704a6ea8da04fecb7
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: DATA-DESIGN
+        capability: prep.data-design
+        acceptance_id: PREP-DATA-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:927a711467a4e82335a15cc34ca946e49e0a693fa1a79ad704a6ea8da04fecb7
+        accepted_prerequisites: *id059
+        accepted_prerequisite_semantics: *id060
+        semantic_atom_fingerprints: &id073
+          DD-OWNERSHIP: SAF-6ed2daebedee7a926babffe0ca8f8bdea3048bc6cdff69c0eca14040584b79f3
+          DD-KNOWLEDGE: SAF-390cc8405c10e7ad0e043b8b3d3c696dfb405cead846c38a3c3c061c524ceb07
+          DD-LEARNING: SAF-b08ad5862217101b3fa48761e39d4c879bbce6b3644d42d1b958ceae7dec29f8
+          DD-LEARNER-HISTORY: SAF-4b458a799a6399141b82d026a49851f3f6aee86ae013299cf180c661543bb9ac
+          DD-CROSS-OWNER-REFS: SAF-270af70986761332b3b393c94a4bae33ed412bfd7fd8ec4d0b201db8e51de58d
+          DD-CONSISTENCY: SAF-650f92de4d4263d005738fd0218400f692e6b28d4f2b8a84a530df1b9106da98
+          DD-INTEGRATION: SAF-55d7d42366522ddd77b80f1a0dfabee339b468d834579695c86fe7d01c97ca41
+          DD-LEGACY-BOUNDARY: SAF-83704c1cf859b6c69181ee4abaf88bd8549356b9ac1d2ec3c396622b9924e791
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -13453,6 +13938,1113 @@ state:
       target_authority: HUMAN-INTERFACE-DESIGN
       target_capability: prep.screen-view-design
       version: 1
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.application-design
+      target_capability: prep.import-consistency
+      source_authority: APPLICATION-DESIGN
+      target_authority: CONCURRENCY-CONSISTENCY-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - AD-CAPTURE-PERFORMANCE
+      - AD-CHOOSE-NEXT-FOCUS
+      - AD-COMPARE-TARGETS
+      - AD-CURRENTNESS-BASIS
+      - AD-ESTABLISH-TARGET
+      - AD-EVALUATE-EVIDENCE
+      - AD-EXPLORE-KNOWLEDGE
+      - AD-OUTCOME-MODEL
+      - AD-PARTIAL-PREPARATION
+      - AD-PERFORM-ACTIVITY
+      - AD-PREPARE-SUPPORT
+      - AD-PROCESS-HANDOFF
+      - AD-REQUEST-PREPARATION-SUPPORT
+      - AD-REVIEW-CHANGE
+      - AD-REVIEW-CURRENT-STATE
+      - AD-REVIEW-GAPS
+      - AD-RUNTIME-TIMING-FREEDOM
+      - AD-SELECT-SUPPORT
+      - AD-UNDERSTAND-REQUIREMENTS
+      - AD-WRITE-OWNERSHIP
+      covered_sources:
+      - AD-CAPTURE-PERFORMANCE
+      - AD-CHOOSE-NEXT-FOCUS
+      - AD-COMPARE-TARGETS
+      - AD-CURRENTNESS-BASIS
+      - AD-ESTABLISH-TARGET
+      - AD-EVALUATE-EVIDENCE
+      - AD-EXPLORE-KNOWLEDGE
+      - AD-OUTCOME-MODEL
+      - AD-PARTIAL-PREPARATION
+      - AD-PERFORM-ACTIVITY
+      - AD-PREPARE-SUPPORT
+      - AD-PROCESS-HANDOFF
+      - AD-REQUEST-PREPARATION-SUPPORT
+      - AD-REVIEW-CHANGE
+      - AD-REVIEW-CURRENT-STATE
+      - AD-REVIEW-GAPS
+      - AD-RUNTIME-TIMING-FREEDOM
+      - AD-SELECT-SUPPORT
+      - AD-UNDERSTAND-REQUIREMENTS
+      - AD-WRITE-OWNERSHIP
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - AD-CAPTURE-PERFORMANCE
+        - AD-CHOOSE-NEXT-FOCUS
+        - AD-COMPARE-TARGETS
+        - AD-CURRENTNESS-BASIS
+        - AD-ESTABLISH-TARGET
+        - AD-EVALUATE-EVIDENCE
+        - AD-EXPLORE-KNOWLEDGE
+        - AD-OUTCOME-MODEL
+        - AD-PARTIAL-PREPARATION
+        - AD-PERFORM-ACTIVITY
+        - AD-PREPARE-SUPPORT
+        - AD-PROCESS-HANDOFF
+        - AD-REQUEST-PREPARATION-SUPPORT
+        - AD-REVIEW-CHANGE
+        - AD-REVIEW-CURRENT-STATE
+        - AD-REVIEW-GAPS
+        - AD-RUNTIME-TIMING-FREEDOM
+        - AD-SELECT-SUPPORT
+        - AD-UNDERSTAND-REQUIREMENTS
+        - AD-WRITE-OWNERSHIP
+        targets:
+        - IC-CURRENT-SCOPE
+      coverage:
+        required: 20
+        covered: 20
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.application-design
+        exhaustive: true
+        semantic_atoms: *id025
+        source_surface_fingerprints: *id025
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.machine-interfaces
+      target_capability: prep.import-consistency
+      source_authority: MACHINE-INTERFACE-DESIGN
+      target_authority: CONCURRENCY-CONSISTENCY-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - MI-OUTCOME-MODEL
+      covered_sources:
+      - MI-OUTCOME-MODEL
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - MI-BASIS
+        - MI-COMPATIBILITY
+        - MI-NO-LEAK
+        - MI-OP-ACTIVITY-COMPLETE
+        - MI-OP-ACTIVITY-START
+        - MI-OP-CHANGE-GET
+        - MI-OP-EVIDENCE-GET
+        - MI-OP-FOCUS-SET
+        - MI-OP-GAPS-GET
+        - MI-OP-KNOWLEDGE-QUERY
+        - MI-OP-PREP-GET
+        - MI-OP-PREP-REQUEST
+        - MI-OP-REQUIREMENTS-GET
+        - MI-OP-STATE-GET
+        - MI-OP-SUPPORT-LIST
+        - MI-OP-TARGET-ESTABLISH
+        - MI-OP-TARGETS-COMPARE
+        - MI-OUTCOME-MODEL
+        - MI-PROC-ACTIVITY
+        - MI-PROC-PREP
+        - MI-REP-ACTIVITY
+        - MI-REP-CHANGE
+        - MI-REP-CURRENT
+        - MI-REP-EVIDENCE
+        - MI-REP-FOCUS
+        - MI-REP-GAP
+        - MI-REP-KNOWLEDGE
+        - MI-REP-PREP-REQUEST
+        - MI-REP-REQUIREMENT
+        - MI-REP-SUPPORT
+        - MI-REP-TARGET
+        - MI-REP-TARGET-COMPARISON
+        targets:
+        - IC-CURRENT-SCOPE
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id049
+        source_surface_fingerprints: *id036
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.task-model
+      target_capability: prep.interface-verification
+      source_authority: APPLICATION-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - TM-GOAL-PREPARE
+      - TM-GOAL-SUPPORT
+      - TM-GOAL-TARGET-DIRECTION
+      covered_sources:
+      - TM-GOAL-PREPARE
+      - TM-GOAL-SUPPORT
+      - TM-GOAL-TARGET-DIRECTION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - TM-DECISION-CAPTURE-PERFORMANCE
+        - TM-DECISION-CHOOSE-NEXT-FOCUS
+        - TM-DECISION-COMPARE-TARGETS
+        - TM-DECISION-ESTABLISH-TARGET
+        - TM-DECISION-EVALUATE-EVIDENCE
+        - TM-DECISION-EXPLORE-KNOWLEDGE
+        - TM-DECISION-PERFORM-ACTIVITY
+        - TM-DECISION-PREPARE-SUPPORT
+        - TM-DECISION-REQUEST-PREPARATION-SUPPORT
+        - TM-DECISION-REVIEW-CHANGE
+        - TM-DECISION-REVIEW-CURRENT-STATE
+        - TM-DECISION-REVIEW-GAPS
+        - TM-DECISION-SELECT-SUPPORT
+        - TM-DECISION-UNDERSTAND-REQUIREMENTS
+        - TM-GOAL-PREPARE
+        - TM-GOAL-SUPPORT
+        - TM-GOAL-TARGET-DIRECTION
+        - TM-GREF-CAPTURE-PERFORMANCE
+        - TM-GREF-CHOOSE-NEXT-FOCUS
+        - TM-GREF-COMPARE-TARGETS
+        - TM-GREF-ESTABLISH-TARGET
+        - TM-GREF-EVALUATE-EVIDENCE
+        - TM-GREF-EXPLORE-KNOWLEDGE
+        - TM-GREF-PERFORM-ACTIVITY
+        - TM-GREF-PREPARE-SUPPORT
+        - TM-GREF-REQUEST-PREPARATION-SUPPORT
+        - TM-GREF-REVIEW-CHANGE
+        - TM-GREF-REVIEW-CURRENT-STATE
+        - TM-GREF-REVIEW-GAPS
+        - TM-GREF-SELECT-SUPPORT
+        - TM-GREF-UNDERSTAND-REQUIREMENTS
+        - TM-INFO-CAPTURE-PERFORMANCE
+        - TM-INFO-CHOOSE-NEXT-FOCUS
+        - TM-INFO-COMPARE-TARGETS
+        - TM-INFO-ESTABLISH-TARGET
+        - TM-INFO-EVALUATE-EVIDENCE
+        - TM-INFO-EXPLORE-KNOWLEDGE
+        - TM-INFO-PERFORM-ACTIVITY
+        - TM-INFO-PREPARE-SUPPORT
+        - TM-INFO-REQUEST-PREPARATION-SUPPORT
+        - TM-INFO-REVIEW-CHANGE
+        - TM-INFO-REVIEW-CURRENT-STATE
+        - TM-INFO-REVIEW-GAPS
+        - TM-INFO-SELECT-SUPPORT
+        - TM-INFO-UNDERSTAND-REQUIREMENTS
+        - TM-OUTCOME-CAPTURE-PERFORMANCE
+        - TM-OUTCOME-CHOOSE-NEXT-FOCUS
+        - TM-OUTCOME-COMPARE-TARGETS
+        - TM-OUTCOME-ESTABLISH-TARGET
+        - TM-OUTCOME-EVALUATE-EVIDENCE
+        - TM-OUTCOME-EXPLORE-KNOWLEDGE
+        - TM-OUTCOME-PERFORM-ACTIVITY
+        - TM-OUTCOME-PREPARE-SUPPORT
+        - TM-OUTCOME-REQUEST-PREPARATION-SUPPORT
+        - TM-OUTCOME-REVIEW-CHANGE
+        - TM-OUTCOME-REVIEW-CURRENT-STATE
+        - TM-OUTCOME-REVIEW-GAPS
+        - TM-OUTCOME-SELECT-SUPPORT
+        - TM-OUTCOME-UNDERSTAND-REQUIREMENTS
+        - TM-RECOVERY-CAPTURE-PERFORMANCE
+        - TM-RECOVERY-CHOOSE-NEXT-FOCUS
+        - TM-RECOVERY-COMPARE-TARGETS
+        - TM-RECOVERY-ESTABLISH-TARGET
+        - TM-RECOVERY-EVALUATE-EVIDENCE
+        - TM-RECOVERY-EXPLORE-KNOWLEDGE
+        - TM-RECOVERY-PERFORM-ACTIVITY
+        - TM-RECOVERY-PREPARE-SUPPORT
+        - TM-RECOVERY-REQUEST-PREPARATION-SUPPORT
+        - TM-RECOVERY-REVIEW-CHANGE
+        - TM-RECOVERY-REVIEW-CURRENT-STATE
+        - TM-RECOVERY-REVIEW-GAPS
+        - TM-RECOVERY-SELECT-SUPPORT
+        - TM-RECOVERY-UNDERSTAND-REQUIREMENTS
+        - TM-RESP-CAPTURE-PERFORMANCE
+        - TM-RESP-CHOOSE-NEXT-FOCUS
+        - TM-RESP-COMPARE-TARGETS
+        - TM-RESP-ESTABLISH-TARGET
+        - TM-RESP-EVALUATE-EVIDENCE
+        - TM-RESP-EXPLORE-KNOWLEDGE
+        - TM-RESP-PERFORM-ACTIVITY
+        - TM-RESP-PREPARE-SUPPORT
+        - TM-RESP-REQUEST-PREPARATION-SUPPORT
+        - TM-RESP-REVIEW-CHANGE
+        - TM-RESP-REVIEW-CURRENT-STATE
+        - TM-RESP-REVIEW-GAPS
+        - TM-RESP-SELECT-SUPPORT
+        - TM-RESP-UNDERSTAND-REQUIREMENTS
+        - TM-SUPPORT-CAPTURE-PERFORMANCE
+        - TM-SUPPORT-CHOOSE-NEXT-FOCUS
+        - TM-SUPPORT-COMPARE-TARGETS
+        - TM-SUPPORT-ESTABLISH-TARGET
+        - TM-SUPPORT-EVALUATE-EVIDENCE
+        - TM-SUPPORT-EXPLORE-KNOWLEDGE
+        - TM-SUPPORT-PERFORM-ACTIVITY
+        - TM-SUPPORT-PREPARE-SUPPORT
+        - TM-SUPPORT-REQUEST-PREPARATION-SUPPORT
+        - TM-SUPPORT-REVIEW-CHANGE
+        - TM-SUPPORT-REVIEW-CURRENT-STATE
+        - TM-SUPPORT-REVIEW-GAPS
+        - TM-SUPPORT-SELECT-SUPPORT
+        - TM-SUPPORT-UNDERSTAND-REQUIREMENTS
+        - TM-TASK-CAPTURE-PERFORMANCE
+        - TM-TASK-CHOOSE-NEXT-FOCUS
+        - TM-TASK-COMPARE-TARGETS
+        - TM-TASK-ESTABLISH-TARGET
+        - TM-TASK-EVALUATE-EVIDENCE
+        - TM-TASK-EXPLORE-KNOWLEDGE
+        - TM-TASK-PERFORM-ACTIVITY
+        - TM-TASK-PREPARE-SUPPORT
+        - TM-TASK-REQUEST-PREPARATION-SUPPORT
+        - TM-TASK-REVIEW-CHANGE
+        - TM-TASK-REVIEW-CURRENT-STATE
+        - TM-TASK-REVIEW-GAPS
+        - TM-TASK-SELECT-SUPPORT
+        - TM-TASK-UNDERSTAND-REQUIREMENTS
+        targets:
+        - IV-TASK-INTERACTION
+      coverage:
+        required: 3
+        covered: 3
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.task-model
+        exhaustive: true
+        semantic_atoms: *id061
+        source_surface_fingerprints: *id023
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.information-architecture
+      target_capability: prep.interface-verification
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-ROOT
+      covered_sources:
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-ROOT
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IA-CROSSLINKS
+        - IA-FINDABILITY
+        - IA-LOC-ACTIVITIES
+        - IA-LOC-CURRENT
+        - IA-LOC-EVIDENCE
+        - IA-LOC-KNOWLEDGE
+        - IA-LOC-PREP-SUPPORT
+        - IA-LOC-TARGET
+        - IA-LOC-TARGETS
+        - IA-NO-SCREEN
+        - IA-ROOT
+        - IA-SCOPE-FOCUS
+        - IA-SCOPE-KNOWLEDGE
+        - IA-SCOPE-TARGET
+        - IA-STRUCTURE
+        - IA-TAXONOMY
+        targets:
+        - IV-IA-TOPOLOGY
+      coverage:
+        required: 8
+        covered: 8
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.information-architecture
+        exhaustive: true
+        semantic_atoms: *id062
+        source_surface_fingerprints: *id038
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interaction-design
+      target_capability: prep.interface-verification
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - IX-ACTIVITY
+      - IX-DIRECTION
+      - IX-KNOWLEDGE
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      covered_sources:
+      - IX-ACTIVITY
+      - IX-DIRECTION
+      - IX-KNOWLEDGE
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IX-ACTIVITY
+        - IX-CONTEXT-CONTINUITY
+        - IX-CURRENTNESS
+        - IX-DIRECTION
+        - IX-KEYBOARD
+        - IX-KNOWLEDGE
+        - IX-NO-LAYOUT
+        - IX-OUTCOMES
+        - IX-PENDING
+        - IX-PREP-SUPPORT
+        - IX-TARGET
+        - IX-TARGET-DIRECTION
+        targets:
+        - IV-SCOPE
+      coverage:
+        required: 6
+        covered: 6
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id047
+        source_surface_fingerprints: *id039
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interface-topology
+      target_capability: prep.interface-verification
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - TOP-ROOT
+      covered_sources:
+      - TOP-ROOT
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CONTEXT
+        - TOP-CROSSLINKS
+        - TOP-DIRECT-LINK
+        - TOP-LABELS
+        - TOP-NO-COMPOSITION
+        - TOP-ROOT
+        - TOP-VIEW-ACTIVITY
+        - TOP-VIEW-CURRENT
+        - TOP-VIEW-EVIDENCE
+        - TOP-VIEW-KNOWLEDGE
+        - TOP-VIEW-PREP-SUPPORT
+        - TOP-VIEW-TARGET
+        - TOP-VIEW-TARGETS
+        targets:
+        - IV-IA-TOPOLOGY
+      - relation: CONSTRAINS
+        sources:
+        - TOP-EVIDENCE-REVIEW
+        targets:
+        - IV-ACTIVITY-EVIDENCE
+        - IV-IA-TOPOLOGY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interface-topology
+        exhaustive: true
+        semantic_atoms: *id048
+        source_surface_fingerprints: *id041
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.application-design
+      target_capability: prep.system-architecture
+      source_authority: APPLICATION-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - AD-COMPARE-TARGETS
+      - AD-EXPLORE-KNOWLEDGE
+      - AD-REVIEW-CHANGE
+      - AD-REVIEW-CURRENT-STATE
+      - AD-REVIEW-GAPS
+      - AD-SELECT-SUPPORT
+      - AD-UNDERSTAND-REQUIREMENTS
+      covered_sources:
+      - AD-COMPARE-TARGETS
+      - AD-EXPLORE-KNOWLEDGE
+      - AD-REVIEW-CHANGE
+      - AD-REVIEW-CURRENT-STATE
+      - AD-REVIEW-GAPS
+      - AD-SELECT-SUPPORT
+      - AD-UNDERSTAND-REQUIREMENTS
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - AD-CAPTURE-PERFORMANCE
+        - AD-CHOOSE-NEXT-FOCUS
+        - AD-COMPARE-TARGETS
+        - AD-CURRENTNESS-BASIS
+        - AD-ESTABLISH-TARGET
+        - AD-EVALUATE-EVIDENCE
+        - AD-EXPLORE-KNOWLEDGE
+        - AD-OUTCOME-MODEL
+        - AD-PARTIAL-PREPARATION
+        - AD-PERFORM-ACTIVITY
+        - AD-PREPARE-SUPPORT
+        - AD-PROCESS-HANDOFF
+        - AD-REQUEST-PREPARATION-SUPPORT
+        - AD-REVIEW-CHANGE
+        - AD-REVIEW-CURRENT-STATE
+        - AD-REVIEW-GAPS
+        - AD-RUNTIME-TIMING-FREEDOM
+        - AD-SELECT-SUPPORT
+        - AD-UNDERSTAND-REQUIREMENTS
+        - AD-WRITE-OWNERSHIP
+        targets:
+        - SA-DRIVER-CLOSURE
+      coverage:
+        required: 7
+        covered: 7
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.application-design
+        exhaustive: true
+        semantic_atoms: *id063
+        source_surface_fingerprints: *id025
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interaction-design
+      target_capability: prep.system-architecture
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - IX-ACTIVITY
+      - IX-DIRECTION
+      - IX-KNOWLEDGE
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      covered_sources:
+      - IX-ACTIVITY
+      - IX-DIRECTION
+      - IX-KNOWLEDGE
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IX-ACTIVITY
+        - IX-CONTEXT-CONTINUITY
+        - IX-CURRENTNESS
+        - IX-DIRECTION
+        - IX-KEYBOARD
+        - IX-KNOWLEDGE
+        - IX-NO-LAYOUT
+        - IX-OUTCOMES
+        - IX-PENDING
+        - IX-PREP-SUPPORT
+        - IX-TARGET
+        - IX-TARGET-DIRECTION
+        targets:
+        - SA-RUNTIME-BOUNDARIES
+      coverage:
+        required: 6
+        covered: 6
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id047
+        source_surface_fingerprints: *id039
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interface-topology
+      target_capability: prep.system-architecture
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - TOP-ROOT
+      covered_sources:
+      - TOP-ROOT
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CONTEXT
+        - TOP-CROSSLINKS
+        - TOP-DIRECT-LINK
+        - TOP-EVIDENCE-REVIEW
+        - TOP-LABELS
+        - TOP-NO-COMPOSITION
+        - TOP-ROOT
+        - TOP-VIEW-ACTIVITY
+        - TOP-VIEW-CURRENT
+        - TOP-VIEW-EVIDENCE
+        - TOP-VIEW-KNOWLEDGE
+        - TOP-VIEW-PREP-SUPPORT
+        - TOP-VIEW-TARGET
+        - TOP-VIEW-TARGETS
+        targets:
+        - SA-RUNTIME-BOUNDARIES
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interface-topology
+        exhaustive: true
+        semantic_atoms: *id048
+        source_surface_fingerprints: *id041
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.machine-interfaces
+      target_capability: prep.system-architecture
+      source_authority: MACHINE-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - MI-OUTCOME-MODEL
+      covered_sources:
+      - MI-OUTCOME-MODEL
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - MI-BASIS
+        - MI-COMPATIBILITY
+        - MI-NO-LEAK
+        - MI-OP-ACTIVITY-COMPLETE
+        - MI-OP-ACTIVITY-START
+        - MI-OP-CHANGE-GET
+        - MI-OP-EVIDENCE-GET
+        - MI-OP-FOCUS-SET
+        - MI-OP-GAPS-GET
+        - MI-OP-KNOWLEDGE-QUERY
+        - MI-OP-PREP-GET
+        - MI-OP-PREP-REQUEST
+        - MI-OP-REQUIREMENTS-GET
+        - MI-OP-STATE-GET
+        - MI-OP-SUPPORT-LIST
+        - MI-OP-TARGET-ESTABLISH
+        - MI-OP-TARGETS-COMPARE
+        - MI-OUTCOME-MODEL
+        - MI-PROC-ACTIVITY
+        - MI-PROC-PREP
+        - MI-REP-ACTIVITY
+        - MI-REP-CHANGE
+        - MI-REP-CURRENT
+        - MI-REP-EVIDENCE
+        - MI-REP-FOCUS
+        - MI-REP-GAP
+        - MI-REP-KNOWLEDGE
+        - MI-REP-PREP-REQUEST
+        - MI-REP-REQUIREMENT
+        - MI-REP-SUPPORT
+        - MI-REP-TARGET
+        - MI-REP-TARGET-COMPARISON
+        targets:
+        - SA-INTERACTION-MODEL
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id049
+        source_surface_fingerprints: *id036
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.import-consistency
+      target_capability: prep.system-architecture
+      source_authority: CONCURRENCY-CONSISTENCY-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - IC-CURRENT-SCOPE
+      covered_sources:
+      - IC-CURRENT-SCOPE
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IC-CURRENT-SCOPE
+        - IC-CURRENTNESS-CONFLICT
+        - IC-DISTINCT-PERFORMANCE
+        - IC-OWNER-ATOMICITY
+        - IC-PARTIAL-PREPARATION
+        - IC-RETRY-IDEMPOTENCY
+        targets:
+        - SA-FAILURE-ISOLATION
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.import-consistency
+        exhaustive: true
+        semantic_atoms: *id057
+        source_surface_fingerprints: *id050
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interface-verification
+      target_capability: prep.presentation-verification
+      source_authority: VERIFICATION-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - IV-SCOPE
+      covered_sources:
+      - IV-SCOPE
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IV-ACTIVITY-EVIDENCE
+        - IV-IA-TOPOLOGY
+        - IV-KNOWLEDGE
+        - IV-NONSPATIAL
+        - IV-OUTCOME-RECOVERY
+        - IV-PREPARATION-SUPPORT
+        - IV-SCOPE
+        - IV-TARGET-DIRECTION
+        - IV-TASK-INTERACTION
+        targets:
+        - PV-SCOPE
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interface-verification
+        exhaustive: true
+        semantic_atoms: *id064
+        source_surface_fingerprints: *id053
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.presentation-system
+      target_capability: prep.presentation-verification
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - PS-CONTROLS
+      - PS-DENSITY
+      - PS-TASK-HIERARCHY
+      covered_sources:
+      - PS-CONTROLS
+      - PS-DENSITY
+      - PS-TASK-HIERARCHY
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - PS-ACCESSIBILITY
+        - PS-CONTROLS
+        - PS-DEGRADATION
+        - PS-DENSITY
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-OUTCOMES
+        - PS-PATTERN-ACTIVITY
+        - PS-PATTERN-CONTEXT
+        - PS-PATTERN-PREP-SUPPORT
+        - PS-PATTERN-QUERY-DETAIL
+        - PS-PATTERN-STATE-BASIS
+        - PS-PATTERN-TARGET-COMPARISON
+        - PS-RESPONSIVE
+        - PS-TASK-HIERARCHY
+        targets:
+        - PV-SCOPE
+      coverage:
+        required: 3
+        covered: 3
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.presentation-system
+        exhaustive: true
+        semantic_atoms: *id065
+        source_surface_fingerprints: *id042
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.screen-view-design
+      target_capability: prep.presentation-verification
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - SV-ACTIVITY
+      - SV-CURRENT
+      - SV-EVIDENCE
+      - SV-FRAME
+      - SV-KNOWLEDGE
+      - SV-PREP-SUPPORT
+      - SV-TARGET
+      - SV-TARGETS
+      covered_sources:
+      - SV-ACTIVITY
+      - SV-CURRENT
+      - SV-EVIDENCE
+      - SV-FRAME
+      - SV-KNOWLEDGE
+      - SV-PREP-SUPPORT
+      - SV-TARGET
+      - SV-TARGETS
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-DETAIL
+        - SV-EVIDENCE
+        - SV-FRAME
+        - SV-KNOWLEDGE
+        - SV-NO-IMPLEMENTATION
+        - SV-PERFORMANCE
+        - SV-PREP-SUPPORT
+        - SV-RESPONSIVE
+        - SV-TARGET
+        - SV-TARGETS
+        targets:
+        - PV-SCOPE
+      - relation: CONSTRAINS
+        sources:
+        - SV-COMPOSITION-VARIANTS
+        targets:
+        - PV-COMPOSITION-VARIANTS
+      coverage:
+        required: 8
+        covered: 8
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.screen-view-design
+        exhaustive: true
+        semantic_atoms: *id066
+        source_surface_fingerprints: *id054
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-performance-capacity
+      target_capability: prep.presentation-verification
+      source_authority: QUALITY-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      covered_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - QD-ACTIVE-WORKING-SET-FREEDOM
+        - QD-EXPLORE-QUALITY-SCOPE
+        - QD-GRAPH-CONDITIONAL
+        - QD-IDLE-TARGET-DEFERRED
+        - QD-NUMERIC-TARGETS-DEFERRED
+        - QD-SEMANTIC-PRESERVATION
+        targets:
+        - PV-DEGRADATION
+      coverage:
+        required: 6
+        covered: 6
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id040
+        source_surface_fingerprints: *id040
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.knowledge-model
+      target_capability: prep.data-design
+      source_authority: TACTICAL-DOMAIN-DESIGN
+      target_authority: DATA-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - KM-KNOWLEDGE-FAMILY
+      - KM-KNOWLEDGE-OBJECT-IDENTITY
+      - KM-KNOWLEDGE-PROPOSITION
+      - KM-OPEN-KNOWLEDGE-FORM
+      covered_sources:
+      - KM-KNOWLEDGE-FAMILY
+      - KM-KNOWLEDGE-OBJECT-IDENTITY
+      - KM-KNOWLEDGE-PROPOSITION
+      - KM-OPEN-KNOWLEDGE-FORM
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - KM-BOOTSTRAP-CORRECTION
+        - KM-CROSS-CONTEXT-BOUNDARY
+        - KM-GRAPH-IS-PROJECTION
+        - KM-KNOWLEDGE-FAMILY
+        - KM-KNOWLEDGE-OBJECT-IDENTITY
+        - KM-KNOWLEDGE-PROPOSITION
+        - KM-OPEN-KNOWLEDGE-FORM
+        - KM-RELATIONAL-PROPOSITION
+        - KM-SCOPE-OVERVIEW-DEPTH
+        targets:
+        - DD-KNOWLEDGE
+      coverage:
+        required: 4
+        covered: 4
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.knowledge-model
+        exhaustive: true
+        semantic_atoms: *id067
+        source_surface_fingerprints: *id012
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.learning-design
+      target_capability: prep.data-design
+      source_authority: TACTICAL-DOMAIN-DESIGN
+      target_authority: DATA-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - LD-CAPABILITY
+      - LD-CAPABILITY-SPECIFICATION
+      - LD-CAPABILITY-STANDARD
+      - LD-GAP-PRIORITY
+      - LD-KNOWLEDGE-FOCUS
+      - LD-LEARNING-MATERIAL
+      - LD-OBSERVATION-SPECIFICATION
+      - LD-PREPARATION-INTENT
+      - LD-PREPARATION-TARGET
+      - LD-REQUIREMENT-EXPRESSION
+      - LD-SUPPORT-REQUIREMENT
+      - LD-TASK-SPECIFICATION
+      covered_sources:
+      - LD-CAPABILITY
+      - LD-CAPABILITY-SPECIFICATION
+      - LD-CAPABILITY-STANDARD
+      - LD-GAP-PRIORITY
+      - LD-KNOWLEDGE-FOCUS
+      - LD-LEARNING-MATERIAL
+      - LD-OBSERVATION-SPECIFICATION
+      - LD-PREPARATION-INTENT
+      - LD-PREPARATION-TARGET
+      - LD-REQUIREMENT-EXPRESSION
+      - LD-SUPPORT-REQUIREMENT
+      - LD-TASK-SPECIFICATION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - LD-APPLICATION-BOUNDARY
+        - LD-CAPABILITY
+        - LD-CAPABILITY-SPECIFICATION
+        - LD-CAPABILITY-STANDARD
+        - LD-EVIDENCE-DESIGN-BOUNDARY
+        - LD-GAP-PRIORITY
+        - LD-KNOWLEDGE-FOCUS
+        - LD-LEARNING-MATERIAL
+        - LD-OBSERVATION-SPECIFICATION
+        - LD-PREPARATION-INTENT
+        - LD-PREPARATION-TARGET
+        - LD-QUESTION-NONFUNDAMENTAL
+        - LD-REQUIREMENT-EXPRESSION
+        - LD-SUPPORT-REQUIREMENT
+        - LD-TASK-SPECIFICATION
+        targets:
+        - DD-LEARNING
+      coverage:
+        required: 12
+        covered: 12
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.learning-design
+        exhaustive: true
+        semantic_atoms: *id068
+        source_surface_fingerprints: *id020
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.learner-model
+      target_capability: prep.data-design
+      source_authority: TACTICAL-DOMAIN-DESIGN
+      target_authority: DATA-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - LM-CAPABILITY-CLAIM
+      - LM-EVIDENCE-ARGUMENT
+      - LM-OBSERVATION
+      - LM-PERFORMANCE
+      - LM-STATE-PROJECTION
+      covered_sources:
+      - LM-CAPABILITY-CLAIM
+      - LM-EVIDENCE-ARGUMENT
+      - LM-OBSERVATION
+      - LM-PERFORMANCE
+      - LM-STATE-PROJECTION
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - LM-CAPABILITY-CLAIM
+        - LM-EVIDENCE-ARGUMENT
+        - LM-INDIVIDUAL-ATTRIBUTION
+        - LM-INTEGRATION-BOUNDARY
+        - LM-KNOWLEDGE-BOUNDARY
+        - LM-NO-FUNDAMENTAL-WARRANT
+        - LM-OBSERVATION
+        - LM-PERFORMANCE
+        - LM-STATE-PROJECTION
+        - LM-TARGET-RELATIVE-PROJECTION
+        - LM-TEMPORAL-TRANSFER
+        targets:
+        - DD-LEARNER-HISTORY
+      coverage:
+        required: 5
+        covered: 5
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.learner-model
+        exhaustive: true
+        semantic_atoms: *id069
+        source_surface_fingerprints: *id021
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.import-consistency
+      target_capability: prep.data-design
+      source_authority: CONCURRENCY-CONSISTENCY-DESIGN
+      target_authority: DATA-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - IC-CURRENT-SCOPE
+      covered_sources:
+      - IC-CURRENT-SCOPE
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - IC-CURRENT-SCOPE
+        - IC-CURRENTNESS-CONFLICT
+        - IC-DISTINCT-PERFORMANCE
+        - IC-OWNER-ATOMICITY
+        - IC-PARTIAL-PREPARATION
+        - IC-RETRY-IDEMPOTENCY
+        targets:
+        - DD-CONSISTENCY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.import-consistency
+        exhaustive: true
+        semantic_atoms: *id057
+        source_surface_fingerprints: *id050
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.system-architecture
+      target_capability: prep.data-design
+      source_authority: SYSTEM-ARCHITECTURE
+      target_authority: DATA-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - SA-DRIVER-CLOSURE
+      covered_sources:
+      - SA-DRIVER-CLOSURE
+      dispositions: []
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - SA-DEPENDENCY-DIRECTION
+        - SA-DEPLOYMENT-FREEDOM
+        - SA-DRIVER-CLOSURE
+        - SA-EXTERNAL-RUNTIME
+        - SA-FAILURE-ISOLATION
+        - SA-INTERACTION-MODEL
+        - SA-NONGOALS
+        - SA-RUNTIME-BOUNDARIES
+        - SA-STATE-PLACEMENT
+        targets:
+        - DD-OWNERSHIP
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.system-architecture
+        exhaustive: true
+        semantic_atoms: *id070
+        source_surface_fingerprints: *id058
+      findings: []
   lifecycle:
     version: 1
     kind: harness-capability-lifecycle
@@ -13462,7 +15054,7 @@ state:
       acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id043
+      semantic_atom_fingerprints: *id071
     - artifact: USER-NEEDS
       capability: prep.user-needs
       acceptance_id: PREP-USER-NEEDS-STRICT-5
@@ -13941,7 +15533,142 @@ state:
         prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
       artifact: SCREEN-VIEW-DESIGN
       capability: prep.screen-view-design
-      semantic_atom_fingerprints: *id044
+      semantic_atom_fingerprints: *id054
+    - artifact: IMPORT-CONSISTENCY
+      capability: prep.import-consistency
+      acceptance_id: PREP-IMPORT-CONSISTENCY-STRICT-1
+      acceptance_policy_fingerprint: sha256:58c58c55b610527bb9bfade91acb690a2237242f400f55428e3923d76bcce74c
+      accepted_prerequisites:
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+      accepted_prerequisite_semantics:
+        prep.application-design:
+          exhaustive: true
+          semantic_atoms: *id025
+          source_surface_fingerprints: *id025
+        prep.machine-interfaces:
+          exhaustive: true
+          semantic_atoms: *id049
+          source_surface_fingerprints: *id036
+      semantic_atom_fingerprints: *id050
+    - artifact: INTERFACE-VERIFICATION
+      capability: prep.interface-verification
+      acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+      accepted_prerequisites:
+        prep.task-model: PREP-TASK-MODEL-STRICT-4
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+      accepted_prerequisite_semantics:
+        prep.task-model:
+          exhaustive: true
+          semantic_atoms: *id061
+          source_surface_fingerprints: *id023
+        prep.information-architecture:
+          exhaustive: true
+          semantic_atoms: *id062
+          source_surface_fingerprints: *id038
+        prep.interaction-design:
+          exhaustive: true
+          semantic_atoms: *id047
+          source_surface_fingerprints: *id039
+        prep.interface-topology:
+          exhaustive: true
+          semantic_atoms: *id048
+          source_surface_fingerprints: *id041
+      semantic_atom_fingerprints: *id053
+    - artifact: SYSTEM-ARCHITECTURE
+      capability: prep.system-architecture
+      acceptance_id: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+      acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+      accepted_prerequisites:
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+      accepted_prerequisite_semantics:
+        prep.application-design:
+          exhaustive: true
+          semantic_atoms: *id063
+          source_surface_fingerprints: *id025
+        prep.interaction-design:
+          exhaustive: true
+          semantic_atoms: *id047
+          source_surface_fingerprints: *id039
+        prep.interface-topology:
+          exhaustive: true
+          semantic_atoms: *id048
+          source_surface_fingerprints: *id041
+        prep.machine-interfaces:
+          exhaustive: true
+          semantic_atoms: *id049
+          source_surface_fingerprints: *id036
+        prep.import-consistency:
+          exhaustive: true
+          semantic_atoms: *id057
+          source_surface_fingerprints: *id050
+      semantic_atom_fingerprints: *id058
+    - artifact: PRESENTATION-VERIFICATION
+      capability: prep.presentation-verification
+      acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+      accepted_prerequisites:
+        prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      accepted_prerequisite_semantics:
+        prep.interface-verification:
+          exhaustive: true
+          semantic_atoms: *id064
+          source_surface_fingerprints: *id053
+        prep.presentation-system:
+          exhaustive: true
+          semantic_atoms: *id065
+          source_surface_fingerprints: *id042
+        prep.screen-view-design:
+          exhaustive: true
+          semantic_atoms: *id066
+          source_surface_fingerprints: *id054
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id040
+          source_surface_fingerprints: *id040
+      semantic_atom_fingerprints: *id072
+    - artifact: DATA-DESIGN
+      capability: prep.data-design
+      acceptance_id: PREP-DATA-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:927a711467a4e82335a15cc34ca946e49e0a693fa1a79ad704a6ea8da04fecb7
+      accepted_prerequisites:
+        prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
+        prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
+        prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+        prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+        prep.system-architecture: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+      accepted_prerequisite_semantics:
+        prep.knowledge-model:
+          exhaustive: true
+          semantic_atoms: *id067
+          source_surface_fingerprints: *id012
+        prep.learning-design:
+          exhaustive: true
+          semantic_atoms: *id068
+          source_surface_fingerprints: *id020
+        prep.learner-model:
+          exhaustive: true
+          semantic_atoms: *id069
+          source_surface_fingerprints: *id021
+        prep.import-consistency:
+          exhaustive: true
+          semantic_atoms: *id057
+          source_surface_fingerprints: *id050
+        prep.system-architecture:
+          exhaustive: true
+          semantic_atoms: *id070
+          source_surface_fingerprints: *id058
+      semantic_atom_fingerprints: *id073
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
