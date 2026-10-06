@@ -206,7 +206,7 @@ export const rawMockScenario = {
       text: "Повторная практика выявила ещё одно неразрешённое допущение о consistency.",
       source: {
         sourceId: mockScenarioRefs.sourcePracticeReview,
-        sourceLabel: "Разбор system design-практики",
+        sourceLabel: "Разбор повторной system design-практики",
       },
       supportIds: [],
       challengeIds: [mockScenarioRefs.capabilitySystemDesign],
