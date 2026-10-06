@@ -238,10 +238,10 @@ test("preserves preparation hierarchy and serializes comparison on a narrow view
   await page.goto("/");
 
   await expect(
-    page.locator("nav.prep-navigation + section.active-context"),
+    page.locator(".app-sidebar .active-context"),
   ).toBeVisible();
   await expect(
-    page.locator("section.active-context + main.active-child"),
+    page.locator("main.active-child"),
   ).toBeVisible();
 
   await page
@@ -379,9 +379,10 @@ test("preserves a missing-support focus and routes to contextual preparation", a
 });
 
 
-test("keeps Knowledge tools fixed while linking table, inspector and filters", async ({
+test("keeps Knowledge table graph and details visible in a resizable admin workspace", async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await establishBackendTarget(page);
 
@@ -397,18 +398,62 @@ test("keeps Knowledge tools fixed while linking table, inspector and filters", a
     "data-spatial-overview",
     "available",
   );
-  await expect(page.locator(".preparation-shell--workspace")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Знания", exact: true })).toBeVisible();
+  await expect(page.locator(".app-sidebar")).toBeVisible();
+  await expect(
+    page.locator(".prep-navigation").getByRole("button", {
+      name: "Знания",
+      exact: true,
+    }),
+  ).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("table")).toBeVisible();
   await expect(page.getByText("2/2", { exact: true })).toBeVisible();
   await expect(page.getByText("System design", { exact: true })).toBeVisible();
-
-  const relationsTab = page.getByRole("tab", { name: /Связи/ });
-  const detailsTab = page.getByRole("tab", { name: "Детали" });
-  await expect(relationsTab).toHaveAttribute("aria-selected", "true");
   await expect(
     knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
   ).toBeVisible();
+  await expect(
+    page.getByLabel("Детали знания").getByText("Выберите строку"),
+  ).toBeVisible();
+
+  const verticalDivider = page.getByRole("separator", {
+    name: "Изменить ширину таблицы и графа",
+  });
+  const horizontalDivider = page.getByRole("separator", {
+    name: "Изменить высоту таблицы и деталей",
+  });
+  await expect(verticalDivider).toBeVisible();
+  await expect(horizontalDivider).toBeVisible();
+
+  const initialTableRatio = Number(
+    await verticalDivider.getAttribute("aria-valuenow"),
+  );
+  await verticalDivider.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(verticalDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(initialTableRatio - 2),
+  );
+
+  const initialTopRatio = Number(
+    await horizontalDivider.getAttribute("aria-valuenow"),
+  );
+  await horizontalDivider.focus();
+  await page.keyboard.press("ArrowUp");
+  await expect(horizontalDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(initialTopRatio - 2),
+  );
+
+  const storedSplits = await page.evaluate(() => ({
+    tableGraph: Number(
+      window.localStorage.getItem("prep.knowledge.table-graph-ratio"),
+    ),
+    topDetails: Number(
+      window.localStorage.getItem("prep.knowledge.top-details-ratio"),
+    ),
+  }));
+  expect(storedSplits.tableGraph).toBe(initialTableRatio - 2);
+  expect(storedSplits.topDetails).toBe(initialTopRatio - 2);
 
   await page
     .locator(".knowledge-table")
@@ -417,22 +462,23 @@ test("keeps Knowledge tools fixed while linking table, inspector and filters", a
     })
     .click();
 
-  await expect(detailsTab).toHaveAttribute("aria-selected", "true");
   await expect(
-    page.getByRole("heading", {
+    page.getByLabel("Детали знания").getByRole("heading", {
       name: "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
     }),
   ).toBeVisible();
   await expect(
     page
-      .locator(".knowledge-detail-region")
+      .getByLabel("Детали знания")
       .getByText(
         "consistency-модель влияет на задержку, координацию и актуальность данных",
         { exact: true },
       ),
   ).toBeVisible();
+  await expect(
+    knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
+  ).toBeVisible();
 
-  await relationsTab.click();
   await page
     .getByRole("button", { name: "Стратегия кэширования. Связей: 1" })
     .click();
@@ -441,10 +487,11 @@ test("keeps Knowledge tools fixed while linking table, inspector and filters", a
       .locator(".knowledge-table")
       .getByRole("button", { name: "Стратегия кэширования", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
-
-  await detailsTab.click();
   await expect(
-    page.getByRole("heading", { name: "Стратегия кэширования", exact: true }),
+    page.getByLabel("Детали знания").getByRole("heading", {
+      name: "Стратегия кэширования",
+      exact: true,
+    }),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Сбросить", exact: true }).click();
@@ -467,11 +514,6 @@ test("keeps Knowledge tools fixed while linking table, inspector and filters", a
   const query = page.getByRole("textbox", { name: "Поиск", exact: true });
   await query.fill("event loop");
   await expect(page.getByText("1/3", { exact: true })).toBeVisible();
-  await expect(
-    page
-      .locator(".knowledge-table")
-      .getByRole("button", { name: /JavaScript Event Loop/ }),
-  ).toBeVisible();
 
   await page.getByRole("button", { name: "Цель", exact: true }).click();
   await page.getByRole("button", { name: "Знания", exact: true }).click();
@@ -501,7 +543,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
-  await expect(page.locator(".preparation-shell--workspace")).toBeVisible();
+  await expect(page.locator(".preparation-shell--admin[data-destination=\"knowledge\"]")).toBeVisible();
 });
 
 
@@ -703,10 +745,10 @@ for (const viewport of [
     await establishBackendTarget(page);
 
     await expect(
-      page.locator("nav.prep-navigation + section.active-context"),
+      page.locator(".app-sidebar .active-context"),
     ).toBeVisible();
     await expect(
-      page.locator("section.active-context + main.active-child"),
+      page.locator("main.active-child"),
     ).toBeVisible();
 
     await page.getByRole("button", { name: "Текущее состояние" }).click();
