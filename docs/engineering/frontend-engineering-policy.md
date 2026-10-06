@@ -70,13 +70,13 @@ External UI/rendering/framework providers are implementation dependencies, not o
 
 ### Styling and presentation consistency
 
-Cross-feature visual decisions must be expressed through shared presentation roles/patterns rather than independently re-invented in each feature.
+Cross-feature visual decisions must be expressed through shared presentation roles/patterns rather than independently re-invented in each feature. The accepted application-surface ownership is shared presentation structure: on capable wide surfaces feature realization must preserve the bounded application shell, persistent preparation navigation and task-region overflow responsibilities rather than silently reverting to document/page-owned scrolling.
 
 When implementation selects a concrete provider/theme mechanism:
 
 - shared semantic color, typography, spacing, density, surface, focus and feedback roles should map through a centralized theme/token boundary when those roles are reused;
 - provider-specific theme/token names must not become product/domain semantics;
-- local one-off layout values may remain local when they do not create a reusable presentation rule;
+- local one-off layout values, pane geometry, resizing mechanics and CSS choices may remain local when they do not change accepted application-surface ownership or create a reusable presentation rule;
 - feature code must not introduce competing global theme systems.
 
 Exact palette, font family, spacing values and provider token syntax remain downstream until accepted Presentation System/Implementation Design selects them.
