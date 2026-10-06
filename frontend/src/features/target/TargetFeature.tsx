@@ -86,6 +86,12 @@ export function TargetFeature({
       return;
     }
 
+    const active = candidates.find(
+      (candidate) => candidate.targetRef === activeTargetRef,
+    );
+    setSelectedTargetRef(activeTargetRef);
+    setSourceContext((current) => current || active?.sourceContext || "");
+
     let cancelled = false;
     setStatus("loading-requirements");
 
@@ -197,7 +203,7 @@ export function TargetFeature({
           <span>Target</span>
           <select
             value={selectedTargetRef ?? ""}
-            disabled={status === "submitting"}
+            disabled={established || status === "submitting"}
             onChange={(event) =>
               selectCandidate(event.currentTarget.value as TargetRef)
             }
@@ -347,11 +353,11 @@ export function TargetFeature({
       ) : null}
 
       <div className="target-actions action-row">
-        {established && activeTargetRef ? (
+        {selectedTargetRef ? (
           <button
             type="button"
             className="secondary-action"
-            onClick={() => onRequestPreparationSupport(activeTargetRef)}
+            onClick={() => onRequestPreparationSupport(selectedTargetRef)}
           >
             Request missing preparation support
           </button>
