@@ -132,7 +132,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     .click();
 
   await expect(
-    page.getByRole("heading", { name: "Знания текущей цели" }),
+    page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText("Компетенция: System design", { exact: true }),
@@ -379,7 +379,7 @@ test("preserves a missing-support focus and routes to contextual preparation", a
 });
 
 
-test("links Knowledge table, cumulative filters, detail and optional relationship overview", async ({
+test("keeps Knowledge tools fixed while linking table, inspector and filters", async ({
   page,
 }) => {
   await page.goto("/");
@@ -397,21 +397,18 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
     "data-spatial-overview",
     "available",
   );
-  await expect(knowledgeView.locator("canvas")).toHaveCount(0);
+  await expect(page.locator(".preparation-shell--workspace")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Знания", exact: true })).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByText("2/2", { exact: true })).toBeVisible();
+  await expect(page.getByText("System design", { exact: true })).toBeVisible();
+
+  const relationsTab = page.getByRole("tab", { name: /Связи/ });
+  const detailsTab = page.getByRole("tab", { name: "Детали" });
+  await expect(relationsTab).toHaveAttribute("aria-selected", "true");
   await expect(
     knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
   ).toBeVisible();
-  await expect(
-    page.getByText(
-      "Таблица и детали остаются полным способом работы со знаниями. Граф — дополнительный обзор связей и не определяет смысл Knowledge.",
-    ),
-  ).toBeVisible();
-
-  await expect(
-    page.getByText("Компетенция: System design", { exact: true }),
-  ).toBeVisible();
-  await expect(page.getByRole("table")).toBeVisible();
-  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
 
   await page
     .locator(".knowledge-table")
@@ -419,35 +416,55 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
       name: /Выбор consistency-модели балансирует задержку/,
     })
     .click();
-  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
-    "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
-  );
+
+  await expect(detailsTab).toHaveAttribute("aria-selected", "true");
+  await expect(
+    page.getByRole("heading", {
+      name: "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
+    }),
+  ).toBeVisible();
   await expect(
     page.getByText(
       "consistency-модель влияет на задержку, координацию и актуальность данных",
       { exact: true },
-    ).last(),
+    ),
   ).toBeVisible();
 
+  await relationsTab.click();
   await page
     .getByRole("button", { name: "Стратегия кэширования. Связей: 1" })
     .click();
-  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
-    "Стратегия кэширования",
+  await expect(
+    page
+      .locator(".knowledge-table")
+      .getByRole("button", { name: "Стратегия кэширования", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  await detailsTab.click();
+  await expect(
+    page.getByRole("heading", { name: "Стратегия кэширования", exact: true }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+  await expect(page.getByText("18/18", { exact: true })).toBeVisible();
+
+  const viewportState = await page.evaluate(() => ({
+    innerHeight: window.innerHeight,
+    documentHeight: document.documentElement.scrollHeight,
+  }));
+  expect(viewportState.documentHeight).toBeLessThanOrEqual(
+    viewportState.innerHeight + 1,
   );
 
-  await page.getByRole("button", { name: "Сбросить фильтры" }).click();
-  await expect(page.getByText("Показано 18 из 18")).toBeVisible();
-
   await page.getByLabel("Тип").selectOption("object");
-  await expect(page.getByText("Показано 9 из 18")).toBeVisible();
+  await expect(page.getByText("9/18", { exact: true })).toBeVisible();
 
   await page.getByLabel("Связность").selectOption("three-plus");
-  await expect(page.getByText("Показано 5 из 18")).toBeVisible();
+  await expect(page.getByText("5/18", { exact: true })).toBeVisible();
 
   const query = page.getByRole("textbox", { name: "Поиск", exact: true });
   await query.fill("event loop");
-  await expect(page.getByText("Показано 1 из 3")).toBeVisible();
+  await expect(page.getByText("1/3", { exact: true })).toBeVisible();
   await expect(
     page
       .locator(".knowledge-table")
@@ -462,7 +479,7 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
   ).toHaveValue("event loop");
   await expect(page.getByLabel("Тип")).toHaveValue("object");
   await expect(page.getByLabel("Связность")).toHaveValue("three-plus");
-  await expect(page.getByText("Компетенция: без фильтра")).toBeVisible();
+  await expect(page.locator(".knowledge-capability-scope")).toHaveCount(0);
 });
 
 test("preserves accepted Next focus context when entering Knowledge", async ({
@@ -482,7 +499,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
-  await expect(page.getByText("Фокус: учтён", { exact: true })).toBeVisible();
+  await expect(page.locator(".preparation-shell--workspace")).toBeVisible();
 });
 
 
@@ -697,7 +714,7 @@ for (const viewport of [
     await page.getByRole("button", { name: "Знания", exact: true }).click();
     await expect(
       page.getByRole("heading", {
-        name: "Знания текущей цели",
+        name: "Знания",
       }),
     ).toBeVisible();
     await expect(
