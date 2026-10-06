@@ -939,8 +939,8 @@ a:focus-visible {
   padding: 8px 10px;
 }
 
-.knowledge-relation-count {
-  padding: 8px 10px !important;
+.knowledge-table .knowledge-relation-count {
+  padding: 8px 10px;
   color: #4e5b6d;
   font-variant-numeric: tabular-nums;
   text-align: right;
