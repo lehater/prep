@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:7f37f03f64ab69c8627402eaee64674a51464eabd31389e503401158844acfd9
-parent_revision: sha256:acbf8bcefd6406936450e653f0610ae78dfd521daf6e50130258ba169e0ddf53
+revision: sha256:e7e916b9585f5d7062e89ab574eafdda303749596b3eb67839f2d64a149d4830
+parent_revision: sha256:7f37f03f64ab69c8627402eaee64674a51464eabd31389e503401158844acfd9
 state:
   core_model:
     authorities:
@@ -1346,7 +1346,7 @@ state:
             exhaustive: true
             semantic_atoms: *id019
             source_surface_fingerprints: *id012
-        semantic_atom_fingerprints: &id041
+        semantic_atom_fingerprints: &id040
           QD-EXPLORE-QUALITY-SCOPE: SAF-99f1686f383a8456b40bcb48a112bb65b4cc67dc2187840da500294d8251f96a
           QD-SEMANTIC-PRESERVATION: SAF-78d8ec48c33081770f888f5ad89e142bc5041b4eb3918d0cd2d7b720719550f0
           QD-ACTIVE-WORKING-SET-FREEDOM: SAF-fcb079b03ee4a35f52aaee9de349bf7532c5fee770a73605872484097c7db711
@@ -2400,7 +2400,7 @@ state:
           prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
         artifact: INFORMATION-ARCHITECTURE
         capability: prep.information-architecture
-        semantic_atom_fingerprints: &id044
+        semantic_atom_fingerprints: &id038
           IA-CROSSLINKS: SAF-b9198522c288d980241954bfd1d4f098c776d506bd07d2d0fe5c4af75870afb0
           IA-FINDABILITY: SAF-626ec6e95ef17c107398979cec5895b8d3aee06f234e00304da2b3b0f752e244
           IA-LOC-ACTIVITIES: SAF-1509046030063e164c0620f44897804fe37a5ed183172a84baf1a4c0a18bd0aa
@@ -2722,83 +2722,14 @@ state:
           IX-KEYBOARD: SAF-f980ebbcf89f158b43601fafdc0af22e5fa0a2749d55fd6f898261dcaec7b277
           IX-PENDING: SAF-3fa4e27f2eb5412580ca2544a6dc55e499eae76f2a5dc8966d5eabb4f97985bf
           IX-NO-LAYOUT: SAF-2f9f5d076d8710fcbd0f3db49c9998471eba51484a5ee5f8ebb0fb6d2ca8a043
-    - version: 1
-      kind: harness-artifact-semantic-evaluation
-      artifact: INTERFACE-TOPOLOGY
-      capability: prep.interface-topology
-      status: ACCEPTED
-      obligations:
-        expected: []
-        satisfied: []
-        dispositions: []
-      findings: []
-      semantic_claims:
-        accepted:
-        - engineering.interface.human.navigation-topology
-      question_proposals: []
-      admission:
-        status: ACCEPTED
-        knowledge_kind: interface-topology-design
-        skill: skills/artifacts/interface-topology-design/SKILL.md
-        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        authority: HUMAN-INTERFACE-DESIGN
-        allowed_source_authorities:
-        - HUMAN-INTERFACE-DESIGN
-        changed_paths:
-        - docs/interface/interface-topology.yaml
-        canonical_references:
-        - artifact: INTERFACE-TOPOLOGY
-          referenced_path: docs/interface/information-architecture.yaml
-        - artifact: INTERFACE-TOPOLOGY
-          referenced_path: docs/interface/interaction-design.yaml
-        accepted_prerequisites:
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-        accepted_prerequisite_semantics:
-          prep.information-architecture:
-            exhaustive: true
-            semantic_atoms: &id038
-              IA-ROOT: SAF-59a7178633540c4fcabbc22e43570a9228a3d7ecbf1d24dc5a39238d641d46fe
-              IA-LOC-TARGETS: SAF-9b7688cb22bc60623767907a062217b842d201bc013c63c773ecb6a5a5966e25
-              IA-LOC-TARGET: SAF-6d7f43c1a88fc8186f12904b08bd014f596b80cbe25f2264d92c201ba340fd09
-              IA-LOC-CURRENT: SAF-b633a31a32de573308dfc14bedc71f19689adfbaa295d8579aa0a95fdb1f777c
-              IA-LOC-KNOWLEDGE: SAF-8b373dee50bd23e8dac32aa4a144bde36d6a8055e981c171a1ae773baa38017f
-              IA-LOC-ACTIVITIES: SAF-1509046030063e164c0620f44897804fe37a5ed183172a84baf1a4c0a18bd0aa
-              IA-LOC-EVIDENCE: SAF-4c77e84c4890f6a85a14462665166bd4f1c9470fc87aa67eb1c4555fe564f3ce
-              IA-LOC-PREP-SUPPORT: SAF-f96eaf6ddb24dfaf3f09167e67e30782c9f83101c6ba2923dffc89110caa28bc
-              IA-SCOPE-TARGET: SAF-1a4eeff900559666d00cde9a96fdbade90e7b4d9ae25829d9dc21a9931221391
-              IA-SCOPE-FOCUS: SAF-7a3800b81ed2cb5f589ca77107ab6801bdfff8135b7ddcfaf72332d9c6828ab3
-              IA-SCOPE-KNOWLEDGE: SAF-7a3f54857ce05fbc603af45e00395c07193fd6eda6d96b84d93fe5d20f331bb8
-              IA-STRUCTURE: SAF-c6e11d3b85fd6add957d2b9546b8596cabddcb5d29ccb0eb48092ce01ad4b65e
-              IA-CROSSLINKS: SAF-2c0409cc93da4a140665be107f0d19287e9fd441a5fc4cb2499270a7cd492347
-              IA-TAXONOMY: SAF-5cb770a71c95389928cc84cccaa72091e0eda019b5e33f22f17cd985c7adeb2e
-              IA-FINDABILITY: SAF-2985d916f8fe7fadf892384b01931b5a4d21f3f3223c9f7cc6cd93ee7c5820e4
-              IA-NO-SCREEN: SAF-a87ea46c69ef9548b2f890a8c4d9c13667fe8e6df254672a40d42e7a8b285bd1
-            source_surface_fingerprints: *id038
-          prep.interaction-design:
-            exhaustive: true
-            semantic_atoms: *id039
-            source_surface_fingerprints: *id039
-        semantic_contract: knowledge-kind-semantic-contracts/v1
+    - admission:
+        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
         acceptance_policy:
-          version: 1
-          kind: harness-acceptance-policy-baseline
           evaluator_contract: strict-semantic-admission/v1
           fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
+          kind: harness-acceptance-policy-baseline
+          version: 1
         acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
-        decision_exploration: NOT_REQUIRED
-        decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
-        decision_governance: NOT_REQUIRED
-        decision_request_mode: REVISION
-      lifecycle_assertion:
-        artifact: INTERFACE-TOPOLOGY
-        capability: prep.interface-topology
-        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
-        accepted_prerequisites:
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
         accepted_prerequisite_semantics:
           prep.information-architecture:
             exhaustive: true
@@ -2808,48 +2739,113 @@ state:
             exhaustive: true
             semantic_atoms: *id039
             source_surface_fingerprints: *id039
-        semantic_atom_fingerprints: &id040
-          TOP-ROOT: SAF-201ac170a827193bb66b58867653170f304cd1f5952f78c806e78ba9216f0800
-          TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
-          TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
-          TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
-          TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
-          TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
-          TOP-VIEW-EVIDENCE: SAF-43abb4cf134d1dae9a146ac946b1d8cd1bbdff571885bb808dd0b80aa1639d2e
-          TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
+        accepted_prerequisites:
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        allowed_source_authorities:
+        - HUMAN-INTERFACE-DESIGN
+        authority: HUMAN-INTERFACE-DESIGN
+        canonical_references:
+        - artifact: INTERFACE-TOPOLOGY
+          referenced_path: docs/interface/information-architecture.yaml
+        - artifact: INTERFACE-TOPOLOGY
+          referenced_path: docs/interface/interaction-design.yaml
+        changed_paths:
+        - docs/interface/interface-topology.yaml
+        decision_execution_assurance: NOT_REQUIRED
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: REVISION
+        knowledge_kind: interface-topology-design
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        skill: skills/artifacts/interface-topology-design/SKILL.md
+        status: ACCEPTED
+      artifact: INTERFACE-TOPOLOGY
+      capability: prep.interface-topology
+      findings: []
+      kind: harness-artifact-semantic-evaluation
+      lifecycle_assertion:
+        acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
+        accepted_prerequisite_semantics:
+          prep.information-architecture:
+            exhaustive: true
+            semantic_atoms: *id038
+            source_surface_fingerprints: *id038
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id039
+            source_surface_fingerprints: *id039
+        accepted_prerequisites:
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        artifact: INTERFACE-TOPOLOGY
+        capability: prep.interface-topology
+        semantic_atom_fingerprints: &id041
           TOP-CONTEXT: SAF-0cb345b1c9d489e1f62b1fac5799f8b5fd46ab04f1668b81faa37f548d8fff2b
-          TOP-CROSSLINKS: SAF-9fdf78dfea84a3e1851e94f4830ac8b6b552e7e6f7104ba4de1bcf69ac4a9959
-          TOP-DIRECT-LINK: SAF-182670d2f309800360474c97d6a33ede781d0a2eeed5e9ee16f9b7d555f0cacf
+          TOP-CROSSLINKS: SAF-3db54977154e445804f3a1234714e3eccdb6d259bccd13957a453f1ddb62ae2b
+          TOP-DIRECT-LINK: SAF-7caaf7959241e62d7633d2c6a18a3925a989e038599fb4faf4f6361fa16d540f
+          TOP-EVIDENCE-REVIEW: SAF-e6857a1c4508adf39848f47cb71a800ab3251f05e9dfaae957e813ae47771011
           TOP-LABELS: SAF-ccc75f6357e035067d398f45759f4a0e0718123e793706e6250ed64524df9576
           TOP-NO-COMPOSITION: SAF-4e1d9a9a21d80ab88f1f3b79bc6913cd0febda1504b0fdcde6028e9e13fb4647
-    - version: 1
-      kind: harness-artifact-semantic-evaluation
-      artifact: PRESENTATION-SYSTEM
-      capability: prep.presentation-system
-      status: ACCEPTED
+          TOP-ROOT: SAF-7b83df7504b0ee8319e66fa6e3c6a58ce0401d9857c91519867dc1c25351e421
+          TOP-VIEW-ACTIVITY: SAF-90e890992ea94fa97b901a37c9390cc79a479111e8a310b1282b25f74dcfee67
+          TOP-VIEW-CURRENT: SAF-1fe0fa813e24620da7b8d3f3a8e0ee639fee8e240906c740789ccb07a6801021
+          TOP-VIEW-EVIDENCE: SAF-b8a87708ea9054bc3963ece825bf16202ece14d99db731902bf0a90a825fc056
+          TOP-VIEW-KNOWLEDGE: SAF-4ed96b3ff5a91cd8852f5d411b261d7c199d4d23cabe4af2d2844b2f3f3873b0
+          TOP-VIEW-PREP-SUPPORT: SAF-ce7081d4a19b206267ab5535077ff4cdc70f069acf2afb42d88988f94d8742c2
+          TOP-VIEW-TARGET: SAF-6785031757440447ca1ef903c644a8982112788aea47a2a0e492712d90523fd4
+          TOP-VIEW-TARGETS: SAF-766aa92aba795c443798a5e179d9fd6928854bb5f4322b6a85fbf55335fc634a
       obligations:
+        dispositions: []
         expected: []
         satisfied: []
-        dispositions: []
-      findings: []
+      question_proposals: []
       semantic_claims:
         accepted:
-        - engineering.interface.human.presentation-system
-        - engineering.interface.human.usability
-        - engineering.interface.human.accessibility
-        - engineering.interface.human.responsiveness
-      question_proposals: []
-      admission:
-        status: ACCEPTED
-        knowledge_kind: presentation-system-design
-        skill: skills/artifacts/presentation-system-design/SKILL.md
-        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
-        authority: HUMAN-INTERFACE-DESIGN
+        - engineering.interface.human.navigation-topology
+      status: ACCEPTED
+      version: 1
+    - admission:
+        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
+        acceptance_policy:
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
+          kind: harness-acceptance-policy-baseline
+          version: 1
+        acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
+        accepted_prerequisite_semantics:
+          prep.conceptual-interface-model:
+            exhaustive: true
+            semantic_atoms: *id035
+            source_surface_fingerprints: *id035
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id040
+            source_surface_fingerprints: *id040
+          prep.information-architecture:
+            exhaustive: true
+            semantic_atoms: *id038
+            source_surface_fingerprints: *id038
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id039
+            source_surface_fingerprints: *id039
+          prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: *id041
+            source_surface_fingerprints: *id041
+        accepted_prerequisites:
+          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
         allowed_source_authorities:
         - HUMAN-INTERFACE-DESIGN
         - QUALITY-DESIGN
-        changed_paths:
-        - docs/interface/presentation-system.md
+        authority: HUMAN-INTERFACE-DESIGN
         canonical_references:
         - artifact: PRESENTATION-SYSTEM
           referenced_path: docs/interface/conceptual-interface-model.yaml
@@ -2861,66 +2857,92 @@ state:
           referenced_path: docs/interface/interaction-design.yaml
         - artifact: PRESENTATION-SYSTEM
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites:
-          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics:
-          prep.conceptual-interface-model:
-            exhaustive: true
-            semantic_atoms: *id035
-            source_surface_fingerprints: *id035
-          prep.information-architecture:
-            exhaustive: true
-            semantic_atoms: *id038
-            source_surface_fingerprints: *id038
-          prep.interface-topology:
-            exhaustive: true
-            semantic_atoms: *id040
-            source_surface_fingerprints: *id040
-          prep.interaction-design:
-            exhaustive: true
-            semantic_atoms: *id039
-            source_surface_fingerprints: *id039
-          prep.frontend-performance-capacity:
-            exhaustive: true
-            semantic_atoms: *id041
-            source_surface_fingerprints: *id041
-        semantic_contract: knowledge-kind-semantic-contracts/v1
-        acceptance_policy:
-          version: 1
-          kind: harness-acceptance-policy-baseline
-          evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
-        acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
+        changed_paths:
+        - docs/interface/presentation-system.md
+        decision_execution_assurance: NOT_REQUIRED
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
         decision_governance: NOT_REQUIRED
         decision_request_mode: REVISION
+        knowledge_kind: presentation-system-design
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        skill: skills/artifacts/presentation-system-design/SKILL.md
+        status: ACCEPTED
+      artifact: PRESENTATION-SYSTEM
+      capability: prep.presentation-system
+      findings: []
+      kind: harness-artifact-semantic-evaluation
       lifecycle_assertion:
-        artifact: PRESENTATION-SYSTEM
-        capability: prep.presentation-system
-        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
+        acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
         acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
-        accepted_prerequisites:
-          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
         accepted_prerequisite_semantics:
           prep.conceptual-interface-model:
             exhaustive: true
             semantic_atoms: *id035
             source_surface_fingerprints: *id035
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id040
+            source_surface_fingerprints: *id040
           prep.information-architecture:
             exhaustive: true
             semantic_atoms: *id038
             source_surface_fingerprints: *id038
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id039
+            source_surface_fingerprints: *id039
           prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: *id041
+            source_surface_fingerprints: *id041
+        accepted_prerequisites:
+          prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        artifact: PRESENTATION-SYSTEM
+        capability: prep.presentation-system
+        semantic_atom_fingerprints: &id042
+          PS-ACCESSIBILITY: SAF-958f7da2ceabf3cc970c4ec93db90265a03a6c2ee88b3648c7c46c81121d4cf1
+          PS-CONTROLS: SAF-f9ad281b42a07df3540967f685e80071846f96213ef340c2285e3d652d9ca978
+          PS-DEGRADATION: SAF-765326483c075ef5371ecf4164e9673f86926726349865766dadb196b1cef324
+          PS-DENSITY: SAF-36ac408d7d4d8eb30ae473520cbd1b0a9325362f0123a14eba0a4af50d504f4b
+          PS-FREEDOMS: SAF-6108c1583726d2d6cfb064693461cefeaef5777ab1460c0358258803eda7cc35
+          PS-KNOWLEDGE-REPRESENTATION: SAF-d60ad1945b271a752ce6482feb63c4306e32fe40b761212241227f943e6d6792
+          PS-OUTCOMES: SAF-3599c3334c6e4c74d6e42f57c3f8bc5b641c73dbbcd53b22406558efe64c2a83
+          PS-PATTERN-ACTIVITY: SAF-c1e9418c24f54b4da0cad375ac3b8082243027bfe6ee1c9cc3c60bc9853f8711
+          PS-PATTERN-CONTEXT: SAF-bca68a942dd2f25cbd10b1427408c632740f2a1d6eb4973bc30ea580a1821a80
+          PS-PATTERN-PREP-SUPPORT: SAF-063a950047672f7c8011206f7d54037d052d044f74855c9f587b5d1258d7eb6b
+          PS-PATTERN-QUERY-DETAIL: SAF-b57c3fbafc44b93ffd90982ea7401d060ae75ac4d40d09ed45cf4f2e1ad89310
+          PS-PATTERN-STATE-BASIS: SAF-7e60d352b332951808ab8cad8f7742257c3298d4363e06a0352ec00b981f18af
+          PS-PATTERN-TARGET-COMPARISON: SAF-7becea6c1c987508e5e773eb3a73e092fd799711ba724befad7bb0f782cf20b8
+          PS-RESPONSIVE: SAF-e2b0e344f48f82b0c649087f8f990901355a0d27cf19dc4e8ad859e919a7b03f
+          PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
+      obligations:
+        dispositions: []
+        expected: []
+        satisfied: []
+      question_proposals: []
+      semantic_claims:
+        accepted:
+        - engineering.interface.human.presentation-system
+        - engineering.interface.human.usability
+        - engineering.interface.human.accessibility
+        - engineering.interface.human.responsiveness
+      status: ACCEPTED
+      version: 1
+    - admission:
+        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        acceptance_policy:
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
+          kind: harness-acceptance-policy-baseline
+          version: 1
+        acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
+        accepted_prerequisite_semantics:
+          prep.frontend-performance-capacity:
             exhaustive: true
             semantic_atoms: *id040
             source_surface_fingerprints: *id040
@@ -2928,52 +2950,29 @@ state:
             exhaustive: true
             semantic_atoms: *id039
             source_surface_fingerprints: *id039
-          prep.frontend-performance-capacity:
+          prep.interface-topology:
             exhaustive: true
             semantic_atoms: *id041
             source_surface_fingerprints: *id041
-        semantic_atom_fingerprints: &id042
-          PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
-          PS-KNOWLEDGE-REPRESENTATION: SAF-d60ad1945b271a752ce6482feb63c4306e32fe40b761212241227f943e6d6792
-          PS-DENSITY: SAF-36ac408d7d4d8eb30ae473520cbd1b0a9325362f0123a14eba0a4af50d504f4b
-          PS-CONTROLS: SAF-299a3c5404fd273be9183d762f4fcabd3db4fd153a7c4f692e9a4a5cf01880ed
-          PS-PATTERN-CONTEXT: SAF-bca68a942dd2f25cbd10b1427408c632740f2a1d6eb4973bc30ea580a1821a80
-          PS-PATTERN-TARGET-COMPARISON: SAF-7becea6c1c987508e5e773eb3a73e092fd799711ba724befad7bb0f782cf20b8
-          PS-PATTERN-QUERY-DETAIL: SAF-b57c3fbafc44b93ffd90982ea7401d060ae75ac4d40d09ed45cf4f2e1ad89310
-          PS-PATTERN-STATE-BASIS: SAF-d25c516612a9a28fef223973d2d98911fc637a241088f26689063b765d9a0ade
-          PS-PATTERN-ACTIVITY: SAF-3c737f00269462906a5f7a22e0fc02d11c7ecac51901bc585d8272f30dec0a40
-          PS-PATTERN-PREP-SUPPORT: SAF-063a950047672f7c8011206f7d54037d052d044f74855c9f587b5d1258d7eb6b
-          PS-OUTCOMES: SAF-3599c3334c6e4c74d6e42f57c3f8bc5b641c73dbbcd53b22406558efe64c2a83
-          PS-RESPONSIVE: SAF-e2b0e344f48f82b0c649087f8f990901355a0d27cf19dc4e8ad859e919a7b03f
-          PS-ACCESSIBILITY: SAF-958f7da2ceabf3cc970c4ec93db90265a03a6c2ee88b3648c7c46c81121d4cf1
-          PS-DEGRADATION: SAF-765326483c075ef5371ecf4164e9673f86926726349865766dadb196b1cef324
-          PS-FREEDOMS: SAF-6108c1583726d2d6cfb064693461cefeaef5777ab1460c0358258803eda7cc35
-    - version: 1
-      kind: harness-artifact-semantic-evaluation
-      artifact: SCREEN-VIEW-DESIGN
-      capability: prep.screen-view-design
-      status: ACCEPTED
-      obligations:
-        expected: []
-        satisfied: []
-        dispositions: []
-      findings: []
-      semantic_claims:
-        accepted:
-        - engineering.interface.human.screen-composition
-      question_proposals: []
-      admission:
-        status: ACCEPTED
-        knowledge_kind: screen-view-design
-        skill: skills/artifacts/screen-view-design/SKILL.md
-        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
-        authority: HUMAN-INTERFACE-DESIGN
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id036
+            source_surface_fingerprints: *id036
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: *id042
+            source_surface_fingerprints: *id042
+        accepted_prerequisites:
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
         allowed_source_authorities:
         - HUMAN-INTERFACE-DESIGN
         - MACHINE-INTERFACE-DESIGN
         - QUALITY-DESIGN
-        changed_paths:
-        - docs/interface/screen-view-design.md
+        authority: HUMAN-INTERFACE-DESIGN
         canonical_references:
         - artifact: SCREEN-VIEW-DESIGN
           referenced_path: docs/interface/interface-topology.yaml
@@ -2985,58 +2984,26 @@ state:
           referenced_path: docs/interface/machine-interface.md
         - artifact: SCREEN-VIEW-DESIGN
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites:
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-5
-          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics:
-          prep.interface-topology:
-            exhaustive: true
-            semantic_atoms: *id040
-            source_surface_fingerprints: *id040
-          prep.interaction-design:
-            exhaustive: true
-            semantic_atoms: *id039
-            source_surface_fingerprints: *id039
-          prep.presentation-system:
-            exhaustive: true
-            semantic_atoms: *id042
-            source_surface_fingerprints: *id042
-          prep.machine-interfaces:
-            exhaustive: true
-            semantic_atoms: *id036
-            source_surface_fingerprints: *id036
-          prep.frontend-performance-capacity:
-            exhaustive: true
-            semantic_atoms: *id041
-            source_surface_fingerprints: *id041
-        semantic_contract: knowledge-kind-semantic-contracts/v1
-        acceptance_policy:
-          version: 1
-          kind: harness-acceptance-policy-baseline
-          evaluator_contract: strict-semantic-admission/v1
-          fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
-        acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
+        changed_paths:
+        - docs/interface/screen-view-design.md
+        decision_execution_assurance: NOT_REQUIRED
         decision_exploration: NOT_REQUIRED
         decision_explorer_request_id: null
-        decision_execution_assurance: NOT_REQUIRED
         decision_governance: NOT_REQUIRED
         decision_request_mode: REVISION
+        knowledge_kind: screen-view-design
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        skill: skills/artifacts/screen-view-design/SKILL.md
+        status: ACCEPTED
+      artifact: SCREEN-VIEW-DESIGN
+      capability: prep.screen-view-design
+      findings: []
+      kind: harness-artifact-semantic-evaluation
       lifecycle_assertion:
-        artifact: SCREEN-VIEW-DESIGN
-        capability: prep.screen-view-design
-        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
+        acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
         acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
-        accepted_prerequisites:
-          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-5
-          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
-          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
         accepted_prerequisite_semantics:
-          prep.interface-topology:
+          prep.frontend-performance-capacity:
             exhaustive: true
             semantic_atoms: *id040
             source_surface_fingerprints: *id040
@@ -3044,31 +3011,50 @@ state:
             exhaustive: true
             semantic_atoms: *id039
             source_surface_fingerprints: *id039
-          prep.presentation-system:
+          prep.interface-topology:
             exhaustive: true
-            semantic_atoms: *id042
-            source_surface_fingerprints: *id042
+            semantic_atoms: *id041
+            source_surface_fingerprints: *id041
           prep.machine-interfaces:
             exhaustive: true
             semantic_atoms: *id036
             source_surface_fingerprints: *id036
-          prep.frontend-performance-capacity:
+          prep.presentation-system:
             exhaustive: true
-            semantic_atoms: *id041
-            source_surface_fingerprints: *id041
-        semantic_atom_fingerprints: &id045
-          SV-FRAME: SAF-1f2e37036a3a9c80600b757118082dd70028c1bc40c59eaa568af58e06e5961d
-          SV-TARGETS: SAF-630033fdcdfb185e7e4ca947ec3edaea79291f992fe23671f3c7271d1159f7d9
-          SV-TARGET: SAF-150088717d4b4e8dbe171bebb5f48bd452bc9c026ac2ae450f62505a85efb26f
+            semantic_atoms: *id042
+            source_surface_fingerprints: *id042
+        accepted_prerequisites:
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        artifact: SCREEN-VIEW-DESIGN
+        capability: prep.screen-view-design
+        semantic_atom_fingerprints: &id044
+          SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
+          SV-COMPOSITION-VARIANTS: SAF-11b37177da8c84e50734ec9d85139f54a3ee06451afcabc4254171e4af3c624c
           SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
-          SV-KNOWLEDGE: SAF-ee09b1f8470286d431cc1302f55972bdb04e9ee927d17f9535b9ecac6ec74dfc
-          SV-ACTIVITY: SAF-651a91c335107b3dfc8868dd37b4b162b2cd442e2932f7b071ff771c1607e884
-          SV-EVIDENCE: SAF-06929304b6106937506e912bd8c9a41aaf1f31568ef20118f4a97929750d5cf6
-          SV-PREP-SUPPORT: SAF-b8ca42b5d3892d44ede5be7de727d74015f82cd74c94159198730990355b25fa
           SV-DETAIL: SAF-b0ba5e56e508d1f52c1f61c73be2b388d05a8146f739568b2aa81e30d39aa16b
-          SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
-          SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79
+          SV-EVIDENCE: SAF-85c69a011c8df501995e7307e73287a7f1b44de4eda8903f0c2e6af9fd4385e9
+          SV-FRAME: SAF-2a66df9266c6acc3affac9ec39a52109e45aed2b7450ce826f59b381576ebde1
+          SV-KNOWLEDGE: SAF-ee09b1f8470286d431cc1302f55972bdb04e9ee927d17f9535b9ecac6ec74dfc
           SV-NO-IMPLEMENTATION: SAF-588cd04b7ab0b6c2a2afb32b990a912c3edc310125fa2eae7dd8a161d03f4a20
+          SV-PERFORMANCE: SAF-2ad7676351bf36d603d26b6535decd3f8132503bd4f878eddd77ba0efe355e79
+          SV-PREP-SUPPORT: SAF-1413d2b47c73d090fb8fcf281ae65d8499353ab36aec3eed1b3fe62193123dd4
+          SV-RESPONSIVE: SAF-bf51f6453682a3ab55024e4232880ce3b46ebc3f2a6535b2b6d916ca123eed24
+          SV-TARGET: SAF-07c6f3c442928a045e13cfbcfdb1d6b46ccea41d5f04e143a31a7fadcdaee1b8
+          SV-TARGETS: SAF-3c9f0079625c0b6a2933f8cb674e2d6d989743fa27665735be3c979fb99fc392
+      obligations:
+        dispositions: []
+        expected: []
+        satisfied: []
+      question_proposals: []
+      semantic_claims:
+        accepted:
+        - engineering.interface.human.screen-composition
+      status: ACCEPTED
+      version: 1
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -10906,1673 +10892,6 @@ state:
         semantic_atoms: *id036
         source_surface_fingerprints: *id036
       findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.information-architecture
-      target_capability: prep.interface-topology
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - IA-CROSSLINKS
-      - IA-FINDABILITY
-      - IA-LOC-ACTIVITIES
-      - IA-LOC-CURRENT
-      - IA-LOC-EVIDENCE
-      - IA-LOC-KNOWLEDGE
-      - IA-LOC-PREP-SUPPORT
-      - IA-LOC-TARGET
-      - IA-LOC-TARGETS
-      - IA-NO-SCREEN
-      - IA-ROOT
-      - IA-SCOPE-FOCUS
-      - IA-SCOPE-KNOWLEDGE
-      - IA-SCOPE-TARGET
-      - IA-STRUCTURE
-      - IA-TAXONOMY
-      covered_sources:
-      - IA-CROSSLINKS
-      - IA-FINDABILITY
-      - IA-LOC-ACTIVITIES
-      - IA-LOC-CURRENT
-      - IA-LOC-EVIDENCE
-      - IA-LOC-KNOWLEDGE
-      - IA-LOC-PREP-SUPPORT
-      - IA-LOC-TARGET
-      - IA-LOC-TARGETS
-      - IA-NO-SCREEN
-      - IA-ROOT
-      - IA-SCOPE-FOCUS
-      - IA-SCOPE-KNOWLEDGE
-      - IA-SCOPE-TARGET
-      - IA-STRUCTURE
-      - IA-TAXONOMY
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - IA-ROOT
-        targets:
-        - TOP-ROOT
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-TARGET
-        targets:
-        - TOP-VIEW-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-CURRENT
-        targets:
-        - TOP-VIEW-CURRENT
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-KNOWLEDGE
-        targets:
-        - TOP-VIEW-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-ACTIVITIES
-        targets:
-        - TOP-VIEW-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-EVIDENCE
-        targets:
-        - TOP-VIEW-EVIDENCE
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-PREP-SUPPORT
-        targets:
-        - TOP-VIEW-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-TARGET
-        targets:
-        - TOP-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-FOCUS
-        targets:
-        - TOP-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-KNOWLEDGE
-        targets:
-        - TOP-VIEW-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - IA-STRUCTURE
-        targets:
-        - TOP-ROOT
-      - relation: TRANSFORMS
-        sources:
-        - IA-CROSSLINKS
-        targets:
-        - TOP-CROSSLINKS
-      - relation: TRANSFORMS
-        sources:
-        - IA-TAXONOMY
-        targets:
-        - TOP-LABELS
-      - relation: CONSTRAINS
-        sources:
-        - IA-FINDABILITY
-        targets:
-        - TOP-DIRECT-LINK
-      - relation: CONSTRAINS
-        sources:
-        - IA-NO-SCREEN
-        targets:
-        - TOP-NO-COMPOSITION
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-TARGETS
-        targets:
-        - TOP-VIEW-TARGETS
-      coverage:
-        required: 16
-        covered: 16
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.information-architecture
-        exhaustive: true
-        semantic_atoms: *id038
-        source_surface_fingerprints: *id038
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.interaction-design
-      target_capability: prep.interface-topology
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      covered_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET
-        targets:
-        - TOP-VIEW-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - IX-DIRECTION
-        targets:
-        - TOP-VIEW-CURRENT
-      - relation: TRANSFORMS
-        sources:
-        - IX-KNOWLEDGE
-        targets:
-        - TOP-VIEW-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - IX-ACTIVITY
-        targets:
-        - TOP-VIEW-ACTIVITY
-        - TOP-VIEW-EVIDENCE
-      - relation: TRANSFORMS
-        sources:
-        - IX-PREP-SUPPORT
-        targets:
-        - TOP-VIEW-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - IX-OUTCOMES
-        targets:
-        - TOP-CROSSLINKS
-      - relation: CONSTRAINS
-        sources:
-        - IX-CURRENTNESS
-        targets:
-        - TOP-DIRECT-LINK
-      - relation: CONSTRAINS
-        sources:
-        - IX-CONTEXT-CONTINUITY
-        targets:
-        - TOP-CONTEXT
-        - TOP-CROSSLINKS
-      - relation: CONSTRAINS
-        sources:
-        - IX-KEYBOARD
-        targets:
-        - TOP-NO-COMPOSITION
-      - relation: CONSTRAINS
-        sources:
-        - IX-PENDING
-        targets:
-        - TOP-CROSSLINKS
-      - relation: CONSTRAINS
-        sources:
-        - IX-NO-LAYOUT
-        targets:
-        - TOP-NO-COMPOSITION
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET-DIRECTION
-        targets:
-        - TOP-CROSSLINKS
-        - TOP-ROOT
-        - TOP-VIEW-TARGETS
-      coverage:
-        required: 12
-        covered: 12
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.interaction-design
-        exhaustive: true
-        semantic_atoms: *id039
-        source_surface_fingerprints: *id039
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.conceptual-interface-model
-      target_capability: prep.presentation-system
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - CIM-ACTIVITY
-      - CIM-CHANGE
-      - CIM-CURRENT-STATE
-      - CIM-EVIDENCE
-      - CIM-EVIDENCE-BASIS
-      - CIM-GAP
-      - CIM-KNOWLEDGE
-      - CIM-KNOWLEDGE-SCOPE
-      - CIM-NEXT-FOCUS
-      - CIM-NO-GLOBAL-MODES
-      - CIM-PREPARATION-REQUEST
-      - CIM-PRESENTATION-FREEDOM
-      - CIM-REL-ACTIVITY-EVIDENCE
-      - CIM-REL-CAPABILITY-KNOWLEDGE
-      - CIM-REL-COMPARISON-STATE
-      - CIM-REL-COMPARISON-TARGET
-      - CIM-REL-EVIDENCE-STATE
-      - CIM-REL-GAP-FOCUS
-      - CIM-REL-PREPARATION-SUPPORT
-      - CIM-REL-SCOPE-KNOWLEDGE
-      - CIM-REL-TARGET-CAPABILITY
-      - CIM-REQUIRED-CAPABILITY
-      - CIM-SEMANTIC-BOUNDARIES
-      - CIM-STATE-ACTIVITY-PURPOSE
-      - CIM-STATE-CAPABILITY
-      - CIM-STATE-EVIDENCE-BEARING
-      - CIM-STATE-OUTCOMES
-      - CIM-SUPPORT
-      - CIM-TARGET
-      - CIM-TARGET-COMPARISON
-      - CIM-TARGET-REQUIREMENT
-      covered_sources:
-      - CIM-ACTIVITY
-      - CIM-CHANGE
-      - CIM-CURRENT-STATE
-      - CIM-EVIDENCE
-      - CIM-EVIDENCE-BASIS
-      - CIM-GAP
-      - CIM-KNOWLEDGE
-      - CIM-KNOWLEDGE-SCOPE
-      - CIM-NEXT-FOCUS
-      - CIM-NO-GLOBAL-MODES
-      - CIM-PREPARATION-REQUEST
-      - CIM-PRESENTATION-FREEDOM
-      - CIM-REL-ACTIVITY-EVIDENCE
-      - CIM-REL-CAPABILITY-KNOWLEDGE
-      - CIM-REL-COMPARISON-STATE
-      - CIM-REL-COMPARISON-TARGET
-      - CIM-REL-EVIDENCE-STATE
-      - CIM-REL-GAP-FOCUS
-      - CIM-REL-PREPARATION-SUPPORT
-      - CIM-REL-SCOPE-KNOWLEDGE
-      - CIM-REL-TARGET-CAPABILITY
-      - CIM-REQUIRED-CAPABILITY
-      - CIM-SEMANTIC-BOUNDARIES
-      - CIM-STATE-ACTIVITY-PURPOSE
-      - CIM-STATE-CAPABILITY
-      - CIM-STATE-EVIDENCE-BEARING
-      - CIM-STATE-OUTCOMES
-      - CIM-SUPPORT
-      - CIM-TARGET
-      - CIM-TARGET-COMPARISON
-      - CIM-TARGET-REQUIREMENT
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - CIM-TARGET
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-TARGET-REQUIREMENT
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REQUIRED-CAPABILITY
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: CONSTRAINS
-        sources:
-        - CIM-KNOWLEDGE
-        targets:
-        - PS-FREEDOMS
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: CONSTRAINS
-        sources:
-        - CIM-KNOWLEDGE-SCOPE
-        targets:
-        - PS-FREEDOMS
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - CIM-CURRENT-STATE
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-EVIDENCE
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-EVIDENCE-BASIS
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-GAP
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-NEXT-FOCUS
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-SUPPORT
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-ACTIVITY
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-CHANGE
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-PREPARATION-REQUEST
-        targets:
-        - PS-PATTERN-PREP-SUPPORT
-      - relation: TRANSFORMS
-        sources:
-        - CIM-STATE-CAPABILITY
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-STATE-EVIDENCE-BEARING
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-STATE-ACTIVITY-PURPOSE
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - CIM-STATE-OUTCOMES
-        targets:
-        - PS-OUTCOMES
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-TARGET-CAPABILITY
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: CONSTRAINS
-        sources:
-        - CIM-REL-CAPABILITY-KNOWLEDGE
-        targets:
-        - PS-FREEDOMS
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-EVIDENCE-STATE
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-GAP-FOCUS
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-ACTIVITY-EVIDENCE
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: CONSTRAINS
-        sources:
-        - CIM-REL-SCOPE-KNOWLEDGE
-        targets:
-        - PS-FREEDOMS
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-PREPARATION-SUPPORT
-        targets:
-        - PS-PATTERN-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - CIM-NO-GLOBAL-MODES
-        targets:
-        - PS-FREEDOMS
-        - PS-TASK-HIERARCHY
-      - relation: CONSTRAINS
-        sources:
-        - CIM-SEMANTIC-BOUNDARIES
-        targets:
-        - PS-FREEDOMS
-        - PS-TASK-HIERARCHY
-      - relation: CONSTRAINS
-        sources:
-        - CIM-PRESENTATION-FREEDOM
-        targets:
-        - PS-FREEDOMS
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - CIM-TARGET-COMPARISON
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-COMPARISON-TARGET
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      - relation: TRANSFORMS
-        sources:
-        - CIM-REL-COMPARISON-STATE
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      coverage:
-        required: 31
-        covered: 31
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.conceptual-interface-model
-        exhaustive: true
-        semantic_atoms: *id035
-        source_surface_fingerprints: *id035
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.information-architecture
-      target_capability: prep.presentation-system
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - IA-CROSSLINKS
-      - IA-FINDABILITY
-      - IA-LOC-ACTIVITIES
-      - IA-LOC-CURRENT
-      - IA-LOC-EVIDENCE
-      - IA-LOC-KNOWLEDGE
-      - IA-LOC-PREP-SUPPORT
-      - IA-LOC-TARGET
-      - IA-LOC-TARGETS
-      - IA-NO-SCREEN
-      - IA-ROOT
-      - IA-SCOPE-FOCUS
-      - IA-SCOPE-KNOWLEDGE
-      - IA-SCOPE-TARGET
-      - IA-STRUCTURE
-      - IA-TAXONOMY
-      covered_sources:
-      - IA-CROSSLINKS
-      - IA-FINDABILITY
-      - IA-LOC-ACTIVITIES
-      - IA-LOC-CURRENT
-      - IA-LOC-EVIDENCE
-      - IA-LOC-KNOWLEDGE
-      - IA-LOC-PREP-SUPPORT
-      - IA-LOC-TARGET
-      - IA-LOC-TARGETS
-      - IA-NO-SCREEN
-      - IA-ROOT
-      - IA-SCOPE-FOCUS
-      - IA-SCOPE-KNOWLEDGE
-      - IA-SCOPE-TARGET
-      - IA-STRUCTURE
-      - IA-TAXONOMY
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - IA-ROOT
-        targets:
-        - PS-DENSITY
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-TARGET
-        targets:
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-CURRENT
-        targets:
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-KNOWLEDGE
-        targets:
-        - PS-KNOWLEDGE-REPRESENTATION
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-ACTIVITIES
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-EVIDENCE
-        targets:
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-PREP-SUPPORT
-        targets:
-        - PS-PATTERN-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-TARGET
-        targets:
-        - PS-PATTERN-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-FOCUS
-        targets:
-        - PS-PATTERN-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IA-SCOPE-KNOWLEDGE
-        targets:
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - IA-STRUCTURE
-        targets:
-        - PS-DENSITY
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - IA-CROSSLINKS
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-      - relation: TRANSFORMS
-        sources:
-        - IA-TAXONOMY
-        targets:
-        - PS-TASK-HIERARCHY
-      - relation: CONSTRAINS
-        sources:
-        - IA-FINDABILITY
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IA-NO-SCREEN
-        targets:
-        - PS-FREEDOMS
-        - PS-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - IA-LOC-TARGETS
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      coverage:
-        required: 16
-        covered: 16
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.information-architecture
-        exhaustive: true
-        semantic_atoms: *id038
-        source_surface_fingerprints: *id038
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.interface-topology
-      target_capability: prep.presentation-system
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - TOP-CONTEXT
-      - TOP-CROSSLINKS
-      - TOP-DIRECT-LINK
-      - TOP-LABELS
-      - TOP-NO-COMPOSITION
-      - TOP-ROOT
-      - TOP-VIEW-ACTIVITY
-      - TOP-VIEW-CURRENT
-      - TOP-VIEW-EVIDENCE
-      - TOP-VIEW-KNOWLEDGE
-      - TOP-VIEW-PREP-SUPPORT
-      - TOP-VIEW-TARGET
-      - TOP-VIEW-TARGETS
-      covered_sources:
-      - TOP-CONTEXT
-      - TOP-CROSSLINKS
-      - TOP-DIRECT-LINK
-      - TOP-LABELS
-      - TOP-NO-COMPOSITION
-      - TOP-ROOT
-      - TOP-VIEW-ACTIVITY
-      - TOP-VIEW-CURRENT
-      - TOP-VIEW-EVIDENCE
-      - TOP-VIEW-KNOWLEDGE
-      - TOP-VIEW-PREP-SUPPORT
-      - TOP-VIEW-TARGET
-      - TOP-VIEW-TARGETS
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - TOP-ROOT
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-TARGET
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-CURRENT
-        targets:
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-KNOWLEDGE
-        targets:
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-ACTIVITY
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-EVIDENCE
-        targets:
-        - PS-OUTCOMES
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-PREP-SUPPORT
-        targets:
-        - PS-PATTERN-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - TOP-CONTEXT
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-        - PS-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-CROSSLINKS
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-        - PS-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-DIRECT-LINK
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-        - PS-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-LABELS
-        targets:
-        - PS-CONTROLS
-        - PS-PATTERN-CONTEXT
-        - PS-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-NO-COMPOSITION
-        targets:
-        - PS-FREEDOMS
-        - PS-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-TARGETS
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      coverage:
-        required: 13
-        covered: 13
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.interface-topology
-        exhaustive: true
-        semantic_atoms: *id040
-        source_surface_fingerprints: *id040
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.interaction-design
-      target_capability: prep.presentation-system
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      covered_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET
-        targets:
-        - PS-PATTERN-CONTEXT
-        - PS-TASK-HIERARCHY
-      - relation: TRANSFORMS
-        sources:
-        - IX-DIRECTION
-        targets:
-        - PS-PATTERN-STATE-BASIS
-      - relation: TRANSFORMS
-        sources:
-        - IX-KNOWLEDGE
-        targets:
-        - PS-KNOWLEDGE-REPRESENTATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: TRANSFORMS
-        sources:
-        - IX-ACTIVITY
-        targets:
-        - PS-PATTERN-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - IX-PREP-SUPPORT
-        targets:
-        - PS-PATTERN-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - IX-OUTCOMES
-        targets:
-        - PS-OUTCOMES
-      - relation: CONSTRAINS
-        sources:
-        - IX-CURRENTNESS
-        targets:
-        - PS-OUTCOMES
-      - relation: CONSTRAINS
-        sources:
-        - IX-CONTEXT-CONTINUITY
-        targets:
-        - PS-DENSITY
-        - PS-PATTERN-CONTEXT
-      - relation: CONSTRAINS
-        sources:
-        - IX-KEYBOARD
-        targets:
-        - PS-ACCESSIBILITY
-        - PS-CONTROLS
-      - relation: CONSTRAINS
-        sources:
-        - IX-PENDING
-        targets:
-        - PS-OUTCOMES
-      - relation: CONSTRAINS
-        sources:
-        - IX-NO-LAYOUT
-        targets:
-        - PS-FREEDOMS
-        - PS-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET-DIRECTION
-        targets:
-        - PS-PATTERN-TARGET-COMPARISON
-      coverage:
-        required: 12
-        covered: 12
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.interaction-design
-        exhaustive: true
-        semantic_atoms: *id039
-        source_surface_fingerprints: *id039
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.frontend-performance-capacity
-      target_capability: prep.presentation-system
-      source_authority: QUALITY-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - QD-ACTIVE-WORKING-SET-FREEDOM
-      - QD-EXPLORE-QUALITY-SCOPE
-      - QD-GRAPH-CONDITIONAL
-      - QD-IDLE-TARGET-DEFERRED
-      - QD-NUMERIC-TARGETS-DEFERRED
-      - QD-SEMANTIC-PRESERVATION
-      covered_sources:
-      - QD-ACTIVE-WORKING-SET-FREEDOM
-      - QD-EXPLORE-QUALITY-SCOPE
-      - QD-GRAPH-CONDITIONAL
-      - QD-IDLE-TARGET-DEFERRED
-      - QD-NUMERIC-TARGETS-DEFERRED
-      - QD-SEMANTIC-PRESERVATION
-      dispositions: []
-      links:
-      - relation: CONSTRAINS
-        sources:
-        - QD-EXPLORE-QUALITY-SCOPE
-        targets:
-        - PS-DEGRADATION
-        - PS-FREEDOMS
-      - relation: CONSTRAINS
-        sources:
-        - QD-SEMANTIC-PRESERVATION
-        targets:
-        - PS-DEGRADATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: CONSTRAINS
-        sources:
-        - QD-ACTIVE-WORKING-SET-FREEDOM
-        targets:
-        - PS-DEGRADATION
-        - PS-PATTERN-QUERY-DETAIL
-      - relation: CONSTRAINS
-        sources:
-        - QD-GRAPH-CONDITIONAL
-        targets:
-        - PS-DEGRADATION
-        - PS-KNOWLEDGE-REPRESENTATION
-      - relation: CONSTRAINS
-        sources:
-        - QD-NUMERIC-TARGETS-DEFERRED
-        targets:
-        - PS-DEGRADATION
-        - PS-FREEDOMS
-      - relation: CONSTRAINS
-        sources:
-        - QD-IDLE-TARGET-DEFERRED
-        targets:
-        - PS-DEGRADATION
-        - PS-FREEDOMS
-      coverage:
-        required: 6
-        covered: 6
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.frontend-performance-capacity
-        exhaustive: true
-        semantic_atoms: *id041
-        source_surface_fingerprints: *id041
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.interface-topology
-      target_capability: prep.screen-view-design
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - TOP-CONTEXT
-      - TOP-CROSSLINKS
-      - TOP-DIRECT-LINK
-      - TOP-LABELS
-      - TOP-NO-COMPOSITION
-      - TOP-ROOT
-      - TOP-VIEW-ACTIVITY
-      - TOP-VIEW-CURRENT
-      - TOP-VIEW-EVIDENCE
-      - TOP-VIEW-KNOWLEDGE
-      - TOP-VIEW-PREP-SUPPORT
-      - TOP-VIEW-TARGET
-      - TOP-VIEW-TARGETS
-      covered_sources:
-      - TOP-CONTEXT
-      - TOP-CROSSLINKS
-      - TOP-DIRECT-LINK
-      - TOP-LABELS
-      - TOP-NO-COMPOSITION
-      - TOP-ROOT
-      - TOP-VIEW-ACTIVITY
-      - TOP-VIEW-CURRENT
-      - TOP-VIEW-EVIDENCE
-      - TOP-VIEW-KNOWLEDGE
-      - TOP-VIEW-PREP-SUPPORT
-      - TOP-VIEW-TARGET
-      - TOP-VIEW-TARGETS
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - TOP-ROOT
-        targets:
-        - SV-FRAME
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-TARGET
-        targets:
-        - SV-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-CURRENT
-        targets:
-        - SV-CURRENT
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-KNOWLEDGE
-        targets:
-        - SV-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-ACTIVITY
-        targets:
-        - SV-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-EVIDENCE
-        targets:
-        - SV-EVIDENCE
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-PREP-SUPPORT
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - TOP-CONTEXT
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-CROSSLINKS
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-DIRECT-LINK
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-LABELS
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - TOP-NO-COMPOSITION
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - TOP-VIEW-TARGETS
-        targets:
-        - SV-TARGETS
-      coverage:
-        required: 13
-        covered: 13
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.interface-topology
-        exhaustive: true
-        semantic_atoms: *id040
-        source_surface_fingerprints: *id040
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.interaction-design
-      target_capability: prep.screen-view-design
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      covered_sources:
-      - IX-ACTIVITY
-      - IX-CONTEXT-CONTINUITY
-      - IX-CURRENTNESS
-      - IX-DIRECTION
-      - IX-KEYBOARD
-      - IX-KNOWLEDGE
-      - IX-NO-LAYOUT
-      - IX-OUTCOMES
-      - IX-PENDING
-      - IX-PREP-SUPPORT
-      - IX-TARGET
-      - IX-TARGET-DIRECTION
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET
-        targets:
-        - SV-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - IX-DIRECTION
-        targets:
-        - SV-CURRENT
-      - relation: TRANSFORMS
-        sources:
-        - IX-KNOWLEDGE
-        targets:
-        - SV-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - IX-ACTIVITY
-        targets:
-        - SV-ACTIVITY
-        - SV-EVIDENCE
-      - relation: TRANSFORMS
-        sources:
-        - IX-PREP-SUPPORT
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - IX-OUTCOMES
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - IX-CURRENTNESS
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - IX-CONTEXT-CONTINUITY
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - IX-KEYBOARD
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - IX-PENDING
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - IX-NO-LAYOUT
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - IX-TARGET-DIRECTION
-        targets:
-        - SV-FRAME
-        - SV-TARGETS
-      coverage:
-        required: 12
-        covered: 12
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.interaction-design
-        exhaustive: true
-        semantic_atoms: *id039
-        source_surface_fingerprints: *id039
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.presentation-system
-      target_capability: prep.screen-view-design
-      source_authority: HUMAN-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - PS-ACCESSIBILITY
-      - PS-CONTROLS
-      - PS-DEGRADATION
-      - PS-DENSITY
-      - PS-FREEDOMS
-      - PS-KNOWLEDGE-REPRESENTATION
-      - PS-OUTCOMES
-      - PS-PATTERN-ACTIVITY
-      - PS-PATTERN-CONTEXT
-      - PS-PATTERN-PREP-SUPPORT
-      - PS-PATTERN-QUERY-DETAIL
-      - PS-PATTERN-STATE-BASIS
-      - PS-PATTERN-TARGET-COMPARISON
-      - PS-RESPONSIVE
-      - PS-TASK-HIERARCHY
-      covered_sources:
-      - PS-ACCESSIBILITY
-      - PS-CONTROLS
-      - PS-DEGRADATION
-      - PS-DENSITY
-      - PS-FREEDOMS
-      - PS-KNOWLEDGE-REPRESENTATION
-      - PS-OUTCOMES
-      - PS-PATTERN-ACTIVITY
-      - PS-PATTERN-CONTEXT
-      - PS-PATTERN-PREP-SUPPORT
-      - PS-PATTERN-QUERY-DETAIL
-      - PS-PATTERN-STATE-BASIS
-      - PS-PATTERN-TARGET-COMPARISON
-      - PS-RESPONSIVE
-      - PS-TASK-HIERARCHY
-      dispositions: []
-      links:
-      - relation: TRANSFORMS
-        sources:
-        - PS-TASK-HIERARCHY
-        targets:
-        - SV-DETAIL
-        - SV-FRAME
-      - relation: TRANSFORMS
-        sources:
-        - PS-KNOWLEDGE-REPRESENTATION
-        targets:
-        - SV-KNOWLEDGE
-      - relation: CONSTRAINS
-        sources:
-        - PS-DENSITY
-        targets:
-        - SV-DETAIL
-      - relation: CONSTRAINS
-        sources:
-        - PS-CONTROLS
-        targets:
-        - SV-FRAME
-        - SV-RESPONSIVE
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-CONTEXT
-        targets:
-        - SV-FRAME
-        - SV-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-QUERY-DETAIL
-        targets:
-        - SV-KNOWLEDGE
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-STATE-BASIS
-        targets:
-        - SV-CURRENT
-        - SV-EVIDENCE
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-ACTIVITY
-        targets:
-        - SV-ACTIVITY
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-PREP-SUPPORT
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: TRANSFORMS
-        sources:
-        - PS-OUTCOMES
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - PS-RESPONSIVE
-        targets:
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - PS-ACCESSIBILITY
-        targets:
-        - SV-RESPONSIVE
-      - relation: CONSTRAINS
-        sources:
-        - PS-DEGRADATION
-        targets:
-        - SV-KNOWLEDGE
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - PS-FREEDOMS
-        targets:
-        - SV-NO-IMPLEMENTATION
-      - relation: TRANSFORMS
-        sources:
-        - PS-PATTERN-TARGET-COMPARISON
-        targets:
-        - SV-TARGETS
-      coverage:
-        required: 15
-        covered: 15
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.presentation-system
-        exhaustive: true
-        semantic_atoms: *id042
-        source_surface_fingerprints: *id042
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.machine-interfaces
-      target_capability: prep.screen-view-design
-      source_authority: MACHINE-INTERFACE-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - MI-BASIS
-      - MI-COMPATIBILITY
-      - MI-NO-LEAK
-      - MI-OP-ACTIVITY-COMPLETE
-      - MI-OP-ACTIVITY-START
-      - MI-OP-CHANGE-GET
-      - MI-OP-EVIDENCE-GET
-      - MI-OP-FOCUS-SET
-      - MI-OP-GAPS-GET
-      - MI-OP-KNOWLEDGE-QUERY
-      - MI-OP-PREP-GET
-      - MI-OP-PREP-REQUEST
-      - MI-OP-REQUIREMENTS-GET
-      - MI-OP-STATE-GET
-      - MI-OP-SUPPORT-LIST
-      - MI-OP-TARGET-ESTABLISH
-      - MI-OP-TARGETS-COMPARE
-      - MI-OUTCOME-MODEL
-      - MI-PROC-ACTIVITY
-      - MI-PROC-PREP
-      - MI-REP-ACTIVITY
-      - MI-REP-CHANGE
-      - MI-REP-CURRENT
-      - MI-REP-EVIDENCE
-      - MI-REP-FOCUS
-      - MI-REP-GAP
-      - MI-REP-KNOWLEDGE
-      - MI-REP-PREP-REQUEST
-      - MI-REP-REQUIREMENT
-      - MI-REP-SUPPORT
-      - MI-REP-TARGET
-      - MI-REP-TARGET-COMPARISON
-      covered_sources:
-      - MI-BASIS
-      - MI-COMPATIBILITY
-      - MI-NO-LEAK
-      - MI-OP-ACTIVITY-COMPLETE
-      - MI-OP-ACTIVITY-START
-      - MI-OP-CHANGE-GET
-      - MI-OP-EVIDENCE-GET
-      - MI-OP-FOCUS-SET
-      - MI-OP-GAPS-GET
-      - MI-OP-KNOWLEDGE-QUERY
-      - MI-OP-PREP-GET
-      - MI-OP-PREP-REQUEST
-      - MI-OP-REQUIREMENTS-GET
-      - MI-OP-STATE-GET
-      - MI-OP-SUPPORT-LIST
-      - MI-OP-TARGET-ESTABLISH
-      - MI-OP-TARGETS-COMPARE
-      - MI-OUTCOME-MODEL
-      - MI-PROC-ACTIVITY
-      - MI-PROC-PREP
-      - MI-REP-ACTIVITY
-      - MI-REP-CHANGE
-      - MI-REP-CURRENT
-      - MI-REP-EVIDENCE
-      - MI-REP-FOCUS
-      - MI-REP-GAP
-      - MI-REP-KNOWLEDGE
-      - MI-REP-PREP-REQUEST
-      - MI-REP-REQUIREMENT
-      - MI-REP-SUPPORT
-      - MI-REP-TARGET
-      - MI-REP-TARGET-COMPARISON
-      dispositions: []
-      links:
-      - relation: CONSTRAINS
-        sources:
-        - MI-OUTCOME-MODEL
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-NO-IMPLEMENTATION
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - MI-BASIS
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-NO-IMPLEMENTATION
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: REALIZES
-        sources:
-        - MI-REP-TARGET
-        targets:
-        - SV-TARGET
-      - relation: REALIZES
-        sources:
-        - MI-REP-REQUIREMENT
-        targets:
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - MI-REP-CURRENT
-        targets:
-        - SV-NO-IMPLEMENTATION
-      - relation: REALIZES
-        sources:
-        - MI-REP-EVIDENCE
-        targets:
-        - SV-EVIDENCE
-      - relation: REALIZES
-        sources:
-        - MI-REP-GAP
-        targets:
-        - SV-CURRENT
-      - relation: REALIZES
-        sources:
-        - MI-REP-FOCUS
-        targets:
-        - SV-CURRENT
-      - relation: REALIZES
-        sources:
-        - MI-REP-KNOWLEDGE
-        targets:
-        - SV-KNOWLEDGE
-      - relation: REALIZES
-        sources:
-        - MI-REP-SUPPORT
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-REP-ACTIVITY
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-REP-CHANGE
-        targets:
-        - SV-EVIDENCE
-      - relation: REALIZES
-        sources:
-        - MI-REP-PREP-REQUEST
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: REALIZES
-        sources:
-        - MI-OP-TARGET-ESTABLISH
-        targets:
-        - SV-TARGET
-      - relation: REALIZES
-        sources:
-        - MI-OP-REQUIREMENTS-GET
-        targets:
-        - SV-TARGET
-      - relation: REALIZES
-        sources:
-        - MI-OP-STATE-GET
-        targets:
-        - SV-CURRENT
-      - relation: REALIZES
-        sources:
-        - MI-OP-EVIDENCE-GET
-        targets:
-        - SV-EVIDENCE
-      - relation: REALIZES
-        sources:
-        - MI-OP-GAPS-GET
-        targets:
-        - SV-CURRENT
-      - relation: REALIZES
-        sources:
-        - MI-OP-FOCUS-SET
-        targets:
-        - SV-CURRENT
-      - relation: REALIZES
-        sources:
-        - MI-OP-KNOWLEDGE-QUERY
-        targets:
-        - SV-KNOWLEDGE
-      - relation: REALIZES
-        sources:
-        - MI-OP-SUPPORT-LIST
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-OP-ACTIVITY-START
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-OP-ACTIVITY-COMPLETE
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-OP-CHANGE-GET
-        targets:
-        - SV-EVIDENCE
-      - relation: REALIZES
-        sources:
-        - MI-OP-PREP-REQUEST
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: REALIZES
-        sources:
-        - MI-OP-PREP-GET
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: REALIZES
-        sources:
-        - MI-PROC-ACTIVITY
-        targets:
-        - SV-ACTIVITY
-      - relation: REALIZES
-        sources:
-        - MI-PROC-PREP
-        targets:
-        - SV-PREP-SUPPORT
-      - relation: CONSTRAINS
-        sources:
-        - MI-COMPATIBILITY
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-NO-IMPLEMENTATION
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: CONSTRAINS
-        sources:
-        - MI-NO-LEAK
-        targets:
-        - SV-ACTIVITY
-        - SV-CURRENT
-        - SV-EVIDENCE
-        - SV-NO-IMPLEMENTATION
-        - SV-PREP-SUPPORT
-        - SV-TARGET
-      - relation: TRANSFORMS
-        sources:
-        - MI-REP-TARGET-COMPARISON
-        targets:
-        - SV-TARGETS
-      - relation: TRANSFORMS
-        sources:
-        - MI-OP-TARGETS-COMPARE
-        targets:
-        - SV-TARGETS
-      coverage:
-        required: 32
-        covered: 32
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.machine-interfaces
-        exhaustive: true
-        semantic_atoms: *id036
-        source_surface_fingerprints: *id036
-      findings: []
-    - version: 1
-      kind: harness-semantic-derivation-evaluation
-      source_capability: prep.frontend-performance-capacity
-      target_capability: prep.screen-view-design
-      source_authority: QUALITY-DESIGN
-      target_authority: HUMAN-INTERFACE-DESIGN
-      status: ACCEPTED
-      required_sources:
-      - QD-ACTIVE-WORKING-SET-FREEDOM
-      - QD-EXPLORE-QUALITY-SCOPE
-      - QD-GRAPH-CONDITIONAL
-      - QD-IDLE-TARGET-DEFERRED
-      - QD-NUMERIC-TARGETS-DEFERRED
-      - QD-SEMANTIC-PRESERVATION
-      covered_sources:
-      - QD-ACTIVE-WORKING-SET-FREEDOM
-      - QD-EXPLORE-QUALITY-SCOPE
-      - QD-GRAPH-CONDITIONAL
-      - QD-IDLE-TARGET-DEFERRED
-      - QD-NUMERIC-TARGETS-DEFERRED
-      - QD-SEMANTIC-PRESERVATION
-      dispositions: []
-      links:
-      - relation: CONSTRAINS
-        sources:
-        - QD-EXPLORE-QUALITY-SCOPE
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - QD-SEMANTIC-PRESERVATION
-        targets:
-        - SV-KNOWLEDGE
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - QD-ACTIVE-WORKING-SET-FREEDOM
-        targets:
-        - SV-KNOWLEDGE
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - QD-GRAPH-CONDITIONAL
-        targets:
-        - SV-KNOWLEDGE
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - QD-NUMERIC-TARGETS-DEFERRED
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-PERFORMANCE
-      - relation: CONSTRAINS
-        sources:
-        - QD-IDLE-TARGET-DEFERRED
-        targets:
-        - SV-NO-IMPLEMENTATION
-        - SV-PERFORMANCE
-      coverage:
-        required: 6
-        covered: 6
-        disposed: 0
-        unresolved: 0
-      lifecycle_dependency:
-        capability: prep.frontend-performance-capacity
-        exhaustive: true
-        semantic_atoms: *id041
-        source_surface_fingerprints: *id041
-      findings: []
     - coverage:
         covered: 31
         disposed: 0
@@ -13450,6 +11769,1690 @@ state:
       target_authority: HUMAN-INTERFACE-DESIGN
       target_capability: prep.information-architecture
       version: 1
+    - coverage:
+        covered: 16
+        disposed: 0
+        required: 16
+        unresolved: 0
+      covered_sources:
+      - IA-CROSSLINKS
+      - IA-FINDABILITY
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-NO-SCREEN
+      - IA-ROOT
+      - IA-SCOPE-FOCUS
+      - IA-SCOPE-KNOWLEDGE
+      - IA-SCOPE-TARGET
+      - IA-STRUCTURE
+      - IA-TAXONOMY
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.information-architecture
+        exhaustive: true
+        semantic_atoms: *id038
+        source_surface_fingerprints: *id038
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IA-ROOT
+        targets:
+        - TOP-ROOT
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-TARGET
+        targets:
+        - TOP-VIEW-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-CURRENT
+        targets:
+        - TOP-VIEW-CURRENT
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-KNOWLEDGE
+        targets:
+        - TOP-VIEW-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-ACTIVITIES
+        targets:
+        - TOP-VIEW-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-EVIDENCE
+        targets:
+        - TOP-VIEW-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-PREP-SUPPORT
+        targets:
+        - TOP-VIEW-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-TARGET
+        targets:
+        - TOP-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-FOCUS
+        targets:
+        - TOP-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-KNOWLEDGE
+        targets:
+        - TOP-VIEW-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - IA-STRUCTURE
+        targets:
+        - TOP-ROOT
+      - relation: TRANSFORMS
+        sources:
+        - IA-CROSSLINKS
+        targets:
+        - TOP-CROSSLINKS
+      - relation: TRANSFORMS
+        sources:
+        - IA-TAXONOMY
+        targets:
+        - TOP-LABELS
+      - relation: CONSTRAINS
+        sources:
+        - IA-FINDABILITY
+        targets:
+        - TOP-DIRECT-LINK
+      - relation: CONSTRAINS
+        sources:
+        - IA-NO-SCREEN
+        targets:
+        - TOP-NO-COMPOSITION
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-TARGETS
+        targets:
+        - TOP-VIEW-TARGETS
+      required_sources:
+      - IA-CROSSLINKS
+      - IA-FINDABILITY
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-NO-SCREEN
+      - IA-ROOT
+      - IA-SCOPE-FOCUS
+      - IA-SCOPE-KNOWLEDGE
+      - IA-SCOPE-TARGET
+      - IA-STRUCTURE
+      - IA-TAXONOMY
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.information-architecture
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.interface-topology
+      version: 1
+    - coverage:
+        covered: 12
+        disposed: 0
+        required: 12
+        unresolved: 0
+      covered_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id039
+        source_surface_fingerprints: *id039
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET
+        targets:
+        - TOP-VIEW-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - IX-DIRECTION
+        targets:
+        - TOP-VIEW-CURRENT
+      - relation: TRANSFORMS
+        sources:
+        - IX-KNOWLEDGE
+        targets:
+        - TOP-VIEW-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - IX-ACTIVITY
+        targets:
+        - TOP-VIEW-ACTIVITY
+        - TOP-VIEW-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - IX-PREP-SUPPORT
+        targets:
+        - TOP-VIEW-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - IX-OUTCOMES
+        targets:
+        - TOP-CROSSLINKS
+      - relation: CONSTRAINS
+        sources:
+        - IX-CURRENTNESS
+        targets:
+        - TOP-DIRECT-LINK
+      - relation: CONSTRAINS
+        sources:
+        - IX-CONTEXT-CONTINUITY
+        targets:
+        - TOP-CONTEXT
+        - TOP-CROSSLINKS
+      - relation: CONSTRAINS
+        sources:
+        - IX-KEYBOARD
+        targets:
+        - TOP-NO-COMPOSITION
+      - relation: CONSTRAINS
+        sources:
+        - IX-PENDING
+        targets:
+        - TOP-CROSSLINKS
+      - relation: CONSTRAINS
+        sources:
+        - IX-NO-LAYOUT
+        targets:
+        - TOP-NO-COMPOSITION
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET-DIRECTION
+        targets:
+        - TOP-CROSSLINKS
+        - TOP-ROOT
+        - TOP-VIEW-TARGETS
+      required_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.interaction-design
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.interface-topology
+      version: 1
+    - coverage:
+        covered: 31
+        disposed: 0
+        required: 31
+        unresolved: 0
+      covered_sources:
+      - CIM-ACTIVITY
+      - CIM-CHANGE
+      - CIM-CURRENT-STATE
+      - CIM-EVIDENCE
+      - CIM-EVIDENCE-BASIS
+      - CIM-GAP
+      - CIM-KNOWLEDGE
+      - CIM-KNOWLEDGE-SCOPE
+      - CIM-NEXT-FOCUS
+      - CIM-NO-GLOBAL-MODES
+      - CIM-PREPARATION-REQUEST
+      - CIM-PRESENTATION-FREEDOM
+      - CIM-REL-ACTIVITY-EVIDENCE
+      - CIM-REL-CAPABILITY-KNOWLEDGE
+      - CIM-REL-COMPARISON-STATE
+      - CIM-REL-COMPARISON-TARGET
+      - CIM-REL-EVIDENCE-STATE
+      - CIM-REL-GAP-FOCUS
+      - CIM-REL-PREPARATION-SUPPORT
+      - CIM-REL-SCOPE-KNOWLEDGE
+      - CIM-REL-TARGET-CAPABILITY
+      - CIM-REQUIRED-CAPABILITY
+      - CIM-SEMANTIC-BOUNDARIES
+      - CIM-STATE-ACTIVITY-PURPOSE
+      - CIM-STATE-CAPABILITY
+      - CIM-STATE-EVIDENCE-BEARING
+      - CIM-STATE-OUTCOMES
+      - CIM-SUPPORT
+      - CIM-TARGET
+      - CIM-TARGET-COMPARISON
+      - CIM-TARGET-REQUIREMENT
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.conceptual-interface-model
+        exhaustive: true
+        semantic_atoms: *id035
+        source_surface_fingerprints: *id035
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - CIM-TARGET
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-TARGET-REQUIREMENT
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REQUIRED-CAPABILITY
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: CONSTRAINS
+        sources:
+        - CIM-KNOWLEDGE
+        targets:
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: CONSTRAINS
+        sources:
+        - CIM-KNOWLEDGE-SCOPE
+        targets:
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - CIM-CURRENT-STATE
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-EVIDENCE
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-EVIDENCE-BASIS
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-GAP
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-NEXT-FOCUS
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-SUPPORT
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-ACTIVITY
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-CHANGE
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-PREPARATION-REQUEST
+        targets:
+        - PS-PATTERN-PREP-SUPPORT
+      - relation: TRANSFORMS
+        sources:
+        - CIM-STATE-CAPABILITY
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-STATE-EVIDENCE-BEARING
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-STATE-ACTIVITY-PURPOSE
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - CIM-STATE-OUTCOMES
+        targets:
+        - PS-OUTCOMES
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-TARGET-CAPABILITY
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: CONSTRAINS
+        sources:
+        - CIM-REL-CAPABILITY-KNOWLEDGE
+        targets:
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-EVIDENCE-STATE
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-GAP-FOCUS
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-ACTIVITY-EVIDENCE
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: CONSTRAINS
+        sources:
+        - CIM-REL-SCOPE-KNOWLEDGE
+        targets:
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-PREPARATION-SUPPORT
+        targets:
+        - PS-PATTERN-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - CIM-NO-GLOBAL-MODES
+        targets:
+        - PS-FREEDOMS
+        - PS-TASK-HIERARCHY
+      - relation: CONSTRAINS
+        sources:
+        - CIM-SEMANTIC-BOUNDARIES
+        targets:
+        - PS-FREEDOMS
+        - PS-TASK-HIERARCHY
+      - relation: CONSTRAINS
+        sources:
+        - CIM-PRESENTATION-FREEDOM
+        targets:
+        - PS-FREEDOMS
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - CIM-TARGET-COMPARISON
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-COMPARISON-TARGET
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      - relation: TRANSFORMS
+        sources:
+        - CIM-REL-COMPARISON-STATE
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      required_sources:
+      - CIM-ACTIVITY
+      - CIM-CHANGE
+      - CIM-CURRENT-STATE
+      - CIM-EVIDENCE
+      - CIM-EVIDENCE-BASIS
+      - CIM-GAP
+      - CIM-KNOWLEDGE
+      - CIM-KNOWLEDGE-SCOPE
+      - CIM-NEXT-FOCUS
+      - CIM-NO-GLOBAL-MODES
+      - CIM-PREPARATION-REQUEST
+      - CIM-PRESENTATION-FREEDOM
+      - CIM-REL-ACTIVITY-EVIDENCE
+      - CIM-REL-CAPABILITY-KNOWLEDGE
+      - CIM-REL-COMPARISON-STATE
+      - CIM-REL-COMPARISON-TARGET
+      - CIM-REL-EVIDENCE-STATE
+      - CIM-REL-GAP-FOCUS
+      - CIM-REL-PREPARATION-SUPPORT
+      - CIM-REL-SCOPE-KNOWLEDGE
+      - CIM-REL-TARGET-CAPABILITY
+      - CIM-REQUIRED-CAPABILITY
+      - CIM-SEMANTIC-BOUNDARIES
+      - CIM-STATE-ACTIVITY-PURPOSE
+      - CIM-STATE-CAPABILITY
+      - CIM-STATE-EVIDENCE-BEARING
+      - CIM-STATE-OUTCOMES
+      - CIM-SUPPORT
+      - CIM-TARGET
+      - CIM-TARGET-COMPARISON
+      - CIM-TARGET-REQUIREMENT
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.conceptual-interface-model
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.presentation-system
+      version: 1
+    - coverage:
+        covered: 16
+        disposed: 0
+        required: 16
+        unresolved: 0
+      covered_sources:
+      - IA-CROSSLINKS
+      - IA-FINDABILITY
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-NO-SCREEN
+      - IA-ROOT
+      - IA-SCOPE-FOCUS
+      - IA-SCOPE-KNOWLEDGE
+      - IA-SCOPE-TARGET
+      - IA-STRUCTURE
+      - IA-TAXONOMY
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.information-architecture
+        exhaustive: true
+        semantic_atoms: *id038
+        source_surface_fingerprints: *id038
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IA-ROOT
+        targets:
+        - PS-DENSITY
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-TARGET
+        targets:
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-CURRENT
+        targets:
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-KNOWLEDGE
+        targets:
+        - PS-KNOWLEDGE-REPRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-ACTIVITIES
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-EVIDENCE
+        targets:
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-PREP-SUPPORT
+        targets:
+        - PS-PATTERN-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-TARGET
+        targets:
+        - PS-PATTERN-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-FOCUS
+        targets:
+        - PS-PATTERN-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IA-SCOPE-KNOWLEDGE
+        targets:
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - IA-STRUCTURE
+        targets:
+        - PS-DENSITY
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - IA-CROSSLINKS
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+      - relation: TRANSFORMS
+        sources:
+        - IA-TAXONOMY
+        targets:
+        - PS-TASK-HIERARCHY
+      - relation: CONSTRAINS
+        sources:
+        - IA-FINDABILITY
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IA-NO-SCREEN
+        targets:
+        - PS-FREEDOMS
+        - PS-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - IA-LOC-TARGETS
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      required_sources:
+      - IA-CROSSLINKS
+      - IA-FINDABILITY
+      - IA-LOC-ACTIVITIES
+      - IA-LOC-CURRENT
+      - IA-LOC-EVIDENCE
+      - IA-LOC-KNOWLEDGE
+      - IA-LOC-PREP-SUPPORT
+      - IA-LOC-TARGET
+      - IA-LOC-TARGETS
+      - IA-NO-SCREEN
+      - IA-ROOT
+      - IA-SCOPE-FOCUS
+      - IA-SCOPE-KNOWLEDGE
+      - IA-SCOPE-TARGET
+      - IA-STRUCTURE
+      - IA-TAXONOMY
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.information-architecture
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.presentation-system
+      version: 1
+    - coverage:
+        covered: 14
+        disposed: 0
+        required: 14
+        unresolved: 0
+      covered_sources:
+      - TOP-CONTEXT
+      - TOP-CROSSLINKS
+      - TOP-DIRECT-LINK
+      - TOP-EVIDENCE-REVIEW
+      - TOP-LABELS
+      - TOP-NO-COMPOSITION
+      - TOP-ROOT
+      - TOP-VIEW-ACTIVITY
+      - TOP-VIEW-CURRENT
+      - TOP-VIEW-EVIDENCE
+      - TOP-VIEW-KNOWLEDGE
+      - TOP-VIEW-PREP-SUPPORT
+      - TOP-VIEW-TARGET
+      - TOP-VIEW-TARGETS
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.interface-topology
+        exhaustive: true
+        semantic_atoms: *id041
+        source_surface_fingerprints: *id041
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - TOP-ROOT
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-TARGET
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-CURRENT
+        targets:
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-KNOWLEDGE
+        targets:
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-ACTIVITY
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-EVIDENCE
+        targets:
+        - PS-OUTCOMES
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-PREP-SUPPORT
+        targets:
+        - PS-PATTERN-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CONTEXT
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+        - PS-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CROSSLINKS
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+        - PS-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-DIRECT-LINK
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+        - PS-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-LABELS
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-CONTEXT
+        - PS-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-NO-COMPOSITION
+        targets:
+        - PS-FREEDOMS
+        - PS-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-TARGETS
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      - relation: CONSTRAINS
+        sources:
+        - TOP-EVIDENCE-REVIEW
+        targets:
+        - PS-CONTROLS
+        - PS-PATTERN-ACTIVITY
+        - PS-PATTERN-STATE-BASIS
+      required_sources:
+      - TOP-CONTEXT
+      - TOP-CROSSLINKS
+      - TOP-DIRECT-LINK
+      - TOP-EVIDENCE-REVIEW
+      - TOP-LABELS
+      - TOP-NO-COMPOSITION
+      - TOP-ROOT
+      - TOP-VIEW-ACTIVITY
+      - TOP-VIEW-CURRENT
+      - TOP-VIEW-EVIDENCE
+      - TOP-VIEW-KNOWLEDGE
+      - TOP-VIEW-PREP-SUPPORT
+      - TOP-VIEW-TARGET
+      - TOP-VIEW-TARGETS
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.interface-topology
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.presentation-system
+      version: 1
+    - coverage:
+        covered: 12
+        disposed: 0
+        required: 12
+        unresolved: 0
+      covered_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id039
+        source_surface_fingerprints: *id039
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET
+        targets:
+        - PS-PATTERN-CONTEXT
+        - PS-TASK-HIERARCHY
+      - relation: TRANSFORMS
+        sources:
+        - IX-DIRECTION
+        targets:
+        - PS-PATTERN-STATE-BASIS
+      - relation: TRANSFORMS
+        sources:
+        - IX-KNOWLEDGE
+        targets:
+        - PS-KNOWLEDGE-REPRESENTATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: TRANSFORMS
+        sources:
+        - IX-ACTIVITY
+        targets:
+        - PS-PATTERN-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - IX-PREP-SUPPORT
+        targets:
+        - PS-PATTERN-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - IX-OUTCOMES
+        targets:
+        - PS-OUTCOMES
+      - relation: CONSTRAINS
+        sources:
+        - IX-CURRENTNESS
+        targets:
+        - PS-OUTCOMES
+      - relation: CONSTRAINS
+        sources:
+        - IX-CONTEXT-CONTINUITY
+        targets:
+        - PS-DENSITY
+        - PS-PATTERN-CONTEXT
+      - relation: CONSTRAINS
+        sources:
+        - IX-KEYBOARD
+        targets:
+        - PS-ACCESSIBILITY
+        - PS-CONTROLS
+      - relation: CONSTRAINS
+        sources:
+        - IX-PENDING
+        targets:
+        - PS-OUTCOMES
+      - relation: CONSTRAINS
+        sources:
+        - IX-NO-LAYOUT
+        targets:
+        - PS-FREEDOMS
+        - PS-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET-DIRECTION
+        targets:
+        - PS-PATTERN-TARGET-COMPARISON
+      required_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.interaction-design
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.presentation-system
+      version: 1
+    - coverage:
+        covered: 6
+        disposed: 0
+        required: 6
+        unresolved: 0
+      covered_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id040
+        source_surface_fingerprints: *id040
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - QD-EXPLORE-QUALITY-SCOPE
+        targets:
+        - PS-DEGRADATION
+        - PS-FREEDOMS
+      - relation: CONSTRAINS
+        sources:
+        - QD-SEMANTIC-PRESERVATION
+        targets:
+        - PS-DEGRADATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: CONSTRAINS
+        sources:
+        - QD-ACTIVE-WORKING-SET-FREEDOM
+        targets:
+        - PS-DEGRADATION
+        - PS-PATTERN-QUERY-DETAIL
+      - relation: CONSTRAINS
+        sources:
+        - QD-GRAPH-CONDITIONAL
+        targets:
+        - PS-DEGRADATION
+        - PS-KNOWLEDGE-REPRESENTATION
+      - relation: CONSTRAINS
+        sources:
+        - QD-NUMERIC-TARGETS-DEFERRED
+        targets:
+        - PS-DEGRADATION
+        - PS-FREEDOMS
+      - relation: CONSTRAINS
+        sources:
+        - QD-IDLE-TARGET-DEFERRED
+        targets:
+        - PS-DEGRADATION
+        - PS-FREEDOMS
+      required_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      source_authority: QUALITY-DESIGN
+      source_capability: prep.frontend-performance-capacity
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.presentation-system
+      version: 1
+    - coverage:
+        covered: 14
+        disposed: 0
+        required: 14
+        unresolved: 0
+      covered_sources:
+      - TOP-CONTEXT
+      - TOP-CROSSLINKS
+      - TOP-DIRECT-LINK
+      - TOP-EVIDENCE-REVIEW
+      - TOP-LABELS
+      - TOP-NO-COMPOSITION
+      - TOP-ROOT
+      - TOP-VIEW-ACTIVITY
+      - TOP-VIEW-CURRENT
+      - TOP-VIEW-EVIDENCE
+      - TOP-VIEW-KNOWLEDGE
+      - TOP-VIEW-PREP-SUPPORT
+      - TOP-VIEW-TARGET
+      - TOP-VIEW-TARGETS
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.interface-topology
+        exhaustive: true
+        semantic_atoms: *id041
+        source_surface_fingerprints: *id041
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - TOP-ROOT
+        targets:
+        - SV-FRAME
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-TARGET
+        targets:
+        - SV-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-CURRENT
+        targets:
+        - SV-CURRENT
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-KNOWLEDGE
+        targets:
+        - SV-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-ACTIVITY
+        targets:
+        - SV-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-EVIDENCE
+        targets:
+        - SV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-PREP-SUPPORT
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CONTEXT
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-CROSSLINKS
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-DIRECT-LINK
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-LABELS
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - TOP-NO-COMPOSITION
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - TOP-VIEW-TARGETS
+        targets:
+        - SV-TARGETS
+      - relation: CONSTRAINS
+        sources:
+        - TOP-EVIDENCE-REVIEW
+        targets:
+        - SV-EVIDENCE
+        - SV-FRAME
+      required_sources:
+      - TOP-CONTEXT
+      - TOP-CROSSLINKS
+      - TOP-DIRECT-LINK
+      - TOP-EVIDENCE-REVIEW
+      - TOP-LABELS
+      - TOP-NO-COMPOSITION
+      - TOP-ROOT
+      - TOP-VIEW-ACTIVITY
+      - TOP-VIEW-CURRENT
+      - TOP-VIEW-EVIDENCE
+      - TOP-VIEW-KNOWLEDGE
+      - TOP-VIEW-PREP-SUPPORT
+      - TOP-VIEW-TARGET
+      - TOP-VIEW-TARGETS
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.interface-topology
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.screen-view-design
+      version: 1
+    - coverage:
+        covered: 12
+        disposed: 0
+        required: 12
+        unresolved: 0
+      covered_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id039
+        source_surface_fingerprints: *id039
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET
+        targets:
+        - SV-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - IX-DIRECTION
+        targets:
+        - SV-CURRENT
+      - relation: TRANSFORMS
+        sources:
+        - IX-KNOWLEDGE
+        targets:
+        - SV-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - IX-ACTIVITY
+        targets:
+        - SV-ACTIVITY
+        - SV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - IX-PREP-SUPPORT
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - IX-OUTCOMES
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - IX-CURRENTNESS
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - IX-CONTEXT-CONTINUITY
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - IX-KEYBOARD
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - IX-PENDING
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - IX-NO-LAYOUT
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - IX-TARGET-DIRECTION
+        targets:
+        - SV-FRAME
+        - SV-TARGETS
+      required_sources:
+      - IX-ACTIVITY
+      - IX-CONTEXT-CONTINUITY
+      - IX-CURRENTNESS
+      - IX-DIRECTION
+      - IX-KEYBOARD
+      - IX-KNOWLEDGE
+      - IX-NO-LAYOUT
+      - IX-OUTCOMES
+      - IX-PENDING
+      - IX-PREP-SUPPORT
+      - IX-TARGET
+      - IX-TARGET-DIRECTION
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.interaction-design
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.screen-view-design
+      version: 1
+    - coverage:
+        covered: 15
+        disposed: 0
+        required: 15
+        unresolved: 0
+      covered_sources:
+      - PS-ACCESSIBILITY
+      - PS-CONTROLS
+      - PS-DEGRADATION
+      - PS-DENSITY
+      - PS-FREEDOMS
+      - PS-KNOWLEDGE-REPRESENTATION
+      - PS-OUTCOMES
+      - PS-PATTERN-ACTIVITY
+      - PS-PATTERN-CONTEXT
+      - PS-PATTERN-PREP-SUPPORT
+      - PS-PATTERN-QUERY-DETAIL
+      - PS-PATTERN-STATE-BASIS
+      - PS-PATTERN-TARGET-COMPARISON
+      - PS-RESPONSIVE
+      - PS-TASK-HIERARCHY
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.presentation-system
+        exhaustive: true
+        semantic_atoms: *id042
+        source_surface_fingerprints: *id042
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - PS-TASK-HIERARCHY
+        targets:
+        - SV-DETAIL
+        - SV-FRAME
+      - relation: TRANSFORMS
+        sources:
+        - PS-KNOWLEDGE-REPRESENTATION
+        targets:
+        - SV-KNOWLEDGE
+      - relation: CONSTRAINS
+        sources:
+        - PS-DENSITY
+        targets:
+        - SV-DETAIL
+      - relation: CONSTRAINS
+        sources:
+        - PS-CONTROLS
+        targets:
+        - SV-FRAME
+        - SV-RESPONSIVE
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-CONTEXT
+        targets:
+        - SV-FRAME
+        - SV-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-QUERY-DETAIL
+        targets:
+        - SV-KNOWLEDGE
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-STATE-BASIS
+        targets:
+        - SV-CURRENT
+        - SV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-ACTIVITY
+        targets:
+        - SV-ACTIVITY
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-PREP-SUPPORT
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: TRANSFORMS
+        sources:
+        - PS-OUTCOMES
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - PS-RESPONSIVE
+        targets:
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - PS-ACCESSIBILITY
+        targets:
+        - SV-RESPONSIVE
+      - relation: CONSTRAINS
+        sources:
+        - PS-DEGRADATION
+        targets:
+        - SV-KNOWLEDGE
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - PS-FREEDOMS
+        targets:
+        - SV-NO-IMPLEMENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PS-PATTERN-TARGET-COMPARISON
+        targets:
+        - SV-TARGETS
+      required_sources:
+      - PS-ACCESSIBILITY
+      - PS-CONTROLS
+      - PS-DEGRADATION
+      - PS-DENSITY
+      - PS-FREEDOMS
+      - PS-KNOWLEDGE-REPRESENTATION
+      - PS-OUTCOMES
+      - PS-PATTERN-ACTIVITY
+      - PS-PATTERN-CONTEXT
+      - PS-PATTERN-PREP-SUPPORT
+      - PS-PATTERN-QUERY-DETAIL
+      - PS-PATTERN-STATE-BASIS
+      - PS-PATTERN-TARGET-COMPARISON
+      - PS-RESPONSIVE
+      - PS-TASK-HIERARCHY
+      source_authority: HUMAN-INTERFACE-DESIGN
+      source_capability: prep.presentation-system
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.screen-view-design
+      version: 1
+    - coverage:
+        covered: 32
+        disposed: 0
+        required: 32
+        unresolved: 0
+      covered_sources:
+      - MI-BASIS
+      - MI-COMPATIBILITY
+      - MI-NO-LEAK
+      - MI-OP-ACTIVITY-COMPLETE
+      - MI-OP-ACTIVITY-START
+      - MI-OP-CHANGE-GET
+      - MI-OP-EVIDENCE-GET
+      - MI-OP-FOCUS-SET
+      - MI-OP-GAPS-GET
+      - MI-OP-KNOWLEDGE-QUERY
+      - MI-OP-PREP-GET
+      - MI-OP-PREP-REQUEST
+      - MI-OP-REQUIREMENTS-GET
+      - MI-OP-STATE-GET
+      - MI-OP-SUPPORT-LIST
+      - MI-OP-TARGET-ESTABLISH
+      - MI-OP-TARGETS-COMPARE
+      - MI-OUTCOME-MODEL
+      - MI-PROC-ACTIVITY
+      - MI-PROC-PREP
+      - MI-REP-ACTIVITY
+      - MI-REP-CHANGE
+      - MI-REP-CURRENT
+      - MI-REP-EVIDENCE
+      - MI-REP-FOCUS
+      - MI-REP-GAP
+      - MI-REP-KNOWLEDGE
+      - MI-REP-PREP-REQUEST
+      - MI-REP-REQUIREMENT
+      - MI-REP-SUPPORT
+      - MI-REP-TARGET
+      - MI-REP-TARGET-COMPARISON
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id036
+        source_surface_fingerprints: *id036
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - MI-OUTCOME-MODEL
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-NO-IMPLEMENTATION
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - MI-BASIS
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-NO-IMPLEMENTATION
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: REALIZES
+        sources:
+        - MI-REP-TARGET
+        targets:
+        - SV-TARGET
+      - relation: REALIZES
+        sources:
+        - MI-REP-REQUIREMENT
+        targets:
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - MI-REP-CURRENT
+        targets:
+        - SV-NO-IMPLEMENTATION
+      - relation: REALIZES
+        sources:
+        - MI-REP-EVIDENCE
+        targets:
+        - SV-EVIDENCE
+      - relation: REALIZES
+        sources:
+        - MI-REP-GAP
+        targets:
+        - SV-CURRENT
+      - relation: REALIZES
+        sources:
+        - MI-REP-FOCUS
+        targets:
+        - SV-CURRENT
+      - relation: REALIZES
+        sources:
+        - MI-REP-KNOWLEDGE
+        targets:
+        - SV-KNOWLEDGE
+      - relation: REALIZES
+        sources:
+        - MI-REP-SUPPORT
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-REP-ACTIVITY
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-REP-CHANGE
+        targets:
+        - SV-EVIDENCE
+      - relation: REALIZES
+        sources:
+        - MI-REP-PREP-REQUEST
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: REALIZES
+        sources:
+        - MI-OP-TARGET-ESTABLISH
+        targets:
+        - SV-TARGET
+      - relation: REALIZES
+        sources:
+        - MI-OP-REQUIREMENTS-GET
+        targets:
+        - SV-TARGET
+      - relation: REALIZES
+        sources:
+        - MI-OP-STATE-GET
+        targets:
+        - SV-CURRENT
+      - relation: REALIZES
+        sources:
+        - MI-OP-EVIDENCE-GET
+        targets:
+        - SV-EVIDENCE
+      - relation: REALIZES
+        sources:
+        - MI-OP-GAPS-GET
+        targets:
+        - SV-CURRENT
+      - relation: REALIZES
+        sources:
+        - MI-OP-FOCUS-SET
+        targets:
+        - SV-CURRENT
+      - relation: REALIZES
+        sources:
+        - MI-OP-KNOWLEDGE-QUERY
+        targets:
+        - SV-KNOWLEDGE
+      - relation: REALIZES
+        sources:
+        - MI-OP-SUPPORT-LIST
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-OP-ACTIVITY-START
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-OP-ACTIVITY-COMPLETE
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-OP-CHANGE-GET
+        targets:
+        - SV-EVIDENCE
+      - relation: REALIZES
+        sources:
+        - MI-OP-PREP-REQUEST
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: REALIZES
+        sources:
+        - MI-OP-PREP-GET
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: REALIZES
+        sources:
+        - MI-PROC-ACTIVITY
+        targets:
+        - SV-ACTIVITY
+      - relation: REALIZES
+        sources:
+        - MI-PROC-PREP
+        targets:
+        - SV-PREP-SUPPORT
+      - relation: CONSTRAINS
+        sources:
+        - MI-COMPATIBILITY
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-NO-IMPLEMENTATION
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: CONSTRAINS
+        sources:
+        - MI-NO-LEAK
+        targets:
+        - SV-ACTIVITY
+        - SV-CURRENT
+        - SV-EVIDENCE
+        - SV-NO-IMPLEMENTATION
+        - SV-PREP-SUPPORT
+        - SV-TARGET
+      - relation: TRANSFORMS
+        sources:
+        - MI-REP-TARGET-COMPARISON
+        targets:
+        - SV-TARGETS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-TARGETS-COMPARE
+        targets:
+        - SV-TARGETS
+      required_sources:
+      - MI-BASIS
+      - MI-COMPATIBILITY
+      - MI-NO-LEAK
+      - MI-OP-ACTIVITY-COMPLETE
+      - MI-OP-ACTIVITY-START
+      - MI-OP-CHANGE-GET
+      - MI-OP-EVIDENCE-GET
+      - MI-OP-FOCUS-SET
+      - MI-OP-GAPS-GET
+      - MI-OP-KNOWLEDGE-QUERY
+      - MI-OP-PREP-GET
+      - MI-OP-PREP-REQUEST
+      - MI-OP-REQUIREMENTS-GET
+      - MI-OP-STATE-GET
+      - MI-OP-SUPPORT-LIST
+      - MI-OP-TARGET-ESTABLISH
+      - MI-OP-TARGETS-COMPARE
+      - MI-OUTCOME-MODEL
+      - MI-PROC-ACTIVITY
+      - MI-PROC-PREP
+      - MI-REP-ACTIVITY
+      - MI-REP-CHANGE
+      - MI-REP-CURRENT
+      - MI-REP-EVIDENCE
+      - MI-REP-FOCUS
+      - MI-REP-GAP
+      - MI-REP-KNOWLEDGE
+      - MI-REP-PREP-REQUEST
+      - MI-REP-REQUIREMENT
+      - MI-REP-SUPPORT
+      - MI-REP-TARGET
+      - MI-REP-TARGET-COMPARISON
+      source_authority: MACHINE-INTERFACE-DESIGN
+      source_capability: prep.machine-interfaces
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.screen-view-design
+      version: 1
+    - coverage:
+        covered: 6
+        disposed: 0
+        required: 6
+        unresolved: 0
+      covered_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      dispositions: []
+      findings: []
+      kind: harness-semantic-derivation-evaluation
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id040
+        source_surface_fingerprints: *id040
+      links:
+      - relation: CONSTRAINS
+        sources:
+        - QD-EXPLORE-QUALITY-SCOPE
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - QD-SEMANTIC-PRESERVATION
+        targets:
+        - SV-KNOWLEDGE
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - QD-ACTIVE-WORKING-SET-FREEDOM
+        targets:
+        - SV-KNOWLEDGE
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - QD-GRAPH-CONDITIONAL
+        targets:
+        - SV-KNOWLEDGE
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - QD-NUMERIC-TARGETS-DEFERRED
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-PERFORMANCE
+      - relation: CONSTRAINS
+        sources:
+        - QD-IDLE-TARGET-DEFERRED
+        targets:
+        - SV-NO-IMPLEMENTATION
+        - SV-PERFORMANCE
+      required_sources:
+      - QD-ACTIVE-WORKING-SET-FREEDOM
+      - QD-EXPLORE-QUALITY-SCOPE
+      - QD-GRAPH-CONDITIONAL
+      - QD-IDLE-TARGET-DEFERRED
+      - QD-NUMERIC-TARGETS-DEFERRED
+      - QD-SEMANTIC-PRESERVATION
+      source_authority: QUALITY-DESIGN
+      source_capability: prep.frontend-performance-capacity
+      status: ACCEPTED
+      target_authority: HUMAN-INTERFACE-DESIGN
+      target_capability: prep.screen-view-design
+      version: 1
   lifecycle:
     version: 1
     kind: harness-capability-lifecycle
@@ -13619,7 +13622,7 @@ state:
           exhaustive: true
           semantic_atoms: *id019
           source_surface_fingerprints: *id012
-      semantic_atom_fingerprints: *id041
+      semantic_atom_fingerprints: *id040
     - artifact: TASK-MODEL
       capability: prep.task-model
       acceptance_id: PREP-TASK-MODEL-STRICT-4
@@ -13788,7 +13791,7 @@ state:
         prep.user-journeys: PREP-USER-JOURNEYS-STRICT-5
       artifact: INFORMATION-ARCHITECTURE
       capability: prep.information-architecture
-      semantic_atom_fingerprints: *id044
+      semantic_atom_fingerprints: *id038
     - artifact: MACHINE-INTERFACES
       capability: prep.machine-interfaces
       acceptance_id: PREP-MACHINE-INTERFACES-STRICT-5
@@ -13858,13 +13861,8 @@ state:
           semantic_atoms: *id036
           source_surface_fingerprints: *id036
       semantic_atom_fingerprints: *id039
-    - artifact: INTERFACE-TOPOLOGY
-      capability: prep.interface-topology
-      acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-5
+    - acceptance_id: PREP-INTERFACE-TOPOLOGY-STRICT-6
       acceptance_policy_fingerprint: sha256:87e3986f0b3a6d478f8fa7f4b9cb5150ef8bc45961ca2492bb8e37ed370b4b0c
-      accepted_prerequisites:
-        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
       accepted_prerequisite_semantics:
         prep.information-architecture:
           exhaustive: true
@@ -13874,51 +13872,48 @@ state:
           exhaustive: true
           semantic_atoms: *id039
           source_surface_fingerprints: *id039
-      semantic_atom_fingerprints: *id040
-    - artifact: PRESENTATION-SYSTEM
-      capability: prep.presentation-system
-      acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-5
-      acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
       accepted_prerequisites:
-        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
-        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-5
-        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
         prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      artifact: INTERFACE-TOPOLOGY
+      capability: prep.interface-topology
+      semantic_atom_fingerprints: *id041
+    - acceptance_id: PREP-PRESENTATION-SYSTEM-STRICT-6
+      acceptance_policy_fingerprint: sha256:d610cfc8139c93f30cd38f3308dc0efa007b632f44a4b19c36b4849accd24148
       accepted_prerequisite_semantics:
         prep.conceptual-interface-model:
           exhaustive: true
           semantic_atoms: *id035
           source_surface_fingerprints: *id035
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id040
+          source_surface_fingerprints: *id040
         prep.information-architecture:
           exhaustive: true
           semantic_atoms: *id038
           source_surface_fingerprints: *id038
-        prep.interface-topology:
-          exhaustive: true
-          semantic_atoms: *id040
-          source_surface_fingerprints: *id040
         prep.interaction-design:
           exhaustive: true
           semantic_atoms: *id039
           source_surface_fingerprints: *id039
-        prep.frontend-performance-capacity:
+        prep.interface-topology:
           exhaustive: true
           semantic_atoms: *id041
           source_surface_fingerprints: *id041
-      semantic_atom_fingerprints: *id042
-    - artifact: SCREEN-VIEW-DESIGN
-      capability: prep.screen-view-design
-      acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-5
-      acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
       accepted_prerequisites:
-        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-5
-        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
-        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-5
-        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.conceptual-interface-model: PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5
         prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+      artifact: PRESENTATION-SYSTEM
+      capability: prep.presentation-system
+      semantic_atom_fingerprints: *id042
+    - acceptance_id: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+      acceptance_policy_fingerprint: sha256:9dca08e022fba0c7c3e3444f2b3e6b491ba615a119dfc5e14539936103d67607
       accepted_prerequisite_semantics:
-        prep.interface-topology:
+        prep.frontend-performance-capacity:
           exhaustive: true
           semantic_atoms: *id040
           source_surface_fingerprints: *id040
@@ -13926,19 +13921,27 @@ state:
           exhaustive: true
           semantic_atoms: *id039
           source_surface_fingerprints: *id039
-        prep.presentation-system:
+        prep.interface-topology:
           exhaustive: true
-          semantic_atoms: *id042
-          source_surface_fingerprints: *id042
+          semantic_atoms: *id041
+          source_surface_fingerprints: *id041
         prep.machine-interfaces:
           exhaustive: true
           semantic_atoms: *id036
           source_surface_fingerprints: *id036
-        prep.frontend-performance-capacity:
+        prep.presentation-system:
           exhaustive: true
-          semantic_atoms: *id041
-          source_surface_fingerprints: *id041
-      semantic_atom_fingerprints: *id045
+          semantic_atoms: *id042
+          source_surface_fingerprints: *id042
+      accepted_prerequisites:
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+      artifact: SCREEN-VIEW-DESIGN
+      capability: prep.screen-view-design
+      semantic_atom_fingerprints: *id044
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
