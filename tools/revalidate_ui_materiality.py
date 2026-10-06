@@ -340,6 +340,8 @@ def main() -> int:
     )
     decision_policy = load(CANDIDATES / "ui-materiality-decision-policy.yaml")
 
+    order = topo_order(graph)
+
     current_policy_fingerprints = derive_acceptance_policy_fingerprints(
         graph=graph,
         knowledge_contracts=knowledge_contracts,
