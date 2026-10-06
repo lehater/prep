@@ -1,0 +1,54 @@
+version: 1
+kind: prep-representative-usability-readiness
+prototype:
+  implementation_slices: FI-00..FI-09
+  merge_commit: d7965013f6589db53999adb22cd01eab0570b4c5
+  status: READY_FOR_REPRESENTATIVE_USABILITY_VALIDATION
+automated_evidence:
+  frontend_fast: PASS
+  production_build: PASS
+  supply_chain: PASS
+  harness_strict_semantic_baseline: PASS
+  harness_full_revalidation: PASS
+  selected_consumers_current: true
+  vitest:
+    files: 3
+    tests: 27
+    status: PASS
+  chromium_e2e:
+    tests: 18
+    status: PASS
+  responsive:
+    wide: PASS
+    compact: PASS
+    narrow: PASS
+  keyboard_only_representative_flow: PASS
+  reduced_motion_nonspatial: PASS
+  composition_variants: PASS
+  legacy_feature_and_spatial_dependency_guard: PASS
+human_evidence:
+  PV-06:
+    status: NOT_TESTED
+    purpose: Preparation-support bootstrap usability.
+  PV-09:
+    status: PARTIAL
+    automated_portion: PASS
+    assistive_technology_human_evidence: NOT_TESTED
+  PV-11:
+    status: NOT_TESTED
+    purpose: Related-target purpose comprehension.
+  PV-12:
+    status: NOT_TESTED
+    purpose: Core mental-model comprehension.
+production_gate:
+  status: OPEN
+  blockers:
+    - representative-user mental-model evidence
+    - representative-user missing-support evidence
+    - related role/interview target-purpose evidence
+    - applicable assistive-technology evidence
+    - routing and retest of any BLOCKING/MAJOR findings
+    - validation or revision of critical learner vocabulary
+  spatial_default:
+    state: DEFERRED
+    reason: No production spatial renderer/default is selected; evidence becomes mandatory if such a decision is proposed.

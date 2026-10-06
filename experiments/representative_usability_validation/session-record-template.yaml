@@ -1,0 +1,77 @@
+version: 2
+kind: prep-representative-usability-session
+protocol: experiments/representative_usability_validation/protocol.md
+session_id: USR-YYYYMMDD-NN
+prototype:
+  repository: lehater/prep
+  commit: d7965013f6589db53999adb22cd01eab0570b4c5
+participant:
+  recruitment_source: ""
+  recent_preparation_context: ""
+  role_family: ""
+  prior_prep_model_exposure: false
+  direct_identifiers_recorded_in_repo: false
+consent:
+  notes_allowed: true
+  recording_allowed: false
+  recording_evidence_reference: ""
+round_a:
+  completed: false
+  natural_sequence: []
+  natural_vocabulary: []
+  artifacts_used: []
+  model_challenges: []
+round_b:
+  scenarios:
+    - id: B1-CORE-LOOP
+      verification_refs: [PV-12]
+      status: NOT_TESTED
+      assistance_required: none
+      outcome: ""
+    - id: B2-MISSING-SUPPORT
+      verification_refs: [PV-06]
+      status: NOT_TESTED
+      assistance_required: none
+      outcome: ""
+    - id: B3-RELATED-TARGET-PURPOSE
+      verification_refs: [PV-11]
+      status: NOT_TESTED
+      assistance_required: none
+      outcome: ""
+    - id: B4-ACCESSIBILITY
+      verification_refs: [PV-09]
+      status: NOT_TESTED
+      assistance_required: none
+      access_method: ""
+      outcome: ""
+observations:
+  - observation_id: OBS-01
+    scenario_id: ""
+    expected_task: ""
+    participant_intent: ""
+    participant_words_redacted: ""
+    observed_action: ""
+    outcome: ""
+    assistance_required: none
+    misconception: ""
+    severity: OBSERVATION
+    affected_verification_refs: []
+    affected_artifacts: []
+    evidence_reference: ""
+findings: []
+gate_evidence:
+  PV-06: NOT_TESTED
+  PV-09:
+    automated_keyboard_reduced_motion: PASS
+    assistive_technology_human_evidence: NOT_TESTED
+  PV-11: NOT_TESTED
+  PV-12: NOT_TESTED
+  spatial_default:
+    state: DEFERRED_NO_PROVIDER_SELECTED
+summary:
+  supported_current_model: []
+  challenged_current_model: []
+  vocabulary_findings: []
+  new_questions: []
+  recommended_routing: []
+  blockers_or_major_open: false
