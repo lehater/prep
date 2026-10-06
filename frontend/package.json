@@ -15,7 +15,7 @@
     "boundary": "node scripts/check-boundaries.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test --project=chromium",
-    "fast": "npm run typecheck && npm run lint && npm run boundary && npm run test",
+    "fast": "npm run typecheck && npm run lint && npm run boundary && npm run test && npm run licenses",
     "licenses": "node scripts/report-runtime-licenses.mjs",
     "supply-chain": "npm audit --audit-level=high && npm run licenses"
   },
