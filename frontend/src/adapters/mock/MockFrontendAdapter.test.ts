@@ -214,6 +214,36 @@ describe("MockFrontendAdapter semantic contract", () => {
     }
   });
 
+  it("provides a representative asynchronous-programming Knowledge corpus", async () => {
+    const knowledge = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        requiredCapabilityRef: mockScenarioRefs.capabilityTypeScript,
+        scope: "overview",
+      }),
+    );
+
+    expect(knowledge.items.length).toBeGreaterThanOrEqual(16);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeAsyncProgramming);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeEventLoop);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgePromise);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeBackpressure);
+
+    const eventLoopMatches = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        requiredCapabilityRef: mockScenarioRefs.capabilityTypeScript,
+        scope: "overview",
+        query: "event loop",
+      }),
+    );
+
+    expect(eventLoopMatches.items).toHaveLength(3);
+    expect(eventLoopMatches.items.map((item) => item.knowledgeRef)).toContain(
+      mockScenarioRefs.knowledgeEventLoop,
+    );
+  });
+
   it("does not turn Activity completion into learner-state progress", async () => {
     const before = acceptedValue(
       await adapter.getCurrentState(mockScenarioRefs.targetPrimary),
