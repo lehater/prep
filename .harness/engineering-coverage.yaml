@@ -5,6 +5,36 @@ subject_inventory:
   state: NOT_APPLICABLE
   rationale: The selected frontend implementation scope is already explicitly partitioned by canonical view/module/capability contracts; no independent subject inventory is required to prove per-subject engineering coverage.
 decisions:
+  - concern: governance.external-obligations
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The current accepted frontend implementation scope has no independently applicable law, regulation, contract, organizational policy or external/public distribution obligation. Third-party runtime licensing is already bounded by the explicit OBLIGATION-ANALYSIS assessment and lockfile/license checks. Reopen when external distribution or a normative obligation becomes accepted scope.
+    evidence: [SYSTEM-ARCHITECTURE, FRONTEND-IMPLEMENTATION-DESIGN]
+  - concern: governance.privacy
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: The accepted v1 topology is single-user and local inside one trusted user/data boundary. Learner evidence persistence has data semantics but no separately accepted privacy-control, disclosure, retention, deletion or identity obligation for this implementation consumer. Reopen for remote/untrusted deployment, multiple users, sensitive-data handling rules or an explicit privacy requirement.
+    evidence: [SYSTEM-ARCHITECTURE, DATA-DESIGN]
+  - concern: specialized.safety
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: Prep's accepted product scope is learning and preparation support; it has no accepted safety-critical control function or requirement whose failure can materially control people, property, mission or environment. Reopen if safety-critical control or hazard obligations enter product scope.
+    evidence: [PRODUCT-CAPABILITIES, SYSTEM-ARCHITECTURE]
+  - concern: specialized.ai
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: Current accepted product/application/frontend contracts do not require AI, ML or agentic behavior; the prototype realization is deterministic and provider-neutral. Reopen if an accepted implementation introduces AI/ML/agentic behavior whose uncertainty or autonomy changes risk.
+    evidence: [PRODUCT-CAPABILITIES, APPLICATION-DESIGN, FRONTEND-IMPLEMENTATION-DESIGN]
+  - concern: specialized.regulated
+    state: NOT_APPLICABLE
+    consumers: [FRONTEND-IMPLEMENTATION]
+    scopes: [frontend]
+    rationale: No sector-specific regulatory regime is accepted as an engineering input for the current learning/preparation frontend scope. Reopen if product scope or deployment enters a regulated sector with mandatory controls.
+    evidence: [PRODUCT-CAPABILITIES, SYSTEM-ARCHITECTURE]
   - concern: interface.human.responsiveness
     state: COVERED
     consumers: [FRONTEND-IMPLEMENTATION]

@@ -44,8 +44,9 @@ export function PreparationSupportFeature({
     `Current preparation context from ${originLabel}`,
   );
   const [result, setResult] = useState<PreparationRequestModel | null>(null);
-  const [viewState, setViewState] =
-    useState<PreparationSupportViewState>("request-input");
+  const [viewState, setViewState] = useState<PreparationSupportViewState>(
+    semanticBasisRef ? "request-input" : "continuation-recovery",
+  );
   const [message, setMessage] = useState<string | null>(
     semanticBasisRef
       ? null
