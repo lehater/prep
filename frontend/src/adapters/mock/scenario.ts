@@ -306,5 +306,6 @@ export const mockCandidateTargetOptions: readonly CandidateTargetOption[] =
     targetRef: target.recordId,
     label: target.title,
     purpose: target.purposeText,
+    sourceContext: target.source.sourceLabel,
     uncertainty: target.uncertaintyNotes,
   }));

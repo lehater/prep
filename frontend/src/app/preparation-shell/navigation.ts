@@ -1,15 +1,17 @@
-import type { FocusRef, TargetRef } from "../../features/contracts";
+import type { CapabilityRef, FocusRef, TargetRef } from "../../features/contracts";
 
 export type PreparationDestination =
   | "targets"
   | "target"
   | "current"
   | "knowledge"
-  | "activity";
+  | "activity"
+  | "prepare-support";
 
 export interface PreparationNavigationRequest {
   readonly destination: PreparationDestination;
   readonly candidateTargetRef?: TargetRef;
+  readonly requiredCapabilityRef?: CapabilityRef;
 }
 
 export interface PreparationNavigationContext {
@@ -27,6 +29,17 @@ export function resolvePreparationNavigation(
 ): ResolvedPreparationNavigation {
   if (request.destination === "targets" || request.destination === "target") {
     return request;
+  }
+
+  if (request.destination === "prepare-support") {
+    if (context.activeTargetRef || request.candidateTargetRef) {
+      return request;
+    }
+    return {
+      destination: "target",
+      recoveryReason:
+        "Choose or establish a Target context before requesting preparation support.",
+    };
   }
 
   if (!context.activeTargetRef) {

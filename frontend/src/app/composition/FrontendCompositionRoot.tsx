@@ -10,6 +10,7 @@ export function FrontendCompositionRoot() {
     <PreparationContextProvider>
       <PreparationShell
         targetDirectionPort={mockAdapter}
+        targetPort={mockAdapter}
         candidateTargets={mockCandidateTargetOptions}
       />
     </PreparationContextProvider>
