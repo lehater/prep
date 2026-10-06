@@ -1,7 +1,7 @@
 import { MockFrontendAdapter } from "../../adapters/mock/MockFrontendAdapter";
 import { mockCandidateTargetOptions } from "../../adapters/mock/scenario";
 import { KnowledgeExplorerStateProvider } from "../../features/knowledge-explorer/state";
-import { BasicKnowledgeRelationshipOverview } from "../../ui/knowledge/BasicKnowledgeRelationshipOverview";
+import { BasicKnowledgeRelationshipOverview } from "../presentation/BasicKnowledgeRelationshipOverview";
 import { PreparationContextProvider } from "../preparation-context/PreparationContext";
 import { PreparationShell } from "../preparation-shell/PreparationShell";
 
