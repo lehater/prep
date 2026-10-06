@@ -1,14 +1,19 @@
 import { type ReactNode, useState } from "react";
 
 import type { ActivityPort } from "../../features/activity/contract";
+import type { TargetRef } from "../../features/contracts";
 import { ActivityFeature } from "../../features/activity/ActivityFeature";
-import type { CurrentPositionPort } from "../../features/current-position/contract";
+import type {
+  CurrentPositionPort,
+  CurrentPositionWorkingState,
+} from "../../features/current-position/contract";
 import { CurrentPositionFeature } from "../../features/current-position/CurrentPositionFeature";
 import type { EvidenceChangePort } from "../../features/evidence-change/contract";
 import { EvidenceChangeFeature } from "../../features/evidence-change/EvidenceChangeFeature";
 import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
 import type { KnowledgeRelationshipRenderer } from "../../features/knowledge-explorer/relationship-renderer";
 import { KnowledgeExplorerFeature } from "../../features/knowledge-explorer/KnowledgeExplorerFeature";
+import { KnowledgeExplorerStateProvider } from "../../features/knowledge-explorer/state";
 import type { PreparationSupportPort } from "../../features/preparation-support/contract";
 import { PreparationSupportFeature } from "../../features/preparation-support/PreparationSupportFeature";
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
@@ -32,6 +37,17 @@ const navigationItems: readonly {
   { destination: "knowledge", label: "Знания" },
   { destination: "activity", label: "Практика" },
 ];
+
+const EMPTY_CURRENT_POSITION_WORKING_STATE: CurrentPositionWorkingState = {
+  selectedGapRef: null,
+  purposeDraft: "",
+  rationaleDraft: "",
+};
+
+interface CurrentPositionWorkingSession {
+  readonly targetRef: TargetRef | null;
+  readonly state: CurrentPositionWorkingState;
+}
 
 export interface PreparationShellProps {
   readonly targetDirectionPort: TargetDirectionPort;
@@ -96,6 +112,15 @@ export function PreparationShell({
     destination: "targets",
   });
   const [recoveryReason, setRecoveryReason] = useState<string | null>(null);
+  const [currentPositionWorkingSession, setCurrentPositionWorkingSession] =
+    useState<CurrentPositionWorkingSession>({
+      targetRef: null,
+      state: EMPTY_CURRENT_POSITION_WORKING_STATE,
+    });
+  const currentPositionWorkingState =
+    currentPositionWorkingSession.targetRef === activeTargetRef
+      ? currentPositionWorkingSession.state
+      : EMPTY_CURRENT_POSITION_WORKING_STATE;
 
   const activeTarget = activeTargetRef
     ? candidateTargets.find((candidate) => candidate.targetRef === activeTargetRef)
@@ -176,6 +201,13 @@ export function PreparationShell({
           port={currentPositionPort}
           activeTargetRef={activeTargetRef}
           activeFocusRef={activeFocusRef}
+          workingState={currentPositionWorkingState}
+          onWorkingStateChange={(state) =>
+            setCurrentPositionWorkingSession({
+              targetRef: activeTargetRef,
+              state,
+            })
+          }
           onAcceptedFocus={(focus, semanticBasisRef) => {
             setAcceptedFocus({
               focusRef: focus.focusRef,
@@ -185,6 +217,13 @@ export function PreparationShell({
             });
             setRecoveryReason(null);
           }}
+          onExploreKnowledge={(requiredCapabilityRef) =>
+            navigate({
+              destination: "knowledge",
+              requiredCapabilityRef,
+              returnDestination: "current",
+            })
+          }
           onContinueActivity={() => navigate({ destination: "activity" })}
           onRequestPreparationSupport={() =>
             navigate({
@@ -210,13 +249,28 @@ export function PreparationShell({
       break;
     case "knowledge":
       child = activeTargetRef ? (
-        <KnowledgeExplorerFeature
-          port={knowledgePort}
-          activeTargetRef={activeTargetRef}
-          activeFocusRef={activeFocusRef}
-          incomingRequiredCapabilityRef={navigation.requiredCapabilityRef}
-          relationshipRenderer={knowledgeRelationshipRenderer}
-        />
+        navigation.returnDestination === "current" &&
+        navigation.requiredCapabilityRef ? (
+          <KnowledgeExplorerStateProvider>
+            <KnowledgeExplorerFeature
+              port={knowledgePort}
+              activeTargetRef={activeTargetRef}
+              activeFocusRef={activeFocusRef}
+              incomingRequiredCapabilityRef={navigation.requiredCapabilityRef}
+              relationshipRenderer={knowledgeRelationshipRenderer}
+              returnLabel="Вернуться к выбору фокуса"
+              onReturn={() => navigate({ destination: "current" })}
+            />
+          </KnowledgeExplorerStateProvider>
+        ) : (
+          <KnowledgeExplorerFeature
+            port={knowledgePort}
+            activeTargetRef={activeTargetRef}
+            activeFocusRef={activeFocusRef}
+            incomingRequiredCapabilityRef={navigation.requiredCapabilityRef}
+            relationshipRenderer={knowledgeRelationshipRenderer}
+          />
+        )
       ) : (
         <StructuralPlaceholder
           view="knowledge"
