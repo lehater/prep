@@ -24,13 +24,13 @@ export interface KnowledgeExplorerFeatureProps {
 
 function matchesRelationFilter(
   item: KnowledgeItemModel,
-  filter: "all" | "connected" | "isolated",
+  filter: "all" | "two-plus" | "three-plus",
 ): boolean {
-  if (filter === "connected") {
-    return item.related.length > 0;
+  if (filter === "two-plus") {
+    return item.related.length >= 2;
   }
-  if (filter === "isolated") {
-    return item.related.length === 0;
+  if (filter === "three-plus") {
+    return item.related.length >= 3;
   }
   return true;
 }
@@ -283,14 +283,14 @@ export function KnowledgeExplorerFeature({
                 setRelationsFilter(
                   event.currentTarget.value as
                     | "all"
-                    | "connected"
-                    | "isolated",
+                    | "two-plus"
+                    | "three-plus",
                 )
               }
             >
               <option value="all">Любая</option>
-              <option value="connected">Есть связи</option>
-              <option value="isolated">Без связей</option>
+              <option value="two-plus">2+ связи</option>
+              <option value="three-plus">3+ связи</option>
             </select>
           </label>
 
