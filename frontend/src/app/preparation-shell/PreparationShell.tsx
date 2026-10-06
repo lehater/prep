@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
@@ -97,7 +97,7 @@ export function PreparationShell({
       : undefined;
   }
 
-  let child;
+  let child: ReactNode;
 
   switch (navigation.destination) {
     case "targets":

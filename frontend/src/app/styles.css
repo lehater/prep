@@ -280,9 +280,9 @@ a:focus-visible {
   line-height: 1.55;
 }
 
-.state-list {
+.comparison-dimension .state-list {
   list-style: none;
-  padding-left: 0 !important;
+  padding-left: 0;
 }
 
 .state-list li {
@@ -315,11 +315,6 @@ a:focus-visible {
   padding: 20px;
 }
 
-.comparison-basis p {
-  margin-bottom: 10px;
-  line-height: 1.55;
-}
-
 .continuation-options {
   display: flex;
   flex-wrap: wrap;
@@ -340,8 +335,9 @@ a:focus-visible {
   padding: 14px;
 }
 
-.candidate-continuation p {
-  margin-bottom: 0;
+.comparison-basis,
+.candidate-continuation {
+  line-height: 1.55;
 }
 
 @media (max-width: 720px) {

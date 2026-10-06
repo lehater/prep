@@ -45,7 +45,6 @@ import type {
 import type {
   CapabilityRef,
   EvidenceRef,
-  FocusRef,
   Limitation,
   PreparationRequestRef,
   Provenance,
