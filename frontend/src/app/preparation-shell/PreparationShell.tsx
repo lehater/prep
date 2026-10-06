@@ -163,7 +163,11 @@ export function PreparationShell({
       child = (
         <StructuralPlaceholder
           title="Prepare Support"
-          description="Resolve a contextual missing-support need and return to the originating Target work."
+          description={
+            navigation.candidateTargetRef && !activeTargetRef
+              ? "Resolve missing support for the selected candidate Target while preserving its setup context."
+              : "Resolve a contextual missing-support need and return to the originating Target work."
+          }
           recoveryReason={recoveryReason ?? undefined}
         />
       );
