@@ -6,6 +6,7 @@ on:
       - implementation/fi06-activity-2026-10-06
     paths:
       - ".github/workflows/tmp-fi06-browser.yml"
+      - "frontend/**"
 
 permissions:
   contents: read
