@@ -15,6 +15,20 @@ The system covers the current human-interface surface: Target, Current position,
 - **Semantic equivalence across representations.** A richer visualization may help orientation, but required tasks remain possible through a non-spatial semantic path.
 - **Recoverability remains visible.** Pending, unresolved, rejected, unavailable and stale-context states preserve the next valid action and do not collapse into one generic error.
 
+## Application surface
+
+On capable wide surfaces, Prep uses a **desktop-oriented bounded application/workbench** rather than document-oriented page flow:
+
+- the application shell owns the available viewport;
+- preparation navigation remains persistently available;
+- the active task workspace occupies the remaining viewport;
+- task regions may own bounded internal overflow where their content requires independent inspection;
+- long page-level document scrolling is not the default ownership model for the primary preparation workspace.
+
+This contract fixes the structural interaction archetype, not pane geometry. It does not require every secondary region to remain visible, equal-width panes, resizable splitters or any particular CSS mechanism.
+
+On constrained/narrow surfaces the same semantic priorities are preserved through reflow and disclosure; bounded wide-screen composition does not create a separate product topology.
+
 ## Knowledge representation
 
 The shared Knowledge pattern is **mixed 2D relationship overview + task-complete non-spatial access**.
@@ -46,7 +60,7 @@ Default density is **progressive focus + context**:
 - empty/unknown states reduce noise rather than filling space with placeholders;
 - narrow screens prioritize task sequence over simultaneous panels.
 
-Dense multi-panel workspaces and single-step sparse wizards remain controlled alternatives for a specific screen only when the screen contract justifies them.
+Dense peer-panel composition and single-step sparse wizards remain controlled alternatives for a specific screen only when the screen contract justifies them. A bounded workbench may still contain several cooperating regions when one task/work region remains dominant and the Screen/View contract establishes their simultaneous value.
 
 ## Control surface
 
@@ -162,6 +176,8 @@ If the relationship overview cannot remain usable, the system may reduce visual 
 
 ## Material invariants
 
+- bounded desktop/workbench application surface on capable wide displays, with application-shell viewport ownership;
+- persistent preparation navigation on capable wide displays and priority-preserving reflow/disclosure on constrained surfaces;
 - task-complete non-spatial Knowledge access;
 - 2D relationship overview is optional enhancement, never semantic truth;
 - 3D is experimental controlled freedom, not required/default;
@@ -174,13 +190,14 @@ If the relationship overview cannot remain usable, the system may reduce visual 
 ## Controlled freedoms
 
 - whether a specific wide Knowledge view shows the 2D overview simultaneously or behind a disclosure;
+- local pane resizing, default proportions and size persistence unless repeated evidence promotes them into a reusable cross-screen convention;
 - whether secondary evidence/detail is inline, side-by-side or disclosed, subject to Screen/View composition;
 - optional 3D prototype behind the same semantic contract;
 - exact visual density within the progressive focus+context rule.
 
 ## Ordinary implementation details
 
-Framework, DOM structure, CSS layout mechanism, exact token values, animation library, graph renderer/library, canvas/SVG/WebGL choice and private component decomposition.
+Framework, DOM structure, CSS layout mechanism, exact token values, animation library, graph renderer/library, canvas/SVG/WebGL choice, private component decomposition, exact column widths, splitter thickness and convenience gestures such as double-click auto-fit.
 
 ## Deviation policy
 
