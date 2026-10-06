@@ -83,7 +83,7 @@ test("compares candidate Targets and continues without activating one", async ({
   await expect(
     page.getByRole("heading", { name: "Зафиксируйте цель подготовки" }),
   ).toBeVisible();
-  await expect(page.getByRole("combobox", { name: "Target", exact: true })).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Цель", exact: true })).toHaveValue(
     "target:backend-interview",
   );
   await expect(page.getByLabel("Источник / контекст")).toHaveValue(
@@ -113,10 +113,10 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
 
   await expect(
     page.getByText(
-      "Design a scalable service and explain major trade-offs.",
+      "Проектировать масштабируемый сервис и объяснять основные компромиссы.",
     ),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Conditions" }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Условия" }).first()).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Критерии качества" }).first(),
   ).toBeVisible();
@@ -151,13 +151,13 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Target", exact: true }).click();
+  await page.getByRole("button", { name: "Цель", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Что требуется для этой цели" }),
   ).toBeVisible();
   await expect(
     page.getByText(
-      "Design a scalable service and explain major trade-offs.",
+      "Проектировать масштабируемый сервис и объяснять основные компромиссы.",
     ),
   ).toBeVisible();
 
@@ -176,9 +176,9 @@ test("preserves Target draft after rejected establishment and accepts corrected 
   page,
 }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Target", exact: true }).click();
+  await page.getByRole("button", { name: "Цель", exact: true }).click();
 
-  const target = page.getByRole("combobox", { name: "Target", exact: true });
+  const target = page.getByRole("combobox", { name: "Цель", exact: true });
   const source = page.getByLabel("Источник / контекст");
 
   await target.selectOption({ label: "Собеседование на Backend Engineer" });
@@ -205,7 +205,7 @@ test("preserves Target draft after rejected establishment and accepts corrected 
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Requirements" }),
+    page.getByRole("heading", { name: "Требования" }),
   ).toBeVisible();
 });
 
@@ -225,7 +225,7 @@ test("routes Target-dependent navigation to recovery when Target is absent", asy
     ),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Targets", exact: true }).click();
+  await page.getByRole("button", { name: "Цели", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Выберите, к чему вы готовитесь" }),
   ).toBeVisible();
@@ -286,12 +286,12 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
   await expect(
     page.getByRole("heading", { name: "Определите, на чём сосредоточиться дальше" }),
   ).toBeVisible();
-  await expect(page.getByText("demonstrated", { exact: true })).toBeVisible();
-  await expect(page.getByText("challenged", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("unknown", { exact: true })).toBeVisible();
+  await expect(page.getByText("подтверждено", { exact: true })).toBeVisible();
+  await expect(page.getByText("оспорено", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("неизвестно", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
-      "There is not enough attributable evidence to conclude either way.",
+      "Недостаточно надёжных свидетельств, чтобы сделать вывод.",
     ),
   ).toBeVisible();
 
@@ -308,7 +308,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
   await expect(page.getByLabel("Цель фокуса")).toHaveValue(
     "Следующий фокус: System design.",
   );
-  await expect(page.getByLabel("Rationale")).toHaveValue(
+  await expect(page.getByLabel("Основание выбора")).toHaveValue(
     "Высокий приоритет: влияет на несколько типов system design-вопросов.",
   );
 
@@ -322,7 +322,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
 
   await expect(page.getByText("Следующий фокус выбран")).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
 
   await page.getByText("Почему такое состояние: свидетельства").click();
@@ -359,13 +359,13 @@ test("preserves a missing-support focus and routes to contextual preparation", a
 
   await expect(page.getByText("Следующий фокус выбран")).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "Prepare missing support" }),
+    page.getByRole("button", { name: "Подготовить недостающую поддержку" }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Prepare missing support" }).click();
+  await page.getByRole("button", { name: "Подготовить недостающую поддержку" }).click();
 
   await expect(page.getByRole("heading", { name: "Подготовить поддержку" })).toBeVisible();
   await expect(
@@ -374,7 +374,7 @@ test("preserves a missing-support focus and routes to contextual preparation", a
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
 });
 
@@ -396,7 +396,7 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
   await expect(knowledgeView.locator("canvas")).toHaveCount(0);
   await expect(
     page.getByText(
-      "This task path is complete without a spatial renderer. Geometry is not Knowledge meaning.",
+      "Этот сценарий можно использовать и без пространственного графа: геометрия не определяет смысл знаний.",
     ),
   ).toBeVisible();
 
@@ -411,12 +411,12 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
   );
   await expect(
     page.getByText(
-      "consistency-mode influences latency, coordination, and freshness",
+      "consistency-модель влияет на задержку, координацию и актуальность данных",
       { exact: true },
     ).last(),
   ).toBeVisible();
   await expect(
-    page.getByText("Стратегия кэширования (object)", { exact: true }),
+    page.getByText("Стратегия кэширования (объект)", { exact: true }),
   ).toBeVisible();
 
   const query = page.getByLabel("Поиск");
@@ -430,14 +430,14 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
     .click();
   await query.fill("event loop");
   await query.press("Enter");
-  await expect(page.getByText("JavaScript Event Loop", { exact: true })).toBeVisible();
-  await expect(page.getByText("Найдено: 1 в текущей смысловой области.")).toBeVisible();
+  await expect(page.getByText("JavaScript Event Loop", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Найдено: 3 в текущей смысловой области.")).toBeVisible();
 
-  await page.getByRole("button", { name: "Target", exact: true }).click();
-  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+  await page.getByRole("button", { name: "Цель", exact: true }).click();
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
 
   await expect(page.getByLabel("Поиск")).toHaveValue("event loop");
-  await expect(page.getByText("JavaScript Event Loop", { exact: true })).toBeVisible();
+  await expect(page.getByText("JavaScript Event Loop", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("без фильтра", { exact: true })).toBeVisible();
 });
 
@@ -450,15 +450,15 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await page.getByRole("radio", { name: /System design/ }).check();
   await page.getByRole("button", { name: "Выбрать фокус" }).click();
 
-  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
 
   await expect(
     page.getByRole("heading", { name: "Исследуйте знания, важные для текущей цели" }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
-  await expect(page.getByText("Included", { exact: true })).toBeVisible();
+  await expect(page.getByText("учтён", { exact: true })).toBeVisible();
 });
 
 
@@ -478,7 +478,7 @@ test("performs one Попытка практики without fabricating learner p
   await expect(page.getByText("Снизить неопределённость в рассуждении о компромиссах system design.", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
-      "High target relevance with suitable support available.",
+      "Высокая значимость для цели и доступна подходящая поддержка.",
       { exact: true },
     ),
   ).toBeVisible();
@@ -495,7 +495,7 @@ test("performs one Попытка практики without fabricating learner p
   await page.getByRole("button", { name: "Начать практику" }).click();
 
   await expect(page.getByRole("heading", { name: "Попытка практики" })).toBeVisible();
-  await expect(page.getByText("active", { exact: true })).toBeVisible();
+  await expect(page.getByText("активна", { exact: true })).toBeVisible();
 
   await page
     .getByLabel("Что произошло")
@@ -509,7 +509,7 @@ test("performs one Попытка практики without fabricating learner p
   await expect(page.getByRole("heading", { name: "Результат попытки отправлен" })).toBeVisible();
   await expect(
     page.getByText(
-      "Completion does not mark the capability demonstrated and does not close a gap.",
+      "Сам факт завершения не подтверждает компетенцию и не закрывает пробел.",
       { exact: false },
     ),
   ).toBeVisible();
@@ -548,7 +548,7 @@ test("performs one Попытка практики without fabricating learner p
     .locator(".current-state-after-region .state-card")
     .filter({ hasText: "System design" });
   await expect(
-    reviewedSystemDesignState.getByText("challenged", { exact: true }),
+    reviewedSystemDesignState.getByText("оспорено", { exact: true }),
   ).toBeVisible();
 
   await expect(page.getByText(/progress score/i)).toHaveCount(0);
@@ -556,17 +556,17 @@ test("performs one Попытка практики without fabricating learner p
     page.getByRole("button", { name: "Продолжить текущий фокус" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "Return to Текущее состояние" }),
+    page.getByRole("button", { name: "Вернуться к текущему состоянию" }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Открыть знания" }),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Return to Текущее состояние" }).click();
+  await page.getByRole("button", { name: "Вернуться к текущему состоянию" }).click();
   const systemDesignState = page
     .locator(".state-card")
     .filter({ hasText: "System design" });
-  await expect(systemDesignState.getByText("challenged", { exact: true })).toBeVisible();
+  await expect(systemDesignState.getByText("оспорено", { exact: true })).toBeVisible();
 });
 
 test("routes an Activity with no suitable support to contextual preparation", async ({
@@ -578,7 +578,7 @@ test("routes an Activity with no suitable support to contextual preparation", as
   await page.getByRole("radio", { name: /Коммуникация на собеседовании/ }).check();
   await page.getByRole("button", { name: "Выбрать фокус" }).click();
 
-  await page.getByRole("button", { name: "Activity", exact: true }).click();
+  await page.getByRole("button", { name: "Практика", exact: true }).click();
 
   await expect(
     page.getByRole("heading", { name: "Проработайте выбранный фокус" }),
@@ -587,21 +587,21 @@ test("routes an Activity with no suitable support to contextual preparation", as
     page.getByText("Подходящая поддержка пока не подготовлена.", { exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Prepare missing support" }).click();
+  await page.getByRole("button", { name: "Подготовить поддержку" }).click();
 
   await expect(page.getByRole("heading", { name: "Подготовить поддержку" })).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
   await expect(page.getByText("Вернуться в: Практика", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Недостающая поддержка")).toHaveValue(
     "Для выбранного фокуса пока нет подходящей поддержки.",
   );
-  await expect(page.getByLabel("Provenance")).toHaveValue(
-    "Current preparation context from Activity",
+  await expect(page.getByLabel("Источник контекста")).toHaveValue(
+    "Текущий контекст подготовки: Практика",
   );
   await expect(page.getByText(/corpus CRUD|import schema|item repair/i)).toHaveCount(0);
 
@@ -612,19 +612,19 @@ test("routes an Activity with no suitable support to contextual preparation", as
   ).toBeVisible();
   await expect(page.getByText("Шаблон рассказа об инженерном решении", { exact: true })).toBeVisible();
   await expect(
-    page.getByText("Intended capability: Коммуникация на собеседовании", { exact: true }),
+    page.getByText("Компетенция: Коммуникация на собеседовании", { exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText("Критерии оценки на конкретном собеседовании", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("unresolved", { exact: true })).toBeVisible();
+  await expect(page.getByText("не разрешено", { exact: true })).toBeVisible();
   await expect(
     page.getByText("Доступность mock-интервьюера", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("rejected", { exact: true })).toBeVisible();
+  await expect(page.getByText("отклонено", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
-      "Accepted support remains usable even when other requested support is unresolved or rejected.",
+      "Принятую поддержку можно использовать, даже если часть запроса остаётся неразрешённой или отклонена.",
       { exact: false },
     ),
   ).toBeVisible();
@@ -639,7 +639,7 @@ test("routes an Activity with no suitable support to contextual preparation", as
   ).toBeVisible();
   await expect(page.getByText("Шаблон рассказа об инженерном решении", { exact: true })).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
 });
 
@@ -670,7 +670,7 @@ for (const viewport of [
     await page.getByRole("radio", { name: /System design/ }).check();
     await page.getByRole("button", { name: "Выбрать фокус" }).click();
 
-    await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+    await page.getByRole("button", { name: "Знания", exact: true }).click();
     await expect(
       page.getByRole("heading", {
         name: "Исследуйте знания, важные для текущей цели",
@@ -682,10 +682,10 @@ for (const viewport of [
         .getByText("Собеседование на Backend Engineer"),
     ).toBeVisible();
     await expect(
-      page.getByLabel("Текущий контекст подготовки").getByText("Selected"),
+      page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "Activity", exact: true }).click();
+    await page.getByRole("button", { name: "Практика", exact: true }).click();
     await expect(
       page.getByRole("heading", { name: "Проработайте выбранный фокус" }),
     ).toBeVisible();
@@ -802,7 +802,7 @@ test("remains task-complete with reduced-motion preference", async ({ page }) =>
   ).toBe(true);
 
   await establishBackendTarget(page);
-  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
   await expect(
     page.locator('[data-view="knowledge"][data-renderer="nonspatial"]'),
   ).toBeVisible();
@@ -900,7 +900,7 @@ test("covers Подготовить поддержку request, result, and reco
   await page.getByRole("button", { name: "Текущее состояние" }).click();
   await page.getByRole("radio", { name: /Коммуникация на собеседовании/ }).check();
   await page.getByRole("button", { name: "Выбрать фокус" }).click();
-  await page.getByRole("button", { name: "Prepare missing support" }).click();
+  await page.getByRole("button", { name: "Подготовить недостающую поддержку" }).click();
 
   const acceptedPrepare = page.locator('[data-view="prepare-support"]');
   await expect(acceptedPrepare).toHaveAttribute(
