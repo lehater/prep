@@ -513,9 +513,8 @@ export function KnowledgeExplorerFeature({
 
               {RelationshipRenderer ? (
                 <>
-                  <div
+                  <hr
                     className="workspace-divider workspace-divider--vertical"
-                    role="separator"
                     aria-label="Изменить ширину таблицы и графа"
                     aria-orientation="vertical"
                     aria-valuemin={45}
@@ -558,9 +557,8 @@ export function KnowledgeExplorerFeature({
               ) : null}
             </div>
 
-            <div
+            <hr
               className="workspace-divider workspace-divider--horizontal"
-              role="separator"
               aria-label="Изменить высоту таблицы и деталей"
               aria-orientation="horizontal"
               aria-valuemin={48}
