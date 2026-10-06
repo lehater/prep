@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 
-import type { CandidateTargetOption } from "../target-direction/contract";
 import type { CapabilityRef, TargetRef } from "../contracts";
 import type {
   TargetModel,
   TargetPort,
   TargetRequirementModel,
+  TargetSetupOption,
 } from "./contract";
 
 export interface TargetFeatureProps {
   readonly port: TargetPort;
-  readonly candidates: readonly CandidateTargetOption[];
+  readonly candidates: readonly TargetSetupOption[];
   readonly candidateTargetRef?: TargetRef | undefined;
   readonly activeTargetRef: TargetRef | null;
   readonly recoveryReason?: string | undefined;
