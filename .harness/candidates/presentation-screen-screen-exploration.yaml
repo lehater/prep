@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.screen-view-design
 knowledge_kind: screen-view-design
-explorer_request_id: sha256:e35aa992f8cf80547a6ad22625968e3433250adfe679313607578ac02268982e
+explorer_request_id: sha256:08edaaea60ee474aec4453b80ad3ce3dc69d87d5554590b07bd0224f11238d93
 research_sources: []
 axes:
 - axis: view-composition
@@ -17,8 +17,9 @@ axes:
     - peer-panel-workspace
     - single-stream-only
   - strategy: co-locate-vs-disclose
-    challenge: Compare simultaneous same-workspace context with ordered disclosure while
-      preserving task continuity and the inherited bounded application-surface contract.
+    challenge: Compare simultaneous same-workspace context with ordered disclosure
+      while preserving task continuity and the inherited bounded application-surface
+      contract.
     alternatives:
     - task-primary-with-contextual-secondary
     - peer-panel-workspace
@@ -68,8 +69,8 @@ axes:
     - inline-edit
     - dedicated-editor-view
   - strategy: local-detail-vs-disclosure
-    challenge: Compare locally visible contextual detail with disclosure inside the same
-      accepted view while preserving invoking context and topology.
+    challenge: Compare locally visible contextual detail with disclosure inside the
+      same accepted view while preserving invoking context and topology.
     alternatives:
     - same-view-contextual-detail
     - overlay-detail
