@@ -19,7 +19,9 @@ body {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -34,6 +36,8 @@ button:disabled {
 
 button:focus-visible,
 input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
 a:focus-visible {
   outline: 3px solid #4968d8;
   outline-offset: 3px;
@@ -366,5 +370,122 @@ a:focus-visible {
 
   .action-row button {
     width: 100%;
+  }
+}
+
+
+.target-context-region,
+.target-provenance-region {
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.target-context-region {
+  display: grid;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  max-width: 760px;
+}
+
+.field > span {
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid #cbd3df;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 10px 12px;
+  color: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.target-uncertainty {
+  max-width: 760px;
+  border-left: 4px solid #c89038;
+  background: #fff8ea;
+  padding: 12px 14px;
+}
+
+.target-uncertainty ul,
+.target-provenance-region ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  line-height: 1.55;
+}
+
+.target-requirements-region {
+  display: grid;
+  gap: 14px;
+}
+
+.requirements-list {
+  display: grid;
+  gap: 14px;
+}
+
+.requirement-card {
+  display: grid;
+  gap: 16px;
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.requirement-card header h3 {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+}
+
+.requirement-card header p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.requirement-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.requirement-detail-grid h4,
+.knowledge-focus h4 {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+}
+
+.requirement-detail-grid ul,
+.knowledge-focus ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.55;
+}
+
+.knowledge-focus {
+  border-top: 1px solid #e5e9ef;
+  padding-top: 14px;
+}
+
+.target-actions:empty {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .requirement-detail-grid {
+    grid-template-columns: 1fr;
   }
 }
