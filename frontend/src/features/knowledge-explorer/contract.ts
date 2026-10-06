@@ -6,18 +6,25 @@ import type {
   TargetRef,
 } from "../contracts";
 
+export interface RelatedKnowledgeModel {
+  readonly knowledgeRef: KnowledgeRef;
+  readonly kind: "object" | "proposition";
+  readonly label: string;
+}
+
 export interface KnowledgeItemModel {
   readonly knowledgeRef: KnowledgeRef;
   readonly kind: "object" | "proposition";
   readonly label: string;
   readonly predicate?: string;
-  readonly relatedRefs: readonly KnowledgeRef[];
+  readonly related: readonly RelatedKnowledgeModel[];
 }
 
 export interface KnowledgeProjectionModel {
   readonly targetRef: TargetRef;
   readonly focusRef?: FocusRef;
   readonly requiredCapabilityRef?: CapabilityRef;
+  readonly requiredCapabilityLabel?: string;
   readonly scope: "overview" | "detail";
   readonly query?: string;
   readonly anchorRefs: readonly KnowledgeRef[];
