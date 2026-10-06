@@ -632,6 +632,14 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     page.getByLabel("Детали знания").getByText("part_of", { exact: true }),
   ).toBeVisible();
   await expect(
+    page
+      .getByLabel("Детали знания")
+      .getByText(
+        "Очередь задач является составной частью JavaScript Event Loop.",
+        { exact: true },
+      ),
+  ).toBeVisible();
+  await expect(
     page.getByLabel("Детали знания").getByRole("button", {
       name: "JavaScript Event Loop",
       exact: true,
