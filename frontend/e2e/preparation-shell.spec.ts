@@ -276,9 +276,9 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
   await expect(
     page.getByRole("heading", { name: "What needs attention" }),
   ).toBeVisible();
-  await expect(page.getByText("Core interview loop requirement.")).toBeVisible();
+  await expect(page.getByText("Core interview loop requirement.", { exact: true })).toBeVisible();
   await expect(
-    page.getByText("Required behavioral interview evidence."),
+    page.getByText("Required behavioral interview evidence.", { exact: true }),
   ).toBeVisible();
 
   await page.getByRole("radio", { name: /System design/ }).check();

@@ -5,6 +5,7 @@ on:
     branches:
       - implementation/fi04-current-focus-2026-10-06
     paths:
+      - "frontend/**"
       - ".github/workflows/tmp-fi04-browser.yml"
 
 permissions:
