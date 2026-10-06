@@ -58,7 +58,7 @@ semantic_assertions:
     kind: verification-check
     subject: activity-evidence-integrity
     semantic_value: "Support/activity semantics remain distinct from evidence conclusions; learning/practice/diagnostic/retention/transfer completion, feedback or repetition cannot by themselves establish learner capability."
-    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-EVALUATE-EVIDENCE, IX-ACTIVITY, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE]
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-EVALUATE-EVIDENCE, IX-ACTIVITY, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE, TOP-EVIDENCE-REVIEW]
     decision_authority: VERIFICATION-DESIGN
 
   - id: IV-OUTCOME-RECOVERY

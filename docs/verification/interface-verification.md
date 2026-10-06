@@ -60,9 +60,9 @@ This capability verifies the semantic **human-interface contract before concrete
 
 ### IV-06 — Activity / evidence boundary
 
-**Verifies:** support selection and learning/practice/diagnostic/retention/transfer activity remain distinct from Performance/evidence conclusions; completion, feedback or repetition alone cannot change learner state.
+**Verifies:** support selection and learning/practice/diagnostic/retention/transfer activity remain distinct from Performance/evidence conclusions; completion, feedback or repetition alone cannot change learner state. Evidence/change review is reached from a reviewed activity result (or an equivalent direct link carrying that context), while ordinary why-this-state inspection remains in Current position.
 
-**Upstream refs:** support/activity/evidence Task Model tasks; `IX-ACTIVITY`; Activity/Evidence topology views.
+**Upstream refs:** support/activity/evidence Task Model tasks; `IX-ACTIVITY`; `TOP-VIEW-ACTIVITY`, `TOP-VIEW-EVIDENCE`, `TOP-EVIDENCE-REVIEW`.
 
 **Method:** INSPECTION.
 

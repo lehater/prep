@@ -93,8 +93,8 @@ reviews:
     basis: "Revalidated for the explicit contract/validate/apply import workflow and modern corpus data kinds; item-level atomicity, partial peer success, identity and conflict semantics remain unchanged."
 
   - capability: prep.interface-verification
-    revision: 7
-    basis: "Interface Verification now checks learner-vs-curator bootstrap separation, target-purpose/non-inheritance integrity and separation of target refinement from learner progress in addition to shared interaction contracts."
+    revision: 8
+    basis: "Interface Verification revalidates the current interface contract after contextual Evidence/change routing: post-activity review requires reviewed activity/evidence context, while ordinary why-this-state inspection remains in Current position; baseline task/topology/recovery checks remain complete."
 
   - capability: prep.presentation-verification
     revision: 8

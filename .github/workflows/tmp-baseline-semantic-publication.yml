@@ -7,6 +7,10 @@ on:
     paths:
       - "tools/revalidate_baseline_publication.py"
       - ".github/workflows/tmp-baseline-semantic-publication.yml"
+      - ".harness/candidates/**"
+      - ".harness/semantic-baseline.yaml"
+      - "docs/architecture/**"
+      - "docs/verification/**"
   workflow_dispatch:
 
 permissions:
