@@ -194,10 +194,15 @@ export class MockFrontendAdapter
       return rejected("At least two known candidate Targets are required.");
     }
 
+    const [first, second, ...rest] = candidates;
+    if (!first || !second) {
+      return rejected("At least two known candidate Targets are required.");
+    }
+
     const tuple: [ComparedTargetModel, ComparedTargetModel, ...ComparedTargetModel[]] = [
-      candidates[0],
-      candidates[1],
-      ...candidates.slice(2),
+      first,
+      second,
+      ...rest,
     ];
 
     return accepted({
