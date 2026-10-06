@@ -474,7 +474,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await page.getByRole("button", { name: "Знания", exact: true }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Исследуйте знания, важные для текущей цели" }),
+    page.getByRole("heading", { name: "Знания текущей цели" }),
   ).toBeVisible();
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
