@@ -40,6 +40,18 @@ export const mockScenarioRefs = {
   knowledgeWorkerThreads: ref<"knowledge">("knowledge:worker-threads"),
   knowledgePromiseCombinators: ref<"knowledge">("knowledge:promise-combinators"),
   knowledgeErrorPropagation: ref<"knowledge">("knowledge:error-propagation"),
+  relationTaskQueuePartOfEventLoop: ref<"knowledge">(
+    "knowledge:relation:task-queue-part-of-event-loop",
+  ),
+  relationEventLoopRealizesAsyncProgramming: ref<"knowledge">(
+    "knowledge:relation:event-loop-realizes-async-programming",
+  ),
+  relationPromiseRealizesAsyncProgramming: ref<"knowledge">(
+    "knowledge:relation:promise-realizes-async-programming",
+  ),
+  relationWorkerThreadsRealizesConcurrency: ref<"knowledge">(
+    "knowledge:relation:worker-threads-realizes-concurrency",
+  ),
   supportSystemDesign: ref<"support">("support:system-design-case"),
   supportBehavioralPrepared: ref<"support">("support:behavioral-guide"),
   activityAttempt: ref<"activity-attempt">("activity-attempt:system-design-001"),
@@ -254,12 +266,14 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeCaching,
       kindCode: "object",
+      knowledgeForm: "strategy",
       title: "Стратегия кэширования",
       relatedIds: [mockScenarioRefs.knowledgeConsistency],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeAsyncProgramming,
       kindCode: "object",
+      knowledgeForm: "concept",
       title: "Асинхронное программирование",
       relatedIds: [
         mockScenarioRefs.knowledgeEventLoop,
@@ -271,6 +285,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeEventLoop,
       kindCode: "object",
+      knowledgeForm: "mechanism",
       title: "JavaScript Event Loop",
       relatedIds: [
         mockScenarioRefs.knowledgeMicrotaskQueue,
@@ -281,6 +296,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgePromise,
       kindCode: "object",
+      knowledgeForm: "mechanism",
       title: "Promise",
       relatedIds: [
         mockScenarioRefs.knowledgeAsyncAwait,
@@ -313,6 +329,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeTaskQueue,
       kindCode: "object",
+      knowledgeForm: "mechanism",
       title: "Очередь задач",
       relatedIds: [mockScenarioRefs.knowledgeEventLoop],
     },
@@ -330,6 +347,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeConcurrency,
       kindCode: "object",
+      knowledgeForm: "concept",
       title: "Конкурентность",
       relatedIds: [
         mockScenarioRefs.knowledgeParallelism,
@@ -358,6 +376,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeCancellation,
       kindCode: "object",
+      knowledgeForm: "strategy",
       title: "Отмена операций",
       relatedIds: [
         mockScenarioRefs.knowledgeTimeout,
@@ -385,6 +404,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeWorkerThreads,
       kindCode: "object",
+      knowledgeForm: "mechanism",
       title: "Worker Threads",
       relatedIds: [
         mockScenarioRefs.knowledgeParallelism,
@@ -394,6 +414,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgePromiseCombinators,
       kindCode: "object",
+      knowledgeForm: "strategy",
       title: "Комбинаторы Promise",
       relatedIds: [
         mockScenarioRefs.knowledgePromise,
@@ -409,6 +430,52 @@ export const rawMockScenario = {
         mockScenarioRefs.knowledgePromise,
         mockScenarioRefs.knowledgeAsyncAwait,
       ],
+    },
+  ],
+  knowledgeRelations: [
+    {
+      knowledgeId: mockScenarioRefs.relationTaskQueuePartOfEventLoop,
+      kindCode: "proposition",
+      title: "Очередь задач является частью механизма JavaScript Event Loop.",
+      predicateText: "Очередь задач является частью JavaScript Event Loop",
+      familyCode: "partitive",
+      predicateCode: "part_of",
+      inversePredicateCode: "has_part",
+      sourceId: mockScenarioRefs.knowledgeTaskQueue,
+      targetId: mockScenarioRefs.knowledgeEventLoop,
+    },
+    {
+      knowledgeId: mockScenarioRefs.relationEventLoopRealizesAsyncProgramming,
+      kindCode: "proposition",
+      title: "JavaScript Event Loop реализует механизм координации асинхронного программирования.",
+      predicateText: "JavaScript Event Loop реализует асинхронное программирование",
+      familyCode: "realization",
+      predicateCode: "realizes",
+      inversePredicateCode: "realized_by",
+      sourceId: mockScenarioRefs.knowledgeEventLoop,
+      targetId: mockScenarioRefs.knowledgeAsyncProgramming,
+    },
+    {
+      knowledgeId: mockScenarioRefs.relationPromiseRealizesAsyncProgramming,
+      kindCode: "proposition",
+      title: "Promise реализует одну из моделей представления асинхронного результата.",
+      predicateText: "Promise реализует асинхронное программирование",
+      familyCode: "realization",
+      predicateCode: "realizes",
+      inversePredicateCode: "realized_by",
+      sourceId: mockScenarioRefs.knowledgePromise,
+      targetId: mockScenarioRefs.knowledgeAsyncProgramming,
+    },
+    {
+      knowledgeId: mockScenarioRefs.relationWorkerThreadsRealizesConcurrency,
+      kindCode: "proposition",
+      title: "Worker Threads реализует механизм конкурентного выполнения.",
+      predicateText: "Worker Threads реализует конкурентность",
+      familyCode: "realization",
+      predicateCode: "realizes",
+      inversePredicateCode: "realized_by",
+      sourceId: mockScenarioRefs.knowledgeWorkerThreads,
+      targetId: mockScenarioRefs.knowledgeConcurrency,
     },
   ],
   support: [
