@@ -357,8 +357,13 @@ export function PreparationShell({
     }
   }
 
+  const shellClassName =
+    navigation.destination === "knowledge"
+      ? "preparation-shell preparation-shell--workspace"
+      : "preparation-shell";
+
   return (
-    <div className="preparation-shell">
+    <div className={shellClassName}>
       <header className="shell-header">
         <a className="brand" href="/" onClick={(event) => event.preventDefault()}>
           Prep
