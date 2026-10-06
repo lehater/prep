@@ -384,8 +384,8 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.addInitScript(() => {
-    window.localStorage.removeItem("prep.knowledge.table-graph-ratio");
-    window.localStorage.removeItem("prep.knowledge.top-details-ratio");
+    window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
+    window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
   });
   await page.goto("/");
   await establishBackendTarget(page);
@@ -428,6 +428,24 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(verticalDivider).toBeVisible();
   await expect(horizontalDivider).toBeVisible();
 
+  const graphBox = await page
+    .getByLabel("Связи знаний")
+    .boundingBox();
+  expect(graphBox).not.toBeNull();
+  if (graphBox) {
+    expect(Math.abs(graphBox.width - graphBox.height)).toBeLessThanOrEqual(2);
+  }
+
+  const workbenchBox = await page.locator(".knowledge-workbench").boundingBox();
+  const detailsBox = await page.getByLabel("Детали знания").boundingBox();
+  expect(workbenchBox).not.toBeNull();
+  expect(detailsBox).not.toBeNull();
+  if (workbenchBox && detailsBox) {
+    const workbenchBottom = workbenchBox.y + workbenchBox.height;
+    const detailsBottom = detailsBox.y + detailsBox.height;
+    expect(Math.abs(workbenchBottom - detailsBottom)).toBeLessThanOrEqual(2);
+  }
+
   const initialTableRatio = Number(
     await verticalDivider.getAttribute("aria-valuenow"),
   );
@@ -450,10 +468,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
 
   const storedSplits = await page.evaluate(() => ({
     tableGraph: Number(
-      window.localStorage.getItem("prep.knowledge.table-graph-ratio"),
+      window.localStorage.getItem("prep.knowledge.table-graph-ratio.v2"),
     ),
     topDetails: Number(
-      window.localStorage.getItem("prep.knowledge.top-details-ratio"),
+      window.localStorage.getItem("prep.knowledge.top-details-ratio.v2"),
     ),
   }));
   expect(storedSplits.tableGraph).toBe(initialTableRatio - 2);
