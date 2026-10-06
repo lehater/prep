@@ -13,8 +13,8 @@ views:
       - {id: active-child, role: task-surface, priority: primary, content: [current task view]}
     patterns: [PATTERN-CONTEXT-HEADER]
     responsive:
-      - wide: Navigation and active-context remain simultaneously available without competing with the child task surface.
-      - narrow: Navigation becomes ordered disclosure; active Target remains recoverable before the child task surface.
+      - wide: The frame owns the available viewport; preparation navigation stays persistent and the active child workspace owns the remaining bounded area, with task regions allowed to manage their own overflow.
+      - narrow: Navigation becomes ordered disclosure; active Target remains recoverable before the child task surface and regions reflow instead of preserving a fixed pane geometry.
       - focus_order: navigation -> active context -> child view
     exclusions: [global curation mode, runtime-status workspace, edit tools]
 
@@ -102,12 +102,21 @@ views:
       - {id: knowledge-results, role: task-complete-nonspatial-results, priority: primary, content: [bounded Knowledge results, relation text/structure]}
       - {id: relationship-overview, role: optional-spatial-overview, priority: primary, content: [2D node-link overview bounded to current semantic scope including selected Required Capability scope when active]}
       - {id: knowledge-detail, role: selected-detail, priority: supporting, content: [Knowledge meaning, proposition/relationship detail]}
+    composition_variants:
+      - id: spatial-overview-available
+        when: A usable 2D relationship projection is available on a capable wide surface.
+        dominant_region: relationship-overview
+        region_effects: [knowledge-results simultaneously available as task-complete nonspatial navigation, knowledge-detail contextual to selection, knowledge-query supporting, regions may own bounded internal overflow]
+      - id: nonspatial-or-degraded
+        when: Spatial projection is unavailable, degraded or constrained enough that it should not own the primary work region.
+        dominant_region: knowledge-results
+        region_effects: [relationship-overview absent-or-disclosed, knowledge-detail contextual to selection, knowledge-query supporting]
     reads: [prep.knowledge.query]
     commands: []
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-QUERY-RESULT-DETAIL]
     states: [loading, empty, ready, selected, dependency-unavailable, degraded]
     responsive:
-      - wide: 2D relationship overview may be primary visual context alongside bounded results/detail.
+      - wide: Bounded results, 2D relationship overview and selected detail may coexist inside the task workspace; the active composition variant still has exactly one dominant region.
       - compact: Results/detail remain visible; overview may occupy the main visual region with ordered supporting disclosures.
       - narrow: Nonspatial query/results/detail become primary; 2D overview becomes secondary disclosure or separate temporary surface.
       - focus_order: query -> result set -> relationship overview controls -> selected detail
@@ -201,6 +210,7 @@ views:
     exclusions: [corpus/import editor, global all-or-nothing preparation, learner-owned schema maintenance]
 
 shared_rules:
+  application_surface: On capable wide surfaces FRAME-PREPARATION owns the viewport, persistent preparation navigation remains available, and the active child is a bounded workbench whose regions may own internal overflow; narrow surfaces reflow/disclose by semantic priority rather than preserving fixed pane geometry.
   primary_surface: Each concrete composition variant has one dominant task/work region; other simultaneously visible regions remain supporting context, detail or actions and must not compete for task primacy.
   variant_semantics: Composition variants are presentation states of the same accepted view responsibility, not new routes, modes or domain states; variant selection follows accepted interaction/machine outcomes.
   detail_placement: Supporting detail is same-view contextual detail/disclosure by default; no accepted task has inline or dedicated semantic editing.
