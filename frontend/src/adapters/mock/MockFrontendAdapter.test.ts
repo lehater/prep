@@ -192,7 +192,19 @@ describe("MockFrontendAdapter semantic contract", () => {
       mockScenarioRefs.knowledgeConsistency,
       mockScenarioRefs.knowledgeCaching,
     ]);
+    expect(knowledge.requiredCapabilityLabel).toBe("System design");
     expect(knowledge.items.length).toBeGreaterThan(0);
+    expect(knowledge.items[0]?.related[0]?.label).toBe("Caching strategy");
+
+    const filtered = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        requiredCapabilityRef: mockScenarioRefs.capabilitySystemDesign,
+        scope: "overview",
+        query: "Caching",
+      }),
+    );
+    expect(filtered.items.map((item) => item.label)).toEqual(["Caching strategy"]);
 
     for (const item of knowledge.items) {
       expect(item).not.toHaveProperty("x");

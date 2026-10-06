@@ -2,6 +2,8 @@ import { type ReactNode, useState } from "react";
 
 import type { CurrentPositionPort } from "../../features/current-position/contract";
 import { CurrentPositionFeature } from "../../features/current-position/CurrentPositionFeature";
+import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
+import { KnowledgeExplorerFeature } from "../../features/knowledge-explorer/KnowledgeExplorerFeature";
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
 import type { TargetPort } from "../../features/target/contract";
@@ -28,6 +30,7 @@ export interface PreparationShellProps {
   readonly targetDirectionPort: TargetDirectionPort;
   readonly targetPort: TargetPort;
   readonly currentPositionPort: CurrentPositionPort;
+  readonly knowledgePort: KnowledgePort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -61,6 +64,7 @@ export function PreparationShell({
   targetDirectionPort,
   targetPort,
   currentPositionPort,
+  knowledgePort,
   candidateTargets,
 }: PreparationShellProps) {
   const {
@@ -162,15 +166,21 @@ export function PreparationShell({
       );
       break;
     case "knowledge":
-      child = (
+      child = activeTargetRef ? (
+        <KnowledgeExplorerFeature
+          port={knowledgePort}
+          activeTargetRef={activeTargetRef}
+          activeFocusRef={activeFocusRef}
+          incomingRequiredCapabilityRef={navigation.requiredCapabilityRef}
+        />
+      ) : (
         <StructuralPlaceholder
-          title="Knowledge"
-          description={
-            navigation.requiredCapabilityRef
-              ? "Explore Subject Knowledge scoped to the selected Required Capability."
-              : "Explore target-relevant Subject Knowledge and semantic relationships."
+          title="Target"
+          description="Establish a Target before exploring Knowledge."
+          recoveryReason={
+            recoveryReason ??
+            "Establish a Target before entering Target-dependent preparation work."
           }
-          recoveryReason={recoveryReason ?? undefined}
         />
       );
       break;

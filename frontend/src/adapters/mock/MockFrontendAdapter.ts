@@ -440,12 +440,23 @@ export class MockFrontendAdapter
             ? [mockScenarioRefs.knowledgeConsistency]
             : [];
 
-    const selected =
+    const scoped =
       anchors.length > 0
         ? rawMockScenario.knowledge.filter((item) =>
             anchors.includes(item.knowledgeId),
           )
         : rawMockScenario.knowledge;
+
+    const normalizedQuery = input.query?.trim().toLocaleLowerCase() ?? "";
+    const selected =
+      normalizedQuery.length === 0
+        ? scoped
+        : scoped.filter((item) =>
+            [item.title, item.kindCode === "proposition" ? item.predicateText : ""]
+              .join(" ")
+              .toLocaleLowerCase()
+              .includes(normalizedQuery),
+          );
 
     const items = selected.map((item) => ({
       knowledgeRef: item.knowledgeId,
@@ -454,14 +465,30 @@ export class MockFrontendAdapter
       ...(item.kindCode === "proposition"
         ? { predicate: item.predicateText }
         : {}),
-      relatedRefs: item.relatedIds,
+      related: item.relatedIds.flatMap((relatedRef) => {
+        const related = rawMockScenario.knowledge.find(
+          (candidate) => candidate.knowledgeId === relatedRef,
+        );
+        return related
+          ? [
+              {
+                knowledgeRef: related.knowledgeId,
+                kind: related.kindCode,
+                label: related.title,
+              },
+            ]
+          : [];
+      }),
     }));
 
     return accepted({
       targetRef: input.targetRef,
       ...(input.focusRef ? { focusRef: input.focusRef } : {}),
       ...(input.requiredCapabilityRef
-        ? { requiredCapabilityRef: input.requiredCapabilityRef }
+        ? {
+            requiredCapabilityRef: input.requiredCapabilityRef,
+            requiredCapabilityLabel: capabilityLabel(input.requiredCapabilityRef),
+          }
         : {}),
       scope: input.scope,
       ...(input.query ? { query: input.query } : {}),

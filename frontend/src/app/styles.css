@@ -697,3 +697,131 @@ a:focus-visible {
     align-items: flex-start;
   }
 }
+
+
+.knowledge-query-region,
+.knowledge-results-region,
+.knowledge-detail-region {
+  display: grid;
+  gap: 16px;
+}
+
+.knowledge-query-region,
+.knowledge-detail-region,
+.knowledge-empty {
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.knowledge-scope-context {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.knowledge-scope-context div {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #e2e6ed;
+  border-radius: 12px;
+  background: #f8f9fb;
+  padding: 12px;
+}
+
+.knowledge-scope-context span,
+.knowledge-kind,
+.knowledge-detail-list dt {
+  color: #687487;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.knowledge-query-form {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr);
+  gap: 14px;
+  align-items: end;
+}
+
+.knowledge-query-form .action-row {
+  grid-column: 1 / -1;
+}
+
+.knowledge-result-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.knowledge-result-card {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.knowledge-result-card h3 {
+  margin: 5px 0 8px;
+  font-size: 1.18rem;
+  line-height: 1.3;
+}
+
+.knowledge-result-card p,
+.knowledge-empty p,
+.knowledge-renderer-note {
+  line-height: 1.55;
+}
+
+.knowledge-relations {
+  border-top: 1px solid #e5e9ef;
+  padding-top: 12px;
+}
+
+.knowledge-relations ul,
+.knowledge-detail-list ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  line-height: 1.55;
+}
+
+.knowledge-detail-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.knowledge-detail-list div {
+  display: grid;
+  gap: 4px;
+}
+
+.knowledge-detail-list dd {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.knowledge-renderer-note {
+  margin: 0;
+  border-left: 4px solid #8b94b3;
+  background: #f5f6fa;
+  padding: 12px 14px;
+}
+
+@media (max-width: 720px) {
+  .knowledge-scope-context,
+  .knowledge-query-form,
+  .knowledge-result-list {
+    grid-template-columns: 1fr;
+  }
+
+  .knowledge-query-form .action-row {
+    grid-column: auto;
+  }
+}

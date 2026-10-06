@@ -117,12 +117,20 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     .getByRole("button", { name: "Explore Knowledge for System design" })
     .click();
 
-  await expect(page.getByRole("heading", { name: "Knowledge" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Explore the Knowledge that matters here" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("System design", { exact: true }).last(),
+  ).toBeVisible();
+  await expect(page.getByText("2 results in the current semantic scope.")).toBeVisible();
   await expect(
     page.getByText(
-      "Explore Subject Knowledge scoped to the selected Required Capability.",
-    ),
+      "Consistency choices trade latency and coordination against freshness guarantees.",
+      { exact: true },
+    ).first(),
   ).toBeVisible();
+  await expect(page.getByText("Caching strategy", { exact: true }).first()).toBeVisible();
   await expect(
     page
       .getByLabel("Active preparation context")
@@ -348,4 +356,87 @@ test("preserves a missing-support focus and routes to contextual preparation", a
   await expect(
     page.getByLabel("Active preparation context").getByText("Selected"),
   ).toBeVisible();
+});
+
+
+test("keeps Knowledge query, capability scope, detail and relations task-complete without spatial rendering", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+
+  await page
+    .getByRole("button", { name: "Explore Knowledge for System design" })
+    .click();
+
+  const knowledgeView = page.locator(
+    '[data-view="knowledge"][data-renderer="nonspatial"]',
+  );
+  await expect(knowledgeView).toBeVisible();
+  await expect(knowledgeView.locator("canvas")).toHaveCount(0);
+  await expect(
+    page.getByText(
+      "This task path is complete without a spatial renderer. Geometry is not Knowledge meaning.",
+    ),
+  ).toBeVisible();
+
+  await expect(
+    page.getByText("System design", { exact: true }).last(),
+  ).toBeVisible();
+  await expect(page.getByText("2 results in the current semantic scope.")).toBeVisible();
+
+  await page.getByRole("button", { name: "Inspect proposition" }).click();
+  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
+    "Consistency choices trade latency and coordination against freshness guarantees.",
+  );
+  await expect(
+    page.getByText(
+      "consistency-mode influences latency, coordination, and freshness",
+      { exact: true },
+    ).last(),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Caching strategy (object)", { exact: true }),
+  ).toBeVisible();
+
+  const query = page.getByLabel("Knowledge query");
+  await query.fill("Caching");
+  await query.press("Enter");
+  await expect(page.getByText("1 result in the current semantic scope.")).toBeVisible();
+  await expect(page.getByText("Caching strategy", { exact: true }).first()).toBeVisible();
+
+  await page
+    .getByRole("button", { name: "Clear Required Capability scope" })
+    .click();
+  await query.fill("event loop");
+  await query.press("Enter");
+  await expect(page.getByText("JavaScript event loop", { exact: true })).toBeVisible();
+  await expect(page.getByText("1 result in the current semantic scope.")).toBeVisible();
+
+  await page.getByRole("button", { name: "Target", exact: true }).click();
+  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+
+  await expect(page.getByLabel("Knowledge query")).toHaveValue("event loop");
+  await expect(page.getByText("JavaScript event loop", { exact: true })).toBeVisible();
+  await expect(page.getByText("No filter", { exact: true })).toBeVisible();
+});
+
+test("preserves accepted Next focus context when entering Knowledge", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+  await page.getByRole("button", { name: "Current position" }).click();
+  await page.getByRole("radio", { name: /System design/ }).check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+
+  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Explore the Knowledge that matters here" }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
+  await expect(page.getByText("Included", { exact: true })).toBeVisible();
 });
