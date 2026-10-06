@@ -356,6 +356,7 @@ export class MockFrontendAdapter
         gapRef: row.gapId,
         requirementRef: row.requirementId,
         capabilityRef: row.capabilityId,
+        capabilityLabel: capabilityLabel(row.capabilityId),
         status: row.statusCode,
         rationale: row.reasonText,
       })),
@@ -364,6 +365,7 @@ export class MockFrontendAdapter
         candidates: rawMockScenario.gaps.map((row) => ({
           gapRef: row.gapId,
           capabilityRef: row.capabilityId,
+          capabilityLabel: capabilityLabel(row.capabilityId),
           targetRelevance: row.targetRelevanceText,
           priorityRationale: row.priorityText,
           supportAvailability: row.supportCode,

@@ -12,6 +12,16 @@ async function compareAndContinueWithBackend(page: Page) {
     .click();
 }
 
+async function establishBackendTarget(page: Page) {
+  await compareAndContinueWithBackend(page);
+  await page.getByRole("button", { name: "Establish Target" }).click();
+  await expect(
+    page
+      .getByLabel("Active preparation context")
+      .getByText("Backend Engineer interview"),
+  ).toBeVisible();
+}
+
 test("compares candidate Targets and continues without activating one", async ({
   page,
 }) => {
@@ -239,5 +249,103 @@ test("preserves preparation hierarchy and serializes comparison on a narrow view
   ).toBeVisible();
   await expect(
     page.getByText("Current evidence-backed position").first(),
+  ).toBeVisible();
+});
+
+
+test("reviews current evidence and explicitly sets the Next focus before Activity", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+
+  await page.getByRole("button", { name: "Current position" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Understand where to focus next" }),
+  ).toBeVisible();
+  await expect(page.getByText("demonstrated", { exact: true })).toBeVisible();
+  await expect(page.getByText("challenged", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("unknown", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "There is not enough attributable evidence to conclude either way.",
+    ),
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("heading", { name: "What needs attention" }),
+  ).toBeVisible();
+  await expect(page.getByText("Core interview loop requirement.", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("Required behavioral interview evidence.", { exact: true }),
+  ).toBeVisible();
+
+  await page.getByRole("radio", { name: /System design/ }).check();
+
+  await expect(page.getByLabel("Focus purpose")).toHaveValue(
+    "Work on System design next.",
+  );
+  await expect(page.getByLabel("Rationale")).toHaveValue(
+    "High value because it affects multiple system-design questions.",
+  );
+
+  await expect(
+    page
+      .getByLabel("Active preparation context")
+      .getByText("Not selected"),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+
+  await expect(page.getByText("Next focus accepted")).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
+
+  await page.getByText("Why this state: evidence basis").click();
+  await expect(
+    page.getByText(
+      "Practice review found unclear consistency assumptions in a cache design.",
+    ),
+  ).toBeVisible();
+
+  await expect(page.getByText(/mastery percentage/i)).toHaveCount(0);
+  await expect(page.getByText(/readiness percentage/i)).toHaveCount(0);
+
+  await page.getByRole("button", { name: "Continue to Activity" }).click();
+  await expect(page.getByRole("heading", { name: "Activity" })).toBeVisible();
+});
+
+test("preserves a missing-support focus and routes to contextual preparation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+  await page.getByRole("button", { name: "Current position" }).click();
+
+  await page
+    .getByRole("radio", { name: /Behavioral communication/ })
+    .check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+
+  await expect(page.getByText("Next focus accepted")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Prepare missing support" }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Prepare missing support" }).click();
+
+  await expect(page.getByRole("heading", { name: "Prepare Support" })).toBeVisible();
+  await expect(
+    page
+      .getByLabel("Active preparation context")
+      .getByText("Backend Engineer interview"),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
   ).toBeVisible();
 });

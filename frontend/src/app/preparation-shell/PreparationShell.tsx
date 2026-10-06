@@ -1,5 +1,7 @@
 import { type ReactNode, useState } from "react";
 
+import type { CurrentPositionPort } from "../../features/current-position/contract";
+import { CurrentPositionFeature } from "../../features/current-position/CurrentPositionFeature";
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
 import type { TargetPort } from "../../features/target/contract";
@@ -25,6 +27,7 @@ const navigationItems: readonly {
 export interface PreparationShellProps {
   readonly targetDirectionPort: TargetDirectionPort;
   readonly targetPort: TargetPort;
+  readonly currentPositionPort: CurrentPositionPort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -48,7 +51,7 @@ function StructuralPlaceholder({
       ) : null}
       <p>{description}</p>
       <p className="supporting-text">
-        This task surface is intentionally not implemented in FI-02.
+        This task surface is intentionally deferred to a later implementation slice.
       </p>
     </section>
   );
@@ -57,12 +60,14 @@ function StructuralPlaceholder({
 export function PreparationShell({
   targetDirectionPort,
   targetPort,
+  currentPositionPort,
   candidateTargets,
 }: PreparationShellProps) {
   const {
     activeTargetRef,
     activeFocusRef,
     setAcceptedTarget,
+    setAcceptedFocus,
   } = usePreparationContext();
   const [navigation, setNavigation] = useState<PreparationNavigationRequest>({
     destination: "targets",
@@ -128,11 +133,31 @@ export function PreparationShell({
       );
       break;
     case "current":
-      child = (
+      child = activeTargetRef ? (
+        <CurrentPositionFeature
+          port={currentPositionPort}
+          activeTargetRef={activeTargetRef}
+          activeFocusRef={activeFocusRef}
+          onAcceptedFocus={(focus) => {
+            setAcceptedFocus(focus.focusRef);
+            setRecoveryReason(null);
+          }}
+          onContinueActivity={() => navigate({ destination: "activity" })}
+          onRequestPreparationSupport={() =>
+            navigate({
+              destination: "prepare-support",
+              candidateTargetRef: activeTargetRef,
+            })
+          }
+        />
+      ) : (
         <StructuralPlaceholder
-          title="Current position"
-          description="Review evidence-backed state, gaps, uncertainty, and choose the Next focus."
-          recoveryReason={recoveryReason ?? undefined}
+          title="Target"
+          description="Establish a Target before reviewing current position."
+          recoveryReason={
+            recoveryReason ??
+            "Establish a Target before entering Target-dependent preparation work."
+          }
         />
       );
       break;
