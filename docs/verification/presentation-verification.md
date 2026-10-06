@@ -70,7 +70,7 @@ Presentation Verification owns rendered/composed human-interface evidence. It do
 
 ### PV-07 — Knowledge representation semantic fidelity
 
-**Verifies:** spatial and non-spatial Knowledge projections preserve the same canonical Knowledge identity, relation meaning, scope basis and selection/focus distinctions; geometry/camera never become semantic truth.
+**Verifies:** spatial and non-spatial Knowledge projections preserve the same canonical Knowledge identity, relation meaning, relation direction/source-target distinction, scope basis and selection/focus distinctions; geometry/camera never become semantic truth.
 
 **Upstream refs:** IV-05, IV-09; `PS-KNOWLEDGE-REPRESENTATION`; `SV-KNOWLEDGE`.
 
@@ -130,13 +130,13 @@ Presentation Verification owns rendered/composed human-interface evidence. It do
 
 ### PV-13 — State-dependent composition integrity
 
-**Verifies:** each material state-dependent composition remains the same accepted view responsibility, exposes exactly one dominant task/work region, keeps context/detail/actions subordinate to that work, and does not create a hidden route, product mode or domain state.
+**Verifies:** each material state-dependent composition remains the same accepted view responsibility, exposes exactly one dominant task/work region, keeps context/detail/actions subordinate to that work, and does not create a hidden route, product mode or domain state. On capable wide surfaces, the application shell owns the bounded viewport, persistent preparation navigation remains available, and task-region overflow does not displace the application frame. For Knowledge, the declared wide spatial-overview variant keeps task-complete nonspatial results simultaneously available while exactly one region remains dominant.
 
-**Upstream refs:** `PS-TASK-HIERARCHY`; `SV-COMPOSITION-VARIANTS`; composition variants in Targets, Target, Activity and Prepare Support.
+**Upstream refs:** `PS-APPLICATION-SURFACE`; `PS-TASK-HIERARCHY`; `SV-FRAME`; `SV-KNOWLEDGE`; `SV-COMPOSITION-VARIANTS`; composition variants in Targets, Target, Knowledge, Activity and Prepare Support.
 
 **Method:** TEST + INSPECTION.
 
-**Evidence requirement:** a state matrix or rendered walkthrough showing the dominant region for every declared composition variant and confirming unchanged view identity/navigation semantics.
+**Evidence requirement:** a state matrix or rendered walkthrough showing the dominant region for every declared composition variant and confirming unchanged view identity/navigation semantics; representative wide evidence must also show stable application-frame ownership/persistent navigation while bounded child regions overflow independently. Exact pane widths, splitter thickness and CSS/DOM mechanics are not verification oracles.
 
 ## Product requirement dispositions
 
