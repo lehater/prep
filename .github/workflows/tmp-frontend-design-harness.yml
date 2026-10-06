@@ -69,7 +69,7 @@ jobs:
           registry=yaml.safe_load((Path.cwd()/"skills/artifact-skill-registry-v0.yaml").read_text())
           contracts=yaml.safe_load((Path.cwd()/"spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text())
           decisions=yaml.safe_load((Path.cwd()/"spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml").read_text())
-          policy=yaml.safe_load((root/".harness/candidates/application-design-decision-policy.yaml").read_text())
+          policy=None
           for target in ("FRONTEND-PROTOTYPE","FRONTEND-IMPLEMENTATION"):
               result=evaluate_semantic_closure(
                   graph=graph,model=pub["state"]["core_model"],target=target,
