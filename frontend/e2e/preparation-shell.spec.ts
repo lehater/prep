@@ -59,7 +59,7 @@ test("compares candidate Targets and continues without activating one", async ({
   await expect(
     page.getByRole("heading", { name: "Establish your Target" }),
   ).toBeVisible();
-  await expect(page.getByLabel("Target")).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Target", exact: true })).toHaveValue(
     "target:backend-interview",
   );
   await expect(page.getByLabel("Source / context")).toHaveValue(
@@ -146,7 +146,7 @@ test("preserves Target draft after rejected establishment and accepts corrected 
   await page.goto("/");
   await page.getByRole("button", { name: "Target", exact: true }).click();
 
-  const target = page.getByLabel("Target");
+  const target = page.getByRole("combobox", { name: "Target", exact: true });
   const source = page.getByLabel("Source / context");
 
   await target.selectOption({ label: "Backend Engineer interview" });
@@ -193,7 +193,7 @@ test("routes Target-dependent navigation to recovery when Target is absent", asy
     ),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Targets" }).click();
+  await page.getByRole("button", { name: "Targets", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Choose what you are preparing for" }),
   ).toBeVisible();
