@@ -25,8 +25,8 @@ test("compares candidate Targets and continues without activating one", async ({
     page.getByRole("heading", { name: "Compare selected Targets" }),
   ).toBeVisible();
   await expect(page.getByText("System design", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Behavioral communication")).toBeVisible();
-  await expect(page.getByText("Kubernetes operations")).toBeVisible();
+  await expect(page.getByText("Behavioral communication", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Kubernetes operations", { exact: true }).first()).toBeVisible();
   await expect(
     page.getByText("The same learner evidence basis is used for every candidate."),
   ).toBeVisible();
