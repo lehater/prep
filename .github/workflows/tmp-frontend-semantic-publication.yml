@@ -7,6 +7,14 @@ on:
     paths:
       - "tools/tmp_revalidate_frontend_tail.py"
       - ".github/workflows/tmp-frontend-semantic-publication.yml"
+      - ".harness/candidates/**"
+      - ".harness/semantic-baseline.yaml"
+      - "docs/architecture/frontend-system-architecture.md"
+      - "docs/engineering/frontend-engineering-policy.md"
+      - "docs/implementation/frontend-component-design.md"
+      - "docs/implementation/frontend-implementation-design.md"
+      - "docs/verification/frontend-verification.md"
+      - "docs/verification/frontend-test-design.yaml"
 
 permissions:
   contents: write
