@@ -13,105 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  impact:
-    name: Detect affected areas
-    runs-on: ubuntu-latest
-    outputs:
-      frontend: ${{ steps.impact.outputs.frontend }}
-      repository: ${{ steps.impact.outputs.repository }}
-      knowledge_experiment: ${{ steps.impact.outputs.knowledge_experiment }}
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Classify changed paths
-        id: impact
-        shell: bash
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -euo pipefail
-
-          frontend=false
-          repository=false
-          knowledge_experiment=false
-
-          if [[ "$EVENT_NAME" != "pull_request" ]]; then
-            frontend=true
-            repository=true
-            knowledge_experiment=true
-          else
-            while IFS= read -r path; do
-              [[ -z "$path" ]] && continue
-              known=false
-
-              case "$path" in
-                frontend/*)
-                  frontend=true
-                  known=true
-                  ;;
-                .harness/*|.harness-version|docs/*|tools/*|AGENTS.md|README.md|ARCHITECTURE.md|experiments/anki_adapter_reference/*)
-                  repository=true
-                  known=true
-                  ;;
-                experiments/knowledge_representation/*)
-                  knowledge_experiment=true
-                  known=true
-                  ;;
-                .github/workflows/*)
-                  frontend=true
-                  repository=true
-                  knowledge_experiment=true
-                  known=true
-                  ;;
-              esac
-
-              case "$path" in
-                *.md)
-                  repository=true
-                  known=true
-                  ;;
-              esac
-
-              if [[ "$known" == false ]]; then
-                frontend=true
-                repository=true
-                knowledge_experiment=true
-              fi
-            done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
-          fi
-
-          {
-            echo "frontend=$frontend"
-            echo "repository=$repository"
-            echo "knowledge_experiment=$knowledge_experiment"
-          } >> "$GITHUB_OUTPUT"
-
-          printf 'frontend=%s repository=%s knowledge_experiment=%s\n' \
-            "$frontend" "$repository" "$knowledge_experiment"
-
   frontend-fast:
     name: Frontend fast
-    needs: impact
-    if: ${{ needs.impact.outputs.frontend == 'true' }}
-    uses: ./.github/workflows/frontend-fast.yml
-
-  repository-fast:
-    name: Repository fast
-    needs: impact
-    if: ${{ needs.impact.outputs.repository == 'true' }}
-    uses: ./.github/workflows/repository-fast.yml
-
-  knowledge-experiment:
-    name: Knowledge experiment fast
-    needs: impact
-    if: ${{ needs.impact.outputs.knowledge_experiment == 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -121,48 +26,50 @@ jobs:
         with:
           node-version: "24.21.0"
           cache: npm
-          cache-dependency-path: experiments/knowledge_representation/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install locked dependencies
-        working-directory: experiments/knowledge_representation
+        working-directory: frontend
         run: npm ci
 
-      - name: Lint preserved knowledge experiment
-        working-directory: experiments/knowledge_representation
-        run: npm run lint
+      - name: Run deterministic frontend checks
+        working-directory: frontend
+        run: npm run fast
 
-      - name: Build preserved knowledge experiment
-        working-directory: experiments/knowledge_representation
-        run: npm run build
-
-  gate:
-    name: PR gate
-    needs:
-      - impact
-      - frontend-fast
-      - repository-fast
-      - knowledge-experiment
-    if: ${{ always() }}
+  repository-fast:
+    name: Repository fast
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Require all selected checks to pass
-        shell: bash
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Read pinned Harness version
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out pinned Harness
+        uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+
+      - name: Install Harness runtime dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Validate Harness integration and current publication integrity
         env:
-          IMPACT_RESULT: ${{ needs.impact.result }}
-          FRONTEND_RESULT: ${{ needs.frontend-fast.result }}
-          REPOSITORY_RESULT: ${{ needs.repository-fast.result }}
-          KNOWLEDGE_RESULT: ${{ needs.knowledge-experiment.result }}
-        run: |
-          set -euo pipefail
+          HARNESS_ROOT: .harness-tool
+        run: python tools/check_harness_integration.py
 
-          [[ "$IMPACT_RESULT" == "success" ]]
+      - name: Validate documentation links
+        run: python tools/validate_docs.py
 
-          for result in "$FRONTEND_RESULT" "$REPOSITORY_RESULT" "$KNOWLEDGE_RESULT"; do
-            case "$result" in
-              success|skipped) ;;
-              *)
-                echo "Selected validation job did not pass: $result"
-                exit 1
-                ;;
-            esac
-          done
+      - name: Validate maintained Anki reference implementation
+        run: python -m unittest discover -s experiments/anki_adapter_reference/tests -v
