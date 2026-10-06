@@ -9,15 +9,20 @@ import {
   useState,
 } from "react";
 
-import { knowledgeKindLabel } from "../../ui/presentationLabels";
+import {
+  knowledgeFormLabel,
+  knowledgeKindLabel,
+  knowledgePredicateLabel,
+  knowledgeRelationFamilyLabel,
+} from "../../ui/presentationLabels";
 import type { CapabilityRef, FocusRef, KnowledgeRef, TargetRef } from "../contracts";
 import type {
   KnowledgeItemModel,
   KnowledgePort,
   KnowledgeProjectionModel,
+  KnowledgeRelationshipProjectionModel,
 } from "./contract";
 import type {
-  KnowledgeRelationshipEdgeModel,
   KnowledgeRelationshipOverviewModel,
   KnowledgeRelationshipRenderer,
 } from "./relationship-renderer";
@@ -62,45 +67,32 @@ function readStoredRatio(key: string, fallback: number): number {
   return Number.isFinite(stored) ? stored : fallback;
 }
 
-function matchesRelationFilter(
-  item: KnowledgeItemModel,
-  filter: "all" | "two-plus" | "three-plus",
-): boolean {
-  if (filter === "two-plus") {
-    return item.related.length >= 2;
-  }
-  if (filter === "three-plus") {
-    return item.related.length >= 3;
-  }
-  return true;
+function uniqueSorted(values: readonly string[]): readonly string[] {
+  return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
 function buildRelationshipOverview(
   items: readonly KnowledgeItemModel[],
+  relationships: readonly KnowledgeRelationshipProjectionModel[],
   selectedKnowledgeRef: KnowledgeRef | null,
 ): KnowledgeRelationshipOverviewModel {
   const visibleRefs = new Set(items.map((item) => item.knowledgeRef));
-  const edges: KnowledgeRelationshipEdgeModel[] = [];
-  const seenEdges = new Set<string>();
+  const visibleRelationships = relationships.filter(
+    (relationship) =>
+      visibleRefs.has(relationship.sourceRef) &&
+      visibleRefs.has(relationship.targetRef),
+  );
 
-  for (const item of items) {
-    for (const related of item.related) {
-      if (!visibleRefs.has(related.knowledgeRef)) {
-        continue;
-      }
-
-      const pair = [String(item.knowledgeRef), String(related.knowledgeRef)].sort();
-      const edgeKey = pair.join("::");
-      if (seenEdges.has(edgeKey)) {
-        continue;
-      }
-
-      seenEdges.add(edgeKey);
-      edges.push({
-        sourceRef: item.knowledgeRef,
-        targetRef: related.knowledgeRef,
-      });
-    }
+  const relationCounts = new Map<KnowledgeRef, number>();
+  for (const relationship of visibleRelationships) {
+    relationCounts.set(
+      relationship.sourceRef,
+      (relationCounts.get(relationship.sourceRef) ?? 0) + 1,
+    );
+    relationCounts.set(
+      relationship.targetRef,
+      (relationCounts.get(relationship.targetRef) ?? 0) + 1,
+    );
   }
 
   return {
@@ -108,10 +100,17 @@ function buildRelationshipOverview(
       knowledgeRef: item.knowledgeRef,
       kind: item.kind,
       label: item.label,
-      relationCount: item.related.length,
+      relationCount: relationCounts.get(item.knowledgeRef) ?? 0,
       selected: item.knowledgeRef === selectedKnowledgeRef,
     })),
-    edges,
+    edges: visibleRelationships.map((relationship) => ({
+      propositionRef: relationship.propositionRef,
+      sourceRef: relationship.sourceRef,
+      targetRef: relationship.targetRef,
+      family: relationship.family,
+      predicate: relationship.predicate,
+      label: knowledgePredicateLabel(relationship.predicate),
+    })),
     selectedKnowledgeRef,
   };
 }
@@ -129,13 +128,17 @@ export function KnowledgeExplorerFeature({
     scope,
     requiredCapabilityRef,
     kindFilter,
-    relationsFilter,
+    knowledgeFormFilter,
+    relationFamilyFilter,
+    relationPredicateFilter,
     selectedKnowledgeRef,
     setQueryDraft,
     setScope,
     setRequiredCapabilityRef,
     setKindFilter,
-    setRelationsFilter,
+    setKnowledgeFormFilter,
+    setRelationFamilyFilter,
+    setRelationPredicateFilter,
     setSelectedKnowledgeRef,
   } = useKnowledgeExplorerState();
 
@@ -195,15 +198,19 @@ export function KnowledgeExplorerFeature({
       maxGraphSize,
     );
 
-    const defaultTableRatio =
-      ((rect.width - graphSize - SPLITTER_SIZE) / rect.width) * 100;
-    const defaultTopRatio = (graphSize / rect.height) * 100;
-
     setTableGraphRatio(
-      clamp(defaultTableRatio, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+      clamp(
+        ((rect.width - graphSize - SPLITTER_SIZE) / rect.width) * 100,
+        TABLE_RATIO_MIN,
+        TABLE_RATIO_MAX,
+      ),
     );
     setTopDetailsRatio(
-      clamp(defaultTopRatio, TOP_RATIO_MIN, TOP_RATIO_MAX),
+      clamp(
+        (graphSize / rect.height) * 100,
+        TOP_RATIO_MIN,
+        TOP_RATIO_MAX,
+      ),
     );
   }, [projection]);
 
@@ -261,15 +268,116 @@ export function KnowledgeExplorerFeature({
     scope,
   ]);
 
-  const visibleItems = useMemo(
+  const knowledgeFormOptions = useMemo(
     () =>
+      uniqueSorted(
+        projection?.items.flatMap((item) =>
+          item.knowledgeForm ? [item.knowledgeForm] : [],
+        ) ?? [],
+      ),
+    [projection],
+  );
+
+  const relationFamilyOptions = useMemo(
+    () =>
+      uniqueSorted(
+        projection?.relationships.map((relationship) => relationship.family) ?? [],
+      ),
+    [projection],
+  );
+
+  const relationPredicateOptions = useMemo(
+    () =>
+      uniqueSorted(
+        projection?.relationships
+          .filter(
+            (relationship) =>
+              relationFamilyFilter === "all" ||
+              relationship.family === relationFamilyFilter,
+          )
+          .map((relationship) => relationship.predicate) ?? [],
+      ),
+    [projection, relationFamilyFilter],
+  );
+
+  useEffect(() => {
+    if (
+      relationPredicateFilter !== "all" &&
+      !relationPredicateOptions.includes(relationPredicateFilter)
+    ) {
+      setRelationPredicateFilter("all");
+    }
+  }, [
+    relationPredicateFilter,
+    relationPredicateOptions,
+    setRelationPredicateFilter,
+  ]);
+
+  const matchingRelationships = useMemo(
+    () =>
+      projection?.relationships.filter(
+        (relationship) =>
+          (relationFamilyFilter === "all" ||
+            relationship.family === relationFamilyFilter) &&
+          (relationPredicateFilter === "all" ||
+            relationship.predicate === relationPredicateFilter),
+      ) ?? [],
+    [projection, relationFamilyFilter, relationPredicateFilter],
+  );
+
+  const relationFilterActive =
+    relationFamilyFilter !== "all" || relationPredicateFilter !== "all";
+
+  const visibleItems = useMemo(() => {
+    const relationParticipantRefs = new Set<KnowledgeRef>();
+    if (relationFilterActive) {
+      for (const relationship of matchingRelationships) {
+        relationParticipantRefs.add(relationship.sourceRef);
+        relationParticipantRefs.add(relationship.targetRef);
+      }
+    }
+
+    return (
       projection?.items.filter(
         (item) =>
           (kindFilter === "all" || item.kind === kindFilter) &&
-          matchesRelationFilter(item, relationsFilter),
-      ) ?? [],
-    [kindFilter, projection, relationsFilter],
-  );
+          (knowledgeFormFilter === "all" ||
+            item.knowledgeForm === knowledgeFormFilter) &&
+          (!relationFilterActive ||
+            relationParticipantRefs.has(item.knowledgeRef)),
+      ) ?? []
+    );
+  }, [
+    kindFilter,
+    knowledgeFormFilter,
+    matchingRelationships,
+    projection,
+    relationFilterActive,
+  ]);
+
+  const visibleRelationships = useMemo(() => {
+    const visibleRefs = new Set(visibleItems.map((item) => item.knowledgeRef));
+    return matchingRelationships.filter(
+      (relationship) =>
+        visibleRefs.has(relationship.sourceRef) &&
+        visibleRefs.has(relationship.targetRef),
+    );
+  }, [matchingRelationships, visibleItems]);
+
+  const relationCounts = useMemo(() => {
+    const counts = new Map<KnowledgeRef, number>();
+    for (const relationship of visibleRelationships) {
+      counts.set(
+        relationship.sourceRef,
+        (counts.get(relationship.sourceRef) ?? 0) + 1,
+      );
+      counts.set(
+        relationship.targetRef,
+        (counts.get(relationship.targetRef) ?? 0) + 1,
+      );
+    }
+    return counts;
+  }, [visibleRelationships]);
 
   useEffect(() => {
     if (
@@ -288,15 +396,53 @@ export function KnowledgeExplorerFeature({
     [selectedKnowledgeRef, visibleItems],
   );
 
+  const selectedRelations = useMemo(() => {
+    if (!selectedItem || !projection) {
+      return [];
+    }
+
+    return visibleRelationships.flatMap((relationship) => {
+      const outgoing = relationship.sourceRef === selectedItem.knowledgeRef;
+      const incoming = relationship.targetRef === selectedItem.knowledgeRef;
+      if (!outgoing && !incoming) {
+        return [];
+      }
+
+      const counterpartRef = outgoing
+        ? relationship.targetRef
+        : relationship.sourceRef;
+      const counterpart = projection.items.find(
+        (item) => item.knowledgeRef === counterpartRef,
+      );
+      if (!counterpart) {
+        return [];
+      }
+
+      return [
+        {
+          relationship,
+          counterpart,
+          displayPredicate:
+            outgoing || !relationship.inversePredicate
+              ? relationship.predicate
+              : relationship.inversePredicate,
+        },
+      ];
+    });
+  }, [projection, selectedItem, visibleRelationships]);
+
   const relationshipOverview = useMemo(
-    () => buildRelationshipOverview(visibleItems, selectedKnowledgeRef),
-    [selectedKnowledgeRef, visibleItems],
+    () =>
+      buildRelationshipOverview(
+        visibleItems,
+        visibleRelationships,
+        selectedKnowledgeRef,
+      ),
+    [selectedKnowledgeRef, visibleItems, visibleRelationships],
   );
 
   function chooseItem(knowledgeRef: KnowledgeRef) {
-    if (
-      visibleItems.some((item) => item.knowledgeRef === knowledgeRef)
-    ) {
+    if (visibleItems.some((item) => item.knowledgeRef === knowledgeRef)) {
       setSelectedKnowledgeRef(knowledgeRef);
       setScope("detail");
     }
@@ -305,7 +451,9 @@ export function KnowledgeExplorerFeature({
   function resetFilters() {
     setQueryDraft("");
     setKindFilter("all");
-    setRelationsFilter("all");
+    setKnowledgeFormFilter("all");
+    setRelationFamilyFilter("all");
+    setRelationPredicateFilter("all");
     setRequiredCapabilityRef(null);
     setScope("overview");
     setSelectedKnowledgeRef(null);
@@ -364,10 +512,14 @@ export function KnowledgeExplorerFeature({
   function handleVerticalDividerKey(event: ReactKeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      setTableGraphRatio((value) => clamp(value - 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX));
+      setTableGraphRatio((value) =>
+        clamp(value - 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+      );
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
-      setTableGraphRatio((value) => clamp(value + 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX));
+      setTableGraphRatio((value) =>
+        clamp(value + 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+      );
     } else if (event.key === "Home") {
       event.preventDefault();
       setTableGraphRatio(TABLE_RATIO_MIN);
@@ -382,10 +534,14 @@ export function KnowledgeExplorerFeature({
   ) {
     if (event.key === "ArrowUp") {
       event.preventDefault();
-      setTopDetailsRatio((value) => clamp(value - 2, TOP_RATIO_MIN, TOP_RATIO_MAX));
+      setTopDetailsRatio((value) =>
+        clamp(value - 2, TOP_RATIO_MIN, TOP_RATIO_MAX),
+      );
     } else if (event.key === "ArrowDown") {
       event.preventDefault();
-      setTopDetailsRatio((value) => clamp(value + 2, TOP_RATIO_MIN, TOP_RATIO_MAX));
+      setTopDetailsRatio((value) =>
+        clamp(value + 2, TOP_RATIO_MIN, TOP_RATIO_MAX),
+      );
     } else if (event.key === "Home") {
       event.preventDefault();
       setTopDetailsRatio(TOP_RATIO_MIN);
@@ -396,7 +552,10 @@ export function KnowledgeExplorerFeature({
   }
 
   const localFiltersActive =
-    kindFilter !== "all" || relationsFilter !== "all";
+    kindFilter !== "all" ||
+    knowledgeFormFilter !== "all" ||
+    relationFamilyFilter !== "all" ||
+    relationPredicateFilter !== "all";
   const filtersActive =
     queryDraft.length > 0 || requiredCapabilityRef !== null || localFiltersActive;
 
@@ -434,7 +593,7 @@ export function KnowledgeExplorerFeature({
 
           <select
             className="knowledge-filter-control"
-            aria-label="Тип"
+            aria-label="Тип знания"
             value={kindFilter}
             onChange={(event) =>
               setKindFilter(
@@ -445,27 +604,57 @@ export function KnowledgeExplorerFeature({
               )
             }
           >
-            <option value="all">Все типы</option>
+            <option value="all">Все виды</option>
             <option value="object">Объекты</option>
             <option value="proposition">Утверждения</option>
           </select>
 
           <select
             className="knowledge-filter-control"
-            aria-label="Связность"
-            value={relationsFilter}
+            aria-label="Форма знания"
+            value={knowledgeFormFilter}
             onChange={(event) =>
-              setRelationsFilter(
-                event.currentTarget.value as
-                  | "all"
-                  | "two-plus"
-                  | "three-plus",
-              )
+              setKnowledgeFormFilter(event.currentTarget.value)
             }
           >
-            <option value="all">Любая связность</option>
-            <option value="two-plus">2+ связи</option>
-            <option value="three-plus">3+ связи</option>
+            <option value="all">Все формы</option>
+            {knowledgeFormOptions.map((form) => (
+              <option key={form} value={form}>
+                {knowledgeFormLabel(form)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Семейство связи"
+            value={relationFamilyFilter}
+            onChange={(event) =>
+              setRelationFamilyFilter(event.currentTarget.value)
+            }
+          >
+            <option value="all">Все семейства связей</option>
+            {relationFamilyOptions.map((family) => (
+              <option key={family} value={family}>
+                {knowledgeRelationFamilyLabel(family)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Тип связи"
+            value={relationPredicateFilter}
+            onChange={(event) =>
+              setRelationPredicateFilter(event.currentTarget.value)
+            }
+          >
+            <option value="all">Все типы связей</option>
+            {relationPredicateOptions.map((predicate) => (
+              <option key={predicate} value={predicate}>
+                {knowledgePredicateLabel(predicate)}
+              </option>
+            ))}
           </select>
 
           <select
@@ -539,7 +728,7 @@ export function KnowledgeExplorerFeature({
                     <thead>
                       <tr>
                         <th scope="col">Знание</th>
-                        <th scope="col">Тип</th>
+                        <th scope="col">Тип / форма</th>
                         <th scope="col">Связи</th>
                       </tr>
                     </thead>
@@ -571,10 +760,13 @@ export function KnowledgeExplorerFeature({
                           <td>
                             <span className="knowledge-kind">
                               {knowledgeKindLabel(item.kind)}
+                              {item.knowledgeForm
+                                ? ` · ${knowledgeFormLabel(item.knowledgeForm)}`
+                                : ""}
                             </span>
                           </td>
                           <td className="knowledge-relation-count">
-                            {item.related.length}
+                            {relationCounts.get(item.knowledgeRef) ?? 0}
                           </td>
                         </tr>
                       ))}
@@ -622,7 +814,8 @@ export function KnowledgeExplorerFeature({
                       onSelectKnowledge={chooseItem}
                     />
                     <p className="supporting-text knowledge-relationship-caption">
-                      Текущая отфильтрованная выборка.
+                      Рёбра показывают только типизированные relational
+                      propositions текущей выборки.
                     </p>
                   </aside>
                 </>
@@ -655,7 +848,12 @@ export function KnowledgeExplorerFeature({
               <div className="knowledge-pane-heading">
                 <strong>Детали</strong>
                 {selectedItem ? (
-                  <span>{knowledgeKindLabel(selectedItem.kind)}</span>
+                  <span>
+                    {knowledgeKindLabel(selectedItem.kind)}
+                    {selectedItem.knowledgeForm
+                      ? ` · ${knowledgeFormLabel(selectedItem.knowledgeForm)}`
+                      : ""}
+                  </span>
                 ) : null}
               </div>
 
@@ -669,36 +867,52 @@ export function KnowledgeExplorerFeature({
                       <p>{selectedItem.predicate}</p>
                     ) : (
                       <p className="supporting-text">
-                        Объект знания без отдельного утверждения.
+                        Объект знания с формой{" "}
+                        {selectedItem.knowledgeForm
+                          ? knowledgeFormLabel(selectedItem.knowledgeForm)
+                          : "не классифицирована"}.
                       </p>
                     )}
                   </div>
 
                   <div className="knowledge-detail-relations">
-                    <span className="knowledge-detail-label">Связанные знания</span>
-                    {selectedItem.related.length > 0 ? (
+                    <span className="knowledge-detail-label">
+                      Типизированные связи
+                    </span>
+                    {selectedRelations.length > 0 ? (
                       <ul>
-                        {selectedItem.related.map((related) => (
-                          <li key={related.knowledgeRef}>
-                            <button
-                              type="button"
-                              className="knowledge-relation-link"
-                              onClick={() => chooseItem(related.knowledgeRef)}
-                              disabled={
-                                !visibleItems.some(
-                                  (item) =>
-                                    item.knowledgeRef === related.knowledgeRef,
-                                )
-                              }
-                            >
-                              {related.label}
-                            </button>
-                            <span>{knowledgeKindLabel(related.kind)}</span>
-                          </li>
-                        ))}
+                        {selectedRelations.map(
+                          ({
+                            relationship,
+                            counterpart,
+                            displayPredicate,
+                          }) => (
+                            <li key={relationship.propositionRef}>
+                              <span className="knowledge-relation-predicate">
+                                {knowledgePredicateLabel(displayPredicate)}
+                              </span>
+                              <button
+                                type="button"
+                                className="knowledge-relation-link"
+                                onClick={() =>
+                                  chooseItem(counterpart.knowledgeRef)
+                                }
+                              >
+                                {counterpart.label}
+                              </button>
+                              <span>
+                                {knowledgeRelationFamilyLabel(
+                                  relationship.family,
+                                )}
+                              </span>
+                            </li>
+                          ),
+                        )}
                       </ul>
                     ) : (
-                      <p>В текущей области связанных знаний нет.</p>
+                      <p>
+                        В текущей выборке типизированных связей для знания нет.
+                      </p>
                     )}
                   </div>
                 </div>
@@ -708,8 +922,7 @@ export function KnowledgeExplorerFeature({
                     Выберите строку
                   </h2>
                   <p className="knowledge-detail-placeholder-copy">
-                    Детали выбранного знания появятся здесь, а граф справа
-                    останется доступен одновременно.
+                    Здесь появятся форма знания и смысл типизированных связей.
                   </p>
                 </div>
               )}
