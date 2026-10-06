@@ -61,16 +61,34 @@ export function BasicKnowledgeRelationshipOverview({
               const selected =
                 edge.sourceRef === model.selectedKnowledgeRef ||
                 edge.targetRef === model.selectedKnowledgeRef;
+              const showLabel = selected || model.edges.length <= 6;
 
               return (
-                <line
-                  key={`${edge.sourceRef}->${edge.targetRef}`}
-                  x1={source.x}
-                  y1={source.y}
-                  x2={target.x}
-                  y2={target.y}
-                  data-selected={selected ? "true" : "false"}
-                />
+                <g
+                  key={edge.propositionRef}
+                  data-family={edge.family}
+                  data-predicate={edge.predicate}
+                >
+                  <line
+                    x1={source.x}
+                    y1={source.y}
+                    x2={target.x}
+                    y2={target.y}
+                    data-selected={selected ? "true" : "false"}
+                  />
+                  <title>{edge.label}</title>
+                  {showLabel ? (
+                    <text
+                      className="knowledge-relationship-edge-label"
+                      x={(source.x + target.x) / 2}
+                      y={(source.y + target.y) / 2}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                    >
+                      {edge.label}
+                    </text>
+                  ) : null}
+                </g>
               );
             })}
           </svg>
