@@ -67,3 +67,39 @@ test("routes Target-dependent navigation to recovery when Target is absent", asy
     page.getByRole("heading", { name: "Choose what you are preparing for" }),
   ).toBeVisible();
 });
+
+
+test("preserves preparation hierarchy and serializes comparison on a narrow viewport", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  await expect(page.locator("nav.prep-navigation + section.active-context")).toBeVisible();
+  await expect(page.locator("section.active-context + main.active-child")).toBeVisible();
+
+  await page
+    .getByRole("checkbox", { name: /Backend Engineer interview/ })
+    .check();
+  await page
+    .getByRole("checkbox", { name: /Platform Engineer interview/ })
+    .check();
+  await page.getByRole("button", { name: "Compare selected" }).click();
+
+  const cards = page.locator(".comparison-card");
+  await expect(cards).toHaveCount(2);
+
+  const firstBox = await cards.nth(0).boundingBox();
+  const secondBox = await cards.nth(1).boundingBox();
+
+  expect(firstBox).not.toBeNull();
+  expect(secondBox).not.toBeNull();
+  if (!firstBox || !secondBox) {
+    throw new Error("Comparison cards must have measurable layout boxes.");
+  }
+
+  expect(Math.abs(firstBox.x - secondBox.x)).toBeLessThan(2);
+  expect(secondBox.y).toBeGreaterThan(firstBox.y + firstBox.height - 2);
+  await expect(page.getByText("Shared required capabilities").first()).toBeVisible();
+  await expect(page.getByText("Current evidence-backed position").first()).toBeVisible();
+});
