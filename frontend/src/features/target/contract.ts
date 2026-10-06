@@ -17,13 +17,19 @@ export interface TargetModel {
   readonly provenance: readonly Provenance[];
 }
 
+export interface KnowledgeFocusModel {
+  readonly knowledgeRef: KnowledgeRef;
+  readonly label: string;
+}
+
 export interface RequirementExpectationModel {
   readonly requirementRef: RequirementRef;
   readonly capabilityRef: CapabilityRef;
+  readonly capabilityLabel: string;
   readonly performance: string;
   readonly conditions: readonly string[];
   readonly qualityCriteria: readonly string[];
-  readonly knowledgeFocusRefs: readonly KnowledgeRef[];
+  readonly knowledgeFocus: readonly KnowledgeFocusModel[];
 }
 
 export interface TargetRequirementModel {
