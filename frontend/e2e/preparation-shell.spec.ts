@@ -887,14 +887,13 @@ test("covers Prepare Support request, result, and recovery variants", async ({
     .click();
 
   const prepare = page.locator('[data-view="prepare-support"]');
-  await expect(prepare).toHaveAttribute("data-variant", "request-input");
-  await page
-    .getByRole("button", { name: "Request preparation support" })
-    .click();
   await expect(prepare).toHaveAttribute(
     "data-variant",
     "continuation-recovery",
   );
+  await expect(
+    page.getByRole("button", { name: "Request preparation support" }),
+  ).toBeDisabled();
 
   await page.getByRole("button", { name: "Return to Target" }).click();
   await page.getByRole("button", { name: "Establish Target" }).click();
