@@ -1,0 +1,61 @@
+name: Frontend design Harness checkpoint
+
+on:
+  push:
+    branches:
+      - consolidate/frontend-design-2026-10-06
+
+permissions:
+  contents: read
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+      - name: Sync Consumer Pack
+        id: pack
+        shell: bash
+        run: |
+          PACK="$(python .harness/harnessw.py sync)"
+          echo "path=$PACK" >> "$GITHUB_OUTPUT"
+          mkdir -p .harness/diagnostics
+          echo "$PACK" > .harness/diagnostics/consumer-pack-path.txt
+      - name: Route frontend procedures
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-project-bootstrap-reconcile.json"
+          for kind in system-architecture engineering-policy component-design verification-strategy test-design implementation-design; do
+            python -m harness.application.skill_router artifact --knowledge-kind "$kind" > "$GITHUB_WORKSPACE/.harness/diagnostics/route-artifact-$kind.json"
+          done
+      - name: Print contracts and skills
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path.cwd()
+          pack=Path((root/".harness/diagnostics/consumer-pack-path.txt").read_text().strip())
+          for rp in sorted((root/".harness/diagnostics").glob("route-*.json")):
+              data=json.loads(rp.read_text())
+              print(f"===== ROUTE {rp.name} =====")
+              print(json.dumps(data,indent=2))
+              for ref in data.get("instruction_contracts",[]):
+                  print(f"===== CONTRACT {ref} =====")
+                  print((pack/ref).read_text())
+              if data.get("skill"):
+                  print(f"===== SKILL {data['skill']} =====")
+                  print((pack/data["skill"]).read_text())
+          PY
+      - name: Validate frontend consumer graph
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.project_model.engineering_graph validate "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml"
+          python -m harness.application.graph_doctor "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" --core-model "$GITHUB_WORKSPACE/.harness/core.yaml" --target FRONTEND-IMPLEMENTATION --source-root "$GITHUB_WORKSPACE" --json
