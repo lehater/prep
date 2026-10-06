@@ -68,6 +68,7 @@ FORCED = {
 }
 
 NEW_ACCEPTANCE_IDS = {
+    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-7",
     "prep.presentation-system": "PREP-PRESENTATION-SYSTEM-STRICT-7",
     "prep.screen-view-design": "PREP-SCREEN-VIEW-DESIGN-STRICT-7",
     "prep.presentation-verification": "PREP-PRESENTATION-VERIFICATION-STRICT-2",
@@ -336,7 +337,7 @@ def main() -> int:
     decision_contracts = load(
         HARNESS_ROOT / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
     )
-    decision_policy = load(CANDIDATES / "application-design-decision-policy.yaml")
+    decision_policy = load(CANDIDATES / "ui-materiality-decision-policy.yaml")
 
     admission_rows = scan_kind("harness-artifact-admission-candidate")
     all_admissions = [doc for _, doc in admission_rows]
