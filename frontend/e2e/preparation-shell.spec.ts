@@ -135,9 +135,9 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     page.getByRole("heading", { name: "Знания текущей цели" }),
   ).toBeVisible();
   await expect(
-    page.getByText("System design", { exact: true }).last(),
+    page.getByText("Компетенция: System design", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("Найдено: 2 в текущей смысловой области.")).toBeVisible();
+  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
   await expect(
     page.getByText(
       "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
@@ -408,7 +408,7 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
   ).toBeVisible();
 
   await expect(
-    page.getByText("System design", { exact: true }).last(),
+    page.getByText("Компетенция: System design", { exact: true }),
   ).toBeVisible();
   await expect(page.getByRole("table")).toBeVisible();
   await expect(page.getByText("Показано 2 из 2")).toBeVisible();
@@ -479,7 +479,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
-  await expect(page.getByText("учтён", { exact: true })).toBeVisible();
+  await expect(page.getByText("Фокус: учтён", { exact: true })).toBeVisible();
 });
 
 
@@ -694,7 +694,7 @@ for (const viewport of [
     await page.getByRole("button", { name: "Знания", exact: true }).click();
     await expect(
       page.getByRole("heading", {
-        name: "Исследуйте знания, важные для текущей цели",
+        name: "Знания текущей цели",
       }),
     ).toBeVisible();
     await expect(
@@ -825,7 +825,7 @@ test("remains task-complete with reduced-motion preference", async ({ page }) =>
   await establishBackendTarget(page);
   await page.getByRole("button", { name: "Знания", exact: true }).click();
   await expect(
-    page.locator('[data-view="knowledge"][data-renderer="nonspatial"]'),
+    page.locator('[data-view="knowledge"][data-renderer="nonspatial-primary"]'),
   ).toBeVisible();
 
   const movingElements = await page.evaluate(() =>
