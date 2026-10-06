@@ -17,6 +17,7 @@ export interface KnowledgeRelationshipEdgeModel {
   readonly family: string;
   readonly predicate: string;
   readonly label: string;
+  readonly statement: string;
 }
 
 export interface KnowledgeRelationshipOverviewModel {
