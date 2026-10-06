@@ -1,24 +1,11 @@
 name: Fast frontend validation
 
 on:
-  push:
-    branches-ignore: [main]
-    paths:
-      - "frontend/**"
-      - ".github/workflows/frontend-fast.yml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "frontend/**"
-      - ".github/workflows/frontend-fast.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
-
-concurrency:
-  group: frontend-fast-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   frontend-fast:
