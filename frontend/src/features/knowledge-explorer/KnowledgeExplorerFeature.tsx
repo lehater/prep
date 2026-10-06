@@ -235,7 +235,11 @@ export function KnowledgeExplorerFeature({
             <p className="eyebrow">Фильтры</p>
             <h2 id="knowledge-query-heading" className="knowledge-section-title">Смысловая область</h2>
           </div>
-          <div className="knowledge-scope-summary" aria-label="Контекст знаний">
+          <div
+            className="knowledge-scope-summary"
+            role="group"
+            aria-label="Контекст знаний"
+          >
             <span>Цель: текущая</span>
             <span>Фокус: {activeFocusRef ? "учтён" : "не выбран"}</span>
             <span>
