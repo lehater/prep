@@ -135,8 +135,13 @@ function edgeViolation(from, to) {
     return "shared presentation must not depend on task/application/provider state";
   }
 
-  if (from.layer === "adapters" && (to.layer === "app" || to.layer === "ui")) {
-    return "adapter must depend on consumer contracts rather than composition/presentation";
+  if (from.layer === "adapters") {
+    if (to.layer === "app" || to.layer === "ui") {
+      return "adapter must depend on consumer contracts rather than composition/presentation";
+    }
+    if (to.layer === "feature" && !to.publicContract) {
+      return "adapter may depend on task features only through their public contracts";
+    }
   }
 
   return null;
