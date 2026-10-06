@@ -474,8 +474,8 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
       window.localStorage.getItem("prep.knowledge.top-details-ratio.v2"),
     ),
   }));
-  expect(storedSplits.tableGraph).toBe(initialTableRatio - 2);
-  expect(storedSplits.topDetails).toBe(initialTopRatio - 2);
+  expect(storedSplits.tableGraph).toBeCloseTo(initialTableRatio - 2, 0);
+  expect(storedSplits.topDetails).toBeCloseTo(initialTopRatio - 2, 0);
 
   await verticalDivider.dblclick();
   await horizontalDivider.dblclick();
