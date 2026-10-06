@@ -295,7 +295,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
     "Work on System design next.",
   );
   await expect(page.getByLabel("Rationale")).toHaveValue(
-    "High value because it affects multiple system-design questions.",
+    "High target relevance with suitable support available.",
   );
 
   await expect(
@@ -455,7 +455,7 @@ test("performs one Activity attempt without fabricating learner progress", async
   await expect(
     page.getByRole("heading", { name: "Work on the accepted Next focus" }),
   ).toBeVisible();
-  await expect(page.getByText("Work on System design next.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Reduce uncertainty in system-design trade-off reasoning.", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
       "High value because it affects multiple system-design questions.",
