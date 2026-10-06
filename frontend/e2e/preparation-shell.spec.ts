@@ -132,7 +132,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     .click();
 
   await expect(
-    page.getByRole("heading", { name: "Исследуйте знания, важные для текущей цели" }),
+    page.getByRole("heading", { name: "Знания текущей цели" }),
   ).toBeVisible();
   await expect(
     page.getByText("System design", { exact: true }).last(),
@@ -379,7 +379,7 @@ test("preserves a missing-support focus and routes to contextual preparation", a
 });
 
 
-test("keeps Поиск, capability scope, detail and relations task-complete without spatial rendering", async ({
+test("links Knowledge table, cumulative filters, detail and optional relationship overview", async ({
   page,
 }) => {
   await page.goto("/");
@@ -390,22 +390,34 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
     .click();
 
   const knowledgeView = page.locator(
-    '[data-view="knowledge"][data-renderer="nonspatial"]',
+    '[data-view="knowledge"][data-renderer="nonspatial-primary"]',
   );
   await expect(knowledgeView).toBeVisible();
+  await expect(knowledgeView).toHaveAttribute(
+    "data-spatial-overview",
+    "available",
+  );
   await expect(knowledgeView.locator("canvas")).toHaveCount(0);
   await expect(
+    knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
+  ).toBeVisible();
+  await expect(
     page.getByText(
-      "Этот сценарий можно использовать и без пространственного графа: геометрия не определяет смысл знаний.",
+      "Таблица и детали остаются полным способом работы со знаниями. Граф — дополнительный обзор связей и не определяет смысл Knowledge.",
     ),
   ).toBeVisible();
 
   await expect(
     page.getByText("System design", { exact: true }).last(),
   ).toBeVisible();
-  await expect(page.getByText("Найдено: 2 в текущей смысловой области.")).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
 
-  await page.getByRole("button", { name: "Открыть утверждение" }).click();
+  await page
+    .getByRole("button", {
+      name: /Выбор consistency-модели балансирует задержку/,
+    })
+    .click();
   await expect(page.locator("#knowledge-detail-heading")).toHaveText(
     "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
   );
@@ -415,30 +427,39 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
       { exact: true },
     ).last(),
   ).toBeVisible();
-  await expect(
-    page.getByText("Стратегия кэширования (объект)", { exact: true }),
-  ).toBeVisible();
-
-  const query = page.getByRole("textbox", { name: "Поиск", exact: true });
-  await query.fill("кэш");
-  await query.press("Enter");
-  await expect(page.getByText("Найдено: 1 в текущей смысловой области.")).toBeVisible();
-  await expect(page.getByText("Стратегия кэширования", { exact: true }).first()).toBeVisible();
 
   await page
-    .getByRole("button", { name: "Снять фильтр по компетенции" })
+    .getByRole("button", { name: "Стратегия кэширования. Связей: 1" })
     .click();
+  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
+    "Стратегия кэширования",
+  );
+
+  await page.getByRole("button", { name: "Сбросить фильтры" }).click();
+  await expect(page.getByText("Показано 18 из 18")).toBeVisible();
+
+  await page.getByLabel("Тип").selectOption("object");
+  await expect(page.getByText("Показано 9 из 18")).toBeVisible();
+
+  await page.getByLabel("Связность").selectOption("three-plus");
+  await expect(page.getByText("Показано 5 из 18")).toBeVisible();
+
+  const query = page.getByRole("textbox", { name: "Поиск", exact: true });
   await query.fill("event loop");
-  await query.press("Enter");
-  await expect(page.getByText("JavaScript Event Loop", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Найдено: 3 в текущей смысловой области.")).toBeVisible();
+  await expect(page.getByText("Показано 1 из 3")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /JavaScript Event Loop/ }),
+  ).toBeVisible();
 
   await page.getByRole("button", { name: "Цель", exact: true }).click();
   await page.getByRole("button", { name: "Знания", exact: true }).click();
 
-  await expect(page.getByRole("textbox", { name: "Поиск", exact: true })).toHaveValue("event loop");
-  await expect(page.getByText("JavaScript Event Loop", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("без фильтра", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("textbox", { name: "Поиск", exact: true }),
+  ).toHaveValue("event loop");
+  await expect(page.getByLabel("Тип")).toHaveValue("object");
+  await expect(page.getByLabel("Связность")).toHaveValue("three-plus");
+  await expect(page.getByText("Компетенция: без фильтра")).toBeVisible();
 });
 
 test("preserves accepted Next focus context when entering Knowledge", async ({
