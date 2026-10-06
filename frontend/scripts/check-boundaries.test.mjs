@@ -88,6 +88,19 @@ describe("frontend dependency boundaries", () => {
     ]);
   });
 
+  it("rejects legacy feature roots and spatial renderer imports", () => {
+    const root = fixture({
+      "features/curation/index.ts": 'import "three";',
+      "features/target/index.ts": 'import "react-force-graph-3d";',
+    });
+
+    expect(validateSourceTree(root)).toEqual([
+      'features/curation/index.ts: feature owner "curation" is not an accepted task-feature root',
+      'features/curation/index.ts: external import "three" is forbidden in the nonspatial prototype baseline',
+      'features/target/index.ts: external import "react-force-graph-3d" is forbidden in the nonspatial prototype baseline',
+    ]);
+  });
+
   it("rejects shared presentation importing task state or semantic contracts", () => {
     const root = fixture({
       "ui/Text.ts": 'import "../features/target/private"; import "../features/contracts";',
