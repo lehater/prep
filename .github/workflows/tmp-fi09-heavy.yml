@@ -6,6 +6,8 @@ on:
       - implementation/fi09-prototype-verification-2026-10-06
     paths:
       - ".github/workflows/tmp-fi09-heavy.yml"
+      - ".harness/engineering-coverage.yaml"
+      - "frontend/**"
 
 permissions:
   contents: read
