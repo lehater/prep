@@ -118,6 +118,11 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(systemDesign?.knowledgeFocus.map((item) => item.knowledgeRef)).toEqual([
       mockScenarioRefs.knowledgeConsistency,
       mockScenarioRefs.knowledgeCaching,
+      mockScenarioRefs.knowledgeWriteThroughCaching,
+      mockScenarioRefs.knowledgeCacheEvictionStrategy,
+      mockScenarioRefs.knowledgeLruEvictionProcedure,
+      mockScenarioRefs.knowledgeCacheCoherenceModel,
+      mockScenarioRefs.knowledgeIdempotency,
     ]);
 
     const state = acceptedValue(
