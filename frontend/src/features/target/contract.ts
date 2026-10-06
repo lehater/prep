@@ -9,6 +9,14 @@ import type {
   TargetRef,
 } from "../contracts";
 
+export interface TargetSetupOption {
+  readonly targetRef: TargetRef;
+  readonly label: string;
+  readonly purpose: string;
+  readonly sourceContext: string;
+  readonly uncertainty: readonly string[];
+}
+
 export interface TargetModel {
   readonly targetRef: TargetRef;
   readonly label: string;
