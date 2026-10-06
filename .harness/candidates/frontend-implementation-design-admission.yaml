@@ -23,20 +23,20 @@ decision_review:
         - id: initial-ordering
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: foundation-then-feature-slices, state: VIABLE}
-            - {id: feature-first-with-temporary-contracts, state: REJECTED, rationale: "Creates temporary DTO/semantic coupling requiring later reconciliation."}
+            - {id: bootstrap-foundation-then-features, state: VIABLE}
+            - {id: feature-first-with-ad-hoc-tooling, state: REJECTED, rationale: "Makes repository/tooling choices implicit and creates temporary semantic coupling."}
           disposition: DETERMINED
-          selected: foundation-then-feature-slices
+          selected: bootstrap-foundation-then-features
     - axis: repository-realization
       decisions:
         - id: source-module-topology
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: task-feature-roots, state: VIABLE}
-            - {id: legacy-roots-with-facades, state: VIABLE}
-            - {id: flat-view-root, state: REJECTED, rationale: "Removes public feature ownership."}
+            - {id: single-root-task-features, state: VIABLE}
+            - {id: package-per-feature, state: VIABLE}
+            - {id: flat-view-root, state: REJECTED, rationale: "Removes accepted public feature ownership."}
           disposition: DELEGATED
-          selected: task-feature-roots
+          selected: single-root-task-features
         - id: contract-realization
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
@@ -49,25 +49,25 @@ decision_review:
         - id: base-toolchain
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: retain-current-base-toolchain, state: VIABLE}
-            - {id: replace-ui-or-state-toolchain, state: REJECTED, rationale: "No accepted driver justifies framework/provider replacement during semantic correction."}
-          disposition: DETERMINED
-          selected: retain-current-base-toolchain
+            - {id: fresh-minimal-versioned-toolchain, state: VIABLE}
+            - {id: recreate-deleted-toolchain-wholesale, state: REJECTED, rationale: "Deleted dependency presence is historical evidence, not a current requirement."}
+          disposition: DELEGATED
+          selected: fresh-minimal-versioned-toolchain
+          rationale: "Select and lock concrete tools at FI-00 from current architecture/verification needs; no package or version is inherited merely because it existed before the clean baseline."
         - id: optional-spatial-dependency
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: retain-base-tools-and-isolate-optional-renderer, state: VIABLE}
-            - {id: eager-renderer-removal, state: REJECTED, rationale: "The current repository still contains a retained graph-rfg3d prototype/provider path; forcing renderer removal before feature migration would broaden this semantic correction into an unrelated provider rewrite and violate the selected foundation-then-feature sequencing."}
+            - {id: no-production-spatial-dependency-at-bootstrap, state: VIABLE}
+            - {id: add-spatial-provider-at-bootstrap, state: REJECTED, rationale: "Knowledge is task-complete without spatial rendering and no accepted evidence requires a production spatial dependency for the first implementation."}
           disposition: DETERMINED
-          selected: retain-base-tools-and-isolate-optional-renderer
-          rationale: "Retain the currently referenced optional provider path through feature migration; remove renderer dependencies only after the adapter is unreferenced."
+          selected: no-production-spatial-dependency-at-bootstrap
         - id: boundary-enforcement
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: retain-versioned-boundary-check, state: VIABLE}
-            - {id: convention-only, state: REJECTED, rationale: "Weakens existing deterministic architecture enforcement."}
+            - {id: establish-versioned-boundary-check, state: VIABLE}
+            - {id: convention-only, state: REJECTED, rationale: "Architecturally significant ownership boundaries require deterministic enforcement."}
           disposition: DETERMINED
-          selected: retain-versioned-boundary-check
+          selected: establish-versioned-boundary-check
     - axis: verification-enforcement
       decisions:
         - id: verification-layering
@@ -80,31 +80,30 @@ decision_review:
         - id: deterministic-fast-enforcement
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: automated-fast-deterministic, state: VIABLE}
-            - {id: manual-deterministic, state: REJECTED, rationale: "Contradicts accepted automated fast-validation policy."}
+            - {id: establish-automated-fast-deterministic, state: VIABLE}
+            - {id: manual-deterministic, state: REJECTED, rationale: "Does not provide reproducible architectural/contract enforcement."}
           disposition: DETERMINED
-          selected: automated-fast-deterministic
+          selected: establish-automated-fast-deterministic
     - axis: delivery-gates
       decisions:
         - id: frontend-delivery-gate
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: fast-automatic-heavy-explicit, state: VIABLE}
-            - {id: always-heavy, state: REJECTED, rationale: "Contradicts accepted bounded fast/heavy validation split."}
+            - {id: versioned-fast-automatic-heavy-explicit, state: VIABLE}
+            - {id: always-heavy, state: REJECTED, rationale: "Adds expensive feedback to every ordinary change without accepted need."}
             - {id: unversioned-local-gate, state: REJECTED, rationale: "Not reproducible or authoritative."}
-            - {id: environment-dependent-gate, state: REJECTED, rationale: "Not reproducible from versioned project inputs."}
           disposition: DETERMINED
-          selected: fast-automatic-heavy-explicit
+          selected: versioned-fast-automatic-heavy-explicit
 semantic_assertions:
-  - {id: FI-BOUNDARY, kind: implementation-boundary, subject: frontend-realization-scope, semantic_value: "Implementation realizes the accepted Preparation Shell/task features, consumer semantic ports and deterministic mock scenario without redefining Product/Domain/Application/Interface semantics.", derived_from: [CD-FEATURES, CD-PORTS, FV-TRACEABILITY, FV-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-TOOLCHAIN, kind: implementation-tooling, subject: frontend-base-toolchain, semantic_value: "Retain the current React/TypeScript/Vite/Router/MUI/React Query/Vitest/Playwright base toolchain; no framework/state/event-bus/codegen replacement is introduced for this semantic correction.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-REPOSITORY, kind: implementation-repository, subject: task-feature-source-roots, semantic_value: "Target source ownership uses app preparation-shell/context/composition plus target-direction, target, current-position, knowledge-explorer, activity, evidence-change and preparation-support feature roots with mock/http/spatial adapters.", derived_from: [CD-FEATURES, CD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-SLICES, kind: implementation-slices, subject: feature-capability-slices, semantic_value: "Implementation is partitioned into semantic foundation/mock scenario, shell/context/Target direction, Target, Current, Knowledge, Activity, Evidence/change, Preparation Support, then legacy-boundary cleanup/verification closure.", derived_from: [CD-FEATURES, FTD-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-ORDER, kind: implementation-dependency-order, subject: realization-ordering, semantic_value: "Semantic models/ports and deterministic mocks precede dependent feature slices; shell/context precede features that require cross-view continuity; cleanup follows replacement paths.", derived_from: [CD-COMPOSITION, CD-PORTS], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-SPATIAL, kind: implementation-provider-boundary, subject: optional-spatial-realization, semantic_value: "Existing 3D dependencies may remain only behind an optional spatial adapter while referenced; Knowledge remains complete without them and unused renderer dependencies are ordinary cleanup.", derived_from: [CD-SPATIAL, FTD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-VERIFICATION, kind: implementation-verification, subject: fast-heavy-enforcement, semantic_value: "Fast type/lint/boundary/unit/contract checks remain automated; the explicit final heavy checkpoint adds build/browser E2E/current accessibility/full Harness and conditional renderer evidence.", derived_from: [FTD-BOUNDARIES, FTD-ADAPTER, FTD-CURRENTNESS], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-BOUNDARY, kind: implementation-boundary, subject: frontend-realization-scope, semantic_value: "Implementation starts from an intentionally empty production frontend baseline and realizes the accepted Preparation Shell/task features, consumer semantic ports and deterministic mock scenario without recovering deleted implementation as authority or redefining upstream semantics.", derived_from: [CD-FEATURES, CD-PORTS, FV-TRACEABILITY, FV-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-TOOLCHAIN, kind: implementation-tooling, subject: frontend-base-toolchain, semantic_value: "No frontend package or version is inherited from deleted implementation. FI-00 selects the smallest current browser tool/build/test environment that satisfies accepted architecture and verification needs, pins it in versioned inputs and establishes reproducible fast/heavy gates before substantial product source.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-REPOSITORY, kind: implementation-repository, subject: task-feature-source-roots, semantic_value: "A fresh production source root maps accepted ownership to app preparation-shell/context/composition plus target-direction, target, current-position, knowledge-explorer, activity, evidence-change and preparation-support features; the physical root name and internal file split remain implementation freedoms.", derived_from: [CD-FEATURES, CD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-SLICES, kind: implementation-slices, subject: feature-capability-slices, semantic_value: "Implementation is partitioned into FI-00 reproducible bootstrap, semantic foundation/mock scenario, shell/context/Target direction, Target, Current, Knowledge, Activity, Evidence/change, Preparation Support and final prototype verification closure.", derived_from: [CD-FEATURES, FTD-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-ORDER, kind: implementation-dependency-order, subject: realization-ordering, semantic_value: "The clean baseline precedes FI-00; tool/dependency/boundary enforcement is explicit before product source; semantic models/ports and deterministic mocks precede dependent features; shell/context precede features requiring cross-view continuity.", derived_from: [CD-COMPOSITION, CD-PORTS], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-SPATIAL, kind: implementation-provider-boundary, subject: optional-spatial-realization, semantic_value: "The clean baseline has no production spatial dependency. Knowledge remains task-complete without one; any future spatial provider must be added explicitly behind the accepted provider seam and cannot become semantic state.", derived_from: [CD-SPATIAL, FTD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-VERIFICATION, kind: implementation-verification, subject: fast-heavy-enforcement, semantic_value: "FI-00 establishes versioned deterministic fast checks including architectural boundaries/local contracts; the explicit heavy prototype checkpoint adds build/browser E2E/applicable accessibility/full Harness and conditional provider evidence.", derived_from: [FTD-BOUNDARIES, FTD-ADAPTER, FTD-CURRENTNESS], decision_authority: IMPLEMENTATION-DESIGN}
   - {id: FI-GATE, kind: implementation-completion, subject: prototype-production-gate, semantic_value: "Prototype completion means READY FOR REPRESENTATIVE-USABILITY VALIDATION; production authority additionally requires representative-user/accessibility evidence, routed findings and strict Harness currentness.", derived_from: [FV-PRESENTATION, FV-HARNESS], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-ROLLBACK, kind: implementation-release, subject: frontend-rollback, semantic_value: "Current release uses whole-frontend artifact replacement with no frontend-specific data migration/coexistence; rollback restores the previous compatible frontend artifact and reopening is required if mixed-version/persistent migration semantics appear.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-ROLLBACK, kind: implementation-release, subject: frontend-rollback, semantic_value: "The clean baseline has no deployable frontend or frontend-specific migration/coexistence state. The first deployable frontend is a whole replaceable artifact; mixed-version/persistent migration semantics require reopening Change/Transition Design.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
 semantic_review:
   status: ACCEPTED
   checks: [source-discipline, authority-boundary, no-invention, implementation-not-upstream-owner, implementation-slices-explicit, repository-realization-derived-from-accepted-boundaries]
