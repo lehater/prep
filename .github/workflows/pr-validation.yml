@@ -118,6 +118,25 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/revalidate_ui_materiality.py
 
+      - name: Generate interface-topology Decision Explorer request
+        shell: bash
+        run: |
+          python - <<'PY'
+          import yaml
+          from pathlib import Path
+          pub = yaml.safe_load(Path(".harness/project-publication.yaml").read_text())
+          Path("/tmp/prep-lifecycle.yaml").write_text(
+              yaml.safe_dump(pub["state"]["lifecycle"], sort_keys=False)
+          )
+          PY
+          cd .harness-tool
+          python -m harness.application.decision_explorer_request \
+            "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" \
+            "$GITHUB_WORKSPACE/.harness/core.yaml" \
+            prep.interface-topology \
+            "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml" \
+            --lifecycle /tmp/prep-lifecycle.yaml
+
       - name: Probe full Harness currentness
         env:
           HARNESS_ROOT: .harness-tool
