@@ -23,7 +23,7 @@ from harness.application.project_publication import (
     publish_project_publication,
     read_project_publication,
 )
-from harness.application.semantic_admission import admit_artifact
+from harness.application.semantic_admission import admit_artifact, derive_acceptance_policy_fingerprints
 from harness.application.semantic_closure import evaluate_semantic_closure
 from harness.assurance.semantic_derivation import evaluate_derivation
 from harness.assurance.capability_lifecycle import lifecycle_states
@@ -525,22 +525,45 @@ def main() -> int:
             capability,
             current_row["acceptance_id"],
         )
-        evaluation = admit_artifact(
-            graph=graph,
-            model=core,
-            skill_registry=skill_registry,
-            knowledge_contracts=knowledge_contracts,
-            decision_contracts=decision_contracts,
-            decision_policy=decision_policy,
-            decision_exploration=exploration,
-            derivation_evaluations=fresh_derivations,
-            capability=capability,
-            sources=sources,
-            candidate=candidate,
-            acceptance_id=acceptance_id,
-            lifecycle=working_lifecycle,
-            decision_request_mode="REVISION",
-        )
+        try:
+            evaluation = admit_artifact(
+                graph=graph,
+                model=core,
+                skill_registry=skill_registry,
+                knowledge_contracts=knowledge_contracts,
+                decision_contracts=decision_contracts,
+                decision_policy=decision_policy,
+                decision_exploration=exploration,
+                derivation_evaluations=fresh_derivations,
+                capability=capability,
+                sources=sources,
+                candidate=candidate,
+                acceptance_id=acceptance_id,
+                lifecycle=working_lifecycle,
+                decision_request_mode="REVISION",
+            )
+        except Exception as exc:
+            policy_fingerprints = derive_acceptance_policy_fingerprints(
+                graph=graph,
+                knowledge_contracts=knowledge_contracts,
+                decision_contracts=decision_contracts,
+                decision_policy=decision_policy,
+            )
+            states = lifecycle_states(
+                graph,
+                core,
+                working_lifecycle,
+                current_acceptance_policy_fingerprints=policy_fingerprints,
+            )
+            prerequisites = [
+                req["capability"]
+                for req in productions[capability].get("requires", []) or []
+            ]
+            detail = {item: states.get(item) for item in prerequisites}
+            raise RuntimeError(
+                f"semantic admission could not start for {capability}; "
+                f"prerequisite_states={json.dumps(detail, ensure_ascii=False)}"
+            ) from exc
         if evaluation.get("status") != "ACCEPTED":
             raise RuntimeError(
                 f"semantic admission rejected for {capability}: "
