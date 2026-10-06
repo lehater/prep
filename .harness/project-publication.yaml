@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:43d5e4b4b967a777d72a8bc2ccc7c8cc7a7eb3dbc2fb3c8c0a076cc1d46ab54c
-parent_revision: sha256:8aa143539e53b3d2d889a1d3dcbea491ff786ddb121d3a537513e12c16286410
+revision: sha256:f73f04eb47a5f7786ff5560d3b20597249ba71ca9cd9337d4df699ff6b66b173
+parent_revision: sha256:43d5e4b4b967a777d72a8bc2ccc7c8cc7a7eb3dbc2fb3c8c0a076cc1d46ab54c
 state:
   core_model:
     authorities:
@@ -386,7 +386,7 @@ state:
         acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id095
+        semantic_atom_fingerprints: &id085
           PE-ACTOR: SAF-d49d11eed6b2edfc8bec7516976522a1964da45b9ceb5098c67413e9d8529a69
           PE-PROBLEM: SAF-6fc4598edff6726ae1f68c1d9807c4056f1b129f37a22f4ae5966932fdf13394
           OBS-P01: SAF-d412b68713d318d0db5ba25ef444ecad5e3e05b95a1494ca964ae0868e9cf1d1
@@ -3491,7 +3491,7 @@ state:
             exhaustive: true
             semantic_atoms: *id040
             source_surface_fingerprints: *id040
-        semantic_atom_fingerprints: &id066
+        semantic_atom_fingerprints: &id069
           PV-SCOPE: SAF-5f42b1b0a8af071c1477d95263588828f1c48b227b0ea5b2189c6e677f57b008
           PV-WORKFLOW: SAF-3d84dd82d1d9db9cf5f2c879fa1ca7839a4eabec8123c468321c74c68ce717cd
           PV-STATE-BASIS: SAF-3177a41a535c6176492d7fcca6d8bfba0dea20895be22f2876e09dac70b3745a
@@ -3631,7 +3631,7 @@ state:
             exhaustive: true
             semantic_atoms: *id060
             source_surface_fingerprints: *id056
-        semantic_atom_fingerprints: &id096
+        semantic_atom_fingerprints: &id086
           DD-OWNERSHIP: SAF-6ed2daebedee7a926babffe0ca8f8bdea3048bc6cdff69c0eca14040584b79f3
           DD-KNOWLEDGE: SAF-390cc8405c10e7ad0e043b8b3d3c696dfb405cead846c38a3c3c061c524ceb07
           DD-LEARNING: SAF-b08ad5862217101b3fa48761e39d4c879bbce6b3644d42d1b958ceae7dec29f8
@@ -3680,36 +3680,36 @@ state:
           referenced_path: docs/interface/machine-interface.md
         - artifact: FRONTEND-SYSTEM-ARCHITECTURE
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites: &id061
+        accepted_prerequisites:
           prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
           prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
           prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
           prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
           prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics: &id062
+        accepted_prerequisite_semantics:
           prep.application-design:
             exhaustive: true
-            semantic_atoms: &id085
+            semantic_atoms: &id061
               AD-RUNTIME-TIMING-FREEDOM: SAF-1ce20455e64359d5d2956560402d44516709b158925cb34c4021b8fce489e3c2
             source_surface_fingerprints: *id025
           prep.presentation-system:
             exhaustive: true
-            semantic_atoms: &id086
+            semantic_atoms: &id062
               PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
             source_surface_fingerprints: *id042
           prep.screen-view-design:
             exhaustive: true
-            semantic_atoms: &id072
+            semantic_atoms: &id063
               SV-NO-IMPLEMENTATION: SAF-588cd04b7ab0b6c2a2afb32b990a912c3edc310125fa2eae7dd8a161d03f4a20
             source_surface_fingerprints: *id052
           prep.machine-interfaces:
             exhaustive: true
-            semantic_atoms: &id068
+            semantic_atoms: &id064
               MI-NO-LEAK: SAF-bf66948cc8d5d535a327f7753ae519fa5226d28991775e1a55c07d1a3ba943c0
             source_surface_fingerprints: *id036
           prep.frontend-performance-capacity:
             exhaustive: true
-            semantic_atoms: &id077
+            semantic_atoms: &id065
               QD-SEMANTIC-PRESERVATION: SAF-78d8ec48c33081770f888f5ad89e142bc5041b4eb3918d0cd2d7b720719550f0
             source_surface_fingerprints: *id040
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -3729,9 +3729,34 @@ state:
         capability: prep.frontend-system-architecture
         acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
         acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
-        accepted_prerequisites: *id061
-        accepted_prerequisite_semantics: *id062
-        semantic_atom_fingerprints: &id063
+        accepted_prerequisites:
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics:
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: *id061
+            source_surface_fingerprints: *id025
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: *id062
+            source_surface_fingerprints: *id042
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id063
+            source_surface_fingerprints: *id052
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id064
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id065
+            source_surface_fingerprints: *id040
+        semantic_atom_fingerprints: &id066
           FSA-RUNTIME: SAF-4151b5149a1f3462982f7d9e51f1ea3da6a54b6de4c7ef25aa023223df01a1ee
           FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
           FSA-PORTS: SAF-9ab8de1a5c2219f1846dc3a4b27db227e5aa9e3c7a80f9732740889b25c9314d
@@ -3777,18 +3802,18 @@ state:
           referenced_path: docs/architecture/frontend-system-architecture.md
         - artifact: FRONTEND-ENGINEERING-POLICY
           referenced_path: docs/interface/presentation-system.md
-        accepted_prerequisites: &id064
+        accepted_prerequisites:
           prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
           prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
-        accepted_prerequisite_semantics: &id065
+        accepted_prerequisite_semantics:
           prep.frontend-system-architecture:
             exhaustive: true
             semantic_atoms: &id067
               FSA-DEPENDENCY: SAF-9140761b51ae442e1ee5c39dc7b6fd5d522d1a9efd0081f0c94d6129445c00f2
-            source_surface_fingerprints: *id063
+            source_surface_fingerprints: *id066
           prep.presentation-system:
             exhaustive: true
-            semantic_atoms: &id087
+            semantic_atoms: &id068
               PS-KNOWLEDGE-REPRESENTATION: SAF-d60ad1945b271a752ce6482feb63c4306e32fe40b761212241227f943e6d6792
             source_surface_fingerprints: *id042
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -3808,9 +3833,19 @@ state:
         capability: prep.frontend-engineering-policy
         acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
         acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
-        accepted_prerequisites: *id064
-        accepted_prerequisite_semantics: *id065
-        semantic_atom_fingerprints: &id071
+        accepted_prerequisites:
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        accepted_prerequisite_semantics:
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: *id067
+            source_surface_fingerprints: *id066
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: *id068
+            source_surface_fingerprints: *id042
+        semantic_atom_fingerprints: &id073
           EP-OWNERSHIP: SAF-f4a45a51e9ba30c42aad51ca0251f5200c10546048ac1605cf2b768bf1aaf89f
           EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
           EP-PORTS: SAF-fd9ff42c52389081889c805929794a3b813389552c81def6a00bb02c88d7f202
@@ -3865,34 +3900,34 @@ state:
           referenced_path: docs/interface/machine-interface.md
         - artifact: FRONTEND-VERIFICATION
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites: &id069
+        accepted_prerequisites:
           prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
           prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
           prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
           prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
           prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics: &id070
+        accepted_prerequisite_semantics:
           prep.product-capabilities:
             exhaustive: true
-            semantic_atoms: &id088
+            semantic_atoms: &id070
               REQ-CAP-TARGET-DIRECTION: SAF-c5ed1334f127e94bcf98050d66dbb123be4536564e7109cc6b43952e7c1bd74f
             source_surface_fingerprints: *id004
           prep.presentation-verification:
             exhaustive: true
-            semantic_atoms: &id089
+            semantic_atoms: &id071
               PV-COMPOSITION-VARIANTS: SAF-bb3ab7c3c40d7a87c4c9f8feafd5a2288b03b8876a570a5dd1d2bf2dc8837f11
-            source_surface_fingerprints: *id066
+            source_surface_fingerprints: *id069
           prep.frontend-system-architecture:
             exhaustive: true
             semantic_atoms: *id067
-            source_surface_fingerprints: *id063
+            source_surface_fingerprints: *id066
           prep.machine-interfaces:
             exhaustive: true
-            semantic_atoms: *id068
+            semantic_atoms: *id064
             source_surface_fingerprints: *id036
           prep.frontend-performance-capacity:
             exhaustive: true
-            semantic_atoms: &id073
+            semantic_atoms: &id072
               QD-GRAPH-CONDITIONAL: SAF-82b7d346966e5645e97709c3b544be085f4dbc25d830dff2bc07fa3b28749b60
             source_surface_fingerprints: *id040
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -3912,8 +3947,33 @@ state:
         capability: prep.frontend-verification
         acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
         acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
-        accepted_prerequisites: *id069
-        accepted_prerequisite_semantics: *id070
+        accepted_prerequisites:
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics:
+          prep.product-capabilities:
+            exhaustive: true
+            semantic_atoms: *id070
+            source_surface_fingerprints: *id004
+          prep.presentation-verification:
+            exhaustive: true
+            semantic_atoms: *id071
+            source_surface_fingerprints: *id069
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: *id067
+            source_surface_fingerprints: *id066
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id064
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id072
+            source_surface_fingerprints: *id040
         semantic_atom_fingerprints: &id076
           FV-TRACEABILITY: SAF-60fb28ea95807b3ef02c25adc6e41b9f8f5758d599f76f95b3a7fcd281f7e158
           FV-WORKFLOW: SAF-b468be1844c46ccd60941ec632f5b6e2cbbb370bdb033f60f2c7c56d25afd3bb
@@ -3966,34 +4026,34 @@ state:
           referenced_path: docs/interface/machine-interface.md
         - artifact: FRONTEND-COMPONENT-DESIGN
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites: &id074
+        accepted_prerequisites:
           prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
           prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
           prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
           prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
           prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics: &id075
+        accepted_prerequisite_semantics:
           prep.frontend-system-architecture:
             exhaustive: true
-            semantic_atoms: &id090
+            semantic_atoms: &id074
               FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
-            source_surface_fingerprints: *id063
+            source_surface_fingerprints: *id066
           prep.frontend-engineering-policy:
             exhaustive: true
-            semantic_atoms: &id091
+            semantic_atoms: &id075
               EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
-            source_surface_fingerprints: *id071
+            source_surface_fingerprints: *id073
           prep.screen-view-design:
             exhaustive: true
-            semantic_atoms: *id072
+            semantic_atoms: *id063
             source_surface_fingerprints: *id052
           prep.machine-interfaces:
             exhaustive: true
-            semantic_atoms: *id068
+            semantic_atoms: *id064
             source_surface_fingerprints: *id036
           prep.frontend-performance-capacity:
             exhaustive: true
-            semantic_atoms: *id073
+            semantic_atoms: *id072
             source_surface_fingerprints: *id040
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
@@ -4012,9 +4072,34 @@ state:
         capability: prep.frontend-component-design
         acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
         acceptance_policy_fingerprint: sha256:1bbf9137f60e079a7edc610dc2186373126aae8d0a03ca8640a1dcfefddf573a
-        accepted_prerequisites: *id074
-        accepted_prerequisite_semantics: *id075
-        semantic_atom_fingerprints: &id080
+        accepted_prerequisites:
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics:
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: *id074
+            source_surface_fingerprints: *id066
+          prep.frontend-engineering-policy:
+            exhaustive: true
+            semantic_atoms: *id075
+            source_surface_fingerprints: *id073
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id063
+            source_surface_fingerprints: *id052
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id064
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id072
+            source_surface_fingerprints: *id040
+        semantic_atom_fingerprints: &id079
           CD-COMPOSITION: SAF-9f8aa46f9ebb50fb8d259f2f29e2734016d1157d6adbafd745d829a6e3519f47
           CD-SHELL: SAF-f2f91244542c704bcafa7ff9d97333ca0d56b73de8aa9d1ab047f62d327d29d7
           CD-FEATURES: SAF-261a694d385423bc0c9fd4a1e6ca4f508d38208270ce19744d327493529a6207
@@ -4059,29 +4144,29 @@ state:
           referenced_path: docs/interface/screen-view-design.md
         - artifact: FRONTEND-TEST-DESIGN
           referenced_path: docs/architecture/performance-capacity.md
-        accepted_prerequisites: &id078
+        accepted_prerequisites:
           prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
           prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
           prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
           prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics: &id079
+        accepted_prerequisite_semantics:
           prep.frontend-verification:
             exhaustive: true
-            semantic_atoms: &id081
+            semantic_atoms: &id077
               FV-TRACEABILITY: SAF-60fb28ea95807b3ef02c25adc6e41b9f8f5758d599f76f95b3a7fcd281f7e158
             source_surface_fingerprints: *id076
           prep.interaction-design:
             exhaustive: true
-            semantic_atoms: &id092
+            semantic_atoms: &id078
               IX-CONTEXT-CONTINUITY: SAF-b19ad295a39359527c247e1b6c7ba8f7189b6137a022aeb3ba2e56dc4686fd3f
             source_surface_fingerprints: *id039
           prep.screen-view-design:
             exhaustive: true
-            semantic_atoms: *id072
+            semantic_atoms: *id063
             source_surface_fingerprints: *id052
           prep.frontend-performance-capacity:
             exhaustive: true
-            semantic_atoms: *id077
+            semantic_atoms: *id065
             source_surface_fingerprints: *id040
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
@@ -4100,9 +4185,29 @@ state:
         capability: prep.frontend-test-design
         acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
         acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
-        accepted_prerequisites: *id078
-        accepted_prerequisite_semantics: *id079
-        semantic_atom_fingerprints: &id082
+        accepted_prerequisites:
+          prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics:
+          prep.frontend-verification:
+            exhaustive: true
+            semantic_atoms: *id077
+            source_surface_fingerprints: *id076
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id078
+            source_surface_fingerprints: *id039
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id063
+            source_surface_fingerprints: *id052
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id065
+            source_surface_fingerprints: *id040
+        semantic_atom_fingerprints: &id080
           FTD-WORKFLOW: SAF-991fe22eafa20672204b14f6f414c4ed6c4a957ea49a756bfd25b7e6072b2384
           FTD-SEMANTIC-ORACLES: SAF-8c4a771a3ac43d478d74fca5984320bd425373ff0ea0f15f32ceed88eff9a74b
           FTD-SPATIAL: SAF-a2717e91466d8bb9dcffc78130d3878b1988007bbd349dccd3184da0f2da47c4
@@ -4129,7 +4234,7 @@ state:
         status: ACCEPTED
         knowledge_kind: implementation-design
         skill: skills/artifacts/implementation-design/SKILL.md
-        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
         authority: IMPLEMENTATION-DESIGN
         allowed_source_authorities:
         - COMPONENT-DESIGN
@@ -4145,25 +4250,25 @@ state:
           referenced_path: docs/verification/frontend-verification.md
         - artifact: FRONTEND-IMPLEMENTATION-DESIGN
           referenced_path: docs/verification/frontend-test-design.yaml
-        accepted_prerequisites: &id083
+        accepted_prerequisites: &id081
           prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
           prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
           prep.frontend-test-design: PREP-FRONTEND-TEST-DESIGN-STRICT-1
-        accepted_prerequisite_semantics: &id084
+        accepted_prerequisite_semantics: &id082
           prep.frontend-component-design:
             exhaustive: true
-            semantic_atoms: &id093
+            semantic_atoms: &id083
               CD-FEATURES: SAF-261a694d385423bc0c9fd4a1e6ca4f508d38208270ce19744d327493529a6207
-            source_surface_fingerprints: *id080
+            source_surface_fingerprints: *id079
           prep.frontend-verification:
             exhaustive: true
-            semantic_atoms: *id081
+            semantic_atoms: *id077
             source_surface_fingerprints: *id076
           prep.frontend-test-design:
             exhaustive: true
-            semantic_atoms: &id094
+            semantic_atoms: &id084
               FTD-WORKFLOW: SAF-991fe22eafa20672204b14f6f414c4ed6c4a957ea49a756bfd25b7e6072b2384
-            source_surface_fingerprints: *id082
+            source_surface_fingerprints: *id080
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
           version: 1
@@ -4175,24 +4280,24 @@ state:
         decision_explorer_request_id: null
         decision_execution_assurance: NOT_REQUIRED
         decision_governance: NOT_REQUIRED
-        decision_request_mode: CREATE
+        decision_request_mode: REVISION
       lifecycle_assertion:
         artifact: FRONTEND-IMPLEMENTATION-DESIGN
         capability: prep.frontend-implementation-design
-        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
         acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
-        accepted_prerequisites: *id083
-        accepted_prerequisite_semantics: *id084
-        semantic_atom_fingerprints: &id097
-          FI-BOUNDARY: SAF-397df09aec314aa004a39e229f811b9c7e90290902a830aeff1df2aaa01bd42c
-          FI-TOOLCHAIN: SAF-a608e2875dcc2ec22eb44709976fa832c76668ffaaeee2264c0cf610d156d055
-          FI-REPOSITORY: SAF-d512154263965e1d723c80c79f8b9a63306d9a5940ddbdba747cea4adfc9a19a
-          FI-SLICES: SAF-1fac1fdc8ab318609ba3b1d13c73636f157ffeb84817c6e9cc22ba3c993393f6
-          FI-ORDER: SAF-007b145030a8d1334ecbd3bb47386ba311f3843f5a1407ccd20a754eefd03f1d
-          FI-SPATIAL: SAF-5b34d106a6f63f1fd274bdea635da376b20aa7f144de4289d3fc5bd477362210
-          FI-VERIFICATION: SAF-08df28c7cf327ee4ea2124987ae721df02413508806bfee7b2baf4966004367a
+        accepted_prerequisites: *id081
+        accepted_prerequisite_semantics: *id082
+        semantic_atom_fingerprints: &id087
+          FI-BOUNDARY: SAF-5db3943a82169d3096e58ede5ff084e1b445b5ab71cdcd203402e6ed3fcc0866
+          FI-TOOLCHAIN: SAF-7063de1d25990e8c434ef855c339feb201608e1dc5b5c9b9e41b3de49d46318b
+          FI-REPOSITORY: SAF-2488390b0983d5f07303cec588c37bb06270c6f5f87e7b647acbf144a4b2d3fd
+          FI-SLICES: SAF-9b75be33051302139c229e89c8e72bda45750d057b2cede2d66bef0e4eac3a63
+          FI-ORDER: SAF-06a842e826f94e672dedc534701061f1504ac4526844b226e3c10cb862c1353e
+          FI-SPATIAL: SAF-cbcf9f26d34b9f9819c8e8fc5b4afdf271706d9c5241a526f0cec0316726980f
+          FI-VERIFICATION: SAF-62035c5642feaf9988543206b1ffdec07b765e38d980f89f6c1d1940a85cfa99
           FI-GATE: SAF-637742e7088e95c6743c78e55e0e6b5e7343fe1752b5e267b2f1ec2a5fff7ee2
-          FI-ROLLBACK: SAF-193f2d528b4aec441002c946bd46d936217993f4617ca2490eb509d07cbbf382
+          FI-ROLLBACK: SAF-65b4c038281a01976398a067e7229a8c236d0feeeb2727f2915f35d1deaf6372
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -15838,7 +15943,7 @@ state:
       lifecycle_dependency:
         capability: prep.application-design
         exhaustive: true
-        semantic_atoms: *id085
+        semantic_atoms: *id061
         source_surface_fingerprints: *id025
       findings: []
     - version: 1
@@ -15946,7 +16051,7 @@ state:
       lifecycle_dependency:
         capability: prep.presentation-system
         exhaustive: true
-        semantic_atoms: *id086
+        semantic_atoms: *id062
         source_surface_fingerprints: *id042
       findings: []
     - version: 1
@@ -16040,7 +16145,7 @@ state:
       lifecycle_dependency:
         capability: prep.screen-view-design
         exhaustive: true
-        semantic_atoms: *id072
+        semantic_atoms: *id063
         source_surface_fingerprints: *id052
       findings: []
     - version: 1
@@ -16245,7 +16350,7 @@ state:
       lifecycle_dependency:
         capability: prep.machine-interfaces
         exhaustive: true
-        semantic_atoms: *id068
+        semantic_atoms: *id064
         source_surface_fingerprints: *id036
       findings: []
     - version: 1
@@ -16303,7 +16408,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-performance-capacity
         exhaustive: true
-        semantic_atoms: *id077
+        semantic_atoms: *id065
         source_surface_fingerprints: *id040
       findings: []
     - version: 1
@@ -16372,7 +16477,7 @@ state:
         capability: prep.frontend-system-architecture
         exhaustive: true
         semantic_atoms: *id067
-        source_surface_fingerprints: *id063
+        source_surface_fingerprints: *id066
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -16477,7 +16582,7 @@ state:
       lifecycle_dependency:
         capability: prep.presentation-system
         exhaustive: true
-        semantic_atoms: *id087
+        semantic_atoms: *id068
         source_surface_fingerprints: *id042
       findings: []
     - version: 1
@@ -16602,7 +16707,7 @@ state:
       lifecycle_dependency:
         capability: prep.product-capabilities
         exhaustive: true
-        semantic_atoms: *id088
+        semantic_atoms: *id070
         source_surface_fingerprints: *id004
       findings: []
     - version: 1
@@ -16673,8 +16778,8 @@ state:
       lifecycle_dependency:
         capability: prep.presentation-verification
         exhaustive: true
-        semantic_atoms: *id089
-        source_surface_fingerprints: *id066
+        semantic_atoms: *id071
+        source_surface_fingerprints: *id069
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -16741,7 +16846,7 @@ state:
         capability: prep.frontend-system-architecture
         exhaustive: true
         semantic_atoms: *id067
-        source_surface_fingerprints: *id063
+        source_surface_fingerprints: *id066
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -16947,7 +17052,7 @@ state:
       lifecycle_dependency:
         capability: prep.machine-interfaces
         exhaustive: true
-        semantic_atoms: *id068
+        semantic_atoms: *id064
         source_surface_fingerprints: *id036
       findings: []
     - version: 1
@@ -17006,7 +17111,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-performance-capacity
         exhaustive: true
-        semantic_atoms: *id073
+        semantic_atoms: *id072
         source_surface_fingerprints: *id040
       findings: []
     - version: 1
@@ -17074,8 +17179,8 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-system-architecture
         exhaustive: true
-        semantic_atoms: *id090
-        source_surface_fingerprints: *id063
+        semantic_atoms: *id074
+        source_surface_fingerprints: *id066
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -17146,8 +17251,8 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-engineering-policy
         exhaustive: true
-        semantic_atoms: *id091
-        source_surface_fingerprints: *id071
+        semantic_atoms: *id075
+        source_surface_fingerprints: *id073
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -17238,7 +17343,7 @@ state:
       lifecycle_dependency:
         capability: prep.screen-view-design
         exhaustive: true
-        semantic_atoms: *id072
+        semantic_atoms: *id063
         source_surface_fingerprints: *id052
       findings: []
     - version: 1
@@ -17443,7 +17548,7 @@ state:
       lifecycle_dependency:
         capability: prep.machine-interfaces
         exhaustive: true
-        semantic_atoms: *id068
+        semantic_atoms: *id064
         source_surface_fingerprints: *id036
       findings: []
     - version: 1
@@ -17502,7 +17607,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-performance-capacity
         exhaustive: true
-        semantic_atoms: *id073
+        semantic_atoms: *id072
         source_surface_fingerprints: *id040
       findings: []
     - version: 1
@@ -17585,7 +17690,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-verification
         exhaustive: true
-        semantic_atoms: *id081
+        semantic_atoms: *id077
         source_surface_fingerprints: *id076
       findings: []
     - version: 1
@@ -17672,7 +17777,7 @@ state:
       lifecycle_dependency:
         capability: prep.interaction-design
         exhaustive: true
-        semantic_atoms: *id092
+        semantic_atoms: *id078
         source_surface_fingerprints: *id039
       findings: []
     - version: 1
@@ -17765,7 +17870,7 @@ state:
       lifecycle_dependency:
         capability: prep.screen-view-design
         exhaustive: true
-        semantic_atoms: *id072
+        semantic_atoms: *id063
         source_surface_fingerprints: *id052
       findings: []
     - version: 1
@@ -17824,7 +17929,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-performance-capacity
         exhaustive: true
-        semantic_atoms: *id077
+        semantic_atoms: *id065
         source_surface_fingerprints: *id040
       findings: []
     - version: 1
@@ -17899,8 +18004,8 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-component-design
         exhaustive: true
-        semantic_atoms: *id093
-        source_surface_fingerprints: *id080
+        semantic_atoms: *id083
+        source_surface_fingerprints: *id079
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -17982,7 +18087,7 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-verification
         exhaustive: true
-        semantic_atoms: *id081
+        semantic_atoms: *id077
         source_surface_fingerprints: *id076
       findings: []
     - version: 1
@@ -18042,8 +18147,8 @@ state:
       lifecycle_dependency:
         capability: prep.frontend-test-design
         exhaustive: true
-        semantic_atoms: *id094
-        source_surface_fingerprints: *id082
+        semantic_atoms: *id084
+        source_surface_fingerprints: *id080
       findings: []
   lifecycle:
     version: 1
@@ -18054,7 +18159,7 @@ state:
       acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id095
+      semantic_atom_fingerprints: *id085
     - artifact: USER-NEEDS
       capability: prep.user-needs
       acceptance_id: PREP-USER-NEEDS-STRICT-5
@@ -18636,7 +18741,7 @@ state:
           exhaustive: true
           semantic_atoms: *id040
           source_surface_fingerprints: *id040
-      semantic_atom_fingerprints: *id066
+      semantic_atom_fingerprints: *id069
     - artifact: DATA-DESIGN
       capability: prep.data-design
       acceptance_id: PREP-DATA-DESIGN-STRICT-1
@@ -18668,7 +18773,7 @@ state:
           exhaustive: true
           semantic_atoms: *id060
           source_surface_fingerprints: *id056
-      semantic_atom_fingerprints: *id096
+      semantic_atom_fingerprints: *id086
     - artifact: FRONTEND-SYSTEM-ARCHITECTURE
       capability: prep.frontend-system-architecture
       acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
@@ -18682,25 +18787,25 @@ state:
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
-          semantic_atoms: *id085
+          semantic_atoms: *id061
           source_surface_fingerprints: *id025
         prep.presentation-system:
           exhaustive: true
-          semantic_atoms: *id086
+          semantic_atoms: *id062
           source_surface_fingerprints: *id042
         prep.screen-view-design:
           exhaustive: true
-          semantic_atoms: *id072
+          semantic_atoms: *id063
           source_surface_fingerprints: *id052
         prep.machine-interfaces:
           exhaustive: true
-          semantic_atoms: *id068
+          semantic_atoms: *id064
           source_surface_fingerprints: *id036
         prep.frontend-performance-capacity:
           exhaustive: true
-          semantic_atoms: *id077
+          semantic_atoms: *id065
           source_surface_fingerprints: *id040
-      semantic_atom_fingerprints: *id063
+      semantic_atom_fingerprints: *id066
     - artifact: FRONTEND-ENGINEERING-POLICY
       capability: prep.frontend-engineering-policy
       acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
@@ -18712,12 +18817,12 @@ state:
         prep.frontend-system-architecture:
           exhaustive: true
           semantic_atoms: *id067
-          source_surface_fingerprints: *id063
+          source_surface_fingerprints: *id066
         prep.presentation-system:
           exhaustive: true
-          semantic_atoms: *id087
+          semantic_atoms: *id068
           source_surface_fingerprints: *id042
-      semantic_atom_fingerprints: *id071
+      semantic_atom_fingerprints: *id073
     - artifact: FRONTEND-VERIFICATION
       capability: prep.frontend-verification
       acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
@@ -18731,23 +18836,23 @@ state:
       accepted_prerequisite_semantics:
         prep.product-capabilities:
           exhaustive: true
-          semantic_atoms: *id088
+          semantic_atoms: *id070
           source_surface_fingerprints: *id004
         prep.presentation-verification:
           exhaustive: true
-          semantic_atoms: *id089
-          source_surface_fingerprints: *id066
+          semantic_atoms: *id071
+          source_surface_fingerprints: *id069
         prep.frontend-system-architecture:
           exhaustive: true
           semantic_atoms: *id067
-          source_surface_fingerprints: *id063
+          source_surface_fingerprints: *id066
         prep.machine-interfaces:
           exhaustive: true
-          semantic_atoms: *id068
+          semantic_atoms: *id064
           source_surface_fingerprints: *id036
         prep.frontend-performance-capacity:
           exhaustive: true
-          semantic_atoms: *id073
+          semantic_atoms: *id072
           source_surface_fingerprints: *id040
       semantic_atom_fingerprints: *id076
     - artifact: FRONTEND-COMPONENT-DESIGN
@@ -18763,25 +18868,25 @@ state:
       accepted_prerequisite_semantics:
         prep.frontend-system-architecture:
           exhaustive: true
-          semantic_atoms: *id090
-          source_surface_fingerprints: *id063
+          semantic_atoms: *id074
+          source_surface_fingerprints: *id066
         prep.frontend-engineering-policy:
           exhaustive: true
-          semantic_atoms: *id091
-          source_surface_fingerprints: *id071
+          semantic_atoms: *id075
+          source_surface_fingerprints: *id073
         prep.screen-view-design:
           exhaustive: true
-          semantic_atoms: *id072
+          semantic_atoms: *id063
           source_surface_fingerprints: *id052
         prep.machine-interfaces:
           exhaustive: true
-          semantic_atoms: *id068
+          semantic_atoms: *id064
           source_surface_fingerprints: *id036
         prep.frontend-performance-capacity:
           exhaustive: true
-          semantic_atoms: *id073
+          semantic_atoms: *id072
           source_surface_fingerprints: *id040
-      semantic_atom_fingerprints: *id080
+      semantic_atom_fingerprints: *id079
     - artifact: FRONTEND-TEST-DESIGN
       capability: prep.frontend-test-design
       acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
@@ -18794,24 +18899,24 @@ state:
       accepted_prerequisite_semantics:
         prep.frontend-verification:
           exhaustive: true
-          semantic_atoms: *id081
+          semantic_atoms: *id077
           source_surface_fingerprints: *id076
         prep.interaction-design:
           exhaustive: true
-          semantic_atoms: *id092
+          semantic_atoms: *id078
           source_surface_fingerprints: *id039
         prep.screen-view-design:
           exhaustive: true
-          semantic_atoms: *id072
+          semantic_atoms: *id063
           source_surface_fingerprints: *id052
         prep.frontend-performance-capacity:
           exhaustive: true
-          semantic_atoms: *id077
+          semantic_atoms: *id065
           source_surface_fingerprints: *id040
-      semantic_atom_fingerprints: *id082
+      semantic_atom_fingerprints: *id080
     - artifact: FRONTEND-IMPLEMENTATION-DESIGN
       capability: prep.frontend-implementation-design
-      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
       acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
       accepted_prerequisites:
         prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
@@ -18820,17 +18925,17 @@ state:
       accepted_prerequisite_semantics:
         prep.frontend-component-design:
           exhaustive: true
-          semantic_atoms: *id093
-          source_surface_fingerprints: *id080
+          semantic_atoms: *id083
+          source_surface_fingerprints: *id079
         prep.frontend-verification:
           exhaustive: true
-          semantic_atoms: *id081
+          semantic_atoms: *id077
           source_surface_fingerprints: *id076
         prep.frontend-test-design:
           exhaustive: true
-          semantic_atoms: *id094
-          source_surface_fingerprints: *id082
-      semantic_atom_fingerprints: *id097
+          semantic_atoms: *id084
+          source_surface_fingerprints: *id080
+      semantic_atom_fingerprints: *id087
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
