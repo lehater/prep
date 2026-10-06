@@ -241,7 +241,7 @@ export function KnowledgeExplorerFeature({
           ) : null}
         </div>
 
-        <div className="knowledge-filter-toolbar" aria-label="Фильтры знаний">
+        <div className="knowledge-filter-toolbar">
           <input
             className="knowledge-filter-control knowledge-search-control"
             aria-label="Поиск"
