@@ -113,7 +113,7 @@ export function TargetFeature({
     return () => {
       cancelled = true;
     };
-  }, [activeTargetRef, port]);
+  }, [activeTargetRef, candidates, port]);
 
   function selectCandidate(targetRef: TargetRef) {
     const candidate = candidates.find((item) => item.targetRef === targetRef);
