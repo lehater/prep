@@ -414,6 +414,7 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
   await expect(page.getByText("Показано 2 из 2")).toBeVisible();
 
   await page
+    .locator(".knowledge-table")
     .getByRole("button", {
       name: /Выбор consistency-модели балансирует задержку/,
     })
