@@ -747,18 +747,16 @@ a:focus-visible {
   gap: 14px;
 }
 
-.knowledge-toolbar-heading h2,
-.knowledge-results-heading h2,
-.knowledge-panel-heading h3 {
+.knowledge-section-title,
+.knowledge-panel-title {
   margin: 2px 0 0;
 }
 
-.knowledge-toolbar-heading h2,
-.knowledge-results-heading h2 {
+.knowledge-section-title {
   font-size: 1.08rem;
 }
 
-.knowledge-panel-heading h3 {
+.knowledge-panel-title {
   font-size: 1rem;
   line-height: 1.3;
 }
@@ -786,16 +784,15 @@ a:focus-visible {
   align-items: end;
 }
 
-.knowledge-filter-toolbar .field {
+.knowledge-filter-field {
   gap: 5px;
 }
 
-.knowledge-filter-toolbar .field > span {
+.knowledge-filter-label {
   font-size: 0.76rem;
 }
 
-.knowledge-filter-toolbar .field input,
-.knowledge-filter-toolbar .field select {
+.knowledge-filter-control {
   min-height: 36px;
   border-radius: 8px;
   padding: 7px 9px;
@@ -958,7 +955,7 @@ a:focus-visible {
   padding: 12px;
 }
 
-.knowledge-panel-heading > span {
+.knowledge-panel-badge {
   border-radius: 999px;
   background: #f0f2f6;
   padding: 3px 7px;
@@ -1024,7 +1021,7 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-.knowledge-relationship-region > .supporting-text {
+.knowledge-relationship-caption {
   margin: 0;
   font-size: 0.75rem;
   line-height: 1.4;
@@ -1072,12 +1069,12 @@ a:focus-visible {
   text-decoration: none;
 }
 
-.knowledge-detail-placeholder h3 {
+.knowledge-detail-placeholder-title {
   margin: 2px 0 6px;
   font-size: 1rem;
 }
 
-.knowledge-detail-placeholder p:last-child {
+.knowledge-detail-placeholder-copy {
   margin: 0;
   color: #687487;
   font-size: 0.84rem;
@@ -1088,7 +1085,7 @@ a:focus-visible {
   padding: 14px;
 }
 
-.knowledge-empty p,
+.knowledge-empty-copy,
 .knowledge-renderer-note {
   line-height: 1.5;
 }
