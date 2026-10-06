@@ -47,6 +47,8 @@ export interface KnowledgeExplorerFeatureProps {
   readonly activeFocusRef: FocusRef | null;
   readonly incomingRequiredCapabilityRef?: CapabilityRef | undefined;
   readonly relationshipRenderer?: KnowledgeRelationshipRenderer | undefined;
+  readonly returnLabel?: string | undefined;
+  readonly onReturn?: (() => void) | undefined;
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -122,6 +124,8 @@ export function KnowledgeExplorerFeature({
   activeFocusRef,
   incomingRequiredCapabilityRef,
   relationshipRenderer: RelationshipRenderer,
+  returnLabel,
+  onReturn,
 }: KnowledgeExplorerFeatureProps) {
   const {
     queryDraft,
@@ -580,6 +584,15 @@ export function KnowledgeExplorerFeature({
             <span className="knowledge-result-count" role="status">
               {visibleItems.length}/{projection.items.length}
             </span>
+          ) : null}
+          {onReturn ? (
+            <button
+              type="button"
+              className="secondary-action"
+              onClick={onReturn}
+            >
+              {returnLabel ?? "Вернуться"}
+            </button>
           ) : null}
         </div>
 
