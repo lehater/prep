@@ -549,7 +549,8 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   ).toBeVisible();
 
   await page
-    .getByRole("button", { name: "Стратегия кэширования. Связей: 1" })
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Стратегия кэширования", exact: true })
     .click();
   await expect(
     page
@@ -574,11 +575,45 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     viewportState.innerHeight + 1,
   );
 
-  await page.getByLabel("Тип").selectOption("object");
+  await page.getByLabel("Тип знания").selectOption("object");
   await expect(page.getByText("9/18", { exact: true })).toBeVisible();
 
-  await page.getByLabel("Связность").selectOption("three-plus");
-  await expect(page.getByText("5/18", { exact: true })).toBeVisible();
+  await page.getByLabel("Форма знания").selectOption("mechanism");
+  await expect(page.getByText("4/18", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+
+  await page.getByLabel("Семейство связи").selectOption("partitive");
+  await expect(page.getByText("2/18", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
+  await expect(
+    page.getByLabel("Тип связи").locator('option[value="part_of"]'),
+  ).toHaveText("часть");
+
+  await page.getByLabel("Тип связи").selectOption("part_of");
+  await expect(
+    page.locator('[data-predicate="part_of"]'),
+  ).toHaveCount(1);
+  await expect(
+    page.locator(".knowledge-relationship-edge-label").getByText("часть"),
+  ).toBeVisible();
+
+  await page
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Очередь задач", exact: true })
+    .click();
+  await expect(
+    page.getByLabel("Детали знания").getByText("часть", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Детали знания").getByRole("button", {
+      name: "JavaScript Event Loop",
+      exact: true,
+    }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+  await page.getByLabel("Тип знания").selectOption("object");
 
   const query = page.getByRole("textbox", { name: "Поиск", exact: true });
   await query.fill("event loop");
@@ -590,8 +625,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(
     page.getByRole("textbox", { name: "Поиск", exact: true }),
   ).toHaveValue("event loop");
-  await expect(page.getByLabel("Тип")).toHaveValue("object");
-  await expect(page.getByLabel("Связность")).toHaveValue("three-plus");
+  await expect(page.getByLabel("Тип знания")).toHaveValue("object");
+  await expect(page.getByLabel("Форма знания")).toHaveValue("all");
+  await expect(page.getByLabel("Семейство связи")).toHaveValue("all");
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
   await expect(page.locator(".knowledge-capability-scope")).toHaveCount(0);
 });
 
