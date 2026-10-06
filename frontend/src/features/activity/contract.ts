@@ -19,6 +19,7 @@ export interface SupportModel {
     | "task-specification"
     | "observation-specification";
   readonly intendedCapabilityRef: CapabilityRef;
+  readonly intendedCapabilityLabel: string;
   readonly expectedConditions: readonly string[];
   readonly fitBasis: string;
   readonly limitations: readonly Limitation[];

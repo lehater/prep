@@ -1,5 +1,7 @@
 import { type ReactNode, useState } from "react";
 
+import type { ActivityPort } from "../../features/activity/contract";
+import { ActivityFeature } from "../../features/activity/ActivityFeature";
 import type { CurrentPositionPort } from "../../features/current-position/contract";
 import { CurrentPositionFeature } from "../../features/current-position/CurrentPositionFeature";
 import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
@@ -31,6 +33,7 @@ export interface PreparationShellProps {
   readonly targetPort: TargetPort;
   readonly currentPositionPort: CurrentPositionPort;
   readonly knowledgePort: KnowledgePort;
+  readonly activityPort: ActivityPort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -65,10 +68,12 @@ export function PreparationShell({
   targetPort,
   currentPositionPort,
   knowledgePort,
+  activityPort,
   candidateTargets,
 }: PreparationShellProps) {
   const {
     activeTargetRef,
+    activeFocus,
     activeFocusRef,
     setAcceptedTarget,
     setAcceptedFocus,
@@ -142,8 +147,13 @@ export function PreparationShell({
           port={currentPositionPort}
           activeTargetRef={activeTargetRef}
           activeFocusRef={activeFocusRef}
-          onAcceptedFocus={(focus) => {
-            setAcceptedFocus(focus.focusRef);
+          onAcceptedFocus={(focus, semanticBasisRef) => {
+            setAcceptedFocus({
+              focusRef: focus.focusRef,
+              purpose: focus.purpose,
+              rationale: focus.rationale,
+              semanticBasisRef,
+            });
             setRecoveryReason(null);
           }}
           onContinueActivity={() => navigate({ destination: "activity" })}
@@ -185,13 +195,38 @@ export function PreparationShell({
       );
       break;
     case "activity":
-      child = (
-        <StructuralPlaceholder
-          title="Activity"
-          description="Select suitable support and carry out one preparation activity."
-          recoveryReason={recoveryReason ?? undefined}
-        />
-      );
+      child =
+        activeTargetRef && activeFocus ? (
+          <ActivityFeature
+            port={activityPort}
+            activeTargetRef={activeTargetRef}
+            activeFocusRef={activeFocus.focusRef}
+            focusPurpose={activeFocus.purpose}
+            focusRationale={activeFocus.rationale}
+            focusBasisRef={activeFocus.semanticBasisRef}
+            onRequestPreparationSupport={() =>
+              navigate({
+                destination: "prepare-support",
+                candidateTargetRef: activeTargetRef,
+              })
+            }
+          />
+        ) : (
+          <StructuralPlaceholder
+            title={activeTargetRef ? "Current position" : "Target"}
+            description={
+              activeTargetRef
+                ? "Choose a Next focus before starting an Activity."
+                : "Establish a Target before starting an Activity."
+            }
+            recoveryReason={
+              recoveryReason ??
+              (activeTargetRef
+                ? "Choose a Next focus before starting an Activity."
+                : "Establish a Target before entering Target-dependent preparation work.")
+            }
+          />
+        );
       break;
     case "prepare-support":
       child = (

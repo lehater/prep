@@ -292,4 +292,43 @@ describe("MockFrontendAdapter semantic contract", () => {
       currentBasisRef: mockScenarioRefs.basis,
     });
   });
+
+  it("exposes readable support fit and distinguishes stale Activity basis", async () => {
+    const support = acceptedValue(
+      await adapter.listSupport({
+        targetRef: mockScenarioRefs.targetPrimary,
+        focusRef: mockScenarioRefs.focusCurrent,
+      }),
+    );
+
+    expect(support).toHaveLength(1);
+    expect(support[0]?.intendedCapabilityLabel).toBe("System design");
+    expect(support[0]?.fitBasis).toContain("consistency");
+
+    const staleStart = await adapter.startActivity({
+      targetRef: mockScenarioRefs.targetPrimary,
+      focusRef: mockScenarioRefs.focusCurrent,
+      supportRef: mockScenarioRefs.supportSystemDesign,
+      semanticBasisRef: ref<"semantic-basis">("basis:stale"),
+    });
+    expect(staleStart.status).toBe("stale-basis");
+
+    const attempt = acceptedValue(
+      await adapter.startActivity({
+        targetRef: mockScenarioRefs.targetPrimary,
+        focusRef: mockScenarioRefs.focusCurrent,
+        supportRef: mockScenarioRefs.supportSystemDesign,
+        semanticBasisRef: mockScenarioRefs.basis,
+      }),
+    );
+
+    const staleCompletion = await adapter.completeActivity({
+      activityAttemptRef: attempt.activityAttemptRef,
+      resultSummary: "Attempt result remains safely drafted.",
+      provenance: "deterministic scenario",
+      semanticBasisRef: ref<"semantic-basis">("basis:stale"),
+    });
+    expect(staleCompletion.status).toBe("stale-basis");
+  });
+
 });

@@ -322,7 +322,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
   await expect(page.getByText(/readiness percentage/i)).toHaveCount(0);
 
   await page.getByRole("button", { name: "Continue to Activity" }).click();
-  await expect(page.getByRole("heading", { name: "Activity" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Work on the accepted Next focus" })).toBeVisible();
 });
 
 test("preserves a missing-support focus and routes to contextual preparation", async ({
@@ -439,4 +439,96 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
     page.getByLabel("Active preparation context").getByText("Selected"),
   ).toBeVisible();
   await expect(page.getByText("Included", { exact: true })).toBeVisible();
+});
+
+
+test("performs one Activity attempt without fabricating learner progress", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+  await page.getByRole("button", { name: "Current position" }).click();
+  await page.getByRole("radio", { name: /System design/ }).check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+  await page.getByRole("button", { name: "Continue to Activity" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Work on the accepted Next focus" }),
+  ).toBeVisible();
+  await expect(page.getByText("Reduce uncertainty in system-design trade-off reasoning.", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "High target relevance with suitable support available.",
+      { exact: true },
+    ),
+  ).toBeVisible();
+
+  await expect(page.getByText("Cache consistency design case", { exact: true })).toBeVisible();
+  await expect(page.getByText("Intended capability: System design", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "Directly exercises the challenged consistency assumption.",
+      { exact: true },
+    ),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Start Activity" }).click();
+
+  await expect(page.getByRole("heading", { name: "Activity attempt" })).toBeVisible();
+  await expect(page.getByText("active", { exact: true })).toBeVisible();
+
+  await page
+    .getByLabel("What happened")
+    .fill("Completed the cache consistency design case and explained the trade-offs.");
+  await page
+    .getByLabel("Provenance / source")
+    .fill("Observed deterministic prototype attempt");
+
+  await page.getByRole("button", { name: "Submit completed attempt" }).click();
+
+  await expect(page.getByRole("heading", { name: "Attempt submitted" })).toBeVisible();
+  await expect(
+    page.getByText(
+      "Completion does not mark the capability demonstrated and does not close a gap.",
+      { exact: false },
+    ),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Submit completed attempt" }),
+  ).toHaveCount(0);
+
+  await page.getByRole("button", { name: "Current position" }).click();
+  const systemDesignState = page
+    .locator(".state-card")
+    .filter({ hasText: "System design" });
+  await expect(systemDesignState.getByText("challenged", { exact: true })).toBeVisible();
+});
+
+test("routes an Activity with no suitable support to contextual preparation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+  await page.getByRole("button", { name: "Current position" }).click();
+  await page.getByRole("radio", { name: /Behavioral communication/ }).check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+
+  await page.getByRole("button", { name: "Activity", exact: true }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Work on the accepted Next focus" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("No suitable support is currently prepared.", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Prepare missing support" }).click();
+
+  await expect(page.getByRole("heading", { name: "Prepare Support" })).toBeVisible();
+  await expect(
+    page.getByLabel("Active preparation context").getByText("Selected"),
+  ).toBeVisible();
 });

@@ -825,3 +825,140 @@ a:focus-visible {
     grid-column: auto;
   }
 }
+
+
+.activity-focus-context,
+.activity-support-region,
+.activity-attempt-region,
+.activity-processing-region {
+  border: 1px solid #dce1e9;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.activity-focus-context {
+  display: grid;
+  gap: 6px;
+}
+
+.activity-focus-context > * {
+  margin: 0;
+}
+
+.activity-support-region,
+.activity-attempt-region {
+  display: grid;
+  gap: 16px;
+}
+
+.activity-no-support {
+  display: grid;
+  gap: 12px;
+  border-left: 4px solid #c89038;
+  background: #fff8ea;
+  padding: 14px;
+}
+
+.activity-no-support p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.support-options {
+  display: grid;
+  gap: 10px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.support-options legend {
+  margin-bottom: 4px;
+  font-weight: 750;
+}
+
+.support-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid #dce1e9;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.support-option:has(input:checked) {
+  border-color: #7087dc;
+  box-shadow: inset 0 0 0 1px #7087dc;
+}
+
+.support-option input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.support-option-body {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.support-option-body small {
+  color: #687487;
+}
+
+.activity-attempt-context {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.activity-attempt-context div {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #e2e6ed;
+  border-radius: 12px;
+  background: #f8f9fb;
+  padding: 12px;
+}
+
+.activity-attempt-context dt {
+  color: #687487;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.activity-attempt-context dd {
+  margin: 0;
+}
+
+.activity-completion-form {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid #e5e9ef;
+  padding-top: 18px;
+}
+
+.activity-processing-region {
+  border-color: #b9cbe9;
+  background: #f4f7fc;
+}
+
+.activity-processing-region h2 {
+  margin: 4px 0 10px;
+}
+
+.activity-processing-region p {
+  line-height: 1.55;
+}
+
+@media (max-width: 720px) {
+  .activity-attempt-context {
+    grid-template-columns: 1fr;
+  }
+}
