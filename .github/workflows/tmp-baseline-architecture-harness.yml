@@ -33,7 +33,7 @@ jobs:
         run: |
           cd "${{ steps.pack.outputs.path }}"
           python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-project-bootstrap-reconcile.json"
-          for kind in concurrency-consistency-design verification-design system-architecture data-design; do
+          for kind in concurrency-consistency-design verification-strategy system-architecture data-design; do
             python -m harness.application.skill_router artifact --knowledge-kind "$kind" > "$GITHUB_WORKSPACE/.harness/diagnostics/route-artifact-$kind.json"
           done
 
