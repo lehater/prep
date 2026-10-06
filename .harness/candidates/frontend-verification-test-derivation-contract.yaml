@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: verification-test
+source_capability: prep.frontend-verification
+target_capability: prep.frontend-test-design
+obligations:
+- id: direct-semantic-input
+  source_kind: verification-obligation
+  subject: product-interface-traceability
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false

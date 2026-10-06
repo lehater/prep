@@ -1,0 +1,22 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-TEST-DESIGN
+capability: prep.frontend-test-design
+path: docs/verification/frontend-test-design.yaml
+changed_paths: [docs/verification/frontend-test-design.yaml]
+canonical_references:
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/verification/frontend-verification.md}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/interface/interaction-design.yaml}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/interface/screen-view-design.md}
+  - {artifact: FRONTEND-TEST-DESIGN, referenced_path: docs/architecture/performance-capacity.md}
+semantic_assertions:
+  - {id: FTD-WORKFLOW, kind: test-obligation, subject: frontend-workflow-tests, semantic_value: "Executable tests cover Target direction/setup, Current position/gaps/focus, task-complete Knowledge, Activity, contextual post-Activity Evidence/change and contextual Preparation Support against deterministic mocks.", derived_from: [FV-TRACEABILITY, FV-WORKFLOW], decision_authority: TEST-DESIGN}
+  - {id: FTD-SEMANTIC-ORACLES, kind: test-obligation, subject: semantic-ui-oracles, semantic_value: "Test oracles assert user-visible semantic states/outcomes and public consumer contracts, not provider component trees, CSS/private React state, backend endpoints or spatial coordinates.", derived_from: [FV-PORT-FIDELITY, FV-EVIDENCE, SV-NO-IMPLEMENTATION], decision_authority: TEST-DESIGN}
+  - {id: FTD-SPATIAL, kind: test-obligation, subject: optional-spatial-tests, semantic_value: "Tests prove Knowledge completion with spatial rendering disabled and treat spatial semantic fidelity/accessibility as conditional when a renderer is present.", derived_from: [FV-SPATIAL, QD-SEMANTIC-PRESERVATION], decision_authority: TEST-DESIGN}
+  - {id: FTD-RECOVERY, kind: test-obligation, subject: recoverable-failures, semantic_value: "Tests cover stale/rejected/dependency-unavailable/partial outcomes while preserving safe Target/focus/input context and exposing the next valid action.", derived_from: [FV-WORKFLOW, FV-PREP-SUPPORT, IX-CONTEXT-CONTINUITY], decision_authority: TEST-DESIGN}
+  - {id: FTD-BOUNDARIES, kind: test-obligation, subject: dependency-boundary-tests, semantic_value: "Structural tests reject task-feature-to-concrete-adapter/renderer/private-state and obsolete legacy public dependency edges.", derived_from: [FV-DEPENDENCIES], decision_authority: TEST-DESIGN}
+  - {id: FTD-ADAPTER, kind: test-obligation, subject: adapter-contract-tests, semantic_value: "Shared consumer-port contract tests verify accepted identities, basis refs and typed outcome distinctions survive mock mapping and remain implementable by a future transport adapter.", derived_from: [FV-PORT-FIDELITY], decision_authority: TEST-DESIGN}
+  - {id: FTD-CURRENTNESS, kind: test-obligation, subject: harness-currentness-test, semantic_value: "A Harness currentness test proves changed prerequisite acceptance makes dependent capability non-current until strict revalidation; file existence/tests alone are insufficient.", derived_from: [FV-HARNESS], decision_authority: TEST-DESIGN}
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, test-not-semantic-owner]

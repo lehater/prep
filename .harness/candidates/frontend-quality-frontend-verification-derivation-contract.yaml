@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: quality-frontend-verification
+source_capability: prep.frontend-performance-capacity
+target_capability: prep.frontend-verification
+obligations:
+- id: direct-semantic-input
+  source_kind: quality-constraint
+  subject: graph-performance-applicability
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false

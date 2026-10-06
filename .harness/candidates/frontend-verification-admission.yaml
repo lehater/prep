@@ -1,0 +1,27 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: FRONTEND-VERIFICATION
+capability: prep.frontend-verification
+path: docs/verification/frontend-verification.md
+changed_paths: [docs/verification/frontend-verification.md]
+canonical_references:
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: .harness/knowledge/product-capabilities.yaml}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/verification/presentation-verification.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/architecture/frontend-system-architecture.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/interface/machine-interface.md}
+  - {artifact: FRONTEND-VERIFICATION, referenced_path: docs/architecture/performance-capacity.md}
+semantic_assertions:
+  - {id: FV-TRACEABILITY, kind: verification-obligation, subject: product-interface-traceability, semantic_value: "Verify every user-visible frontend behavior traces to accepted Product plus Task/Interaction/Screen responsibility; provider or legacy code does not create product behavior.", derived_from: [FSA-TASK-MODULES, PV-SCOPE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-WORKFLOW, kind: verification-obligation, subject: complete-preparation-workflow, semantic_value: "Verify deterministic mocks support the complete current preparation workflow from target comparison through evidence/change review and valid continuation while preserving active Target/focus.", derived_from: [PV-WORKFLOW, FSA-TASK-MODULES, REQ-CAP-TARGET-DIRECTION], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PREP-SUPPORT, kind: verification-obligation, subject: contextual-preparation-support, semantic_value: "Verify preparation support remains contextual learner request/review/recovery and never requires a learner-facing corpus/import/schema workflow.", derived_from: [PV-SUPPORT-PROGRESSION, FSA-NO-LEGACY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PORT-FIDELITY, kind: verification-obligation, subject: machine-port-fidelity, semantic_value: "Verify consumer ports preserve accepted Machine Interface identities, basis/currentness and typed outcomes and do not leak transport/provider representations.", derived_from: [FSA-PORTS, MI-COMPATIBILITY, MI-NO-LEAK], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-DEPENDENCIES, kind: verification-obligation, subject: frontend-dependency-direction, semantic_value: "Verify no task feature depends on concrete adapters/renderer packages/other feature private state and no obsolete Curation/Import/Progress/Diagnostics edge remains public.", derived_from: [FSA-DEPENDENCY, FSA-NO-LEGACY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-SPATIAL, kind: verification-obligation, subject: optional-spatial-renderer, semantic_value: "Verify non-spatial Knowledge is task-complete and optional spatial rendering cannot alter semantic identities/scope or become required/default merely because a provider dependency exists.", derived_from: [PV-KNOWLEDGE, FSA-SPATIAL, QD-GRAPH-CONDITIONAL], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-STATE, kind: verification-obligation, subject: frontend-state-ownership, semantic_value: "Verify PreparationContext contains only active Target/focus continuity and task-local state has bounded ownership/lifecycle.", derived_from: [FSA-STATE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-EVIDENCE, kind: verification-obligation, subject: evidence-state-gap-integrity, semantic_value: "Verify current state/gaps/focus/evidence/change remain accepted projections/outcomes rather than frontend inference, score synthesis or activity-completion side effects.", derived_from: [MI-REP-CURRENT, MI-REP-EVIDENCE, MI-REP-GAP, MI-REP-CHANGE], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-PRESENTATION, kind: verification-obligation, subject: presentation-evidence-closure, semantic_value: "Verify current composition variants, responsive hierarchy, accessibility and conditional spatial obligations have corresponding evidence before production authority.", derived_from: [PV-COMPOSITION-VARIANTS, PV-RESPONSIVE-ACCESSIBILITY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-HARNESS, kind: verification-obligation, subject: harness-currentness, semantic_value: "Verify strict Harness semantic/currentness closure: file existence or green executable tests never make a lifecycle-unknown/stale frontend capability CURRENT.", derived_from: [FSA-DEPENDENCY], decision_authority: VERIFICATION-DESIGN}
+  - {id: FV-TARGET-ISOLATION, kind: verification-obligation, subject: target-purpose-isolation, semantic_value: "Verify related Targets may share reusable capability identity without transferring target-specific requirements or learner state.", derived_from: [PV-HUMAN-EVIDENCE], decision_authority: VERIFICATION-DESIGN}
+semantic_review:
+  status: ACCEPTED
+  checks: [source-discipline, authority-boundary, no-invention, verification-not-semantic-owner]

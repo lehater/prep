@@ -1,0 +1,330 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.frontend-implementation-design
+knowledge_kind: implementation-design
+explorer_request_id: sha256:eb874dc44db75816052b47da6114cea11a0d2f28e34d4f6b5405cced59ce58a3
+research_sources: []
+axes:
+- axis: slice-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: split-slice
+    challenge: Compare slices aligned to each accepted task feature with smaller per-region/per-operation
+      slices.
+    alternatives:
+    - feature-capability-slices
+    - micro-operation-slices
+    - one-big-rewrite
+  - strategy: merge-slices
+    challenge: Merge the current UI correction into one frontend rewrite and compare
+      verification/risk boundaries.
+    alternatives:
+    - feature-capability-slices
+    - one-big-rewrite
+  - strategy: dependency-order-perturbation
+    challenge: Implement child task features before shell/contracts versus contract/context
+      foundation first.
+    alternatives:
+    - foundation-then-feature-slices
+    - feature-first-with-temporary-contracts
+  decision_points:
+  - id: implementation-slice-shape
+    alternatives:
+    - id: feature-capability-slices
+      difference: Each slice realizes one accepted task feature/public boundary with
+        its mock contract and tests.
+      material_effects:
+        slice-granularity: task-feature
+        dependency-order: mostly-independent-after-foundation
+        ownership-alignment: high
+    - id: micro-operation-slices
+      difference: Separate slice per machine operation or visual region.
+      material_effects:
+        slice-granularity: operation-region
+        dependency-order: high-fragmentation
+        ownership-alignment: medium
+    - id: one-big-rewrite
+      difference: Replace the whole target-work frontend in one integration slice.
+      material_effects:
+        slice-granularity: whole-frontend
+        dependency-order: hidden
+        ownership-alignment: mixed
+  - id: initial-ordering
+    alternatives:
+    - id: foundation-then-feature-slices
+      difference: Establish semantic models/ports, PreparationContext/Shell and mock
+        scenario before independent feature slices.
+      material_effects:
+        slice-granularity: foundation-plus-features
+        dependency-order: explicit
+        ownership-alignment: high
+    - id: feature-first-with-temporary-contracts
+      difference: Build views against ad-hoc local fixtures then reconcile contracts
+        later.
+      material_effects:
+        slice-granularity: feature
+        dependency-order: reconciliation-later
+        ownership-alignment: weak-during-build
+- axis: repository-realization
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: boundary-remap
+    challenge: Compare task-feature roots with keeping legacy curation/learning/progress-style
+      roots and adapting them internally.
+    alternatives:
+    - task-feature-roots
+    - legacy-roots-with-facades
+    - flat-view-root
+  - strategy: composition-root-shift
+    challenge: Place task orchestration in app shell versus feature roots or adapter
+      layer.
+    alternatives:
+    - app-composition-root
+    - feature-owned-composition
+    - adapter-owned-composition
+  - strategy: generated-source-perturbation
+    challenge: Test whether any accepted contract requires generated frontend source/models.
+    alternatives:
+    - handwritten-consumer-contracts
+    - generated-contract-layer
+  decision_points:
+  - id: source-module-topology
+    alternatives:
+    - id: task-feature-roots
+      difference: Feature roots map to accepted public component responsibilities;
+        legacy roots are migrated/removed as responsibilities move.
+      material_effects:
+        module-boundary: task-feature
+        composition-root: app
+        generated-source-placement: none-required
+    - id: legacy-roots-with-facades
+      difference: Keep curation/learning legacy roots and add new facade views around
+        them.
+      material_effects:
+        module-boundary: legacy-plus-facade
+        composition-root: mixed
+        generated-source-placement: none
+    - id: flat-view-root
+      difference: Put all views/components under one shared screen directory with
+        no feature ownership.
+      material_effects:
+        module-boundary: presentation-only
+        composition-root: app
+        generated-source-placement: none
+  - id: contract-realization
+    alternatives:
+    - id: handwritten-consumer-contracts
+      difference: TypeScript value/port contracts are maintained at consumer boundaries
+        from accepted machine semantics.
+      material_effects:
+        module-boundary: feature-contract
+        composition-root: app
+        generated-source-placement: none
+    - id: generated-contract-layer
+      difference: Add a code-generation pipeline for frontend semantic contracts.
+      material_effects:
+        module-boundary: generated-shared
+        composition-root: app
+        generated-source-placement: generated-tree
+- axis: dependency-tooling
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: tool-substitution
+    challenge: Replace the selected React/Vite/MUI/React Query/Vitest/Playwright stack
+      during the semantic refactor.
+    alternatives:
+    - retain-current-base-toolchain
+    - replace-ui-or-state-toolchain
+  - strategy: remove-tool
+    challenge: Remove optional 3D/rendering dependencies immediately versus after
+      no accepted prototype path uses them.
+    alternatives:
+    - retain-base-tools-and-isolate-optional-renderer
+    - eager-renderer-removal
+  - strategy: enforcement-point-shift
+    challenge: Move dependency-boundary enforcement from existing script/CI into runtime
+      conventions only.
+    alternatives:
+    - retain-versioned-boundary-check
+    - convention-only
+  decision_points:
+  - id: base-toolchain
+    alternatives:
+    - id: retain-current-base-toolchain
+      difference: Keep current React/Vite/MUI/React Query/TypeScript/Vitest/Playwright
+        versions while changing semantic modules.
+      material_effects:
+        tool-family: existing
+        enforcement-point: existing-ci
+        runtime-footprint: unchanged-base
+    - id: replace-ui-or-state-toolchain
+      difference: Change one or more framework/provider families as part of the UI
+        semantic correction.
+      material_effects:
+        tool-family: changed
+        enforcement-point: migration-required
+        runtime-footprint: changed
+  - id: optional-spatial-dependency
+    alternatives:
+    - id: retain-base-tools-and-isolate-optional-renderer
+      difference: Existing 3D dependencies may remain only behind the optional renderer
+        adapter while experiments/tests still use them; they are removable once unreferenced.
+      material_effects:
+        tool-family: optional-existing-renderer
+        enforcement-point: renderer-boundary
+        runtime-footprint: conditional
+    - id: eager-renderer-removal
+      difference: Remove 3D dependencies before feature migration even if current
+        prototype code still depends on them.
+      material_effects:
+        tool-family: no-3d
+        enforcement-point: migration-first
+        runtime-footprint: smaller
+  - id: boundary-enforcement
+    alternatives:
+    - id: retain-versioned-boundary-check
+      difference: Keep mechanical source-boundary validation in fast verification.
+      material_effects:
+        tool-family: existing-node-check
+        enforcement-point: fast-ci
+        runtime-footprint: none
+    - id: convention-only
+      difference: Remove mechanical dependency checks and rely on review.
+      material_effects:
+        tool-family: none
+        enforcement-point: manual
+        runtime-footprint: none
+- axis: migration-transition
+  applicability: NOT_APPLICABLE
+  exploration_level: EXPLORE
+  applicability_evidence:
+  - FRONTEND-COMPONENT-DESIGN
+  evidence: 'Project Authority Assessment marks CHANGE-TRANSITION-DESIGN NOT_APPLICABLE:
+    frontend release/rollback is whole-artifact replacement with no accepted data
+    migration, coexistence window, irreversible intermediate state or independent
+    transition semantics. Source refactoring inside the task branch is ordinary implementation
+    sequencing, not a product/runtime migration contract.'
+  probes: []
+  decision_points: []
+- axis: verification-enforcement
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: move-verification-layer
+    challenge: Compare semantic port/component tests plus E2E with browser-only verification.
+    alternatives:
+    - layered-fast-plus-e2e
+    - browser-only
+  - strategy: manual-vs-automated
+    challenge: Move deterministic type/lint/boundary/unit checks out of automation.
+    alternatives:
+    - automated-fast-deterministic
+    - manual-deterministic
+  - strategy: gate-failure-perturbation
+    challenge: Allow heavy validation to skip fast failures versus fail before expensive
+      work.
+    alternatives:
+    - fast-before-heavy
+    - independent-heavy
+  decision_points:
+  - id: verification-layering
+    alternatives:
+    - id: layered-fast-plus-e2e
+      difference: Contract/component/unit checks prove local semantics; browser E2E
+        proves representative task flows.
+      material_effects:
+        verification-layer: layered
+        automation-boundary: fast-and-heavy
+        failure-gate: local-first
+    - id: browser-only
+      difference: Rely primarily on E2E/browser tests for semantic and structural
+        behavior.
+      material_effects:
+        verification-layer: end-to-end
+        automation-boundary: heavy
+        failure-gate: late
+  - id: deterministic-fast-enforcement
+    alternatives:
+    - id: automated-fast-deterministic
+      difference: Typecheck/lint/boundary/unit checks remain automated fast feedback.
+      material_effects:
+        verification-layer: local-contract
+        automation-boundary: automatic
+        failure-gate: early
+    - id: manual-deterministic
+      difference: Deterministic checks rely on developer/reviewer invocation.
+      material_effects:
+        verification-layer: local-contract
+        automation-boundary: manual
+        failure-gate: inconsistent
+- axis: delivery-gates
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: local-vs-ci
+    challenge: Compare current fast automatic + explicit heavy final validation with
+      one always-heavy CI gate.
+    alternatives:
+    - fast-automatic-heavy-explicit
+    - always-heavy
+  - strategy: gate-owner-shift
+    challenge: Move final evidence responsibility from versioned CI workflow to local/manual
+      unverifiable steps.
+    alternatives:
+    - versioned-ci-gates
+    - unversioned-local-gate
+  - strategy: reproducibility-perturbation
+    challenge: Allow completion to depend on unpinned/manual environment state.
+    alternatives:
+    - versioned-reproducible-gates
+    - environment-dependent-gate
+  decision_points:
+  - id: frontend-delivery-gate
+    alternatives:
+    - id: fast-automatic-heavy-explicit
+      difference: Ordinary development uses fast checks; final large-branch checkpoint
+        explicitly runs heavy build/E2E/full evidence.
+      material_effects:
+        gate-location: versioned-ci
+        authority: project-policy
+        reproducibility: high
+    - id: always-heavy
+      difference: Every ordinary push/PR update runs the full heavy suite.
+      material_effects:
+        gate-location: automatic-ci
+        authority: project-policy
+        reproducibility: high
+    - id: unversioned-local-gate
+      difference: Final validation is a human-local procedure outside versioned CI.
+      material_effects:
+        gate-location: local
+        authority: individual
+        reproducibility: low
+    - id: environment-dependent-gate
+      difference: Gate depends on unspecified mutable environment/tool state.
+      material_effects:
+        gate-location: mixed
+        authority: unclear
+        reproducibility: low
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - implementation-slice-shape
+  - initial-ordering
+  - source-module-topology
+  - contract-realization
+  - base-toolchain
+  - optional-spatial-dependency
+  - boundary-enforcement
+  - verification-layering
+  - deterministic-fast-enforcement
+  - frontend-delivery-gate
+  open_gaps: []

@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: application-frontend-architecture
+source_capability: prep.application-design
+target_capability: prep.frontend-system-architecture
+obligations:
+- id: direct-semantic-input
+  source_kind: application-invariant
+  subject: runtime-timing-freedom
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false

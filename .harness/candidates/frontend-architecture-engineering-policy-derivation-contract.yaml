@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: architecture-engineering-policy
+source_capability: prep.frontend-system-architecture
+target_capability: prep.frontend-engineering-policy
+obligations:
+- id: direct-semantic-input
+  source_kind: architecture-dependency
+  subject: frontend-dependency-direction
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false
