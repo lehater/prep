@@ -53,6 +53,41 @@ jobs:
                   print(f"===== SKILL {data['skill']} =====")
                   print((pack/data["skill"]).read_text())
           PY
+      - name: Inspect current frontend semantic closure
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          import yaml
+          from harness.application.project_publication import read_project_publication
+          from harness.application.semantic_closure import evaluate_semantic_closure
+          root=Path(os.environ["GITHUB_WORKSPACE"])
+          graph=yaml.safe_load((root/".harness/engineering-graph.yaml").read_text())
+          pub=read_project_publication(root/".harness/project-publication.yaml",graph=graph)
+          registry=yaml.safe_load((Path.cwd()/"skills/artifact-skill-registry-v0.yaml").read_text())
+          contracts=yaml.safe_load((Path.cwd()/"spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text())
+          decisions=yaml.safe_load((Path.cwd()/"spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml").read_text())
+          policy=yaml.safe_load((root/".harness/candidates/application-design-decision-policy.yaml").read_text())
+          for target in ("FRONTEND-PROTOTYPE","FRONTEND-IMPLEMENTATION"):
+              result=evaluate_semantic_closure(
+                  graph=graph,model=pub["state"]["core_model"],target=target,
+                  skill_registry=registry,
+                  semantic_evaluations=pub["state"]["semantic_evaluations"],
+                  lifecycle=pub["state"]["lifecycle"],
+                  knowledge_contracts=contracts,decision_contracts=decisions,
+                  decision_policy=policy,
+              )
+              print("===== "+target+" =====")
+              print(json.dumps({
+                  "status":result.get("status"),
+                  "semantic_gaps":result.get("semantic_gaps"),
+                  "currentness_gaps":result.get("currentness_gaps"),
+                  "revalidate":result.get("revalidate"),
+              },indent=2))
+          PY
+
       - name: Validate frontend consumer graph
         shell: bash
         run: |
