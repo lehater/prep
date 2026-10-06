@@ -40,7 +40,7 @@ export function supportAvailabilityLabel(
 export function knowledgeKindLabel(
   kind: "object" | "proposition",
 ): string {
-  return kind;
+  return kind === "object" ? "KnowledgeObject" : "KnowledgeProposition";
 }
 
 export function knowledgeFormLabel(form: string): string {
