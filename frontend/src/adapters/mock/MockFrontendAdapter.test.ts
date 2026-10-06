@@ -102,7 +102,7 @@ describe("MockFrontendAdapter semantic contract", () => {
 
     expect(outcome).toEqual({
       status: "rejected",
-      message: "Target source/context is required.",
+      message: "Нужно указать источник или контекст цели.",
       currentBasisRef: mockScenarioRefs.basis,
     });
   });
@@ -194,17 +194,17 @@ describe("MockFrontendAdapter semantic contract", () => {
     ]);
     expect(knowledge.requiredCapabilityLabel).toBe("System design");
     expect(knowledge.items.length).toBeGreaterThan(0);
-    expect(knowledge.items[0]?.related[0]?.label).toBe("Caching strategy");
+    expect(knowledge.items[0]?.related[0]?.label).toBe("Стратегия кэширования");
 
     const filtered = acceptedValue(
       await adapter.queryKnowledge({
         targetRef: mockScenarioRefs.targetPrimary,
         requiredCapabilityRef: mockScenarioRefs.capabilitySystemDesign,
         scope: "overview",
-        query: "Caching",
+        query: "кэш",
       }),
     );
-    expect(filtered.items.map((item) => item.label)).toEqual(["Caching strategy"]);
+    expect(filtered.items.map((item) => item.label)).toEqual(["Стратегия кэширования"]);
 
     for (const item of knowledge.items) {
       expect(item).not.toHaveProperty("x");
@@ -287,7 +287,7 @@ describe("MockFrontendAdapter semantic contract", () => {
       }),
     );
     expect(nowAvailable.map((item) => item.label)).toEqual([
-      "Behavioral decision story guide",
+      "Шаблон рассказа об инженерном решении",
     ]);
   });
 
@@ -320,7 +320,7 @@ describe("MockFrontendAdapter semantic contract", () => {
 
     expect(outcome).toEqual({
       status: "rejected",
-      message: "Unknown Target.",
+      message: "Неизвестная цель.",
       currentBasisRef: mockScenarioRefs.basis,
     });
   });
