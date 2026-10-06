@@ -25,11 +25,11 @@ const navigationItems: readonly {
   readonly destination: PreparationDestination;
   readonly label: string;
 }[] = [
-  { destination: "targets", label: "Targets" },
-  { destination: "target", label: "Target" },
-  { destination: "current", label: "Current position" },
-  { destination: "knowledge", label: "Knowledge" },
-  { destination: "activity", label: "Activity" },
+  { destination: "targets", label: "Цели" },
+  { destination: "target", label: "Цель" },
+  { destination: "current", label: "Текущее состояние" },
+  { destination: "knowledge", label: "Знания" },
+  { destination: "activity", label: "Практика" },
 ];
 
 export interface PreparationShellProps {
@@ -54,7 +54,7 @@ function StructuralPlaceholder({
 }) {
   return (
     <section className="task-view structural-placeholder" data-view={title.toLowerCase()}>
-      <p className="eyebrow">Structural destination</p>
+      <p className="eyebrow">Раздел недоступен</p>
       <h1>{title}</h1>
       {recoveryReason ? (
         <p className="recovery-message" role="status">
@@ -63,7 +63,7 @@ function StructuralPlaceholder({
       ) : null}
       <p>{description}</p>
       <p className="supporting-text">
-        This task surface is intentionally deferred to a later implementation slice.
+        Этот раздел будет реализован на следующем этапе.
       </p>
     </section>
   );
@@ -158,7 +158,7 @@ export function PreparationShell({
               candidateTargetRef,
               returnDestination: "target",
               motivatingContext:
-                "Resolve missing support needed for this Target preparation context.",
+                "Подготовить недостающую поддержку для этой цели.",
             })
           }
           onReconsiderDirection={() => navigate({ destination: "targets" })}
@@ -187,17 +187,17 @@ export function PreparationShell({
               candidateTargetRef: activeTargetRef,
               returnDestination: "current",
               motivatingContext:
-                "Prepare suitable support for the accepted Next focus.",
+                "Подготовить подходящую поддержку для выбранного фокуса.",
             })
           }
         />
       ) : (
         <StructuralPlaceholder
-          title="Target"
-          description="Establish a Target before reviewing current position."
+          title="Цель"
+          description="Сначала зафиксируйте цель, затем оценивайте текущее состояние."
           recoveryReason={
             recoveryReason ??
-            "Establish a Target before entering Target-dependent preparation work."
+            "Сначала зафиксируйте цель подготовки."
           }
         />
       );
@@ -213,7 +213,7 @@ export function PreparationShell({
       ) : (
         <StructuralPlaceholder
           title="Target"
-          description="Establish a Target before exploring Knowledge."
+          description="Сначала зафиксируйте цель, затем исследуйте знания."
           recoveryReason={
             recoveryReason ??
             "Establish a Target before entering Target-dependent preparation work."
@@ -237,7 +237,7 @@ export function PreparationShell({
                 candidateTargetRef: activeTargetRef,
                 returnDestination: "activity",
                 motivatingContext:
-                  "No suitable support is currently prepared for the accepted Next focus.",
+                  "Для выбранного фокуса пока нет подходящей поддержки.",
               })
             }
             onReviewEvidenceChange={(activityAttemptRef) =>
@@ -249,17 +249,17 @@ export function PreparationShell({
           />
         ) : (
           <StructuralPlaceholder
-            title={activeTargetRef ? "Current position" : "Target"}
+            title={activeTargetRef ? "Текущее состояние" : "Цель"}
             description={
               activeTargetRef
-                ? "Choose a Next focus before starting an Activity."
-                : "Establish a Target before starting an Activity."
+                ? "Перед началом практики выберите следующий фокус."
+                : "Перед началом практики зафиксируйте цель."
             }
             recoveryReason={
               recoveryReason ??
               (activeTargetRef
-                ? "Choose a Next focus before starting an Activity."
-                : "Establish a Target before entering Target-dependent preparation work.")
+                ? "Перед началом практики выберите следующий фокус."
+                : "Сначала зафиксируйте цель подготовки.")
             }
           />
         );
@@ -278,11 +278,11 @@ export function PreparationShell({
           />
         ) : (
           <StructuralPlaceholder
-            title={activeTargetRef ? "Activity" : "Target"}
-            description="A reviewable Activity result is required before opening Evidence & changes."
+            title={activeTargetRef ? "Практика" : "Цель"}
+            description="Для просмотра свидетельств и изменений нужен завершённый результат практики."
             recoveryReason={
               recoveryReason ??
-              "Complete a reviewable Activity attempt before opening Evidence & changes."
+              "Сначала завершите практику так, чтобы её результат можно было проверить."
             }
           />
         );
@@ -305,10 +305,10 @@ export function PreparationShell({
       const returnDestination = navigation.returnDestination ?? "target";
       const originLabel =
         returnDestination === "current"
-          ? "Current position"
+          ? "Текущее состояние"
           : returnDestination === "activity"
-            ? "Activity"
-            : "Target";
+            ? "Практика"
+            : "Цель";
 
       child = preparationTargetRef && preparationTarget ? (
         <PreparationSupportFeature
@@ -320,7 +320,7 @@ export function PreparationShell({
           semanticBasisRef={semanticBasisRef}
           motivatingContext={
             navigation.motivatingContext ??
-            "Resolve the current bounded missing-support need."
+            "Устранить текущий дефицит поддержки."
           }
           originLabel={originLabel}
           onReturn={() =>
@@ -335,10 +335,10 @@ export function PreparationShell({
       ) : (
         <StructuralPlaceholder
           title="Target"
-          description="Choose or establish a Target before requesting preparation support."
+          description="Сначала выберите или зафиксируйте цель подготовки."
           recoveryReason={
             recoveryReason ??
-            "Choose or establish a Target context before requesting preparation support."
+            "Сначала выберите или зафиксируйте цель подготовки."
           }
         />
       );
@@ -352,10 +352,10 @@ export function PreparationShell({
         <a className="brand" href="/" onClick={(event) => event.preventDefault()}>
           Prep
         </a>
-        <span className="prototype-label">Usability prototype</span>
+        <span className="prototype-label">Прототип для проверки удобства</span>
       </header>
 
-      <nav className="prep-navigation" aria-label="Preparation">
+      <nav className="prep-navigation" aria-label="Подготовка">
         {navigationItems.map((item) => (
           <button
             type="button"
@@ -370,14 +370,14 @@ export function PreparationShell({
         ))}
       </nav>
 
-      <section className="active-context" aria-label="Active preparation context">
+      <section className="active-context" aria-label="Текущий контекст подготовки">
         <div>
-          <span>Active Target</span>
-          <strong>{activeTarget?.label ?? "Not established"}</strong>
+          <span>Текущая цель</span>
+          <strong>{activeTarget?.label ?? "не выбрана"}</strong>
         </div>
         <div>
-          <span>Next focus</span>
-          <strong>{activeFocusRef ? "Selected" : "Not selected"}</strong>
+          <span>Следующий фокус</span>
+          <strong>{activeFocusRef ? "выбран" : "не выбран"}</strong>
         </div>
       </section>
 
