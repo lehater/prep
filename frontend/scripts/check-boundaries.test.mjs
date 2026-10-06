@@ -38,7 +38,19 @@ describe("frontend dependency boundaries", () => {
     expect(validateSourceTree(root)).toEqual([]);
   });
 
-  it("rejects feature imports of adapters and other feature private modules", () => {
+  it("allows stable shared semantic envelopes and another feature public contract", () => {
+    const root = fixture({
+      "features/contracts.ts": "export type Ref = string;",
+      "features/current-position/contract.ts":
+        'import type { Ref } from "../contracts"; export interface CurrentState { ref: Ref }',
+      "features/evidence-change/contract.ts":
+        'import type { Ref } from "../contracts"; import type { CurrentState } from "../current-position/contract"; export type Review = { ref: Ref; state: CurrentState };',
+    });
+
+    expect(validateSourceTree(root)).toEqual([]);
+  });
+
+  it("rejects feature imports of adapters and another feature private module", () => {
     const root = fixture({
       "features/target/index.ts":
         'import "../../adapters/mock"; import "../activity/private";',
@@ -48,18 +60,31 @@ describe("frontend dependency boundaries", () => {
 
     expect(validateSourceTree(root)).toEqual([
       'features/target/index.ts: "../../adapters/mock" violates boundary: task feature must not import a concrete adapter',
-      'features/target/index.ts: "../activity/private" violates boundary: task feature must not import another feature\'s private module',
+      'features/target/index.ts: "../activity/private" violates boundary: task feature may depend on another feature only through its public contract',
     ]);
   });
 
-  it("rejects shared presentation importing task state", () => {
+  it("rejects shared semantic contracts depending on task ownership", () => {
     const root = fixture({
-      "ui/Text.ts": 'import "../features/target/private";',
+      "features/contracts.ts": 'import "./target/private";',
       "features/target/private.ts": "export const value = 1;",
     });
 
     expect(validateSourceTree(root)).toEqual([
+      'features/contracts.ts: "./target/private" violates boundary: shared semantic contracts must remain dependency-free from app, feature, adapter, or UI ownership',
+    ]);
+  });
+
+  it("rejects shared presentation importing task state or semantic contracts", () => {
+    const root = fixture({
+      "ui/Text.ts": 'import "../features/target/private"; import "../features/contracts";',
+      "features/target/private.ts": "export const value = 1;",
+      "features/contracts.ts": "export type Ref = string;",
+    });
+
+    expect(validateSourceTree(root)).toEqual([
       'ui/Text.ts: "../features/target/private" violates boundary: shared presentation must not depend on task/application/provider state',
+      'ui/Text.ts: "../features/contracts" violates boundary: shared presentation must not depend on task/application/provider state',
     ]);
   });
 });

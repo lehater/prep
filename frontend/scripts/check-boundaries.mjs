@@ -67,14 +67,27 @@ function describeModule(relativePath) {
   const root = parts[0] ?? "";
 
   if (root === "features") {
-    return { layer: "feature", owner: parts[1] ?? "" };
+    const owner = parts[1] ?? "";
+    if (owner === "contracts" || owner === "contracts.ts") {
+      return { layer: "feature-contracts", owner: "", publicContract: true };
+    }
+
+    const leaf = parts[2] ?? "";
+    return {
+      layer: "feature",
+      owner,
+      publicContract:
+        leaf === "contract" ||
+        leaf === "contract.ts" ||
+        leaf === "contract.tsx",
+    };
   }
 
   if (root === "app" || root === "adapters" || root === "ui" || root === "test-support") {
-    return { layer: root, owner: "" };
+    return { layer: root, owner: "", publicContract: false };
   }
 
-  return { layer: "unknown", owner: "" };
+  return { layer: "unknown", owner: "", publicContract: false };
 }
 
 function normalizeInternalTarget(sourceRoot, fromFile, specifier) {
@@ -100,12 +113,25 @@ function edgeViolation(from, to) {
     if (to.layer === "app") {
       return "task feature must not depend on application composition";
     }
-    if (to.layer === "feature" && from.owner !== to.owner) {
-      return "task feature must not import another feature's private module";
+    if (
+      to.layer === "feature" &&
+      from.owner !== to.owner &&
+      !to.publicContract
+    ) {
+      return "task feature may depend on another feature only through its public contract";
     }
   }
 
-  if (from.layer === "ui" && ["app", "feature", "adapters"].includes(to.layer)) {
+  if (from.layer === "feature-contracts") {
+    if (to.layer !== "unknown" && to.layer !== "feature-contracts") {
+      return "shared semantic contracts must remain dependency-free from app, feature, adapter, or UI ownership";
+    }
+  }
+
+  if (
+    from.layer === "ui" &&
+    ["app", "feature", "feature-contracts", "adapters"].includes(to.layer)
+  ) {
     return "shared presentation must not depend on task/application/provider state";
   }
 
