@@ -294,6 +294,7 @@ export class MockFrontendAdapter
       targetRef,
       capabilities: rows.map((row) => ({
         capabilityRef: row.capabilityId,
+        capabilityLabel: capabilityLabel(row.capabilityId),
         state: row.stateCode,
         evidenceRefs: row.evidenceIds,
         limitations: row.limitationTexts.map(coverageLimit),
