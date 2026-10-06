@@ -134,7 +134,7 @@ jobs:
             "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" \
             "$GITHUB_WORKSPACE/.harness/core.yaml" \
             prep.interface-topology \
-            "$GITHUB_WORKSPACE/.harness/candidates/application-design-decision-policy.yaml" \
+            "$GITHUB_WORKSPACE/.harness/candidates/ui-materiality-decision-policy.yaml" \
             --lifecycle /tmp/prep-lifecycle.yaml
 
       - name: Probe full Harness currentness
