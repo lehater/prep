@@ -449,7 +449,9 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
   await query.fill("event loop");
   await expect(page.getByText("Показано 1 из 3")).toBeVisible();
   await expect(
-    page.getByRole("button", { name: /JavaScript Event Loop/ }),
+    page
+      .locator(".knowledge-table")
+      .getByRole("button", { name: /JavaScript Event Loop/ }),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Цель", exact: true }).click();
