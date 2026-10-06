@@ -1,8 +1,6 @@
 name: Heavy repository validation
 
 on:
-  push:
-    branches: [feat/compact-fixed-workspace]
   workflow_dispatch:
 
 permissions:
