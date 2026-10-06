@@ -44,7 +44,12 @@ function readStoredRatio(key: string, fallback: number): number {
     return fallback;
   }
 
-  const stored = Number(window.localStorage.getItem(key));
+  const raw = window.localStorage.getItem(key);
+  if (raw === null) {
+    return fallback;
+  }
+
+  const stored = Number(raw);
   return Number.isFinite(stored) ? stored : fallback;
 }
 
