@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.interface-topology
+target_capability: prep.system-architecture
+links:
+  - relation: CONSTRAINS
+    sources: [TOP-ROOT, TOP-VIEW-TARGETS, TOP-VIEW-TARGET, TOP-VIEW-CURRENT, TOP-VIEW-KNOWLEDGE, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE, TOP-VIEW-PREP-SUPPORT, TOP-CONTEXT, TOP-CROSSLINKS, TOP-EVIDENCE-REVIEW, TOP-DIRECT-LINK, TOP-LABELS, TOP-NO-COMPOSITION]
+    targets: [SA-RUNTIME-BOUNDARIES]
+dispositions: []

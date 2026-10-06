@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.system-architecture
+target_capability: prep.data-design
+links:
+  - relation: CONSTRAINS
+    sources: [SA-DRIVER-CLOSURE, SA-RUNTIME-BOUNDARIES, SA-DEPLOYMENT-FREEDOM, SA-INTERACTION-MODEL, SA-STATE-PLACEMENT, SA-DEPENDENCY-DIRECTION, SA-FAILURE-ISOLATION, SA-EXTERNAL-RUNTIME, SA-NONGOALS]
+    targets: [DD-OWNERSHIP]
+dispositions: []

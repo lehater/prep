@@ -1,0 +1,12 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.screen-view-design
+target_capability: prep.presentation-verification
+links:
+  - relation: CONSTRAINS
+    sources: [SV-FRAME, SV-TARGETS, SV-TARGET, SV-CURRENT, SV-KNOWLEDGE, SV-ACTIVITY, SV-EVIDENCE, SV-PREP-SUPPORT, SV-DETAIL, SV-RESPONSIVE, SV-PERFORMANCE, SV-NO-IMPLEMENTATION]
+    targets: [PV-SCOPE]
+  - relation: CONSTRAINS
+    sources: [SV-COMPOSITION-VARIANTS]
+    targets: [PV-COMPOSITION-VARIANTS]
+dispositions: []

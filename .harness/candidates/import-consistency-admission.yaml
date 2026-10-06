@@ -1,0 +1,61 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: IMPORT-CONSISTENCY
+capability: prep.import-consistency
+path: docs/architecture/import-consistency.md
+changed_paths:
+  - docs/architecture/import-consistency.md
+canonical_references:
+  - {artifact: IMPORT-CONSISTENCY, referenced_path: docs/application/application-design.md}
+  - {artifact: IMPORT-CONSISTENCY, referenced_path: docs/interface/machine-interface.md}
+
+semantic_assertions:
+  - id: IC-CURRENT-SCOPE
+    kind: consistency-boundary
+    subject: current-consistency-scope
+    semantic_value: "Import Consistency is the retained repository capability name for current cross-operation consistency, conflict and retry/idempotency semantics; it does not establish a production import, bulk-curation or Question/card subsystem."
+    derived_from: [AD-PREPARE-SUPPORT, AD-WRITE-OWNERSHIP, MI-NO-LEAK, MI-PROC-PREP]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+  - id: IC-OWNER-ATOMICITY
+    kind: consistency-atomicity
+    subject: owner-scoped-semantic-mutation
+    semantic_value: "One accepted mutation of one semantic owner is atomic at the semantic boundary, while APP-PREPARE-SUPPORT does not create a cross-owner distributed transaction or global rollback boundary."
+    derived_from: [AD-WRITE-OWNERSHIP, AD-PARTIAL-PREPARATION, MI-PROC-PREP]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+  - id: IC-PARTIAL-PREPARATION
+    kind: consistency-partial-result
+    subject: preparation-support-partial-result
+    semantic_value: "Independently accepted owner-scoped preparation results remain accepted when peer candidates are unresolved or rejected; unresolved/rejected remainder stays explicit rather than compensating valid peer-owner writes."
+    derived_from: [AD-PARTIAL-PREPARATION, AD-PREPARE-SUPPORT, MI-PROC-PREP]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+  - id: IC-CURRENTNESS-CONFLICT
+    kind: consistency-conflict
+    subject: stale-semantic-basis
+    semantic_value: "A dependent mutation whose material target/evidence/focus basis changed is not applied silently; STALE_BASIS requires refresh/reconsideration and incompatible concurrent owner writes never default to unqualified last-writer-wins."
+    derived_from: [AD-CURRENTNESS-BASIS, AD-OUTCOME-MODEL, MI-BASIS, MI-OUTCOME-MODEL]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+  - id: IC-RETRY-IDEMPOTENCY
+    kind: consistency-retry
+    subject: semantic-operation-replay
+    semantic_value: "There is no application-level automatic retry policy; continuation/retry may reuse the same semantic operation identity only while its required basis remains current, and replay must not fabricate an additional accepted effect merely because transport or dependency delivery repeated."
+    derived_from: [AD-OUTCOME-MODEL, AD-RUNTIME-TIMING-FREEDOM, MI-BASIS, MI-REP-ACTIVITY, MI-PROC-ACTIVITY, MI-PROC-PREP]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+  - id: IC-DISTINCT-PERFORMANCE
+    kind: consistency-invariant
+    subject: retry-versus-new-performance
+    semantic_value: "Retry/idempotency must not collapse genuinely distinct learner executions: a new semantic execution remains a new Performance even when provider/runtime payloads look similar."
+    derived_from: [AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, MI-REP-ACTIVITY]
+    decision_authority: CONCURRENCY-CONSISTENCY-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - consistency-not-domain-or-topology-owner

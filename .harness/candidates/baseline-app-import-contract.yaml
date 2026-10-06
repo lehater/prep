@@ -1,0 +1,12 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.application-design
+target_capability: prep.import-consistency
+obligations:
+  - {id: source-1-application-materialization, source_kind: application-materialization, min_count: 1, allow_not_applicable: true}
+  - {id: source-2-application-operation, source_kind: application-operation, min_count: 1, allow_not_applicable: true}
+  - {id: source-3-application-orchestration, source_kind: application-orchestration, min_count: 1, allow_not_applicable: true}
+  - {id: source-4-application-invariant, source_kind: application-invariant, min_count: 1, allow_not_applicable: true}
+  - {id: source-5-application-outcome, source_kind: application-outcome, min_count: 1, allow_not_applicable: true}
+lifecycle_dependency:
+  exhaustive: true

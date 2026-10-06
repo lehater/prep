@@ -1,0 +1,149 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: SYSTEM-ARCHITECTURE
+capability: prep.system-architecture
+path: docs/architecture/system-architecture.md
+changed_paths:
+  - docs/architecture/system-architecture.md
+canonical_references:
+  - {artifact: SYSTEM-ARCHITECTURE, referenced_path: docs/application/application-design.md}
+  - {artifact: SYSTEM-ARCHITECTURE, referenced_path: docs/interface/interaction-design.yaml}
+  - {artifact: SYSTEM-ARCHITECTURE, referenced_path: docs/interface/interface-topology.yaml}
+  - {artifact: SYSTEM-ARCHITECTURE, referenced_path: docs/interface/machine-interface.md}
+  - {artifact: SYSTEM-ARCHITECTURE, referenced_path: docs/architecture/import-consistency.md}
+
+decision_review:
+  axes:
+    - axis: runtime-boundaries
+      decisions:
+        - id: system-runtime-boundary
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: semantic-context-runtimes, state: REJECTED, rationale: "No accepted driver requires network/process separation per semantic context."}
+            - {id: human-interface-plus-application-boundary, state: VIABLE}
+            - {id: interface-owned-domain-runtime, state: REJECTED, rationale: "Would let presentation/runtime ownership collapse accepted semantic write boundaries."}
+          disposition: DETERMINED
+          selected: human-interface-plus-application-boundary
+    - axis: deployment-topology
+      decisions:
+        - id: system-deployment-topology
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: fixed-multi-container, state: REJECTED, rationale: "Concrete container count is not required by accepted upstream behavior."}
+            - {id: logical-boundaries-packaging-free, state: VIABLE}
+            - {id: per-context-microservices, state: REJECTED, rationale: "Adds deployment/coordination complexity without an accepted driver."}
+          disposition: DETERMINED
+          selected: logical-boundaries-packaging-free
+    - axis: interaction-model
+      decisions:
+        - id: system-interaction-model
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: contract-driven-operations, state: VIABLE}
+            - {id: mandatory-event-bus, state: REJECTED, rationale: "No accepted independent asynchronous lifecycle requires a broker."}
+            - {id: direct-persistence-ui, state: REJECTED, rationale: "Bypasses accepted Machine Interface/Application ownership."}
+          disposition: DETERMINED
+          selected: contract-driven-operations
+    - axis: state-placement
+      decisions:
+        - id: system-state-placement
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: application-side-canonical, state: VIABLE}
+            - {id: client-canonical, state: REJECTED, rationale: "Contradicts semantic owner/write boundaries."}
+            - {id: replicated-per-context-authorities, state: REJECTED, rationale: "Introduces replication/consistency complexity without an accepted driver."}
+          disposition: DETERMINED
+          selected: application-side-canonical
+    - axis: dependency-direction
+      decisions:
+        - id: system-dependency-direction
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: inward-contract-dependencies, state: VIABLE}
+            - {id: framework-owned-domain, state: REJECTED, rationale: "Would make framework/provider details semantic owners."}
+            - {id: ui-to-infrastructure, state: REJECTED, rationale: "Bypasses machine/application contracts."}
+          disposition: DETERMINED
+          selected: inward-contract-dependencies
+    - axis: failure-isolation
+      decisions:
+        - id: system-failure-isolation
+          owner_authority: SYSTEM-ARCHITECTURE
+          alternatives:
+            - {id: typed-boundary-isolation, state: VIABLE}
+            - {id: global-rollback, state: REJECTED, rationale: "Conflicts with accepted owner-scoped partial results and historical evidence."}
+            - {id: fire-and-forget, state: REJECTED, rationale: "Would erase currentness/outcome semantics."}
+          disposition: DETERMINED
+          selected: typed-boundary-isolation
+
+semantic_assertions:
+  - id: SA-DRIVER-CLOSURE
+    kind: architecture-driver
+    subject: current-architecture-driver-closure
+    semantic_value: "Current accepted semantics require human-interface/application ownership separation, transport-neutral operation contracts, application-side canonical ownership, typed failure/currentness behavior and consistency preservation, but do not require microservices, a broker, fixed containers, a database product or provider-specific external runtime."
+    derived_from: [AD-WRITE-OWNERSHIP, AD-RUNTIME-TIMING-FREEDOM, IX-NO-LAYOUT, TOP-NO-COMPOSITION, MI-NO-LEAK, IC-CURRENT-SCOPE]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-RUNTIME-BOUNDARIES
+    kind: architecture-structure
+    subject: human-interface-application-runtime-boundary
+    semantic_value: "The architecture preserves a human-interface consumer boundary and one application/domain execution boundary; semantic model contexts remain logical ownership boundaries and are not separate runtimes by default."
+    derived_from: [AD-WRITE-OWNERSHIP, IX-CONTEXT-CONTINUITY, TOP-ROOT, MI-NO-LEAK]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-DEPLOYMENT-FREEDOM
+    kind: architecture-structure
+    subject: deployment-packaging-freedom
+    semantic_value: "Architecture fixes logical responsibility/dependency boundaries but does not require Docker, a specific process/container count, per-context services or a deployment orchestrator; concrete packaging remains downstream until an accepted driver changes it."
+    derived_from: [AD-RUNTIME-TIMING-FREEDOM, TOP-NO-COMPOSITION, MI-NO-LEAK]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-INTERACTION-MODEL
+    kind: architecture-interaction
+    subject: contract-driven-operations
+    semantic_value: "Human-interface consumers use accepted Machine Interface operations and bounded continuation/currentness semantics; synchronous or asynchronous realization is allowed only when the same semantic outcomes and identity are preserved."
+    derived_from: [AD-RUNTIME-TIMING-FREEDOM, IX-OUTCOMES, IX-CURRENTNESS, MI-OUTCOME-MODEL, MI-BASIS, MI-COMPATIBILITY]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-STATE-PLACEMENT
+    kind: architecture-state
+    subject: canonical-state-placement
+    semantic_value: "Canonical target/Knowledge/Learning/Learner meaning remains behind application/domain semantic owners; human-interface state is ephemeral presentation/navigation/cache state and physical persistence is a downstream Data Design responsibility."
+    derived_from: [AD-WRITE-OWNERSHIP, IX-CONTEXT-CONTINUITY, MI-NO-LEAK, IC-OWNER-ATOMICITY]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-DEPENDENCY-DIRECTION
+    kind: architecture-dependency
+    subject: inward-contract-dependencies
+    semantic_value: "Human-interface adapters depend on machine/application contracts; application depends on domain/model-context semantics; persistence and supported external-runtime adapters implement inward-facing contracts rather than defining semantic truth."
+    derived_from: [AD-WRITE-OWNERSHIP, TOP-NO-COMPOSITION, MI-NO-LEAK, MI-COMPATIBILITY, IC-CURRENT-SCOPE]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-FAILURE-ISOLATION
+    kind: architecture-failure
+    subject: dependency-and-semantic-failure-isolation
+    semantic_value: "Dependency or operational failure remains distinct from semantic rejection/currentness; owner-scoped partial results and accepted historical facts are preserved instead of global rollback or fire-and-forget completion."
+    derived_from: [AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, IX-OUTCOMES, MI-OUTCOME-MODEL, IC-PARTIAL-PREPARATION, IC-CURRENTNESS-CONFLICT, IC-RETRY-IDEMPOTENCY]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-EXTERNAL-RUNTIME
+    kind: architecture-integration
+    subject: external-learning-runtime-boundary
+    semantic_value: "Supported external learning execution is an optional adapter boundary preserving semantic attempt correlation, actual conditions/assistance, provenance and accepted outcomes; provider/protocol/host-route details are not architecture identity."
+    derived_from: [AD-PERFORM-ACTIVITY, MI-REP-ACTIVITY, MI-COMPATIBILITY, IC-RETRY-IDEMPOTENCY]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+  - id: SA-NONGOALS
+    kind: architecture-invariant
+    subject: architecture-nongoals
+    semantic_value: "Current architecture does not establish per-context microservices, a broker, distributed transactions, production import/curation, Question/Anki-specific topology, direct UI persistence access, concrete database/transport/container technology, multi-tenant topology or HA/recovery machinery absent accepted requirements."
+    derived_from: [AD-WRITE-OWNERSHIP, MI-NO-LEAK, IC-CURRENT-SCOPE, IC-OWNER-ATOMICITY]
+    decision_authority: SYSTEM-ARCHITECTURE
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - architecture-not-product-requirement
+    - dependency-topology-explicit-where-material

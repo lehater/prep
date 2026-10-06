@@ -1,0 +1,11 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.import-consistency
+target_capability: prep.system-architecture
+obligations:
+  - id: source-surface
+    source_kind: consistency-boundary
+    min_count: 1
+    allow_not_applicable: true
+lifecycle_dependency:
+  exhaustive: true

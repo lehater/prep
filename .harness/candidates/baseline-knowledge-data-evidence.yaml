@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.knowledge-model
+target_capability: prep.data-design
+links:
+  - relation: CONSTRAINS
+    sources: [KM-KNOWLEDGE-FAMILY, KM-KNOWLEDGE-OBJECT-IDENTITY, KM-KNOWLEDGE-PROPOSITION, KM-RELATIONAL-PROPOSITION, KM-OPEN-KNOWLEDGE-FORM, KM-SCOPE-OVERVIEW-DEPTH, KM-CROSS-CONTEXT-BOUNDARY, KM-BOOTSTRAP-CORRECTION, KM-GRAPH-IS-PROJECTION]
+    targets: [DD-KNOWLEDGE]
+dispositions: []

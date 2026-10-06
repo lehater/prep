@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.interface-verification
+target_capability: prep.presentation-verification
+links:
+  - relation: CONSTRAINS
+    sources: [IV-SCOPE, IV-TASK-INTERACTION, IV-IA-TOPOLOGY, IV-TARGET-DIRECTION, IV-PREPARATION-SUPPORT, IV-KNOWLEDGE, IV-ACTIVITY-EVIDENCE, IV-OUTCOME-RECOVERY, IV-NONSPATIAL]
+    targets: [PV-SCOPE]
+dispositions: []

@@ -1,56 +1,90 @@
 # Import Consistency
 
+## Purpose
+
+Define the consistency, conflict and retry/idempotency semantics required by the currently accepted Prep application and machine operations.
+
+The artifact and CapabilityId retain the historical name `IMPORT-CONSISTENCY` / `prep.import-consistency` for repository compatibility. The current contract does **not** establish a production import subsystem, bulk-import product behavior, a curator workflow, or import-specific domain identity.
+
 ## Scope
 
-Define the minimum correctness semantics required by repeated and partially successful prepared-data imports.
+This contract applies where repeated, concurrent, partial or resumed execution can otherwise change accepted meaning incorrectly:
+
+- owner-scoped acceptance during preparation-support work;
+- dependent mutations guarded by a semantic currentness basis;
+- activity-attempt completion and capture/evidence continuation;
+- supported external-runtime continuation or replay;
+- any later machine operation that explicitly adopts this contract.
+
+Read-only projections do not require consistency machinery beyond preserving the accepted semantic basis they report.
 
 ## Protected constraints
 
-- repeated delivery of one logical import unit must not create duplicate canonical objects;
-- valid peer items survive rejection of invalid items;
-- unresolved references cannot be accepted as valid relationships or alignments;
-- canonical domain invariants remain authoritative.
+- A semantic write is accepted only by the Authority that owns the affected meaning.
+- Independently accepted owner-scoped preparation results are not rolled back because another candidate remains unresolved or rejected.
+- A command whose material target/evidence/focus basis is stale must not silently apply to different meaning.
+- Replay of the same semantic operation must not create duplicate accepted effects merely because transport or dependency delivery was repeated.
+- A genuinely new learner execution is a new `Performance`; retry/idempotency must never collapse distinct executions into one event.
+- Historical facts already accepted as `Performance`/`Observation` are not compensated away merely because later evidence inference is unresolved or rejected.
 
 ## Atomicity
 
-The bulk container is not an atomic transaction. Each item is an independent application unit.
+Atomicity is owner-scoped.
 
-An individual item is applied atomically: it is accepted as one unit or rejected without leaving a partially applied form of that item.
+One accepted mutation of one semantic owner is applied as one logical unit or rejected without a partially accepted form of that mutation.
 
-## Idempotency
+`APP-PREPARE-SUPPORT` may coordinate several semantic owners. The accepted contract is partial-result semantics, not one global transaction:
 
-Item identity is resolved in priority order:
+- accepted owner-scoped results remain accepted;
+- rejected/unresolved candidates remain explicit;
+- failure of one owner does not imply rollback of valid peer-owner results.
 
-1. explicit canonical Prep ID;
-2. stable producer/import key;
-3. deterministic technical fingerprint fallback.
+No cross-owner distributed transaction is established.
 
-Repeated delivery resolving to the same canonical/import identity reconciles with the existing unit rather than creating another logical object.
+## Currentness and conflict
 
-A stable import key survives content correction. A fingerprint does not: changing identity-bearing content changes the fingerprint and may create a new unit.
+Commands that depend on target/evidence/focus meaning use the accepted semantic basis exposed by the Application/Machine Interface contracts.
 
-## Technical fingerprints
+If material basis changed before mutation:
 
-Fingerprints are technical duplicate guards, not semantic comparison.
+- return `STALE_BASIS`;
+- preserve the user's pending intent/context where possible;
+- require refresh/reconsideration before applying to new meaning.
 
-They derive from versioned deterministic canonicalization of identity-bearing representation fields followed by a stable hash algorithm.
+Concurrent commands that propose incompatible changes to the same owner-controlled meaning must not silently become last-writer-wins. The owning semantic contract decides whether one proposal is rejected, unresolved, or requires a later explicit reconciliation policy.
 
-For Question fallback identity, normalized question text is sufficient for the current contract. Unicode normalization, leading/trailing whitespace removal and whitespace normalization are permitted. Case folding, punctuation removal, stemming, embeddings, LLM similarity or fuzzy transformations are not implied.
+## Retry and idempotency
 
-The fingerprint algorithm/canonicalization version must be recoverable when changing it could alter duplicate recognition.
+Prep defines semantic retry behavior, not transport retry machinery.
 
-## Concurrent and repeated import
+- There is no accepted application-level automatic retry policy.
+- `DEPENDENCY_UNAVAILABLE` may be retried/continued only while the semantic operation identity and its required basis remain valid.
+- Where a command already carries semantic identity such as an activity-attempt reference or preparation-request reference, replay of the same command identity must not fabricate an additional accepted semantic event.
+- Technical request/job/delivery identifiers may support realization but never become domain identity.
+- If an implementation cannot prove that an incoming operation is a replay rather than a new semantic action, it must not silently deduplicate a potentially distinct learner execution.
 
-Two executions attempting to create the same resolved import identity must not both create canonical duplicates. Downstream persistence/architecture must provide atomic uniqueness at that technical identity boundary.
+## External runtime boundary
 
-If two executions target the same stable identity with different content, silent last-writer-wins is not accepted. The operation surfaces a conflict unless a later reconciliation/version rule explicitly replaces this policy.
+A supported external runtime may pause, resume or repeat delivery. Translation into canonical `Performance`/`Observation` remains governed by the Learner Model: attribution, actual conditions, time, provenance and semantic meaning must be preserved.
 
-## Outcome accounting
+External provider identifiers may assist correlation inside an adapter. They do not replace Prep semantic identities and do not establish provider-specific domain entities.
 
-Every accepted bulk request accounts for each item as created, updated, duplicate-skipped or rejected. Counts reconcile with received items.
+## Deliberately not established
 
-Rejected items retain a machine-visible reason and item reference sufficient for correction and retry.
+This contract does not establish:
+
+- Question/card identity;
+- normalized-question-text fingerprints;
+- generic semantic fingerprint deduplication;
+- bulk import schemas or per-item import outcome taxonomies;
+- a production corpus-curation/import subsystem;
+- storage uniqueness/index/locking mechanisms;
+- queue/job topology;
+- automatic retry schedules;
+- cross-owner rollback or compensation.
+
+Physical realization belongs to Data Design / Implementation Design where required by this contract.
 
 ## Reopening conditions
 
-Revisit this contract if imports gain cross-item transactions, asynchronous delivery, accepted merge semantics for concurrent writers, semantic deduplication, or source synchronization beyond repeated prepared-data import.
+Revisit this contract if accepted capabilities introduce a real import/synchronization product surface, cross-owner atomic transactions, asynchronous delivery with independent lifecycle, merge/reconciliation semantics, offline synchronization, or new concurrent-write correctness constraints.

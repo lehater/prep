@@ -1,0 +1,84 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: INTERFACE-VERIFICATION
+capability: prep.interface-verification
+path: docs/verification/interface-verification.md
+changed_paths:
+  - docs/verification/interface-verification.md
+canonical_references:
+  - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/application/task-model.yaml}
+  - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/interface/information-architecture.yaml}
+  - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/interface/interaction-design.yaml}
+  - {artifact: INTERFACE-VERIFICATION, referenced_path: docs/interface/interface-topology.yaml}
+
+semantic_assertions:
+  - id: IV-SCOPE
+    kind: verification-strategy
+    subject: interface-verification-boundary
+    semantic_value: "Interface Verification verifies the accepted Task Model, Information Architecture, Interaction Design and Interface Topology before concrete presentation composition; Screen/View, renderer, backend transport and persistence are downstream."
+    derived_from: [TM-GOAL-PREPARE, IA-NO-SCREEN, IX-NO-LAYOUT, TOP-NO-COMPOSITION]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-TASK-INTERACTION
+    kind: verification-check
+    subject: user-task-interaction-coverage
+    semantic_value: "Every USER task must have accepted interaction coverage or an explicit disposition without inventing additional user work."
+    derived_from: [TM-GOAL-PREPARE, TM-GOAL-TARGET-DIRECTION, TM-GOAL-SUPPORT, IX-TARGET-DIRECTION, IX-TARGET, IX-DIRECTION, IX-KNOWLEDGE, IX-ACTIVITY, IX-PREP-SUPPORT]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-IA-TOPOLOGY
+    kind: verification-check
+    subject: information-topology-closure
+    semantic_value: "Interaction contexts must resolve through accepted Information Architecture into a valid Interface Topology whose parent, exit, context and location references close."
+    derived_from: [IA-ROOT, IA-STRUCTURE, IA-CROSSLINKS, IX-CONTEXT-CONTINUITY, TOP-ROOT, TOP-CONTEXT, TOP-CROSSLINKS, TOP-DIRECT-LINK]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-TARGET-DIRECTION
+    kind: verification-check
+    subject: target-direction-integrity
+    semantic_value: "Target comparison/setup/direction interactions preserve purpose, target-specific requirements, evidence-backed state and unresolved direction without turning target refinement into learner progress."
+    derived_from: [TM-TASK-COMPARE-TARGETS, TM-TASK-ESTABLISH-TARGET, TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, IX-TARGET-DIRECTION, IX-TARGET, IX-DIRECTION, TOP-VIEW-TARGETS, TOP-VIEW-TARGET, TOP-VIEW-CURRENT]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-PREPARATION-SUPPORT
+    kind: verification-check
+    subject: preparation-support-continuity
+    semantic_value: "Missing preparation support can route through learner-facing preparation and return to the motivating target/focus with partial/unresolved outcomes explicit, without requiring a production import/curation workflow."
+    derived_from: [TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, IA-LOC-PREP-SUPPORT, IX-PREP-SUPPORT, TOP-VIEW-PREP-SUPPORT]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-KNOWLEDGE
+    kind: verification-check
+    subject: knowledge-orientation-integrity
+    semantic_value: "Knowledge orientation preserves semantic scope/detail/relation meaning and reversible Capability-bounded scope without making spatial representation or projection state into Knowledge truth."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE, IX-KNOWLEDGE, TOP-VIEW-KNOWLEDGE]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-ACTIVITY-EVIDENCE
+    kind: verification-check
+    subject: activity-evidence-integrity
+    semantic_value: "Support/activity semantics remain distinct from evidence conclusions; learning/practice/diagnostic/retention/transfer completion, feedback or repetition cannot by themselves establish learner capability."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-EVALUATE-EVIDENCE, IX-ACTIVITY, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE, TOP-EVIDENCE-REVIEW]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-OUTCOME-RECOVERY
+    kind: verification-check
+    subject: state-outcome-recovery
+    semantic_value: "Unknown/challenged and unresolved/rejected/dependency-unavailable/stale-basis outcomes remain distinguishable and recovery preserves enough target/focus context for explicit continuation or reconsideration."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-SELECT-SUPPORT, IX-OUTCOMES, IX-CURRENTNESS, IX-CONTEXT-CONTINUITY, TOP-CONTEXT]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: IV-NONSPATIAL
+    kind: verification-check
+    subject: nonspatial-direct-access
+    semantic_value: "Task-critical interface semantics remain completable without pointer hover, drag, camera manipulation or spatial graph dependence, and direct access restores accepted target/focus context."
+    derived_from: [IX-KEYBOARD, TOP-DIRECT-LINK, TOP-CONTEXT, TOP-NO-COMPOSITION]
+    decision_authority: VERIFICATION-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - verification-not-semantic-owner

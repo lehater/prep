@@ -1,0 +1,11 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.presentation-system
+target_capability: prep.presentation-verification
+obligations:
+  - id: source-surface
+    source_kind: presentation-principle
+    min_count: 1
+    allow_not_applicable: true
+lifecycle_dependency:
+  exhaustive: true

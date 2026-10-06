@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.learner-model
+target_capability: prep.data-design
+links:
+  - relation: CONSTRAINS
+    sources: [LM-PERFORMANCE, LM-OBSERVATION, LM-CAPABILITY-CLAIM, LM-EVIDENCE-ARGUMENT, LM-NO-FUNDAMENTAL-WARRANT, LM-STATE-PROJECTION, LM-TEMPORAL-TRANSFER, LM-TARGET-RELATIVE-PROJECTION, LM-INDIVIDUAL-ATTRIBUTION, LM-KNOWLEDGE-BOUNDARY, LM-INTEGRATION-BOUNDARY]
+    targets: [DD-LEARNER-HISTORY]
+dispositions: []

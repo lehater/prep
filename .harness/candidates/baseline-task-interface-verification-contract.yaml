@@ -1,0 +1,11 @@
+version: 1
+kind: harness-semantic-derivation-contract
+source_capability: prep.task-model
+target_capability: prep.interface-verification
+obligations:
+  - id: source-surface
+    source_kind: task-goal
+    min_count: 1
+    allow_not_applicable: true
+lifecycle_dependency:
+  exhaustive: true
