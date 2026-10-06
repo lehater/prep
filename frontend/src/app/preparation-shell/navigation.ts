@@ -1,15 +1,17 @@
-import type { FocusRef, TargetRef } from "../../features/contracts";
+import type { CapabilityRef, FocusRef, TargetRef } from "../../features/contracts";
 
 export type PreparationDestination =
   | "targets"
   | "target"
   | "current"
   | "knowledge"
-  | "activity";
+  | "activity"
+  | "prepare-support";
 
 export interface PreparationNavigationRequest {
   readonly destination: PreparationDestination;
   readonly candidateTargetRef?: TargetRef;
+  readonly requiredCapabilityRef?: CapabilityRef;
 }
 
 export interface PreparationNavigationContext {
