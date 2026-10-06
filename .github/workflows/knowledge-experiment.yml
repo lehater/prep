@@ -42,3 +42,7 @@ jobs:
       - name: Build preserved knowledge experiment
         working-directory: experiments/knowledge_representation
         run: npm run build
+
+      - name: Build preserved knowledge experiment Storybook
+        working-directory: experiments/knowledge_representation
+        run: npm run build-storybook
