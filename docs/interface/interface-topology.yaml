@@ -10,7 +10,7 @@ views:
     interaction_context_refs: []
     parent: ROOT
     entries: [application-entry]
-    exits: [VIEW-TARGETS, VIEW-TARGET, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-EVIDENCE-CHANGE]
+    exits: [VIEW-TARGETS, VIEW-TARGET, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY]
 
   - id: VIEW-TARGETS
     structural: false
@@ -37,7 +37,7 @@ views:
     interaction_context_refs: [IX-DIRECTION]
     parent: FRAME-PREPARATION
     entries: [VIEW-TARGET, VIEW-EVIDENCE-CHANGE, direct-link-with-target-context]
-    exits: [VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-EVIDENCE-CHANGE, VIEW-PREPARE-SUPPORT]
+    exits: [VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-PREPARE-SUPPORT]
 
   - id: VIEW-KNOWLEDGE
     structural: false
@@ -59,11 +59,11 @@ views:
 
   - id: VIEW-EVIDENCE-CHANGE
     structural: false
-    responsibility: Inspect activity evidence/why-this-state and review what changed or remained unresolved.
+    responsibility: Review evaluated evidence/change for one completed or reviewable activity result and choose the next continuation.
     ia_location_ref: LOC-EVIDENCE-CHANGES
     interaction_context_refs: [IX-ACTIVITY]
     parent: FRAME-PREPARATION
-    entries: [VIEW-ACTIVITY, VIEW-CURRENT, direct-link-with-target-context]
+    entries: [VIEW-ACTIVITY, direct-link-with-reviewed-activity-context]
     exits: [VIEW-CURRENT, VIEW-ACTIVITY, VIEW-KNOWLEDGE]
 
   - id: VIEW-PREPARE-SUPPORT
@@ -79,11 +79,13 @@ navigation_contracts:
   - id: TOP-ACTIVE-TARGET
     rule: VIEW-TARGETS may compare candidate Targets without an active Target; VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY and VIEW-EVIDENCE-CHANGE require an active Target context, and a direct link without resolvable Target context routes to VIEW-TARGET rather than inventing one.
   - id: TOP-ACTIVE-FOCUS
-    rule: VIEW-ACTIVITY requires an explicit Next focus; entry without one routes to VIEW-CURRENT so the user can choose/revise focus. VIEW-KNOWLEDGE and VIEW-EVIDENCE-CHANGE may exist without a focus.
+    rule: VIEW-ACTIVITY requires an explicit Next focus; entry without one routes to VIEW-CURRENT so the user can choose/revise focus. VIEW-KNOWLEDGE may exist without a focus. VIEW-EVIDENCE-CHANGE preserves the originating focus when present but may review a resolved historical activity result without making a current focus mandatory.
+  - id: TOP-EVIDENCE-REVIEW
+    rule: VIEW-EVIDENCE-CHANGE is a contextual post-activity result review, not a primary/global destination. Current-state why-this-state inspection remains inside VIEW-CURRENT; direct entry to evidence/change requires resolvable reviewed activity/evidence context.
   - id: TOP-PREP-RETURN
     rule: VIEW-PREPARE-SUPPORT is contextual rather than primary global navigation; it preserves an originating view/context and returns there after review of accepted support/remainder.
   - id: TOP-DIRECT-LINK
-    rule: Direct links preserve referenced target/focus/knowledge/evidence identity where valid; Target-to-Knowledge entry may additionally preserve a selected Required Capability as local Knowledge-scope context, but no link silently creates missing semantic context.
+    rule: Direct links preserve referenced target/focus/knowledge identity where valid; Evidence/change direct links additionally require a resolvable reviewed activity/evidence context. Target-to-Knowledge entry may preserve a selected Required Capability as local Knowledge-scope context, but no link silently creates missing semantic context.
 
 coverage:
   user_tasks:

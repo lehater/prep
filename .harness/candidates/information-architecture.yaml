@@ -2,26 +2,34 @@ version: 1
 kind: information-architecture-design
 id: PREP-INFORMATION-ARCHITECTURE
 
-purpose: Organize the accepted user-facing preparation concepts so the learner can find target meaning, current position, knowledge, activity and evidence without exposing backend/domain structure or deciding screens.
+purpose: Organize the accepted user-facing preparation concepts so the learner can find target meaning, current position, knowledge and activity, while contextual evidence/change review remains reachable from the work that produced it, without exposing backend/domain structure or deciding screens.
 
 root:
   id: LOC-ACTIVE-PREPARATION
   label: Preparation
-  purpose: Keep the active target and current preparation direction coherent while the learner moves among target understanding, current position, knowledge, activities and evidence.
+  purpose: Keep the active target and current preparation direction coherent while the learner moves among target understanding, current position, knowledge and activities; evaluated activity evidence/change review is contextual rather than a peer global destination.
   conceptual_refs: [C-TARGET, C-CURRENT-STATE, C-NEXT-FOCUS]
   scope: active-preparation
   children:
+    - LOC-TARGETS
     - LOC-TARGET
     - LOC-CURRENT-POSITION
     - LOC-KNOWLEDGE
     - LOC-ACTIVITIES
-    - LOC-EVIDENCE-CHANGES
 
 locations:
+  - id: LOC-TARGETS
+    label: Targets
+    purpose: Compare plausible preparation Targets against the same evidence-backed learner capability basis, preserving shared versus target-specific requirements, per-target current-state interpretation, gaps and uncertainty before choosing a direction.
+    conceptual_refs: [C-TARGET-COMPARISON, C-TARGET, C-CURRENT-STATE, C-GAP]
+    task_refs: [TASK-U-COMPARE-TARGETS]
+    journey_refs: [J-TARGET-DIRECTION]
+    scope: candidate-target-direction
+
   - id: LOC-TARGET
     label: Target
-    purpose: Establish/select/refine the active target and understand its requirements, required capabilities, conditions, quality and uncertainty.
-    conceptual_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY]
+    purpose: Establish/select/refine the active target and understand its requirements, required capabilities, conditions, quality, direct Knowledge focus and uncertainty.
+    conceptual_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY, C-KNOWLEDGE]
     task_refs: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]
     journey_refs: [J-TARGET-SETUP]
     scope: active-preparation
@@ -36,7 +44,7 @@ locations:
 
   - id: LOC-KNOWLEDGE
     label: Knowledge
-    purpose: Orient within reusable Subject Knowledge relevant to the active target/focus, including semantic relationships and overview-to-detail scope.
+    purpose: Orient within reusable Subject Knowledge relevant to the active target/focus or a selected Required Capability, including semantic relationships and overview-to-detail scope.
     conceptual_refs: [C-KNOWLEDGE, C-KNOWLEDGE-SCOPE, C-REQUIRED-CAPABILITY]
     task_refs: [TASK-U-EXPLORE-KNOWLEDGE]
     journey_refs: [J-KNOWLEDGE-ORIENTATION]
@@ -44,7 +52,7 @@ locations:
 
   - id: LOC-ACTIVITIES
     label: Activities
-    purpose: Find support appropriate to the current PreparationIntent and carry out learning, practice or diagnostic activity while retaining target/focus context.
+    purpose: Find contextually suitable support for the current PreparationIntent and learner basis, then carry out learning/practice/diagnostic/retention/transfer activity as applicable while retaining target/focus context.
     conceptual_refs: [C-NEXT-FOCUS, C-SUPPORT, C-ACTIVITY]
     task_refs: [TASK-U-SELECT-SUPPORT, TASK-U-PERFORM-ACTIVITY]
     journey_refs: [J-ACTIVITY-EVIDENCE]
@@ -52,11 +60,12 @@ locations:
 
   - id: LOC-EVIDENCE-CHANGES
     label: Evidence & changes
-    purpose: Inspect evidence, why a capability state is justified/limited, and what changed or did not change after new evidence or target information.
+    purpose: Review evaluated activity evidence and understand what changed, did not change, or remained unresolved after a specific activity result while preserving its target/focus context.
     conceptual_refs: [C-EVIDENCE, C-EVIDENCE-BASIS, C-CURRENT-STATE, C-CHANGE]
-    task_refs: [TASK-U-REVIEW-CURRENT-STATE, TASK-U-REVIEW-CHANGE]
-    journey_refs: [J-PREPARATION-DIRECTION, J-ACTIVITY-EVIDENCE]
-    scope: active-preparation
+    task_refs: [TASK-U-REVIEW-CHANGE]
+    journey_refs: [J-ACTIVITY-EVIDENCE]
+    scope: contextual-activity-review
+    parent_semantics: Entered from a reviewable activity result or a direct link carrying resolvable reviewed activity/evidence context; it is not a primary global destination and does not own Current-position why-this-state inspection.
 
   - id: LOC-PREPARE-SUPPORT
     label: Prepare missing support
@@ -79,24 +88,27 @@ context_scopes:
     applies_to: [LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES, LOC-EVIDENCE-CHANGES, LOC-PREPARE-SUPPORT]
 
   - id: SCOPE-KNOWLEDGE
-    meaning: Knowledge scope/depth is local exploration state under LOC-KNOWLEDGE and does not become global product state or mutate Knowledge identity.
+    meaning: Knowledge scope/depth is local exploration state under LOC-KNOWLEDGE; it may be anchored by a selected Required Capability and its direct Knowledge focus, and applying/clearing that criterion does not become global product state or mutate Knowledge/Capability identity.
     conceptual_refs: [C-KNOWLEDGE-SCOPE]
     applies_to: [LOC-KNOWLEDGE]
 
 cross_links:
+  - {from: LOC-TARGETS, to: LOC-TARGET, rationale: Continue from an inspectable multi-target comparison into establishment/refinement of the chosen candidate Target; comparison does not itself mutate learner state or activate the Target.}
+  - {from: LOC-TARGET, to: LOC-TARGETS, rationale: Reconsider direction by comparing the active Target with plausible alternatives against the same learner evidence basis.}
   - {from: LOC-TARGET, to: LOC-CURRENT-POSITION, rationale: Assess the learner against the currently understood target requirements.}
-  - {from: LOC-CURRENT-POSITION, to: LOC-EVIDENCE-CHANGES, rationale: Inspect why a demonstrated/challenged/unknown conclusion is justified or limited.}
+  - {from: LOC-TARGET, to: LOC-KNOWLEDGE, rationale: Inspect Subject Knowledge for a required Capability; entry may carry that Capability as the initial Knowledge-scope criterion anchored by its direct Knowledge focus. This is a contextual projection, not a Subject Knowledge predicate or learner-state claim.}
   - {from: LOC-CURRENT-POSITION, to: LOC-KNOWLEDGE, rationale: Orient in subject meaning relevant to a gap or current focus.}
   - {from: LOC-CURRENT-POSITION, to: LOC-ACTIVITIES, rationale: Act on the selected PreparationIntent.}
   - {from: LOC-KNOWLEDGE, to: LOC-ACTIVITIES, rationale: Move from orientation to suitable learning/practice/diagnostic support without making Knowledge itself the task.}
-  - {from: LOC-ACTIVITIES, to: LOC-EVIDENCE-CHANGES, rationale: Review what activity evidence does or does not establish after evaluation.}
-  - {from: LOC-EVIDENCE-CHANGES, to: LOC-CURRENT-POSITION, rationale: Reassess gaps/uncertainty and next focus after evidence or target changes.}
+  - {from: LOC-ACTIVITIES, to: LOC-EVIDENCE-CHANGES, rationale: Continue from a reviewable activity result to the contextual evidence/change review after evaluation.}
+  - {from: LOC-EVIDENCE-CHANGES, to: LOC-CURRENT-POSITION, rationale: Reassess gaps/uncertainty and next focus after reviewing the activity result.}
   - {from: [LOC-TARGET, LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES], to: LOC-PREPARE-SUPPORT, rationale: Missing required preparation support is a contextual recovery branch, not a separate learner-owned corpus workflow.}
   - {from: LOC-PREPARE-SUPPORT, to: originating-location, rationale: Return to the motivating work with accepted support and remaining gaps preserved.}
 
 taxonomy:
   stable_labels:
     - {concept_ref: C-TARGET, label: Target}
+    - {concept_ref: C-TARGET-COMPARISON, label: Target comparison}
     - {concept_ref: C-CURRENT-STATE, label: Current state}
     - {concept_ref: C-GAP, label: Gap or uncertainty}
     - {concept_ref: C-NEXT-FOCUS, label: Next focus}
@@ -121,10 +133,10 @@ findability_assumptions:
     assumption: Learners need the active Target to remain easy to recover while moving through Current position, Knowledge, Activities and Evidence; exact visual persistence is downstream.
   - id: IA-FIND-CURRENT-POSITION
     status: VALIDATE
-    assumption: "Current position" is more understandable as a location label than exposing internal learner-state terminology while still supporting demonstrated/challenged/unknown semantics.
+    assumption: '"Current position" is more understandable as a location label than exposing internal learner-state terminology while still supporting demonstrated/challenged/unknown semantics.'
   - id: IA-FIND-EVIDENCE
     status: VALIDATE
-    assumption: Evidence and why-this-state should be directly reachable from current-state conclusions without making provenance detail dominate the primary preparation path.
+    assumption: Why-this-state evidence should remain directly inspectable inside Current position, while Evidence & changes is reached contextually from a reviewable activity result or valid direct link rather than exposed as a primary global area.
   - id: IA-FIND-PREP-SUPPORT
     status: VALIDATE
     assumption: Missing-support preparation is best found contextually where the gap is encountered rather than treated as a primary global learner area.
@@ -139,6 +151,7 @@ deliberately_unconstrained:
   - screen regions and layout
   - mobile/desktop composition
   - graph/list/2D/3D representation
+  - inverse Knowledge-to-Required-Capability browsing unless a later accepted user task requires it
   - component hierarchy
 
 unresolved_questions: []

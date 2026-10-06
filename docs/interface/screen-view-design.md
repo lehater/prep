@@ -8,7 +8,7 @@ views:
     purpose: Preserve application-level preparation navigation, support candidate Target comparison before commitment, and retain active Target/focus context when established.
     topology_ref: FRAME-PREPARATION
     regions:
-      - {id: prep-navigation, role: navigation, priority: primary, content: [Targets, Target, Current position, Knowledge, Activity, Evidence & changes]}
+      - {id: prep-navigation, role: navigation, priority: primary, content: [Targets, Target, Current position, Knowledge, Activity]}
       - {id: active-context, role: context, priority: supporting, content: [active Target when established, optional Next focus]}
       - {id: active-child, role: task-surface, priority: primary, content: [current task view]}
     patterns: [PATTERN-CONTEXT-HEADER]
@@ -27,6 +27,15 @@ views:
       - {id: target-comparison, role: primary-decision-context, priority: primary, content: [shared Required Capabilities, target-specific requirements, per-target demonstrated/challenged/unknown projection, gaps/uncertainty]}
       - {id: comparison-basis, role: supporting-detail, priority: secondary, content: [same learner evidence basis, applicability/coverage/time limitations, incomplete target requirement warnings]}
       - {id: direction-actions, role: actions, priority: primary, content: [continue with selected Target, change compared Targets, leave decision unresolved]}
+    composition_variants:
+      - id: candidate-selection
+        when: Fewer than two usable candidate Targets are selected for comparison.
+        dominant_region: candidate-targets
+        region_effects: [target-comparison deferred, comparison-basis deferred, direction-actions limited to candidate-selection/change actions]
+      - id: comparison-ready
+        when: Two or more usable candidate Targets have a current comparison projection.
+        dominant_region: target-comparison
+        region_effects: [candidate-targets supporting, comparison-basis secondary, direction-actions primary]
     reads: [prep.targets.compare]
     commands: []
     patterns: [PATTERN-TARGET-COMPARISON, PATTERN-OUTCOME]
@@ -46,6 +55,15 @@ views:
       - {id: target-requirements, role: requirement-detail, priority: primary, content: [RequirementExpression, required Capability performance, conditions, quality, direct Knowledge focus per PerformanceExpectation]}
       - {id: target-provenance, role: supporting-detail, priority: secondary, content: [provenance, unresolved expectations]}
       - {id: target-actions, role: actions, priority: primary, content: [establish/refine Target, inspect requirements, inspect required Knowledge focus, explore Knowledge scoped to a selected Required Capability, request missing support]}
+    composition_variants:
+      - id: target-setup
+        when: No accepted active Target exists or material Target meaning remains unresolved enough to require establishment/refinement.
+        dominant_region: target-context
+        region_effects: [target-requirements deferred-or-partial, target-provenance secondary, target-actions emphasize establish/refine or request missing support]
+      - id: target-established
+        when: An accepted active Target exists with usable requirement meaning.
+        dominant_region: target-requirements
+        region_effects: [target-context supporting, target-provenance secondary, target-actions emphasize requirement/Knowledge navigation and optional refinement]
     reads: [prep.target.requirements.get]
     commands: [prep.target.establish, prep.support.prepare.request]
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-OUTCOME]
@@ -107,6 +125,19 @@ views:
       - {id: support-options, role: selection, priority: primary, content: [available support, intended CapabilitySpecification, expected conditions, support-fit basis, explicit limitations]}
       - {id: activity-attempt, role: primary-work, priority: primary, content: [selected support, activity task, attempt state]}
       - {id: processing-status, role: status, priority: secondary, content: [capture/evidence processing outcome state]}
+    composition_variants:
+      - id: support-selection
+        when: No activity attempt is active.
+        dominant_region: support-options
+        region_effects: [active-focus supporting, activity-attempt absent-or-inactive, processing-status absent]
+      - id: attempt-active
+        when: An ActivityAttemptRepresentation exists and the learner is performing it.
+        dominant_region: activity-attempt
+        region_effects: [active-focus supporting, support-options supporting-and-noncompeting, processing-status absent]
+      - id: evidence-processing
+        when: The attempt has been submitted/completed and accepted evidence processing has not yet reached a reviewable terminal result.
+        dominant_region: processing-status
+        region_effects: [activity-attempt preserved-as-context, support-options secondary, duplicate completion action unavailable]
     reads: [prep.support.list]
     commands: [prep.activity.start, prep.activity.complete]
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-ACTIVITY-ATTEMPT, PATTERN-OUTCOME]
@@ -118,11 +149,11 @@ views:
     exclusions: [activity-complete-equals-capability-complete, implicit retry, cancellation not backed by machine contract]
 
   - id: VIEW-EVIDENCE-CHANGE
-    purpose: Inspect evidence/why-state and understand what changed or remained unresolved after an attempt.
+    purpose: Review the evaluated result of one activity attempt, understand what changed or remained unresolved, and choose the next continuation.
     topology_ref: VIEW-EVIDENCE-CHANGE
     interaction_refs: [IX-ACTIVITY]
     regions:
-      - {id: change-summary, role: primary-result, priority: primary, content: [learner-evidence change, target-information refinement, changed, no-change, challenged or increased-uncertainty result]}
+      - {id: change-summary, role: primary-result, priority: primary, content: [reviewed activity/attempt context, learner-evidence change, target-information refinement, changed, no-change, challenged or increased-uncertainty result]}
       - {id: current-state-after, role: primary-context, priority: primary, content: [current target-relative state/gaps]}
       - {id: evidence-detail, role: supporting-detail, priority: secondary, content: [Performance/Observation facts, evidence argument/claim basis, provenance]}
       - {id: continuation-actions, role: actions, priority: primary, content: [continue current focus, return to Current position, inspect Knowledge]}
@@ -146,6 +177,19 @@ views:
       - {id: accepted-support, role: result, priority: primary, content: [owner-scoped accepted support]}
       - {id: remainder, role: result-detail, priority: primary, content: [unresolved/rejected remainder and reason]}
       - {id: return-action, role: actions, priority: primary, content: [resume request when current, return to originating view]}
+    composition_variants:
+      - id: request-input
+        when: No current PreparationRequest result is available for the motivating missing-support need.
+        dominant_region: source-context
+        region_effects: [motivating-context supporting, accepted-support absent, remainder absent, return-action emphasizes request or return]
+      - id: result-review
+        when: A current PreparationRequest has accepted, partial, unresolved or rejected owner-scoped results.
+        dominant_region: accepted-support
+        region_effects: [motivating-context supporting, source-context supporting, remainder primary when non-empty, return-action primary]
+      - id: continuation-recovery
+        when: The current PreparationRequest is stale or dependency-unavailable but preserves resumable context.
+        dominant_region: return-action
+        region_effects: [motivating-context supporting, source-context preserved, accepted-support preserved when already accepted, remainder explains unresolved work]
     reads: [prep.support.prepare.get]
     commands: [prep.support.prepare.request]
     patterns: [PATTERN-CONTEXT-HEADER, PATTERN-PREPARE-SUPPORT, PATTERN-OUTCOME]
@@ -157,6 +201,8 @@ views:
     exclusions: [corpus/import editor, global all-or-nothing preparation, learner-owned schema maintenance]
 
 shared_rules:
+  primary_surface: Each concrete composition variant has one dominant task/work region; other simultaneously visible regions remain supporting context, detail or actions and must not compete for task primacy.
+  variant_semantics: Composition variants are presentation states of the same accepted view responsibility, not new routes, modes or domain states; variant selection follows accepted interaction/machine outcomes.
   detail_placement: Supporting detail is same-view contextual detail/disclosure by default; no accepted task has inline or dedicated semantic editing.
   action_hierarchy: One primary task action group per view; navigation/recovery remains secondary unless the view exists specifically for recovery.
   responsive_model: Priority-preserving reflow/disclosure; no separate mobile product mode.

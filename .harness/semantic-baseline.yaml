@@ -65,8 +65,8 @@ reviews:
     basis: "Conceptual Interface adds Target comparison as a contextual projection over distinct Targets and one reusable evidence-backed learner capability basis, explicitly separate from learner state and ranking."
 
   - capability: prep.information-architecture
-    revision: 10
-    basis: "IA adds LOC-TARGETS for multi-target direction comparison before active Target establishment, with Targets↔Target navigation and no duplicated learner profile."
+    revision: 11
+    basis: "IA revalidates the primary preparation hierarchy so Evidence & changes is a contextual post-activity review rather than a peer global destination, while ordinary why-this-state evidence remains inside Current position."
 
   - capability: prep.machine-interfaces
     revision: 8
@@ -77,16 +77,16 @@ reviews:
     basis: "Interaction adds IX-TARGET-DIRECTION for candidate selection, shared/target-specific requirement inspection, per-target state/gap comparison and choosing a Target to continue with."
 
   - capability: prep.interface-topology
-    revision: 11
-    basis: "Topology adds VIEW-TARGETS as a task view available without an active Target and routes a chosen candidate into VIEW-TARGET for establishment/refinement."
+    revision: 12
+    basis: "Topology revalidates VIEW-EVIDENCE-CHANGE as contextual post-activity result review entered from Activity or a direct link with reviewed activity/evidence context; it is removed from frame-level and Current-position primary navigation."
 
   - capability: prep.presentation-system
-    revision: 14
-    basis: "Presentation adds PATTERN-TARGET-COMPARISON with aligned target requirements/state/gaps, visible uncertainty, explicit continue action and no universal scalar fit/readiness/preparation-distance score."
+    revision: 15
+    basis: "Presentation System is revalidated against the revised topology: existing task hierarchy, state-basis, activity-result and contextual-control rules support contextual Evidence/change review without a new presentation primitive."
 
   - capability: prep.screen-view-design
-    revision: 14
-    basis: "Screen/View adds VIEW-TARGETS with candidate selection, comparison, evidence/target limitations and direction actions while preserving VIEW-TARGET as the single-target establishment/detail view."
+    revision: 15
+    basis: "Screen/View removes Evidence & changes from persistent preparation navigation, preserves it as contextual reviewed-attempt result review, and makes state-dependent dominant work regions explicit for Targets, Target, Activity and Prepare Support."
 
   - capability: prep.import-consistency
     revision: 3
