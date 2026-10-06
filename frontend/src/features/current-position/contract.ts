@@ -43,6 +43,7 @@ export interface GapModel {
   readonly gapRef: GapRef;
   readonly requirementRef: RequirementRef;
   readonly capabilityRef: CapabilityRef;
+  readonly capabilityLabel: string;
   readonly status: "satisfied" | "challenged" | "unresolved";
   readonly rationale: string;
 }
@@ -50,6 +51,7 @@ export interface GapModel {
 export interface FocusCandidateContextModel {
   readonly gapRef: GapRef;
   readonly capabilityRef: CapabilityRef;
+  readonly capabilityLabel: string;
   readonly targetRelevance: string;
   readonly priorityRationale: string;
   readonly supportAvailability: "available" | "limited" | "missing";
