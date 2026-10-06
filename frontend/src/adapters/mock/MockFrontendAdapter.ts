@@ -442,7 +442,15 @@ export class MockFrontendAdapter
 
     const anchors =
       input.requiredCapabilityRef === mockScenarioRefs.capabilitySystemDesign
-        ? [mockScenarioRefs.knowledgeConsistency, mockScenarioRefs.knowledgeCaching]
+        ? [
+            mockScenarioRefs.knowledgeConsistency,
+            mockScenarioRefs.knowledgeCaching,
+            mockScenarioRefs.knowledgeWriteThroughCaching,
+            mockScenarioRefs.knowledgeCacheEvictionStrategy,
+            mockScenarioRefs.knowledgeLruEvictionProcedure,
+            mockScenarioRefs.knowledgeCacheCoherenceModel,
+            mockScenarioRefs.knowledgeIdempotency,
+          ]
         : input.requiredCapabilityRef === mockScenarioRefs.capabilityTypeScript
           ? [
               mockScenarioRefs.knowledgeAsyncProgramming,
@@ -461,6 +469,8 @@ export class MockFrontendAdapter
               mockScenarioRefs.knowledgeWorkerThreads,
               mockScenarioRefs.knowledgePromiseCombinators,
               mockScenarioRefs.knowledgeErrorPropagation,
+              mockScenarioRefs.knowledgeProducerConsumerOverload,
+              mockScenarioRefs.knowledgeWorkerExecutionContext,
             ]
           : rawMockScenario.focus.capabilityIds.includes(
                 input.requiredCapabilityRef as CapabilityRef,
