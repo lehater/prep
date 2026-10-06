@@ -2,146 +2,166 @@
 
 ## Purpose
 
-Verify the accepted Presentation System and Screen/View Design for the complete target-relative workflow, including 3D-default Knowledge exploration, non-spatial completion, responsive hierarchy and semantic-preserving state visualization.
+Define evidence required to verify the accepted Presentation System and Screen/View Design against the accepted Interface Verification contract and frontend performance-capacity constraints.
 
-## PV-01 — Topology / Screen coverage
+Presentation Verification owns rendered/composed human-interface evidence. It does not create new product, domain, application, import/curation, or persistence semantics.
 
-**Verifies:** every Interface Topology view/frame has one stable Screen/View subject.
+## Verification checks
+
+### PV-01 — Topology / Screen coverage
+
+**Verifies:** every accepted topology task view/frame has one stable Screen/View realization and no required view is invented solely by presentation structure.
+
+**Upstream refs:** Interface Verification closure; `SV-*` Screen/View subjects.
 
 **Method:** TEST.
 
-## PV-02 — End-to-end target workflow usability
+**Evidence requirement:** deterministic topology-to-screen closure.
 
-**Verifies:** a representative learner can move through:
+### PV-02 — End-to-end preparation workflow usability
 
-target -> preparation support when needed -> state -> gaps -> focus -> learning/diagnostics -> observations/evidence -> progress -> next action
+**Verifies:** a representative learner can move through target/direction -> state/gaps -> focus -> suitable support -> activity -> evidence/change -> next action while preserving target/focus context.
 
-without losing active target/focus or needing Curation for ordinary learner work.
-
-**Method:** DEMONSTRATION.
-
-**Evidence:** rendered walkthrough using representative mock data.
-
-## PV-03 — Evidence/state distinction
-
-**Verifies:** raw observations, evidence-backed claims, derived target state and Gap presentation are visually distinguishable; unresolved is not shown as failure and no universal proficiency score is invented.
-
-**Method:** INSPECTION + DEMONSTRATION.
-
-## PV-04 — Gap-to-action clarity
-
-**Verifies:** from a selected gap, the user can understand its basis and reach learning, diagnostics, Knowledge or learner-facing missing-preparation support as appropriate; Curation is entered only through an explicit self-curation/curator context.
+**Upstream refs:** IV-03, IV-04, IV-06, IV-07; `PS-TASK-HIERARCHY`; relevant `SV-*`.
 
 **Method:** DEMONSTRATION.
 
-## PV-05 — Progress semantics
+**Evidence requirement:** rendered walkthrough using representative data, including one unresolved/no-change path.
 
-**Verifies:** progress shows learner-state change supported by accepted evidence, including valid no-change and increased-uncertainty outcomes, and presents target refinement separately from learner progress.
+### PV-03 — Evidence/state visual distinction
 
-**Method:** DEMONSTRATION.
+**Verifies:** historical Performance/Observation facts, evidence-backed inference, target-relative current state, gaps/uncertainty and change are visually distinguishable; unknown is not rendered as failure and no universal mastery score is invented.
 
-## PV-06 — Import usability
-
-**Verifies:** Curation Import clearly separates contract/example discovery, validation and application, and per-item failures remain actionable.
-
-**Method:** DEMONSTRATION.
-
-**Evidence:** mock bulk-import walkthrough including partial rejection.
-
-## PV-07 — Shared presentation consistency
-
-**Verifies:** target-work and Curation views reuse one hierarchy, feedback, collection/edit, loading/empty/failure and focus-role system.
+**Upstream refs:** IV-06, IV-07; `PS-PATTERN-STATE-BASIS`; `SV-CURRENT`, `SV-EVIDENCE`.
 
 **Method:** INSPECTION.
 
-## PV-08 — Accessibility and non-spatial completion
+**Evidence requirement:** rendered state/basis examples with supports/challenges, limitations and valid uncertainty.
 
-**Verifies:** core navigation/actions are keyboard accessible with visible focus; semantic state is not color-only; core Knowledge tasks remain completable through search/list/detail without camera manipulation.
+### PV-04 — Support fit and adaptive progression
 
-**Method:** DEMONSTRATION.
+**Verifies:** activity presentation exposes enough fit basis to distinguish preparation purposes and learner/condition constraints, and can represent guidance/feedback/repetition/variation without presenting those mechanisms as evidence of capability.
 
-## PV-09 — 3D semantic fidelity
-
-**Verifies:** the 3D projection preserves canonical Knowledge identity and proposition meaning; geometry/depth/camera never become semantic truth; selection and explicit focus remain distinct.
-
-**Method:** TEST.
-
-## PV-10 — Target/focus-scoped 3D suitability
-
-**Verifies:** target-scoped and current-focus-scoped Knowledge exploration remain understandable and users can restore broader scope without disorientation.
+**Upstream refs:** IV-04, IV-06; `PS-PATTERN-ACTIVITY`, `PS-PATTERN-PREP-SUPPORT`; `SV-ACTIVITY`, `SV-PREP-SUPPORT`.
 
 **Method:** DEMONSTRATION.
 
-## PV-11 — Responsive closure
+**Evidence requirement:** examples for at least acquisition/practice and retention/transfer or diagnosis, showing fit limitations and continuation choices.
 
-**Verifies:** wide/compact/narrow layouts preserve target context, current focus, required actions, semantic read order and task-complete non-spatial access.
+### PV-05 — Progress/change integrity
 
-**Method:** TEST.
+**Verifies:** learner-state change is presented separately from target-information refinement and supports positive change, no-change, challenge and increased uncertainty.
 
-## PV-12 — Performance degradation without semantic loss
-
-**Verifies:** renderer profiles/degradation affect presentation cost only; semantic result set, target/focus scope, selection and non-spatial access remain preserved.
-
-**Method:** TEST.
-
-## PV-13 — Hardware workload evidence
-
-**Verifies:** the selected production renderer has recorded evidence for accepted visual-item workloads on a named reference environment.
+**Upstream refs:** IV-03, IV-07; `PS-PATTERN-STATE-BASIS`; `SV-CURRENT`, `SV-EVIDENCE`.
 
 **Method:** DEMONSTRATION.
 
-## PV-14 — Completely empty-system bootstrap usability
+**Evidence requirement:** before/after rendered examples with unchanged learner evidence plus target refinement, and with new learner evidence plus unchanged target.
 
-**Verifies:** with no usable target/capabilities/Knowledge/support/assessment corpus, the learner can understand what preparation is missing, request/accept a low-overhead system/agent/curator preparation path, review the prepared target/support and return to Target Work without losing the motivating goal. Import schema, bulk-vs-incremental choice and item repair are not imposed unless self-curation is explicitly chosen.
+### PV-06 — Preparation-support bootstrap usability
 
-**Method:** DEMONSTRATION + REPRESENTATIVE-USER VALIDATION.
+**Verifies:** an empty/incomplete preparation context explains what support is missing, lets the learner request/review preparation support and return to the motivating work without exposing a mandatory corpus/import/curation workflow.
 
-**Evidence:** end-to-end prototype walkthrough of E2E-C1 plus observed learner behavior, with a separate curator/operator demonstration for preparation-path/import recovery. Direct routing to import or an unusable target editor does not satisfy the learner obligation.
+**Upstream refs:** IV-04; `PS-PATTERN-PREP-SUPPORT`; `SV-PREP-SUPPORT`.
 
-## PV-15 — Representative-user mental-model validation
+**Method:** DEMONSTRATION.
 
-**Verifies:** representative users can understand and act on the core model without being taught internal Prep terminology:
+**Evidence requirement:** rendered empty-system/missing-support walkthrough through explicit partial/unresolved outcomes and return path.
 
-target purpose/expectations (including role vs selection/interview where relevant) -> current evidence-backed state -> gap/uncertainty -> next focus -> activity -> new observation/evidence -> progress/next action, while target refinement remains distinct from learner-state change.
+### PV-07 — Knowledge representation semantic fidelity
 
-**Method:** REPRESENTATIVE-USER VALIDATION.
+**Verifies:** spatial and non-spatial Knowledge projections preserve the same canonical Knowledge identity, relation meaning, scope basis and selection/focus distinctions; geometry/camera never become semantic truth.
 
-**Evidence:** sessions using the Discovery research questions/scenarios from problem-space.md, with findings mapped back to affected observations/tasks/journeys. Stakeholder acceptance and automated tests do not satisfy this obligation.
+**Upstream refs:** IV-05, IV-09; `PS-KNOWLEDGE-REPRESENTATION`; `SV-KNOWLEDGE`.
 
-## PV-16 — Accessibility interaction closure
+**Method:** TEST.
 
-**Verifies:** supported core flows remain operable and understandable with keyboard-only interaction, semantic focus order/restoration, zoom/reflow/large text, non-color state encoding, form/error announcement, non-drag alternatives and reduced-motion behavior.
+**Evidence requirement:** equivalent semantic fixture exercised through non-spatial and any enabled spatial projection.
 
-**Method:** TEST + DEMONSTRATION + ASSISTIVE-TECHNOLOGY REVIEW.
+### PV-08 — Responsive hierarchy
 
-**Evidence:** representative Target Work, learner empty-system preparation support, separate Curation/import and Knowledge exploration checks; 3D motion/physics cannot be the only task-complete presentation under reduced-motion or assistive-technology constraints.
+**Verifies:** wide/compact/narrow composition preserves active target/focus context, required actions, semantic read order and task-complete non-spatial access.
 
-## PV-17 — Related target-purpose comprehension
+**Upstream refs:** `PS-RESPONSIVE`; `SV-RESPONSIVE`.
 
-**Verifies:** users can distinguish professional-role capability from selection/interview performance when both are relevant, understand that related targets may overlap, and do not infer that an interview-specific requirement is automatically a job-role requirement.
+**Method:** TEST.
 
-**Method:** DEMONSTRATION + REPRESENTATIVE-USER VALIDATION.
+**Evidence requirement:** deterministic responsive checks over representative Target, Current, Activity, Evidence and Knowledge views.
 
-**Evidence:** neutral scenario containing one shared capability plus one interview-only performance constraint, with participant explanation of which target each belongs to.
+### PV-09 — Accessibility and non-spatial completion
 
-## Human-validation gate
+**Verifies:** core flows remain operable/understandable with keyboard-only interaction, semantic focus restoration, zoom/reflow/large text, non-color state encoding, announced errors and reduced-motion behavior; drag/spatial manipulation is never the only task-complete path.
 
-Pinned Harness structural/currentness checks prove document/trace closure, not that people understand or benefit from the interface. PV-14 and PV-15 require representative-user evidence before the UI can be treated as ready for production implementation. Until that evidence exists, the coded frontend is prototype evidence rather than UX design authority.
+**Upstream refs:** IV-09; `PS-ACCESSIBILITY`; Screen/View rules.
 
-## Prototype evidence required
+**Method:** DEMONSTRATION.
 
-The frontend mock prototype must demonstrate at minimum:
+**Evidence requirement:** keyboard/non-spatial walkthrough plus assistive-technology and reduced-motion evidence for representative core flows.
 
-- one representative technical-career target;
-- initial current-state projection with both known and unresolved areas;
-- visible gaps and focus selection;
-- learning and diagnostic paths;
-- new evidence causing a visible reassessment;
-- target/focus-scoped Knowledge exploration;
-- learner-facing completely empty-system bootstrap through missing-preparation explanation, preparation request/review and return to Target Work without mandatory corpus machinery;
-- separate curator/operator Curation path covering bulk/import contract/validation/apply, partial rejection and incremental correction;
-- visible Observation -> evidence-basis/claim -> Current State distinction where those layers are exposed;
-- shared interaction-contract examples for draft preservation, async mutation, conflict/stale recovery and focus restoration;
-- wide/compact/narrow behavior;
-- keyboard/non-spatial Knowledge completion;
-- zoom/reflow/large-text and reduced-motion/accessibility evidence for supported core flows.
+### PV-10 — Performance degradation without semantic loss
+
+**Verifies:** allowed presentation/rendering degradation changes cost/detail only; semantic result set, target/focus scope, Knowledge identity, selection and non-spatial access remain preserved.
+
+**Upstream refs:** `PS-DEGRADATION`; `SV-PERFORMANCE`; frontend performance-capacity constraints.
+
+**Method:** TEST.
+
+**Evidence requirement:** same semantic fixture under supported degradation profiles. No numeric performance target is invented when upstream defers one.
+
+### PV-11 — Related-target purpose comprehension
+
+**Verifies:** users can distinguish professional-role capability from selection/interview performance when both are relevant and do not infer requirement inheritance merely because targets are related.
+
+**Upstream refs:** IV-03; target-comparison presentation/screen patterns.
+
+**Method:** DEMONSTRATION.
+
+**Evidence requirement:** representative-user session with one shared capability and one target-specific performance constraint; participant explanation is retained as evidence.
+
+### PV-12 — Core mental-model evidence gate
+
+**Verifies:** representative users can understand and act on target purpose/requirements -> evidence-backed state -> gap/uncertainty -> next focus -> support/activity -> evidence/change without being taught internal Prep type names.
+
+**Upstream refs:** IV-03 through IV-08; Presentation System patterns and relevant Screen/View subjects.
+
+**Method:** DEMONSTRATION.
+
+**Evidence requirement:** representative-user sessions with observations mapped back to affected checks. Stakeholder approval and automated tests alone do not satisfy this evidence requirement.
+
+## Product requirement dispositions
+
+| Requirement | Presentation verification disposition |
+|---|---|
+| `REQ-CAP-TARGET` | PV-02, PV-11 |
+| `REQ-CAP-TARGET-PURPOSE` | PV-02, PV-11 |
+| `REQ-CAP-TARGET-DIRECTION` | PV-02, PV-11 |
+| `REQ-CAP-PERFORMANCE-REQUIREMENT` | PV-02, PV-04 |
+| `REQ-CAP-EVIDENCE-CONTEXT` | PV-03, PV-05 |
+| `REQ-CAP-STATE` | PV-03, PV-05 |
+| `REQ-CAP-EVIDENCE-JUSTIFICATION` | PV-03 |
+| `REQ-CAP-FOCUS` | PV-02, PV-04 |
+| `REQ-CAP-PRACTICE` | PV-04 |
+| `REQ-CAP-DURABLE-TRANSFER` | PV-04 verifies retention/transfer purpose and limitations; actual durable capability requires later/time-separated evidence. |
+| `REQ-CAP-SUPPORT-FIT` | PV-04, PV-06 |
+| `REQ-CAP-ADAPT` | PV-02, PV-05 |
+| `REQ-CAP-BOOTSTRAP` | PV-06 |
+| `REQ-CAP-KNOWLEDGE-OVERVIEW` | PV-07 |
+| `REQ-CAP-KNOWLEDGE-RELATIONSHIPS` | PV-07 |
+| `REQ-CAP-KNOWLEDGE-SCOPE` | PV-07 |
+| `REQ-CAP-KNOWLEDGE-DEPTH` | PV-07 |
+
+## Explicit boundary
+
+Presentation Verification does not establish:
+
+- corpus Curation or production import UI;
+- provider-specific external-runtime UI;
+- backend/database behavior;
+- target/learner semantic truth;
+- numeric renderer/performance requirements that upstream has deferred.
+
+Later Frontend Verification/Test Design may refine these evidence requirements into implementation-level checks without changing their semantic oracle.
+
+## Completion meaning
+
+An accepted strategy means the required evidence is explicit and traceable. Human-evidence checks remain unsatisfied until the specified representative-user/assistive-technology evidence actually exists; the strategy itself does not fabricate that evidence.

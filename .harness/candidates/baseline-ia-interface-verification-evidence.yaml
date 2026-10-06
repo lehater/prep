@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.information-architecture
+target_capability: prep.interface-verification
+links:
+  - relation: CONSTRAINS
+    sources: [IA-ROOT, IA-LOC-TARGETS, IA-LOC-TARGET, IA-LOC-CURRENT, IA-LOC-KNOWLEDGE, IA-LOC-ACTIVITIES, IA-LOC-EVIDENCE, IA-LOC-PREP-SUPPORT, IA-SCOPE-TARGET, IA-SCOPE-FOCUS, IA-SCOPE-KNOWLEDGE, IA-STRUCTURE, IA-CROSSLINKS, IA-TAXONOMY, IA-FINDABILITY, IA-NO-SCREEN]
+    targets: [IV-IA-TOPOLOGY]
+dispositions: []

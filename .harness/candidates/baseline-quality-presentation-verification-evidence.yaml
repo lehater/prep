@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.frontend-performance-capacity
+target_capability: prep.presentation-verification
+links:
+  - relation: CONSTRAINS
+    sources: [QD-EXPLORE-QUALITY-SCOPE, QD-SEMANTIC-PRESERVATION, QD-ACTIVE-WORKING-SET-FREEDOM, QD-GRAPH-CONDITIONAL, QD-NUMERIC-TARGETS-DEFERRED, QD-IDLE-TARGET-DEFERRED]
+    targets: [PV-DEGRADATION]
+dispositions: []

@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.import-consistency
+target_capability: prep.system-architecture
+links:
+  - relation: CONSTRAINS
+    sources: [IC-CURRENT-SCOPE, IC-OWNER-ATOMICITY, IC-PARTIAL-PREPARATION, IC-CURRENTNESS-CONFLICT, IC-RETRY-IDEMPOTENCY, IC-DISTINCT-PERFORMANCE]
+    targets: [SA-FAILURE-ISOLATION]
+dispositions: []

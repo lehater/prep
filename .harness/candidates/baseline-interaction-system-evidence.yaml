@@ -1,0 +1,9 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.interaction-design
+target_capability: prep.system-architecture
+links:
+  - relation: CONSTRAINS
+    sources: [IX-TARGET-DIRECTION, IX-TARGET, IX-DIRECTION, IX-KNOWLEDGE, IX-ACTIVITY, IX-PREP-SUPPORT, IX-OUTCOMES, IX-CURRENTNESS, IX-CONTEXT-CONTINUITY, IX-KEYBOARD, IX-PENDING, IX-NO-LAYOUT]
+    targets: [SA-RUNTIME-BOUNDARIES]
+dispositions: []

@@ -1,0 +1,74 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRESENTATION-VERIFICATION
+capability: prep.presentation-verification
+path: docs/verification/presentation-verification.md
+changed_paths:
+  - docs/verification/presentation-verification.md
+canonical_references:
+  - {artifact: PRESENTATION-VERIFICATION, referenced_path: docs/verification/interface-verification.md}
+
+semantic_assertions:
+  - id: PV-SCOPE
+    kind: verification-strategy
+    subject: presentation-verification-boundary
+    semantic_value: "Presentation Verification verifies rendered/composed Presentation System and Screen/View behavior against the accepted Interface Verification contract and performance-capacity constraints without creating product/domain/import/persistence semantics."
+    derived_from: [IV-SCOPE, PS-TASK-HIERARCHY, SV-NO-IMPLEMENTATION, QD-SEMANTIC-PRESERVATION]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-WORKFLOW
+    kind: verification-check
+    subject: rendered-preparation-workflow
+    semantic_value: "Rendered presentation must support the target/direction -> state/gaps -> focus -> support/activity -> evidence/change -> next-action workflow while preserving target/focus context and valid unresolved/no-change outcomes."
+    derived_from: [IV-TARGET-DIRECTION, IV-ACTIVITY-EVIDENCE, IV-OUTCOME-RECOVERY, PS-TASK-HIERARCHY, PS-PATTERN-CONTEXT, SV-TARGET, SV-CURRENT, SV-ACTIVITY, SV-EVIDENCE]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-STATE-BASIS
+    kind: verification-check
+    subject: evidence-state-visual-distinction
+    semantic_value: "Performance/Observation facts, evidence inference, target-relative state, gaps/uncertainty and change remain visually distinguishable; unknown is not rendered as failure and no universal mastery score is invented."
+    derived_from: [IV-ACTIVITY-EVIDENCE, IV-OUTCOME-RECOVERY, PS-PATTERN-STATE-BASIS, PS-OUTCOMES, SV-CURRENT, SV-EVIDENCE]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-SUPPORT-PROGRESSION
+    kind: verification-check
+    subject: support-fit-adaptive-progression
+    semantic_value: "Presentation can expose contextual support-fit basis and adaptive guidance/feedback/repetition/variation for different preparation purposes without presenting those mechanisms as capability evidence."
+    derived_from: [IV-PREPARATION-SUPPORT, IV-ACTIVITY-EVIDENCE, PS-PATTERN-ACTIVITY, PS-PATTERN-PREP-SUPPORT, SV-ACTIVITY, SV-PREP-SUPPORT]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-KNOWLEDGE
+    kind: verification-check
+    subject: knowledge-projection-fidelity
+    semantic_value: "Spatial and non-spatial Knowledge projections preserve canonical identity, relation meaning, scope basis and selection/focus distinctions; geometry/camera never become semantic truth."
+    derived_from: [IV-KNOWLEDGE, IV-NONSPATIAL, PS-KNOWLEDGE-REPRESENTATION, PS-PATTERN-QUERY-DETAIL, SV-KNOWLEDGE]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-RESPONSIVE-ACCESSIBILITY
+    kind: verification-check
+    subject: responsive-accessible-completion
+    semantic_value: "Wide/compact/narrow and accessibility behavior preserve target/focus context, semantic read order and task-complete keyboard/nonspatial access, including reduced-motion and non-drag alternatives."
+    derived_from: [IV-NONSPATIAL, PS-RESPONSIVE, PS-ACCESSIBILITY, SV-RESPONSIVE]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-DEGRADATION
+    kind: verification-check
+    subject: performance-degradation-semantic-preservation
+    semantic_value: "Allowed presentation degradation changes rendering cost/detail only and preserves semantic result set, target/focus scope, Knowledge identity, selection and non-spatial access; no numeric target is invented where upstream defers one."
+    derived_from: [PS-DEGRADATION, SV-PERFORMANCE, QD-SEMANTIC-PRESERVATION, QD-NUMERIC-TARGETS-DEFERRED, QD-IDLE-TARGET-DEFERRED]
+    decision_authority: VERIFICATION-DESIGN
+
+  - id: PV-HUMAN-EVIDENCE
+    kind: verification-check
+    subject: representative-user-evidence
+    semantic_value: "Representative-user evidence is required for target-purpose comprehension and the core target -> state -> gap -> focus -> activity -> evidence/change mental model; strategy acceptance does not fabricate that evidence."
+    derived_from: [IV-TARGET-DIRECTION, IV-PREPARATION-SUPPORT, IV-OUTCOME-RECOVERY, PS-PATTERN-TARGET-COMPARISON, PS-TASK-HIERARCHY, SV-TARGETS, SV-TARGET]
+    decision_authority: VERIFICATION-DESIGN
+
+semantic_review:
+  status: ACCEPTED
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - verification-not-semantic-owner
