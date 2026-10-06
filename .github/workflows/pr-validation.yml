@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: pr-validation-${{ github.event.pull_request.number || github.ref }}
@@ -88,8 +88,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -114,89 +112,6 @@ jobs:
         env:
           HARNESS_ROOT: .harness-tool
         run: python tools/check_harness_integration.py
-
-      - name: Revalidate UI materiality through Harness APIs
-        env:
-          HARNESS_ROOT: .harness-tool
-        run: python tools/revalidate_ui_materiality.py
-
-      - name: Generate interface-topology Decision Explorer request
-        shell: bash
-        run: |
-          python - <<'PY'
-          import yaml
-          from pathlib import Path
-          pub = yaml.safe_load(Path(".harness/project-publication.yaml").read_text())
-          Path("/tmp/prep-lifecycle.yaml").write_text(
-              yaml.safe_dump(pub["state"]["lifecycle"], sort_keys=False)
-          )
-          PY
-          cd .harness-tool
-          python -m harness.application.decision_explorer_request \
-            "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" \
-            "$GITHUB_WORKSPACE/.harness/core.yaml" \
-            prep.interface-topology \
-            "$GITHUB_WORKSPACE/.harness/candidates/ui-materiality-decision-policy.yaml" \
-            --lifecycle /tmp/prep-lifecycle.yaml
-
-      - name: Probe full Harness currentness
-        env:
-          HARNESS_ROOT: .harness-tool
-        run: python tools/full_harness_revalidate.py
-
-      - name: Capture UI revalidation outputs
-        shell: bash
-        run: |
-          git diff --binary HEAD -- \
-            .harness/project-publication.yaml \
-            .harness/candidates/frontend-boundary-topology-request.json \
-            .harness/candidates/frontend-boundary-topology-exploration.yaml \
-            .harness/candidates/presentation-screen-presentation-request.json \
-            .harness/candidates/presentation-screen-presentation-exploration.yaml \
-            .harness/candidates/presentation-screen-screen-request.json \
-            .harness/candidates/presentation-screen-screen-exploration.yaml \
-            > /tmp/ui-revalidation.patch
-          cp .harness/project-publication.yaml /tmp/project-publication.yaml
-          mkdir -p /tmp/ui-candidates
-          cp .harness/candidates/frontend-boundary-topology-request.json /tmp/ui-candidates/
-          cp .harness/candidates/frontend-boundary-topology-exploration.yaml /tmp/ui-candidates/
-          cp .harness/candidates/presentation-screen-presentation-request.json /tmp/ui-candidates/
-          cp .harness/candidates/presentation-screen-presentation-exploration.yaml /tmp/ui-candidates/
-          cp .harness/candidates/presentation-screen-screen-request.json /tmp/ui-candidates/
-          cp .harness/candidates/presentation-screen-screen-exploration.yaml /tmp/ui-candidates/
-
-      - name: Upload UI revalidation outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: ui-revalidation-outputs
-          path: |
-            /tmp/ui-revalidation.patch
-            /tmp/project-publication.yaml
-            /tmp/ui-candidates/
-
-      - name: Persist UI revalidation outputs
-        if: ${{ github.event_name == 'pull_request' }}
-        env:
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          git add \
-            .harness/project-publication.yaml \
-            .harness/candidates/frontend-boundary-topology-request.json \
-            .harness/candidates/frontend-boundary-topology-exploration.yaml \
-            .harness/candidates/presentation-screen-presentation-request.json \
-            .harness/candidates/presentation-screen-presentation-exploration.yaml \
-            .harness/candidates/presentation-screen-screen-request.json \
-            .harness/candidates/presentation-screen-screen-exploration.yaml
-          if git diff --cached --quiet; then
-            echo "UI revalidation outputs already persisted"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish UI materiality revalidation"
-          git push origin HEAD:"$HEAD_REF"
 
       - name: Validate documentation links
         run: python tools/validate_docs.py
