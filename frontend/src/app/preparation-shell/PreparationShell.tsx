@@ -4,7 +4,6 @@ import type { TargetDirectionPort, CandidateTargetOption } from "../../features/
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
 import type { TargetPort } from "../../features/target/contract";
 import { TargetFeature } from "../../features/target/TargetFeature";
-import type { TargetRef } from "../../features/contracts";
 import { usePreparationContext } from "../preparation-context/PreparationContext";
 import {
   type PreparationDestination,
