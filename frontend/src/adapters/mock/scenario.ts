@@ -52,12 +52,12 @@ export const rawMockScenario = {
   targets: [
     {
       recordId: mockScenarioRefs.targetPrimary,
-      title: "Backend Engineer interview",
-      purposeText: "Prepare for a senior backend engineering interview.",
-      uncertaintyNotes: ["Exact distributed-systems depth varies by interviewer."],
+      title: "Собеседование на Backend Engineer",
+      purposeText: "Подготовиться к собеседованию на позицию Senior Backend Engineer.",
+      uncertaintyNotes: ["Требуемая глубина знаний распределённых систем зависит от интервьюера."],
       source: {
         sourceId: mockScenarioRefs.sourceInterviewBrief,
-        sourceLabel: "Backend interview brief",
+        sourceLabel: "Описание backend-собеседования",
       },
       requirementIds: [
         mockScenarioRefs.requirementTypeScript,
@@ -72,12 +72,12 @@ export const rawMockScenario = {
     },
     {
       recordId: mockScenarioRefs.targetAlternative,
-      title: "Platform Engineer interview",
-      purposeText: "Prepare for a platform engineering interview.",
-      uncertaintyNotes: ["Kubernetes depth is inferred from the published role description."],
+      title: "Собеседование на Platform Engineer",
+      purposeText: "Подготовиться к собеседованию на позицию Platform Engineer.",
+      uncertaintyNotes: ["Глубина знаний Kubernetes оценена по опубликованному описанию позиции."],
       source: {
         sourceId: mockScenarioRefs.sourceInterviewBrief,
-        sourceLabel: "Platform interview brief",
+        sourceLabel: "Описание platform-собеседования",
       },
       requirementIds: [
         mockScenarioRefs.requirementTypeScript,
@@ -95,9 +95,9 @@ export const rawMockScenario = {
     {
       requirementId: mockScenarioRefs.requirementTypeScript,
       capabilityId: mockScenarioRefs.capabilityTypeScript,
-      performanceText: "Explain and implement type-safe asynchronous TypeScript code.",
-      conditionTexts: ["under interview time pressure"],
-      qualityTexts: ["clear type boundaries", "correct async behavior"],
+      performanceText: "Объяснять и реализовывать типобезопасный асинхронный код на TypeScript.",
+      conditionTexts: ["в условиях ограниченного времени на собеседовании"],
+      qualityTexts: ["явные границы типов", "корректное асинхронное поведение"],
       knowledgeIds: [
         mockScenarioRefs.knowledgeAsyncProgramming,
         mockScenarioRefs.knowledgeEventLoop,
@@ -108,9 +108,9 @@ export const rawMockScenario = {
     {
       requirementId: mockScenarioRefs.requirementSystemDesign,
       capabilityId: mockScenarioRefs.capabilitySystemDesign,
-      performanceText: "Design a scalable service and explain major trade-offs.",
-      conditionTexts: ["ambiguous product constraints"],
-      qualityTexts: ["explicit assumptions", "reasoned consistency and caching choices"],
+      performanceText: "Проектировать масштабируемый сервис и объяснять основные компромиссы.",
+      conditionTexts: ["при неполных продуктовых ограничениях"],
+      qualityTexts: ["явные допущения", "обоснованный выбор consistency-модели и кэширования"],
       knowledgeIds: [
         mockScenarioRefs.knowledgeConsistency,
         mockScenarioRefs.knowledgeCaching,
@@ -119,17 +119,17 @@ export const rawMockScenario = {
     {
       requirementId: mockScenarioRefs.requirementBehavioral,
       capabilityId: mockScenarioRefs.capabilityBehavioral,
-      performanceText: "Explain a consequential engineering decision and its outcome.",
-      conditionTexts: ["behavioral interview"],
-      qualityTexts: ["specific evidence", "clear ownership and reflection"],
+      performanceText: "Объяснить значимое инженерное решение и его результат.",
+      conditionTexts: ["поведенческая часть собеседования"],
+      qualityTexts: ["конкретные факты", "ясная зона ответственности и выводы"],
       knowledgeIds: [],
     },
     {
       requirementId: mockScenarioRefs.requirementKubernetes,
       capabilityId: mockScenarioRefs.capabilityKubernetes,
-      performanceText: "Reason about a Kubernetes workload failure and recovery.",
-      conditionTexts: ["production-like incident scenario"],
-      qualityTexts: ["safe diagnosis", "bounded recovery plan"],
+      performanceText: "Диагностировать сбой Kubernetes workload и предложить восстановление.",
+      conditionTexts: ["сценарий, близкий к production-инциденту"],
+      qualityTexts: ["безопасная диагностика", "ограниченный план восстановления"],
       knowledgeIds: [],
     },
   ],
@@ -139,19 +139,19 @@ export const rawMockScenario = {
         capabilityId: mockScenarioRefs.capabilityTypeScript,
         stateCode: "demonstrated",
         evidenceIds: [mockScenarioRefs.evidenceTypeScript],
-        limitationTexts: ["Evidence is strongest for production coding, not whiteboard explanation."],
+        limitationTexts: ["Свидетельства сильнее подтверждают production-разработку, чем объяснение решения у доски."],
       },
       {
         capabilityId: mockScenarioRefs.capabilitySystemDesign,
         stateCode: "challenged",
         evidenceIds: [mockScenarioRefs.evidenceSystemDesign],
-        limitationTexts: ["Only one recent practice review is available."],
+        limitationTexts: ["Доступен только один недавний разбор практического задания."],
       },
       {
         capabilityId: mockScenarioRefs.capabilityBehavioral,
         stateCode: "unknown",
         evidenceIds: [],
-        limitationTexts: ["No attributable behavioral-interview observation is available."],
+        limitationTexts: ["Нет проверяемого наблюдения по поведенческой части собеседования."],
       },
     ],
     alternative: [
@@ -159,19 +159,19 @@ export const rawMockScenario = {
         capabilityId: mockScenarioRefs.capabilityTypeScript,
         stateCode: "demonstrated",
         evidenceIds: [mockScenarioRefs.evidenceTypeScript],
-        limitationTexts: ["Evidence is strongest for production coding, not whiteboard explanation."],
+        limitationTexts: ["Свидетельства сильнее подтверждают production-разработку, чем объяснение решения у доски."],
       },
       {
         capabilityId: mockScenarioRefs.capabilitySystemDesign,
         stateCode: "challenged",
         evidenceIds: [mockScenarioRefs.evidenceSystemDesign],
-        limitationTexts: ["Only one recent practice review is available."],
+        limitationTexts: ["Доступен только один недавний разбор практического задания."],
       },
       {
         capabilityId: mockScenarioRefs.capabilityKubernetes,
         stateCode: "unknown",
         evidenceIds: [],
-        limitationTexts: ["No Kubernetes-specific learner evidence is available."],
+        limitationTexts: ["Нет свидетельств, специфичных для навыков работы с Kubernetes."],
       },
     ],
   },
@@ -179,38 +179,38 @@ export const rawMockScenario = {
     {
       evidenceId: mockScenarioRefs.evidenceTypeScript,
       evidenceKind: "performance",
-      text: "Implemented a typed asynchronous integration in production.",
+      text: "Реализована типизированная асинхронная интеграция в production.",
       source: {
         sourceId: mockScenarioRefs.sourcePracticeReview,
-        sourceLabel: "Production work sample",
+        sourceLabel: "Пример production-работы",
       },
       supportIds: [mockScenarioRefs.capabilityTypeScript],
       challengeIds: [],
-      limitationTexts: ["Different context from an interview exercise."],
+      limitationTexts: ["Контекст отличается от задания на собеседовании."],
     },
     {
       evidenceId: mockScenarioRefs.evidenceSystemDesign,
       evidenceKind: "observation",
-      text: "Practice review found unclear consistency assumptions in a cache design.",
+      text: "Разбор практики выявил неявные допущения о consistency при проектировании кэша.",
       source: {
         sourceId: mockScenarioRefs.sourcePracticeReview,
-        sourceLabel: "System-design practice review",
+        sourceLabel: "Разбор system design-практики",
       },
       supportIds: [],
       challengeIds: [mockScenarioRefs.capabilitySystemDesign],
-      limitationTexts: ["Single practice session."],
+      limitationTexts: ["Только одна практическая сессия."],
     },
     {
       evidenceId: mockScenarioRefs.evidenceActivity,
       evidenceKind: "observation",
-      text: "Follow-up activity exposed another unresolved consistency assumption.",
+      text: "Повторная практика выявила ещё одно неразрешённое допущение о consistency.",
       source: {
         sourceId: mockScenarioRefs.sourcePracticeReview,
-        sourceLabel: "System-design activity review",
+        sourceLabel: "Разбор system design-практики",
       },
       supportIds: [],
       challengeIds: [mockScenarioRefs.capabilitySystemDesign],
-      limitationTexts: ["One bounded scenario; transfer remains uncertain."],
+      limitationTexts: ["Проверен один ограниченный сценарий; перенос навыка на другие случаи пока неясен."],
     },
   ],
   gaps: [
@@ -219,9 +219,9 @@ export const rawMockScenario = {
       requirementId: mockScenarioRefs.requirementSystemDesign,
       capabilityId: mockScenarioRefs.capabilitySystemDesign,
       statusCode: "challenged",
-      reasonText: "Current evidence challenges consistency/trade-off reasoning.",
-      targetRelevanceText: "Core interview loop requirement.",
-      priorityText: "High value because it affects multiple system-design questions.",
+      reasonText: "Текущие свидетельства ставят под вопрос рассуждение о consistency и компромиссах.",
+      targetRelevanceText: "Ключевое требование основной части собеседования.",
+      priorityText: "Высокий приоритет: влияет на несколько типов system design-вопросов.",
       supportCode: "available",
     },
     {
@@ -229,38 +229,38 @@ export const rawMockScenario = {
       requirementId: mockScenarioRefs.requirementBehavioral,
       capabilityId: mockScenarioRefs.capabilityBehavioral,
       statusCode: "unresolved",
-      reasonText: "No attributable evidence yet.",
-      targetRelevanceText: "Required behavioral interview evidence.",
-      priorityText: "Important but currently lacks suitable prepared observation support.",
+      reasonText: "Проверяемых свидетельств пока нет.",
+      targetRelevanceText: "Нужно для поведенческой части собеседования.",
+      priorityText: "Важно, но подходящая поддержка для наблюдаемой практики пока не подготовлена.",
       supportCode: "missing",
     },
   ],
   focus: {
     focusId: mockScenarioRefs.focusCurrent,
     targetId: mockScenarioRefs.targetPrimary,
-    purposeText: "Reduce uncertainty in system-design trade-off reasoning.",
+    purposeText: "Снизить неопределённость в рассуждении о компромиссах system design.",
     capabilityIds: [mockScenarioRefs.capabilitySystemDesign],
     gapIds: [mockScenarioRefs.gapSystemDesign],
-    reasonText: "High target relevance with suitable support available.",
+    reasonText: "Высокая значимость для цели и доступна подходящая поддержка.",
   },
   knowledge: [
     {
       knowledgeId: mockScenarioRefs.knowledgeConsistency,
       kindCode: "proposition",
-      title: "Consistency choices trade latency and coordination against freshness guarantees.",
-      predicateText: "consistency-mode influences latency, coordination, and freshness",
+      title: "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
+      predicateText: "consistency-модель влияет на задержку, координацию и актуальность данных",
       relatedIds: [mockScenarioRefs.knowledgeCaching],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeCaching,
       kindCode: "object",
-      title: "Caching strategy",
+      title: "Стратегия кэширования",
       relatedIds: [mockScenarioRefs.knowledgeConsistency],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeAsyncProgramming,
       kindCode: "object",
-      title: "Asynchronous programming",
+      title: "Асинхронное программирование",
       relatedIds: [
         mockScenarioRefs.knowledgeEventLoop,
         mockScenarioRefs.knowledgePromise,
@@ -271,7 +271,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeEventLoop,
       kindCode: "object",
-      title: "JavaScript event loop",
+      title: "JavaScript Event Loop",
       relatedIds: [
         mockScenarioRefs.knowledgeMicrotaskQueue,
         mockScenarioRefs.knowledgeTaskQueue,
@@ -292,8 +292,8 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeAsyncAwait,
       kindCode: "proposition",
-      title: "async/await expresses Promise-based control flow without making execution synchronous.",
-      predicateText: "await suspends the async function while the event loop continues processing other work",
+      title: "async/await выражает управление на основе Promise, не превращая выполнение в синхронное.",
+      predicateText: "await приостанавливает async-функцию, пока Event Loop продолжает обрабатывать другую работу",
       relatedIds: [
         mockScenarioRefs.knowledgePromise,
         mockScenarioRefs.knowledgeErrorPropagation,
@@ -303,8 +303,8 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeMicrotaskQueue,
       kindCode: "proposition",
-      title: "Promise continuations run through the microtask queue.",
-      predicateText: "microtasks are drained before the event loop advances to the next task",
+      title: "Продолжения Promise выполняются через очередь микрозадач.",
+      predicateText: "микрозадачи выполняются до перехода Event Loop к следующей обычной задаче",
       relatedIds: [
         mockScenarioRefs.knowledgeEventLoop,
         mockScenarioRefs.knowledgePromise,
@@ -313,14 +313,14 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeTaskQueue,
       kindCode: "object",
-      title: "Task queue",
+      title: "Очередь задач",
       relatedIds: [mockScenarioRefs.knowledgeEventLoop],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeNonBlockingIo,
       kindCode: "proposition",
-      title: "Non-blocking I/O lets one thread coordinate many waiting operations.",
-      predicateText: "waiting for I/O does not require blocking the JavaScript execution thread",
+      title: "Неблокирующий I/O позволяет одному потоку координировать множество ожидающих операций.",
+      predicateText: "ожидание I/O не требует блокировки потока выполнения JavaScript",
       relatedIds: [
         mockScenarioRefs.knowledgeEventLoop,
         mockScenarioRefs.knowledgeConcurrency,
@@ -330,7 +330,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeConcurrency,
       kindCode: "object",
-      title: "Concurrency",
+      title: "Конкурентность",
       relatedIds: [
         mockScenarioRefs.knowledgeParallelism,
         mockScenarioRefs.knowledgeRaceCondition,
@@ -341,8 +341,8 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeParallelism,
       kindCode: "proposition",
-      title: "Concurrency and parallelism solve different execution problems.",
-      predicateText: "concurrency overlaps independently progressing work while parallelism executes work simultaneously",
+      title: "Конкурентность и параллелизм решают разные задачи выполнения.",
+      predicateText: "конкурентность перекрывает независимо продвигающуюся работу, а параллелизм выполняет работу одновременно",
       relatedIds: [
         mockScenarioRefs.knowledgeConcurrency,
         mockScenarioRefs.knowledgeWorkerThreads,
@@ -351,14 +351,14 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeRaceCondition,
       kindCode: "proposition",
-      title: "Race conditions appear when observable results depend on uncontrolled operation ordering.",
-      predicateText: "shared mutable state plus nondeterministic ordering can make outcomes timing-dependent",
+      title: "Race condition возникает, когда наблюдаемый результат зависит от неконтролируемого порядка операций.",
+      predicateText: "общее изменяемое состояние и недетерминированный порядок делают результат зависимым от тайминга",
       relatedIds: [mockScenarioRefs.knowledgeConcurrency],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeCancellation,
       kindCode: "object",
-      title: "Cancellation",
+      title: "Отмена операций",
       relatedIds: [
         mockScenarioRefs.knowledgeTimeout,
         mockScenarioRefs.knowledgePromise,
@@ -368,15 +368,15 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeTimeout,
       kindCode: "proposition",
-      title: "A timeout is a policy boundary, not automatic cancellation.",
-      predicateText: "stopping the wait does not necessarily stop the underlying asynchronous operation",
+      title: "Тайм-аут задаёт границу ожидания, но сам по себе не отменяет операцию.",
+      predicateText: "прекращение ожидания не обязательно останавливает исходную асинхронную операцию",
       relatedIds: [mockScenarioRefs.knowledgeCancellation],
     },
     {
       knowledgeId: mockScenarioRefs.knowledgeBackpressure,
       kindCode: "proposition",
-      title: "Backpressure keeps producers from overwhelming slower consumers.",
-      predicateText: "producer rate must be bounded by downstream processing capacity",
+      title: "Backpressure не позволяет производителю перегружать более медленного потребителя.",
+      predicateText: "скорость производителя должна учитывать пропускную способность потребителя",
       relatedIds: [
         mockScenarioRefs.knowledgeConcurrency,
         mockScenarioRefs.knowledgeNonBlockingIo,
@@ -385,7 +385,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeWorkerThreads,
       kindCode: "object",
-      title: "Worker threads",
+      title: "Worker Threads",
       relatedIds: [
         mockScenarioRefs.knowledgeParallelism,
         mockScenarioRefs.knowledgeEventLoop,
@@ -394,7 +394,7 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgePromiseCombinators,
       kindCode: "object",
-      title: "Promise combinators",
+      title: "Комбинаторы Promise",
       relatedIds: [
         mockScenarioRefs.knowledgePromise,
         mockScenarioRefs.knowledgeConcurrency,
@@ -403,8 +403,8 @@ export const rawMockScenario = {
     {
       knowledgeId: mockScenarioRefs.knowledgeErrorPropagation,
       kindCode: "proposition",
-      title: "Rejected Promises propagate through asynchronous control flow until handled.",
-      predicateText: "await rethrows Promise rejection into the surrounding async function",
+      title: "Отклонённый Promise распространяет ошибку по асинхронному потоку до её обработки.",
+      predicateText: "await повторно выбрасывает ошибку отклонённого Promise внутри окружающей async-функции",
       relatedIds: [
         mockScenarioRefs.knowledgePromise,
         mockScenarioRefs.knowledgeAsyncAwait,
@@ -414,22 +414,22 @@ export const rawMockScenario = {
   support: [
     {
       supportId: mockScenarioRefs.supportSystemDesign,
-      title: "Cache consistency design case",
+      title: "Задача на consistency кэша",
       kindCode: "task-specification",
       capabilityId: mockScenarioRefs.capabilitySystemDesign,
-      conditions: ["25 minute design exercise"],
-      fitText: "Directly exercises the challenged consistency assumption.",
-      limitationTexts: ["Does not cover behavioral interview evidence."],
+      conditions: ["25-минутное архитектурное упражнение"],
+      fitText: "Напрямую проверяет проблемное рассуждение о consistency.",
+      limitationTexts: ["Не проверяет поведенческую часть собеседования."],
     },
   ],
   preparedSupport: {
     supportId: mockScenarioRefs.supportBehavioralPrepared,
-    title: "Behavioral decision story guide",
+    title: "Шаблон рассказа об инженерном решении",
     kindCode: "learning-material",
     capabilityId: mockScenarioRefs.capabilityBehavioral,
-    conditions: ["self-guided story preparation"],
-    fitText: "Supports structuring a decision narrative before observation.",
-    limitationTexts: ["Does not itself provide attributable interview-performance evidence."],
+    conditions: ["самостоятельная подготовка истории"],
+    fitText: "Помогает структурировать рассказ о решении перед проверяемой практикой.",
+    limitationTexts: ["Сам по себе материал не создаёт свидетельств результата на собеседовании."],
   },
   activity: {
     attemptId: mockScenarioRefs.activityAttempt,
@@ -443,24 +443,24 @@ export const rawMockScenario = {
     learnerChangeCode: "increased-uncertainty",
     targetChangeCode: "no-change",
     explanationText:
-      "The activity added attributable evidence but exposed another unresolved assumption; target requirements did not change.",
+      "Практика добавила проверяемые свидетельства, но выявила ещё одно неразрешённое допущение; требования цели не изменились.",
   },
   preparation: {
     requestId: mockScenarioRefs.preparationRequest,
     targetId: mockScenarioRefs.targetPrimary,
     focusId: mockScenarioRefs.focusMissingSupport,
-    sourceText: "Behavioral interview preparation is missing suitable observation support.",
+    sourceText: "Для подготовки к поведенческой части не хватает подходящей наблюдаемой практики.",
     acceptedSupport: "prepared",
     remainderRows: [
       {
-        subjectText: "Interview-specific observation rubric",
+        subjectText: "Критерии оценки на конкретном собеседовании",
         statusCode: "unresolved",
-        reasonText: "No accepted source defines the interviewer's evaluation rubric.",
+        reasonText: "Нет принятого источника, который определяет критерии конкретного интервьюера.",
       },
       {
-        subjectText: "Mock interviewer availability",
+        subjectText: "Доступность mock-интервьюера",
         statusCode: "rejected",
-        reasonText: "No provider is configured for a live mock interviewer.",
+        reasonText: "Провайдер live mock-интервью пока не настроен.",
       },
     ],
     stateCode: "partial",
