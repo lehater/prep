@@ -194,7 +194,12 @@ describe("MockFrontendAdapter semantic contract", () => {
     ]);
     expect(knowledge.requiredCapabilityLabel).toBe("System design");
     expect(knowledge.items.length).toBeGreaterThan(0);
-    expect(knowledge.items[0]?.related[0]?.label).toBe("Стратегия кэширования");
+    expect(
+      knowledge.items.find(
+        (item) => item.knowledgeRef === mockScenarioRefs.knowledgeCaching,
+      )?.knowledgeForm,
+    ).toBe("strategy");
+    expect(knowledge.relationships).toEqual([]);
 
     const filtered = acceptedValue(
       await adapter.queryKnowledge({
@@ -228,6 +233,45 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeEventLoop);
     expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgePromise);
     expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeBackpressure);
+
+    expect(
+      knowledge.items.find(
+        (item) => item.knowledgeRef === mockScenarioRefs.knowledgeEventLoop,
+      )?.knowledgeForm,
+    ).toBe("mechanism");
+    expect(knowledge.relationships).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          propositionRef: mockScenarioRefs.relationTaskQueuePartOfEventLoop,
+          family: "partitive",
+          predicate: "part_of",
+          sourceRef: mockScenarioRefs.knowledgeTaskQueue,
+          targetRef: mockScenarioRefs.knowledgeEventLoop,
+        }),
+        expect.objectContaining({
+          propositionRef:
+            mockScenarioRefs.relationEventLoopRealizesAsyncProgramming,
+          family: "realization",
+          predicate: "realizes",
+          sourceRef: mockScenarioRefs.knowledgeEventLoop,
+          targetRef: mockScenarioRefs.knowledgeAsyncProgramming,
+        }),
+      ]),
+    );
+
+    const eventLoop = knowledge.items.find(
+      (item) => item.knowledgeRef === mockScenarioRefs.knowledgeEventLoop,
+    );
+    expect(eventLoop?.related).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          knowledgeRef: mockScenarioRefs.knowledgeTaskQueue,
+          predicate: "part_of",
+          inversePredicate: "has_part",
+          direction: "incoming",
+        }),
+      ]),
+    );
 
     const eventLoopMatches = acceptedValue(
       await adapter.queryKnowledge({
