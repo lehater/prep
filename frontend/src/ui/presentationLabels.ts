@@ -48,6 +48,81 @@ export function knowledgeKindLabel(
   }
 }
 
+export function knowledgeFormLabel(form: string): string {
+  switch (form) {
+    case "concept":
+      return "концепт";
+    case "mechanism":
+      return "механизм";
+    case "procedure":
+      return "процедура";
+    case "strategy":
+      return "стратегия";
+    case "model":
+      return "модель";
+    case "property":
+      return "свойство";
+    case "problem":
+      return "проблема";
+    default:
+      return form;
+  }
+}
+
+export function knowledgeRelationFamilyLabel(family: string): string {
+  switch (family) {
+    case "taxonomic":
+      return "таксономия";
+    case "partitive":
+      return "часть / целое";
+    case "realization":
+      return "реализация";
+    case "problem_response":
+      return "проблема / решение";
+    case "causal_temporal_developmental":
+      return "причина / время / развитие";
+    case "activity_participation_instrument":
+      return "действие / участие / инструмент";
+    case "production_origination_transformation":
+      return "производство / преобразование";
+    case "interaction_control":
+      return "взаимодействие / контроль";
+    case "transmission_information_flow":
+      return "поток информации";
+    case "representation_provenance":
+      return "представление / происхождение";
+    case "contrast_opposition":
+      return "контраст / противопоставление";
+    default:
+      return family;
+  }
+}
+
+export function knowledgePredicateLabel(predicate: string): string {
+  switch (predicate) {
+    case "addresses":
+      return "решает";
+    case "realizes":
+      return "реализует";
+    case "realized_by":
+      return "реализуется через";
+    case "specializes":
+      return "специализирует";
+    case "generalized_by":
+      return "обобщается через";
+    case "part_of":
+      return "часть";
+    case "has_part":
+      return "содержит часть";
+    case "produces":
+      return "производит";
+    case "produced_by":
+      return "производится через";
+    default:
+      return predicate;
+  }
+}
+
 export function evidenceKindLabel(
   kind: "performance" | "observation",
 ): string {
