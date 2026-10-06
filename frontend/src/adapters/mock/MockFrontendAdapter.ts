@@ -442,7 +442,15 @@ export class MockFrontendAdapter
 
     const anchors =
       input.requiredCapabilityRef === mockScenarioRefs.capabilitySystemDesign
-        ? [mockScenarioRefs.knowledgeConsistency, mockScenarioRefs.knowledgeCaching]
+        ? [
+            mockScenarioRefs.knowledgeConsistency,
+            mockScenarioRefs.knowledgeCaching,
+            mockScenarioRefs.knowledgeWriteThroughCaching,
+            mockScenarioRefs.knowledgeCacheEvictionStrategy,
+            mockScenarioRefs.knowledgeLruEvictionProcedure,
+            mockScenarioRefs.knowledgeCacheCoherenceModel,
+            mockScenarioRefs.knowledgeIdempotency,
+          ]
         : input.requiredCapabilityRef === mockScenarioRefs.capabilityTypeScript
           ? [
               mockScenarioRefs.knowledgeAsyncProgramming,
@@ -461,6 +469,8 @@ export class MockFrontendAdapter
               mockScenarioRefs.knowledgeWorkerThreads,
               mockScenarioRefs.knowledgePromiseCombinators,
               mockScenarioRefs.knowledgeErrorPropagation,
+              mockScenarioRefs.knowledgeProducerConsumerOverload,
+              mockScenarioRefs.knowledgeWorkerExecutionContext,
             ]
           : rawMockScenario.focus.capabilityIds.includes(
                 input.requiredCapabilityRef as CapabilityRef,
@@ -486,15 +496,42 @@ export class MockFrontendAdapter
               .includes(normalizedQuery),
           );
 
+    const selectedRefs = new Set(selected.map((item) => item.knowledgeId));
+    const relationships = rawMockScenario.knowledgeRelations
+      .filter(
+        (relation) =>
+          selectedRefs.has(relation.sourceId) &&
+          selectedRefs.has(relation.targetId),
+      )
+      .map((relation) => ({
+        propositionRef: relation.knowledgeId,
+        family: relation.familyCode,
+        predicate: relation.predicateCode,
+        inversePredicate: relation.inversePredicateCode,
+        sourceRef: relation.sourceId,
+        targetRef: relation.targetId,
+        statement: relation.title,
+      }));
+
     const items = selected.map((item) => ({
       knowledgeRef: item.knowledgeId,
       kind: item.kindCode,
+      ...("knowledgeForm" in item
+        ? { knowledgeForm: item.knowledgeForm }
+        : {}),
       label: item.title,
       ...(item.kindCode === "proposition"
         ? { predicate: item.predicateText }
         : {}),
-      related: item.relatedIds.flatMap((relatedRef) => {
-        const related = rawMockScenario.knowledge.find(
+      related: relationships.flatMap((relation) => {
+        const outgoing = relation.sourceRef === item.knowledgeId;
+        const incoming = relation.targetRef === item.knowledgeId;
+        if (!outgoing && !incoming) {
+          return [];
+        }
+
+        const relatedRef = outgoing ? relation.targetRef : relation.sourceRef;
+        const related = selected.find(
           (candidate) => candidate.knowledgeId === relatedRef,
         );
         return related
@@ -503,6 +540,11 @@ export class MockFrontendAdapter
                 knowledgeRef: related.knowledgeId,
                 kind: related.kindCode,
                 label: related.title,
+                propositionRef: relation.propositionRef,
+                relationFamily: relation.family,
+                predicate: relation.predicate,
+                inversePredicate: relation.inversePredicate,
+                direction: outgoing ? ("outgoing" as const) : ("incoming" as const),
               },
             ]
           : [];
@@ -522,6 +564,7 @@ export class MockFrontendAdapter
       ...(input.query ? { query: input.query } : {}),
       anchorRefs: anchors,
       items,
+      relationships,
     });
   }
 

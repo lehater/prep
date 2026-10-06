@@ -40,13 +40,21 @@ export function supportAvailabilityLabel(
 export function knowledgeKindLabel(
   kind: "object" | "proposition",
 ): string {
-  switch (kind) {
-    case "object":
-      return "объект";
-    case "proposition":
-      return "утверждение";
-  }
+  return kind === "object" ? "KnowledgeObject" : "KnowledgeProposition";
 }
+
+export function knowledgeFormLabel(form: string): string {
+  return form;
+}
+
+export function knowledgeRelationFamilyLabel(family: string): string {
+  return family;
+}
+
+export function knowledgePredicateLabel(predicate: string): string {
+  return predicate;
+}
+
 
 export function evidenceKindLabel(
   kind: "performance" | "observation",

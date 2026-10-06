@@ -10,7 +10,6 @@ import {
 import type { CapabilityRef, KnowledgeRef } from "../contracts";
 
 export type KnowledgeKindFilter = "all" | "object" | "proposition";
-export type KnowledgeRelationsFilter = "all" | "two-plus" | "three-plus";
 
 export interface KnowledgeExplorerStateValue {
   readonly queryDraft: string;
@@ -18,14 +17,18 @@ export interface KnowledgeExplorerStateValue {
   readonly scope: "overview" | "detail";
   readonly requiredCapabilityRef: CapabilityRef | null;
   readonly kindFilter: KnowledgeKindFilter;
-  readonly relationsFilter: KnowledgeRelationsFilter;
+  readonly knowledgeFormFilter: string;
+  readonly relationFamilyFilter: string;
+  readonly relationPredicateFilter: string;
   readonly selectedKnowledgeRef: KnowledgeRef | null;
   readonly setQueryDraft: (value: string) => void;
   readonly applyQuery: () => void;
   readonly setScope: (scope: "overview" | "detail") => void;
   readonly setRequiredCapabilityRef: (ref: CapabilityRef | null) => void;
   readonly setKindFilter: (value: KnowledgeKindFilter) => void;
-  readonly setRelationsFilter: (value: KnowledgeRelationsFilter) => void;
+  readonly setKnowledgeFormFilter: (value: string) => void;
+  readonly setRelationFamilyFilter: (value: string) => void;
+  readonly setRelationPredicateFilter: (value: string) => void;
   readonly setSelectedKnowledgeRef: (ref: KnowledgeRef | null) => void;
 }
 
@@ -43,8 +46,9 @@ export function KnowledgeExplorerStateProvider({
   const [requiredCapabilityRef, setRequiredCapabilityRefState] =
     useState<CapabilityRef | null>(null);
   const [kindFilter, setKindFilter] = useState<KnowledgeKindFilter>("all");
-  const [relationsFilter, setRelationsFilter] =
-    useState<KnowledgeRelationsFilter>("all");
+  const [knowledgeFormFilter, setKnowledgeFormFilter] = useState("all");
+  const [relationFamilyFilter, setRelationFamilyFilter] = useState("all");
+  const [relationPredicateFilter, setRelationPredicateFilter] = useState("all");
   const [selectedKnowledgeRef, setSelectedKnowledgeRef] =
     useState<KnowledgeRef | null>(null);
 
@@ -73,22 +77,28 @@ export function KnowledgeExplorerStateProvider({
       scope,
       requiredCapabilityRef,
       kindFilter,
-      relationsFilter,
+      knowledgeFormFilter,
+      relationFamilyFilter,
+      relationPredicateFilter,
       selectedKnowledgeRef,
       setQueryDraft,
       applyQuery,
       setScope,
       setRequiredCapabilityRef,
       setKindFilter,
-      setRelationsFilter,
+      setKnowledgeFormFilter,
+      setRelationFamilyFilter,
+      setRelationPredicateFilter,
       setSelectedKnowledgeRef,
     }),
     [
       appliedQuery,
       applyQuery,
       kindFilter,
+      knowledgeFormFilter,
       queryDraft,
-      relationsFilter,
+      relationFamilyFilter,
+      relationPredicateFilter,
       requiredCapabilityRef,
       scope,
       selectedKnowledgeRef,

@@ -132,12 +132,12 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     .click();
 
   await expect(
-    page.getByRole("heading", { name: "Знания текущей цели" }),
+    page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByText("Компетенция: System design", { exact: true }),
+    page.getByText("System design", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
+  await expect(page.getByText("7/7", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
       "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
@@ -238,10 +238,10 @@ test("preserves preparation hierarchy and serializes comparison on a narrow view
   await page.goto("/");
 
   await expect(
-    page.locator("nav.prep-navigation + section.active-context"),
+    page.locator(".app-sidebar .active-context"),
   ).toBeVisible();
   await expect(
-    page.locator("section.active-context + main.active-child"),
+    page.locator("main.active-child"),
   ).toBeVisible();
 
   await page
@@ -379,9 +379,14 @@ test("preserves a missing-support focus and routes to contextual preparation", a
 });
 
 
-test("links Knowledge table, cumulative filters, detail and optional relationship overview", async ({
+test("keeps Knowledge table graph and details visible in a resizable admin workspace", async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.addInitScript(() => {
+    window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
+    window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
+  });
   await page.goto("/");
   await establishBackendTarget(page);
 
@@ -397,21 +402,127 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
     "data-spatial-overview",
     "available",
   );
-  await expect(knowledgeView.locator("canvas")).toHaveCount(0);
+  await expect(page.locator(".app-sidebar")).toBeVisible();
+  await expect(
+    page.locator(".prep-navigation").getByRole("button", {
+      name: "Знания",
+      exact: true,
+    }),
+  ).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByText("7/7", { exact: true })).toBeVisible();
+  await expect(page.getByText("System design", { exact: true })).toBeVisible();
   await expect(
     knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
   ).toBeVisible();
   await expect(
-    page.getByText(
-      "Таблица и детали остаются полным способом работы со знаниями. Граф — дополнительный обзор связей и не определяет смысл Knowledge.",
-    ),
+    page.getByLabel("Детали знания").getByText("Выберите строку"),
   ).toBeVisible();
 
-  await expect(
-    page.getByText("Компетенция: System design", { exact: true }),
-  ).toBeVisible();
-  await expect(page.getByRole("table")).toBeVisible();
-  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
+  const verticalDivider = page.getByRole("separator", {
+    name: "Изменить ширину таблицы и графа",
+  });
+  const horizontalDivider = page.getByRole("separator", {
+    name: "Изменить высоту таблицы и деталей",
+  });
+  await expect(verticalDivider).toBeVisible();
+  await expect(horizontalDivider).toBeVisible();
+
+  const graphBox = await page
+    .getByLabel("Связи знаний")
+    .boundingBox();
+  expect(graphBox).not.toBeNull();
+  if (graphBox) {
+    expect(Math.abs(graphBox.width - graphBox.height)).toBeLessThanOrEqual(2);
+  }
+
+  const workbenchBox = await page.locator(".knowledge-workbench").boundingBox();
+  const detailsBox = await page.getByLabel("Детали знания").boundingBox();
+  expect(workbenchBox).not.toBeNull();
+  expect(detailsBox).not.toBeNull();
+  if (workbenchBox && detailsBox) {
+    const workbenchBottom = workbenchBox.y + workbenchBox.height;
+    const detailsBottom = detailsBox.y + detailsBox.height;
+    expect(Math.abs(workbenchBottom - detailsBottom)).toBeLessThanOrEqual(2);
+  }
+
+  const initialTableRatio = Number(
+    await verticalDivider.getAttribute("aria-valuenow"),
+  );
+  await verticalDivider.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(verticalDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(initialTableRatio - 2),
+  );
+
+  const initialTopRatio = Number(
+    await horizontalDivider.getAttribute("aria-valuenow"),
+  );
+  await horizontalDivider.focus();
+  await page.keyboard.press("ArrowUp");
+  await expect(horizontalDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(initialTopRatio - 2),
+  );
+
+  const storedSplits = await page.evaluate(() => ({
+    tableGraph: Number(
+      window.localStorage.getItem("prep.knowledge.table-graph-ratio.v2"),
+    ),
+    topDetails: Number(
+      window.localStorage.getItem("prep.knowledge.top-details-ratio.v2"),
+    ),
+  }));
+  expect(storedSplits.tableGraph).toBeCloseTo(initialTableRatio - 2, 0);
+  expect(storedSplits.topDetails).toBeCloseTo(initialTopRatio - 2, 0);
+
+  await verticalDivider.dblclick();
+  await horizontalDivider.dblclick();
+
+  const verticalBox = await verticalDivider.boundingBox();
+  expect(verticalBox).not.toBeNull();
+  if (verticalBox) {
+    const beforeDrag = Number(
+      await verticalDivider.getAttribute("aria-valuenow"),
+    );
+    await page.mouse.move(
+      verticalBox.x + verticalBox.width / 2,
+      verticalBox.y + verticalBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      verticalBox.x - 80,
+      verticalBox.y + verticalBox.height / 2,
+    );
+    await page.mouse.up();
+    const afterDrag = Number(
+      await verticalDivider.getAttribute("aria-valuenow"),
+    );
+    expect(afterDrag).toBeLessThan(beforeDrag);
+  }
+
+  const horizontalBox = await horizontalDivider.boundingBox();
+  expect(horizontalBox).not.toBeNull();
+  if (horizontalBox) {
+    const beforeDrag = Number(
+      await horizontalDivider.getAttribute("aria-valuenow"),
+    );
+    await page.mouse.move(
+      horizontalBox.x + horizontalBox.width / 2,
+      horizontalBox.y + horizontalBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      horizontalBox.x + horizontalBox.width / 2,
+      horizontalBox.y - 60,
+    );
+    await page.mouse.up();
+    const afterDrag = Number(
+      await horizontalDivider.getAttribute("aria-valuenow"),
+    );
+    expect(afterDrag).toBeLessThan(beforeDrag);
+  }
 
   await page
     .locator(".knowledge-table")
@@ -419,40 +530,133 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
       name: /Выбор consistency-модели балансирует задержку/,
     })
     .click();
-  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
-    "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
-  );
+
   await expect(
-    page.getByText(
-      "consistency-модель влияет на задержку, координацию и актуальность данных",
-      { exact: true },
-    ).last(),
+    page.getByLabel("Детали знания").getByRole("heading", {
+      name: "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
+    }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByLabel("Детали знания")
+      .getByText(
+        "consistency-модель влияет на задержку, координацию и актуальность данных",
+        { exact: true },
+      ),
+  ).toBeVisible();
+  await expect(
+    knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
   ).toBeVisible();
 
   await page
-    .getByRole("button", { name: "Стратегия кэширования. Связей: 1" })
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Стратегия кэширования", exact: true })
     .click();
-  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
-    "Стратегия кэширования",
-  );
-
-  await page.getByRole("button", { name: "Сбросить фильтры" }).click();
-  await expect(page.getByText("Показано 18 из 18")).toBeVisible();
-
-  await page.getByLabel("Тип").selectOption("object");
-  await expect(page.getByText("Показано 9 из 18")).toBeVisible();
-
-  await page.getByLabel("Связность").selectOption("three-plus");
-  await expect(page.getByText("Показано 5 из 18")).toBeVisible();
-
-  const query = page.getByRole("textbox", { name: "Поиск", exact: true });
-  await query.fill("event loop");
-  await expect(page.getByText("Показано 1 из 3")).toBeVisible();
   await expect(
     page
       .locator(".knowledge-table")
-      .getByRole("button", { name: /JavaScript Event Loop/ }),
+      .getByRole("button", { name: "Стратегия кэширования", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByLabel("Детали знания").getByRole("heading", {
+      name: "Стратегия кэширования",
+      exact: true,
+    }),
   ).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+  await expect(page.getByText("25/25", { exact: true })).toBeVisible();
+
+  await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
+    "Все виды",
+    "KnowledgeObject",
+    "KnowledgeProposition",
+  ]);
+  await expect(page.getByLabel("Форма знания").locator("option")).toHaveText([
+    "Все формы",
+    "concept",
+    "mechanism",
+    "model",
+    "procedure",
+    "property",
+    "strategy",
+  ]);
+  await expect(page.getByLabel("Семейство связи").locator("option")).toHaveText([
+    "Все семейства связей",
+    "partitive",
+    "problem_response",
+    "production_origination_transformation",
+    "realization",
+    "taxonomic",
+  ]);
+  await expect(page.getByLabel("Тип связи").locator("option")).toHaveText([
+    "Все типы связей",
+    "addresses",
+    "part_of",
+    "produces",
+    "realizes",
+    "specializes",
+  ]);
+
+  const viewportState = await page.evaluate(() => ({
+    innerHeight: window.innerHeight,
+    documentHeight: document.documentElement.scrollHeight,
+  }));
+  expect(viewportState.documentHeight).toBeLessThanOrEqual(
+    viewportState.innerHeight + 1,
+  );
+
+  await page.getByLabel("Тип знания").selectOption("object");
+  await expect(page.getByText("17/25", { exact: true })).toBeVisible();
+
+  await page.getByLabel("Форма знания").selectOption("mechanism");
+  await expect(page.getByText("5/25", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+
+  await page.getByLabel("Семейство связи").selectOption("partitive");
+  await expect(page.getByText("2/25", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
+  await expect(
+    page.getByLabel("Тип связи").locator('option[value="part_of"]'),
+  ).toHaveText("part_of");
+
+  await page.getByLabel("Тип связи").selectOption("part_of");
+  await expect(
+    page.locator('[data-predicate="part_of"]'),
+  ).toHaveCount(1);
+  await expect(
+    page.locator(".knowledge-relationship-edge-label").getByText("part_of"),
+  ).toBeVisible();
+
+  await page
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Очередь задач", exact: true })
+    .click();
+  await expect(
+    page.getByLabel("Детали знания").getByText("part_of", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByLabel("Детали знания")
+      .getByText(
+        "Очередь задач является составной частью JavaScript Event Loop.",
+        { exact: true },
+      ),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Детали знания").getByRole("button", {
+      name: "JavaScript Event Loop",
+      exact: true,
+    }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Сбросить", exact: true }).click();
+  await page.getByLabel("Тип знания").selectOption("object");
+
+  const query = page.getByRole("textbox", { name: "Поиск", exact: true });
+  await query.fill("event loop");
+  await expect(page.getByText("1/3", { exact: true })).toBeVisible();
 
   await page.getByRole("button", { name: "Цель", exact: true }).click();
   await page.getByRole("button", { name: "Знания", exact: true }).click();
@@ -460,9 +664,11 @@ test("links Knowledge table, cumulative filters, detail and optional relationshi
   await expect(
     page.getByRole("textbox", { name: "Поиск", exact: true }),
   ).toHaveValue("event loop");
-  await expect(page.getByLabel("Тип")).toHaveValue("object");
-  await expect(page.getByLabel("Связность")).toHaveValue("three-plus");
-  await expect(page.getByText("Компетенция: без фильтра")).toBeVisible();
+  await expect(page.getByLabel("Тип знания")).toHaveValue("object");
+  await expect(page.getByLabel("Форма знания")).toHaveValue("all");
+  await expect(page.getByLabel("Семейство связи")).toHaveValue("all");
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
+  await expect(page.locator(".knowledge-capability-scope")).toHaveCount(0);
 });
 
 test("preserves accepted Next focus context when entering Knowledge", async ({
@@ -477,12 +683,12 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await page.getByRole("button", { name: "Знания", exact: true }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Знания текущей цели" }),
+    page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
   ).toBeVisible();
-  await expect(page.getByText("Фокус: учтён", { exact: true })).toBeVisible();
+  await expect(page.locator(".preparation-shell--admin[data-destination=\"knowledge\"]")).toBeVisible();
 });
 
 
@@ -684,10 +890,10 @@ for (const viewport of [
     await establishBackendTarget(page);
 
     await expect(
-      page.locator("nav.prep-navigation + section.active-context"),
+      page.locator(".app-sidebar .active-context"),
     ).toBeVisible();
     await expect(
-      page.locator("section.active-context + main.active-child"),
+      page.locator("main.active-child"),
     ).toBeVisible();
 
     await page.getByRole("button", { name: "Текущее состояние" }).click();
@@ -697,7 +903,7 @@ for (const viewport of [
     await page.getByRole("button", { name: "Знания", exact: true }).click();
     await expect(
       page.getByRole("heading", {
-        name: "Знания текущей цели",
+        name: "Знания",
       }),
     ).toBeVisible();
     await expect(

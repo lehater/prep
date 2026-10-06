@@ -1,18 +1,45 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  type CSSProperties,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-import { knowledgeKindLabel } from "../../ui/presentationLabels";
+import {
+  knowledgeFormLabel,
+  knowledgeKindLabel,
+  knowledgePredicateLabel,
+  knowledgeRelationFamilyLabel,
+} from "../../ui/presentationLabels";
 import type { CapabilityRef, FocusRef, KnowledgeRef, TargetRef } from "../contracts";
 import type {
   KnowledgeItemModel,
   KnowledgePort,
   KnowledgeProjectionModel,
+  KnowledgeRelationshipProjectionModel,
 } from "./contract";
 import type {
-  KnowledgeRelationshipEdgeModel,
   KnowledgeRelationshipOverviewModel,
   KnowledgeRelationshipRenderer,
 } from "./relationship-renderer";
 import { useKnowledgeExplorerState } from "./state";
+
+const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio.v2";
+const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio.v2";
+const DEFAULT_TABLE_GRAPH_RATIO = 70;
+const DEFAULT_TOP_DETAILS_RATIO = 50;
+const TABLE_RATIO_MIN = 45;
+const TABLE_RATIO_MAX = 82;
+const TOP_RATIO_MIN = 30;
+const TOP_RATIO_MAX = 80;
+const SPLITTER_SIZE = 7;
+const MIN_TABLE_WIDTH = 520;
+const MIN_GRAPH_SIZE = 260;
+const MIN_DETAILS_HEIGHT = 150;
 
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
@@ -22,45 +49,50 @@ export interface KnowledgeExplorerFeatureProps {
   readonly relationshipRenderer?: KnowledgeRelationshipRenderer | undefined;
 }
 
-function matchesRelationFilter(
-  item: KnowledgeItemModel,
-  filter: "all" | "two-plus" | "three-plus",
-): boolean {
-  if (filter === "two-plus") {
-    return item.related.length >= 2;
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function readStoredRatio(key: string, fallback: number): number {
+  if (typeof window === "undefined") {
+    return fallback;
   }
-  if (filter === "three-plus") {
-    return item.related.length >= 3;
+
+  const raw = window.localStorage.getItem(key);
+  if (raw === null) {
+    return fallback;
   }
-  return true;
+
+  const stored = Number(raw);
+  return Number.isFinite(stored) ? stored : fallback;
+}
+
+function uniqueSorted(values: readonly string[]): readonly string[] {
+  return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
 function buildRelationshipOverview(
   items: readonly KnowledgeItemModel[],
+  relationships: readonly KnowledgeRelationshipProjectionModel[],
   selectedKnowledgeRef: KnowledgeRef | null,
 ): KnowledgeRelationshipOverviewModel {
   const visibleRefs = new Set(items.map((item) => item.knowledgeRef));
-  const edges: KnowledgeRelationshipEdgeModel[] = [];
-  const seenEdges = new Set<string>();
+  const visibleRelationships = relationships.filter(
+    (relationship) =>
+      visibleRefs.has(relationship.sourceRef) &&
+      visibleRefs.has(relationship.targetRef),
+  );
 
-  for (const item of items) {
-    for (const related of item.related) {
-      if (!visibleRefs.has(related.knowledgeRef)) {
-        continue;
-      }
-
-      const pair = [String(item.knowledgeRef), String(related.knowledgeRef)].sort();
-      const edgeKey = pair.join("::");
-      if (seenEdges.has(edgeKey)) {
-        continue;
-      }
-
-      seenEdges.add(edgeKey);
-      edges.push({
-        sourceRef: item.knowledgeRef,
-        targetRef: related.knowledgeRef,
-      });
-    }
+  const relationCounts = new Map<KnowledgeRef, number>();
+  for (const relationship of visibleRelationships) {
+    relationCounts.set(
+      relationship.sourceRef,
+      (relationCounts.get(relationship.sourceRef) ?? 0) + 1,
+    );
+    relationCounts.set(
+      relationship.targetRef,
+      (relationCounts.get(relationship.targetRef) ?? 0) + 1,
+    );
   }
 
   return {
@@ -68,10 +100,18 @@ function buildRelationshipOverview(
       knowledgeRef: item.knowledgeRef,
       kind: item.kind,
       label: item.label,
-      relationCount: item.related.length,
+      relationCount: relationCounts.get(item.knowledgeRef) ?? 0,
       selected: item.knowledgeRef === selectedKnowledgeRef,
     })),
-    edges,
+    edges: visibleRelationships.map((relationship) => ({
+      propositionRef: relationship.propositionRef,
+      sourceRef: relationship.sourceRef,
+      targetRef: relationship.targetRef,
+      family: relationship.family,
+      predicate: relationship.predicate,
+      label: knowledgePredicateLabel(relationship.predicate),
+      statement: relationship.statement,
+    })),
     selectedKnowledgeRef,
   };
 }
@@ -89,25 +129,105 @@ export function KnowledgeExplorerFeature({
     scope,
     requiredCapabilityRef,
     kindFilter,
-    relationsFilter,
+    knowledgeFormFilter,
+    relationFamilyFilter,
+    relationPredicateFilter,
     selectedKnowledgeRef,
     setQueryDraft,
     setScope,
     setRequiredCapabilityRef,
     setKindFilter,
-    setRelationsFilter,
+    setKnowledgeFormFilter,
+    setRelationFamilyFilter,
+    setRelationPredicateFilter,
     setSelectedKnowledgeRef,
   } = useKnowledgeExplorerState();
+
   const [projection, setProjection] =
     useState<KnowledgeProjectionModel | null>(null);
   const [status, setStatus] = useState<"loading" | "ready">("loading");
   const [message, setMessage] = useState<string | null>(null);
+  const hadStoredLayoutRef = useRef(
+    typeof window !== "undefined" &&
+      window.localStorage.getItem(TABLE_GRAPH_SPLIT_KEY) !== null &&
+      window.localStorage.getItem(TOP_DETAILS_SPLIT_KEY) !== null,
+  );
+  const [tableGraphRatio, setTableGraphRatio] = useState(() =>
+    clamp(
+      readStoredRatio(TABLE_GRAPH_SPLIT_KEY, DEFAULT_TABLE_GRAPH_RATIO),
+      TABLE_RATIO_MIN,
+      TABLE_RATIO_MAX,
+    ),
+  );
+  const [topDetailsRatio, setTopDetailsRatio] = useState(() =>
+    clamp(
+      readStoredRatio(TOP_DETAILS_SPLIT_KEY, DEFAULT_TOP_DETAILS_RATIO),
+      TOP_RATIO_MIN,
+      TOP_RATIO_MAX,
+    ),
+  );
+
+  const upperPaneRef = useRef<HTMLDivElement | null>(null);
+  const workbenchRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (incomingRequiredCapabilityRef) {
       setRequiredCapabilityRef(incomingRequiredCapabilityRef);
     }
   }, [incomingRequiredCapabilityRef, setRequiredCapabilityRef]);
+
+  useLayoutEffect(() => {
+    if (hadStoredLayoutRef.current || !projection) {
+      return;
+    }
+
+    const rect = workbenchRef.current?.getBoundingClientRect();
+    if (!rect || rect.width <= 0 || rect.height <= 0) {
+      return;
+    }
+
+    const maxGraphByWidth = rect.width - MIN_TABLE_WIDTH - SPLITTER_SIZE;
+    const maxGraphByHeight = rect.height - MIN_DETAILS_HEIGHT - SPLITTER_SIZE;
+    const maxGraphSize = Math.max(
+      MIN_GRAPH_SIZE,
+      Math.min(maxGraphByWidth, maxGraphByHeight),
+    );
+    const preferredGraphSize = Math.min(rect.width * 0.3, rect.height * 0.58);
+    const graphSize = clamp(
+      preferredGraphSize,
+      MIN_GRAPH_SIZE,
+      maxGraphSize,
+    );
+
+    setTableGraphRatio(
+      clamp(
+        ((rect.width - graphSize - SPLITTER_SIZE) / rect.width) * 100,
+        TABLE_RATIO_MIN,
+        TABLE_RATIO_MAX,
+      ),
+    );
+    setTopDetailsRatio(
+      clamp(
+        (graphSize / rect.height) * 100,
+        TOP_RATIO_MIN,
+        TOP_RATIO_MAX,
+      ),
+    );
+  }, [projection]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      TABLE_GRAPH_SPLIT_KEY,
+      String(Math.round(tableGraphRatio * 10) / 10),
+    );
+  }, [tableGraphRatio]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      TOP_DETAILS_SPLIT_KEY,
+      String(Math.round(topDetailsRatio * 10) / 10),
+    );
+  }, [topDetailsRatio]);
 
   useEffect(() => {
     let cancelled = false;
@@ -149,15 +269,116 @@ export function KnowledgeExplorerFeature({
     scope,
   ]);
 
-  const visibleItems = useMemo(
+  const knowledgeFormOptions = useMemo(
     () =>
+      uniqueSorted(
+        projection?.items.flatMap((item) =>
+          item.knowledgeForm ? [item.knowledgeForm] : [],
+        ) ?? [],
+      ),
+    [projection],
+  );
+
+  const relationFamilyOptions = useMemo(
+    () =>
+      uniqueSorted(
+        projection?.relationships.map((relationship) => relationship.family) ?? [],
+      ),
+    [projection],
+  );
+
+  const relationPredicateOptions = useMemo(
+    () =>
+      uniqueSorted(
+        projection?.relationships
+          .filter(
+            (relationship) =>
+              relationFamilyFilter === "all" ||
+              relationship.family === relationFamilyFilter,
+          )
+          .map((relationship) => relationship.predicate) ?? [],
+      ),
+    [projection, relationFamilyFilter],
+  );
+
+  useEffect(() => {
+    if (
+      relationPredicateFilter !== "all" &&
+      !relationPredicateOptions.includes(relationPredicateFilter)
+    ) {
+      setRelationPredicateFilter("all");
+    }
+  }, [
+    relationPredicateFilter,
+    relationPredicateOptions,
+    setRelationPredicateFilter,
+  ]);
+
+  const matchingRelationships = useMemo(
+    () =>
+      projection?.relationships.filter(
+        (relationship) =>
+          (relationFamilyFilter === "all" ||
+            relationship.family === relationFamilyFilter) &&
+          (relationPredicateFilter === "all" ||
+            relationship.predicate === relationPredicateFilter),
+      ) ?? [],
+    [projection, relationFamilyFilter, relationPredicateFilter],
+  );
+
+  const relationFilterActive =
+    relationFamilyFilter !== "all" || relationPredicateFilter !== "all";
+
+  const visibleItems = useMemo(() => {
+    const relationParticipantRefs = new Set<KnowledgeRef>();
+    if (relationFilterActive) {
+      for (const relationship of matchingRelationships) {
+        relationParticipantRefs.add(relationship.sourceRef);
+        relationParticipantRefs.add(relationship.targetRef);
+      }
+    }
+
+    return (
       projection?.items.filter(
         (item) =>
           (kindFilter === "all" || item.kind === kindFilter) &&
-          matchesRelationFilter(item, relationsFilter),
-      ) ?? [],
-    [kindFilter, projection, relationsFilter],
-  );
+          (knowledgeFormFilter === "all" ||
+            item.knowledgeForm === knowledgeFormFilter) &&
+          (!relationFilterActive ||
+            relationParticipantRefs.has(item.knowledgeRef)),
+      ) ?? []
+    );
+  }, [
+    kindFilter,
+    knowledgeFormFilter,
+    matchingRelationships,
+    projection,
+    relationFilterActive,
+  ]);
+
+  const visibleRelationships = useMemo(() => {
+    const visibleRefs = new Set(visibleItems.map((item) => item.knowledgeRef));
+    return matchingRelationships.filter(
+      (relationship) =>
+        visibleRefs.has(relationship.sourceRef) &&
+        visibleRefs.has(relationship.targetRef),
+    );
+  }, [matchingRelationships, visibleItems]);
+
+  const relationCounts = useMemo(() => {
+    const counts = new Map<KnowledgeRef, number>();
+    for (const relationship of visibleRelationships) {
+      counts.set(
+        relationship.sourceRef,
+        (counts.get(relationship.sourceRef) ?? 0) + 1,
+      );
+      counts.set(
+        relationship.targetRef,
+        (counts.get(relationship.targetRef) ?? 0) + 1,
+      );
+    }
+    return counts;
+  }, [visibleRelationships]);
 
   useEffect(() => {
     if (
@@ -176,345 +397,547 @@ export function KnowledgeExplorerFeature({
     [selectedKnowledgeRef, visibleItems],
   );
 
+  const selectedRelations = useMemo(() => {
+    if (!selectedItem || !projection) {
+      return [];
+    }
+
+    return visibleRelationships.flatMap((relationship) => {
+      const outgoing = relationship.sourceRef === selectedItem.knowledgeRef;
+      const incoming = relationship.targetRef === selectedItem.knowledgeRef;
+      if (!outgoing && !incoming) {
+        return [];
+      }
+
+      const counterpartRef = outgoing
+        ? relationship.targetRef
+        : relationship.sourceRef;
+      const counterpart = projection.items.find(
+        (item) => item.knowledgeRef === counterpartRef,
+      );
+      if (!counterpart) {
+        return [];
+      }
+
+      return [
+        {
+          relationship,
+          counterpart,
+          displayPredicate:
+            outgoing || !relationship.inversePredicate
+              ? relationship.predicate
+              : relationship.inversePredicate,
+        },
+      ];
+    });
+  }, [projection, selectedItem, visibleRelationships]);
+
   const relationshipOverview = useMemo(
-    () => buildRelationshipOverview(visibleItems, selectedKnowledgeRef),
-    [selectedKnowledgeRef, visibleItems],
+    () =>
+      buildRelationshipOverview(
+        visibleItems,
+        visibleRelationships,
+        selectedKnowledgeRef,
+      ),
+    [selectedKnowledgeRef, visibleItems, visibleRelationships],
   );
 
-  function chooseItem(item: KnowledgeItemModel) {
-    setSelectedKnowledgeRef(item.knowledgeRef);
-    setScope("detail");
-  }
-
-  function chooseItemByRef(knowledgeRef: KnowledgeRef) {
-    const item = visibleItems.find(
-      (candidate) => candidate.knowledgeRef === knowledgeRef,
-    );
-    if (item) {
-      chooseItem(item);
+  function chooseItem(knowledgeRef: KnowledgeRef) {
+    if (visibleItems.some((item) => item.knowledgeRef === knowledgeRef)) {
+      setSelectedKnowledgeRef(knowledgeRef);
+      setScope("detail");
     }
   }
 
   function resetFilters() {
     setQueryDraft("");
     setKindFilter("all");
-    setRelationsFilter("all");
+    setKnowledgeFormFilter("all");
+    setRelationFamilyFilter("all");
+    setRelationPredicateFilter("all");
     setRequiredCapabilityRef(null);
     setScope("overview");
     setSelectedKnowledgeRef(null);
   }
 
+  function updateTableGraphRatio(clientX: number) {
+    const rect = upperPaneRef.current?.getBoundingClientRect();
+    if (!rect || rect.width <= 0) {
+      return;
+    }
+
+    const minTable = Math.min(MIN_TABLE_WIDTH, rect.width * 0.6);
+    const minGraph = Math.min(MIN_GRAPH_SIZE, rect.width * 0.32);
+    const minRatio = (minTable / rect.width) * 100;
+    const maxRatio = ((rect.width - minGraph) / rect.width) * 100;
+
+    setTableGraphRatio(
+      clamp(
+        ((clientX - rect.left) / rect.width) * 100,
+        Math.max(TABLE_RATIO_MIN, minRatio),
+        Math.min(TABLE_RATIO_MAX, maxRatio),
+      ),
+    );
+  }
+
+  function updateTopDetailsRatio(clientY: number) {
+    const rect = workbenchRef.current?.getBoundingClientRect();
+    if (!rect || rect.height <= 0) {
+      return;
+    }
+
+    const minTop = Math.min(MIN_GRAPH_SIZE, rect.height * 0.58);
+    const minDetails = Math.min(MIN_DETAILS_HEIGHT, rect.height * 0.34);
+    const minRatio = (minTop / rect.height) * 100;
+    const maxRatio = ((rect.height - minDetails) / rect.height) * 100;
+
+    setTopDetailsRatio(
+      clamp(
+        ((clientY - rect.top) / rect.height) * 100,
+        Math.max(TOP_RATIO_MIN, minRatio),
+        Math.min(TOP_RATIO_MAX, maxRatio),
+      ),
+    );
+  }
+
+  function startPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function stopPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function handleVerticalDividerKey(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      setTableGraphRatio((value) =>
+        clamp(value - 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+      );
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      setTableGraphRatio((value) =>
+        clamp(value + 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+      );
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setTableGraphRatio(TABLE_RATIO_MIN);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setTableGraphRatio(TABLE_RATIO_MAX);
+    }
+  }
+
+  function handleHorizontalDividerKey(
+    event: ReactKeyboardEvent<HTMLDivElement>,
+  ) {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setTopDetailsRatio((value) =>
+        clamp(value - 2, TOP_RATIO_MIN, TOP_RATIO_MAX),
+      );
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setTopDetailsRatio((value) =>
+        clamp(value + 2, TOP_RATIO_MIN, TOP_RATIO_MAX),
+      );
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setTopDetailsRatio(TOP_RATIO_MIN);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setTopDetailsRatio(TOP_RATIO_MAX);
+    }
+  }
+
   const localFiltersActive =
-    kindFilter !== "all" || relationsFilter !== "all";
+    kindFilter !== "all" ||
+    knowledgeFormFilter !== "all" ||
+    relationFamilyFilter !== "all" ||
+    relationPredicateFilter !== "all";
   const filtersActive =
     queryDraft.length > 0 || requiredCapabilityRef !== null || localFiltersActive;
 
+  const workbenchStyle = {
+    "--knowledge-table-ratio": `${tableGraphRatio}%`,
+    "--knowledge-top-ratio": `${topDetailsRatio}%`,
+  } as CSSProperties;
+
   return (
     <section
-      className="task-view knowledge-explorer-view"
+      className="knowledge-explorer-view"
       data-view="knowledge"
       data-renderer="nonspatial-primary"
       data-spatial-overview={RelationshipRenderer ? "available" : "unavailable"}
-      aria-labelledby="knowledge-heading"
+      aria-label="Знания текущей цели"
     >
-      <header className="task-heading knowledge-task-heading">
-        <p className="eyebrow">Знания</p>
-        <h1 id="knowledge-heading">Знания текущей цели</h1>
-        <p>
-          Фильтруйте набор, выбирайте строку для деталей и используйте обзор
-          связей как дополнительную навигацию по той же выборке.
-        </p>
-      </header>
-
-      <section
-        className="knowledge-query-region"
-        aria-labelledby="knowledge-query-heading"
-      >
-        <div className="knowledge-toolbar-heading">
-          <div>
-            <p className="eyebrow">Фильтры</p>
-            <h2 id="knowledge-query-heading" className="knowledge-section-title">Смысловая область</h2>
-          </div>
-          <div className="knowledge-scope-summary">
-            <span>Цель: текущая</span>
-            <span>Фокус: {activeFocusRef ? "учтён" : "не выбран"}</span>
-            <span>
-              Компетенция:{" "}
-              {projection?.requiredCapabilityLabel ??
-                (requiredCapabilityRef ? "ограничено" : "без фильтра")}
-            </span>
-          </div>
-        </div>
-
-        <div className="knowledge-filter-toolbar">
-          <label className="field knowledge-filter-field knowledge-search-field">
-            <span className="knowledge-filter-label">Поиск</span>
-            <input
-              className="knowledge-filter-control"
-              value={queryDraft}
-              onChange={(event) => setQueryDraft(event.currentTarget.value)}
-              placeholder="Название или смысл утверждения"
-            />
-          </label>
-
-          <label className="field knowledge-filter-field">
-            <span className="knowledge-filter-label">Тип</span>
-            <select
-              className="knowledge-filter-control"
-              value={kindFilter}
-              onChange={(event) =>
-                setKindFilter(
-                  event.currentTarget.value as
-                    | "all"
-                    | "object"
-                    | "proposition",
-                )
-              }
-            >
-              <option value="all">Все типы</option>
-              <option value="object">Объекты</option>
-              <option value="proposition">Утверждения</option>
-            </select>
-          </label>
-
-          <label className="field knowledge-filter-field">
-            <span className="knowledge-filter-label">Связность</span>
-            <select
-              className="knowledge-filter-control"
-              value={relationsFilter}
-              onChange={(event) =>
-                setRelationsFilter(
-                  event.currentTarget.value as
-                    | "all"
-                    | "two-plus"
-                    | "three-plus",
-                )
-              }
-            >
-              <option value="all">Любая</option>
-              <option value="two-plus">2+ связи</option>
-              <option value="three-plus">3+ связи</option>
-            </select>
-          </label>
-
-          <label className="field knowledge-filter-field">
-            <span className="knowledge-filter-label">Глубина</span>
-            <select
-              className="knowledge-filter-control"
-              value={scope}
-              onChange={(event) =>
-                setScope(event.currentTarget.value as "overview" | "detail")
-              }
-            >
-              <option value="overview">Обзор</option>
-              <option value="detail">Подробно</option>
-            </select>
-          </label>
-
-          <div className="knowledge-filter-actions">
-            {filtersActive ? (
-              <button
-                type="button"
-                className="secondary-action"
-                onClick={resetFilters}
-              >
-                Сбросить фильтры
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </section>
-
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
-
-      <section
-        className="knowledge-results-region"
-        aria-labelledby="knowledge-results-heading"
-      >
-        <div className="knowledge-results-heading">
-          <div>
-            <p className="eyebrow">Результаты</p>
-            <h2 id="knowledge-results-heading" className="knowledge-section-title">Найденные знания</h2>
-          </div>
+      <header className="knowledge-workspace-toolbar">
+        <div className="knowledge-workspace-title">
+          <h1>Знания</h1>
           {projection ? (
-            <p className="knowledge-result-count" role="status">
-              Показано {visibleItems.length} из {projection.items.length}
-            </p>
+            <span className="knowledge-result-count" role="status">
+              {visibleItems.length}/{projection.items.length}
+            </span>
           ) : null}
         </div>
 
-        {status === "loading" ? <p role="status">Загрузка знаний…</p> : null}
+        <div className="knowledge-filter-toolbar">
+          <input
+            className="knowledge-filter-control knowledge-search-control"
+            aria-label="Поиск"
+            value={queryDraft}
+            onChange={(event) => setQueryDraft(event.currentTarget.value)}
+            placeholder="Поиск по знаниям"
+          />
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Тип знания"
+            value={kindFilter}
+            onChange={(event) =>
+              setKindFilter(
+                event.currentTarget.value as
+                  | "all"
+                  | "object"
+                  | "proposition",
+              )
+            }
+          >
+            <option value="all">Все виды</option>
+            <option value="object">{knowledgeKindLabel("object")}</option>
+            <option value="proposition">
+              {knowledgeKindLabel("proposition")}
+            </option>
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Форма знания"
+            value={knowledgeFormFilter}
+            onChange={(event) =>
+              setKnowledgeFormFilter(event.currentTarget.value)
+            }
+          >
+            <option value="all">Все формы</option>
+            {knowledgeFormOptions.map((form) => (
+              <option key={form} value={form}>
+                {knowledgeFormLabel(form)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Семейство связи"
+            value={relationFamilyFilter}
+            onChange={(event) =>
+              setRelationFamilyFilter(event.currentTarget.value)
+            }
+          >
+            <option value="all">Все семейства связей</option>
+            {relationFamilyOptions.map((family) => (
+              <option key={family} value={family}>
+                {knowledgeRelationFamilyLabel(family)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Тип связи"
+            value={relationPredicateFilter}
+            onChange={(event) =>
+              setRelationPredicateFilter(event.currentTarget.value)
+            }
+          >
+            <option value="all">Все типы связей</option>
+            {relationPredicateOptions.map((predicate) => (
+              <option key={predicate} value={predicate}>
+                {knowledgePredicateLabel(predicate)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="knowledge-filter-control"
+            aria-label="Глубина"
+            value={scope}
+            onChange={(event) =>
+              setScope(event.currentTarget.value as "overview" | "detail")
+            }
+          >
+            <option value="overview">Обзор</option>
+            <option value="detail">Подробно</option>
+          </select>
+
+          {requiredCapabilityRef ? (
+            <span className="knowledge-capability-scope">
+              {projection?.requiredCapabilityLabel ?? "Компетенция"}
+            </span>
+          ) : null}
+
+          {filtersActive ? (
+            <button
+              type="button"
+              className="knowledge-reset-action"
+              onClick={resetFilters}
+            >
+              Сбросить
+            </button>
+          ) : null}
+        </div>
+      </header>
+
+      <div className="knowledge-message-slot">
+        {message ? (
+          <p className="outcome-message knowledge-outcome-message" role="status">
+            {message}
+          </p>
+        ) : null}
+      </div>
+
+      <section className="knowledge-workspace-body" aria-label="Найденные знания">
+        {status === "loading" ? (
+          <p className="knowledge-loading" role="status">
+            Загрузка знаний…
+          </p>
+        ) : null}
 
         {status === "ready" && visibleItems.length === 0 ? (
           <div className="knowledge-empty">
             <strong>По текущим фильтрам ничего не найдено.</strong>
             <p className="knowledge-empty-copy">
-              Измените поиск или один из фильтров. Контекст цели и выбранного
-              фокуса сохранится.
+              Измените поиск или один из фильтров.
             </p>
           </div>
         ) : null}
 
         {projection && visibleItems.length > 0 ? (
-          <div className="knowledge-workbench">
-            <div className="knowledge-table-region">
-              <div className="knowledge-table-scroll">
-                <table className="knowledge-table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Знание</th>
-                      <th scope="col">Тип</th>
-                      <th scope="col">Связи</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {visibleItems.map((item) => (
-                      <tr
-                        key={item.knowledgeRef}
-                        data-selected={
-                          item.knowledgeRef === selectedKnowledgeRef
-                            ? "true"
-                            : "false"
-                        }
-                      >
-                        <td>
-                          <button
-                            type="button"
-                            className="knowledge-row-select"
-                            aria-pressed={
-                              item.knowledgeRef === selectedKnowledgeRef
-                            }
-                            onClick={() => chooseItem(item)}
-                          >
-                            <strong>{item.label}</strong>
-                            {item.predicate ? (
-                              <small>{item.predicate}</small>
-                            ) : null}
-                          </button>
-                        </td>
-                        <td>
-                          <span className="knowledge-kind">
-                            {knowledgeKindLabel(item.kind)}
-                          </span>
-                        </td>
-                        <td className="knowledge-relation-count">
-                          {item.related.length}
-                        </td>
+          <div
+            ref={workbenchRef}
+            className="knowledge-workbench"
+            style={workbenchStyle}
+          >
+            <div
+              ref={upperPaneRef}
+              className="knowledge-upper-pane"
+              data-has-graph={RelationshipRenderer ? "true" : "false"}
+            >
+              <div className="knowledge-table-region">
+                <div className="knowledge-table-scroll">
+                  <table className="knowledge-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Знание</th>
+                        <th scope="col">Тип / форма</th>
+                        <th scope="col">Связи</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="knowledge-inspector-column">
-              {RelationshipRenderer ? (
-                <section
-                  className="knowledge-relationship-region"
-                  aria-labelledby="knowledge-relationship-heading"
-                >
-                  <div className="knowledge-panel-heading">
-                    <div>
-                      <p className="eyebrow">Обзор</p>
-                      <h3 id="knowledge-relationship-heading" className="knowledge-panel-title">Связи</h3>
-                    </div>
-                    <span className="knowledge-panel-badge">{relationshipOverview.edges.length} реб.</span>
-                  </div>
-                  <RelationshipRenderer
-                    model={relationshipOverview}
-                    onSelectKnowledge={chooseItemByRef}
-                  />
-                  <p className="supporting-text knowledge-relationship-caption">
-                    Граф показывает только текущую отфильтрованную выборку.
-                  </p>
-                </section>
-              ) : null}
-
-              <aside
-                className="knowledge-detail-region"
-                aria-labelledby="knowledge-detail-heading"
-              >
-                {selectedItem ? (
-                  <>
-                    <div className="knowledge-panel-heading">
-                      <div>
-                        <p className="eyebrow">Выбранное знание</p>
-                        <h3
-                          id="knowledge-detail-heading"
-                          className="knowledge-panel-title"
+                    </thead>
+                    <tbody>
+                      {visibleItems.map((item) => (
+                        <tr
+                          key={item.knowledgeRef}
+                          data-selected={
+                            item.knowledgeRef === selectedKnowledgeRef
+                              ? "true"
+                              : "false"
+                          }
                         >
-                          {selectedItem.label}
-                        </h3>
-                      </div>
-                      <span className="knowledge-panel-badge">{knowledgeKindLabel(selectedItem.kind)}</span>
-                    </div>
+                          <td>
+                            <button
+                              type="button"
+                              className="knowledge-row-select"
+                              aria-pressed={
+                                item.knowledgeRef === selectedKnowledgeRef
+                              }
+                              onClick={() => chooseItem(item.knowledgeRef)}
+                            >
+                              <strong>{item.label}</strong>
+                              {item.predicate ? (
+                                <small>{item.predicate}</small>
+                              ) : null}
+                            </button>
+                          </td>
+                          <td>
+                            <span className="knowledge-kind">
+                              {knowledgeKindLabel(item.kind)}
+                              {item.knowledgeForm
+                                ? ` · ${knowledgeFormLabel(item.knowledgeForm)}`
+                                : ""}
+                            </span>
+                          </td>
+                          <td className="knowledge-relation-count">
+                            {relationCounts.get(item.knowledgeRef) ?? 0}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
-                    <dl className="knowledge-detail-list">
-                      {selectedItem.predicate ? (
-                        <div>
-                          <dt>Смысл утверждения</dt>
-                          <dd>{selectedItem.predicate}</dd>
-                        </div>
-                      ) : null}
-                      <div>
-                        <dt>Связи</dt>
-                        <dd>
-                          {selectedItem.related.length > 0 ? (
-                            <ul>
-                              {selectedItem.related.map((related) => (
-                                <li key={related.knowledgeRef}>
-                                  <button
-                                    type="button"
-                                    className="knowledge-relation-link"
-                                    onClick={() =>
-                                      chooseItemByRef(related.knowledgeRef)
-                                    }
-                                    disabled={
-                                      !visibleItems.some(
-                                        (item) =>
-                                          item.knowledgeRef ===
-                                          related.knowledgeRef,
-                                      )
-                                    }
-                                  >
-                                    {related.label}
-                                  </button>{" "}
-                                  <span>
-                                    ({knowledgeKindLabel(related.kind)})
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            "В текущей области связанных знаний нет."
-                          )}
-                        </dd>
-                      </div>
-                    </dl>
-                  </>
-                ) : (
-                  <div className="knowledge-detail-placeholder">
-                    <p className="eyebrow">Детали</p>
-                    <h3 id="knowledge-detail-heading" className="knowledge-detail-placeholder-title">Выберите строку</h3>
-                    <p className="knowledge-detail-placeholder-copy">
-                      Детали и подсветка связей обновятся для выбранного знания.
+              {RelationshipRenderer ? (
+                <>
+                  <hr
+                    className="workspace-divider workspace-divider--vertical"
+                    aria-label="Изменить ширину таблицы и графа"
+                    aria-orientation="vertical"
+                    aria-valuemin={TABLE_RATIO_MIN}
+                    aria-valuemax={TABLE_RATIO_MAX}
+                    aria-valuenow={Math.round(tableGraphRatio)}
+                    tabIndex={0}
+                    onDoubleClick={() =>
+                      setTableGraphRatio(DEFAULT_TABLE_GRAPH_RATIO)
+                    }
+                    onPointerDown={startPointerResize}
+                    onPointerMove={(event) => {
+                      if (
+                        event.currentTarget.hasPointerCapture(event.pointerId)
+                      ) {
+                        updateTableGraphRatio(event.clientX);
+                      }
+                    }}
+                    onPointerUp={stopPointerResize}
+                    onPointerCancel={stopPointerResize}
+                    onKeyDown={handleVerticalDividerKey}
+                  />
+
+                  <aside
+                    className="knowledge-relationship-region"
+                    aria-label="Связи знаний"
+                  >
+                    <div className="knowledge-pane-heading">
+                      <strong>Связи</strong>
+                      <span>{relationshipOverview.edges.length}</span>
+                    </div>
+                    <RelationshipRenderer
+                      model={relationshipOverview}
+                      onSelectKnowledge={chooseItem}
+                    />
+                    <p className="supporting-text knowledge-relationship-caption">
+                      Рёбра показывают только типизированные relational
+                      propositions текущей выборки.
                     </p>
-                  </div>
-                )}
-              </aside>
+                  </aside>
+                </>
+              ) : null}
             </div>
+
+            <hr
+              className="workspace-divider workspace-divider--horizontal"
+              aria-label="Изменить высоту таблицы и деталей"
+              aria-orientation="horizontal"
+              aria-valuemin={TOP_RATIO_MIN}
+              aria-valuemax={TOP_RATIO_MAX}
+              aria-valuenow={Math.round(topDetailsRatio)}
+              tabIndex={0}
+              onDoubleClick={() =>
+                setTopDetailsRatio(DEFAULT_TOP_DETAILS_RATIO)
+              }
+              onPointerDown={startPointerResize}
+              onPointerMove={(event) => {
+                if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+                  updateTopDetailsRatio(event.clientY);
+                }
+              }}
+              onPointerUp={stopPointerResize}
+              onPointerCancel={stopPointerResize}
+              onKeyDown={handleHorizontalDividerKey}
+            />
+
+            <aside className="knowledge-detail-region" aria-label="Детали знания">
+              <div className="knowledge-pane-heading">
+                <strong>Детали</strong>
+                {selectedItem ? (
+                  <span>
+                    {knowledgeKindLabel(selectedItem.kind)}
+                    {selectedItem.knowledgeForm
+                      ? ` · ${knowledgeFormLabel(selectedItem.knowledgeForm)}`
+                      : ""}
+                  </span>
+                ) : null}
+              </div>
+
+              {selectedItem ? (
+                <div className="knowledge-detail-content">
+                  <div className="knowledge-detail-primary">
+                    <h2 className="knowledge-panel-title">
+                      {selectedItem.label}
+                    </h2>
+                    {selectedItem.predicate ? (
+                      <p>{selectedItem.predicate}</p>
+                    ) : (
+                      <p className="supporting-text">
+                        Объект знания с формой{" "}
+                        {selectedItem.knowledgeForm
+                          ? knowledgeFormLabel(selectedItem.knowledgeForm)
+                          : "не классифицирована"}.
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="knowledge-detail-relations">
+                    <span className="knowledge-detail-label">
+                      Типизированные связи
+                    </span>
+                    {selectedRelations.length > 0 ? (
+                      <ul>
+                        {selectedRelations.map(
+                          ({
+                            relationship,
+                            counterpart,
+                            displayPredicate,
+                          }) => (
+                            <li key={relationship.propositionRef}>
+                              <div className="knowledge-relation-summary">
+                                <span className="knowledge-relation-predicate">
+                                  {knowledgePredicateLabel(displayPredicate)}
+                                </span>
+                                <button
+                                  type="button"
+                                  className="knowledge-relation-link"
+                                  onClick={() =>
+                                    chooseItem(counterpart.knowledgeRef)
+                                  }
+                                >
+                                  {counterpart.label}
+                                </button>
+                                <span>
+                                  {knowledgeRelationFamilyLabel(
+                                    relationship.family,
+                                  )}
+                                </span>
+                              </div>
+                              <small className="knowledge-relation-explanation">
+                                {relationship.statement}
+                              </small>
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    ) : (
+                      <p>
+                        В текущей выборке типизированных связей для знания нет.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="knowledge-detail-placeholder">
+                  <h2 className="knowledge-detail-placeholder-title">
+                    Выберите строку
+                  </h2>
+                  <p className="knowledge-detail-placeholder-copy">
+                    Здесь появятся форма знания и смысл типизированных связей.
+                  </p>
+                </div>
+              )}
+            </aside>
           </div>
         ) : null}
       </section>
-
-      <p className="supporting-text knowledge-renderer-note">
-        Таблица и детали остаются полным способом работы со знаниями. Граф —
-        дополнительный обзор связей и не определяет смысл Knowledge.
-      </p>
     </section>
   );
 }
