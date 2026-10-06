@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  type CSSProperties,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { knowledgeKindLabel } from "../../ui/presentationLabels";
 import type { CapabilityRef, FocusRef, KnowledgeRef, TargetRef } from "../contracts";
@@ -14,12 +22,30 @@ import type {
 } from "./relationship-renderer";
 import { useKnowledgeExplorerState } from "./state";
 
+const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio";
+const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio";
+const DEFAULT_TABLE_GRAPH_RATIO = 72;
+const DEFAULT_TOP_DETAILS_RATIO = 66;
+
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
   readonly activeTargetRef: TargetRef;
   readonly activeFocusRef: FocusRef | null;
   readonly incomingRequiredCapabilityRef?: CapabilityRef | undefined;
   readonly relationshipRenderer?: KnowledgeRelationshipRenderer | undefined;
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function readStoredRatio(key: string, fallback: number): number {
+  if (typeof window === "undefined") {
+    return fallback;
+  }
+
+  const stored = Number(window.localStorage.getItem(key));
+  return Number.isFinite(stored) ? stored : fallback;
 }
 
 function matchesRelationFilter(
@@ -98,18 +124,40 @@ export function KnowledgeExplorerFeature({
     setRelationsFilter,
     setSelectedKnowledgeRef,
   } = useKnowledgeExplorerState();
+
   const [projection, setProjection] =
     useState<KnowledgeProjectionModel | null>(null);
   const [status, setStatus] = useState<"loading" | "ready">("loading");
   const [message, setMessage] = useState<string | null>(null);
-  const [inspectorView, setInspectorView] =
-    useState<"details" | "relations">("relations");
+  const [tableGraphRatio, setTableGraphRatio] = useState(() =>
+    clamp(readStoredRatio(TABLE_GRAPH_SPLIT_KEY, DEFAULT_TABLE_GRAPH_RATIO), 45, 82),
+  );
+  const [topDetailsRatio, setTopDetailsRatio] = useState(() =>
+    clamp(readStoredRatio(TOP_DETAILS_SPLIT_KEY, DEFAULT_TOP_DETAILS_RATIO), 48, 78),
+  );
+
+  const upperPaneRef = useRef<HTMLDivElement | null>(null);
+  const workbenchRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (incomingRequiredCapabilityRef) {
       setRequiredCapabilityRef(incomingRequiredCapabilityRef);
     }
   }, [incomingRequiredCapabilityRef, setRequiredCapabilityRef]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      TABLE_GRAPH_SPLIT_KEY,
+      String(Math.round(tableGraphRatio * 10) / 10),
+    );
+  }, [tableGraphRatio]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      TOP_DETAILS_SPLIT_KEY,
+      String(Math.round(topDetailsRatio * 10) / 10),
+    );
+  }, [topDetailsRatio]);
 
   useEffect(() => {
     let cancelled = false;
@@ -183,28 +231,12 @@ export function KnowledgeExplorerFeature({
     [selectedKnowledgeRef, visibleItems],
   );
 
-  function chooseTableItem(item: KnowledgeItemModel) {
-    setSelectedKnowledgeRef(item.knowledgeRef);
-    setScope("detail");
-    setInspectorView("details");
-  }
-
-  function chooseGraphItem(knowledgeRef: KnowledgeRef) {
+  function chooseItem(knowledgeRef: KnowledgeRef) {
     if (
       visibleItems.some((item) => item.knowledgeRef === knowledgeRef)
     ) {
       setSelectedKnowledgeRef(knowledgeRef);
       setScope("detail");
-    }
-  }
-
-  function chooseRelatedItem(knowledgeRef: KnowledgeRef) {
-    if (
-      visibleItems.some((item) => item.knowledgeRef === knowledgeRef)
-    ) {
-      setSelectedKnowledgeRef(knowledgeRef);
-      setScope("detail");
-      setInspectorView("details");
     }
   }
 
@@ -215,13 +247,93 @@ export function KnowledgeExplorerFeature({
     setRequiredCapabilityRef(null);
     setScope("overview");
     setSelectedKnowledgeRef(null);
-    setInspectorView("relations");
+  }
+
+  function updateTableGraphRatio(clientX: number) {
+    const rect = upperPaneRef.current?.getBoundingClientRect();
+    if (!rect || rect.width <= 0) {
+      return;
+    }
+
+    const minTable = Math.min(520, rect.width * 0.6);
+    const minGraph = Math.min(260, rect.width * 0.32);
+    const minRatio = (minTable / rect.width) * 100;
+    const maxRatio = ((rect.width - minGraph) / rect.width) * 100;
+
+    setTableGraphRatio(
+      clamp(((clientX - rect.left) / rect.width) * 100, minRatio, maxRatio),
+    );
+  }
+
+  function updateTopDetailsRatio(clientY: number) {
+    const rect = workbenchRef.current?.getBoundingClientRect();
+    if (!rect || rect.height <= 0) {
+      return;
+    }
+
+    const minTop = Math.min(260, rect.height * 0.58);
+    const minDetails = Math.min(150, rect.height * 0.34);
+    const minRatio = (minTop / rect.height) * 100;
+    const maxRatio = ((rect.height - minDetails) / rect.height) * 100;
+
+    setTopDetailsRatio(
+      clamp(((clientY - rect.top) / rect.height) * 100, minRatio, maxRatio),
+    );
+  }
+
+  function startPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function stopPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function handleVerticalDividerKey(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      setTableGraphRatio((value) => clamp(value - 2, 45, 82));
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      setTableGraphRatio((value) => clamp(value + 2, 45, 82));
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setTableGraphRatio(45);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setTableGraphRatio(82);
+    }
+  }
+
+  function handleHorizontalDividerKey(
+    event: ReactKeyboardEvent<HTMLDivElement>,
+  ) {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setTopDetailsRatio((value) => clamp(value - 2, 48, 78));
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setTopDetailsRatio((value) => clamp(value + 2, 48, 78));
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setTopDetailsRatio(48);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setTopDetailsRatio(78);
+    }
   }
 
   const localFiltersActive =
     kindFilter !== "all" || relationsFilter !== "all";
   const filtersActive =
     queryDraft.length > 0 || requiredCapabilityRef !== null || localFiltersActive;
+
+  const workbenchStyle = {
+    "--knowledge-table-ratio": `${tableGraphRatio}%`,
+    "--knowledge-top-ratio": `${topDetailsRatio}%`,
+  } as CSSProperties;
 
   return (
     <section
@@ -339,174 +451,198 @@ export function KnowledgeExplorerFeature({
         ) : null}
 
         {projection && visibleItems.length > 0 ? (
-          <div className="knowledge-workbench">
-            <div className="knowledge-table-region">
-              <div className="knowledge-table-scroll">
-                <table className="knowledge-table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Знание</th>
-                      <th scope="col">Тип</th>
-                      <th scope="col">Связи</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {visibleItems.map((item) => (
-                      <tr
-                        key={item.knowledgeRef}
-                        data-selected={
-                          item.knowledgeRef === selectedKnowledgeRef
-                            ? "true"
-                            : "false"
-                        }
-                      >
-                        <td>
-                          <button
-                            type="button"
-                            className="knowledge-row-select"
-                            aria-pressed={
-                              item.knowledgeRef === selectedKnowledgeRef
-                            }
-                            onClick={() => chooseTableItem(item)}
-                          >
-                            <strong>{item.label}</strong>
-                            {item.predicate ? (
-                              <small>{item.predicate}</small>
-                            ) : null}
-                          </button>
-                        </td>
-                        <td>
-                          <span className="knowledge-kind">
-                            {knowledgeKindLabel(item.kind)}
-                          </span>
-                        </td>
-                        <td className="knowledge-relation-count">
-                          {item.related.length}
-                        </td>
+          <div
+            ref={workbenchRef}
+            className="knowledge-workbench"
+            style={workbenchStyle}
+          >
+            <div
+              ref={upperPaneRef}
+              className="knowledge-upper-pane"
+              data-has-graph={RelationshipRenderer ? "true" : "false"}
+            >
+              <div className="knowledge-table-region">
+                <div className="knowledge-table-scroll">
+                  <table className="knowledge-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Знание</th>
+                        <th scope="col">Тип</th>
+                        <th scope="col">Связи</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {visibleItems.map((item) => (
+                        <tr
+                          key={item.knowledgeRef}
+                          data-selected={
+                            item.knowledgeRef === selectedKnowledgeRef
+                              ? "true"
+                              : "false"
+                          }
+                        >
+                          <td>
+                            <button
+                              type="button"
+                              className="knowledge-row-select"
+                              aria-pressed={
+                                item.knowledgeRef === selectedKnowledgeRef
+                              }
+                              onClick={() => chooseItem(item.knowledgeRef)}
+                            >
+                              <strong>{item.label}</strong>
+                              {item.predicate ? (
+                                <small>{item.predicate}</small>
+                              ) : null}
+                            </button>
+                          </td>
+                          <td>
+                            <span className="knowledge-kind">
+                              {knowledgeKindLabel(item.kind)}
+                            </span>
+                          </td>
+                          <td className="knowledge-relation-count">
+                            {item.related.length}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
 
-            <aside className="knowledge-inspector" aria-label="Инспектор знаний">
-              <div className="knowledge-inspector-tabs" role="tablist">
-                <button
-                  id="knowledge-details-tab"
-                  type="button"
-                  role="tab"
-                  aria-selected={inspectorView === "details"}
-                  aria-controls="knowledge-details-panel"
-                  onClick={() => setInspectorView("details")}
-                >
-                  Детали
-                </button>
-                {RelationshipRenderer ? (
-                  <button
-                    id="knowledge-relations-tab"
-                    type="button"
-                    role="tab"
-                    aria-selected={inspectorView === "relations"}
-                    aria-controls="knowledge-relations-panel"
-                    onClick={() => setInspectorView("relations")}
-                  >
-                    Связи
-                    <span>{relationshipOverview.edges.length}</span>
-                  </button>
-                ) : null}
-              </div>
+              {RelationshipRenderer ? (
+                <>
+                  <div
+                    className="workspace-divider workspace-divider--vertical"
+                    role="separator"
+                    aria-label="Изменить ширину таблицы и графа"
+                    aria-orientation="vertical"
+                    aria-valuemin={45}
+                    aria-valuemax={82}
+                    aria-valuenow={Math.round(tableGraphRatio)}
+                    tabIndex={0}
+                    onDoubleClick={() =>
+                      setTableGraphRatio(DEFAULT_TABLE_GRAPH_RATIO)
+                    }
+                    onPointerDown={startPointerResize}
+                    onPointerMove={(event) => {
+                      if (
+                        event.currentTarget.hasPointerCapture(event.pointerId)
+                      ) {
+                        updateTableGraphRatio(event.clientX);
+                      }
+                    }}
+                    onPointerUp={stopPointerResize}
+                    onPointerCancel={stopPointerResize}
+                    onKeyDown={handleVerticalDividerKey}
+                  />
 
-              <div className="knowledge-inspector-panel">
-                {inspectorView === "relations" && RelationshipRenderer ? (
-                  <section
-                    id="knowledge-relations-panel"
+                  <aside
                     className="knowledge-relationship-region"
-                    role="tabpanel"
-                    aria-labelledby="knowledge-relations-tab"
+                    aria-label="Связи знаний"
                   >
+                    <div className="knowledge-pane-heading">
+                      <strong>Связи</strong>
+                      <span>{relationshipOverview.edges.length}</span>
+                    </div>
                     <RelationshipRenderer
                       model={relationshipOverview}
-                      onSelectKnowledge={chooseGraphItem}
+                      onSelectKnowledge={chooseItem}
                     />
                     <p className="supporting-text knowledge-relationship-caption">
                       Текущая отфильтрованная выборка.
                     </p>
-                  </section>
-                ) : (
-                  <section
-                    id="knowledge-details-panel"
-                    className="knowledge-detail-region"
-                    role="tabpanel"
-                    aria-labelledby="knowledge-details-tab"
-                  >
-                    {selectedItem ? (
-                      <>
-                        <div className="knowledge-panel-heading">
-                          <h2 className="knowledge-panel-title">
-                            {selectedItem.label}
-                          </h2>
-                          <span className="knowledge-panel-badge">
-                            {knowledgeKindLabel(selectedItem.kind)}
-                          </span>
-                        </div>
+                  </aside>
+                </>
+              ) : null}
+            </div>
 
-                        <dl className="knowledge-detail-list">
-                          {selectedItem.predicate ? (
-                            <div>
-                              <dt>Смысл утверждения</dt>
-                              <dd>{selectedItem.predicate}</dd>
-                            </div>
-                          ) : null}
-                          <div>
-                            <dt>Связи</dt>
-                            <dd>
-                              {selectedItem.related.length > 0 ? (
-                                <ul>
-                                  {selectedItem.related.map((related) => (
-                                    <li key={related.knowledgeRef}>
-                                      <button
-                                        type="button"
-                                        className="knowledge-relation-link"
-                                        onClick={() =>
-                                          chooseRelatedItem(related.knowledgeRef)
-                                        }
-                                        disabled={
-                                          !visibleItems.some(
-                                            (item) =>
-                                              item.knowledgeRef ===
-                                              related.knowledgeRef,
-                                          )
-                                        }
-                                      >
-                                        {related.label}
-                                      </button>{" "}
-                                      <span>
-                                        ({knowledgeKindLabel(related.kind)})
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                "В текущей области связанных знаний нет."
-                              )}
-                            </dd>
-                          </div>
-                        </dl>
-                      </>
-                    ) : (
-                      <div className="knowledge-detail-placeholder">
-                        <h2 className="knowledge-detail-placeholder-title">
-                          Выберите строку
-                        </h2>
-                        <p className="knowledge-detail-placeholder-copy">
-                          Здесь появятся свойства и связанные знания.
-                        </p>
-                      </div>
-                    )}
-                  </section>
-                )}
+            <div
+              className="workspace-divider workspace-divider--horizontal"
+              role="separator"
+              aria-label="Изменить высоту таблицы и деталей"
+              aria-orientation="horizontal"
+              aria-valuemin={48}
+              aria-valuemax={78}
+              aria-valuenow={Math.round(topDetailsRatio)}
+              tabIndex={0}
+              onDoubleClick={() =>
+                setTopDetailsRatio(DEFAULT_TOP_DETAILS_RATIO)
+              }
+              onPointerDown={startPointerResize}
+              onPointerMove={(event) => {
+                if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+                  updateTopDetailsRatio(event.clientY);
+                }
+              }}
+              onPointerUp={stopPointerResize}
+              onPointerCancel={stopPointerResize}
+              onKeyDown={handleHorizontalDividerKey}
+            />
+
+            <aside className="knowledge-detail-region" aria-label="Детали знания">
+              <div className="knowledge-pane-heading">
+                <strong>Детали</strong>
+                {selectedItem ? (
+                  <span>{knowledgeKindLabel(selectedItem.kind)}</span>
+                ) : null}
               </div>
+
+              {selectedItem ? (
+                <div className="knowledge-detail-content">
+                  <div className="knowledge-detail-primary">
+                    <h2 className="knowledge-panel-title">
+                      {selectedItem.label}
+                    </h2>
+                    {selectedItem.predicate ? (
+                      <p>{selectedItem.predicate}</p>
+                    ) : (
+                      <p className="supporting-text">
+                        Объект знания без отдельного утверждения.
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="knowledge-detail-relations">
+                    <span className="knowledge-detail-label">Связанные знания</span>
+                    {selectedItem.related.length > 0 ? (
+                      <ul>
+                        {selectedItem.related.map((related) => (
+                          <li key={related.knowledgeRef}>
+                            <button
+                              type="button"
+                              className="knowledge-relation-link"
+                              onClick={() => chooseItem(related.knowledgeRef)}
+                              disabled={
+                                !visibleItems.some(
+                                  (item) =>
+                                    item.knowledgeRef === related.knowledgeRef,
+                                )
+                              }
+                            >
+                              {related.label}
+                            </button>
+                            <span>{knowledgeKindLabel(related.kind)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>В текущей области связанных знаний нет.</p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="knowledge-detail-placeholder">
+                  <h2 className="knowledge-detail-placeholder-title">
+                    Выберите строку
+                  </h2>
+                  <p className="knowledge-detail-placeholder-copy">
+                    Детали выбранного знания появятся здесь, а граф справа
+                    останется доступен одновременно.
+                  </p>
+                </div>
+              )}
             </aside>
           </div>
         ) : null}
