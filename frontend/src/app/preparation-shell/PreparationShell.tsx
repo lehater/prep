@@ -2,6 +2,8 @@ import { type ReactNode, useState } from "react";
 
 import type { TargetDirectionPort, CandidateTargetOption } from "../../features/target-direction/contract";
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
+import type { TargetPort } from "../../features/target/contract";
+import { TargetFeature } from "../../features/target/TargetFeature";
 import type { TargetRef } from "../../features/contracts";
 import { usePreparationContext } from "../preparation-context/PreparationContext";
 import {
@@ -23,6 +25,7 @@ const navigationItems: readonly {
 
 export interface PreparationShellProps {
   readonly targetDirectionPort: TargetDirectionPort;
+  readonly targetPort: TargetPort;
   readonly candidateTargets: readonly CandidateTargetOption[];
 }
 
@@ -65,9 +68,14 @@ function StructuralPlaceholder({
 
 export function PreparationShell({
   targetDirectionPort,
+  targetPort,
   candidateTargets,
 }: PreparationShellProps) {
-  const { activeTargetRef, activeFocusRef } = usePreparationContext();
+  const {
+    activeTargetRef,
+    activeFocusRef,
+    setAcceptedTarget,
+  } = usePreparationContext();
   const [navigation, setNavigation] = useState<PreparationNavigationRequest>({
     destination: "targets",
   });
@@ -86,6 +94,9 @@ export function PreparationShell({
       destination: resolved.destination,
       ...(resolved.candidateTargetRef
         ? { candidateTargetRef: resolved.candidateTargetRef }
+        : {}),
+      ...(resolved.requiredCapabilityRef
+        ? { requiredCapabilityRef: resolved.requiredCapabilityRef }
         : {}),
     });
     setRecoveryReason(resolved.recoveryReason ?? null);
@@ -113,11 +124,23 @@ export function PreparationShell({
       break;
     case "target":
       child = (
-        <StructuralPlaceholder
-          title="Target"
-          description="Establish or refine the active Target and inspect its requirements."
+        <TargetFeature
+          port={targetPort}
+          candidates={candidateTargets}
+          candidateTargetRef={navigation.candidateTargetRef}
+          activeTargetRef={activeTargetRef}
           recoveryReason={recoveryReason ?? undefined}
-          candidateTarget={candidateFor(navigation.candidateTargetRef)}
+          onAcceptedTarget={(target) => {
+            setAcceptedTarget(target.targetRef);
+            setRecoveryReason(null);
+          }}
+          onExploreKnowledge={(requiredCapabilityRef) =>
+            navigate({ destination: "knowledge", requiredCapabilityRef })
+          }
+          onRequestPreparationSupport={(candidateTargetRef) =>
+            navigate({ destination: "prepare-support", candidateTargetRef })
+          }
+          onReconsiderDirection={() => navigate({ destination: "targets" })}
         />
       );
       break;
@@ -134,7 +157,11 @@ export function PreparationShell({
       child = (
         <StructuralPlaceholder
           title="Knowledge"
-          description="Explore target-relevant Subject Knowledge and semantic relationships."
+          description={
+            navigation.requiredCapabilityRef
+              ? "Explore Subject Knowledge scoped to the selected Required Capability."
+              : "Explore target-relevant Subject Knowledge and semantic relationships."
+          }
           recoveryReason={recoveryReason ?? undefined}
         />
       );
@@ -145,6 +172,18 @@ export function PreparationShell({
           title="Activity"
           description="Select suitable support and carry out one preparation activity."
           recoveryReason={recoveryReason ?? undefined}
+        />
+      );
+      break;
+    case "prepare-support":
+      child = (
+        <StructuralPlaceholder
+          title="Prepare Support"
+          description="Resolve a contextual missing-support need and return to the originating Target work."
+          recoveryReason={recoveryReason ?? undefined}
+          candidateTarget={candidateFor(
+            navigation.candidateTargetRef ?? activeTargetRef ?? undefined,
+          )}
         />
       );
       break;
