@@ -4,6 +4,6 @@
   "consumer_api": "v1",
   "source": {
     "repository": "https://github.com/lehater/harness.git",
-    "revision": "13b760fde4865e1e897b192411bfa8aee3ce6ba8"
+    "revision": "bcac719a861f41284a2a034b2d7cb38025118cdf"
   }
 }
