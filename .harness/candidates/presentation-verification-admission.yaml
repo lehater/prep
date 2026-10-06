@@ -44,6 +44,13 @@ semantic_assertions:
     derived_from: [IV-KNOWLEDGE, IV-NONSPATIAL, PS-KNOWLEDGE-REPRESENTATION, PS-PATTERN-QUERY-DETAIL, SV-KNOWLEDGE]
     decision_authority: VERIFICATION-DESIGN
 
+  - id: PV-COMPOSITION-VARIANTS
+    kind: verification-check
+    subject: state-dependent-composition-integrity
+    semantic_value: "Each material Screen/View composition variant preserves the accepted view responsibility, has exactly one dominant task/work region, keeps required context/supporting detail subordinate, and does not introduce a hidden route, product mode or domain state."
+    derived_from: [IV-IA-TOPOLOGY, PS-TASK-HIERARCHY, SV-COMPOSITION-VARIANTS]
+    decision_authority: VERIFICATION-DESIGN
+
   - id: PV-RESPONSIVE-ACCESSIBILITY
     kind: verification-check
     subject: responsive-accessible-completion

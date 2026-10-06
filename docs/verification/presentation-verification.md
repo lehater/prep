@@ -128,6 +128,16 @@ Presentation Verification owns rendered/composed human-interface evidence. It do
 
 **Evidence requirement:** representative-user sessions with observations mapped back to affected checks. Stakeholder approval and automated tests alone do not satisfy this evidence requirement.
 
+### PV-13 — State-dependent composition integrity
+
+**Verifies:** each material state-dependent composition remains the same accepted view responsibility, exposes exactly one dominant task/work region, keeps context/detail/actions subordinate to that work, and does not create a hidden route, product mode or domain state.
+
+**Upstream refs:** `PS-TASK-HIERARCHY`; `SV-COMPOSITION-VARIANTS`; composition variants in Targets, Target, Activity and Prepare Support.
+
+**Method:** TEST + INSPECTION.
+
+**Evidence requirement:** a state matrix or rendered walkthrough showing the dominant region for every declared composition variant and confirming unchanged view identity/navigation semantics.
+
 ## Product requirement dispositions
 
 | Requirement | Presentation verification disposition |
