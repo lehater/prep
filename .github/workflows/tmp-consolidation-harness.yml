@@ -37,7 +37,7 @@ jobs:
           python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-project-bootstrap-reconcile.json"
           python -m harness.application.skill_router operation --surface consumer --operation design-profile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-design-profile.json"
 
-      - name: Print routed contracts and skill instructions
+      - name: Print routed instruction contracts then skills
         shell: bash
         run: |
           python - <<'PY'
@@ -48,40 +48,20 @@ jobs:
           pack = Path((workspace / ".harness/diagnostics/consumer-pack-path.txt").read_text().strip())
           diagnostics = workspace / ".harness/diagnostics"
 
-          def strings(x):
-              if isinstance(x, str):
-                  yield x
-              elif isinstance(x, dict):
-                  for v in x.values():
-                      yield from strings(v)
-              elif isinstance(x, list):
-                  for v in x:
-                      yield from strings(v)
-
           for route_path in sorted(diagnostics.glob("route-*.json")):
-              print(f"===== ROUTE {route_path.name} =====")
               data = json.loads(route_path.read_text())
+              print(f"===== ROUTE {route_path.name} =====")
               print(json.dumps(data, indent=2))
-              refs = list(dict.fromkeys(strings(data)))
-              contracts = []
-              skills = []
-              for ref in refs:
-                  candidates = [Path(ref)]
-                  if not Path(ref).is_absolute():
-                      candidates += [pack / ref, workspace / ref]
-                  for p in candidates:
-                      if p.is_file():
-                          name = p.name.lower()
-                          normalized = str(p).lower()
-                          if "instruction" in normalized and "contract" in normalized:
-                              contracts.append(p)
-                          if name == "skill.md":
-                              skills.append(p)
-              for p in dict.fromkeys(contracts):
-                  print(f"===== INSTRUCTION CONTRACT {p} =====")
+
+              for ref in data.get("instruction_contracts", []):
+                  p = pack / ref
+                  print(f"===== INSTRUCTION CONTRACT {ref} =====")
                   print(p.read_text())
-              for p in dict.fromkeys(skills):
-                  print(f"===== SKILL {p} =====")
+
+              skill_ref = data.get("skill")
+              if skill_ref:
+                  p = pack / skill_ref
+                  print(f"===== SKILL {skill_ref} =====")
                   print(p.read_text())
           PY
 
