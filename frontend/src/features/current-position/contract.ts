@@ -72,6 +72,12 @@ export interface FocusModel {
   readonly rationale: string;
 }
 
+export interface CurrentPositionWorkingState {
+  readonly selectedGapRef: GapRef | null;
+  readonly purposeDraft: string;
+  readonly rationaleDraft: string;
+}
+
 export interface GapProjectionModel {
   readonly gaps: readonly GapModel[];
   readonly decisionContext: FocusDecisionContextModel;

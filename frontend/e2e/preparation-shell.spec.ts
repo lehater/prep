@@ -345,6 +345,68 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
   await expect(page.getByRole("heading", { name: "Проработайте выбранный фокус" })).toBeVisible();
 });
 
+test("preserves Current draft through contextual Knowledge without replacing the general Knowledge session", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await establishBackendTarget(page);
+
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
+  await page.getByRole("textbox", { name: "Поиск", exact: true }).fill("event loop");
+  await page.getByLabel("Тип знания").selectOption("object");
+
+  await page.getByRole("button", { name: "Текущее состояние" }).click();
+  await page.getByRole("radio", { name: /System design/ }).check();
+  await page.getByLabel("Цель фокуса").fill(
+    "Понять компромиссы consistency перед выбором следующей практики.",
+  );
+  await page.getByLabel("Основание выбора").fill(
+    "Сначала хочу уточнить предметный контекст этого пробела.",
+  );
+
+  await page
+    .getByRole("button", { name: "Изучить знания: System design" })
+    .click();
+
+  await expect(
+    page.getByRole("heading", { name: "Знания", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.locator(".knowledge-capability-scope"),
+  ).toHaveText("System design");
+  await expect(
+    page.getByRole("textbox", { name: "Поиск", exact: true }),
+  ).toHaveValue("");
+  await expect(page.getByLabel("Тип знания")).toHaveValue("all");
+  await expect(page.getByLabel("Форма знания")).toHaveValue("all");
+  await expect(page.getByLabel("Семейство связи")).toHaveValue("all");
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
+
+  await page
+    .getByRole("button", { name: "Вернуться к выбору фокуса" })
+    .click();
+
+  await expect(
+    page.getByRole("radio", { name: /System design/ }),
+  ).toBeChecked();
+  await expect(page.getByLabel("Цель фокуса")).toHaveValue(
+    "Понять компромиссы consistency перед выбором следующей практики.",
+  );
+  await expect(page.getByLabel("Основание выбора")).toHaveValue(
+    "Сначала хочу уточнить предметный контекст этого пробела.",
+  );
+
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
+  await expect(
+    page.getByRole("textbox", { name: "Поиск", exact: true }),
+  ).toHaveValue("event loop");
+  await expect(page.getByLabel("Тип знания")).toHaveValue("object");
+  await expect(page.getByLabel("Форма знания")).toHaveValue("all");
+  await expect(page.getByLabel("Семейство связи")).toHaveValue("all");
+  await expect(page.getByLabel("Тип связи")).toHaveValue("all");
+  await expect(page.locator(".knowledge-capability-scope")).toHaveCount(0);
+});
+
 test("preserves a missing-support focus and routes to contextual preparation", async ({
   page,
 }) => {

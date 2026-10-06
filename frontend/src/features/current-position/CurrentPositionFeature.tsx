@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import type {
   CurrentPositionPort,
+  CurrentPositionWorkingState,
   CurrentStateModel,
   EvidenceModel,
   FocusModel,
@@ -25,10 +26,13 @@ export interface CurrentPositionFeatureProps {
   readonly port: CurrentPositionPort;
   readonly activeTargetRef: TargetRef;
   readonly activeFocusRef: FocusRef | null;
+  readonly workingState: CurrentPositionWorkingState;
+  readonly onWorkingStateChange: (state: CurrentPositionWorkingState) => void;
   readonly onAcceptedFocus: (
     focus: FocusModel,
     semanticBasisRef: SemanticBasisRef,
   ) => void;
+  readonly onExploreKnowledge: (capabilityRef: CapabilityRef) => void;
   readonly onContinueActivity: () => void;
   readonly onRequestPreparationSupport: () => void;
 }
@@ -48,7 +52,10 @@ export function CurrentPositionFeature({
   port,
   activeTargetRef,
   activeFocusRef,
+  workingState,
+  onWorkingStateChange,
   onAcceptedFocus,
+  onExploreKnowledge,
   onContinueActivity,
   onRequestPreparationSupport,
 }: CurrentPositionFeatureProps) {
@@ -58,9 +65,7 @@ export function CurrentPositionFeature({
   const [evidence, setEvidence] = useState<EvidenceModel | null>(null);
   const [focusBasisRef, setFocusBasisRef] =
     useState<SemanticBasisRef | null>(null);
-  const [selectedGapRef, setSelectedGapRef] = useState<GapRef | null>(null);
-  const [purposeDraft, setPurposeDraft] = useState("");
-  const [rationaleDraft, setRationaleDraft] = useState("");
+  const { selectedGapRef, purposeDraft, rationaleDraft } = workingState;
   const [acceptedFocus, setAcceptedFocus] = useState<FocusModel | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "submitting-focus">(
     "loading",
@@ -76,7 +81,6 @@ export function CurrentPositionFeature({
     setGapProjection(null);
     setEvidence(null);
     setFocusBasisRef(null);
-    setSelectedGapRef(null);
     setAcceptedFocus(null);
 
     void Promise.all([
@@ -140,14 +144,16 @@ export function CurrentPositionFeature({
     const decision = gapProjection?.decisionContext.candidates.find(
       (candidate) => candidate.gapRef === gapRef,
     );
-    setSelectedGapRef(gapRef);
     setAcceptedFocus(null);
     setMessage(null);
 
-    if (decision) {
-      setPurposeDraft(`Следующий фокус: ${decision.capabilityLabel}.`);
-      setRationaleDraft(decision.priorityRationale);
-    }
+    onWorkingStateChange({
+      selectedGapRef: gapRef,
+      purposeDraft: decision
+        ? `Следующий фокус: ${decision.capabilityLabel}.`
+        : "",
+      rationaleDraft: decision?.priorityRationale ?? "",
+    });
   }
 
   async function setNextFocus() {
@@ -278,6 +284,15 @@ export function CurrentPositionFeature({
                       </div>
                     </dl>
                   ) : null}
+                  <div className="action-row">
+                    <button
+                      type="button"
+                      className="secondary-action"
+                      onClick={() => onExploreKnowledge(gap.capabilityRef)}
+                    >
+                      Изучить знания: {gap.capabilityLabel}
+                    </button>
+                  </div>
                 </article>
               );
             })}
@@ -327,7 +342,12 @@ export function CurrentPositionFeature({
                 <span>Цель фокуса</span>
                 <input
                   value={purposeDraft}
-                  onChange={(event) => setPurposeDraft(event.currentTarget.value)}
+                  onChange={(event) =>
+                    onWorkingStateChange({
+                      ...workingState,
+                      purposeDraft: event.currentTarget.value,
+                    })
+                  }
                 />
               </label>
 
@@ -336,7 +356,12 @@ export function CurrentPositionFeature({
                 <textarea
                   rows={3}
                   value={rationaleDraft}
-                  onChange={(event) => setRationaleDraft(event.currentTarget.value)}
+                  onChange={(event) =>
+                    onWorkingStateChange({
+                      ...workingState,
+                      rationaleDraft: event.currentTarget.value,
+                    })
+                  }
                 />
               </label>
 
