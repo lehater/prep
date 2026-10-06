@@ -233,7 +233,7 @@ export function KnowledgeExplorerFeature({
         <div className="knowledge-toolbar-heading">
           <div>
             <p className="eyebrow">Фильтры</p>
-            <h2 id="knowledge-query-heading">Смысловая область</h2>
+            <h2 id="knowledge-query-heading" className="knowledge-section-title">Смысловая область</h2>
           </div>
           <div className="knowledge-scope-summary" aria-label="Контекст знаний">
             <span>Цель: текущая</span>
@@ -247,18 +247,20 @@ export function KnowledgeExplorerFeature({
         </div>
 
         <div className="knowledge-filter-toolbar">
-          <label className="field knowledge-search-field">
-            <span>Поиск</span>
+          <label className="field knowledge-filter-field knowledge-search-field">
+            <span className="knowledge-filter-label">Поиск</span>
             <input
+              className="knowledge-filter-control"
               value={queryDraft}
               onChange={(event) => setQueryDraft(event.currentTarget.value)}
               placeholder="Название или смысл утверждения"
             />
           </label>
 
-          <label className="field">
-            <span>Тип</span>
+          <label className="field knowledge-filter-field">
+            <span className="knowledge-filter-label">Тип</span>
             <select
+              className="knowledge-filter-control"
               value={kindFilter}
               onChange={(event) =>
                 setKindFilter(
@@ -275,9 +277,10 @@ export function KnowledgeExplorerFeature({
             </select>
           </label>
 
-          <label className="field">
-            <span>Связность</span>
+          <label className="field knowledge-filter-field">
+            <span className="knowledge-filter-label">Связность</span>
             <select
+              className="knowledge-filter-control"
               value={relationsFilter}
               onChange={(event) =>
                 setRelationsFilter(
@@ -294,9 +297,10 @@ export function KnowledgeExplorerFeature({
             </select>
           </label>
 
-          <label className="field">
-            <span>Глубина</span>
+          <label className="field knowledge-filter-field">
+            <span className="knowledge-filter-label">Глубина</span>
             <select
+              className="knowledge-filter-control"
               value={scope}
               onChange={(event) =>
                 setScope(event.currentTarget.value as "overview" | "detail")
@@ -334,7 +338,7 @@ export function KnowledgeExplorerFeature({
         <div className="knowledge-results-heading">
           <div>
             <p className="eyebrow">Результаты</p>
-            <h2 id="knowledge-results-heading">Найденные знания</h2>
+            <h2 id="knowledge-results-heading" className="knowledge-section-title">Найденные знания</h2>
           </div>
           {projection ? (
             <p className="knowledge-result-count" role="status">
@@ -348,7 +352,7 @@ export function KnowledgeExplorerFeature({
         {status === "ready" && visibleItems.length === 0 ? (
           <div className="knowledge-empty">
             <strong>По текущим фильтрам ничего не найдено.</strong>
-            <p>
+            <p className="knowledge-empty-copy">
               Измените поиск или один из фильтров. Контекст цели и выбранного
               фокуса сохранится.
             </p>
@@ -416,15 +420,15 @@ export function KnowledgeExplorerFeature({
                   <div className="knowledge-panel-heading">
                     <div>
                       <p className="eyebrow">Обзор</p>
-                      <h3 id="knowledge-relationship-heading">Связи</h3>
+                      <h3 id="knowledge-relationship-heading" className="knowledge-panel-title">Связи</h3>
                     </div>
-                    <span>{relationshipOverview.edges.length} реб.</span>
+                    <span className="knowledge-panel-badge">{relationshipOverview.edges.length} реб.</span>
                   </div>
                   <RelationshipRenderer
                     model={relationshipOverview}
                     onSelectKnowledge={chooseItemByRef}
                   />
-                  <p className="supporting-text">
+                  <p className="supporting-text knowledge-relationship-caption">
                     Граф показывает только текущую отфильтрованную выборку.
                   </p>
                 </section>
@@ -439,11 +443,14 @@ export function KnowledgeExplorerFeature({
                     <div className="knowledge-panel-heading">
                       <div>
                         <p className="eyebrow">Выбранное знание</p>
-                        <h3 id="knowledge-detail-heading">
+                        <h3
+                          id="knowledge-detail-heading"
+                          className="knowledge-panel-title"
+                        >
                           {selectedItem.label}
                         </h3>
                       </div>
-                      <span>{knowledgeKindLabel(selectedItem.kind)}</span>
+                      <span className="knowledge-panel-badge">{knowledgeKindLabel(selectedItem.kind)}</span>
                     </div>
 
                     <dl className="knowledge-detail-list">
@@ -492,8 +499,8 @@ export function KnowledgeExplorerFeature({
                 ) : (
                   <div className="knowledge-detail-placeholder">
                     <p className="eyebrow">Детали</p>
-                    <h3 id="knowledge-detail-heading">Выберите строку</h3>
-                    <p>
+                    <h3 id="knowledge-detail-heading" className="knowledge-detail-placeholder-title">Выберите строку</h3>
+                    <p className="knowledge-detail-placeholder-copy">
                       Детали и подсветка связей обновятся для выбранного знания.
                     </p>
                   </div>
