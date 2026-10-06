@@ -418,4 +418,35 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(afterChange.targetInformationChange).toBe("no-change");
   });
 
+
+  it("keeps Target-specific requirements isolated across related Targets", async () => {
+    const backend = acceptedValue(
+      await adapter.getTargetRequirements(mockScenarioRefs.targetPrimary),
+    );
+    const platform = acceptedValue(
+      await adapter.getTargetRequirements(mockScenarioRefs.targetAlternative),
+    );
+
+    expect(
+      backend.expectations.map((item) => item.requirementRef),
+    ).toContain(mockScenarioRefs.requirementBehavioral);
+    expect(
+      backend.expectations.map((item) => item.requirementRef),
+    ).not.toContain(mockScenarioRefs.requirementKubernetes);
+
+    expect(
+      platform.expectations.map((item) => item.requirementRef),
+    ).toContain(mockScenarioRefs.requirementKubernetes);
+    expect(
+      platform.expectations.map((item) => item.requirementRef),
+    ).not.toContain(mockScenarioRefs.requirementBehavioral);
+
+    expect(
+      backend.expectations.map((item) => item.requirementRef),
+    ).toContain(mockScenarioRefs.requirementSystemDesign);
+    expect(
+      platform.expectations.map((item) => item.requirementRef),
+    ).toContain(mockScenarioRefs.requirementSystemDesign);
+  });
+
 });
