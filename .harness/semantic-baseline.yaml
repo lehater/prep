@@ -109,25 +109,25 @@ reviews:
     basis: "Data Design was re-reviewed in the full Harness pass; durable identity, references, append-oriented review facts, import identity/atomicity, external mapping, implementation freedoms and reopening conditions remain complete for the current scope."
 
   - capability: prep.frontend-system-architecture
-    revision: 6
-    basis: "Frontend System Architecture is revalidated as the production contract for browser-side structural decomposition and dependency/ownership boundaries; the Harness registry now publishes the architecture.structure and architecture.boundaries claims already defined by the canonical artifact."
+    revision: 7
+    basis: "Frontend architecture is realigned to current task/view responsibilities: Preparation Shell/Context plus Target Direction, Target, Current Position, Knowledge, Activity, contextual post-Activity Evidence/change and Preparation Support; legacy Curation/Import/Progress/Diagnostics roots no longer define public ownership."
 
   - capability: prep.frontend-engineering-policy
-    revision: 6
-    basis: "Engineering policy now makes the CI split explicit and bounded: fast checks are independently runnable with time limits, while heavy browser/performance/container/full-Harness evidence is manual-only at final large-branch checkpoints."
+    revision: 7
+    basis: "Frontend engineering policy is revalidated against task-feature ownership, inward consumer contracts, provider isolation, evidence-based reuse, bounded state ownership and explicit fast-versus-heavy validation without promoting legacy or renderer-specific structure."
 
   - capability: prep.frontend-component-design
-    revision: 7
-    basis: "Component Design now distinguishes diagnostic activity from evidence acceptance, preserves Observation/provenance separately from evidence arguments and claim projections, and carries explicit supports/challenges evidential bearing without treating challenges as negative claims."
+    revision: 8
+    basis: "Component Design maps current Screen/View responsibilities to public task features and narrow consumer ports, keeps why-this-state evidence inside CurrentPositionFeature, makes EvidenceChangeFeature contextual to reviewed Activity results, and forbids legacy public Curation/Import/Progress/Diagnostics ownership."
 
   - capability: prep.frontend-verification
-    revision: 8
-    basis: "Frontend Verification now covers purpose-explicit related targets, learner preparation-support boundary, curator-owned corpus paths, target-refinement/progress separation and target requirement isolation."
+    revision: 9
+    basis: "Frontend Verification is realigned to current task-feature architecture and the revalidated presentation oracles, including contextual post-Activity Evidence/change, dependency/legacy isolation, composition variants, optional spatial rendering and strict Harness currentness."
 
   - capability: prep.frontend-test-design
-    revision: 10
-    basis: "Frontend tests now split learner empty-bootstrap from curator import recovery, exercise multi-driver focus, verify role/interview target isolation and ensure target refinement cannot masquerade as learner progress."
+    revision: 11
+    basis: "Frontend Test Design now exercises the current task flow and ownership boundaries: same-view Current evidence detail, contextual post-Activity Evidence/change, declared composition variants, adapter substitution, legacy-edge rejection and Harness currentness."
 
   - capability: prep.frontend-implementation-design
-    revision: 10
-    basis: "Implementation Design now separates prototype completion/READY FOR USABILITY VALIDATION from the production implementation gate, which requires representative-user, accessibility, content and 3D-default validation evidence."
+    revision: 11
+    basis: "Implementation Design slices realization by current task-feature owners from semantic foundation through shell/Target/Current/Knowledge/Activity/contextual Evidence/Prepare Support and legacy cleanup, while keeping prototype completion separate from representative-user/accessibility production authority."

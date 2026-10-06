@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: machine-component
+source_capability: prep.machine-interfaces
+target_capability: prep.frontend-component-design
+obligations:
+- id: direct-semantic-input
+  source_kind: machine-invariant
+  subject: machine-boundary-ownership
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false

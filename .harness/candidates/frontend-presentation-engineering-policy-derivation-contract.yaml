@@ -1,0 +1,15 @@
+version: 1
+kind: harness-semantic-derivation-contract
+id: presentation-engineering-policy
+source_capability: prep.presentation-system
+target_capability: prep.frontend-engineering-policy
+obligations:
+- id: direct-semantic-input
+  source_kind: presentation-pattern
+  subject: knowledge-representation
+  min_count: 1
+  require_target_provenance: true
+lifecycle_dependency:
+  exhaustive: true
+semantic_judgement:
+  required: false

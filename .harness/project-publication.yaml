@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:8aa143539e53b3d2d889a1d3dcbea491ff786ddb121d3a537513e12c16286410
-parent_revision: sha256:e7e916b9585f5d7062e89ab574eafdda303749596b3eb67839f2d64a149d4830
+revision: sha256:43d5e4b4b967a777d72a8bc2ccc7c8cc7a7eb3dbc2fb3c8c0a076cc1d46ab54c
+parent_revision: sha256:8aa143539e53b3d2d889a1d3dcbea491ff786ddb121d3a537513e12c16286410
 state:
   core_model:
     authorities:
@@ -386,7 +386,7 @@ state:
         acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id071
+        semantic_atom_fingerprints: &id095
           PE-ACTOR: SAF-d49d11eed6b2edfc8bec7516976522a1964da45b9ceb5098c67413e9d8529a69
           PE-PROBLEM: SAF-6fc4598edff6726ae1f68c1d9807c4056f1b129f37a22f4ae5966932fdf13394
           OBS-P01: SAF-d412b68713d318d0db5ba25ef444ecad5e3e05b95a1494ca964ae0868e9cf1d1
@@ -3031,7 +3031,7 @@ state:
           prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
         artifact: SCREEN-VIEW-DESIGN
         capability: prep.screen-view-design
-        semantic_atom_fingerprints: &id054
+        semantic_atom_fingerprints: &id052
           SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
           SV-COMPOSITION-VARIANTS: SAF-11b37177da8c84e50734ec9d85139f54a3ee06451afcabc4254171e4af3c624c
           SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
@@ -3087,17 +3087,17 @@ state:
           referenced_path: docs/application/application-design.md
         - artifact: IMPORT-CONSISTENCY
           referenced_path: docs/interface/machine-interface.md
-        accepted_prerequisites: &id043
+        accepted_prerequisites:
           prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
           prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
-        accepted_prerequisite_semantics: &id044
+        accepted_prerequisite_semantics:
           prep.application-design:
             exhaustive: true
             semantic_atoms: *id025
             source_surface_fingerprints: *id025
           prep.machine-interfaces:
             exhaustive: true
-            semantic_atoms: &id049
+            semantic_atoms: &id043
               MI-OUTCOME-MODEL: SAF-697dff22e8dba26bd0b2f288067947d10e3bdf1247074389656d083ad13e9a01
             source_surface_fingerprints: *id036
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -3117,9 +3117,19 @@ state:
         capability: prep.import-consistency
         acceptance_id: PREP-IMPORT-CONSISTENCY-STRICT-1
         acceptance_policy_fingerprint: sha256:58c58c55b610527bb9bfade91acb690a2237242f400f55428e3923d76bcce74c
-        accepted_prerequisites: *id043
-        accepted_prerequisite_semantics: *id044
-        semantic_atom_fingerprints: &id050
+        accepted_prerequisites:
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        accepted_prerequisite_semantics:
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: *id025
+            source_surface_fingerprints: *id025
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id043
+            source_surface_fingerprints: *id036
+        semantic_atom_fingerprints: &id048
           IC-CURRENT-SCOPE: SAF-d30389c6ac632c95ec6d360b600f2cf15477a925f3275a218becee0bc196eb46
           IC-OWNER-ATOMICITY: SAF-9ceecd862fb716395176d7fbdb88ccb592bffa8680f618847b40f9e3838d6f8d
           IC-PARTIAL-PREPARATION: SAF-2b2a71bd6d014aa3558e30d5c5feaeb2361d0d2f056cacb122e42b4c502106f7
@@ -3161,22 +3171,22 @@ state:
           referenced_path: docs/interface/interaction-design.yaml
         - artifact: INTERFACE-VERIFICATION
           referenced_path: docs/interface/interface-topology.yaml
-        accepted_prerequisites: &id045
+        accepted_prerequisites:
           prep.task-model: PREP-TASK-MODEL-STRICT-4
           prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
           prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
           prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
-        accepted_prerequisite_semantics: &id046
+        accepted_prerequisite_semantics:
           prep.task-model:
             exhaustive: true
-            semantic_atoms: &id061
+            semantic_atoms: &id044
               TM-GOAL-PREPARE: SAF-9336ab26e98860b167783241e3dae69835613ec9db56940d0b7f7426847ab9e7
               TM-GOAL-SUPPORT: SAF-27b74433343c04e7d473cdc49837956ebafc438f0894f131156fa1c0d6b38895
               TM-GOAL-TARGET-DIRECTION: SAF-bcc7ac59f42a854a51044d731f4337e34d4fa051802635a31fde06d7812d195f
             source_surface_fingerprints: *id023
           prep.information-architecture:
             exhaustive: true
-            semantic_atoms: &id062
+            semantic_atoms: &id045
               IA-LOC-ACTIVITIES: SAF-1509046030063e164c0620f44897804fe37a5ed183172a84baf1a4c0a18bd0aa
               IA-LOC-CURRENT: SAF-b633a31a32de573308dfc14bedc71f19689adfbaa295d8579aa0a95fdb1f777c
               IA-LOC-EVIDENCE: SAF-28e511d519af6d9873ce43a67616fa9b149afad6c146d05234a08b33d6a86958
@@ -3188,7 +3198,7 @@ state:
             source_surface_fingerprints: *id038
           prep.interaction-design:
             exhaustive: true
-            semantic_atoms: &id047
+            semantic_atoms: &id046
               IX-ACTIVITY: SAF-8af3de6e67fe231bf725cd6826412c867a5327fa1c0bfa42a51405215eed7027
               IX-DIRECTION: SAF-de0eddfbea0a0dec62c8a9028c6cf1797d2fd9876bfb64058035266d47aa567f
               IX-KNOWLEDGE: SAF-e52053113d200cb16fc3bec2a587d983fe26055253092c6c68cb0112e7bff2e9
@@ -3198,7 +3208,7 @@ state:
             source_surface_fingerprints: *id039
           prep.interface-topology:
             exhaustive: true
-            semantic_atoms: &id048
+            semantic_atoms: &id047
               TOP-ROOT: SAF-7b83df7504b0ee8319e66fa6e3c6a58ce0401d9857c91519867dc1c25351e421
             source_surface_fingerprints: *id041
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -3218,9 +3228,29 @@ state:
         capability: prep.interface-verification
         acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
         acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
-        accepted_prerequisites: *id045
-        accepted_prerequisite_semantics: *id046
-        semantic_atom_fingerprints: &id053
+        accepted_prerequisites:
+          prep.task-model: PREP-TASK-MODEL-STRICT-4
+          prep.information-architecture: PREP-INFORMATION-ARCHITECTURE-STRICT-6
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+        accepted_prerequisite_semantics:
+          prep.task-model:
+            exhaustive: true
+            semantic_atoms: *id044
+            source_surface_fingerprints: *id023
+          prep.information-architecture:
+            exhaustive: true
+            semantic_atoms: *id045
+            source_surface_fingerprints: *id038
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id046
+            source_surface_fingerprints: *id039
+          prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: *id047
+            source_surface_fingerprints: *id041
+        semantic_atom_fingerprints: &id051
           IV-SCOPE: SAF-49d091f736f9fc1d005518646344682263668acf99ff5b8465e44ea173f03904
           IV-TASK-INTERACTION: SAF-a44c9be6e58a871675329182c265f2ee8a00c5f9cacc7ea49409610593109175
           IV-IA-TOPOLOGY: SAF-0a5abea0e4ff506f3670215b7a924947a54353594337e57da9010b76e86e03d6
@@ -3270,16 +3300,16 @@ state:
           referenced_path: docs/interface/machine-interface.md
         - artifact: SYSTEM-ARCHITECTURE
           referenced_path: docs/architecture/import-consistency.md
-        accepted_prerequisites: &id051
+        accepted_prerequisites:
           prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
           prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
           prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
           prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
           prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
-        accepted_prerequisite_semantics: &id052
+        accepted_prerequisite_semantics:
           prep.application-design:
             exhaustive: true
-            semantic_atoms: &id063
+            semantic_atoms: &id049
               AD-COMPARE-TARGETS: SAF-0854fb52a0af7b7d5647a49dd422b5e3040a434486701f50fc4831a50d069d8e
               AD-EXPLORE-KNOWLEDGE: SAF-211304dfcb67587c210e2bac70eddf8c7fe409d311f30ebf97b1e8fc97881ea9
               AD-REVIEW-CHANGE: SAF-756a2a1dc3aa47dc50f7cb59afc206ec27b9daab323e4a9fec2758490eecb819
@@ -3290,21 +3320,21 @@ state:
             source_surface_fingerprints: *id025
           prep.interaction-design:
             exhaustive: true
-            semantic_atoms: *id047
+            semantic_atoms: *id046
             source_surface_fingerprints: *id039
           prep.interface-topology:
             exhaustive: true
-            semantic_atoms: *id048
+            semantic_atoms: *id047
             source_surface_fingerprints: *id041
           prep.machine-interfaces:
             exhaustive: true
-            semantic_atoms: *id049
+            semantic_atoms: *id043
             source_surface_fingerprints: *id036
           prep.import-consistency:
             exhaustive: true
-            semantic_atoms: &id057
+            semantic_atoms: &id050
               IC-CURRENT-SCOPE: SAF-d30389c6ac632c95ec6d360b600f2cf15477a925f3275a218becee0bc196eb46
-            source_surface_fingerprints: *id050
+            source_surface_fingerprints: *id048
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
           version: 1
@@ -3322,9 +3352,34 @@ state:
         capability: prep.system-architecture
         acceptance_id: PREP-SYSTEM-ARCHITECTURE-STRICT-1
         acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
-        accepted_prerequisites: *id051
-        accepted_prerequisite_semantics: *id052
-        semantic_atom_fingerprints: &id058
+        accepted_prerequisites:
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.interface-topology: PREP-INTERFACE-TOPOLOGY-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+        accepted_prerequisite_semantics:
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: *id049
+            source_surface_fingerprints: *id025
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: *id046
+            source_surface_fingerprints: *id039
+          prep.interface-topology:
+            exhaustive: true
+            semantic_atoms: *id047
+            source_surface_fingerprints: *id041
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id043
+            source_surface_fingerprints: *id036
+          prep.import-consistency:
+            exhaustive: true
+            semantic_atoms: *id050
+            source_surface_fingerprints: *id048
+        semantic_atom_fingerprints: &id056
           SA-DRIVER-CLOSURE: SAF-952965597f0fb60fd599679498d6971a277eeb05d19fd46b5275a203783828f5
           SA-RUNTIME-BOUNDARIES: SAF-86d25b54b71e510604d7c4730045c1a96ee7721eb67bf746a22ba5d1ad062857
           SA-DEPLOYMENT-FREEDOM: SAF-d68fc7bdade5093b09da030eea74630360c7c12edb55f848488adf71a4c38cb4
@@ -3363,27 +3418,27 @@ state:
         canonical_references:
         - artifact: PRESENTATION-VERIFICATION
           referenced_path: docs/verification/interface-verification.md
-        accepted_prerequisites: &id055
+        accepted_prerequisites:
           prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
           prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
           prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
           prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
-        accepted_prerequisite_semantics: &id056
+        accepted_prerequisite_semantics:
           prep.interface-verification:
             exhaustive: true
-            semantic_atoms: &id064
+            semantic_atoms: &id053
               IV-SCOPE: SAF-49d091f736f9fc1d005518646344682263668acf99ff5b8465e44ea173f03904
-            source_surface_fingerprints: *id053
+            source_surface_fingerprints: *id051
           prep.presentation-system:
             exhaustive: true
-            semantic_atoms: &id065
+            semantic_atoms: &id054
               PS-CONTROLS: SAF-f9ad281b42a07df3540967f685e80071846f96213ef340c2285e3d652d9ca978
               PS-DENSITY: SAF-36ac408d7d4d8eb30ae473520cbd1b0a9325362f0123a14eba0a4af50d504f4b
               PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
             source_surface_fingerprints: *id042
           prep.screen-view-design:
             exhaustive: true
-            semantic_atoms: &id066
+            semantic_atoms: &id055
               SV-ACTIVITY: SAF-17eabf675c5d95ceeb5ef6bc7cbf65c35efd0e83d753083b0b02375cd14aa2a8
               SV-CURRENT: SAF-655529c528ceaa7e7a3dac2dce51756506d3109e4fb6c436f3839365b39853d4
               SV-EVIDENCE: SAF-85c69a011c8df501995e7307e73287a7f1b44de4eda8903f0c2e6af9fd4385e9
@@ -3392,7 +3447,7 @@ state:
               SV-PREP-SUPPORT: SAF-1413d2b47c73d090fb8fcf281ae65d8499353ab36aec3eed1b3fe62193123dd4
               SV-TARGET: SAF-07c6f3c442928a045e13cfbcfdb1d6b46ccea41d5f04e143a31a7fadcdaee1b8
               SV-TARGETS: SAF-3c9f0079625c0b6a2933f8cb674e2d6d989743fa27665735be3c979fb99fc392
-            source_surface_fingerprints: *id054
+            source_surface_fingerprints: *id052
           prep.frontend-performance-capacity:
             exhaustive: true
             semantic_atoms: *id040
@@ -3414,9 +3469,29 @@ state:
         capability: prep.presentation-verification
         acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
         acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
-        accepted_prerequisites: *id055
-        accepted_prerequisite_semantics: *id056
-        semantic_atom_fingerprints: &id072
+        accepted_prerequisites:
+          prep.interface-verification: PREP-INTERFACE-VERIFICATION-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics:
+          prep.interface-verification:
+            exhaustive: true
+            semantic_atoms: *id053
+            source_surface_fingerprints: *id051
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: *id054
+            source_surface_fingerprints: *id042
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id055
+            source_surface_fingerprints: *id052
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id040
+            source_surface_fingerprints: *id040
+        semantic_atom_fingerprints: &id066
           PV-SCOPE: SAF-5f42b1b0a8af071c1477d95263588828f1c48b227b0ea5b2189c6e677f57b008
           PV-WORKFLOW: SAF-3d84dd82d1d9db9cf5f2c879fa1ca7839a4eabec8123c468321c74c68ce717cd
           PV-STATE-BASIS: SAF-3177a41a535c6176492d7fcca6d8bfba0dea20895be22f2876e09dac70b3745a
@@ -3463,16 +3538,16 @@ state:
           referenced_path: docs/architecture/import-consistency.md
         - artifact: DATA-DESIGN
           referenced_path: docs/architecture/system-architecture.md
-        accepted_prerequisites: &id059
+        accepted_prerequisites:
           prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
           prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
           prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
           prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
           prep.system-architecture: PREP-SYSTEM-ARCHITECTURE-STRICT-1
-        accepted_prerequisite_semantics: &id060
+        accepted_prerequisite_semantics:
           prep.knowledge-model:
             exhaustive: true
-            semantic_atoms: &id067
+            semantic_atoms: &id057
               KM-KNOWLEDGE-FAMILY: SAF-37f8716a532b05cf5f5ad42575c8b22156263a8570fb130a22be6fce7362cf49
               KM-KNOWLEDGE-OBJECT-IDENTITY: SAF-abcaf3de445132c8bfdc6e953d25380b901a5d42dd114cdf0154267434197fa5
               KM-KNOWLEDGE-PROPOSITION: SAF-0f541766f686ce1924ad56921306dc1fc635c0944db5cf9ff7837e9fcfe62471
@@ -3480,7 +3555,7 @@ state:
             source_surface_fingerprints: *id012
           prep.learning-design:
             exhaustive: true
-            semantic_atoms: &id068
+            semantic_atoms: &id058
               LD-CAPABILITY: SAF-699d233bd68c4a798658dbdf6b82f46554b5127d577fdca2b4d66afa66954024
               LD-CAPABILITY-SPECIFICATION: SAF-7f6016d846bea90c9631465da252e6e552a50e35b7132a5ce441839ba2535342
               LD-CAPABILITY-STANDARD: SAF-b753aaf3199c4b9946b664f6ee02205fff8539a9fe71038a3699c1434a2195ac
@@ -3496,7 +3571,7 @@ state:
             source_surface_fingerprints: *id020
           prep.learner-model:
             exhaustive: true
-            semantic_atoms: &id069
+            semantic_atoms: &id059
               LM-CAPABILITY-CLAIM: SAF-1a594cfcb89383c4ebd3a71f73bf749b379dc691e7ff72a078dffe142e435119
               LM-EVIDENCE-ARGUMENT: SAF-5549f7942db756cde079ce0c4de509250d68804723e6aab4cd05e3bcc8b55e92
               LM-OBSERVATION: SAF-d0208417db3d66746d0d859f56134defac9d69ebce35adb14d3a6d154fce706d
@@ -3505,13 +3580,13 @@ state:
             source_surface_fingerprints: *id021
           prep.import-consistency:
             exhaustive: true
-            semantic_atoms: *id057
-            source_surface_fingerprints: *id050
+            semantic_atoms: *id050
+            source_surface_fingerprints: *id048
           prep.system-architecture:
             exhaustive: true
-            semantic_atoms: &id070
+            semantic_atoms: &id060
               SA-DRIVER-CLOSURE: SAF-952965597f0fb60fd599679498d6971a277eeb05d19fd46b5275a203783828f5
-            source_surface_fingerprints: *id058
+            source_surface_fingerprints: *id056
         semantic_contract: knowledge-kind-semantic-contracts/v1
         acceptance_policy:
           version: 1
@@ -3529,9 +3604,34 @@ state:
         capability: prep.data-design
         acceptance_id: PREP-DATA-DESIGN-STRICT-1
         acceptance_policy_fingerprint: sha256:927a711467a4e82335a15cc34ca946e49e0a693fa1a79ad704a6ea8da04fecb7
-        accepted_prerequisites: *id059
-        accepted_prerequisite_semantics: *id060
-        semantic_atom_fingerprints: &id073
+        accepted_prerequisites:
+          prep.knowledge-model: PREP-KNOWLEDGE-MODEL-STRICT-3
+          prep.learning-design: PREP-LEARNING-DESIGN-STRICT-3
+          prep.learner-model: PREP-LEARNER-MODEL-STRICT-3
+          prep.import-consistency: PREP-IMPORT-CONSISTENCY-STRICT-1
+          prep.system-architecture: PREP-SYSTEM-ARCHITECTURE-STRICT-1
+        accepted_prerequisite_semantics:
+          prep.knowledge-model:
+            exhaustive: true
+            semantic_atoms: *id057
+            source_surface_fingerprints: *id012
+          prep.learning-design:
+            exhaustive: true
+            semantic_atoms: *id058
+            source_surface_fingerprints: *id020
+          prep.learner-model:
+            exhaustive: true
+            semantic_atoms: *id059
+            source_surface_fingerprints: *id021
+          prep.import-consistency:
+            exhaustive: true
+            semantic_atoms: *id050
+            source_surface_fingerprints: *id048
+          prep.system-architecture:
+            exhaustive: true
+            semantic_atoms: *id060
+            source_surface_fingerprints: *id056
+        semantic_atom_fingerprints: &id096
           DD-OWNERSHIP: SAF-6ed2daebedee7a926babffe0ca8f8bdea3048bc6cdff69c0eca14040584b79f3
           DD-KNOWLEDGE: SAF-390cc8405c10e7ad0e043b8b3d3c696dfb405cead846c38a3c3c061c524ceb07
           DD-LEARNING: SAF-b08ad5862217101b3fa48761e39d4c879bbce6b3644d42d1b958ceae7dec29f8
@@ -3540,6 +3640,559 @@ state:
           DD-CONSISTENCY: SAF-650f92de4d4263d005738fd0218400f692e6b28d4f2b8a84a530df1b9106da98
           DD-INTEGRATION: SAF-55d7d42366522ddd77b80f1a0dfabee339b468d834579695c86fe7d01c97ca41
           DD-LEGACY-BOUNDARY: SAF-83704c1cf859b6c69181ee4abaf88bd8549356b9ac1d2ec3c396622b9924e791
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-SYSTEM-ARCHITECTURE
+      capability: prep.frontend-system-architecture
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.architecture.structure
+        - engineering.architecture.boundaries
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: system-architecture
+        skill: skills/artifacts/system-architecture/SKILL.md
+        acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        authority: SYSTEM-ARCHITECTURE
+        allowed_source_authorities:
+        - APPLICATION-DESIGN
+        - HUMAN-INTERFACE-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/architecture/frontend-system-architecture.md
+        canonical_references:
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/application/application-design.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/presentation-system.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id061
+          prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics: &id062
+          prep.application-design:
+            exhaustive: true
+            semantic_atoms: &id085
+              AD-RUNTIME-TIMING-FREEDOM: SAF-1ce20455e64359d5d2956560402d44516709b158925cb34c4021b8fce489e3c2
+            source_surface_fingerprints: *id025
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: &id086
+              PS-TASK-HIERARCHY: SAF-5854e3d47daed8f5f028929b0ae0fb72b4b638a5f825bdf7675ea0c83a00da58
+            source_surface_fingerprints: *id042
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: &id072
+              SV-NO-IMPLEMENTATION: SAF-588cd04b7ab0b6c2a2afb32b990a912c3edc310125fa2eae7dd8a161d03f4a20
+            source_surface_fingerprints: *id052
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: &id068
+              MI-NO-LEAK: SAF-bf66948cc8d5d535a327f7753ae519fa5226d28991775e1a55c07d1a3ba943c0
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: &id077
+              QD-SEMANTIC-PRESERVATION: SAF-78d8ec48c33081770f888f5ad89e142bc5041b4eb3918d0cd2d7b720719550f0
+            source_surface_fingerprints: *id040
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-SYSTEM-ARCHITECTURE
+        capability: prep.frontend-system-architecture
+        acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+        accepted_prerequisites: *id061
+        accepted_prerequisite_semantics: *id062
+        semantic_atom_fingerprints: &id063
+          FSA-RUNTIME: SAF-4151b5149a1f3462982f7d9e51f1ea3da6a54b6de4c7ef25aa023223df01a1ee
+          FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
+          FSA-PORTS: SAF-9ab8de1a5c2219f1846dc3a4b27db227e5aa9e3c7a80f9732740889b25c9314d
+          FSA-STATE: SAF-5783423e8df46d97074717264da24a5a013f0ca2f93f2e2a39ebf1b2c2bf07a7
+          FSA-DEPENDENCY: SAF-9140761b51ae442e1ee5c39dc7b6fd5d522d1a9efd0081f0c94d6129445c00f2
+          FSA-FAILURE: SAF-ff182706b292c2ecf6a9f44a2b0b565410974daa24d92da2469e26273bdef910
+          FSA-SPATIAL: SAF-4863fdeed943ceabe749242e646fca57f98617a74899e001b746d51090d7ce59
+          FSA-NO-LEGACY: SAF-083b3233f8d4fc8eca495adcc4d7d506e0fac15fa0f29f4c51ac1ed47c9d61f0
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-ENGINEERING-POLICY
+      capability: prep.frontend-engineering-policy
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.engineering.principles
+        - engineering.engineering.code-quality
+        - engineering.engineering.error-handling
+        - engineering.quality.maintainability.modularity
+        - engineering.quality.maintainability.analysability
+        - engineering.quality.maintainability.modifiability
+        - engineering.quality.maintainability.testability
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: engineering-policy
+        skill: skills/artifacts/engineering-policy/SKILL.md
+        acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        authority: ENGINEERING-POLICY
+        allowed_source_authorities:
+        - ENGINEERING-POLICY
+        - HUMAN-INTERFACE-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/engineering/frontend-engineering-policy.md
+        canonical_references:
+        - artifact: FRONTEND-ENGINEERING-POLICY
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-ENGINEERING-POLICY
+          referenced_path: docs/interface/presentation-system.md
+        accepted_prerequisites: &id064
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        accepted_prerequisite_semantics: &id065
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: &id067
+              FSA-DEPENDENCY: SAF-9140761b51ae442e1ee5c39dc7b6fd5d522d1a9efd0081f0c94d6129445c00f2
+            source_surface_fingerprints: *id063
+          prep.presentation-system:
+            exhaustive: true
+            semantic_atoms: &id087
+              PS-KNOWLEDGE-REPRESENTATION: SAF-d60ad1945b271a752ce6482feb63c4306e32fe40b761212241227f943e6d6792
+            source_surface_fingerprints: *id042
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+        acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-ENGINEERING-POLICY
+        capability: prep.frontend-engineering-policy
+        acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+        accepted_prerequisites: *id064
+        accepted_prerequisite_semantics: *id065
+        semantic_atom_fingerprints: &id071
+          EP-OWNERSHIP: SAF-f4a45a51e9ba30c42aad51ca0251f5200c10546048ac1605cf2b768bf1aaf89f
+          EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
+          EP-PORTS: SAF-fd9ff42c52389081889c805929794a3b813389552c81def6a00bb02c88d7f202
+          EP-PROVIDERS: SAF-47ab59d20fedade487cf166e55bf66ac3791999f1122ce5388a0320310aa70a9
+          EP-STATE: SAF-b90a1a58e952e3e4df80eb2e7efd06399ea2da14b0b53f806cc8958e2f5780cc
+          EP-PRESENTATION: SAF-843ca1e32541a5599c4fed7150361a2e46a0de5917874c3503a0ec709735483c
+          EP-MOCK: SAF-107c788b9361cbd6e3a9003bd11cce2e2dcde7243f4ba50429408f97edb86945
+          EP-PERFORMANCE: SAF-c4ac693ecc42a712d0e6b55838ab066dfe5adf6febc89c8195e2f932ddf522a0
+          EP-VALIDATION: SAF-550b9dba21299d0148e403f5e76c7c7f17d41881c9547582650d8e834c53190c
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-VERIFICATION
+      capability: prep.frontend-verification
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.verification.strategy
+        - engineering.verification.requirement-traceability
+        - engineering.verification.functional
+        - engineering.verification.architecture
+        - engineering.verification.quality
+        - engineering.verification.interface.machine
+        - engineering.transition.revalidation
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: verification-strategy
+        skill: skills/artifacts/verification-strategy/SKILL.md
+        acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+        authority: VERIFICATION-DESIGN
+        allowed_source_authorities:
+        - MACHINE-INTERFACE-DESIGN
+        - PRODUCT-REQUIREMENTS
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/frontend-verification.md
+        canonical_references:
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: .harness/knowledge/product-capabilities.yaml
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/verification/presentation-verification.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-VERIFICATION
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id069
+          prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+          prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics: &id070
+          prep.product-capabilities:
+            exhaustive: true
+            semantic_atoms: &id088
+              REQ-CAP-TARGET-DIRECTION: SAF-c5ed1334f127e94bcf98050d66dbb123be4536564e7109cc6b43952e7c1bd74f
+            source_surface_fingerprints: *id004
+          prep.presentation-verification:
+            exhaustive: true
+            semantic_atoms: &id089
+              PV-COMPOSITION-VARIANTS: SAF-bb3ab7c3c40d7a87c4c9f8feafd5a2288b03b8876a570a5dd1d2bf2dc8837f11
+            source_surface_fingerprints: *id066
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: *id067
+            source_surface_fingerprints: *id063
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id068
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: &id073
+              QD-GRAPH-CONDITIONAL: SAF-82b7d346966e5645e97709c3b544be085f4dbc25d830dff2bc07fa3b28749b60
+            source_surface_fingerprints: *id040
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-VERIFICATION
+        capability: prep.frontend-verification
+        acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+        acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+        accepted_prerequisites: *id069
+        accepted_prerequisite_semantics: *id070
+        semantic_atom_fingerprints: &id076
+          FV-TRACEABILITY: SAF-60fb28ea95807b3ef02c25adc6e41b9f8f5758d599f76f95b3a7fcd281f7e158
+          FV-WORKFLOW: SAF-b468be1844c46ccd60941ec632f5b6e2cbbb370bdb033f60f2c7c56d25afd3bb
+          FV-PREP-SUPPORT: SAF-e2a0dd81bcd0a064a5c39d5b0ff0dfed60928a3f8abe04b7397428c4f5f52c14
+          FV-PORT-FIDELITY: SAF-d76b58cc1ba8ad5df2998911fcaad72dd282a12c36d43332f1c4c6c7fda74ba2
+          FV-DEPENDENCIES: SAF-61bb0c060f24fce816a544b0439f5c97c4d0f555e7313963a489d058a49d4fe6
+          FV-SPATIAL: SAF-df7681c341f2e9ae6399cce570e249f910aff82874964027d98ffab3a6105504
+          FV-STATE: SAF-d192cdb3765e5d8a60570dbe842caa762967c1001f48f8e48f9184990d555393
+          FV-EVIDENCE: SAF-0d5c4f3b16a388783a669b80a709a96cdce267e2199cde3b8acf4e2863d8857d
+          FV-PRESENTATION: SAF-1d09af0c22f7f0dfed18bc32b30a52f10b20252d0cc78b85ec77a09eb961e5b4
+          FV-HARNESS: SAF-f0be7674647e73334ad9089f6e1adcd868a47b94b539dd7dd7ee145fce6d519f
+          FV-TARGET-ISOLATION: SAF-517e1103e3f87d5b25713d966f271e47fc0e0ce786a255cd602518f8e61bd3d4
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-COMPONENT-DESIGN
+      capability: prep.frontend-component-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.engineering.components
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: component-design
+        skill: skills/artifacts/component-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        authority: COMPONENT-DESIGN
+        allowed_source_authorities:
+        - COMPONENT-DESIGN
+        - ENGINEERING-POLICY
+        - HUMAN-INTERFACE-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - SYSTEM-ARCHITECTURE
+        changed_paths:
+        - docs/implementation/frontend-component-design.md
+        canonical_references:
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/architecture/frontend-system-architecture.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/engineering/frontend-engineering-policy.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/interface/machine-interface.md
+        - artifact: FRONTEND-COMPONENT-DESIGN
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id074
+          prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+          prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics: &id075
+          prep.frontend-system-architecture:
+            exhaustive: true
+            semantic_atoms: &id090
+              FSA-TASK-MODULES: SAF-0159510020085e18e9c2b6032590c913e49fccf313bfadc0642b535cab21c700
+            source_surface_fingerprints: *id063
+          prep.frontend-engineering-policy:
+            exhaustive: true
+            semantic_atoms: &id091
+              EP-DEPENDENCY: SAF-7d0071b5d15d03bb45b56762835fb6869ed394c50e7b73806883dfae9ea3ece9
+            source_surface_fingerprints: *id071
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id072
+            source_surface_fingerprints: *id052
+          prep.machine-interfaces:
+            exhaustive: true
+            semantic_atoms: *id068
+            source_surface_fingerprints: *id036
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id073
+            source_surface_fingerprints: *id040
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:1bbf9137f60e079a7edc610dc2186373126aae8d0a03ca8640a1dcfefddf573a
+        acceptance_policy_fingerprint: sha256:1bbf9137f60e079a7edc610dc2186373126aae8d0a03ca8640a1dcfefddf573a
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-COMPONENT-DESIGN
+        capability: prep.frontend-component-design
+        acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:1bbf9137f60e079a7edc610dc2186373126aae8d0a03ca8640a1dcfefddf573a
+        accepted_prerequisites: *id074
+        accepted_prerequisite_semantics: *id075
+        semantic_atom_fingerprints: &id080
+          CD-COMPOSITION: SAF-9f8aa46f9ebb50fb8d259f2f29e2734016d1157d6adbafd745d829a6e3519f47
+          CD-SHELL: SAF-f2f91244542c704bcafa7ff9d97333ca0d56b73de8aa9d1ab047f62d327d29d7
+          CD-FEATURES: SAF-261a694d385423bc0c9fd4a1e6ca4f508d38208270ce19744d327493529a6207
+          CD-PORTS: SAF-f02b58bc352b40d584e22a5c7590ecb49ec3dd651eadb592fed6689c565f7657
+          CD-SPATIAL: SAF-57407c0d5c822f07301e196d91baff72abbec9f66962421c5a661cd6c726b33f
+          CD-STATE: SAF-795604fc5e1dc7d317d566d5698d746ed32ee19f0def297da6d08f84e3b824e0
+          CD-DEPENDENCY: SAF-b7569fc8592a0802eddf7d1caa31ca3a04e999cd44444db34c61aa35b8c51a1d
+          CD-NO-LEGACY: SAF-2d885555014ec8fe700a59790bcac2e388bf306e693fd57a24b508276899d236
+          CD-TRANSITION-BOUNDARY: SAF-03b350553d4ef30dd5d957c096ce8b879c5311772f53adf1c2eb04b7ea845590
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-TEST-DESIGN
+      capability: prep.frontend-test-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: test-design
+        skill: skills/artifacts/test-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        authority: TEST-DESIGN
+        allowed_source_authorities:
+        - HUMAN-INTERFACE-DESIGN
+        - QUALITY-DESIGN
+        - TEST-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/verification/frontend-test-design.yaml
+        canonical_references:
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/verification/frontend-verification.md
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/interface/interaction-design.yaml
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/interface/screen-view-design.md
+        - artifact: FRONTEND-TEST-DESIGN
+          referenced_path: docs/architecture/performance-capacity.md
+        accepted_prerequisites: &id078
+          prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+          prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+          prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+          prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+        accepted_prerequisite_semantics: &id079
+          prep.frontend-verification:
+            exhaustive: true
+            semantic_atoms: &id081
+              FV-TRACEABILITY: SAF-60fb28ea95807b3ef02c25adc6e41b9f8f5758d599f76f95b3a7fcd281f7e158
+            source_surface_fingerprints: *id076
+          prep.interaction-design:
+            exhaustive: true
+            semantic_atoms: &id092
+              IX-CONTEXT-CONTINUITY: SAF-b19ad295a39359527c247e1b6c7ba8f7189b6137a022aeb3ba2e56dc4686fd3f
+            source_surface_fingerprints: *id039
+          prep.screen-view-design:
+            exhaustive: true
+            semantic_atoms: *id072
+            source_surface_fingerprints: *id052
+          prep.frontend-performance-capacity:
+            exhaustive: true
+            semantic_atoms: *id077
+            source_surface_fingerprints: *id040
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+        acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-TEST-DESIGN
+        capability: prep.frontend-test-design
+        acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+        accepted_prerequisites: *id078
+        accepted_prerequisite_semantics: *id079
+        semantic_atom_fingerprints: &id082
+          FTD-WORKFLOW: SAF-991fe22eafa20672204b14f6f414c4ed6c4a957ea49a756bfd25b7e6072b2384
+          FTD-SEMANTIC-ORACLES: SAF-8c4a771a3ac43d478d74fca5984320bd425373ff0ea0f15f32ceed88eff9a74b
+          FTD-SPATIAL: SAF-a2717e91466d8bb9dcffc78130d3878b1988007bbd349dccd3184da0f2da47c4
+          FTD-RECOVERY: SAF-a151d171cb23a156244948c6d431ee7f16424838d5382f065f5a333cf4f164c4
+          FTD-BOUNDARIES: SAF-dc635b918b0d0d11d51e8c17f016572d202dfdb709133126cebc8a7e57812f57
+          FTD-ADAPTER: SAF-ef9b6b6861ab55b7c29491fdd66dd23a77070d321127c63d703d8df4129782ce
+          FTD-CURRENTNESS: SAF-238cadcbac567f2007368d37e9ab39a0f1ae8d2e04c26be921f830ef7c24c88d
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: FRONTEND-IMPLEMENTATION-DESIGN
+      capability: prep.frontend-implementation-design
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.delivery.release
+        - engineering.delivery.rollback
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: implementation-design
+        skill: skills/artifacts/implementation-design/SKILL.md
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        authority: IMPLEMENTATION-DESIGN
+        allowed_source_authorities:
+        - COMPONENT-DESIGN
+        - IMPLEMENTATION-DESIGN
+        - TEST-DESIGN
+        - VERIFICATION-DESIGN
+        changed_paths:
+        - docs/implementation/frontend-implementation-design.md
+        canonical_references:
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/implementation/frontend-component-design.md
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/verification/frontend-verification.md
+        - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+          referenced_path: docs/verification/frontend-test-design.yaml
+        accepted_prerequisites: &id083
+          prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+          prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+          prep.frontend-test-design: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+        accepted_prerequisite_semantics: &id084
+          prep.frontend-component-design:
+            exhaustive: true
+            semantic_atoms: &id093
+              CD-FEATURES: SAF-261a694d385423bc0c9fd4a1e6ca4f508d38208270ce19744d327493529a6207
+            source_surface_fingerprints: *id080
+          prep.frontend-verification:
+            exhaustive: true
+            semantic_atoms: *id081
+            source_surface_fingerprints: *id076
+          prep.frontend-test-design:
+            exhaustive: true
+            semantic_atoms: &id094
+              FTD-WORKFLOW: SAF-991fe22eafa20672204b14f6f414c4ed6c4a957ea49a756bfd25b7e6072b2384
+            source_surface_fingerprints: *id082
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
+        acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: FRONTEND-IMPLEMENTATION-DESIGN
+        capability: prep.frontend-implementation-design
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+        acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
+        accepted_prerequisites: *id083
+        accepted_prerequisite_semantics: *id084
+        semantic_atom_fingerprints: &id097
+          FI-BOUNDARY: SAF-397df09aec314aa004a39e229f811b9c7e90290902a830aeff1df2aaa01bd42c
+          FI-TOOLCHAIN: SAF-a608e2875dcc2ec22eb44709976fa832c76668ffaaeee2264c0cf610d156d055
+          FI-REPOSITORY: SAF-d512154263965e1d723c80c79f8b9a63306d9a5940ddbdba747cea4adfc9a19a
+          FI-SLICES: SAF-1fac1fdc8ab318609ba3b1d13c73636f157ffeb84817c6e9cc22ba3c993393f6
+          FI-ORDER: SAF-007b145030a8d1334ecbd3bb47386ba311f3843f5a1407ccd20a754eefd03f1d
+          FI-SPATIAL: SAF-5b34d106a6f63f1fd274bdea635da376b20aa7f144de4289d3fc5bd477362210
+          FI-VERIFICATION: SAF-08df28c7cf327ee4ea2124987ae721df02413508806bfee7b2baf4966004367a
+          FI-GATE: SAF-637742e7088e95c6743c78e55e0e6b5e7343fe1752b5e267b2f1ec2a5fff7ee2
+          FI-ROLLBACK: SAF-193f2d528b4aec441002c946bd46d936217993f4617ca2490eb509d07cbbf382
     derivation_evaluations:
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -14081,7 +14734,7 @@ state:
       lifecycle_dependency:
         capability: prep.machine-interfaces
         exhaustive: true
-        semantic_atoms: *id049
+        semantic_atoms: *id043
         source_surface_fingerprints: *id036
       findings: []
     - version: 1
@@ -14228,7 +14881,7 @@ state:
       lifecycle_dependency:
         capability: prep.task-model
         exhaustive: true
-        semantic_atoms: *id061
+        semantic_atoms: *id044
         source_surface_fingerprints: *id023
       findings: []
     - version: 1
@@ -14286,7 +14939,7 @@ state:
       lifecycle_dependency:
         capability: prep.information-architecture
         exhaustive: true
-        semantic_atoms: *id062
+        semantic_atoms: *id045
         source_surface_fingerprints: *id038
       findings: []
     - version: 1
@@ -14336,7 +14989,7 @@ state:
       lifecycle_dependency:
         capability: prep.interaction-design
         exhaustive: true
-        semantic_atoms: *id047
+        semantic_atoms: *id046
         source_surface_fingerprints: *id039
       findings: []
     - version: 1
@@ -14383,7 +15036,7 @@ state:
       lifecycle_dependency:
         capability: prep.interface-topology
         exhaustive: true
-        semantic_atoms: *id048
+        semantic_atoms: *id047
         source_surface_fingerprints: *id041
       findings: []
     - version: 1
@@ -14443,7 +15096,7 @@ state:
       lifecycle_dependency:
         capability: prep.application-design
         exhaustive: true
-        semantic_atoms: *id063
+        semantic_atoms: *id049
         source_surface_fingerprints: *id025
       findings: []
     - version: 1
@@ -14493,7 +15146,7 @@ state:
       lifecycle_dependency:
         capability: prep.interaction-design
         exhaustive: true
-        semantic_atoms: *id047
+        semantic_atoms: *id046
         source_surface_fingerprints: *id039
       findings: []
     - version: 1
@@ -14535,7 +15188,7 @@ state:
       lifecycle_dependency:
         capability: prep.interface-topology
         exhaustive: true
-        semantic_atoms: *id048
+        semantic_atoms: *id047
         source_surface_fingerprints: *id041
       findings: []
     - version: 1
@@ -14595,7 +15248,7 @@ state:
       lifecycle_dependency:
         capability: prep.machine-interfaces
         exhaustive: true
-        semantic_atoms: *id049
+        semantic_atoms: *id043
         source_surface_fingerprints: *id036
       findings: []
     - version: 1
@@ -14629,8 +15282,8 @@ state:
       lifecycle_dependency:
         capability: prep.import-consistency
         exhaustive: true
-        semantic_atoms: *id057
-        source_surface_fingerprints: *id050
+        semantic_atoms: *id050
+        source_surface_fingerprints: *id048
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -14666,8 +15319,8 @@ state:
       lifecycle_dependency:
         capability: prep.interface-verification
         exhaustive: true
-        semantic_atoms: *id064
-        source_surface_fingerprints: *id053
+        semantic_atoms: *id053
+        source_surface_fingerprints: *id051
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -14713,7 +15366,7 @@ state:
       lifecycle_dependency:
         capability: prep.presentation-system
         exhaustive: true
-        semantic_atoms: *id065
+        semantic_atoms: *id054
         source_surface_fingerprints: *id042
       findings: []
     - version: 1
@@ -14772,8 +15425,8 @@ state:
       lifecycle_dependency:
         capability: prep.screen-view-design
         exhaustive: true
-        semantic_atoms: *id066
-        source_surface_fingerprints: *id054
+        semantic_atoms: *id055
+        source_surface_fingerprints: *id052
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -14859,7 +15512,7 @@ state:
       lifecycle_dependency:
         capability: prep.knowledge-model
         exhaustive: true
-        semantic_atoms: *id067
+        semantic_atoms: *id057
         source_surface_fingerprints: *id012
       findings: []
     - version: 1
@@ -14924,7 +15577,7 @@ state:
       lifecycle_dependency:
         capability: prep.learning-design
         exhaustive: true
-        semantic_atoms: *id068
+        semantic_atoms: *id058
         source_surface_fingerprints: *id020
       findings: []
     - version: 1
@@ -14971,7 +15624,7 @@ state:
       lifecycle_dependency:
         capability: prep.learner-model
         exhaustive: true
-        semantic_atoms: *id069
+        semantic_atoms: *id059
         source_surface_fingerprints: *id021
       findings: []
     - version: 1
@@ -15005,8 +15658,8 @@ state:
       lifecycle_dependency:
         capability: prep.import-consistency
         exhaustive: true
-        semantic_atoms: *id057
-        source_surface_fingerprints: *id050
+        semantic_atoms: *id050
+        source_surface_fingerprints: *id048
       findings: []
     - version: 1
       kind: harness-semantic-derivation-evaluation
@@ -15042,8 +15695,2355 @@ state:
       lifecycle_dependency:
         capability: prep.system-architecture
         exhaustive: true
-        semantic_atoms: *id070
-        source_surface_fingerprints: *id058
+        semantic_atoms: *id060
+        source_surface_fingerprints: *id056
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.application-design
+      target_capability: prep.frontend-system-architecture
+      source_authority: APPLICATION-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - AD-RUNTIME-TIMING-FREEDOM
+      covered_sources:
+      - AD-RUNTIME-TIMING-FREEDOM
+      dispositions:
+      - source: AD-CAPTURE-PERFORMANCE
+        status: NOT_APPLICABLE
+        rationale: AD-CAPTURE-PERFORMANCE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-CHOOSE-NEXT-FOCUS
+        status: NOT_APPLICABLE
+        rationale: AD-CHOOSE-NEXT-FOCUS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-COMPARE-TARGETS
+        status: NOT_APPLICABLE
+        rationale: AD-COMPARE-TARGETS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-CURRENTNESS-BASIS
+        status: NOT_APPLICABLE
+        rationale: AD-CURRENTNESS-BASIS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-ESTABLISH-TARGET
+        status: NOT_APPLICABLE
+        rationale: AD-ESTABLISH-TARGET introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-EVALUATE-EVIDENCE
+        status: NOT_APPLICABLE
+        rationale: AD-EVALUATE-EVIDENCE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-EXPLORE-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: AD-EXPLORE-KNOWLEDGE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-OUTCOME-MODEL
+        status: NOT_APPLICABLE
+        rationale: AD-OUTCOME-MODEL introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-PARTIAL-PREPARATION
+        status: NOT_APPLICABLE
+        rationale: AD-PARTIAL-PREPARATION introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-PERFORM-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: AD-PERFORM-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-PREPARE-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: AD-PREPARE-SUPPORT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-PROCESS-HANDOFF
+        status: NOT_APPLICABLE
+        rationale: AD-PROCESS-HANDOFF introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-REQUEST-PREPARATION-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: AD-REQUEST-PREPARATION-SUPPORT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-REVIEW-CHANGE
+        status: NOT_APPLICABLE
+        rationale: AD-REVIEW-CHANGE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-REVIEW-CURRENT-STATE
+        status: NOT_APPLICABLE
+        rationale: AD-REVIEW-CURRENT-STATE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-REVIEW-GAPS
+        status: NOT_APPLICABLE
+        rationale: AD-REVIEW-GAPS introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-SELECT-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: AD-SELECT-SUPPORT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-UNDERSTAND-REQUIREMENTS
+        status: NOT_APPLICABLE
+        rationale: AD-UNDERSTAND-REQUIREMENTS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: AD-WRITE-OWNERSHIP
+        status: NOT_APPLICABLE
+        rationale: AD-WRITE-OWNERSHIP introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - AD-RUNTIME-TIMING-FREEDOM
+        targets:
+        - FSA-PORTS
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.application-design
+        exhaustive: true
+        semantic_atoms: *id085
+        source_surface_fingerprints: *id025
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.presentation-system
+      target_capability: prep.frontend-system-architecture
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - PS-TASK-HIERARCHY
+      covered_sources:
+      - PS-TASK-HIERARCHY
+      dispositions:
+      - source: PS-ACCESSIBILITY
+        status: NOT_APPLICABLE
+        rationale: PS-ACCESSIBILITY introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-CONTROLS
+        status: NOT_APPLICABLE
+        rationale: PS-CONTROLS introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: PS-DENSITY
+        status: NOT_APPLICABLE
+        rationale: PS-DENSITY introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: PS-PATTERN-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-CONTEXT
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-CONTEXT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-PREP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-PREP-SUPPORT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-QUERY-DETAIL
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-QUERY-DETAIL introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-STATE-BASIS
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-STATE-BASIS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-TARGET-COMPARISON
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-TARGET-COMPARISON introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-RESPONSIVE
+        status: NOT_APPLICABLE
+        rationale: PS-RESPONSIVE introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - PS-TASK-HIERARCHY
+        targets:
+        - FSA-RUNTIME
+      - relation: TRANSFORMS
+        sources:
+        - PS-KNOWLEDGE-REPRESENTATION
+        targets:
+        - FSA-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - PS-OUTCOMES
+        targets:
+        - FSA-FAILURE
+      - relation: TRANSFORMS
+        sources:
+        - PS-DEGRADATION
+        targets:
+        - FSA-FAILURE
+        - FSA-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - PS-FREEDOMS
+        targets:
+        - FSA-NO-LEGACY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.presentation-system
+        exhaustive: true
+        semantic_atoms: *id086
+        source_surface_fingerprints: *id042
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.screen-view-design
+      target_capability: prep.frontend-system-architecture
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - SV-NO-IMPLEMENTATION
+      covered_sources:
+      - SV-NO-IMPLEMENTATION
+      dispositions:
+      - source: SV-COMPOSITION-VARIANTS
+        status: NOT_APPLICABLE
+        rationale: SV-COMPOSITION-VARIANTS introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: SV-DETAIL
+        status: NOT_APPLICABLE
+        rationale: SV-DETAIL introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-PERFORMANCE
+        status: NOT_APPLICABLE
+        rationale: SV-PERFORMANCE introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: SV-RESPONSIVE
+        status: NOT_APPLICABLE
+        rationale: SV-RESPONSIVE introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - SV-FRAME
+        targets:
+        - FSA-RUNTIME
+        - FSA-STATE
+      - relation: TRANSFORMS
+        sources:
+        - SV-TARGETS
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-TARGET
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-CURRENT
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-KNOWLEDGE
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-ACTIVITY
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-EVIDENCE
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-PREP-SUPPORT
+        targets:
+        - FSA-TASK-MODULES
+      - relation: TRANSFORMS
+        sources:
+        - SV-NO-IMPLEMENTATION
+        targets:
+        - FSA-DEPENDENCY
+        - FSA-NO-LEGACY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.screen-view-design
+        exhaustive: true
+        semantic_atoms: *id072
+        source_surface_fingerprints: *id052
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.machine-interfaces
+      target_capability: prep.frontend-system-architecture
+      source_authority: MACHINE-INTERFACE-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - MI-NO-LEAK
+      covered_sources:
+      - MI-NO-LEAK
+      dispositions:
+      - source: MI-BASIS
+        status: NOT_APPLICABLE
+        rationale: MI-BASIS introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-OP-ACTIVITY-COMPLETE
+        status: NOT_APPLICABLE
+        rationale: MI-OP-ACTIVITY-COMPLETE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-CHANGE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-CHANGE-GET introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-EVIDENCE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-EVIDENCE-GET introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-FOCUS-SET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-FOCUS-SET introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-GAPS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-GAPS-GET introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-PREP-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-PREP-GET introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-REQUIREMENTS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-REQUIREMENTS-GET introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-SUPPORT-LIST
+        status: NOT_APPLICABLE
+        rationale: MI-OP-SUPPORT-LIST introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OUTCOME-MODEL
+        status: NOT_APPLICABLE
+        rationale: MI-OUTCOME-MODEL introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-PREP
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-PREP introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-REP-ACTIVITY introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-CHANGE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-CHANGE introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-CURRENT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-CURRENT introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-EVIDENCE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-EVIDENCE introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-FOCUS
+        status: NOT_APPLICABLE
+        rationale: MI-REP-FOCUS introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-GAP
+        status: NOT_APPLICABLE
+        rationale: MI-REP-GAP introduces meaning outside the responsibility of prep.frontend-system-architecture;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-KNOWLEDGE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-PREP-REQUEST
+        status: NOT_APPLICABLE
+        rationale: MI-REP-PREP-REQUEST introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-REQUIREMENT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-REQUIREMENT introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET introduces meaning outside the responsibility of
+          prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET-COMPARISON
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET-COMPARISON introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-TARGETS-COMPARE
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-TARGET-ESTABLISH
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-STATE-GET
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-KNOWLEDGE-QUERY
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-ACTIVITY-START
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-PREP-REQUEST
+        targets:
+        - FSA-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-COMPATIBILITY
+        targets:
+        - FSA-DEPENDENCY
+      - relation: TRANSFORMS
+        sources:
+        - MI-NO-LEAK
+        targets:
+        - FSA-NO-LEGACY
+        - FSA-STATE
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id068
+        source_surface_fingerprints: *id036
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-performance-capacity
+      target_capability: prep.frontend-system-architecture
+      source_authority: QUALITY-DESIGN
+      target_authority: SYSTEM-ARCHITECTURE
+      status: ACCEPTED
+      required_sources:
+      - QD-SEMANTIC-PRESERVATION
+      covered_sources:
+      - QD-SEMANTIC-PRESERVATION
+      dispositions:
+      - source: QD-ACTIVE-WORKING-SET-FREEDOM
+        status: NOT_APPLICABLE
+        rationale: QD-ACTIVE-WORKING-SET-FREEDOM introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-EXPLORE-QUALITY-SCOPE
+        status: NOT_APPLICABLE
+        rationale: QD-EXPLORE-QUALITY-SCOPE introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-IDLE-TARGET-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-IDLE-TARGET-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-NUMERIC-TARGETS-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-NUMERIC-TARGETS-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-system-architecture; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - QD-SEMANTIC-PRESERVATION
+        targets:
+        - FSA-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - QD-GRAPH-CONDITIONAL
+        targets:
+        - FSA-SPATIAL
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id077
+        source_surface_fingerprints: *id040
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-system-architecture
+      target_capability: prep.frontend-engineering-policy
+      source_authority: SYSTEM-ARCHITECTURE
+      target_authority: ENGINEERING-POLICY
+      status: ACCEPTED
+      required_sources:
+      - FSA-DEPENDENCY
+      covered_sources:
+      - FSA-DEPENDENCY
+      dispositions:
+      - source: FSA-FAILURE
+        status: NOT_APPLICABLE
+        rationale: FSA-FAILURE introduces meaning outside the responsibility of prep.frontend-engineering-policy;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FSA-NO-LEGACY
+        status: NOT_APPLICABLE
+        rationale: FSA-NO-LEGACY introduces meaning outside the responsibility of
+          prep.frontend-engineering-policy; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: FSA-RUNTIME
+        status: NOT_APPLICABLE
+        rationale: FSA-RUNTIME introduces meaning outside the responsibility of prep.frontend-engineering-policy;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FSA-TASK-MODULES
+        targets:
+        - EP-OWNERSHIP
+      - relation: TRANSFORMS
+        sources:
+        - FSA-PORTS
+        targets:
+        - EP-MOCK
+        - EP-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - FSA-STATE
+        targets:
+        - EP-STATE
+      - relation: TRANSFORMS
+        sources:
+        - FSA-DEPENDENCY
+        targets:
+        - EP-DEPENDENCY
+        - EP-VALIDATION
+      - relation: TRANSFORMS
+        sources:
+        - FSA-SPATIAL
+        targets:
+        - EP-PERFORMANCE
+        - EP-PROVIDERS
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-system-architecture
+        exhaustive: true
+        semantic_atoms: *id067
+        source_surface_fingerprints: *id063
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.presentation-system
+      target_capability: prep.frontend-engineering-policy
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: ENGINEERING-POLICY
+      status: ACCEPTED
+      required_sources:
+      - PS-KNOWLEDGE-REPRESENTATION
+      covered_sources:
+      - PS-KNOWLEDGE-REPRESENTATION
+      dispositions:
+      - source: PS-CONTROLS
+        status: NOT_APPLICABLE
+        rationale: PS-CONTROLS introduces meaning outside the responsibility of prep.frontend-engineering-policy;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: PS-DENSITY
+        status: NOT_APPLICABLE
+        rationale: PS-DENSITY introduces meaning outside the responsibility of prep.frontend-engineering-policy;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: PS-OUTCOMES
+        status: NOT_APPLICABLE
+        rationale: PS-OUTCOMES introduces meaning outside the responsibility of prep.frontend-engineering-policy;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: PS-PATTERN-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-CONTEXT
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-CONTEXT introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-PREP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-PREP-SUPPORT introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-QUERY-DETAIL
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-QUERY-DETAIL introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-STATE-BASIS
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-STATE-BASIS introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PS-PATTERN-TARGET-COMPARISON
+        status: NOT_APPLICABLE
+        rationale: PS-PATTERN-TARGET-COMPARISON introduces meaning outside the responsibility
+          of prep.frontend-engineering-policy; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - PS-TASK-HIERARCHY
+        targets:
+        - EP-OWNERSHIP
+        - EP-PRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PS-KNOWLEDGE-REPRESENTATION
+        targets:
+        - EP-PROVIDERS
+      - relation: TRANSFORMS
+        sources:
+        - PS-RESPONSIVE
+        targets:
+        - EP-PRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PS-ACCESSIBILITY
+        targets:
+        - EP-PRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PS-DEGRADATION
+        targets:
+        - EP-PERFORMANCE
+      - relation: TRANSFORMS
+        sources:
+        - PS-FREEDOMS
+        targets:
+        - EP-PROVIDERS
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.presentation-system
+        exhaustive: true
+        semantic_atoms: *id087
+        source_surface_fingerprints: *id042
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.product-capabilities
+      target_capability: prep.frontend-verification
+      source_authority: PRODUCT-REQUIREMENTS
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - REQ-CAP-TARGET-DIRECTION
+      covered_sources:
+      - REQ-CAP-TARGET-DIRECTION
+      dispositions:
+      - source: REQ-CAP-ADAPT
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-ADAPT introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-BOOTSTRAP
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-BOOTSTRAP introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-DURABLE-TRANSFER
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-DURABLE-TRANSFER introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-EVIDENCE-CONTEXT
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-EVIDENCE-CONTEXT introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-EVIDENCE-JUSTIFICATION
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-EVIDENCE-JUSTIFICATION introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-FOCUS
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-FOCUS introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-KNOWLEDGE-DEPTH
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-KNOWLEDGE-DEPTH introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-KNOWLEDGE-OVERVIEW
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-KNOWLEDGE-OVERVIEW introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-KNOWLEDGE-RELATIONSHIPS
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-KNOWLEDGE-RELATIONSHIPS introduces meaning outside the
+          responsibility of prep.frontend-verification; no target assertion derives
+          from it, so the capability boundary preserves it as not applicable rather
+          than inventing downstream semantics.
+      - source: REQ-CAP-KNOWLEDGE-SCOPE
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-KNOWLEDGE-SCOPE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-PERFORMANCE-REQUIREMENT
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-PERFORMANCE-REQUIREMENT introduces meaning outside the
+          responsibility of prep.frontend-verification; no target assertion derives
+          from it, so the capability boundary preserves it as not applicable rather
+          than inventing downstream semantics.
+      - source: REQ-CAP-PRACTICE
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-PRACTICE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-STATE
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-STATE introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-SUPPORT-FIT
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-SUPPORT-FIT introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-TARGET
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-TARGET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: REQ-CAP-TARGET-PURPOSE
+        status: NOT_APPLICABLE
+        rationale: REQ-CAP-TARGET-PURPOSE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - REQ-CAP-TARGET-DIRECTION
+        targets:
+        - FV-WORKFLOW
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.product-capabilities
+        exhaustive: true
+        semantic_atoms: *id088
+        source_surface_fingerprints: *id004
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.presentation-verification
+      target_capability: prep.frontend-verification
+      source_authority: VERIFICATION-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - PV-COMPOSITION-VARIANTS
+      covered_sources:
+      - PV-COMPOSITION-VARIANTS
+      dispositions:
+      - source: PV-DEGRADATION
+        status: NOT_APPLICABLE
+        rationale: PV-DEGRADATION introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: PV-STATE-BASIS
+        status: NOT_APPLICABLE
+        rationale: PV-STATE-BASIS introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - PV-SCOPE
+        targets:
+        - FV-TRACEABILITY
+      - relation: TRANSFORMS
+        sources:
+        - PV-WORKFLOW
+        targets:
+        - FV-WORKFLOW
+      - relation: TRANSFORMS
+        sources:
+        - PV-SUPPORT-PROGRESSION
+        targets:
+        - FV-PREP-SUPPORT
+      - relation: TRANSFORMS
+        sources:
+        - PV-KNOWLEDGE
+        targets:
+        - FV-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - PV-COMPOSITION-VARIANTS
+        targets:
+        - FV-PRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PV-RESPONSIVE-ACCESSIBILITY
+        targets:
+        - FV-PRESENTATION
+      - relation: TRANSFORMS
+        sources:
+        - PV-HUMAN-EVIDENCE
+        targets:
+        - FV-TARGET-ISOLATION
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.presentation-verification
+        exhaustive: true
+        semantic_atoms: *id089
+        source_surface_fingerprints: *id066
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-system-architecture
+      target_capability: prep.frontend-verification
+      source_authority: SYSTEM-ARCHITECTURE
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - FSA-DEPENDENCY
+      covered_sources:
+      - FSA-DEPENDENCY
+      dispositions:
+      - source: FSA-FAILURE
+        status: NOT_APPLICABLE
+        rationale: FSA-FAILURE introduces meaning outside the responsibility of prep.frontend-verification;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FSA-RUNTIME
+        status: NOT_APPLICABLE
+        rationale: FSA-RUNTIME introduces meaning outside the responsibility of prep.frontend-verification;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FSA-TASK-MODULES
+        targets:
+        - FV-TRACEABILITY
+        - FV-WORKFLOW
+      - relation: TRANSFORMS
+        sources:
+        - FSA-PORTS
+        targets:
+        - FV-PORT-FIDELITY
+      - relation: TRANSFORMS
+        sources:
+        - FSA-STATE
+        targets:
+        - FV-STATE
+      - relation: TRANSFORMS
+        sources:
+        - FSA-DEPENDENCY
+        targets:
+        - FV-DEPENDENCIES
+        - FV-HARNESS
+      - relation: TRANSFORMS
+        sources:
+        - FSA-SPATIAL
+        targets:
+        - FV-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - FSA-NO-LEGACY
+        targets:
+        - FV-DEPENDENCIES
+        - FV-PREP-SUPPORT
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-system-architecture
+        exhaustive: true
+        semantic_atoms: *id067
+        source_surface_fingerprints: *id063
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.machine-interfaces
+      target_capability: prep.frontend-verification
+      source_authority: MACHINE-INTERFACE-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - MI-NO-LEAK
+      covered_sources:
+      - MI-NO-LEAK
+      dispositions:
+      - source: MI-BASIS
+        status: NOT_APPLICABLE
+        rationale: MI-BASIS introduces meaning outside the responsibility of prep.frontend-verification;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-OP-ACTIVITY-COMPLETE
+        status: NOT_APPLICABLE
+        rationale: MI-OP-ACTIVITY-COMPLETE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-ACTIVITY-START
+        status: NOT_APPLICABLE
+        rationale: MI-OP-ACTIVITY-START introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-CHANGE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-CHANGE-GET introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-EVIDENCE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-EVIDENCE-GET introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-FOCUS-SET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-FOCUS-SET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-GAPS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-GAPS-GET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-KNOWLEDGE-QUERY
+        status: NOT_APPLICABLE
+        rationale: MI-OP-KNOWLEDGE-QUERY introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-PREP-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-PREP-GET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-PREP-REQUEST
+        status: NOT_APPLICABLE
+        rationale: MI-OP-PREP-REQUEST introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-REQUIREMENTS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-REQUIREMENTS-GET introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-STATE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-STATE-GET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-SUPPORT-LIST
+        status: NOT_APPLICABLE
+        rationale: MI-OP-SUPPORT-LIST introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-TARGET-ESTABLISH
+        status: NOT_APPLICABLE
+        rationale: MI-OP-TARGET-ESTABLISH introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-TARGETS-COMPARE
+        status: NOT_APPLICABLE
+        rationale: MI-OP-TARGETS-COMPARE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OUTCOME-MODEL
+        status: NOT_APPLICABLE
+        rationale: MI-OUTCOME-MODEL introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-PREP
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-PREP introduces meaning outside the responsibility of prep.frontend-verification;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-REP-ACTIVITY introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-FOCUS
+        status: NOT_APPLICABLE
+        rationale: MI-REP-FOCUS introduces meaning outside the responsibility of prep.frontend-verification;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-KNOWLEDGE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-PREP-REQUEST
+        status: NOT_APPLICABLE
+        rationale: MI-REP-PREP-REQUEST introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-REQUIREMENT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-REQUIREMENT introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET introduces meaning outside the responsibility of
+          prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET-COMPARISON
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET-COMPARISON introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - MI-REP-CURRENT
+        targets:
+        - FV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - MI-REP-EVIDENCE
+        targets:
+        - FV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - MI-REP-GAP
+        targets:
+        - FV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - MI-REP-CHANGE
+        targets:
+        - FV-EVIDENCE
+      - relation: TRANSFORMS
+        sources:
+        - MI-COMPATIBILITY
+        targets:
+        - FV-PORT-FIDELITY
+      - relation: TRANSFORMS
+        sources:
+        - MI-NO-LEAK
+        targets:
+        - FV-PORT-FIDELITY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id068
+        source_surface_fingerprints: *id036
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-performance-capacity
+      target_capability: prep.frontend-verification
+      source_authority: QUALITY-DESIGN
+      target_authority: VERIFICATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - QD-GRAPH-CONDITIONAL
+      covered_sources:
+      - QD-GRAPH-CONDITIONAL
+      dispositions:
+      - source: QD-ACTIVE-WORKING-SET-FREEDOM
+        status: NOT_APPLICABLE
+        rationale: QD-ACTIVE-WORKING-SET-FREEDOM introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-EXPLORE-QUALITY-SCOPE
+        status: NOT_APPLICABLE
+        rationale: QD-EXPLORE-QUALITY-SCOPE introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-IDLE-TARGET-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-IDLE-TARGET-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-NUMERIC-TARGETS-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-NUMERIC-TARGETS-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-SEMANTIC-PRESERVATION
+        status: NOT_APPLICABLE
+        rationale: QD-SEMANTIC-PRESERVATION introduces meaning outside the responsibility
+          of prep.frontend-verification; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - QD-GRAPH-CONDITIONAL
+        targets:
+        - FV-SPATIAL
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id073
+        source_surface_fingerprints: *id040
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-system-architecture
+      target_capability: prep.frontend-component-design
+      source_authority: SYSTEM-ARCHITECTURE
+      target_authority: COMPONENT-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - FSA-TASK-MODULES
+      covered_sources:
+      - FSA-TASK-MODULES
+      dispositions:
+      - source: FSA-FAILURE
+        status: NOT_APPLICABLE
+        rationale: FSA-FAILURE introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FSA-RUNTIME
+        targets:
+        - CD-COMPOSITION
+        - CD-TRANSITION-BOUNDARY
+      - relation: TRANSFORMS
+        sources:
+        - FSA-TASK-MODULES
+        targets:
+        - CD-COMPOSITION
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - FSA-PORTS
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - FSA-STATE
+        targets:
+        - CD-SHELL
+        - CD-STATE
+        - CD-TRANSITION-BOUNDARY
+      - relation: TRANSFORMS
+        sources:
+        - FSA-DEPENDENCY
+        targets:
+        - CD-DEPENDENCY
+      - relation: TRANSFORMS
+        sources:
+        - FSA-SPATIAL
+        targets:
+        - CD-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - FSA-NO-LEGACY
+        targets:
+        - CD-NO-LEGACY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-system-architecture
+        exhaustive: true
+        semantic_atoms: *id090
+        source_surface_fingerprints: *id063
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-engineering-policy
+      target_capability: prep.frontend-component-design
+      source_authority: ENGINEERING-POLICY
+      target_authority: COMPONENT-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - EP-DEPENDENCY
+      covered_sources:
+      - EP-DEPENDENCY
+      dispositions:
+      - source: EP-MOCK
+        status: NOT_APPLICABLE
+        rationale: EP-MOCK introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: EP-PERFORMANCE
+        status: NOT_APPLICABLE
+        rationale: EP-PERFORMANCE introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: EP-PRESENTATION
+        status: NOT_APPLICABLE
+        rationale: EP-PRESENTATION introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: EP-PROVIDERS
+        status: NOT_APPLICABLE
+        rationale: EP-PROVIDERS introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: EP-VALIDATION
+        status: NOT_APPLICABLE
+        rationale: EP-VALIDATION introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - EP-OWNERSHIP
+        targets:
+        - CD-COMPOSITION
+      - relation: TRANSFORMS
+        sources:
+        - EP-DEPENDENCY
+        targets:
+        - CD-DEPENDENCY
+      - relation: TRANSFORMS
+        sources:
+        - EP-PORTS
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - EP-STATE
+        targets:
+        - CD-STATE
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-engineering-policy
+        exhaustive: true
+        semantic_atoms: *id091
+        source_surface_fingerprints: *id071
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.screen-view-design
+      target_capability: prep.frontend-component-design
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: COMPONENT-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - SV-NO-IMPLEMENTATION
+      covered_sources:
+      - SV-NO-IMPLEMENTATION
+      dispositions:
+      - source: SV-COMPOSITION-VARIANTS
+        status: NOT_APPLICABLE
+        rationale: SV-COMPOSITION-VARIANTS introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: SV-DETAIL
+        status: NOT_APPLICABLE
+        rationale: SV-DETAIL introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-PERFORMANCE
+        status: NOT_APPLICABLE
+        rationale: SV-PERFORMANCE introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: SV-RESPONSIVE
+        status: NOT_APPLICABLE
+        rationale: SV-RESPONSIVE introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - SV-FRAME
+        targets:
+        - CD-SHELL
+      - relation: TRANSFORMS
+        sources:
+        - SV-TARGETS
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-TARGET
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-CURRENT
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-KNOWLEDGE
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-ACTIVITY
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-EVIDENCE
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-PREP-SUPPORT
+        targets:
+        - CD-FEATURES
+      - relation: TRANSFORMS
+        sources:
+        - SV-NO-IMPLEMENTATION
+        targets:
+        - CD-FEATURES
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.screen-view-design
+        exhaustive: true
+        semantic_atoms: *id072
+        source_surface_fingerprints: *id052
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.machine-interfaces
+      target_capability: prep.frontend-component-design
+      source_authority: MACHINE-INTERFACE-DESIGN
+      target_authority: COMPONENT-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - MI-NO-LEAK
+      covered_sources:
+      - MI-NO-LEAK
+      dispositions:
+      - source: MI-BASIS
+        status: NOT_APPLICABLE
+        rationale: MI-BASIS introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-COMPATIBILITY
+        status: NOT_APPLICABLE
+        rationale: MI-COMPATIBILITY introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-ACTIVITY-COMPLETE
+        status: NOT_APPLICABLE
+        rationale: MI-OP-ACTIVITY-COMPLETE introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-CHANGE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-CHANGE-GET introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-EVIDENCE-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-EVIDENCE-GET introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-FOCUS-SET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-FOCUS-SET introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-GAPS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-GAPS-GET introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-PREP-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-PREP-GET introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-REQUIREMENTS-GET
+        status: NOT_APPLICABLE
+        rationale: MI-OP-REQUIREMENTS-GET introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OP-SUPPORT-LIST
+        status: NOT_APPLICABLE
+        rationale: MI-OP-SUPPORT-LIST introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-OUTCOME-MODEL
+        status: NOT_APPLICABLE
+        rationale: MI-OUTCOME-MODEL introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-ACTIVITY introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-PROC-PREP
+        status: NOT_APPLICABLE
+        rationale: MI-PROC-PREP introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: MI-REP-ACTIVITY introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-CHANGE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-CHANGE introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-CURRENT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-CURRENT introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-EVIDENCE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-EVIDENCE introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-FOCUS
+        status: NOT_APPLICABLE
+        rationale: MI-REP-FOCUS introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-GAP
+        status: NOT_APPLICABLE
+        rationale: MI-REP-GAP introduces meaning outside the responsibility of prep.frontend-component-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: MI-REP-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: MI-REP-KNOWLEDGE introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-PREP-REQUEST
+        status: NOT_APPLICABLE
+        rationale: MI-REP-PREP-REQUEST introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-REQUIREMENT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-REQUIREMENT introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: MI-REP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET introduces meaning outside the responsibility of
+          prep.frontend-component-design; no target assertion derives from it, so
+          the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: MI-REP-TARGET-COMPARISON
+        status: NOT_APPLICABLE
+        rationale: MI-REP-TARGET-COMPARISON introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-TARGETS-COMPARE
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-TARGET-ESTABLISH
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-STATE-GET
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-KNOWLEDGE-QUERY
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-ACTIVITY-START
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-OP-PREP-REQUEST
+        targets:
+        - CD-PORTS
+      - relation: TRANSFORMS
+        sources:
+        - MI-NO-LEAK
+        targets:
+        - CD-PORTS
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.machine-interfaces
+        exhaustive: true
+        semantic_atoms: *id068
+        source_surface_fingerprints: *id036
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-performance-capacity
+      target_capability: prep.frontend-component-design
+      source_authority: QUALITY-DESIGN
+      target_authority: COMPONENT-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - QD-GRAPH-CONDITIONAL
+      covered_sources:
+      - QD-GRAPH-CONDITIONAL
+      dispositions:
+      - source: QD-ACTIVE-WORKING-SET-FREEDOM
+        status: NOT_APPLICABLE
+        rationale: QD-ACTIVE-WORKING-SET-FREEDOM introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-EXPLORE-QUALITY-SCOPE
+        status: NOT_APPLICABLE
+        rationale: QD-EXPLORE-QUALITY-SCOPE introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-IDLE-TARGET-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-IDLE-TARGET-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-NUMERIC-TARGETS-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-NUMERIC-TARGETS-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-SEMANTIC-PRESERVATION
+        status: NOT_APPLICABLE
+        rationale: QD-SEMANTIC-PRESERVATION introduces meaning outside the responsibility
+          of prep.frontend-component-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - QD-GRAPH-CONDITIONAL
+        targets:
+        - CD-SPATIAL
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id073
+        source_surface_fingerprints: *id040
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-verification
+      target_capability: prep.frontend-test-design
+      source_authority: VERIFICATION-DESIGN
+      target_authority: TEST-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - FV-TRACEABILITY
+      covered_sources:
+      - FV-TRACEABILITY
+      dispositions:
+      - source: FV-PRESENTATION
+        status: NOT_APPLICABLE
+        rationale: FV-PRESENTATION introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: FV-STATE
+        status: NOT_APPLICABLE
+        rationale: FV-STATE introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FV-TARGET-ISOLATION
+        status: NOT_APPLICABLE
+        rationale: FV-TARGET-ISOLATION introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FV-TRACEABILITY
+        targets:
+        - FTD-WORKFLOW
+      - relation: TRANSFORMS
+        sources:
+        - FV-WORKFLOW
+        targets:
+        - FTD-RECOVERY
+        - FTD-WORKFLOW
+      - relation: TRANSFORMS
+        sources:
+        - FV-PREP-SUPPORT
+        targets:
+        - FTD-RECOVERY
+      - relation: TRANSFORMS
+        sources:
+        - FV-PORT-FIDELITY
+        targets:
+        - FTD-ADAPTER
+        - FTD-SEMANTIC-ORACLES
+      - relation: TRANSFORMS
+        sources:
+        - FV-DEPENDENCIES
+        targets:
+        - FTD-BOUNDARIES
+      - relation: TRANSFORMS
+        sources:
+        - FV-SPATIAL
+        targets:
+        - FTD-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - FV-EVIDENCE
+        targets:
+        - FTD-SEMANTIC-ORACLES
+      - relation: TRANSFORMS
+        sources:
+        - FV-HARNESS
+        targets:
+        - FTD-CURRENTNESS
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-verification
+        exhaustive: true
+        semantic_atoms: *id081
+        source_surface_fingerprints: *id076
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.interaction-design
+      target_capability: prep.frontend-test-design
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: TEST-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - IX-CONTEXT-CONTINUITY
+      covered_sources:
+      - IX-CONTEXT-CONTINUITY
+      dispositions:
+      - source: IX-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: IX-ACTIVITY introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-CURRENTNESS
+        status: NOT_APPLICABLE
+        rationale: IX-CURRENTNESS introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: IX-DIRECTION
+        status: NOT_APPLICABLE
+        rationale: IX-DIRECTION introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-KEYBOARD
+        status: NOT_APPLICABLE
+        rationale: IX-KEYBOARD introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: IX-KNOWLEDGE introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-NO-LAYOUT
+        status: NOT_APPLICABLE
+        rationale: IX-NO-LAYOUT introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-OUTCOMES
+        status: NOT_APPLICABLE
+        rationale: IX-OUTCOMES introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-PENDING
+        status: NOT_APPLICABLE
+        rationale: IX-PENDING introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-PREP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: IX-PREP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: IX-TARGET
+        status: NOT_APPLICABLE
+        rationale: IX-TARGET introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: IX-TARGET-DIRECTION
+        status: NOT_APPLICABLE
+        rationale: IX-TARGET-DIRECTION introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - IX-CONTEXT-CONTINUITY
+        targets:
+        - FTD-RECOVERY
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.interaction-design
+        exhaustive: true
+        semantic_atoms: *id092
+        source_surface_fingerprints: *id039
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.screen-view-design
+      target_capability: prep.frontend-test-design
+      source_authority: HUMAN-INTERFACE-DESIGN
+      target_authority: TEST-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - SV-NO-IMPLEMENTATION
+      covered_sources:
+      - SV-NO-IMPLEMENTATION
+      dispositions:
+      - source: SV-ACTIVITY
+        status: NOT_APPLICABLE
+        rationale: SV-ACTIVITY introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-COMPOSITION-VARIANTS
+        status: NOT_APPLICABLE
+        rationale: SV-COMPOSITION-VARIANTS introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: SV-CURRENT
+        status: NOT_APPLICABLE
+        rationale: SV-CURRENT introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-DETAIL
+        status: NOT_APPLICABLE
+        rationale: SV-DETAIL introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-EVIDENCE
+        status: NOT_APPLICABLE
+        rationale: SV-EVIDENCE introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-FRAME
+        status: NOT_APPLICABLE
+        rationale: SV-FRAME introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-KNOWLEDGE
+        status: NOT_APPLICABLE
+        rationale: SV-KNOWLEDGE introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-PERFORMANCE
+        status: NOT_APPLICABLE
+        rationale: SV-PERFORMANCE introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: SV-PREP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: SV-PREP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: SV-RESPONSIVE
+        status: NOT_APPLICABLE
+        rationale: SV-RESPONSIVE introduces meaning outside the responsibility of
+          prep.frontend-test-design; no target assertion derives from it, so the capability
+          boundary preserves it as not applicable rather than inventing downstream
+          semantics.
+      - source: SV-TARGET
+        status: NOT_APPLICABLE
+        rationale: SV-TARGET introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: SV-TARGETS
+        status: NOT_APPLICABLE
+        rationale: SV-TARGETS introduces meaning outside the responsibility of prep.frontend-test-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - SV-NO-IMPLEMENTATION
+        targets:
+        - FTD-SEMANTIC-ORACLES
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.screen-view-design
+        exhaustive: true
+        semantic_atoms: *id072
+        source_surface_fingerprints: *id052
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-performance-capacity
+      target_capability: prep.frontend-test-design
+      source_authority: QUALITY-DESIGN
+      target_authority: TEST-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - QD-SEMANTIC-PRESERVATION
+      covered_sources:
+      - QD-SEMANTIC-PRESERVATION
+      dispositions:
+      - source: QD-ACTIVE-WORKING-SET-FREEDOM
+        status: NOT_APPLICABLE
+        rationale: QD-ACTIVE-WORKING-SET-FREEDOM introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-EXPLORE-QUALITY-SCOPE
+        status: NOT_APPLICABLE
+        rationale: QD-EXPLORE-QUALITY-SCOPE introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-GRAPH-CONDITIONAL
+        status: NOT_APPLICABLE
+        rationale: QD-GRAPH-CONDITIONAL introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-IDLE-TARGET-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-IDLE-TARGET-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: QD-NUMERIC-TARGETS-DEFERRED
+        status: NOT_APPLICABLE
+        rationale: QD-NUMERIC-TARGETS-DEFERRED introduces meaning outside the responsibility
+          of prep.frontend-test-design; no target assertion derives from it, so the
+          capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - QD-SEMANTIC-PRESERVATION
+        targets:
+        - FTD-SPATIAL
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-performance-capacity
+        exhaustive: true
+        semantic_atoms: *id077
+        source_surface_fingerprints: *id040
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-component-design
+      target_capability: prep.frontend-implementation-design
+      source_authority: COMPONENT-DESIGN
+      target_authority: IMPLEMENTATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - CD-FEATURES
+      covered_sources:
+      - CD-FEATURES
+      dispositions:
+      - source: CD-NO-LEGACY
+        status: NOT_APPLICABLE
+        rationale: CD-NO-LEGACY introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: CD-SHELL
+        status: NOT_APPLICABLE
+        rationale: CD-SHELL introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: CD-STATE
+        status: NOT_APPLICABLE
+        rationale: CD-STATE introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: CD-TRANSITION-BOUNDARY
+        status: NOT_APPLICABLE
+        rationale: CD-TRANSITION-BOUNDARY introduces meaning outside the responsibility
+          of prep.frontend-implementation-design; no target assertion derives from
+          it, so the capability boundary preserves it as not applicable rather than
+          inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - CD-COMPOSITION
+        targets:
+        - FI-ORDER
+      - relation: TRANSFORMS
+        sources:
+        - CD-FEATURES
+        targets:
+        - FI-BOUNDARY
+        - FI-REPOSITORY
+        - FI-SLICES
+      - relation: TRANSFORMS
+        sources:
+        - CD-PORTS
+        targets:
+        - FI-BOUNDARY
+        - FI-ORDER
+      - relation: TRANSFORMS
+        sources:
+        - CD-SPATIAL
+        targets:
+        - FI-REPOSITORY
+        - FI-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - CD-DEPENDENCY
+        targets:
+        - FI-ROLLBACK
+        - FI-TOOLCHAIN
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-component-design
+        exhaustive: true
+        semantic_atoms: *id093
+        source_surface_fingerprints: *id080
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-verification
+      target_capability: prep.frontend-implementation-design
+      source_authority: VERIFICATION-DESIGN
+      target_authority: IMPLEMENTATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - FV-TRACEABILITY
+      covered_sources:
+      - FV-TRACEABILITY
+      dispositions:
+      - source: FV-DEPENDENCIES
+        status: NOT_APPLICABLE
+        rationale: FV-DEPENDENCIES introduces meaning outside the responsibility of
+          prep.frontend-implementation-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: FV-EVIDENCE
+        status: NOT_APPLICABLE
+        rationale: FV-EVIDENCE introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FV-PORT-FIDELITY
+        status: NOT_APPLICABLE
+        rationale: FV-PORT-FIDELITY introduces meaning outside the responsibility
+          of prep.frontend-implementation-design; no target assertion derives from
+          it, so the capability boundary preserves it as not applicable rather than
+          inventing downstream semantics.
+      - source: FV-PREP-SUPPORT
+        status: NOT_APPLICABLE
+        rationale: FV-PREP-SUPPORT introduces meaning outside the responsibility of
+          prep.frontend-implementation-design; no target assertion derives from it,
+          so the capability boundary preserves it as not applicable rather than inventing
+          downstream semantics.
+      - source: FV-SPATIAL
+        status: NOT_APPLICABLE
+        rationale: FV-SPATIAL introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FV-STATE
+        status: NOT_APPLICABLE
+        rationale: FV-STATE introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FV-TARGET-ISOLATION
+        status: NOT_APPLICABLE
+        rationale: FV-TARGET-ISOLATION introduces meaning outside the responsibility
+          of prep.frontend-implementation-design; no target assertion derives from
+          it, so the capability boundary preserves it as not applicable rather than
+          inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FV-TRACEABILITY
+        targets:
+        - FI-BOUNDARY
+      - relation: TRANSFORMS
+        sources:
+        - FV-WORKFLOW
+        targets:
+        - FI-BOUNDARY
+      - relation: TRANSFORMS
+        sources:
+        - FV-PRESENTATION
+        targets:
+        - FI-GATE
+      - relation: TRANSFORMS
+        sources:
+        - FV-HARNESS
+        targets:
+        - FI-GATE
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-verification
+        exhaustive: true
+        semantic_atoms: *id081
+        source_surface_fingerprints: *id076
+      findings: []
+    - version: 1
+      kind: harness-semantic-derivation-evaluation
+      source_capability: prep.frontend-test-design
+      target_capability: prep.frontend-implementation-design
+      source_authority: TEST-DESIGN
+      target_authority: IMPLEMENTATION-DESIGN
+      status: ACCEPTED
+      required_sources:
+      - FTD-WORKFLOW
+      covered_sources:
+      - FTD-WORKFLOW
+      dispositions:
+      - source: FTD-RECOVERY
+        status: NOT_APPLICABLE
+        rationale: FTD-RECOVERY introduces meaning outside the responsibility of prep.frontend-implementation-design;
+          no target assertion derives from it, so the capability boundary preserves
+          it as not applicable rather than inventing downstream semantics.
+      - source: FTD-SEMANTIC-ORACLES
+        status: NOT_APPLICABLE
+        rationale: FTD-SEMANTIC-ORACLES introduces meaning outside the responsibility
+          of prep.frontend-implementation-design; no target assertion derives from
+          it, so the capability boundary preserves it as not applicable rather than
+          inventing downstream semantics.
+      links:
+      - relation: TRANSFORMS
+        sources:
+        - FTD-WORKFLOW
+        targets:
+        - FI-SLICES
+      - relation: TRANSFORMS
+        sources:
+        - FTD-SPATIAL
+        targets:
+        - FI-SPATIAL
+      - relation: TRANSFORMS
+        sources:
+        - FTD-BOUNDARIES
+        targets:
+        - FI-VERIFICATION
+      - relation: TRANSFORMS
+        sources:
+        - FTD-ADAPTER
+        targets:
+        - FI-VERIFICATION
+      - relation: TRANSFORMS
+        sources:
+        - FTD-CURRENTNESS
+        targets:
+        - FI-VERIFICATION
+      coverage:
+        required: 1
+        covered: 1
+        disposed: 0
+        unresolved: 0
+      lifecycle_dependency:
+        capability: prep.frontend-test-design
+        exhaustive: true
+        semantic_atoms: *id094
+        source_surface_fingerprints: *id082
       findings: []
   lifecycle:
     version: 1
@@ -15054,7 +18054,7 @@ state:
       acceptance_id: PREP-PROBLEM-EVIDENCE-STRICT-4
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id071
+      semantic_atom_fingerprints: *id095
     - artifact: USER-NEEDS
       capability: prep.user-needs
       acceptance_id: PREP-USER-NEEDS-STRICT-5
@@ -15533,7 +18533,7 @@ state:
         prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
       artifact: SCREEN-VIEW-DESIGN
       capability: prep.screen-view-design
-      semantic_atom_fingerprints: *id054
+      semantic_atom_fingerprints: *id052
     - artifact: IMPORT-CONSISTENCY
       capability: prep.import-consistency
       acceptance_id: PREP-IMPORT-CONSISTENCY-STRICT-1
@@ -15548,9 +18548,9 @@ state:
           source_surface_fingerprints: *id025
         prep.machine-interfaces:
           exhaustive: true
-          semantic_atoms: *id049
+          semantic_atoms: *id043
           source_surface_fingerprints: *id036
-      semantic_atom_fingerprints: *id050
+      semantic_atom_fingerprints: *id048
     - artifact: INTERFACE-VERIFICATION
       capability: prep.interface-verification
       acceptance_id: PREP-INTERFACE-VERIFICATION-STRICT-1
@@ -15563,21 +18563,21 @@ state:
       accepted_prerequisite_semantics:
         prep.task-model:
           exhaustive: true
-          semantic_atoms: *id061
+          semantic_atoms: *id044
           source_surface_fingerprints: *id023
         prep.information-architecture:
           exhaustive: true
-          semantic_atoms: *id062
+          semantic_atoms: *id045
           source_surface_fingerprints: *id038
         prep.interaction-design:
           exhaustive: true
-          semantic_atoms: *id047
+          semantic_atoms: *id046
           source_surface_fingerprints: *id039
         prep.interface-topology:
           exhaustive: true
-          semantic_atoms: *id048
+          semantic_atoms: *id047
           source_surface_fingerprints: *id041
-      semantic_atom_fingerprints: *id053
+      semantic_atom_fingerprints: *id051
     - artifact: SYSTEM-ARCHITECTURE
       capability: prep.system-architecture
       acceptance_id: PREP-SYSTEM-ARCHITECTURE-STRICT-1
@@ -15591,25 +18591,25 @@ state:
       accepted_prerequisite_semantics:
         prep.application-design:
           exhaustive: true
-          semantic_atoms: *id063
+          semantic_atoms: *id049
           source_surface_fingerprints: *id025
         prep.interaction-design:
           exhaustive: true
-          semantic_atoms: *id047
+          semantic_atoms: *id046
           source_surface_fingerprints: *id039
         prep.interface-topology:
           exhaustive: true
-          semantic_atoms: *id048
+          semantic_atoms: *id047
           source_surface_fingerprints: *id041
         prep.machine-interfaces:
           exhaustive: true
-          semantic_atoms: *id049
+          semantic_atoms: *id043
           source_surface_fingerprints: *id036
         prep.import-consistency:
           exhaustive: true
-          semantic_atoms: *id057
-          source_surface_fingerprints: *id050
-      semantic_atom_fingerprints: *id058
+          semantic_atoms: *id050
+          source_surface_fingerprints: *id048
+      semantic_atom_fingerprints: *id056
     - artifact: PRESENTATION-VERIFICATION
       capability: prep.presentation-verification
       acceptance_id: PREP-PRESENTATION-VERIFICATION-STRICT-1
@@ -15622,21 +18622,21 @@ state:
       accepted_prerequisite_semantics:
         prep.interface-verification:
           exhaustive: true
-          semantic_atoms: *id064
-          source_surface_fingerprints: *id053
+          semantic_atoms: *id053
+          source_surface_fingerprints: *id051
         prep.presentation-system:
           exhaustive: true
-          semantic_atoms: *id065
+          semantic_atoms: *id054
           source_surface_fingerprints: *id042
         prep.screen-view-design:
           exhaustive: true
-          semantic_atoms: *id066
-          source_surface_fingerprints: *id054
+          semantic_atoms: *id055
+          source_surface_fingerprints: *id052
         prep.frontend-performance-capacity:
           exhaustive: true
           semantic_atoms: *id040
           source_surface_fingerprints: *id040
-      semantic_atom_fingerprints: *id072
+      semantic_atom_fingerprints: *id066
     - artifact: DATA-DESIGN
       capability: prep.data-design
       acceptance_id: PREP-DATA-DESIGN-STRICT-1
@@ -15650,25 +18650,187 @@ state:
       accepted_prerequisite_semantics:
         prep.knowledge-model:
           exhaustive: true
-          semantic_atoms: *id067
+          semantic_atoms: *id057
           source_surface_fingerprints: *id012
         prep.learning-design:
           exhaustive: true
-          semantic_atoms: *id068
+          semantic_atoms: *id058
           source_surface_fingerprints: *id020
         prep.learner-model:
           exhaustive: true
-          semantic_atoms: *id069
+          semantic_atoms: *id059
           source_surface_fingerprints: *id021
         prep.import-consistency:
           exhaustive: true
-          semantic_atoms: *id057
-          source_surface_fingerprints: *id050
+          semantic_atoms: *id050
+          source_surface_fingerprints: *id048
         prep.system-architecture:
           exhaustive: true
-          semantic_atoms: *id070
-          source_surface_fingerprints: *id058
-      semantic_atom_fingerprints: *id073
+          semantic_atoms: *id060
+          source_surface_fingerprints: *id056
+      semantic_atom_fingerprints: *id096
+    - artifact: FRONTEND-SYSTEM-ARCHITECTURE
+      capability: prep.frontend-system-architecture
+      acceptance_id: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+      acceptance_policy_fingerprint: sha256:0f2e3a17efc0e46d0017aafa6f56a93d79fe4996abfe68d45be2e8500aaa0c8a
+      accepted_prerequisites:
+        prep.application-design: PREP-APPLICATION-DESIGN-STRICT-5
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      accepted_prerequisite_semantics:
+        prep.application-design:
+          exhaustive: true
+          semantic_atoms: *id085
+          source_surface_fingerprints: *id025
+        prep.presentation-system:
+          exhaustive: true
+          semantic_atoms: *id086
+          source_surface_fingerprints: *id042
+        prep.screen-view-design:
+          exhaustive: true
+          semantic_atoms: *id072
+          source_surface_fingerprints: *id052
+        prep.machine-interfaces:
+          exhaustive: true
+          semantic_atoms: *id068
+          source_surface_fingerprints: *id036
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id077
+          source_surface_fingerprints: *id040
+      semantic_atom_fingerprints: *id063
+    - artifact: FRONTEND-ENGINEERING-POLICY
+      capability: prep.frontend-engineering-policy
+      acceptance_id: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+      acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+      accepted_prerequisites:
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.presentation-system: PREP-PRESENTATION-SYSTEM-STRICT-6
+      accepted_prerequisite_semantics:
+        prep.frontend-system-architecture:
+          exhaustive: true
+          semantic_atoms: *id067
+          source_surface_fingerprints: *id063
+        prep.presentation-system:
+          exhaustive: true
+          semantic_atoms: *id087
+          source_surface_fingerprints: *id042
+      semantic_atom_fingerprints: *id071
+    - artifact: FRONTEND-VERIFICATION
+      capability: prep.frontend-verification
+      acceptance_id: PREP-FRONTEND-VERIFICATION-STRICT-1
+      acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+      accepted_prerequisites:
+        prep.product-capabilities: PREP-PRODUCT-CAPABILITIES-STRICT-4
+        prep.presentation-verification: PREP-PRESENTATION-VERIFICATION-STRICT-1
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      accepted_prerequisite_semantics:
+        prep.product-capabilities:
+          exhaustive: true
+          semantic_atoms: *id088
+          source_surface_fingerprints: *id004
+        prep.presentation-verification:
+          exhaustive: true
+          semantic_atoms: *id089
+          source_surface_fingerprints: *id066
+        prep.frontend-system-architecture:
+          exhaustive: true
+          semantic_atoms: *id067
+          source_surface_fingerprints: *id063
+        prep.machine-interfaces:
+          exhaustive: true
+          semantic_atoms: *id068
+          source_surface_fingerprints: *id036
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id073
+          source_surface_fingerprints: *id040
+      semantic_atom_fingerprints: *id076
+    - artifact: FRONTEND-COMPONENT-DESIGN
+      capability: prep.frontend-component-design
+      acceptance_id: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:1bbf9137f60e079a7edc610dc2186373126aae8d0a03ca8640a1dcfefddf573a
+      accepted_prerequisites:
+        prep.frontend-system-architecture: PREP-FRONTEND-SYSTEM-ARCHITECTURE-STRICT-1
+        prep.frontend-engineering-policy: PREP-FRONTEND-ENGINEERING-POLICY-STRICT-1
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.machine-interfaces: PREP-MACHINE-INTERFACES-STRICT-5
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      accepted_prerequisite_semantics:
+        prep.frontend-system-architecture:
+          exhaustive: true
+          semantic_atoms: *id090
+          source_surface_fingerprints: *id063
+        prep.frontend-engineering-policy:
+          exhaustive: true
+          semantic_atoms: *id091
+          source_surface_fingerprints: *id071
+        prep.screen-view-design:
+          exhaustive: true
+          semantic_atoms: *id072
+          source_surface_fingerprints: *id052
+        prep.machine-interfaces:
+          exhaustive: true
+          semantic_atoms: *id068
+          source_surface_fingerprints: *id036
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id073
+          source_surface_fingerprints: *id040
+      semantic_atom_fingerprints: *id080
+    - artifact: FRONTEND-TEST-DESIGN
+      capability: prep.frontend-test-design
+      acceptance_id: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+      accepted_prerequisites:
+        prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+        prep.interaction-design: PREP-INTERACTION-DESIGN-STRICT-5
+        prep.screen-view-design: PREP-SCREEN-VIEW-DESIGN-STRICT-6
+        prep.frontend-performance-capacity: PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3
+      accepted_prerequisite_semantics:
+        prep.frontend-verification:
+          exhaustive: true
+          semantic_atoms: *id081
+          source_surface_fingerprints: *id076
+        prep.interaction-design:
+          exhaustive: true
+          semantic_atoms: *id092
+          source_surface_fingerprints: *id039
+        prep.screen-view-design:
+          exhaustive: true
+          semantic_atoms: *id072
+          source_surface_fingerprints: *id052
+        prep.frontend-performance-capacity:
+          exhaustive: true
+          semantic_atoms: *id077
+          source_surface_fingerprints: *id040
+      semantic_atom_fingerprints: *id082
+    - artifact: FRONTEND-IMPLEMENTATION-DESIGN
+      capability: prep.frontend-implementation-design
+      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-1
+      acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
+      accepted_prerequisites:
+        prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
+        prep.frontend-verification: PREP-FRONTEND-VERIFICATION-STRICT-1
+        prep.frontend-test-design: PREP-FRONTEND-TEST-DESIGN-STRICT-1
+      accepted_prerequisite_semantics:
+        prep.frontend-component-design:
+          exhaustive: true
+          semantic_atoms: *id093
+          source_surface_fingerprints: *id080
+        prep.frontend-verification:
+          exhaustive: true
+          semantic_atoms: *id081
+          source_surface_fingerprints: *id076
+        prep.frontend-test-design:
+          exhaustive: true
+          semantic_atoms: *id094
+          source_surface_fingerprints: *id082
+      semantic_atom_fingerprints: *id097
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

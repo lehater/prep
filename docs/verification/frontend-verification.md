@@ -2,86 +2,154 @@
 
 ## Purpose
 
-Define evidence required before the mock-first frontend can be treated as a conforming realization of the accepted user-centered product/interface/frontend-architecture contracts.
+Define evidence required before the mock-first frontend can be treated as a conforming
+realization of the accepted Product, Human Interface, Machine Interface and frontend
+architecture contracts.
+
+Verification observes user/task semantics and public consumer boundaries. Existing code,
+provider features and legacy UI areas are not independent oracles.
 
 ### FV-01 — Product/interface traceability
 
-Verify every user-visible behavior traces to Product Capability plus Task/Screen responsibility; provider features do not create new product behavior.
+Verify every user-visible behavior traces to an accepted Product Capability plus
+Task/Interaction/Screen responsibility. Provider/template/resource features do not
+create new product behavior.
 
-### FV-02 — Complete target-relative workflow
+### FV-02 — Complete preparation workflow
 
-Verify against deterministic mocks:
+Verify against deterministic mocks that the learner can:
 
-- select or establish a purpose-explicit target and related role/interview context where relevant;
-- obtain missing preparation support without mandatory Curation machinery when required;
-- understand required capabilities;
-- inspect current evidence-backed state;
-- distinguish satisfied / unresolved / challenged;
-- inspect target-relative gaps;
-- choose learning or diagnostic focus;
-- perform learning/diagnostic activity;
-- accept new evidence;
-- inspect progress and changed gaps/focus.
+- compare multiple plausible Targets when direction is unresolved;
+- continue with one Target and establish/refine it;
+- understand required performance and unresolved requirement meaning;
+- inspect current demonstrated/challenged/unknown state;
+- inspect gaps/uncertainty and their basis;
+- choose or revise an explicit Next focus;
+- inspect relevant Knowledge and/or suitable support;
+- perform one accepted activity attempt;
+- review resulting evidence/change, including no-change/challenge/uncertainty;
+- continue with the current focus, return to Current position, inspect Knowledge or
+  refine the Target as allowed by topology.
 
-The flow must preserve active target/focus across views.
+The flow preserves active Target/focus across views and never turns navigation,
+comparison or activity completion into learner-state evidence.
 
-### FV-03 — Preparation support and curation boundary
+### FV-03 — Contextual preparation-support boundary
 
 Verify:
 
-- learner-facing missing target/support preparation has an explicit request/review path;
-- learner flow does not expose import schema/item repair unless self-curation is explicit;
-- Curation separately owns bulk/incremental/mixed path selection;
-- import contract/examples are inspectable inside Curation;
-- validate and apply are separate;
-- mixed valid/rejected outcomes remain actionable;
-- incremental Curation covers Targets, Capabilities, Knowledge, Learning Support and Assessment.
+- a missing Target/support prerequisite has an explicit learner request/review path;
+- motivating Target/focus/source context is preserved;
+- accepted partial support remains distinguishable from unresolved/rejected remainder;
+- dependency-unavailable/stale outcomes expose a resumable/reconsiderable continuation;
+- completion returns to the originating preparation work;
+- learner flow does not expose corpus/import/schema/item-repair responsibilities.
 
 ### FV-04 — Frontend port/outcome fidelity
 
-Verify adapters preserve accepted operation inputs/results and outcome distinctions. UI code does not derive target satisfaction, Gap or learner claims independently.
+Verify adapters preserve accepted Machine Interface operation inputs, representations,
+semantic basis/currentness and outcome distinctions. UI code does not independently
+derive Target satisfaction, Gap, learner claims, Change or PreparationRequest meaning.
 
 ### FV-05 — Dependency direction
 
 Verify:
 
-- target-work/Curation feature internals remain independent;
-- features do not import concrete adapters/renderers;
-- shared presentation code does not own feature mutable state;
-- provider/renderer types do not leak into semantic ports/models.
+- task-feature internals remain independent;
+- features depend on consumer-owned contracts rather than concrete mock/transport
+  adapters;
+- shared presentation code does not own task-feature mutable state;
+- provider/renderer/transport types do not leak into semantic ports/models;
+- no legacy Curation/Import/Progress/Diagnostics module is required by an accepted
+  frontend dependency edge.
 
 ### FV-06 — Representation isolation
 
-Verify mock fixtures/future transport DTOs terminate inside adapters and map to frontend-owned models.
+Verify mock fixtures and future transport DTOs terminate inside adapters and map to
+frontend-owned semantic projections without changing accepted identity or meaning.
 
-### FV-07 — Renderer isolation and semantic preservation
+### FV-07 — Optional spatial-renderer isolation and semantic preservation
 
-Verify canonical Knowledge refs/proposition meaning survive GraphScene projection; selection and focus remain distinct; renderer unavailable preserves non-spatial completion.
+Verify:
 
-### FV-08 — State ownership/lifetime
+- Knowledge query/result/detail remains task-complete without a spatial renderer;
+- when a spatial renderer is present, canonical Knowledge refs, proposition meaning and
+  semantic scope survive renderer-neutral projection;
+- selection/scope remain semantic interaction state while geometry/camera/layout remain
+  renderer state;
+- renderer failure/degradation preserves the non-spatial task path.
 
-Verify shell/TargetContext owns only active target identity/purpose/related-target and focus navigation state; feature/editor/query state remains feature-local; canonical learner/target truth is not promoted into general mutable UI state.
+No 2D/3D renderer is required by this verification check.
+
+### FV-08 — State ownership and lifetime
+
+Verify:
+
+- PreparationShell owns navigation/active-child state only;
+- PreparationContext owns active Target/focus continuity only;
+- candidate comparison, Target input, current/gap/focus interaction, Knowledge
+  selection, ActivityAttempt UI state, evidence/change review and PreparationRequest UI
+  state remain with their owning task feature/provider cache;
+- canonical Target/Knowledge/learner/application truth is not promoted into general
+  mutable browser state.
 
 ### FV-09 — Evidence/state/gap integrity
 
-Verify raw observations, accepted claims, target-relative state and Gap remain distinguishable. Missing evidence is uncertainty, not failure; activity completion is not gap closure.
+Verify raw Performance/Observation facts, accepted evidence arguments/claims,
+target-relative current state and Gap/uncertainty remain distinguishable.
 
-### FV-10 — Progress integrity
+Missing/insufficient evidence is uncertainty rather than failure. Activity completion
+alone is not gap closure or learner capability evidence.
 
-Verify learner progress is derived from accepted before/after target-relative projections and supports changed, unchanged and increased-uncertainty outcomes; target refinements from recruiter/company information are surfaced separately and are not counted as learner progress.
+### FV-10 — Contextual Evidence/change integrity
+
+Verify `VIEW-EVIDENCE-CHANGE` is entered from a completed/reviewable Activity result or
+an equivalent direct link carrying reviewed activity/evidence context. It presents
+post-activity change/no-change/challenge/increased-uncertainty outcomes with supporting
+evidence/provenance and current-state-after context.
+
+Ordinary why-this-state inspection remains inside Current position. Learner-evidence
+change remains distinct from Target-information refinement. No generic progress score or
+positive-only success interpretation is introduced.
 
 ### FV-11 — Presentation evidence closure
 
-Verify all applicable Presentation Verification checks have evidence, including keyboard/non-spatial access, responsive target-work hierarchy, import usability and 3D semantic fidelity.
+Verify every applicable Presentation Verification obligation has evidence, including:
+
+- one dominant task surface for each state-dependent Screen/View composition variant;
+- context continuity and responsive semantic order;
+- keyboard/non-spatial task completion;
+- preparation-support request/result/recovery;
+- conditional spatial semantic fidelity/usability only when a spatial view is present.
 
 ### FV-12 — Harness currentness
 
-Verify frontend closure is rerun whenever accepted prerequisites change; stale frontend knowledge/code cannot be treated as current merely because it builds.
+Verify frontend closure is rerun whenever accepted prerequisites change. Stale or
+lifecycle-unknown frontend knowledge cannot be treated as semantically current merely
+because documents compile, tests pass or the prototype renders.
 
 ### FV-13 — Target-purpose isolation
 
-Verify related professional-role and selection/interview targets preserve separate requirements/provenance: sharing a CapabilitySpecification is allowed, but interview-only requirements never enter the role target through UI projection, adapter mapping or target relation alone.
+Verify related professional-role and selection/interview Targets preserve separate
+requirements/provenance. Sharing a CapabilitySpecification is allowed, but a
+Target-specific requirement never enters another Target through comparison, UI
+projection, adapter mapping or relation alone.
+
+### FV-14 — Composition-variant integrity
+
+Verify Screen/View composition variants are presentation states of one accepted view,
+not hidden routes/modes/domain states.
+
+For each variant:
+
+- the declared dominant work region is perceptibly primary;
+- supporting regions do not compete for task primacy;
+- transition between variants follows accepted Interaction/Machine outcomes;
+- Target/focus/context and recoverable user input are preserved according to the
+  accepted view contract.
 
 ## Completion meaning
 
-Acceptance means verification obligations are explicit and traceable. It does not by itself claim every prototype evidence item is already green.
+Acceptance means verification obligations are explicit and traceable. It does not claim
+representative-user evidence is already complete, does not select a production spatial
+renderer and does not repair missing Harness lifecycle acceptance evidence.
