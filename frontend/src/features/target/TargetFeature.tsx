@@ -131,7 +131,7 @@ export function TargetFeature({
 
   async function establishTarget() {
     if (!selectedTargetRef) {
-      setMessage("Choose a Target before establishing preparation context.");
+      setMessage("Сначала выберите цель подготовки.");
       return;
     }
 
@@ -181,13 +181,13 @@ export function TargetFeature({
       aria-labelledby="target-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Target</p>
+        <p className="eyebrow">Цель</p>
         <h1 id="target-heading">
-          {established ? "What this Target requires" : "Establish your Target"}
+          {established ? "Что требуется для этой цели" : "Зафиксируйте цель подготовки"}
         </h1>
         <p>
-          Keep the preparation purpose and required performance explicit before
-          deciding what to work on next.
+          Зафиксируйте назначение подготовки и ожидаемый результат,
+          прежде чем выбирать следующий шаг.
         </p>
       </header>
 
@@ -199,15 +199,15 @@ export function TargetFeature({
 
       <section className="target-context-region" aria-labelledby="target-context-heading">
         <div className="section-heading">
-          <p className="eyebrow">Target context</p>
+          <p className="eyebrow">Контекст цели</p>
           <h2 id="target-context-heading">
-            {contextCandidate?.label ?? "Choose a preparation Target"}
+            {contextCandidate?.label ?? "Выберите цель подготовки"}
           </h2>
           {contextPurpose ? <p>{contextPurpose}</p> : null}
         </div>
 
         <label className="field">
-          <span>Target</span>
+          <span>Цель</span>
           <select
             value={selectedTargetRef ?? ""}
             disabled={established || status === "submitting"}
@@ -215,7 +215,7 @@ export function TargetFeature({
               selectCandidate(event.currentTarget.value as TargetRef)
             }
           >
-            <option value="">Choose a Target</option>
+            <option value="">Выберите цель</option>
             {candidates.map((candidate) => (
               <option key={candidate.targetRef} value={candidate.targetRef}>
                 {candidate.label}
@@ -225,19 +225,19 @@ export function TargetFeature({
         </label>
 
         <label className="field">
-          <span>Source / context</span>
+          <span>Источник / контекст</span>
           <textarea
             rows={3}
             value={sourceContext}
             disabled={status === "submitting"}
             onChange={(event) => setSourceContext(event.currentTarget.value)}
-            placeholder="Describe or identify the source that defines this Target."
+            placeholder="Укажите источник или контекст, который определяет эту цель."
           />
         </label>
 
         {contextUncertainty.length > 0 ? (
           <div className="target-uncertainty">
-            <strong>Target uncertainty</strong>
+            <strong>Неопределённость цели</strong>
             <ul>
               {contextUncertainty.map((item) => (
                 <li key={item}>{item}</li>
@@ -254,17 +254,17 @@ export function TargetFeature({
             onClick={() => void establishTarget()}
           >
             {status === "submitting"
-              ? "Establishing…"
+              ? "Сохранение…"
               : established
-                ? "Refine Target"
-                : "Establish Target"}
+                ? "Уточнить цель"
+                : "Зафиксировать цель"}
           </button>
           <button
             type="button"
             className="text-action"
             onClick={onReconsiderDirection}
           >
-            Reconsider Targets
+            Вернуться к выбору целей
           </button>
         </div>
       </section>
@@ -275,12 +275,12 @@ export function TargetFeature({
           aria-labelledby="target-requirements-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Required performance</p>
-            <h2 id="target-requirements-heading">Requirements</h2>
+            <p className="eyebrow">Ожидаемый результат</p>
+            <h2 id="target-requirements-heading">Требования</h2>
           </div>
 
           {status === "loading-requirements" && !requirements ? (
-            <p role="status">Loading requirements…</p>
+            <p role="status">Загрузка требований…</p>
           ) : null}
 
           {requirements ? (
@@ -297,7 +297,7 @@ export function TargetFeature({
 
                   <div className="requirement-detail-grid">
                     <div>
-                      <h4>Conditions</h4>
+                      <h4>Условия</h4>
                       <ul>
                         {expectation.conditions.map((condition) => (
                           <li key={condition}>{condition}</li>
@@ -305,7 +305,7 @@ export function TargetFeature({
                       </ul>
                     </div>
                     <div>
-                      <h4>Quality criteria</h4>
+                      <h4>Критерии качества</h4>
                       <ul>
                         {expectation.qualityCriteria.map((criterion) => (
                           <li key={criterion}>{criterion}</li>
@@ -315,7 +315,7 @@ export function TargetFeature({
                   </div>
 
                   <div className="knowledge-focus">
-                    <h4>Direct Knowledge focus</h4>
+                    <h4>Связанные знания</h4>
                     {expectation.knowledgeFocus.length > 0 ? (
                       <ul>
                         {expectation.knowledgeFocus.map((knowledge) => (
@@ -324,7 +324,7 @@ export function TargetFeature({
                       </ul>
                     ) : (
                       <p className="supporting-text">
-                        No direct Knowledge focus is declared for this performance.
+                        Для этого требования не указаны связанные знания.
                       </p>
                     )}
                   </div>
@@ -336,7 +336,7 @@ export function TargetFeature({
                       onExploreKnowledge(expectation.capabilityRef)
                     }
                   >
-                    Explore Knowledge for {expectation.capabilityLabel}
+                    Открыть знания: {expectation.capabilityLabel}
                   </button>
                 </article>
               ))}
@@ -346,8 +346,8 @@ export function TargetFeature({
       ) : null}
 
       {established && requirements ? (
-        <aside className="target-provenance-region" aria-label="Target provenance">
-          <strong>Provenance and unresolved meaning</strong>
+        <aside className="target-provenance-region" aria-label="Источники цели">
+          <strong>Источники и сохраняющаяся неопределённость</strong>
           <ul>
             {requirements.provenance.map((item) => (
               <li key={item.label}>{item.label}</li>
@@ -366,7 +366,7 @@ export function TargetFeature({
             className="secondary-action"
             onClick={() => onRequestPreparationSupport(selectedTargetRef)}
           >
-            Request missing preparation support
+            Подготовить недостающую поддержку
           </button>
         ) : null}
       </div>
