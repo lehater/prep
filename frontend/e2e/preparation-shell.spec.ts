@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 async function compareAndContinueWithBackend(page: Page) {
   await page.getByRole("checkbox", { name: /Backend Engineer interview/ }).check();
@@ -20,6 +20,20 @@ async function establishBackendTarget(page: Page) {
       .getByLabel("Active preparation context")
       .getByText("Backend Engineer interview"),
   ).toBeVisible();
+}
+
+async function tabTo(page: Page, target: Locator, maxTabs = 80) {
+  for (let index = 0; index < maxTabs; index += 1) {
+    await page.keyboard.press("Tab");
+    const focused = await target.evaluate(
+      (element) => element === document.activeElement,
+    );
+    if (focused) {
+      return;
+    }
+  }
+
+  throw new Error("Keyboard focus did not reach the expected control.");
 }
 
 test("compares candidate Targets and continues without activating one", async ({
@@ -627,4 +641,278 @@ test("routes an Activity with no suitable support to contextual preparation", as
   await expect(
     page.getByLabel("Active preparation context").getByText("Selected"),
   ).toBeVisible();
+});
+
+
+for (const viewport of [
+  { name: "wide", width: 1280, height: 900 },
+  { name: "compact", width: 800, height: 900 },
+  { name: "narrow", width: 390, height: 844 },
+] as const) {
+  test(`preserves semantic hierarchy and context in ${viewport.name} viewport`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({
+      width: viewport.width,
+      height: viewport.height,
+    });
+    await page.goto("/");
+    await establishBackendTarget(page);
+
+    await expect(
+      page.locator("nav.prep-navigation + section.active-context"),
+    ).toBeVisible();
+    await expect(
+      page.locator("section.active-context + main.active-child"),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Current position" }).click();
+    await page.getByRole("radio", { name: /System design/ }).check();
+    await page.getByRole("button", { name: "Set Next focus" }).click();
+
+    await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+    await expect(
+      page.getByRole("heading", {
+        name: "Explore the Knowledge that matters here",
+      }),
+    ).toBeVisible();
+    await expect(
+      page
+        .getByLabel("Active preparation context")
+        .getByText("Backend Engineer interview"),
+    ).toBeVisible();
+    await expect(
+      page.getByLabel("Active preparation context").getByText("Selected"),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Activity", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { name: "Work on the accepted Next focus" }),
+    ).toBeVisible();
+
+    const overflow = await page.locator("html").evaluate((element) => ({
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+    }));
+    expect(overflow.scrollWidth).toBeLessThanOrEqual(
+      overflow.clientWidth + 1,
+    );
+  });
+}
+
+test("completes a representative preparation path with keyboard interaction only", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const backend = page.getByRole("checkbox", {
+    name: /Backend Engineer interview/,
+  });
+  await tabTo(page, backend);
+  await page.keyboard.press("Space");
+
+  const platform = page.getByRole("checkbox", {
+    name: /Platform Engineer interview/,
+  });
+  await tabTo(page, platform);
+  await page.keyboard.press("Space");
+
+  const compare = page.getByRole("button", { name: "Compare selected" });
+  await tabTo(page, compare);
+  await page.keyboard.press("Enter");
+
+  const backendChoice = page.getByRole("radio", {
+    name: "Backend Engineer interview",
+  });
+  await tabTo(page, backendChoice);
+  await page.keyboard.press("Space");
+
+  const continueTarget = page.getByRole("button", {
+    name: "Continue with selected Target",
+  });
+  await tabTo(page, continueTarget);
+  await page.keyboard.press("Enter");
+
+  const establish = page.getByRole("button", { name: "Establish Target" });
+  await tabTo(page, establish);
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByRole("heading", { name: "What this Target requires" }),
+  ).toBeVisible();
+
+  const current = page.getByRole("button", { name: "Current position" });
+  await tabTo(page, current);
+  await page.keyboard.press("Enter");
+
+  const systemDesign = page.getByRole("radio", { name: /System design/ });
+  await tabTo(page, systemDesign);
+  await page.keyboard.press("Space");
+
+  const setFocus = page.getByRole("button", { name: "Set Next focus" });
+  await tabTo(page, setFocus);
+  await page.keyboard.press("Enter");
+
+  const continueActivity = page.getByRole("button", {
+    name: "Continue to Activity",
+  });
+  await tabTo(page, continueActivity);
+  await page.keyboard.press("Enter");
+
+  const startActivity = page.getByRole("button", { name: "Start Activity" });
+  await tabTo(page, startActivity);
+  await page.keyboard.press("Enter");
+
+  const result = page.getByLabel("What happened");
+  await tabTo(page, result);
+  await page.keyboard.type(
+    "Completed the keyboard-only system design attempt.",
+  );
+
+  const provenance = page.getByLabel("Provenance / source");
+  await tabTo(page, provenance);
+  await page.keyboard.type("Keyboard-only prototype observation");
+
+  const submit = page.getByRole("button", {
+    name: "Submit completed attempt",
+  });
+  await tabTo(page, submit);
+  await page.keyboard.press("Enter");
+
+  const review = page.getByRole("button", {
+    name: "Review evidence & changes",
+  });
+  await tabTo(page, review);
+  await page.keyboard.press("Enter");
+
+  await expect(
+    page.getByRole("heading", {
+      name: "Review what changed after the Activity",
+    }),
+  ).toBeVisible();
+});
+
+test("remains task-complete with reduced-motion preference", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  expect(
+    await page.evaluate(() =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    ),
+  ).toBe(true);
+
+  await establishBackendTarget(page);
+  await page.getByRole("button", { name: "Knowledge", exact: true }).click();
+  await expect(
+    page.locator('[data-view="knowledge"][data-renderer="nonspatial"]'),
+  ).toBeVisible();
+
+  const movingElements = await page.evaluate(() =>
+    Array.from(document.querySelectorAll("body *"))
+      .filter((element) => {
+        const style = window.getComputedStyle(element);
+        const hasAnimation =
+          style.animationName !== "none" &&
+          style.animationDuration
+            .split(",")
+            .some((value) => Number.parseFloat(value) > 0);
+        const hasTransition = style.transitionDuration
+          .split(",")
+          .some((value) => Number.parseFloat(value) > 0);
+        return hasAnimation || hasTransition;
+      })
+      .map((element) => element.tagName.toLowerCase()),
+  );
+
+  expect(movingElements).toEqual([]);
+});
+
+test("uses declared composition variants without hidden route modes", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const targets = page.locator('[data-view="targets"]');
+  await expect(targets).toHaveAttribute("data-variant", "candidate-selection");
+
+  await page
+    .getByRole("checkbox", { name: /Backend Engineer interview/ })
+    .check();
+  await page
+    .getByRole("checkbox", { name: /Platform Engineer interview/ })
+    .check();
+  await page.getByRole("button", { name: "Compare selected" }).click();
+  await expect(targets).toHaveAttribute("data-variant", "comparison-ready");
+
+  await page
+    .getByRole("radio", { name: "Backend Engineer interview" })
+    .check();
+  await page
+    .getByRole("button", { name: "Continue with selected Target" })
+    .click();
+
+  const target = page.locator('[data-view="target"]');
+  await expect(target).toHaveAttribute("data-variant", "target-setup");
+  await page.getByRole("button", { name: "Establish Target" }).click();
+  await expect(target).toHaveAttribute("data-variant", "target-established");
+
+  await page.getByRole("button", { name: "Current position" }).click();
+  await page.getByRole("radio", { name: /System design/ }).check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+  await page.getByRole("button", { name: "Continue to Activity" }).click();
+
+  const activity = page.locator('[data-view="activity"]');
+  await expect(activity).toHaveAttribute("data-variant", "support-selection");
+  await page.getByRole("button", { name: "Start Activity" }).click();
+  await expect(activity).toHaveAttribute("data-variant", "attempt-active");
+
+  await page
+    .getByLabel("What happened")
+    .fill("Completed the composition-variant activity attempt.");
+  await page
+    .getByLabel("Provenance / source")
+    .fill("Composition-variant prototype observation");
+  await page.getByRole("button", { name: "Submit completed attempt" }).click();
+  await expect(activity).toHaveAttribute("data-variant", "evidence-processing");
+});
+
+test("covers Prepare Support request, result, and recovery variants", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await compareAndContinueWithBackend(page);
+
+  await page
+    .getByRole("button", { name: "Request missing preparation support" })
+    .click();
+
+  const prepare = page.locator('[data-view="prepare-support"]');
+  await expect(prepare).toHaveAttribute("data-variant", "request-input");
+  await page
+    .getByRole("button", { name: "Request preparation support" })
+    .click();
+  await expect(prepare).toHaveAttribute(
+    "data-variant",
+    "continuation-recovery",
+  );
+
+  await page.getByRole("button", { name: "Return to Target" }).click();
+  await page.getByRole("button", { name: "Establish Target" }).click();
+  await page.getByRole("button", { name: "Current position" }).click();
+  await page.getByRole("radio", { name: /Behavioral communication/ }).check();
+  await page.getByRole("button", { name: "Set Next focus" }).click();
+  await page.getByRole("button", { name: "Prepare missing support" }).click();
+
+  const acceptedPrepare = page.locator('[data-view="prepare-support"]');
+  await expect(acceptedPrepare).toHaveAttribute(
+    "data-variant",
+    "request-input",
+  );
+  await page
+    .getByRole("button", { name: "Request preparation support" })
+    .click();
+  await expect(acceptedPrepare).toHaveAttribute(
+    "data-variant",
+    "result-review",
+  );
 });
