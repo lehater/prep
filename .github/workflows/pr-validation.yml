@@ -142,6 +142,36 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/full_harness_revalidate.py
 
+      - name: Capture UI revalidation outputs
+        shell: bash
+        run: |
+          git diff --binary HEAD -- \
+            .harness/project-publication.yaml \
+            .harness/candidates/frontend-boundary-topology-request.json \
+            .harness/candidates/frontend-boundary-topology-exploration.yaml \
+            .harness/candidates/presentation-screen-presentation-request.json \
+            .harness/candidates/presentation-screen-presentation-exploration.yaml \
+            .harness/candidates/presentation-screen-screen-request.json \
+            .harness/candidates/presentation-screen-screen-exploration.yaml \
+            > /tmp/ui-revalidation.patch
+          cp .harness/project-publication.yaml /tmp/project-publication.yaml
+          mkdir -p /tmp/ui-candidates
+          cp .harness/candidates/frontend-boundary-topology-request.json /tmp/ui-candidates/
+          cp .harness/candidates/frontend-boundary-topology-exploration.yaml /tmp/ui-candidates/
+          cp .harness/candidates/presentation-screen-presentation-request.json /tmp/ui-candidates/
+          cp .harness/candidates/presentation-screen-presentation-exploration.yaml /tmp/ui-candidates/
+          cp .harness/candidates/presentation-screen-screen-request.json /tmp/ui-candidates/
+          cp .harness/candidates/presentation-screen-screen-exploration.yaml /tmp/ui-candidates/
+
+      - name: Upload UI revalidation outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-revalidation-outputs
+          path: |
+            /tmp/ui-revalidation.patch
+            /tmp/project-publication.yaml
+            /tmp/ui-candidates/
+
       - name: Validate documentation links
         run: python tools/validate_docs.py
 
