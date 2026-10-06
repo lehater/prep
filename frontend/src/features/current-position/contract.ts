@@ -13,6 +13,7 @@ import type {
 
 export interface CapabilityStateModel {
   readonly capabilityRef: CapabilityRef;
+  readonly capabilityLabel: string;
   readonly state: "demonstrated" | "challenged" | "unknown";
   readonly evidenceRefs: readonly EvidenceRef[];
   readonly limitations: readonly Limitation[];
