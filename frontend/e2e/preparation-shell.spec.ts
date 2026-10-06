@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
-async function compareAndContinueWithBackend(page: Parameters<typeof test>[0] extends never ? never : any) {
+async function compareAndContinueWithBackend(page: Page) {
   await page.getByRole("checkbox", { name: /Backend Engineer interview/ }).check();
   await page.getByRole("checkbox", { name: /Platform Engineer interview/ }).check();
   await page.getByRole("button", { name: "Compare selected" }).click();
