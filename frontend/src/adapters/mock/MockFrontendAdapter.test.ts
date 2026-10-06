@@ -62,6 +62,38 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(comparison.candidates[0]).not.toHaveProperty("readinessScore");
   });
 
+  it("establishes Target and Focus only through explicit commands on the current basis", async () => {
+    const target = acceptedValue(
+      await adapter.establishTarget({
+        targetRef: mockScenarioRefs.targetPrimary,
+        sourceContext: "Backend interview brief",
+      }),
+    );
+    expect(target.targetRef).toBe(mockScenarioRefs.targetPrimary);
+
+    const focus = acceptedValue(
+      await adapter.setFocus({
+        targetRef: mockScenarioRefs.targetPrimary,
+        selectedGapRefs: [mockScenarioRefs.gapSystemDesign],
+        selectedCapabilityRefs: [mockScenarioRefs.capabilitySystemDesign],
+        purpose: "Reduce uncertainty in system-design reasoning.",
+        rationale: "Target-relevant challenged gap with suitable support.",
+        semanticBasisRef: mockScenarioRefs.basis,
+      }),
+    );
+    expect(focus.focusRef).toBe(mockScenarioRefs.focusCurrent);
+
+    const stale = await adapter.setFocus({
+      targetRef: mockScenarioRefs.targetPrimary,
+      selectedGapRefs: [mockScenarioRefs.gapSystemDesign],
+      selectedCapabilityRefs: [mockScenarioRefs.capabilitySystemDesign],
+      purpose: "Reduce uncertainty in system-design reasoning.",
+      rationale: "Attempted from a stale projection.",
+      semanticBasisRef: ref<"semantic-basis">("basis:stale"),
+    });
+    expect(stale.status).toBe("stale-basis");
+  });
+
   it("keeps Target requirements distinct from learner state and exposes direct Knowledge focus", async () => {
     const requirements = acceptedValue(
       await adapter.getTargetRequirements(mockScenarioRefs.targetPrimary),
@@ -83,6 +115,28 @@ describe("MockFrontendAdapter semantic contract", () => {
       "challenged",
       "unknown",
     ]);
+  });
+
+  it("preserves attributable evidence supports, challenges, provenance, and limitations", async () => {
+    const evidence = acceptedValue(
+      await adapter.getEvidence(mockScenarioRefs.targetPrimary),
+    );
+
+    const demonstrated = evidence.facts.find(
+      (item) => item.evidenceRef === mockScenarioRefs.evidenceTypeScript,
+    );
+    const challenged = evidence.facts.find(
+      (item) => item.evidenceRef === mockScenarioRefs.evidenceSystemDesign,
+    );
+
+    expect(demonstrated?.supportsCapabilityRefs).toContain(
+      mockScenarioRefs.capabilityTypeScript,
+    );
+    expect(challenged?.challengesCapabilityRefs).toContain(
+      mockScenarioRefs.capabilitySystemDesign,
+    );
+    expect(challenged?.provenance.length).toBeGreaterThan(0);
+    expect(challenged?.limitations.length).toBeGreaterThan(0);
   });
 
   it("provides multiple gaps with decision context and an explicit missing-support case", async () => {
