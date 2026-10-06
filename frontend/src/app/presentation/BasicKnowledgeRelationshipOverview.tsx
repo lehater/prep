@@ -76,7 +76,7 @@ export function BasicKnowledgeRelationshipOverview({
                     y2={target.y}
                     data-selected={selected ? "true" : "false"}
                   />
-                  <title>{edge.label}</title>
+                  <title>{`${edge.label}: ${edge.statement}`}</title>
                   {showLabel ? (
                     <text
                       className="knowledge-relationship-edge-label"
