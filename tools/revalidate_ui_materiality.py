@@ -448,7 +448,28 @@ def main() -> int:
                 selected_candidates[source_cap] = source_doc
             evidence = evidences.get(key)
             if evidence is None:
-                raise RuntimeError(f"missing semantic derivation evidence for {source_cap} -> {capability}")
+                accepted = next(
+                    (
+                        row
+                        for row in working_evaluations.get("derivation_evaluations", []) or []
+                        if row.get("source_capability") == source_cap
+                        and row.get("target_capability") == capability
+                        and row.get("status") == "ACCEPTED"
+                    ),
+                    None,
+                )
+                if accepted is None:
+                    raise RuntimeError(
+                        f"missing semantic derivation evidence/evaluation for {source_cap} -> {capability}"
+                    )
+                evidence = {
+                    "version": 1,
+                    "kind": "harness-semantic-derivation-evidence",
+                    "source_capability": source_cap,
+                    "target_capability": capability,
+                    "links": copy.deepcopy(accepted.get("links", [])),
+                    "dispositions": copy.deepcopy(accepted.get("dispositions", [])),
+                }
             result = evaluate_derivation(
                 graph=graph,
                 contract=contract,
