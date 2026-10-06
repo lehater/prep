@@ -410,7 +410,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     }),
   ).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("table")).toBeVisible();
-  await expect(page.getByText("2/2", { exact: true })).toBeVisible();
+  await expect(page.getByText("7/7", { exact: true })).toBeVisible();
   await expect(page.getByText("System design", { exact: true })).toBeVisible();
   await expect(
     knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
