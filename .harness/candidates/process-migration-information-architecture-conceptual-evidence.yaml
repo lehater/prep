@@ -3,6 +3,9 @@ kind: harness-semantic-derivation-evidence
 source_capability: prep.conceptual-interface-model
 target_capability: prep.information-architecture
 links:
+  - {sources: [CIM-TARGET-COMPARISON], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-STRUCTURE]}
+  - {sources: [CIM-REL-COMPARISON-TARGET], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-CROSSLINKS]}
+  - {sources: [CIM-REL-COMPARISON-STATE], relation: TRANSFORMS, targets: [IA-LOC-TARGETS]}
   - {sources: [CIM-TARGET], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGET, IA-SCOPE-TARGET]}
   - {sources: [CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY], relation: TRANSFORMS, targets: [IA-LOC-TARGET]}
   - {sources: [CIM-KNOWLEDGE], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE]}

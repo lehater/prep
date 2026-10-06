@@ -3,6 +3,8 @@ kind: harness-semantic-derivation-evidence
 source_capability: prep.user-journeys
 target_capability: prep.information-architecture
 links:
+  - {sources: [UJ-TARGET-DIRECTION, UJ-TARGET-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-STRUCTURE, IA-CROSSLINKS]}
+  - {sources: [UJ-TARGET-DIRECTION-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-TARGETS, IA-CROSSLINKS, IA-FINDABILITY]}
   - {sources: [UJ-TARGET-SETUP, UJ-TARGET-SETUP-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-TARGET, IA-CROSSLINKS]}
   - {sources: [UJ-TARGET-SETUP-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS, IA-FINDABILITY]}
   - {sources: [UJ-DIRECTION, UJ-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-CURRENT, IA-CROSSLINKS]}
