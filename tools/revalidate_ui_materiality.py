@@ -26,6 +26,7 @@ from harness.application.project_publication import (
 from harness.application.semantic_admission import admit_artifact
 from harness.application.semantic_closure import evaluate_semantic_closure
 from harness.assurance.semantic_derivation import evaluate_derivation
+from harness.assurance.capability_lifecycle import lifecycle_states
 from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
 from harness.project_model.engineering_graph import production_index
 
@@ -495,15 +496,27 @@ def main() -> int:
             all_admissions,
             working_lifecycle,
         )
-        request = derive_decision_explorer_request(
-            graph=graph,
-            model=core,
-            decision_contracts=decision_contracts,
-            decision_policy=decision_policy,
-            capability=capability,
-            lifecycle=working_lifecycle,
-            mode="REVISION",
-        )
+        try:
+            request = derive_decision_explorer_request(
+                graph=graph,
+                model=core,
+                decision_contracts=decision_contracts,
+                decision_policy=decision_policy,
+                capability=capability,
+                lifecycle=working_lifecycle,
+                mode="REVISION",
+            )
+        except Exception as exc:
+            states = lifecycle_states(graph, core, working_lifecycle)
+            prerequisites = [
+                req["capability"]
+                for req in productions[capability].get("requires", []) or []
+            ]
+            detail = {item: states.get(item) for item in prerequisites}
+            raise RuntimeError(
+                f"cannot derive Decision Explorer request for {capability}; "
+                f"prerequisite_states={json.dumps(detail, ensure_ascii=False)}"
+            ) from exc
         exploration = exploration_for(capability, request)
         fresh_derivations = derivations_for(capability, candidate, sources)
 
