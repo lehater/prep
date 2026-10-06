@@ -94,6 +94,19 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(stale.status).toBe("stale-basis");
   });
 
+  it("rejects missing Target source context without accepting the Target", async () => {
+    const outcome = await adapter.establishTarget({
+      targetRef: mockScenarioRefs.targetPrimary,
+      sourceContext: "   ",
+    });
+
+    expect(outcome).toEqual({
+      status: "rejected",
+      message: "Target source/context is required.",
+      currentBasisRef: mockScenarioRefs.basis,
+    });
+  });
+
   it("keeps Target requirements distinct from learner state and exposes direct Knowledge focus", async () => {
     const requirements = acceptedValue(
       await adapter.getTargetRequirements(mockScenarioRefs.targetPrimary),
@@ -102,7 +115,7 @@ describe("MockFrontendAdapter semantic contract", () => {
       (item) => item.capabilityRef === mockScenarioRefs.capabilitySystemDesign,
     );
 
-    expect(systemDesign?.knowledgeFocusRefs).toEqual([
+    expect(systemDesign?.knowledgeFocus.map((item) => item.knowledgeRef)).toEqual([
       mockScenarioRefs.knowledgeConsistency,
       mockScenarioRefs.knowledgeCaching,
     ]);
