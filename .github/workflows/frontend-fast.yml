@@ -1,0 +1,45 @@
+name: Fast frontend validation
+
+on:
+  push:
+    branches-ignore: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-fast.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-fast.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend-fast:
+    name: Frontend fast
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install locked dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run deterministic frontend checks
+        working-directory: frontend
+        run: npm run fast

@@ -12,12 +12,35 @@ concurrency:
 
 jobs:
   repository-heavy:
-    name: Repository heavy
+    name: Repository and frontend heavy
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install locked frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run frontend fast validation
+        working-directory: frontend
+        run: npm run fast
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Check frontend supply-chain evidence
+        working-directory: frontend
+        run: npm run supply-chain
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -58,3 +81,11 @@ jobs:
 
       - name: Validate maintained Anki reference implementation
         run: python -m unittest discover -s experiments/anki_adapter_reference/tests -v
+
+      - name: Install Chromium
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Run frontend browser E2E
+        working-directory: frontend
+        run: npm run test:e2e

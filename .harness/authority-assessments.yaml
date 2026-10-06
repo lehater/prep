@@ -108,10 +108,10 @@ assessments:
 
   - authority_id: OBLIGATION-ANALYSIS
     applicability: NOT_APPLICABLE
-    evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md]
-    rationale: No law, regulation, contract, organizational policy or platform mandate is currently accepted as an engineering input. No production frontend artifact or dependency lockfile is retained in the clean pre-implementation baseline, so release-time third-party distribution obligations must be reassessed when implementation dependencies and packaging are introduced.
-    depends_on_evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md]
-    reopening_conditions: [implementation dependencies or distributable artifacts are introduced, Prep artifacts are distributed externally, a third-party license introduces material copyleft/notice/source obligations, a legal/regulatory/privacy/contractual requirement becomes applicable, or an organization/platform policy must be traced into engineering decisions]
+    evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, frontend/package.json, frontend/package-lock.json]
+    rationale: The FI-00 dependency set has been reassessed after bootstrap. The browser runtime closure currently contains only react, react-dom and scheduler, all MIT-licensed. Development-only dependencies additionally contain MIT OR Apache-2.0, Apache-2.0, MPL-2.0, ISC and BSD-3-Clause packages, but they are not part of the browser runtime closure. No law, regulation, contract, organizational policy or accepted external/public distribution requirement currently creates an independent engineering obligation. Runtime license metadata is checked from the committed lockfile and vulnerability audit is part of heavy validation; any external distribution/release must reopen this assessment for required license/notice packaging.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, frontend/package.json, frontend/package-lock.json]
+    reopening_conditions: [Prep frontend artifacts are distributed externally, the runtime dependency closure changes, a third-party license introduces material copyleft/notice/source obligations into shipped artifacts, a legal/regulatory/privacy/contractual requirement becomes applicable, or an organization/platform policy must be traced into engineering decisions]
 
   - authority_id: CHANGE-TRANSITION-DESIGN
     applicability: NOT_APPLICABLE

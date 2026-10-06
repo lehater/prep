@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:f73f04eb47a5f7786ff5560d3b20597249ba71ca9cd9337d4df699ff6b66b173
-parent_revision: sha256:43d5e4b4b967a777d72a8bc2ccc7c8cc7a7eb3dbc2fb3c8c0a076cc1d46ab54c
+revision: sha256:7e468b222b06781d35ccec74ae2d955d605de4a77c6db752e713004928c37d06
+parent_revision: sha256:f73f04eb47a5f7786ff5560d3b20597249ba71ca9cd9337d4df699ff6b66b173
 state:
   core_model:
     authorities:
@@ -4234,7 +4234,7 @@ state:
         status: ACCEPTED
         knowledge_kind: implementation-design
         skill: skills/artifacts/implementation-design/SKILL.md
-        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-3
         authority: IMPLEMENTATION-DESIGN
         allowed_source_authorities:
         - COMPONENT-DESIGN
@@ -4284,14 +4284,14 @@ state:
       lifecycle_assertion:
         artifact: FRONTEND-IMPLEMENTATION-DESIGN
         capability: prep.frontend-implementation-design
-        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
+        acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-3
         acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
         accepted_prerequisites: *id081
         accepted_prerequisite_semantics: *id082
         semantic_atom_fingerprints: &id087
           FI-BOUNDARY: SAF-5db3943a82169d3096e58ede5ff084e1b445b5ab71cdcd203402e6ed3fcc0866
-          FI-TOOLCHAIN: SAF-7063de1d25990e8c434ef855c339feb201608e1dc5b5c9b9e41b3de49d46318b
-          FI-REPOSITORY: SAF-2488390b0983d5f07303cec588c37bb06270c6f5f87e7b647acbf144a4b2d3fd
+          FI-TOOLCHAIN: SAF-b57a74f452fa0c5abd7913115ae1b085b804ff22bc3c7ef99518f89c5f667f5f
+          FI-REPOSITORY: SAF-482ba01b4a0f9cc2145bae2a6bbcacb23350def04ed552bce58eb7d421ea6fa6
           FI-SLICES: SAF-9b75be33051302139c229e89c8e72bda45750d057b2cede2d66bef0e4eac3a63
           FI-ORDER: SAF-06a842e826f94e672dedc534701061f1504ac4526844b226e3c10cb862c1353e
           FI-SPATIAL: SAF-cbcf9f26d34b9f9819c8e8fc5b4afdf271706d9c5241a526f0cec0316726980f
@@ -18916,7 +18916,7 @@ state:
       semantic_atom_fingerprints: *id080
     - artifact: FRONTEND-IMPLEMENTATION-DESIGN
       capability: prep.frontend-implementation-design
-      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-2
+      acceptance_id: PREP-FRONTEND-IMPLEMENTATION-DESIGN-STRICT-3
       acceptance_policy_fingerprint: sha256:91240d68707a85f72b41c6e63cae0a9059fbeeb24bfc9bad6e868503a34b159f
       accepted_prerequisites:
         prep.frontend-component-design: PREP-FRONTEND-COMPONENT-DESIGN-STRICT-1
