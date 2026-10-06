@@ -7,6 +7,7 @@ import type {
 } from "./contract";
 import { useKnowledgeExplorerState } from "./state";
 import type { CapabilityRef, FocusRef, TargetRef } from "../contracts";
+import { knowledgeKindLabel } from "../../ui/presentationLabels";
 
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
@@ -113,64 +114,64 @@ export function KnowledgeExplorerFeature({
       aria-labelledby="knowledge-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Knowledge</p>
-        <h1 id="knowledge-heading">Explore the Knowledge that matters here</h1>
+        <p className="eyebrow">Знания</p>
+        <h1 id="knowledge-heading">Исследуйте знания, важные для текущей цели</h1>
         <p>
-          Query bounded Subject Knowledge, inspect proposition meaning and
-          relationships, and keep the current Target/focus scope visible.
+          Ищите знания в текущей смысловой области, изучайте утверждения и
+          связи между ними, не теряя контекст цели и выбранного фокуса.
         </p>
       </header>
 
       <section className="knowledge-query-region" aria-labelledby="knowledge-query-heading">
         <div className="section-heading">
-          <p className="eyebrow">Semantic scope</p>
-          <h2 id="knowledge-query-heading">Query Knowledge</h2>
+          <p className="eyebrow">Смысловая область</p>
+          <h2 id="knowledge-query-heading">Поиск знаний</h2>
         </div>
 
         <div className="knowledge-scope-context">
           <div>
-            <span>Target</span>
-            <strong>Active Target</strong>
+            <span>Цель</span>
+            <strong>Текущая цель</strong>
           </div>
           <div>
-            <span>Next focus</span>
-            <strong>{activeFocusRef ? "Included" : "Not selected"}</strong>
+            <span>Следующий фокус</span>
+            <strong>{activeFocusRef ? "учтён" : "не выбран"}</strong>
           </div>
           <div>
-            <span>Required Capability</span>
+            <span>Требуемая компетенция</span>
             <strong>
               {projection?.requiredCapabilityLabel ??
-                (requiredCapabilityRef ? "Scoped" : "No filter")}
+                (requiredCapabilityRef ? "ограничено" : "без фильтра")}
             </strong>
           </div>
         </div>
 
         <form className="knowledge-query-form" onSubmit={submitQuery}>
           <label className="field">
-            <span>Knowledge query</span>
+            <span>Поиск</span>
             <input
               value={queryDraft}
               onChange={(event) => setQueryDraft(event.currentTarget.value)}
-              placeholder="Search semantic Knowledge in the current scope"
+              placeholder="Найти знание в текущей области"
             />
           </label>
 
           <label className="field knowledge-scope-field">
-            <span>Semantic depth</span>
+            <span>Глубина</span>
             <select
               value={scope}
               onChange={(event) =>
                 setScope(event.currentTarget.value as "overview" | "detail")
               }
             >
-              <option value="overview">Overview</option>
-              <option value="detail">Detail</option>
+              <option value="overview">Обзор</option>
+              <option value="detail">Подробно</option>
             </select>
           </label>
 
           <div className="action-row">
             <button type="submit" className="primary-action">
-              Apply query
+              Применить
             </button>
             {requiredCapabilityRef ? (
               <button
@@ -178,7 +179,7 @@ export function KnowledgeExplorerFeature({
                 className="secondary-action"
                 onClick={() => setRequiredCapabilityRef(null)}
               >
-                Clear Required Capability scope
+                Снять фильтр по компетенции
               </button>
             ) : null}
           </div>
@@ -193,25 +194,23 @@ export function KnowledgeExplorerFeature({
 
       <section className="knowledge-results-region" aria-labelledby="knowledge-results-heading">
         <div className="section-heading">
-          <p className="eyebrow">Bounded results</p>
-          <h2 id="knowledge-results-heading">Knowledge results</h2>
+          <p className="eyebrow">Результаты</p>
+          <h2 id="knowledge-results-heading">Найденные знания</h2>
           {projection ? (
             <p>
-              {projection.items.length} result
-              {projection.items.length === 1 ? "" : "s"} in the current
-              semantic scope.
+              Найдено: {projection.items.length} в текущей смысловой области.
             </p>
           ) : null}
         </div>
 
-        {status === "loading" ? <p role="status">Loading Knowledge…</p> : null}
+        {status === "loading" ? <p role="status">Загрузка знаний…</p> : null}
 
         {status === "ready" && projection?.items.length === 0 ? (
           <div className="knowledge-empty">
-            <strong>No Knowledge matched this query.</strong>
+            <strong>По запросу ничего не найдено.</strong>
             <p>
-              Change the query or clear the Required Capability scope without
-              losing the active Target/focus context.
+              Измените запрос или снимите фильтр по компетенции. Контекст цели и
+              выбранного фокуса сохранится.
             </p>
           </div>
         ) : null}
@@ -221,18 +220,18 @@ export function KnowledgeExplorerFeature({
             {projection.items.map((item) => (
               <article className="knowledge-result-card" key={item.knowledgeRef}>
                 <div>
-                  <span className="knowledge-kind">{item.kind}</span>
+                  <span className="knowledge-kind">{knowledgeKindLabel(item.kind)}</span>
                   <h3>{item.label}</h3>
                   {item.predicate ? <p>{item.predicate}</p> : null}
                 </div>
 
                 {item.related.length > 0 ? (
                   <div className="knowledge-relations">
-                    <strong>Related Knowledge</strong>
+                    <strong>Связанные знания</strong>
                     <ul>
                       {item.related.map((related) => (
                         <li key={related.knowledgeRef}>
-                          <span>{related.kind}</span>: {related.label}
+                          <span>{knowledgeKindLabel(related.kind)}</span>: {related.label}
                         </li>
                       ))}
                     </ul>
@@ -244,7 +243,7 @@ export function KnowledgeExplorerFeature({
                   className="secondary-action"
                   onClick={() => chooseItem(item)}
                 >
-                  Inspect {item.kind}
+                  Открыть {knowledgeKindLabel(item.kind)}
                 </button>
               </article>
             ))}
@@ -255,34 +254,34 @@ export function KnowledgeExplorerFeature({
       {selectedItem ? (
         <aside className="knowledge-detail-region" aria-labelledby="knowledge-detail-heading">
           <div className="section-heading">
-            <p className="eyebrow">Selected detail</p>
+            <p className="eyebrow">Выбранный элемент</p>
             <h2 id="knowledge-detail-heading">{selectedItem.label}</h2>
           </div>
 
           <dl className="knowledge-detail-list">
             <div>
-              <dt>Kind</dt>
-              <dd>{selectedItem.kind}</dd>
+              <dt>Тип</dt>
+              <dd>{knowledgeKindLabel(selectedItem.kind)}</dd>
             </div>
             {selectedItem.predicate ? (
               <div>
-                <dt>Predicate meaning</dt>
+                <dt>Смысл утверждения</dt>
                 <dd>{selectedItem.predicate}</dd>
               </div>
             ) : null}
             <div>
-              <dt>Relationships</dt>
+              <dt>Связи</dt>
               <dd>
                 {selectedItem.related.length > 0 ? (
                   <ul>
                     {selectedItem.related.map((related) => (
                       <li key={related.knowledgeRef}>
-                        {related.label} ({related.kind})
+                        {related.label} ({knowledgeKindLabel(related.kind)})
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  "No related Knowledge is present in this bounded projection."
+                  "В текущей области связанных знаний нет."
                 )}
               </dd>
             </div>
@@ -291,8 +290,8 @@ export function KnowledgeExplorerFeature({
       ) : null}
 
       <p className="supporting-text knowledge-renderer-note">
-        This task path is complete without a spatial renderer. Geometry is not
-        Knowledge meaning.
+        Этот сценарий можно использовать и без пространственного графа:
+        геометрия не определяет смысл знаний.
       </p>
     </section>
   );
