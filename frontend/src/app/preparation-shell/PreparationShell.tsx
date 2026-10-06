@@ -7,6 +7,7 @@ import { CurrentPositionFeature } from "../../features/current-position/CurrentP
 import type { EvidenceChangePort } from "../../features/evidence-change/contract";
 import { EvidenceChangeFeature } from "../../features/evidence-change/EvidenceChangeFeature";
 import type { KnowledgePort } from "../../features/knowledge-explorer/contract";
+import type { KnowledgeRelationshipRenderer } from "../../features/knowledge-explorer/relationship-renderer";
 import { KnowledgeExplorerFeature } from "../../features/knowledge-explorer/KnowledgeExplorerFeature";
 import type { PreparationSupportPort } from "../../features/preparation-support/contract";
 import { PreparationSupportFeature } from "../../features/preparation-support/PreparationSupportFeature";
@@ -37,6 +38,7 @@ export interface PreparationShellProps {
   readonly targetPort: TargetPort;
   readonly currentPositionPort: CurrentPositionPort;
   readonly knowledgePort: KnowledgePort;
+  readonly knowledgeRelationshipRenderer?: KnowledgeRelationshipRenderer | undefined;
   readonly activityPort: ActivityPort;
   readonly evidenceChangePort: EvidenceChangePort;
   readonly preparationSupportPort: PreparationSupportPort;
@@ -76,6 +78,7 @@ export function PreparationShell({
   targetPort,
   currentPositionPort,
   knowledgePort,
+  knowledgeRelationshipRenderer,
   activityPort,
   evidenceChangePort,
   preparationSupportPort,
@@ -212,6 +215,7 @@ export function PreparationShell({
           activeTargetRef={activeTargetRef}
           activeFocusRef={activeFocusRef}
           incomingRequiredCapabilityRef={navigation.requiredCapabilityRef}
+          relationshipRenderer={knowledgeRelationshipRenderer}
         />
       ) : (
         <StructuralPlaceholder
