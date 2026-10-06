@@ -49,7 +49,7 @@ The first production frontend root is `frontend/`. The bootstrap uses:
 - Node.js 24.21.0 LTS, pinned in repository/CI;
 - npm with a committed lockfile generated under that pinned Node runtime;
 - React 19.3.0 and React DOM 19.3.0 as the browser component runtime;
-- TypeScript 7.0.2 for strict static typing;
+- TypeScript 6.0.3 for strict static typing and the stable compiler API used by mechanical dependency-boundary analysis;
 - Vite 8.3.2 with `@vitejs/plugin-react` 6.1.1 for development/build;
 - Biome 2.5.15 for deterministic lint/format tooling;
 - Vitest 5.0.3 for fast unit/contract tests;
@@ -60,7 +60,7 @@ query/cache framework, UI component kit, global state library, code generator or
 renderer is introduced at bootstrap. Those dependencies are added only when an accepted
 feature responsibility demonstrates a need.
 
-React/Vite was selected over a framework-free DOM realization because the accepted
+TypeScript 7.0.2 was evaluated but not selected because its package root does not expose a stable compiler API; using its unstable API or carrying two TypeScript lines would add bootstrap complexity solely for tooling.\n\nReact/Vite was selected over a framework-free DOM realization because the accepted
 frontend has several independently changing stateful task features and a composition
 root, while React keeps component composition/test seams explicit without adding routing,
 data-fetching or design-system semantics. A Preact/Vite realization remains technically
