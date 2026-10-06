@@ -1,6 +1,7 @@
 import { MockFrontendAdapter } from "../../adapters/mock/MockFrontendAdapter";
 import { mockCandidateTargetOptions } from "../../adapters/mock/scenario";
 import { KnowledgeExplorerStateProvider } from "../../features/knowledge-explorer/state";
+import { BasicKnowledgeRelationshipOverview } from "../../ui/knowledge/BasicKnowledgeRelationshipOverview";
 import { PreparationContextProvider } from "../preparation-context/PreparationContext";
 import { PreparationShell } from "../preparation-shell/PreparationShell";
 
@@ -15,6 +16,7 @@ export function FrontendCompositionRoot() {
           targetPort={mockAdapter}
           currentPositionPort={mockAdapter}
           knowledgePort={mockAdapter}
+          knowledgeRelationshipRenderer={BasicKnowledgeRelationshipOverview}
           activityPort={mockAdapter}
           evidenceChangePort={mockAdapter}
           preparationSupportPort={mockAdapter}
