@@ -10,7 +10,7 @@ import {
 import type { CapabilityRef, KnowledgeRef } from "../contracts";
 
 export type KnowledgeKindFilter = "all" | "object" | "proposition";
-export type KnowledgeRelationsFilter = "all" | "connected" | "isolated";
+export type KnowledgeRelationsFilter = "all" | "two-plus" | "three-plus";
 
 export interface KnowledgeExplorerStateValue {
   readonly queryDraft: string;
