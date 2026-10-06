@@ -45,6 +45,7 @@ import type {
 import type {
   CapabilityRef,
   EvidenceRef,
+  KnowledgeRef,
   Limitation,
   PreparationRequestRef,
   Provenance,
@@ -100,6 +101,13 @@ function capabilityLabel(capabilityRef: CapabilityRef): string {
     default:
       return "Capability";
   }
+}
+
+function knowledgeLabel(knowledgeRef: KnowledgeRef): string {
+  return (
+    rawMockScenario.knowledge.find((item) => item.knowledgeId === knowledgeRef)
+      ?.title ?? "Knowledge"
+  );
 }
 
 function targetByRef(targetRef: TargetRef) {
@@ -236,6 +244,9 @@ export class MockFrontendAdapter
     if (!target) {
       return rejected("Unknown Target.");
     }
+    if (input.sourceContext.trim().length === 0) {
+      return rejected("Target source/context is required.");
+    }
 
     return accepted({
       targetRef: target.recordId,
@@ -261,10 +272,14 @@ export class MockFrontendAdapter
       .map((item) => ({
         requirementRef: item.requirementId,
         capabilityRef: item.capabilityId,
+        capabilityLabel: capabilityLabel(item.capabilityId),
         performance: item.performanceText,
         conditions: item.conditionTexts,
         qualityCriteria: item.qualityTexts,
-        knowledgeFocusRefs: item.knowledgeIds,
+        knowledgeFocus: item.knowledgeIds.map((knowledgeRef) => ({
+          knowledgeRef,
+          label: knowledgeLabel(knowledgeRef),
+        })),
       }));
 
     return accepted({
