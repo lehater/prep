@@ -1,8 +1,6 @@
 name: Heavy repository validation
 
 on:
-  push:
-    branches: [feat/russian-ui-demo-knowledge]
   workflow_dispatch:
 
 permissions:
