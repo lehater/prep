@@ -459,6 +459,53 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   expect(storedSplits.tableGraph).toBe(initialTableRatio - 2);
   expect(storedSplits.topDetails).toBe(initialTopRatio - 2);
 
+  await verticalDivider.dblclick();
+  await horizontalDivider.dblclick();
+
+  const verticalBox = await verticalDivider.boundingBox();
+  expect(verticalBox).not.toBeNull();
+  if (verticalBox) {
+    const beforeDrag = Number(
+      await verticalDivider.getAttribute("aria-valuenow"),
+    );
+    await page.mouse.move(
+      verticalBox.x + verticalBox.width / 2,
+      verticalBox.y + verticalBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      verticalBox.x - 80,
+      verticalBox.y + verticalBox.height / 2,
+    );
+    await page.mouse.up();
+    const afterDrag = Number(
+      await verticalDivider.getAttribute("aria-valuenow"),
+    );
+    expect(afterDrag).toBeLessThan(beforeDrag);
+  }
+
+  const horizontalBox = await horizontalDivider.boundingBox();
+  expect(horizontalBox).not.toBeNull();
+  if (horizontalBox) {
+    const beforeDrag = Number(
+      await horizontalDivider.getAttribute("aria-valuenow"),
+    );
+    await page.mouse.move(
+      horizontalBox.x + horizontalBox.width / 2,
+      horizontalBox.y + horizontalBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      horizontalBox.x + horizontalBox.width / 2,
+      horizontalBox.y - 60,
+    );
+    await page.mouse.up();
+    const afterDrag = Number(
+      await horizontalDivider.getAttribute("aria-valuenow"),
+    );
+    expect(afterDrag).toBeLessThan(beforeDrag);
+  }
+
   await page
     .locator(".knowledge-table")
     .getByRole("button", {
