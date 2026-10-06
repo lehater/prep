@@ -419,7 +419,7 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
     page.getByText("Стратегия кэширования (объект)", { exact: true }),
   ).toBeVisible();
 
-  const query = page.getByLabel("Поиск");
+  const query = page.getByRole("textbox", { name: "Поиск", exact: true });
   await query.fill("кэш");
   await query.press("Enter");
   await expect(page.getByText("Найдено: 1 в текущей смысловой области.")).toBeVisible();
@@ -436,7 +436,7 @@ test("keeps Поиск, capability scope, detail and relations task-complete wit
   await page.getByRole("button", { name: "Цель", exact: true }).click();
   await page.getByRole("button", { name: "Знания", exact: true }).click();
 
-  await expect(page.getByLabel("Поиск")).toHaveValue("event loop");
+  await expect(page.getByRole("textbox", { name: "Поиск", exact: true })).toHaveValue("event loop");
   await expect(page.getByText("JavaScript Event Loop", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("без фильтра", { exact: true })).toBeVisible();
 });
@@ -541,7 +541,7 @@ test("performs one Попытка практики without fabricating learner p
     ),
   ).toBeVisible();
   await expect(
-    page.getByText(/Разбор system design-практики/),
+    page.getByText("Источник: Разбор повторной system design-практики", { exact: true }),
   ).toBeVisible();
 
   const reviewedSystemDesignState = page
