@@ -357,45 +357,48 @@ export function PreparationShell({
     }
   }
 
-  const shellClassName =
-    navigation.destination === "knowledge"
-      ? "preparation-shell preparation-shell--workspace"
-      : "preparation-shell";
-
   return (
-    <div className={shellClassName}>
-      <header className="shell-header">
-        <a className="brand" href="/" onClick={(event) => event.preventDefault()}>
-          Prep
-        </a>
-        <span className="prototype-label">Прототип для проверки удобства</span>
-      </header>
-
-      <nav className="prep-navigation" aria-label="Подготовка">
-        {navigationItems.map((item) => (
-          <button
-            type="button"
-            key={item.destination}
-            aria-current={
-              navigation.destination === item.destination ? "page" : undefined
-            }
-            onClick={() => navigate({ destination: item.destination })}
-          >
-            {item.label}
-          </button>
-        ))}
-      </nav>
-
-      <section className="active-context" aria-label="Текущий контекст подготовки">
-        <div>
-          <span>Текущая цель</span>
-          <strong>{activeTarget?.label ?? "не выбрана"}</strong>
+    <div
+      className="preparation-shell preparation-shell--admin"
+      data-destination={navigation.destination}
+    >
+      <aside className="app-sidebar">
+        <div className="sidebar-brand-row">
+          <a className="brand" href="/" onClick={(event) => event.preventDefault()}>
+            Prep
+          </a>
+          <span className="prototype-label">prototype</span>
         </div>
-        <div>
-          <span>Следующий фокус</span>
-          <strong>{activeFocusRef ? "выбран" : "не выбран"}</strong>
-        </div>
-      </section>
+
+        <nav className="prep-navigation" aria-label="Подготовка">
+          {navigationItems.map((item) => (
+            <button
+              type="button"
+              key={item.destination}
+              aria-current={
+                navigation.destination === item.destination ? "page" : undefined
+              }
+              onClick={() => navigate({ destination: item.destination })}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <section
+          className="active-context"
+          aria-label="Текущий контекст подготовки"
+        >
+          <div>
+            <span>Цель</span>
+            <strong>{activeTarget?.label ?? "не выбрана"}</strong>
+          </div>
+          <div>
+            <span>Фокус</span>
+            <strong>{activeFocusRef ? "выбран" : "не выбран"}</strong>
+          </div>
+        </section>
+      </aside>
 
       <main className="active-child">{child}</main>
     </div>
