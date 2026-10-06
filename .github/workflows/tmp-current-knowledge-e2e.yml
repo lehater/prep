@@ -1,0 +1,41 @@
+name: Temporary Current Knowledge E2E
+
+on:
+  push:
+    branches:
+      - fix/current-knowledge-context-continuity
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tmp-current-knowledge-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: Chromium E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install locked dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install Chromium
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Run frontend browser E2E
+        working-directory: frontend
+        run: npm run test:e2e
