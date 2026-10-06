@@ -129,19 +129,58 @@ The accepted Quality Design contract is normative; a graph or specific renderer 
 
 ### Tiered CI validation
 
-CI separates fast feedback from expensive release-grade evidence.
+CI separates required pull-request feedback from broader regression evidence.
 
-**Fast validation** is the default development loop and must be independently runnable. It contains deterministic checks whose feedback is useful on ordinary branch pushes: frontend typecheck/lint/boundary/unit checks and lightweight Harness/document closure checks.
+**Required PR fast validation** is the ordinary merge gate. The current Prep baseline runs the
+frontend fast suite and repository fast suite on every pull request, in parallel.
 
-**Heavy validation** is reserved for explicit end-of-branch/full-validation checkpoints and is manually dispatched on the branch being finalized. It may include full Harness revalidation, browser E2E, dependency audit, graph stress evidence, production build/container verification and maintained reference-suite execution.
+The fast suites are intentionally always-on rather than selected by changed paths while their
+measured cost remains small. At the time of this decision the representative GitHub-hosted
+runner times are approximately 16 seconds for frontend fast validation and 13 seconds for
+repository fast validation. Adding a change-classification runner and a final aggregation gate
+saved only a few runner-seconds on single-area changes while increasing orchestration,
+critical-path latency and the risk of maintaining a second dependency model in workflow YAML.
 
 Rules:
 
-- expensive browser/performance/container jobs must not run automatically on every ordinary feature-branch push;
-- fast and heavy workflows remain separately dispatchable;
-- heavy validation runs fast deterministic checks first so failure is reported before expensive stages;
-- a green fast path is development feedback, not a substitute for required heavy evidence before a large branch is considered fully validated;
-- run the final heavy workflow manually on a large branch before treating that branch as fully validated; ordinary pushes, PR updates and main pushes do not trigger it implicitly.
+- required fast checks run once per pull-request revision; the same suite must not also be
+  triggered independently by the corresponding feature-branch push;
+- frontend and repository fast checks run in parallel and remain directly understandable as
+  merge-gate evidence;
+- required fast checks do not use path filtering while they remain cheap enough to run
+  unconditionally;
+- path filtering is appropriate for isolated non-gate workloads whose ownership boundary is
+  explicit, such as a maintained experiment that is irrelevant to ordinary Prep changes;
+- unknown or cross-cutting changes must prefer broader validation rather than skipping a
+  potentially relevant required check;
+- concurrency cancels superseded work for the same pull request where a workflow can overlap.
+
+**Heavy validation** proves broader integrated repository health. It runs after integration to
+`main`, on a periodic schedule, and remains manually dispatchable for diagnosis or explicit
+pre-merge investigation. It may include full Harness revalidation, browser E2E, dependency
+audit, production build checks and maintained reference/experiment suites.
+
+Heavy validation is not duplicated on every pull-request revision unless a future risk or
+release process requires it. A green PR fast path is merge-gate evidence; the post-merge heavy
+run verifies the resulting integrated `main` state, and the periodic run protects rarely
+changed surfaces from silent decay.
+
+**Environment reuse and caching** optimize setup cost without replacing verification:
+
+- dependency/download caches may be reused when keyed by reproducible inputs;
+- build artifacts may be reused when downstream jobs need the exact same built output;
+- a previous successful test result is not treated as proof for a new revision;
+- prefer reducing setup work before introducing persistent/custom runners;
+- for Playwright headless E2E, install only the required browser payload when the hosted runner
+  already supplies the necessary system libraries.
+
+**Dependency-aware test selection is an evolution step, not the current default.** Revisit it
+when measured required-fast cost becomes materially larger than orchestration overhead—for
+example, when one ordinarily skippable suite consistently approaches a minute or the aggregate
+required fast validation grows into multiple runner-minutes. At that point selection should be
+derived from an authoritative project dependency/capability model where possible, with a
+conservative fallback that runs all relevant suites for unknown paths. Do not create a
+hand-maintained workflow dependency graph merely to save a few seconds.
 
 ## Explicit non-rules
 
