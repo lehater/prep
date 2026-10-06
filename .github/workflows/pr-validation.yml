@@ -36,7 +36,8 @@ jobs:
           changed=false
           if [[ "$EVENT_NAME" != "pull_request" ]]; then
             changed=true
-          elif git diff --name-only "$BASE_SHA" "$HEAD_SHA" | grep -Eq             '^(experiments/knowledge_representation/|\.github/workflows/pr-validation\.yml$)'; then
+          elif git diff --name-only "$BASE_SHA" "$HEAD_SHA" \
+            | grep -Eq '^(experiments/knowledge_representation/|\.github/workflows/pr-validation\.yml$)'; then
             changed=true
           fi
 
