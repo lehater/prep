@@ -34,8 +34,8 @@ function StructuralPlaceholder({
 }: {
   readonly title: string;
   readonly description: string;
-  readonly recoveryReason?: string;
-  readonly candidateTarget?: CandidateTargetOption;
+  readonly recoveryReason?: string | undefined;
+  readonly candidateTarget?: CandidateTargetOption | undefined;
 }) {
   return (
     <section className="task-view structural-placeholder" data-view={title.toLowerCase()}>
