@@ -899,12 +899,19 @@ a:focus-visible {
   color: #445064;
 }
 
+.knowledge-message-slot {
+  min-height: 0;
+}
+
 .knowledge-outcome-message {
+  margin: 0;
   padding: 6px 9px;
   font-size: 0.75rem;
 }
 
 .knowledge-workspace-body {
+  height: 100%;
+  align-self: stretch;
   min-height: 0;
   overflow: hidden;
 }
@@ -1216,6 +1223,8 @@ a:focus-visible {
 }
 
 .knowledge-detail-region {
+  height: 100%;
+  align-self: stretch;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 6px;
