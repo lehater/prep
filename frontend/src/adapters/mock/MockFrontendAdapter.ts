@@ -96,18 +96,18 @@ function capabilityLabel(capabilityRef: CapabilityRef): string {
     case mockScenarioRefs.capabilitySystemDesign:
       return "System design";
     case mockScenarioRefs.capabilityBehavioral:
-      return "Behavioral communication";
+      return "Коммуникация на собеседовании";
     case mockScenarioRefs.capabilityKubernetes:
-      return "Kubernetes operations";
+      return "Работа с Kubernetes";
     default:
-      return "Capability";
+      return "Компетенция";
   }
 }
 
 function knowledgeLabel(knowledgeRef: KnowledgeRef): string {
   return (
     rawMockScenario.knowledge.find((item) => item.knowledgeId === knowledgeRef)
-      ?.title ?? "Knowledge"
+      ?.title ?? "Знание"
   );
 }
 
@@ -141,9 +141,9 @@ function mapComparedTarget(targetRef: TargetRef): ComparedTargetModel | null {
             requirementId: mockScenarioRefs.requirementKubernetes,
             capabilityId: mockScenarioRefs.capabilityKubernetes,
             statusCode: "unresolved" as const,
-            reasonText: "No Kubernetes-specific learner evidence is available.",
-            targetRelevanceText: "Platform-specific target requirement.",
-            priorityText: "Material if the platform role remains selected.",
+            reasonText: "Нет свидетельств, специфичных для навыков работы с Kubernetes.",
+            targetRelevanceText: "Специфичное требование для Platform Engineer.",
+            priorityText: "Значимо, если выбранной остаётся роль Platform Engineer.",
             supportCode: "missing" as const,
           },
         ];
@@ -219,12 +219,12 @@ export class MockFrontendAdapter
       .filter((candidate): candidate is ComparedTargetModel => candidate !== null);
 
     if (candidates.length !== input.candidateTargetRefs.length || candidates.length < 2) {
-      return rejected("At least two known candidate Targets are required.");
+      return rejected("Для сравнения нужны минимум две известные цели.");
     }
 
     const [first, second, ...rest] = candidates;
     if (!first || !second) {
-      return rejected("At least two known candidate Targets are required.");
+      return rejected("Для сравнения нужны минимум две известные цели.");
     }
 
     const tuple: [ComparedTargetModel, ComparedTargetModel, ...ComparedTargetModel[]] = [
@@ -237,7 +237,7 @@ export class MockFrontendAdapter
       evidenceBasisRef: mockScenarioRefs.basis,
       candidates: tuple,
       limitations: [
-        coverageLimit("Candidate projections share one learner evidence basis; target requirement uncertainty remains explicit."),
+        coverageLimit("Все варианты сравниваются на одной базе свидетельств; неопределённость требований цели сохраняется явно."),
       ],
     });
   }
@@ -247,10 +247,10 @@ export class MockFrontendAdapter
   ): Promise<SemanticOutcome<TargetModel>> {
     const target = targetByRef(input.targetRef);
     if (!target) {
-      return rejected("Unknown Target.");
+      return rejected("Неизвестная цель.");
     }
     if (input.sourceContext.trim().length === 0) {
-      return rejected("Target source/context is required.");
+      return rejected("Нужно указать источник или контекст цели.");
     }
 
     return accepted({
@@ -269,7 +269,7 @@ export class MockFrontendAdapter
   ): Promise<SemanticOutcome<TargetRequirementModel>> {
     const target = targetByRef(targetRef);
     if (!target) {
-      return rejected("Unknown Target.");
+      return rejected("Неизвестная цель.");
     }
 
     const expectations = rawMockScenario.requirements
@@ -306,7 +306,7 @@ export class MockFrontendAdapter
   ): Promise<SemanticOutcome<CurrentStateModel>> {
     const rows = stateRows(targetRef);
     if (!rows) {
-      return rejected("Unknown Target.");
+      return rejected("Неизвестная цель.");
     }
 
     return accepted({
@@ -326,7 +326,7 @@ export class MockFrontendAdapter
     evidenceRef?: EvidenceRef,
   ): Promise<SemanticOutcome<EvidenceModel>> {
     if (!targetByRef(targetRef)) {
-      return rejected("Unknown Target.");
+      return rejected("Неизвестная цель.");
     }
 
     const visibleEvidence = rawMockScenario.evidence.filter(
@@ -359,7 +359,7 @@ export class MockFrontendAdapter
     targetRef: TargetRef,
   ): Promise<SemanticOutcome<GapProjectionModel>> {
     if (targetRef !== mockScenarioRefs.targetPrimary) {
-      return rejected("Gap scenario is only defined for the established Target.");
+      return rejected("Сценарий пробелов определён только для зафиксированной цели.");
     }
 
     return accepted({
@@ -382,7 +382,7 @@ export class MockFrontendAdapter
           supportAvailability: row.supportCode,
         })),
         externalConstraints: [
-          "Preparation time is bounded; no exact deadline is accepted in the scenario.",
+          "Время подготовки ограничено, но точный дедлайн в сценарии не задан.",
         ],
       },
     });
@@ -397,7 +397,7 @@ export class MockFrontendAdapter
     ) {
       return {
         status: "stale-basis",
-        message: "Focus basis is not current for the deterministic scenario.",
+        message: "Основание фокуса устарело для текущего сценария.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
@@ -423,21 +423,21 @@ export class MockFrontendAdapter
       return accepted({
         focusRef: mockScenarioRefs.focusMissingSupport,
         targetRef: mockScenarioRefs.targetPrimary,
-        purpose: "Prepare attributable behavioral evidence.",
+        purpose: "Подготовить проверяемые свидетельства для поведенческой части.",
         capabilityRefs: [mockScenarioRefs.capabilityBehavioral],
         gapRefs: [mockScenarioRefs.gapBehavioral],
-        rationale: "Target-relevant unresolved gap with no suitable prepared support.",
+        rationale: "Важный для цели пробел, для которого пока нет подходящей поддержки.",
       });
     }
 
-    return rejected("Selected gap/capability combination is not part of the scenario.");
+    return rejected("Выбранная комбинация пробела и компетенции не входит в сценарий.");
   }
 
   async queryKnowledge(
     input: KnowledgeQueryInput,
   ): Promise<SemanticOutcome<KnowledgeProjectionModel>> {
     if (!targetByRef(input.targetRef)) {
-      return rejected("Unknown Target.");
+      return rejected("Неизвестная цель.");
     }
 
     const anchors =
@@ -529,7 +529,7 @@ export class MockFrontendAdapter
     input: ListSupportInput,
   ): Promise<SemanticOutcome<readonly SupportModel[]>> {
     if (input.targetRef !== mockScenarioRefs.targetPrimary) {
-      return rejected("Support scenario is only defined for the established Target.");
+      return rejected("Сценарий поддержки определён только для зафиксированной цели.");
     }
 
     if (input.focusRef === mockScenarioRefs.focusMissingSupport) {
@@ -539,7 +539,7 @@ export class MockFrontendAdapter
     }
 
     if (input.focusRef !== mockScenarioRefs.focusCurrent) {
-      return rejected("Unknown Focus.");
+      return rejected("Неизвестный фокус.");
     }
 
     return accepted([mapSupport()]);
@@ -551,7 +551,7 @@ export class MockFrontendAdapter
     if (input.semanticBasisRef !== mockScenarioRefs.basis) {
       return {
         status: "stale-basis",
-        message: "Activity start basis is not current for the accepted Focus.",
+        message: "Основание для запуска практики устарело относительно выбранного фокуса.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
@@ -561,7 +561,7 @@ export class MockFrontendAdapter
       input.focusRef !== rawMockScenario.activity.focusId ||
       input.supportRef !== rawMockScenario.activity.supportId
     ) {
-      return rejected("Activity start does not match the deterministic scenario.");
+      return rejected("Запуск практики не соответствует текущему сценарию.");
     }
 
     return accepted({
@@ -580,13 +580,13 @@ export class MockFrontendAdapter
     if (input.semanticBasisRef !== mockScenarioRefs.basis) {
       return {
         status: "stale-basis",
-        message: "Activity completion basis is no longer current.",
+        message: "Основание завершения практики устарело.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
 
     if (input.activityAttemptRef !== mockScenarioRefs.activityAttempt) {
-      return rejected("Activity completion does not match the current attempt.");
+      return rejected("Завершение не соответствует текущей попытке практики.");
     }
 
     this.completedActivityAttempts.add(mockScenarioRefs.activityAttempt);
@@ -606,7 +606,7 @@ export class MockFrontendAdapter
     input: GetChangeInput,
   ): Promise<SemanticOutcome<ChangeModel>> {
     if (input.targetRef !== mockScenarioRefs.targetPrimary) {
-      return rejected("Change scenario is only defined for the established Target.");
+      return rejected("Сценарий изменений определён только для зафиксированной цели.");
     }
 
     if (
@@ -616,7 +616,7 @@ export class MockFrontendAdapter
       return {
         status: "unresolved",
         message:
-          "The ActivityAttempt has not reached a reviewable evidence/change result.",
+          "Попытка практики ещё не дала результата, готового для анализа свидетельств и изменений.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
@@ -641,20 +641,20 @@ export class MockFrontendAdapter
     input: RequestPreparationInput,
   ): Promise<SemanticOutcome<PreparationRequestModel>> {
     if (input.targetRef !== mockScenarioRefs.targetPrimary) {
-      return rejected("Preparation scenario is only defined for the established Target.");
+      return rejected("Сценарий подготовки поддержки определён только для зафиксированной цели.");
     }
 
     if (input.semanticBasisRef !== mockScenarioRefs.basis) {
       return {
         status: "stale-basis",
-        message: "Preparation request basis is no longer current.",
+        message: "Основание запроса на подготовку поддержки устарело.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
 
     if (input.focusRef !== mockScenarioRefs.focusMissingSupport) {
       return rejected(
-        "The deterministic partial-preparation scenario is defined for the missing-support behavioral Focus.",
+        "Частичный сценарий подготовки определён для фокуса поведенческой части с отсутствующей поддержкой.",
       );
     }
 
@@ -680,13 +680,13 @@ export class MockFrontendAdapter
     preparationRequestRef: PreparationRequestRef,
   ): Promise<SemanticOutcome<PreparationRequestModel>> {
     if (preparationRequestRef !== mockScenarioRefs.preparationRequest) {
-      return rejected("Unknown PreparationRequest.");
+      return rejected("Неизвестный запрос на подготовку поддержки.");
     }
 
     if (!this.preparedBehavioralSupportAvailable) {
       return {
         status: "unresolved",
-        message: "The PreparationRequest has not produced a current accepted result yet.",
+        message: "Запрос на подготовку поддержки ещё не дал актуального принятого результата.",
         currentBasisRef: mockScenarioRefs.basis,
       };
     }
@@ -697,7 +697,7 @@ export class MockFrontendAdapter
       focusRef: rawMockScenario.preparation.focusId,
       sourceContext: rawMockScenario.preparation.sourceText,
       sourceProvenance: [
-        provenance("Backend interview brief", mockScenarioRefs.sourceInterviewBrief),
+        provenance("Описание backend-собеседования", mockScenarioRefs.sourceInterviewBrief),
       ],
       acceptedSupport: [mapPreparedSupport()],
       remainder: rawMockScenario.preparation.remainderRows.map((row) => ({
