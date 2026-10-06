@@ -188,9 +188,24 @@ a:focus-visible {
     padding: 0;
   }
 
-  .prototype-label,
-  .active-context {
+  .prototype-label {
     display: none;
+  }
+
+  .active-context {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid #edf0f4;
+    padding: 5px 0 0;
+  }
+
+  .active-context div {
+    flex: 1 1 0;
+  }
+
+  .active-context strong {
+    white-space: nowrap;
   }
 
   .prep-navigation {
@@ -1065,7 +1080,9 @@ a:focus-visible {
   position: relative;
   z-index: 5;
   border: 0;
+  margin: 0;
   background: transparent;
+  padding: 0;
   touch-action: none;
   user-select: none;
 }
