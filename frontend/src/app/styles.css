@@ -1293,16 +1293,28 @@ a:focus-visible {
 
 .knowledge-detail-relations li {
   min-width: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
+  display: grid;
+  gap: 2px;
   font-size: 0.68rem;
 }
 
-.knowledge-detail-relations li > span {
+.knowledge-relation-summary {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.knowledge-relation-summary > span:last-child {
   color: #7b8593;
   font-size: 0.58rem;
   white-space: nowrap;
+}
+
+.knowledge-relation-explanation {
+  color: #748094;
+  font-size: 0.61rem;
+  line-height: 1.3;
 }
 
 .knowledge-detail-relations .knowledge-relation-predicate {
