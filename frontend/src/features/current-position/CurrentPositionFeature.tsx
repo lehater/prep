@@ -19,7 +19,10 @@ export interface CurrentPositionFeatureProps {
   readonly port: CurrentPositionPort;
   readonly activeTargetRef: TargetRef;
   readonly activeFocusRef: FocusRef | null;
-  readonly onAcceptedFocus: (focus: FocusModel) => void;
+  readonly onAcceptedFocus: (
+    focus: FocusModel,
+    semanticBasisRef: SemanticBasisRef,
+  ) => void;
   readonly onContinueActivity: () => void;
   readonly onRequestPreparationSupport: () => void;
 }
@@ -176,7 +179,7 @@ export function CurrentPositionFeature({
 
     const focus = outcome.projection.value;
     setAcceptedFocus(focus);
-    onAcceptedFocus(focus);
+    onAcceptedFocus(focus, outcome.projection.basisRef);
   }
 
   return (

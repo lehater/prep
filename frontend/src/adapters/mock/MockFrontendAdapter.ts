@@ -177,6 +177,7 @@ function mapSupport(): SupportModel {
     label: support.title,
     kind: support.kindCode,
     intendedCapabilityRef: support.capabilityId,
+    intendedCapabilityLabel: capabilityLabel(support.capabilityId),
     expectedConditions: support.conditions,
     fitBasis: support.fitText,
     limitations: support.limitationTexts.map(coverageLimit),
@@ -190,6 +191,7 @@ function mapPreparedSupport(): SupportModel {
     label: support.title,
     kind: support.kindCode,
     intendedCapabilityRef: support.capabilityId,
+    intendedCapabilityLabel: capabilityLabel(support.capabilityId),
     expectedConditions: support.conditions,
     fitBasis: support.fitText,
     limitations: support.limitationTexts.map(coverageLimit),
@@ -518,11 +520,18 @@ export class MockFrontendAdapter
   async startActivity(
     input: StartActivityInput,
   ): Promise<SemanticOutcome<ActivityAttemptModel>> {
+    if (input.semanticBasisRef !== mockScenarioRefs.basis) {
+      return {
+        status: "stale-basis",
+        message: "Activity start basis is not current for the accepted Focus.",
+        currentBasisRef: mockScenarioRefs.basis,
+      };
+    }
+
     if (
       input.targetRef !== rawMockScenario.activity.targetId ||
       input.focusRef !== rawMockScenario.activity.focusId ||
-      input.supportRef !== rawMockScenario.activity.supportId ||
-      input.semanticBasisRef !== mockScenarioRefs.basis
+      input.supportRef !== rawMockScenario.activity.supportId
     ) {
       return rejected("Activity start does not match the deterministic scenario.");
     }
@@ -540,11 +549,16 @@ export class MockFrontendAdapter
   async completeActivity(
     input: CompleteActivityInput,
   ): Promise<SemanticOutcome<ActivityCompletionModel>> {
-    if (
-      input.activityAttemptRef !== mockScenarioRefs.activityAttempt ||
-      input.semanticBasisRef !== mockScenarioRefs.basis
-    ) {
-      return rejected("Activity completion does not match the current attempt/basis.");
+    if (input.semanticBasisRef !== mockScenarioRefs.basis) {
+      return {
+        status: "stale-basis",
+        message: "Activity completion basis is no longer current.",
+        currentBasisRef: mockScenarioRefs.basis,
+      };
+    }
+
+    if (input.activityAttemptRef !== mockScenarioRefs.activityAttempt) {
+      return rejected("Activity completion does not match the current attempt.");
     }
 
     return accepted(

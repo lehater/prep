@@ -6,13 +6,25 @@ import {
   useState,
 } from "react";
 
-import type { FocusRef, TargetRef } from "../../features/contracts";
+import type {
+  FocusRef,
+  SemanticBasisRef,
+  TargetRef,
+} from "../../features/contracts";
+
+export interface AcceptedFocusContext {
+  readonly focusRef: FocusRef;
+  readonly purpose: string;
+  readonly rationale: string;
+  readonly semanticBasisRef: SemanticBasisRef;
+}
 
 export interface PreparationContextValue {
   readonly activeTargetRef: TargetRef | null;
+  readonly activeFocus: AcceptedFocusContext | null;
   readonly activeFocusRef: FocusRef | null;
   readonly setAcceptedTarget: (targetRef: TargetRef | null) => void;
-  readonly setAcceptedFocus: (focusRef: FocusRef | null) => void;
+  readonly setAcceptedFocus: (focus: AcceptedFocusContext | null) => void;
 }
 
 const PreparationContext = createContext<PreparationContextValue | null>(null);
@@ -23,23 +35,26 @@ export function PreparationContextProvider({
   readonly children: ReactNode;
 }) {
   const [activeTargetRef, setActiveTargetRef] = useState<TargetRef | null>(null);
-  const [activeFocusRef, setActiveFocusRef] = useState<FocusRef | null>(null);
+  const [activeFocus, setActiveFocus] = useState<AcceptedFocusContext | null>(
+    null,
+  );
 
   const value = useMemo<PreparationContextValue>(
     () => ({
       activeTargetRef,
-      activeFocusRef,
+      activeFocus,
+      activeFocusRef: activeFocus?.focusRef ?? null,
       setAcceptedTarget: (targetRef) => {
         setActiveTargetRef((current) => {
           if (current !== targetRef) {
-            setActiveFocusRef(null);
+            setActiveFocus(null);
           }
           return targetRef;
         });
       },
-      setAcceptedFocus: setActiveFocusRef,
+      setAcceptedFocus: setActiveFocus,
     }),
-    [activeFocusRef, activeTargetRef],
+    [activeFocus, activeTargetRef],
   );
 
   return (
