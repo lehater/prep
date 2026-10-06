@@ -567,6 +567,11 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.getByRole("button", { name: "Сбросить", exact: true }).click();
   await expect(page.getByText("25/25", { exact: true })).toBeVisible();
 
+  await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
+    "Все виды",
+    "KnowledgeObject",
+    "KnowledgeProposition",
+  ]);
   await expect(page.getByLabel("Форма знания").locator("option")).toHaveText([
     "Все формы",
     "concept",
