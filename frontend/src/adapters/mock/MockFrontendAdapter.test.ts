@@ -191,6 +191,11 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(knowledge.anchorRefs).toEqual([
       mockScenarioRefs.knowledgeConsistency,
       mockScenarioRefs.knowledgeCaching,
+      mockScenarioRefs.knowledgeWriteThroughCaching,
+      mockScenarioRefs.knowledgeCacheEvictionStrategy,
+      mockScenarioRefs.knowledgeLruEvictionProcedure,
+      mockScenarioRefs.knowledgeCacheCoherenceModel,
+      mockScenarioRefs.knowledgeIdempotency,
     ]);
     expect(knowledge.requiredCapabilityLabel).toBe("System design");
     expect(knowledge.items.length).toBeGreaterThan(0);
@@ -199,7 +204,21 @@ describe("MockFrontendAdapter semantic contract", () => {
         (item) => item.knowledgeRef === mockScenarioRefs.knowledgeCaching,
       )?.knowledgeForm,
     ).toBe("strategy");
-    expect(knowledge.relationships).toEqual([]);
+    expect(knowledge.relationships).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          propositionRef: mockScenarioRefs.relationLruRealizesEvictionStrategy,
+          family: "realization",
+          predicate: "realizes",
+        }),
+        expect.objectContaining({
+          propositionRef:
+            mockScenarioRefs.relationWriteThroughSpecializesCaching,
+          family: "taxonomic",
+          predicate: "specializes",
+        }),
+      ]),
+    );
 
     const filtered = acceptedValue(
       await adapter.queryKnowledge({
@@ -249,12 +268,19 @@ describe("MockFrontendAdapter semantic contract", () => {
           targetRef: mockScenarioRefs.knowledgeEventLoop,
         }),
         expect.objectContaining({
+          propositionRef: mockScenarioRefs.relationBackpressureAddressesOverload,
+          family: "problem_response",
+          predicate: "addresses",
+          sourceRef: mockScenarioRefs.knowledgeBackpressure,
+          targetRef: mockScenarioRefs.knowledgeProducerConsumerOverload,
+        }),
+        expect.objectContaining({
           propositionRef:
-            mockScenarioRefs.relationEventLoopRealizesAsyncProgramming,
-          family: "realization",
-          predicate: "realizes",
-          sourceRef: mockScenarioRefs.knowledgeEventLoop,
-          targetRef: mockScenarioRefs.knowledgeAsyncProgramming,
+            mockScenarioRefs.relationWorkerThreadsProducesExecutionContext,
+          family: "production_origination_transformation",
+          predicate: "produces",
+          sourceRef: mockScenarioRefs.knowledgeWorkerThreads,
+          targetRef: mockScenarioRefs.knowledgeWorkerExecutionContext,
         }),
       ]),
     );
@@ -286,6 +312,57 @@ describe("MockFrontendAdapter semantic contract", () => {
     expect(eventLoopMatches.items.map((item) => item.knowledgeRef)).toContain(
       mockScenarioRefs.knowledgeEventLoop,
     );
+  });
+
+  it("covers the accepted Subject Knowledge vocabulary without inventing candidate relations", async () => {
+    const knowledge = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        scope: "overview",
+      }),
+    );
+
+    const forms = [
+      ...new Set(
+        knowledge.items.flatMap((item) =>
+          item.knowledgeForm ? [item.knowledgeForm] : [],
+        ),
+      ),
+    ].sort();
+    expect(forms).toEqual([
+      "concept",
+      "mechanism",
+      "model",
+      "procedure",
+      "property",
+      "strategy",
+    ]);
+
+    const predicates = [
+      ...new Set(
+        knowledge.relationships.map((relationship) => relationship.predicate),
+      ),
+    ].sort();
+    expect(predicates).toEqual([
+      "addresses",
+      "part_of",
+      "produces",
+      "realizes",
+      "specializes",
+    ]);
+
+    const families = [
+      ...new Set(
+        knowledge.relationships.map((relationship) => relationship.family),
+      ),
+    ].sort();
+    expect(families).toEqual([
+      "partitive",
+      "problem_response",
+      "production_origination_transformation",
+      "realization",
+      "taxonomic",
+    ]);
   });
 
   it("does not turn Activity completion into learner-state progress", async () => {
