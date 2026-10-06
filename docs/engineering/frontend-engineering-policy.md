@@ -149,8 +149,9 @@ Rules:
   merge-gate evidence;
 - required fast checks do not use path filtering while they remain cheap enough to run
   unconditionally;
-- path filtering is appropriate for isolated non-gate workloads whose ownership boundary is
-  explicit, such as a maintained experiment that is irrelevant to ordinary Prep changes;
+- isolated workloads whose ownership boundary is explicit may use changed-path detection
+  inside an always-present required job; this preserves a stable merge-gate status while
+  avoiding their cost on unrelated changes;
 - unknown or cross-cutting changes must prefer broader validation rather than skipping a
   potentially relevant required check;
 - concurrency cancels superseded work for the same pull request where a workflow can overlap.
