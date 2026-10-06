@@ -11,8 +11,12 @@ export interface KnowledgeRelationshipNodeModel {
 }
 
 export interface KnowledgeRelationshipEdgeModel {
+  readonly propositionRef: KnowledgeRef;
   readonly sourceRef: KnowledgeRef;
   readonly targetRef: KnowledgeRef;
+  readonly family: string;
+  readonly predicate: string;
+  readonly label: string;
 }
 
 export interface KnowledgeRelationshipOverviewModel {
