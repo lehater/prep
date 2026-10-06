@@ -845,10 +845,12 @@ a:focus-visible {
 .knowledge-filter-toolbar {
   display: grid;
   grid-template-columns:
-    minmax(220px, 2fr)
-    minmax(110px, 0.7fr)
-    minmax(130px, 0.8fr)
-    minmax(105px, 0.65fr)
+    minmax(190px, 1.7fr)
+    minmax(95px, 0.65fr)
+    minmax(95px, 0.65fr)
+    minmax(130px, 0.9fr)
+    minmax(110px, 0.75fr)
+    minmax(95px, 0.65fr)
     auto
     auto;
   gap: 5px;
@@ -1186,6 +1188,16 @@ a:focus-visible {
   stroke-width: 1.1;
 }
 
+.knowledge-relationship-edge-label {
+  fill: #5f6b7c;
+  font-size: 3.1px;
+  font-weight: 650;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 1.4px;
+  stroke-linejoin: round;
+}
+
 .knowledge-relationship-node {
   --knowledge-node-size: 10px;
   position: absolute;
@@ -1293,6 +1305,15 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+.knowledge-detail-relations .knowledge-relation-predicate {
+  border-radius: 999px;
+  background: #eef2ff;
+  padding: 1px 5px;
+  color: #334f9f;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
 .knowledge-detail-relations p {
   margin: 5px 0 0;
   font-size: 0.68rem;
@@ -1352,7 +1373,11 @@ a:focus-visible {
   }
 
   .knowledge-filter-toolbar {
-    grid-template-columns: minmax(180px, 1fr) repeat(3, minmax(92px, auto)) auto;
+    grid-template-columns: minmax(180px, 1fr) repeat(3, minmax(92px, 1fr));
+  }
+
+  .knowledge-search-control {
+    grid-column: 1 / -1;
   }
 
   .knowledge-workspace-body {
