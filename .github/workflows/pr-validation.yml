@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: pr-validation-${{ github.event.pull_request.number || github.ref }}
@@ -88,6 +88,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -171,6 +173,30 @@ jobs:
             /tmp/ui-revalidation.patch
             /tmp/project-publication.yaml
             /tmp/ui-candidates/
+
+      - name: Persist UI revalidation outputs
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add \
+            .harness/project-publication.yaml \
+            .harness/candidates/frontend-boundary-topology-request.json \
+            .harness/candidates/frontend-boundary-topology-exploration.yaml \
+            .harness/candidates/presentation-screen-presentation-request.json \
+            .harness/candidates/presentation-screen-presentation-exploration.yaml \
+            .harness/candidates/presentation-screen-screen-request.json \
+            .harness/candidates/presentation-screen-screen-exploration.yaml
+          if git diff --cached --quiet; then
+            echo "UI revalidation outputs already persisted"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Publish UI materiality revalidation"
+          git push origin HEAD:"$HEAD_REF"
 
       - name: Validate documentation links
         run: python tools/validate_docs.py
