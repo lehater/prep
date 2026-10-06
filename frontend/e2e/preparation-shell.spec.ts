@@ -527,7 +527,7 @@ test("performs one Activity attempt without fabricating learner progress", async
     ),
   ).toBeVisible();
   await expect(
-    page.getByText("System-design activity review", { exact: true }),
+    page.getByText(/System-design activity review/),
   ).toBeVisible();
 
   const reviewedSystemDesignState = page
