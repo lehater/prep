@@ -173,13 +173,13 @@ def next_acceptance_id(old: str) -> str:
     return old + "-POLICY-REVALIDATION-1"
 
 
-def replace_artifact_evaluation(bundle: dict[str, Any], evaluation: dict[str, Any]) -> None:
+def upsert_artifact_evaluation(bundle: dict[str, Any], evaluation: dict[str, Any]) -> None:
     key = (evaluation["artifact"], evaluation["capability"])
     for index, row in enumerate(bundle["semantic_evaluations"]):
         if (row.get("artifact"), row.get("capability")) == key:
             bundle["semantic_evaluations"][index] = evaluation
             return
-    raise RuntimeError(f"artifact evaluation missing: {key}")
+    bundle["semantic_evaluations"].append(evaluation)
 
 
 def upsert_derivation_evaluation(bundle: dict[str, Any], evaluation: dict[str, Any]) -> None:
@@ -191,12 +191,12 @@ def upsert_derivation_evaluation(bundle: dict[str, Any], evaluation: dict[str, A
     bundle["derivation_evaluations"].append(evaluation)
 
 
-def replace_provider(lifecycle: dict[str, Any], provider: dict[str, Any]) -> None:
+def upsert_provider(lifecycle: dict[str, Any], provider: dict[str, Any]) -> None:
     for index, row in enumerate(lifecycle["providers"]):
         if row.get("capability") == provider["capability"]:
             lifecycle["providers"][index] = provider
             return
-    raise RuntimeError(f"lifecycle provider missing: {provider['capability']}")
+    lifecycle["providers"].append(provider)
 
 
 def mentioned_sources(evidence: dict[str, Any]) -> set[str]:
@@ -412,9 +412,6 @@ def main() -> int:
         "prep.frontend-test-design",
         "prep.frontend-implementation-design",
     }
-    missing_selected = sorted(selected_caps - all_current_caps)
-    if missing_selected:
-        raise RuntimeError(f"selected frontend lifecycle providers missing: {missing_selected}")
     order = topo_order(graph, selected_caps)
     productions = production_index(graph)
 
@@ -442,7 +439,10 @@ def main() -> int:
         for requirement in productions[capability].get("requires", []) or []:
             source_capability = requirement.get("capability")
             if source_capability not in all_current_caps:
-                continue
+                raise RuntimeError(
+                    f"{capability}: required upstream capability is not CURRENT/published: "
+                    f"{source_capability}"
+                )
             _, source_candidate = choose_candidate(
                 source_capability, candidates, lifecycle_rows
             )
@@ -485,8 +485,14 @@ def main() -> int:
                 )
             )
 
-        old_provider = lifecycle_rows[capability]
-        acceptance_id = next_acceptance_id(old_provider["acceptance_id"])
+        old_provider = lifecycle_rows.get(capability)
+        if old_provider is None:
+            artifact_id = artifact_for_capability(CORE, capability)
+            acceptance_id = f"PREP-{artifact_id}-STRICT-1"
+            request_mode = "CREATE"
+        else:
+            acceptance_id = next_acceptance_id(old_provider["acceptance_id"])
+            request_mode = "REVISION"
         kwargs = dict(
             graph=graph,
             model=CORE,
@@ -500,7 +506,7 @@ def main() -> int:
             candidate=candidate,
             acceptance_id=acceptance_id,
             lifecycle=lifecycle,
-            decision_request_mode="REVISION",
+            decision_request_mode=request_mode,
         )
         admitted, bound = admit_with_exploration(
             capability=capability,
@@ -508,12 +514,13 @@ def main() -> int:
             templates=explorations,
         )
 
-        replace_artifact_evaluation(semantic_set, admitted)
+        upsert_artifact_evaluation(semantic_set, admitted)
         for edge in incoming:
             upsert_derivation_evaluation(semantic_set, edge)
             derivations[(edge["source_capability"], edge["target_capability"])] = edge
-        replace_provider(lifecycle, admitted["lifecycle_assertion"])
+        upsert_provider(lifecycle, admitted["lifecycle_assertion"])
         lifecycle_rows[capability] = admitted["lifecycle_assertion"]
+        all_current_caps.add(capability)
 
         if bound is not None:
             template_path, exploration = bound
