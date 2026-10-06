@@ -1,0 +1,99 @@
+name: Consolidation Harness checkpoint
+
+on:
+  push:
+    branches:
+      - consolidate/ui-architecture-2026-10-06
+
+permissions:
+  contents: read
+
+jobs:
+  harness-checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Materialize pinned Consumer Pack
+        id: pack
+        shell: bash
+        run: |
+          PACK="$(python .harness/harnessw.py sync)"
+          echo "path=$PACK" >> "$GITHUB_OUTPUT"
+          mkdir -p .harness/diagnostics
+          echo "$PACK" > .harness/diagnostics/consumer-pack-path.txt
+
+      - name: Route required consumer procedures
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.application.skill_router operation --surface consumer --operation project-bootstrap-reconcile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-project-bootstrap-reconcile.json"
+          python -m harness.application.skill_router operation --surface consumer --operation design-profile > "$GITHUB_WORKSPACE/.harness/diagnostics/route-design-profile.json"
+
+      - name: Print routed contracts and skill instructions
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          workspace = Path.cwd()
+          pack = Path((workspace / ".harness/diagnostics/consumer-pack-path.txt").read_text().strip())
+          diagnostics = workspace / ".harness/diagnostics"
+
+          def strings(x):
+              if isinstance(x, str):
+                  yield x
+              elif isinstance(x, dict):
+                  for v in x.values():
+                      yield from strings(v)
+              elif isinstance(x, list):
+                  for v in x:
+                      yield from strings(v)
+
+          for route_path in sorted(diagnostics.glob("route-*.json")):
+              print(f"===== ROUTE {route_path.name} =====")
+              data = json.loads(route_path.read_text())
+              print(json.dumps(data, indent=2))
+              refs = list(dict.fromkeys(strings(data)))
+              contracts = []
+              skills = []
+              for ref in refs:
+                  candidates = [Path(ref)]
+                  if not Path(ref).is_absolute():
+                      candidates += [pack / ref, workspace / ref]
+                  for p in candidates:
+                      if p.is_file():
+                          name = p.name.lower()
+                          normalized = str(p).lower()
+                          if "instruction" in normalized and "contract" in normalized:
+                              contracts.append(p)
+                          if name == "skill.md":
+                              skills.append(p)
+              for p in dict.fromkeys(contracts):
+                  print(f"===== INSTRUCTION CONTRACT {p} =====")
+                  print(p.read_text())
+              for p in dict.fromkeys(skills):
+                  print(f"===== SKILL {p} =====")
+                  print(p.read_text())
+          PY
+
+      - name: Validate current project publication
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          python -m harness.project_model.engineering_graph validate "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml"
+          python -m harness.application.graph_doctor "$GITHUB_WORKSPACE/.harness/engineering-graph.yaml" --core-model "$GITHUB_WORKSPACE/.harness/core.yaml" --target FRONTEND-IMPLEMENTATION --source-root "$GITHUB_WORKSPACE" --json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: consolidation-harness-checkpoint
+          path: .harness/diagnostics
