@@ -1,0 +1,12 @@
+version: 1
+kind: harness-decision-policy
+knowledge_kinds:
+  - knowledge_kind: interface-topology-design
+    exploration: EXPLORE
+    autonomy: CONSERVATIVE
+  - knowledge_kind: presentation-system-design
+    exploration: EXPLORE
+    autonomy: CONSERVATIVE
+  - knowledge_kind: screen-view-design
+    exploration: EXPLORE
+    autonomy: CONSERVATIVE

@@ -1,0 +1,76 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.interface-topology
+knowledge_kind: interface-topology-design
+explorer_request_id: sha256:bc79915f6977b7c7e7c855efc87c1fd86e0a885af302f0d96afb52b6d22e3aa1
+research_sources: []
+axes:
+- axis: view-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: merge-vs-separate-view
+    challenge: Merge distinct preparation responsibilities, then split them again,
+      and test goal continuity and independent addressability.
+    alternatives:
+    - task-responsibility-views-with-contextual-recovery
+    - single-preparation-workspace
+    - destination-per-subtask
+  - strategy: persistent-context-vs-navigation
+    challenge: Move active Target/focus continuity from persistent shared context
+      into navigation reconstruction and test working-state loss.
+    alternatives:
+    - task-responsibility-views-with-contextual-recovery
+    - single-preparation-workspace
+    - destination-per-subtask
+  - strategy: contextual-surface-vs-destination
+    challenge: Promote evidence/detail/support surfaces to destinations and test whether
+      they gain independent goals or merely fragment originating task state.
+    alternatives:
+    - task-responsibility-views-with-contextual-recovery
+    - destination-per-subtask
+  decision_points:
+  - id: preparation-view-boundaries
+    alternatives:
+    - id: task-responsibility-views-with-contextual-recovery
+      difference: Primary preparation responsibilities remain independently addressable
+        task views; evidence/detail/support stay contextual when they depend on originating
+        working state.
+      material_effects:
+        goal-continuity: primary-task-bounded
+        information-dependency: shared-preparation-context
+        working-state-continuity: active-target-focus-preserved
+        commit-recovery-boundary: contextual-recovery-within-origin
+        mode-authority-boundary: no-independent-mode
+        independent-addressability: task-views-addressable-contextual-surfaces-context-bound
+    - id: single-preparation-workspace
+      difference: Target, Current, Knowledge and Activity collapse into one undifferentiated
+        workspace.
+      material_effects:
+        goal-continuity: mixed-task-responsibilities
+        information-dependency: all-context-co-located
+        working-state-continuity: implicit-global
+        commit-recovery-boundary: undifferentiated
+        mode-authority-boundary: no-independent-mode
+        independent-addressability: workspace-only
+    - id: destination-per-subtask
+      difference: Contextual evidence/detail/support subtasks become independently
+        navigable destinations.
+      material_effects:
+        goal-continuity: fragmented-per-subtask
+        information-dependency: navigation-mediated
+        working-state-continuity: route-reconstruction
+        commit-recovery-boundary: destination-return
+        mode-authority-boundary: accidental-destination-semantics
+        independent-addressability: every-subtask-addressable
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - impact-and-reversal-frontier-check
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - preparation-view-boundaries
+  open_gaps: []

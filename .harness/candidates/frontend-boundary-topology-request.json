@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "kind": "harness-decision-explorer-request",
+  "capability": "prep.interface-topology",
+  "knowledge_kind": "interface-topology-design",
+  "authority": "HUMAN-INTERFACE-DESIGN",
+  "mode": "REVISION",
+  "accepted_prerequisites": {
+    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-6",
+    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-5"
+  },
+  "canonical_inputs": [
+    {
+      "id": "CONCEPTUAL-INTERFACE-MODEL",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/conceptual-interface-model.yaml",
+      "provides": [
+        "prep.conceptual-interface-model"
+      ]
+    },
+    {
+      "id": "INFORMATION-ARCHITECTURE",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/information-architecture.yaml",
+      "provides": [
+        "prep.information-architecture"
+      ]
+    },
+    {
+      "id": "INTERACTION-DESIGN",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/interaction-design.yaml",
+      "provides": [
+        "prep.interaction-design"
+      ]
+    },
+    {
+      "id": "INTERFACE-TOPOLOGY",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/interface-topology.yaml",
+      "provides": [
+        "prep.interface-topology"
+      ],
+      "purpose": "CURRENT_ACCEPTED_BASELINE"
+    }
+  ],
+  "downstream_consumers": [
+    {
+      "kind": "production",
+      "consumer": "prep.interface-verification",
+      "authority": "VERIFICATION-DESIGN",
+      "capabilities": [
+        "prep.interface-topology"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.presentation-system",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.interface-topology"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.screen-view-design",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "capabilities": [
+        "prep.interface-topology"
+      ]
+    },
+    {
+      "kind": "production",
+      "consumer": "prep.system-architecture",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capabilities": [
+        "prep.interface-topology"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "axis": "view-boundaries",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "goal-continuity",
+        "information-dependency",
+        "working-state-continuity",
+        "commit-recovery-boundary",
+        "mode-authority-boundary",
+        "independent-addressability"
+      ],
+      "challenge_strategies": [
+        "merge-vs-separate-view",
+        "persistent-context-vs-navigation",
+        "contextual-surface-vs-destination"
+      ],
+      "minimum_probes": 2
+    }
+  ],
+  "forbidden_inputs": [
+    "future_candidate",
+    "decision_review",
+    "preferred_solution",
+    "selected_solution",
+    "write_set"
+  ],
+  "request_id": "sha256:bc79915f6977b7c7e7c855efc87c1fd86e0a885af302f0d96afb52b6d22e3aa1"
+}

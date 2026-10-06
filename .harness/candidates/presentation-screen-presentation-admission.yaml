@@ -12,6 +12,16 @@ canonical_references:
   - {artifact: PRESENTATION-SYSTEM, referenced_path: docs/architecture/performance-capacity.md}
 decision_review:
   axes:
+    - axis: application-surface
+      decisions:
+        - id: shared-application-surface
+          owner_authority: HUMAN-INTERFACE-DESIGN
+          alternatives:
+            - {id: document-page-flow, state: REJECTED, rationale: "Primary preparation tasks require persistent application context and several bounded task regions on capable wide surfaces; page-owned document scrolling would make workspace ownership implicit and expensive to reverse downstream."}
+            - {id: bounded-desktop-workbench, state: VIABLE}
+            - {id: step-task-flow, state: REJECTED, rationale: "A step-dominant flow would hide inspectable target, state, Knowledge and activity context that accepted tasks require users to revisit without introducing a new semantic stage model."}
+          disposition: DETERMINED
+          selected: bounded-desktop-workbench
     - axis: knowledge-representation
       decisions:
         - id: shared-knowledge-representation
@@ -44,6 +54,7 @@ decision_review:
           disposition: DETERMINED
           selected: contextual-controls-keyboard-equivalent
 semantic_assertions:
+  - {id: PS-APPLICATION-SURFACE, kind: presentation-principle, subject: bounded-application-workbench, semantic_value: "On capable wide surfaces Prep is a bounded application/workbench: the shell owns the available viewport, preparation navigation remains persistent, the active task workspace occupies the remaining bounded area and task regions may own internal overflow; constrained surfaces preserve semantic priority through reflow/disclosure. This fixes structural ownership, not pane geometry, resizing mechanics or CSS.", derived_from: [TOP-ROOT, TOP-CONTEXT, TOP-CROSSLINKS, IX-CONTEXT-CONTINUITY, IX-KEYBOARD, QD-ACTIVE-WORKING-SET-FREEDOM], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: PS-TASK-HIERARCHY, kind: presentation-principle, subject: task-first-hierarchy, semantic_value: "Each view has one dominant task surface; active Target/focus remain supporting recoverable context, and Target requirement inspection keeps Required Capability performance and direct Knowledge focus visibly distinct but colocated.", derived_from: [CIM-REL-TARGET-CAPABILITY, TOP-ROOT, TOP-VIEW-TARGET, TOP-VIEW-CURRENT, TOP-VIEW-KNOWLEDGE, TOP-VIEW-ACTIVITY, TOP-VIEW-EVIDENCE, TOP-VIEW-PREP-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: PS-KNOWLEDGE-REPRESENTATION, kind: presentation-pattern, subject: knowledge-representation, semantic_value: "Shared Knowledge presentation is task-complete query/result/detail plus optional 2D relationship overview; Required Capability is an explicit optional scope control that visibly bounds results/relationship overview from direct Knowledge-focus anchors, clearing it restores broader target/focus scope, inverse capability browsing is not required and 3D is never the only task path.", derived_from: [CIM-KNOWLEDGE, CIM-KNOWLEDGE-SCOPE, CIM-PRESENTATION-FREEDOM, CIM-REL-CAPABILITY-KNOWLEDGE, CIM-REL-SCOPE-KNOWLEDGE, IA-LOC-KNOWLEDGE, IX-KNOWLEDGE, QD-GRAPH-CONDITIONAL], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: PS-DENSITY, kind: presentation-principle, subject: progressive-focus-context, semantic_value: "Default information density keeps one primary work surface and discloses secondary basis/provenance/detail progressively while preserving essential target/focus context.", derived_from: [IA-STRUCTURE, IX-CONTEXT-CONTINUITY, TOP-CONTEXT], decision_authority: HUMAN-INTERFACE-DESIGN}

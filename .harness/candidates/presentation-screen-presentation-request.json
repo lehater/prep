@@ -4,13 +4,13 @@
   "capability": "prep.presentation-system",
   "knowledge_kind": "presentation-system-design",
   "authority": "HUMAN-INTERFACE-DESIGN",
-  "mode": "CREATE",
+  "mode": "REVISION",
   "accepted_prerequisites": {
-    "prep.conceptual-interface-model": "PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-2",
-    "prep.frontend-performance-capacity": "PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-1",
-    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-1",
-    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-1",
-    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-1"
+    "prep.conceptual-interface-model": "PREP-CONCEPTUAL-INTERFACE-MODEL-STRICT-5",
+    "prep.frontend-performance-capacity": "PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3",
+    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-6",
+    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-5",
+    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-7"
   },
   "canonical_inputs": [
     {
@@ -52,6 +52,15 @@
       "provides": [
         "prep.interface-topology"
       ]
+    },
+    {
+      "id": "PRESENTATION-SYSTEM",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/presentation-system.md",
+      "provides": [
+        "prep.presentation-system"
+      ],
+      "purpose": "CURRENT_ACCEPTED_BASELINE"
     }
   ],
   "downstream_consumers": [
@@ -89,6 +98,23 @@
     }
   ],
   "axes": [
+    {
+      "axis": "application-surface",
+      "exploration": "EXPLORE",
+      "material_dimensions": [
+        "surface-archetype",
+        "viewport-ownership",
+        "navigation-persistence",
+        "overflow-ownership"
+      ],
+      "challenge_strategies": [
+        "document-vs-bounded-workspace",
+        "workspace-vs-step-flow",
+        "page-scroll-vs-region-overflow",
+        "persistent-vs-contextual-navigation"
+      ],
+      "minimum_probes": 2
+    },
     {
       "axis": "knowledge-representation",
       "exploration": "EXPLORE",
@@ -142,5 +168,5 @@
     "selected_solution",
     "write_set"
   ],
-  "request_id": "sha256:7799ade5454e1612b9c52f53fc06edb6911d6a67219c1a0e1a9e43c737637188"
+  "request_id": "sha256:39d0a7a68f63de28d32f96c944a5143c7ec287a08588f0d604ead6259ccc6468"
 }

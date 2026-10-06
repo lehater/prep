@@ -40,15 +40,15 @@ semantic_assertions:
   - id: PV-KNOWLEDGE
     kind: verification-check
     subject: knowledge-projection-fidelity
-    semantic_value: "Spatial and non-spatial Knowledge projections preserve canonical identity, relation meaning, scope basis and selection/focus distinctions; geometry/camera never become semantic truth."
+    semantic_value: "Spatial and non-spatial Knowledge projections preserve canonical identity, relation meaning, relation direction/source-target distinction, scope basis and selection/focus distinctions; geometry/camera never become semantic truth."
     derived_from: [IV-KNOWLEDGE, IV-NONSPATIAL, PS-KNOWLEDGE-REPRESENTATION, PS-PATTERN-QUERY-DETAIL, SV-KNOWLEDGE]
     decision_authority: VERIFICATION-DESIGN
 
   - id: PV-COMPOSITION-VARIANTS
     kind: verification-check
     subject: state-dependent-composition-integrity
-    semantic_value: "Each material Screen/View composition variant preserves the accepted view responsibility, has exactly one dominant task/work region, keeps required context/supporting detail subordinate, and does not introduce a hidden route, product mode or domain state."
-    derived_from: [IV-IA-TOPOLOGY, PS-TASK-HIERARCHY, SV-COMPOSITION-VARIANTS]
+    semantic_value: "Each material Screen/View composition variant preserves the accepted view responsibility, has exactly one dominant task/work region, keeps required context/supporting detail subordinate, and does not introduce a hidden route, product mode or domain state; on capable wide surfaces the bounded application frame retains persistent preparation navigation while child regions own bounded overflow, and the Knowledge spatial-overview variant keeps task-complete nonspatial results simultaneously available."
+    derived_from: [IV-IA-TOPOLOGY, PS-APPLICATION-SURFACE, PS-TASK-HIERARCHY, SV-FRAME, SV-KNOWLEDGE, SV-COMPOSITION-VARIANTS]
     decision_authority: VERIFICATION-DESIGN
 
   - id: PV-RESPONSIVE-ACCESSIBILITY

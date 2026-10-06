@@ -2,9 +2,69 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.presentation-system
 knowledge_kind: presentation-system-design
-explorer_request_id: sha256:7799ade5454e1612b9c52f53fc06edb6911d6a67219c1a0e1a9e43c737637188
+explorer_request_id: sha256:39d0a7a68f63de28d32f96c944a5143c7ec287a08588f0d604ead6259ccc6468
 research_sources: []
 axes:
+- axis: application-surface
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: document-vs-bounded-workspace
+    challenge: Compare page-owned document flow with an application-owned bounded
+      workspace while preserving the same accepted preparation tasks and context continuity.
+    alternatives:
+    - document-page-flow
+    - bounded-desktop-workbench
+    - step-task-flow
+  - strategy: workspace-vs-step-flow
+    challenge: Compare a persistent task workspace with a step-dominant progression
+      and test whether users can revisit Target, Current, Knowledge and Activity context
+      without inventing a new stage model.
+    alternatives:
+    - bounded-desktop-workbench
+    - step-task-flow
+    - document-page-flow
+  - strategy: page-scroll-vs-region-overflow
+    challenge: Move overflow ownership between the page and bounded task regions and
+      test whether wide multi-region inspection keeps stable application context.
+    alternatives:
+    - document-page-flow
+    - bounded-desktop-workbench
+  - strategy: persistent-vs-contextual-navigation
+    challenge: Remove persistent preparation navigation on capable wide surfaces and
+      test the blast radius across cross-view task continuity.
+    alternatives:
+    - document-page-flow
+    - bounded-desktop-workbench
+    - step-task-flow
+  decision_points:
+  - id: shared-application-surface
+    alternatives:
+    - id: document-page-flow
+      difference: The document/page owns vertical flow and primary overflow; navigation
+        is page/contextual rather than a persistent application region.
+      material_effects:
+        surface-archetype: document-flow
+        viewport-ownership: page-document
+        navigation-persistence: contextual-or-page
+        overflow-ownership: document-page
+    - id: bounded-desktop-workbench
+      difference: The application shell owns the viewport, keeps preparation navigation
+        persistent on capable wide surfaces and delegates bounded overflow to task
+        regions.
+      material_effects:
+        surface-archetype: bounded-workbench
+        viewport-ownership: application-shell
+        navigation-persistence: persistent-on-capable-wide
+        overflow-ownership: task-regions
+    - id: step-task-flow
+      difference: A step surface owns the active viewport and progression replaces
+        simultaneous/revisitable workspace context.
+      material_effects:
+        surface-archetype: step-task-flow
+        viewport-ownership: step-surface
+        navigation-persistence: progression-primary
+        overflow-ownership: step-content
 - axis: knowledge-representation
   applicability: APPLICABLE
   exploration_level: EXPLORE
@@ -164,9 +224,11 @@ decision_space_review:
   checks:
   - mixed-decision-split
   - missing-material-case-search
+  - impact-and-reversal-frontier-check
   - accepted-constraint-cross-check
   - authority-boundary-cross-check
   reviewed_decisions:
+  - shared-application-surface
   - shared-knowledge-representation
   - shared-density-model
   - shared-control-surface

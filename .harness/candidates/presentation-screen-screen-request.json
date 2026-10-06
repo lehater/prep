@@ -4,13 +4,13 @@
   "capability": "prep.screen-view-design",
   "knowledge_kind": "screen-view-design",
   "authority": "HUMAN-INTERFACE-DESIGN",
-  "mode": "CREATE",
+  "mode": "REVISION",
   "accepted_prerequisites": {
-    "prep.frontend-performance-capacity": "PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-1",
-    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-1",
-    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-1",
-    "prep.machine-interfaces": "PREP-MACHINE-INTERFACES-STRICT-1",
-    "prep.presentation-system": "PREP-PRESENTATION-SYSTEM-STRICT-1"
+    "prep.frontend-performance-capacity": "PREP-FRONTEND-PERFORMANCE-CAPACITY-STRICT-3",
+    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-5",
+    "prep.interface-topology": "PREP-INTERFACE-TOPOLOGY-STRICT-7",
+    "prep.machine-interfaces": "PREP-MACHINE-INTERFACES-STRICT-5",
+    "prep.presentation-system": "PREP-PRESENTATION-SYSTEM-STRICT-7"
   },
   "canonical_inputs": [
     {
@@ -68,6 +68,15 @@
       "provides": [
         "prep.presentation-system"
       ]
+    },
+    {
+      "id": "SCREEN-VIEW-DESIGN",
+      "authority": "HUMAN-INTERFACE-DESIGN",
+      "path": "docs/interface/screen-view-design.md",
+      "provides": [
+        "prep.screen-view-design"
+      ],
+      "purpose": "CURRENT_ACCEPTED_BASELINE"
     }
   ],
   "downstream_consumers": [
@@ -114,8 +123,8 @@
         "task-colocation"
       ],
       "challenge_strategies": [
-        "single-vs-split",
-        "co-locate-vs-separate",
+        "region-vs-pane",
+        "co-locate-vs-disclose",
         "region-priority-shift"
       ],
       "minimum_probes": 2
@@ -130,7 +139,7 @@
       ],
       "challenge_strategies": [
         "inline-vs-overlay",
-        "same-view-vs-dedicated",
+        "local-detail-vs-disclosure",
         "context-preservation-perturbation"
       ],
       "minimum_probes": 2
@@ -158,5 +167,5 @@
     "selected_solution",
     "write_set"
   ],
-  "request_id": "sha256:e35aa992f8cf80547a6ad22625968e3433250adfe679313607578ac02268982e"
+  "request_id": "sha256:08edaaea60ee474aec4453b80ad3ce3dc69d87d5554590b07bd0224f11238d93"
 }

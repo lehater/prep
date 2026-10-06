@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.presentation-system
+target_capability: prep.screen-view-design
+links:
+  - {sources: [PS-APPLICATION-SURFACE], relation: CONSTRAINS, targets: [SV-FRAME, SV-KNOWLEDGE, SV-COMPOSITION-VARIANTS]}
+  - {sources: [PS-TASK-HIERARCHY], relation: TRANSFORMS, targets: [SV-DETAIL, SV-FRAME]}
+  - {sources: [PS-KNOWLEDGE-REPRESENTATION], relation: TRANSFORMS, targets: [SV-KNOWLEDGE]}
+  - {sources: [PS-DENSITY], relation: CONSTRAINS, targets: [SV-DETAIL]}
+  - {sources: [PS-CONTROLS], relation: CONSTRAINS, targets: [SV-FRAME, SV-RESPONSIVE]}
+  - {sources: [PS-PATTERN-CONTEXT], relation: TRANSFORMS, targets: [SV-FRAME, SV-TARGET]}
+  - {sources: [PS-PATTERN-QUERY-DETAIL], relation: TRANSFORMS, targets: [SV-KNOWLEDGE]}
+  - {sources: [PS-PATTERN-STATE-BASIS], relation: TRANSFORMS, targets: [SV-CURRENT, SV-EVIDENCE]}
+  - {sources: [PS-PATTERN-ACTIVITY], relation: TRANSFORMS, targets: [SV-ACTIVITY]}
+  - {sources: [PS-PATTERN-PREP-SUPPORT], relation: TRANSFORMS, targets: [SV-PREP-SUPPORT]}
+  - {sources: [PS-OUTCOMES], relation: TRANSFORMS, targets: [SV-ACTIVITY, SV-CURRENT, SV-EVIDENCE, SV-PREP-SUPPORT, SV-TARGET]}
+  - {sources: [PS-RESPONSIVE], relation: CONSTRAINS, targets: [SV-RESPONSIVE]}
+  - {sources: [PS-ACCESSIBILITY], relation: CONSTRAINS, targets: [SV-RESPONSIVE]}
+  - {sources: [PS-DEGRADATION], relation: CONSTRAINS, targets: [SV-KNOWLEDGE, SV-PERFORMANCE]}
+  - {sources: [PS-FREEDOMS], relation: CONSTRAINS, targets: [SV-NO-IMPLEMENTATION]}
+  - {sources: [PS-PATTERN-TARGET-COMPARISON], relation: TRANSFORMS, targets: [SV-TARGETS]}
+dispositions: []

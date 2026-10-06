@@ -1,0 +1,22 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.presentation-system
+target_capability: prep.frontend-engineering-policy
+links:
+  - {sources: [PS-APPLICATION-SURFACE], relation: CONSTRAINS, targets: [EP-PRESENTATION]}
+  - {sources: [PS-TASK-HIERARCHY], relation: TRANSFORMS, targets: [EP-OWNERSHIP, EP-PRESENTATION]}
+  - {sources: [PS-KNOWLEDGE-REPRESENTATION], relation: TRANSFORMS, targets: [EP-PROVIDERS]}
+  - {sources: [PS-RESPONSIVE], relation: TRANSFORMS, targets: [EP-PRESENTATION]}
+  - {sources: [PS-ACCESSIBILITY], relation: TRANSFORMS, targets: [EP-PRESENTATION]}
+  - {sources: [PS-DEGRADATION], relation: TRANSFORMS, targets: [EP-PERFORMANCE]}
+  - {sources: [PS-FREEDOMS], relation: TRANSFORMS, targets: [EP-PROVIDERS]}
+dispositions:
+  - {source: PS-CONTROLS, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation control convention."}
+  - {source: PS-DENSITY, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation density convention."}
+  - {source: PS-OUTCOMES, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation outcome convention."}
+  - {source: PS-PATTERN-ACTIVITY, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation activity pattern."}
+  - {source: PS-PATTERN-CONTEXT, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation context pattern."}
+  - {source: PS-PATTERN-PREP-SUPPORT, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation support pattern."}
+  - {source: PS-PATTERN-QUERY-DETAIL, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation query/detail pattern."}
+  - {source: PS-PATTERN-STATE-BASIS, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation state-basis pattern."}
+  - {source: PS-PATTERN-TARGET-COMPARISON, status: NOT_APPLICABLE, rationale: "No Engineering Policy assertion derives directly from this presentation target-comparison pattern."}

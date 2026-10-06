@@ -1,0 +1,29 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.presentation-system
+target_capability: prep.frontend-system-architecture
+links:
+  - {sources: [PS-TASK-HIERARCHY], relation: TRANSFORMS, targets: [FSA-RUNTIME]}
+  - {sources: [PS-KNOWLEDGE-REPRESENTATION], relation: TRANSFORMS, targets: [FSA-SPATIAL]}
+  - {sources: [PS-OUTCOMES], relation: TRANSFORMS, targets: [FSA-FAILURE]}
+  - {sources: [PS-DEGRADATION], relation: TRANSFORMS, targets: [FSA-FAILURE, FSA-SPATIAL]}
+  - {sources: [PS-FREEDOMS], relation: TRANSFORMS, targets: [FSA-NO-LEGACY]}
+dispositions:
+  - source: PS-APPLICATION-SURFACE
+    status: NOT_APPLICABLE
+    rationale: >-
+      Application-shell viewport ownership, persistent wide navigation and bounded
+      region overflow are Presentation/Screen composition constraints. They do not
+      change frontend runtime count, deployable boundaries, task-module ownership,
+      canonical-state placement, dependency direction or provider seams, so no
+      new System Architecture assertion is derived from this source.
+  - {source: PS-ACCESSIBILITY, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation accessibility default."}
+  - {source: PS-CONTROLS, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation control convention."}
+  - {source: PS-DENSITY, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation density convention."}
+  - {source: PS-PATTERN-ACTIVITY, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation activity pattern."}
+  - {source: PS-PATTERN-CONTEXT, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation context pattern."}
+  - {source: PS-PATTERN-PREP-SUPPORT, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation support pattern."}
+  - {source: PS-PATTERN-QUERY-DETAIL, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation query/detail pattern."}
+  - {source: PS-PATTERN-STATE-BASIS, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation state-basis pattern."}
+  - {source: PS-PATTERN-TARGET-COMPARISON, status: NOT_APPLICABLE, rationale: "No frontend System Architecture assertion derives directly from this presentation target-comparison pattern."}
+  - {source: PS-RESPONSIVE, status: NOT_APPLICABLE, rationale: "Responsive presentation semantics remain downstream of frontend System Architecture boundaries."}

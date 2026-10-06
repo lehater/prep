@@ -117,6 +117,8 @@ positive-only success interpretation is introduced.
 Verify every applicable Presentation Verification obligation has evidence, including:
 
 - one dominant task surface for each state-dependent Screen/View composition variant;
+- bounded application-frame ownership on capable wide surfaces, with persistent preparation navigation and child-region overflow that does not turn the whole interface into document scrolling;
+- Knowledge wide composition keeps the declared task-complete nonspatial path available alongside an enabled relationship overview, and directed relations remain source/target-distinguishable;
 - context continuity and responsive semantic order;
 - keyboard/non-spatial task completion;
 - preparation-support request/result/recovery;
