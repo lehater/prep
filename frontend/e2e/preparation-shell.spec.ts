@@ -137,7 +137,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
   await expect(
     page.getByText("System design", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("2/2", { exact: true })).toBeVisible();
+  await expect(page.getByText("7/7", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
       "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
@@ -565,7 +565,33 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Сбросить", exact: true }).click();
-  await expect(page.getByText("18/18", { exact: true })).toBeVisible();
+  await expect(page.getByText("25/25", { exact: true })).toBeVisible();
+
+  await expect(page.getByLabel("Форма знания").locator("option")).toHaveText([
+    "Все формы",
+    "concept",
+    "mechanism",
+    "model",
+    "procedure",
+    "property",
+    "strategy",
+  ]);
+  await expect(page.getByLabel("Семейство связи").locator("option")).toHaveText([
+    "Все семейства связей",
+    "partitive",
+    "problem_response",
+    "production_origination_transformation",
+    "realization",
+    "taxonomic",
+  ]);
+  await expect(page.getByLabel("Тип связи").locator("option")).toHaveText([
+    "Все типы связей",
+    "addresses",
+    "part_of",
+    "produces",
+    "realizes",
+    "specializes",
+  ]);
 
   const viewportState = await page.evaluate(() => ({
     innerHeight: window.innerHeight,
@@ -576,26 +602,26 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   );
 
   await page.getByLabel("Тип знания").selectOption("object");
-  await expect(page.getByText("9/18", { exact: true })).toBeVisible();
+  await expect(page.getByText("17/25", { exact: true })).toBeVisible();
 
   await page.getByLabel("Форма знания").selectOption("mechanism");
-  await expect(page.getByText("4/18", { exact: true })).toBeVisible();
+  await expect(page.getByText("5/25", { exact: true })).toBeVisible();
 
   await page.getByRole("button", { name: "Сбросить", exact: true }).click();
 
   await page.getByLabel("Семейство связи").selectOption("partitive");
-  await expect(page.getByText("2/18", { exact: true })).toBeVisible();
+  await expect(page.getByText("2/25", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Тип связи")).toHaveValue("all");
   await expect(
     page.getByLabel("Тип связи").locator('option[value="part_of"]'),
-  ).toHaveText("часть");
+  ).toHaveText("part_of");
 
   await page.getByLabel("Тип связи").selectOption("part_of");
   await expect(
     page.locator('[data-predicate="part_of"]'),
   ).toHaveCount(1);
   await expect(
-    page.locator(".knowledge-relationship-edge-label").getByText("часть"),
+    page.locator(".knowledge-relationship-edge-label").getByText("part_of"),
   ).toBeVisible();
 
   await page
@@ -603,7 +629,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     .getByRole("button", { name: "Очередь задач", exact: true })
     .click();
   await expect(
-    page.getByLabel("Детали знания").getByText("часть", { exact: true }),
+    page.getByLabel("Детали знания").getByText("part_of", { exact: true }),
   ).toBeVisible();
   await expect(
     page.getByLabel("Детали знания").getByRole("button", {
