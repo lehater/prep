@@ -6,6 +6,7 @@ on:
       - implementation/fi07-evidence-change-2026-10-06
     paths:
       - ".github/workflows/tmp-fi07-browser.yml"
+      - "frontend/**"
 
 permissions:
   contents: read
