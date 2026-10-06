@@ -444,7 +444,24 @@ export class MockFrontendAdapter
       input.requiredCapabilityRef === mockScenarioRefs.capabilitySystemDesign
         ? [mockScenarioRefs.knowledgeConsistency, mockScenarioRefs.knowledgeCaching]
         : input.requiredCapabilityRef === mockScenarioRefs.capabilityTypeScript
-          ? [mockScenarioRefs.knowledgeEventLoop]
+          ? [
+              mockScenarioRefs.knowledgeAsyncProgramming,
+              mockScenarioRefs.knowledgeEventLoop,
+              mockScenarioRefs.knowledgePromise,
+              mockScenarioRefs.knowledgeAsyncAwait,
+              mockScenarioRefs.knowledgeMicrotaskQueue,
+              mockScenarioRefs.knowledgeTaskQueue,
+              mockScenarioRefs.knowledgeNonBlockingIo,
+              mockScenarioRefs.knowledgeConcurrency,
+              mockScenarioRefs.knowledgeParallelism,
+              mockScenarioRefs.knowledgeRaceCondition,
+              mockScenarioRefs.knowledgeCancellation,
+              mockScenarioRefs.knowledgeTimeout,
+              mockScenarioRefs.knowledgeBackpressure,
+              mockScenarioRefs.knowledgeWorkerThreads,
+              mockScenarioRefs.knowledgePromiseCombinators,
+              mockScenarioRefs.knowledgeErrorPropagation,
+            ]
           : rawMockScenario.focus.capabilityIds.includes(
                 input.requiredCapabilityRef as CapabilityRef,
               )
