@@ -9,6 +9,10 @@ import type {
   SemanticBasisRef,
   TargetRef,
 } from "../contracts";
+import {
+  preparationRemainderStatusLabel,
+  preparationRequestStateLabel,
+} from "../../ui/presentationLabels";
 
 export interface PreparationSupportFeatureProps {
   readonly port: PreparationSupportPort;
@@ -41,7 +45,7 @@ export function PreparationSupportFeature({
 }: PreparationSupportFeatureProps) {
   const [sourceContext, setSourceContext] = useState(motivatingContext);
   const [provenanceLabel, setProvenanceLabel] = useState(
-    `Current preparation context from ${originLabel}`,
+    `Текущий контекст подготовки: ${originLabel}`,
   );
   const [result, setResult] = useState<PreparationRequestModel | null>(null);
   const [viewState, setViewState] = useState<PreparationSupportViewState>(
@@ -50,13 +54,13 @@ export function PreparationSupportFeature({
   const [message, setMessage] = useState<string | null>(
     semanticBasisRef
       ? null
-      : "This candidate context has no accepted semantic basis yet. Return and establish the Target before requesting generated support.",
+      : "У этого контекста ещё нет принятого смыслового основания. Вернитесь и зафиксируйте цель перед подготовкой поддержки.",
   );
 
   async function requestPreparation() {
     if (!semanticBasisRef) {
       setMessage(
-        "An accepted Target or Focus basis is required before requesting preparation support.",
+        "Для подготовки поддержки нужна зафиксированная цель или выбранный фокус.",
       );
       setViewState("continuation-recovery");
       return;
@@ -67,7 +71,7 @@ export function PreparationSupportFeature({
       provenanceLabel.trim().length === 0
     ) {
       setMessage(
-        "Keep both the missing-support context and its provenance before requesting preparation.",
+        "Опишите, какой поддержки не хватает, и укажите источник этого контекста.",
       );
       return;
     }
@@ -119,11 +123,11 @@ export function PreparationSupportFeature({
       aria-labelledby="prepare-support-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Prepare Support</p>
-        <h1 id="prepare-support-heading">Prepare Support</h1>
+        <p className="eyebrow">Подготовка поддержки</p>
+        <h1 id="prepare-support-heading">Подготовить поддержку</h1>
         <p>
-          Resolve one bounded missing-support need while preserving the
-          originating preparation context.
+          Подготовьте недостающий материал или задание, сохранив исходный
+          контекст подготовки.
         </p>
       </header>
 
@@ -132,16 +136,16 @@ export function PreparationSupportFeature({
         aria-labelledby="preparation-context-heading"
       >
         <div className="section-heading">
-          <p className="eyebrow">Motivating context</p>
+          <p className="eyebrow">Исходный контекст</p>
           <h2 id="preparation-context-heading">{targetLabel}</h2>
         </div>
         {focusPurpose ? (
           <p>
-            <strong>Next focus:</strong> {focusPurpose}
+            <strong>Следующий фокус:</strong> {focusPurpose}
           </p>
         ) : null}
         <p>{motivatingContext}</p>
-        <p className="supporting-text">Return destination: {originLabel}</p>
+        <p className="supporting-text">Вернуться в: {originLabel}</p>
       </section>
 
       {message ? (
@@ -155,12 +159,12 @@ export function PreparationSupportFeature({
         aria-labelledby="preparation-source-heading"
       >
         <div className="section-heading">
-          <p className="eyebrow">Source context</p>
-          <h2 id="preparation-source-heading">Describe what is missing</h2>
+          <p className="eyebrow">Контекст запроса</p>
+          <h2 id="preparation-source-heading">Опишите, чего не хватает</h2>
         </div>
 
         <label className="field">
-          <span>Missing-support context</span>
+          <span>Недостающая поддержка</span>
           <textarea
             rows={4}
             value={sourceContext}
@@ -170,7 +174,7 @@ export function PreparationSupportFeature({
         </label>
 
         <label className="field">
-          <span>Provenance</span>
+          <span>Источник контекста</span>
           <input
             value={provenanceLabel}
             disabled={viewState === "requesting"}
@@ -186,17 +190,17 @@ export function PreparationSupportFeature({
             onClick={() => void requestPreparation()}
           >
             {viewState === "requesting"
-              ? "Preparing support…"
+              ? "Подготовка…"
               : result
-                ? "Request again"
-                : "Request preparation support"}
+                ? "Запросить ещё раз"
+                : "Подготовить поддержку"}
           </button>
           <button
             type="button"
             className="text-action"
             onClick={onReturn}
           >
-            Return to {originLabel}
+            Вернуться: {originLabel}
           </button>
         </div>
       </section>
@@ -207,9 +211,9 @@ export function PreparationSupportFeature({
           aria-labelledby="preparation-results-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Accepted result</p>
+            <p className="eyebrow">Принятый результат</p>
             <h2 id="preparation-results-heading">
-              Prepared support and explicit remainder
+              Подготовленная поддержка и оставшиеся вопросы
             </h2>
           </div>
 
@@ -218,7 +222,7 @@ export function PreparationSupportFeature({
               className="accepted-support-region"
               aria-labelledby="accepted-support-heading"
             >
-              <h3 id="accepted-support-heading">Accepted support</h3>
+              <h3 id="accepted-support-heading">Принятая поддержка</h3>
               {result.acceptedSupport.length > 0 ? (
                 <div className="accepted-support-list">
                   {result.acceptedSupport.map((support) => (
@@ -228,7 +232,7 @@ export function PreparationSupportFeature({
                     >
                       <strong>{support.label}</strong>
                       <p>
-                        Intended capability: {support.intendedCapabilityLabel}
+                        Компетенция: {support.intendedCapabilityLabel}
                       </p>
                       <p>{support.fitBasis}</p>
                       {support.limitations.length > 0 ? (
@@ -244,7 +248,7 @@ export function PreparationSupportFeature({
                   ))}
                 </div>
               ) : (
-                <p>No support was accepted for this request.</p>
+                <p>Для этого запроса ничего не было принято.</p>
               )}
             </section>
 
@@ -252,28 +256,29 @@ export function PreparationSupportFeature({
               className="preparation-remainder-region"
               aria-labelledby="preparation-remainder-heading"
             >
-              <h3 id="preparation-remainder-heading">Remainder</h3>
+              <h3 id="preparation-remainder-heading">Оставшиеся вопросы</h3>
               {result.remainder.length > 0 ? (
                 <ul className="preparation-remainder-list">
                   {result.remainder.map((item) => (
                     <li key={item.subject}>
                       <strong>{item.subject}</strong>
                       <span data-remainder-status={item.status}>
-                        {item.status}
+                        {preparationRemainderStatusLabel(item.status)}
                       </span>
                       <p>{item.reason}</p>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p>No unresolved or rejected remainder.</p>
+                <p>Неразрешённых или отклонённых пунктов нет.</p>
               )}
             </section>
           </div>
 
           <p className="supporting-text">
-            Request state: {result.state}. Accepted support remains usable even
-            when other requested support is unresolved or rejected.
+            Состояние запроса: {preparationRequestStateLabel(result.state)}.
+            Принятую поддержку можно использовать, даже если часть запроса
+            остаётся неразрешённой или отклонена.
           </p>
 
           <div className="action-row">
@@ -282,14 +287,14 @@ export function PreparationSupportFeature({
               className="primary-action"
               onClick={onReturn}
             >
-              Return to {originLabel}
+              Вернуться: {originLabel}
             </button>
             <button
               type="button"
               className="secondary-action"
               onClick={() => void refreshPreparation()}
             >
-              Refresh preparation result
+              Обновить результат
             </button>
           </div>
         </section>

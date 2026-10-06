@@ -47,7 +47,7 @@ export function resolvePreparationNavigation(
       return {
         destination: "target",
         recoveryReason:
-          "Establish a Target before reviewing Activity evidence and changes.",
+          "Сначала выберите цель, затем можно анализировать свидетельства и изменения после активности.",
       };
     }
 
@@ -56,12 +56,12 @@ export function resolvePreparationNavigation(
         ? {
             destination: "activity",
             recoveryReason:
-              "Complete a reviewable Activity attempt before opening Evidence & changes.",
+              "Сначала завершите активность так, чтобы её результат можно было проверить.",
           }
         : {
             destination: "current",
             recoveryReason:
-              "Choose a Next focus and complete an Activity before opening Evidence & changes.",
+              "Сначала выберите следующий фокус и завершите активность.",
           };
     }
 
@@ -75,7 +75,7 @@ export function resolvePreparationNavigation(
     return {
       destination: "target",
       recoveryReason:
-        "Choose or establish a Target context before requesting preparation support.",
+        "Сначала выберите или зафиксируйте цель подготовки.",
     };
   }
 
@@ -83,7 +83,7 @@ export function resolvePreparationNavigation(
     return {
       destination: "target",
       recoveryReason:
-        "Establish a Target before entering Target-dependent preparation work.",
+        "Сначала зафиксируйте цель подготовки.",
     };
   }
 
@@ -91,7 +91,7 @@ export function resolvePreparationNavigation(
     return {
       destination: "current",
       recoveryReason:
-        "Choose a Next focus before starting an Activity.",
+        "Перед началом активности выберите следующий фокус.",
     };
   }
 

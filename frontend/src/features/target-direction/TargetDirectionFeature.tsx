@@ -6,6 +6,10 @@ import type {
   TargetDirectionPort,
 } from "./contract";
 import type { TargetRef } from "../contracts";
+import {
+  capabilityStateLabel,
+  gapStatusLabel,
+} from "../../ui/presentationLabels";
 
 export interface TargetDirectionFeatureProps {
   readonly port: TargetDirectionPort;
@@ -20,7 +24,7 @@ function capabilityLabel(
   return (
     candidate.currentState.find(
       (state) => state.capabilityRef === capabilityRef,
-    )?.capabilityLabel ?? "Capability"
+    )?.capabilityLabel ?? "Компетенция"
   );
 }
 
@@ -54,7 +58,7 @@ export function TargetDirectionFeature({
   async function compareSelected() {
     const [first, second, ...rest] = selectedRefs;
     if (!first || !second) {
-      setMessage("Select at least two Targets to compare.");
+      setMessage("Выберите минимум две цели для сравнения.");
       return;
     }
 
@@ -83,16 +87,16 @@ export function TargetDirectionFeature({
       aria-labelledby="targets-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Target direction</p>
-        <h1 id="targets-heading">Choose what you are preparing for</h1>
+        <p className="eyebrow">Выбор направления</p>
+        <h1 id="targets-heading">Выберите, к чему вы готовитесь</h1>
         <p>
-          Compare plausible Targets against the same learner evidence before
-          deciding which one to continue with.
+          Сравните возможные цели на одной и той же базе свидетельств,
+          прежде чем выбрать направление подготовки.
         </p>
       </header>
 
       <fieldset className="candidate-selector">
-        <legend>Candidate Targets</legend>
+        <legend>Возможные цели</legend>
         <div className="candidate-grid">
           {candidates.map((candidate) => (
             <label
@@ -125,10 +129,10 @@ export function TargetDirectionFeature({
             disabled={selectedRefs.length < 2 || status === "loading"}
             onClick={() => void compareSelected()}
           >
-            {status === "loading" ? "Comparing…" : "Compare selected"}
+            {status === "loading" ? "Сравнение…" : "Сравнить выбранные"}
           </button>
           <span className="supporting-text">
-            {selectedRefs.length} selected
+            Выбрано: {selectedRefs.length}
           </span>
         </div>
       ) : null}
@@ -146,8 +150,8 @@ export function TargetDirectionFeature({
             aria-labelledby="comparison-heading"
           >
             <div className="section-heading">
-              <p className="eyebrow">Same evidence basis</p>
-              <h2 id="comparison-heading">Compare selected Targets</h2>
+              <p className="eyebrow">Единая база свидетельств</p>
+              <h2 id="comparison-heading">Сравнение выбранных целей</h2>
             </div>
 
             <div className="comparison-grid">
@@ -170,7 +174,7 @@ export function TargetDirectionFeature({
                     </header>
 
                     <div className="comparison-dimension">
-                      <h4>Shared required capabilities</h4>
+                      <h4>Общие требуемые компетенции</h4>
                       <ul>
                         {shared.map((label) => (
                           <li key={label}>{label}</li>
@@ -179,7 +183,7 @@ export function TargetDirectionFeature({
                     </div>
 
                     <div className="comparison-dimension">
-                      <h4>Target-specific capabilities</h4>
+                      <h4>Специфичные компетенции</h4>
                       <ul>
                         {specific.map((label) => (
                           <li key={label}>{label}</li>
@@ -188,13 +192,13 @@ export function TargetDirectionFeature({
                     </div>
 
                     <div className="comparison-dimension">
-                      <h4>Current evidence-backed position</h4>
+                      <h4>Текущее состояние по свидетельствам</h4>
                       <ul className="state-list">
                         {candidate.currentState.map((state) => (
                           <li key={state.capabilityRef}>
                             <span>{state.capabilityLabel}</span>
                             <strong data-state={state.state}>
-                              {state.state}
+                              {capabilityStateLabel(state.state)}
                             </strong>
                           </li>
                         ))}
@@ -202,12 +206,12 @@ export function TargetDirectionFeature({
                     </div>
 
                     <div className="comparison-dimension">
-                      <h4>Gaps and uncertainty</h4>
+                      <h4>Пробелы и неопределённость</h4>
                       <ul>
                         {candidate.gaps.map((gap) => (
                           <li key={gap.gapRef}>
                             {capabilityLabel(candidate, gap.capabilityRef)}:{" "}
-                            {gap.status}
+                            {gapStatusLabel(gap.status)}
                           </li>
                         ))}
                         {candidate.uncertainty.map((item) => (
@@ -221,11 +225,11 @@ export function TargetDirectionFeature({
             </div>
           </section>
 
-          <aside className="comparison-basis" aria-label="Comparison basis">
-            <strong>Comparison basis</strong>
+          <aside className="comparison-basis" aria-label="Основание сравнения">
+            <strong>Основание сравнения</strong>
             <p>
-              The same learner evidence basis is used for every candidate.
-              Applicability and Target uncertainty remain explicit.
+              Для всех вариантов используется одна база свидетельств об учащемся.
+              Ограничения применимости и неопределённость цели показаны явно.
             </p>
             <ul>
               {comparison.limitations.map((limitation) => (
@@ -235,7 +239,7 @@ export function TargetDirectionFeature({
           </aside>
 
           <fieldset className="direction-actions">
-            <legend>Continue with a Target</legend>
+            <legend>Выберите цель для продолжения</legend>
             <div className="continuation-options">
               {comparison.candidates.map((candidate) => (
                 <label key={candidate.targetRef}>
@@ -261,7 +265,7 @@ export function TargetDirectionFeature({
                   }
                 }}
               >
-                Continue with selected Target
+                Продолжить с выбранной целью
               </button>
               <button
                 type="button"
@@ -272,17 +276,17 @@ export function TargetDirectionFeature({
                   setMessage(null);
                 }}
               >
-                Change comparison
+                Изменить сравнение
               </button>
               <button
                 type="button"
                 className="text-action"
                 onClick={() => {
                   setContinueRef(null);
-                  setMessage("Target direction remains unresolved.");
+                  setMessage("Направление подготовки пока не выбрано.");
                 }}
               >
-                Leave undecided
+                Пока не выбирать
               </button>
             </div>
           </fieldset>

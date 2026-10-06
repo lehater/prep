@@ -14,6 +14,12 @@ import type {
   SemanticBasisRef,
   TargetRef,
 } from "../contracts";
+import {
+  capabilityStateLabel,
+  evidenceKindLabel,
+  gapStatusLabel,
+  supportAvailabilityLabel,
+} from "../../ui/presentationLabels";
 
 export interface CurrentPositionFeatureProps {
   readonly port: CurrentPositionPort;
@@ -30,11 +36,11 @@ export interface CurrentPositionFeatureProps {
 function stateExplanation(state: "demonstrated" | "challenged" | "unknown") {
   switch (state) {
     case "demonstrated":
-      return "Evidence currently supports this capability.";
+      return "Текущие свидетельства подтверждают эту компетенцию.";
     case "challenged":
-      return "Current evidence challenges part of the required performance.";
+      return "Часть требуемого результата противоречит текущим свидетельствам.";
     case "unknown":
-      return "There is not enough attributable evidence to conclude either way.";
+      return "Недостаточно надёжных свидетельств, чтобы сделать вывод.";
   }
 }
 
@@ -139,7 +145,7 @@ export function CurrentPositionFeature({
     setMessage(null);
 
     if (decision) {
-      setPurposeDraft(`Work on ${decision.capabilityLabel} next.`);
+      setPurposeDraft(`Следующий фокус: ${decision.capabilityLabel}.`);
       setRationaleDraft(decision.priorityRationale);
     }
   }
@@ -153,7 +159,7 @@ export function CurrentPositionFeature({
       rationaleDraft.trim().length === 0
     ) {
       setMessage(
-        "Choose a gap and keep an explicit focus purpose and rationale before continuing.",
+        "Выберите пробел и явно укажите цель фокуса и основание выбора.",
       );
       return;
     }
@@ -189,11 +195,11 @@ export function CurrentPositionFeature({
       aria-labelledby="current-position-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Current position</p>
-        <h1 id="current-position-heading">Understand where to focus next</h1>
+        <p className="eyebrow">Текущее состояние</p>
+        <h1 id="current-position-heading">Определите, на чём сосредоточиться дальше</h1>
         <p>
-          Review evidence-backed capability state, inspect the gaps that matter
-          for this Target, and explicitly choose the Next focus.
+          Оцените состояние компетенций по свидетельствам, изучите важные для
+          цели пробелы и явно выберите следующий фокус.
         </p>
       </header>
 
@@ -203,7 +209,7 @@ export function CurrentPositionFeature({
         </p>
       ) : null}
 
-      {status === "loading" ? <p role="status">Loading current position…</p> : null}
+      {status === "loading" ? <p role="status">Загрузка текущего состояния…</p> : null}
 
       {currentState ? (
         <section
@@ -211,8 +217,8 @@ export function CurrentPositionFeature({
           aria-labelledby="current-state-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Evidence-backed state</p>
-            <h2 id="current-state-heading">Current capability state</h2>
+            <p className="eyebrow">Состояние по свидетельствам</p>
+            <h2 id="current-state-heading">Состояние компетенций</h2>
           </div>
 
           <div className="current-state-grid">
@@ -220,7 +226,7 @@ export function CurrentPositionFeature({
               <article className="state-card" key={item.capabilityRef}>
                 <div className="state-card-heading">
                   <h3>{item.capabilityLabel}</h3>
-                  <strong data-state={item.state}>{item.state}</strong>
+                  <strong data-state={item.state}>{capabilityStateLabel(item.state)}</strong>
                 </div>
                 <p>{stateExplanation(item.state)}</p>
                 {item.limitations.length > 0 ? (
@@ -239,8 +245,8 @@ export function CurrentPositionFeature({
       {gapProjection ? (
         <section className="gaps-region" aria-labelledby="gaps-heading">
           <div className="section-heading">
-            <p className="eyebrow">Gaps and uncertainty</p>
-            <h2 id="gaps-heading">What needs attention</h2>
+            <p className="eyebrow">Пробелы и неопределённость</p>
+            <h2 id="gaps-heading">Что требует внимания</h2>
           </div>
 
           <div className="gap-list">
@@ -253,22 +259,22 @@ export function CurrentPositionFeature({
                 <article className="gap-card" key={gap.gapRef}>
                   <div className="gap-card-heading">
                     <h3>{gap.capabilityLabel}</h3>
-                    <strong data-gap-state={gap.status}>{gap.status}</strong>
+                    <strong data-gap-state={gap.status}>{gapStatusLabel(gap.status)}</strong>
                   </div>
                   <p>{gap.rationale}</p>
                   {decision ? (
                     <dl className="decision-basis">
                       <div>
-                        <dt>Target relevance</dt>
+                        <dt>Важность для цели</dt>
                         <dd>{decision.targetRelevance}</dd>
                       </div>
                       <div>
-                        <dt>Why now</dt>
+                        <dt>Почему сейчас</dt>
                         <dd>{decision.priorityRationale}</dd>
                       </div>
                       <div>
-                        <dt>Support</dt>
-                        <dd>{decision.supportAvailability}</dd>
+                        <dt>Поддержка</dt>
+                        <dd>{supportAvailabilityLabel(decision.supportAvailability)}</dd>
                       </div>
                     </dl>
                   ) : null}
@@ -282,20 +288,20 @@ export function CurrentPositionFeature({
       {gapProjection ? (
         <section className="next-focus-region" aria-labelledby="next-focus-heading">
           <div className="section-heading">
-            <p className="eyebrow">Next focus</p>
+            <p className="eyebrow">Следующий фокус</p>
             <h2 id="next-focus-heading">
-              {activeFocusRef ? "Review or revise the Next focus" : "Choose the Next focus"}
+              {activeFocusRef ? "Проверьте или измените следующий фокус" : "Выберите следующий фокус"}
             </h2>
             {activeFocusRef && !acceptedFocus ? (
               <p>
-                An accepted Next focus is already active. Choosing below revises it
-                explicitly rather than changing it automatically.
+                Следующий фокус уже выбран. Новый выбор ниже изменит его явно,
+                а не автоматически.
               </p>
             ) : null}
           </div>
 
           <fieldset className="focus-options">
-            <legend>Gap to address next</legend>
+            <legend>Какой пробел проработать следующим</legend>
             {gapProjection.decisionContext.candidates.map((candidate) => (
               <label className="focus-option" key={candidate.gapRef}>
                 <input
@@ -307,8 +313,8 @@ export function CurrentPositionFeature({
                 <span>
                   <strong>{candidate.capabilityLabel}</strong>
                   <small>
-                    {candidate.targetRelevance} Support:{" "}
-                    {candidate.supportAvailability}.
+                    {candidate.targetRelevance} Поддержка:{" "}
+                    {supportAvailabilityLabel(candidate.supportAvailability)}.
                   </small>
                 </span>
               </label>
@@ -318,7 +324,7 @@ export function CurrentPositionFeature({
           {selectedDecision ? (
             <div className="focus-draft">
               <label className="field">
-                <span>Focus purpose</span>
+                <span>Цель фокуса</span>
                 <input
                   value={purposeDraft}
                   onChange={(event) => setPurposeDraft(event.currentTarget.value)}
@@ -326,7 +332,7 @@ export function CurrentPositionFeature({
               </label>
 
               <label className="field">
-                <span>Rationale</span>
+                <span>Основание выбора</span>
                 <textarea
                   rows={3}
                   value={rationaleDraft}
@@ -336,7 +342,7 @@ export function CurrentPositionFeature({
 
               {gapProjection.decisionContext.externalConstraints.length > 0 ? (
                 <div className="external-constraints">
-                  <strong>Material constraints</strong>
+                  <strong>Значимые ограничения</strong>
                   <ul>
                     {gapProjection.decisionContext.externalConstraints.map(
                       (constraint) => (
@@ -355,10 +361,10 @@ export function CurrentPositionFeature({
                   onClick={() => void setNextFocus()}
                 >
                   {status === "submitting-focus"
-                    ? "Setting focus…"
+                    ? "Сохранение фокуса…"
                     : activeFocusRef
-                      ? "Revise Next focus"
-                      : "Set Next focus"}
+                      ? "Изменить фокус"
+                      : "Выбрать фокус"}
                 </button>
               </div>
             </div>
@@ -366,7 +372,7 @@ export function CurrentPositionFeature({
 
           {acceptedFocus ? (
             <div className="accepted-focus" role="status">
-              <strong>Next focus accepted</strong>
+              <strong>Следующий фокус выбран</strong>
               <p>{acceptedFocus.purpose}</p>
               <p>{acceptedFocus.rationale}</p>
               <div className="action-row">
@@ -376,7 +382,7 @@ export function CurrentPositionFeature({
                     className="secondary-action"
                     onClick={onRequestPreparationSupport}
                   >
-                    Prepare missing support
+                    Подготовить недостающую поддержку
                   </button>
                 ) : null}
                 <button
@@ -384,7 +390,7 @@ export function CurrentPositionFeature({
                   className="primary-action"
                   onClick={onContinueActivity}
                 >
-                  Continue to Activity
+                  Перейти к практике
                 </button>
               </div>
             </div>
@@ -394,22 +400,22 @@ export function CurrentPositionFeature({
 
       {evidence ? (
         <details className="evidence-basis-region">
-          <summary>Why this state: evidence basis</summary>
+          <summary>Почему такое состояние: свидетельства</summary>
           <div className="evidence-facts">
             {evidence.facts.map((fact) => (
               <article className="evidence-card" key={fact.evidenceRef}>
                 <div className="evidence-card-heading">
-                  <strong>{fact.kind}</strong>
+                  <strong>{evidenceKindLabel(fact.kind)}</strong>
                   <span>{fact.summary}</span>
                 </div>
 
                 {fact.supportsCapabilityRefs.length > 0 ? (
                   <p>
-                    Supports:{" "}
+                    Подтверждает:{" "}
                     {fact.supportsCapabilityRefs
                       .map(
                         (capabilityRef: CapabilityRef) =>
-                          capabilityLabels.get(capabilityRef) ?? "Capability",
+                          capabilityLabels.get(capabilityRef) ?? "Компетенция",
                       )
                       .join(", ")}
                   </p>
@@ -417,18 +423,18 @@ export function CurrentPositionFeature({
 
                 {fact.challengesCapabilityRefs.length > 0 ? (
                   <p>
-                    Challenges:{" "}
+                    Противоречит:{" "}
                     {fact.challengesCapabilityRefs
                       .map(
                         (capabilityRef: CapabilityRef) =>
-                          capabilityLabels.get(capabilityRef) ?? "Capability",
+                          capabilityLabels.get(capabilityRef) ?? "Компетенция",
                       )
                       .join(", ")}
                   </p>
                 ) : null}
 
                 <p>
-                  Provenance:{" "}
+                  Источник:{" "}
                   {fact.provenance.map((item) => item.label).join(", ")}
                 </p>
 

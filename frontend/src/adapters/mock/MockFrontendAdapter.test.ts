@@ -102,7 +102,7 @@ describe("MockFrontendAdapter semantic contract", () => {
 
     expect(outcome).toEqual({
       status: "rejected",
-      message: "Target source/context is required.",
+      message: "Нужно указать источник или контекст цели.",
       currentBasisRef: mockScenarioRefs.basis,
     });
   });
@@ -194,17 +194,17 @@ describe("MockFrontendAdapter semantic contract", () => {
     ]);
     expect(knowledge.requiredCapabilityLabel).toBe("System design");
     expect(knowledge.items.length).toBeGreaterThan(0);
-    expect(knowledge.items[0]?.related[0]?.label).toBe("Caching strategy");
+    expect(knowledge.items[0]?.related[0]?.label).toBe("Стратегия кэширования");
 
     const filtered = acceptedValue(
       await adapter.queryKnowledge({
         targetRef: mockScenarioRefs.targetPrimary,
         requiredCapabilityRef: mockScenarioRefs.capabilitySystemDesign,
         scope: "overview",
-        query: "Caching",
+        query: "кэш",
       }),
     );
-    expect(filtered.items.map((item) => item.label)).toEqual(["Caching strategy"]);
+    expect(filtered.items.map((item) => item.label)).toEqual(["Стратегия кэширования"]);
 
     for (const item of knowledge.items) {
       expect(item).not.toHaveProperty("x");
@@ -212,6 +212,36 @@ describe("MockFrontendAdapter semantic contract", () => {
       expect(item).not.toHaveProperty("z");
       expect(item).not.toHaveProperty("position");
     }
+  });
+
+  it("provides a representative asynchronous-programming Knowledge corpus", async () => {
+    const knowledge = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        requiredCapabilityRef: mockScenarioRefs.capabilityTypeScript,
+        scope: "overview",
+      }),
+    );
+
+    expect(knowledge.items.length).toBeGreaterThanOrEqual(16);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeAsyncProgramming);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeEventLoop);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgePromise);
+    expect(knowledge.anchorRefs).toContain(mockScenarioRefs.knowledgeBackpressure);
+
+    const eventLoopMatches = acceptedValue(
+      await adapter.queryKnowledge({
+        targetRef: mockScenarioRefs.targetPrimary,
+        requiredCapabilityRef: mockScenarioRefs.capabilityTypeScript,
+        scope: "overview",
+        query: "event loop",
+      }),
+    );
+
+    expect(eventLoopMatches.items).toHaveLength(3);
+    expect(eventLoopMatches.items.map((item) => item.knowledgeRef)).toContain(
+      mockScenarioRefs.knowledgeEventLoop,
+    );
   });
 
   it("does not turn Activity completion into learner-state progress", async () => {
@@ -287,7 +317,7 @@ describe("MockFrontendAdapter semantic contract", () => {
       }),
     );
     expect(nowAvailable.map((item) => item.label)).toEqual([
-      "Behavioral decision story guide",
+      "Шаблон рассказа об инженерном решении",
     ]);
   });
 
@@ -320,7 +350,7 @@ describe("MockFrontendAdapter semantic contract", () => {
 
     expect(outcome).toEqual({
       status: "rejected",
-      message: "Unknown Target.",
+      message: "Неизвестная цель.",
       currentBasisRef: mockScenarioRefs.basis,
     });
   });

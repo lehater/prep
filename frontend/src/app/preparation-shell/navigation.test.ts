@@ -31,7 +31,7 @@ describe("Preparation Shell topology routing", () => {
       expect(resolvePreparationNavigation({ destination }, context)).toEqual({
         destination: "target",
         recoveryReason:
-          "Establish a Target before entering Target-dependent preparation work.",
+          "Сначала зафиксируйте цель подготовки.",
       });
     }
   });
@@ -49,7 +49,7 @@ describe("Preparation Shell topology routing", () => {
       resolvePreparationNavigation({ destination: "activity" }, context),
     ).toEqual({
       destination: "current",
-      recoveryReason: "Choose a Next focus before starting an Activity.",
+      recoveryReason: "Перед началом активности выберите следующий фокус.",
     });
   });
 
@@ -60,7 +60,7 @@ describe("Preparation Shell topology routing", () => {
     ).toEqual({
       destination: "target",
       recoveryReason:
-        "Choose or establish a Target context before requesting preparation support.",
+        "Сначала выберите или зафиксируйте цель подготовки.",
     });
 
     const candidateTargetRef = ref<"target">("target:candidate");
