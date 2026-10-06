@@ -5,8 +5,8 @@ source_capability: prep.presentation-verification
 target_capability: prep.frontend-verification
 obligations:
 - id: direct-semantic-input
-  source_kind: verification-obligation
-  subject: dominant-task-composition
+  source_kind: verification-check
+  subject: state-dependent-composition-integrity
   min_count: 1
   require_target_provenance: true
 lifecycle_dependency:
