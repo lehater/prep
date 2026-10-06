@@ -7,6 +7,18 @@ changed_paths: [docs/interface/interface-topology.yaml]
 canonical_references:
   - {artifact: INTERFACE-TOPOLOGY, referenced_path: docs/interface/information-architecture.yaml}
   - {artifact: INTERFACE-TOPOLOGY, referenced_path: docs/interface/interaction-design.yaml}
+decision_review:
+  axes:
+    - axis: view-boundaries
+      decisions:
+        - id: preparation-view-boundaries
+          owner_authority: HUMAN-INTERFACE-DESIGN
+          alternatives:
+            - {id: task-responsibility-views-with-contextual-recovery, state: VIABLE}
+            - {id: single-preparation-workspace, state: REJECTED, rationale: "Collapsing Target, Current, Knowledge and Activity into one undifferentiated view would obscure distinct task responsibilities and independent addressability while making recovery/context semantics implicit."}
+            - {id: destination-per-subtask, state: REJECTED, rationale: "Promoting contextual evidence/detail/support subtasks into independent destinations would fragment working-state continuity and create navigation semantics not justified by accepted tasks."}
+          disposition: DETERMINED
+          selected: task-responsibility-views-with-contextual-recovery
 semantic_assertions:
   - {id: TOP-ROOT, kind: topology-structural-frame, subject: preparation-frame, semantic_value: "FRAME-PREPARATION is the single structural frame supporting candidate Target comparison before commitment and preserving active Target/optional Next focus context across primary preparation destinations when present; contextual Evidence/change review is entered from reviewed activity context rather than exposed as a frame destination.", derived_from: [IA-ROOT, IX-TARGET-DIRECTION, IX-CONTEXT-CONTINUITY], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: TOP-VIEW-TARGETS, kind: topology-task-view, subject: targets-view, semantic_value: "VIEW-TARGETS has one responsibility: compare plausible Targets against the same learner evidence basis and choose which candidate to continue with; it realizes LOC-TARGETS and IX-TARGET-DIRECTION without activating a Target.", derived_from: [IA-LOC-TARGETS, IX-TARGET-DIRECTION], decision_authority: HUMAN-INTERFACE-DESIGN}
