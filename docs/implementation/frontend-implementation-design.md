@@ -42,6 +42,31 @@ Selected implementation direction:
 - establish deterministic fast validation before substantial feature growth and use an
   explicit heavy prototype checkpoint.
 
+### FI-00 concrete tool selection
+
+The first production frontend root is `frontend/`. The bootstrap uses:
+
+- Node.js 24.21.0 LTS, pinned in repository/CI;
+- npm with a committed lockfile generated under that pinned Node runtime;
+- React 19.3.0 and React DOM 19.3.0 as the browser component runtime;
+- TypeScript 7.0.2 for strict static typing;
+- Vite 8.3.2 with `@vitejs/plugin-react` 6.1.1 for development/build;
+- Biome 2.5.15 for deterministic lint/format tooling;
+- Vitest 5.0.3 for fast unit/contract tests;
+- Playwright 1.63.0 for browser E2E evidence.
+
+The selection is intentionally narrower than the removed frontend stack. No router,
+query/cache framework, UI component kit, global state library, code generator or spatial
+renderer is introduced at bootstrap. Those dependencies are added only when an accepted
+feature responsibility demonstrates a need.
+
+React/Vite was selected over a framework-free DOM realization because the accepted
+frontend has several independently changing stateful task features and a composition
+root, while React keeps component composition/test seams explicit without adding routing,
+data-fetching or design-system semantics. A Preact/Vite realization remains technically
+viable, but its compatibility/interop trade-off provides no accepted benefit for the
+initial prototype.
+
 The revision must pass strict semantic admission and preserve complete
 `FRONTEND-PROTOTYPE` / `FRONTEND-IMPLEMENTATION` Harness closure.
 
@@ -74,10 +99,9 @@ Out of scope:
 
 Before product feature source is added:
 
-1. Select the smallest browser-frontend toolchain that satisfies current System
-   Architecture, Frontend Engineering Policy and Frontend Verification/Test Design.
+1. Realize the selected minimal toolchain above without adding unrequired providers.
 2. Pin the runtime and dependency versions in versioned repository inputs.
-3. Create one production frontend source/package root and one composition root.
+3. Create the `frontend/` production package/source root and one composition root.
 4. Establish build, static/type checking as applicable, lint/format policy as applicable,
    unit/contract test execution and browser E2E execution.
 5. Establish a deterministic dependency-boundary check for the public task-feature

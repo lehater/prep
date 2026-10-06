@@ -49,11 +49,13 @@ decision_review:
         - id: base-toolchain
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
-            - {id: fresh-minimal-versioned-toolchain, state: VIABLE}
+            - {id: react-typescript-vite-minimal, state: VIABLE}
+            - {id: vanilla-typescript-vite, state: VIABLE}
+            - {id: preact-typescript-vite-minimal, state: VIABLE}
             - {id: recreate-deleted-toolchain-wholesale, state: REJECTED, rationale: "Deleted dependency presence is historical evidence, not a current requirement."}
-          disposition: DELEGATED
-          selected: fresh-minimal-versioned-toolchain
-          rationale: "Select and lock concrete tools at FI-00 from current architecture/verification needs; no package or version is inherited merely because it existed before the clean baseline."
+          disposition: DETERMINED
+          selected: react-typescript-vite-minimal
+          rationale: "React plus TypeScript/Vite gives the accepted multi-feature composition model explicit component/test seams with a small bootstrap surface. Vanilla DOM would add local lifecycle/composition plumbing; Preact remains viable but adds compatibility trade-offs without an accepted prototype benefit. Router/query/UI-kit/state/spatial providers remain deferred."
         - id: optional-spatial-dependency
           owner_authority: IMPLEMENTATION-DESIGN
           alternatives:
@@ -96,8 +98,8 @@ decision_review:
           selected: versioned-fast-automatic-heavy-explicit
 semantic_assertions:
   - {id: FI-BOUNDARY, kind: implementation-boundary, subject: frontend-realization-scope, semantic_value: "Implementation starts from an intentionally empty production frontend baseline and realizes the accepted Preparation Shell/task features, consumer semantic ports and deterministic mock scenario without recovering deleted implementation as authority or redefining upstream semantics.", derived_from: [CD-FEATURES, CD-PORTS, FV-TRACEABILITY, FV-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-TOOLCHAIN, kind: implementation-tooling, subject: frontend-base-toolchain, semantic_value: "No frontend package or version is inherited from deleted implementation. FI-00 selects the smallest current browser tool/build/test environment that satisfies accepted architecture and verification needs, pins it in versioned inputs and establishes reproducible fast/heavy gates before substantial product source.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
-  - {id: FI-REPOSITORY, kind: implementation-repository, subject: task-feature-source-roots, semantic_value: "A fresh production source root maps accepted ownership to app preparation-shell/context/composition plus target-direction, target, current-position, knowledge-explorer, activity, evidence-change and preparation-support features; the physical root name and internal file split remain implementation freedoms.", derived_from: [CD-FEATURES, CD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-TOOLCHAIN, kind: implementation-tooling, subject: frontend-base-toolchain, semantic_value: "FI-00 uses pinned Node LTS/npm lockfile plus React/React DOM, TypeScript, Vite/React plugin, Biome, Vitest and Playwright as the minimal current browser build/test stack. Router, query/cache, UI-kit, global-state, codegen and spatial-renderer dependencies are intentionally absent until an accepted responsibility requires them.", derived_from: [CD-DEPENDENCY], decision_authority: IMPLEMENTATION-DESIGN}
+  - {id: FI-REPOSITORY, kind: implementation-repository, subject: task-feature-source-roots, semantic_value: "The fresh production package root is frontend/. Its source ownership maps to app preparation-shell/context/composition plus target-direction, target, current-position, knowledge-explorer, activity, evidence-change and preparation-support features; private internal file splits remain implementation freedoms.", derived_from: [CD-FEATURES, CD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}
   - {id: FI-SLICES, kind: implementation-slices, subject: feature-capability-slices, semantic_value: "Implementation is partitioned into FI-00 reproducible bootstrap, semantic foundation/mock scenario, shell/context/Target direction, Target, Current, Knowledge, Activity, Evidence/change, Preparation Support and final prototype verification closure.", derived_from: [CD-FEATURES, FTD-WORKFLOW], decision_authority: IMPLEMENTATION-DESIGN}
   - {id: FI-ORDER, kind: implementation-dependency-order, subject: realization-ordering, semantic_value: "The clean baseline precedes FI-00; tool/dependency/boundary enforcement is explicit before product source; semantic models/ports and deterministic mocks precede dependent features; shell/context precede features requiring cross-view continuity.", derived_from: [CD-COMPOSITION, CD-PORTS], decision_authority: IMPLEMENTATION-DESIGN}
   - {id: FI-SPATIAL, kind: implementation-provider-boundary, subject: optional-spatial-realization, semantic_value: "The clean baseline has no production spatial dependency. Knowledge remains task-complete without one; any future spatial provider must be added explicitly behind the accepted provider seam and cannot become semantic state.", derived_from: [CD-SPATIAL, FTD-SPATIAL], decision_authority: IMPLEMENTATION-DESIGN}

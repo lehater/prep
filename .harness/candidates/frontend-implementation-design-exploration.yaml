@@ -71,7 +71,7 @@ axes:
   probes:
   - strategy: history-removal
     challenge: Compare choosing a minimal current toolchain from accepted needs with recreating the deleted dependency stack wholesale.
-    alternatives: [fresh-minimal-versioned-toolchain, recreate-deleted-toolchain-wholesale]
+    alternatives: [react-typescript-vite-minimal, vanilla-typescript-vite, preact-typescript-vite-minimal, recreate-deleted-toolchain-wholesale]
   - strategy: remove-tool
     challenge: Compare an initial non-spatial production dependency set with adding a spatial provider before user/quality evidence requires it.
     alternatives: [no-production-spatial-dependency-at-bootstrap, add-spatial-provider-at-bootstrap]
@@ -81,9 +81,15 @@ axes:
   decision_points:
   - id: base-toolchain
     alternatives:
-    - id: fresh-minimal-versioned-toolchain
-      difference: FI-00 selects and pins only tools justified by current architecture/verification obligations.
-      material_effects: {tool-origin: current-requirements, versioning: pinned, historical-dependency-obligation: none}
+    - id: react-typescript-vite-minimal
+      difference: Use React/React DOM for component composition, TypeScript/Vite for typed browser build, Biome for linting, Vitest for local tests and Playwright for E2E; defer router/query/UI/state/spatial providers.
+      material_effects: {component-runtime: react, build: vite, typed-language: typescript, extra-product-providers: none}
+    - id: vanilla-typescript-vite
+      difference: Use browser DOM APIs directly with TypeScript/Vite and the same test/quality layers.
+      material_effects: {component-runtime: none, build: vite, local-lifecycle-plumbing: higher, dependency-count: lower}
+    - id: preact-typescript-vite-minimal
+      difference: Use Preact with TypeScript/Vite and the same test/quality layers.
+      material_effects: {component-runtime: preact, build: vite, compatibility-surface: additional, dependency-count: similar}
     - id: recreate-deleted-toolchain-wholesale
       difference: Recreate framework/package/version choices from removed implementation without a new need analysis.
       material_effects: {tool-origin: historical-implementation, versioning: historical, legacy-coupling: high}
