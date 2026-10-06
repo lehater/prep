@@ -5,7 +5,7 @@ on:
     branches:
       - implementation/fi00-frontend-bootstrap-2026-10-06
     paths:
-      - "frontend/package.json"
+      - "frontend/**"
       - "docs/implementation/frontend-implementation-design.md"
       - ".harness/candidates/frontend-implementation-design-admission.yaml"
       - ".harness/candidates/frontend-implementation-design-exploration.yaml"
