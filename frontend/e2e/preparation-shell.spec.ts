@@ -383,6 +383,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
+  await page.addInitScript(() => {
+    window.localStorage.removeItem("prep.knowledge.table-graph-ratio");
+    window.localStorage.removeItem("prep.knowledge.top-details-ratio");
+  });
   await page.goto("/");
   await establishBackendTarget(page);
 
