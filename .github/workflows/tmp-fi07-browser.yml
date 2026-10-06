@@ -1,0 +1,40 @@
+name: FI-07 browser checkpoint
+
+on:
+  push:
+    branches:
+      - implementation/fi07-evidence-change-2026-10-06
+    paths:
+      - ".github/workflows/tmp-fi07-browser.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  browser-checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install locked dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Install Chromium
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Run FI-07 browser scenarios
+        working-directory: frontend
+        run: npm run test:e2e
