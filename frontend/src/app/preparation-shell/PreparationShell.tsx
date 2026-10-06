@@ -44,16 +44,18 @@ export interface PreparationShellProps {
 }
 
 function StructuralPlaceholder({
+  view,
   title,
   description,
   recoveryReason,
 }: {
+  readonly view: PreparationDestination;
   readonly title: string;
   readonly description: string;
   readonly recoveryReason?: string | undefined;
 }) {
   return (
-    <section className="task-view structural-placeholder" data-view={title.toLowerCase()}>
+    <section className="task-view structural-placeholder" data-view={view}>
       <p className="eyebrow">Раздел недоступен</p>
       <h1>{title}</h1>
       {recoveryReason ? (
@@ -193,6 +195,7 @@ export function PreparationShell({
         />
       ) : (
         <StructuralPlaceholder
+          view="current"
           title="Цель"
           description="Сначала зафиксируйте цель, затем оценивайте текущее состояние."
           recoveryReason={
@@ -212,11 +215,12 @@ export function PreparationShell({
         />
       ) : (
         <StructuralPlaceholder
-          title="Target"
+          view="knowledge"
+          title="Цель"
           description="Сначала зафиксируйте цель, затем исследуйте знания."
           recoveryReason={
             recoveryReason ??
-            "Establish a Target before entering Target-dependent preparation work."
+            "Сначала зафиксируйте цель подготовки."
           }
         />
       );
@@ -249,6 +253,7 @@ export function PreparationShell({
           />
         ) : (
           <StructuralPlaceholder
+            view="activity"
             title={activeTargetRef ? "Текущее состояние" : "Цель"}
             description={
               activeTargetRef
@@ -278,6 +283,7 @@ export function PreparationShell({
           />
         ) : (
           <StructuralPlaceholder
+            view="evidence-change"
             title={activeTargetRef ? "Практика" : "Цель"}
             description="Для просмотра свидетельств и изменений нужен завершённый результат практики."
             recoveryReason={
@@ -334,7 +340,8 @@ export function PreparationShell({
         />
       ) : (
         <StructuralPlaceholder
-          title="Target"
+          view="prepare-support"
+          title="Цель"
           description="Сначала выберите или зафиксируйте цель подготовки."
           recoveryReason={
             recoveryReason ??
