@@ -13,6 +13,11 @@ import type {
   CapabilityRef,
   TargetRef,
 } from "../contracts";
+import {
+  capabilityStateLabel,
+  changeOutcomeLabel,
+  evidenceKindLabel,
+} from "../../ui/presentationLabels";
 
 export interface EvidenceChangeFeatureProps {
   readonly port: EvidenceChangePort;
@@ -24,31 +29,14 @@ export interface EvidenceChangeFeatureProps {
   readonly onInspectKnowledge: () => void;
 }
 
-function outcomeLabel(
-  outcome: ChangeModel["learnerEvidenceChange"],
-): string {
-  switch (outcome) {
-    case "changed":
-      return "Changed";
-    case "no-change":
-      return "No change";
-    case "challenged":
-      return "Challenged";
-    case "increased-uncertainty":
-      return "Increased uncertainty";
-    case "unresolved":
-      return "Unresolved";
-  }
-}
-
 function stateExplanation(state: "demonstrated" | "challenged" | "unknown") {
   switch (state) {
     case "demonstrated":
-      return "Evidence currently supports this capability.";
+      return "Текущие свидетельства подтверждают эту компетенцию.";
     case "challenged":
-      return "Current evidence challenges part of the required performance.";
+      return "Часть требуемого результата противоречит текущим свидетельствам.";
     case "unknown":
-      return "There is not enough attributable evidence to conclude either way.";
+      return "Недостаточно надёжных свидетельств, чтобы сделать вывод.";
   }
 }
 
@@ -137,14 +125,13 @@ export function EvidenceChangeFeature({
       aria-labelledby="evidence-change-heading"
     >
       <header className="task-heading">
-        <p className="eyebrow">Evidence &amp; changes</p>
+        <p className="eyebrow">Свидетельства и изменения</p>
         <h1 id="evidence-change-heading">
-          Review what changed after the Activity
+          Проверьте, что изменилось после практики
         </h1>
         <p>
-          Review the evaluated result of the completed occurrence, keep evidence
-          separate from learner-state conclusions, and choose the next
-          continuation explicitly.
+          Изучите результат завершённой попытки, отделите факты от выводов о
+          состоянии компетенций и явно выберите следующий шаг.
         </p>
       </header>
 
@@ -154,7 +141,7 @@ export function EvidenceChangeFeature({
         </p>
       ) : null}
 
-      {status === "loading" ? <p role="status">Loading reviewed result…</p> : null}
+      {status === "loading" ? <p role="status">Загрузка результата…</p> : null}
 
       {change ? (
         <section
@@ -162,29 +149,28 @@ export function EvidenceChangeFeature({
           aria-labelledby="change-summary-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Reviewed Activity result</p>
-            <h2 id="change-summary-heading">Change summary</h2>
+            <p className="eyebrow">Проверенный результат практики</p>
+            <h2 id="change-summary-heading">Что изменилось</h2>
           </div>
 
           <div className="change-outcome-grid">
             <div>
-              <span>Learner evidence / state interpretation</span>
+              <span>Свидетельства / интерпретация состояния</span>
               <strong data-change-outcome={change.learnerEvidenceChange}>
-                {outcomeLabel(change.learnerEvidenceChange)}
+                {changeOutcomeLabel(change.learnerEvidenceChange)}
               </strong>
             </div>
             <div>
-              <span>Target information</span>
-              <strong>{outcomeLabel(change.targetInformationChange)}</strong>
+              <span>Информация о цели</span>
+              <strong>{changeOutcomeLabel(change.targetInformationChange)}</strong>
             </div>
           </div>
 
           <p className="change-explanation">{change.explanation}</p>
 
           <p className="supporting-text">
-            The reviewed ActivityAttempt is the correlation context for this
-            result. Activity completion itself was not treated as capability
-            evidence.
+            Результат относится к конкретной попытке практики. Само завершение
+            попытки не считается свидетельством компетенции.
           </p>
         </section>
       ) : null}
@@ -195,9 +181,9 @@ export function EvidenceChangeFeature({
           aria-labelledby="current-state-after-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Current state after review</p>
+            <p className="eyebrow">Состояние после проверки</p>
             <h2 id="current-state-after-heading">
-              Evidence-backed capability state
+              Состояние компетенций по свидетельствам
             </h2>
           </div>
 
@@ -206,7 +192,7 @@ export function EvidenceChangeFeature({
               <article className="state-card" key={item.capabilityRef}>
                 <div className="state-card-heading">
                   <h3>{item.capabilityLabel}</h3>
-                  <strong data-state={item.state}>{item.state}</strong>
+                  <strong data-state={item.state}>{capabilityStateLabel(item.state)}</strong>
                 </div>
                 <p>{stateExplanation(item.state)}</p>
                 {item.limitations.length > 0 ? (
@@ -228,8 +214,8 @@ export function EvidenceChangeFeature({
           aria-labelledby="evidence-change-actions-heading"
         >
           <div className="section-heading">
-            <p className="eyebrow">Continuation</p>
-            <h2 id="evidence-change-actions-heading">Choose what to do next</h2>
+            <p className="eyebrow">Продолжение</p>
+            <h2 id="evidence-change-actions-heading">Выберите следующий шаг</h2>
           </div>
           <div className="action-row">
             {canContinueCurrentFocus ? (
@@ -238,7 +224,7 @@ export function EvidenceChangeFeature({
                 className="primary-action"
                 onClick={onContinueCurrentFocus}
               >
-                Continue current focus
+                Продолжить текущий фокус
               </button>
             ) : null}
             <button
@@ -246,14 +232,14 @@ export function EvidenceChangeFeature({
               className="secondary-action"
               onClick={onReturnCurrent}
             >
-              Return to Current position
+              Вернуться к текущему состоянию
             </button>
             <button
               type="button"
               className="secondary-action"
               onClick={onInspectKnowledge}
             >
-              Inspect Knowledge
+              Открыть знания
             </button>
           </div>
         </section>
@@ -261,22 +247,22 @@ export function EvidenceChangeFeature({
 
       {evidence ? (
         <details className="evidence-review-detail">
-          <summary>Inspect evidence facts and provenance</summary>
+          <summary>Показать факты и их источники</summary>
           <div className="evidence-facts">
             {evidence.facts.map((fact) => (
               <article className="evidence-card" key={fact.evidenceRef}>
                 <div className="evidence-card-heading">
-                  <strong>{fact.kind}</strong>
+                  <strong>{evidenceKindLabel(fact.kind)}</strong>
                   <span>{fact.summary}</span>
                 </div>
 
                 {fact.supportsCapabilityRefs.length > 0 ? (
                   <p>
-                    Supports:{" "}
+                    Подтверждает:{" "}
                     {fact.supportsCapabilityRefs
                       .map(
                         (capabilityRef: CapabilityRef) =>
-                          capabilityLabels.get(capabilityRef) ?? "Capability",
+                          capabilityLabels.get(capabilityRef) ?? "Компетенция",
                       )
                       .join(", ")}
                   </p>
@@ -284,18 +270,18 @@ export function EvidenceChangeFeature({
 
                 {fact.challengesCapabilityRefs.length > 0 ? (
                   <p>
-                    Challenges:{" "}
+                    Противоречит:{" "}
                     {fact.challengesCapabilityRefs
                       .map(
                         (capabilityRef: CapabilityRef) =>
-                          capabilityLabels.get(capabilityRef) ?? "Capability",
+                          capabilityLabels.get(capabilityRef) ?? "Компетенция",
                       )
                       .join(", ")}
                   </p>
                 ) : null}
 
                 <p>
-                  Provenance:{" "}
+                  Источник:{" "}
                   {fact.provenance.map((item) => item.label).join(", ")}
                 </p>
 
