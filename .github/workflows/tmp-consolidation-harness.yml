@@ -65,6 +65,36 @@ jobs:
                   print(p.read_text())
           PY
 
+      - name: Route UI artifact procedures
+        shell: bash
+        run: |
+          cd "${{ steps.pack.outputs.path }}"
+          for kind in information-architecture-design interface-topology-design screen-view-design; do
+            python -m harness.application.skill_router artifact --knowledge-kind "$kind" > "$GITHUB_WORKSPACE/.harness/diagnostics/route-artifact-$kind.json"
+          done
+
+      - name: Print UI artifact contracts then skills
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          workspace = Path.cwd()
+          pack = Path((workspace / ".harness/diagnostics/consumer-pack-path.txt").read_text().strip())
+          diagnostics = workspace / ".harness/diagnostics"
+          for route_path in sorted(diagnostics.glob("route-artifact-*.json")):
+              data = json.loads(route_path.read_text())
+              print(f"===== ROUTE {route_path.name} =====")
+              print(json.dumps(data, indent=2))
+              for ref in data.get("instruction_contracts", []):
+                  print(f"===== INSTRUCTION CONTRACT {ref} =====")
+                  print((pack / ref).read_text())
+              skill_ref = data.get("skill")
+              if skill_ref:
+                  print(f"===== SKILL {skill_ref} =====")
+                  print((pack / skill_ref).read_text())
+          PY
+
       - name: Validate current project publication
         shell: bash
         run: |
