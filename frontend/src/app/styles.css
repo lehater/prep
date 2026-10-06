@@ -44,49 +44,67 @@ a:focus-visible {
 }
 
 .preparation-shell {
-  width: min(1180px, calc(100% - 32px));
-  margin: 0 auto;
-  padding-bottom: 64px;
+  width: 100%;
+  min-width: 0;
 }
 
-.shell-header {
+.preparation-shell--admin {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 228px minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.app-sidebar {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 12px;
+  border-right: 1px solid #dce1e9;
+  background: #ffffff;
+  padding: 12px 10px;
+}
+
+.sidebar-brand-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 24px 0 16px;
+  gap: 8px;
+  padding: 0 6px 8px;
+  border-bottom: 1px solid #edf0f4;
 }
 
 .brand {
   color: inherit;
-  font-size: 1.35rem;
+  font-size: 1.08rem;
   font-weight: 760;
   text-decoration: none;
 }
 
 .prototype-label {
-  border: 1px solid #cfd6e4;
+  border: 1px solid #d8dee8;
   border-radius: 999px;
-  padding: 6px 10px;
-  color: #556172;
-  font-size: 0.8rem;
+  padding: 2px 5px;
+  color: #7a8494;
+  font-size: 0.58rem;
+  text-transform: uppercase;
 }
 
 .prep-navigation {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  border-bottom: 1px solid #dce1e9;
-  padding-bottom: 8px;
+  display: grid;
+  gap: 3px;
+  align-content: start;
 }
 
 .prep-navigation button {
+  width: 100%;
   border: 0;
-  border-radius: 10px;
+  border-radius: 7px;
   background: transparent;
-  padding: 10px 12px;
+  padding: 7px 8px;
   color: #4f5b6b;
-  white-space: nowrap;
+  font-size: 0.78rem;
+  text-align: left;
 }
 
 .prep-navigation button[aria-current="page"] {
@@ -96,18 +114,18 @@ a:focus-visible {
 }
 
 .active-context {
-  display: flex;
-  gap: 32px;
-  margin: 16px 0 24px;
-  border: 1px solid #dce1e9;
-  border-radius: 14px;
-  background: #ffffff;
-  padding: 14px 16px;
+  align-self: end;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border-top: 1px solid #edf0f4;
+  padding: 10px 6px 2px;
 }
 
 .active-context div {
   display: grid;
-  gap: 3px;
+  gap: 2px;
+  min-width: 0;
 }
 
 .active-context span,
@@ -119,79 +137,81 @@ a:focus-visible {
 
 .active-context span,
 .eyebrow {
-  font-size: 0.78rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
+.active-context strong {
+  overflow: hidden;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+}
+
 .active-child {
   min-width: 0;
-}
-
-.preparation-shell--workspace {
-  width: min(1720px, calc(100% - 20px));
-  height: 100dvh;
-  display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr);
-  overflow: hidden;
-  padding-bottom: 0;
-}
-
-.preparation-shell--workspace .shell-header {
-  padding: 7px 0 3px;
-}
-
-.preparation-shell--workspace .brand {
-  font-size: 1rem;
-}
-
-.preparation-shell--workspace .prototype-label {
-  display: none;
-}
-
-.preparation-shell--workspace .prep-navigation {
-  gap: 2px;
-  padding-bottom: 4px;
-}
-
-.preparation-shell--workspace .prep-navigation button {
-  border-radius: 7px;
-  padding: 5px 8px;
-  font-size: 0.78rem;
-}
-
-.preparation-shell--workspace .active-context {
-  align-items: center;
-  gap: 16px;
-  min-height: 34px;
-  margin: 5px 0 6px;
-  border-radius: 8px;
-  padding: 5px 9px;
-}
-
-.preparation-shell--workspace .active-context div {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-  min-width: 0;
-}
-
-.preparation-shell--workspace .active-context span {
-  font-size: 0.62rem;
-}
-
-.preparation-shell--workspace .active-context strong {
-  overflow: hidden;
-  font-size: 0.76rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.preparation-shell--workspace .active-child {
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
+  padding: 12px;
 }
+
+.preparation-shell--admin[data-destination="knowledge"] .active-child {
+  overflow: hidden;
+  padding: 8px;
+}
+
+@media (max-width: 760px) {
+  .preparation-shell--admin {
+    height: auto;
+    min-height: 100dvh;
+    display: block;
+    overflow: visible;
+  }
+
+  .app-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 8px;
+    border-right: 0;
+    border-bottom: 1px solid #dce1e9;
+    padding: 7px 8px;
+  }
+
+  .sidebar-brand-row {
+    border-bottom: 0;
+    padding: 0;
+  }
+
+  .prototype-label,
+  .active-context {
+    display: none;
+  }
+
+  .prep-navigation {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+  }
+
+  .prep-navigation button {
+    width: auto;
+    padding: 5px 7px;
+    white-space: nowrap;
+  }
+
+  .active-child,
+  .preparation-shell--admin[data-destination="knowledge"] .active-child {
+    overflow: visible;
+    padding: 8px;
+  }
+}
+
 
 .task-view {
   display: grid;
