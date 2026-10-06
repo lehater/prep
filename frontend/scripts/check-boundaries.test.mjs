@@ -75,6 +75,19 @@ describe("frontend dependency boundaries", () => {
     ]);
   });
 
+  it("allows adapters to implement public contracts but rejects feature-private imports", () => {
+    const root = fixture({
+      "adapters/mock/index.ts":
+        'import type { TargetPort } from "../../features/target/contract"; import "../../features/target/private";',
+      "features/target/contract.ts": "export interface TargetPort {}",
+      "features/target/private.ts": "export const value = 1;",
+    });
+
+    expect(validateSourceTree(root)).toEqual([
+      'adapters/mock/index.ts: "../../features/target/private" violates boundary: adapter may depend on task features only through their public contracts',
+    ]);
+  });
+
   it("rejects shared presentation importing task state or semantic contracts", () => {
     const root = fixture({
       "ui/Text.ts": 'import "../features/target/private"; import "../features/contracts";',
