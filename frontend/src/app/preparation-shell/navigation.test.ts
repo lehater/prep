@@ -53,6 +53,25 @@ describe("Preparation Shell topology routing", () => {
     });
   });
 
+  it("allows contextual Prepare Support only with an active Target", () => {
+    const noTarget = { activeTargetRef: null, activeFocusRef: null };
+    expect(
+      resolvePreparationNavigation({ destination: "prepare-support" }, noTarget),
+    ).toEqual({
+      destination: "target",
+      recoveryReason:
+        "Establish a Target before entering Target-dependent preparation work.",
+    });
+
+    const target = {
+      activeTargetRef: ref<"target">("target:active"),
+      activeFocusRef: null,
+    };
+    expect(
+      resolvePreparationNavigation({ destination: "prepare-support" }, target),
+    ).toEqual({ destination: "prepare-support" });
+  });
+
   it("allows Activity only when active Target and focus both exist", () => {
     const context = {
       activeTargetRef: ref<"target">("target:active"),
