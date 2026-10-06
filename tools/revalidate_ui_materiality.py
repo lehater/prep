@@ -23,9 +23,10 @@ from harness.application.project_publication import (
     publish_project_publication,
     read_project_publication,
 )
-from harness.application.semantic_admission import admit_artifact, derive_acceptance_policy_fingerprints
+from harness.application.semantic_admission import admit_artifact, derive_acceptance_policy_fingerprints, derive_acceptance_policy_fingerprints
 from harness.application.semantic_closure import evaluate_semantic_closure
 from harness.assurance.semantic_derivation import evaluate_derivation
+from harness.assurance.capability_lifecycle import lifecycle_states
 from harness.assurance.capability_lifecycle import lifecycle_states
 from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
 from harness.project_model.engineering_graph import production_index
@@ -338,6 +339,26 @@ def main() -> int:
         HARNESS_ROOT / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
     )
     decision_policy = load(CANDIDATES / "ui-materiality-decision-policy.yaml")
+
+    current_policy_fingerprints = derive_acceptance_policy_fingerprints(
+        graph=graph,
+        knowledge_contracts=knowledge_contracts,
+        decision_contracts=decision_contracts,
+        decision_policy=decision_policy,
+    )
+    initial_states = lifecycle_states(
+        graph,
+        core,
+        working_lifecycle,
+        current_acceptance_policy_fingerprints=current_policy_fingerprints,
+    )
+    stale_rows = [
+        initial_states[cap]
+        for cap in order
+        if initial_states[cap].get("state") == "STALE"
+    ]
+    print("INITIAL STRICT LIFECYCLE STALE:")
+    print(json.dumps(stale_rows, indent=2, ensure_ascii=False))
 
     admission_rows = scan_kind("harness-artifact-admission-candidate")
     all_admissions = [doc for _, doc in admission_rows]
