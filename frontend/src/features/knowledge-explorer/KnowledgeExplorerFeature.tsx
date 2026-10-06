@@ -110,6 +110,7 @@ function buildRelationshipOverview(
       family: relationship.family,
       predicate: relationship.predicate,
       label: knowledgePredicateLabel(relationship.predicate),
+      statement: relationship.statement,
     })),
     selectedKnowledgeRef,
   };
@@ -888,23 +889,28 @@ export function KnowledgeExplorerFeature({
                             displayPredicate,
                           }) => (
                             <li key={relationship.propositionRef}>
-                              <span className="knowledge-relation-predicate">
-                                {knowledgePredicateLabel(displayPredicate)}
-                              </span>
-                              <button
-                                type="button"
-                                className="knowledge-relation-link"
-                                onClick={() =>
-                                  chooseItem(counterpart.knowledgeRef)
-                                }
-                              >
-                                {counterpart.label}
-                              </button>
-                              <span>
-                                {knowledgeRelationFamilyLabel(
-                                  relationship.family,
-                                )}
-                              </span>
+                              <div className="knowledge-relation-summary">
+                                <span className="knowledge-relation-predicate">
+                                  {knowledgePredicateLabel(displayPredicate)}
+                                </span>
+                                <button
+                                  type="button"
+                                  className="knowledge-relation-link"
+                                  onClick={() =>
+                                    chooseItem(counterpart.knowledgeRef)
+                                  }
+                                >
+                                  {counterpart.label}
+                                </button>
+                                <span>
+                                  {knowledgeRelationFamilyLabel(
+                                    relationship.family,
+                                  )}
+                                </span>
+                              </div>
+                              <small className="knowledge-relation-explanation">
+                                {relationship.statement}
+                              </small>
                             </li>
                           ),
                         )}
