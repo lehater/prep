@@ -3,6 +3,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -22,10 +23,18 @@ import type {
 } from "./relationship-renderer";
 import { useKnowledgeExplorerState } from "./state";
 
-const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio";
-const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio";
-const DEFAULT_TABLE_GRAPH_RATIO = 72;
-const DEFAULT_TOP_DETAILS_RATIO = 66;
+const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio.v2";
+const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio.v2";
+const DEFAULT_TABLE_GRAPH_RATIO = 70;
+const DEFAULT_TOP_DETAILS_RATIO = 50;
+const TABLE_RATIO_MIN = 45;
+const TABLE_RATIO_MAX = 82;
+const TOP_RATIO_MIN = 30;
+const TOP_RATIO_MAX = 80;
+const SPLITTER_SIZE = 7;
+const MIN_TABLE_WIDTH = 520;
+const MIN_GRAPH_SIZE = 260;
+const MIN_DETAILS_HEIGHT = 150;
 
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
@@ -134,11 +143,24 @@ export function KnowledgeExplorerFeature({
     useState<KnowledgeProjectionModel | null>(null);
   const [status, setStatus] = useState<"loading" | "ready">("loading");
   const [message, setMessage] = useState<string | null>(null);
+  const hadStoredLayoutRef = useRef(
+    typeof window !== "undefined" &&
+      window.localStorage.getItem(TABLE_GRAPH_SPLIT_KEY) !== null &&
+      window.localStorage.getItem(TOP_DETAILS_SPLIT_KEY) !== null,
+  );
   const [tableGraphRatio, setTableGraphRatio] = useState(() =>
-    clamp(readStoredRatio(TABLE_GRAPH_SPLIT_KEY, DEFAULT_TABLE_GRAPH_RATIO), 45, 82),
+    clamp(
+      readStoredRatio(TABLE_GRAPH_SPLIT_KEY, DEFAULT_TABLE_GRAPH_RATIO),
+      TABLE_RATIO_MIN,
+      TABLE_RATIO_MAX,
+    ),
   );
   const [topDetailsRatio, setTopDetailsRatio] = useState(() =>
-    clamp(readStoredRatio(TOP_DETAILS_SPLIT_KEY, DEFAULT_TOP_DETAILS_RATIO), 48, 78),
+    clamp(
+      readStoredRatio(TOP_DETAILS_SPLIT_KEY, DEFAULT_TOP_DETAILS_RATIO),
+      TOP_RATIO_MIN,
+      TOP_RATIO_MAX,
+    ),
   );
 
   const upperPaneRef = useRef<HTMLDivElement | null>(null);
@@ -149,6 +171,41 @@ export function KnowledgeExplorerFeature({
       setRequiredCapabilityRef(incomingRequiredCapabilityRef);
     }
   }, [incomingRequiredCapabilityRef, setRequiredCapabilityRef]);
+
+  useLayoutEffect(() => {
+    if (hadStoredLayoutRef.current || !projection) {
+      return;
+    }
+
+    const rect = workbenchRef.current?.getBoundingClientRect();
+    if (!rect || rect.width <= 0 || rect.height <= 0) {
+      return;
+    }
+
+    const maxGraphByWidth = rect.width - MIN_TABLE_WIDTH - SPLITTER_SIZE;
+    const maxGraphByHeight = rect.height - MIN_DETAILS_HEIGHT - SPLITTER_SIZE;
+    const maxGraphSize = Math.max(
+      MIN_GRAPH_SIZE,
+      Math.min(maxGraphByWidth, maxGraphByHeight),
+    );
+    const preferredGraphSize = Math.min(rect.width * 0.3, rect.height * 0.58);
+    const graphSize = clamp(
+      preferredGraphSize,
+      MIN_GRAPH_SIZE,
+      maxGraphSize,
+    );
+
+    const defaultTableRatio =
+      ((rect.width - graphSize - SPLITTER_SIZE) / rect.width) * 100;
+    const defaultTopRatio = (graphSize / rect.height) * 100;
+
+    setTableGraphRatio(
+      clamp(defaultTableRatio, TABLE_RATIO_MIN, TABLE_RATIO_MAX),
+    );
+    setTopDetailsRatio(
+      clamp(defaultTopRatio, TOP_RATIO_MIN, TOP_RATIO_MAX),
+    );
+  }, [projection]);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -260,13 +317,17 @@ export function KnowledgeExplorerFeature({
       return;
     }
 
-    const minTable = Math.min(520, rect.width * 0.6);
-    const minGraph = Math.min(260, rect.width * 0.32);
+    const minTable = Math.min(MIN_TABLE_WIDTH, rect.width * 0.6);
+    const minGraph = Math.min(MIN_GRAPH_SIZE, rect.width * 0.32);
     const minRatio = (minTable / rect.width) * 100;
     const maxRatio = ((rect.width - minGraph) / rect.width) * 100;
 
     setTableGraphRatio(
-      clamp(((clientX - rect.left) / rect.width) * 100, minRatio, maxRatio),
+      clamp(
+        ((clientX - rect.left) / rect.width) * 100,
+        Math.max(TABLE_RATIO_MIN, minRatio),
+        Math.min(TABLE_RATIO_MAX, maxRatio),
+      ),
     );
   }
 
@@ -276,13 +337,17 @@ export function KnowledgeExplorerFeature({
       return;
     }
 
-    const minTop = Math.min(260, rect.height * 0.58);
-    const minDetails = Math.min(150, rect.height * 0.34);
+    const minTop = Math.min(MIN_GRAPH_SIZE, rect.height * 0.58);
+    const minDetails = Math.min(MIN_DETAILS_HEIGHT, rect.height * 0.34);
     const minRatio = (minTop / rect.height) * 100;
     const maxRatio = ((rect.height - minDetails) / rect.height) * 100;
 
     setTopDetailsRatio(
-      clamp(((clientY - rect.top) / rect.height) * 100, minRatio, maxRatio),
+      clamp(
+        ((clientY - rect.top) / rect.height) * 100,
+        Math.max(TOP_RATIO_MIN, minRatio),
+        Math.min(TOP_RATIO_MAX, maxRatio),
+      ),
     );
   }
 
@@ -299,16 +364,16 @@ export function KnowledgeExplorerFeature({
   function handleVerticalDividerKey(event: ReactKeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      setTableGraphRatio((value) => clamp(value - 2, 45, 82));
+      setTableGraphRatio((value) => clamp(value - 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX));
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
-      setTableGraphRatio((value) => clamp(value + 2, 45, 82));
+      setTableGraphRatio((value) => clamp(value + 2, TABLE_RATIO_MIN, TABLE_RATIO_MAX));
     } else if (event.key === "Home") {
       event.preventDefault();
-      setTableGraphRatio(45);
+      setTableGraphRatio(TABLE_RATIO_MIN);
     } else if (event.key === "End") {
       event.preventDefault();
-      setTableGraphRatio(82);
+      setTableGraphRatio(TABLE_RATIO_MAX);
     }
   }
 
@@ -317,16 +382,16 @@ export function KnowledgeExplorerFeature({
   ) {
     if (event.key === "ArrowUp") {
       event.preventDefault();
-      setTopDetailsRatio((value) => clamp(value - 2, 48, 78));
+      setTopDetailsRatio((value) => clamp(value - 2, TOP_RATIO_MIN, TOP_RATIO_MAX));
     } else if (event.key === "ArrowDown") {
       event.preventDefault();
-      setTopDetailsRatio((value) => clamp(value + 2, 48, 78));
+      setTopDetailsRatio((value) => clamp(value + 2, TOP_RATIO_MIN, TOP_RATIO_MAX));
     } else if (event.key === "Home") {
       event.preventDefault();
-      setTopDetailsRatio(48);
+      setTopDetailsRatio(TOP_RATIO_MIN);
     } else if (event.key === "End") {
       event.preventDefault();
-      setTopDetailsRatio(78);
+      setTopDetailsRatio(TOP_RATIO_MAX);
     }
   }
 
@@ -433,11 +498,13 @@ export function KnowledgeExplorerFeature({
         </div>
       </header>
 
-      {message ? (
-        <p className="outcome-message knowledge-outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      <div className="knowledge-message-slot">
+        {message ? (
+          <p className="outcome-message knowledge-outcome-message" role="status">
+            {message}
+          </p>
+        ) : null}
+      </div>
 
       <section className="knowledge-workspace-body" aria-label="Найденные знания">
         {status === "loading" ? (
@@ -522,8 +589,8 @@ export function KnowledgeExplorerFeature({
                     className="workspace-divider workspace-divider--vertical"
                     aria-label="Изменить ширину таблицы и графа"
                     aria-orientation="vertical"
-                    aria-valuemin={45}
-                    aria-valuemax={82}
+                    aria-valuemin={TABLE_RATIO_MIN}
+                    aria-valuemax={TABLE_RATIO_MAX}
                     aria-valuenow={Math.round(tableGraphRatio)}
                     tabIndex={0}
                     onDoubleClick={() =>
@@ -566,8 +633,8 @@ export function KnowledgeExplorerFeature({
               className="workspace-divider workspace-divider--horizontal"
               aria-label="Изменить высоту таблицы и деталей"
               aria-orientation="horizontal"
-              aria-valuemin={48}
-              aria-valuemax={78}
+              aria-valuemin={TOP_RATIO_MIN}
+              aria-valuemax={TOP_RATIO_MAX}
               aria-valuenow={Math.round(topDetailsRatio)}
               tabIndex={0}
               onDoubleClick={() =>
