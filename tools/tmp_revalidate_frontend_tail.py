@@ -422,9 +422,7 @@ def main() -> int:
     decision_contracts = load(
         HARNESS_ROOT / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
     )
-    decision_policy = load(
-        ROOT / ".harness/candidates/application-design-decision-policy.yaml"
-    )
+    decision_policy = None
 
     report: list[dict[str, Any]] = []
     rebound: dict[Path, dict[str, Any]] = {}
