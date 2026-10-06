@@ -424,10 +424,12 @@ test("keeps Knowledge tools fixed while linking table, inspector and filters", a
     }),
   ).toBeVisible();
   await expect(
-    page.getByText(
-      "consistency-модель влияет на задержку, координацию и актуальность данных",
-      { exact: true },
-    ),
+    page
+      .locator(".knowledge-detail-region")
+      .getByText(
+        "consistency-модель влияет на задержку, координацию и актуальность данных",
+        { exact: true },
+      ),
   ).toBeVisible();
 
   await relationsTab.click();
