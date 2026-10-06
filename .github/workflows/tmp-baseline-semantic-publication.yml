@@ -6,7 +6,7 @@ on:
       - consolidate/baseline-architecture-2026-10-06
     paths:
       - "tools/revalidate_baseline_publication.py"
-      - ".github/workflows/baseline-publication-revalidation.yml"
+      - ".github/workflows/tmp-baseline-semantic-publication.yml"
   workflow_dispatch:
 
 permissions:
