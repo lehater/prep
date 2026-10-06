@@ -386,11 +386,9 @@ test("keeps Knowledge query, capability scope, detail and relations task-complet
   await expect(page.getByText("2 results in the current semantic scope.")).toBeVisible();
 
   await page.getByRole("button", { name: "Inspect proposition" }).click();
-  await expect(
-    page.getByRole("heading", {
-      name: "Consistency choices trade latency and coordination against freshness guarantees.",
-    }),
-  ).toBeVisible();
+  await expect(page.locator("#knowledge-detail-heading")).toHaveText(
+    "Consistency choices trade latency and coordination against freshness guarantees.",
+  );
   await expect(
     page.getByText(
       "consistency-mode influences latency, coordination, and freshness",
