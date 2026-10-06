@@ -210,6 +210,7 @@ export class MockFrontendAdapter
     PreparationSupportPort
 {
   private readonly completedActivityAttempts = new Set<ActivityAttemptRef>();
+  private preparedBehavioralSupportAvailable = false;
   async compareTargets(
     input: CompareTargetsInput,
   ): Promise<SemanticOutcome<TargetComparisonModel>> {
@@ -515,7 +516,9 @@ export class MockFrontendAdapter
     }
 
     if (input.focusRef === mockScenarioRefs.focusMissingSupport) {
-      return accepted([]);
+      return accepted(
+        this.preparedBehavioralSupportAvailable ? [mapPreparedSupport()] : [],
+      );
     }
 
     if (input.focusRef !== mockScenarioRefs.focusCurrent) {
@@ -624,10 +627,26 @@ export class MockFrontendAdapter
       return rejected("Preparation scenario is only defined for the established Target.");
     }
 
+    if (input.semanticBasisRef !== mockScenarioRefs.basis) {
+      return {
+        status: "stale-basis",
+        message: "Preparation request basis is no longer current.",
+        currentBasisRef: mockScenarioRefs.basis,
+      };
+    }
+
+    if (input.focusRef !== mockScenarioRefs.focusMissingSupport) {
+      return rejected(
+        "The deterministic partial-preparation scenario is defined for the missing-support behavioral Focus.",
+      );
+    }
+
+    this.preparedBehavioralSupportAvailable = true;
+
     return accepted({
       preparationRequestRef: rawMockScenario.preparation.requestId,
       targetRef: rawMockScenario.preparation.targetId,
-      focusRef: rawMockScenario.preparation.focusId,
+      focusRef: input.focusRef,
       sourceContext: input.sourceContext,
       sourceProvenance: input.sourceProvenance,
       acceptedSupport: [mapPreparedSupport()],
@@ -645,6 +664,14 @@ export class MockFrontendAdapter
   ): Promise<SemanticOutcome<PreparationRequestModel>> {
     if (preparationRequestRef !== mockScenarioRefs.preparationRequest) {
       return rejected("Unknown PreparationRequest.");
+    }
+
+    if (!this.preparedBehavioralSupportAvailable) {
+      return {
+        status: "unresolved",
+        message: "The PreparationRequest has not produced a current accepted result yet.",
+        currentBasisRef: mockScenarioRefs.basis,
+      };
     }
 
     return accepted({

@@ -80,6 +80,30 @@ describe("Preparation Shell topology routing", () => {
     ).toEqual({ destination: "prepare-support" });
   });
 
+  it("preserves Prepare Support origin and motivating context through topology resolution", () => {
+    const target = {
+      activeTargetRef: ref<"target">("target:active"),
+      activeFocusRef: ref<"focus">("focus:active"),
+    };
+
+    expect(
+      resolvePreparationNavigation(
+        {
+          destination: "prepare-support",
+          candidateTargetRef: target.activeTargetRef,
+          returnDestination: "activity",
+          motivatingContext: "No suitable support is currently prepared.",
+        },
+        target,
+      ),
+    ).toEqual({
+      destination: "prepare-support",
+      candidateTargetRef: "target:active",
+      returnDestination: "activity",
+      motivatingContext: "No suitable support is currently prepared.",
+    });
+  });
+
   it("allows Activity only when active Target and focus both exist", () => {
     const context = {
       activeTargetRef: ref<"target">("target:active"),

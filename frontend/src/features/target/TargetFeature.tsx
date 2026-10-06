@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
-import type { CapabilityRef, TargetRef } from "../contracts";
+import type {
+  CapabilityRef,
+  SemanticBasisRef,
+  TargetRef,
+} from "../contracts";
 import type {
   TargetModel,
   TargetPort,
@@ -14,7 +18,10 @@ export interface TargetFeatureProps {
   readonly candidateTargetRef?: TargetRef | undefined;
   readonly activeTargetRef: TargetRef | null;
   readonly recoveryReason?: string | undefined;
-  readonly onAcceptedTarget: (target: TargetModel) => void;
+  readonly onAcceptedTarget: (
+    target: TargetModel,
+    semanticBasisRef: SemanticBasisRef,
+  ) => void;
   readonly onExploreKnowledge: (capabilityRef: CapabilityRef) => void;
   readonly onRequestPreparationSupport: (targetRef: TargetRef) => void;
   readonly onReconsiderDirection: () => void;
@@ -143,7 +150,7 @@ export function TargetFeature({
 
     const acceptedTarget = outcome.projection.value;
     setTarget(acceptedTarget);
-    onAcceptedTarget(acceptedTarget);
+    onAcceptedTarget(acceptedTarget, outcome.projection.basisRef);
 
     setStatus("loading-requirements");
     const requirementsOutcome = await port.getTargetRequirements(
