@@ -13,6 +13,7 @@ export interface CandidateTargetOption {
   readonly targetRef: TargetRef;
   readonly label: string;
   readonly purpose: string;
+  readonly sourceContext: string;
   readonly uncertainty: readonly string[];
 }
 
