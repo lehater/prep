@@ -135,9 +135,9 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
     page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByText("Компетенция: System design", { exact: true }),
+    page.getByText("System design", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("Показано 2 из 2")).toBeVisible();
+  await expect(page.getByText("2/2", { exact: true })).toBeVisible();
   await expect(
     page.getByText(
       "Выбор consistency-модели балансирует задержку и координацию против гарантий актуальности.",
@@ -494,7 +494,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
   await page.getByRole("button", { name: "Знания", exact: true }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Знания текущей цели" }),
+    page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
