@@ -36,6 +36,52 @@ async function tabTo(page: Page, target: Locator, maxTabs = 80) {
   throw new Error("Keyboard focus did not reach the expected control.");
 }
 
+test("keeps shared application chrome around the replaceable task viewport", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+
+  const topBar = page.locator(".app-topbar");
+  const statusBar = page.getByLabel("Статус приложения");
+  const breadcrumbs = page.getByLabel("Навигационный путь");
+
+  await expect(topBar).toBeVisible();
+  await expect(statusBar).toBeVisible();
+  await expect(breadcrumbs.getByText("Подготовка", { exact: true })).toBeVisible();
+  await expect(breadcrumbs.getByText("Цели", { exact: true })).toBeVisible();
+  await expect(statusBar.getByText("не выбрана", { exact: true })).toBeVisible();
+
+  await establishBackendTarget(page);
+
+  await expect(topBar).toBeVisible();
+  await expect(statusBar).toBeVisible();
+  await expect(breadcrumbs.getByText("Цель", { exact: true })).toBeVisible();
+  await expect(
+    statusBar.getByText("Собеседование на Backend Engineer", { exact: true }),
+  ).toBeVisible();
+  await expect(statusBar.getByText("не выбран", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
+
+  await expect(topBar).toBeVisible();
+  await expect(statusBar).toBeVisible();
+  await expect(breadcrumbs.getByText("Знания", { exact: true })).toBeVisible();
+  await expect(
+    statusBar.getByText("Собеседование на Backend Engineer", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator('[data-view="knowledge"]')).toBeVisible();
+
+  const topBarBox = await topBar.boundingBox();
+  const statusBarBox = await statusBar.boundingBox();
+  expect(topBarBox).not.toBeNull();
+  expect(statusBarBox).not.toBeNull();
+  if (topBarBox && statusBarBox) {
+    expect(topBarBox.height).toBeLessThanOrEqual(44);
+    expect(statusBarBox.height).toBeLessThanOrEqual(30);
+  }
+});
+
 test("compares candidate Targets and continues without activating one", async ({
   page,
 }) => {
