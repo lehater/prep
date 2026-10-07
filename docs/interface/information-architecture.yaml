@@ -2,17 +2,16 @@ version: 1
 kind: information-architecture-design
 id: PREP-INFORMATION-ARCHITECTURE
 
-purpose: Organize the accepted user-facing preparation concepts so the learner can find target meaning, current position, knowledge and activity, while contextual evidence/change review remains reachable from the work that produced it, without exposing backend/domain structure or deciding screens.
+purpose: Organize the accepted user-facing preparation concepts so the learner can find Target work, current position, Knowledge and activity, while contextual evidence/change review remains reachable from the work that produced it, without exposing backend/domain structure or deciding screens.
 
 root:
   id: LOC-ACTIVE-PREPARATION
   label: Preparation
-  purpose: Keep the active target and current preparation direction coherent while the learner moves among target understanding, current position, knowledge and activities; evaluated activity evidence/change review is contextual rather than a peer global destination.
-  conceptual_refs: [C-TARGET, C-CURRENT-STATE, C-NEXT-FOCUS]
+  purpose: Keep the active Target and current preparation direction coherent while the learner moves among Target work, current position, Knowledge and activities; evaluated activity evidence/change review is contextual rather than a peer global destination.
+  conceptual_refs: [C-TARGET, C-TARGET-COMPARISON, C-CURRENT-STATE, C-NEXT-FOCUS]
   scope: active-preparation
   children:
     - LOC-TARGETS
-    - LOC-TARGET
     - LOC-CURRENT-POSITION
     - LOC-KNOWLEDGE
     - LOC-ACTIVITIES
@@ -20,19 +19,32 @@ root:
 locations:
   - id: LOC-TARGETS
     label: Targets
+    purpose: Group Target-related preparation information as one cohesive area so candidate comparison/direction and chosen or active Target understanding/refinement remain conceptually connected rather than presented as peer singular/plural areas.
+    conceptual_refs: [C-TARGET-COMPARISON, C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY]
+    task_refs: [TASK-U-COMPARE-TARGETS, TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]
+    journey_refs: [J-TARGET-DIRECTION, J-TARGET-SETUP]
+    scope: target-work
+    children:
+      - LOC-TARGET-COMPARISON
+      - LOC-TARGET
+
+  - id: LOC-TARGET-COMPARISON
+    label: Candidate comparison
     purpose: Compare plausible preparation Targets against the same evidence-backed learner capability basis, preserving shared versus target-specific requirements, per-target current-state interpretation, gaps and uncertainty before choosing a direction.
     conceptual_refs: [C-TARGET-COMPARISON, C-TARGET, C-CURRENT-STATE, C-GAP]
     task_refs: [TASK-U-COMPARE-TARGETS]
     journey_refs: [J-TARGET-DIRECTION]
     scope: candidate-target-direction
+    parent_semantics: A sublocation of LOC-TARGETS; its identity expresses distinct comparison information needs and does not imply a separate page, route or navigable destination.
 
   - id: LOC-TARGET
-    label: Target
-    purpose: Establish/select/refine the active target and understand its requirements, required capabilities, conditions, quality, direct Knowledge focus and uncertainty.
+    label: Active Target
+    purpose: Establish/select/refine the active Target and understand its requirements, required capabilities, conditions, quality, direct Knowledge focus and uncertainty.
     conceptual_refs: [C-TARGET, C-TARGET-REQUIREMENT, C-REQUIRED-CAPABILITY, C-KNOWLEDGE]
     task_refs: [TASK-U-ESTABLISH-TARGET, TASK-U-UNDERSTAND-REQUIREMENTS]
     journey_refs: [J-TARGET-SETUP]
     scope: active-preparation
+    parent_semantics: A sublocation of LOC-TARGETS; active-Target information remains distinct from candidate comparison while sharing one Target information area.
 
   - id: LOC-CURRENT-POSITION
     label: Current position
@@ -44,7 +56,7 @@ locations:
 
   - id: LOC-KNOWLEDGE
     label: Knowledge
-    purpose: Orient within reusable Subject Knowledge relevant to the active target/focus or a selected Required Capability, including semantic relationships and overview-to-detail scope.
+    purpose: Orient within reusable Subject Knowledge relevant to the active Target/focus or a selected Required Capability, including semantic relationships and overview-to-detail scope.
     conceptual_refs: [C-KNOWLEDGE, C-KNOWLEDGE-SCOPE, C-REQUIRED-CAPABILITY]
     task_refs: [TASK-U-EXPLORE-KNOWLEDGE]
     journey_refs: [J-KNOWLEDGE-ORIENTATION]
@@ -69,21 +81,21 @@ locations:
 
   - id: LOC-PREPARE-SUPPORT
     label: Prepare missing support
-    purpose: Resolve a missing target/Knowledge/learning/practice/diagnostic support need from fragmented sources while preserving the originating target/focus and return context.
+    purpose: Resolve a missing Target/Knowledge/learning/practice/diagnostic support need from fragmented sources while preserving the originating Target/focus and return context.
     conceptual_refs: [C-PREPARATION-REQUEST, C-SUPPORT, C-TARGET, C-NEXT-FOCUS]
     task_refs: [TASK-U-REQUEST-PREPARATION-SUPPORT]
     journey_refs: [J-PREPARE-SUPPORT]
     scope: contextual-recovery
-    parent_semantics: entered from the preparation location that detected the missing support; returns to that originating work when usable support exists.
+    parent_semantics: Entered from the preparation location that detected the missing support; returns to that originating work when usable support exists.
 
 context_scopes:
   - id: SCOPE-ACTIVE-TARGET
-    meaning: The active Target is shared context across all active-preparation locations; changing target changes the interpretation of target-relative state/gaps/focus but does not mutate reusable Capability/Knowledge or historical evidence.
+    meaning: The active Target is shared context across active-preparation information when present; Target work makes that context recoverable, and changing it changes the interpretation of target-relative state/gaps/focus without mutating reusable Capability/Knowledge or historical evidence.
     conceptual_refs: [C-TARGET]
-    applies_to: [LOC-TARGET, LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES, LOC-EVIDENCE-CHANGES, LOC-PREPARE-SUPPORT]
+    applies_to: [LOC-TARGETS, LOC-TARGET, LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES, LOC-EVIDENCE-CHANGES, LOC-PREPARE-SUPPORT]
 
   - id: SCOPE-ACTIVE-FOCUS
-    meaning: The selected Next focus is contextual scope for knowledge/activity/evidence work when present; absence of focus does not block target/current-position inspection.
+    meaning: The selected Next focus is contextual scope for Knowledge/activity/evidence work when present; absence of focus does not block Target or Current-position inspection.
     conceptual_refs: [C-NEXT-FOCUS]
     applies_to: [LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES, LOC-EVIDENCE-CHANGES, LOC-PREPARE-SUPPORT]
 
@@ -93,9 +105,9 @@ context_scopes:
     applies_to: [LOC-KNOWLEDGE]
 
 cross_links:
-  - {from: LOC-TARGETS, to: LOC-TARGET, rationale: Continue from an inspectable multi-target comparison into establishment/refinement of the chosen candidate Target; comparison does not itself mutate learner state or activate the Target.}
-  - {from: LOC-TARGET, to: LOC-TARGETS, rationale: Reconsider direction by comparing the active Target with plausible alternatives against the same learner evidence basis.}
-  - {from: LOC-TARGET, to: LOC-CURRENT-POSITION, rationale: Assess the learner against the currently understood target requirements.}
+  - {from: LOC-TARGET-COMPARISON, to: LOC-TARGET, rationale: Continue from an inspectable multi-target comparison into establishment/refinement of the chosen candidate Target; comparison does not itself mutate learner state or activate the Target.}
+  - {from: LOC-TARGET, to: LOC-TARGET-COMPARISON, rationale: Reconsider direction inside the same Target information area by comparing the active Target with plausible alternatives against the same learner evidence basis.}
+  - {from: LOC-TARGET, to: LOC-CURRENT-POSITION, rationale: Assess the learner against the currently understood Target requirements.}
   - {from: LOC-TARGET, to: LOC-KNOWLEDGE, rationale: Inspect Subject Knowledge for a required Capability; entry may carry that Capability as the initial Knowledge-scope criterion anchored by its direct Knowledge focus. This is a contextual projection, not a Subject Knowledge predicate or learner-state claim.}
   - {from: LOC-CURRENT-POSITION, to: LOC-KNOWLEDGE, rationale: Orient in subject meaning relevant to a gap or current focus.}
   - {from: LOC-CURRENT-POSITION, to: LOC-ACTIVITIES, rationale: Act on the selected PreparationIntent.}
@@ -104,6 +116,17 @@ cross_links:
   - {from: LOC-EVIDENCE-CHANGES, to: LOC-CURRENT-POSITION, rationale: Reassess gaps/uncertainty and next focus after reviewing the activity result.}
   - {from: [LOC-TARGET, LOC-CURRENT-POSITION, LOC-KNOWLEDGE, LOC-ACTIVITIES], to: LOC-PREPARE-SUPPORT, rationale: Missing required preparation support is a contextual recovery branch, not a separate learner-owned corpus workflow.}
   - {from: LOC-PREPARE-SUPPORT, to: originating-location, rationale: Return to the motivating work with accepted support and remaining gaps preserved.}
+
+grouping_decisions:
+  - id: IA-GROUP-TARGET-WORK
+    question: How should candidate Target comparison/direction and active Target understanding/refinement be grouped?
+    selected: parent-with-distinct-sublocations
+    rationale: Both concerns organize information about the same user-facing Target concept and form a reversible compare -> choose -> establish/refine -> reconsider continuum. Keeping them as peer singular/plural areas weakens conceptual cohesion and can mirror Journey/task decomposition; collapsing them into one undifferentiated location would lose materially different candidate-comparison versus active-Target information needs.
+    alternatives:
+      - {id: separate-siblings, disposition: rejected, reason: The distinct tasks do not by themselves justify peer information areas; the user must otherwise infer why singular Target and plural Targets are separate categories.}
+      - {id: unified-single-location, disposition: rejected, reason: One undifferentiated location obscures the different information needed for candidate comparison versus active-Target requirements and refinement.}
+      - {id: parent-with-distinct-sublocations, disposition: selected, reason: Preserves one coherent Target area, continuity and reconsideration while retaining independently findable comparison and active-Target information semantics.}
+    topology_implication: None. The parent and sublocation identities do not decide whether downstream topology uses one or multiple views, routes or navigation affordances.
 
 taxonomy:
   stable_labels:
@@ -128,6 +151,9 @@ taxonomy:
     - graph / 2D / 3D as information categories
 
 findability_assumptions:
+  - id: IA-FIND-TARGET-GROUPING
+    status: VALIDATE
+    assumption: Learners expect candidate comparison and active-Target understanding/refinement to be found within one Target information area while still recognizing the two distinct information contexts; exact view/navigation realization is downstream.
   - id: IA-FIND-TARGET-CONTEXT
     status: VALIDATE
     assumption: Learners need the active Target to remain easy to recover while moving through Current position, Knowledge, Activities and Evidence; exact visual persistence is downstream.
@@ -142,12 +168,13 @@ findability_assumptions:
     assumption: Missing-support preparation is best found contextually where the gap is encountered rather than treated as a primary global learner area.
   - id: IA-FIND-KNOWLEDGE
     status: VALIDATE
-    assumption: Knowledge should remain independently findable from the preparation loop rather than hidden inside capability or activity structures.
+    assumption: Knowledge should remain independently findable from the preparation loop rather than hidden inside Capability or activity structures.
 
 deliberately_unconstrained:
   - URL/routes
   - tabs/sidebar/menu selection
   - page/view count
+  - whether Target sublocations share one view or use multiple views
   - screen regions and layout
   - mobile/desktop composition
   - graph/list/2D/3D representation
