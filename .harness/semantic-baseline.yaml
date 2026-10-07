@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 27
-    basis: "Recorded activity is part of the same preparation-information relationship space as goals, capabilities, knowledge and practice material. Activity-history opacity remains distinct only as the difficulty of reconstructing what activity took place and what results were recorded; no learner-state inference is introduced."
+    revision: 28
+    basis: "Discovery now defines three MVP problems: semantic structure opacity across related preparation information, perspective opacity when isolating the part to work with, and recorded-activity opacity in that same context. Knowledge kinds and relationship meanings may differ, while source verification and learner-state assessment remain outside scope."
 
   - capability: prep.product-intent
     revision: 6
