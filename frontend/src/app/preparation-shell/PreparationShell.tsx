@@ -427,8 +427,7 @@ export function PreparationShell({
   }
 
   const currentLocationLabel = destinationLabels[navigation.destination];
-  const focusStatus =
-    activeFocus?.purpose ?? (activeFocusRef ? "выбран" : "не выбран");
+  const focusStatus = activeFocusRef ? "выбран" : "не выбран";
 
   return (
     <ApplicationShell
@@ -465,19 +464,6 @@ export function PreparationShell({
             ))}
           </nav>
 
-          <section
-            className="active-context"
-            aria-label="Текущий контекст подготовки"
-          >
-            <div>
-              <span>Цель</span>
-              <strong>{activeTarget?.label ?? "не выбрана"}</strong>
-            </div>
-            <div>
-              <span>Фокус</span>
-              <strong>{focusStatus}</strong>
-            </div>
-          </section>
         </aside>
       }
       topBar={
