@@ -1,0 +1,81 @@
+version: 1
+kind: user-needs
+id: PREP-USER-NEEDS
+
+actors:
+  - id: USER
+    description: Person preparing for one or more goals.
+
+context_of_use:
+  - id: CTX-01
+    actor: USER
+    description: >-
+      The person works with knowledge, goals, capabilities, practice material,
+      recorded activity, and relationships among them. The information may
+      already exist before it is used in Prep, may change over time, and some
+      preparation activity may take place outside Prep.
+
+goals:
+  - id: UG-01
+    actor: USER
+    context: CTX-01
+    outcome: >-
+      Prepare for one or more goals.
+
+needs:
+  - id: UN-01
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: >-
+      Understand and explore knowledge, goals, capabilities, practice material,
+      recorded activity, and the relationships among them from different
+      perspectives.
+    evidence: [PE-01, EV-01]
+
+  - id: UN-02
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: >-
+      Select a part of the available information and material for use outside
+      Prep in study, practice, review, testing, or other preparation activity.
+    evidence: [PE-02, EV-02]
+
+  - id: UN-03
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: >-
+      Understand recorded activity and results over time and in relation to
+      the knowledge, goals, capabilities, practice material, and other
+      information they concern.
+    evidence: [PE-03, EV-03]
+
+scope:
+  - >-
+    The information the person works with may be supplied from outside Prep
+    and may change over time.
+
+  - >-
+    Activity outside Prep may include study, practice, review, testing, or
+    other forms of preparation.
+
+  - >-
+    Recorded activity and results are recorded facts available for
+    interpretation. They do not establish the person's knowledge, capability,
+    mastery, readiness, or competence.
+
+unresolved_downstream_decisions:
+  - how information is added, imported, edited, or removed
+  - which knowledge kinds and relationship meanings are supported
+  - how different perspectives are represented
+  - how a selected part is represented and transferred outside Prep
+  - how recorded activity and results are returned
+  - which statistics or other derived representations are provided
+  - product behavior, domain semantics, user interface, and technical realization
+
+sufficiency_review:
+  - goal: UG-01
+    status: covered
+    needs: [UN-01, UN-02, UN-03]
