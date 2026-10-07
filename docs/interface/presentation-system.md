@@ -98,6 +98,8 @@ A visual refresh therefore changes tokens and shared primitives first. Knowledge
 
 Resizable region separators keep their visible rule visually subordinate to content; their pointer hit area may be wider than the visible divider so usability does not require a wide gutter between sections.
 
+For resizable data tables, column width is owned by the column itself. Dragging a column's right-edge handle changes that column only. Content auto-size and fit-to-container are separate operations: double-click auto-size fits the selected column to its header/cell content within explicit min/max bounds and does not implicitly redistribute remaining container width across neighboring columns. Every user-resizable visible column, including the last one, has an equivalent resize handle.
+
 Feature-specific CSS may introduce a new visual role only when the role is genuinely local. If the same role recurs across multiple views, it is promoted into the shared presentation layer rather than copied.
 
 ## Reusable patterns
