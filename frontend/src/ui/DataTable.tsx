@@ -248,7 +248,7 @@ export function DataTable<Row>({
 
   function startResize(
     columnIndex: number,
-    event: ReactPointerEvent<HTMLDivElement>,
+    event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const widths = currentWidths();
     if (!widths) {
@@ -267,7 +267,7 @@ export function DataTable<Row>({
 
   function moveResize(
     columnIndex: number,
-    event: ReactPointerEvent<HTMLDivElement>,
+    event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const active = resizeRef.current;
     if (
@@ -285,7 +285,7 @@ export function DataTable<Row>({
     );
   }
 
-  function stopResize(event: ReactPointerEvent<HTMLDivElement>) {
+  function stopResize(event: ReactPointerEvent<HTMLHRElement>) {
     resizeRef.current = null;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -307,7 +307,7 @@ export function DataTable<Row>({
 
   function handleResizeKey(
     columnIndex: number,
-    event: ReactKeyboardEvent<HTMLDivElement>,
+    event: ReactKeyboardEvent<HTMLHRElement>,
   ) {
     const widths = currentWidths();
     const column = columns[columnIndex];
@@ -368,9 +368,8 @@ export function DataTable<Row>({
                 style={{ textAlign: column.align ?? "left" }}
               >
                 <span className="data-table-header-label">{column.header}</span>
-                <div
+                <hr
                   className="data-table-column-resizer"
-                  role="separator"
                   aria-label={`Изменить ширину колонки «${column.header}»`}
                   aria-orientation="vertical"
                   aria-valuemin={column.minWidth}
