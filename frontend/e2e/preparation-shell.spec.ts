@@ -283,9 +283,7 @@ test("preserves preparation hierarchy and serializes comparison on a narrow view
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  await expect(
-    page.locator(".app-sidebar .active-context"),
-  ).toBeVisible();
+  await expect(page.getByRole("contentinfo")).toBeVisible();
   await expect(
     page.locator("main.active-child"),
   ).toBeVisible();
@@ -532,6 +530,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   const edgeLabels = relationshipRenderer.locator(
     ".knowledge-relationship-edge-label",
   );
+  await page.mouse.move(0, 0);
   await expect(edgeLabels.first()).toBeHidden();
 
   const firstEdgeHit = relationshipRenderer
@@ -929,8 +928,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(
     page.locator('[data-predicate="part_of"]'),
   ).toHaveCount(1);
+  const partOfEdge = page.locator('[data-predicate="part_of"]');
+  await partOfEdge.locator(".knowledge-relationship-edge-hit").hover();
   await expect(
-    page
+    partOfEdge
       .locator(".knowledge-relationship-edge-label")
       .getByText("часть целого"),
   ).toBeVisible();
