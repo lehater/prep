@@ -26,6 +26,7 @@ export interface DataTableProps<Row> {
   readonly storageKey?: string | undefined;
   readonly ariaLabel?: string | undefined;
   readonly className?: string | undefined;
+  readonly tableClassName?: string | undefined;
 }
 
 interface StoredColumnWidths {
@@ -123,6 +124,7 @@ export function DataTable<Row>({
   storageKey,
   ariaLabel,
   className,
+  tableClassName,
 }: DataTableProps<Row>) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
@@ -342,7 +344,7 @@ export function DataTable<Row>({
     >
       <table
         ref={tableRef}
-        className="data-table"
+        className={["data-table", tableClassName].filter(Boolean).join(" ")}
         aria-label={ariaLabel}
         data-column-widths={columnWidths ? "managed" : "auto"}
         style={tableStyle}
