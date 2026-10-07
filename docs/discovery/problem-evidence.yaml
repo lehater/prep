@@ -3,26 +3,28 @@ kind: problem-evidence
 id: PREP-PROBLEM-EVIDENCE
 
 problem: >-
-  A person preparing for one or more goals works with goals, capabilities,
-  knowledge, practice material, and recorded activity. These kinds of
-  information are related. Knowledge can differ in kind, and relationships
-  can have different meanings. As the information accumulates, it becomes
-  difficult to understand its structure, examine it from different
-  perspectives, isolate the part to work with, and understand recorded
-  activity in relation to the rest of the preparation.
+  A person works with knowledge, goals, capabilities, practice material,
+  recorded activity, and relationships among them. These kinds of information
+  may differ in meaning, and the same information may be relevant from
+  different perspectives. As the amount of information grows, it becomes
+  difficult to understand and explore it, select a part for use outside Prep,
+  and understand recorded activity and results in relation to the information
+  they concern.
 
 actors:
   - person-preparing
 
 context: >-
-  The person works with preparation information they choose to use.
-  The information may already exist before it is used in Prep and may
-  change over time.
+  The person works with information they choose to use. The information may
+  already exist before it is used in Prep, may come from different places,
+  and may change over time.
 
 desired_outcome: >-
-  The person can understand preparation information and its relationships,
-  examine it from different perspectives, isolate the part to work with,
-  and understand recorded activity in that context.
+  The person can understand and explore knowledge, goals, capabilities,
+  practice material, recorded activity, and their relationships; select a part
+  of the available information and material for use outside Prep; and understand
+  recorded activity and results over time in relation to the information they
+  concern.
 
 problem_space_terms:
   - goal
@@ -30,46 +32,52 @@ problem_space_terms:
   - knowledge
   - practice_material
   - recorded_activity
+  - relationship
 
 distinctions:
   capability: >-
     Something a person needs to be able to do to achieve a goal.
 
+  knowledge: >-
+    Information about a subject. Its presence does not state what the person
+    knows.
+
   practice_material: >-
-    Material used for practice.
+    Material that can be used for study, practice, review, testing, or other
+    preparation activity.
 
   recorded_activity: >-
-    A fact that preparation activity took place, including a recorded result
-    when one exists.
+    A fact that activity took place, including a recorded result when one exists.
 
   practice_material_vs_recorded_activity: >-
-    Practice material is something that can be used for preparation.
-    Recorded activity describes preparation recorded as having taken place.
+    Practice material is something that can be used in activity.
+    Recorded activity describes what was recorded as having taken place.
 
 observations:
   - id: PE-01
-    name: structure-opacity
+    name: information-and-relationship-opacity
     problem: >-
-      Goals, capabilities, knowledge, practice material, and recorded activity
-      accumulate while their relationships are difficult to understand.
-      Knowledge can differ in kind, and relationships can have different
-      meanings. These distinctions matter when understanding the structure
-      of preparation information.
+      Knowledge, goals, capabilities, practice material, recorded activity, and
+      relationships among them accumulate while becoming difficult to understand
+      and explore. Knowledge can differ in kind, relationships can have different
+      meanings, and the same information can be considered from different
+      perspectives.
 
   - id: PE-02
-    name: perspective-opacity
+    name: external-use-selection
     problem: >-
-      The same preparation information can matter from different perspectives.
-      As the amount of information grows, it becomes difficult to examine it
-      in relation to a particular goal, capability, knowledge, practice material,
-      or recorded activity and isolate the part to work with.
+      A person may need to work outside Prep with only part of the available
+      information or material. As the amount and connectedness of information
+      grow, it becomes difficult to identify and select the part to use for
+      study, practice, review, testing, or other preparation activity.
 
   - id: PE-03
-    name: activity-opacity
+    name: recorded-activity-opacity
     problem: >-
-      As recorded activity accumulates, it becomes difficult to reconstruct
-      what preparation activity took place, what results were recorded, and
-      how that activity relates to the rest of the preparation information.
+      As recorded activity and results accumulate, it becomes difficult to
+      understand what took place over time and how those facts relate to the
+      knowledge, goals, capabilities, practice material, and other information
+      they concern.
 
 evidence:
   - id: EV-01
@@ -77,61 +85,63 @@ evidence:
     source: project-owner
     supports: [PE-01]
     statement: >-
-      Preparation contains different kinds of knowledge and relationships
-      with different meanings, and these distinctions matter when working
-      with preparation information.
+      The value of Prep includes seeing knowledge and relationships among
+      knowledge, goals, capabilities, practice material, and recorded activity
+      from different perspectives. Different kinds of knowledge and different
+      meanings of relationships matter.
 
   - id: EV-02
     kind: stakeholder-statement
     source: project-owner
     supports: [PE-02]
     statement: >-
-      The same preparation information may matter in relation to different
-      goals, capabilities, knowledge, practice material, and recorded activity.
+      A central use of Prep is to select part of the available information and
+      material and use it outside Prep for study, practice, testing, or another
+      preparation activity.
 
   - id: EV-03
     kind: stakeholder-statement
     source: project-owner
     supports: [PE-03]
     statement: >-
-      Recorded preparation activity and results need to remain understandable
-      in relation to the preparation information they concern.
+      Prep should store and relate recorded activity and results so that the
+      person can see them over time and interpret those facts as needed.
 
 scope_boundaries:
   - >-
-    Goal, capability, knowledge, practice material, and recorded activity are
-    problem-space distinctions, not a domain model.
+    Goal, capability, knowledge, practice material, recorded activity, and
+    relationship are problem-space distinctions, not a domain model.
 
   - >-
     Knowledge may differ in kind and relationships may differ in meaning.
-    This artifact does not define their taxonomy.
+    This artifact does not define their taxonomy or relationship model.
 
   - >-
-    Relationships may cross different kinds of preparation information.
+    Relationships may cross different kinds of information.
     This artifact does not define a required relationship topology.
 
   - >-
-    Prep works with information the user chooses to use. Prep does not
-    determine whether that information is correct or reliable.
+    Prep works with information the user chooses to use. Prep does not determine
+    its origin, authorship, correctness, reliability, or authority.
 
   - >-
-    Recorded activity and recorded results describe what was recorded.
+    Recorded activity and recorded results describe recorded facts.
     They do not establish what the person knows or can do.
 
 non_goals:
   - source management, provenance, citation, or traceability
-  - verification of preparation information
+  - verification of information
   - assessment of a person's knowledge or capability
   - mastery, readiness, or competence estimation
 
 unresolved_downstream_decisions:
-  - how preparation information is entered, imported, changed, or removed
+  - how information is added, imported, edited, or removed
   - which kinds of knowledge are distinguished
   - which relationship meanings are distinguished
   - how relationships are created or represented
-  - how different perspectives or subsets are produced
-  - how preparation material is transferred for study
+  - how information is explored from different perspectives
+  - how a selected part is represented or transferred for external use
   - how recorded activity and results are returned
-  - whether statistics or other derived values are calculated
+  - which statistics or other derived representations are provided
   - domain model and semantics
   - user interface and technical realization
