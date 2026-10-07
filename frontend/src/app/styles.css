@@ -191,7 +191,7 @@ a:focus-visible {
     grid-template-rows: auto;
     gap: 8px;
     border-right: 0;
-    border-bottom: 1px solid var(--prep-color-border);
+    border-bottom: 1px solid var(--prep-color-sidebar-border);
     padding: 7px 8px;
   }
 
@@ -208,7 +208,7 @@ a:focus-visible {
     grid-column: 1 / -1;
     display: flex;
     gap: 12px;
-    border-top: 1px solid var(--prep-color-border-subtle);
+    border-top: 1px solid var(--prep-color-sidebar-border);
     padding: 5px 0 0;
   }
 
@@ -488,7 +488,7 @@ a:focus-visible {
 
   .task-heading h1,
   .structural-placeholder h1 {
-    font-size: 2.25rem;
+    font-size: 1.65rem;
   }
 
   .action-row {
@@ -848,9 +848,10 @@ a:focus-visible {
   gap: 10px;
   min-width: 0;
   border: 1px solid var(--prep-color-border);
-  border-radius: 8px;
+  border-radius: var(--prep-radius-md);
   background: var(--prep-color-surface);
-  padding: 6px 7px;
+  padding: 7px 8px;
+  box-shadow: var(--prep-shadow-surface);
 }
 
 .knowledge-workspace-title {
@@ -895,13 +896,17 @@ a:focus-visible {
 .knowledge-filter-control {
   width: 100%;
   min-width: 0;
-  min-height: 29px;
+  min-height: 30px;
   border: 1px solid var(--prep-color-border);
-  border-radius: 6px;
+  border-radius: var(--prep-radius-sm);
   background: var(--prep-color-surface);
   padding: 4px 7px;
   color: inherit;
   font-size: 0.74rem;
+}
+
+.knowledge-filter-control:hover {
+  border-color: var(--prep-color-border-strong);
 }
 
 .knowledge-search-control {
@@ -921,7 +926,7 @@ a:focus-visible {
   align-items: center;
   overflow: hidden;
   max-width: 190px;
-  border: 1px solid #e1e5ec;
+  border: 1px solid var(--prep-color-border);
   background: var(--prep-color-surface-muted);
   padding: 4px 7px;
   color: var(--prep-color-text-secondary);
@@ -932,7 +937,7 @@ a:focus-visible {
   border: 1px solid var(--prep-color-border);
   background: var(--prep-color-surface);
   padding: 4px 7px;
-  color: #445064;
+  color: var(--prep-color-text-secondary);
 }
 
 .knowledge-message-slot {
@@ -1005,9 +1010,10 @@ a:focus-visible {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  border: 1px solid #bec8d6;
-  border-radius: 7px;
+  border: 1px solid var(--prep-color-border-strong);
+  border-radius: var(--prep-radius-sm);
   background: var(--prep-color-surface);
+  box-shadow: var(--prep-shadow-surface);
 }
 
 .knowledge-table-scroll {
@@ -1029,19 +1035,19 @@ a:focus-visible {
   top: 0;
   z-index: 1;
   box-sizing: border-box;
-  border-bottom: 1px solid #b8c3d1;
-  background: #e9eef4;
+  border-bottom: 1px solid var(--prep-color-border-strong);
+  background: var(--prep-color-canvas);
   padding: 6px 8px;
-  color: #344054;
+  color: var(--prep-color-text-muted);
   font-size: 0.62rem;
-  font-weight: 780;
-  letter-spacing: 0.035em;
+  font-weight: 650;
+  letter-spacing: 0.025em;
   text-align: left;
   text-transform: uppercase;
 }
 
 .knowledge-table th:not(:last-child) {
-  border-right: 1px solid #c4ceda;
+  border-right: 1px solid var(--prep-color-border);
 }
 
 .knowledge-table[data-column-widths="auto"] th:nth-child(2) {
@@ -1075,8 +1081,8 @@ a:focus-visible {
   background: linear-gradient(
     to right,
     transparent 4px,
-    #a9b5c4 4px,
-    #a9b5c4 6px,
+    var(--prep-color-border-strong) 4px,
+    var(--prep-color-border-strong) 6px,
     transparent 6px
   );
   padding: 0;
@@ -1102,30 +1108,34 @@ a:focus-visible {
 }
 
 .knowledge-table td {
-  border-bottom: 1px solid #dbe2eb;
+  border-bottom: 1px solid var(--prep-color-border);
   padding: 0;
   vertical-align: middle;
 }
 
 .knowledge-table td:not(:last-child) {
-  border-right: 1px solid #e0e6ee;
+  border-right: 1px solid var(--prep-color-border-subtle);
 }
 
 .knowledge-table tbody tr:last-child td {
   border-bottom: 0;
 }
 
+.knowledge-table tbody tr:nth-child(even):not([data-selected="true"]) {
+  background: var(--prep-color-row-alt);
+}
+
 .knowledge-table tbody tr[data-selected="true"] {
-  background: var(--prep-color-accent-soft);
+  background: var(--prep-color-row-selected);
   box-shadow: inset 2px 0 0 var(--prep-color-accent);
 }
 
 .knowledge-table tbody tr:hover {
-  background: #f7f9fc;
+  background: var(--prep-color-row-hover);
 }
 
 .knowledge-table tbody tr[data-selected="true"]:hover {
-  background: var(--prep-color-accent-soft);
+  background: var(--prep-color-row-selected);
 }
 
 .knowledge-row-select {
@@ -1149,7 +1159,7 @@ a:focus-visible {
 
 .knowledge-row-select small {
   overflow: hidden;
-  color: #748094;
+  color: var(--prep-color-text-muted);
   font-size: 0.64rem;
   line-height: 1.25;
   text-overflow: ellipsis;
@@ -1158,10 +1168,8 @@ a:focus-visible {
 
 .knowledge-kind {
   color: var(--prep-color-text-muted);
-  font-size: 0.61rem;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  font-size: 0.64rem;
+  font-weight: 500;
 }
 
 .knowledge-table td:nth-child(2) {
@@ -1170,7 +1178,7 @@ a:focus-visible {
 
 .knowledge-table .knowledge-relation-count {
   padding: 4px 7px;
-  color: #4e5b6d;
+  color: var(--prep-color-text-secondary);
   font-size: 0.7rem;
   font-variant-numeric: tabular-nums;
   text-align: right;
@@ -1190,13 +1198,13 @@ a:focus-visible {
 .workspace-divider::before {
   content: "";
   position: absolute;
-  background: #aeb9c8;
+  background: var(--prep-color-border-strong);
   transition: background 120ms ease;
 }
 
 .workspace-divider:hover::before,
 .workspace-divider:focus-visible::before {
-  background: #6278cc;
+  background: var(--prep-color-accent);
 }
 
 .workspace-divider--vertical {
@@ -1234,23 +1242,23 @@ a:focus-visible {
   justify-content: space-between;
   gap: 8px;
   min-height: 22px;
-  border: 1px solid #c7d0dc;
-  border-radius: 5px;
-  background: #e9eef4;
+  border: 1px solid var(--prep-color-border);
+  border-radius: var(--prep-radius-xs);
+  background: var(--prep-color-canvas);
   padding: 3px 6px;
-  color: #344054;
+  color: var(--prep-color-text-secondary);
   font-size: 0.69rem;
 }
 
 .knowledge-pane-heading > strong {
-  font-weight: 720;
+  font-weight: 650;
 }
 
 .knowledge-pane-heading > span {
-  border-radius: 999px;
-  background: #dce4ee;
+  border-radius: var(--prep-radius-pill);
+  background: var(--prep-color-surface-subtle);
   padding: 1px 5px;
-  color: #475467;
+  color: var(--prep-color-text-muted);
   font-size: 0.6rem;
 }
 
@@ -1259,10 +1267,15 @@ a:focus-visible {
   min-height: 0;
   height: 100%;
   overflow: hidden;
-  border: 1px solid #c8d1dd;
-  border-radius: 6px;
+  border: 1px solid var(--prep-color-border);
+  border-radius: var(--prep-radius-sm);
   background:
-    radial-gradient(circle at center, var(--prep-color-surface) 0, #f7f9fc 72%, #f1f4f8 100%);
+    radial-gradient(
+      circle at center,
+      var(--prep-color-surface) 0,
+      var(--prep-color-row-alt) 72%,
+      var(--prep-color-surface-subtle) 100%
+    );
 }
 
 .knowledge-relationship-lines {
@@ -1273,18 +1286,18 @@ a:focus-visible {
 }
 
 .knowledge-relationship-lines line {
-  stroke: #c8d0dc;
+  stroke: var(--prep-color-border-strong);
   stroke-width: 0.55;
   vector-effect: non-scaling-stroke;
 }
 
 .knowledge-relationship-lines line[data-selected="true"] {
-  stroke: #657bd1;
+  stroke: var(--prep-color-accent);
   stroke-width: 1.1;
 }
 
 .knowledge-relationship-edge-label {
-  fill: #5f6b7c;
+  fill: var(--prep-color-text-muted);
   font-size: 2.25px;
   font-weight: 400;
   paint-order: stroke;
@@ -1301,7 +1314,7 @@ a:focus-visible {
   width: var(--knowledge-node-size);
   height: var(--knowledge-node-size);
   transform: translate(-50%, -50%);
-  border: 1px solid #8995a7;
+  border: 1px solid var(--prep-color-border-strong);
   border-radius: 50%;
   background: var(--prep-color-surface);
   padding: 0;
@@ -1324,7 +1337,7 @@ a:focus-visible {
 
 .knowledge-relationship-caption {
   margin: 0;
-  color: #748094;
+  color: var(--prep-color-text-muted);
   font-size: 0.62rem;
   line-height: 1.25;
 }
@@ -1401,13 +1414,13 @@ a:focus-visible {
 }
 
 .knowledge-relation-summary > span:last-child {
-  color: #7b8593;
+  color: var(--prep-color-text-muted);
   font-size: 0.58rem;
   white-space: nowrap;
 }
 
 .knowledge-relation-explanation {
-  color: #748094;
+  color: var(--prep-color-text-muted);
   font-size: 0.61rem;
   line-height: 1.3;
 }
@@ -1416,7 +1429,7 @@ a:focus-visible {
   border-radius: 999px;
   background: var(--prep-color-accent-soft);
   padding: 1px 5px;
-  color: #334f9f;
+  color: var(--prep-color-accent-strong);
   font-size: 0.6rem;
   font-weight: 700;
 }
@@ -1432,18 +1445,18 @@ a:focus-visible {
   border: 0;
   background: transparent;
   padding: 0;
-  color: #334f9f;
+  color: var(--prep-color-accent-strong);
   font-size: inherit;
   text-align: left;
   text-decoration: underline;
-  text-decoration-color: #b7c2e3;
+  text-decoration-color: var(--prep-color-border-strong);
   text-overflow: ellipsis;
   text-underline-offset: 2px;
   white-space: nowrap;
 }
 
 .knowledge-relation-link:disabled {
-  color: #7c8694;
+  color: var(--prep-color-text-muted);
   cursor: default;
   text-decoration: none;
 }
