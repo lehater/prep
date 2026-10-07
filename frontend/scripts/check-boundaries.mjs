@@ -112,12 +112,15 @@ function sharedPresentationViolations(sourceText, relativePath, module) {
     );
   }
 
+  const literalClassTokens = new Set(
+    Array.from(
+      sourceText.matchAll(/className\\s*=\\s*["']([^"']*)["']/gu),
+      (match) => match[1]?.split(/\\s+/u).filter(Boolean) ?? [],
+    ).flat(),
+  );
+
   for (const token of SHARED_PRESENTATION_CLASS_TOKENS) {
-    const classPattern = new RegExp(
-      `className\\s*=\\s*["'][^"']*\\b${token}\\b[^"']*["']`,
-      "u",
-    );
-    if (classPattern.test(sourceText)) {
+    if (literalClassTokens.has(token)) {
       violations.push(
         `${relativePath}: shared presentation class "${token}" must be owned through its ui primitive`,
       );
