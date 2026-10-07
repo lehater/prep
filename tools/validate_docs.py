@@ -25,6 +25,9 @@ HUMAN_PROJECTION_DOCS = {
     "docs/vision/vision.md",
     "docs/vision/product-capabilities.md",
 }
+PROGRAM_CONTROL_DOCS = {
+    "docs/process/harness-first-defect-remediation.md",
+}
 
 
 def _target_from_markdown(raw: str) -> str:
@@ -52,7 +55,12 @@ def _canonical_doc_paths() -> set[str]:
 
 
 def validate_doc_inventory() -> list[str]:
-    allowed = _canonical_doc_paths() | {"docs/README.md"} | HUMAN_PROJECTION_DOCS
+    allowed = (
+        _canonical_doc_paths()
+        | {"docs/README.md"}
+        | HUMAN_PROJECTION_DOCS
+        | PROGRAM_CONTROL_DOCS
+    )
     actual = {
         path.relative_to(ROOT).as_posix()
         for path in (ROOT / "docs").rglob("*")
