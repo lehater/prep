@@ -1198,9 +1198,7 @@ for (const viewport of [
     await page.goto("/");
     await establishBackendTarget(page);
 
-    await expect(
-      page.locator(".app-sidebar .active-context"),
-    ).toBeVisible();
+    await expect(page.getByRole("contentinfo")).toBeVisible();
     await expect(
       page.locator("main.active-child"),
     ).toBeVisible();
