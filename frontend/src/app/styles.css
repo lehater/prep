@@ -54,7 +54,7 @@ a:focus-visible {
 .app-sidebar {
   min-height: 0;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 14px;
   border-right: 1px solid var(--prep-color-sidebar-border);
   background: var(--prep-color-sidebar);
@@ -116,38 +116,8 @@ a:focus-visible {
   box-shadow: var(--prep-shadow-active);
 }
 
-.active-context {
-  align-self: end;
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  border-top: 1px solid var(--prep-color-sidebar-border);
-  padding: 12px 8px 2px;
-}
-
-.active-context div {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-
 .candidate-card small {
   color: var(--prep-color-text-muted);
-}
-
-.active-context span {
-  color: var(--prep-color-sidebar-muted);
-  font-size: var(--prep-type-meta);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.active-context strong {
-  overflow: hidden;
-  font-size: var(--prep-type-small);
-  line-height: 1.35;
-  text-overflow: ellipsis;
 }
 
 .active-child {
@@ -184,22 +154,6 @@ a:focus-visible {
 
   .prototype-label {
     display: none;
-  }
-
-  .active-context {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 12px;
-    border-top: 1px solid var(--prep-color-sidebar-border);
-    padding: 5px 0 0;
-  }
-
-  .active-context div {
-    flex: 1 1 0;
-  }
-
-  .active-context strong {
-    white-space: nowrap;
   }
 
   .prep-navigation {
