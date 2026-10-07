@@ -671,7 +671,7 @@ export function KnowledgeExplorerFeature({
     boundaryIndex: 0 | 1,
     event: ReactPointerEvent<HTMLHRElement>,
   ) {
-    const widths = readRenderedColumnWidths() ?? columnWidths;
+    const widths = columnWidths ?? readRenderedColumnWidths();
     if (!widths) {
       return;
     }
@@ -717,7 +717,7 @@ export function KnowledgeExplorerFeature({
     boundaryIndex: 0 | 1,
     desiredLeftWidth: number,
   ) {
-    const widths = readRenderedColumnWidths() ?? columnWidths;
+    const widths = columnWidths ?? readRenderedColumnWidths();
     if (!widths) {
       return;
     }
@@ -743,7 +743,7 @@ export function KnowledgeExplorerFeature({
     boundaryIndex: 0 | 1,
     event: ReactKeyboardEvent<HTMLHRElement>,
   ) {
-    const widths = readRenderedColumnWidths() ?? columnWidths;
+    const widths = columnWidths ?? readRenderedColumnWidths();
     if (!widths) {
       return;
     }
