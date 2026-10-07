@@ -47,15 +47,24 @@ export function ActionButton({
   );
 }
 
-export interface FieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
+export interface FieldProps
+  extends Omit<LabelHTMLAttributes<HTMLLabelElement>, "htmlFor"> {
+  readonly controlId: string;
   readonly label: ReactNode;
   readonly children: ReactNode;
 }
 
-export function Field({ label, className, children, ...props }: FieldProps) {
+export function Field({
+  controlId,
+  label,
+  className,
+  children,
+  ...props
+}: FieldProps) {
   return (
     <label
       {...props}
+      htmlFor={controlId}
       className={["field", className].filter(Boolean).join(" ")}
     >
       <span>{label}</span>
