@@ -86,6 +86,18 @@ Use semantic emphasis roles rather than fixed visual sizes:
 
 Exact typography family, font sizes, color values, border radii, spacing values and icon set remain implementation freedoms unless a later accepted brand/platform constraint makes them material.
 
+## Implementation layering
+
+The presentation system is implemented in three layers so visual styling can propagate across the whole application without feature-specific duplication:
+
+1. **Design tokens** define reusable visual roles such as application canvas, surfaces, navigation surfaces, borders, text hierarchy, accent, row states, radii, spacing and focus treatment. Feature CSS consumes semantic token roles rather than embedding a private palette.
+2. **Shared presentation primitives** define recurring application-shell and control patterns such as navigation, page/task headings, surfaces, controls, actions, section headings, collection rows and dividers.
+3. **Feature composition** owns only feature-specific geometry and task semantics. A feature may compose shared primitives and add local layout rules, but it does not redefine the application palette or typography system.
+
+A visual refresh therefore changes tokens and shared primitives first. Knowledge may be the first dense consumer used to validate the system, but Knowledge-specific styling must not become the source of truth for application-wide appearance.
+
+Feature-specific CSS may introduce a new visual role only when the role is genuinely local. If the same role recurs across multiple views, it is promoted into the shared presentation layer rather than copied.
+
 ## Reusable patterns
 
 ### PATTERN-CONTEXT-HEADER
