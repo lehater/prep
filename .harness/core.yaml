@@ -17,9 +17,9 @@ authorities:
 - id: TEST-DESIGN
 - id: IMPLEMENTATION-DESIGN
 artifacts:
-- id: PROBLEM-SPACE
+- id: PROBLEM-EVIDENCE
   authority: DISCOVERY
-  path: docs/vision/problem-space.md
+  path: docs/discovery/problem-evidence.yaml
   provides:
   - prep.problem-evidence
   depends_on: []
@@ -29,7 +29,7 @@ artifacts:
   provides:
   - prep.user-needs
   depends_on:
-  - PROBLEM-SPACE
+  - PROBLEM-EVIDENCE
 - id: PRODUCT-VISION
   authority: PRODUCT-REQUIREMENTS
   path: .harness/knowledge/product-intent.yaml
