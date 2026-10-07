@@ -545,7 +545,7 @@ export function KnowledgeExplorerFeature({
     baseWidths: KnowledgeColumnWidths,
   ) {
     const leftIndex = boundaryIndex;
-    const rightIndex = boundaryIndex + 1;
+    const rightIndex = (boundaryIndex + 1) as 1 | 2;
     const leftWidth = baseWidths[leftIndex];
     const rightWidth = baseWidths[rightIndex];
     const minDelta = Math.max(
