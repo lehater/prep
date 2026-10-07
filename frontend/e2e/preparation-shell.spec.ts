@@ -528,6 +528,28 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect
     .poll(async () => (await relationshipRenderer.boundingBox())?.height ?? 0)
     .toBeGreaterThan(80);
+
+  const edgeLabels = relationshipRenderer.locator(
+    ".knowledge-relationship-edge-label",
+  );
+  await expect(edgeLabels).toHaveCount(0);
+
+  const firstEdgeHit = relationshipRenderer
+    .locator(".knowledge-relationship-edge-hit")
+    .first();
+  await firstEdgeHit.hover();
+  await expect(edgeLabels).toHaveCount(1);
+  await expect(edgeLabels.first()).toBeVisible();
+
+  const firstGraphNode = relationshipRenderer
+    .locator(".knowledge-relationship-node")
+    .first();
+  await expect(firstGraphNode).not.toHaveAttribute("title");
+  await firstGraphNode.hover();
+  await expect(
+    relationshipRenderer.locator(".knowledge-relationship-tooltip"),
+  ).toBeVisible();
+
   await expect(
     page.getByLabel("Детали знания").getByText("Выберите строку"),
   ).toBeVisible();
