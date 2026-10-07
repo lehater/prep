@@ -753,9 +753,3 @@ semantic_review:
     - id: shared-outcome-semantics
       status: ACCOUNTED
       assertions: [UJ-SHARED-OUTCOMES]
-  status: ACCEPTED
-  checks:
-    - source-discipline
-    - authority-boundary
-    - no-invention
-    - journey-not-screen-design
