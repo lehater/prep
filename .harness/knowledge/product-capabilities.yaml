@@ -5,118 +5,119 @@ schema: product-requirements/v1
 title: Prep Product Capabilities
 
 content:
-  purpose: Decompose accepted product intent into observable product capabilities without selecting domain ownership, interface form, algorithms, persistence, or implementation technology.
+  purpose: >-
+    Define the minimum observable product behaviors required to realize
+    the accepted Prep product intent.
 
   requirements:
-    - id: REQ-CAP-TARGET
-      statement: The product shall let the learner create, inspect, and revise an active preparation target while preserving explicit uncertainty and distinguishing target refinement from learner-state change.
+    - id: REQ-CAP-INTRODUCE-INFORMATION
+      statement: >-
+        The product shall allow information and relationships to be introduced
+        for use in Prep.
       status: ACCEPTED
-      source_refs: [REQ-TARGET-REFINEMENT]
-      rationale: Target definition must remain observable and revisable.
+      source_refs: [REQ-INFORMATION-LIFECYCLE]
 
-    - id: REQ-CAP-TARGET-PURPOSE
-      statement: The product shall let the learner distinguish related target purposes and inspect which requirements belong to each without automatically inheriting requirements between them.
+    - id: REQ-CAP-RETAIN-INFORMATION
+      statement: >-
+        The product shall retain information and relationships so they remain
+        available until changed or removed.
       status: ACCEPTED
-      source_refs: [REQ-TARGET-PURPOSE]
-      rationale: Related role, interview, certification, or other targets may overlap without being equivalent.
+      source_refs: [REQ-INFORMATION-LIFECYCLE]
 
-    - id: REQ-CAP-TARGET-DIRECTION
-      statement: The product shall let the learner compare two or more plausible targets against the same evidence-backed learner capability basis, exposing shared and target-specific requirements plus demonstrated, challenged, unknown and gap/uncertainty projections for each, and continue with a chosen target without requiring a scalar fit score.
+    - id: REQ-CAP-CHANGE-INFORMATION
+      statement: >-
+        The product shall allow information and relationships available in Prep
+        to be changed.
       status: ACCEPTED
-      source_refs: [REQ-TARGET-DIRECTION, REQ-STATE-EVIDENCE]
-      rationale: Direction choice needs an inspectable comparison while learner capability/evidence remains reusable and target-independent.
+      source_refs: [REQ-INFORMATION-LIFECYCLE]
 
-    - id: REQ-CAP-PERFORMANCE-REQUIREMENT
-      statement: The product shall let the learner inspect what performance a target requires, including material conditions or constraints and acceptable quality, separately from topic coverage.
+    - id: REQ-CAP-REMOVE-INFORMATION
+      statement: >-
+        The product shall allow information and relationships to be removed
+        from Prep.
       status: ACCEPTED
-      source_refs: [REQ-CAPABILITY-PERFORMANCE]
-      rationale: Readiness must be anchored in required performance rather than subject exposure alone.
+      source_refs: [REQ-INFORMATION-LIFECYCLE]
 
-    - id: REQ-CAP-EVIDENCE-CONTEXT
-      statement: The product shall accept or record capability-relevant observations with enough performance context, provenance, target relevance, and time information to keep the observation distinguishable from conclusions drawn from it.
+    - id: REQ-CAP-KNOWLEDGE-KINDS
+      statement: >-
+        The product shall support distinguishable kinds of knowledge.
       status: ACCEPTED
-      source_refs: [REQ-STATE-EVIDENCE, REQ-EVIDENCE-JUSTIFICATION, REQ-PERFORMANCE-EVIDENCE, REQ-DURABLE-TRANSFER]
-      rationale: Evidence-backed state and transfer judgments require contextualized observations rather than context-free success/failure markers.
+      source_refs: [REQ-INFORMATION-EXPLORATION]
 
-    - id: REQ-CAP-STATE
-      statement: The product shall derive or present target-relative learner state so demonstrated, challenged, and unknown capability can be distinguished while preserving material limits from evidence coverage, context, and age.
+    - id: REQ-CAP-RELATIONSHIP-MEANINGS
+      statement: >-
+        The product shall preserve distinguishable meanings of relationships.
       status: ACCEPTED
-      source_refs: [REQ-STATE-EVIDENCE]
-      rationale: Current state is useful only when uncertainty and evidence limitations remain visible.
+      source_refs: [REQ-INFORMATION-EXPLORATION]
 
-    - id: REQ-CAP-EVIDENCE-JUSTIFICATION
-      statement: The product shall let the learner inspect why particular observations support, challenge, or fail to establish a capability conclusion.
+    - id: REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS
+      statement: >-
+        The product shall allow relationships to connect different kinds of
+        information.
       status: ACCEPTED
-      source_refs: [REQ-EVIDENCE-JUSTIFICATION]
-      rationale: Readiness conclusions must be reviewable rather than opaque assertions.
+      source_refs: [REQ-INFORMATION-EXPLORATION]
 
-    - id: REQ-CAP-FOCUS
-      statement: The product shall support establishing an explicit next preparation focus from target relevance, current evidence, unresolved uncertainty, and available time.
+    - id: REQ-CAP-EXPLORE-PERSPECTIVES
+      statement: >-
+        The product shall let the user examine available information and
+        relationships from different perspectives.
       status: ACCEPTED
-      source_refs: [REQ-NEXT-FOCUS]
-      rationale: Limited time requires an actionable next-focus capability.
+      source_refs: [REQ-INFORMATION-EXPLORATION]
 
-    - id: REQ-CAP-PRACTICE
-      statement: The product shall support or delegate learning, practice, or diagnostic activity that can generate evidence relevant to the performance required by the active target.
+    - id: REQ-CAP-SELECT-PART
+      statement: >-
+        The product shall let the user select part of the available information
+        and material for external use.
       status: ACCEPTED
-      source_refs: [REQ-PERFORMANCE-EVIDENCE]
-      rationale: The product must enable evidence-producing preparation without prescribing one study runtime or exercise representation.
+      source_refs: [REQ-EXTERNAL-USE]
 
-    - id: REQ-CAP-DURABLE-TRANSFER
-      statement: The product shall support judging whether relevant capability remains available over a required time horizon and transfers to target-relevant conditions rather than relying on immediate or narrow success alone.
+    - id: REQ-CAP-TRANSFER-SELECTION
+      statement: >-
+        The product shall make the selected information and material available
+        outside Prep in a form usable for preparation activity.
       status: ACCEPTED
-      source_refs: [REQ-DURABLE-TRANSFER]
-      rationale: Retention and transfer are observable readiness concerns distinct from one successful attempt.
+      source_refs: [REQ-EXTERNAL-USE]
 
-    - id: REQ-CAP-SUPPORT-FIT
-      statement: The product shall support selecting or providing learning, practice, or diagnostic opportunities appropriate to the required outcome while keeping support completion distinct from evidence that capability was developed.
+    - id: REQ-CAP-RECORD-ACTIVITY
+      statement: >-
+        The product shall accept recorded activity, including a recorded result
+        when one exists.
       status: ACCEPTED
-      source_refs: [REQ-SUPPORT-FIT]
-      rationale: Different required performances can need different support forms without making any one mechanism mandatory.
+      source_refs: [REQ-RECORDED-HISTORY]
 
-    - id: REQ-CAP-ADAPT
-      statement: The product shall update target-relative learner state or preparation focus when accepted new evidence changes them and shall revise target understanding separately when new external target information warrants it.
+    - id: REQ-CAP-RELATE-ACTIVITY
+      statement: >-
+        The product shall keep recorded activity and results associated with
+        the information they concern.
       status: ACCEPTED
-      source_refs: [REQ-ADAPTIVE-UPDATE]
-      rationale: Learner change and target refinement must remain distinguishable.
+      source_refs: [REQ-RECORDED-HISTORY]
 
-    - id: REQ-CAP-BOOTSTRAP
-      statement: The product shall construct usable preparation support from fragmented or incomplete source material and support incremental introduction or correction of target, capability, knowledge, and evidence-design data without requiring learner-maintained reusable corpus curation.
+    - id: REQ-CAP-PRESERVE-TIME
+      statement: >-
+        The product shall retain enough temporal context for recorded activity
+        and results to distinguish when they took place.
       status: ACCEPTED
-      source_refs: [REQ-LOW-OVERHEAD-BOOTSTRAP]
-      rationale: Preparation must be able to start before complete structured support data exists.
+      source_refs: [REQ-RECORDED-HISTORY]
 
-    - id: REQ-CAP-KNOWLEDGE-OVERVIEW
-      statement: The product shall provide an inspectable high-level overview of important concepts within the currently relevant subject scope and how that scope fits together.
+    - id: REQ-CAP-PRESERVE-HISTORY-CONTEXT
+      statement: >-
+        The product shall preserve enough context for recorded activity and
+        results to remain understandable in relation to the information they
+        concerned when that information is later changed or removed.
       status: ACCEPTED
-      source_refs: [REQ-KNOWLEDGE-ORIENTATION]
-      rationale: Subject orientation must remain available without committing to a graph or other presentation technique.
+      source_refs: [REQ-RECORDED-HISTORY, REQ-INFORMATION-LIFECYCLE]
 
-    - id: REQ-CAP-KNOWLEDGE-RELATIONSHIPS
-      statement: The product shall let the learner inspect meaningful relationships among relevant concepts while preserving the meaning of each relationship rather than exposing generic connectivity only.
+    - id: REQ-CAP-EXPLORE-HISTORY
+      statement: >-
+        The product shall let the user examine recorded activity and results
+        over time and in relation to the information they concern.
       status: ACCEPTED
-      source_refs: [REQ-KNOWLEDGE-RELATIONSHIPS]
-      rationale: Relationship semantics must remain observable without selecting a concrete relation taxonomy here.
-
-    - id: REQ-CAP-KNOWLEDGE-SCOPE
-      statement: The product shall let the learner narrow and expand the considered subject-knowledge scope using meaningful criteria relevant to the active preparation purpose.
-      status: ACCEPTED
-      source_refs: [REQ-KNOWLEDGE-SCOPE]
-      rationale: Scope control is distinct from the presentation mechanism used to express it.
-
-    - id: REQ-CAP-KNOWLEDGE-DEPTH
-      statement: The product shall let the learner move between high-level orientation and deeper knowledge detail while retaining enough surrounding conceptual context to stay oriented.
-      status: ACCEPTED
-      source_refs: [REQ-KNOWLEDGE-DEPTH]
-      rationale: Progressive depth does not require a specific hierarchy, graph layout, or navigation pattern.
+      source_refs: [REQ-RECORDED-HISTORY, REQ-INFORMATION-EXPLORATION]
 
   non_goals:
-    - Define Capability, CapabilitySpecification, PerformanceExpectation, EvidencePattern, EvidentialWarrant, AssessmentDesign, LearningMaterial, or any other domain entity.
-    - Require a curator/operator role as part of the learner product flow.
-    - Require reusable internal target/capability/knowledge/evidence data to be maintained by the learner.
-    - Require graph exploration, a 2D or 3D graph, cards, questions, spaced repetition, or any other specific learning representation.
-    - Define target, evidence, learner-state, capability, knowledge, assessment, or relation ownership.
-    - Define a concrete relation taxonomy, performance taxonomy, evidence-warrant model, or decomposition model.
-    - Define ranking, scheduling, inference, extraction, generation, or graph-layout algorithms.
-    - Define a universal scalar target-fit/readiness/preparation-distance algorithm.
-    - Define import schema, API, persistence, graph database, interface layout, or implementation architecture.
+    - Infer or maintain learner state.
+    - Estimate mastery, readiness, or competence.
+    - Define a fixed taxonomy of knowledge kinds or relationship meanings.
+    - Define a required relationship topology.
+    - Require a particular visualization, import or export format, API, integration, persistence model, or implementation technology.
+    - Require particular statistics or derived assessments from recorded facts.
