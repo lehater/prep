@@ -262,7 +262,7 @@ export function CurrentPositionFeature({
                     ))}
                   </ul>
                 ) : null}
-              </article>
+              </Surface>
             ))}
           </div>
         </section>
@@ -424,7 +424,7 @@ export function CurrentPositionFeature({
                       : "Выбрать фокус"}
                 </ActionButton>
               </ActionGroup>
-            </Surface>
+            </div>
           ) : null}
 
           {acceptedFocus ? (
@@ -445,7 +445,7 @@ export function CurrentPositionFeature({
                   Перейти к практике
                 </ActionButton>
               </ActionGroup>
-            </div>
+            </Surface>
           ) : null}
         </Surface>
       ) : null}
