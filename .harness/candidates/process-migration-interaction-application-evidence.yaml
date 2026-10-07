@@ -3,8 +3,7 @@ kind: harness-semantic-derivation-evidence
 source_capability: prep.application-design
 target_capability: prep.interaction-design
 links:
-  - {sources: [AD-PREPARATION-LOOP], relation: TRANSFORMS, targets: [IX-CONTEXT-CONTINUITY]}
-  - {sources: [AD-SUPPORT-LOOP], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [AD-COMPARE-TARGETS], relation: TRANSFORMS, targets: [IX-TARGET-DIRECTION]}
   - {sources: [AD-ESTABLISH-TARGET], relation: TRANSFORMS, targets: [IX-TARGET]}
   - {sources: [AD-UNDERSTAND-REQUIREMENTS], relation: TRANSFORMS, targets: [IX-TARGET]}
   - {sources: [AD-REVIEW-CURRENT-STATE], relation: TRANSFORMS, targets: [IX-DIRECTION]}
@@ -23,4 +22,5 @@ links:
   - {sources: [AD-PARTIAL-PREPARATION], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
   - {sources: [AD-CURRENTNESS-BASIS], relation: CONSTRAINS, targets: [IX-CURRENTNESS]}
 dispositions:
-  - {source: AD-RUNTIME-TIMING-FREEDOM, status: NOT_APPLICABLE, rationale: "Runtime scheduling freedom does not itself impose a user-facing Interaction semantic; IX-PENDING covers only consumer-visible pending state when a mutation is actually pending."}
+  - {source: AD-RUNTIME-TIMING-FREEDOM, status: NOT_APPLICABLE, rationale: "Runtime transport/scheduling freedom does not itself impose a user-facing Interaction semantic; consumer-visible pending behavior is preserved separately when applicable."}
+  - {source: AD-PROCESS-HANDOFF, status: NOT_APPLICABLE, rationale: "Ownership of cross-operation process composition belongs to dedicated Application Process capabilities and is not re-owned as Interaction behavior."}
