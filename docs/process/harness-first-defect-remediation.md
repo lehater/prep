@@ -5,8 +5,8 @@ Status: ACTIVE REFERENCE
 The canonical defect register and remediation protocol for the current Prep interface audit is owned by the Harness repository:
 
 - repository: `lehater/harness`
+- canonical branch after Stage 0: `main`
 - canonical path: `docs/programs/prep-harness-defect-remediation-v0.md`
-- working branch while the program document is being introduced: `docs/prep-defect-remediation-program`
 
 ## Rule
 
@@ -33,3 +33,7 @@ After Harness integration:
 5. close each defect only with the evidence required by the canonical program.
 
 This file is a pointer, not a copied register.
+
+Prep must not maintain a second authoritative denominator, status table, classification table or work-package state. New defects and all status/classification changes are recorded in the Harness canonical document.
+
+After any Prep work package, the executor reports evidence back to the managing chat and stops. Only the managing chat may authorize the next program stage or corrective stage.
