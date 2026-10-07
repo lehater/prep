@@ -21,6 +21,21 @@ const FORBIDDEN_EXTERNAL_IMPORTS = [
   "react-force-graph-3d",
 ];
 
+const SHARED_PRESENTATION_CLASS_TOKENS = new Set([
+  "task-heading",
+  "section-heading",
+  "primary-action",
+  "secondary-action",
+  "text-action",
+  "action-row",
+  "field",
+  "outcome-message",
+  "data-table-column-resizer",
+  "resizable-split-handle",
+  "workspace-divider",
+  "knowledge-column-resizer",
+]);
+
 function isForbiddenExternalImport(specifier) {
   return FORBIDDEN_EXTERNAL_IMPORTS.some(
     (packageName) =>
@@ -82,6 +97,34 @@ function moduleSpecifiers(sourceText, fileName) {
 
   visit(source);
   return values;
+}
+
+function sharedPresentationViolations(sourceText, relativePath, module) {
+  if (module.layer !== "feature") {
+    return [];
+  }
+
+  const violations = [];
+
+  if (/<table(?:\s|>)/u.test(sourceText)) {
+    violations.push(
+      `${relativePath}: task feature must compose shared DataTable instead of declaring a raw <table>`,
+    );
+  }
+
+  for (const token of SHARED_PRESENTATION_CLASS_TOKENS) {
+    const classPattern = new RegExp(
+      `className\\s*=\\s*["'][^"']*(?:^|\\s)${token}(?:\\s|$)[^"']*["']`,
+      "u",
+    );
+    if (classPattern.test(sourceText)) {
+      violations.push(
+        `${relativePath}: shared presentation class "${token}" must be owned through its ui primitive`,
+      );
+    }
+  }
+
+  return violations;
 }
 
 function describeModule(relativePath) {
@@ -180,6 +223,10 @@ export function validateSourceTree(sourceRoot) {
     const fromRelative = path.relative(sourceRoot, file);
     const from = describeModule(fromRelative);
     const sourceText = fs.readFileSync(file, "utf8");
+
+    violations.push(
+      ...sharedPresentationViolations(sourceText, fromRelative, from),
+    );
 
     if (
       from.layer === "feature" &&
