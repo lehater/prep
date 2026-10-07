@@ -791,9 +791,17 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   );
   const storedColumnWidths = await page.evaluate(() => {
     const raw = window.localStorage.getItem("prep.knowledge.column-widths.v2");
-    return raw ? (JSON.parse(raw) as number[]) : null;
+    if (!raw) {
+      return null;
+    }
+
+    const stored = JSON.parse(raw) as {
+      version: number;
+      widths: Record<string, number>;
+    };
+    return stored.widths;
   });
-  expect(storedColumnWidths?.[0]).toBe(persistedKnowledgeColumnWidth);
+  expect(storedColumnWidths?.knowledge).toBe(persistedKnowledgeColumnWidth);
 
   await page
     .locator(".knowledge-table")
