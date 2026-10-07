@@ -121,15 +121,18 @@ type SurfaceElement =
   | "aside"
   | "div"
   | "fieldset"
-  | "details";
+  | "details"
+  | "header";
 
 export interface SurfaceProps extends HTMLAttributes<HTMLElement> {
   readonly as?: SurfaceElement | undefined;
+  readonly surface?: "default" | "strong" | "muted" | undefined;
   readonly children: ReactNode;
 }
 
 export function Surface({
   as = "section",
+  surface = "default",
   children,
   className,
   ...props
@@ -141,37 +144,43 @@ export function Surface({
   switch (as) {
     case "article":
       return (
-        <article {...props} className={surfaceClassName}>
+        <article {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </article>
       );
     case "aside":
       return (
-        <aside {...props} className={surfaceClassName}>
+        <aside {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </aside>
       );
     case "div":
       return (
-        <div {...props} className={surfaceClassName}>
+        <div {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </div>
       );
     case "fieldset":
       return (
-        <fieldset {...props} className={surfaceClassName}>
+        <fieldset {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </fieldset>
       );
     case "details":
       return (
-        <details {...props} className={surfaceClassName}>
+        <details {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </details>
       );
+    case "header":
+      return (
+        <header {...props} className={surfaceClassName} data-surface={surface}>
+          {children}
+        </header>
+      );
     case "section":
       return (
-        <section {...props} className={surfaceClassName}>
+        <section {...props} className={surfaceClassName} data-surface={surface}>
           {children}
         </section>
       );
