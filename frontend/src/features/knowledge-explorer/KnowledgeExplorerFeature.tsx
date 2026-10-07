@@ -30,7 +30,7 @@ import { useKnowledgeExplorerState } from "./state";
 
 const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio.v2";
 const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio.v2";
-const KNOWLEDGE_COLUMN_WIDTHS_KEY = "prep.knowledge.column-widths.v2";
+const KNOWLEDGE_COLUMN_WIDTHS_KEY = "prep.knowledge.column-widths.v3";
 const DEFAULT_TABLE_GRAPH_RATIO = 70;
 const DEFAULT_TOP_DETAILS_RATIO = 50;
 const TABLE_RATIO_MIN = 45;
@@ -136,7 +136,9 @@ function KnowledgeResultsTable({
       id: "knowledge",
       header: "Знание",
       minWidth: 180,
-      maxWidth: 760,
+      maxWidth: 1600,
+      flex: 1,
+      resizable: false,
       render: (item) => (
         <button
           type="button"
@@ -154,6 +156,7 @@ function KnowledgeResultsTable({
       header: "Тип / форма",
       minWidth: 100,
       maxWidth: 320,
+      resizeEdge: "start",
       render: (item) => (
         <span className="knowledge-kind">
           {knowledgeKindLabel(item.kind)}
@@ -168,6 +171,7 @@ function KnowledgeResultsTable({
       header: "Связи",
       minWidth: 52,
       maxWidth: 140,
+      resizeEdge: "start",
       align: "right",
       render: (item) => (
         <span className="knowledge-relation-count">
