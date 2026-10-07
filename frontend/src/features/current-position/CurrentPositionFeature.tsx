@@ -424,11 +424,11 @@ export function CurrentPositionFeature({
                       : "Выбрать фокус"}
                 </ActionButton>
               </ActionGroup>
-            </div>
+            </Surface>
           ) : null}
 
           {acceptedFocus ? (
-            <div className="accepted-focus" role="status">
+            <Surface as="div" className="accepted-focus" role="status">
               <strong>Следующий фокус выбран</strong>
               <p>{acceptedFocus.purpose}</p>
               <p>{acceptedFocus.rationale}</p>
@@ -451,7 +451,7 @@ export function CurrentPositionFeature({
       ) : null}
 
       {evidence ? (
-        <details className="evidence-basis-region">
+        <Surface as="details" className="evidence-basis-region">
           <summary>Почему такое состояние: свидетельства</summary>
           <div className="evidence-facts">
             {evidence.facts.map((fact) => (
@@ -500,7 +500,7 @@ export function CurrentPositionFeature({
               </article>
             ))}
           </div>
-        </details>
+        </Surface>
       ) : null}
     </section>
   );
