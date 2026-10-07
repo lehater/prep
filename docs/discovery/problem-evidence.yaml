@@ -1,0 +1,103 @@
+version: 1
+kind: problem-evidence
+id: PREP-PROBLEM-EVIDENCE
+
+problem: >-
+  A person preparing for one or more goals works with goals, capabilities,
+  knowledge, practice material, and recorded activity. As this information
+  accumulates, it becomes difficult to understand how its parts relate,
+  determine which part matters for a goal, and reconstruct what preparation
+  has actually taken place.
+
+actors:
+  - person-preparing
+
+desired_outcome: >-
+  The person can understand relationships within their preparation information,
+  focus on the part that matters for a goal, and reconstruct recorded
+  preparation activity.
+
+problem_space_terms:
+  - goal
+  - capability
+  - knowledge
+  - practice_material
+  - recorded_activity
+
+distinctions:
+  capability: >-
+    Something a person needs to be able to do to achieve a goal.
+
+  knowledge: >-
+    Information about a subject used in preparation. Its presence does not state
+    what the person knows.
+
+  practice_material: >-
+    Material used for practice.
+
+  recorded_activity: >-
+    A fact that preparation activity took place, including a recorded result
+    when one exists.
+
+  practice_material_vs_recorded_activity: >-
+    Practice material is something that can be used for preparation.
+    Recorded activity describes preparation recorded as having taken place.
+
+observations:
+  - id: PE-01
+    name: relationship-opacity
+    problem: >-
+      Goals, capabilities, knowledge, and practice material accumulate while
+      the relationships among them are difficult to understand. This makes it
+      difficult to determine which part of the accumulated information matters
+      for a goal.
+
+  - id: PE-02
+    name: recorded-activity-opacity
+    problem: >-
+      As preparation continues, it becomes difficult to reconstruct what
+      preparation activity took place and what results were recorded.
+
+evidence:
+  - id: EV-01
+    kind: stakeholder-statement
+    source: project-owner
+    supports: [PE-01]
+    statement: >-
+      Preparation involves goals, capabilities, knowledge, and practice
+      material, and relationships among them matter when working with
+      preparation.
+
+  - id: EV-02
+    kind: stakeholder-statement
+    source: project-owner
+    supports: [PE-02]
+    statement: >-
+      Facts of preparation activity and recorded results are useful independently
+      of any conclusion about what the person knows or can do.
+
+scope_boundaries:
+  - >-
+    Goal, capability, knowledge, practice material, and recorded activity are
+    problem-space distinctions, not a domain model.
+
+  - >-
+    Prep works with information accepted by the user. Determining whether that
+    information is true or reliable is outside this problem space.
+
+  - >-
+    Recorded activity and recorded results describe what was recorded as having
+    happened. They do not establish what the person knows or can do.
+
+non_goals:
+  - source management, provenance, citation, or traceability
+  - verification of preparation information
+  - assessment of a person's knowledge or capability
+  - mastery, readiness, or competence estimation
+
+unresolved_downstream_decisions:
+  - how preparation information is entered, imported, changed, or removed
+  - how relationships are created, represented, or changed
+  - whether coverage, gaps, statistics, or other derived values are needed
+  - domain model and semantics
+  - user interface and technical realization
