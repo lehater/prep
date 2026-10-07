@@ -629,6 +629,74 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.getByRole("button", { name: "Сбросить", exact: true }).click();
   await expect(page.getByText("25/25", { exact: true })).toBeVisible();
 
+  const knowledgeScroll = page.locator(".knowledge-table-scroll");
+  const graphNodes = knowledgeView.locator(".knowledge-relationship-node");
+  await expect(graphNodes).toHaveCount(25);
+  await knowledgeScroll.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await graphNodes.nth(12).click();
+
+  const selectedRow = page.locator(
+    '.knowledge-table tbody tr[data-selected="true"]',
+  );
+  await expect(selectedRow).toHaveCount(1);
+  await expect
+    .poll(async () =>
+      selectedRow.evaluate((row) => {
+        const scrollRegion = row.closest(".knowledge-table-scroll");
+        if (!(scrollRegion instanceof HTMLElement)) {
+          return Number.POSITIVE_INFINITY;
+        }
+
+        const rowRect = row.getBoundingClientRect();
+        const scrollRect = scrollRegion.getBoundingClientRect();
+        const rowCenter = rowRect.top + rowRect.height / 2;
+        const scrollCenter = scrollRect.top + scrollRect.height / 2;
+        return Math.abs(rowCenter - scrollCenter);
+      }),
+    )
+    .toBeLessThan(40);
+
+  const knowledgeColumnDivider = page.getByRole("separator", {
+    name: "Изменить ширину колонки «Знание»",
+  });
+  await expect(knowledgeColumnDivider).toBeVisible();
+  await expect
+    .poll(async () =>
+      Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
+    )
+    .toBeGreaterThan(0);
+
+  const columnDividerBox = await knowledgeColumnDivider.boundingBox();
+  expect(columnDividerBox).not.toBeNull();
+  if (columnDividerBox) {
+    const beforeColumnDrag = Number(
+      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
+    );
+    await page.mouse.move(
+      columnDividerBox.x + columnDividerBox.width / 2,
+      columnDividerBox.y + columnDividerBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      columnDividerBox.x - 32,
+      columnDividerBox.y + columnDividerBox.height / 2,
+    );
+    await page.mouse.up();
+    const afterColumnDrag = Number(
+      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
+    );
+    expect(afterColumnDrag).toBeLessThan(beforeColumnDrag);
+
+    await knowledgeColumnDivider.dblclick();
+    await expect
+      .poll(async () =>
+        Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
+      )
+      .not.toBe(afterColumnDrag);
+  }
+
   await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
     "Все виды",
     "KnowledgeObject",

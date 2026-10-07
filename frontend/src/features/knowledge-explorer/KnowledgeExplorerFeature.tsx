@@ -40,6 +40,11 @@ const SPLITTER_SIZE = 7;
 const MIN_TABLE_WIDTH = 520;
 const MIN_GRAPH_SIZE = 260;
 const MIN_DETAILS_HEIGHT = 150;
+const KNOWLEDGE_COLUMN_MIN_WIDTHS = [180, 100, 52] as const;
+const KNOWLEDGE_COLUMN_MAX_WIDTHS = [760, 320, 140] as const;
+const KNOWLEDGE_COLUMN_RESIZE_STEP = 8;
+
+type KnowledgeColumnWidths = [number, number, number];
 
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
@@ -173,6 +178,15 @@ export function KnowledgeExplorerFeature({
 
   const upperPaneRef = useRef<HTMLDivElement | null>(null);
   const workbenchRef = useRef<HTMLDivElement | null>(null);
+  const knowledgeTableScrollRef = useRef<HTMLDivElement | null>(null);
+  const knowledgeTableRef = useRef<HTMLTableElement | null>(null);
+  const [columnWidths, setColumnWidths] =
+    useState<KnowledgeColumnWidths | null>(null);
+  const columnResizeRef = useRef<{
+    boundaryIndex: 0 | 1;
+    startX: number;
+    widths: KnowledgeColumnWidths;
+  } | null>(null);
 
   useEffect(() => {
     if (incomingRequiredCapabilityRef) {
@@ -401,6 +415,60 @@ export function KnowledgeExplorerFeature({
     [selectedKnowledgeRef, visibleItems],
   );
 
+  useLayoutEffect(() => {
+    if (columnWidths || visibleItems.length === 0) {
+      return;
+    }
+
+    const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
+    if (headers?.length !== 3) {
+      return;
+    }
+
+    setColumnWidths([
+      Math.round(headers.item(0).getBoundingClientRect().width),
+      Math.round(headers.item(1).getBoundingClientRect().width),
+      Math.round(headers.item(2).getBoundingClientRect().width),
+    ]);
+  }, [columnWidths, visibleItems.length]);
+
+  useEffect(() => {
+    if (!selectedKnowledgeRef) {
+      return;
+    }
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      const scrollRegion = knowledgeTableScrollRef.current;
+      const selectedRow =
+        scrollRegion?.querySelector<HTMLTableRowElement>(
+          'tbody tr[data-selected="true"]',
+        ) ?? null;
+      if (!scrollRegion || !selectedRow) {
+        return;
+      }
+
+      const scrollRect = scrollRegion.getBoundingClientRect();
+      const rowRect = selectedRow.getBoundingClientRect();
+      const targetTop = clamp(
+        scrollRegion.scrollTop +
+          (rowRect.top - scrollRect.top) -
+          (scrollRegion.clientHeight - rowRect.height) / 2,
+        0,
+        Math.max(0, scrollRegion.scrollHeight - scrollRegion.clientHeight),
+      );
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      scrollRegion.scrollTo({
+        top: targetTop,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [selectedKnowledgeRef]);
+
   const selectedRelations = useMemo(() => {
     if (!selectedItem || !projection) {
       return [];
@@ -462,6 +530,187 @@ export function KnowledgeExplorerFeature({
     setRequiredCapabilityRef(null);
     setScope("overview");
     setSelectedKnowledgeRef(null);
+  }
+
+  function readRenderedColumnWidths(): KnowledgeColumnWidths | null {
+    const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
+    if (headers?.length !== 3) {
+      return null;
+    }
+
+    return [
+      Math.round(headers.item(0).getBoundingClientRect().width),
+      Math.round(headers.item(1).getBoundingClientRect().width),
+      Math.round(headers.item(2).getBoundingClientRect().width),
+    ];
+  }
+
+  function resizeColumnBoundary(
+    boundaryIndex: 0 | 1,
+    delta: number,
+    baseWidths: KnowledgeColumnWidths,
+  ) {
+    const leftIndex = boundaryIndex;
+    const rightIndex = (boundaryIndex + 1) as 1 | 2;
+    const leftWidth = baseWidths[leftIndex];
+    const rightWidth = baseWidths[rightIndex];
+    const minDelta = Math.max(
+      KNOWLEDGE_COLUMN_MIN_WIDTHS[leftIndex] - leftWidth,
+      rightWidth - KNOWLEDGE_COLUMN_MAX_WIDTHS[rightIndex],
+    );
+    const maxDelta = Math.min(
+      KNOWLEDGE_COLUMN_MAX_WIDTHS[leftIndex] - leftWidth,
+      rightWidth - KNOWLEDGE_COLUMN_MIN_WIDTHS[rightIndex],
+    );
+    const boundedDelta = clamp(delta, minDelta, maxDelta);
+    const nextWidths = [...baseWidths] as KnowledgeColumnWidths;
+
+    nextWidths[leftIndex] = Math.round(leftWidth + boundedDelta);
+    nextWidths[rightIndex] = Math.round(rightWidth - boundedDelta);
+    setColumnWidths(nextWidths);
+  }
+
+  function startColumnResize(
+    boundaryIndex: 0 | 1,
+    event: ReactPointerEvent<HTMLHRElement>,
+  ) {
+    const widths = readRenderedColumnWidths() ?? columnWidths;
+    if (!widths) {
+      return;
+    }
+
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setColumnWidths(widths);
+    columnResizeRef.current = {
+      boundaryIndex,
+      startX: event.clientX,
+      widths,
+    };
+  }
+
+  function moveColumnResize(
+    boundaryIndex: 0 | 1,
+    event: ReactPointerEvent<HTMLHRElement>,
+  ) {
+    const activeResize = columnResizeRef.current;
+    if (
+      !activeResize ||
+      activeResize.boundaryIndex !== boundaryIndex ||
+      !event.currentTarget.hasPointerCapture(event.pointerId)
+    ) {
+      return;
+    }
+
+    resizeColumnBoundary(
+      boundaryIndex,
+      event.clientX - activeResize.startX,
+      activeResize.widths,
+    );
+  }
+
+  function stopColumnResize(event: ReactPointerEvent<HTMLHRElement>) {
+    columnResizeRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function setColumnWidthAtBoundary(
+    boundaryIndex: 0 | 1,
+    desiredLeftWidth: number,
+  ) {
+    const widths = readRenderedColumnWidths() ?? columnWidths;
+    if (!widths) {
+      return;
+    }
+
+    resizeColumnBoundary(
+      boundaryIndex,
+      desiredLeftWidth - widths[boundaryIndex],
+      widths,
+    );
+  }
+
+  function autoFitColumn(boundaryIndex: 0 | 1) {
+    const table = knowledgeTableRef.current;
+    if (!table) {
+      return;
+    }
+
+    const clone = table.cloneNode(true) as HTMLTableElement;
+    clone.querySelector("colgroup")?.remove();
+    clone.querySelectorAll(".knowledge-column-resizer").forEach((element) => {
+      element.remove();
+    });
+    clone.setAttribute("aria-hidden", "true");
+    clone.style.position = "fixed";
+    clone.style.top = "0";
+    clone.style.left = "-10000px";
+    clone.style.width = "max-content";
+    clone.style.minWidth = "0";
+    clone.style.tableLayout = "auto";
+    clone.style.visibility = "hidden";
+    clone.style.pointerEvents = "none";
+    document.body.append(clone);
+
+    const cells = clone.querySelectorAll<HTMLElement>(
+      `tr > :nth-child(${boundaryIndex + 1})`,
+    );
+    const desiredWidth = Math.ceil(
+      Math.max(
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
+        ...Array.from(cells, (cell) => cell.getBoundingClientRect().width),
+      ),
+    );
+    clone.remove();
+
+    setColumnWidthAtBoundary(
+      boundaryIndex,
+      clamp(
+        desiredWidth,
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
+      ),
+    );
+  }
+
+  function handleColumnDividerKey(
+    boundaryIndex: 0 | 1,
+    event: ReactKeyboardEvent<HTMLHRElement>,
+  ) {
+    const widths = readRenderedColumnWidths() ?? columnWidths;
+    if (!widths) {
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      resizeColumnBoundary(
+        boundaryIndex,
+        -KNOWLEDGE_COLUMN_RESIZE_STEP,
+        widths,
+      );
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      resizeColumnBoundary(
+        boundaryIndex,
+        KNOWLEDGE_COLUMN_RESIZE_STEP,
+        widths,
+      );
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setColumnWidthAtBoundary(
+        boundaryIndex,
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
+      );
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setColumnWidthAtBoundary(
+        boundaryIndex,
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
+      );
+    }
   }
 
   function updateTableGraphRatio(clientX: number) {
@@ -739,12 +988,87 @@ export function KnowledgeExplorerFeature({
               data-has-graph={RelationshipRenderer ? "true" : "false"}
             >
               <div className="knowledge-table-region">
-                <div className="knowledge-table-scroll">
-                  <table className="knowledge-table">
+                <div
+                  ref={knowledgeTableScrollRef}
+                  className="knowledge-table-scroll"
+                >
+                  <table
+                    ref={knowledgeTableRef}
+                    className="knowledge-table"
+                    data-column-widths={columnWidths ? "managed" : "auto"}
+                    style={
+                      columnWidths
+                        ? {
+                            width: `${columnWidths.reduce(
+                              (total, width) => total + width,
+                              0,
+                            )}px`,
+                            minWidth: "100%",
+                          }
+                        : undefined
+                    }
+                  >
+                    {columnWidths ? (
+                      <colgroup>
+                        <col style={{ width: `${columnWidths[0]}px` }} />
+                        <col style={{ width: `${columnWidths[1]}px` }} />
+                        <col style={{ width: `${columnWidths[2]}px` }} />
+                      </colgroup>
+                    ) : null}
                     <thead>
                       <tr>
-                        <th scope="col">Знание</th>
-                        <th scope="col">Тип / форма</th>
+                        <th scope="col">
+                          <span className="knowledge-column-header-label">
+                            Знание
+                          </span>
+                          <hr
+                            className="knowledge-column-resizer"
+                            aria-label="Изменить ширину колонки «Знание»"
+                            aria-orientation="vertical"
+                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[0]}
+                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[0]}
+                            aria-valuenow={columnWidths?.[0]}
+                            tabIndex={0}
+                            onDoubleClick={() => autoFitColumn(0)}
+                            onPointerDown={(event) =>
+                              startColumnResize(0, event)
+                            }
+                            onPointerMove={(event) =>
+                              moveColumnResize(0, event)
+                            }
+                            onPointerUp={stopColumnResize}
+                            onPointerCancel={stopColumnResize}
+                            onKeyDown={(event) =>
+                              handleColumnDividerKey(0, event)
+                            }
+                          />
+                        </th>
+                        <th scope="col">
+                          <span className="knowledge-column-header-label">
+                            Тип / форма
+                          </span>
+                          <hr
+                            className="knowledge-column-resizer"
+                            aria-label="Изменить ширину колонки «Тип / форма»"
+                            aria-orientation="vertical"
+                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[1]}
+                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[1]}
+                            aria-valuenow={columnWidths?.[1]}
+                            tabIndex={0}
+                            onDoubleClick={() => autoFitColumn(1)}
+                            onPointerDown={(event) =>
+                              startColumnResize(1, event)
+                            }
+                            onPointerMove={(event) =>
+                              moveColumnResize(1, event)
+                            }
+                            onPointerUp={stopColumnResize}
+                            onPointerCancel={stopColumnResize}
+                            onKeyDown={(event) =>
+                              handleColumnDividerKey(1, event)
+                            }
+                          />
+                        </th>
                         <th scope="col">Связи</th>
                       </tr>
                     </thead>
