@@ -114,7 +114,7 @@ function sharedPresentationViolations(sourceText, relativePath, module) {
 
   for (const token of SHARED_PRESENTATION_CLASS_TOKENS) {
     const classPattern = new RegExp(
-      `className\\s*=\\s*["'][^"']*(?:^|\\s)${token}(?:\\s|$)[^"']*["']`,
+      `className\\s*=\\s*["'][^"']*\\b${token}\\b[^"']*["']`,
       "u",
     );
     if (classPattern.test(sourceText)) {
