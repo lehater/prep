@@ -12,6 +12,10 @@ reviews:
     revision: 29
     basis: "Discovery now preserves three broad MVP problem axes without prematurely assigning purpose to knowledge or constraining downstream mechanisms: understand and explore information and relationships from different perspectives; select part of the information or material for external study, practice, review, testing, or other preparation activity; and understand recorded activity and results over time in relation to the information they concern."
 
+  - capability: prep.user-needs
+    revision: 1
+    basis: "User Needs preserve the three accepted MVP outcomes without prescribing implementation: understand and explore the information and relationships from different perspectives; select part of the available information and material for external preparation activity; and understand recorded activity and results over time in relation to the information they concern. Data maintenance remains downstream product behavior rather than a separate user need."
+
   - capability: prep.product-intent
     revision: 6
     basis: "Product intent now explicitly supports comparing multiple plausible Targets against one reusable learner capability/evidence basis before choosing a preparation direction, while rejecting a universal scalar fit/readiness score."
