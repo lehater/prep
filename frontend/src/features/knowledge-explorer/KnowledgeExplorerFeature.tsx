@@ -421,7 +421,7 @@ export function KnowledgeExplorerFeature({
     }
 
     const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
-    if (!headers || headers.length !== 3) {
+    if (headers?.length !== 3) {
       return;
     }
 
@@ -534,7 +534,7 @@ export function KnowledgeExplorerFeature({
 
   function readRenderedColumnWidths(): KnowledgeColumnWidths | null {
     const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
-    if (!headers || headers.length !== 3) {
+    if (headers?.length !== 3) {
       return null;
     }
 
@@ -1010,12 +1010,9 @@ export function KnowledgeExplorerFeature({
                   >
                     {columnWidths ? (
                       <colgroup>
-                        {columnWidths.map((width, index) => (
-                          <col
-                            key={index}
-                            style={{ width: `${width}px` }}
-                          />
-                        ))}
+                        <col style={{ width: `${columnWidths[0]}px` }} />
+                        <col style={{ width: `${columnWidths[1]}px` }} />
+                        <col style={{ width: `${columnWidths[2]}px` }} />
                       </colgroup>
                     ) : null}
                     <thead>
