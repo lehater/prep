@@ -114,8 +114,8 @@ function sharedPresentationViolations(sourceText, relativePath, module) {
 
   const literalClassTokens = new Set(
     Array.from(
-      sourceText.matchAll(/className\\s*=\\s*["']([^"']*)["']/gu),
-      (match) => match[1]?.split(/\\s+/u).filter(Boolean) ?? [],
+      sourceText.matchAll(/className\s*=\s*["']([^"']*)["']/gu),
+      (match) => match[1]?.split(/\s+/u).filter(Boolean) ?? [],
     ).flat(),
   );
 
