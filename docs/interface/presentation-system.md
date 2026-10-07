@@ -96,6 +96,8 @@ The presentation system is implemented in three layers so visual styling can pro
 
 A visual refresh therefore changes tokens and shared primitives first. Knowledge may be the first dense consumer used to validate the system, but Knowledge-specific styling must not become the source of truth for application-wide appearance.
 
+Resizable region separators keep their visible rule visually subordinate to content; their pointer hit area may be wider than the visible divider so usability does not require a wide gutter between sections.
+
 Feature-specific CSS may introduce a new visual role only when the role is genuinely local. If the same role recurs across multiple views, it is promoted into the shared presentation layer rather than copied.
 
 ## Reusable patterns
