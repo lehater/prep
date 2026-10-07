@@ -2,7 +2,7 @@ version: 1
 kind: harness-decision-exploration
 capability: prep.interface-topology
 knowledge_kind: interface-topology-design
-explorer_request_id: sha256:bc79915f6977b7c7e7c855efc87c1fd86e0a885af302f0d96afb52b6d22e3aa1
+explorer_request_id: sha256:bdb9335f678d3b3a2069653b9cb1c1bfc804df286d4c5bd0f0b3eda1dc2409a4
 research_sources: []
 axes:
 - axis: view-boundaries
@@ -10,59 +10,335 @@ axes:
   exploration_level: EXPLORE
   probes:
   - strategy: merge-vs-separate-view
-    challenge: Merge distinct preparation responsibilities, then split them again,
-      and test goal continuity and independent addressability.
-    alternatives:
-    - task-responsibility-views-with-contextual-recovery
-    - single-preparation-workspace
-    - destination-per-subtask
+    challenge: Challenge merge versus separation for BOUNDARY-TARGET-COMPARISON-ACTIVE-TARGET
+      using user-facing material effects.
+    alternatives: &id001
+    - one-target-view
+    - two-target-views
+    - contextual-target-topology
+    decision_points:
+    - target-comparison-active-target-boundary
   - strategy: persistent-context-vs-navigation
-    challenge: Move active Target/focus continuity from persistent shared context
-      into navigation reconstruction and test working-state loss.
-    alternatives:
-    - task-responsibility-views-with-contextual-recovery
-    - single-preparation-workspace
-    - destination-per-subtask
+    challenge: Challenge whether persistent context preserves BOUNDARY-TARGET-COMPARISON-ACTIVE-TARGET
+      continuity without changing its boundary.
+    alternatives: *id001
+    decision_points:
+    - target-comparison-active-target-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-TARGETS-CURRENT using
+      user-facing material effects.
+    alternatives: &id002
+    - separate-target-current
+    - merge-target-current
+    decision_points:
+    - target-current-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-TARGETS-CURRENT
+      continuity without changing its boundary.
+    alternatives: *id002
+    decision_points:
+    - target-current-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-TARGETS-KNOWLEDGE using
+      user-facing material effects.
+    alternatives: &id003
+    - separate-target-knowledge
+    - merge-target-knowledge
+    decision_points:
+    - target-knowledge-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-TARGETS-KNOWLEDGE
+      continuity without changing its boundary.
+    alternatives: *id003
+    decision_points:
+    - target-knowledge-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-CURRENT-KNOWLEDGE using
+      user-facing material effects.
+    alternatives: &id004
+    - separate-current-knowledge
+    - merge-current-knowledge
+    decision_points:
+    - current-knowledge-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-CURRENT-KNOWLEDGE
+      continuity without changing its boundary.
+    alternatives: *id004
+    decision_points:
+    - current-knowledge-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-CURRENT-ACTIVITY using
+      user-facing material effects.
+    alternatives: &id005
+    - separate-current-activity
+    - merge-current-activity
+    decision_points:
+    - current-activity-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-CURRENT-ACTIVITY
+      continuity without changing its boundary.
+    alternatives: *id005
+    decision_points:
+    - current-activity-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-KNOWLEDGE-ACTIVITY using
+      user-facing material effects.
+    alternatives: &id006
+    - separate-knowledge-activity
+    - merge-knowledge-activity
+    decision_points:
+    - knowledge-activity-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-KNOWLEDGE-ACTIVITY
+      continuity without changing its boundary.
+    alternatives: *id006
+    decision_points:
+    - knowledge-activity-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-ACTIVITY-EVIDENCE-CHANGE
+      using user-facing material effects.
+    alternatives: &id007
+    - contextual-evidence-view
+    - merge-evidence-into-activity
+    - global-evidence-destination
+    decision_points:
+    - activity-evidence-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-ACTIVITY-EVIDENCE-CHANGE
+      continuity without changing its boundary.
+    alternatives: *id007
+    decision_points:
+    - activity-evidence-boundary
   - strategy: contextual-surface-vs-destination
-    challenge: Promote evidence/detail/support surfaces to destinations and test whether
-      they gain independent goals or merely fragment originating task state.
-    alternatives:
-    - task-responsibility-views-with-contextual-recovery
-    - destination-per-subtask
+    challenge: Challenge contextual versus destination semantics for BOUNDARY-ACTIVITY-EVIDENCE-CHANGE.
+    alternatives: *id007
+    decision_points:
+    - activity-evidence-boundary
+  - strategy: merge-vs-separate-view
+    challenge: Challenge merge versus separation for BOUNDARY-PREPARE-SUPPORT-ORIGIN
+      using user-facing material effects.
+    alternatives: &id008
+    - contextual-support-view
+    - merge-support-inline
+    - global-support-destination
+    decision_points:
+    - prepare-support-origin-boundary
+  - strategy: persistent-context-vs-navigation
+    challenge: Challenge whether persistent context preserves BOUNDARY-PREPARE-SUPPORT-ORIGIN
+      continuity without changing its boundary.
+    alternatives: *id008
+    decision_points:
+    - prepare-support-origin-boundary
+  - strategy: contextual-surface-vs-destination
+    challenge: Challenge contextual versus destination semantics for BOUNDARY-PREPARE-SUPPORT-ORIGIN.
+    alternatives: *id008
+    decision_points:
+    - prepare-support-origin-boundary
   decision_points:
-  - id: preparation-view-boundaries
+  - id: target-comparison-active-target-boundary
+    subjects:
+    - BOUNDARY-TARGET-COMPARISON-ACTIVE-TARGET
     alternatives:
-    - id: task-responsibility-views-with-contextual-recovery
-      difference: Primary preparation responsibilities remain independently addressable
-        task views; evidence/detail/support stay contextual when they depend on originating
-        working state.
+    - id: one-target-view
+      difference: One Target view keeps comparison and active-Target roles behaviorally
+        distinct without navigation.
       material_effects:
-        goal-continuity: primary-task-bounded
-        information-dependency: shared-preparation-context
-        working-state-continuity: active-target-focus-preserved
-        commit-recovery-boundary: contextual-recovery-within-origin
-        mode-authority-boundary: no-independent-mode
-        independent-addressability: task-views-addressable-contextual-surfaces-context-bound
-    - id: single-preparation-workspace
-      difference: Target, Current, Knowledge and Activity collapse into one undifferentiated
-        workspace.
+        goal-continuity: continuous Target decision
+        information-dependency: shared Target/evidence context
+        working-state-continuity: candidate state carries into establishment
+        commit-recovery-boundary: activation stays semantic, not navigational
+        mode-authority-boundary: role transition stays explicit
+        independent-addressability: contexts remain addressable within one view
+    - id: two-target-views
+      difference: Separate comparison and active-Target views.
       material_effects:
-        goal-continuity: mixed-task-responsibilities
-        information-dependency: all-context-co-located
-        working-state-continuity: implicit-global
-        commit-recovery-boundary: undifferentiated
-        mode-authority-boundary: no-independent-mode
-        independent-addressability: workspace-only
-    - id: destination-per-subtask
-      difference: Contextual evidence/detail/support subtasks become independently
-        navigable destinations.
+        goal-continuity: splits continuous Target decision
+        information-dependency: shared context crosses navigation
+        working-state-continuity: candidate state must survive navigation
+        commit-recovery-boundary: adds navigation around establishment/reconsideration
+        mode-authority-boundary: role transition risks coupling to destination change
+        independent-addressability: adds independent destinations
+    - id: contextual-target-topology
+      difference: Make one Target concern primary and the other contextual.
       material_effects:
-        goal-continuity: fragmented-per-subtask
-        information-dependency: navigation-mediated
-        working-state-continuity: route-reconstruction
-        commit-recovery-boundary: destination-return
-        mode-authority-boundary: accidental-destination-semantics
-        independent-addressability: every-subtask-addressable
+        goal-continuity: creates unsupported asymmetry
+        information-dependency: shared context becomes subordinate
+        working-state-continuity: persistent state remains possible
+        commit-recovery-boundary: adds enter/return semantics
+        mode-authority-boundary: implies primary role
+        independent-addressability: limits contextual revisit
+  - id: target-current-boundary
+    subjects:
+    - BOUNDARY-TARGETS-CURRENT
+    alternatives:
+    - id: separate-target-current
+      difference: Keep Target and Current as separate views.
+      material_effects:
+        goal-continuity: intentional goal switch
+        information-dependency: different information dependencies
+        working-state-continuity: independent working states
+        commit-recovery-boundary: clear recovery ownership
+        mode-authority-boundary: Target-definition vs preparation-direction contexts
+        independent-addressability: both independently revisitable
+    - id: merge-target-current
+      difference: Merge Target and Current.
+      material_effects:
+        goal-continuity: mixes distinct goals
+        information-dependency: increases simultaneous burden
+        working-state-continuity: couples working states
+        commit-recovery-boundary: blurs recovery
+        mode-authority-boundary: collapses contexts
+        independent-addressability: weakens resume/deep-link
+  - id: target-knowledge-boundary
+    subjects:
+    - BOUNDARY-TARGETS-KNOWLEDGE
+    alternatives:
+    - id: separate-target-knowledge
+      difference: Separate Target and Knowledge with context-preserving entry.
+      material_effects:
+        goal-continuity: explicit goal switch
+        information-dependency: Knowledge has independent dependencies
+        working-state-continuity: local scope independent
+        commit-recovery-boundary: no Target mutation
+        mode-authority-boundary: distinct context
+        independent-addressability: Knowledge independently revisitable
+    - id: merge-target-knowledge
+      difference: Merge Knowledge into Target.
+      material_effects:
+        goal-continuity: mixes requirement and orientation goals
+        information-dependency: broadens Target dependencies
+        working-state-continuity: couples Knowledge scope
+        commit-recovery-boundary: blurs recovery
+        mode-authority-boundary: collapses contexts
+        independent-addressability: removes independent Knowledge destination
+  - id: current-knowledge-boundary
+    subjects:
+    - BOUNDARY-CURRENT-KNOWLEDGE
+    alternatives:
+    - id: separate-current-knowledge
+      difference: Separate direction decisions and Knowledge orientation.
+      material_effects:
+        goal-continuity: intentional goal switch
+        information-dependency: different inputs
+        working-state-continuity: independent local states
+        commit-recovery-boundary: clear return
+        mode-authority-boundary: distinct contexts
+        independent-addressability: both addressable
+    - id: merge-current-knowledge
+      difference: Merge Knowledge into Current.
+      material_effects:
+        goal-continuity: mixes decision/orientation
+        information-dependency: co-locates excess information
+        working-state-continuity: couples scope/focus
+        commit-recovery-boundary: blurs return
+        mode-authority-boundary: collapses contexts
+        independent-addressability: reduces Knowledge findability
+  - id: current-activity-boundary
+    subjects:
+    - BOUNDARY-CURRENT-ACTIVITY
+    alternatives:
+    - id: separate-current-activity
+      difference: Separate focus choice from activity attempt.
+      material_effects:
+        goal-continuity: planning→doing transition
+        information-dependency: attempt-specific dependencies
+        working-state-continuity: attempt state independent
+        commit-recovery-boundary: begin/submit/recovery boundary
+        mode-authority-boundary: decision→performance mode
+        independent-addressability: activity resumable
+    - id: merge-current-activity
+      difference: Run activity inside Current.
+      material_effects:
+        goal-continuity: mixes planning/execution
+        information-dependency: co-locates attempt data
+        working-state-continuity: couples focus/attempt
+        commit-recovery-boundary: blurs recovery
+        mode-authority-boundary: collapses modes
+        independent-addressability: weakens resume
+  - id: knowledge-activity-boundary
+    subjects:
+    - BOUNDARY-KNOWLEDGE-ACTIVITY
+    alternatives:
+    - id: separate-knowledge-activity
+      difference: Separate orientation from activity attempt.
+      material_effects:
+        goal-continuity: understanding→performing transition
+        information-dependency: different dependencies
+        working-state-continuity: scope/attempt state independent
+        commit-recovery-boundary: attempt boundary explicit
+        mode-authority-boundary: orientation→performance
+        independent-addressability: both revisitable
+    - id: merge-knowledge-activity
+      difference: Perform activity inside Knowledge.
+      material_effects:
+        goal-continuity: mixes goals
+        information-dependency: forces attempt data into Knowledge
+        working-state-continuity: couples states
+        commit-recovery-boundary: blurs recovery
+        mode-authority-boundary: collapses contexts
+        independent-addressability: weakens activity resume
+  - id: activity-evidence-boundary
+    subjects:
+    - BOUNDARY-ACTIVITY-EVIDENCE-CHANGE
+    alternatives:
+    - id: contextual-evidence-view
+      difference: Separate contextual post-activity review.
+      material_effects:
+        goal-continuity: activity→review continuation
+        information-dependency: reviewed-result dependency
+        working-state-continuity: attempt hands off to review
+        commit-recovery-boundary: evaluation/review boundary explicit
+        mode-authority-boundary: performance→interpretation
+        independent-addressability: contextual direct entry
+    - id: merge-evidence-into-activity
+      difference: Review inside Activity.
+      material_effects:
+        goal-continuity: single activity surface
+        information-dependency: co-locates attempt/result
+        working-state-continuity: couples states
+        commit-recovery-boundary: weakens post-evaluation boundary
+        mode-authority-boundary: reduces switch
+        independent-addressability: no contextual review addressability
+    - id: global-evidence-destination
+      difference: Make Evidence a global destination.
+      material_effects:
+        goal-continuity: turns continuation into browsing
+        information-dependency: requires unsupported discovery
+        working-state-continuity: detaches origin
+        commit-recovery-boundary: weakens origin recovery
+        mode-authority-boundary: contextual→global mode
+        independent-addressability: adds unsupported global addressability
+  - id: prepare-support-origin-boundary
+    subjects:
+    - BOUNDARY-PREPARE-SUPPORT-ORIGIN
+    alternatives:
+    - id: contextual-support-view
+      difference: Separate contextual recovery preserving origin.
+      material_effects:
+        goal-continuity: temporarily suspends origin goal
+        information-dependency: request/remainder dependency
+        working-state-continuity: recovery state persists
+        commit-recovery-boundary: request/resume/return boundary
+        mode-authority-boundary: recovery mode
+        independent-addressability: contextual resume
+    - id: merge-support-inline
+      difference: Resolve support inline in every origin.
+      material_effects:
+        goal-continuity: duplicates recovery
+        information-dependency: duplicates dependencies
+        working-state-continuity: couples recovery to origins
+        commit-recovery-boundary: obscures boundary
+        mode-authority-boundary: no recovery context
+        independent-addressability: no independent contextual resume
+    - id: global-support-destination
+      difference: Make support global.
+      material_effects:
+        goal-continuity: detaches motivating work
+        information-dependency: requires unsupported browsing
+        working-state-continuity: loses origin risk
+        commit-recovery-boundary: weakens return
+        mode-authority-boundary: recovery→global mode
+        independent-addressability: adds unsupported global addressability
 decision_space_review:
   status: COMPLETE
   checks:
@@ -72,5 +348,12 @@ decision_space_review:
   - accepted-constraint-cross-check
   - authority-boundary-cross-check
   reviewed_decisions:
-  - preparation-view-boundaries
+  - target-comparison-active-target-boundary
+  - target-current-boundary
+  - target-knowledge-boundary
+  - current-knowledge-boundary
+  - current-activity-boundary
+  - knowledge-activity-boundary
+  - activity-evidence-boundary
+  - prepare-support-origin-boundary
   open_gaps: []

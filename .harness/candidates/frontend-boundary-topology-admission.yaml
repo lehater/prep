@@ -3,37 +3,411 @@ kind: harness-artifact-admission-candidate
 id: INTERFACE-TOPOLOGY
 capability: prep.interface-topology
 path: docs/interface/interface-topology.yaml
-changed_paths: [docs/interface/interface-topology.yaml]
+changed_paths:
+- docs/interface/interface-topology.yaml
 canonical_references:
-  - {artifact: INTERFACE-TOPOLOGY, referenced_path: docs/interface/information-architecture.yaml}
-  - {artifact: INTERFACE-TOPOLOGY, referenced_path: docs/interface/interaction-design.yaml}
+- artifact: INTERFACE-TOPOLOGY
+  referenced_path: docs/interface/information-architecture.yaml
+- artifact: INTERFACE-TOPOLOGY
+  referenced_path: docs/interface/interaction-design.yaml
 decision_review:
   axes:
-    - axis: view-boundaries
-      decisions:
-        - id: preparation-view-boundaries
-          owner_authority: HUMAN-INTERFACE-DESIGN
-          alternatives:
-            - {id: task-responsibility-views-with-contextual-recovery, state: VIABLE}
-            - {id: single-preparation-workspace, state: REJECTED, rationale: "Collapsing Target, Current, Knowledge and Activity into one undifferentiated view would obscure distinct task responsibilities and independent addressability while making recovery/context semantics implicit."}
-            - {id: destination-per-subtask, state: REJECTED, rationale: "Promoting contextual evidence/detail/support subtasks into independent destinations would fragment working-state continuity and create navigation semantics not justified by accepted tasks."}
-          disposition: DETERMINED
-          selected: task-responsibility-views-with-contextual-recovery
+  - axis: view-boundaries
+    decisions:
+    - id: target-comparison-active-target-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: one-target-view
+        state: VIABLE
+      - id: two-target-views
+        state: REJECTED
+        rationale: No accepted user-facing need requires an independent destination;
+          it adds refinding/navigation cost across a continuous Target transition.
+      - id: contextual-target-topology
+        state: REJECTED
+        rationale: Comparison and active-Target work are mutually revisitable, not
+          primary-versus-incidental.
+      disposition: DETERMINED
+      selected: one-target-view
+    - id: target-current-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: separate-target-current
+        state: VIABLE
+      - id: merge-target-current
+        state: REJECTED
+        rationale: Distinct user goals and resume/findability needs justify separation;
+          persistent Target context preserves continuity.
+      disposition: DETERMINED
+      selected: separate-target-current
+    - id: target-knowledge-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: separate-target-knowledge
+        state: VIABLE
+      - id: merge-target-knowledge
+        state: REJECTED
+        rationale: Knowledge is independently findable/revisitable; direct context
+          transfer preserves continuity.
+      disposition: DETERMINED
+      selected: separate-target-knowledge
+    - id: current-knowledge-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: separate-current-knowledge
+        state: VIABLE
+      - id: merge-current-knowledge
+        state: REJECTED
+        rationale: Independent Knowledge orientation/findability is accepted; context-preserving
+          cross-linking is sufficient.
+      disposition: DETERMINED
+      selected: separate-current-knowledge
+    - id: current-activity-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: separate-current-activity
+        state: VIABLE
+      - id: merge-current-activity
+        state: REJECTED
+        rationale: Activity attempt has a material work-state/recovery boundary; Target/focus
+          context can persist across views.
+      disposition: DETERMINED
+      selected: separate-current-activity
+    - id: knowledge-activity-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: separate-knowledge-activity
+        state: VIABLE
+      - id: merge-knowledge-activity
+        state: REJECTED
+        rationale: Beginning an attempt is a distinct work-state transition; Knowledge
+          remains reusable orientation.
+      disposition: DETERMINED
+      selected: separate-knowledge-activity
+    - id: activity-evidence-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: contextual-evidence-view
+        state: VIABLE
+      - id: merge-evidence-into-activity
+        state: REJECTED
+        rationale: Post-evaluation review has a material continuation/recovery boundary.
+      - id: global-evidence-destination
+        state: REJECTED
+        rationale: IA defines Evidence/change as contextual, not a peer global destination.
+      disposition: DETERMINED
+      selected: contextual-evidence-view
+    - id: prepare-support-origin-boundary
+      owner_authority: HUMAN-INTERFACE-DESIGN
+      alternatives:
+      - id: contextual-support-view
+        state: VIABLE
+      - id: merge-support-inline
+        state: REJECTED
+        rationale: Resumable request/remainder lifecycle is a shared material recovery
+          boundary.
+      - id: global-support-destination
+        state: REJECTED
+        rationale: Accepted semantics require origin-preserving contextual recovery,
+          not a global destination.
+      disposition: DETERMINED
+      selected: contextual-support-view
 semantic_assertions:
-  - {id: TOP-ROOT, kind: topology-structural-frame, subject: preparation-frame, semantic_value: "FRAME-PREPARATION is the single structural frame supporting candidate Target comparison before commitment and preserving active Target/optional Next focus context across primary preparation destinations when present; contextual Evidence/change review is entered from reviewed activity context rather than exposed as a frame destination.", derived_from: [IA-ROOT, IX-TARGET-DIRECTION, IX-CONTEXT-CONTINUITY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-TARGETS, kind: topology-task-view, subject: targets-view, semantic_value: "VIEW-TARGETS has one responsibility: compare plausible Targets against the same learner evidence basis and choose which candidate to continue with; it realizes LOC-TARGETS and IX-TARGET-DIRECTION without activating a Target.", derived_from: [IA-LOC-TARGETS, IX-TARGET-DIRECTION], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-TARGET, kind: topology-task-view, subject: target-view, semantic_value: "VIEW-TARGET has one responsibility: establish/refine Target and understand requirements; it realizes LOC-TARGET and IX-TARGET.", derived_from: [IA-LOC-TARGET, IX-TARGET], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-CURRENT, kind: topology-task-view, subject: current-position-view, semantic_value: "VIEW-CURRENT has one responsibility: understand current position/gaps and choose Next focus; it realizes LOC-CURRENT-POSITION and IX-DIRECTION.", derived_from: [IA-LOC-CURRENT, IX-DIRECTION], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-KNOWLEDGE, kind: topology-task-view, subject: knowledge-view, semantic_value: "VIEW-KNOWLEDGE has one responsibility: Subject Knowledge orientation under target/focus context, optionally bounded by a selected Required Capability; it realizes LOC-KNOWLEDGE and IX-KNOWLEDGE without selecting a presentation form.", derived_from: [IA-LOC-KNOWLEDGE, IX-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-ACTIVITY, kind: topology-task-view, subject: activity-view, semantic_value: "VIEW-ACTIVITY has one responsibility: select support and carry out one activity attempt under an explicit focus; it realizes the action phase of LOC-ACTIVITIES/IX-ACTIVITY.", derived_from: [IA-LOC-ACTIVITIES, IX-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-EVIDENCE, kind: topology-task-view, subject: evidence-change-view, semantic_value: "VIEW-EVIDENCE-CHANGE has one responsibility: review evaluated evidence/change for one completed or reviewable activity result and choose continuation; it realizes contextual LOC-EVIDENCE-CHANGES and the review phase of IX-ACTIVITY while ordinary why-this-state inspection remains in VIEW-CURRENT.", derived_from: [IA-LOC-EVIDENCE, IX-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-VIEW-PREP-SUPPORT, kind: topology-task-view, subject: prepare-support-view, semantic_value: "VIEW-PREPARE-SUPPORT is a contextual recovery view for missing support that preserves and returns to the originating preparation context.", derived_from: [IA-LOC-PREP-SUPPORT, IX-PREP-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-CONTEXT, kind: topology-navigation, subject: active-context-reachability, semantic_value: "Current/Knowledge/Activity/Evidence views preserve active Target; Activity additionally requires explicit Next focus. Missing target/focus routes to the owning preparation view instead of inventing context.", derived_from: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS, IX-CONTEXT-CONTINUITY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-CROSSLINKS, kind: topology-navigation, subject: preparation-crosslinks, semantic_value: "Navigation preserves Targets↔Target comparison/choice plus accepted primary relationships among Target, Current position, Knowledge and Activity; Activity may enter contextual Evidence/change review, which continues to Current/Activity/Knowledge. Target-to-Knowledge entry may carry a selected Required Capability as local Knowledge scope, with contextual missing-support entry and return-to-origin.", derived_from: [IA-CROSSLINKS, IX-TARGET-DIRECTION, IX-TARGET, IX-DIRECTION, IX-KNOWLEDGE, IX-ACTIVITY, IX-PREP-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-EVIDENCE-REVIEW, kind: topology-navigation, subject: evidence-review-reachability, semantic_value: "Evidence/change is a contextual post-activity result review rather than a primary/global destination; current-state why-this-state stays in VIEW-CURRENT and evidence direct links require reviewed activity/evidence context.", derived_from: [IA-LOC-EVIDENCE, IA-CROSSLINKS, IX-DIRECTION, IX-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-DIRECT-LINK, kind: topology-navigation, subject: direct-link-semantics, semantic_value: "Direct links preserve valid referenced semantic context; Evidence/change direct links require resolvable reviewed activity/evidence context, absent required Target routes to VIEW-TARGET and absent required Activity focus routes to VIEW-CURRENT rather than silently creating state.", derived_from: [IA-FINDABILITY, IX-CURRENTNESS], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-LABELS, kind: topology-navigation, subject: learner-facing-view-labels, semantic_value: "Task-view identity follows learner-facing Targets, Target, Current position, Knowledge, Activity, Evidence/change and Prepare missing support semantics rather than backend/domain class names.", derived_from: [IA-TAXONOMY], decision_authority: HUMAN-INTERFACE-DESIGN}
-  - {id: TOP-NO-COMPOSITION, kind: topology-invariant, subject: topology-screen-boundary, semantic_value: "Topology decides view identity/responsibility/reachability only; regions/layout/components/styling/responsive composition and graph/list/2D/3D presentation remain downstream.", derived_from: [IA-NO-SCREEN, IX-NO-LAYOUT], decision_authority: HUMAN-INTERFACE-DESIGN}
+- id: TOP-ROOT
+  kind: topology-structural-frame
+  subject: preparation-frame
+  semantic_value: FRAME-PREPARATION preserves candidate Target work before commitment
+    and active Target/optional Next focus context across task views; contextual review/recovery
+    remains non-global.
+  derived_from:
+  - IA-ROOT
+  - IA-STRUCTURE
+  - IX-CONTEXT-CONTINUITY
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-TARGETS
+  kind: topology-task-view
+  subject: target-work-view
+  semantic_value: VIEW-TARGETS is one Target task view covering LOC-TARGET-COMPARISON
+    and LOC-TARGET and both IX-TARGET-DIRECTION and IX-TARGET; behavioral distinction
+    is preserved without selecting regions/tabs/panes.
+  derived_from:
+  - IA-LOC-TARGETS
+  - IA-LOC-TARGET-COMPARISON
+  - IA-LOC-TARGET
+  - IX-TARGET-DIRECTION
+  - IX-TARGET
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-TARGET-ROLE-CONTINUITY
+  kind: topology-navigation
+  subject: target-role-transition
+  semantic_value: Comparison selection and candidate-to-continue remain non-active;
+    accepted establishment/refinement transitions to active Target, and reconsideration
+    can return to comparison semantics without silent replacement.
+  derived_from:
+  - IX-ACT-TARGET-SELECT-COMPARISON
+  - IX-ACT-TARGET-CHOOSE-CONTINUE
+  - IX-DIST-TARGET-COMPARISON-NOT-ACTIVE
+  - IX-ACT-TARGET-ESTABLISH-REFINE
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-CURRENT
+  kind: topology-task-view
+  subject: current-position-view
+  semantic_value: VIEW-CURRENT independently supports current position/gaps and Next
+    focus choice.
+  derived_from:
+  - IA-LOC-CURRENT
+  - IX-DIRECTION
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-KNOWLEDGE
+  kind: topology-task-view
+  subject: knowledge-view
+  semantic_value: VIEW-KNOWLEDGE independently supports Subject Knowledge orientation
+    without selecting a representation form.
+  derived_from:
+  - IA-LOC-KNOWLEDGE
+  - IX-KNOWLEDGE
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-KNOWLEDGE-SCOPE
+  kind: topology-navigation
+  subject: knowledge-capability-scope
+  semantic_value: Target→Knowledge may carry selected Required Capability scope; local
+    apply/clear does not choose Next focus.
+  derived_from:
+  - IA-SCOPE-KNOWLEDGE
+  - IX-ACT-KNOWLEDGE-APPLY-CAPABILITY-SCOPE
+  - IX-ACT-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE
+  - IX-STATE-KNOWLEDGE-CAPABILITY-SCOPE
+  - IX-DIST-CAPABILITY-NEXT-FOCUS
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-ACTIVITY
+  kind: topology-task-view
+  subject: activity-view
+  semantic_value: VIEW-ACTIVITY independently supports support selection and one activity
+    attempt under explicit focus.
+  derived_from:
+  - IA-LOC-ACTIVITIES
+  - IX-ACTIVITY
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-EVIDENCE
+  kind: topology-task-view
+  subject: evidence-change-view
+  semantic_value: VIEW-EVIDENCE-CHANGE is contextual post-activity evidence/change
+    review, not a global destination.
+  derived_from:
+  - IA-LOC-EVIDENCE
+  - IX-ACTIVITY
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-VIEW-PREP-SUPPORT
+  kind: topology-task-view
+  subject: prepare-support-view
+  semantic_value: VIEW-PREPARE-SUPPORT is contextual missing-support recovery that
+    preserves origin, supports resume and returns accepted support/remainder.
+  derived_from:
+  - IA-LOC-PREP-SUPPORT
+  - IX-PREP-SUPPORT
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-CONTEXT
+  kind: topology-navigation
+  subject: active-context-reachability
+  semantic_value: Current/Knowledge/Activity/Evidence preserve active Target; Activity
+    also requires Next focus; missing context enters owning work rather than inventing
+    state.
+  derived_from:
+  - IA-SCOPE-TARGET
+  - IA-SCOPE-FOCUS
+  - IX-CONTEXT-CONTINUITY
+  - IX-CURRENTNESS
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-CROSSLINKS
+  kind: topology-navigation
+  subject: preparation-crosslinks
+  semantic_value: Reachability preserves accepted Target↔Current, Target→Knowledge,
+    Current→Knowledge/Activity, Knowledge→Activity, Activity→Evidence, Evidence→Current
+    and contextual support return; Target reconsideration stays inside one Target
+    view.
+  derived_from:
+  - IA-CROSSLINKS
+  - IX-TARGET-DIRECTION
+  - IX-TARGET
+  - IX-DIRECTION
+  - IX-KNOWLEDGE
+  - IX-ACTIVITY
+  - IX-PREP-SUPPORT
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-EVIDENCE-REVIEW
+  kind: topology-navigation
+  subject: evidence-review-reachability
+  semantic_value: Evidence/change direct entry requires reviewed activity/evidence
+    context and remains a contextual continuation.
+  derived_from:
+  - IA-LOC-EVIDENCE
+  - IA-CROSSLINKS
+  - IX-ACTIVITY
+  - IX-OUTCOMES
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-DIRECT-LINK
+  kind: topology-navigation
+  subject: direct-link-semantics
+  semantic_value: Direct links preserve valid context; missing Target enters VIEW-TARGETS
+    establishment/recovery and missing Activity focus enters VIEW-CURRENT.
+  derived_from:
+  - IA-FINDABILITY
+  - IX-CURRENTNESS
+  - IX-OUTCOMES
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-LABELS
+  kind: topology-navigation
+  subject: learner-facing-view-labels
+  semantic_value: View identity follows learner-facing semantics rather than task/application/component
+    decomposition.
+  derived_from:
+  - IA-TAXONOMY
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-NONSPATIAL-REACHABILITY
+  kind: topology-invariant
+  subject: nonspatial-view-reachability
+  semantic_value: Every required view/recovery path remains semantically reachable
+    without pointer-only or spatial navigation mechanics; concrete controls remain
+    downstream.
+  derived_from:
+  - IX-KEYBOARD
+  decision_authority: HUMAN-INTERFACE-DESIGN
+- id: TOP-NO-COMPOSITION
+  kind: topology-invariant
+  subject: topology-screen-boundary
+  semantic_value: Topology decides view identity/responsibility/reachability only;
+    regions/layout/components/styling/responsive composition and representation remain
+    downstream.
+  derived_from:
+  - IA-NO-SCREEN
+  - IX-NO-LAYOUT
+  decision_authority: HUMAN-INTERFACE-DESIGN
 semantic_review:
   status: ACCEPTED
-  checks: [source-discipline, authority-boundary, no-invention, topology-not-screen-composition]
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - topology-not-screen-composition
+  - view-boundary-semantics
+  view_boundary_requirements:
+  - id: BOUNDARY-TARGET-COMPARISON-ACTIVE-TARGET
+    participants:
+    - LOC-TARGET-COMPARISON
+    - LOC-TARGET
+    - IX-TARGET-DIRECTION
+    - IX-TARGET
+    - VIEW-TARGETS
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: MERGED
+    rationale_bases:
+    - id: TARGET-CONTINUITY
+      classification: USER_FACING
+      rationale: Comparison, choose-to-continue, establishment/refinement and reconsideration
+        form one reversible Target decision continuum with shared working context.
+    - id: DISTINCT-IX-CONTEXTS
+      classification: UPSTREAM_RESPONSIBILITY
+      rationale: IX-TARGET-DIRECTION and IX-TARGET remain behaviorally distinct; that
+        distinction alone does not justify navigation.
+    decision_refs:
+    - target-comparison-active-target-boundary
+  - id: BOUNDARY-TARGETS-CURRENT
+    participants:
+    - VIEW-TARGETS
+    - VIEW-CURRENT
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: TARGET-VS-POSITION-GOAL
+      classification: USER_FACING
+      rationale: Target definition/requirements and evidence-backed current-position/focus
+        choice are independently revisit-able goals with an intentional context switch.
+    decision_refs:
+    - target-current-boundary
+  - id: BOUNDARY-TARGETS-KNOWLEDGE
+    participants:
+    - VIEW-TARGETS
+    - VIEW-KNOWLEDGE
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: KNOWLEDGE-INDEPENDENT-ORIENTATION
+      classification: USER_FACING
+      rationale: Knowledge orientation has independent findability/revisit value while
+        Target-to-Knowledge entry preserves Required Capability scope as context.
+    decision_refs:
+    - target-knowledge-boundary
+  - id: BOUNDARY-CURRENT-KNOWLEDGE
+    participants:
+    - VIEW-CURRENT
+    - VIEW-KNOWLEDGE
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: DIRECTION-VS-ORIENTATION
+      classification: USER_FACING
+      rationale: Choosing preparation direction and exploring reusable Subject Knowledge
+        are different goals with independent resume/findability value.
+    decision_refs:
+    - current-knowledge-boundary
+  - id: BOUNDARY-CURRENT-ACTIVITY
+    participants:
+    - VIEW-CURRENT
+    - VIEW-ACTIVITY
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: PLAN-TO-ATTEMPT
+      classification: USER_FACING
+      rationale: Moving from focus choice into an activity attempt is an intentional
+        work-state transition with attempt continuity and recovery semantics.
+    decision_refs:
+    - current-activity-boundary
+  - id: BOUNDARY-KNOWLEDGE-ACTIVITY
+    participants:
+    - VIEW-KNOWLEDGE
+    - VIEW-ACTIVITY
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: ORIENTATION-TO-ATTEMPT
+      classification: USER_FACING
+      rationale: Knowledge orientation is independently revisitable; beginning an
+        activity creates a distinct attempt context.
+    decision_refs:
+    - knowledge-activity-boundary
+  - id: BOUNDARY-ACTIVITY-EVIDENCE-CHANGE
+    participants:
+    - VIEW-ACTIVITY
+    - VIEW-EVIDENCE-CHANGE
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: POST-ACTIVITY-REVIEW
+      classification: USER_FACING
+      rationale: A completed/reviewable attempt crosses into contextual evidence/change
+        review with its own recovery/continuation boundary while remaining non-global.
+    decision_refs:
+    - activity-evidence-boundary
+  - id: BOUNDARY-PREPARE-SUPPORT-ORIGIN
+    participants:
+    - VIEW-PREPARE-SUPPORT
+    - ORIGINATING-PREPARATION-VIEW
+    materiality: MATERIAL
+    contestability: CONTESTABLE
+    outcome: SEPARATE
+    rationale_bases:
+    - id: CONTEXTUAL-RECOVERY
+      classification: USER_FACING
+      rationale: Missing-support preparation is a resumable contextual recovery excursion
+        that preserves and returns to originating work.
+    decision_refs:
+    - prepare-support-origin-boundary
+  shared_boundary_decision_groups: []
