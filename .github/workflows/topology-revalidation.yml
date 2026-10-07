@@ -10,6 +10,7 @@ on:
       - ".harness/candidates/frontend-boundary-topology-request.json"
       - ".harness/candidates/process-migration-topology-*.yaml"
       - "tools/revalidate_topology_publication.py"
+      - "tools/check_harness_integration.py"
       - ".github/workflows/topology-revalidation.yml"
 
 permissions:
