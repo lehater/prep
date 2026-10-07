@@ -1,0 +1,78 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.information-architecture
+target_capability: prep.interface-topology
+links:
+- sources:
+  - IA-ROOT
+  - IA-STRUCTURE
+  relation: CONSTRAINS
+  targets:
+  - TOP-ROOT
+- sources:
+  - IA-LOC-TARGETS
+  - IA-LOC-TARGET-COMPARISON
+  - IA-LOC-TARGET
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-TARGETS
+- sources:
+  - IA-LOC-CURRENT
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-CURRENT
+- sources:
+  - IA-LOC-KNOWLEDGE
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-KNOWLEDGE
+- sources:
+  - IA-LOC-ACTIVITIES
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-ACTIVITY
+- sources:
+  - IA-LOC-EVIDENCE
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-EVIDENCE
+  - TOP-EVIDENCE-REVIEW
+- sources:
+  - IA-LOC-PREP-SUPPORT
+  relation: CONSTRAINS
+  targets:
+  - TOP-VIEW-PREP-SUPPORT
+- sources:
+  - IA-SCOPE-TARGET
+  - IA-SCOPE-FOCUS
+  relation: CONSTRAINS
+  targets:
+  - TOP-CONTEXT
+- sources:
+  - IA-SCOPE-KNOWLEDGE
+  relation: CONSTRAINS
+  targets:
+  - TOP-KNOWLEDGE-SCOPE
+- sources:
+  - IA-CROSSLINKS
+  relation: CONSTRAINS
+  targets:
+  - TOP-CROSSLINKS
+  - TOP-EVIDENCE-REVIEW
+- sources:
+  - IA-TAXONOMY
+  relation: CONSTRAINS
+  targets:
+  - TOP-LABELS
+- sources:
+  - IA-FINDABILITY
+  relation: CONSTRAINS
+  targets:
+  - TOP-DIRECT-LINK
+  - TOP-VIEW-TARGETS
+- sources:
+  - IA-NO-SCREEN
+  relation: CONSTRAINS
+  targets:
+  - TOP-NO-COMPOSITION
+dispositions: []

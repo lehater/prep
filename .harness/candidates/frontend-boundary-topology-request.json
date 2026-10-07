@@ -6,8 +6,8 @@
   "authority": "HUMAN-INTERFACE-DESIGN",
   "mode": "REVISION",
   "accepted_prerequisites": {
-    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-6",
-    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-5"
+    "prep.information-architecture": "PREP-INFORMATION-ARCHITECTURE-STRICT-7",
+    "prep.interaction-design": "PREP-INTERACTION-DESIGN-STRICT-6"
   },
   "canonical_inputs": [
     {
@@ -95,7 +95,8 @@
         "persistent-context-vs-navigation",
         "contextual-surface-vs-destination"
       ],
-      "minimum_probes": 2
+      "minimum_probes": 2,
+      "subject_scope": "view-boundary"
     }
   ],
   "forbidden_inputs": [
@@ -105,5 +106,5 @@
     "selected_solution",
     "write_set"
   ],
-  "request_id": "sha256:bc79915f6977b7c7e7c855efc87c1fd86e0a885af302f0d96afb52b6d22e3aa1"
+  "request_id": "sha256:bdb9335f678d3b3a2069653b9cb1c1bfc804df286d4c5bd0f0b3eda1dc2409a4"
 }

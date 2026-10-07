@@ -1,97 +1,162 @@
 version: 1
 kind: interface-topology-design
 id: PREP-INTERFACE-TOPOLOGY
-
 views:
-  - id: FRAME-PREPARATION
-    structural: true
-    responsibility: Support candidate Target-direction comparison before commitment and preserve active Target plus optional Next focus context when one is established.
-    ia_location_ref: LOC-ACTIVE-PREPARATION
-    interaction_context_refs: []
-    parent: ROOT
-    entries: [application-entry]
-    exits: [VIEW-TARGETS, VIEW-TARGET, VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY]
-
-  - id: VIEW-TARGETS
-    structural: false
-    responsibility: Compare plausible Targets against the same evidence-backed learner capability basis and choose which candidate to continue with.
-    ia_location_ref: LOC-TARGETS
-    interaction_context_refs: [IX-TARGET-DIRECTION]
-    parent: FRAME-PREPARATION
-    entries: [application-entry, VIEW-TARGET, direct-link-with-candidate-targets]
-    exits: [VIEW-TARGET, VIEW-PREPARE-SUPPORT]
-
-  - id: VIEW-TARGET
-    structural: false
-    responsibility: Establish/refine the active Target and understand its requirements.
-    ia_location_ref: LOC-TARGET
-    interaction_context_refs: [IX-TARGET]
-    parent: FRAME-PREPARATION
-    entries: [application-entry, VIEW-TARGETS, direct-link-with-target-context, missing-target-context]
-    exits: [VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-PREPARE-SUPPORT]
-
-  - id: VIEW-CURRENT
-    structural: false
-    responsibility: Understand current evidence-backed position, gaps/uncertainty and choose the Next focus.
-    ia_location_ref: LOC-CURRENT-POSITION
-    interaction_context_refs: [IX-DIRECTION]
-    parent: FRAME-PREPARATION
-    entries: [VIEW-TARGET, VIEW-EVIDENCE-CHANGE, direct-link-with-target-context]
-    exits: [VIEW-KNOWLEDGE, VIEW-ACTIVITY, VIEW-PREPARE-SUPPORT]
-
-  - id: VIEW-KNOWLEDGE
-    structural: false
-    responsibility: Orient within target/focus-relevant Subject Knowledge and semantic relationships, optionally bounded by a selected Required Capability.
-    ia_location_ref: LOC-KNOWLEDGE
-    interaction_context_refs: [IX-KNOWLEDGE]
-    parent: FRAME-PREPARATION
-    entries: [VIEW-TARGET, VIEW-CURRENT, VIEW-ACTIVITY, direct-link-with-target-context]
-    exits: [VIEW-CURRENT, VIEW-ACTIVITY, VIEW-PREPARE-SUPPORT]
-
-  - id: VIEW-ACTIVITY
-    structural: false
-    responsibility: Select suitable support and carry out one learning/practice/diagnostic activity attempt.
-    ia_location_ref: LOC-ACTIVITIES
-    interaction_context_refs: [IX-ACTIVITY]
-    parent: FRAME-PREPARATION
-    entries: [VIEW-CURRENT, VIEW-KNOWLEDGE, direct-link-with-target-and-focus]
-    exits: [VIEW-EVIDENCE-CHANGE, VIEW-KNOWLEDGE, VIEW-PREPARE-SUPPORT]
-
-  - id: VIEW-EVIDENCE-CHANGE
-    structural: false
-    responsibility: Review evaluated evidence/change for one completed or reviewable activity result and choose the next continuation.
-    ia_location_ref: LOC-EVIDENCE-CHANGES
-    interaction_context_refs: [IX-ACTIVITY]
-    parent: FRAME-PREPARATION
-    entries: [VIEW-ACTIVITY, direct-link-with-reviewed-activity-context]
-    exits: [VIEW-CURRENT, VIEW-ACTIVITY, VIEW-KNOWLEDGE]
-
-  - id: VIEW-PREPARE-SUPPORT
-    structural: false
-    responsibility: Resolve a contextual missing-support need and return accepted support plus explicit remainder to the originating preparation work.
-    ia_location_ref: LOC-PREPARE-SUPPORT
-    interaction_context_refs: [IX-PREP-SUPPORT]
-    parent: FRAME-PREPARATION
-    entries: [contextual-entry-from-target, contextual-entry-from-current, contextual-entry-from-knowledge, contextual-entry-from-activity]
-    exits: [originating-view]
-
+- id: FRAME-PREPARATION
+  structural: true
+  responsibility: Preserve candidate Target-direction work before commitment and active
+    Target plus optional Next focus context after establishment across preparation
+    work.
+  ia_location_ref: LOC-ACTIVE-PREPARATION
+  interaction_context_refs: []
+  parent: ROOT
+  entries:
+  - application-entry
+  exits:
+  - VIEW-TARGETS
+  - VIEW-CURRENT
+  - VIEW-KNOWLEDGE
+  - VIEW-ACTIVITY
+- id: VIEW-TARGETS
+  structural: false
+  responsibility: Compare plausible Targets, choose a candidate to continue with,
+    establish/refine the active Target, and understand its requirements as one continuous
+    Target-work responsibility while preserving distinct comparison and active-Target
+    roles.
+  ia_location_ref: LOC-TARGETS
+  ia_sublocation_refs:
+  - LOC-TARGET-COMPARISON
+  - LOC-TARGET
+  interaction_context_refs:
+  - IX-TARGET-DIRECTION
+  - IX-TARGET
+  interaction_role_refs:
+  - IX-ROLE-TARGET-SELECTED-COMPARISON
+  - IX-ROLE-TARGET-CANDIDATE-CONTINUE
+  - IX-ROLE-TARGET-ACTIVE
+  parent: FRAME-PREPARATION
+  entries:
+  - application-entry
+  - VIEW-CURRENT
+  - direct-link-with-candidate-targets
+  - direct-link-with-target-context
+  - missing-target-context
+  exits:
+  - VIEW-CURRENT
+  - VIEW-KNOWLEDGE
+  - VIEW-PREPARE-SUPPORT
+- id: VIEW-CURRENT
+  structural: false
+  responsibility: Understand current evidence-backed position, gaps/uncertainty and
+    choose the Next focus.
+  ia_location_ref: LOC-CURRENT-POSITION
+  interaction_context_refs:
+  - IX-DIRECTION
+  parent: FRAME-PREPARATION
+  entries:
+  - VIEW-TARGETS
+  - VIEW-EVIDENCE-CHANGE
+  - direct-link-with-target-context
+  exits:
+  - VIEW-TARGETS
+  - VIEW-KNOWLEDGE
+  - VIEW-ACTIVITY
+  - VIEW-PREPARE-SUPPORT
+- id: VIEW-KNOWLEDGE
+  structural: false
+  responsibility: Orient within Target/focus-relevant Subject Knowledge and semantic
+    relationships, optionally bounded by a selected Required Capability.
+  ia_location_ref: LOC-KNOWLEDGE
+  interaction_context_refs:
+  - IX-KNOWLEDGE
+  parent: FRAME-PREPARATION
+  entries:
+  - VIEW-TARGETS
+  - VIEW-CURRENT
+  - VIEW-ACTIVITY
+  - direct-link-with-target-context
+  exits:
+  - VIEW-CURRENT
+  - VIEW-ACTIVITY
+  - VIEW-PREPARE-SUPPORT
+- id: VIEW-ACTIVITY
+  structural: false
+  responsibility: Select suitable support and carry out one learning/practice/diagnostic
+    activity attempt.
+  ia_location_ref: LOC-ACTIVITIES
+  interaction_context_refs:
+  - IX-ACTIVITY
+  parent: FRAME-PREPARATION
+  entries:
+  - VIEW-CURRENT
+  - VIEW-KNOWLEDGE
+  - direct-link-with-target-and-focus
+  exits:
+  - VIEW-EVIDENCE-CHANGE
+  - VIEW-KNOWLEDGE
+  - VIEW-PREPARE-SUPPORT
+- id: VIEW-EVIDENCE-CHANGE
+  structural: false
+  contextual: post-activity-review
+  responsibility: Review evaluated evidence/change for one completed or reviewable
+    activity result and choose the next continuation.
+  ia_location_ref: LOC-EVIDENCE-CHANGES
+  interaction_context_refs:
+  - IX-ACTIVITY
+  parent: FRAME-PREPARATION
+  entries:
+  - VIEW-ACTIVITY
+  - direct-link-with-reviewed-activity-context
+  exits:
+  - VIEW-CURRENT
+  - VIEW-ACTIVITY
+  - VIEW-KNOWLEDGE
+- id: VIEW-PREPARE-SUPPORT
+  structural: false
+  contextual: recovery
+  responsibility: Resolve a contextual missing-support need and return accepted support
+    plus explicit remainder to the originating preparation work.
+  ia_location_ref: LOC-PREPARE-SUPPORT
+  interaction_context_refs:
+  - IX-PREP-SUPPORT
+  parent: FRAME-PREPARATION
+  entries:
+  - contextual-entry-from-target
+  - contextual-entry-from-current
+  - contextual-entry-from-knowledge
+  - contextual-entry-from-activity
+  exits:
+  - originating-view
 navigation_contracts:
-  - id: TOP-ACTIVE-TARGET
-    rule: VIEW-TARGETS may compare candidate Targets without an active Target; VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY and VIEW-EVIDENCE-CHANGE require an active Target context, and a direct link without resolvable Target context routes to VIEW-TARGET rather than inventing one.
-  - id: TOP-ACTIVE-FOCUS
-    rule: VIEW-ACTIVITY requires an explicit Next focus; entry without one routes to VIEW-CURRENT so the user can choose/revise focus. VIEW-KNOWLEDGE may exist without a focus. VIEW-EVIDENCE-CHANGE preserves the originating focus when present but may review a resolved historical activity result without making a current focus mandatory.
-  - id: TOP-EVIDENCE-REVIEW
-    rule: VIEW-EVIDENCE-CHANGE is a contextual post-activity result review, not a primary/global destination. Current-state why-this-state inspection remains inside VIEW-CURRENT; direct entry to evidence/change requires resolvable reviewed activity/evidence context.
-  - id: TOP-PREP-RETURN
-    rule: VIEW-PREPARE-SUPPORT is contextual rather than primary global navigation; it preserves an originating view/context and returns there after review of accepted support/remainder.
-  - id: TOP-DIRECT-LINK
-    rule: Direct links preserve referenced target/focus/knowledge identity where valid; Evidence/change direct links additionally require a resolvable reviewed activity/evidence context. Target-to-Knowledge entry may preserve a selected Required Capability as local Knowledge-scope context, but no link silently creates missing semantic context.
-
+- id: TOP-TARGET-ROLE-CONTINUITY
+  rule: Inside VIEW-TARGETS, selected-for-comparison and candidate-to-continue do
+    not activate a Target. Only accepted establishment/refinement moves candidate-to-continue
+    into the active-Target role; reconsideration returns to comparison semantics without
+    silently replacing the active Target.
+- id: TOP-ACTIVE-TARGET
+  rule: VIEW-TARGETS supports candidate comparison without an active Target and active-Target
+    work after establishment. VIEW-CURRENT, VIEW-KNOWLEDGE, VIEW-ACTIVITY and VIEW-EVIDENCE-CHANGE
+    require resolvable active Target context; a direct link without it enters VIEW-TARGETS
+    in establishment/recovery context rather than inventing one.
+- id: TOP-ACTIVE-FOCUS
+  rule: VIEW-ACTIVITY requires an explicit Next focus; entry without one routes to
+    VIEW-CURRENT. VIEW-KNOWLEDGE may exist without a focus. VIEW-EVIDENCE-CHANGE preserves
+    originating focus when present.
+- id: TOP-EVIDENCE-REVIEW
+  rule: VIEW-EVIDENCE-CHANGE is contextual post-activity review, not a primary/global
+    destination; direct entry requires resolvable reviewed activity/evidence context.
+- id: TOP-PREP-RETURN
+  rule: VIEW-PREPARE-SUPPORT is contextual recovery; it preserves an originating view/context
+    and returns there after accepted support/remainder review.
+- id: TOP-DIRECT-LINK
+  rule: Direct links preserve referenced Target/focus/Knowledge identity where valid.
+    Target-to-Knowledge entry may preserve selected Required Capability as local Knowledge
+    scope; no link silently creates missing semantic context.
 coverage:
   user_tasks:
     TASK-U-COMPARE-TARGETS: VIEW-TARGETS
-    TASK-U-ESTABLISH-TARGET: VIEW-TARGET
-    TASK-U-UNDERSTAND-REQUIREMENTS: VIEW-TARGET
+    TASK-U-ESTABLISH-TARGET: VIEW-TARGETS
+    TASK-U-UNDERSTAND-REQUIREMENTS: VIEW-TARGETS
     TASK-U-REVIEW-CURRENT-STATE: VIEW-CURRENT
     TASK-U-REVIEW-GAPS: VIEW-CURRENT
     TASK-U-CHOOSE-NEXT-FOCUS: VIEW-CURRENT
@@ -100,14 +165,12 @@ coverage:
     TASK-U-PERFORM-ACTIVITY: VIEW-ACTIVITY
     TASK-U-REVIEW-CHANGE: VIEW-EVIDENCE-CHANGE
     TASK-U-REQUEST-PREPARATION-SUPPORT: VIEW-PREPARE-SUPPORT
-
 deliberately_unconstrained:
-  - URL/path strings
-  - sidebar/tab/menu mechanics
-  - screen regions and layout
-  - component hierarchy
-  - visual hierarchy and styling
-  - graph/list/2D/3D presentation
-  - responsive composition
-
+- URL/path strings
+- sidebar/tab/menu mechanics
+- screen regions and layout
+- component hierarchy
+- visual hierarchy and styling
+- graph/list/2D/3D presentation
+- responsive composition
 unresolved_questions: []

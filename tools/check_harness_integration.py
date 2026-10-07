@@ -28,6 +28,8 @@ from harness.project_model.engineering_graph import (  # noqa: E402
     validate_engineering_graph,
 )
 from harness.application.project_publication import read_project_publication  # noqa: E402
+from harness.application.semantic_admission import derive_acceptance_policy_fingerprints  # noqa: E402
+from harness.assurance.capability_lifecycle import lifecycle_states  # noqa: E402
 from harness.assurance.semantic_derivation import (  # noqa: E402
     derivation_evaluation_index,
     evaluate_derivation,
@@ -170,7 +172,7 @@ def project_topology_for_frontend_closure(topology: dict) -> dict:
         return projected
 
     return_entry_to_view = {
-        "contextual-entry-from-target": "VIEW-TARGET",
+        "contextual-entry-from-target": "VIEW-TARGETS",
         "contextual-entry-from-current": "VIEW-CURRENT",
         "contextual-entry-from-knowledge": "VIEW-KNOWLEDGE",
         "contextual-entry-from-activity": "VIEW-ACTIVITY",
@@ -303,10 +305,32 @@ def main() -> int:
         if path and not (ROOT / path).is_file():
             raise SystemExit(f"Harness artifact path does not exist: {path}")
 
+    knowledge_contracts = yaml.safe_load(
+        (HARNESS_ROOT / "spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    decision_contracts = yaml.safe_load(
+        (HARNESS_ROOT / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    policy_fingerprints = derive_acceptance_policy_fingerprints(
+        graph=graph,
+        knowledge_contracts=knowledge_contracts,
+        decision_contracts=decision_contracts,
+        decision_policy=load(".harness/candidates/ui-materiality-decision-policy.yaml"),
+    )
+    capability_states = lifecycle_states(
+        graph,
+        core,
+        publication["state"]["lifecycle"],
+        current_acceptance_policy_fingerprints=policy_fingerprints,
+    )
     current_capabilities = {
-        item.get("capability")
-        for item in publication["state"]["lifecycle"].get("providers", [])
-        if isinstance(item, dict) and item.get("capability")
+        capability
+        for capability, state in capability_states.items()
+        if state.get("state") == "CURRENT"
     }
 
     frontend_ux_capabilities = {
