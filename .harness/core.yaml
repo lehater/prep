@@ -25,7 +25,7 @@ artifacts:
   depends_on: []
 - id: USER-NEEDS
   authority: DISCOVERY
-  path: docs/vision/user-needs.yaml
+  path: docs/discovery/user-needs.yaml
   provides:
   - prep.user-needs
   depends_on:
