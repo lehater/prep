@@ -313,7 +313,14 @@
 .resizable-split-second {
   min-width: 0;
   min-height: 0;
+  display: grid;
   overflow: hidden;
+}
+
+.resizable-split-first > *,
+.resizable-split-second > * {
+  min-width: 0;
+  min-height: 0;
 }
 
 .resizable-split-handle {
