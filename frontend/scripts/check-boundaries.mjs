@@ -34,6 +34,9 @@ const SHARED_PRESENTATION_CLASS_TOKENS = new Set([
   "resizable-split-handle",
   "workspace-divider",
   "knowledge-column-resizer",
+  "application-shell",
+  "app-topbar",
+  "app-statusbar",
 ]);
 
 function isForbiddenExternalImport(specifier) {
@@ -257,6 +260,16 @@ export function validateSourceTree(sourceRoot) {
       if (target.escaped) {
         violations.push(
           `${fromRelative}: relative import "${specifier}" escapes the frontend source root`,
+        );
+        continue;
+      }
+
+      if (
+        from.layer === "feature" &&
+        target.relative.split(path.sep).join("/") === "ui/AppShell"
+      ) {
+        violations.push(
+          `${fromRelative}: "${specifier}" violates boundary: task feature must not compose application shell chrome`,
         );
         continue;
       }
