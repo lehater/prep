@@ -45,7 +45,7 @@ export function ApplicationShell({
         {children}
       </main>
       {statusBar}
-    </footer>
+    </div>
   );
 }
 
@@ -111,6 +111,6 @@ export function ShellStatusBar({
       <div className="app-statusbar-trailing">
         <StatusItems items={trailing} />
       </div>
-    </div>
+    </footer>
   );
 }
