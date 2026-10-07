@@ -16,6 +16,8 @@ body {
   min-height: 100vh;
   background: var(--prep-color-canvas);
   color: var(--prep-color-text);
+  font-size: var(--prep-type-body);
+  line-height: 1.45;
 }
 
 button,
@@ -78,7 +80,7 @@ a:focus-visible {
 
 .brand {
   color: inherit;
-  font-size: 1.08rem;
+  font-size: var(--prep-type-page-title);
   font-weight: 760;
   text-decoration: none;
 }
@@ -88,7 +90,7 @@ a:focus-visible {
   border-radius: var(--prep-radius-pill);
   padding: 2px 6px;
   color: var(--prep-color-sidebar-muted);
-  font-size: 0.58rem;
+  font-size: var(--prep-type-micro);
   text-transform: uppercase;
 }
 
@@ -105,7 +107,7 @@ a:focus-visible {
   background: transparent;
   padding: 9px 10px;
   color: var(--prep-color-sidebar-muted);
-  font-size: 0.78rem;
+  font-size: var(--prep-type-subheading);
   text-align: left;
 }
 
@@ -142,7 +144,7 @@ a:focus-visible {
 
 .active-context span {
   color: var(--prep-color-sidebar-muted);
-  font-size: 0.64rem;
+  font-size: var(--prep-type-meta);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -150,7 +152,7 @@ a:focus-visible {
 
 .active-context strong {
   overflow: hidden;
-  font-size: 0.72rem;
+  font-size: var(--prep-type-small);
   line-height: 1.35;
   text-overflow: ellipsis;
 }
@@ -241,7 +243,7 @@ a:focus-visible {
 
 .structural-placeholder h1 {
   margin: 3px 0 6px;
-  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  font-size: var(--prep-type-page-title);
   line-height: 1.12;
   letter-spacing: -0.025em;
 }
@@ -260,7 +262,7 @@ a:focus-visible {
 .candidate-selector legend,
 .direction-actions legend {
   margin-bottom: 12px;
-  font-size: 1rem;
+  font-size: var(--prep-type-section-title);
   font-weight: 750;
 }
 
@@ -313,7 +315,7 @@ a:focus-visible {
 
 .comparison-card h3 {
   margin: 0 0 6px;
-  font-size: 1.35rem;
+  font-size: var(--prep-type-section-title);
 }
 
 .comparison-card header p {
@@ -329,7 +331,7 @@ a:focus-visible {
 
 .comparison-dimension h4 {
   margin: 0 0 8px;
-  font-size: 0.88rem;
+  font-size: var(--prep-type-subheading);
 }
 
 .comparison-dimension ul,
@@ -398,7 +400,7 @@ a:focus-visible {
   }
 
   .structural-placeholder h1 {
-    font-size: 1.65rem;
+    font-size: var(--prep-type-page-title);
   }
 }
 
@@ -445,7 +447,7 @@ a:focus-visible {
 
 .requirement-card header h3 {
   margin: 0 0 6px;
-  font-size: 1.25rem;
+  font-size: var(--prep-type-section-title);
 }
 
 .requirement-card header p {
@@ -462,7 +464,7 @@ a:focus-visible {
 .requirement-detail-grid h4,
 .knowledge-focus h4 {
   margin: 0 0 8px;
-  font-size: 0.88rem;
+  font-size: var(--prep-type-subheading);
 }
 
 .requirement-detail-grid ul,
@@ -522,7 +524,7 @@ a:focus-visible {
 .state-card h3,
 .gap-card h3 {
   margin: 0;
-  font-size: 1.12rem;
+  font-size: var(--prep-type-section-title);
 }
 
 .state-card p,
@@ -551,7 +553,7 @@ a:focus-visible {
 
 .decision-basis dt {
   color: var(--prep-color-text-muted);
-  font-size: 0.78rem;
+  font-size: var(--prep-type-subheading);
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -697,7 +699,7 @@ a:focus-visible {
 
 .knowledge-workspace-title h1 {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: var(--prep-type-page-title);
   line-height: 1;
   letter-spacing: -0.01em;
 }
@@ -705,7 +707,7 @@ a:focus-visible {
 .knowledge-result-count {
   margin: 0;
   color: var(--prep-color-text-muted);
-  font-size: 0.68rem;
+  font-size: var(--prep-type-small);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -735,7 +737,7 @@ a:focus-visible {
   background: var(--prep-color-surface);
   padding: 4px 7px;
   color: inherit;
-  font-size: 0.74rem;
+  font-size: var(--prep-type-body);
 }
 
 .knowledge-filter-control:hover {
@@ -750,7 +752,7 @@ a:focus-visible {
 .knowledge-reset-action {
   min-height: 29px;
   border-radius: 6px;
-  font-size: 0.68rem;
+  font-size: var(--prep-type-small);
   white-space: nowrap;
 }
 
@@ -780,7 +782,7 @@ a:focus-visible {
 .knowledge-outcome-message {
   margin: 0;
   padding: 6px 9px;
-  font-size: 0.75rem;
+  font-size: var(--prep-type-body);
 }
 
 .knowledge-workspace-body {
@@ -793,7 +795,7 @@ a:focus-visible {
 .knowledge-loading {
   margin: 0;
   padding: 8px;
-  font-size: 0.76rem;
+  font-size: var(--prep-type-body);
 }
 
 .knowledge-empty {
@@ -801,13 +803,13 @@ a:focus-visible {
   border-radius: 8px;
   background: var(--prep-color-surface);
   padding: 10px;
-  font-size: 0.78rem;
+  font-size: var(--prep-type-subheading);
 }
 
 .knowledge-empty-copy {
   margin: 4px 0 0;
   color: var(--prep-color-text-muted);
-  font-size: 0.72rem;
+  font-size: var(--prep-type-small);
   line-height: 1.4;
 }
 
@@ -845,7 +847,7 @@ a:focus-visible {
 
 .knowledge-row-select strong {
   overflow: hidden;
-  font-size: 0.74rem;
+  font-size: var(--prep-type-body);
   font-weight: 680;
   line-height: 1.2;
   text-overflow: ellipsis;
@@ -854,7 +856,7 @@ a:focus-visible {
 .knowledge-row-select small {
   overflow: hidden;
   color: var(--prep-color-text-muted);
-  font-size: 0.64rem;
+  font-size: var(--prep-type-meta);
   line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -862,7 +864,7 @@ a:focus-visible {
 
 .knowledge-kind {
   color: var(--prep-color-text-muted);
-  font-size: 0.64rem;
+  font-size: var(--prep-type-meta);
   font-weight: 500;
 }
 
@@ -873,7 +875,7 @@ a:focus-visible {
 .knowledge-table .knowledge-relation-count {
   padding: 4px 7px;
   color: var(--prep-color-text-secondary);
-  font-size: 0.7rem;
+  font-size: var(--prep-type-small);
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -896,7 +898,7 @@ a:focus-visible {
   background: var(--prep-color-canvas);
   padding: 3px 6px;
   color: var(--prep-color-text-secondary);
-  font-size: 0.69rem;
+  font-size: var(--prep-type-small);
 }
 
 .knowledge-pane-heading > strong {
@@ -908,7 +910,7 @@ a:focus-visible {
   background: var(--prep-color-surface-subtle);
   padding: 1px 5px;
   color: var(--prep-color-text-muted);
-  font-size: 0.6rem;
+  font-size: var(--prep-type-micro);
 }
 
 .knowledge-relationship-canvas {
@@ -987,7 +989,7 @@ a:focus-visible {
 .knowledge-relationship-caption {
   margin: 0;
   color: var(--prep-color-text-muted);
-  font-size: 0.62rem;
+  font-size: var(--prep-type-meta);
   line-height: 1.25;
 }
 
@@ -1016,20 +1018,20 @@ a:focus-visible {
 
 .knowledge-panel-title {
   margin: 0 0 5px;
-  font-size: 0.82rem;
+  font-size: var(--prep-type-section-title);
   line-height: 1.3;
 }
 
 .knowledge-detail-primary p {
   margin: 0;
   color: var(--prep-color-text-secondary);
-  font-size: 0.7rem;
+  font-size: var(--prep-type-small);
   line-height: 1.4;
 }
 
 .knowledge-detail-label {
   color: var(--prep-color-text-secondary);
-  font-size: 0.6rem;
+  font-size: var(--prep-type-micro);
   font-weight: 700;
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -1052,7 +1054,7 @@ a:focus-visible {
   min-width: 0;
   display: grid;
   gap: 2px;
-  font-size: 0.68rem;
+  font-size: var(--prep-type-small);
 }
 
 .knowledge-relation-summary {
@@ -1064,13 +1066,13 @@ a:focus-visible {
 
 .knowledge-relation-summary > span:last-child {
   color: var(--prep-color-text-muted);
-  font-size: 0.58rem;
+  font-size: var(--prep-type-micro);
   white-space: nowrap;
 }
 
 .knowledge-relation-explanation {
   color: var(--prep-color-text-muted);
-  font-size: 0.61rem;
+  font-size: var(--prep-type-micro);
   line-height: 1.3;
 }
 
@@ -1079,13 +1081,13 @@ a:focus-visible {
   background: var(--prep-color-accent-soft);
   padding: 1px 5px;
   color: var(--prep-color-accent-strong);
-  font-size: 0.6rem;
+  font-size: var(--prep-type-micro);
   font-weight: 700;
 }
 
 .knowledge-detail-relations p {
   margin: 5px 0 0;
-  font-size: 0.68rem;
+  font-size: var(--prep-type-small);
 }
 
 .knowledge-relation-link {
@@ -1116,13 +1118,13 @@ a:focus-visible {
 
 .knowledge-detail-placeholder-title {
   margin: 0 0 4px;
-  font-size: 0.78rem;
+  font-size: var(--prep-type-subheading);
 }
 
 .knowledge-detail-placeholder-copy {
   margin: 0;
   color: var(--prep-color-text-muted);
-  font-size: 0.7rem;
+  font-size: var(--prep-type-small);
   line-height: 1.4;
 }
 
@@ -1306,7 +1308,7 @@ a:focus-visible {
 
 .activity-attempt-context dt {
   color: var(--prep-color-text-muted);
-  font-size: 0.76rem;
+  font-size: var(--prep-type-body);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1374,7 +1376,7 @@ a:focus-visible {
 
 .change-outcome-grid span {
   color: var(--prep-color-text-muted);
-  font-size: 0.78rem;
+  font-size: var(--prep-type-subheading);
   font-weight: 700;
 }
 
