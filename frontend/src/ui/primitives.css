@@ -4,7 +4,7 @@
 }
 
 .eyebrow {
-  font-size: 0.64rem;
+  font-size: var(--prep-type-meta);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -17,13 +17,24 @@
 
 .task-heading h1 {
   margin: 3px 0 6px;
-  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  font-size: var(--prep-type-page-title);
   line-height: 1.12;
   letter-spacing: -0.025em;
 }
 
-.task-heading p {
-  line-height: 1.6;
+.task-heading > p,
+.section-heading > p {
+  margin: 4px 0 0;
+  color: var(--prep-color-text-secondary);
+  font-size: var(--prep-type-body);
+  line-height: 1.45;
+}
+
+.section-heading h2 {
+  margin: 3px 0 5px;
+  font-size: var(--prep-type-section-title);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .action-row {
@@ -89,7 +100,7 @@
 }
 
 .field > span {
-  font-size: 0.86rem;
+  font-size: var(--prep-type-subheading);
   font-weight: 750;
 }
 
@@ -144,7 +155,7 @@
   background: var(--prep-color-surface-subtle);
   padding: 2px 7px;
   color: var(--prep-color-text-secondary);
-  font-size: 0.72rem;
+  font-size: var(--prep-type-small);
   font-weight: 650;
   line-height: 1.35;
 }
@@ -187,7 +198,7 @@
 
 .data-table {
   border-collapse: collapse;
-  font-size: 0.75rem;
+  font-size: var(--prep-type-body);
 }
 
 .data-table th {
@@ -199,7 +210,7 @@
   background: var(--prep-color-canvas);
   padding: 6px 8px;
   color: var(--prep-color-text-muted);
-  font-size: 0.62rem;
+  font-size: var(--prep-type-micro);
   font-weight: 650;
   letter-spacing: 0.025em;
   text-align: left;
@@ -393,7 +404,7 @@
 
 @media (max-width: 720px) {
   .task-heading h1 {
-    font-size: 1.65rem;
+    font-size: var(--prep-type-page-title);
   }
 
   .action-row {
