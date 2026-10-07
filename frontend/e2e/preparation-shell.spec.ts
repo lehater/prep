@@ -448,7 +448,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.addInitScript(() => {
     window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
     window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
-    window.localStorage.removeItem("prep.knowledge.column-widths.v2");
+    window.localStorage.removeItem("prep.knowledge.column-widths.v3");
   });
   await page.goto("/");
   await establishBackendTarget(page);
@@ -663,54 +663,6 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     )
     .toBeLessThan(40);
 
-  const knowledgeColumnDivider = page.getByRole("separator", {
-    name: "Изменить ширину колонки «Знание»",
-  });
-  await expect(knowledgeColumnDivider).toBeVisible();
-  await expect
-    .poll(async () =>
-      Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
-    )
-    .toBeGreaterThan(0);
-
-  const columnDividerBox = await knowledgeColumnDivider.boundingBox();
-  expect(columnDividerBox).not.toBeNull();
-  if (columnDividerBox) {
-    const beforeColumnDrag = Number(
-      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
-    );
-    await page.mouse.move(
-      columnDividerBox.x + columnDividerBox.width / 2,
-      columnDividerBox.y + columnDividerBox.height / 2,
-    );
-    await page.mouse.down();
-    await page.mouse.move(
-      columnDividerBox.x - 32,
-      columnDividerBox.y + columnDividerBox.height / 2,
-    );
-    await page.mouse.up();
-    const afterColumnDrag = Number(
-      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
-    );
-    expect(afterColumnDrag).toBeLessThan(beforeColumnDrag);
-
-    await knowledgeColumnDivider.dblclick();
-    await expect
-      .poll(async () =>
-        Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
-      )
-      .not.toBe(afterColumnDrag);
-
-    const afterAutoFit = Number(
-      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
-    );
-    await knowledgeColumnDivider.dblclick();
-    await expect(knowledgeColumnDivider).toHaveAttribute(
-      "aria-valuenow",
-      String(afterAutoFit),
-    );
-  }
-
   const knowledgeTypeColumnDivider = page.getByRole("separator", {
     name: "Изменить ширину колонки «Тип / форма»",
   });
@@ -719,6 +671,32 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   });
   await expect(knowledgeTypeColumnDivider).toBeVisible();
   await expect(knowledgeRelationsColumnDivider).toBeVisible();
+  await expect(
+    page.getByRole("separator", {
+      name: "Изменить ширину колонки «Знание»",
+    }),
+  ).toHaveCount(0);
+
+  const knowledgeTable = page.locator(".knowledge-table");
+  const knowledgeTableViewport = page.locator(".knowledge-table-scroll");
+  const primaryColumnHeader = knowledgeTable.locator("thead th").nth(0);
+
+  await expect
+    .poll(async () => {
+      const tableBox = await knowledgeTable.boundingBox();
+      return tableBox?.width ?? 0;
+    })
+    .toBeGreaterThan(0);
+
+  const initialTableBox = await knowledgeTable.boundingBox();
+  const initialViewportWidth = await knowledgeTableViewport.evaluate(
+    (element) => element.clientWidth,
+  );
+  expect(initialTableBox).not.toBeNull();
+  if (initialTableBox) {
+    expect(Math.abs(initialTableBox.width - initialViewportWidth)).toBeLessThanOrEqual(2);
+  }
+
 
   const typeWidthBeforeRelationsResize = Number(
     await knowledgeTypeColumnDivider.getAttribute("aria-valuenow"),
@@ -734,7 +712,8 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     String(typeWidthBeforeRelationsResize),
   );
 
-  const relationsDividerBox = await knowledgeRelationsColumnDivider.boundingBox();
+  const primaryWidthBeforeRelationsResize = (await primaryColumnHeader.boundingBox())?.width ?? 0;
+    const relationsDividerBox = await knowledgeRelationsColumnDivider.boundingBox();
   expect(relationsDividerBox).not.toBeNull();
   if (relationsDividerBox) {
     await page.mouse.move(
@@ -743,7 +722,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     );
     await page.mouse.down();
     await page.mouse.move(
-      relationsDividerBox.x - 24,
+      relationsDividerBox.x + 24,
       relationsDividerBox.y + relationsDividerBox.height / 2,
     );
     await page.mouse.up();
@@ -756,6 +735,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(knowledgeTypeColumnDivider).toHaveAttribute(
     "aria-valuenow",
     String(typeWidthBeforeRelationsResize),
+  );
+  const primaryWidthAfterRelationsResize = (await primaryColumnHeader.boundingBox())?.width ?? 0;
+  expect(primaryWidthAfterRelationsResize).toBeGreaterThan(
+    primaryWidthBeforeRelationsResize,
   );
 
   await knowledgeRelationsColumnDivider.dblclick();
@@ -770,31 +753,22 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     String(relationsWidthAfterAutoFit),
   );
 
-  const managedColumnWidths = await Promise.all(
-    [
-      knowledgeColumnDivider,
-      knowledgeTypeColumnDivider,
-      knowledgeRelationsColumnDivider,
-    ].map(async (divider) =>
-      Number(await divider.getAttribute("aria-valuenow")),
-    ),
+  const knowledgeTableBox = await knowledgeTable.boundingBox();
+  const viewportWidthAfterResize = await knowledgeTableViewport.evaluate(
+    (element) => element.clientWidth,
   );
-  const knowledgeTableBox = await page.locator(".knowledge-table").boundingBox();
   expect(knowledgeTableBox).not.toBeNull();
   if (knowledgeTableBox) {
     expect(
-      Math.abs(
-        knowledgeTableBox.width -
-          managedColumnWidths.reduce((sum, width) => sum + width, 0),
-      ),
+      Math.abs(knowledgeTableBox.width - viewportWidthAfterResize),
     ).toBeLessThanOrEqual(2);
   }
 
-  const persistedKnowledgeColumnWidth = Number(
-    await knowledgeColumnDivider.getAttribute("aria-valuenow"),
+  const persistedRelationsColumnWidth = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
   );
   const storedColumnWidths = await page.evaluate(() => {
-    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v2");
+    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v3");
     if (!raw) {
       return null;
     }
@@ -805,7 +779,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     };
     return stored.widths;
   });
-  expect(storedColumnWidths?.knowledge).toBe(persistedKnowledgeColumnWidth);
+  expect(storedColumnWidths?.relations).toBe(persistedRelationsColumnWidth);
 
   await page
     .locator(".knowledge-table")
@@ -825,9 +799,9 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
       exact: true,
     }),
   ).toBeVisible();
-  await expect(knowledgeColumnDivider).toHaveAttribute(
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
     "aria-valuenow",
-    String(persistedKnowledgeColumnWidth),
+    String(persistedRelationsColumnWidth),
   );
 
   await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
