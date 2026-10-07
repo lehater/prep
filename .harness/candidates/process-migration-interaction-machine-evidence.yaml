@@ -1,0 +1,39 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.machine-interfaces
+target_capability: prep.interaction-design
+links:
+  - {sources: [MI-OUTCOME-MODEL], relation: TRANSFORMS, targets: [IX-OUTCOMES]}
+  - {sources: [MI-BASIS], relation: CONSTRAINS, targets: [IX-CURRENTNESS]}
+  - {sources: [MI-REP-TARGET], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [MI-REP-TARGET-COMPARISON], relation: TRANSFORMS, targets: [IX-TARGET-DIRECTION]}
+  - {sources: [MI-REP-REQUIREMENT], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [MI-REP-CURRENT], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-REP-EVIDENCE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-REP-GAP], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-REP-FOCUS], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-REP-KNOWLEDGE], relation: TRANSFORMS, targets: [IX-KNOWLEDGE]}
+  - {sources: [MI-REP-SUPPORT], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-REP-ACTIVITY], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-REP-CHANGE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-REP-PREP-REQUEST], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [MI-OP-TARGETS-COMPARE], relation: TRANSFORMS, targets: [IX-TARGET-DIRECTION]}
+  - {sources: [MI-OP-TARGET-ESTABLISH], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [MI-OP-REQUIREMENTS-GET], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [MI-OP-STATE-GET], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-OP-EVIDENCE-GET], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-OP-GAPS-GET], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-OP-FOCUS-SET], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [MI-OP-KNOWLEDGE-QUERY], relation: TRANSFORMS, targets: [IX-KNOWLEDGE]}
+  - {sources: [MI-OP-SUPPORT-LIST], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-OP-ACTIVITY-START], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-OP-ACTIVITY-COMPLETE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-OP-CHANGE-GET], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-OP-PREP-REQUEST], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [MI-OP-PREP-GET], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [MI-PROC-ACTIVITY], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [MI-PROC-PREP], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [MI-COMPATIBILITY], relation: CONSTRAINS, targets: [IX-CURRENTNESS]}
+  - {sources: [MI-NO-LEAK], relation: CONSTRAINS, targets: [IX-DIST-SEMANTIC-OWNERSHIP]}
+dispositions:
+  []
