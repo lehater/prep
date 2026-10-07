@@ -16,6 +16,17 @@ import type {
   TargetRef,
 } from "../contracts";
 import {
+  ActionButton,
+  ActionGroup,
+  ChoiceCard,
+  Field,
+  OutcomeMessage,
+  SectionHeader,
+  StatusBadge,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
+import {
   capabilityStateLabel,
   evidenceKindLabel,
   gapStatusLabel,
@@ -200,20 +211,18 @@ export function CurrentPositionFeature({
       data-view="current"
       aria-labelledby="current-position-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Текущее состояние</p>
-        <h1 id="current-position-heading">Определите, на чём сосредоточиться дальше</h1>
+      <TaskHeader
+        eyebrow="Текущее состояние"
+        title="Определите, на чём сосредоточиться дальше"
+        headingId="current-position-heading"
+      >
         <p>
           Оцените состояние компетенций по свидетельствам, изучите важные для
           цели пробелы и явно выберите следующий фокус.
         </p>
-      </header>
+      </TaskHeader>
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
       {status === "loading" ? <p role="status">Загрузка текущего состояния…</p> : null}
 
@@ -222,17 +231,28 @@ export function CurrentPositionFeature({
           className="current-state-region"
           aria-labelledby="current-state-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Состояние по свидетельствам</p>
-            <h2 id="current-state-heading">Состояние компетенций</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Состояние по свидетельствам"
+            title="Состояние компетенций"
+            headingId="current-state-heading"
+          />
 
           <div className="current-state-grid">
             {currentState.capabilities.map((item) => (
-              <article className="state-card" key={item.capabilityRef}>
+              <Surface as="article" className="state-card" key={item.capabilityRef}>
                 <div className="state-card-heading">
                   <h3>{item.capabilityLabel}</h3>
-                  <strong data-state={item.state}>{capabilityStateLabel(item.state)}</strong>
+                  <StatusBadge
+                    tone={
+                      item.state === "demonstrated"
+                        ? "positive"
+                        : item.state === "challenged"
+                          ? "warning"
+                          : "neutral"
+                    }
+                  >
+                    {capabilityStateLabel(item.state)}
+                  </StatusBadge>
                 </div>
                 <p>{stateExplanation(item.state)}</p>
                 {item.limitations.length > 0 ? (
@@ -250,10 +270,11 @@ export function CurrentPositionFeature({
 
       {gapProjection ? (
         <section className="gaps-region" aria-labelledby="gaps-heading">
-          <div className="section-heading">
-            <p className="eyebrow">Пробелы и неопределённость</p>
-            <h2 id="gaps-heading">Что требует внимания</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Пробелы и неопределённость"
+            title="Что требует внимания"
+            headingId="gaps-heading"
+          />
 
           <div className="gap-list">
             {gapProjection.gaps.map((gap) => {
@@ -262,10 +283,14 @@ export function CurrentPositionFeature({
               );
 
               return (
-                <article className="gap-card" key={gap.gapRef}>
+                <Surface as="article" className="gap-card" key={gap.gapRef}>
                   <div className="gap-card-heading">
                     <h3>{gap.capabilityLabel}</h3>
-                    <strong data-gap-state={gap.status}>{gapStatusLabel(gap.status)}</strong>
+                    <StatusBadge
+                      tone={gap.status === "challenged" ? "warning" : "neutral"}
+                    >
+                      {gapStatusLabel(gap.status)}
+                    </StatusBadge>
                   </div>
                   <p>{gap.rationale}</p>
                   {decision ? (
@@ -284,16 +309,14 @@ export function CurrentPositionFeature({
                       </div>
                     </dl>
                   ) : null}
-                  <div className="action-row">
-                    <button
-                      type="button"
-                      className="secondary-action"
+                  <ActionGroup>
+                    <ActionButton
                       onClick={() => onExploreKnowledge(gap.capabilityRef)}
                     >
                       Изучить знания: {gap.capabilityLabel}
-                    </button>
-                  </div>
-                </article>
+                    </ActionButton>
+                  </ActionGroup>
+                </Surface>
               );
             })}
           </div>
@@ -301,25 +324,35 @@ export function CurrentPositionFeature({
       ) : null}
 
       {gapProjection ? (
-        <section className="next-focus-region" aria-labelledby="next-focus-heading">
-          <div className="section-heading">
-            <p className="eyebrow">Следующий фокус</p>
-            <h2 id="next-focus-heading">
-              {activeFocusRef ? "Проверьте или измените следующий фокус" : "Выберите следующий фокус"}
-            </h2>
+        <Surface className="next-focus-region" aria-labelledby="next-focus-heading">
+          <SectionHeader
+            eyebrow="Следующий фокус"
+            title={
+              activeFocusRef
+                ? "Проверьте или измените следующий фокус"
+                : "Выберите следующий фокус"
+            }
+            headingId="next-focus-heading"
+          >
             {activeFocusRef && !acceptedFocus ? (
               <p>
                 Следующий фокус уже выбран. Новый выбор ниже изменит его явно,
                 а не автоматически.
               </p>
             ) : null}
-          </div>
+          </SectionHeader>
 
           <fieldset className="focus-options">
             <legend>Какой пробел проработать следующим</legend>
             {gapProjection.decisionContext.candidates.map((candidate) => (
-              <label className="focus-option" key={candidate.gapRef}>
+              <ChoiceCard
+                className="focus-option"
+                key={candidate.gapRef}
+                controlId={`focus-${candidate.gapRef}`}
+                selected={selectedGapRef === candidate.gapRef}
+              >
                 <input
+                  id={`focus-${candidate.gapRef}`}
                   type="radio"
                   name="next-focus-gap"
                   checked={selectedGapRef === candidate.gapRef}
@@ -332,15 +365,15 @@ export function CurrentPositionFeature({
                     {supportAvailabilityLabel(candidate.supportAvailability)}.
                   </small>
                 </span>
-              </label>
+              </ChoiceCard>
             ))}
           </fieldset>
 
           {selectedDecision ? (
             <div className="focus-draft">
-              <label className="field">
-                <span>Цель фокуса</span>
+              <Field controlId="focus-purpose" label="Цель фокуса">
                 <input
+                  id="focus-purpose"
                   value={purposeDraft}
                   onChange={(event) =>
                     onWorkingStateChange({
@@ -349,11 +382,11 @@ export function CurrentPositionFeature({
                     })
                   }
                 />
-              </label>
+              </Field>
 
-              <label className="field">
-                <span>Основание выбора</span>
+              <Field controlId="focus-rationale" label="Основание выбора">
                 <textarea
+                  id="focus-rationale"
                   rows={3}
                   value={rationaleDraft}
                   onChange={(event) =>
@@ -363,7 +396,7 @@ export function CurrentPositionFeature({
                     })
                   }
                 />
-              </label>
+              </Field>
 
               {gapProjection.decisionContext.externalConstraints.length > 0 ? (
                 <div className="external-constraints">
@@ -378,10 +411,9 @@ export function CurrentPositionFeature({
                 </div>
               ) : null}
 
-              <div className="action-row">
-                <button
-                  type="button"
-                  className="primary-action"
+              <ActionGroup>
+                <ActionButton
+                  variant="primary"
                   disabled={status === "submitting-focus"}
                   onClick={() => void setNextFocus()}
                 >
@@ -390,8 +422,8 @@ export function CurrentPositionFeature({
                     : activeFocusRef
                       ? "Изменить фокус"
                       : "Выбрать фокус"}
-                </button>
-              </div>
+                </ActionButton>
+              </ActionGroup>
             </div>
           ) : null}
 
@@ -400,27 +432,22 @@ export function CurrentPositionFeature({
               <strong>Следующий фокус выбран</strong>
               <p>{acceptedFocus.purpose}</p>
               <p>{acceptedFocus.rationale}</p>
-              <div className="action-row">
+              <ActionGroup>
                 {selectedDecision?.supportAvailability === "missing" ? (
-                  <button
-                    type="button"
-                    className="secondary-action"
-                    onClick={onRequestPreparationSupport}
-                  >
+                  <ActionButton onClick={onRequestPreparationSupport}>
                     Подготовить недостающую поддержку
-                  </button>
+                  </ActionButton>
                 ) : null}
-                <button
-                  type="button"
-                  className="primary-action"
+                <ActionButton
+                  variant="primary"
                   onClick={onContinueActivity}
                 >
                   Перейти к практике
-                </button>
-              </div>
+                </ActionButton>
+              </ActionGroup>
             </div>
           ) : null}
-        </section>
+        </Surface>
       ) : null}
 
       {evidence ? (
