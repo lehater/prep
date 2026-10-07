@@ -222,7 +222,7 @@ export function PreparationSupportFeature({
           />
 
           <div className="preparation-result-grid">
-            <section
+            <Surface
               className="accepted-support-region"
               aria-labelledby="accepted-support-heading"
             >
@@ -254,9 +254,9 @@ export function PreparationSupportFeature({
               ) : (
                 <p>Для этого запроса ничего не было принято.</p>
               )}
-            </section>
+            </Surface>
 
-            <section
+            <Surface
               className="preparation-remainder-region"
               aria-labelledby="preparation-remainder-heading"
             >
@@ -278,7 +278,7 @@ export function PreparationSupportFeature({
               ) : (
                 <p>Неразрешённых или отклонённых пунктов нет.</p>
               )}
-            </section>
+            </Surface>
           </div>
 
           <p className="supporting-text">
