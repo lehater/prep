@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 26
-    basis: "Discovery is reset for the MVP slice: Prep addresses relationship opacity across goals, capabilities, knowledge and practice material, plus opacity of recorded preparation activity. Source/provenance management, information verification and learner-state assessment are explicitly outside the problem space."
+    revision: 27
+    basis: "Recorded activity is part of the same preparation-information relationship space as goals, capabilities, knowledge and practice material. Activity-history opacity remains distinct only as the difficulty of reconstructing what activity took place and what results were recorded; no learner-state inference is introduced."
 
   - capability: prep.product-intent
     revision: 6
