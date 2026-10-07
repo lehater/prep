@@ -45,7 +45,7 @@ export function ApplicationShell({
         {children}
       </main>
       {statusBar}
-    </div>
+    </footer>
   );
 }
 
@@ -104,11 +104,7 @@ export function ShellStatusBar({
   trailing = [],
 }: ShellStatusBarProps) {
   return (
-    <div
-      className="app-statusbar"
-      role="contentinfo"
-      aria-label="Статус приложения"
-    >
+    <footer className="app-statusbar">
       <div className="app-statusbar-leading">
         <StatusItems items={leading} />
       </div>
