@@ -115,7 +115,13 @@ export function ActionGroup({
   );
 }
 
-type SurfaceElement = "section" | "article" | "aside" | "div";
+type SurfaceElement =
+  | "section"
+  | "article"
+  | "aside"
+  | "div"
+  | "fieldset"
+  | "details";
 
 export interface SurfaceProps extends HTMLAttributes<HTMLElement> {
   readonly as?: SurfaceElement | undefined;
@@ -150,6 +156,18 @@ export function Surface({
         <div {...props} className={surfaceClassName}>
           {children}
         </div>
+      );
+    case "fieldset":
+      return (
+        <fieldset {...props} className={surfaceClassName}>
+          {children}
+        </fieldset>
+      );
+    case "details":
+      return (
+        <details {...props} className={surfaceClassName}>
+          {children}
+        </details>
       );
     case "section":
       return (
