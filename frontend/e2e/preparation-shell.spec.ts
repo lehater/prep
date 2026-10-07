@@ -448,6 +448,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.addInitScript(() => {
     window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
     window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
+    window.localStorage.removeItem("prep.knowledge.column-widths.v1");
   });
   await page.goto("/");
   await establishBackendTarget(page);
@@ -697,35 +698,67 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
       .not.toBe(afterColumnDrag);
   }
 
+  const persistedKnowledgeColumnWidth = Number(
+    await knowledgeColumnDivider.getAttribute("aria-valuenow"),
+  );
+  const storedColumnWidths = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v1");
+    return raw ? (JSON.parse(raw) as number[]) : null;
+  });
+  expect(storedColumnWidths?.[0]).toBe(persistedKnowledgeColumnWidth);
+
+  await page
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Стратегия кэширования", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Цель", exact: true }).click();
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
+
+  await expect(
+    page
+      .locator(".knowledge-table")
+      .getByRole("button", { name: "Стратегия кэширования", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByLabel("Детали знания").getByRole("heading", {
+      name: "Стратегия кэширования",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(knowledgeColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(persistedKnowledgeColumnWidth),
+  );
+
   await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
     "Все виды",
-    "KnowledgeObject",
-    "KnowledgeProposition",
+    "Объект",
+    "Утверждение",
   ]);
   await expect(page.getByLabel("Форма знания").locator("option")).toHaveText([
     "Все формы",
-    "concept",
-    "mechanism",
-    "model",
-    "procedure",
-    "property",
-    "strategy",
+    "Понятие",
+    "Механизм",
+    "Модель",
+    "Процедура",
+    "Свойство",
+    "Стратегия",
   ]);
   await expect(page.getByLabel("Семейство связи").locator("option")).toHaveText([
     "Все семейства связей",
-    "partitive",
-    "problem_response",
-    "production_origination_transformation",
-    "realization",
-    "taxonomic",
+    "Часть — целое",
+    "Проблема — решение",
+    "Создание и преобразование",
+    "Реализация",
+    "Классификация",
   ]);
   await expect(page.getByLabel("Тип связи").locator("option")).toHaveText([
     "Все типы связей",
-    "addresses",
-    "part_of",
-    "produces",
-    "realizes",
-    "specializes",
+    "решает проблему",
+    "часть целого",
+    "создаёт",
+    "реализует",
+    "является специализацией",
   ]);
 
   const viewportState = await page.evaluate(() => ({
@@ -749,14 +782,16 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(page.getByLabel("Тип связи")).toHaveValue("all");
   await expect(
     page.getByLabel("Тип связи").locator('option[value="part_of"]'),
-  ).toHaveText("part_of");
+  ).toHaveText("часть целого");
 
   await page.getByLabel("Тип связи").selectOption("part_of");
   await expect(
     page.locator('[data-predicate="part_of"]'),
   ).toHaveCount(1);
   await expect(
-    page.locator(".knowledge-relationship-edge-label").getByText("part_of"),
+    page
+      .locator(".knowledge-relationship-edge-label")
+      .getByText("часть целого"),
   ).toBeVisible();
 
   await page
@@ -764,7 +799,9 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     .getByRole("button", { name: "Очередь задач", exact: true })
     .click();
   await expect(
-    page.getByLabel("Детали знания").getByText("part_of", { exact: true }),
+    page
+      .getByLabel("Детали знания")
+      .getByText("часть целого", { exact: true }),
   ).toBeVisible();
   await expect(
     page
