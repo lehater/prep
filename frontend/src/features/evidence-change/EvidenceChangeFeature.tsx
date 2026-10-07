@@ -275,7 +275,7 @@ export function EvidenceChangeFeature({
       ) : null}
 
       {evidence ? (
-        <details className="evidence-review-detail">
+        <Surface as="details" className="evidence-review-detail">
           <summary>Показать факты и их источники</summary>
           <div className="evidence-facts">
             {evidence.facts.map((fact) => (
@@ -324,7 +324,7 @@ export function EvidenceChangeFeature({
               </article>
             ))}
           </div>
-        </details>
+        </Surface>
       ) : null}
     </section>
   );
