@@ -900,10 +900,15 @@ a:focus-visible {
   fill: var(--prep-color-text-muted);
   font-size: var(--prep-type-graph-edge);
   font-weight: 400;
+  opacity: 0;
   paint-order: stroke;
   stroke: var(--prep-color-surface);
   stroke-width: 1.4px;
   stroke-linejoin: round;
+}
+
+.knowledge-relationship-lines g:hover .knowledge-relationship-edge-label {
+  opacity: 1;
 }
 
 .knowledge-relationship-node-anchor {
