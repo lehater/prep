@@ -33,7 +33,6 @@ export function BasicKnowledgeRelationshipOverview({
   model,
   onSelectKnowledge,
 }: KnowledgeRelationshipRendererProps) {
-  const [hoveredEdgeRef, setHoveredEdgeRef] = useState<string | null>(null);
   const [hoveredNodeRef, setHoveredNodeRef] = useState<string | null>(null);
   const positioned = nodePositions(model.nodes);
   const byRef = new Map(
@@ -63,14 +62,12 @@ export function BasicKnowledgeRelationshipOverview({
               const selected =
                 edge.sourceRef === model.selectedKnowledgeRef ||
                 edge.targetRef === model.selectedKnowledgeRef;
-              const hovered = edge.propositionRef === hoveredEdgeRef;
 
               return (
                 <g
                   key={edge.propositionRef}
                   data-family={edge.family}
                   data-predicate={edge.predicate}
-                  data-hovered={hovered ? "true" : "false"}
                 >
                   <line
                     className="knowledge-relationship-edge-line"
@@ -86,25 +83,17 @@ export function BasicKnowledgeRelationshipOverview({
                     y1={source.y}
                     x2={target.x}
                     y2={target.y}
-                    tabIndex={0}
-                    aria-label={`${edge.label}: ${edge.statement}`}
-                    onPointerEnter={() => setHoveredEdgeRef(edge.propositionRef)}
-                    onPointerLeave={() => setHoveredEdgeRef(null)}
-                    onFocus={() => setHoveredEdgeRef(edge.propositionRef)}
-                    onBlur={() => setHoveredEdgeRef(null)}
                   />
-                  {hovered ? (
-                    <text
-                      className="knowledge-relationship-edge-label"
-                      x={(source.x + target.x) / 2}
-                      y={(source.y + target.y) / 2}
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      pointerEvents="none"
-                    >
-                      {edge.label}
-                    </text>
-                  ) : null}
+                  <text
+                    className="knowledge-relationship-edge-label"
+                    x={(source.x + target.x) / 2}
+                    y={(source.y + target.y) / 2}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    pointerEvents="none"
+                  >
+                    {edge.label}
+                  </text>
                 </g>
               );
             })}
