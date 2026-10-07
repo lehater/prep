@@ -531,13 +531,13 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     ".knowledge-relationship-edge-label",
   );
   await page.mouse.move(0, 0);
-  await expect(edgeLabels.first()).toBeHidden();
+  await expect(edgeLabels.first()).toHaveCSS("opacity", "0");
 
   const firstEdgeHit = relationshipRenderer
     .locator(".knowledge-relationship-edge-hit")
     .first();
   await firstEdgeHit.hover();
-  await expect(edgeLabels.first()).toBeVisible();
+  await expect(edgeLabels.first()).toHaveCSS("opacity", "1");
 
   const firstGraphNode = relationshipRenderer
     .locator(".knowledge-relationship-node")
@@ -934,7 +934,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     partOfEdge
       .locator(".knowledge-relationship-edge-label")
       .getByText("часть целого"),
-  ).toBeVisible();
+  ).toHaveCSS("opacity", "1");
 
   await page
     .locator(".knowledge-table")
