@@ -1036,24 +1036,30 @@ a:focus-visible {
   right: -5px;
   width: 10px;
   height: 100%;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(
+    to right,
+    transparent 4px,
+    #a9b5c4 4px,
+    #a9b5c4 6px,
+    transparent 6px
+  );
+  padding: 0;
   cursor: col-resize;
   touch-action: none;
   user-select: none;
 }
 
-.knowledge-column-resizer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 4px;
-  width: 2px;
-  background: #a9b5c4;
-}
-
-.knowledge-column-resizer:hover::after,
-.knowledge-column-resizer:focus-visible::after {
-  background: #4968d8;
+.knowledge-column-resizer:hover,
+.knowledge-column-resizer:focus-visible {
+  background: linear-gradient(
+    to right,
+    transparent 4px,
+    #4968d8 4px,
+    #4968d8 6px,
+    transparent 6px
+  );
 }
 
 .knowledge-column-resizer:focus-visible {
