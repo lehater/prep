@@ -893,7 +893,7 @@ a:focus-visible {
   stroke-width: 12;
   vector-effect: non-scaling-stroke;
   pointer-events: stroke;
-  cursor: help;
+  cursor: default;
 }
 
 .knowledge-relationship-edge-label {
