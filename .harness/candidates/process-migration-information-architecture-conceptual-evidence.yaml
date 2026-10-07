@@ -3,11 +3,11 @@ kind: harness-semantic-derivation-evidence
 source_capability: prep.conceptual-interface-model
 target_capability: prep.information-architecture
 links:
-  - {sources: [CIM-TARGET-COMPARISON], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-STRUCTURE]}
-  - {sources: [CIM-REL-COMPARISON-TARGET], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-CROSSLINKS]}
-  - {sources: [CIM-REL-COMPARISON-STATE], relation: TRANSFORMS, targets: [IA-LOC-TARGETS]}
-  - {sources: [CIM-TARGET], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGET, IA-SCOPE-TARGET]}
-  - {sources: [CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY], relation: TRANSFORMS, targets: [IA-LOC-TARGET]}
+  - {sources: [CIM-TARGET-COMPARISON], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-LOC-TARGET-COMPARISON, IA-STRUCTURE]}
+  - {sources: [CIM-REL-COMPARISON-TARGET], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-LOC-TARGET-COMPARISON, IA-CROSSLINKS]}
+  - {sources: [CIM-REL-COMPARISON-STATE], relation: TRANSFORMS, targets: [IA-LOC-TARGET-COMPARISON]}
+  - {sources: [CIM-TARGET], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-LOC-TARGET, IA-SCOPE-TARGET]}
+  - {sources: [CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-LOC-TARGET]}
   - {sources: [CIM-KNOWLEDGE], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE]}
   - {sources: [CIM-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE]}
   - {sources: [CIM-CURRENT-STATE], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-CURRENT, IA-LOC-EVIDENCE]}
@@ -23,8 +23,8 @@ links:
   - {sources: [CIM-STATE-EVIDENCE-BEARING], relation: CONSTRAINS, targets: [IA-LOC-EVIDENCE]}
   - {sources: [CIM-STATE-ACTIVITY-PURPOSE], relation: CONSTRAINS, targets: [IA-LOC-ACTIVITIES]}
   - {sources: [CIM-STATE-OUTCOMES], relation: CONSTRAINS, targets: [IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
-  - {sources: [CIM-REL-TARGET-CAPABILITY], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-SCOPE-TARGET]}
-  - {sources: [CIM-REL-CAPABILITY-KNOWLEDGE], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE]}
+  - {sources: [CIM-REL-TARGET-CAPABILITY], relation: CONSTRAINS, targets: [IA-LOC-TARGETS, IA-LOC-TARGET, IA-SCOPE-TARGET]}
+  - {sources: [CIM-REL-CAPABILITY-KNOWLEDGE], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE]}
   - {sources: [CIM-REL-EVIDENCE-STATE], relation: TRANSFORMS, targets: [IA-LOC-EVIDENCE, IA-CROSSLINKS]}
   - {sources: [CIM-REL-GAP-FOCUS], relation: TRANSFORMS, targets: [IA-LOC-CURRENT, IA-SCOPE-FOCUS]}
   - {sources: [CIM-REL-ACTIVITY-EVIDENCE], relation: TRANSFORMS, targets: [IA-LOC-ACTIVITIES, IA-LOC-EVIDENCE, IA-CROSSLINKS]}
