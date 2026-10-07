@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 
+import { DataTable, type DataTableColumn } from "../../ui/DataTable";
 import {
   knowledgeFormLabel,
   knowledgeKindLabel,
@@ -41,12 +42,6 @@ const SPLITTER_SIZE = 3;
 const MIN_TABLE_WIDTH = 520;
 const MIN_GRAPH_SIZE = 260;
 const MIN_DETAILS_HEIGHT = 150;
-const KNOWLEDGE_COLUMN_MIN_WIDTHS = [180, 100, 52] as const;
-const KNOWLEDGE_COLUMN_MAX_WIDTHS = [760, 320, 140] as const;
-const KNOWLEDGE_COLUMN_RESIZE_STEP = 8;
-
-type KnowledgeColumnWidths = [number, number, number];
-
 export interface KnowledgeExplorerFeatureProps {
   readonly port: KnowledgePort;
   readonly activeTargetRef: TargetRef;
@@ -73,96 +68,6 @@ function readStoredRatio(key: string, fallback: number): number {
 
   const stored = Number(raw);
   return Number.isFinite(stored) ? stored : fallback;
-}
-
-function readStoredColumnWidths(): KnowledgeColumnWidths | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const raw = window.localStorage.getItem(KNOWLEDGE_COLUMN_WIDTHS_KEY);
-  if (raw === null) {
-    return null;
-  }
-
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    if (
-      !Array.isArray(parsed) ||
-      parsed.length !== 3 ||
-      !parsed.every(
-        (value) => typeof value === "number" && Number.isFinite(value),
-      )
-    ) {
-      return null;
-    }
-
-    return [
-      clamp(
-        parsed[0],
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[0],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[0],
-      ),
-      clamp(
-        parsed[1],
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[1],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[1],
-      ),
-      clamp(
-        parsed[2],
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[2],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[2],
-      ),
-    ];
-  } catch {
-    return null;
-  }
-}
-
-function measureKnowledgeColumnContentWidths(
-  table: HTMLTableElement,
-): KnowledgeColumnWidths {
-  const clone = table.cloneNode(true) as HTMLTableElement;
-  clone.querySelector("colgroup")?.remove();
-  clone.querySelectorAll(".knowledge-column-resizer").forEach((element) => {
-    element.remove();
-  });
-  clone.setAttribute("aria-hidden", "true");
-  clone.style.position = "fixed";
-  clone.style.top = "0";
-  clone.style.left = "-10000px";
-  clone.style.width = "max-content";
-  clone.style.minWidth = "0";
-  clone.style.tableLayout = "auto";
-  clone.style.visibility = "hidden";
-  clone.style.pointerEvents = "none";
-  document.body.append(clone);
-
-  function measureColumn(columnIndex: 0 | 1 | 2): number {
-    const cells = clone.querySelectorAll<HTMLElement>(
-      `tr > :nth-child(${columnIndex + 1})`,
-    );
-    const measured = Math.ceil(
-      Math.max(
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
-        ...Array.from(cells, (cell) => cell.getBoundingClientRect().width),
-      ),
-    );
-    return clamp(
-      measured,
-      KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
-      KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
-    );
-  }
-
-  const widths: KnowledgeColumnWidths = [
-    measureColumn(0),
-    measureColumn(1),
-    measureColumn(2),
-  ];
-
-  clone.remove();
-  return widths;
 }
 
 function uniqueSorted(values: readonly string[]): readonly string[] {
@@ -212,6 +117,79 @@ function buildRelationshipOverview(
     })),
     selectedKnowledgeRef,
   };
+}
+
+interface KnowledgeResultsTableProps {
+  readonly items: readonly KnowledgeItemModel[];
+  readonly relationCounts: ReadonlyMap<KnowledgeRef, number>;
+  readonly selectedKnowledgeRef: KnowledgeRef | null;
+  readonly onSelect: (knowledgeRef: KnowledgeRef) => void;
+}
+
+function KnowledgeResultsTable({
+  items,
+  relationCounts,
+  selectedKnowledgeRef,
+  onSelect,
+}: KnowledgeResultsTableProps) {
+  const columns: readonly DataTableColumn<KnowledgeItemModel>[] = [
+    {
+      id: "knowledge",
+      header: "Знание",
+      minWidth: 180,
+      maxWidth: 760,
+      render: (item) => (
+        <button
+          type="button"
+          className="knowledge-row-select"
+          aria-pressed={item.knowledgeRef === selectedKnowledgeRef}
+          onClick={() => onSelect(item.knowledgeRef)}
+        >
+          <strong>{item.label}</strong>
+          {item.predicate ? <small>{item.predicate}</small> : null}
+        </button>
+      ),
+    },
+    {
+      id: "kind",
+      header: "Тип / форма",
+      minWidth: 100,
+      maxWidth: 320,
+      render: (item) => (
+        <span className="knowledge-kind">
+          {knowledgeKindLabel(item.kind)}
+          {item.knowledgeForm
+            ? ` · ${knowledgeFormLabel(item.knowledgeForm)}`
+            : ""}
+        </span>
+      ),
+    },
+    {
+      id: "relations",
+      header: "Связи",
+      minWidth: 52,
+      maxWidth: 140,
+      align: "right",
+      render: (item) => (
+        <span className="knowledge-relation-count">
+          {relationCounts.get(item.knowledgeRef) ?? 0}
+        </span>
+      ),
+    },
+  ];
+
+  return (
+    <DataTable
+      columns={columns}
+      rows={items}
+      getRowKey={(item) => item.knowledgeRef}
+      selectedRowKey={selectedKnowledgeRef}
+      storageKey={KNOWLEDGE_COLUMN_WIDTHS_KEY}
+      className="knowledge-table-scroll"
+      tableClassName="knowledge-table"
+      ariaLabel="Знания"
+    />
+  );
 }
 
 export function KnowledgeExplorerFeature({
@@ -269,15 +247,6 @@ export function KnowledgeExplorerFeature({
 
   const upperPaneRef = useRef<HTMLDivElement | null>(null);
   const workbenchRef = useRef<HTMLDivElement | null>(null);
-  const knowledgeTableScrollRef = useRef<HTMLDivElement | null>(null);
-  const knowledgeTableRef = useRef<HTMLTableElement | null>(null);
-  const [columnWidths, setColumnWidths] =
-    useState<KnowledgeColumnWidths | null>(() => readStoredColumnWidths());
-  const columnResizeRef = useRef<{
-    columnIndex: 0 | 1 | 2;
-    startX: number;
-    widths: KnowledgeColumnWidths;
-  } | null>(null);
 
   useEffect(() => {
     if (incomingRequiredCapabilityRef) {
@@ -337,15 +306,6 @@ export function KnowledgeExplorerFeature({
       String(Math.round(topDetailsRatio * 10) / 10),
     );
   }, [topDetailsRatio]);
-
-  useEffect(() => {
-    if (columnWidths) {
-      window.localStorage.setItem(
-        KNOWLEDGE_COLUMN_WIDTHS_KEY,
-        JSON.stringify(columnWidths),
-      );
-    }
-  }, [columnWidths]);
 
   useEffect(() => {
     let cancelled = false;
@@ -525,56 +485,6 @@ export function KnowledgeExplorerFeature({
     [selectedKnowledgeRef, visibleItems],
   );
 
-  useLayoutEffect(() => {
-    if (columnWidths || visibleItems.length === 0) {
-      return;
-    }
-
-    const table = knowledgeTableRef.current;
-    if (!table) {
-      return;
-    }
-
-    setColumnWidths(measureKnowledgeColumnContentWidths(table));
-  }, [columnWidths, visibleItems.length]);
-
-  useEffect(() => {
-    if (!selectedKnowledgeRef) {
-      return;
-    }
-
-    const animationFrame = window.requestAnimationFrame(() => {
-      const scrollRegion = knowledgeTableScrollRef.current;
-      const selectedRow =
-        scrollRegion?.querySelector<HTMLTableRowElement>(
-          'tbody tr[data-selected="true"]',
-        ) ?? null;
-      if (!scrollRegion || !selectedRow) {
-        return;
-      }
-
-      const scrollRect = scrollRegion.getBoundingClientRect();
-      const rowRect = selectedRow.getBoundingClientRect();
-      const targetTop = clamp(
-        scrollRegion.scrollTop +
-          (rowRect.top - scrollRect.top) -
-          (scrollRegion.clientHeight - rowRect.height) / 2,
-        0,
-        Math.max(0, scrollRegion.scrollHeight - scrollRegion.clientHeight),
-      );
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-
-      scrollRegion.scrollTo({
-        top: targetTop,
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-      });
-    });
-
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [selectedKnowledgeRef]);
-
   const selectedRelations = useMemo(() => {
     if (!selectedItem || !projection) {
       return [];
@@ -636,145 +546,6 @@ export function KnowledgeExplorerFeature({
     setRequiredCapabilityRef(null);
     setScope("overview");
     setSelectedKnowledgeRef(null);
-  }
-
-  function readRenderedColumnWidths(): KnowledgeColumnWidths | null {
-    const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
-    if (headers?.length !== 3) {
-      return null;
-    }
-
-    return [
-      Math.round(headers.item(0).getBoundingClientRect().width),
-      Math.round(headers.item(1).getBoundingClientRect().width),
-      Math.round(headers.item(2).getBoundingClientRect().width),
-    ];
-  }
-
-  function resizeColumn(
-    columnIndex: 0 | 1 | 2,
-    delta: number,
-    baseWidths: KnowledgeColumnWidths,
-  ) {
-    const nextWidths = [...baseWidths] as KnowledgeColumnWidths;
-    nextWidths[columnIndex] = Math.round(
-      clamp(
-        baseWidths[columnIndex] + delta,
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
-      ),
-    );
-    setColumnWidths(nextWidths);
-  }
-
-  function startColumnResize(
-    columnIndex: 0 | 1 | 2,
-    event: ReactPointerEvent<HTMLHRElement>,
-  ) {
-    const widths = columnWidths ?? readRenderedColumnWidths();
-    if (!widths) {
-      return;
-    }
-
-    event.preventDefault();
-    event.currentTarget.setPointerCapture(event.pointerId);
-    setColumnWidths(widths);
-    columnResizeRef.current = {
-      columnIndex,
-      startX: event.clientX,
-      widths,
-    };
-  }
-
-  function moveColumnResize(
-    columnIndex: 0 | 1 | 2,
-    event: ReactPointerEvent<HTMLHRElement>,
-  ) {
-    const activeResize = columnResizeRef.current;
-    if (
-      !activeResize ||
-      activeResize.columnIndex !== columnIndex ||
-      !event.currentTarget.hasPointerCapture(event.pointerId)
-    ) {
-      return;
-    }
-
-    resizeColumn(
-      columnIndex,
-      event.clientX - activeResize.startX,
-      activeResize.widths,
-    );
-  }
-
-  function stopColumnResize(event: ReactPointerEvent<HTMLHRElement>) {
-    columnResizeRef.current = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-  }
-
-  function setColumnWidth(
-    columnIndex: 0 | 1 | 2,
-    desiredWidth: number,
-  ) {
-    const widths = columnWidths ?? readRenderedColumnWidths();
-    if (!widths) {
-      return;
-    }
-
-    resizeColumn(
-      columnIndex,
-      desiredWidth - widths[columnIndex],
-      widths,
-    );
-  }
-
-  function autoFitColumn(columnIndex: 0 | 1 | 2) {
-    const table = knowledgeTableRef.current;
-    if (!table) {
-      return;
-    }
-
-    const desiredWidths = measureKnowledgeColumnContentWidths(table);
-    setColumnWidth(columnIndex, desiredWidths[columnIndex]);
-  }
-
-  function handleColumnDividerKey(
-    columnIndex: 0 | 1 | 2,
-    event: ReactKeyboardEvent<HTMLHRElement>,
-  ) {
-    const widths = columnWidths ?? readRenderedColumnWidths();
-    if (!widths) {
-      return;
-    }
-
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      resizeColumn(
-        columnIndex,
-        -KNOWLEDGE_COLUMN_RESIZE_STEP,
-        widths,
-      );
-    } else if (event.key === "ArrowRight") {
-      event.preventDefault();
-      resizeColumn(
-        columnIndex,
-        KNOWLEDGE_COLUMN_RESIZE_STEP,
-        widths,
-      );
-    } else if (event.key === "Home") {
-      event.preventDefault();
-      setColumnWidth(
-        columnIndex,
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
-      );
-    } else if (event.key === "End") {
-      event.preventDefault();
-      setColumnWidth(
-        columnIndex,
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
-      );
-    }
   }
 
   function updateTableGraphRatio(clientX: number) {
@@ -1052,155 +823,12 @@ export function KnowledgeExplorerFeature({
               data-has-graph={RelationshipRenderer ? "true" : "false"}
             >
               <div className="knowledge-table-region">
-                <div
-                  ref={knowledgeTableScrollRef}
-                  className="knowledge-table-scroll"
-                >
-                  <table
-                    ref={knowledgeTableRef}
-                    className="knowledge-table"
-                    data-column-widths={columnWidths ? "managed" : "auto"}
-                    style={
-                      columnWidths
-                        ? {
-                            width: `${columnWidths.reduce(
-                              (total, width) => total + width,
-                              0,
-                            )}px`,
-                          }
-                        : undefined
-                    }
-                  >
-                    {columnWidths ? (
-                      <colgroup>
-                        <col style={{ width: `${columnWidths[0]}px` }} />
-                        <col style={{ width: `${columnWidths[1]}px` }} />
-                        <col style={{ width: `${columnWidths[2]}px` }} />
-                      </colgroup>
-                    ) : null}
-                    <thead>
-                      <tr>
-                        <th scope="col">
-                          <span className="knowledge-column-header-label">
-                            Знание
-                          </span>
-                          <hr
-                            className="knowledge-column-resizer"
-                            aria-label="Изменить ширину колонки «Знание»"
-                            aria-orientation="vertical"
-                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[0]}
-                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[0]}
-                            aria-valuenow={columnWidths?.[0]}
-                            tabIndex={0}
-                            onDoubleClick={() => autoFitColumn(0)}
-                            onPointerDown={(event) =>
-                              startColumnResize(0, event)
-                            }
-                            onPointerMove={(event) =>
-                              moveColumnResize(0, event)
-                            }
-                            onPointerUp={stopColumnResize}
-                            onPointerCancel={stopColumnResize}
-                            onKeyDown={(event) =>
-                              handleColumnDividerKey(0, event)
-                            }
-                          />
-                        </th>
-                        <th scope="col">
-                          <span className="knowledge-column-header-label">
-                            Тип / форма
-                          </span>
-                          <hr
-                            className="knowledge-column-resizer"
-                            aria-label="Изменить ширину колонки «Тип / форма»"
-                            aria-orientation="vertical"
-                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[1]}
-                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[1]}
-                            aria-valuenow={columnWidths?.[1]}
-                            tabIndex={0}
-                            onDoubleClick={() => autoFitColumn(1)}
-                            onPointerDown={(event) =>
-                              startColumnResize(1, event)
-                            }
-                            onPointerMove={(event) =>
-                              moveColumnResize(1, event)
-                            }
-                            onPointerUp={stopColumnResize}
-                            onPointerCancel={stopColumnResize}
-                            onKeyDown={(event) =>
-                              handleColumnDividerKey(1, event)
-                            }
-                          />
-                        </th>
-                        <th scope="col">
-                          <span className="knowledge-column-header-label">
-                            Связи
-                          </span>
-                          <hr
-                            className="knowledge-column-resizer"
-                            aria-label="Изменить ширину колонки «Связи»"
-                            aria-orientation="vertical"
-                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[2]}
-                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[2]}
-                            aria-valuenow={columnWidths?.[2]}
-                            tabIndex={0}
-                            onDoubleClick={() => autoFitColumn(2)}
-                            onPointerDown={(event) =>
-                              startColumnResize(2, event)
-                            }
-                            onPointerMove={(event) =>
-                              moveColumnResize(2, event)
-                            }
-                            onPointerUp={stopColumnResize}
-                            onPointerCancel={stopColumnResize}
-                            onKeyDown={(event) =>
-                              handleColumnDividerKey(2, event)
-                            }
-                          />
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {visibleItems.map((item) => (
-                        <tr
-                          key={item.knowledgeRef}
-                          data-selected={
-                            item.knowledgeRef === selectedKnowledgeRef
-                              ? "true"
-                              : "false"
-                          }
-                        >
-                          <td>
-                            <button
-                              type="button"
-                              className="knowledge-row-select"
-                              aria-pressed={
-                                item.knowledgeRef === selectedKnowledgeRef
-                              }
-                              onClick={() => chooseItem(item.knowledgeRef)}
-                            >
-                              <strong>{item.label}</strong>
-                              {item.predicate ? (
-                                <small>{item.predicate}</small>
-                              ) : null}
-                            </button>
-                          </td>
-                          <td>
-                            <span className="knowledge-kind">
-                              {knowledgeKindLabel(item.kind)}
-                              {item.knowledgeForm
-                                ? ` · ${knowledgeFormLabel(item.knowledgeForm)}`
-                                : ""}
-                            </span>
-                          </td>
-                          <td className="knowledge-relation-count">
-                            {relationCounts.get(item.knowledgeRef) ?? 0}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <KnowledgeResultsTable
+                  items={visibleItems}
+                  relationCounts={relationCounts}
+                  selectedKnowledgeRef={selectedKnowledgeRef}
+                  onSelect={chooseItem}
+                />
               </div>
 
               {RelationshipRenderer ? (
