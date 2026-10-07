@@ -1,0 +1,103 @@
+name: STAGE-P1-IA revalidation
+
+on:
+  push:
+    branches:
+      - stage/p1-ia-revalidation
+    paths:
+      - "docs/interface/information-architecture.yaml"
+      - ".harness/candidates/information-architecture-admission.yaml"
+      - ".harness/candidates/process-migration-information-architecture-*.yaml"
+      - "tools/revalidate_ia_publication.py"
+      - ".github/workflows/ia-revalidation.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stage-p1-ia-revalidation
+  cancel-in-progress: true
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out Prep branch
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Read pinned Harness version
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out pinned Harness
+        uses: actions/checkout@v7
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+
+      - name: Install Harness runtime dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Revalidate only Information Architecture
+        env:
+          HARNESS_ROOT: .harness-tool
+        shell: bash
+        run: |
+          if grep -q "acceptance_id: PREP-INFORMATION-ARCHITECTURE-STRICT-7" .harness/project-publication.yaml; then
+            echo "IA STRICT-7 already published on this branch; validating the published snapshot."
+            cp .harness/project-publication.yaml .harness/project-publication.next.yaml
+          else
+            python tools/revalidate_ia_publication.py
+          fi
+
+      - name: Publish revalidated snapshot to branch
+        shell: bash
+        run: |
+          cp .harness/project-publication.next.yaml .harness/project-publication.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .harness/project-publication.yaml
+          if git diff --cached --quiet; then
+            echo "Publication already current"
+          else
+            git commit -m "Publish IA revalidation"
+            git push origin HEAD:stage/p1-ia-revalidation
+          fi
+
+      - name: Validate strict semantic baseline
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/semantic_baseline.py
+
+      - name: Validate Harness integration
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/check_harness_integration.py
+
+      - name: Full Harness revalidation
+        continue-on-error: true
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/full_harness_revalidate.py
+
+      - name: Validate documentation links
+        run: python tools/validate_docs.py
+
+      - name: Validate maintained Anki reference implementation
+        run: python -m unittest discover -s experiments/anki_adapter_reference/tests -v
+
+      - name: Upload IA diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage-p1-ia-diagnostics
+          path: |
+            .harness/ia-revalidation-report.yaml
+            .harness/project-publication.next.yaml
