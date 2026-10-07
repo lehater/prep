@@ -289,7 +289,8 @@ export function TargetFeature({
           {requirements ? (
             <div className="requirements-list">
               {requirements.expectations.map((expectation) => (
-                <article
+                <Surface
+                  as="article"
                   className="requirement-card"
                   key={expectation.requirementRef}
                 >
@@ -339,7 +340,7 @@ export function TargetFeature({
                   >
                     Открыть знания: {expectation.capabilityLabel}
                   </ActionButton>
-                </article>
+                </Surface>
               ))}
             </div>
           ) : null}
@@ -347,7 +348,11 @@ export function TargetFeature({
       ) : null}
 
       {established && requirements ? (
-        <aside className="target-provenance-region" aria-label="Источники цели">
+        <Surface
+          as="aside"
+          className="target-provenance-region"
+          aria-label="Источники цели"
+        >
           <strong>Источники и сохраняющаяся неопределённость</strong>
           <ul>
             {requirements.provenance.map((item) => (
@@ -357,7 +362,7 @@ export function TargetFeature({
               <li key={item}>{item}</li>
             ))}
           </ul>
-        </aside>
+        </Surface>
       ) : null}
 
       <ActionGroup className="target-actions">
