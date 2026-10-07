@@ -4,9 +4,9 @@ assessments:
   - authority_id: DISCOVERY
     applicability: REQUIRED
     evidence: [core:authority:DISCOVERY]
-    rationale: Accepted current problem evidence is canonical project knowledge.
-    depends_on_evidence: [docs/discovery/problem-evidence.yaml]
-    reopening_conditions: [accepted problem evidence changes]
+    rationale: Accepted current problem evidence and user needs are canonical project knowledge.
+    depends_on_evidence: [docs/discovery/problem-evidence.yaml, docs/discovery/user-needs.yaml]
+    reopening_conditions: [accepted problem evidence or user needs change]
 
   - authority_id: PRODUCT-REQUIREMENTS
     applicability: REQUIRED
