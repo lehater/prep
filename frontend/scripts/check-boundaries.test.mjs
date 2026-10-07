@@ -115,6 +115,15 @@ describe("frontend dependency boundaries", () => {
     ]);
   });
 
+  it("allows feature-specific class names that only contain a shared token as a substring", () => {
+    const root = fixture({
+      "features/knowledge-explorer/Feature.tsx":
+        '<div className="knowledge-outcome-message knowledge-table-region" />',
+    });
+
+    expect(validateSourceTree(root)).toEqual([]);
+  });
+
   it("rejects shared presentation importing task state or semantic contracts", () => {
     const root = fixture({
       "ui/Text.ts": 'import "../features/target/private"; import "../features/contracts";',
