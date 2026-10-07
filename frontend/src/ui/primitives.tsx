@@ -115,23 +115,49 @@ export function ActionGroup({
   );
 }
 
+type SurfaceElement = "section" | "article" | "aside" | "div";
+
 export interface SurfaceProps extends HTMLAttributes<HTMLElement> {
+  readonly as?: SurfaceElement | undefined;
   readonly children: ReactNode;
 }
 
 export function Surface({
+  as = "section",
   children,
   className,
   ...props
 }: SurfaceProps) {
-  return (
-    <section
-      {...props}
-      className={["ui-surface", className].filter(Boolean).join(" ")}
-    >
-      {children}
-    </section>
-  );
+  const surfaceClassName = ["ui-surface", className]
+    .filter(Boolean)
+    .join(" ");
+
+  switch (as) {
+    case "article":
+      return (
+        <article {...props} className={surfaceClassName}>
+          {children}
+        </article>
+      );
+    case "aside":
+      return (
+        <aside {...props} className={surfaceClassName}>
+          {children}
+        </aside>
+      );
+    case "div":
+      return (
+        <div {...props} className={surfaceClassName}>
+          {children}
+        </div>
+      );
+    case "section":
+      return (
+        <section {...props} className={surfaceClassName}>
+          {children}
+        </section>
+      );
+  }
 }
 
 export interface ChoiceCardProps
