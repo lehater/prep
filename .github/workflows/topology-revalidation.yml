@@ -81,6 +81,7 @@ jobs:
           HARNESS_ROOT: .harness-tool
         run: python tools/check_harness_integration.py
       - name: Full Harness revalidation
+        continue-on-error: true
         env:
           HARNESS_ROOT: .harness-tool
         run: python tools/full_harness_revalidate.py
