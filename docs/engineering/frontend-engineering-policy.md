@@ -47,16 +47,20 @@ Rationale: shared ownership and low-cohesion utility layers make later change an
 - Use inheritance only when a real substitutable subtype relationship exists and its behavioral contract is stable.
 - Do not use inheritance primarily for code reuse.
 
-### Evidence-based reuse
+### Evidence-based reuse and composition-first realization
 
-Promote code into a reusable/public component only when at least one is true:
+Promote code into a reusable/public component when at least one is true:
 
 - multiple current consumers need the same stable responsibility;
 - it represents a repeated accepted presentation/product pattern;
 - it isolates a meaningful replaceable dependency;
 - independent evolution behind a stable contract is already expected.
 
-Do not build speculative generic frameworks for hypothetical future reuse.
+For the Prep frontend, repeated presentation or interaction mechanics are shared by default once they have a current second consumer or are an accepted application-wide pattern. Task features compose these shared primitives rather than owning private copies of table sizing/resizing/autosize, split-handle behavior, fields, actions, surfaces, task headings or equivalent recurring mechanics.
+
+A feature-local realization is permitted only when the responsibility is genuinely feature-specific; the Component Design must record the local disposition and rationale. Feature-owned semantic state does not imply feature-owned rendering mechanics: shared primitives receive state/data/handlers from their consumer and do not become owners of task/domain truth.
+
+Do not build speculative generic frameworks for hypothetical future reuse. Shared primitives are narrow project components, not a second UI framework.
 
 ### Provider isolation
 
@@ -76,7 +80,7 @@ When implementation selects a concrete provider/theme mechanism:
 
 - shared semantic color, typography, spacing, density, surface, focus and feedback roles should map through a centralized theme/token boundary when those roles are reused;
 - provider-specific theme/token names must not become product/domain semantics;
-- local one-off layout values, pane geometry, resizing mechanics and CSS choices may remain local when they do not change accepted application-surface ownership or create a reusable presentation rule;
+- local one-off geometry and CSS choices may remain local when they are genuinely feature-specific; reusable interaction mechanics such as table column sizing/autosize or split resizing belong to shared presentation primitives and are configured by features rather than reimplemented there;
 - feature code must not introduce competing global theme systems.
 
 Exact palette, font family, spacing values and provider token syntax remain downstream until accepted Presentation System/Implementation Design selects them.
