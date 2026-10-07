@@ -76,8 +76,8 @@
 }
 
 .outcome-message {
-  border-left: 4px solid #7c88b5;
-  background: #f0f3fb;
+  border-left: 4px solid var(--prep-color-info);
+  background: var(--prep-color-info-soft);
   padding: 12px 14px;
   margin: 0;
 }
@@ -150,17 +150,17 @@
 }
 
 .status-badge[data-tone="positive"] {
-  background: #edf8f1;
+  background: var(--prep-color-success-soft);
   color: var(--prep-color-success);
 }
 
 .status-badge[data-tone="warning"] {
-  background: #fff7e8;
-  color: #9b5615;
+  background: var(--prep-color-warning-soft);
+  color: var(--prep-color-warning-text);
 }
 
 .status-badge[data-tone="danger"] {
-  background: #fbeeed;
+  background: var(--prep-color-danger-soft);
   color: var(--prep-color-danger);
 }
 
