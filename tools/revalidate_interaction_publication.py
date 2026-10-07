@@ -44,7 +44,7 @@ SOURCES = {
         "evidence": ".harness/candidates/process-migration-interaction-journey-evidence.yaml",
     },
     "prep.application-design": {
-        "candidate": ".harness/candidates/application-design-admission.yaml",
+        "candidate": ".harness/candidates/process-migration-application-design-admission.yaml",
         "contract": ".harness/candidates/fb-interaction-app-contract.yaml",
         "evidence": ".harness/candidates/process-migration-interaction-application-evidence.yaml",
     },
