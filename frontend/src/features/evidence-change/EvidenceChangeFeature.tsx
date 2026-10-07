@@ -164,8 +164,7 @@ export function EvidenceChangeFeature({
               <span>Свидетельства / интерпретация состояния</span>
               <StatusBadge
                 tone={
-                  change.learnerEvidenceChange === "changed" ||
-                  change.learnerEvidenceChange === "reviewable"
+                  change.learnerEvidenceChange === "changed"
                     ? "positive"
                     : change.learnerEvidenceChange === "challenged" ||
                         change.learnerEvidenceChange === "increased-uncertainty"
@@ -180,13 +179,9 @@ export function EvidenceChangeFeature({
               <span>Информация о цели</span>
               <StatusBadge
                 tone={
-                  change.targetInformationChange === "changed" ||
-                  change.targetInformationChange === "reviewable"
+                  change.targetInformationChange === "changed"
                     ? "positive"
-                    : change.targetInformationChange === "challenged" ||
-                        change.targetInformationChange === "increased-uncertainty"
-                      ? "warning"
-                      : "neutral"
+                    : "neutral"
                 }
               >
                 {changeOutcomeLabel(change.targetInformationChange)}
