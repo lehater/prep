@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 25
-    basis: "Discovery now records multi-target direction choice as OBS-P18: a learner may compare several plausible Targets against the same evidence-backed capability base before choosing where to grow; this is a stakeholder hypothesis with prevalence/usability still unvalidated."
+    revision: 26
+    basis: "Discovery is reset for the MVP slice: Prep addresses relationship opacity across goals, capabilities, knowledge and practice material, plus opacity of recorded preparation activity. Source/provenance management, information verification and learner-state assessment are explicitly outside the problem space."
 
   - capability: prep.product-intent
     revision: 6
