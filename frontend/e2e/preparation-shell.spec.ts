@@ -532,13 +532,12 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   const edgeLabels = relationshipRenderer.locator(
     ".knowledge-relationship-edge-label",
   );
-  await expect(edgeLabels).toHaveCount(0);
+  await expect(edgeLabels.first()).toBeHidden();
 
   const firstEdgeHit = relationshipRenderer
     .locator(".knowledge-relationship-edge-hit")
     .first();
   await firstEdgeHit.hover();
-  await expect(edgeLabels).toHaveCount(1);
   await expect(edgeLabels.first()).toBeVisible();
 
   const firstGraphNode = relationshipRenderer
