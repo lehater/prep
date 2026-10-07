@@ -876,15 +876,24 @@ a:focus-visible {
   height: 100%;
 }
 
-.knowledge-relationship-lines line {
+.knowledge-relationship-edge-line {
   stroke: var(--prep-color-border-strong);
   stroke-width: 0.55;
   vector-effect: non-scaling-stroke;
+  pointer-events: none;
 }
 
-.knowledge-relationship-lines line[data-selected="true"] {
+.knowledge-relationship-edge-line[data-selected="true"] {
   stroke: var(--prep-color-accent);
   stroke-width: 1.1;
+}
+
+.knowledge-relationship-edge-hit {
+  stroke: transparent;
+  stroke-width: 12;
+  vector-effect: non-scaling-stroke;
+  pointer-events: stroke;
+  cursor: help;
 }
 
 .knowledge-relationship-edge-label {
@@ -897,11 +906,20 @@ a:focus-visible {
   stroke-linejoin: round;
 }
 
+.knowledge-relationship-node-anchor {
+  position: absolute;
+  z-index: 2;
+  left: var(--knowledge-node-x);
+  top: var(--knowledge-node-y);
+  width: 0;
+  height: 0;
+}
+
 .knowledge-relationship-node {
   --knowledge-node-size: 10px;
   position: absolute;
-  left: var(--knowledge-node-x);
-  top: var(--knowledge-node-y);
+  left: 0;
+  top: 0;
   width: var(--knowledge-node-size);
   height: var(--knowledge-node-size);
   transform: translate(-50%, -50%);
@@ -924,6 +942,27 @@ a:focus-visible {
 
 .knowledge-relationship-node:focus-visible {
   outline-offset: 2px;
+}
+
+.knowledge-relationship-tooltip {
+  position: absolute;
+  z-index: 5;
+  left: 7px;
+  top: -7px;
+  width: max-content;
+  max-width: 180px;
+  transform: translateY(-100%);
+  border: 1px solid var(--prep-color-border);
+  border-radius: var(--prep-radius-xs);
+  background: var(--prep-color-surface);
+  padding: 3px 5px;
+  color: var(--prep-color-text-secondary);
+  font-size: var(--prep-type-micro);
+  font-weight: var(--prep-weight-medium);
+  line-height: 1.25;
+  white-space: normal;
+  box-shadow: var(--prep-shadow-surface);
+  pointer-events: none;
 }
 
 .knowledge-relationship-caption {
