@@ -163,6 +163,407 @@ semantic_assertions:
     derived_from: [AD-OUTCOME-MODEL]
     decision_authority: APPLICATION-DESIGN
 
+  # H1 independent-obligation semantic surface
+
+  - id: UJ-TARGET-DIRECTION-COMPARE
+    kind: user-journey
+    subject: J-TARGET-DIRECTION/compare-candidates
+    semantic_value: "The learner selects two or more candidate Targets and receives a comparison that projects the same accepted learner evidence basis against each Target's own requirements."
+    derived_from: [TM-GOAL-TARGET-DIRECTION, TM-TASK-COMPARE-TARGETS, TM-GREF-COMPARE-TARGETS, TM-RESP-COMPARE-TARGETS, TM-INFO-COMPARE-TARGETS, TM-DECISION-COMPARE-TARGETS, TM-SUPPORT-COMPARE-TARGETS, AD-COMPARE-TARGETS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-INSPECT
+    kind: user-journey
+    subject: J-TARGET-DIRECTION/inspect-differences
+    semantic_value: "The learner can inspect shared required capabilities, target-specific requirements, and per-Target demonstrated, challenged, unknown, gap and uncertainty projections."
+    derived_from: [TM-GOAL-TARGET-DIRECTION, TM-TASK-COMPARE-TARGETS, TM-GREF-COMPARE-TARGETS, TM-RESP-COMPARE-TARGETS, TM-INFO-COMPARE-TARGETS, TM-DECISION-COMPARE-TARGETS, TM-SUPPORT-COMPARE-TARGETS, AD-COMPARE-TARGETS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-UNCERTAINTY
+    kind: user-journey
+    subject: J-TARGET-DIRECTION/preserve-uncertainty
+    semantic_value: "Evidence limitations and incomplete Target requirements remain visible per candidate and are not replaced by a fabricated scalar fit or readiness score."
+    derived_from: [TM-RECOVERY-COMPARE-TARGETS, AD-COMPARE-TARGETS, AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-CHOOSE
+    kind: user-journey
+    subject: J-TARGET-DIRECTION/choose-or-defer
+    semantic_value: "The learner can choose one candidate Target to continue with or explicitly leave the direction decision unresolved."
+    derived_from: [TM-GOAL-TARGET-DIRECTION, TM-TASK-COMPARE-TARGETS, TM-GREF-COMPARE-TARGETS, TM-RESP-COMPARE-TARGETS, TM-INFO-COMPARE-TARGETS, TM-DECISION-COMPARE-TARGETS, TM-SUPPORT-COMPARE-TARGETS, AD-COMPARE-TARGETS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-DIRECTION-NO-MUTATION
+    kind: journey-invariant
+    subject: J-TARGET-DIRECTION/no-learner-state-mutation
+    semantic_value: "Comparing Targets does not mutate learner capability or evidence; active Target establishment occurs only when the chosen candidate continues into target setup."
+    derived_from: [TM-RECOVERY-COMPARE-TARGETS, AD-COMPARE-TARGETS, AD-OUTCOME-MODEL]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-ESTABLISH
+    kind: user-journey
+    subject: J-TARGET-SETUP/establish-target
+    semantic_value: "The learner can select an existing Target or provide/refine Target information and purpose, and the system establishes the active Target while preserving purpose, provenance and unresolved Target meaning."
+    derived_from: [TM-GOAL-PREPARE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, AD-ESTABLISH-TARGET, AD-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-MISSING-SUPPORT
+    kind: journey-alternate
+    subject: J-TARGET-SETUP/missing-preparation-need
+    semantic_value: "When a usable Target cannot yet be established, the system exposes the missing preparation need and allows continuation through preparation support without forcing corpus or schema work."
+    derived_from: [TM-RECOVERY-ESTABLISH-TARGET, TM-RECOVERY-UNDERSTAND-REQUIREMENTS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-INSPECT-REQUIREMENTS
+    kind: user-journey
+    subject: J-TARGET-SETUP/inspect-requirements
+    semantic_value: "With an active Target, the learner can ask what the Target requires and inspect required Capability performance, material conditions or constraints, acceptable quality, and preserved all_of/any_of meaning."
+    derived_from: [TM-GOAL-PREPARE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, AD-ESTABLISH-TARGET, AD-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-CONFIRM
+    kind: user-journey
+    subject: J-TARGET-SETUP/confirm-or-refine
+    semantic_value: "The learner can confirm that the known Target is specific enough to prepare against or provide additional Target information for refinement."
+    derived_from: [TM-GOAL-PREPARE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, AD-ESTABLISH-TARGET, AD-UNDERSTAND-REQUIREMENTS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-STALE-BASIS
+    kind: journey-alternate
+    subject: J-TARGET-SETUP/stale-basis
+    semantic_value: "If Target meaning changes while requirements are being used, the dependent requirement materialization must refresh before a dependent decision."
+    derived_from: [TM-RECOVERY-ESTABLISH-TARGET, TM-RECOVERY-UNDERSTAND-REQUIREMENTS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-TARGET-SETUP-NOT-EVIDENCE
+    kind: journey-invariant
+    subject: J-TARGET-SETUP/not-learner-evidence
+    semantic_value: "Target establishment or refinement never becomes learner capability evidence."
+    derived_from: [TM-RECOVERY-ESTABLISH-TARGET, TM-RECOVERY-UNDERSTAND-REQUIREMENTS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-CURRENT-STATE
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION/current-state
+    semantic_value: "The learner can request and inspect the evidence-backed current capability state relative to the active Target, including claims, evidence arguments, observations, provenance, time and condition scope, and transfer or dependence limitations."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-GAPS
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION/gaps
+    semantic_value: "The learner can inspect target-relative satisfied, challenged and unresolved requirement fragments with the basis for those projections preserved."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-INPUTS
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION/decision-inputs
+    semantic_value: "The learner can consider target relevance, uncertainty or gaps, available time or attention, and available support when deciding what to do next."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-CHOOSE-INTENT
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION/choose-intent
+    semantic_value: "The learner can choose or confirm an explicit PreparationIntent such as acquisition, practice, diagnosis, transfer or retention support from the accepted decision inputs."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-RECORD-FOCUS
+    kind: user-journey
+    subject: J-PREPARATION-DIRECTION/record-focus
+    semantic_value: "The selected preparation focus is recorded through its semantic owner together with its rationale."
+    derived_from: [TM-TASK-REVIEW-CURRENT-STATE, TM-TASK-REVIEW-GAPS, TM-TASK-CHOOSE-NEXT-FOCUS, AD-REVIEW-CURRENT-STATE, AD-REVIEW-GAPS, AD-CHOOSE-NEXT-FOCUS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-EVIDENCE-UNCERTAINTY
+    kind: journey-alternate
+    subject: J-PREPARATION-DIRECTION/evidence-uncertainty
+    semantic_value: "Insufficient evidence remains unknown and conflicting or challenging evidence remains inspectable rather than being collapsed into a confident capability conclusion."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-REVIEW-GAPS, TM-RECOVERY-CHOOSE-NEXT-FOCUS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-NO-SUPPORT
+    kind: journey-alternate
+    subject: J-PREPARATION-DIRECTION/no-support
+    semantic_value: "When no suitable support exists, the selected preparation priority is preserved and the learner can continue through preparation support."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-REVIEW-GAPS, TM-RECOVERY-CHOOSE-NEXT-FOCUS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-STALE-BASIS
+    kind: journey-alternate
+    subject: J-PREPARATION-DIRECTION/stale-basis
+    semantic_value: "If Target or evidence meaning changes before focus is committed, current state and gaps refresh and the focus decision is reconsidered against the new basis."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-REVIEW-GAPS, TM-RECOVERY-CHOOSE-NEXT-FOCUS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-DIRECTION-HISTORY-STABLE
+    kind: journey-invariant
+    subject: J-PREPARATION-DIRECTION/history-stable
+    semantic_value: "Changing the current PreparationIntent or priority does not rewrite historical learner evidence."
+    derived_from: [TM-RECOVERY-REVIEW-CURRENT-STATE, TM-RECOVERY-REVIEW-GAPS, TM-RECOVERY-CHOOSE-NEXT-FOCUS, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-REQUEST
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/request-orientation
+    semantic_value: "The learner can request subject orientation for the active Target or preparation focus."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-APPLY-CAPABILITY-SCOPE
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/apply-capability-scope
+    semantic_value: "The learner can select or apply one Required Capability as the Knowledge-scope criterion for orientation."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/clear-capability-scope
+    semantic_value: "The learner can clear the active Required Capability Knowledge-scope criterion."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-SCOPE
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/narrow-expand-scope
+    semantic_value: "The learner can independently narrow or expand semantic Knowledge scope."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-DEPTH
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/overview-detail
+    semantic_value: "The learner can move between subject overview and deeper semantic detail."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-SELECT
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/select-knowledge
+    semantic_value: "The learner can select relevant Subject Knowledge for inspection."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-RELATIONS
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/follow-relations
+    semantic_value: "The learner can follow meaningful relationships between Knowledge objects or propositions."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-PROJECTION
+    kind: user-journey
+    subject: J-KNOWLEDGE-ORIENTATION/bounded-projection
+    semantic_value: "When Capability scope is active, the system bounds Knowledge results and relationship projection to that Capability-derived scope plus accepted semantic expansion while preserving Knowledge identity and relation meaning."
+    derived_from: [TM-TASK-EXPLORE-KNOWLEDGE, AD-EXPLORE-KNOWLEDGE]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-MISSING
+    kind: journey-alternate
+    subject: J-KNOWLEDGE-ORIENTATION/missing-knowledge
+    semantic_value: "Sparse or missing useful Knowledge remains an explicit preparation limitation and may route to preparation support."
+    derived_from: [TM-RECOVERY-EXPLORE-KNOWLEDGE, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-NO-MUTATION
+    kind: journey-invariant
+    subject: J-KNOWLEDGE-ORIENTATION/no-knowledge-mutation
+    semantic_value: "Changing scope or depth, or applying or clearing Required Capability scope, does not mutate or clone reusable Knowledge or Capability."
+    derived_from: [TM-RECOVERY-EXPLORE-KNOWLEDGE, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-KNOWLEDGE-REPRESENTATION-FREEDOM
+    kind: journey-invariant
+    subject: J-KNOWLEDGE-ORIENTATION/representation-freedom
+    semantic_value: "Knowledge orientation semantics do not require a graph, list, 2D, 3D or other specific presentation form."
+    derived_from: [TM-RECOVERY-EXPLORE-KNOWLEDGE, AD-WRITE-OWNERSHIP]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-SUPPORT-FIT
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/support-fit
+    semantic_value: "The learner can request support for the current PreparationIntent and inspect applicable support together with its capability scope, contextual fit basis and explicit limitations."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-SELECT-OPPORTUNITY
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/select-opportunity
+    semantic_value: "The learner can select a suitable activity opportunity or recognize that available support is inadequate."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-BEGIN
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/begin-activity
+    semantic_value: "For selected support, the system begins the activity locally or through a supported external runtime while preserving Target/focus correlation and the actual assistance and conditions relevant to later evidence."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-PERFORM
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/perform
+    semantic_value: "The learner can perform the activity under actual conditions and provide resulting actions, work product or reasoning; instructional guidance, feedback, repetition, delay or variation are not themselves capability conclusions."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-CAPTURE
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/capture-performance
+    semantic_value: "The system preserves materially distinct attributable executions as distinct historical Performance semantics and provenance-bearing Observations; incomplete external records remain unresolved."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-EVALUATE
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/evaluate-evidence
+    semantic_value: "The system evaluates observations for capability relevance, assistance and conditions, time, coverage or transfer, dependence and attribution, producing inspectable evidence arguments only where justified."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-REPROJECT
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/reproject
+    semantic_value: "The system recomputes the Target-relative projection after evidence evaluation before presenting change."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-REVIEW-CONTINUE
+    kind: user-journey
+    subject: J-ACTIVITY-EVIDENCE/review-continuation
+    semantic_value: "The learner can inspect what changed or did not change and why, then choose a continuation such as keeping focus, changing support, refocusing, diagnosing, revisiting after delay, broadening transfer conditions or refining the Target."
+    derived_from: [TM-TASK-SELECT-SUPPORT, TM-TASK-PERFORM-ACTIVITY, TM-TASK-CAPTURE-PERFORMANCE, TM-TASK-EVALUATE-EVIDENCE, TM-TASK-REVIEW-CHANGE, AD-SELECT-SUPPORT, AD-PERFORM-ACTIVITY, AD-CAPTURE-PERFORMANCE, AD-EVALUATE-EVIDENCE, AD-REVIEW-CHANGE, PROC-ACT-BOUNDARY, PROC-ACT-WORK, PROC-ACT-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-NO-SUPPORT
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/no-support
+    semantic_value: "When no suitable support exists, the current intent is preserved and the learner can continue through preparation support."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-DEPENDENCY-UNAVAILABLE
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/dependency-unavailable
+    semantic_value: "When an activity dependency is unavailable, context and canonical data are preserved and retry or another supported opportunity does not imply capability failure."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-UNRESOLVED-EVIDENCE
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/unresolved-evidence
+    semantic_value: "Unresolved observation evidence remains historical without fabricating a broader capability conclusion."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-REJECTED-INFERENCE
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/rejected-inference
+    semantic_value: "An unjustified capability inference can be rejected while its evidence and reason remain inspectable."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-NO-CHANGE
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/no-change
+    semantic_value: "A valid evidence evaluation may produce no change; progress is not manufactured."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-NEW-CHALLENGE
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/new-challenge
+    semantic_value: "New challenge or increased uncertainty is a valid observable outcome and may change the next preparation focus."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-STALE-BASIS
+    kind: journey-alternate
+    subject: J-ACTIVITY-EVIDENCE/stale-basis
+    semantic_value: "A materially changed Target, evidence or focus basis is refreshed before a dependent selection or continuation is applied."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-ACTIVITY-NOT-A-CLAIM
+    kind: journey-invariant
+    subject: J-ACTIVITY-EVIDENCE/activity-not-claim
+    semantic_value: "Activity completion by itself does not create a learner capability claim."
+    derived_from: [TM-RECOVERY-SELECT-SUPPORT, TM-RECOVERY-PERFORM-ACTIVITY, TM-RECOVERY-CAPTURE-PERFORMANCE, TM-RECOVERY-EVALUATE-EVIDENCE, TM-RECOVERY-REVIEW-CHANGE, AD-OUTCOME-MODEL, AD-CURRENTNESS-BASIS, AD-RUNTIME-TIMING-FREEDOM, PROC-ACT-CONTINUATION, PROC-ACT-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-IDENTIFY-NEED
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/identify-need
+    semantic_value: "The learner can identify a missing preparation need in terms of the motivating Target or focus and supply or select relevant source material."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-REQUEST
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/request-preserved
+    semantic_value: "The system preserves source provenance and motivating context when requesting preparation support."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-DERIVE
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/derive-owner-scoped
+    semantic_value: "The system derives only candidate meaning supported by the supplied sources and routes each candidate to its existing semantic owner."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-PARTIAL
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/partial-acceptance
+    semantic_value: "Independently valid owner-scoped Target, Capability, Knowledge, learning or observation-spec results may be accepted while unsupported, conflicting or incomplete candidates remain rejected or unresolved."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-EXPOSE
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/expose-result
+    semantic_value: "The system exposes what usable support is available and which preparation gaps remain."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-RETURN
+    kind: user-journey
+    subject: J-PREPARE-SUPPORT/return-to-origin
+    semantic_value: "The learner can return to the originating journey with the motivating context preserved and use the prepared or refined support."
+    derived_from: [TM-GOAL-SUPPORT, TM-TASK-REQUEST-PREPARATION-SUPPORT, TM-TASK-PREPARE-SUPPORT, AD-REQUEST-PREPARATION-SUPPORT, AD-PREPARE-SUPPORT, AD-PARTIAL-PREPARATION, PROC-SUP-BOUNDARY, PROC-SUP-WORK, PROC-SUP-COMPOSITION]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-UNRESOLVED
+    kind: journey-alternate
+    subject: J-PREPARE-SUPPORT/unresolved
+    semantic_value: "Unsupported source meaning remains unresolved rather than becoming invented semantic truth."
+    derived_from: [TM-RECOVERY-REQUEST-PREPARATION-SUPPORT, TM-RECOVERY-PREPARE-SUPPORT, AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP, PROC-SUP-CONTINUATION, PROC-SUP-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-REJECTED
+    kind: journey-alternate
+    subject: J-PREPARE-SUPPORT/rejected
+    semantic_value: "Rejected conflicting or invalid candidate meaning does not mutate accepted truth."
+    derived_from: [TM-RECOVERY-REQUEST-PREPARATION-SUPPORT, TM-RECOVERY-PREPARE-SUPPORT, AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP, PROC-SUP-CONTINUATION, PROC-SUP-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-DEPENDENCY-UNAVAILABLE
+    kind: journey-alternate
+    subject: J-PREPARE-SUPPORT/dependency-unavailable
+    semantic_value: "When a preparation dependency is unavailable, the request, source and motivating context are preserved for later continuation."
+    derived_from: [TM-RECOVERY-REQUEST-PREPARATION-SUPPORT, TM-RECOVERY-PREPARE-SUPPORT, AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP, PROC-SUP-CONTINUATION, PROC-SUP-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
+  - id: UJ-PREPARE-SUPPORT-NO-CORPUS-BURDEN
+    kind: journey-invariant
+    subject: J-PREPARE-SUPPORT/no-corpus-burden
+    semantic_value: "Obtaining preparation support does not require the learner to perform schema-level or item-level reusable corpus maintenance."
+    derived_from: [TM-RECOVERY-REQUEST-PREPARATION-SUPPORT, TM-RECOVERY-PREPARE-SUPPORT, AD-OUTCOME-MODEL, AD-PARTIAL-PREPARATION, AD-WRITE-OWNERSHIP, PROC-SUP-CONTINUATION, PROC-SUP-RECOVERY]
+    decision_authority: APPLICATION-DESIGN
+
 semantic_review:
   status: ACCEPTED
   checks:
@@ -170,3 +571,185 @@ semantic_review:
     - authority-boundary
     - no-invention
     - journey-not-screen-design
+    - independent-obligation-granularity
+  independent_obligations:
+    - id: target-direction-compare
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-DIRECTION-COMPARE]
+    - id: target-direction-inspect
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-DIRECTION-INSPECT]
+    - id: target-direction-uncertainty
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-DIRECTION-UNCERTAINTY]
+    - id: target-direction-choose
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-DIRECTION-CHOOSE]
+    - id: target-direction-no-mutation
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-DIRECTION-NO-MUTATION]
+    - id: target-setup-establish
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-ESTABLISH]
+    - id: target-setup-missing-support
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-MISSING-SUPPORT]
+    - id: target-setup-inspect-requirements
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-INSPECT-REQUIREMENTS]
+    - id: target-setup-confirm
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-CONFIRM]
+    - id: target-setup-stale-basis
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-STALE-BASIS]
+    - id: target-setup-not-evidence
+      status: ACCOUNTED
+      assertions: [UJ-TARGET-SETUP-NOT-EVIDENCE]
+    - id: direction-current-state
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-CURRENT-STATE]
+    - id: direction-gaps
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-GAPS]
+    - id: direction-inputs
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-INPUTS]
+    - id: direction-choose-intent
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-CHOOSE-INTENT]
+    - id: direction-record-focus
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-RECORD-FOCUS]
+    - id: direction-evidence-uncertainty
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-EVIDENCE-UNCERTAINTY]
+    - id: direction-no-support
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-NO-SUPPORT]
+    - id: direction-stale-basis
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-STALE-BASIS]
+    - id: direction-history-stable
+      status: ACCOUNTED
+      assertions: [UJ-DIRECTION-HISTORY-STABLE]
+    - id: knowledge-request
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-REQUEST]
+    - id: knowledge-apply-capability-scope
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-APPLY-CAPABILITY-SCOPE]
+    - id: knowledge-clear-capability-scope
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE]
+    - id: knowledge-scope
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-SCOPE]
+    - id: knowledge-depth
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-DEPTH]
+    - id: knowledge-select
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-SELECT]
+    - id: knowledge-relations
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-RELATIONS]
+    - id: knowledge-projection
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-PROJECTION]
+    - id: knowledge-missing
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-MISSING]
+    - id: knowledge-no-mutation
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-NO-MUTATION]
+    - id: knowledge-representation-freedom
+      status: ACCOUNTED
+      assertions: [UJ-KNOWLEDGE-REPRESENTATION-FREEDOM]
+    - id: activity-support-fit
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-SUPPORT-FIT]
+    - id: activity-select-opportunity
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-SELECT-OPPORTUNITY]
+    - id: activity-begin
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-BEGIN]
+    - id: activity-perform
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-PERFORM]
+    - id: activity-capture
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-CAPTURE]
+    - id: activity-evaluate
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-EVALUATE]
+    - id: activity-reproject
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-REPROJECT]
+    - id: activity-review-continue
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-REVIEW-CONTINUE]
+    - id: activity-no-support
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-NO-SUPPORT]
+    - id: activity-dependency-unavailable
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-DEPENDENCY-UNAVAILABLE]
+    - id: activity-unresolved-evidence
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-UNRESOLVED-EVIDENCE]
+    - id: activity-rejected-inference
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-REJECTED-INFERENCE]
+    - id: activity-no-change
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-NO-CHANGE]
+    - id: activity-new-challenge
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-NEW-CHALLENGE]
+    - id: activity-stale-basis
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-STALE-BASIS]
+    - id: activity-not-a-claim
+      status: ACCOUNTED
+      assertions: [UJ-ACTIVITY-NOT-A-CLAIM]
+    - id: prepare-support-identify-need
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-IDENTIFY-NEED]
+    - id: prepare-support-request
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-REQUEST]
+    - id: prepare-support-derive
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-DERIVE]
+    - id: prepare-support-partial
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-PARTIAL]
+    - id: prepare-support-expose
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-EXPOSE]
+    - id: prepare-support-return
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-RETURN]
+    - id: prepare-support-unresolved
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-UNRESOLVED]
+    - id: prepare-support-rejected
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-REJECTED]
+    - id: prepare-support-dependency-unavailable
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-DEPENDENCY-UNAVAILABLE]
+    - id: prepare-support-no-corpus-burden
+      status: ACCOUNTED
+      assertions: [UJ-PREPARE-SUPPORT-NO-CORPUS-BURDEN]
+    - id: shared-currentness
+      status: ACCOUNTED
+      assertions: [UJ-SHARED-CURRENTNESS]
+    - id: shared-semantic-ownership
+      status: ACCOUNTED
+      assertions: [UJ-SHARED-OWNERSHIP]
+    - id: shared-outcome-semantics
+      status: ACCOUNTED
+      assertions: [UJ-SHARED-OUTCOMES]
