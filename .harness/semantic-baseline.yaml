@@ -17,12 +17,12 @@ reviews:
     basis: "User Needs preserve the three accepted MVP outcomes without prescribing implementation: understand and explore the information and relationships from different perspectives; select part of the available information and material for external preparation activity; and understand recorded activity and results over time in relation to the information they concern. Data maintenance remains downstream product behavior rather than a separate user need."
 
   - capability: prep.product-intent
-    revision: 6
-    basis: "Product intent now explicitly supports comparing multiple plausible Targets against one reusable learner capability/evidence basis before choosing a preparation direction, while rejecting a universal scalar fit/readiness score."
+    revision: 7
+    basis: "Product intent is rebuilt for the MVP around four commitments: explore preparation information and relationships from different perspectives; select and make part of it available for external preparation activity; bring recorded activity/results back for temporal and relational understanding; and support the information lifecycle needed by those behaviors without learner-state assessment."
 
   - capability: prep.product-capabilities
-    revision: 6
-    basis: "Product capabilities now require inspectable multi-target comparison of shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty over the same learner evidence basis."
+    revision: 7
+    basis: "Product capabilities are rebuilt as the minimum end-to-end MVP behavior: introduce, retain, change and remove information/relationships; preserve knowledge-kind and relationship-meaning distinctions; explore perspectives; select and transfer part outside Prep; accept, relate and temporally preserve recorded activity/results; preserve enough historical context across later information changes; and explore recorded history without inferring learner state."
 
   - capability: prep.domain-strategy
     revision: 4
