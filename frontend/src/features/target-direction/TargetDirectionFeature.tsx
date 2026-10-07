@@ -12,6 +12,8 @@ import {
   ChoiceCard,
   OutcomeMessage,
   SectionHeader,
+  StatusBadge,
+  Surface,
   TaskHeader,
 } from "../../ui/primitives";
 import {
@@ -172,7 +174,8 @@ export function TargetDirectionFeature({
                 );
 
                 return (
-                  <article
+                  <Surface
+                    as="article"
                     className="comparison-card"
                     key={candidate.targetRef}
                   >
@@ -205,9 +208,17 @@ export function TargetDirectionFeature({
                         {candidate.currentState.map((state) => (
                           <li key={state.capabilityRef}>
                             <span>{state.capabilityLabel}</span>
-                            <strong data-state={state.state}>
+                            <StatusBadge
+                              tone={
+                                state.state === "demonstrated"
+                                  ? "positive"
+                                  : state.state === "challenged"
+                                    ? "warning"
+                                    : "neutral"
+                              }
+                            >
                               {capabilityStateLabel(state.state)}
-                            </strong>
+                            </StatusBadge>
                           </li>
                         ))}
                       </ul>
@@ -227,13 +238,17 @@ export function TargetDirectionFeature({
                         ))}
                       </ul>
                     </div>
-                  </article>
+                  </Surface>
                 );
               })}
             </div>
           </section>
 
-          <aside className="comparison-basis" aria-label="Основание сравнения">
+          <Surface
+            as="aside"
+            className="comparison-basis"
+            aria-label="Основание сравнения"
+          >
             <strong>Основание сравнения</strong>
             <p>
               Для всех вариантов используется одна база свидетельств об учащемся.
@@ -244,9 +259,9 @@ export function TargetDirectionFeature({
                 <li key={limitation.detail}>{limitation.detail}</li>
               ))}
             </ul>
-          </aside>
+          </Surface>
 
-          <fieldset className="direction-actions">
+          <Surface as="fieldset" className="direction-actions">
             <legend>Выберите цель для продолжения</legend>
             <div className="continuation-options">
               {comparison.candidates.map((candidate) => (
@@ -293,7 +308,7 @@ export function TargetDirectionFeature({
                 Пока не выбирать
               </ActionButton>
             </ActionGroup>
-          </fieldset>
+          </Surface>
         </>
       ) : null}
     </section>
