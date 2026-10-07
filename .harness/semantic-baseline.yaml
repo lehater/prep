@@ -9,8 +9,8 @@ purpose: >-
 
 reviews:
   - capability: prep.problem-evidence
-    revision: 28
-    basis: "Discovery now defines three MVP problems: semantic structure opacity across related preparation information, perspective opacity when isolating the part to work with, and recorded-activity opacity in that same context. Knowledge kinds and relationship meanings may differ, while source verification and learner-state assessment remain outside scope."
+    revision: 29
+    basis: "Discovery now preserves three broad MVP problem axes without prematurely assigning purpose to knowledge or constraining downstream mechanisms: understand and explore information and relationships from different perspectives; select part of the information or material for external study, practice, review, testing, or other preparation activity; and understand recorded activity and results over time in relation to the information they concern."
 
   - capability: prep.product-intent
     revision: 6
