@@ -90,15 +90,29 @@ function readStoredColumnWidths(): KnowledgeColumnWidths | null {
     if (
       !Array.isArray(parsed) ||
       parsed.length !== 3 ||
-      !parsed.every((value) => typeof value === "number" && Number.isFinite(value))
+      !parsed.every(
+        (value) => typeof value === "number" && Number.isFinite(value),
+      )
     ) {
       return null;
     }
 
     return [
-      clamp(parsed[0], KNOWLEDGE_COLUMN_MIN_WIDTHS[0], KNOWLEDGE_COLUMN_MAX_WIDTHS[0]),
-      clamp(parsed[1], KNOWLEDGE_COLUMN_MIN_WIDTHS[1], KNOWLEDGE_COLUMN_MAX_WIDTHS[1]),
-      clamp(parsed[2], KNOWLEDGE_COLUMN_MIN_WIDTHS[2], KNOWLEDGE_COLUMN_MAX_WIDTHS[2]),
+      clamp(
+        parsed[0],
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[0],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[0],
+      ),
+      clamp(
+        parsed[1],
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[1],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[1],
+      ),
+      clamp(
+        parsed[2],
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[2],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[2],
+      ),
     ];
   } catch {
     return null;
@@ -124,7 +138,7 @@ function measureKnowledgeColumnContentWidths(
   clone.style.pointerEvents = "none";
   document.body.append(clone);
 
-  const widths = [0, 1, 2].map((columnIndex) => {
+  function measureColumn(columnIndex: 0 | 1 | 2): number {
     const cells = clone.querySelectorAll<HTMLElement>(
       `tr > :nth-child(${columnIndex + 1})`,
     );
@@ -139,7 +153,13 @@ function measureKnowledgeColumnContentWidths(
       KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
       KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
     );
-  }) as KnowledgeColumnWidths;
+  }
+
+  const widths: KnowledgeColumnWidths = [
+    measureColumn(0),
+    measureColumn(1),
+    measureColumn(2),
+  ];
 
   clone.remove();
   return widths;
