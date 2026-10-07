@@ -3,19 +3,90 @@ kind: harness-semantic-derivation-evidence
 source_capability: prep.user-journeys
 target_capability: prep.information-architecture
 links:
-  - {sources: [UJ-TARGET-DIRECTION, UJ-TARGET-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-STRUCTURE, IA-CROSSLINKS]}
-  - {sources: [UJ-TARGET-DIRECTION-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-TARGETS, IA-CROSSLINKS, IA-FINDABILITY]}
-  - {sources: [UJ-TARGET-SETUP, UJ-TARGET-SETUP-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-TARGET, IA-CROSSLINKS]}
+  # Coarse journey surface retained as contextual lineage.
+  - {sources: [UJ-TARGET-DIRECTION, UJ-TARGET-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-LOC-TARGET-COMPARISON, IA-STRUCTURE, IA-CROSSLINKS, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-DIRECTION-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-TARGET-COMPARISON, IA-CROSSLINKS, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-SETUP, UJ-TARGET-SETUP-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-TARGETS, IA-LOC-TARGET, IA-SCOPE-TARGET, IA-CROSSLINKS, IA-FINDABILITY]}
   - {sources: [UJ-TARGET-SETUP-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS, IA-FINDABILITY]}
-  - {sources: [UJ-DIRECTION, UJ-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-CURRENT, IA-CROSSLINKS]}
+  - {sources: [UJ-DIRECTION, UJ-DIRECTION-OUTCOME], relation: TRANSFORMS, targets: [IA-ROOT, IA-LOC-CURRENT, IA-SCOPE-FOCUS, IA-CROSSLINKS]}
   - {sources: [UJ-DIRECTION-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-CURRENT, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
-  - {sources: [UJ-KNOWLEDGE, UJ-KNOWLEDGE-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-CROSSLINKS, IA-FINDABILITY]}
-  - {sources: [UJ-KNOWLEDGE-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-KNOWLEDGE, UJ-KNOWLEDGE-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE, IA-CROSSLINKS, IA-FINDABILITY]}
+  - {sources: [UJ-KNOWLEDGE-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS, IA-NO-SCREEN]}
   - {sources: [UJ-ACTIVITY-EVIDENCE, UJ-ACTIVITY-EVIDENCE-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-ACTIVITIES, IA-LOC-EVIDENCE, IA-CROSSLINKS]}
   - {sources: [UJ-ACTIVITY-EVIDENCE-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-ACTIVITIES, IA-LOC-EVIDENCE, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
   - {sources: [UJ-PREPARE-SUPPORT, UJ-PREPARE-SUPPORT-OUTCOME], relation: TRANSFORMS, targets: [IA-LOC-PREP-SUPPORT, IA-STRUCTURE, IA-CROSSLINKS, IA-FINDABILITY]}
   - {sources: [UJ-PREPARE-SUPPORT-RECOVERY], relation: CONSTRAINS, targets: [IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
-  - {sources: [UJ-SHARED-CURRENTNESS], relation: CONSTRAINS, targets: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS]}
+  - {sources: [UJ-SHARED-CURRENTNESS], relation: CONSTRAINS, targets: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS, IA-CROSSLINKS]}
   - {sources: [UJ-SHARED-OWNERSHIP], relation: CONSTRAINS, targets: [IA-SCOPE-TARGET, IA-TAXONOMY, IA-STRUCTURE]}
-  - {sources: [UJ-SHARED-OUTCOMES], relation: CONSTRAINS, targets: [IA-CROSSLINKS, IA-LOC-PREP-SUPPORT]}
-dispositions: []
+  - {sources: [UJ-SHARED-OUTCOMES], relation: CONSTRAINS, targets: [IA-CROSSLINKS, IA-LOC-PREP-SUPPORT, IA-LOC-EVIDENCE]}
+
+  # Target comparison and active-Target continuity.
+  - {sources: [UJ-TARGET-DIRECTION-COMPARE], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-LOC-TARGET-COMPARISON, IA-STRUCTURE]}
+  - {sources: [UJ-TARGET-DIRECTION-INSPECT], relation: TRANSFORMS, targets: [IA-LOC-TARGET-COMPARISON, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-DIRECTION-UNCERTAINTY], relation: CONSTRAINS, targets: [IA-LOC-TARGET-COMPARISON, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-DIRECTION-CHOOSE], relation: CONSTRAINS, targets: [IA-LOC-TARGETS, IA-CROSSLINKS]}
+  - {sources: [UJ-TARGET-DIRECTION-NO-MUTATION], relation: CONSTRAINS, targets: [IA-LOC-TARGET-COMPARISON, IA-SCOPE-TARGET, IA-CROSSLINKS]}
+  - {sources: [UJ-TARGET-SETUP-ESTABLISH], relation: TRANSFORMS, targets: [IA-LOC-TARGETS, IA-LOC-TARGET, IA-SCOPE-TARGET]}
+  - {sources: [UJ-TARGET-SETUP-MISSING-SUPPORT], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-TARGET-SETUP-INSPECT-REQUIREMENTS], relation: TRANSFORMS, targets: [IA-LOC-TARGET, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-SETUP-STALE-BASIS], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-SCOPE-TARGET, IA-FINDABILITY]}
+  - {sources: [UJ-TARGET-SETUP-NOT-EVIDENCE], relation: CONSTRAINS, targets: [IA-LOC-TARGET, IA-TAXONOMY]}
+
+  # Current position and focus.
+  - {sources: [UJ-DIRECTION-CURRENT-STATE, UJ-DIRECTION-GAPS], relation: TRANSFORMS, targets: [IA-LOC-CURRENT, IA-SCOPE-TARGET, IA-FINDABILITY]}
+  - {sources: [UJ-DIRECTION-INPUTS], relation: CONSTRAINS, targets: [IA-LOC-CURRENT, IA-LOC-ACTIVITIES]}
+  - {sources: [UJ-DIRECTION-CHOOSE-INTENT], relation: CONSTRAINS, targets: [IA-LOC-CURRENT, IA-SCOPE-FOCUS, IA-CROSSLINKS]}
+  - {sources: [UJ-DIRECTION-EVIDENCE-UNCERTAINTY], relation: CONSTRAINS, targets: [IA-LOC-CURRENT, IA-FINDABILITY]}
+  - {sources: [UJ-DIRECTION-NO-SUPPORT], relation: CONSTRAINS, targets: [IA-LOC-CURRENT, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-DIRECTION-STALE-BASIS], relation: CONSTRAINS, targets: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS, IA-LOC-CURRENT]}
+  - {sources: [UJ-DIRECTION-HISTORY-STABLE], relation: CONSTRAINS, targets: [IA-SCOPE-FOCUS, IA-TAXONOMY]}
+
+  # Knowledge orientation and local Required Capability scope.
+  - {sources: [UJ-KNOWLEDGE-REQUEST], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-FINDABILITY]}
+  - {sources: [UJ-KNOWLEDGE-APPLY-CAPABILITY-SCOPE, UJ-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE]}
+  - {sources: [UJ-KNOWLEDGE-SCOPE, UJ-KNOWLEDGE-DEPTH], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE]}
+  - {sources: [UJ-KNOWLEDGE-RELATIONS], relation: TRANSFORMS, targets: [IA-LOC-KNOWLEDGE, IA-FINDABILITY]}
+  - {sources: [UJ-KNOWLEDGE-PROJECTION], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE, IA-SCOPE-KNOWLEDGE]}
+  - {sources: [UJ-KNOWLEDGE-MISSING], relation: CONSTRAINS, targets: [IA-LOC-KNOWLEDGE, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-KNOWLEDGE-NO-MUTATION], relation: CONSTRAINS, targets: [IA-SCOPE-KNOWLEDGE, IA-TAXONOMY]}
+  - {sources: [UJ-KNOWLEDGE-REPRESENTATION-FREEDOM], relation: CONSTRAINS, targets: [IA-NO-SCREEN]}
+
+  # Activity and contextual evidence review.
+  - {sources: [UJ-ACTIVITY-SUPPORT-FIT, UJ-ACTIVITY-SELECT-OPPORTUNITY], relation: TRANSFORMS, targets: [IA-LOC-ACTIVITIES, IA-SCOPE-FOCUS]}
+  - {sources: [UJ-ACTIVITY-BEGIN, UJ-ACTIVITY-PERFORM], relation: TRANSFORMS, targets: [IA-LOC-ACTIVITIES, IA-SCOPE-TARGET, IA-SCOPE-FOCUS]}
+  - {sources: [UJ-ACTIVITY-REVIEW-CONTINUE], relation: TRANSFORMS, targets: [IA-LOC-EVIDENCE, IA-CROSSLINKS, IA-LOC-CURRENT]}
+  - {sources: [UJ-ACTIVITY-NO-SUPPORT], relation: CONSTRAINS, targets: [IA-LOC-ACTIVITIES, IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-ACTIVITY-DEPENDENCY-UNAVAILABLE], relation: CONSTRAINS, targets: [IA-LOC-ACTIVITIES, IA-CROSSLINKS]}
+  - {sources: [UJ-ACTIVITY-UNRESOLVED-EVIDENCE, UJ-ACTIVITY-REJECTED-INFERENCE, UJ-ACTIVITY-NO-CHANGE, UJ-ACTIVITY-NEW-CHALLENGE], relation: CONSTRAINS, targets: [IA-LOC-EVIDENCE, IA-LOC-CURRENT, IA-CROSSLINKS]}
+  - {sources: [UJ-ACTIVITY-STALE-BASIS], relation: CONSTRAINS, targets: [IA-SCOPE-TARGET, IA-SCOPE-FOCUS, IA-CROSSLINKS]}
+  - {sources: [UJ-ACTIVITY-NOT-A-CLAIM], relation: CONSTRAINS, targets: [IA-TAXONOMY, IA-LOC-EVIDENCE]}
+
+  # Contextual missing-support recovery.
+  - {sources: [UJ-PREPARE-SUPPORT-IDENTIFY-NEED, UJ-PREPARE-SUPPORT-REQUEST], relation: TRANSFORMS, targets: [IA-LOC-PREP-SUPPORT, IA-CROSSLINKS, IA-FINDABILITY]}
+  - {sources: [UJ-PREPARE-SUPPORT-PARTIAL, UJ-PREPARE-SUPPORT-EXPOSE], relation: CONSTRAINS, targets: [IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-PREPARE-SUPPORT-RETURN], relation: TRANSFORMS, targets: [IA-CROSSLINKS, IA-FINDABILITY]}
+  - {sources: [UJ-PREPARE-SUPPORT-UNRESOLVED, UJ-PREPARE-SUPPORT-REJECTED, UJ-PREPARE-SUPPORT-DEPENDENCY-UNAVAILABLE], relation: CONSTRAINS, targets: [IA-LOC-PREP-SUPPORT, IA-CROSSLINKS]}
+  - {sources: [UJ-PREPARE-SUPPORT-NO-CORPUS-BURDEN], relation: CONSTRAINS, targets: [IA-TAXONOMY, IA-STRUCTURE]}
+
+dispositions:
+  - source: UJ-TARGET-SETUP-CONFIRM
+    status: NOT_APPLICABLE
+    rationale: "Confirming sufficiency or submitting refinement is Interaction/Application behavior. IA already groups the required active-Target information under IA-LOC-TARGET without defining confirmation mechanics."
+  - source: UJ-DIRECTION-RECORD-FOCUS
+    status: NOT_APPLICABLE
+    rationale: "Recording PreparationIntent through its semantic owner is persistence/application behavior; IA owns where Next focus is organized and scoped, not the write operation."
+  - source: UJ-KNOWLEDGE-SELECT
+    status: NOT_APPLICABLE
+    rationale: "Selecting Subject Knowledge for inspection is interaction behavior. IA already provides independently findable Knowledge organization and local scope without defining selection mechanics."
+  - source: UJ-ACTIVITY-CAPTURE
+    status: NOT_APPLICABLE
+    rationale: "Capturing historical Performance/Observation records is application/learner-model behavior; IA organizes reviewable activity and evidence information, not capture processing."
+  - source: UJ-ACTIVITY-EVALUATE
+    status: NOT_APPLICABLE
+    rationale: "Evidence evaluation is application/learner-model behavior; IA only organizes the inspectable resulting evidence/current-state information."
+  - source: UJ-ACTIVITY-REPROJECT
+    status: NOT_APPLICABLE
+    rationale: "Recomputing a Target-relative projection is application/learner-model behavior; IA organizes the resulting Current position and contextual Evidence/change review."
+  - source: UJ-PREPARE-SUPPORT-DERIVE
+    status: NOT_APPLICABLE
+    rationale: "Deriving and routing owner-scoped candidate semantics is preparation/application behavior; IA owns the contextual recovery location and return/findability structure, not derivation processing."
