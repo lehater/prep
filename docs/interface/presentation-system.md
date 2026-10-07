@@ -96,7 +96,9 @@ The presentation system is implemented in three layers so visual styling can pro
 
 A visual refresh therefore changes tokens and shared primitives first. Knowledge may be the first dense consumer used to validate the system, but Knowledge-specific styling must not become the source of truth for application-wide appearance.
 
-Resizable region separators keep their visible rule visually subordinate to content; their pointer hit area may be wider than the visible divider so usability does not require a wide gutter between sections.
+Resizable region separators keep their visible rule visually subordinate to content; their pointer hit area may be wider than the visible divider so usability does not require a wide gutter between sections. A shared resizable split owns the interaction mechanics and guarantees that each slot stretches its composed child to the full allocated region; feature content must not need local height hacks to become usable.
+
+Typography is application-wide presentation knowledge. All views use one semantic type scale (page title, section title, subheading, body, small, meta and micro) from design tokens; features select roles but do not introduce private font-size values. Palette and typography literals are confined to the token layer and are mechanically checked.
 
 For resizable data tables, column width is owned by the column itself. Dragging a column's right-edge handle changes that column only. Content auto-size and fit-to-container are separate operations: double-click auto-size fits the selected column to its header/cell content within explicit min/max bounds and does not implicitly redistribute remaining container width across neighboring columns. Every user-resizable visible column, including the last one, has an equivalent resize handle.
 
