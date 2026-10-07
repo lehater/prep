@@ -57,7 +57,7 @@
   background: var(--prep-color-accent);
   color: var(--prep-color-surface);
   font-weight: 650;
-  box-shadow: 0 1px 1px rgb(24 33 48 / 8%);
+  box-shadow: var(--prep-shadow-action);
 }
 
 .primary-action:hover {
