@@ -17,7 +17,7 @@ async function establishBackendTarget(page: Page) {
   await page.getByRole("button", { name: "Зафиксировать цель" }).click();
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
 }
@@ -91,7 +91,7 @@ test("compares candidate Targets and continues without activating one", async ({
     page.getByRole("heading", { name: "Выберите, к чему вы готовитесь" }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("не выбрана"),
+    page.getByRole("contentinfo").getByText("не выбрана"),
   ).toBeVisible();
 
   await page
@@ -136,7 +136,7 @@ test("compares candidate Targets and continues without activating one", async ({
     "Описание backend-собеседования",
   );
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("не выбрана"),
+    page.getByRole("contentinfo").getByText("не выбрана"),
   ).toBeVisible();
 });
 
@@ -153,7 +153,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
   ).toBeVisible();
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
 
@@ -193,7 +193,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
   await expect(page.getByText("Стратегия кэширования", { exact: true }).first()).toBeVisible();
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
 
@@ -213,7 +213,7 @@ test("establishes Target explicitly, then exposes requirements and direct Knowle
   await expect(page.getByRole("heading", { name: "Подготовить поддержку" })).toBeVisible();
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
 });
@@ -239,7 +239,7 @@ test("preserves Target draft after rejected establishment and accepts corrected 
   await expect(target).toHaveValue("target:backend-interview");
   await expect(source).toHaveValue("");
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("не выбрана"),
+    page.getByRole("contentinfo").getByText("не выбрана"),
   ).toBeVisible();
 
   await source.fill("Описание backend-собеседования");
@@ -247,7 +247,7 @@ test("preserves Target draft after rejected establishment and accepts corrected 
 
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
   await expect(
@@ -360,7 +360,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
 
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("не выбран"),
   ).toBeVisible();
 
@@ -368,7 +368,7 @@ test("reviews current evidence and explicitly sets the Next focus before Activit
 
   await expect(page.getByText("Следующий фокус выбран")).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
 
   await page.getByText("Почему такое состояние: свидетельства").click();
@@ -470,7 +470,7 @@ test("preserves a missing-support focus and routes to contextual preparation", a
     page.getByRole("button", { name: "Подготовить недостающую поддержку" }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Подготовить недостающую поддержку" }).click();
@@ -478,11 +478,11 @@ test("preserves a missing-support focus and routes to contextual preparation", a
   await expect(page.getByRole("heading", { name: "Подготовить поддержку" })).toBeVisible();
   await expect(
     page
-      .getByLabel("Текущий контекст подготовки")
+      .getByRole("contentinfo")
       .getByText("Собеседование на Backend Engineer"),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
 });
 
@@ -973,7 +973,7 @@ test("preserves accepted Next focus context when entering Knowledge", async ({
     page.getByRole("heading", { name: "Знания", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
   await expect(page.locator(".preparation-shell--admin[data-destination=\"knowledge\"]")).toBeVisible();
 });
@@ -1104,14 +1104,14 @@ test("routes an Activity with no suitable support to contextual preparation", as
     page.getByText("Подходящая поддержка пока не подготовлена.", { exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Подготовить поддержку" }).click();
 
   await expect(page.getByRole("heading", { name: "Подготовить поддержку" })).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
   await expect(page.getByText("Вернуться в: Практика", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Недостающая поддержка")).toHaveValue(
@@ -1156,7 +1156,7 @@ test("routes an Activity with no suitable support to contextual preparation", as
   ).toBeVisible();
   await expect(page.getByText("Шаблон рассказа об инженерном решении", { exact: true })).toBeVisible();
   await expect(
-    page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+    page.getByRole("contentinfo").getByText("выбран"),
   ).toBeVisible();
 });
 
@@ -1195,11 +1195,11 @@ for (const viewport of [
     ).toBeVisible();
     await expect(
       page
-        .getByLabel("Текущий контекст подготовки")
+        .getByRole("contentinfo")
         .getByText("Собеседование на Backend Engineer"),
     ).toBeVisible();
     await expect(
-      page.getByLabel("Текущий контекст подготовки").getByText("выбран"),
+      page.getByRole("contentinfo").getByText("выбран"),
     ).toBeVisible();
 
     await page.getByRole("button", { name: "Практика", exact: true }).click();
