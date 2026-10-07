@@ -448,7 +448,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.addInitScript(() => {
     window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
     window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
-    window.localStorage.removeItem("prep.knowledge.column-widths.v1");
+    window.localStorage.removeItem("prep.knowledge.column-widths.v2");
   });
   await page.goto("/");
   await establishBackendTarget(page);
@@ -707,11 +707,90 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     );
   }
 
+  const knowledgeTypeColumnDivider = page.getByRole("separator", {
+    name: "Изменить ширину колонки «Тип / форма»",
+  });
+  const knowledgeRelationsColumnDivider = page.getByRole("separator", {
+    name: "Изменить ширину колонки «Связи»",
+  });
+  await expect(knowledgeTypeColumnDivider).toBeVisible();
+  await expect(knowledgeRelationsColumnDivider).toBeVisible();
+
+  const typeWidthBeforeRelationsResize = Number(
+    await knowledgeTypeColumnDivider.getAttribute("aria-valuenow"),
+  );
+  await knowledgeRelationsColumnDivider.focus();
+  await page.keyboard.press("End");
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    "140",
+  );
+  await expect(knowledgeTypeColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(typeWidthBeforeRelationsResize),
+  );
+
+  const relationsDividerBox = await knowledgeRelationsColumnDivider.boundingBox();
+  expect(relationsDividerBox).not.toBeNull();
+  if (relationsDividerBox) {
+    await page.mouse.move(
+      relationsDividerBox.x + relationsDividerBox.width / 2,
+      relationsDividerBox.y + relationsDividerBox.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      relationsDividerBox.x - 24,
+      relationsDividerBox.y + relationsDividerBox.height / 2,
+    );
+    await page.mouse.up();
+  }
+
+  const relationsWidthAfterDrag = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
+  );
+  expect(relationsWidthAfterDrag).toBeLessThan(140);
+  await expect(knowledgeTypeColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(typeWidthBeforeRelationsResize),
+  );
+
+  await knowledgeRelationsColumnDivider.dblclick();
+  const relationsWidthAfterAutoFit = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
+  );
+  expect(relationsWidthAfterAutoFit).toBeGreaterThanOrEqual(52);
+  expect(relationsWidthAfterAutoFit).toBeLessThanOrEqual(140);
+  await knowledgeRelationsColumnDivider.dblclick();
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(relationsWidthAfterAutoFit),
+  );
+
+  const managedColumnWidths = await Promise.all(
+    [
+      knowledgeColumnDivider,
+      knowledgeTypeColumnDivider,
+      knowledgeRelationsColumnDivider,
+    ].map(async (divider) =>
+      Number(await divider.getAttribute("aria-valuenow")),
+    ),
+  );
+  const knowledgeTableBox = await page.locator(".knowledge-table").boundingBox();
+  expect(knowledgeTableBox).not.toBeNull();
+  if (knowledgeTableBox) {
+    expect(
+      Math.abs(
+        knowledgeTableBox.width -
+          managedColumnWidths.reduce((sum, width) => sum + width, 0),
+      ),
+    ).toBeLessThanOrEqual(2);
+  }
+
   const persistedKnowledgeColumnWidth = Number(
     await knowledgeColumnDivider.getAttribute("aria-valuenow"),
   );
   const storedColumnWidths = await page.evaluate(() => {
-    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v1");
+    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v2");
     return raw ? (JSON.parse(raw) as number[]) : null;
   });
   expect(storedColumnWidths?.[0]).toBe(persistedKnowledgeColumnWidth);
