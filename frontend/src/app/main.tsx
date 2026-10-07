@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { FrontendCompositionRoot } from "./composition/FrontendCompositionRoot";
+import "./presentation/tokens.css";
 import "./styles.css";
 
 const rootElement = document.getElementById("root");
