@@ -696,6 +696,15 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
         Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
       )
       .not.toBe(afterColumnDrag);
+
+    const afterAutoFit = Number(
+      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
+    );
+    await knowledgeColumnDivider.dblclick();
+    await expect(knowledgeColumnDivider).toHaveAttribute(
+      "aria-valuenow",
+      String(afterAutoFit),
+    );
   }
 
   const persistedKnowledgeColumnWidth = Number(
