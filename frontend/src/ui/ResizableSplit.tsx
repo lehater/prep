@@ -68,11 +68,11 @@ export function ResizableSplit({
     );
   }
 
-  function startPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+  function startPointerResize(event: ReactPointerEvent<HTMLHRElement>) {
     event.currentTarget.setPointerCapture(event.pointerId);
   }
 
-  function movePointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+  function movePointerResize(event: ReactPointerEvent<HTMLHRElement>) {
     if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
       return;
     }
@@ -85,13 +85,13 @@ export function ResizableSplit({
     }
   }
 
-  function stopPointerResize(event: ReactPointerEvent<HTMLDivElement>) {
+  function stopPointerResize(event: ReactPointerEvent<HTMLHRElement>) {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
   }
 
-  function handleKey(event: ReactKeyboardEvent<HTMLDivElement>) {
+  function handleKey(event: ReactKeyboardEvent<HTMLHRElement>) {
     const decreaseKey = orientation === "vertical" ? "ArrowLeft" : "ArrowUp";
     const increaseKey = orientation === "vertical" ? "ArrowRight" : "ArrowDown";
 
@@ -123,9 +123,8 @@ export function ResizableSplit({
       style={style}
     >
       <div className="resizable-split-first">{first}</div>
-      <div
+      <hr
         className="resizable-split-handle"
-        role="separator"
         aria-label={ariaLabel}
         aria-orientation={orientation}
         aria-valuemin={minRatio}
