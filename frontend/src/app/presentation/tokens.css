@@ -10,6 +10,7 @@
   --prep-type-small: 0.68rem;
   --prep-type-meta: 0.64rem;
   --prep-type-micro: 0.6rem;
+  --prep-type-graph-edge: 2.25px;
 
   --prep-weight-regular: 400;
   --prep-weight-medium: 500;
@@ -27,6 +28,7 @@
   --prep-color-sidebar-border-strong: #3a475b;
   --prep-color-sidebar-text: #f7f9fc;
   --prep-color-sidebar-muted: #bcc7d7;
+  --prep-color-sidebar-hover: rgb(255 255 255 / 5%);
 
   --prep-color-text: #18202b;
   --prep-color-text-secondary: #4f5b6b;
@@ -64,6 +66,8 @@
   --prep-radius-pill: 999px;
 
   --prep-shadow-surface: 0 1px 2px rgb(24 33 48 / 5%);
+  --prep-shadow-action: 0 1px 1px rgb(24 33 48 / 8%);
+  --prep-shadow-node: 0 1px 2px rgb(25 38 58 / 14%);
   --prep-shadow-active: inset 3px 0 0 var(--prep-color-accent);
 
   --prep-focus-ring: 0 0 0 3px rgb(68 118 249 / 22%);
