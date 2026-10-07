@@ -1,0 +1,26 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.application-design
+target_capability: prep.interaction-design
+links:
+  - {sources: [AD-PREPARATION-LOOP], relation: TRANSFORMS, targets: [IX-CONTEXT-CONTINUITY]}
+  - {sources: [AD-SUPPORT-LOOP], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [AD-ESTABLISH-TARGET], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [AD-UNDERSTAND-REQUIREMENTS], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [AD-REVIEW-CURRENT-STATE], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [AD-REVIEW-GAPS], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [AD-CHOOSE-NEXT-FOCUS], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [AD-EXPLORE-KNOWLEDGE], relation: TRANSFORMS, targets: [IX-KNOWLEDGE]}
+  - {sources: [AD-SELECT-SUPPORT], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [AD-PERFORM-ACTIVITY], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [AD-CAPTURE-PERFORMANCE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [AD-EVALUATE-EVIDENCE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [AD-REVIEW-CHANGE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [AD-REQUEST-PREPARATION-SUPPORT], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [AD-PREPARE-SUPPORT], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [AD-WRITE-OWNERSHIP], relation: TRANSFORMS, targets: [IX-DIST-SEMANTIC-OWNERSHIP]}
+  - {sources: [AD-OUTCOME-MODEL], relation: TRANSFORMS, targets: [IX-OUTCOMES]}
+  - {sources: [AD-PARTIAL-PREPARATION], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [AD-CURRENTNESS-BASIS], relation: CONSTRAINS, targets: [IX-CURRENTNESS]}
+dispositions:
+  - {source: AD-RUNTIME-TIMING-FREEDOM, status: NOT_APPLICABLE, rationale: "Runtime scheduling freedom does not itself impose a user-facing Interaction semantic; IX-PENDING covers only consumer-visible pending state when a mutation is actually pending."}
