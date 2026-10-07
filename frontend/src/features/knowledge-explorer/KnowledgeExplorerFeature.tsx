@@ -30,7 +30,7 @@ import { useKnowledgeExplorerState } from "./state";
 
 const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio.v2";
 const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio.v2";
-const KNOWLEDGE_COLUMN_WIDTHS_KEY = "prep.knowledge.column-widths.v1";
+const KNOWLEDGE_COLUMN_WIDTHS_KEY = "prep.knowledge.column-widths.v2";
 const DEFAULT_TABLE_GRAPH_RATIO = 70;
 const DEFAULT_TOP_DETAILS_RATIO = 50;
 const TABLE_RATIO_MIN = 45;
@@ -274,7 +274,7 @@ export function KnowledgeExplorerFeature({
   const [columnWidths, setColumnWidths] =
     useState<KnowledgeColumnWidths | null>(() => readStoredColumnWidths());
   const columnResizeRef = useRef<{
-    boundaryIndex: 0 | 1;
+    columnIndex: 0 | 1 | 2;
     startX: number;
     widths: KnowledgeColumnWidths;
   } | null>(null);
@@ -651,24 +651,24 @@ export function KnowledgeExplorerFeature({
     ];
   }
 
-  function resizeColumnBoundary(
-    boundaryIndex: 0 | 1,
+  function resizeColumn(
+    columnIndex: 0 | 1 | 2,
     delta: number,
     baseWidths: KnowledgeColumnWidths,
   ) {
     const nextWidths = [...baseWidths] as KnowledgeColumnWidths;
-    nextWidths[boundaryIndex] = Math.round(
+    nextWidths[columnIndex] = Math.round(
       clamp(
-        baseWidths[boundaryIndex] + delta,
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
+        baseWidths[columnIndex] + delta,
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
       ),
     );
     setColumnWidths(nextWidths);
   }
 
   function startColumnResize(
-    boundaryIndex: 0 | 1,
+    columnIndex: 0 | 1 | 2,
     event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const widths = columnWidths ?? readRenderedColumnWidths();
@@ -680,27 +680,27 @@ export function KnowledgeExplorerFeature({
     event.currentTarget.setPointerCapture(event.pointerId);
     setColumnWidths(widths);
     columnResizeRef.current = {
-      boundaryIndex,
+      columnIndex,
       startX: event.clientX,
       widths,
     };
   }
 
   function moveColumnResize(
-    boundaryIndex: 0 | 1,
+    columnIndex: 0 | 1 | 2,
     event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const activeResize = columnResizeRef.current;
     if (
       !activeResize ||
-      activeResize.boundaryIndex !== boundaryIndex ||
+      activeResize.columnIndex !== columnIndex ||
       !event.currentTarget.hasPointerCapture(event.pointerId)
     ) {
       return;
     }
 
-    resizeColumnBoundary(
-      boundaryIndex,
+    resizeColumn(
+      columnIndex,
       event.clientX - activeResize.startX,
       activeResize.widths,
     );
@@ -713,34 +713,34 @@ export function KnowledgeExplorerFeature({
     }
   }
 
-  function setColumnWidthAtBoundary(
-    boundaryIndex: 0 | 1,
-    desiredLeftWidth: number,
+  function setColumnWidth(
+    columnIndex: 0 | 1 | 2,
+    desiredWidth: number,
   ) {
     const widths = columnWidths ?? readRenderedColumnWidths();
     if (!widths) {
       return;
     }
 
-    resizeColumnBoundary(
-      boundaryIndex,
-      desiredLeftWidth - widths[boundaryIndex],
+    resizeColumn(
+      columnIndex,
+      desiredWidth - widths[columnIndex],
       widths,
     );
   }
 
-  function autoFitColumn(boundaryIndex: 0 | 1) {
+  function autoFitColumn(columnIndex: 0 | 1 | 2) {
     const table = knowledgeTableRef.current;
     if (!table) {
       return;
     }
 
     const desiredWidths = measureKnowledgeColumnContentWidths(table);
-    setColumnWidthAtBoundary(boundaryIndex, desiredWidths[boundaryIndex]);
+    setColumnWidth(columnIndex, desiredWidths[columnIndex]);
   }
 
   function handleColumnDividerKey(
-    boundaryIndex: 0 | 1,
+    columnIndex: 0 | 1 | 2,
     event: ReactKeyboardEvent<HTMLHRElement>,
   ) {
     const widths = columnWidths ?? readRenderedColumnWidths();
@@ -750,29 +750,29 @@ export function KnowledgeExplorerFeature({
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      resizeColumnBoundary(
-        boundaryIndex,
+      resizeColumn(
+        columnIndex,
         -KNOWLEDGE_COLUMN_RESIZE_STEP,
         widths,
       );
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
-      resizeColumnBoundary(
-        boundaryIndex,
+      resizeColumn(
+        columnIndex,
         KNOWLEDGE_COLUMN_RESIZE_STEP,
         widths,
       );
     } else if (event.key === "Home") {
       event.preventDefault();
-      setColumnWidthAtBoundary(
-        boundaryIndex,
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
+      setColumnWidth(
+        columnIndex,
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
       );
     } else if (event.key === "End") {
       event.preventDefault();
-      setColumnWidthAtBoundary(
-        boundaryIndex,
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
+      setColumnWidth(
+        columnIndex,
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
       );
     }
   }
@@ -1067,7 +1067,6 @@ export function KnowledgeExplorerFeature({
                               (total, width) => total + width,
                               0,
                             )}px`,
-                            minWidth: "100%",
                           }
                         : undefined
                     }
@@ -1133,7 +1132,32 @@ export function KnowledgeExplorerFeature({
                             }
                           />
                         </th>
-                        <th scope="col">Связи</th>
+                        <th scope="col">
+                          <span className="knowledge-column-header-label">
+                            Связи
+                          </span>
+                          <hr
+                            className="knowledge-column-resizer"
+                            aria-label="Изменить ширину колонки «Связи»"
+                            aria-orientation="vertical"
+                            aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[2]}
+                            aria-valuemax={KNOWLEDGE_COLUMN_MAX_WIDTHS[2]}
+                            aria-valuenow={columnWidths?.[2]}
+                            tabIndex={0}
+                            onDoubleClick={() => autoFitColumn(2)}
+                            onPointerDown={(event) =>
+                              startColumnResize(2, event)
+                            }
+                            onPointerMove={(event) =>
+                              moveColumnResize(2, event)
+                            }
+                            onPointerUp={stopColumnResize}
+                            onPointerCancel={stopColumnResize}
+                            onKeyDown={(event) =>
+                              handleColumnDividerKey(2, event)
+                            }
+                          />
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
