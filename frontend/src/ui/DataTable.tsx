@@ -5,9 +5,12 @@ import {
   type ReactNode,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
+
+import { resolveDataTableWidths } from "./dataTableSizing";
 
 export interface DataTableColumn<Row> {
   readonly id: string;
@@ -15,6 +18,9 @@ export interface DataTableColumn<Row> {
   readonly minWidth: number;
   readonly maxWidth: number;
   readonly align?: "left" | "right" | undefined;
+  readonly flex?: number | undefined;
+  readonly resizable?: boolean | undefined;
+  readonly resizeEdge?: "start" | "end" | undefined;
   readonly render: (row: Row) => ReactNode;
 }
 
@@ -131,6 +137,7 @@ export function DataTable<Row>({
   const [columnWidths, setColumnWidths] = useState<number[] | null>(() =>
     readStoredWidths(storageKey, columns),
   );
+  const [availableWidth, setAvailableWidth] = useState(0);
   const resizeRef = useRef<{
     columnIndex: number;
     startX: number;
@@ -149,6 +156,27 @@ export function DataTable<Row>({
 
     setColumnWidths(measureContentWidths(table, columns));
   }, [columnWidths, columns, rows.length]);
+
+  useLayoutEffect(() => {
+    const scrollRegion = scrollRef.current;
+    if (!scrollRegion) {
+      return;
+    }
+
+    const syncAvailableWidth = () => {
+      setAvailableWidth(Math.max(0, Math.floor(scrollRegion.clientWidth)));
+    };
+    syncAvailableWidth();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", syncAvailableWidth);
+      return () => window.removeEventListener("resize", syncAvailableWidth);
+    }
+
+    const observer = new ResizeObserver(syncAvailableWidth);
+    observer.observe(scrollRegion);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!storageKey || !columnWidths) {
@@ -278,9 +306,13 @@ export function DataTable<Row>({
       return;
     }
 
+    const column = columns[columnIndex];
+    const edge = column?.resizeEdge ?? "end";
+    const direction = edge === "start" ? -1 : 1;
+
     resizeColumn(
       columnIndex,
-      event.clientX - active.startX,
+      direction * (event.clientX - active.startX),
       active.widths,
     );
   }
@@ -316,12 +348,16 @@ export function DataTable<Row>({
       return;
     }
 
+    const edge = column.resizeEdge ?? "end";
+    const leftDelta = edge === "start" ? 8 : -8;
+    const rightDelta = edge === "start" ? -8 : 8;
+
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      resizeColumn(columnIndex, -8, widths);
+      resizeColumn(columnIndex, leftDelta, widths);
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
-      resizeColumn(columnIndex, 8, widths);
+      resizeColumn(columnIndex, rightDelta, widths);
     } else if (event.key === "Home") {
       event.preventDefault();
       setColumnWidth(columnIndex, column.minWidth);
@@ -331,7 +367,14 @@ export function DataTable<Row>({
     }
   }
 
-  const managedWidth = columnWidths?.reduce((sum, width) => sum + width, 0);
+  const renderedWidths = useMemo(
+    () =>
+      columnWidths
+        ? resolveDataTableWidths(columns, columnWidths, availableWidth)
+        : null,
+    [availableWidth, columnWidths, columns],
+  );
+  const managedWidth = renderedWidths?.reduce((sum, width) => sum + width, 0);
   const tableStyle: CSSProperties | undefined =
     managedWidth === undefined
       ? { width: "max-content", tableLayout: "auto" }
@@ -346,15 +389,15 @@ export function DataTable<Row>({
         ref={tableRef}
         className={["data-table", tableClassName].filter(Boolean).join(" ")}
         aria-label={ariaLabel}
-        data-column-widths={columnWidths ? "managed" : "auto"}
+        data-column-widths={renderedWidths ? "managed" : "auto"}
         style={tableStyle}
       >
-        {columnWidths ? (
+        {renderedWidths ? (
           <colgroup>
             {columns.map((column, index) => (
               <col
                 key={column.id}
-                style={{ width: `${columnWidths[index] ?? column.minWidth}px` }}
+                style={{ width: `${renderedWidths[index] ?? column.minWidth}px` }}
               />
             ))}
           </colgroup>
@@ -368,21 +411,24 @@ export function DataTable<Row>({
                 style={{ textAlign: column.align ?? "left" }}
               >
                 <span className="data-table-header-label">{column.header}</span>
-                <hr
-                  className="data-table-column-resizer"
-                  aria-label={`Изменить ширину колонки «${column.header}»`}
-                  aria-orientation="vertical"
-                  aria-valuemin={column.minWidth}
-                  aria-valuemax={column.maxWidth}
-                  aria-valuenow={columnWidths?.[columnIndex]}
-                  tabIndex={0}
-                  onDoubleClick={() => autoSizeColumn(columnIndex)}
-                  onPointerDown={(event) => startResize(columnIndex, event)}
-                  onPointerMove={(event) => moveResize(columnIndex, event)}
-                  onPointerUp={stopResize}
-                  onPointerCancel={stopResize}
-                  onKeyDown={(event) => handleResizeKey(columnIndex, event)}
-                />
+                {column.resizable === false ? null : (
+                  <hr
+                    className="data-table-column-resizer"
+                    data-resize-edge={column.resizeEdge ?? "end"}
+                    aria-label={`Изменить ширину колонки «${column.header}»`}
+                    aria-orientation="vertical"
+                    aria-valuemin={column.minWidth}
+                    aria-valuemax={column.maxWidth}
+                    aria-valuenow={renderedWidths?.[columnIndex]}
+                    tabIndex={0}
+                    onDoubleClick={() => autoSizeColumn(columnIndex)}
+                    onPointerDown={(event) => startResize(columnIndex, event)}
+                    onPointerMove={(event) => moveResize(columnIndex, event)}
+                    onPointerUp={stopResize}
+                    onPointerCancel={stopResize}
+                    onKeyDown={(event) => handleResizeKey(columnIndex, event)}
+                  />
+                )}
               </th>
             ))}
           </tr>
