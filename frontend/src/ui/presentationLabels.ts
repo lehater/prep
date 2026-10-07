@@ -125,9 +125,10 @@ export function knowledgeRelationFamilyLabel(family: string): string {
 }
 
 export function knowledgePredicateLabel(predicate: string): string {
-  return KNOWLEDGE_PREDICATE_LABELS[predicate] ?? humanizeKnowledgeCode(predicate);
+  return (
+    KNOWLEDGE_PREDICATE_LABELS[predicate] ?? humanizeKnowledgeCode(predicate)
+  );
 }
-
 
 export function evidenceKindLabel(
   kind: "performance" | "observation",
