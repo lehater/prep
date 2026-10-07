@@ -11,6 +11,7 @@
   --prep-color-sidebar: #182130;
   --prep-color-sidebar-active: #243146;
   --prep-color-sidebar-border: #2a3649;
+  --prep-color-sidebar-border-strong: #3a475b;
   --prep-color-sidebar-text: #f7f9fc;
   --prep-color-sidebar-muted: #bcc7d7;
 
@@ -34,8 +35,14 @@
   --prep-color-row-selected: #ecf3fe;
 
   --prep-color-success: #3c9663;
+  --prep-color-success-soft: #edf8f1;
   --prep-color-warning: #d68b19;
+  --prep-color-warning-text: #9b5615;
+  --prep-color-warning-soft: #fff7e8;
   --prep-color-danger: #c83d2d;
+  --prep-color-danger-soft: #fbeeed;
+  --prep-color-info: #7c88b5;
+  --prep-color-info-soft: #f0f3fb;
 
   --prep-radius-xs: 4px;
   --prep-radius-sm: 6px;
