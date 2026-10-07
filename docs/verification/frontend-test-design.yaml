@@ -216,6 +216,17 @@ content:
         task-feature-to-other-feature-private-state, shared-presentation-to-task-state or
         legacy Curation/Import/Progress/Diagnostics public dependency edge exists.
 
+    - id: FTD-SHARED-PRIMITIVES
+      verification_refs: [FV-05]
+      precondition: >-
+        Component Design classifies repeated presentation/interaction mechanics as shared primitives.
+      operation: >-
+        Run structural/unit checks over the shared UI layer and task-feature dependency graph.
+      oracle: >-
+        Task features import and compose accepted shared primitives instead of owning duplicate
+        table sizing/autosize, splitter, field, action, surface or task-header mechanics; shared
+        primitives remain free of feature/domain mutable state.
+
     - id: FTD-ADAPTER-CONTRACT
       verification_refs: [FV-04, FV-06]
       precondition: Deterministic mock adapter implements the current consumer-owned ports.
