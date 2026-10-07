@@ -59,6 +59,7 @@ Verify:
 - features depend on consumer-owned contracts rather than concrete mock/transport
   adapters;
 - shared presentation code does not own task-feature mutable state;
+- responsibilities accepted as shared presentation/interaction primitives are not reimplemented inside task features; features compose them through their public contracts;
 - provider/renderer/transport types do not leak into semantic ports/models;
 - no legacy Curation/Import/Progress/Diagnostics module is required by an accepted
   frontend dependency edge.
