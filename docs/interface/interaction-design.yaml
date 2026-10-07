@@ -2,6 +2,49 @@ version: 1
 kind: interaction-design
 id: PREP-INTERACTION-DESIGN
 
+interaction_roles:
+  - id: IX-ROLE-TARGET-SELECTED-COMPARISON
+    concept_ref: C-TARGET
+    meaning: A Target is included in the current candidate comparison set; this role may coexist with active-target when reconsidering an already active Target.
+    entry: The user selects the Target for comparison in IX-TARGET-DIRECTION.
+    exit: The Target leaves the comparison set, the comparison context ends, or the user designates it as the candidate to continue with.
+    transitions:
+      - {to: IX-ROLE-TARGET-CANDIDATE-CONTINUE, trigger: choose-target-to-continue}
+    side_effects:
+      - Include the Target in the comparison projection over the existing learner evidence basis.
+    forbidden_side_effects:
+      - Activate or establish the Target.
+      - Mutate learner state, evidence, Target identity or Target requirements.
+    observable_distinction: Comparison membership must be distinguishable from active Target commitment; selecting for comparison never implies activation.
+
+  - id: IX-ROLE-TARGET-CANDIDATE-CONTINUE
+    concept_ref: C-TARGET
+    meaning: A compared Target has been chosen as the candidate whose context will be carried into active-Target establishment/refinement.
+    entry: The user chooses one compared Target to continue with.
+    exit: Establishment/refinement is accepted, rejected, left unresolved, or the user returns to comparison and changes the candidate.
+    transitions:
+      - {to: IX-ROLE-TARGET-ACTIVE, trigger: accepted-target-establishment}
+      - {to: IX-ROLE-TARGET-SELECTED-COMPARISON, trigger: reconsider-candidate}
+    side_effects:
+      - Carry the chosen Target context from IX-TARGET-DIRECTION into IX-TARGET.
+    forbidden_side_effects:
+      - Silently activate the Target before an accepted target-establishment outcome.
+      - Mutate learner state or historical evidence.
+    observable_distinction: Continuation intent must be distinguishable from both comparison membership and accepted active Target state.
+
+  - id: IX-ROLE-TARGET-ACTIVE
+    concept_ref: C-TARGET
+    meaning: The accepted Target is the current preparation purpose/context used for target-relative state, gaps and focus interpretation.
+    entry: Target establishment/refinement is accepted in IX-TARGET, either from a candidate-to-continue or from directly provided target context.
+    exit: A replacement/refinement is accepted or active Target context is explicitly cleared by a future accepted semantic contract.
+    transitions:
+      - {to: IX-ROLE-TARGET-SELECTED-COMPARISON, trigger: acquire-additional-comparison-role-for-reconsideration}
+    side_effects:
+      - Establish the shared active Target context for target-relative preparation interpretation.
+    forbidden_side_effects:
+      - Rewrite reusable Knowledge/Capability identity or historical evidence.
+    observable_distinction: Active Target commitment must remain recoverable and distinguishable from comparison selection and continuation intent.
+
 contexts:
   - id: IX-TARGET-DIRECTION
     purpose: Compare plausible Targets against the same evidence-backed learner capability basis and choose which direction to continue with.
@@ -63,7 +106,8 @@ contexts:
     actions:
       - query-knowledge
       - narrow-or-expand-scope
-      - apply-or-clear-required-capability-scope
+      - apply-required-capability-scope
+      - clear-required-capability-scope
       - select-knowledge
       - follow-meaningful-relation
       - move-between-overview-and-detail
@@ -123,6 +167,11 @@ shared_contracts:
     - Active Target remains visible/recoverable context across all preparation interactions.
     - Next focus scopes Knowledge/Activity/Evidence interactions when present and is never silently changed by navigation.
     - IX-PREP-SUPPORT always retains and returns to its originating interaction context.
+  capability_and_focus_distinction:
+    - Required Capability expresses required performance and may be applied or cleared as a reversible Knowledge-scope criterion; this does not choose, revise or imply Next focus.
+    - Next focus is PreparationIntent used as preparation context; choosing or revising it does not mutate Capability identity or silently apply/clear Required Capability Knowledge scope.
+    - Where both meanings participate in the same interaction flow, their role in the interaction must remain observably distinguishable downstream.
+
   outcome_visibility:
     - SUCCESS, UNRESOLVED, REJECTED, DEPENDENCY_UNAVAILABLE and STALE_BASIS remain visibly distinct where applicable.
     - Unknown/insufficient evidence is not rendered as generic failure.

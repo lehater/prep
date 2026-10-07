@@ -1,0 +1,38 @@
+version: 1
+kind: harness-semantic-derivation-evidence
+source_capability: prep.conceptual-interface-model
+target_capability: prep.interaction-design
+links:
+  - {sources: [CIM-TARGET], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [CIM-TARGET-COMPARISON], relation: TRANSFORMS, targets: [IX-TARGET-DIRECTION]}
+  - {sources: [CIM-TARGET-REQUIREMENT], relation: TRANSFORMS, targets: [IX-TARGET]}
+  - {sources: [CIM-REQUIRED-CAPABILITY], relation: TRANSFORMS, targets: [IX-ACT-TARGET-INSPECT-REQUIREMENTS]}
+  - {sources: [CIM-KNOWLEDGE], relation: TRANSFORMS, targets: [IX-KNOWLEDGE]}
+  - {sources: [CIM-KNOWLEDGE-SCOPE], relation: TRANSFORMS, targets: [IX-KNOWLEDGE]}
+  - {sources: [CIM-CURRENT-STATE], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [CIM-EVIDENCE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [CIM-EVIDENCE-BASIS], relation: CONSTRAINS, targets: [IX-DIRECTION]}
+  - {sources: [CIM-GAP], relation: TRANSFORMS, targets: [IX-DIRECTION]}
+  - {sources: [CIM-NEXT-FOCUS], relation: TRANSFORMS, targets: [IX-DIST-CAPABILITY-NEXT-FOCUS]}
+  - {sources: [CIM-SUPPORT], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [CIM-ACTIVITY], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [CIM-CHANGE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [CIM-PREPARATION-REQUEST], relation: TRANSFORMS, targets: [IX-PREP-SUPPORT]}
+  - {sources: [CIM-STATE-CAPABILITY], relation: TRANSFORMS, targets: [IX-STATE-CAPABILITY-UNKNOWN]}
+  - {sources: [CIM-STATE-EVIDENCE-BEARING], relation: TRANSFORMS, targets: [IX-ACT-DIRECTION-INSPECT-EVIDENCE]}
+  - {sources: [CIM-STATE-ACTIVITY-PURPOSE], relation: TRANSFORMS, targets: [IX-ACTIVITY]}
+  - {sources: [CIM-STATE-OUTCOMES], relation: TRANSFORMS, targets: [IX-OUTCOMES]}
+  - {sources: [CIM-REL-COMPARISON-TARGET], relation: TRANSFORMS, targets: [IX-ACT-TARGET-SELECT-COMPARISON]}
+  - {sources: [CIM-REL-COMPARISON-STATE], relation: TRANSFORMS, targets: [IX-ACT-TARGET-INSPECT-COMPARISON]}
+  - {sources: [CIM-REL-TARGET-CAPABILITY], relation: TRANSFORMS, targets: [IX-ACT-TARGET-INSPECT-REQUIREMENTS]}
+  - {sources: [CIM-REL-CAPABILITY-KNOWLEDGE], relation: TRANSFORMS, targets: [IX-ACT-KNOWLEDGE-APPLY-CAPABILITY-SCOPE]}
+  - {sources: [CIM-REL-EVIDENCE-STATE], relation: TRANSFORMS, targets: [IX-ACT-DIRECTION-INSPECT-EVIDENCE]}
+  - {sources: [CIM-REL-GAP-FOCUS], relation: TRANSFORMS, targets: [IX-ACT-DIRECTION-INSPECT-INPUTS]}
+  - {sources: [CIM-REL-ACTIVITY-EVIDENCE], relation: TRANSFORMS, targets: [IX-ACT-ACTIVITY-INSPECT-EVIDENCE]}
+  - {sources: [CIM-REL-SCOPE-KNOWLEDGE], relation: TRANSFORMS, targets: [IX-ACT-KNOWLEDGE-CHANGE-SCOPE]}
+  - {sources: [CIM-REL-PREPARATION-SUPPORT], relation: TRANSFORMS, targets: [IX-ACT-PREP-SUPPORT-REQUEST]}
+  - {sources: [CIM-NO-GLOBAL-MODES], relation: CONSTRAINS, targets: [IX-CONTEXT-CONTINUITY]}
+  - {sources: [CIM-SEMANTIC-BOUNDARIES], relation: TRANSFORMS, targets: [IX-DIST-SEMANTIC-OWNERSHIP]}
+  - {sources: [CIM-PRESENTATION-FREEDOM], relation: CONSTRAINS, targets: [IX-NO-LAYOUT]}
+dispositions:
+  []

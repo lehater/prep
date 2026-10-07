@@ -23,6 +23,223 @@ semantic_assertions:
   - {id: IX-KEYBOARD, kind: interaction-invariant, subject: nonspatial-task-access, semantic_value: "Every task-critical action can be completed by semantic keyboard/non-spatial interaction; pointer hover, drag or spatial manipulation may enhance but never gate required work.", derived_from: [CIM-PRESENTATION-FREEDOM, UJ-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: IX-PENDING, kind: interaction-state-contract, subject: pending-mutations, semantic_value: "User-initiated mutations expose pending state until a terminal machine outcome; duplicate submission of the same pending semantic command is prevented unless independent concurrency is accepted upstream.", derived_from: [MI-COMPATIBILITY, AD-RUNTIME-TIMING-FREEDOM], decision_authority: HUMAN-INTERFACE-DESIGN}
   - {id: IX-NO-LAYOUT, kind: interaction-invariant, subject: interaction-presentation-boundary, semantic_value: "Interaction contexts define actions/states/responses/recovery but do not define pages/views/routes/regions/components or graph/list/2D/3D composition.", derived_from: [CIM-PRESENTATION-FREEDOM], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-SELECT-COMPARISON, kind: interaction-action, subject: target-comparison-selection, semantic_value: "The user can select Targets into the current candidate comparison set without activating them.", derived_from: [UJ-TARGET-DIRECTION-COMPARE, CIM-TARGET-COMPARISON, CIM-REL-COMPARISON-TARGET], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-INSPECT-COMPARISON, kind: interaction-action, subject: target-comparison-inspection, semantic_value: "The user can inspect shared/target-specific requirements and per-target state, gaps and uncertainty for the selected comparison set.", derived_from: [UJ-TARGET-DIRECTION-INSPECT, CIM-TARGET-COMPARISON, CIM-REL-COMPARISON-STATE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-CHOOSE-CONTINUE, kind: interaction-action, subject: target-candidate-continuation, semantic_value: "The user can choose one compared Target as candidate-to-continue and carry that context into IX-TARGET without silently activating it.", derived_from: [UJ-TARGET-DIRECTION-CHOOSE, UJ-TARGET-SETUP-ESTABLISH, CIM-REL-COMPARISON-TARGET], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-DEFER-CHOICE, kind: interaction-action, subject: target-direction-defer, semantic_value: "The user can leave Target-direction choice unresolved without activating a candidate.", derived_from: [UJ-TARGET-DIRECTION-CHOOSE, UJ-TARGET-DIRECTION-UNCERTAINTY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-DIST-TARGET-COMPARISON-NOT-ACTIVE, kind: interaction-distinction, subject: comparison-selection-vs-active-target, semantic_value: "Selected-for-comparison, candidate-to-continue and active Target are materially distinct interaction roles; comparison selection cannot perform activation side effects.", derived_from: [UJ-TARGET-DIRECTION-NO-MUTATION, CIM-TARGET, CIM-TARGET-COMPARISON, CIM-REL-COMPARISON-TARGET], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-TARGET-COMPARISON-UNCERTAINTY, kind: interaction-state-contract, subject: target-comparison-uncertainty, semantic_value: "Unresolved Target-direction uncertainty remains an explicit state rather than an implicit selection or active Target.", derived_from: [UJ-TARGET-DIRECTION-UNCERTAINTY, CIM-TARGET-COMPARISON], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-ESTABLISH-REFINE, kind: interaction-action, subject: active-target-establishment, semantic_value: "The user can establish or refine the active Target; accepted establishment is the transition that acquires the active-target role.", derived_from: [UJ-TARGET-SETUP-ESTABLISH, UJ-TARGET-SETUP-CONFIRM, CIM-TARGET], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-INSPECT-REQUIREMENTS, kind: interaction-action, subject: target-requirement-inspection, semantic_value: "The user can inspect required performance, conditions, quality and direct Knowledge focus for the Target.", derived_from: [UJ-TARGET-SETUP-INSPECT-REQUIREMENTS, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, CIM-REL-TARGET-CAPABILITY, CIM-REL-CAPABILITY-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-TARGET-CONFIRM, kind: interaction-action, subject: target-confirmation, semantic_value: "The user can confirm the current Target meaning or continue refining it without treating the confirmation as learner evidence.", derived_from: [UJ-TARGET-SETUP-CONFIRM, UJ-TARGET-SETUP-NOT-EVIDENCE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-DIRECTION-INSPECT-CURRENT, kind: interaction-action, subject: current-state-inspection, semantic_value: "The user can inspect evidence-backed demonstrated/challenged/unknown current state for the active Target.", derived_from: [UJ-DIRECTION-CURRENT-STATE, CIM-CURRENT-STATE, CIM-STATE-CAPABILITY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-DIRECTION-INSPECT-EVIDENCE, kind: interaction-action, subject: state-evidence-inspection, semantic_value: "The user can inspect why-this-state evidence basis without turning unknown into failure.", derived_from: [UJ-DIRECTION-EVIDENCE-UNCERTAINTY, CIM-EVIDENCE-BASIS, CIM-REL-EVIDENCE-STATE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-DIRECTION-INSPECT-GAPS, kind: interaction-action, subject: gap-inspection, semantic_value: "The user can inspect Target-relative gaps and uncertainty.", derived_from: [UJ-DIRECTION-GAPS, CIM-GAP], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-DIRECTION-INSPECT-INPUTS, kind: interaction-action, subject: focus-decision-input-inspection, semantic_value: "The user can inspect target relevance, gap/uncertainty, external constraints and support context used to choose Next focus.", derived_from: [UJ-DIRECTION-INPUTS, CIM-NEXT-FOCUS, CIM-REL-GAP-FOCUS], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-DIRECTION-CHOOSE-FOCUS, kind: interaction-action, subject: next-focus-choice, semantic_value: "The user can choose or revise Next focus against the current semantic basis and preserve rationale through accepted/rejected/stale outcomes.", derived_from: [UJ-DIRECTION-CHOOSE-INTENT, UJ-DIRECTION-RECORD-FOCUS, CIM-NEXT-FOCUS, CIM-REL-GAP-FOCUS], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-QUERY, kind: interaction-action, subject: knowledge-query, semantic_value: "The user can request Knowledge orientation for current Target/focus context.", derived_from: [UJ-KNOWLEDGE-REQUEST, CIM-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-APPLY-CAPABILITY-SCOPE, kind: interaction-action, subject: apply-required-capability-scope, semantic_value: "The user can independently apply one Required Capability as the Knowledge-scope criterion.", derived_from: [UJ-KNOWLEDGE-APPLY-CAPABILITY-SCOPE, CIM-REQUIRED-CAPABILITY, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE, kind: interaction-action, subject: clear-required-capability-scope, semantic_value: "The user can independently clear the active Required Capability Knowledge-scope criterion and restore the broader Target/Focus scope.", derived_from: [UJ-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-CHANGE-SCOPE, kind: interaction-action, subject: knowledge-scope-change, semantic_value: "The user can reversibly narrow or expand general semantic Knowledge scope independently of Required Capability scope.", derived_from: [UJ-KNOWLEDGE-SCOPE, CIM-KNOWLEDGE-SCOPE, CIM-REL-SCOPE-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-CHANGE-DEPTH, kind: interaction-action, subject: knowledge-depth-change, semantic_value: "The user can move between overview and deeper semantic detail.", derived_from: [UJ-KNOWLEDGE-DEPTH, CIM-KNOWLEDGE-SCOPE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-SELECT, kind: interaction-action, subject: knowledge-selection, semantic_value: "The user can select Subject Knowledge for inspection without changing Target, Next focus or Knowledge identity.", derived_from: [UJ-KNOWLEDGE-SELECT, CIM-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-KNOWLEDGE-FOLLOW-RELATION, kind: interaction-action, subject: knowledge-relation-traversal, semantic_value: "The user can follow meaningful Knowledge relationships without changing their accepted meaning.", derived_from: [UJ-KNOWLEDGE-RELATIONS, CIM-KNOWLEDGE, CIM-REL-SCOPE-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-KNOWLEDGE-CAPABILITY-SCOPE, kind: interaction-state-contract, subject: active-capability-knowledge-scope, semantic_value: "When Required Capability scope is active, query/relationship projection is bounded by its direct Knowledge focus plus accepted semantic expansion; clearing restores broader Target/Focus scope.", derived_from: [UJ-KNOWLEDGE-PROJECTION, UJ-KNOWLEDGE-NO-MUTATION, CIM-KNOWLEDGE-SCOPE, CIM-REL-CAPABILITY-KNOWLEDGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-DIST-CAPABILITY-NEXT-FOCUS, kind: interaction-distinction, subject: capability-vs-next-focus, semantic_value: "Required Capability is required performance and optional Knowledge scope; Next focus is PreparationIntent. Applying/clearing Capability scope does not choose/revise Next focus, and changing Next focus does not mutate Capability identity or silently change Capability scope.", derived_from: [UJ-KNOWLEDGE-APPLY-CAPABILITY-SCOPE, UJ-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE, UJ-DIRECTION-CHOOSE-INTENT, CIM-REQUIRED-CAPABILITY, CIM-NEXT-FOCUS, CIM-SEMANTIC-BOUNDARIES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-INSPECT-SUPPORT-FIT, kind: interaction-action, subject: support-fit-inspection, semantic_value: "The user can inspect support fit/limitations before selecting an opportunity.", derived_from: [UJ-ACTIVITY-SUPPORT-FIT, CIM-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-SELECT-SUPPORT, kind: interaction-action, subject: support-selection, semantic_value: "The user can select a preparation opportunity for the current PreparationIntent.", derived_from: [UJ-ACTIVITY-SELECT-OPPORTUNITY, CIM-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-BEGIN, kind: interaction-action, subject: activity-begin, semantic_value: "The user can begin the selected learning/practice/diagnostic/retention/transfer activity under the current semantic basis.", derived_from: [UJ-ACTIVITY-BEGIN, CIM-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-SUBMIT, kind: interaction-action, subject: activity-attempt-submission, semantic_value: "The user can perform and submit/complete an attempt while actual assistance and conditions remain part of the attempt semantics.", derived_from: [UJ-ACTIVITY-PERFORM, CIM-ACTIVITY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-INSPECT-EVIDENCE, kind: interaction-action, subject: activity-evidence-inspection, semantic_value: "After processing, the user can inspect what evidence was accepted and what it does or does not establish.", derived_from: [UJ-ACTIVITY-EVALUATE, UJ-ACTIVITY-REPROJECT, CIM-EVIDENCE, CIM-EVIDENCE-BASIS, CIM-REL-ACTIVITY-EVIDENCE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-REVIEW-CHANGE, kind: interaction-action, subject: activity-change-review, semantic_value: "The user can review resulting preparation change including no-change, challenge and increased-uncertainty outcomes.", derived_from: [UJ-ACTIVITY-REVIEW-CONTINUE, CIM-CHANGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-ACTIVITY-CONTINUE, kind: interaction-action, subject: activity-continuation, semantic_value: "After review the user can explicitly continue or return to preparation direction.", derived_from: [UJ-ACTIVITY-REVIEW-CONTINUE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-INSPECT-NEED, kind: interaction-action, subject: missing-support-inspection, semantic_value: "The user can inspect the missing support need with its motivating Target/focus context.", derived_from: [UJ-PREPARE-SUPPORT-IDENTIFY-NEED, CIM-PREPARATION-REQUEST], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-PROVIDE-SOURCE, kind: interaction-action, subject: preparation-source-context, semantic_value: "The user can provide fragmented source context without taking over semantic ownership.", derived_from: [UJ-PREPARE-SUPPORT-REQUEST, CIM-PREPARATION-REQUEST], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-REQUEST, kind: interaction-action, subject: preparation-request, semantic_value: "The user can request preparation while preserving motivation and provenance.", derived_from: [UJ-PREPARE-SUPPORT-REQUEST, CIM-PREPARATION-REQUEST, CIM-REL-PREPARATION-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-INSPECT-PARTIAL, kind: interaction-action, subject: partial-support-inspection, semantic_value: "The user can inspect accepted partial support separately from remaining gaps.", derived_from: [UJ-PREPARE-SUPPORT-PARTIAL, UJ-PREPARE-SUPPORT-EXPOSE, CIM-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-INSPECT-REMAINDER, kind: interaction-action, subject: support-remainder-inspection, semantic_value: "The user can inspect unresolved or rejected remaining support needs.", derived_from: [UJ-PREPARE-SUPPORT-EXPOSE, UJ-PREPARE-SUPPORT-UNRESOLVED, UJ-PREPARE-SUPPORT-REJECTED], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-RESUME, kind: interaction-action, subject: preparation-resume, semantic_value: "The user can resume the same request after source/dependency availability changes without discarding accepted owner results.", derived_from: [UJ-PREPARE-SUPPORT-DEPENDENCY-UNAVAILABLE, CIM-PREPARATION-REQUEST], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-ACT-PREP-SUPPORT-RETURN, kind: interaction-action, subject: preparation-return, semantic_value: "The user can return to the originating interaction with accepted support and explicit remaining gaps.", derived_from: [UJ-PREPARE-SUPPORT-RETURN, CIM-REL-PREPARATION-SUPPORT], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-CAPABILITY-DEMONSTRATED, kind: interaction-state-contract, subject: capability-demonstrated, semantic_value: "Demonstrated remains a visible evidence-scoped capability-state meaning.", derived_from: [CIM-STATE-CAPABILITY, UJ-DIRECTION-CURRENT-STATE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-CAPABILITY-CHALLENGED, kind: interaction-state-contract, subject: capability-challenged, semantic_value: "Challenged remains visibly distinct from demonstrated and unknown.", derived_from: [CIM-STATE-CAPABILITY, UJ-DIRECTION-CURRENT-STATE, UJ-ACTIVITY-NEW-CHALLENGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-CAPABILITY-UNKNOWN, kind: interaction-state-contract, subject: capability-unknown, semantic_value: "Unknown means insufficient evidence and remains visibly distinct from failure.", derived_from: [CIM-STATE-CAPABILITY, UJ-DIRECTION-EVIDENCE-UNCERTAINTY], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-ACTIVITY-NO-CHANGE, kind: interaction-state-contract, subject: activity-no-change, semantic_value: "No-change after activity is an explicit review outcome, not hidden success.", derived_from: [UJ-ACTIVITY-NO-CHANGE, CIM-CHANGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-ACTIVITY-INCREASED-UNCERTAINTY, kind: interaction-state-contract, subject: activity-increased-uncertainty, semantic_value: "New challenge or increased uncertainty after activity remains an explicit review outcome.", derived_from: [UJ-ACTIVITY-NEW-CHALLENGE, CIM-CHANGE], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-SUCCESS, kind: interaction-state-contract, subject: outcome-success, semantic_value: "SUCCESS is independently recognizable where applicable.", derived_from: [UJ-SHARED-OUTCOMES, CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-UNRESOLVED, kind: interaction-state-contract, subject: outcome-unresolved, semantic_value: "UNRESOLVED is independently recognizable and preserves next valid action/context.", derived_from: [UJ-SHARED-OUTCOMES, CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-REJECTED, kind: interaction-state-contract, subject: outcome-rejected, semantic_value: "REJECTED is independently recognizable and does not masquerade as operational failure.", derived_from: [UJ-SHARED-OUTCOMES, CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-DEPENDENCY-UNAVAILABLE, kind: interaction-state-contract, subject: outcome-dependency-unavailable, semantic_value: "DEPENDENCY_UNAVAILABLE is independently recognizable and recoverable.", derived_from: [UJ-SHARED-OUTCOMES, CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-STALE-BASIS, kind: interaction-state-contract, subject: outcome-stale-basis, semantic_value: "STALE_BASIS is independently recognizable and requires refresh/reconsideration instead of silent replay.", derived_from: [UJ-SHARED-CURRENTNESS, CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-STATE-OUTCOME-OPERATIONAL-FAILURE, kind: interaction-state-contract, subject: outcome-operational-failure, semantic_value: "OPERATIONAL_FAILURE is independently recognizable as operational inability without inventing semantic rejection.", derived_from: [CIM-STATE-OUTCOMES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-DIST-ACTIVITY-NOT-CLAIM, kind: interaction-distinction, subject: activity-vs-capability-claim, semantic_value: "Activity completion remains distinct from evidence and capability conclusion.", derived_from: [UJ-ACTIVITY-NOT-A-CLAIM, CIM-REL-ACTIVITY-EVIDENCE, CIM-SEMANTIC-BOUNDARIES], decision_authority: HUMAN-INTERFACE-DESIGN}
+  - {id: IX-DIST-SEMANTIC-OWNERSHIP, kind: interaction-distinction, subject: interaction-semantic-boundaries, semantic_value: "Target, Capability, Knowledge, learner state, activity, evidence and Observation/conclusion boundaries remain distinct through interaction.", derived_from: [UJ-SHARED-OWNERSHIP, CIM-SEMANTIC-BOUNDARIES], decision_authority: HUMAN-INTERFACE-DESIGN}
+
+interaction_roles:
+  - id: IX-ROLE-TARGET-SELECTED-COMPARISON
+    concept_ref: C-TARGET
+    meaning: "Target is included in the current candidate comparison set; this role may coexist with active-target during reconsideration."
+    entry: "User selects the Target for comparison in IX-TARGET-DIRECTION."
+    exit: "Target leaves the comparison set, comparison ends, or it becomes candidate-to-continue."
+    transitions:
+      - {to: IX-ROLE-TARGET-CANDIDATE-CONTINUE, trigger: choose-target-to-continue}
+    side_effects: ["Include Target in comparison projection over the existing learner evidence basis."]
+    forbidden_side_effects: ["Activate or establish Target.", "Mutate learner state/evidence or Target identity/requirements."]
+    observable_distinction: "Comparison membership is distinguishable from active Target commitment."
+
+  - id: IX-ROLE-TARGET-CANDIDATE-CONTINUE
+    concept_ref: C-TARGET
+    meaning: "Compared Target chosen to carry into active-Target establishment/refinement."
+    entry: "User chooses one compared Target to continue with."
+    exit: "Establishment/refinement is accepted/rejected/unresolved, or user reconsiders the candidate."
+    transitions:
+      - {to: IX-ROLE-TARGET-ACTIVE, trigger: accepted-target-establishment}
+      - {to: IX-ROLE-TARGET-SELECTED-COMPARISON, trigger: reconsider-candidate}
+    side_effects: ["Carry chosen Target context from IX-TARGET-DIRECTION into IX-TARGET."]
+    forbidden_side_effects: ["Silently activate Target before accepted establishment.", "Mutate learner state or historical evidence."]
+    observable_distinction: "Continuation intent is distinguishable from comparison membership and accepted active Target."
+
+  - id: IX-ROLE-TARGET-ACTIVE
+    concept_ref: C-TARGET
+    meaning: "Accepted Target is the current preparation purpose/context for target-relative state, gaps and focus."
+    entry: "Target establishment/refinement is accepted in IX-TARGET."
+    exit: "A replacement/refinement is accepted or a future accepted contract explicitly clears active Target context."
+    transitions:
+      - {to: IX-ROLE-TARGET-SELECTED-COMPARISON, trigger: acquire-additional-comparison-role-for-reconsideration}
+    side_effects: ["Establish shared active Target context for target-relative preparation interpretation."]
+    forbidden_side_effects: ["Rewrite reusable Knowledge/Capability identity or historical evidence."]
+    observable_distinction: "Active Target commitment remains recoverable and distinct from comparison selection and continuation intent."
+
 semantic_review:
   status: ACCEPTED
-  checks: [source-discipline, authority-boundary, no-invention, interaction-not-product-requirement]
+  checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - interaction-not-product-requirement
+    - independent-obligation-granularity
+    - interaction-role-coherence
+    - observable-realization-applicability
+  independent_obligations:
+    - {id: obligation-ix-act-target-select-comparison, status: ACCOUNTED, assertions: [IX-ACT-TARGET-SELECT-COMPARISON]}
+    - {id: obligation-ix-act-target-inspect-comparison, status: ACCOUNTED, assertions: [IX-ACT-TARGET-INSPECT-COMPARISON]}
+    - {id: obligation-ix-act-target-choose-continue, status: ACCOUNTED, assertions: [IX-ACT-TARGET-CHOOSE-CONTINUE]}
+    - {id: obligation-ix-act-target-defer-choice, status: ACCOUNTED, assertions: [IX-ACT-TARGET-DEFER-CHOICE]}
+    - {id: obligation-ix-dist-target-comparison-not-active, status: ACCOUNTED, assertions: [IX-DIST-TARGET-COMPARISON-NOT-ACTIVE]}
+    - {id: obligation-ix-state-target-comparison-uncertainty, status: ACCOUNTED, assertions: [IX-STATE-TARGET-COMPARISON-UNCERTAINTY]}
+    - {id: obligation-ix-act-target-establish-refine, status: ACCOUNTED, assertions: [IX-ACT-TARGET-ESTABLISH-REFINE]}
+    - {id: obligation-ix-act-target-inspect-requirements, status: ACCOUNTED, assertions: [IX-ACT-TARGET-INSPECT-REQUIREMENTS]}
+    - {id: obligation-ix-act-target-confirm, status: ACCOUNTED, assertions: [IX-ACT-TARGET-CONFIRM]}
+    - {id: obligation-ix-act-direction-inspect-current, status: ACCOUNTED, assertions: [IX-ACT-DIRECTION-INSPECT-CURRENT]}
+    - {id: obligation-ix-act-direction-inspect-evidence, status: ACCOUNTED, assertions: [IX-ACT-DIRECTION-INSPECT-EVIDENCE]}
+    - {id: obligation-ix-act-direction-inspect-gaps, status: ACCOUNTED, assertions: [IX-ACT-DIRECTION-INSPECT-GAPS]}
+    - {id: obligation-ix-act-direction-inspect-inputs, status: ACCOUNTED, assertions: [IX-ACT-DIRECTION-INSPECT-INPUTS]}
+    - {id: obligation-ix-act-direction-choose-focus, status: ACCOUNTED, assertions: [IX-ACT-DIRECTION-CHOOSE-FOCUS]}
+    - {id: obligation-ix-act-knowledge-query, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-QUERY]}
+    - {id: obligation-ix-act-knowledge-apply-capability-scope, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-APPLY-CAPABILITY-SCOPE]}
+    - {id: obligation-ix-act-knowledge-clear-capability-scope, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE]}
+    - {id: obligation-ix-act-knowledge-change-scope, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-CHANGE-SCOPE]}
+    - {id: obligation-ix-act-knowledge-change-depth, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-CHANGE-DEPTH]}
+    - {id: obligation-ix-act-knowledge-select, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-SELECT]}
+    - {id: obligation-ix-act-knowledge-follow-relation, status: ACCOUNTED, assertions: [IX-ACT-KNOWLEDGE-FOLLOW-RELATION]}
+    - {id: obligation-ix-state-knowledge-capability-scope, status: ACCOUNTED, assertions: [IX-STATE-KNOWLEDGE-CAPABILITY-SCOPE]}
+    - {id: obligation-ix-dist-capability-next-focus, status: ACCOUNTED, assertions: [IX-DIST-CAPABILITY-NEXT-FOCUS]}
+    - {id: obligation-ix-act-activity-inspect-support-fit, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-INSPECT-SUPPORT-FIT]}
+    - {id: obligation-ix-act-activity-select-support, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-SELECT-SUPPORT]}
+    - {id: obligation-ix-act-activity-begin, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-BEGIN]}
+    - {id: obligation-ix-act-activity-submit, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-SUBMIT]}
+    - {id: obligation-ix-act-activity-inspect-evidence, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-INSPECT-EVIDENCE]}
+    - {id: obligation-ix-act-activity-review-change, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-REVIEW-CHANGE]}
+    - {id: obligation-ix-act-activity-continue, status: ACCOUNTED, assertions: [IX-ACT-ACTIVITY-CONTINUE]}
+    - {id: obligation-ix-act-prep-support-inspect-need, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-INSPECT-NEED]}
+    - {id: obligation-ix-act-prep-support-provide-source, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-PROVIDE-SOURCE]}
+    - {id: obligation-ix-act-prep-support-request, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-REQUEST]}
+    - {id: obligation-ix-act-prep-support-inspect-partial, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-INSPECT-PARTIAL]}
+    - {id: obligation-ix-act-prep-support-inspect-remainder, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-INSPECT-REMAINDER]}
+    - {id: obligation-ix-act-prep-support-resume, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-RESUME]}
+    - {id: obligation-ix-act-prep-support-return, status: ACCOUNTED, assertions: [IX-ACT-PREP-SUPPORT-RETURN]}
+    - {id: obligation-ix-state-capability-demonstrated, status: ACCOUNTED, assertions: [IX-STATE-CAPABILITY-DEMONSTRATED]}
+    - {id: obligation-ix-state-capability-challenged, status: ACCOUNTED, assertions: [IX-STATE-CAPABILITY-CHALLENGED]}
+    - {id: obligation-ix-state-capability-unknown, status: ACCOUNTED, assertions: [IX-STATE-CAPABILITY-UNKNOWN]}
+    - {id: obligation-ix-state-activity-no-change, status: ACCOUNTED, assertions: [IX-STATE-ACTIVITY-NO-CHANGE]}
+    - {id: obligation-ix-state-activity-increased-uncertainty, status: ACCOUNTED, assertions: [IX-STATE-ACTIVITY-INCREASED-UNCERTAINTY]}
+    - {id: obligation-ix-state-outcome-success, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-SUCCESS]}
+    - {id: obligation-ix-state-outcome-unresolved, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-UNRESOLVED]}
+    - {id: obligation-ix-state-outcome-rejected, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-REJECTED]}
+    - {id: obligation-ix-state-outcome-dependency-unavailable, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-DEPENDENCY-UNAVAILABLE]}
+    - {id: obligation-ix-state-outcome-stale-basis, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-STALE-BASIS]}
+    - {id: obligation-ix-state-outcome-operational-failure, status: ACCOUNTED, assertions: [IX-STATE-OUTCOME-OPERATIONAL-FAILURE]}
+    - {id: obligation-ix-dist-activity-not-claim, status: ACCOUNTED, assertions: [IX-DIST-ACTIVITY-NOT-CLAIM]}
+    - {id: obligation-ix-dist-semantic-ownership, status: ACCOUNTED, assertions: [IX-DIST-SEMANTIC-OWNERSHIP]}
+    - {id: obligation-ix-currentness, status: ACCOUNTED, assertions: [IX-CURRENTNESS]}
+    - {id: obligation-ix-context-continuity, status: ACCOUNTED, assertions: [IX-CONTEXT-CONTINUITY]}
+    - {id: obligation-ix-keyboard, status: ACCOUNTED, assertions: [IX-KEYBOARD]}
+    - {id: obligation-ix-pending, status: ACCOUNTED, assertions: [IX-PENDING]}
+    - {id: obligation-ix-no-layout, status: ACCOUNTED, assertions: [IX-NO-LAYOUT]}
+  interaction_role_requirements:
+    - concept: C-TARGET
+      status: REQUIRED
+      rationale: "Target participates in materially different comparison-selection, continuation-intent and active-context roles with different side effects. Mere opened/inspected Target is not a fourth role because inspection has no distinct acquisition/release or side effect beyond these accepted roles."
+      roles: [IX-ROLE-TARGET-SELECTED-COMPARISON, IX-ROLE-TARGET-CANDIDATE-CONTINUE, IX-ROLE-TARGET-ACTIVE]
+      required_role_facets:
+        IX-ROLE-TARGET-SELECTED-COMPARISON: [entry, exit, transitions, side_effects, forbidden_side_effects, observable_distinction]
+        IX-ROLE-TARGET-CANDIDATE-CONTINUE: [entry, exit, transitions, side_effects, forbidden_side_effects, observable_distinction]
+        IX-ROLE-TARGET-ACTIVE: [entry, exit, side_effects, forbidden_side_effects, observable_distinction]
+      required_transitions:
+        - {from: IX-ROLE-TARGET-SELECTED-COMPARISON, to: IX-ROLE-TARGET-CANDIDATE-CONTINUE}
+        - {from: IX-ROLE-TARGET-CANDIDATE-CONTINUE, to: IX-ROLE-TARGET-ACTIVE}
+  observable_realization_obligations:
+    - {id: observable-1, assertion: IX-ACT-TARGET-SELECT-COMPARISON, category: ACTION, status: REQUIRED}
+    - {id: observable-2, assertion: IX-ACT-TARGET-INSPECT-COMPARISON, category: ACTION, status: REQUIRED}
+    - {id: observable-3, assertion: IX-ACT-TARGET-CHOOSE-CONTINUE, category: ACTION, status: REQUIRED}
+    - {id: observable-4, assertion: IX-ACT-TARGET-DEFER-CHOICE, category: ACTION, status: REQUIRED}
+    - {id: observable-5, assertion: IX-DIST-TARGET-COMPARISON-NOT-ACTIVE, category: DISTINCTION, status: REQUIRED}
+    - {id: observable-6, assertion: IX-STATE-TARGET-COMPARISON-UNCERTAINTY, category: STATE, status: REQUIRED}
+    - {id: observable-7, assertion: IX-ACT-TARGET-ESTABLISH-REFINE, category: ACTION, status: REQUIRED}
+    - {id: observable-8, assertion: IX-ACT-TARGET-INSPECT-REQUIREMENTS, category: ACTION, status: REQUIRED}
+    - {id: observable-9, assertion: IX-ACT-TARGET-CONFIRM, category: ACTION, status: REQUIRED}
+    - {id: observable-10, assertion: IX-ACT-DIRECTION-INSPECT-CURRENT, category: ACTION, status: REQUIRED}
+    - {id: observable-11, assertion: IX-ACT-DIRECTION-INSPECT-EVIDENCE, category: ACTION, status: REQUIRED}
+    - {id: observable-12, assertion: IX-ACT-DIRECTION-INSPECT-GAPS, category: ACTION, status: REQUIRED}
+    - {id: observable-13, assertion: IX-ACT-DIRECTION-INSPECT-INPUTS, category: ACTION, status: REQUIRED}
+    - {id: observable-14, assertion: IX-ACT-DIRECTION-CHOOSE-FOCUS, category: ACTION, status: REQUIRED}
+    - {id: observable-15, assertion: IX-ACT-KNOWLEDGE-QUERY, category: ACTION, status: REQUIRED}
+    - {id: observable-16, assertion: IX-ACT-KNOWLEDGE-APPLY-CAPABILITY-SCOPE, category: ACTION, status: REQUIRED}
+    - {id: observable-17, assertion: IX-ACT-KNOWLEDGE-CLEAR-CAPABILITY-SCOPE, category: ACTION, status: REQUIRED}
+    - {id: observable-18, assertion: IX-ACT-KNOWLEDGE-CHANGE-SCOPE, category: ACTION, status: REQUIRED}
+    - {id: observable-19, assertion: IX-ACT-KNOWLEDGE-CHANGE-DEPTH, category: ACTION, status: REQUIRED}
+    - {id: observable-20, assertion: IX-ACT-KNOWLEDGE-SELECT, category: ACTION, status: REQUIRED}
+    - {id: observable-21, assertion: IX-ACT-KNOWLEDGE-FOLLOW-RELATION, category: ACTION, status: REQUIRED}
+    - {id: observable-22, assertion: IX-STATE-KNOWLEDGE-CAPABILITY-SCOPE, category: STATE, status: REQUIRED}
+    - {id: observable-23, assertion: IX-DIST-CAPABILITY-NEXT-FOCUS, category: DISTINCTION, status: REQUIRED}
+    - {id: observable-24, assertion: IX-ACT-ACTIVITY-INSPECT-SUPPORT-FIT, category: ACTION, status: REQUIRED}
+    - {id: observable-25, assertion: IX-ACT-ACTIVITY-SELECT-SUPPORT, category: ACTION, status: REQUIRED}
+    - {id: observable-26, assertion: IX-ACT-ACTIVITY-BEGIN, category: ACTION, status: REQUIRED}
+    - {id: observable-27, assertion: IX-ACT-ACTIVITY-SUBMIT, category: ACTION, status: REQUIRED}
+    - {id: observable-28, assertion: IX-ACT-ACTIVITY-INSPECT-EVIDENCE, category: ACTION, status: REQUIRED}
+    - {id: observable-29, assertion: IX-ACT-ACTIVITY-REVIEW-CHANGE, category: ACTION, status: REQUIRED}
+    - {id: observable-30, assertion: IX-ACT-ACTIVITY-CONTINUE, category: ACTION, status: REQUIRED}
+    - {id: observable-31, assertion: IX-ACT-PREP-SUPPORT-INSPECT-NEED, category: ACTION, status: REQUIRED}
+    - {id: observable-32, assertion: IX-ACT-PREP-SUPPORT-PROVIDE-SOURCE, category: ACTION, status: REQUIRED}
+    - {id: observable-33, assertion: IX-ACT-PREP-SUPPORT-REQUEST, category: ACTION, status: REQUIRED}
+    - {id: observable-34, assertion: IX-ACT-PREP-SUPPORT-INSPECT-PARTIAL, category: ACTION, status: REQUIRED}
+    - {id: observable-35, assertion: IX-ACT-PREP-SUPPORT-INSPECT-REMAINDER, category: ACTION, status: REQUIRED}
+    - {id: observable-36, assertion: IX-ACT-PREP-SUPPORT-RESUME, category: ACTION, status: REQUIRED}
+    - {id: observable-37, assertion: IX-ACT-PREP-SUPPORT-RETURN, category: ACTION, status: REQUIRED}
+    - {id: observable-38, assertion: IX-STATE-CAPABILITY-DEMONSTRATED, category: STATE, status: REQUIRED}
+    - {id: observable-39, assertion: IX-STATE-CAPABILITY-CHALLENGED, category: STATE, status: REQUIRED}
+    - {id: observable-40, assertion: IX-STATE-CAPABILITY-UNKNOWN, category: STATE, status: REQUIRED}
+    - {id: observable-41, assertion: IX-STATE-ACTIVITY-NO-CHANGE, category: STATE, status: REQUIRED}
+    - {id: observable-42, assertion: IX-STATE-ACTIVITY-INCREASED-UNCERTAINTY, category: STATE, status: REQUIRED}
+    - {id: observable-43, assertion: IX-STATE-OUTCOME-SUCCESS, category: STATE, status: REQUIRED}
+    - {id: observable-44, assertion: IX-STATE-OUTCOME-UNRESOLVED, category: STATE, status: REQUIRED}
+    - {id: observable-45, assertion: IX-STATE-OUTCOME-REJECTED, category: STATE, status: REQUIRED}
+    - {id: observable-46, assertion: IX-STATE-OUTCOME-DEPENDENCY-UNAVAILABLE, category: STATE, status: REQUIRED}
+    - {id: observable-47, assertion: IX-STATE-OUTCOME-STALE-BASIS, category: STATE, status: REQUIRED}
+    - {id: observable-48, assertion: IX-STATE-OUTCOME-OPERATIONAL-FAILURE, category: STATE, status: REQUIRED}
+    - {id: observable-49, assertion: IX-DIST-ACTIVITY-NOT-CLAIM, category: DISTINCTION, status: REQUIRED}
+    - {id: observable-50, assertion: IX-DIST-SEMANTIC-OWNERSHIP, category: DISTINCTION, status: REQUIRED}
+    - {id: observable-51, assertion: IX-CURRENTNESS, category: STATE, status: REQUIRED}
+    - {id: observable-52, assertion: IX-CONTEXT-CONTINUITY, category: STATE, status: REQUIRED}
+    - {id: observable-53, assertion: IX-KEYBOARD, category: ACTION, status: REQUIRED}
+    - {id: observable-54, assertion: IX-PENDING, category: STATE, status: REQUIRED}
+    - {id: observable-55, assertion: IX-NO-LAYOUT, category: DISTINCTION, status: NOT_APPLICABLE, rationale: "Interaction presentation-boundary semantics constrain downstream design but are not themselves a user-facing observable interaction obligation."}
