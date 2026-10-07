@@ -1322,20 +1322,29 @@ a:focus-visible {
 
   .knowledge-workbench {
     height: auto;
-    display: grid;
-    grid-template-rows: auto auto;
-    gap: 7px;
     overflow: visible;
   }
 
+  .knowledge-workbench > .resizable-split,
   .knowledge-upper-pane {
+    height: auto;
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: 7px;
     overflow: visible;
   }
 
-  .workspace-divider {
+  .knowledge-workbench > .resizable-split {
+    grid-template-columns: 1fr;
+  }
+
+  .knowledge-workbench .resizable-split-first,
+  .knowledge-workbench .resizable-split-second {
+    overflow: visible;
+  }
+
+  .knowledge-workbench .resizable-split-handle {
     display: none;
   }
 
@@ -1365,14 +1374,6 @@ a:focus-visible {
 
   .knowledge-capability-scope {
     max-width: none;
-  }
-
-  .knowledge-table[data-column-widths="auto"] th:nth-child(2) {
-    width: 82px;
-  }
-
-  .knowledge-table[data-column-widths="auto"] th:nth-child(3) {
-    width: 46px;
   }
 
   .knowledge-detail-content,
