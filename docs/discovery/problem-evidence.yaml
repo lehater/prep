@@ -6,7 +6,7 @@ problem: >-
   A person preparing for one or more goals works with goals, capabilities,
   knowledge, practice material, and recorded activity. As this information
   accumulates, it becomes difficult to understand how its parts relate,
-  determine which part matters for a goal, and reconstruct what preparation
+  determine which parts matter for a goal, and reconstruct what preparation
   has actually taken place.
 
 actors:
@@ -47,16 +47,16 @@ observations:
   - id: PE-01
     name: relationship-opacity
     problem: >-
-      Goals, capabilities, knowledge, and practice material accumulate while
-      the relationships among them are difficult to understand. This makes it
-      difficult to determine which part of the accumulated information matters
-      for a goal.
+      Goals, capabilities, knowledge, practice material, and recorded activity
+      accumulate while the relationships among them are difficult to understand.
+      This makes it difficult to determine which parts of the accumulated
+      preparation information matter for a goal.
 
   - id: PE-02
-    name: recorded-activity-opacity
+    name: activity-history-opacity
     problem: >-
-      As preparation continues, it becomes difficult to reconstruct what
-      preparation activity took place and what results were recorded.
+      As recorded activity accumulates, it becomes difficult to reconstruct
+      what preparation activity took place and what results were recorded.
 
 evidence:
   - id: EV-01
@@ -64,9 +64,9 @@ evidence:
     source: project-owner
     supports: [PE-01]
     statement: >-
-      Preparation involves goals, capabilities, knowledge, and practice
-      material, and relationships among them matter when working with
-      preparation.
+      Preparation involves goals, capabilities, knowledge, practice material,
+      and recorded activity, and relationships among them matter when working
+      with preparation.
 
   - id: EV-02
     kind: stakeholder-statement
