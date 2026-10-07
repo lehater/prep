@@ -14,21 +14,28 @@ semantic_assertions:
   - id: IA-ROOT
     kind: information-location
     subject: active-preparation
-    semantic_value: "Preparation is the root conceptual location that supports candidate Target comparison before commitment and keeps active Target/current preparation direction coherent across Targets, Target, Current position, Knowledge and Activities; evaluated activity Evidence & changes review is contextual rather than a peer global destination."
-    derived_from: [CIM-TARGET-COMPARISON, CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-TARGET-DIRECTION, UJ-DIRECTION]
+    semantic_value: "Preparation is the root conceptual location that keeps Target work, active Target/current preparation direction, Current position, Knowledge and Activities coherent; Target comparison and active-Target understanding share one Target information area, while evaluated activity Evidence & changes review remains contextual rather than a peer global destination."
+    derived_from: [CIM-TARGET-COMPARISON, CIM-TARGET, CIM-CURRENT-STATE, CIM-NEXT-FOCUS, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-TARGETS
     kind: information-location
+    subject: target-work-location
+    semantic_value: "Targets is one cohesive Target information area containing distinct candidate-comparison and active-Target sublocations; the grouping follows the shared Target concept and compare -> choose -> establish/refine -> reconsider continuity rather than Journey/task/frontend responsibility decomposition."
+    derived_from: [CIM-TARGET-COMPARISON, CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, TM-TASK-COMPARE-TARGETS, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP]
+    decision_authority: HUMAN-INTERFACE-DESIGN
+
+  - id: IA-LOC-TARGET-COMPARISON
+    kind: information-location
     subject: target-comparison-location
-    semantic_value: "Targets groups comparison of two or more candidate Targets against the same evidence-backed learner capability basis, exposing shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty before one Target is chosen."
+    semantic_value: "Candidate comparison is a sublocation of Targets for comparing two or more candidate Targets against the same evidence-backed learner capability basis, exposing shared/target-specific requirements, per-target demonstrated/challenged/unknown state and gaps/uncertainty before one Target is chosen."
     derived_from: [CIM-TARGET-COMPARISON, CIM-REL-COMPARISON-TARGET, CIM-REL-COMPARISON-STATE, TM-TASK-COMPARE-TARGETS, UJ-TARGET-DIRECTION]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-LOC-TARGET
     kind: information-location
-    subject: target-location
-    semantic_value: "Target groups target establishment/refinement and requirement understanding around Target, Target requirement, Required capability and direct Knowledge focus, keeping the cross-context focus distinct from Subject Knowledge predicates and learner state."
+    subject: active-target-location
+    semantic_value: "Active Target is a sublocation of Targets for Target establishment/refinement and requirement understanding around Target, Target requirement, Required capability and direct Knowledge focus, keeping candidate comparison, Subject Knowledge predicates and learner state conceptually distinct."
     derived_from: [CIM-TARGET, CIM-TARGET-REQUIREMENT, CIM-REQUIRED-CAPABILITY, CIM-KNOWLEDGE, CIM-REL-CAPABILITY-KNOWLEDGE, TM-TASK-ESTABLISH-TARGET, TM-TASK-UNDERSTAND-REQUIREMENTS, UJ-TARGET-SETUP]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -70,8 +77,8 @@ semantic_assertions:
   - id: IA-SCOPE-TARGET
     kind: information-scope
     subject: active-target-context
-    semantic_value: "Active Target is shared contextual scope across preparation locations; it changes interpretation of target-relative state/gaps/focus without mutating reusable Capability/Knowledge or historical evidence."
-    derived_from: [CIM-TARGET, CIM-REL-TARGET-CAPABILITY, UJ-SHARED-OWNERSHIP]
+    semantic_value: "Active Target is shared contextual scope across preparation information when present; the Targets area makes that context recoverable, and changing it changes target-relative state/gap/focus interpretation without mutating reusable Capability/Knowledge or historical evidence."
+    derived_from: [CIM-TARGET, CIM-REL-TARGET-CAPABILITY, UJ-SHARED-OWNERSHIP, UJ-TARGET-SETUP]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-SCOPE-FOCUS
@@ -91,14 +98,14 @@ semantic_assertions:
   - id: IA-STRUCTURE
     kind: information-structure
     subject: preparation-information-hierarchy
-    semantic_value: "The information hierarchy is task/concept cohesive: Preparation root contains Targets, Target, Current position, Knowledge and Activities; Evidence & changes and Prepare missing support are contextual branches entered from the work that requires them rather than peer global areas."
-    derived_from: [TM-GOAL-PREPARE, TM-GOAL-SUPPORT, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
+    semantic_value: "The information hierarchy is user-facing concept/task cohesive: Preparation root contains one Targets parent plus Current position, Knowledge and Activities; Targets contains distinct Candidate comparison and Active Target sublocations, while Evidence & changes and Prepare missing support remain contextual branches. The hierarchy does not infer one Journey/task/frontend responsibility = one location."
+    derived_from: [TM-GOAL-TARGET-DIRECTION, TM-GOAL-PREPARE, TM-GOAL-SUPPORT, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-CROSSLINKS
     kind: information-crosslink
     subject: preparation-cross-links
-    semantic_value: "Cross-links preserve target-direction and preparation work: Targets↔Target for compare/choose/reconsider; Target→Current position; Current position→Knowledge/Activities; Knowledge→Activities; Activities→contextual Evidence/change review; Evidence/change→Current position/continuation; missing support→Prepare missing support→origin."
+    semantic_value: "Cross-links preserve preparation continuity: Candidate comparison↔Active Target inside one Targets parent for choose/establish/reconsider; Active Target→Current position/Knowledge; Current position→Knowledge/Activities; Knowledge→Activities; Activities→contextual Evidence/change review; Evidence/change→Current position/continuation; missing support→Prepare missing support→origin."
     derived_from: [CIM-REL-COMPARISON-TARGET, CIM-REL-COMPARISON-STATE, CIM-REL-ACTIVITY-EVIDENCE, CIM-REL-PREPARATION-SUPPORT, UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-ACTIVITY-EVIDENCE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
@@ -112,8 +119,8 @@ semantic_assertions:
   - id: IA-FINDABILITY
     kind: information-findability-assumption
     subject: findability-assumptions
-    semantic_value: "Target context recovery, the Current position label, same-view why-this-state evidence access, contextual post-activity Evidence/change review, contextual missing-support recovery and independent Knowledge findability are explicit UX assumptions to validate downstream rather than hidden architecture facts."
-    derived_from: [UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-PREPARE-SUPPORT]
+    semantic_value: "One Target information area with distinct candidate-comparison and active-Target sublocations, active Target context recovery, the Current position label, same-context why-this-state evidence access, contextual post-activity Evidence/change review, contextual missing-support recovery and independent Knowledge findability are explicit UX assumptions to validate downstream rather than hidden topology facts."
+    derived_from: [UJ-TARGET-DIRECTION, UJ-TARGET-SETUP, UJ-DIRECTION, UJ-KNOWLEDGE, UJ-PREPARE-SUPPORT]
     decision_authority: HUMAN-INTERFACE-DESIGN
 
   - id: IA-NO-SCREEN
