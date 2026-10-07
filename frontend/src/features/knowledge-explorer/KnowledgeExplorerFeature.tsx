@@ -8,6 +8,7 @@ import {
 
 import { DataTable, type DataTableColumn } from "../../ui/DataTable";
 import { ResizableSplit } from "../../ui/ResizableSplit";
+import { ActionButton, OutcomeMessage } from "../../ui/primitives";
 import {
   knowledgeFormLabel,
   knowledgeKindLabel,
@@ -570,13 +571,9 @@ export function KnowledgeExplorerFeature({
             </span>
           ) : null}
           {onReturn ? (
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={onReturn}
-            >
+            <ActionButton onClick={onReturn}>
               {returnLabel ?? "Вернуться"}
-            </button>
+            </ActionButton>
           ) : null}
         </div>
 
@@ -676,22 +673,21 @@ export function KnowledgeExplorerFeature({
           ) : null}
 
           {filtersActive ? (
-            <button
-              type="button"
+            <ActionButton
               className="knowledge-reset-action"
               onClick={resetFilters}
             >
               Сбросить
-            </button>
+            </ActionButton>
           ) : null}
         </div>
       </header>
 
       <div className="knowledge-message-slot">
         {message ? (
-          <p className="outcome-message knowledge-outcome-message" role="status">
+          <OutcomeMessage className="knowledge-outcome-message">
             {message}
-          </p>
+          </OutcomeMessage>
         ) : null}
       </div>
 
