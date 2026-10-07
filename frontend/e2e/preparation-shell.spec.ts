@@ -475,9 +475,13 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(page.getByRole("table")).toBeVisible();
   await expect(page.getByText("7/7", { exact: true })).toBeVisible();
   await expect(page.getByText("System design", { exact: true })).toBeVisible();
-  await expect(
-    knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
-  ).toBeVisible();
+  const relationshipRenderer = knowledgeView.locator(
+    '[data-relationship-renderer="basic-2d"]',
+  );
+  await expect(relationshipRenderer).toBeVisible();
+  await expect
+    .poll(async () => (await relationshipRenderer.boundingBox())?.height ?? 0)
+    .toBeGreaterThan(80);
   await expect(
     page.getByLabel("Детали знания").getByText("Выберите строку"),
   ).toBeVisible();
