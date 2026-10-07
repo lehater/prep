@@ -4,18 +4,25 @@ id: PREP-PROBLEM-EVIDENCE
 
 problem: >-
   A person preparing for one or more goals works with goals, capabilities,
-  knowledge, practice material, and recorded activity. As this information
-  accumulates, it becomes difficult to understand how its parts relate,
-  determine which parts matter for a goal, and reconstruct what preparation
-  has actually taken place.
+  knowledge, practice material, and recorded activity. These kinds of
+  information are related. Knowledge can differ in kind, and relationships
+  can have different meanings. As the information accumulates, it becomes
+  difficult to understand its structure, examine it from different
+  perspectives, isolate the part to work with, and understand recorded
+  activity in relation to the rest of the preparation.
 
 actors:
   - person-preparing
 
+context: >-
+  The person works with preparation information they choose to use.
+  The information may already exist before it is used in Prep and may
+  change over time.
+
 desired_outcome: >-
-  The person can understand relationships within their preparation information,
-  focus on the part that matters for a goal, and reconstruct recorded
-  preparation activity.
+  The person can understand preparation information and its relationships,
+  examine it from different perspectives, isolate the part to work with,
+  and understand recorded activity in that context.
 
 problem_space_terms:
   - goal
@@ -27,10 +34,6 @@ problem_space_terms:
 distinctions:
   capability: >-
     Something a person needs to be able to do to achieve a goal.
-
-  knowledge: >-
-    Information about a subject used in preparation. Its presence does not state
-    what the person knows.
 
   practice_material: >-
     Material used for practice.
@@ -45,18 +48,28 @@ distinctions:
 
 observations:
   - id: PE-01
-    name: relationship-opacity
+    name: structure-opacity
     problem: >-
       Goals, capabilities, knowledge, practice material, and recorded activity
-      accumulate while the relationships among them are difficult to understand.
-      This makes it difficult to determine which parts of the accumulated
-      preparation information matter for a goal.
+      accumulate while their relationships are difficult to understand.
+      Knowledge can differ in kind, and relationships can have different
+      meanings. These distinctions matter when understanding the structure
+      of preparation information.
 
   - id: PE-02
-    name: activity-history-opacity
+    name: perspective-opacity
+    problem: >-
+      The same preparation information can matter from different perspectives.
+      As the amount of information grows, it becomes difficult to examine it
+      in relation to a particular goal, capability, knowledge, practice material,
+      or recorded activity and isolate the part to work with.
+
+  - id: PE-03
+    name: activity-opacity
     problem: >-
       As recorded activity accumulates, it becomes difficult to reconstruct
-      what preparation activity took place and what results were recorded.
+      what preparation activity took place, what results were recorded, and
+      how that activity relates to the rest of the preparation information.
 
 evidence:
   - id: EV-01
@@ -64,17 +77,25 @@ evidence:
     source: project-owner
     supports: [PE-01]
     statement: >-
-      Preparation involves goals, capabilities, knowledge, practice material,
-      and recorded activity, and relationships among them matter when working
-      with preparation.
+      Preparation contains different kinds of knowledge and relationships
+      with different meanings, and these distinctions matter when working
+      with preparation information.
 
   - id: EV-02
     kind: stakeholder-statement
     source: project-owner
     supports: [PE-02]
     statement: >-
-      Facts of preparation activity and recorded results are useful independently
-      of any conclusion about what the person knows or can do.
+      The same preparation information may matter in relation to different
+      goals, capabilities, knowledge, practice material, and recorded activity.
+
+  - id: EV-03
+    kind: stakeholder-statement
+    source: project-owner
+    supports: [PE-03]
+    statement: >-
+      Recorded preparation activity and results need to remain understandable
+      in relation to the preparation information they concern.
 
 scope_boundaries:
   - >-
@@ -82,12 +103,20 @@ scope_boundaries:
     problem-space distinctions, not a domain model.
 
   - >-
-    Prep works with information accepted by the user. Determining whether that
-    information is true or reliable is outside this problem space.
+    Knowledge may differ in kind and relationships may differ in meaning.
+    This artifact does not define their taxonomy.
 
   - >-
-    Recorded activity and recorded results describe what was recorded as having
-    happened. They do not establish what the person knows or can do.
+    Relationships may cross different kinds of preparation information.
+    This artifact does not define a required relationship topology.
+
+  - >-
+    Prep works with information the user chooses to use. Prep does not
+    determine whether that information is correct or reliable.
+
+  - >-
+    Recorded activity and recorded results describe what was recorded.
+    They do not establish what the person knows or can do.
 
 non_goals:
   - source management, provenance, citation, or traceability
@@ -97,7 +126,12 @@ non_goals:
 
 unresolved_downstream_decisions:
   - how preparation information is entered, imported, changed, or removed
-  - how relationships are created, represented, or changed
-  - whether coverage, gaps, statistics, or other derived values are needed
+  - which kinds of knowledge are distinguished
+  - which relationship meanings are distinguished
+  - how relationships are created or represented
+  - how different perspectives or subsets are produced
+  - how preparation material is transferred for study
+  - how recorded activity and results are returned
+  - whether statistics or other derived values are calculated
   - domain model and semantics
   - user interface and technical realization
