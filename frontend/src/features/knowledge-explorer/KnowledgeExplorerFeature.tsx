@@ -533,9 +533,9 @@ export function KnowledgeExplorerFeature({
     }
 
     return [
-      Math.round(headers[0].getBoundingClientRect().width),
-      Math.round(headers[1].getBoundingClientRect().width),
-      Math.round(headers[2].getBoundingClientRect().width),
+      Math.round(headers.item(0).getBoundingClientRect().width),
+      Math.round(headers.item(1).getBoundingClientRect().width),
+      Math.round(headers.item(2).getBoundingClientRect().width),
     ];
   }
 
