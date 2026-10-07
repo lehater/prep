@@ -43,7 +43,7 @@ test("keeps shared application chrome around the replaceable task viewport", asy
   await page.goto("/");
 
   const topBar = page.locator(".app-topbar");
-  const statusBar = page.getByLabel("Статус приложения");
+  const statusBar = page.getByRole("contentinfo");
   const breadcrumbs = page.getByLabel("Навигационный путь");
 
   await expect(topBar).toBeVisible();
