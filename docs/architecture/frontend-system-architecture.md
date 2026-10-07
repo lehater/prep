@@ -86,10 +86,15 @@ The stable shell chrome is structurally outside every task feature and consists 
 - active task content viewport;
 - compact bottom status bar.
 
-The shell prepares location/context/status presentation data for those chrome regions.
-Shared shell components render that data but do not own Target, focus, learner,
+The shell prepares location/status presentation data for those chrome regions.
+The top bar orients the user within the application hierarchy; it does not replace the
+task view's own page title/header. Active Target/focus continuity is projected once into
+the bottom status bar rather than duplicated in sidebar navigation.
+
+Shared shell components render shell-level data but do not own Target, focus, learner,
 Knowledge, support or runtime truth. Task features render only inside the content
-viewport and must not implement their own application header/footer/sidebar chrome.
+viewport, including their own page/task title, and must not implement their own
+application header/footer/sidebar chrome.
 
 The shell composes accepted task features. It does not own canonical Target, learner,
 Knowledge or support truth.
