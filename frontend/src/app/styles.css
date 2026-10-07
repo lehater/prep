@@ -136,18 +136,12 @@ a:focus-visible {
   min-width: 0;
 }
 
-.supporting-text,
-.eyebrow,
 .candidate-card small {
   color: var(--prep-color-text-muted);
 }
 
 .active-context span {
   color: var(--prep-color-sidebar-muted);
-}
-
-.active-context span,
-.eyebrow {
   font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -245,12 +239,6 @@ a:focus-visible {
   gap: 24px;
 }
 
-.task-heading,
-.section-heading {
-  max-width: 760px;
-}
-
-.task-heading h1,
 .structural-placeholder h1 {
   margin: 3px 0 6px;
   font-size: clamp(1.55rem, 2.4vw, 2rem);
@@ -258,7 +246,6 @@ a:focus-visible {
   letter-spacing: -0.025em;
 }
 
-.task-heading p,
 .structural-placeholder p {
   line-height: 1.6;
 }
@@ -284,11 +271,7 @@ a:focus-visible {
   gap: 14px;
 }
 
-.candidate-card,
-.comparison-card,
-.comparison-basis,
-.structural-placeholder,
-.direction-actions {
+.structural-placeholder {
   border: 1px solid var(--prep-color-border);
   border-radius: var(--prep-radius-md);
   background: var(--prep-color-surface);
@@ -298,11 +281,6 @@ a:focus-visible {
   display: grid;
   gap: 8px;
   padding: 18px;
-}
-
-.candidate-card[data-selected="true"] {
-  border-color: var(--prep-color-accent);
-  box-shadow: inset 0 0 0 1px var(--prep-color-accent);
 }
 
 .candidate-choice {
@@ -317,56 +295,6 @@ a:focus-visible {
   height: 18px;
 }
 
-.action-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.primary-action,
-.secondary-action,
-.text-action {
-  min-height: 36px;
-  border-radius: var(--prep-radius-sm);
-  padding: 8px 12px;
-}
-
-.primary-action {
-  border: 1px solid var(--prep-color-accent);
-  background: var(--prep-color-accent);
-  color: var(--prep-color-surface);
-  font-weight: 650;
-  box-shadow: 0 1px 1px rgb(24 33 48 / 8%);
-}
-
-.primary-action:hover {
-  border-color: var(--prep-color-accent-hover);
-  background: var(--prep-color-accent-hover);
-}
-
-.secondary-action {
-  border: 1px solid var(--prep-color-border);
-  background: var(--prep-color-surface);
-  color: var(--prep-color-text-secondary);
-}
-
-.secondary-action:hover {
-  border-color: var(--prep-color-border-strong);
-  background: var(--prep-color-surface-muted);
-}
-
-.text-action {
-  border: 0;
-  background: transparent;
-  color: var(--prep-color-accent);
-}
-
-.text-action:hover {
-  color: var(--prep-color-accent-hover);
-}
-
-.outcome-message,
 .recovery-message {
   border-left: 4px solid #7c88b5;
   background: #f0f3fb;
@@ -423,23 +351,6 @@ a:focus-visible {
   padding: 6px 0;
 }
 
-.state-list strong {
-  font-size: 0.82rem;
-  text-transform: capitalize;
-}
-
-.state-list strong[data-state="demonstrated"] {
-  color: #1d6b49;
-}
-
-.state-list strong[data-state="challenged"] {
-  color: #9b5615;
-}
-
-.state-list strong[data-state="unknown"] {
-  color: var(--prep-color-text-muted);
-}
-
 .comparison-basis,
 .direction-actions,
 .structural-placeholder {
@@ -486,65 +397,20 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .task-heading h1,
   .structural-placeholder h1 {
     font-size: 1.65rem;
-  }
-
-  .action-row {
-    align-items: stretch;
-  }
-
-  .action-row button {
-    width: 100%;
   }
 }
 
 
 .target-context-region,
 .target-provenance-region {
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
 .target-context-region {
   display: grid;
   gap: 18px;
-}
-
-.field {
-  display: grid;
-  gap: 7px;
-  max-width: 760px;
-}
-
-.field > span {
-  font-size: 0.86rem;
-  font-weight: 750;
-}
-
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-sm);
-  background: var(--prep-color-surface);
-  padding: 9px 10px;
-  color: inherit;
-}
-
-.field input:hover,
-.field select:hover,
-.field textarea:hover {
-  border-color: var(--prep-color-border-strong);
-}
-
-.field textarea {
-  resize: vertical;
-  line-height: 1.5;
 }
 
 .target-uncertainty {
@@ -574,9 +440,6 @@ a:focus-visible {
 .requirement-card {
   display: grid;
   gap: 16px;
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
@@ -644,9 +507,6 @@ a:focus-visible {
 .next-focus-region,
 .evidence-basis-region,
 .accepted-focus {
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
@@ -669,26 +529,6 @@ a:focus-visible {
 .gap-card p,
 .accepted-focus p {
   line-height: 1.55;
-}
-
-.state-card strong[data-state],
-.gap-card strong[data-gap-state] {
-  font-size: 0.8rem;
-  text-transform: capitalize;
-}
-
-.state-card strong[data-state="demonstrated"] {
-  color: #1d6b49;
-}
-
-.state-card strong[data-state="challenged"],
-.gap-card strong[data-gap-state="challenged"] {
-  color: #9b5615;
-}
-
-.state-card strong[data-state="unknown"],
-.gap-card strong[data-gap-state="unresolved"] {
-  color: var(--prep-color-text-muted);
 }
 
 .limitation-list {
@@ -739,14 +579,7 @@ a:focus-visible {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
   padding: 14px;
-}
-
-.focus-option:has(input:checked) {
-  border-color: var(--prep-color-accent);
-  box-shadow: inset 0 0 0 1px var(--prep-color-accent);
 }
 
 .focus-option input {
@@ -1387,9 +1220,6 @@ a:focus-visible {
 .activity-support-region,
 .activity-attempt-region,
 .activity-processing-region {
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
@@ -1438,14 +1268,7 @@ a:focus-visible {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
   padding: 14px;
-}
-
-.support-option:has(input:checked) {
-  border-color: var(--prep-color-accent);
-  box-shadow: inset 0 0 0 1px var(--prep-color-accent);
 }
 
 .support-option input {
@@ -1524,9 +1347,6 @@ a:focus-visible {
 .current-state-after-region,
 .evidence-change-actions,
 .evidence-review-detail {
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
@@ -1558,24 +1378,6 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.change-outcome-grid strong {
-  font-size: 1.05rem;
-}
-
-.change-outcome-grid strong[data-change-outcome="changed"] {
-  color: #1d6b49;
-}
-
-.change-outcome-grid strong[data-change-outcome="challenged"],
-.change-outcome-grid strong[data-change-outcome="increased-uncertainty"] {
-  color: #9b5615;
-}
-
-.change-outcome-grid strong[data-change-outcome="no-change"],
-.change-outcome-grid strong[data-change-outcome="unresolved"] {
-  color: var(--prep-color-text-muted);
-}
-
 .change-explanation {
   margin: 0;
   line-height: 1.6;
@@ -1596,9 +1398,6 @@ a:focus-visible {
 .preparation-motivating-context,
 .preparation-source-region,
 .preparation-results-region {
-  border: 1px solid var(--prep-color-border);
-  border-radius: var(--prep-radius-md);
-  background: var(--prep-color-surface);
   padding: 20px;
 }
 
@@ -1622,8 +1421,7 @@ a:focus-visible {
 
 .accepted-support-region,
 .preparation-remainder-region {
-  border: 1px solid var(--prep-color-border-subtle);
-  border-radius: var(--prep-radius-md);
+  border-color: var(--prep-color-border-subtle);
   background: var(--prep-color-surface-muted);
   padding: 16px;
 }
@@ -1671,22 +1469,6 @@ a:focus-visible {
 .preparation-remainder-list li:first-child {
   border-top: 0;
   padding-top: 0;
-}
-
-.preparation-remainder-list span[data-remainder-status] {
-  width: fit-content;
-  border-radius: 999px;
-  background: #edf0f5;
-  padding: 3px 8px;
-  color: var(--prep-color-text-secondary);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: capitalize;
-}
-
-.preparation-remainder-list span[data-remainder-status="rejected"] {
-  background: #fbeeed;
-  color: #8f3e36;
 }
 
 .preparation-remainder-list p {
