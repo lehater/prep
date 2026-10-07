@@ -21,8 +21,9 @@ On capable wide surfaces, Prep uses a **desktop-oriented bounded application/wor
 
 - the application shell owns the available viewport;
 - stable application chrome forms a persistent frame around the task viewport: left preparation navigation, a compact top context/navigation bar and a compact bottom status bar;
-- the top bar carries shell-level orientation such as breadcrumb/current location and optional global actions, not task-local controls;
-- the bottom bar carries compact shell-level status/context such as active Target/focus continuity and future operational status only when that status has an accepted owner;
+- the top bar carries shell-level orientation such as breadcrumb/current location and optional global actions, not task-local controls or the task page title;
+- each task page title remains inside the replaceable content viewport as part of that view's own page/task header;
+- the bottom bar is the single persistent home for compact active Target/focus continuity and future operational status only when that status has an accepted owner; the sidebar does not duplicate that context;
 - the active task workspace occupies the remaining content viewport and is the only region replaced by navigation;
 - task regions may own bounded internal overflow where their content requires independent inspection;
 - long page-level document scrolling is not the default ownership model for the primary preparation workspace.
