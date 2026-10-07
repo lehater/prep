@@ -448,6 +448,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await page.addInitScript(() => {
     window.localStorage.removeItem("prep.knowledge.table-graph-ratio.v2");
     window.localStorage.removeItem("prep.knowledge.top-details-ratio.v2");
+    window.localStorage.removeItem("prep.knowledge.column-widths.v3");
   });
   await page.goto("/");
   await establishBackendTarget(page);
@@ -474,9 +475,13 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(page.getByRole("table")).toBeVisible();
   await expect(page.getByText("7/7", { exact: true })).toBeVisible();
   await expect(page.getByText("System design", { exact: true })).toBeVisible();
-  await expect(
-    knowledgeView.locator('[data-relationship-renderer="basic-2d"]'),
-  ).toBeVisible();
+  const relationshipRenderer = knowledgeView.locator(
+    '[data-relationship-renderer="basic-2d"]',
+  );
+  await expect(relationshipRenderer).toBeVisible();
+  await expect
+    .poll(async () => (await relationshipRenderer.boundingBox())?.height ?? 0)
+    .toBeGreaterThan(80);
   await expect(
     page.getByLabel("Детали знания").getByText("Выберите строку"),
   ).toBeVisible();
@@ -658,74 +663,176 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     )
     .toBeLessThan(40);
 
-  const knowledgeColumnDivider = page.getByRole("separator", {
-    name: "Изменить ширину колонки «Знание»",
+  const knowledgeTypeColumnDivider = page.getByRole("separator", {
+    name: "Изменить ширину колонки «Тип / форма»",
   });
-  await expect(knowledgeColumnDivider).toBeVisible();
+  const knowledgeRelationsColumnDivider = page.getByRole("separator", {
+    name: "Изменить ширину колонки «Связи»",
+  });
+  await expect(knowledgeTypeColumnDivider).toBeVisible();
+  await expect(knowledgeRelationsColumnDivider).toBeVisible();
+  await expect(
+    page.getByRole("separator", {
+      name: "Изменить ширину колонки «Знание»",
+    }),
+  ).toHaveCount(0);
+
+  const knowledgeTable = page.locator(".knowledge-table");
+  const knowledgeTableViewport = page.locator(".knowledge-table-scroll");
+  const primaryColumnHeader = knowledgeTable.locator("thead th").nth(0);
+
   await expect
-    .poll(async () =>
-      Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
-    )
+    .poll(async () => {
+      const tableBox = await knowledgeTable.boundingBox();
+      return tableBox?.width ?? 0;
+    })
     .toBeGreaterThan(0);
 
-  const columnDividerBox = await knowledgeColumnDivider.boundingBox();
-  expect(columnDividerBox).not.toBeNull();
-  if (columnDividerBox) {
-    const beforeColumnDrag = Number(
-      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
-    );
+  const initialTableBox = await knowledgeTable.boundingBox();
+  const initialViewportWidth = await knowledgeTableViewport.evaluate(
+    (element) => element.clientWidth,
+  );
+  expect(initialTableBox).not.toBeNull();
+  if (initialTableBox) {
+    expect(Math.abs(initialTableBox.width - initialViewportWidth)).toBeLessThanOrEqual(2);
+  }
+
+
+  const typeWidthBeforeRelationsResize = Number(
+    await knowledgeTypeColumnDivider.getAttribute("aria-valuenow"),
+  );
+  await knowledgeRelationsColumnDivider.focus();
+  await page.keyboard.press("End");
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    "140",
+  );
+  await expect(knowledgeTypeColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(typeWidthBeforeRelationsResize),
+  );
+
+  const primaryWidthBeforeRelationsResize = (await primaryColumnHeader.boundingBox())?.width ?? 0;
+    const relationsDividerBox = await knowledgeRelationsColumnDivider.boundingBox();
+  expect(relationsDividerBox).not.toBeNull();
+  if (relationsDividerBox) {
     await page.mouse.move(
-      columnDividerBox.x + columnDividerBox.width / 2,
-      columnDividerBox.y + columnDividerBox.height / 2,
+      relationsDividerBox.x + relationsDividerBox.width / 2,
+      relationsDividerBox.y + relationsDividerBox.height / 2,
     );
     await page.mouse.down();
     await page.mouse.move(
-      columnDividerBox.x - 32,
-      columnDividerBox.y + columnDividerBox.height / 2,
+      relationsDividerBox.x + 24,
+      relationsDividerBox.y + relationsDividerBox.height / 2,
     );
     await page.mouse.up();
-    const afterColumnDrag = Number(
-      await knowledgeColumnDivider.getAttribute("aria-valuenow"),
-    );
-    expect(afterColumnDrag).toBeLessThan(beforeColumnDrag);
-
-    await knowledgeColumnDivider.dblclick();
-    await expect
-      .poll(async () =>
-        Number(await knowledgeColumnDivider.getAttribute("aria-valuenow")),
-      )
-      .not.toBe(afterColumnDrag);
   }
+
+  const relationsWidthAfterDrag = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
+  );
+  expect(relationsWidthAfterDrag).toBeLessThan(140);
+  await expect(knowledgeTypeColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(typeWidthBeforeRelationsResize),
+  );
+  const primaryWidthAfterRelationsResize = (await primaryColumnHeader.boundingBox())?.width ?? 0;
+  expect(primaryWidthAfterRelationsResize).toBeGreaterThan(
+    primaryWidthBeforeRelationsResize,
+  );
+
+  await knowledgeRelationsColumnDivider.dblclick();
+  const relationsWidthAfterAutoFit = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
+  );
+  expect(relationsWidthAfterAutoFit).toBeGreaterThanOrEqual(52);
+  expect(relationsWidthAfterAutoFit).toBeLessThanOrEqual(140);
+  await knowledgeRelationsColumnDivider.dblclick();
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(relationsWidthAfterAutoFit),
+  );
+
+  const knowledgeTableBox = await knowledgeTable.boundingBox();
+  const viewportWidthAfterResize = await knowledgeTableViewport.evaluate(
+    (element) => element.clientWidth,
+  );
+  expect(knowledgeTableBox).not.toBeNull();
+  if (knowledgeTableBox) {
+    expect(
+      Math.abs(knowledgeTableBox.width - viewportWidthAfterResize),
+    ).toBeLessThanOrEqual(2);
+  }
+
+  const persistedRelationsColumnWidth = Number(
+    await knowledgeRelationsColumnDivider.getAttribute("aria-valuenow"),
+  );
+  const storedColumnWidths = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("prep.knowledge.column-widths.v3");
+    if (!raw) {
+      return null;
+    }
+
+    const stored = JSON.parse(raw) as {
+      version: number;
+      widths: Record<string, number>;
+    };
+    return stored.widths;
+  });
+  expect(storedColumnWidths?.relations).toBe(persistedRelationsColumnWidth);
+
+  await page
+    .locator(".knowledge-table")
+    .getByRole("button", { name: "Стратегия кэширования", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Цель", exact: true }).click();
+  await page.getByRole("button", { name: "Знания", exact: true }).click();
+
+  await expect(
+    page
+      .locator(".knowledge-table")
+      .getByRole("button", { name: "Стратегия кэширования", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByLabel("Детали знания").getByRole("heading", {
+      name: "Стратегия кэширования",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(knowledgeRelationsColumnDivider).toHaveAttribute(
+    "aria-valuenow",
+    String(persistedRelationsColumnWidth),
+  );
 
   await expect(page.getByLabel("Тип знания").locator("option")).toHaveText([
     "Все виды",
-    "KnowledgeObject",
-    "KnowledgeProposition",
+    "Объект",
+    "Утверждение",
   ]);
   await expect(page.getByLabel("Форма знания").locator("option")).toHaveText([
     "Все формы",
-    "concept",
-    "mechanism",
-    "model",
-    "procedure",
-    "property",
-    "strategy",
+    "Понятие",
+    "Механизм",
+    "Модель",
+    "Процедура",
+    "Свойство",
+    "Стратегия",
   ]);
   await expect(page.getByLabel("Семейство связи").locator("option")).toHaveText([
     "Все семейства связей",
-    "partitive",
-    "problem_response",
-    "production_origination_transformation",
-    "realization",
-    "taxonomic",
+    "Часть — целое",
+    "Проблема — решение",
+    "Создание и преобразование",
+    "Реализация",
+    "Классификация",
   ]);
   await expect(page.getByLabel("Тип связи").locator("option")).toHaveText([
     "Все типы связей",
-    "addresses",
-    "part_of",
-    "produces",
-    "realizes",
-    "specializes",
+    "решает проблему",
+    "часть целого",
+    "создаёт",
+    "реализует",
+    "является специализацией",
   ]);
 
   const viewportState = await page.evaluate(() => ({
@@ -749,14 +856,16 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   await expect(page.getByLabel("Тип связи")).toHaveValue("all");
   await expect(
     page.getByLabel("Тип связи").locator('option[value="part_of"]'),
-  ).toHaveText("part_of");
+  ).toHaveText("часть целого");
 
   await page.getByLabel("Тип связи").selectOption("part_of");
   await expect(
     page.locator('[data-predicate="part_of"]'),
   ).toHaveCount(1);
   await expect(
-    page.locator(".knowledge-relationship-edge-label").getByText("part_of"),
+    page
+      .locator(".knowledge-relationship-edge-label")
+      .getByText("часть целого"),
   ).toBeVisible();
 
   await page
@@ -764,7 +873,9 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     .getByRole("button", { name: "Очередь задач", exact: true })
     .click();
   await expect(
-    page.getByLabel("Детали знания").getByText("part_of", { exact: true }),
+    page
+      .getByLabel("Детали знания")
+      .getByText("часть целого", { exact: true }),
   ).toBeVisible();
   await expect(
     page

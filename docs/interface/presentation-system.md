@@ -86,6 +86,24 @@ Use semantic emphasis roles rather than fixed visual sizes:
 
 Exact typography family, font sizes, color values, border radii, spacing values and icon set remain implementation freedoms unless a later accepted brand/platform constraint makes them material.
 
+## Implementation layering
+
+The presentation system is implemented in three layers so visual styling can propagate across the whole application without feature-specific duplication:
+
+1. **Design tokens** define reusable visual roles such as application canvas, surfaces, navigation surfaces, borders, text hierarchy, accent, row states, radii, spacing and focus treatment. Feature CSS consumes semantic token roles rather than embedding a private palette.
+2. **Shared presentation primitives** define recurring application-shell and control patterns such as navigation, page/task headings, surfaces, controls, actions, section headings, collection rows and dividers.
+3. **Feature composition** owns only feature-specific geometry and task semantics. A feature may compose shared primitives and add local layout rules, but it does not redefine the application palette or typography system.
+
+A visual refresh therefore changes tokens and shared primitives first. Knowledge may be the first dense consumer used to validate the system, but Knowledge-specific styling must not become the source of truth for application-wide appearance.
+
+Resizable region separators keep their visible rule visually subordinate to content; their pointer hit area may be wider than the visible divider so usability does not require a wide gutter between sections. A shared resizable split owns the interaction mechanics and guarantees that each slot stretches its composed child to the full allocated region; feature content must not need local height hacks to become usable.
+
+Typography is application-wide presentation knowledge. All views use one semantic type scale (page title, section title, subheading, body, small, meta and micro) from design tokens; features select roles but do not introduce private font-size values. Palette and typography literals are confined to the token layer and are mechanically checked.
+
+For resizable data tables, content auto-size and fit-to-container are separate operations. Columns may declare fixed preferred widths or a flex weight. Flex columns absorb positive or negative remaining grid width within explicit min/max bounds; fixed-column resize or double-click content auto-size therefore gives space back to, or takes space from, the flex pool without mutating the fixed width of a sibling column. When the visual design places fixed columns to the right of a leading flex column, their resize handle may use the column's start edge so the divider manipulates the column the user sees on its right. A flex fill column is derived from the remaining width and need not expose a direct resize handle.
+
+Feature-specific CSS may introduce a new visual role only when the role is genuinely local. If the same role recurs across multiple views, it is promoted into the shared presentation layer rather than copied.
+
 ## Reusable patterns
 
 ### PATTERN-CONTEXT-HEADER

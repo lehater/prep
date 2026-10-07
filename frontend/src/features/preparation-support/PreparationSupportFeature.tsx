@@ -10,6 +10,16 @@ import type {
   TargetRef,
 } from "../contracts";
 import {
+  ActionButton,
+  ActionGroup,
+  Field,
+  OutcomeMessage,
+  SectionHeader,
+  StatusBadge,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
+import {
   preparationRemainderStatusLabel,
   preparationRequestStateLabel,
 } from "../../ui/presentationLabels";
@@ -122,23 +132,26 @@ export function PreparationSupportFeature({
       data-variant={viewState}
       aria-labelledby="prepare-support-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Подготовка поддержки</p>
-        <h1 id="prepare-support-heading">Подготовить поддержку</h1>
+      <TaskHeader
+        eyebrow="Подготовка поддержки"
+        title="Подготовить поддержку"
+        headingId="prepare-support-heading"
+      >
         <p>
           Подготовьте недостающий материал или задание, сохранив исходный
           контекст подготовки.
         </p>
-      </header>
+      </TaskHeader>
 
-      <section
+      <Surface
         className="preparation-motivating-context"
         aria-labelledby="preparation-context-heading"
       >
-        <div className="section-heading">
-          <p className="eyebrow">Исходный контекст</p>
-          <h2 id="preparation-context-heading">{targetLabel}</h2>
-        </div>
+        <SectionHeader
+          eyebrow="Исходный контекст"
+          title={targetLabel}
+          headingId="preparation-context-heading"
+        />
         {focusPurpose ? (
           <p>
             <strong>Следующий фокус:</strong> {focusPurpose}
@@ -146,46 +159,42 @@ export function PreparationSupportFeature({
         ) : null}
         <p>{motivatingContext}</p>
         <p className="supporting-text">Вернуться в: {originLabel}</p>
-      </section>
+      </Surface>
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
-      <section
+      <Surface
         className="preparation-source-region"
         aria-labelledby="preparation-source-heading"
       >
-        <div className="section-heading">
-          <p className="eyebrow">Контекст запроса</p>
-          <h2 id="preparation-source-heading">Опишите, чего не хватает</h2>
-        </div>
+        <SectionHeader
+          eyebrow="Контекст запроса"
+          title="Опишите, чего не хватает"
+          headingId="preparation-source-heading"
+        />
 
-        <label className="field">
-          <span>Недостающая поддержка</span>
+        <Field controlId="support-source-context" label="Недостающая поддержка">
           <textarea
+            id="support-source-context"
             rows={4}
             value={sourceContext}
             disabled={viewState === "requesting"}
             onChange={(event) => setSourceContext(event.currentTarget.value)}
           />
-        </label>
+        </Field>
 
-        <label className="field">
-          <span>Источник контекста</span>
+        <Field controlId="support-provenance" label="Источник контекста">
           <input
+            id="support-provenance"
             value={provenanceLabel}
             disabled={viewState === "requesting"}
             onChange={(event) => setProvenanceLabel(event.currentTarget.value)}
           />
-        </label>
+        </Field>
 
-        <div className="action-row">
-          <button
-            type="button"
-            className="primary-action"
+        <ActionGroup>
+          <ActionButton
+            variant="primary"
             disabled={viewState === "requesting" || !semanticBasisRef}
             onClick={() => void requestPreparation()}
           >
@@ -194,31 +203,26 @@ export function PreparationSupportFeature({
               : result
                 ? "Запросить ещё раз"
                 : "Подготовить поддержку"}
-          </button>
-          <button
-            type="button"
-            className="text-action"
-            onClick={onReturn}
-          >
+          </ActionButton>
+          <ActionButton variant="text" onClick={onReturn}>
             Вернуться: {originLabel}
-          </button>
-        </div>
-      </section>
+          </ActionButton>
+        </ActionGroup>
+      </Surface>
 
       {result ? (
-        <section
+        <Surface
           className="preparation-results-region"
           aria-labelledby="preparation-results-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Принятый результат</p>
-            <h2 id="preparation-results-heading">
-              Подготовленная поддержка и оставшиеся вопросы
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Принятый результат"
+            title="Подготовленная поддержка и оставшиеся вопросы"
+            headingId="preparation-results-heading"
+          />
 
           <div className="preparation-result-grid">
-            <section
+            <Surface
               className="accepted-support-region"
               aria-labelledby="accepted-support-heading"
             >
@@ -250,9 +254,9 @@ export function PreparationSupportFeature({
               ) : (
                 <p>Для этого запроса ничего не было принято.</p>
               )}
-            </section>
+            </Surface>
 
-            <section
+            <Surface
               className="preparation-remainder-region"
               aria-labelledby="preparation-remainder-heading"
             >
@@ -262,9 +266,11 @@ export function PreparationSupportFeature({
                   {result.remainder.map((item) => (
                     <li key={item.subject}>
                       <strong>{item.subject}</strong>
-                      <span data-remainder-status={item.status}>
+                      <StatusBadge
+                        tone={item.status === "rejected" ? "danger" : "neutral"}
+                      >
                         {preparationRemainderStatusLabel(item.status)}
-                      </span>
+                      </StatusBadge>
                       <p>{item.reason}</p>
                     </li>
                   ))}
@@ -272,7 +278,7 @@ export function PreparationSupportFeature({
               ) : (
                 <p>Неразрешённых или отклонённых пунктов нет.</p>
               )}
-            </section>
+            </Surface>
           </div>
 
           <p className="supporting-text">
@@ -281,23 +287,15 @@ export function PreparationSupportFeature({
             остаётся неразрешённой или отклонена.
           </p>
 
-          <div className="action-row">
-            <button
-              type="button"
-              className="primary-action"
-              onClick={onReturn}
-            >
+          <ActionGroup>
+            <ActionButton variant="primary" onClick={onReturn}>
               Вернуться: {originLabel}
-            </button>
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={() => void refreshPreparation()}
-            >
+            </ActionButton>
+            <ActionButton onClick={() => void refreshPreparation()}>
               Обновить результат
-            </button>
-          </div>
-        </section>
+            </ActionButton>
+          </ActionGroup>
+        </Surface>
       ) : null}
     </section>
   );

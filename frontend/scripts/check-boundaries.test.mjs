@@ -101,6 +101,29 @@ describe("frontend dependency boundaries", () => {
     ]);
   });
 
+  it("rejects feature-local reimplementation of accepted shared presentation primitives", () => {
+    const root = fixture({
+      "features/target/Feature.tsx":
+        '<section className="task-heading"><table><tbody /></table><button className="primary-action">Save</button></section>',
+      "ui/DataTable.tsx": "export const DataTable = 1;",
+    });
+
+    expect(validateSourceTree(root)).toEqual([
+      "features/target/Feature.tsx: task feature must compose shared DataTable instead of declaring a raw <table>",
+      'features/target/Feature.tsx: shared presentation class "task-heading" must be owned through its ui primitive',
+      'features/target/Feature.tsx: shared presentation class "primary-action" must be owned through its ui primitive',
+    ]);
+  });
+
+  it("allows feature-specific class names that only contain a shared token as a substring", () => {
+    const root = fixture({
+      "features/knowledge-explorer/Feature.tsx":
+        '<div className="knowledge-outcome-message knowledge-table-region" />',
+    });
+
+    expect(validateSourceTree(root)).toEqual([]);
+  });
+
   it("rejects shared presentation importing task state or semantic contracts", () => {
     const root = fixture({
       "ui/Text.ts": 'import "../features/target/private"; import "../features/contracts";',

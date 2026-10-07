@@ -14,6 +14,15 @@ import type {
   TargetRef,
 } from "../contracts";
 import {
+  ActionButton,
+  ActionGroup,
+  OutcomeMessage,
+  SectionHeader,
+  StatusBadge,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
+import {
   capabilityStateLabel,
   changeOutcomeLabel,
   evidenceKindLabel,
@@ -124,45 +133,59 @@ export function EvidenceChangeFeature({
       data-variant={change?.learnerEvidenceChange ?? status}
       aria-labelledby="evidence-change-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Свидетельства и изменения</p>
-        <h1 id="evidence-change-heading">
-          Проверьте, что изменилось после практики
-        </h1>
+      <TaskHeader
+        eyebrow="Свидетельства и изменения"
+        title="Проверьте, что изменилось после практики"
+        headingId="evidence-change-heading"
+      >
         <p>
           Изучите результат завершённой попытки, отделите факты от выводов о
           состоянии компетенций и явно выберите следующий шаг.
         </p>
-      </header>
+      </TaskHeader>
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
       {status === "loading" ? <p role="status">Загрузка результата…</p> : null}
 
       {change ? (
-        <section
+        <Surface
           className="change-summary-region"
           aria-labelledby="change-summary-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Проверенный результат практики</p>
-            <h2 id="change-summary-heading">Что изменилось</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Проверенный результат практики"
+            title="Что изменилось"
+            headingId="change-summary-heading"
+          />
 
           <div className="change-outcome-grid">
             <div>
               <span>Свидетельства / интерпретация состояния</span>
-              <strong data-change-outcome={change.learnerEvidenceChange}>
+              <StatusBadge
+                tone={
+                  change.learnerEvidenceChange === "changed"
+                    ? "positive"
+                    : change.learnerEvidenceChange === "challenged" ||
+                        change.learnerEvidenceChange === "increased-uncertainty"
+                      ? "warning"
+                      : "neutral"
+                }
+              >
                 {changeOutcomeLabel(change.learnerEvidenceChange)}
-              </strong>
+              </StatusBadge>
             </div>
             <div>
               <span>Информация о цели</span>
-              <strong>{changeOutcomeLabel(change.targetInformationChange)}</strong>
+              <StatusBadge
+                tone={
+                  change.targetInformationChange === "changed"
+                    ? "positive"
+                    : "neutral"
+                }
+              >
+                {changeOutcomeLabel(change.targetInformationChange)}
+              </StatusBadge>
             </div>
           </div>
 
@@ -172,27 +195,36 @@ export function EvidenceChangeFeature({
             Результат относится к конкретной попытке практики. Само завершение
             попытки не считается свидетельством компетенции.
           </p>
-        </section>
+        </Surface>
       ) : null}
 
       {currentState ? (
-        <section
+        <Surface
           className="current-state-after-region"
           aria-labelledby="current-state-after-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Состояние после проверки</p>
-            <h2 id="current-state-after-heading">
-              Состояние компетенций по свидетельствам
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Состояние после проверки"
+            title="Состояние компетенций по свидетельствам"
+            headingId="current-state-after-heading"
+          />
 
           <div className="current-state-grid">
             {currentState.capabilities.map((item) => (
-              <article className="state-card" key={item.capabilityRef}>
+              <Surface as="article" className="state-card" key={item.capabilityRef}>
                 <div className="state-card-heading">
                   <h3>{item.capabilityLabel}</h3>
-                  <strong data-state={item.state}>{capabilityStateLabel(item.state)}</strong>
+                  <StatusBadge
+                    tone={
+                      item.state === "demonstrated"
+                        ? "positive"
+                        : item.state === "challenged"
+                          ? "warning"
+                          : "neutral"
+                    }
+                  >
+                    {capabilityStateLabel(item.state)}
+                  </StatusBadge>
                 </div>
                 <p>{stateExplanation(item.state)}</p>
                 {item.limitations.length > 0 ? (
@@ -202,51 +234,43 @@ export function EvidenceChangeFeature({
                     ))}
                   </ul>
                 ) : null}
-              </article>
+              </Surface>
             ))}
           </div>
-        </section>
+        </Surface>
       ) : null}
 
       {change ? (
-        <section
+        <Surface
           className="evidence-change-actions"
           aria-labelledby="evidence-change-actions-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Продолжение</p>
-            <h2 id="evidence-change-actions-heading">Выберите следующий шаг</h2>
-          </div>
-          <div className="action-row">
+          <SectionHeader
+            eyebrow="Продолжение"
+            title="Выберите следующий шаг"
+            headingId="evidence-change-actions-heading"
+          />
+          <ActionGroup>
             {canContinueCurrentFocus ? (
-              <button
-                type="button"
-                className="primary-action"
+              <ActionButton
+                variant="primary"
                 onClick={onContinueCurrentFocus}
               >
                 Продолжить текущий фокус
-              </button>
+              </ActionButton>
             ) : null}
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={onReturnCurrent}
-            >
+            <ActionButton onClick={onReturnCurrent}>
               Вернуться к текущему состоянию
-            </button>
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={onInspectKnowledge}
-            >
+            </ActionButton>
+            <ActionButton onClick={onInspectKnowledge}>
               Открыть знания
-            </button>
-          </div>
-        </section>
+            </ActionButton>
+          </ActionGroup>
+        </Surface>
       ) : null}
 
       {evidence ? (
-        <details className="evidence-review-detail">
+        <Surface as="details" className="evidence-review-detail">
           <summary>Показать факты и их источники</summary>
           <div className="evidence-facts">
             {evidence.facts.map((fact) => (
@@ -295,7 +319,7 @@ export function EvidenceChangeFeature({
               </article>
             ))}
           </div>
-        </details>
+        </Surface>
       ) : null}
     </section>
   );

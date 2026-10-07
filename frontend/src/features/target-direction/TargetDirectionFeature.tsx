@@ -7,6 +7,16 @@ import type {
 } from "./contract";
 import type { TargetRef } from "../contracts";
 import {
+  ActionButton,
+  ActionGroup,
+  ChoiceCard,
+  OutcomeMessage,
+  SectionHeader,
+  StatusBadge,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
+import {
   capabilityStateLabel,
   gapStatusLabel,
 } from "../../ui/presentationLabels";
@@ -86,26 +96,30 @@ export function TargetDirectionFeature({
       data-variant={comparisonReady ? "comparison-ready" : "candidate-selection"}
       aria-labelledby="targets-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Выбор направления</p>
-        <h1 id="targets-heading">Выберите, к чему вы готовитесь</h1>
+      <TaskHeader
+        eyebrow="Выбор направления"
+        title="Выберите, к чему вы готовитесь"
+        headingId="targets-heading"
+      >
         <p>
           Сравните возможные цели на одной и той же базе свидетельств,
           прежде чем выбрать направление подготовки.
         </p>
-      </header>
+      </TaskHeader>
 
       <fieldset className="candidate-selector">
         <legend>Возможные цели</legend>
         <div className="candidate-grid">
           {candidates.map((candidate) => (
-            <label
+            <ChoiceCard
               className="candidate-card"
               key={candidate.targetRef}
-              data-selected={selectedSet.has(candidate.targetRef)}
+              controlId={`candidate-${candidate.targetRef}`}
+              selected={selectedSet.has(candidate.targetRef)}
             >
               <span className="candidate-choice">
                 <input
+                  id={`candidate-${candidate.targetRef}`}
                   type="checkbox"
                   checked={selectedSet.has(candidate.targetRef)}
                   onChange={() => toggleCandidate(candidate.targetRef)}
@@ -116,32 +130,27 @@ export function TargetDirectionFeature({
               {candidate.uncertainty.length > 0 ? (
                 <small>{candidate.uncertainty.join(" ")}</small>
               ) : null}
-            </label>
+            </ChoiceCard>
           ))}
         </div>
       </fieldset>
 
       {!comparisonReady ? (
-        <div className="action-row">
-          <button
-            type="button"
-            className="primary-action"
+        <ActionGroup>
+          <ActionButton
+            variant="primary"
             disabled={selectedRefs.length < 2 || status === "loading"}
             onClick={() => void compareSelected()}
           >
             {status === "loading" ? "Сравнение…" : "Сравнить выбранные"}
-          </button>
+          </ActionButton>
           <span className="supporting-text">
             Выбрано: {selectedRefs.length}
           </span>
-        </div>
+        </ActionGroup>
       ) : null}
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
       {comparison ? (
         <>
@@ -149,10 +158,11 @@ export function TargetDirectionFeature({
             className="comparison-region"
             aria-labelledby="comparison-heading"
           >
-            <div className="section-heading">
-              <p className="eyebrow">Единая база свидетельств</p>
-              <h2 id="comparison-heading">Сравнение выбранных целей</h2>
-            </div>
+            <SectionHeader
+              eyebrow="Единая база свидетельств"
+              title="Сравнение выбранных целей"
+              headingId="comparison-heading"
+            />
 
             <div className="comparison-grid">
               {comparison.candidates.map((candidate) => {
@@ -164,7 +174,8 @@ export function TargetDirectionFeature({
                 );
 
                 return (
-                  <article
+                  <Surface
+                    as="article"
                     className="comparison-card"
                     key={candidate.targetRef}
                   >
@@ -197,9 +208,17 @@ export function TargetDirectionFeature({
                         {candidate.currentState.map((state) => (
                           <li key={state.capabilityRef}>
                             <span>{state.capabilityLabel}</span>
-                            <strong data-state={state.state}>
+                            <StatusBadge
+                              tone={
+                                state.state === "demonstrated"
+                                  ? "positive"
+                                  : state.state === "challenged"
+                                    ? "warning"
+                                    : "neutral"
+                              }
+                            >
                               {capabilityStateLabel(state.state)}
-                            </strong>
+                            </StatusBadge>
                           </li>
                         ))}
                       </ul>
@@ -219,13 +238,17 @@ export function TargetDirectionFeature({
                         ))}
                       </ul>
                     </div>
-                  </article>
+                  </Surface>
                 );
               })}
             </div>
           </section>
 
-          <aside className="comparison-basis" aria-label="Основание сравнения">
+          <Surface
+            as="aside"
+            className="comparison-basis"
+            aria-label="Основание сравнения"
+          >
             <strong>Основание сравнения</strong>
             <p>
               Для всех вариантов используется одна база свидетельств об учащемся.
@@ -236,9 +259,9 @@ export function TargetDirectionFeature({
                 <li key={limitation.detail}>{limitation.detail}</li>
               ))}
             </ul>
-          </aside>
+          </Surface>
 
-          <fieldset className="direction-actions">
+          <Surface as="fieldset" className="direction-actions">
             <legend>Выберите цель для продолжения</legend>
             <div className="continuation-options">
               {comparison.candidates.map((candidate) => (
@@ -254,10 +277,9 @@ export function TargetDirectionFeature({
                 </label>
               ))}
             </div>
-            <div className="action-row">
-              <button
-                type="button"
-                className="primary-action"
+            <ActionGroup>
+              <ActionButton
+                variant="primary"
                 disabled={!continueRef}
                 onClick={() => {
                   if (continueRef) {
@@ -266,10 +288,8 @@ export function TargetDirectionFeature({
                 }}
               >
                 Продолжить с выбранной целью
-              </button>
-              <button
-                type="button"
-                className="secondary-action"
+              </ActionButton>
+              <ActionButton
                 onClick={() => {
                   setComparison(null);
                   setContinueRef(null);
@@ -277,19 +297,18 @@ export function TargetDirectionFeature({
                 }}
               >
                 Изменить сравнение
-              </button>
-              <button
-                type="button"
-                className="text-action"
+              </ActionButton>
+              <ActionButton
+                variant="text"
                 onClick={() => {
                   setContinueRef(null);
                   setMessage("Направление подготовки пока не выбрано.");
                 }}
               >
                 Пока не выбирать
-              </button>
-            </div>
-          </fieldset>
+              </ActionButton>
+            </ActionGroup>
+          </Surface>
         </>
       ) : null}
     </section>

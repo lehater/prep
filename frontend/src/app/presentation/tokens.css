@@ -1,0 +1,74 @@
+:root {
+  --prep-font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  --prep-type-page-title: 0.92rem;
+  --prep-type-section-title: 0.82rem;
+  --prep-type-subheading: 0.78rem;
+  --prep-type-body: 0.74rem;
+  --prep-type-small: 0.68rem;
+  --prep-type-meta: 0.64rem;
+  --prep-type-micro: 0.6rem;
+  --prep-type-graph-edge: 2.25px;
+
+  --prep-weight-regular: 400;
+  --prep-weight-medium: 500;
+  --prep-weight-semibold: 650;
+  --prep-weight-bold: 700;
+
+  --prep-color-canvas: #f9fafc;
+  --prep-color-surface: #ffffff;
+  --prep-color-surface-muted: #f6f8fa;
+  --prep-color-surface-subtle: #f2f5f9;
+
+  --prep-color-sidebar: #182130;
+  --prep-color-sidebar-active: #243146;
+  --prep-color-sidebar-border: #2a3649;
+  --prep-color-sidebar-border-strong: #3a475b;
+  --prep-color-sidebar-text: #f7f9fc;
+  --prep-color-sidebar-muted: #bcc7d7;
+  --prep-color-sidebar-hover: rgb(255 255 255 / 5%);
+
+  --prep-color-text: #18202b;
+  --prep-color-text-secondary: #4f5b6b;
+  --prep-color-text-muted: #68748a;
+  --prep-color-text-faint: #8792a4;
+
+  --prep-color-accent: #4476f9;
+  --prep-color-accent-hover: #3568e8;
+  --prep-color-accent-strong: #2e5fd5;
+  --prep-color-accent-soft: #ecf3fe;
+
+  --prep-color-border: #d7dee8;
+  --prep-color-border-subtle: #e8edf3;
+  --prep-color-border-strong: #98a4b4;
+  --prep-color-divider: #8794a6;
+
+  --prep-color-row-alt: #f9fafc;
+  --prep-color-row-hover: #f2f6fb;
+  --prep-color-row-selected: #ecf3fe;
+
+  --prep-color-success: #3c9663;
+  --prep-color-success-soft: #edf8f1;
+  --prep-color-warning: #d68b19;
+  --prep-color-warning-text: #9b5615;
+  --prep-color-warning-soft: #fff7e8;
+  --prep-color-danger: #c83d2d;
+  --prep-color-danger-soft: #fbeeed;
+  --prep-color-info: #7c88b5;
+  --prep-color-info-soft: #f0f3fb;
+
+  --prep-radius-xs: 4px;
+  --prep-radius-sm: 6px;
+  --prep-radius-md: 8px;
+  --prep-radius-lg: 12px;
+  --prep-radius-pill: 999px;
+
+  --prep-shadow-surface: 0 1px 2px rgb(24 33 48 / 5%);
+  --prep-shadow-action: 0 1px 1px rgb(24 33 48 / 8%);
+  --prep-shadow-node: 0 1px 2px rgb(25 38 58 / 14%);
+  --prep-shadow-active: inset 3px 0 0 var(--prep-color-accent);
+
+  --prep-focus-ring: 0 0 0 3px rgb(68 118 249 / 22%);
+}

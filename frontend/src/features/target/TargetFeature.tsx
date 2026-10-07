@@ -5,6 +5,15 @@ import type {
   SemanticBasisRef,
   TargetRef,
 } from "../contracts";
+import {
+  ActionButton,
+  ActionGroup,
+  Field,
+  OutcomeMessage,
+  SectionHeader,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
 import type {
   TargetModel,
   TargetPort,
@@ -180,35 +189,33 @@ export function TargetFeature({
       data-variant={established ? "target-established" : "target-setup"}
       aria-labelledby="target-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Цель</p>
-        <h1 id="target-heading">
-          {established ? "Что требуется для этой цели" : "Зафиксируйте цель подготовки"}
-        </h1>
+      <TaskHeader
+        eyebrow="Цель"
+        title={
+          established ? "Что требуется для этой цели" : "Зафиксируйте цель подготовки"
+        }
+        headingId="target-heading"
+      >
         <p>
           Зафиксируйте назначение подготовки и ожидаемый результат,
           прежде чем выбирать следующий шаг.
         </p>
-      </header>
+      </TaskHeader>
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
-      <section className="target-context-region" aria-labelledby="target-context-heading">
-        <div className="section-heading">
-          <p className="eyebrow">Контекст цели</p>
-          <h2 id="target-context-heading">
-            {contextCandidate?.label ?? "Выберите цель подготовки"}
-          </h2>
+      <Surface className="target-context-region" aria-labelledby="target-context-heading">
+        <SectionHeader
+          eyebrow="Контекст цели"
+          title={contextCandidate?.label ?? "Выберите цель подготовки"}
+          headingId="target-context-heading"
+        >
           {contextPurpose ? <p>{contextPurpose}</p> : null}
-        </div>
+        </SectionHeader>
 
-        <label className="field">
-          <span>Цель</span>
+        <Field controlId="target-choice" label="Цель">
           <select
+            id="target-choice"
             value={selectedTargetRef ?? ""}
             disabled={established || status === "submitting"}
             onChange={(event) =>
@@ -222,18 +229,18 @@ export function TargetFeature({
               </option>
             ))}
           </select>
-        </label>
+        </Field>
 
-        <label className="field">
-          <span>Источник / контекст</span>
+        <Field controlId="target-source-context" label="Источник / контекст">
           <textarea
+            id="target-source-context"
             rows={3}
             value={sourceContext}
             disabled={status === "submitting"}
             onChange={(event) => setSourceContext(event.currentTarget.value)}
             placeholder="Укажите источник или контекст, который определяет эту цель."
           />
-        </label>
+        </Field>
 
         {contextUncertainty.length > 0 ? (
           <div className="target-uncertainty">
@@ -246,10 +253,9 @@ export function TargetFeature({
           </div>
         ) : null}
 
-        <div className="action-row">
-          <button
-            type="button"
-            className="primary-action"
+        <ActionGroup>
+          <ActionButton
+            variant="primary"
             disabled={!selectedTargetRef || status === "submitting"}
             onClick={() => void establishTarget()}
           >
@@ -258,26 +264,23 @@ export function TargetFeature({
               : established
                 ? "Уточнить цель"
                 : "Зафиксировать цель"}
-          </button>
-          <button
-            type="button"
-            className="text-action"
-            onClick={onReconsiderDirection}
-          >
+          </ActionButton>
+          <ActionButton variant="text" onClick={onReconsiderDirection}>
             Вернуться к выбору целей
-          </button>
-        </div>
-      </section>
+          </ActionButton>
+        </ActionGroup>
+      </Surface>
 
       {established ? (
         <section
           className="target-requirements-region"
           aria-labelledby="target-requirements-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Ожидаемый результат</p>
-            <h2 id="target-requirements-heading">Требования</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Ожидаемый результат"
+            title="Требования"
+            headingId="target-requirements-heading"
+          />
 
           {status === "loading-requirements" && !requirements ? (
             <p role="status">Загрузка требований…</p>
@@ -286,7 +289,8 @@ export function TargetFeature({
           {requirements ? (
             <div className="requirements-list">
               {requirements.expectations.map((expectation) => (
-                <article
+                <Surface
+                  as="article"
                   className="requirement-card"
                   key={expectation.requirementRef}
                 >
@@ -329,16 +333,14 @@ export function TargetFeature({
                     )}
                   </div>
 
-                  <button
-                    type="button"
-                    className="secondary-action"
+                  <ActionButton
                     onClick={() =>
                       onExploreKnowledge(expectation.capabilityRef)
                     }
                   >
                     Открыть знания: {expectation.capabilityLabel}
-                  </button>
-                </article>
+                  </ActionButton>
+                </Surface>
               ))}
             </div>
           ) : null}
@@ -346,7 +348,11 @@ export function TargetFeature({
       ) : null}
 
       {established && requirements ? (
-        <aside className="target-provenance-region" aria-label="Источники цели">
+        <Surface
+          as="aside"
+          className="target-provenance-region"
+          aria-label="Источники цели"
+        >
           <strong>Источники и сохраняющаяся неопределённость</strong>
           <ul>
             {requirements.provenance.map((item) => (
@@ -356,20 +362,18 @@ export function TargetFeature({
               <li key={item}>{item}</li>
             ))}
           </ul>
-        </aside>
+        </Surface>
       ) : null}
 
-      <div className="target-actions action-row">
+      <ActionGroup className="target-actions">
         {selectedTargetRef ? (
-          <button
-            type="button"
-            className="secondary-action"
+          <ActionButton
             onClick={() => onRequestPreparationSupport(selectedTargetRef)}
           >
             Подготовить недостающую поддержку
-          </button>
+          </ActionButton>
         ) : null}
-      </div>
+      </ActionGroup>
     </section>
   );
 }

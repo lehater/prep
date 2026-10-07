@@ -13,6 +13,17 @@ import type {
   SupportRef,
   TargetRef,
 } from "../contracts";
+import {
+  ActionButton,
+  ActionGroup,
+  ChoiceCard,
+  Field,
+  OutcomeMessage,
+  SectionHeader,
+  StatusBadge,
+  Surface,
+  TaskHeader,
+} from "../../ui/primitives";
 import { activityAttemptStateLabel } from "../../ui/presentationLabels";
 
 export interface ActivityFeatureProps {
@@ -169,40 +180,39 @@ export function ActivityFeature({
       data-variant={viewState}
       aria-labelledby="activity-heading"
     >
-      <header className="task-heading">
-        <p className="eyebrow">Практика</p>
-        <h1 id="activity-heading">Проработайте выбранный фокус</h1>
+      <TaskHeader
+        eyebrow="Практика"
+        title="Проработайте выбранный фокус"
+        headingId="activity-heading"
+      >
         <p>
           Выберите подходящую поддержку, выполните одну проверяемую попытку
           и зафиксируйте результат для последующего анализа свидетельств.
         </p>
-      </header>
+      </TaskHeader>
 
-      <section className="activity-focus-context" aria-label="Текущий фокус">
+      <Surface className="activity-focus-context" aria-label="Текущий фокус">
         <p className="eyebrow">Текущий фокус</p>
         <strong>{focusPurpose}</strong>
         <p>{focusRationale}</p>
-      </section>
+      </Surface>
 
-      {message ? (
-        <p className="outcome-message" role="status">
-          {message}
-        </p>
-      ) : null}
+      {message ? <OutcomeMessage>{message}</OutcomeMessage> : null}
 
       {viewState === "loading-support" ? (
         <p role="status">Загрузка подходящей поддержки…</p>
       ) : null}
 
       {viewState !== "loading-support" ? (
-        <section
+        <Surface
           className="activity-support-region"
           aria-labelledby="support-options-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Выбор поддержки</p>
-            <h2 id="support-options-heading">Доступная поддержка</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Выбор поддержки"
+            title="Доступная поддержка"
+            headingId="support-options-heading"
+          />
 
           {supportOptions.length === 0 ? (
             <div className="activity-no-support">
@@ -211,20 +221,25 @@ export function ActivityFeature({
                 Сохраните выбранную цель и фокус, подготовьте недостающую
                 поддержку и затем вернитесь к практике.
               </p>
-              <button
-                type="button"
-                className="primary-action"
+              <ActionButton
+                variant="primary"
                 onClick={onRequestPreparationSupport}
               >
                 Подготовить поддержку
-              </button>
+              </ActionButton>
             </div>
           ) : (
             <fieldset className="support-options">
               <legend>Поддержка для этой попытки</legend>
               {supportOptions.map((support) => (
-                <label className="support-option" key={support.supportRef}>
+                <ChoiceCard
+                  className="support-option"
+                  key={support.supportRef}
+                  controlId={`support-${support.supportRef}`}
+                  selected={selectedSupportRef === support.supportRef}
+                >
                   <input
+                    id={`support-${support.supportRef}`}
                     type="radio"
                     name="activity-support"
                     checked={selectedSupportRef === support.supportRef}
@@ -249,16 +264,15 @@ export function ActivityFeature({
                       </ul>
                     ) : null}
                   </span>
-                </label>
+                </ChoiceCard>
               ))}
             </fieldset>
           )}
 
           {supportOptions.length > 0 && !attempt ? (
-            <div className="action-row">
-              <button
-                type="button"
-                className="primary-action"
+            <ActionGroup>
+              <ActionButton
+                variant="primary"
                 disabled={
                   !selectedSupportRef || viewState === "starting-attempt"
                 }
@@ -267,21 +281,22 @@ export function ActivityFeature({
                 {viewState === "starting-attempt"
                   ? "Запуск попытки…"
                   : "Начать практику"}
-              </button>
-            </div>
+              </ActionButton>
+            </ActionGroup>
           ) : null}
-        </section>
+        </Surface>
       ) : null}
 
       {attempt ? (
-        <section
+        <Surface
           className="activity-attempt-region"
           aria-labelledby="activity-attempt-heading"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Зафиксированная попытка</p>
-            <h2 id="activity-attempt-heading">Попытка практики</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Зафиксированная попытка"
+            title="Попытка практики"
+            headingId="activity-attempt-heading"
+          />
 
           <dl className="activity-attempt-context">
             <div>
@@ -290,15 +305,19 @@ export function ActivityFeature({
             </div>
             <div>
               <dt>Состояние попытки</dt>
-              <dd>{activityAttemptStateLabel(attempt.state)}</dd>
+              <dd>
+                <StatusBadge tone="info">
+                  {activityAttemptStateLabel(attempt.state)}
+                </StatusBadge>
+              </dd>
             </div>
           </dl>
 
           {viewState !== "evidence-processing" ? (
             <div className="activity-completion-form">
-              <label className="field">
-                <span>Что произошло</span>
+              <Field controlId="activity-result" label="Что произошло">
                 <textarea
+                  id="activity-result"
                   rows={4}
                   value={resultSummary}
                   disabled={viewState === "submitting-attempt"}
@@ -307,11 +326,14 @@ export function ActivityFeature({
                   }
                   placeholder="Опишите наблюдаемый результат этой попытки."
                 />
-              </label>
+              </Field>
 
-              <label className="field">
-                <span>Источник результата</span>
+              <Field
+                controlId="activity-provenance"
+                label="Источник результата"
+              >
                 <input
+                  id="activity-provenance"
                   value={provenance}
                   disabled={viewState === "submitting-attempt"}
                   onChange={(event) =>
@@ -319,27 +341,26 @@ export function ActivityFeature({
                   }
                   placeholder="Укажите, откуда получен этот результат."
                 />
-              </label>
+              </Field>
 
-              <div className="action-row">
-                <button
-                  type="button"
-                  className="primary-action"
+              <ActionGroup>
+                <ActionButton
+                  variant="primary"
                   disabled={viewState === "submitting-attempt"}
                   onClick={() => void completeAttempt()}
                 >
                   {viewState === "submitting-attempt"
                     ? "Отправка результата…"
                     : "Завершить попытку"}
-                </button>
-              </div>
+                </ActionButton>
+              </ActionGroup>
             </div>
           ) : null}
-        </section>
+        </Surface>
       ) : null}
 
       {viewState === "evidence-processing" && completion ? (
-        <section
+        <Surface
           className="activity-processing-region"
           aria-labelledby="activity-processing-heading"
           role="status"
@@ -359,18 +380,17 @@ export function ActivityFeature({
             Итоговая интерпретация изменений выполняется отдельно в разделе
             анализа свидетельств и изменений.
           </p>
-          <div className="action-row">
-            <button
-              type="button"
-              className="primary-action"
+          <ActionGroup>
+            <ActionButton
+              variant="primary"
               onClick={() =>
                 onReviewEvidenceChange(completion.activityAttemptRef)
               }
             >
               Проверить свидетельства и изменения
-            </button>
-          </div>
-        </section>
+            </ActionButton>
+          </ActionGroup>
+        </Surface>
       ) : null}
     </section>
   );

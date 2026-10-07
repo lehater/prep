@@ -22,6 +22,30 @@ cross-view mutable context.
 The revision has passed strict semantic admission and is represented by the current
 Harness Project Publication.
 
+## Cross-view reuse inventory
+
+Feature ownership and presentation reuse are independent. Task features own semantic state and task intent; shared presentation components own repeated rendering/interaction mechanics and receive data/state/handlers from the feature.
+
+Current reuse dispositions:
+
+| Responsibility | Disposition | Shared component | Consumers / rationale |
+|---|---|---|---|
+| task title/eyebrow/supporting copy hierarchy | SHARED | `TaskHeader` | Target Direction, Target, Current Position, Activity, Evidence Change, Preparation Support |
+| bounded visual section/surface | SHARED | `Surface` | all task views; visual role comes from Presentation System |
+| primary/secondary/text action behavior | SHARED | `ActionButton` | all task views |
+| labelled form control layout | SHARED | `Field` | Target, Current Position, Activity, Preparation Support |
+| selectable card/option shell | SHARED | `ChoiceCard` | Target Direction, Current Position and Activity support selection |
+| semantic outcome/status chip treatment | SHARED | `StatusBadge` / `OutcomeMessage` | repeated status/outcome presentation across views |
+| tabular sizing, sticky header, zebra/selection, overflow, column resize, keyboard resize, content autosize and width persistence | SHARED | `DataTable` | application-wide table contract; feature supplies columns/cells/selection semantics |
+| resizable two-region separator interaction and keyboard/pointer behavior | SHARED | `ResizableSplit` | bounded workbench composition; feature supplies ratio constraints/content |
+| Knowledge relationship graph geometry/rendering | LOCAL | Knowledge relationship renderer | unique optional visualization responsibility |
+| Knowledge semantic filters/query/scope | LOCAL | KnowledgeExplorerFeature | task semantics, not generic table mechanics |
+| feature-specific detail content/layout | LOCAL | owning task feature | semantic composition differs by task |
+
+Shared primitives are stateless with respect to Prep domain/application truth. They may own only their own interaction/presentation state when that state is intrinsic to the primitive (for example DataTable column widths or a controlled splitter gesture). Persistent preferences use a caller-provided storage namespace; semantic selection remains feature-owned.
+
+A feature must not reimplement a responsibility classified SHARED. A new recurring mechanic is first added to this inventory and either mapped to an existing primitive or explicitly accepted as a new shared primitive before feature implementation.
+
 ## Public feature responsibilities
 
 ### FrontendCompositionRoot
