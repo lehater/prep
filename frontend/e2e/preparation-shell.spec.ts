@@ -22,6 +22,40 @@ async function establishBackendTarget(page: Page) {
   ).toBeVisible();
 }
 
+async function hoverSvgLineMidpoint(page: Page, line: Locator) {
+  const point = await line.evaluate((element) => {
+    const svgLine = element as SVGLineElement;
+    const svg = svgLine.ownerSVGElement;
+    if (!svg) {
+      throw new Error("SVG line must belong to an SVG root.");
+    }
+
+    const rect = svg.getBoundingClientRect();
+    const viewBox = svg.viewBox.baseVal;
+    if (viewBox.width <= 0 || viewBox.height <= 0) {
+      throw new Error("SVG viewBox must have positive dimensions.");
+    }
+
+    const x1 = svgLine.x1.baseVal.value;
+    const y1 = svgLine.y1.baseVal.value;
+    const x2 = svgLine.x2.baseVal.value;
+    const y2 = svgLine.y2.baseVal.value;
+    const midpointX = (x1 + x2) / 2;
+    const midpointY = (y1 + y2) / 2;
+
+    return {
+      x:
+        rect.left +
+        ((midpointX - viewBox.x) / viewBox.width) * rect.width,
+      y:
+        rect.top +
+        ((midpointY - viewBox.y) / viewBox.height) * rect.height,
+    };
+  });
+
+  await page.mouse.move(point.x, point.y);
+}
+
 async function tabTo(page: Page, target: Locator, maxTabs = 80) {
   for (let index = 0; index < maxTabs; index += 1) {
     await page.keyboard.press("Tab");
@@ -536,7 +570,7 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
   const firstEdgeHit = relationshipRenderer
     .locator(".knowledge-relationship-edge-hit")
     .first();
-  await firstEdgeHit.hover();
+  await hoverSvgLineMidpoint(page, firstEdgeHit);
   await expect(edgeLabels.first()).toHaveCSS("opacity", "1");
 
   const firstGraphNode = relationshipRenderer
@@ -929,7 +963,10 @@ test("keeps Knowledge table graph and details visible in a resizable admin works
     page.locator('[data-predicate="part_of"]'),
   ).toHaveCount(1);
   const partOfEdge = page.locator('[data-predicate="part_of"]');
-  await partOfEdge.locator(".knowledge-relationship-edge-hit").hover();
+  await hoverSvgLineMidpoint(
+    page,
+    partOfEdge.locator(".knowledge-relationship-edge-hit"),
+  );
   await expect(
     partOfEdge
       .locator(".knowledge-relationship-edge-label")
