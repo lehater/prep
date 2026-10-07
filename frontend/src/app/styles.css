@@ -1251,8 +1251,8 @@ a:focus-visible {
 
 .knowledge-relationship-edge-label {
   fill: #5f6b7c;
-  font-size: 3.1px;
-  font-weight: 650;
+  font-size: 2.25px;
+  font-weight: 400;
   paint-order: stroke;
   stroke: #ffffff;
   stroke-width: 1.4px;
