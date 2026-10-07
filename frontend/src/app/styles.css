@@ -984,7 +984,7 @@ a:focus-visible {
   display: grid;
   grid-template-rows:
     minmax(260px, var(--knowledge-top-ratio, 66%))
-    7px
+    3px
     minmax(150px, 1fr);
   overflow: hidden;
 }
@@ -995,7 +995,7 @@ a:focus-visible {
   display: grid;
   grid-template-columns:
     minmax(520px, var(--knowledge-table-ratio, 72%))
-    7px
+    3px
     minmax(260px, 1fr);
   overflow: hidden;
 }
@@ -1198,8 +1198,14 @@ a:focus-visible {
 .workspace-divider::before {
   content: "";
   position: absolute;
-  background: var(--prep-color-border-strong);
+  background: var(--prep-color-divider);
   transition: background 120ms ease;
+}
+
+.workspace-divider::after {
+  content: "";
+  position: absolute;
+  background: transparent;
 }
 
 .workspace-divider:hover::before,
@@ -1214,8 +1220,15 @@ a:focus-visible {
 .workspace-divider--vertical::before {
   top: 0;
   bottom: 0;
-  left: 3px;
+  left: 1px;
   width: 1px;
+}
+
+.workspace-divider--vertical::after {
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  right: -3px;
 }
 
 .workspace-divider--horizontal {
@@ -1223,10 +1236,17 @@ a:focus-visible {
 }
 
 .workspace-divider--horizontal::before {
-  top: 3px;
+  top: 1px;
   right: 0;
   left: 0;
   height: 1px;
+}
+
+.workspace-divider--horizontal::after {
+  top: -3px;
+  right: 0;
+  bottom: -3px;
+  left: 0;
 }
 
 .knowledge-relationship-region {
