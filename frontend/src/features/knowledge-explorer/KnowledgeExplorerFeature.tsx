@@ -30,6 +30,7 @@ import { useKnowledgeExplorerState } from "./state";
 
 const TABLE_GRAPH_SPLIT_KEY = "prep.knowledge.table-graph-ratio.v2";
 const TOP_DETAILS_SPLIT_KEY = "prep.knowledge.top-details-ratio.v2";
+const KNOWLEDGE_COLUMN_WIDTHS_KEY = "prep.knowledge.column-widths.v1";
 const DEFAULT_TABLE_GRAPH_RATIO = 70;
 const DEFAULT_TOP_DETAILS_RATIO = 50;
 const TABLE_RATIO_MIN = 45;
@@ -72,6 +73,76 @@ function readStoredRatio(key: string, fallback: number): number {
 
   const stored = Number(raw);
   return Number.isFinite(stored) ? stored : fallback;
+}
+
+function readStoredColumnWidths(): KnowledgeColumnWidths | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const raw = window.localStorage.getItem(KNOWLEDGE_COLUMN_WIDTHS_KEY);
+  if (raw === null) {
+    return null;
+  }
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (
+      !Array.isArray(parsed) ||
+      parsed.length !== 3 ||
+      !parsed.every((value) => typeof value === "number" && Number.isFinite(value))
+    ) {
+      return null;
+    }
+
+    return [
+      clamp(parsed[0], KNOWLEDGE_COLUMN_MIN_WIDTHS[0], KNOWLEDGE_COLUMN_MAX_WIDTHS[0]),
+      clamp(parsed[1], KNOWLEDGE_COLUMN_MIN_WIDTHS[1], KNOWLEDGE_COLUMN_MAX_WIDTHS[1]),
+      clamp(parsed[2], KNOWLEDGE_COLUMN_MIN_WIDTHS[2], KNOWLEDGE_COLUMN_MAX_WIDTHS[2]),
+    ];
+  } catch {
+    return null;
+  }
+}
+
+function measureKnowledgeColumnContentWidths(
+  table: HTMLTableElement,
+): KnowledgeColumnWidths {
+  const clone = table.cloneNode(true) as HTMLTableElement;
+  clone.querySelector("colgroup")?.remove();
+  clone.querySelectorAll(".knowledge-column-resizer").forEach((element) => {
+    element.remove();
+  });
+  clone.setAttribute("aria-hidden", "true");
+  clone.style.position = "fixed";
+  clone.style.top = "0";
+  clone.style.left = "-10000px";
+  clone.style.width = "max-content";
+  clone.style.minWidth = "0";
+  clone.style.tableLayout = "auto";
+  clone.style.visibility = "hidden";
+  clone.style.pointerEvents = "none";
+  document.body.append(clone);
+
+  const widths = [0, 1, 2].map((columnIndex) => {
+    const cells = clone.querySelectorAll<HTMLElement>(
+      `tr > :nth-child(${columnIndex + 1})`,
+    );
+    const measured = Math.ceil(
+      Math.max(
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
+        ...Array.from(cells, (cell) => cell.getBoundingClientRect().width),
+      ),
+    );
+    return clamp(
+      measured,
+      KNOWLEDGE_COLUMN_MIN_WIDTHS[columnIndex],
+      KNOWLEDGE_COLUMN_MAX_WIDTHS[columnIndex],
+    );
+  }) as KnowledgeColumnWidths;
+
+  clone.remove();
+  return widths;
 }
 
 function uniqueSorted(values: readonly string[]): readonly string[] {
@@ -181,7 +252,7 @@ export function KnowledgeExplorerFeature({
   const knowledgeTableScrollRef = useRef<HTMLDivElement | null>(null);
   const knowledgeTableRef = useRef<HTMLTableElement | null>(null);
   const [columnWidths, setColumnWidths] =
-    useState<KnowledgeColumnWidths | null>(null);
+    useState<KnowledgeColumnWidths | null>(() => readStoredColumnWidths());
   const columnResizeRef = useRef<{
     boundaryIndex: 0 | 1;
     startX: number;
@@ -246,6 +317,15 @@ export function KnowledgeExplorerFeature({
       String(Math.round(topDetailsRatio * 10) / 10),
     );
   }, [topDetailsRatio]);
+
+  useEffect(() => {
+    if (columnWidths) {
+      window.localStorage.setItem(
+        KNOWLEDGE_COLUMN_WIDTHS_KEY,
+        JSON.stringify(columnWidths),
+      );
+    }
+  }, [columnWidths]);
 
   useEffect(() => {
     let cancelled = false;
@@ -399,13 +479,23 @@ export function KnowledgeExplorerFeature({
   }, [visibleRelationships]);
 
   useEffect(() => {
+    if (status !== "ready" || !projection) {
+      return;
+    }
+
     if (
       selectedKnowledgeRef &&
       !visibleItems.some((item) => item.knowledgeRef === selectedKnowledgeRef)
     ) {
       setSelectedKnowledgeRef(null);
     }
-  }, [selectedKnowledgeRef, setSelectedKnowledgeRef, visibleItems]);
+  }, [
+    projection,
+    selectedKnowledgeRef,
+    setSelectedKnowledgeRef,
+    status,
+    visibleItems,
+  ]);
 
   const selectedItem = useMemo(
     () =>
@@ -420,16 +510,12 @@ export function KnowledgeExplorerFeature({
       return;
     }
 
-    const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
-    if (headers?.length !== 3) {
+    const table = knowledgeTableRef.current;
+    if (!table) {
       return;
     }
 
-    setColumnWidths([
-      Math.round(headers.item(0).getBoundingClientRect().width),
-      Math.round(headers.item(1).getBoundingClientRect().width),
-      Math.round(headers.item(2).getBoundingClientRect().width),
-    ]);
+    setColumnWidths(measureKnowledgeColumnContentWidths(table));
   }, [columnWidths, visibleItems.length]);
 
   useEffect(() => {
@@ -550,23 +636,14 @@ export function KnowledgeExplorerFeature({
     delta: number,
     baseWidths: KnowledgeColumnWidths,
   ) {
-    const leftIndex = boundaryIndex;
-    const rightIndex = (boundaryIndex + 1) as 1 | 2;
-    const leftWidth = baseWidths[leftIndex];
-    const rightWidth = baseWidths[rightIndex];
-    const minDelta = Math.max(
-      KNOWLEDGE_COLUMN_MIN_WIDTHS[leftIndex] - leftWidth,
-      rightWidth - KNOWLEDGE_COLUMN_MAX_WIDTHS[rightIndex],
-    );
-    const maxDelta = Math.min(
-      KNOWLEDGE_COLUMN_MAX_WIDTHS[leftIndex] - leftWidth,
-      rightWidth - KNOWLEDGE_COLUMN_MIN_WIDTHS[rightIndex],
-    );
-    const boundedDelta = clamp(delta, minDelta, maxDelta);
     const nextWidths = [...baseWidths] as KnowledgeColumnWidths;
-
-    nextWidths[leftIndex] = Math.round(leftWidth + boundedDelta);
-    nextWidths[rightIndex] = Math.round(rightWidth - boundedDelta);
+    nextWidths[boundaryIndex] = Math.round(
+      clamp(
+        baseWidths[boundaryIndex] + delta,
+        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
+        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
+      ),
+    );
     setColumnWidths(nextWidths);
   }
 
@@ -638,41 +715,8 @@ export function KnowledgeExplorerFeature({
       return;
     }
 
-    const clone = table.cloneNode(true) as HTMLTableElement;
-    clone.querySelector("colgroup")?.remove();
-    clone.querySelectorAll(".knowledge-column-resizer").forEach((element) => {
-      element.remove();
-    });
-    clone.setAttribute("aria-hidden", "true");
-    clone.style.position = "fixed";
-    clone.style.top = "0";
-    clone.style.left = "-10000px";
-    clone.style.width = "max-content";
-    clone.style.minWidth = "0";
-    clone.style.tableLayout = "auto";
-    clone.style.visibility = "hidden";
-    clone.style.pointerEvents = "none";
-    document.body.append(clone);
-
-    const cells = clone.querySelectorAll<HTMLElement>(
-      `tr > :nth-child(${boundaryIndex + 1})`,
-    );
-    const desiredWidth = Math.ceil(
-      Math.max(
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
-        ...Array.from(cells, (cell) => cell.getBoundingClientRect().width),
-      ),
-    );
-    clone.remove();
-
-    setColumnWidthAtBoundary(
-      boundaryIndex,
-      clamp(
-        desiredWidth,
-        KNOWLEDGE_COLUMN_MIN_WIDTHS[boundaryIndex],
-        KNOWLEDGE_COLUMN_MAX_WIDTHS[boundaryIndex],
-      ),
-    );
+    const desiredWidths = measureKnowledgeColumnContentWidths(table);
+    setColumnWidthAtBoundary(boundaryIndex, desiredWidths[boundaryIndex]);
   }
 
   function handleColumnDividerKey(
