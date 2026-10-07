@@ -84,7 +84,7 @@ a:focus-visible {
 }
 
 .prototype-label {
-  border: 1px solid #3a475b;
+  border: 1px solid var(--prep-color-sidebar-border-strong);
   border-radius: var(--prep-radius-pill);
   padding: 2px 6px;
   color: var(--prep-color-sidebar-muted);
@@ -296,8 +296,8 @@ a:focus-visible {
 }
 
 .recovery-message {
-  border-left: 4px solid #7c88b5;
-  background: #f0f3fb;
+  border-left: 4px solid var(--prep-color-info);
+  background: var(--prep-color-info-soft);
   padding: 12px 14px;
   margin: 0;
 }
@@ -415,8 +415,8 @@ a:focus-visible {
 
 .target-uncertainty {
   max-width: 760px;
-  border-left: 4px solid #c89038;
-  background: #fff8ea;
+  border-left: 4px solid var(--prep-color-warning);
+  background: var(--prep-color-warning-soft);
   padding: 12px 14px;
 }
 
@@ -606,8 +606,8 @@ a:focus-visible {
 }
 
 .external-constraints {
-  border-left: 4px solid #8b94b3;
-  background: #f5f6fa;
+  border-left: 4px solid var(--prep-color-border-strong);
+  background: var(--prep-color-surface-muted);
   padding: 12px 14px;
 }
 
@@ -617,8 +617,8 @@ a:focus-visible {
 }
 
 .accepted-focus {
-  border-color: #b8d8ca;
-  background: #f3faf6;
+  border-color: var(--prep-color-success);
+  background: var(--prep-color-success-soft);
 }
 
 .evidence-basis-region summary {
@@ -1028,7 +1028,7 @@ a:focus-visible {
 }
 
 .knowledge-detail-label {
-  color: #475467;
+  color: var(--prep-color-text-secondary);
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.025em;
@@ -1241,8 +1241,8 @@ a:focus-visible {
 .activity-no-support {
   display: grid;
   gap: 12px;
-  border-left: 4px solid #c89038;
-  background: #fff8ea;
+  border-left: 4px solid var(--prep-color-warning);
+  background: var(--prep-color-warning-soft);
   padding: 14px;
 }
 
@@ -1324,8 +1324,8 @@ a:focus-visible {
 }
 
 .activity-processing-region {
-  border-color: #b9cbe9;
-  background: #f4f7fc;
+  border-color: var(--prep-color-info);
+  background: var(--prep-color-info-soft);
 }
 
 .activity-processing-region h2 {
