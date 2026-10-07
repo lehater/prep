@@ -51,13 +51,6 @@ a:focus-visible {
   min-width: 0;
 }
 
-.preparation-shell--admin {
-  height: 100dvh;
-  display: grid;
-  grid-template-columns: 228px minmax(0, 1fr);
-  overflow: hidden;
-}
-
 .app-sidebar {
   min-height: 0;
   display: grid;
@@ -171,13 +164,6 @@ a:focus-visible {
 }
 
 @media (max-width: 760px) {
-  .preparation-shell--admin {
-    height: auto;
-    min-height: 100dvh;
-    display: block;
-    overflow: visible;
-  }
-
   .app-sidebar {
     position: sticky;
     top: 0;
