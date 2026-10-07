@@ -420,10 +420,16 @@ export function KnowledgeExplorerFeature({
       return;
     }
 
-    const measured = readRenderedColumnWidths();
-    if (measured) {
-      setColumnWidths(measured);
+    const headers = knowledgeTableRef.current?.querySelectorAll("thead th");
+    if (!headers || headers.length !== 3) {
+      return;
     }
+
+    setColumnWidths([
+      Math.round(headers.item(0).getBoundingClientRect().width),
+      Math.round(headers.item(1).getBoundingClientRect().width),
+      Math.round(headers.item(2).getBoundingClientRect().width),
+    ]);
   }, [columnWidths, visibleItems.length]);
 
   useEffect(() => {
@@ -461,7 +467,7 @@ export function KnowledgeExplorerFeature({
     });
 
     return () => window.cancelAnimationFrame(animationFrame);
-  }, [selectedKnowledgeRef, visibleItems]);
+  }, [selectedKnowledgeRef]);
 
   const selectedRelations = useMemo(() => {
     if (!selectedItem || !projection) {
@@ -566,7 +572,7 @@ export function KnowledgeExplorerFeature({
 
   function startColumnResize(
     boundaryIndex: 0 | 1,
-    event: ReactPointerEvent<HTMLSpanElement>,
+    event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const widths = readRenderedColumnWidths() ?? columnWidths;
     if (!widths) {
@@ -585,7 +591,7 @@ export function KnowledgeExplorerFeature({
 
   function moveColumnResize(
     boundaryIndex: 0 | 1,
-    event: ReactPointerEvent<HTMLSpanElement>,
+    event: ReactPointerEvent<HTMLHRElement>,
   ) {
     const activeResize = columnResizeRef.current;
     if (
@@ -603,7 +609,7 @@ export function KnowledgeExplorerFeature({
     );
   }
 
-  function stopColumnResize(event: ReactPointerEvent<HTMLSpanElement>) {
+  function stopColumnResize(event: ReactPointerEvent<HTMLHRElement>) {
     columnResizeRef.current = null;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -671,7 +677,7 @@ export function KnowledgeExplorerFeature({
 
   function handleColumnDividerKey(
     boundaryIndex: 0 | 1,
-    event: ReactKeyboardEvent<HTMLSpanElement>,
+    event: ReactKeyboardEvent<HTMLHRElement>,
   ) {
     const widths = readRenderedColumnWidths() ?? columnWidths;
     if (!widths) {
@@ -1018,9 +1024,8 @@ export function KnowledgeExplorerFeature({
                           <span className="knowledge-column-header-label">
                             Знание
                           </span>
-                          <span
+                          <hr
                             className="knowledge-column-resizer"
-                            role="separator"
                             aria-label="Изменить ширину колонки «Знание»"
                             aria-orientation="vertical"
                             aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[0]}
@@ -1045,9 +1050,8 @@ export function KnowledgeExplorerFeature({
                           <span className="knowledge-column-header-label">
                             Тип / форма
                           </span>
-                          <span
+                          <hr
                             className="knowledge-column-resizer"
-                            role="separator"
                             aria-label="Изменить ширину колонки «Тип / форма»"
                             aria-orientation="vertical"
                             aria-valuemin={KNOWLEDGE_COLUMN_MIN_WIDTHS[1]}
