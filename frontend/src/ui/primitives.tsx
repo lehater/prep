@@ -1,5 +1,6 @@
 import type {
   ButtonHTMLAttributes,
+  HTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
 } from "react";
@@ -73,38 +74,123 @@ export function Field({
   );
 }
 
-export interface SurfaceProps {
+export interface SectionHeaderProps {
+  readonly eyebrow?: ReactNode | undefined;
+  readonly title: ReactNode;
+  readonly headingId?: string | undefined;
+  readonly children?: ReactNode;
+}
+
+export function SectionHeader({
+  eyebrow,
+  title,
+  headingId,
+  children,
+}: SectionHeaderProps) {
+  return (
+    <div className="section-heading">
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+      <h2 id={headingId}>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+export interface ActionGroupProps extends HTMLAttributes<HTMLDivElement> {
   readonly children: ReactNode;
-  readonly className?: string | undefined;
-  readonly ariaLabel?: string | undefined;
+}
+
+export function ActionGroup({
+  className,
+  children,
+  ...props
+}: ActionGroupProps) {
+  return (
+    <div
+      {...props}
+      className={["action-row", className].filter(Boolean).join(" ")}
+    >
+      {children}
+    </div>
+  );
+}
+
+export interface SurfaceProps extends HTMLAttributes<HTMLElement> {
+  readonly children: ReactNode;
 }
 
 export function Surface({
   children,
   className,
-  ariaLabel,
+  ...props
 }: SurfaceProps) {
   return (
     <section
+      {...props}
       className={["ui-surface", className].filter(Boolean).join(" ")}
-      aria-label={ariaLabel}
     >
       {children}
     </section>
   );
 }
 
-export interface OutcomeMessageProps {
+export interface ChoiceCardProps
+  extends Omit<LabelHTMLAttributes<HTMLLabelElement>, "htmlFor"> {
+  readonly controlId: string;
+  readonly selected: boolean;
   readonly children: ReactNode;
-  readonly className?: string | undefined;
+}
+
+export function ChoiceCard({
+  controlId,
+  selected,
+  className,
+  children,
+  ...props
+}: ChoiceCardProps) {
+  return (
+    <label
+      {...props}
+      htmlFor={controlId}
+      className={["choice-card", className].filter(Boolean).join(" ")}
+      data-selected={selected ? "true" : "false"}
+    >
+      {children}
+    </label>
+  );
+}
+
+export interface StatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
+  readonly tone?: "positive" | "warning" | "danger" | "neutral" | "info";
+}
+
+export function StatusBadge({
+  tone = "neutral",
+  className,
+  ...props
+}: StatusBadgeProps) {
+  return (
+    <span
+      {...props}
+      className={["status-badge", className].filter(Boolean).join(" ")}
+      data-tone={tone}
+    />
+  );
+}
+
+export interface OutcomeMessageProps
+  extends Omit<HTMLAttributes<HTMLParagraphElement>, "role"> {
+  readonly children: ReactNode;
 }
 
 export function OutcomeMessage({
   children,
   className,
+  ...props
 }: OutcomeMessageProps) {
   return (
     <p
+      {...props}
       className={["outcome-message", className].filter(Boolean).join(" ")}
       role="status"
     >
