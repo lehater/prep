@@ -65,7 +65,7 @@ export function ShellTopBar({
           {breadcrumbs.map((item, index) => {
             const current = index === breadcrumbs.length - 1;
             return (
-              <li key={`${item.label}-${index}`} aria-current={current ? "page" : undefined}>
+              <li key={item.label} aria-current={current ? "page" : undefined}>
                 {item.label}
               </li>
             );
@@ -104,13 +104,17 @@ export function ShellStatusBar({
   trailing = [],
 }: ShellStatusBarProps) {
   return (
-    <footer className="app-statusbar" aria-label="Статус приложения">
+    <div
+      className="app-statusbar"
+      role="contentinfo"
+      aria-label="Статус приложения"
+    >
       <div className="app-statusbar-leading">
         <StatusItems items={leading} />
       </div>
       <div className="app-statusbar-trailing">
         <StatusItems items={trailing} />
       </div>
-    </footer>
+    </div>
   );
 }
