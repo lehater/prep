@@ -30,6 +30,15 @@
   --prep-color-sidebar-muted: #bcc7d7;
   --prep-color-sidebar-hover: rgb(255 255 255 / 5%);
 
+  --prep-color-shell-chrome: var(--prep-color-sidebar);
+  --prep-color-shell-chrome-border: var(--prep-color-sidebar-border);
+  --prep-color-shell-chrome-text: var(--prep-color-sidebar-text);
+  --prep-color-shell-chrome-muted: var(--prep-color-sidebar-muted);
+
+  --prep-shell-sidebar-width: 228px;
+  --prep-shell-topbar-height: 36px;
+  --prep-shell-statusbar-height: 24px;
+
   --prep-color-text: #18202b;
   --prep-color-text-secondary: #4f5b6b;
   --prep-color-text-muted: #68748a;

@@ -75,8 +75,26 @@ Owns:
 - application bootstrap;
 - provider/adapter selection;
 - preparation navigation composition;
-- active-child composition;
+- stable application-shell chrome composition;
+- active-child composition inside the shell content viewport;
 - recovery when a required Target/focus context is missing.
+
+The stable shell chrome is structurally outside every task feature and consists of:
+
+- persistent preparation sidebar/navigation;
+- compact top context/navigation bar;
+- active task content viewport;
+- compact bottom status bar.
+
+The shell prepares location/status presentation data for those chrome regions.
+The top bar orients the user within the application hierarchy; it does not replace the
+task view's own page title/header. Active Target/focus continuity is projected once into
+the bottom status bar rather than duplicated in sidebar navigation.
+
+Shared shell components render shell-level data but do not own Target, focus, learner,
+Knowledge, support or runtime truth. Task features render only inside the content
+viewport, including their own page/task title, and must not implement their own
+application header/footer/sidebar chrome.
 
 The shell composes accepted task features. It does not own canonical Target, learner,
 Knowledge or support truth.
@@ -229,6 +247,8 @@ task-complete non-spatial Knowledge path.
 ```text
 Composition Root / Preparation Shell
         |
+        +--> shared AppShell chrome
+        |
         +--> Preparation Context
         |
         +--> Target Direction --------+
@@ -253,7 +273,8 @@ Rules:
 - adapters implement consumer-owned ports;
 - raw DTO/provider types remain inside adapters;
 - renderer-library types remain inside the renderer adapter;
-- shared presentation primitives do not own task/domain state;
+- shared presentation primitives and shell chrome do not own task/domain state;
+- task features render inside the shell content viewport and do not duplicate application chrome;
 - module boundaries follow accepted task/interaction responsibilities rather than
   backend resources or domain-entity CRUD groupings.
 

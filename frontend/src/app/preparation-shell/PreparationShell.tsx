@@ -20,6 +20,11 @@ import type { TargetDirectionPort, CandidateTargetOption } from "../../features/
 import { TargetDirectionFeature } from "../../features/target-direction/TargetDirectionFeature";
 import type { TargetPort } from "../../features/target/contract";
 import { TargetFeature } from "../../features/target/TargetFeature";
+import {
+  ApplicationShell,
+  ShellStatusBar,
+  ShellTopBar,
+} from "../../ui/AppShell";
 import { usePreparationContext } from "../preparation-context/PreparationContext";
 import {
   type PreparationDestination,
@@ -27,15 +32,25 @@ import {
   resolvePreparationNavigation,
 } from "./navigation";
 
+const destinationLabels: Readonly<Record<PreparationDestination, string>> = {
+  targets: "Цели",
+  target: "Цель",
+  current: "Текущее состояние",
+  knowledge: "Знания",
+  activity: "Практика",
+  "evidence-change": "Свидетельства и изменения",
+  "prepare-support": "Подготовить поддержку",
+};
+
 const navigationItems: readonly {
   readonly destination: PreparationDestination;
   readonly label: string;
 }[] = [
-  { destination: "targets", label: "Цели" },
-  { destination: "target", label: "Цель" },
-  { destination: "current", label: "Текущее состояние" },
-  { destination: "knowledge", label: "Знания" },
-  { destination: "activity", label: "Практика" },
+  { destination: "targets", label: destinationLabels.targets },
+  { destination: "target", label: destinationLabels.target },
+  { destination: "current", label: destinationLabels.current },
+  { destination: "knowledge", label: destinationLabels.knowledge },
+  { destination: "activity", label: destinationLabels.activity },
 ];
 
 const EMPTY_CURRENT_POSITION_WORKING_STATE: CurrentPositionWorkingState = {
@@ -411,50 +426,72 @@ export function PreparationShell({
     }
   }
 
+  const currentLocationLabel = destinationLabels[navigation.destination];
+  const focusStatus = activeFocusRef ? "выбран" : "не выбран";
+
   return (
-    <div
+    <ApplicationShell
       className="preparation-shell preparation-shell--admin"
       data-destination={navigation.destination}
-    >
-      <aside className="app-sidebar">
-        <div className="sidebar-brand-row">
-          <a className="brand" href="/" onClick={(event) => event.preventDefault()}>
-            Prep
-          </a>
-          <span className="prototype-label">prototype</span>
-        </div>
-
-        <nav className="prep-navigation" aria-label="Подготовка">
-          {navigationItems.map((item) => (
-            <button
-              type="button"
-              key={item.destination}
-              aria-current={
-                navigation.destination === item.destination ? "page" : undefined
-              }
-              onClick={() => navigate({ destination: item.destination })}
+      contentClassName="active-child"
+      sidebar={
+        <aside className="app-sidebar">
+          <div className="sidebar-brand-row">
+            <a
+              className="brand"
+              href="/"
+              onClick={(event) => event.preventDefault()}
             >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <section
-          className="active-context"
-          aria-label="Текущий контекст подготовки"
-        >
-          <div>
-            <span>Цель</span>
-            <strong>{activeTarget?.label ?? "не выбрана"}</strong>
+              Prep
+            </a>
+            <span className="prototype-label">prototype</span>
           </div>
-          <div>
-            <span>Фокус</span>
-            <strong>{activeFocusRef ? "выбран" : "не выбран"}</strong>
-          </div>
-        </section>
-      </aside>
 
-      <main className="active-child">{child}</main>
-    </div>
+          <nav className="prep-navigation" aria-label="Подготовка">
+            {navigationItems.map((item) => (
+              <button
+                type="button"
+                key={item.destination}
+                aria-current={
+                  navigation.destination === item.destination
+                    ? "page"
+                    : undefined
+                }
+                onClick={() => navigate({ destination: item.destination })}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+        </aside>
+      }
+      topBar={
+        <ShellTopBar
+          breadcrumbs={[
+            { label: "Подготовка" },
+            { label: currentLocationLabel },
+          ]}
+        />
+      }
+      statusBar={
+        <ShellStatusBar
+          leading={[
+            {
+              label: "Цель",
+              value: activeTarget?.label ?? "не выбрана",
+            },
+          ]}
+          trailing={[
+            {
+              label: "Фокус",
+              value: focusStatus,
+            },
+          ]}
+        />
+      }
+    >
+      {child}
+    </ApplicationShell>
   );
 }

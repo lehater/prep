@@ -115,6 +115,19 @@ describe("frontend dependency boundaries", () => {
     ]);
   });
 
+  it("rejects task features composing application shell chrome", () => {
+    const root = fixture({
+      "features/target/Feature.tsx":
+        'import { ApplicationShell } from "../../ui/AppShell"; export const Feature = () => <div className="app-topbar" />;',
+      "ui/AppShell.tsx": "export const ApplicationShell = 1;",
+    });
+
+    expect(validateSourceTree(root)).toEqual([
+      'features/target/Feature.tsx: shared presentation class "app-topbar" must be owned through its ui primitive',
+      'features/target/Feature.tsx: "../../ui/AppShell" violates boundary: task feature must not compose application shell chrome',
+    ]);
+  });
+
   it("allows feature-specific class names that only contain a shared token as a substring", () => {
     const root = fixture({
       "features/knowledge-explorer/Feature.tsx":

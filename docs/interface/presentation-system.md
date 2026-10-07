@@ -20,12 +20,17 @@ The system covers the current human-interface surface: Target, Current position,
 On capable wide surfaces, Prep uses a **desktop-oriented bounded application/workbench** rather than document-oriented page flow:
 
 - the application shell owns the available viewport;
-- preparation navigation remains persistently available;
-- the active task workspace occupies the remaining viewport;
+- stable application chrome forms a persistent frame around the task viewport: left preparation navigation, a compact top context/navigation bar and a compact bottom status bar;
+- the top bar carries shell-level orientation such as breadcrumb/current location and optional global actions, not task-local controls or the task page title;
+- each task page title remains inside the replaceable content viewport as part of that view's own page/task header;
+- the bottom bar is the single persistent home for compact active Target/focus continuity and future operational status only when that status has an accepted owner; the sidebar does not duplicate that context;
+- the active task workspace occupies the remaining content viewport and is the only region replaced by navigation;
 - task regions may own bounded internal overflow where their content requires independent inspection;
 - long page-level document scrolling is not the default ownership model for the primary preparation workspace.
 
-This contract fixes the structural interaction archetype, not pane geometry. It does not require every secondary region to remain visible, equal-width panes, resizable splitters or any particular CSS mechanism.
+The chrome uses the same dark visual family as the persistent navigation, thin 1px boundaries and the shared compact typography scale so it reads as one application frame rather than as page decoration. Top/bottom bars remain intentionally shallow and subordinate to task content.
+
+This contract fixes the structural interaction archetype, not feature geometry. It does not require every secondary region to remain visible, equal-width panes, resizable splitters or any particular CSS mechanism.
 
 On constrained/narrow surfaces the same semantic priorities are preserved through reflow and disclosure; bounded wide-screen composition does not create a separate product topology.
 
@@ -66,11 +71,13 @@ Dense peer-panel composition and single-step sparse wizards remain controlled al
 
 Controls are **contextual task controls with keyboard-equivalent semantics**.
 
-Persistent controls are limited to:
+Persistent controls/context are limited to:
 
 - preparation navigation/context recovery;
+- shell-level current-location orientation;
 - active Target context;
-- current focus context where material.
+- current focus context where material;
+- compact shell status whose semantics already have an accepted owner.
 
 Task controls live near the information/action they affect. Direct manipulation (including graph pan/zoom/selection) may supplement but never replace named/queryable/keyboard-operable actions.
 
@@ -195,6 +202,7 @@ If the relationship overview cannot remain usable, the system may reduce visual 
 ## Material invariants
 
 - bounded desktop/workbench application surface on capable wide displays, with application-shell viewport ownership;
+- stable shell chrome (persistent sidebar, compact top context/navigation bar, compact bottom status bar) around the replaceable content viewport;
 - persistent preparation navigation on capable wide displays and priority-preserving reflow/disclosure on constrained surfaces;
 - task-complete non-spatial Knowledge access;
 - 2D relationship overview is optional enhancement, never semantic truth;

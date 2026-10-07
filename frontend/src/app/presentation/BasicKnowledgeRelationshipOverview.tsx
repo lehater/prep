@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, useState } from "react";
 
 import type {
   KnowledgeRelationshipRendererProps,
@@ -33,6 +33,7 @@ export function BasicKnowledgeRelationshipOverview({
   model,
   onSelectKnowledge,
 }: KnowledgeRelationshipRendererProps) {
+  const [hoveredNodeRef, setHoveredNodeRef] = useState<string | null>(null);
   const positioned = nodePositions(model.nodes);
   const byRef = new Map(
     positioned.map((entry) => [entry.node.knowledgeRef, entry]),
@@ -61,7 +62,6 @@ export function BasicKnowledgeRelationshipOverview({
               const selected =
                 edge.sourceRef === model.selectedKnowledgeRef ||
                 edge.targetRef === model.selectedKnowledgeRef;
-              const showLabel = selected || model.edges.length <= 6;
 
               return (
                 <g
@@ -70,49 +70,74 @@ export function BasicKnowledgeRelationshipOverview({
                   data-predicate={edge.predicate}
                 >
                   <line
+                    className="knowledge-relationship-edge-line"
                     x1={source.x}
                     y1={source.y}
                     x2={target.x}
                     y2={target.y}
                     data-selected={selected ? "true" : "false"}
                   />
-                  <title>{`${edge.label}: ${edge.statement}`}</title>
-                  {showLabel ? (
-                    <text
-                      className="knowledge-relationship-edge-label"
-                      x={(source.x + target.x) / 2}
-                      y={(source.y + target.y) / 2}
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                    >
-                      {edge.label}
-                    </text>
-                  ) : null}
+                  <line
+                    className="knowledge-relationship-edge-hit"
+                    x1={source.x}
+                    y1={source.y}
+                    x2={target.x}
+                    y2={target.y}
+                  />
+                  <text
+                    className="knowledge-relationship-edge-label"
+                    x={(source.x + target.x) / 2}
+                    y={(source.y + target.y) / 2}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    pointerEvents="none"
+                  >
+                    {edge.label}
+                  </text>
                 </g>
               );
             })}
           </svg>
 
-          {positioned.map(({ node, x, y }) => (
-            <button
-              key={node.knowledgeRef}
-              type="button"
-              className="knowledge-relationship-node"
-              data-kind={node.kind}
-              data-selected={node.selected ? "true" : "false"}
-              style={
-                {
-                  "--knowledge-node-x": `${x}%`,
-                  "--knowledge-node-y": `${y}%`,
-                } as CSSProperties
-              }
-              title={node.label}
-              aria-label={`${node.label}. Связей: ${node.relationCount}`}
-              onClick={() => onSelectKnowledge(node.knowledgeRef)}
-            >
-              <span aria-hidden="true" />
-            </button>
-          ))}
+          {positioned.map(({ node, x, y }) => {
+            const hovered = node.knowledgeRef === hoveredNodeRef;
+
+            return (
+              <div
+                key={node.knowledgeRef}
+                className="knowledge-relationship-node-anchor"
+                style={
+                  {
+                    "--knowledge-node-x": `${x}%`,
+                    "--knowledge-node-y": `${y}%`,
+                  } as CSSProperties
+                }
+              >
+                <button
+                  type="button"
+                  className="knowledge-relationship-node"
+                  data-kind={node.kind}
+                  data-selected={node.selected ? "true" : "false"}
+                  aria-label={`${node.label}. Связей: ${node.relationCount}`}
+                  onPointerEnter={() => setHoveredNodeRef(node.knowledgeRef)}
+                  onPointerLeave={() => setHoveredNodeRef(null)}
+                  onFocus={() => setHoveredNodeRef(node.knowledgeRef)}
+                  onBlur={() => setHoveredNodeRef(null)}
+                  onClick={() => onSelectKnowledge(node.knowledgeRef)}
+                >
+                  <span aria-hidden="true" />
+                </button>
+                {hovered ? (
+                  <span
+                    className="knowledge-relationship-tooltip"
+                    role="tooltip"
+                  >
+                    {node.label}
+                  </span>
+                ) : null}
+              </div>
+            );
+          })}
         </>
       ) : (
         <p className="supporting-text">Нет данных для обзора связей.</p>

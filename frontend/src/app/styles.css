@@ -51,17 +51,10 @@ a:focus-visible {
   min-width: 0;
 }
 
-.preparation-shell--admin {
-  height: 100dvh;
-  display: grid;
-  grid-template-columns: 228px minmax(0, 1fr);
-  overflow: hidden;
-}
-
 .app-sidebar {
   min-height: 0;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 14px;
   border-right: 1px solid var(--prep-color-sidebar-border);
   background: var(--prep-color-sidebar);
@@ -123,38 +116,8 @@ a:focus-visible {
   box-shadow: var(--prep-shadow-active);
 }
 
-.active-context {
-  align-self: end;
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  border-top: 1px solid var(--prep-color-sidebar-border);
-  padding: 12px 8px 2px;
-}
-
-.active-context div {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-
 .candidate-card small {
   color: var(--prep-color-text-muted);
-}
-
-.active-context span {
-  color: var(--prep-color-sidebar-muted);
-  font-size: var(--prep-type-meta);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.active-context strong {
-  overflow: hidden;
-  font-size: var(--prep-type-small);
-  line-height: 1.35;
-  text-overflow: ellipsis;
 }
 
 .active-child {
@@ -171,13 +134,6 @@ a:focus-visible {
 }
 
 @media (max-width: 760px) {
-  .preparation-shell--admin {
-    height: auto;
-    min-height: 100dvh;
-    display: block;
-    overflow: visible;
-  }
-
   .app-sidebar {
     position: sticky;
     top: 0;
@@ -198,22 +154,6 @@ a:focus-visible {
 
   .prototype-label {
     display: none;
-  }
-
-  .active-context {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 12px;
-    border-top: 1px solid var(--prep-color-sidebar-border);
-    padding: 5px 0 0;
-  }
-
-  .active-context div {
-    flex: 1 1 0;
-  }
-
-  .active-context strong {
-    white-space: nowrap;
   }
 
   .prep-navigation {
@@ -936,32 +876,55 @@ a:focus-visible {
   height: 100%;
 }
 
-.knowledge-relationship-lines line {
+.knowledge-relationship-edge-line {
   stroke: var(--prep-color-border-strong);
   stroke-width: 0.55;
   vector-effect: non-scaling-stroke;
+  pointer-events: none;
 }
 
-.knowledge-relationship-lines line[data-selected="true"] {
+.knowledge-relationship-edge-line[data-selected="true"] {
   stroke: var(--prep-color-accent);
   stroke-width: 1.1;
+}
+
+.knowledge-relationship-edge-hit {
+  stroke: transparent;
+  stroke-width: 12;
+  vector-effect: non-scaling-stroke;
+  pointer-events: stroke;
+  cursor: default;
 }
 
 .knowledge-relationship-edge-label {
   fill: var(--prep-color-text-muted);
   font-size: var(--prep-type-graph-edge);
   font-weight: 400;
+  opacity: 0;
   paint-order: stroke;
   stroke: var(--prep-color-surface);
   stroke-width: 1.4px;
   stroke-linejoin: round;
 }
 
+.knowledge-relationship-lines g:hover .knowledge-relationship-edge-label {
+  opacity: 1;
+}
+
+.knowledge-relationship-node-anchor {
+  position: absolute;
+  z-index: 2;
+  left: var(--knowledge-node-x);
+  top: var(--knowledge-node-y);
+  width: 0;
+  height: 0;
+}
+
 .knowledge-relationship-node {
   --knowledge-node-size: 10px;
   position: absolute;
-  left: var(--knowledge-node-x);
-  top: var(--knowledge-node-y);
+  left: 0;
+  top: 0;
   width: var(--knowledge-node-size);
   height: var(--knowledge-node-size);
   transform: translate(-50%, -50%);
@@ -984,6 +947,27 @@ a:focus-visible {
 
 .knowledge-relationship-node:focus-visible {
   outline-offset: 2px;
+}
+
+.knowledge-relationship-tooltip {
+  position: absolute;
+  z-index: 5;
+  left: 7px;
+  top: -7px;
+  width: max-content;
+  max-width: 180px;
+  transform: translateY(-100%);
+  border: 1px solid var(--prep-color-border);
+  border-radius: var(--prep-radius-xs);
+  background: var(--prep-color-surface);
+  padding: 3px 5px;
+  color: var(--prep-color-text-secondary);
+  font-size: var(--prep-type-micro);
+  font-weight: var(--prep-weight-medium);
+  line-height: 1.25;
+  white-space: normal;
+  box-shadow: var(--prep-shadow-surface);
+  pointer-events: none;
 }
 
 .knowledge-relationship-caption {

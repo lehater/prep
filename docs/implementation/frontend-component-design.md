@@ -38,6 +38,7 @@ Current reuse dispositions:
 | semantic outcome/status chip treatment | SHARED | `StatusBadge` / `OutcomeMessage` | repeated status/outcome presentation across views |
 | tabular sizing, sticky header, zebra/selection, overflow, column resize, keyboard resize, content autosize and width persistence | SHARED | `DataTable` | application-wide table contract; feature supplies columns/cells/selection semantics |
 | resizable two-region separator interaction and keyboard/pointer behavior | SHARED | `ResizableSplit` | bounded workbench composition; feature supplies ratio constraints/content |
+| stable application chrome composition (sidebar + top context bar + content viewport + bottom status bar) | SHARED | `ApplicationShell` / `ShellTopBar` / `ShellStatusBar` | one persistent frame around every task feature; sidebar owns navigation, top bar owns shell orientation, status bar owns persistent Target/focus context; task page title remains feature-owned inside content viewport |
 | Knowledge relationship graph geometry/rendering | LOCAL | Knowledge relationship renderer | unique optional visualization responsibility |
 | Knowledge semantic filters/query/scope | LOCAL | KnowledgeExplorerFeature | task semantics, not generic table mechanics |
 | feature-specific detail content/layout | LOCAL | owning task feature | semantic composition differs by task |
@@ -68,8 +69,14 @@ Realizes the structural `FRAME-PREPARATION`.
 Owns:
 
 - preparation navigation;
-- active-child composition;
+- shell-level location/status projection;
+- active Target/focus context projection into the shared status bar without duplicating that context in sidebar navigation;
+- active-child composition into the shared application content viewport, including the task view's own page title/header;
 - missing Target/focus routing/recovery according to Interface Topology.
+
+It composes `ApplicationShell`, `ShellTopBar` and `ShellStatusBar`; those shared
+presentation components own chrome structure/rendering only. They do not read ports or
+task/domain state directly.
 
 It reads active context from `PreparationContext` but does not own canonical Target,
 focus, learner or Knowledge meaning.

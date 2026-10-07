@@ -166,10 +166,13 @@ content:
         Navigate between preparation destinations, then scroll/overflow the active child
         task region and inspect application navigation/context before and after.
       oracle: >-
-        The application frame remains bounded to the viewport, preparation navigation
-        remains available, and child overflow does not convert the primary interface into
-        document-owned page scrolling. No assertion depends on exact pane widths, splitter
-        thickness, CSS layout primitive or resize convenience gestures.
+        The application frame remains bounded to the viewport; sidebar, compact top
+        context/navigation bar and compact bottom status bar remain present while only the
+        content viewport is replaced; breadcrumb/current-location follows navigation;
+        Target/focus status follows accepted shell context; child overflow does not convert
+        the primary interface into document-owned page scrolling. No assertion depends on
+        exact pane widths, splitter thickness, CSS layout primitive or resize convenience
+        gestures.
 
     - id: FTD-KNOWLEDGE-WORKBENCH
       verification_refs: [FV-07, FV-11, FV-14]
