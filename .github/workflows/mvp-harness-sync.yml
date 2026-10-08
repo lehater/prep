@@ -1,0 +1,52 @@
+name: MVP Harness synchronization
+on:
+  push:
+    branches: [chore/mvp-harness-sync]
+  pull_request:
+    branches: [mvp-vertical-slice]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Read Harness version
+        id: harness
+        run: echo "sha=$(cat .harness-version)" >> "$GITHUB_OUTPUT"
+      - name: Check out pinned Harness
+        uses: actions/checkout@v4
+        with:
+          repository: lehater/harness
+          ref: ${{ steps.harness.outputs.sha }}
+          path: .harness-tool
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Verify Consumer Pack pin agreement
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          version = Path(".harness-version").read_text().strip()
+          binding = json.loads(Path(".harness/harness-binding.json").read_text())
+          assert binding["source"]["revision"] == version
+          print("Harness pin consistent:", version)
+          PY
+      - name: Validate Harness integration and publication
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/check_harness_integration.py
+      - name: Validate semantic baseline
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/semantic_baseline.py
+      - name: Full Harness revalidation
+        env:
+          HARNESS_ROOT: .harness-tool
+        run: python tools/full_harness_revalidate.py
