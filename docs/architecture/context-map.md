@@ -8,13 +8,11 @@ Define Prep's strategic problem-space responsibilities for the MVP. This artifac
 
 ### DS-01 Preparation Information — CORE
 
-Owns the problem-space responsibility for preparation-related information other than retained activity-history facts, and for meaningful relationships among that information.
+Owns the problem-space responsibility for current preparation-related information other than retained activity-history facts, and for meaningful relationships among that information.
 
 This includes knowledge, goals, capabilities, practice material, their relevant distinctions, distinguishable kinds of knowledge, relationship meanings, and relationships that may connect different kinds of information. It also owns the semantic basis that allows the same information to be understood and explored from different perspectives.
 
-Introducing, retaining, changing, and removing this information and its relationships are lifecycle behaviors over this responsibility. They do not establish a separate strategic subdomain.
-
-**Derived from:** `REQ-CAP-INTRODUCE-INFORMATION`, `REQ-CAP-RETAIN-INFORMATION`, `REQ-CAP-CHANGE-INFORMATION`, `REQ-CAP-REMOVE-INFORMATION`, `REQ-CAP-KNOWLEDGE-KINDS`, `REQ-CAP-RELATIONSHIP-MEANINGS`, `REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`, `REQ-CAP-EXPLORE-PERSPECTIVES`.
+**Derived from:** `REQ-CAP-KNOWLEDGE-KINDS`, `REQ-CAP-RELATIONSHIP-MEANINGS`, `REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`, `REQ-CAP-EXPLORE-PERSPECTIVES`.
 
 **Why CORE:** Prep's differentiating responsibility is making a growing body of preparation information and its relationships understandable without collapsing distinct meanings or prescribing one fixed structure.
 
@@ -22,7 +20,7 @@ Introducing, retaining, changing, and removing this information and its relation
 
 Owns the problem-space responsibility for recorded preparation activity and results as historical facts.
 
-This includes when activity occurred, what information it concerned, and enough historical context for those facts to remain understandable when related information later changes or is removed.
+This includes when activity occurred, what information it concerned, relationships that connect recorded activity/results to other information, and enough historical context for those facts to remain understandable when related information later changes or is removed.
 
 Recorded activity and results do not establish what the person knows, can do, has mastered, or is ready for.
 
@@ -33,22 +31,23 @@ Recorded activity and results do not establish what the person knows, can do, ha
 ## Strategic relationship constraints
 
 - Preparation Information owns current preparation-related meaning; Recorded Activity History owns facts about activity that took place.
-- Recorded Activity History may refer to Preparation Information but does not redefine it.
+- Recorded Activity History may relate to Preparation Information but does not redefine it.
 - Recorded activity or a recorded result is not learner-state evidence or a capability conclusion.
 - Changes or removal of current Preparation Information must not make already retained activity history unintelligible.
-- Relationships may connect different kinds of Preparation Information and do not imply a fixed topology or representation.
+- Relationships may connect different kinds of information across the accepted responsibilities and do not imply a fixed topology or representation.
 - Exploration may combine both responsibilities without collapsing their distinct meanings.
 
 ## Product behaviors without independent strategic ownership
 
 The current MVP does not justify separate strategic subdomains for:
 
+- introducing, retaining, changing, or removing information;
 - selecting part of information or material;
 - making a selection available outside Prep;
 - import, export, integration, or transfer mechanisms;
 - external study, practice, review, or testing execution.
 
-Selection and external-use behavior operate on Preparation Information. Transfer and external execution are product/application concerns unless durable domain rules emerge later.
+Information lifecycle behavior may operate on information owned by either accepted responsibility. Selection and external-use behavior may likewise operate on information from either or both responsibilities. These behaviors do not currently establish independently evolving domain meaning.
 
 ## Consumers
 
@@ -75,5 +74,5 @@ Revisit the decomposition when:
 - one kind of Preparation Information develops independently changing semantics or consumers that no longer remain coherent within one strategic responsibility;
 - selection or external-use semantics acquire their own durable rules or lifecycle;
 - recorded activity and historical interpretation cease to change coherently as one responsibility;
-- information lifecycle behavior acquires independently valuable domain semantics beyond operating on Preparation Information;
+- information lifecycle behavior acquires independently valuable domain semantics beyond operating on the accepted responsibilities;
 - new accepted product capabilities introduce additional problem-space responsibilities.
