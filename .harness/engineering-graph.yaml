@@ -70,38 +70,25 @@ authorities:
     - capability: prep.product-capabilities
     - capability: prep.domain-strategy
 - id: TACTICAL-DOMAIN-DESIGN
-  responsibility: Own accepted domain concepts, identities, semantic relationships
-    and invariants inside the selected Prep model contexts.
+  responsibility: Own accepted domain concepts, semantic relationships and invariants
+    inside the selected Prep model contexts.
   boundary:
-    semantic_cohesion: Reusable knowledge semantics, target-relative learning semantics
-      and learner-evidence semantics.
+    semantic_cohesion: Preparation Information semantics and Recorded Activity History
+      semantics, including the accepted cross-context relationship boundary.
     independent_change: Tactical semantics can evolve behind accepted product and
       model-context boundaries without selecting persistence, UI or runtime technology.
-    public_contract: Provides accepted Knowledge Model, Learning Design and Learner
-      Model semantics to later design.
+    public_contract: Provides accepted Preparation Information and Recorded Activity
+      History domain models to later design.
   produces:
-  - capability: prep.knowledge-relation-classification
+  - capability: prep.preparation-information-model
     knowledge_kind: domain-model
     requires:
     - capability: prep.model-context-strategy
     - capability: prep.product-capabilities
-  - capability: prep.knowledge-model
+  - capability: prep.recorded-activity-history-model
     knowledge_kind: domain-model
     requires:
     - capability: prep.model-context-strategy
-    - capability: prep.product-capabilities
-    - capability: prep.knowledge-relation-classification
-  - capability: prep.learning-design
-    knowledge_kind: domain-model
-    requires:
-    - capability: prep.model-context-strategy
-    - capability: prep.knowledge-model
-    - capability: prep.product-capabilities
-  - capability: prep.learner-model
-    knowledge_kind: domain-model
-    requires:
-    - capability: prep.model-context-strategy
-    - capability: prep.knowledge-model
     - capability: prep.product-capabilities
 - id: APPLICATION-DESIGN
   responsibility: Own application operations, bounded application-process coordination,
@@ -119,9 +106,8 @@ authorities:
     knowledge_kind: task-model
     requires:
     - capability: prep.product-capabilities
-    - capability: prep.knowledge-model
-    - capability: prep.learning-design
-    - capability: prep.learner-model
+    - capability: prep.preparation-information-model
+    - capability: prep.recorded-activity-history-model
   - capability: prep.application-design
     knowledge_kind: application-design
     semantic_claims:
@@ -131,9 +117,8 @@ authorities:
     requires:
     - capability: prep.task-model
     - capability: prep.product-capabilities
-    - capability: prep.knowledge-model
-    - capability: prep.learning-design
-    - capability: prep.learner-model
+    - capability: prep.preparation-information-model
+    - capability: prep.recorded-activity-history-model
   - capability: prep.application-process.activity-evidence-cycle
     knowledge_kind: application-process-design
     semantic_claims:
@@ -179,7 +164,7 @@ authorities:
     - engineering.quality.performance.capacity
     requires:
     - capability: prep.product-capabilities
-    - capability: prep.knowledge-model
+    - capability: prep.preparation-information-model
 - id: HUMAN-INTERFACE-DESIGN
   responsibility: Own human interaction semantics, information architecture and presentation/view
     composition without re-owning product or domain truth.
@@ -200,9 +185,8 @@ authorities:
     - capability: prep.task-model
     - capability: prep.user-journeys
     - capability: prep.application-design
-    - capability: prep.knowledge-model
-    - capability: prep.learning-design
-    - capability: prep.learner-model
+    - capability: prep.preparation-information-model
+    - capability: prep.recorded-activity-history-model
   - capability: prep.information-architecture
     knowledge_kind: information-architecture-design
     semantic_claims:
@@ -270,9 +254,8 @@ authorities:
     - engineering.interface.machine.compatibility
     requires:
     - capability: prep.application-design
-    - capability: prep.knowledge-model
-    - capability: prep.learning-design
-    - capability: prep.learner-model
+    - capability: prep.preparation-information-model
+    - capability: prep.recorded-activity-history-model
     - capability: prep.application-process.activity-evidence-cycle
     - capability: prep.application-process.prepare-support
 - id: CONCURRENCY-CONSISTENCY-DESIGN
@@ -388,9 +371,8 @@ authorities:
   - capability: prep.data-design
     knowledge_kind: data-design
     requires:
-    - capability: prep.knowledge-model
-    - capability: prep.learning-design
-    - capability: prep.learner-model
+    - capability: prep.preparation-information-model
+    - capability: prep.recorded-activity-history-model
     - capability: prep.import-consistency
     - capability: prep.system-architecture
 - id: ENGINEERING-POLICY
