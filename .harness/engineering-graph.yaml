@@ -130,7 +130,6 @@ authorities:
     - engineering.application.failures
     requires:
     - capability: prep.task-model
-    - capability: prep.product-capabilities
     - capability: prep.knowledge-model
     - capability: prep.learning-design
     - capability: prep.learner-model
