@@ -71,13 +71,43 @@ jobs:
           validate_project_publication(graph, genesis)
           print("MVP structural compatibility PASS; incomplete capabilities are permitted.")
           PY
-      - name: Diagnose unfinished semantic readiness (non-blocking)
-        continue-on-error: true
+      - name: Validate accepted design frontier through Model Context Strategy
         env:
-          HARNESS_ROOT: .harness-tool
+          PYTHONPATH: .harness-tool/src
         run: |
-          cp .harness/project-publication.yaml .harness/diagnostics/historical-publication.yaml
-          cp .harness/diagnostics/mvp-publication-candidate.yaml .harness/project-publication.yaml
-          python tools/check_harness_integration.py
-          python tools/semantic_baseline.py
-          python tools/full_harness_revalidate.py
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+          graph = yaml.safe_load(Path(".harness/engineering-graph.yaml").read_text())
+          core = yaml.safe_load(Path(".harness/core.yaml").read_text())
+          frontier = {
+              "DISCOVERY", "PRODUCT-REQUIREMENTS",
+              "DOMAIN-STRATEGY", "MODEL-CONTEXT-STRATEGY",
+          }
+          producers = {
+              row["capability"]: (authority["id"], row)
+              for authority in graph["authorities"]
+              for row in authority["produces"]
+          }
+          artifacts = [
+              row for row in core["artifacts"] if row["authority"] in frontier
+          ]
+          realized = {cap: a for a in artifacts for cap in a["provides"]}
+          expected = {
+              cap for cap, (authority, _) in producers.items() if authority in frontier
+          }
+          assert set(realized) == expected, {
+              "missing": sorted(expected - set(realized)),
+              "unexpected": sorted(set(realized) - expected),
+          }
+          for cap in sorted(expected):
+              authority, definition = producers[cap]
+              artifact = realized[cap]
+              assert artifact["authority"] == authority, cap
+              assert Path(artifact["path"]).is_file(), cap
+              for item in definition.get("requires", []):
+                  required = item if isinstance(item, str) else item["capability"]
+                  assert required in realized, (cap, required)
+          print(f"MVP frontier PASS: {len(expected)} capabilities through MODEL-CONTEXT-STRATEGY")
+          print("Tactical Domain Design and all subsequent layers excluded from readiness checks.")
+          PY
