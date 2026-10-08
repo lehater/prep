@@ -38,6 +38,21 @@ jobs:
           assert binding["source"]["revision"] == version
           print("Harness pin consistent:", version)
           PY
+      - name: Prepare fresh MVP publication candidate without replacing accepted history
+        run: |
+          python tools/prepare_mvp_publication.py --output .harness/diagnostics/mvp-publication-candidate.yaml
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+          from harness.application.project_publication import validate_project_publication
+          graph = yaml.safe_load(Path(".harness/engineering-graph.yaml").read_text())
+          candidate = yaml.safe_load(Path(".harness/diagnostics/mvp-publication-candidate.yaml").read_text())
+          validate_project_publication(graph, candidate)
+          assert candidate["state"]["lifecycle"]["providers"] == []
+          print("MVP publication candidate validated; existing publication unchanged.")
+          PY
+        env:
+          PYTHONPATH: .harness-tool/src
       - name: Validate Harness integration and publication
         env:
           HARNESS_ROOT: .harness-tool
