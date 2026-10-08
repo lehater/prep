@@ -119,7 +119,6 @@ artifacts:
   - prep.application-design
   depends_on:
   - TASK-MODEL
-  - PRODUCT-CAPABILITIES
   - KNOWLEDGE-MODEL
   - LEARNING-DESIGN
   - LEARNER-MODEL
