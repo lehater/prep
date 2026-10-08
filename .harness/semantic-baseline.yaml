@@ -29,8 +29,8 @@ reviews:
     basis: "Domain Strategy keeps two CORE responsibilities while removing an unjustified scope restriction: Preparation Information owns current knowledge, goals, capabilities, practice material and their relationships; Recorded Activity History owns activity/result facts, temporal and historical context, and their relationships to other information. Lifecycle and selection/external-use behaviors may operate across either responsibility and remain without independent strategic subdomain ownership."
 
   - capability: prep.model-context-strategy
-    revision: 4
-    basis: "Preparation Direction now includes candidate-target comparison, and Learner Evidence & State translates one reusable evidence basis into separate target-relative projections without creating per-target learner state or mutating state during comparison."
+    revision: 5
+    basis: "Model Context Strategy is rebuilt for the MVP around two independently modeled semantic languages: Preparation Information for current goals, capabilities, knowledge, practice material and their relationships; and Recorded Activity History for activity/result facts, temporal context and historical relationships. Lifecycle, exploration, selection, transfer and external preparation execution remain behaviors over these contexts rather than independent model languages."
 
   - capability: prep.knowledge-relation-classification
     revision: 4

@@ -2,168 +2,112 @@
 
 ## Purpose
 
-Define where Prep's independently modeled semantic languages apply and how they relate. This artifact does not re-own strategic classification, tactical structures, services, APIs, storage, packages, UI areas, or deployment topology.
+Define the independently modeled semantic languages required by the Prep MVP and the relationships between them.
+
+This artifact does not define strategic investment classification, tactical entities, APIs, persistence, services, packages, UI areas, or deployment topology.
 
 ## Accepted model contexts
 
-### MC-01 Preparation Direction
+### MC-01 Preparation Information
 
-Owns the normative language of:
+Owns the semantic language of current preparation-related information.
 
-- candidate preparation targets and target-direction comparison before active-target commitment;
-- active preparation target and target purpose;
-- explicit uncertainty about target expectations;
-- target-relative required outcomes;
-- next preparation focus;
-- target refinement;
-- focus adaptation when accepted learner-state conclusions change.
+Its scope includes:
 
-It answers: **which plausible target should this learner pursue, what are they preparing toward now, for what purpose, and what deserves attention next?**
+- Goal;
+- Capability;
+- Knowledge;
+- Practice Material;
+- distinguishable kinds of Knowledge;
+- distinguishable meanings of relationships;
+- relationships among different kinds of preparation information.
 
-It does not define reusable capability meaning, subject truth, or learner evidence.
+These information kinds remain semantically distinguishable. Their distinction does not by itself require separate model contexts.
 
-### MC-02 Capability & Performance
+Preparation Information does not state what the person knows, can do, has mastered, or is ready for.
 
-Owns the reusable normative language of:
+### MC-02 Recorded Activity History
 
-- what a person is expected to be able to perform;
-- material conditions or constraints under which the performance matters;
-- acceptable quality or standard;
-- the stable performance meaning referenced by targets, practice/support, transfer judgments, and learner-state conclusions.
+Owns the semantic language of recorded activity and results as historical facts.
 
-It answers: **what does it mean to be capable of doing this?**
+Its scope includes:
 
-Its meaning is independent of one learner, one target, one practice event, or one presentation.
+- a recorded fact that activity took place;
+- a recorded result when one exists;
+- temporal context;
+- relationships to the information the activity concerned;
+- historical context sufficient for retained records to remain understandable when related information later changes or is removed.
 
-### MC-03 Learner Evidence & State
+Recorded Activity History does not infer learner state, mastery, readiness, competence, or capability possession.
 
-Owns learner-specific descriptive and epistemic language for:
+## Cross-context relationship contract
 
-- contextualized observations;
-- provenance, performance context, target relevance, and temporal applicability of evidence;
-- evidence-bounded conclusions about demonstrated, challenged, unknown, or uncertain capability;
-- limits on conclusions caused by insufficient coverage, stale evidence, or transfer mismatch.
+### TR-01 Preparation Information and Recorded Activity History
 
-It answers: **what has this learner actually demonstrated, and what can defensibly be concluded from the evidence?**
+Recorded Activity History may relate recorded activity and results to Preparation Information.
 
-It cannot redefine reusable Capability & Performance or Subject Knowledge meaning.
+The boundary must preserve:
 
-### MC-04 Subject Knowledge
+- the distinction between current preparation information and historical facts;
+- the meaning of referenced Preparation Information;
+- the meaning of relationships between activity/results and the information they concern;
+- sufficient historical context when referenced current information later changes or is removed;
+- the rule that recorded facts do not redefine Preparation Information or imply learner-state conclusions.
 
-Owns reusable subject-semantic language for:
+The same exploration or product behavior may use both model contexts without creating a third semantic owner.
 
-- important concepts or subject meanings;
-- meaningful relationships among them;
-- relevant subject scope;
-- coherent movement between overview and deeper detail.
+## Behaviors without independent model contexts
 
-It answers: **what is true or meaningful in the subject, and how does that knowledge fit together?**
+The MVP does not currently justify independent model languages for:
 
-Its identity is independent of learner state, target, practice event, and interface representation.
+- introducing, retaining, changing, or removing information;
+- exploring information from different perspectives;
+- selecting information or material for external use;
+- transferring selected information outside Prep;
+- import, export, or integration mechanisms;
+- external study, practice, review, or testing execution.
 
-## Translation contracts
-
-### TR-01 Subject Knowledge → Capability & Performance
-
-Capability/performance meaning may reference the subject knowledge that a performance concerns, uses, explains, applies, reasons about, or otherwise depends on.
-
-Translation must preserve:
-
-- Subject Knowledge semantic identity;
-- the distinction between knowing something and being able to perform with or about it;
-- the rule that a relation in Subject Knowledge is not itself evidence of learner capability.
-
-### TR-02 Capability & Performance → Preparation Direction
-
-Preparation Direction may select or compose target-relative required performance from reusable Capability & Performance meaning.
-
-Translation must preserve:
-
-- target purpose;
-- applicable performance conditions/constraints;
-- required quality/standard;
-- the distinction between reusable capability meaning and one target's requirement.
-
-Related targets do not inherit requirements automatically.
-
-### TR-03 Capability & Performance + Subject Knowledge + Preparation Direction + Learner Evidence & State → practice/learning execution
-
-Internal or external practice, learning, or diagnostic mechanisms may receive required performance meaning, relevant subject context, the current PreparationIntent, and applicable evidence-backed learner-state context to choose or adapt suitable opportunities.
-
-Translation must preserve the distinction between reusable support requirements and contextual support fit. The same CapabilitySpecification may legitimately receive different guidance, feedback, condition variation, retention timing, or transfer support under different PreparationIntents or learner evidence/state.
-
-The execution mechanism does not thereby become owner of Capability & Performance, Subject Knowledge, Preparation Direction, or Learner Evidence & State semantics.
-
-Support completion, feedback delivery, repetition, or runtime success is not learner-state evidence by itself.
-
-### TR-04 practice/learning execution → Learner Evidence & State
-
-Practice or diagnostic execution may return contextualized observations.
-
-Translation must preserve enough performance context, provenance, time, and relevant semantic references to keep the observation separate from the conclusion drawn from it.
-
-### TR-05 Learner Evidence & State → Preparation Direction
-
-Accepted learner-state conclusions and explicit uncertainty may be projected against multiple candidate target requirement sets to support target-direction comparison, and may inform next focus and adaptation after a target is active.
-
-Translation must preserve:
-
-- one reusable learner evidence/state basis rather than a separate learner profile per target;
-- evidence limitations and target-relative applicability;
-- the distinction between learner change and target change;
-- the rule that comparison does not itself mutate learner state or activate a target;
-- the rule that learner evidence does not redefine target requirements or reusable capability meaning.
-
-### TR-06 bootstrap/source material → semantic owners
-
-Fragmented source material may produce candidate target, capability/performance, subject-knowledge, or evidence-support information.
-
-Bootstrap is a translation/preparation responsibility, not an owner of accepted semantic truth.
-
-Accepted meaning belongs to the corresponding model context; unresolved source ambiguity remains explicit.
+These behaviors operate over the accepted model contexts unless later evidence establishes independently evolving semantics.
 
 ## Contexts not independently justified
 
-### No independent Practice/Learning context yet
+No separate model context is currently established for:
 
-Practice & Learning Enablement is a supporting strategic responsibility. Learning Design may define reusable support-fit and learning-progression constraints, while concrete sequencing remains execution/application policy. Current evidence does not yet require those semantics to form a separate durable model context with independent identity or lifecycle beyond translation among Preparation Direction, Capability & Performance, Subject Knowledge, execution mechanisms, and Learner Evidence & State.
+- Goal;
+- Capability;
+- Knowledge;
+- Practice Material;
+- relationship classification;
+- learning or practice design;
+- learner state or learner evidence;
+- source/provenance management.
 
-Reopen if instructional strategy, progression, feedback/correction, preparation planning, or other learning/practice semantics acquire independently changing identities, lifecycle, or consumers that cannot remain coherent within the current translation contracts and Learning Design boundary.
-
-### No independent Assessment/Evidence Design context yet
-
-Current accepted behavior requires contextualized evidence and inspectable justification, but it does not yet establish reusable assessment-design rules as a separate strategic responsibility.
-
-Reopen if evidence-pattern, warrant, sampling, or assessment-design semantics acquire independent lifecycle or consumers distinct from learner-specific evidence/state and practice enablement.
-
-### No independent Bootstrap context
-
-Preparation Bootstrap remains a source-to-model translation responsibility. It does not own accepted target, capability, knowledge, or learner-state meaning.
+A distinction may later become an independent context only when it develops its own semantic language, lifecycle, or consumers that cannot remain coherent inside the current contexts.
 
 ## Boundary invariants
 
-- Subject Knowledge != Capability & Performance.
-- Capability & Performance != one target requirement.
-- Capability & Performance != learner state.
-- Observation != capability conclusion.
-- Practice/support activity != evidence of capability.
-- Learner evidence may update Preparation Direction but cannot redefine reusable Capability & Performance or Subject Knowledge.
-- Bootstrap may propose semantic data but cannot become the owner of accepted meaning.
-- Model contexts do not imply services, packages, databases, graph databases, UI regions, or deployment units.
+- Goal, Capability, Knowledge, and Practice Material remain semantically distinguishable.
+- Knowledge presence does not state what the person knows.
+- Capability meaning does not state that the person possesses that capability.
+- Practice Material is usable in activity; Recorded Activity describes activity recorded as having occurred.
+- Recorded activity/result is a historical fact, not a learner-state conclusion.
+- Relationships may cross different information kinds.
+- No fixed relationship topology or taxonomy is implied.
+- Historical context must remain intelligible when related current information changes or is removed.
+- Model contexts do not imply technical boundaries.
 
 ## Consumers
 
-- Tactical Domain Design must give each accepted model language coherent semantics and may need to redistribute historical tactical artifacts accordingly.
-- Application Design consumes the translation contracts without redefining model ownership.
-- Interface and data design must preserve these distinctions rather than collapse them for presentation or persistence convenience.
+- Tactical Domain Design defines concepts, relationships, and invariants inside each accepted model context.
+- Application Design orchestrates lifecycle, exploration, selection, transfer, and activity recording without redefining model semantics.
+- Interface and Data Design must preserve the distinction between current preparation information and recorded historical facts.
 
 ## Reopening conditions
 
 Revisit this strategy when:
 
-- Practice/Learning design acquires independently changing model language or lifecycle;
-- Assessment/Evidence Design acquires reusable rules and independent consumers;
-- bootstrap/source semantics become independently durable rather than translational;
-- Capability & Performance splits into independently changing semantic responsibilities;
-- Subject Knowledge scope/relations/depth cease to form one coherent reusable subject language;
-- evidence capture and learner-state interpretation can no longer remain coherent in one learner-specific language.
+- one Preparation Information kind develops independently changing semantics or consumers;
+- relationship semantics require independently governed language;
+- Recorded Activity and historical-context semantics cease to form one coherent model;
+- external-use or information-lifecycle behavior develops durable domain semantics of its own;
+- new accepted Product Requirements introduce another independently modeled language.
