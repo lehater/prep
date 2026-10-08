@@ -25,8 +25,8 @@ reviews:
     basis: "Product capabilities are rebuilt as the minimum end-to-end MVP behavior: introduce, retain, change and remove information/relationships; preserve knowledge-kind and relationship-meaning distinctions; explore perspectives; select and transfer part outside Prep; accept, relate and temporally preserve recorded activity/results; preserve enough historical context across later information changes; and explore recorded history without inferring learner state."
 
   - capability: prep.domain-strategy
-    revision: 4
-    basis: "Preparation Direction now explicitly owns candidate-target comparison as cross-context direction semantics while learner evidence/state remains reusable and independently owned; no new learner-state owner or scalar target-fit model is introduced."
+    revision: 5
+    basis: "Domain Strategy is rebuilt for the MVP around two CORE responsibilities: Preparation Information owns current knowledge, goals, capabilities, practice material and meaningful cross-kind relationships, including their lifecycle; Recorded Activity History owns activity/result facts, temporal context and durable historical meaning. Selection, transfer and external preparation execution remain behaviors without independent strategic subdomain ownership."
 
   - capability: prep.model-context-strategy
     revision: 4

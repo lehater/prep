@@ -2,88 +2,78 @@
 
 ## Purpose
 
-Define Prep's strategic problem-space responsibilities from accepted product capabilities. This artifact decides investment and isolation attention only. It does not define bounded contexts, tactical entities, APIs, storage, interface form, or deployment units.
+Define Prep's strategic problem-space responsibilities for the MVP. This artifact establishes only responsibilities whose semantic meaning and evolution justify independent strategic attention. It does not define model contexts, tactical structures, APIs, persistence, UI, or technical decomposition.
 
 ## Strategic subdomain landscape
 
-### DS-01 Preparation Direction — CORE
+### DS-01 Preparation Information — CORE
 
-Owns the problem-space responsibility for maintaining usable preparation direction: candidate-target comparison before commitment, active target, target purpose, explicit uncertainty, target-relative next focus, and adaptation when accepted evidence or external target information changes. Multi-target comparison coordinates distinct target requirements with target-relative learner-state projections; it does not create a second learner-state owner.
+Owns the problem-space responsibility for preparation-related information other than retained activity-history facts, and for meaningful relationships among that information.
 
-**Derived from:** REQ-CAP-TARGET, REQ-CAP-TARGET-PURPOSE, REQ-CAP-TARGET-DIRECTION, REQ-CAP-FOCUS, REQ-CAP-ADAPT.
+This includes knowledge, goals, capabilities, practice material, their relevant distinctions, distinguishable kinds of knowledge, relationship meanings, and relationships that may connect different kinds of information. It also owns the semantic basis that allows the same information to be understood and explored from different perspectives.
 
-**Why CORE:** deciding what the learner is preparing toward and what deserves attention next under uncertainty is central to Prep's differentiating value.
+Introducing, retaining, changing, and removing this information and its relationships are lifecycle behaviors over this responsibility. They do not establish a separate strategic subdomain.
 
-### DS-02 Capability & Performance Semantics — CORE
+**Derived from:** `REQ-CAP-INTRODUCE-INFORMATION`, `REQ-CAP-RETAIN-INFORMATION`, `REQ-CAP-CHANGE-INFORMATION`, `REQ-CAP-REMOVE-INFORMATION`, `REQ-CAP-KNOWLEDGE-KINDS`, `REQ-CAP-RELATIONSHIP-MEANINGS`, `REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`, `REQ-CAP-EXPLORE-PERSPECTIVES`.
 
-Owns reusable problem-space meaning for what a person is expected to be able to perform, including material conditions or constraints, acceptable quality, and the performance meaning that targets, practice, evidence, and learner-state conclusions must reference consistently.
+**Why CORE:** Prep's differentiating responsibility is making a growing body of preparation information and its relationships understandable without collapsing distinct meanings or prescribing one fixed structure.
 
-**Derived from:** REQ-CAP-PERFORMANCE-REQUIREMENT, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-SUPPORT-FIT.
+### DS-02 Recorded Activity History — CORE
 
-**Why CORE:** accepted behavior now requires a stable performance referent that is distinct from subject knowledge, one target, one learner, and one practice activity. Without it, target requirements, evidence relevance, support fit, and transfer judgments collapse into incompatible meanings.
+Owns the problem-space responsibility for recorded preparation activity and results as historical facts.
 
-### DS-03 Learner Evidence and State — CORE
+This includes when activity occurred, what information it concerned, and enough historical context for those facts to remain understandable when related information later changes or is removed.
 
-Owns contextualized learner observations and evidence-bounded conclusions about current target-relative capability, including demonstrated, challenged, and unknown state; evidence justification; material limits from performance context, provenance, coverage, age, and transfer conditions.
+Recorded activity and results do not establish what the person knows, can do, has mastered, or is ready for.
 
-**Derived from:** REQ-CAP-EVIDENCE-CONTEXT, REQ-CAP-STATE, REQ-CAP-EVIDENCE-JUSTIFICATION, REQ-CAP-DURABLE-TRANSFER, REQ-CAP-ADAPT.
+**Derived from:** `REQ-CAP-RECORD-ACTIVITY`, `REQ-CAP-RELATE-ACTIVITY`, `REQ-CAP-PRESERVE-TIME`, `REQ-CAP-PRESERVE-HISTORY-CONTEXT`, `REQ-CAP-EXPLORE-HISTORY`.
 
-**Why CORE:** trustworthy preparation depends on separating observations from conclusions and making capability judgments reviewable and bounded by evidence.
-
-### DS-04 Subject Knowledge — CORE
-
-Owns reusable subject meaning needed for orientation and learning: important concepts, meaningful relationships, relevant subject scope, and coherent movement between overview and deeper detail.
-
-**Derived from:** REQ-CAP-KNOWLEDGE-OVERVIEW, REQ-CAP-KNOWLEDGE-RELATIONSHIPS, REQ-CAP-KNOWLEDGE-SCOPE, REQ-CAP-KNOWLEDGE-DEPTH.
-
-**Why CORE:** Prep must help learners understand unfamiliar subject structure itself, not only manage preparation around external material.
-
-### DS-05 Practice & Learning Enablement — SUPPORTING
-
-Owns enabling or delegating learning, practice, and diagnostic opportunities appropriate to the required performance and capable of producing relevant observations, while keeping support completion distinct from evidence of developed capability.
-
-**Derived from:** REQ-CAP-PRACTICE, REQ-CAP-SUPPORT-FIT, REQ-CAP-EVIDENCE-CONTEXT.
-
-**Why SUPPORTING:** Prep needs the support contract and fit to required outcomes, but accepted behavior does not require Prep to own one specific study runtime, exercise representation, or assessment execution mechanism.
-
-### DS-06 Preparation Bootstrap — SUPPORTING
-
-Owns turning fragmented or incomplete sources into enough usable preparation support to begin work and allowing target, capability, knowledge, and evidence-design support data to be introduced or corrected incrementally without making corpus maintenance a learner obligation.
-
-**Derived from:** REQ-CAP-BOOTSTRAP, REQ-CAP-TARGET.
-
-**Why SUPPORTING:** bootstrap is necessary to make the core responsibilities usable from imperfect inputs, but current behavior does not establish a separate curation product or independently valuable corpus-management lifecycle.
+**Why CORE:** accumulated activity and result history has semantics and lifecycle distinct from the current preparation information it references, especially when that information changes over time.
 
 ## Strategic relationship constraints
 
-- Preparation Direction selects and relates target purposes and target-relative requirements but does not own reusable Capability & Performance meaning.
-- Capability & Performance Semantics defines reusable performance meaning independently of a particular target, learner, practice event, or interface representation.
-- Subject Knowledge owns reusable subject truth; Capability & Performance may refer to knowledge that performance focuses on, but knowledge and capability remain different strategic responsibilities.
-- Learner Evidence and State may reference Capability & Performance and Subject Knowledge when interpreting evidence, but learner observations do not redefine reusable subject truth or reusable performance meaning.
-- Practice & Learning Enablement consumes required performance and relevant knowledge to provide suitable opportunities; activity completion does not itself establish learner capability.
-- Preparation Bootstrap may introduce or correct candidate supporting data, but accepted reusable meaning remains owned by the corresponding core responsibility.
-- Assessment/evidence-design semantics are not yet an independently classified strategic subdomain. Reopen if reusable evidence-design rules acquire independent lifecycle, consumers, or product behavior beyond learner-evidence interpretation and practice enablement.
-- None of these responsibilities implies a service, package, database, bounded context, graph database, or UI area.
+- Preparation Information owns current preparation-related meaning; Recorded Activity History owns facts about activity that took place.
+- Recorded Activity History may refer to Preparation Information but does not redefine it.
+- Recorded activity or a recorded result is not learner-state evidence or a capability conclusion.
+- Changes or removal of current Preparation Information must not make already retained activity history unintelligible.
+- Relationships may connect different kinds of Preparation Information and do not imply a fixed topology or representation.
+- Exploration may combine both responsibilities without collapsing their distinct meanings.
+
+## Product behaviors without independent strategic ownership
+
+The current MVP does not justify separate strategic subdomains for:
+
+- selecting part of information or material;
+- making a selection available outside Prep;
+- import, export, integration, or transfer mechanisms;
+- external study, practice, review, or testing execution.
+
+Selection and external-use behavior operate on Preparation Information. Transfer and external execution are product/application concerns unless durable domain rules emerge later.
+
+## Consumers
+
+- Model Context Strategy consumes both strategic responsibilities to decide which independently modeled semantic languages are required and how they relate.
+- Tactical Domain Design consumes the model-context decisions that refine these responsibilities into coherent domain semantics.
+- Application Design consumes the accepted semantic boundaries while orchestrating lifecycle, exploration, selection, transfer, and recorded-history behavior without redefining domain ownership.
 
 ## Explicitly not established
 
-Current accepted product capabilities do not independently justify strategic subdomains for:
+The MVP does not establish strategic responsibilities for:
 
-- standalone Assessment/Evidence Design;
-- standalone corpus-curation/authoring product;
-- mandatory curator/operator workflow;
-- graph/spatial visualization;
-- spaced-repetition scheduling;
-- standalone quality-control system;
-- production import subsystem.
+- learner state;
+- mastery, readiness, or competence assessment;
+- information verification or source authority;
+- provenance, citation, or source management;
+- fixed knowledge taxonomy;
+- fixed relationship topology;
+- product-owned external learning or assessment runtime.
 
 ## Reopening conditions
 
 Revisit the decomposition when:
 
-- reusable Capability & Performance meaning no longer changes coherently as one responsibility;
-- evidence-design rules gain independent lifecycle/consumers distinct from learner evidence and practice enablement;
-- learning/practice execution becomes a product-owned differentiator;
-- Subject Knowledge orientation/relations/scope/depth split into independently changing responsibilities;
-- corpus authoring/curation gains an accepted actor and independently valuable workflow;
-- new accepted product capabilities establish additional strategic responsibilities.
+- one kind of Preparation Information develops independently changing semantics or consumers that no longer remain coherent within one strategic responsibility;
+- selection or external-use semantics acquire their own durable rules or lifecycle;
+- recorded activity and historical interpretation cease to change coherently as one responsibility;
+- information lifecycle behavior acquires independently valuable domain semantics beyond operating on Preparation Information;
+- new accepted product capabilities introduce additional problem-space responsibilities.
