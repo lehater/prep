@@ -53,6 +53,10 @@ jobs:
           PY
         env:
           PYTHONPATH: .harness-tool/src
+      - name: Test MVP genesis against integration validators in ephemeral CI checkout
+        run: |
+          cp .harness/project-publication.yaml .harness/diagnostics/historical-publication.yaml
+          cp .harness/diagnostics/mvp-publication-candidate.yaml .harness/project-publication.yaml
       - name: Validate Harness integration and publication
         env:
           HARNESS_ROOT: .harness-tool
