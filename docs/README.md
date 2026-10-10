@@ -6,11 +6,11 @@ This file is an index, not a semantic authority.
 
 ## Read order
 
-1. `AGENTS.md`
-2. `.harness-version`
-3. `.harness/core.yaml`
-4. `.harness/engineering-graph.yaml`
-5. the smallest set of Core artifacts required by the affected capability
+1. `AGENTS.md` (run `python .harness/harnessw.py sync`, route the task, read instruction contracts)
+2. `.harness/engineering-graph.yaml` for declared Authority and Capability dependencies
+3. `.harness/core.yaml` for canonical artifacts and Questions
+4. `.harness/project-publication.yaml` for published Core, accepted semantics and lifecycle evidence
+5. the smallest set of **currently accepted** Core artifacts required by the task
 
 Do not infer current product, domain, interface or architecture semantics from Git history, old branches, experiments, commit messages or removed documentation.
 
@@ -32,6 +32,28 @@ The normative dependency graph is machine-readable in:
 
 - `.harness/engineering-graph.yaml`
 - `.harness/core.yaml`
-- `.harness/semantic-baseline.yaml`
+- `.harness/project-publication.yaml`
 
 Harness controls ownership, dependencies, currentness and closure. Canonical project artifacts supply the Prep-specific meaning.
+
+## Currentness and legacy material
+
+The checked-in `.harness/semantic-baseline.yaml` is a **legacy review record**,
+not the current Harness semantic acceptance or lifecycle authority. The
+authoritative acceptance/currentness state is in the published Harness
+publication, resolved against the Engineering Graph, Core and the pinned
+Harness acceptance policies.
+
+Other repository documents, including older human projections and
+unregistered engineering documents under `docs/`, may describe earlier
+product and domain assumptions. Some are currently rejected by
+`python tools/validate_docs.py` as unclassified. Do **not** use those
+documents to replace, extend or reinterpret the accepted MVP requirements.
+
+Do not silence inventory errors with blanket allowlists or declare
+previously unaccepted documents current. Reconcile each affected
+artifact under its owning Authority, through the routed Harness
+procedure and explicit acceptance evidence, or move genuinely
+noncanonical material out of `docs/` under appropriate repository
+policy. Material with live canonical meaning must remain registered
+in Core.

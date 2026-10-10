@@ -132,3 +132,11 @@ jobs:
           print(f"MVP frontier PASS: {len(expected)} capabilities through MODEL-CONTEXT-STRATEGY")
           print("Tactical Domain Design and all subsequent layers excluded from readiness checks.")
           PY
+      - name: Verify published MVP frontier currentness
+        env:
+          HARNESS_ROOT: .harness-tool
+          PYTHONPATH: .harness-tool/src
+        run: |
+          python tools/semantic_baseline.py
+          python tools/verify_mvp_model_context_blocker.py
+          python tools/verify_mvp_published_frontier.py
