@@ -1,0 +1,142 @@
+version: 1
+kind: harness-product-requirements-review
+capability: prep.product-intent
+artifact: PRODUCT-VISION
+status: BLOCKED
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+contract: skills/artifacts/product-requirements/SKILL.md
+contract_rules:
+- 'Procedure 11: needed product choices require a Core Question'
+- 'Acceptance: every accepted requirement supported by evidence or explicit product
+  decision'
+- 'Acceptance: independent semantics remain independently addressable'
+- 'Acceptance: concrete acceptance semantics'
+accepted_source_capability: prep.user-needs
+accepted_source_id: PREP-MVP-USER-NEEDS-1
+source_classification:
+- source: USER
+  classification: rationale/context
+- source: CTX-01
+  classification: rationale/context
+  rationale: Information may change over time; does not assign lifecycle responsibilities
+    to Prep.
+- source: UG-01
+  classification: requirement-bearing
+  requirements:
+  - REQ-INFORMATION-EXPLORATION
+  - REQ-EXTERNAL-USE
+  - REQ-RECORDED-HISTORY
+  boundary: The accepted scoped goal supports the three outcomes, not arbitrary preparation
+    success.
+- source: UN-01
+  classification: requirement-bearing
+  requirements:
+  - REQ-INFORMATION-EXPLORATION
+- source: UN-02
+  classification: requirement-bearing
+  requirements:
+  - REQ-EXTERNAL-USE
+- source: UN-03
+  classification: requirement-bearing
+  requirements:
+  - REQ-RECORDED-HISTORY
+  boundary: Historical and relational understanding; incoming behavior remains a separate
+    product choice.
+- source: scope
+  classification: rationale/context
+  rationale: Preserve outside activity and recorded-fact limits; do not infer CRUD
+    commitments.
+- source: observed_tasks
+  classification: rationale/context
+  rationale: No observed task study; no additional requirements inferred.
+- source: unresolved_downstream_decisions
+  classification: unresolved
+  question: Q-PREP-PRODUCT-INTENT-INFORMATION-LIFECYCLE
+  rationale: Input, edit/removal, transfer and returning recorded results remain decisions,
+    not accepted behavior.
+- source: sufficiency_review
+  classification: rationale/context
+  rationale: Coverage of the scoped human goal is not product acceptance.
+requirement_review:
+- requirement: REQ-INFORMATION-EXPLORATION
+  sources:
+  - UN-01
+  source_support: Supported outcome
+  review: Observable product intent; perspectives and success examples need clarification
+    before admission.
+- requirement: REQ-EXTERNAL-USE
+  sources:
+  - UN-02
+  source_support: Supported external-use outcome
+  review: Selection and making available are independently verifiable; split atomic
+    obligations and state acceptance examples before admission.
+- requirement: REQ-RECORDED-HISTORY
+  sources:
+  - UN-03
+  source_support: 'Partial: understanding supported, incoming behavior not explicitly
+    decided'
+  review: Separate incoming, temporal and relational obligations. Preserve EV-03 interpretation
+    boundary through accepted UN-03.
+- requirement: REQ-INFORMATION-LIFECYCLE
+  sources:
+  - CTX-01
+  - UN-01
+  - UN-03
+  source_support: INSUFFICIENT
+  review: Introduce, retain, change and remove are independent normative commitments.
+    No explicit Product Requirements decision supplied. Existing ACCEPTED label is
+    not semantic admission.
+  question: Q-PREP-PRODUCT-INTENT-INFORMATION-LIFECYCLE
+non_goal_review: No technical mechanism selected. Learner-state assessment exclusions
+  are supported by upstream limits. Other detailed non-goals remain proposals until
+  individually traced or explicitly decided; artifact schema validity is not semantic
+  acceptance.
+question:
+  id: Q-PREP-PRODUCT-INTENT-INFORMATION-LIFECYCLE
+  authority: PRODUCT-REQUIREMENTS
+  text: Decide whether the MVP must introduce, retain, change and remove information
+    and relationships (REQ-INFORMATION-LIFECYCLE), and specify the observable scope
+    and acceptance expectations for each independently required behavior. CTX-01 describes
+    changing information; UN-01 and UN-03 describe understanding outcomes. These accepted
+    Discovery statements do not decide lifecycle ownership or all four operations.
+    Identify an explicit Product Requirements decision or revise the proposed requirement;
+    do not infer acceptance from its existing ACCEPTED label or downstream designs.
+    Also distinguish bringing recorded activity/results into Prep in REQ-RECORDED-HISTORY
+    from the accepted UN-03 understanding outcome.
+  blocks_capabilities:
+  - prep.product-intent
+admission_attempted: false
+new_acceptances: []
+publication_revision: sha256:0d8e0b4f35b08e3d9e785e24931a1f9ff731c5903dffb0ea05fca8b92ebf3487
+parent_revision: sha256:d699943faacfff7b5488911f57db8b17c1a34ececcb76923e01ca1122f2545b7
+publication_core_equals_working: true
+checks:
+  schema_validation: PASS; not semantic acceptance
+  blocked_publication_verification: PASS
+  published_semantic_baseline: 'PASS: two existing acceptances only'
+  upstream_currentness: 'PASS: prep.problem-evidence and prep.user-needs with current
+    policy'
+  negative_checks: 'PASS: CURRENT without acceptance rejected; BLOCKED without Question
+    rejected'
+  docs_inventory:
+    status: FAIL
+    unchanged_from_previous_task: true
+    errors:
+    - 'docs/ contains unclassified files outside Harness Core, research, or human
+      projections: docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+      docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+      docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+      docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+      docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+      docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+      docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+      docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+      docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+      docs/interface/interface-topology.yaml, docs/interface/machine-interface.md,
+      docs/interface/presentation-system.md, docs/interface/screen-view-design.md,
+      docs/verification/frontend-test-design.yaml, docs/verification/frontend-verification.md,
+      docs/verification/interface-verification.md, docs/verification/presentation-verification.md'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_product_intent_blocker.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py
+- python tools/validate_docs.py

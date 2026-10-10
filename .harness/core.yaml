@@ -59,4 +59,17 @@ artifacts:
   depends_on:
   - PRODUCT-CAPABILITIES
   - CONTEXT-MAP
-questions: []
+questions:
+- id: Q-PREP-PRODUCT-INTENT-INFORMATION-LIFECYCLE
+  authority: PRODUCT-REQUIREMENTS
+  text: Decide whether the MVP must introduce, retain, change and remove information
+    and relationships (REQ-INFORMATION-LIFECYCLE), and specify the observable scope
+    and acceptance expectations for each independently required behavior. CTX-01 describes
+    changing information; UN-01 and UN-03 describe understanding outcomes. These accepted
+    Discovery statements do not decide lifecycle ownership or all four operations.
+    Identify an explicit Product Requirements decision or revise the proposed requirement;
+    do not infer acceptance from its existing ACCEPTED label or downstream designs.
+    Also distinguish bringing recorded activity/results into Prep in REQ-RECORDED-HISTORY
+    from the accepted UN-03 understanding outcome.
+  blocks_capabilities:
+  - prep.product-intent
