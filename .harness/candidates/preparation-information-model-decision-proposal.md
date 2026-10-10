@@ -33,9 +33,10 @@ information instance has an independent identity, including two records
 with identical text or externally supplied contents. Ordinary content
 edits preserve the same instance identity. Equal content is not a
 mandated merge, duplicate check, or semantic equality test. This
-approval **does not** decide explicit merge operations, automatic import
-matching, relationship identity, validity, directionality,
-multiplicity, admissibility, lifecycle, or removal.
+**identity-of-information** approval alone did not decide explicit
+merge operations, automatic import matching, relationship identity,
+validity, directionality, multiplicity, admissibility, lifecycle or removal.
+Relationship identity was approved separately later, as recorded below.
 
 The decision is recorded as user authority input, **not** a Harness
 semantic acceptance, lifecycle assertion, or a resolved Core Question.
@@ -58,9 +59,11 @@ not imply a mandatory taxonomy of knowledge kinds; a capability description
 is not proof of learner mastery; practice material is not a recorded
 performance/result.
 
-The user **did not approve** relationship admissibility, direction,
-relationship identity or multiplicity; removal/endpoint integrity,
+This **STRUCTURE** approval alone did not decide relationship identity,
+admissibility, direction or multiplicity; removal/endpoint integrity,
 recorded activity semantics, merge, restoration or technical entities.
+Relationship identity was approved later as an independent decision,
+recorded below.
 This choice does not imply one database table, service, screen, API
 or separately governed model language.
 
@@ -102,9 +105,34 @@ identity collapse. Mapping/relations among these instances, link
 validity, taxonomy *within* Knowledge and any explicit merging are
 separate questions, not approved here.
 
+## User decision recorded — relationship identity (separate approval)
+
+**USER APPROVED: RELATION-IDENTITY = INSTANCE (2026-10-10).**
+Every admitted relationship is an independently identifiable, editable
+instance. Its identity is not computed from the endpoint pair and relation
+meaning; changing its description or other permitted contents does not
+automatically create a new relation instance. This applies only to
+**relationship kinds subsequently admitted by the Tactical Domain Model**,
+without requiring any particular relationship kind to exist.
+
+This approval is separate from **IDENTITY = INSTANCE** (preparation
+information) and **STRUCTURE = DISTINCT-CONCEPTS** (independent Knowledge,
+Goal, CapabilityDescription and PracticeMaterial concepts). It makes
+no choice about **MULTIPLICITY** (whether equal endpoint/meaning relation
+instances may coexist), **DIRECTION** (ordered vs symmetric),
+**ADMISSIBILITY** (valid relationship meanings and endpoint combinations),
+self-links, deletion/endpoint integrity, or history. In particular,
+independent identity does *not* imply parallel relationships are allowed.
+
+Treat this approval as user Authority decision evidence only. It is not
+permission to alter the conservative autonomy policy or issue semantic
+acceptance. The published `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`
+remains unresolved until **all its material choices** have been
+decided and the routed Harness transition has been validated.
+
 ## Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
 
-**Suggested RELATION-IDENTITY: INSTANCE.** Explicit relation instances
+**Approved RELATION-IDENTITY: INSTANCE.** Explicit relation instances
 can be individually created, read, edited, removed and bulk loaded,
 consistent with accepted all-kind CRUD. A pair/meaning compound
 identity risks accidental replacement when links are edited.
