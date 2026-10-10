@@ -23,19 +23,22 @@ assessments:
     reopening_conditions: [published Product Capabilities change or strategic domain responsibility classification changes]
 
   - authority_id: MODEL-CONTEXT-STRATEGY
-    applicability: REQUIRED
+    applicability: UNRESOLVED
     evidence: [docs/architecture/model-context-map.md]
     rationale: >-
-      The published Model Context Strategy currently accepts one coherent model language
-      (MC-01), with distinct preparation-information and recorded-activity meanings
-      inside it (IR-01). Pinned Harness catalogs MODEL-CONTEXT-STRATEGY as conditional:
-      where one coherent model applies without a material independent context-boundary
-      contract, the Authority may be omitted. The pre-existing REQUIRED disposition
-      is preserved solely as a review candidate, not independently justified here.
-      An owning-Authority applicability and graph/consumer reconciliation is required
-      before this assessment is treated as evidence of future downstream readiness.
+      Accepted MC-01 uses one coherent language and IR-01 is internal interpretation,
+      not an independently modeled context relationship or translation. No currently
+      material independent context-boundary contract is evidenced beyond distinctions
+      already preserved by Product Capabilities and Domain Strategy. REQUIRED is not
+      justified by the pinned conditional catalog or by the existing acceptance alone.
+      UNRESOLVED records the applicability/topology reconciliation conflict, not a
+      revocation of accepted semantics. Before selecting NOT_APPLICABLE or a justified
+      project-specific boundary, decide where the accepted applicability knowledge is
+      owned, revise affected graph prerequisites and legacy downstream assertions,
+      and prepare one coherent revision-bound publication transition. Do not infer
+      two contexts from two CORE responsibilities or delete the current provider alone.
     depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md, docs/architecture/model-context-map.md]
-    reopening_conditions: [reassess one-language applicability against pinned Harness conditional Authority catalog and consumer value, independent semantic languages or translation become materially justified, accepted model-context boundaries change]
+    reopening_conditions: [coordinated Authority and graph ownership reconciliation establishes the retained or omitted boundary, independently modeled languages or a material context-boundary/translation contract are evidenced, accepted model applicability changes]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
     applicability: NOT_APPLICABLE
