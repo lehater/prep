@@ -1,0 +1,64 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: PRODUCT-VISION
+capability: prep.product-intent
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.intent.scope
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: product-requirements
+  skill: skills/artifacts/product-requirements/SKILL.md
+  acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+  authority: PRODUCT-REQUIREMENTS
+  allowed_source_authorities:
+  - DISCOVERY
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - .harness/knowledge/product-intent.yaml
+  canonical_references:
+  - referenced_path: docs/discovery/user-needs.yaml
+  accepted_prerequisites: &id001
+    prep.user-needs: PREP-MVP-USER-NEEDS-1
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+  acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: PRODUCT-VISION
+  capability: prep.product-intent
+  acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+  acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    PD-MVP-DATA-MANAGEMENT-2026-10-10: SAF-8159d41aa7d6ae759bf1acb5b3224869bcb5437f695168957e2b658328a765a9
+    PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10: SAF-7a09ba26e36088d337ca3bce55fdf26988a3a0891415ab075f7eeb1688fb20b6
+    REQ-INFORMATION-EXPLORATION: SAF-dd6e4ab9dc2f769d6ac401a2aa4b1a175b8a08676daf636533b79785f65c1c5d
+    REQ-INFORMATION-PERSPECTIVES: SAF-c3c828ede9546b9da818523ad987b91792f89c7a8a4ccdc75f7fda72fabd5c84
+    REQ-EXTERNAL-USE: SAF-929e5d3a126db5c077fcb2f7017e548ca1a1c21d7bb30794c2c11dd35a005cd7
+    REQ-EXTERNAL-USE-AVAILABILITY: SAF-fbd975dae589a8fb42e34e4628cf9352954e66475fef33a47daa9b811c51d961
+    REQ-RECORDED-HISTORY: SAF-6d26f40f159cf1051789250c4ee4587b657e550f1ff7672237ae3ba53f32a2c2
+    REQ-RECORDED-HISTORY-CONTEXT: SAF-ce165dbdd796a541d21d78e6d99d71f3717fcba252b6a9f5d8542ae987e65b97
+    REQ-RECORDED-ACTIVITY-INTAKE: SAF-a903d9fde58f558008b0029507bbfeffc178320be9a3630c20209bbb215536d9
+    REQ-INFORMATION-BULK-LOAD: SAF-0b6023df6304cf3ab5a80d36f918db5a448072cae6e33f4d5c2125d76ae9f25b
+    REQ-INFORMATION-CREATE: SAF-49561640014d2abcc9262338aef23339b0ecb9a3356244a7b51a96027e5b310a
+    REQ-INFORMATION-READ: SAF-28c3b4215df9dd37fbc3071354a4f3db56572fb7c04a3a3a029337e32601b7fa
+    REQ-INFORMATION-UPDATE: SAF-8031588112914bae0f4e659f490f7b4fa6070f8b227bc2edb518fd7614be9057
+    REQ-INFORMATION-DELETE: SAF-5717cbfdf1e1c298f721ff62404de8a05222a8f9019a0d7747b4cf95c9243d1c
+    PI-SCOPE: SAF-fd252c69cf8e2716450c0cb363efd6e6851a84d3244233214a03e5f0a5f79de9
