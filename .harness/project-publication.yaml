@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:e9c258602e6cabf1ddf433dcb75e6bf5a90643b65cd3d539eeb4aea7a040d779
-parent_revision: sha256:baecceac6cc0171c63ce1970c38505ab2dd637bba6ab4a0a7c6c91ce7b82f9c4
+revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+parent_revision: sha256:0ec9d8af8d7015fededf80981862fab5c33fd0f807c0271216eff3e4bf81e922
 state:
   core_model:
     authorities:
@@ -82,6 +82,26 @@ state:
       resolution:
         artifact: PRODUCT-VISION
         acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+        supersedes_acceptance_id: ABSENT
+    - id: Q-PREP-MODEL-CONTEXT-INDEPENDENT-LANGUAGES
+      authority: MODEL-CONTEXT-STRATEGY
+      text: Establish whether MC-01 and MC-02 require independently governed model
+        languages rather than distinguishable concepts in one coherent language. Accepted
+        Product Capabilities and Domain Strategy justify preparation-information versus
+        activity/result meanings, but do not evidence incompatible interpretations
+        of a shared concept, independent language evolution or a consumer translation
+        that cannot be satisfied within a shared model. Compare an explicit coherent
+        one-language alternative with concrete independent semantic evidence and consumer
+        consequences; substantiate a cross-language interpretation mapping for TR-01
+        if two contexts are selected. Separate CORE responsibilities, temporal facts
+        and different consumer tasks alone are insufficient. Preserve full CRUD and
+        bulk loading across every in-scope kind; do not revive retired product proposals,
+        introduce historical invariants or choose tactical/technical realization.
+      blocks_capabilities:
+      - prep.model-context-strategy
+      resolution:
+        artifact: MODEL-CONTEXT-MAP
+        acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
         supersedes_acceptance_id: ABSENT
   semantic_evaluations:
     version: 1
@@ -379,7 +399,7 @@ state:
         - docs/architecture/context-map.md
         canonical_references:
         - referenced_path: .harness/knowledge/product-capabilities.yaml
-        accepted_prerequisites: &id001
+        accepted_prerequisites:
           prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
         accepted_prerequisite_semantics: {}
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -399,7 +419,8 @@ state:
         capability: prep.domain-strategy
         acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
         acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
-        accepted_prerequisites: *id001
+        accepted_prerequisites:
+          prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
         semantic_atom_fingerprints: &id006
           DS-EVIDENCE: SAF-078efcd1340af0e27f6feb61dbbc6a6242c46db042a02e9bdb86f5ce6f557adc
           DS-LANDSCAPE: SAF-438e7c1fc2391cc36e7d218576b722245f5900cea69337fd3e746335aa6b5ea3
@@ -410,6 +431,67 @@ state:
           DS-RETIRED: SAF-dcc6bd1e2c229d58887c6c1ea7aa409b837750c1cf8f817173bbf80d03447684
           DS-CONSUMERS: SAF-6f44623a56b1834f125f29906533ca959491a8d1830d26c247f3fe17ffe92d50
           DS-REOPEN: SAF-a3646a01712b7a7e968ec16578b2d12f729ab16f0de9c000702dc8b126223df6
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: MODEL-CONTEXT-MAP
+      capability: prep.model-context-strategy
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: model-context-strategy
+        skill: skills/artifacts/model-context-strategy/SKILL.md
+        acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+        authority: MODEL-CONTEXT-STRATEGY
+        allowed_source_authorities:
+        - DOMAIN-STRATEGY
+        - MODEL-CONTEXT-STRATEGY
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - docs/architecture/model-context-map.md
+        canonical_references:
+        - referenced_path: .harness/knowledge/product-capabilities.yaml
+        - referenced_path: docs/architecture/context-map.md
+        accepted_prerequisites: &id001
+          prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+          prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+        acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: MODEL-CONTEXT-MAP
+        capability: prep.model-context-strategy
+        acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+        acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+        accepted_prerequisites: *id001
+        semantic_atom_fingerprints: &id007
+          MC-EVIDENCE: SAF-8b1af7e2b65baabf383d63585c81df2450a2ab6e0d645c8121660663cbc5bdbb
+          MC-DECISION: SAF-e1b1478c1b1ff1408df9bb3dc858f3931c18f8bfaa428657c9f2a1d22abb647f
+          MC-01: SAF-1cc65be393fd0dabbdde1572ae5fa63831806aa3b732e90b94c7ab6c261684dc
+          MC-PREPARATION: SAF-7592f10e0a96b2cff0c25a15b5365debcbacfd00afbaee997648b835432c4a2a
+          MC-ACTIVITY: SAF-d3754ba14c8292c5d04c65fd07b53a6a5d2bf84c461fba920cf48a174f774b3c
+          IR-01: SAF-3db3c7801e666b8dd91dcaa7391d9c7826774bd4d28e7d8522605cf8a456a86f
+          MC-PRODUCT-COVERAGE: SAF-489f4b50f542407caabd3221afb2e0a973257f35f0e013e5936696a6464b1e80
+          MC-NO-TRANSLATION: SAF-b8bccc136aab8233303a7cac4db1ccf7170f5a4a971144a7fdc9eaeaf535b02e
+          MC-CONSUMERS: SAF-15282fbd6abbc8941e8ca4357b5accdd8188f8cec449ba1e1b1ef103f9fb8cd5
+          MC-REOPEN: SAF-a1b1dce166d9a596fa8590489418d5ffaaef8d33a30ac5f6dd5f79370006dde9
     derivation_evaluations: []
   lifecycle:
     version: 1
@@ -449,6 +531,14 @@ state:
       accepted_prerequisites:
         prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
       semantic_atom_fingerprints: *id006
+    - artifact: MODEL-CONTEXT-MAP
+      capability: prep.model-context-strategy
+      acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+      acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+      accepted_prerequisites:
+        prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+        prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+      semantic_atom_fingerprints: *id007
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

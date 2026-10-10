@@ -1,0 +1,61 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: MODEL-CONTEXT-MAP
+capability: prep.model-context-strategy
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: model-context-strategy
+  skill: skills/artifacts/model-context-strategy/SKILL.md
+  acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+  authority: MODEL-CONTEXT-STRATEGY
+  allowed_source_authorities:
+  - DOMAIN-STRATEGY
+  - MODEL-CONTEXT-STRATEGY
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - docs/architecture/model-context-map.md
+  canonical_references:
+  - referenced_path: .harness/knowledge/product-capabilities.yaml
+  - referenced_path: docs/architecture/context-map.md
+  accepted_prerequisites: &id001
+    prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+    prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+  acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: MODEL-CONTEXT-MAP
+  capability: prep.model-context-strategy
+  acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+  acceptance_policy_fingerprint: sha256:946bc6ab09a5faa3b683a41d948baac677e99439dba3952eee2922e446df6b66
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    MC-EVIDENCE: SAF-8b1af7e2b65baabf383d63585c81df2450a2ab6e0d645c8121660663cbc5bdbb
+    MC-DECISION: SAF-e1b1478c1b1ff1408df9bb3dc858f3931c18f8bfaa428657c9f2a1d22abb647f
+    MC-01: SAF-1cc65be393fd0dabbdde1572ae5fa63831806aa3b732e90b94c7ab6c261684dc
+    MC-PREPARATION: SAF-7592f10e0a96b2cff0c25a15b5365debcbacfd00afbaee997648b835432c4a2a
+    MC-ACTIVITY: SAF-d3754ba14c8292c5d04c65fd07b53a6a5d2bf84c461fba920cf48a174f774b3c
+    IR-01: SAF-3db3c7801e666b8dd91dcaa7391d9c7826774bd4d28e7d8522605cf8a456a86f
+    MC-PRODUCT-COVERAGE: SAF-489f4b50f542407caabd3221afb2e0a973257f35f0e013e5936696a6464b1e80
+    MC-NO-TRANSLATION: SAF-b8bccc136aab8233303a7cac4db1ccf7170f5a4a971144a7fdc9eaeaf535b02e
+    MC-CONSUMERS: SAF-15282fbd6abbc8941e8ca4357b5accdd8188f8cec449ba1e1b1ef103f9fb8cd5
+    MC-REOPEN: SAF-a1b1dce166d9a596fa8590489418d5ffaaef8d33a30ac5f6dd5f79370006dde9

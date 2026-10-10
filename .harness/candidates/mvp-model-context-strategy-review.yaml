@@ -1,0 +1,89 @@
+version: 1
+kind: harness-model-context-strategy-review
+capability: prep.model-context-strategy
+status: BLOCKED
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+contract: skills/artifacts/model-context-strategy/SKILL.md
+contract_rules:
+- 'Procedure 1: distinct models/languages must be materially required'
+- 'Stop: no independent model-language distinction evidenced'
+- 'Acceptance: one coherent model must not be split artificially'
+candidate_sha256: 11ff1d2497dde3c3d52757cf2ddf88be7a51343febe9cfd00c3ae23cad301a5c
+accepted_prerequisites:
+  prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+  prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+comparison:
+  one_language:
+    feasibility: Not ruled out by accepted evidence
+    basis: One model can distinguish preparation-information descriptions from activity/result
+      records, retain temporal context and refer to the preparation subject. All accepted
+      CRUD/bulk, exploration, selection and outside-use obligations remain satisfiable.
+      No aggregate, schema or tactical implementation is selected.
+  two_languages:
+    evidence: Distinct responsibilities, information meanings and consumer tasks
+    missing: Independent language applicability/evolution or conflicting interpretation
+      evidence establishing material value beyond distinguishing concepts in the shared
+      language. The candidate itself conditions the choice on evidence not supplied.
+    cost: Additional independent semantic governance and cross-language contract without
+      demonstrated necessity.
+  verdict: The two-context choice is unproven. Do not silently select either alternative
+    as accepted; route the model-language decision to its owning Authority.
+TR-01_review: Occurrence/result versus subject distinction, no proficiency inference,
+  temporal understanding and joint exploration are supported. They also apply within
+  one language. No actual cross-language reinterpretation or required translation
+  is demonstrated; TR-01 is conditional on the unresolved split.
+boundary_review: The candidate appropriately defers context-to-service mapping, tactical
+  identities/invariants, snapshots and historical repair. Four RETIRED proposals remain
+  unaccepted; full CRUD/bulk scope is preserved. These positive boundaries do not
+  prove a need for two languages.
+question:
+  id: Q-PREP-MODEL-CONTEXT-INDEPENDENT-LANGUAGES
+  authority: MODEL-CONTEXT-STRATEGY
+  text: Establish whether MC-01 and MC-02 require independently governed model languages
+    rather than distinguishable concepts in one coherent language. Accepted Product
+    Capabilities and Domain Strategy justify preparation-information versus activity/result
+    meanings, but do not evidence incompatible interpretations of a shared concept,
+    independent language evolution or a consumer translation that cannot be satisfied
+    within a shared model. Compare an explicit coherent one-language alternative with
+    concrete independent semantic evidence and consumer consequences; substantiate
+    a cross-language interpretation mapping for TR-01 if two contexts are selected.
+    Separate CORE responsibilities, temporal facts and different consumer tasks alone
+    are insufficient. Preserve full CRUD and bulk loading across every in-scope kind;
+    do not revive retired product proposals, introduce historical invariants or choose
+    tactical/technical realization.
+  blocks_capabilities:
+  - prep.model-context-strategy
+admission_attempted: false
+new_acceptances: []
+publication_revision: sha256:0ec9d8af8d7015fededf80981862fab5c33fd0f807c0271216eff3e4bf81e922
+parent_revision: sha256:e9c258602e6cabf1ddf433dcb75e6bf5a90643b65cd3d539eeb4aea7a040d779
+publication_core_equals_working: true
+checks:
+  blocked_publication_verifier: PASS
+  upstream_policy_bound_currentness: 'PASS: five unchanged acceptances'
+  published_semantic_baseline: 'PASS: five existing semantic evaluations and lifecycle
+    assertions only'
+  positive_negative_checks: 'PASS: idempotent Question projection and BLOCKED CAS;
+    unsupported CURRENT/BLOCKED and stale CAS rejected'
+  docs_inventory:
+    status: FAIL
+    unchanged_from_domain_strategy_verification: true
+    errors:
+    - 'docs/ contains unclassified files outside Harness Core, research, or human
+      projections: docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+      docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+      docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+      docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+      docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+      docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+      docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+      docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+      docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+      docs/interface/interface-topology.yaml, docs/interface/machine-interface.md,
+      docs/interface/presentation-system.md, docs/interface/screen-view-design.md,
+      docs/verification/frontend-test-design.yaml, docs/verification/frontend-verification.md,
+      docs/verification/interface-verification.md, docs/verification/presentation-verification.md'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_model_context_blocker.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py
+- python tools/validate_docs.py

@@ -1,0 +1,94 @@
+version: 1
+kind: harness-mvp-admission-verification
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+capability: prep.model-context-strategy
+acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+publication_revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+parent_revision: sha256:0ec9d8af8d7015fededf80981862fab5c33fd0f807c0271216eff3e4bf81e922
+publication_core_equals_working: true
+realized_capability_states:
+  prep.problem-evidence:
+    state: CURRENT
+    capability: prep.problem-evidence
+    artifact: PROBLEM-EVIDENCE
+    acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+  prep.user-needs:
+    state: CURRENT
+    capability: prep.user-needs
+    artifact: USER-NEEDS
+    acceptance_id: PREP-MVP-USER-NEEDS-1
+  prep.product-intent:
+    state: CURRENT
+    capability: prep.product-intent
+    artifact: PRODUCT-VISION
+    acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+  prep.product-capabilities:
+    state: CURRENT
+    capability: prep.product-capabilities
+    artifact: PRODUCT-CAPABILITIES
+    acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+  prep.domain-strategy:
+    state: CURRENT
+    capability: prep.domain-strategy
+    artifact: CONTEXT-MAP
+    acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+  prep.model-context-strategy:
+    state: CURRENT
+    capability: prep.model-context-strategy
+    artifact: MODEL-CONTEXT-MAP
+    acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+semantic_review:
+  status: ACCEPTED
+  selected_model_language: MC-01 Preparation and Activity
+  relationship: 'IR-01: internal interpretation; no cross-language translation required'
+  alternative: Two independently governed languages remain unsubstantiated by currently
+    accepted evidence
+  accepted_product_capabilities_preserved: 15
+  upstream_acceptances_preserved: 5
+  review_evidence: .harness/candidates/mvp-model-context-strategy-admission.yaml#semantic_review
+  retired_proposals_reactivated: false
+  CRUD_or_bulk_restricted: false
+  tactical_or_technical_decisions_admitted: false
+question_resolution:
+  artifact: MODEL-CONTEXT-MAP
+  acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+  supersedes_acceptance_id: ABSENT
+historical_blocked_evidence:
+  status: HISTORICAL_ONLY
+  review: .harness/candidates/mvp-model-context-strategy-review.yaml
+  candidate: .harness/candidates/mvp-model-context-blocked-candidate.md
+  publication: .harness/candidates/mvp-model-context-blocked-publication.yaml
+  revision: sha256:0ec9d8af8d7015fededf80981862fab5c33fd0f807c0271216eff3e4bf81e922
+  verification: PASS against archived snapshot; not current status
+checks:
+  current_verifier: PASS
+  historical_verifier: 'PASS: explicitly historical'
+  strict_admission: ACCEPTED; no findings
+  positive_negative_checks: 'PASS: complete applicability, accepted provenance, exact
+    resolution/CAS/currentness; each missing capability/prerequisite, absent boundary
+    review, all retired sources, wrong Authorities, open Question and stale policy/CAS
+    rejected'
+  published_semantic_baseline: 'PASS: six accepted evaluations/providers'
+  docs_inventory:
+    status: FAIL
+    unchanged_from_historical_review: true
+    errors:
+    - 'docs/ contains unclassified files outside Harness Core, research, or human
+      projections: docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+      docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+      docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+      docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+      docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+      docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+      docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+      docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+      docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+      docs/interface/interface-topology.yaml, docs/interface/machine-interface.md,
+      docs/interface/presentation-system.md, docs/interface/screen-view-design.md,
+      docs/verification/frontend-test-design.yaml, docs/verification/frontend-verification.md,
+      docs/verification/interface-verification.md, docs/verification/presentation-verification.md'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_model_context_strategy.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_model_context_blocker.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py
+- python tools/validate_docs.py
