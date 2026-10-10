@@ -1,0 +1,81 @@
+version: 1
+kind: harness-project-publication
+revision: sha256:ec0df83d8b07849856a391accff13d8490270a399e81eeb9bc29aed339dc85ab
+parent_revision: sha256:8d88042ad055fad803be49236991ea0a914202e5846d9a97e21a24cb8e32377f
+state:
+  core_model:
+    authorities:
+    - id: DISCOVERY
+    - id: PRODUCT-REQUIREMENTS
+    - id: DOMAIN-STRATEGY
+    - id: MODEL-CONTEXT-STRATEGY
+    - id: TACTICAL-DOMAIN-DESIGN
+    - id: APPLICATION-DESIGN
+    - id: QUALITY-DESIGN
+    - id: HUMAN-INTERFACE-DESIGN
+    - id: MACHINE-INTERFACE-DESIGN
+    - id: CONCURRENCY-CONSISTENCY-DESIGN
+    - id: VERIFICATION-DESIGN
+    - id: SYSTEM-ARCHITECTURE
+    - id: DATA-DESIGN
+    - id: ENGINEERING-POLICY
+    - id: COMPONENT-DESIGN
+    - id: TEST-DESIGN
+    - id: IMPLEMENTATION-DESIGN
+    artifacts:
+    - id: PROBLEM-EVIDENCE
+      authority: DISCOVERY
+      path: docs/discovery/problem-evidence.yaml
+      provides:
+      - prep.problem-evidence
+      depends_on: []
+    - id: USER-NEEDS
+      authority: DISCOVERY
+      path: docs/discovery/user-needs.yaml
+      provides:
+      - prep.user-needs
+      depends_on:
+      - PROBLEM-EVIDENCE
+    - id: PRODUCT-VISION
+      authority: PRODUCT-REQUIREMENTS
+      path: .harness/knowledge/product-intent.yaml
+      provides:
+      - prep.product-intent
+      depends_on:
+      - USER-NEEDS
+    - id: PRODUCT-CAPABILITIES
+      authority: PRODUCT-REQUIREMENTS
+      path: .harness/knowledge/product-capabilities.yaml
+      provides:
+      - prep.product-capabilities
+      depends_on:
+      - PRODUCT-VISION
+    - id: CONTEXT-MAP
+      authority: DOMAIN-STRATEGY
+      path: docs/architecture/context-map.md
+      provides:
+      - prep.domain-strategy
+      depends_on:
+      - PRODUCT-CAPABILITIES
+    - id: MODEL-CONTEXT-MAP
+      authority: MODEL-CONTEXT-STRATEGY
+      path: docs/architecture/model-context-map.md
+      provides:
+      - prep.model-context-strategy
+      depends_on:
+      - PRODUCT-CAPABILITIES
+      - CONTEXT-MAP
+    questions: []
+  semantic_evaluations:
+    version: 1
+    kind: harness-semantic-evaluation-set
+    semantic_evaluations: []
+    derivation_evaluations: []
+  lifecycle:
+    version: 1
+    kind: harness-capability-lifecycle
+    providers: []
+  decision_failures:
+    version: 1
+    kind: harness-decision-failure-set
+    failures: []

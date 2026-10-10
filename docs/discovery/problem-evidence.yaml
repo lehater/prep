@@ -103,6 +103,11 @@ evidence:
     kind: stakeholder-statement
     source: project-owner
     supports: [PE-03]
+    interpretation_boundary: >-
+      This is the stakeholder's proposed product behavior, preserved as evidence
+      of PE-03. Discovery admission accepts the recorded-activity problem and
+      desired understanding outcome only. Storage, relationship behavior, and
+      product acceptance criteria require a separate Product Requirements decision.
     statement: >-
       Prep should store and relate recorded activity and results so that the
       person can see them over time and interpret those facts as needed.

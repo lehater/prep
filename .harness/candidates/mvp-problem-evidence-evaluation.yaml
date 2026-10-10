@@ -1,0 +1,67 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: PROBLEM-EVIDENCE
+capability: prep.problem-evidence
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: problem-evidence
+  skill: skills/artifacts/problem-evidence/SKILL.md
+  acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+  authority: DISCOVERY
+  allowed_source_authorities:
+  - DISCOVERY
+  changed_paths:
+  - docs/discovery/problem-evidence.yaml
+  canonical_references: []
+  accepted_prerequisites: &id001 {}
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: PROBLEM-EVIDENCE
+  capability: prep.problem-evidence
+  acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+  acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    PE-PROBLEM: SAF-5319299994b00428f3bbcef94ba1e07b4c1f4631fe8c5dbfc81dda6689de7605
+    PE-ACTOR: SAF-98b2f397b1113362b57065ae3538c103af73248eaf4b1245689085d391bd4ce1
+    PE-CONTEXT: SAF-f83812895942809d93f58ef4fc77a0715f2085260ab9caf79ed3eaf0917b0ab8
+    PE-OUTCOME: SAF-932f9baa8a051f99a4a9e59f1be9ed3babff893409d790a29db90072a7b5a6a4
+    PE-01: SAF-a08b731f19462a97de2a00f88460d652f894ab39edd02faac26be2d209acfdfc
+    PE-02: SAF-925dfde4fe1a47f7aa378f13f46498d76654a2f04600d2e6469d7383dee3ee03
+    PE-03: SAF-77bb81cda12759c7939d2a0d6ebe742ddbafa34dd304e4f82023a65b00aaefa4
+    EV-01: SAF-563c9477dae7e1a2de745d6b452d4534884f3bc3219ba5074bf7d50977095b82
+    EV-02: SAF-27dda59d52b6f818e24866ce9515146af8e60ad48b4ec0350a5506568676ead2
+    EV-03: SAF-fc6a56f7afc678c532b0c44a181d56006ab85044ff54e24446bc1a970419753a
+    PE-DISTINCTION-CAPABILITY: SAF-21b8db94ac48d92807068578f72222eeda4cf8d556bb974d61d920c5b27aba44
+    PE-DISTINCTION-KNOWLEDGE: SAF-47175566bba4ca615205542395540a0b6fce41a979888cda0b90b18ce49b1b38
+    PE-DISTINCTION-PRACTICE-MATERIAL: SAF-b0ce9c4da039d372e32dfe8c95e1a20b158a4988a5a62bfa4a3aee7b41012e78
+    PE-DISTINCTION-RECORDED-ACTIVITY: SAF-e3e9b868d5bd0fea8bfe39e55f4feb766e784b1c74cbea775afc9413d650ffbc
+    PE-DISTINCTION-PRACTICE-MATERIAL-VS-RECORDED-ACTIVITY: SAF-ea2d4fc70431b74128ea382e37f3d8bc7f2707c4e8a9b56f785c4062677b88c5
+    PE-BOUNDARY-1: SAF-3a7c48bb4aa6d6778970b0486d971ff410ed141607d06e4bfc1a76c7aa58624d
+    PE-BOUNDARY-2: SAF-70389526525b13159a7195634db292753709d4d4edf022f914b4fc5b75856a45
+    PE-BOUNDARY-3: SAF-8241238a72c4cfe34e297f22a96ef39a9d8e95c98322976d916b7cd9949d69ac
+    PE-BOUNDARY-4: SAF-bfa83a323a96589256cfd8d31817a7c34de5535988fb7afcd88a782363278ddd
+    PE-BOUNDARY-5: SAF-742fa949b57bfe21616ea5cab04f27a10f288c97b2f457fcebe4ada5da685926
+    PE-NON-GOALS: SAF-4423ad922c8f2e00a97d4fb0a479ea6aad62c1a0b70faee92f220c12f4640322
+    PE-DOWNSTREAM: SAF-c6d8d4efc51c1a72e6109f8e49f431192f05c498e0eed918c5de9d9c6c199690

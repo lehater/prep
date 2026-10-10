@@ -1,0 +1,232 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PROBLEM-EVIDENCE
+capability: prep.problem-evidence
+path: docs/discovery/problem-evidence.yaml
+changed_paths:
+- docs/discovery/problem-evidence.yaml
+canonical_references: []
+semantic_assertions:
+- id: PE-PROBLEM
+  kind: problem-observation
+  subject: information-use
+  semantic_value: A person works with knowledge, goals, capabilities, practice material,
+    recorded activity, and relationships among them. These kinds of information may
+    differ in meaning, and the same information may be relevant from different perspectives.
+    As the amount of information grows, it becomes difficult to understand and explore
+    it, select a part for use outside Prep, and understand recorded activity and results
+    in relation to the information they concern.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#problem
+- id: PE-ACTOR
+  kind: problem-actor
+  subject: person-preparing
+  semantic_value:
+  - person-preparing
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#actors
+- id: PE-CONTEXT
+  kind: context-of-use
+  subject: information-use
+  semantic_value: The person works with information they choose to use. The information
+    may already exist before it is used in Prep, may come from different places, and
+    may change over time.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#context
+- id: PE-OUTCOME
+  kind: desired-outcome
+  subject: information-use
+  semantic_value: The person can understand and explore knowledge, goals, capabilities,
+    practice material, recorded activity, and their relationships; select a part of
+    the available information and material for use outside Prep; and understand recorded
+    activity and results over time in relation to the information they concern.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#desired_outcome
+- id: PE-01
+  kind: problem-observation
+  subject: information-and-relationship-opacity
+  semantic_value: Knowledge, goals, capabilities, practice material, recorded activity,
+    and relationships among them accumulate while becoming difficult to understand
+    and explore. Knowledge can differ in kind, relationships can have different meanings,
+    and the same information can be considered from different perspectives.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#observations/PE-01
+- id: PE-02
+  kind: problem-observation
+  subject: external-use-selection
+  semantic_value: A person may need to work outside Prep with only part of the available
+    information or material. As the amount and connectedness of information grow,
+    it becomes difficult to identify and select the part to use for study, practice,
+    review, testing, or other preparation activity.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#observations/PE-02
+- id: PE-03
+  kind: problem-observation
+  subject: recorded-activity-opacity
+  semantic_value: As recorded activity and results accumulate, it becomes difficult
+    to understand what took place over time and how those facts relate to the knowledge,
+    goals, capabilities, practice material, and other information they concern.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#observations/PE-03
+- id: EV-01
+  kind: problem-evidence
+  subject: EV-01
+  semantic_value:
+    id: EV-01
+    kind: stakeholder-statement
+    source: project-owner
+    supports:
+    - PE-01
+    statement: The value of Prep includes seeing knowledge and relationships among
+      knowledge, goals, capabilities, practice material, and recorded activity from
+      different perspectives. Different kinds of knowledge and different meanings
+      of relationships matter.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#evidence/EV-01
+- id: EV-02
+  kind: problem-evidence
+  subject: EV-02
+  semantic_value:
+    id: EV-02
+    kind: stakeholder-statement
+    source: project-owner
+    supports:
+    - PE-02
+    statement: A central use of Prep is to select part of the available information
+      and material and use it outside Prep for study, practice, testing, or another
+      preparation activity.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#evidence/EV-02
+- id: EV-03
+  kind: problem-evidence
+  subject: EV-03
+  semantic_value:
+    id: EV-03
+    kind: stakeholder-statement
+    source: project-owner
+    supports:
+    - PE-03
+    interpretation_boundary: This is the stakeholder's proposed product behavior,
+      preserved as evidence of PE-03. Discovery admission accepts the recorded-activity
+      problem and desired understanding outcome only. Storage, relationship behavior,
+      and product acceptance criteria require a separate Product Requirements decision.
+    statement: Prep should store and relate recorded activity and results so that
+      the person can see them over time and interpret those facts as needed.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#evidence/EV-03
+- id: PE-DISTINCTION-CAPABILITY
+  kind: problem-space-distinction
+  subject: capability
+  semantic_value: Something a person needs to be able to do to achieve a goal.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#distinctions/capability
+- id: PE-DISTINCTION-KNOWLEDGE
+  kind: problem-space-distinction
+  subject: knowledge
+  semantic_value: Information about a subject. Its presence does not state what the
+    person knows.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#distinctions/knowledge
+- id: PE-DISTINCTION-PRACTICE-MATERIAL
+  kind: problem-space-distinction
+  subject: practice_material
+  semantic_value: Material that can be used for study, practice, review, testing,
+    or other preparation activity.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#distinctions/practice_material
+- id: PE-DISTINCTION-RECORDED-ACTIVITY
+  kind: problem-space-distinction
+  subject: recorded_activity
+  semantic_value: A fact that activity took place, including a recorded result when
+    one exists.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#distinctions/recorded_activity
+- id: PE-DISTINCTION-PRACTICE-MATERIAL-VS-RECORDED-ACTIVITY
+  kind: problem-space-distinction
+  subject: practice_material_vs_recorded_activity
+  semantic_value: Practice material is something that can be used in activity. Recorded
+    activity describes what was recorded as having taken place.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#distinctions/practice_material_vs_recorded_activity
+- id: PE-BOUNDARY-1
+  kind: scope-boundary
+  subject: boundary-1
+  semantic_value: Goal, capability, knowledge, practice material, recorded activity,
+    and relationship are problem-space distinctions, not a domain model.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#scope_boundaries/1
+- id: PE-BOUNDARY-2
+  kind: scope-boundary
+  subject: boundary-2
+  semantic_value: Knowledge may differ in kind and relationships may differ in meaning.
+    This artifact does not define their taxonomy or relationship model.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#scope_boundaries/2
+- id: PE-BOUNDARY-3
+  kind: scope-boundary
+  subject: boundary-3
+  semantic_value: Relationships may cross different kinds of information. This artifact
+    does not define a required relationship topology.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#scope_boundaries/3
+- id: PE-BOUNDARY-4
+  kind: scope-boundary
+  subject: boundary-4
+  semantic_value: Prep works with information the user chooses to use. Prep does not
+    determine its origin, authorship, correctness, reliability, or authority.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#scope_boundaries/4
+- id: PE-BOUNDARY-5
+  kind: scope-boundary
+  subject: boundary-5
+  semantic_value: Recorded activity and recorded results describe recorded facts.
+    They do not establish what the person knows or can do.
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#scope_boundaries/5
+- id: PE-NON-GOALS
+  kind: scope-boundary
+  subject: non-goals
+  semantic_value:
+  - source management, provenance, citation, or traceability
+  - verification of information
+  - assessment of a person's knowledge or capability
+  - mastery, readiness, or competence estimation
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#non_goals
+- id: PE-DOWNSTREAM
+  kind: scope-boundary
+  subject: unresolved-decisions
+  semantic_value:
+  - how information is added, imported, edited, or removed
+  - which kinds of knowledge are distinguished
+  - which relationship meanings are distinguished
+  - how relationships are created or represented
+  - how information is explored from different perspectives
+  - how a selected part is represented or transferred for external use
+  - how recorded activity and results are returned
+  - which statistics or other derived representations are provided
+  - domain model and semantics
+  - user interface and technical realization
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/problem-evidence.yaml#unresolved_downstream_decisions
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - evidence-not-solution
+  basis:
+    source-discipline: Root Discovery review uses only current project-owned stakeholder
+      evidence EV-01/EV-02/EV-03 and the current problem artifact. No legacy acceptance,
+      implementation or downstream artifact is used. Stakeholder statements are not
+      empirical validation.
+    authority-boundary: Problem-space distinctions are reviewed as stakeholder vocabulary,
+      not accepted domain invariants. Product behavior, relationship taxonomy, storage,
+      transfer, statistics and realization remain downstream.
+    no-invention: Assertions preserve the current artifact independently; no learner-state
+      inference or product acceptance criterion is added.
+    evidence-not-solution: EV-03 includes proposed behavior. Its verbatim statement
+      is preserved, but interpretation_boundary explicitly limits admission to PE-03
+      and the desired understanding outcome; Product Requirements must decide any
+      behavior separately.
