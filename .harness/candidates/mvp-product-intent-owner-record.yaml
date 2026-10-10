@@ -1,0 +1,48 @@
+version: 1
+kind: harness-product-owner-source-record
+source_url: https://github.com/lehater/prep/pull/93
+author: lehater
+head_revision: a074ab34bc3e31d1104dd6050b5345e1bf0d47a8
+source_artifact: .harness/knowledge/product-intent.yaml
+basis: 'Owner-authored PR #93 contains these explicit decisions and policy boundaries.
+  This is the submitted owner declaration, not an inference from Discovery or downstream
+  design. No separate original chat transcript is claimed.'
+product_decisions:
+- id: PD-MVP-DATA-MANAGEMENT-2026-10-10
+  authority: PRODUCT-REQUIREMENTS
+  source: project-owner
+  decision_status: OWNER_CONFIRMED
+  statement: The MVP must support bulk loading and full user CRUD (create, read, update,
+    delete) across every entity and relationship kind included in the planned MVP
+    model, including recorded activity and results. Manual addition and editing must
+    be possible independently of bulk loading.
+  boundary: The product decision establishes user-observable scope and rights, not
+    the entity taxonomy, format, transport, UI, storage method, deletion implementation,
+    or historical consistency rules.
+- id: PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10
+  authority: PRODUCT-REQUIREMENTS
+  source: project-owner
+  decision_status: OWNER_CONFIRMED
+  statement: The MVP must allow recorded activity and results, including preparation
+    activity performed outside Prep, to be brought into Prep for later understanding
+    and analysis.
+  boundary: The means of transfer and representation are downstream decisions. Recorded
+    results do not establish learner mastery or readiness.
+scope_boundaries:
+- The bulk-load and CRUD commitments apply to all entity and relationship kinds included
+  in the accepted MVP model; downstream design cannot silently exclude recorded activity
+  or results from these operations.
+- Product Requirements do not predefine entity identity, relationship taxonomy, historical
+  invariants, deletion strategy, transfer format, interface or storage technology.
+- Product CRUD includes editing and removing recorded activity/results. Consequences
+  for historical meaning and related information must be resolved by the owning downstream
+  Authority without silently revoking the user's product-level operations.
+non_goals:
+- Assess what the user knows or can do.
+- Estimate mastery, readiness, or competence.
+- Verify the truth, quality, authorship, reliability, or authority of information.
+- Require source management, provenance, citations, source versioning, or traceability.
+- Define a fixed taxonomy of knowledge kinds or relationship meanings.
+- Define a required relationship topology or representation technique.
+- Define a particular bulk-load format, import/export transport, interface, persistence,
+  or implementation mechanism.

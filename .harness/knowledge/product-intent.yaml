@@ -16,6 +16,10 @@ content:
       authority: PRODUCT-REQUIREMENTS
       source: project-owner
       decision_status: OWNER_CONFIRMED
+      source_record:
+        url: https://github.com/lehater/prep/pull/93
+        author: lehater
+        revision: a074ab34bc3e31d1104dd6050b5345e1bf0d47a8
       statement: >-
         The MVP must support bulk loading and full user CRUD (create, read,
         update, delete) across every entity and relationship kind included
@@ -30,6 +34,10 @@ content:
       authority: PRODUCT-REQUIREMENTS
       source: project-owner
       decision_status: OWNER_CONFIRMED
+      source_record:
+        url: https://github.com/lehater/prep/pull/93
+        author: lehater
+        revision: a074ab34bc3e31d1104dd6050b5345e1bf0d47a8
       statement: >-
         The MVP must allow recorded activity and results, including
         preparation activity performed outside Prep, to be brought
@@ -143,8 +151,9 @@ content:
 
     - id: REQ-INFORMATION-CREATE
       statement: >-
-        The product shall allow the user to create an individual instance
-        of every entity and relationship kind included in the MVP model.
+        The product shall allow the user to manually create an individual
+        instance of every entity and relationship kind included in the MVP
+        model independently of bulk loading.
       status: ACCEPTED
       source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
       acceptance_examples:
@@ -166,15 +175,16 @@ content:
 
     - id: REQ-INFORMATION-UPDATE
       statement: >-
-        The product shall allow the user to edit an existing instance
-        of every entity and relationship kind included in the MVP model.
+        The product shall allow the user to manually edit an existing instance
+        of every entity and relationship kind included in the MVP model
+        independently of bulk loading.
       status: ACCEPTED
       source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
       acceptance_examples:
         - >-
-          A user can change an existing information item, relationship,
-          or recorded activity/result entry and subsequently inspect
-          its updated state.
+          Without bulk loading, a user can edit an existing information item,
+          relationship, or recorded activity/result entry and subsequently
+          inspect its updated state.
 
     - id: REQ-INFORMATION-DELETE
       statement: >-

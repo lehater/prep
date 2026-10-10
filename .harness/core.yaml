@@ -73,3 +73,7 @@ questions:
     from the accepted UN-03 understanding outcome.
   blocks_capabilities:
   - prep.product-intent
+  resolution:
+    artifact: PRODUCT-VISION
+    acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+    supersedes_acceptance_id: ABSENT
