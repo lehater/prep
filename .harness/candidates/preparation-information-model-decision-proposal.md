@@ -195,6 +195,136 @@ meanings and endpoint scope before returning to DIRECTION and
 MULTIPLICITY. This preserves `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`
 as unresolved; no policy/autonomy increase or Core/Publication change.
 
+## Semantic-first inventory of candidate relation meanings (2026-10-10)
+
+**RESEARCH / NOT SELECTED / NOT AN ADMITTED RELATION CATALOGUE.**
+This extends the existing Decision Explorer's relationship axis without
+selecting `ADMISSIBILITY`, `DIRECTION` or `MULTIPLICITY`. The purpose is to
+test semantic necessity *before* choosing topology or import mechanics.
+
+### Grounded user problem, not a predefined schema
+
+Accepted `PROBLEM-EVIDENCE` distinguishes a Capability as something a
+person needs to be able to do to achieve a Goal; Knowledge is information
+about a subject; PracticeMaterial may be used for study/practice/review.
+`USER-NEEDS` requires intelligible relationships, perspective changes
+and selecting material for external activity. `PRODUCT-CAPABILITIES`
+requires exploration and all-kind CRUD/bulk but expressly does not
+admit a fixed relation taxonomy, arbitrary cross-kind connections,
+provenance obligations or learner-mastery inference.
+
+No observed-task evidence establishes which relation predicates,
+endpoint combinations or cardinalities the user needs. The table is
+thus a **candidate semantic hypothesis map**, not an accepted topology.
+
+| Candidate fact between separately identified concepts | User question it could answer | Semantic status / critical counterexample |
+| --- | --- | --- |
+| Goal G **requires CapabilityDescription C** | What must one be able to do to meet this goal? | Closest to accepted problem-space definition of Capability; still no automatically mandatory G-C link or universal sufficiency inference |
+| CapabilityDescription C **uses/depends on Knowledge K** | Which stated subject information matters for performing C? | Plausible in a specific example, not true for every capability or automatically a prerequisite relation |
+| PracticeMaterial M **is intended to practice Capability C** | What can be selected to work on C externally? | Intent/purpose of material, not evidence that practice actually happened or mastery followed |
+| PracticeMaterial M **covers Knowledge K** | What information does the material address? | Plausible subject coverage; does not imply learner knowledge, completeness or information verification |
+| Goal G **concerns Knowledge K** | What information is relevant to this goal? | Potentially meaningful, but 'concerns' and 'requires' are different; might be derivable from G-C-K or be independently asserted |
+| Goal G **is decomposed into Goal G2** | Which narrower outcomes belong to a broader goal? | Potentially useful but no accepted hierarchy rule, total order or transitivity requirement |
+| Knowledge K1 **is prerequisite to Knowledge K2** | Which information should be understood before another? | Potentially subjective and contextual; not every knowledge relation is a learning prerequisite |
+| Capability C1 **precedes/requires Capability C2** | Which abilities must be established before another task? | Needs explicit directional sense, task context and validation; avoid learner-state or sequencing inference |
+| Goal G **is supported by PracticeMaterial M** | What material might help reach G? | May be a contextual user choice, derivable via C, or a separate intentional use; do not conflate with a claim of effectiveness |
+
+These candidates exemplify relation **meaning**, not technical
+schema types. No entry here is an accepted or required relationship kind.
+Recorded activity A **concerns** preparation subject S belongs to the
+other Tactical Capability (`prep.recorded-activity-history-model`) and
+is an accepted *product outcome* whose internal semantics remain
+undecided. Two external practice attempts are two DS-02 occurrences,
+not necessarily two DS-01 relation instances.
+
+### One coherent worked example (all links hypothetical)
+
+- Goal: solve composite-function differentiation problems.
+- CapabilityDescription: apply the chain rule.
+- Knowledge: explanation of the chain rule.
+- PracticeMaterial: exercises on chain-rule differentiation.
+
+Possible distinct meanings:
+`Goal --requires--> CapabilityDescription`;
+`CapabilityDescription --uses--> Knowledge`;
+`PracticeMaterial --intended-to-practice--> CapabilityDescription`;
+`PracticeMaterial --covers--> Knowledge`.
+
+A user can ask which capability is relevant to the goal, what subject
+knowledge matters, and which material could be selected for external
+use. The graph can also be viewed from the material or knowledge side
+*without duplicating domain links for an inverse UI view*.
+
+### Meaning check before counting multiple links
+
+For any proposed relationship use, examine:
+1. The practical user question answered and a concrete affirmative
+   example **and negative counterexample**.
+2. The asserted proposition and its truth/validity conditions:
+   endpoints, role direction, material context and temporal scope.
+   Prep can hold user-provided assertions without certifying their
+   truth or their sources.
+3. Whether a second equal-looking link adds **distinct subject
+   meaning**, or merely a duplicate, second reference, independent
+   justification, alternate label, import occurrence or presentation
+   path. Do not turn supporting sources or import events into mandatory
+   domain entities.
+4. What independent user action/edit would make one link valid and the
+   other invalid. If no such domain distinction exists, two IDs do
+   not establish two separate domain facts.
+5. Deletion/editing behavior compatible with accepted all-kind CRUD,
+   without inventing immutable history or learner-state conclusions.
+6. Only then choose per-meaning admissibility, direction, relation
+   multiplicity and finally bulk import collision behavior and view
+   grouping.
+
+Independent relation-instance identity has already been **approved**
+by the user, but this does not entail parallel identical propositions.
+
+### Relation strategy alternatives for owner evaluation
+
+- **S1: Small, explicit, semantically justified relation uses.**
+  Admit a meaning only after a user question and counterexamples
+  establish it; define endpoints/direction per meaning. Avoid a global
+  exhaustive catalog. Pros: understandable relationships, testable
+  meaning and separation of DS-01 vs DS-02. Cons: initial modeling
+  decisions are required and meanings may need explicit extension.
+  **Research recommendation, not approval.**
+- **S2: User-described generic connections.**
+  Let each instance carry a user explanation and avoid a fixed
+  predicate vocabulary. Pros: can capture open-ended links. Cons:
+  meaningful navigation/filtering, validation and consistent import
+  interpretation become hard, and arbitrary cross-kind topology
+  could silently revive a retired product obligation. Needs explicit
+  product/Authority scoping before adoption.
+- **S3: Comprehensive ontology/predicate taxonomy now.**
+  Predefine a broad menu of knowledge, goal, material and capability
+  relations. Pros: predefined labels and constraints. Cons: no
+  evidence of necessity, substantial correctness/reversal cost,
+  recreates an unaccepted legacy commitment. Not recommended for the
+  MVP at this stage.
+
+### Suggested first decision to bring to the user
+
+Evaluate only the candidate `Goal G --requires--> CapabilityDescription C`
+as the first **optional asserted** relation meaning. Its semantic basis
+is the accepted problem-space definition of capability, and it answers
+the user-visible question "What must one be able to do to achieve G?"
+Do not automatically require every Goal to have at least one such
+relation, treat links as verified truth, infer learner mastery, or
+admit other endpoint combinations.
+
+**Unselected question:** should this meaning be included in the
+initial model, rejected, or refined to express a different user
+meaning? Further candidate kinds are reviewed one by one or as a
+coherent proposed group, but no choice is made in this research note.
+
+External educational semantics (e.g. schema.org LearningResource
+`teaches`/`assesses`, W3C SKOS concept relations, 1EdTech CASE
+competency associations) demonstrate that meanings are context-
+specific; they are *analogies only*, not Prep's accepted input or an
+authorization to import a taxonomy.
+
 ## Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
 
 **Approved RELATION-IDENTITY: INSTANCE.** Explicit relation instances
