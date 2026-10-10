@@ -132,7 +132,7 @@ jobs:
           print(f"MVP frontier PASS: {len(expected)} capabilities through MODEL-CONTEXT-STRATEGY")
           print("Tactical Domain Design and all subsequent layers excluded from readiness checks.")
           PY
-- name: Verify published six-CURRENT semantic acceptance
+      - name: Verify published six-CURRENT semantic acceptance
         env:
           HARNESS_ROOT: .harness-tool
           PYTHONPATH: .harness-tool/src
