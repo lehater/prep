@@ -140,3 +140,9 @@ jobs:
           python tools/semantic_baseline.py
           python tools/verify_mvp_model_context_blocker.py
           python tools/verify_mvp_published_frontier.py
+      - name: Validate pinned Harness Authority registry and canonical evidence
+        env:
+          HARNESS_ROOT: .harness-tool
+          PYTHONPATH: .harness-tool/src
+        run: python tools/verify_harness_authority_registry.py
+
