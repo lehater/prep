@@ -1,0 +1,6 @@
+version: 1
+kind: harness-decision-policy
+knowledge_kinds:
+- knowledge_kind: domain-model
+  exploration: EXPLORE
+  autonomy: CONSERVATIVE

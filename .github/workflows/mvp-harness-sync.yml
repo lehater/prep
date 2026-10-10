@@ -151,3 +151,9 @@ jobs:
           HARNESS_ROOT: .harness-tool
           PYTHONPATH: .harness-tool/src
         run: python tools/verify_model_context_authority_omission.py
+      - name: Verify preparation model exploration and blocker
+        if: ${{ github.event_name == 'pull_request' && github.head_ref == 'prep/preparation-information-model-candidate' }}
+        env:
+          HARNESS_ROOT: .harness-tool
+          PYTHONPATH: .harness-tool/src
+        run: python tools/verify_preparation_information_model_blocker.py

@@ -1,0 +1,213 @@
+version: 1
+kind: harness-decision-exploration-evaluation
+capability: prep.preparation-information-model
+knowledge_kind: domain-model
+status: ACCEPTED
+findings: []
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - identity-substitution
+  - merge-vs-split
+  decision_points:
+  - id: IDENTITY
+    alternatives:
+    - INSTANCE
+    - SEMANTIC-SUBJECT
+    subjects:
+    - Continuity of a preparation-information instance across edits and identical
+      imports
+    scoped_probe_strategies:
+    - identity-substitution
+    - merge-vs-split
+    alternative_material_effects:
+      INSTANCE:
+        identity-basis: instance
+        continuity: same instance after edit
+        merge-split: explicit merge, never automatic equality collapse
+      SEMANTIC-SUBJECT:
+        identity-basis: semantic subject
+        continuity: rename preserves subject; subject change may replace identity
+        merge-split: same subject converges only after domain decision
+  - id: STRUCTURE
+    alternatives:
+    - ITEM-ROLES
+    - DISTINCT-CONCEPTS
+    subjects:
+    - Concept structure for knowledge, goal, capability and practice material
+    scoped_probe_strategies:
+    - identity-substitution
+    - merge-vs-split
+    alternative_material_effects:
+      ITEM-ROLES:
+        identity-basis: item independent of role
+        continuity: role changes retain item
+        merge-split: one item can express multiple roles without duplicate identity
+      DISTINCT-CONCEPTS:
+        identity-basis: concept instance
+        continuity: changing a concept category requires explicit semantics
+        merge-split: multiple concept instances may refer to one preparation subject
+- axis: invariants
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - relax-invariant
+  - strengthen-invariant
+  decision_points:
+  - id: INTEGRITY
+    alternatives:
+    - LIVE-ENDPOINTS
+    - EXPLICIT-UNAVAILABLE
+    subjects:
+    - Validity when editable/removable information participates in relationships
+    scoped_probe_strategies:
+    - relax-invariant
+    - strengthen-invariant
+    alternative_material_effects:
+      LIVE-ENDPOINTS:
+        valid-state-space: no dangling existing relationship
+        enforcement-owner: Tactical preparation semantics; application coordinates
+          operations
+        exception-policy: relationships removed with endpoint, no immutable history
+          required
+      EXPLICIT-UNAVAILABLE:
+        valid-state-space: existing or explicitly unavailable endpoint
+        enforcement-owner: Tactical preparation semantics
+        exception-policy: absence is explicit, not fabricated information or permanent
+          retained entity
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - state-merge
+  - state-split
+  decision_points:
+  - id: REMOVAL
+    alternatives:
+    - WORKING-SET
+    - RESTORABLE-MEMBERSHIP
+    subjects:
+    - Information lifecycle and relation continuity after removal
+    scoped_probe_strategies:
+    - state-merge
+    - state-split
+    alternative_material_effects:
+      WORKING-SET:
+        state-set: present or absent from working set
+        transition-ownership: user CRUD; tactical semantics define consequence
+        terminality: same identity restoration is not promised
+      RESTORABLE-MEMBERSHIP:
+        state-set: present or removed, outside the working set
+        transition-ownership: user CRUD; restoration semantics must be authorized
+          separately
+        terminality: nonterminal removal, without mandatory audit/version history
+- axis: relationships
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - entity-vs-relation
+  - reverse-direction
+  decision_points:
+  - id: RELATION-IDENTITY
+    alternatives:
+    - INSTANCE
+    - PAIR-ROLE
+    subjects:
+    - Relationship instance continuity
+    scoped_probe_strategies:
+    - entity-vs-relation
+    - reverse-direction
+    alternative_material_effects:
+      INSTANCE:
+        relation-vs-entity: instance identity independent of attributes
+        directionality: separate decision
+        cardinality: separate decision
+      PAIR-ROLE:
+        relation-vs-entity: pair and role identify connection
+        directionality: separate decision
+        cardinality: separate decision
+  - id: DIRECTION
+    alternatives:
+    - ORDERED
+    - SYMMETRIC
+    subjects:
+    - Endpoint order of an admitted relationship
+    scoped_probe_strategies:
+    - entity-vs-relation
+    - reverse-direction
+    alternative_material_effects:
+      ORDERED:
+        relation-vs-entity: relationship
+        directionality: ordered roles
+        cardinality: independent of ordering
+      SYMMETRIC:
+        relation-vs-entity: relationship
+        directionality: unordered peers
+        cardinality: independent of ordering
+  - id: MULTIPLICITY
+    alternatives:
+    - PARALLEL
+    - UNIQUE
+    subjects:
+    - Coexistence of relationships for the same endpoints and meaning
+    scoped_probe_strategies:
+    - entity-vs-relation
+    - reverse-direction
+    alternative_material_effects:
+      PARALLEL:
+        relation-vs-entity: individual relation instances
+        directionality: separate decision
+        cardinality: many for admitted pair/meaning
+      UNIQUE:
+        relation-vs-entity: unique connection per pair/meaning
+        directionality: separate decision
+        cardinality: at most one per admitted pair/meaning
+  - id: ADMISSIBILITY
+    alternatives:
+    - NAMED-USES
+    - DESCRIBED-CONNECTION
+    subjects:
+    - Valid preparation-information relationships
+    scoped_probe_strategies:
+    - entity-vs-relation
+    - reverse-direction
+    alternative_material_effects:
+      NAMED-USES:
+        relation-vs-entity: relationships have narrowly admitted domain meanings
+        directionality: defined per admitted meaning
+        cardinality: separate decision
+      DESCRIBED-CONNECTION:
+        relation-vs-entity: user-described meaningful connection
+        directionality: explicit or symmetric as admitted
+        cardinality: separate decision
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - move-owner-downstream
+  - move-owner-upstream
+  decision_points:
+  - id: OWNER
+    alternatives:
+    - STRATEGIC-HANDOFF
+    - COLLAPSED-MODEL
+    subjects:
+    - Ownership of preparation meaning versus recorded occurrences and application
+      orchestration
+    scoped_probe_strategies:
+    - move-owner-downstream
+    - move-owner-upstream
+    alternative_material_effects:
+      STRATEGIC-HANDOFF:
+        semantic-owner: DS-01 Tactical preparation; DS-02 Tactical recorded facts
+        boundary-placement: one language, separate capability responsibility
+        downstream-freedom: application owns bulk execution and selection workflow;
+          data owns representation
+      COLLAPSED-MODEL:
+        semantic-owner: preparation owns both meanings and inferred mastery
+        boundary-placement: second capability and Application semantics absorbed
+        downstream-freedom: application/history bound to preparation decisions
+explorer_request_id: sha256:905b6bde1cea68f1c1fc37bcd74f9acf5658e22d2e78eb56de404b5023c1d045
+decision_space_review: ACCEPTED

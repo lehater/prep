@@ -1,0 +1,447 @@
+version: 1
+kind: harness-project-publication
+revision: sha256:c87fdc8295a5a94a955215772c00967b5465983f12c642ac8c417d15be7330a8
+parent_revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+state:
+  core_model:
+    authorities:
+    - id: DISCOVERY
+    - id: PRODUCT-REQUIREMENTS
+    - id: DOMAIN-STRATEGY
+    - id: TACTICAL-DOMAIN-DESIGN
+    - id: APPLICATION-DESIGN
+    - id: QUALITY-DESIGN
+    - id: HUMAN-INTERFACE-DESIGN
+    - id: MACHINE-INTERFACE-DESIGN
+    - id: CONCURRENCY-CONSISTENCY-DESIGN
+    - id: VERIFICATION-DESIGN
+    - id: SYSTEM-ARCHITECTURE
+    - id: DATA-DESIGN
+    - id: ENGINEERING-POLICY
+    - id: COMPONENT-DESIGN
+    - id: TEST-DESIGN
+    - id: IMPLEMENTATION-DESIGN
+    artifacts:
+    - id: PROBLEM-EVIDENCE
+      authority: DISCOVERY
+      path: docs/discovery/problem-evidence.yaml
+      provides:
+      - prep.problem-evidence
+      depends_on: []
+    - id: USER-NEEDS
+      authority: DISCOVERY
+      path: docs/discovery/user-needs.yaml
+      provides:
+      - prep.user-needs
+      depends_on:
+      - PROBLEM-EVIDENCE
+    - id: PRODUCT-VISION
+      authority: PRODUCT-REQUIREMENTS
+      path: .harness/knowledge/product-intent.yaml
+      provides:
+      - prep.product-intent
+      depends_on:
+      - USER-NEEDS
+    - id: PRODUCT-CAPABILITIES
+      authority: PRODUCT-REQUIREMENTS
+      path: .harness/knowledge/product-capabilities.yaml
+      provides:
+      - prep.product-capabilities
+      depends_on:
+      - PRODUCT-VISION
+    - id: CONTEXT-MAP
+      authority: DOMAIN-STRATEGY
+      path: docs/architecture/context-map.md
+      provides:
+      - prep.domain-strategy
+      depends_on:
+      - PRODUCT-CAPABILITIES
+    questions:
+    - id: Q-PREP-PRODUCT-INTENT-INFORMATION-LIFECYCLE
+      authority: PRODUCT-REQUIREMENTS
+      text: Decide whether the MVP must introduce, retain, change and remove information
+        and relationships (REQ-INFORMATION-LIFECYCLE), and specify the observable
+        scope and acceptance expectations for each independently required behavior.
+        CTX-01 describes changing information; UN-01 and UN-03 describe understanding
+        outcomes. These accepted Discovery statements do not decide lifecycle ownership
+        or all four operations. Identify an explicit Product Requirements decision
+        or revise the proposed requirement; do not infer acceptance from its existing
+        ACCEPTED label or downstream designs. Also distinguish bringing recorded activity/results
+        into Prep in REQ-RECORDED-HISTORY from the accepted UN-03 understanding outcome.
+      blocks_capabilities:
+      - prep.product-intent
+      resolution:
+        artifact: PRODUCT-VISION
+        acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+        supersedes_acceptance_id: ABSENT
+  semantic_evaluations:
+    version: 1
+    kind: harness-semantic-evaluation-set
+    semantic_evaluations:
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PROBLEM-EVIDENCE
+      capability: prep.problem-evidence
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: problem-evidence
+        skill: skills/artifacts/problem-evidence/SKILL.md
+        acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+        authority: DISCOVERY
+        allowed_source_authorities:
+        - DISCOVERY
+        changed_paths:
+        - docs/discovery/problem-evidence.yaml
+        canonical_references: []
+        accepted_prerequisites: {}
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PROBLEM-EVIDENCE
+        capability: prep.problem-evidence
+        acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        accepted_prerequisites: {}
+        semantic_atom_fingerprints: &id001
+          PE-PROBLEM: SAF-5319299994b00428f3bbcef94ba1e07b4c1f4631fe8c5dbfc81dda6689de7605
+          PE-ACTOR: SAF-98b2f397b1113362b57065ae3538c103af73248eaf4b1245689085d391bd4ce1
+          PE-CONTEXT: SAF-f83812895942809d93f58ef4fc77a0715f2085260ab9caf79ed3eaf0917b0ab8
+          PE-OUTCOME: SAF-932f9baa8a051f99a4a9e59f1be9ed3babff893409d790a29db90072a7b5a6a4
+          PE-01: SAF-a08b731f19462a97de2a00f88460d652f894ab39edd02faac26be2d209acfdfc
+          PE-02: SAF-925dfde4fe1a47f7aa378f13f46498d76654a2f04600d2e6469d7383dee3ee03
+          PE-03: SAF-77bb81cda12759c7939d2a0d6ebe742ddbafa34dd304e4f82023a65b00aaefa4
+          EV-01: SAF-563c9477dae7e1a2de745d6b452d4534884f3bc3219ba5074bf7d50977095b82
+          EV-02: SAF-27dda59d52b6f818e24866ce9515146af8e60ad48b4ec0350a5506568676ead2
+          EV-03: SAF-fc6a56f7afc678c532b0c44a181d56006ab85044ff54e24446bc1a970419753a
+          PE-DISTINCTION-CAPABILITY: SAF-21b8db94ac48d92807068578f72222eeda4cf8d556bb974d61d920c5b27aba44
+          PE-DISTINCTION-KNOWLEDGE: SAF-47175566bba4ca615205542395540a0b6fce41a979888cda0b90b18ce49b1b38
+          PE-DISTINCTION-PRACTICE-MATERIAL: SAF-b0ce9c4da039d372e32dfe8c95e1a20b158a4988a5a62bfa4a3aee7b41012e78
+          PE-DISTINCTION-RECORDED-ACTIVITY: SAF-e3e9b868d5bd0fea8bfe39e55f4feb766e784b1c74cbea775afc9413d650ffbc
+          PE-DISTINCTION-PRACTICE-MATERIAL-VS-RECORDED-ACTIVITY: SAF-ea2d4fc70431b74128ea382e37f3d8bc7f2707c4e8a9b56f785c4062677b88c5
+          PE-BOUNDARY-1: SAF-3a7c48bb4aa6d6778970b0486d971ff410ed141607d06e4bfc1a76c7aa58624d
+          PE-BOUNDARY-2: SAF-70389526525b13159a7195634db292753709d4d4edf022f914b4fc5b75856a45
+          PE-BOUNDARY-3: SAF-8241238a72c4cfe34e297f22a96ef39a9d8e95c98322976d916b7cd9949d69ac
+          PE-BOUNDARY-4: SAF-bfa83a323a96589256cfd8d31817a7c34de5535988fb7afcd88a782363278ddd
+          PE-BOUNDARY-5: SAF-742fa949b57bfe21616ea5cab04f27a10f288c97b2f457fcebe4ada5da685926
+          PE-NON-GOALS: SAF-4423ad922c8f2e00a97d4fb0a479ea6aad62c1a0b70faee92f220c12f4640322
+          PE-DOWNSTREAM: SAF-c6d8d4efc51c1a72e6109f8e49f431192f05c498e0eed918c5de9d9c6c199690
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: USER-NEEDS
+      capability: prep.user-needs
+      status: ACCEPTED
+      obligations:
+        expected:
+        - actors
+        - context-of-use
+        - goals
+        - needs-for-goals
+        - evidence-for-needs
+        satisfied:
+        - actors
+        - context-of-use
+        - goals
+        - needs-for-goals
+        - evidence-for-needs
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: user-needs
+        skill: skills/artifacts/user-needs/SKILL.md
+        acceptance_id: PREP-MVP-USER-NEEDS-1
+        authority: DISCOVERY
+        allowed_source_authorities:
+        - DISCOVERY
+        changed_paths:
+        - docs/discovery/user-needs.yaml
+        canonical_references:
+        - referenced_path: docs/discovery/problem-evidence.yaml
+        accepted_prerequisites:
+          prep.problem-evidence: PREP-MVP-PROBLEM-EVIDENCE-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+        acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: USER-NEEDS
+        capability: prep.user-needs
+        acceptance_id: PREP-MVP-USER-NEEDS-1
+        acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+        accepted_prerequisites:
+          prep.problem-evidence: PREP-MVP-PROBLEM-EVIDENCE-1
+        semantic_atom_fingerprints: &id002
+          USER: SAF-f6a64c348b9dc169eae7209cc1701be6f5ead8825574a51f4831a9f1518a590a
+          CTX-01: SAF-cf60713386b54b03c00478c10a77057a39eeb58c21d6b288bc8c5944e7ce04fd
+          UG-01: SAF-b4ba744c3491108036644d4b537809611c598c80eca8e0469b75130b76b99184
+          UN-01: SAF-46d3e308d4476720a5f47d4e4ff37868205d4d59dacb8a5fbda30eea97f23db4
+          UN-01-EVIDENCE: SAF-f5c32ebedf95990ffb788022a3aa9c01c64e954bdd9be59da8e6511b4a386514
+          UN-02: SAF-7d1f3df7167fb0d99470d76f0fc376934e24d5dbc47d6c78f0d93a55793d94e4
+          UN-02-EVIDENCE: SAF-94a3d0ced7c5dd89bd3fe6c4823a71875ddc78262952ed2a01469e9df38f9c50
+          UN-03: SAF-a155962fecdb07d737b5743a06b9a24ed49ddd9d4d2d7a69dcdb64f5eb861481
+          UN-03-EVIDENCE: SAF-6b3f6fa23019a806bebab58ea9e1257cd011e1b59119cb0364e815a58740b69e
+          UG-01-NEED-COVERAGE: SAF-e930fc26ff6c9fe981169de7b7a8a0f3b20a34bbacf612aea5f020e172168276
+          UG-01-NEED-COVERAGE-EVIDENCE: SAF-623186396b6d9aa886a3041e0951498218f7a47fb24d3f0f13f8863106cd031c
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PRODUCT-VISION
+      capability: prep.product-intent
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.intent.scope
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: product-requirements
+        skill: skills/artifacts/product-requirements/SKILL.md
+        acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+        authority: PRODUCT-REQUIREMENTS
+        allowed_source_authorities:
+        - DISCOVERY
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - .harness/knowledge/product-intent.yaml
+        canonical_references:
+        - referenced_path: docs/discovery/user-needs.yaml
+        accepted_prerequisites:
+          prep.user-needs: PREP-MVP-USER-NEEDS-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PRODUCT-VISION
+        capability: prep.product-intent
+        acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        accepted_prerequisites:
+          prep.user-needs: PREP-MVP-USER-NEEDS-1
+        semantic_atom_fingerprints: &id003
+          PD-MVP-DATA-MANAGEMENT-2026-10-10: SAF-8159d41aa7d6ae759bf1acb5b3224869bcb5437f695168957e2b658328a765a9
+          PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10: SAF-7a09ba26e36088d337ca3bce55fdf26988a3a0891415ab075f7eeb1688fb20b6
+          REQ-INFORMATION-EXPLORATION: SAF-dd6e4ab9dc2f769d6ac401a2aa4b1a175b8a08676daf636533b79785f65c1c5d
+          REQ-INFORMATION-PERSPECTIVES: SAF-c3c828ede9546b9da818523ad987b91792f89c7a8a4ccdc75f7fda72fabd5c84
+          REQ-EXTERNAL-USE: SAF-929e5d3a126db5c077fcb2f7017e548ca1a1c21d7bb30794c2c11dd35a005cd7
+          REQ-EXTERNAL-USE-AVAILABILITY: SAF-fbd975dae589a8fb42e34e4628cf9352954e66475fef33a47daa9b811c51d961
+          REQ-RECORDED-HISTORY: SAF-6d26f40f159cf1051789250c4ee4587b657e550f1ff7672237ae3ba53f32a2c2
+          REQ-RECORDED-HISTORY-CONTEXT: SAF-ce165dbdd796a541d21d78e6d99d71f3717fcba252b6a9f5d8542ae987e65b97
+          REQ-RECORDED-ACTIVITY-INTAKE: SAF-a903d9fde58f558008b0029507bbfeffc178320be9a3630c20209bbb215536d9
+          REQ-INFORMATION-BULK-LOAD: SAF-0b6023df6304cf3ab5a80d36f918db5a448072cae6e33f4d5c2125d76ae9f25b
+          REQ-INFORMATION-CREATE: SAF-49561640014d2abcc9262338aef23339b0ecb9a3356244a7b51a96027e5b310a
+          REQ-INFORMATION-READ: SAF-28c3b4215df9dd37fbc3071354a4f3db56572fb7c04a3a3a029337e32601b7fa
+          REQ-INFORMATION-UPDATE: SAF-8031588112914bae0f4e659f490f7b4fa6070f8b227bc2edb518fd7614be9057
+          REQ-INFORMATION-DELETE: SAF-5717cbfdf1e1c298f721ff62404de8a05222a8f9019a0d7747b4cf95c9243d1c
+          PI-SCOPE: SAF-fd252c69cf8e2716450c0cb363efd6e6851a84d3244233214a03e5f0a5f79de9
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PRODUCT-CAPABILITIES
+      capability: prep.product-capabilities
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.intent.behavior
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: product-requirements
+        skill: skills/artifacts/product-requirements/SKILL.md
+        acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+        authority: PRODUCT-REQUIREMENTS
+        allowed_source_authorities:
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - .harness/knowledge/product-capabilities.yaml
+        canonical_references:
+        - referenced_path: .harness/knowledge/product-intent.yaml
+        accepted_prerequisites:
+          prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PRODUCT-CAPABILITIES
+        capability: prep.product-capabilities
+        acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        accepted_prerequisites:
+          prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+        semantic_atom_fingerprints: &id004
+          REQ-CAP-INTRODUCE-INFORMATION: SAF-7a34e305eeb57f3038f28294fbc0a1582c2daa62e39b26bc71a8826b29f0bf83
+          REQ-CAP-RETAIN-INFORMATION: SAF-1eef843e29d73feccd97e0219c18db7d535593ab50d62eaa180efda50829a4f0
+          REQ-CAP-CHANGE-INFORMATION: SAF-3f2803629fd946fd3baf22fe120c7dab6ed480cee93dc8c0b60503ff68a5cc08
+          REQ-CAP-REMOVE-INFORMATION: SAF-633fe554c93e53ef9b200840baa332c51ebd4ce4e7beccbcdf6cead0583a1783
+          REQ-CAP-EXPLORE-PERSPECTIVES: SAF-4e4fa6b4f6d7e6f6273685a86b47d97a8b3edfc15c4afae747a83b204a47a8f0
+          REQ-CAP-SELECT-PART: SAF-f093d3b7c6c2593677ec526acb884e95104bd6290f13ac408342fde7e821f85c
+          REQ-CAP-TRANSFER-SELECTION: SAF-9cca1a797e2ce426038e49addbb50880944f57035b0ee445f5520879a910d1d8
+          REQ-CAP-RECORD-ACTIVITY: SAF-52399585c2329bee8298c4ddc607070e2a5630859758ea4dca75269b0d51caa2
+          REQ-CAP-RELATE-ACTIVITY: SAF-196122301e576d0c94e4b889e1fc2f32f3bd1bdfa0642793dae83b9686f82028
+          REQ-CAP-PRESERVE-TIME: SAF-f8fbd47d48adc45e4f839672c3ca4e53be0fc407c960738736e4c040d4434e9f
+          REQ-CAP-EXPLORE-HISTORY: SAF-17ea08045e58489dfd79f240ad3a8a29b2b88acdad61e91cb4e78bfc00ccbbed
+          REQ-CAP-BULK-LOAD-INFORMATION: SAF-71a9d736f0c7a8a7801c62058c73860f330c877d50ef278f074193e8adc7896f
+          REQ-CAP-READ-INFORMATION: SAF-d21b1acb453bb79981e3c15ddd58ef1dde163e7b4fb67d1b91388969cf0b7f83
+          REQ-CAP-EXPLORE-INFORMATION: SAF-5d36f8ce9461dd1022028b896c3b44137749561b0f062088a1e3644a9dcdd4fc
+          REQ-CAP-EXPLORE-RELATIONSHIPS: SAF-ce335467136bb07f7cda3868868e159c3f4869796f394fdcbcc7e6b8694e33fc
+          PC-SCOPE: SAF-1d91c714205139d3bd59481bdbf4e8861be9f81c52a1805141ca08b4519fa828
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: CONTEXT-MAP
+      capability: prep.domain-strategy
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: domain-strategy
+        skill: skills/artifacts/domain-strategy/SKILL.md
+        acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+        authority: DOMAIN-STRATEGY
+        allowed_source_authorities:
+        - DOMAIN-STRATEGY
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - docs/architecture/context-map.md
+        canonical_references:
+        - referenced_path: .harness/knowledge/product-capabilities.yaml
+        accepted_prerequisites:
+          prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+        acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: CONTEXT-MAP
+        capability: prep.domain-strategy
+        acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+        acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+        accepted_prerequisites:
+          prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+        semantic_atom_fingerprints: &id005
+          DS-EVIDENCE: SAF-078efcd1340af0e27f6feb61dbbc6a6242c46db042a02e9bdb86f5ce6f557adc
+          DS-LANDSCAPE: SAF-438e7c1fc2391cc36e7d218576b722245f5900cea69337fd3e746335aa6b5ea3
+          DS-01: SAF-d29f003170cea6f6706cee79ece128c2f610a23c8ceea3be7045fa4c6ed15968
+          DS-02: SAF-27309d37504685cf3967d721af991b785fea143cdbcbcc235c5b0215b55c1dcb
+          DS-RELATION: SAF-a74dc9732258a952e228589d6f60fa85238d83ef962bfe92995d4d9abd589729
+          DS-CROSS-CUTTING: SAF-c34c30373f31aa7648b7dce0a4cafce2c76a8021ab5ad1cc1efc95e80e4e6fb1
+          DS-RETIRED: SAF-dcc6bd1e2c229d58887c6c1ea7aa409b837750c1cf8f817173bbf80d03447684
+          DS-CONSUMERS: SAF-6f44623a56b1834f125f29906533ca959491a8d1830d26c247f3fe17ffe92d50
+          DS-REOPEN: SAF-a3646a01712b7a7e968ec16578b2d12f729ab16f0de9c000702dc8b126223df6
+    derivation_evaluations: []
+  lifecycle:
+    version: 1
+    kind: harness-capability-lifecycle
+    providers:
+    - artifact: PROBLEM-EVIDENCE
+      capability: prep.problem-evidence
+      acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+      acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+      accepted_prerequisites: {}
+      semantic_atom_fingerprints: *id001
+    - artifact: USER-NEEDS
+      capability: prep.user-needs
+      acceptance_id: PREP-MVP-USER-NEEDS-1
+      acceptance_policy_fingerprint: sha256:e81e27721fb2224fb7d48b3a97ac8bd121df0b434a261e83f8829bbf2e6c6bed
+      accepted_prerequisites:
+        prep.problem-evidence: PREP-MVP-PROBLEM-EVIDENCE-1
+      semantic_atom_fingerprints: *id002
+    - artifact: PRODUCT-VISION
+      capability: prep.product-intent
+      acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      accepted_prerequisites:
+        prep.user-needs: PREP-MVP-USER-NEEDS-1
+      semantic_atom_fingerprints: *id003
+    - artifact: PRODUCT-CAPABILITIES
+      capability: prep.product-capabilities
+      acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      accepted_prerequisites:
+        prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+      semantic_atom_fingerprints: *id004
+    - artifact: CONTEXT-MAP
+      capability: prep.domain-strategy
+      acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+      acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+      accepted_prerequisites:
+        prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+      semantic_atom_fingerprints: *id005
+  decision_failures:
+    version: 1
+    kind: harness-decision-failure-set
+    failures: []

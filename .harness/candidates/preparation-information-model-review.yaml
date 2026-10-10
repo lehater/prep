@@ -1,0 +1,60 @@
+version: 1
+kind: prep-tactical-domain-exploration-review
+status: BLOCKED
+capability: prep.preparation-information-model
+authority: TACTICAL-DOMAIN-DESIGN
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+source_commit: 781f6aad64f0c98b165ffcdbde3e87f81952920d
+route: decision-pipeline -> domain-model
+contracts:
+- skills/agent/decision-pipeline/SKILL.md
+- skills/artifacts/domain-model/SKILL.md
+- docs/design/decision-pipeline-v0.md
+- spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml
+policy_basis: Operator requires pre-choice exploration, not arbitrary semantic choice.
+  No accepted project policy delegates material domain choices. This task activates
+  domain-model EXPLORE with CONSERVATIVE autonomy; it does not expand delegation.
+  Identity/invariant/lifecycle/boundary delegation requires MAXIMUM, relationship
+  delegation BROAD. No future candidate or legacy domain content was used as explorer
+  input.
+explorer_request_id: sha256:905b6bde1cea68f1c1fc37bcd74f9acf5658e22d2e78eb56de404b5023c1d045
+exploration_status: ACCEPTED option formation, not semantic capability acceptance
+choice:
+  OWNER: STRATEGIC-HANDOFF is supported by accepted DS-01/DS-02; COLLAPSED-MODEL conflicts
+    with non-goals and authority ownership. No new canonical model formed.
+  other_points: Escalated through three Core Questions; no preferred domain model
+    selected.
+questions:
+- Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+- Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+- Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+acceptance_id: null
+new_acceptances: []
+old_revision: sha256:c87fdc8295a5a94a955215772c00967b5465983f12c642ac8c417d15be7330a8
+publication_revision: sha256:d6a78a3e7ba22a61861085dbbb98c40f28fe6c18d06b3ed91f221fb3bb20a74c
+atomicity: Complete BLOCKED Publication CAS; working Core and evidence become jointly
+  reviewable in one immutable repository commit. No partial canonical domain artifact
+  is registered.
+unchanged_files_sha256:
+  .harness/engineering-graph.yaml: 46a341c8addf94fab2ae5a63bd75cf4a43c9f3cde0a8b4969054ba9a4d3fecdf
+  .harness/authority-assessments.yaml: 0f268d2fac44325de7af5dfb07ad0d473953ea8b5b4aac776026a6fed6fa5f32
+  .harness/knowledge/product-intent.yaml: e069c5a36d44df94c67f3a2398d895dbfadfe5b1d0265efbd342c012a5e9ca81
+  .harness/knowledge/product-capabilities.yaml: 30a4cb348cb1844d75287e63440306495650bb4f8d44087cade601cf7e8b9da9
+  docs/architecture/context-map.md: d988c86392dcfb2ef230b79a23e61bbf227fc9a7523aeee5ab041ee675d4d710
+  docs/research/mvp-legacy-documents-2026-10-10.md: c9349dd8ad59dc424e2dd536b489bdccf6f49fc6c5df23c34847e57d4d3a4871
+scope: Only selected preparation capability blocked; other Tactical capability and
+  downstream are not admitted. Five upstream acceptances unchanged. Legacy 28 remain
+  unmigrated.
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_preparation_information_model_blocker.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_published_frontier.py
+checks:
+  exploration: 'PASS: Harness-generated CREATE request, five axes, materially distinct
+    alternatives, counterfactuals and COMPLETE decision-space review'
+  publication: 'PASS: working Core equals complete CAS-published BLOCKED snapshot;
+    five prior evaluation/lifecycle identities unchanged'
+  negative: 'PASS: missing axis, preselection, wrong request baseline, open decision-space
+    gap and stale CAS rejected'
+  product: 'PASS: complete CRUD/bulk and four RETIRED unchanged'
+  registry_and_baseline: 'PASS: pinned registry and five-evaluation published baseline'
+  docs_inventory: 'Existing FAIL: exactly the same 28 legacy files, untouched'

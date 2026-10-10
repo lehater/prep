@@ -1,0 +1,408 @@
+version: 1
+kind: harness-decision-exploration
+capability: prep.preparation-information-model
+knowledge_kind: domain-model
+explorer_request_id: sha256:905b6bde1cea68f1c1fc37bcd74f9acf5658e22d2e78eb56de404b5023c1d045
+sources:
+- id: PC
+  artifact: PRODUCT-CAPABILITIES
+- id: DS
+  artifact: CONTEXT-MAP
+axes:
+- axis: semantic-identity
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  decision_points:
+  - id: IDENTITY
+    subjects:
+    - Continuity of a preparation-information instance across edits and identical
+      imports
+    alternatives:
+    - id: INSTANCE
+      difference: Independent instance identity survives description edits; equal
+        contents may coexist
+      material_effects:
+        identity-basis: instance
+        continuity: same instance after edit
+        merge-split: explicit merge, never automatic equality collapse
+    - id: SEMANTIC-SUBJECT
+      difference: Identity follows a semantic subject; descriptions are editable assertions
+        about that subject
+      material_effects:
+        identity-basis: semantic subject
+        continuity: rename preserves subject; subject change may replace identity
+        merge-split: same subject converges only after domain decision
+    counterfactual: If two manually added equal descriptions concern different goals,
+      semantic equality cannot by itself prove same identity. Conversely repeated
+      bulk-load records may concern the same subject.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  - id: STRUCTURE
+    subjects:
+    - Concept structure for knowledge, goal, capability and practice material
+    alternatives:
+    - id: ITEM-ROLES
+      difference: One preparation item carries explicit semantic roles; one item may
+        participate in several uses
+      material_effects:
+        identity-basis: item independent of role
+        continuity: role changes retain item
+        merge-split: one item can express multiple roles without duplicate identity
+    - id: DISTINCT-CONCEPTS
+      difference: Distinct Knowledge, Goal, CapabilityDescription and PracticeMaterial
+        concepts retain their own identities
+      material_effects:
+        identity-basis: concept instance
+        continuity: changing a concept category requires explicit semantics
+        merge-split: multiple concept instances may refer to one preparation subject
+    counterfactual: A practice task that also states a goal tests whether categories
+      are mutually exclusive identities or overlapping responsibilities. Neither choice
+      establishes a taxonomy inside Knowledge.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  probes:
+  - strategy: identity-substitution
+    challenge: If two manually added equal descriptions concern different goals, semantic
+      equality cannot by itself prove same identity. Conversely repeated bulk-load
+      records may concern the same subject. ; A practice task that also states a goal
+      tests whether categories are mutually exclusive identities or overlapping responsibilities.
+      Neither choice establishes a taxonomy inside Knowledge.
+    decision_points:
+    - IDENTITY
+    - STRUCTURE
+    alternatives:
+    - INSTANCE
+    - SEMANTIC-SUBJECT
+    - ITEM-ROLES
+    - DISTINCT-CONCEPTS
+  - strategy: merge-vs-split
+    challenge: If two manually added equal descriptions concern different goals, semantic
+      equality cannot by itself prove same identity. Conversely repeated bulk-load
+      records may concern the same subject. ; A practice task that also states a goal
+      tests whether categories are mutually exclusive identities or overlapping responsibilities.
+      Neither choice establishes a taxonomy inside Knowledge.
+    decision_points:
+    - IDENTITY
+    - STRUCTURE
+    alternatives:
+    - INSTANCE
+    - SEMANTIC-SUBJECT
+    - ITEM-ROLES
+    - DISTINCT-CONCEPTS
+- axis: invariants
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  decision_points:
+  - id: INTEGRITY
+    subjects:
+    - Validity when editable/removable information participates in relationships
+    alternatives:
+    - id: LIVE-ENDPOINTS
+      difference: Existing preparation relationships refer to existing working-set
+        items; item removal coherently removes affected relationships
+      material_effects:
+        valid-state-space: no dangling existing relationship
+        enforcement-owner: Tactical preparation semantics; application coordinates
+          operations
+        exception-policy: relationships removed with endpoint, no immutable history
+          required
+    - id: EXPLICIT-UNAVAILABLE
+      difference: An existing relationship can explicitly distinguish an unavailable
+        endpoint from an existing item
+      material_effects:
+        valid-state-space: existing or explicitly unavailable endpoint
+        enforcement-owner: Tactical preparation semantics
+        exception-policy: absence is explicit, not fabricated information or permanent
+          retained entity
+    counterfactual: Deleting a goal linked to practice material must not be refused
+      solely to enforce integrity. Automatic relationship removal and explicit unavailable
+      endpoints have different visible consequences.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  probes:
+  - strategy: relax-invariant
+    challenge: Deleting a goal linked to practice material must not be refused solely
+      to enforce integrity. Automatic relationship removal and explicit unavailable
+      endpoints have different visible consequences.
+    decision_points:
+    - INTEGRITY
+    alternatives:
+    - LIVE-ENDPOINTS
+    - EXPLICIT-UNAVAILABLE
+  - strategy: strengthen-invariant
+    challenge: Deleting a goal linked to practice material must not be refused solely
+      to enforce integrity. Automatic relationship removal and explicit unavailable
+      endpoints have different visible consequences.
+    decision_points:
+    - INTEGRITY
+    alternatives:
+    - LIVE-ENDPOINTS
+    - EXPLICIT-UNAVAILABLE
+- axis: lifecycle
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  decision_points:
+  - id: REMOVAL
+    subjects:
+    - Information lifecycle and relation continuity after removal
+    alternatives:
+    - id: WORKING-SET
+      difference: Removal ends working-set membership with no mandatory restoration
+        state
+      material_effects:
+        state-set: present or absent from working set
+        transition-ownership: user CRUD; tactical semantics define consequence
+        terminality: same identity restoration is not promised
+    - id: RESTORABLE-MEMBERSHIP
+      difference: Removal ends membership but domain identity may remain available
+        for explicit restoration
+      material_effects:
+        state-set: present or removed, outside the working set
+        transition-ownership: user CRUD; restoration semantics must be authorized
+          separately
+        terminality: nonterminal removal, without mandatory audit/version history
+    counterfactual: Reintroducing an equal external item after removal may be a new
+      instance or restoration. Full CRUD requires removal but settles neither identity
+      reuse nor retained hidden state. Restoration is not an accepted product obligation.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  probes:
+  - strategy: state-split
+    challenge: Reintroducing an equal external item after removal may be a new instance
+      or restoration. Full CRUD requires removal but settles neither identity reuse
+      nor retained hidden state. Restoration is not an accepted product obligation.
+    decision_points:
+    - REMOVAL
+    alternatives:
+    - WORKING-SET
+    - RESTORABLE-MEMBERSHIP
+  - strategy: state-merge
+    challenge: Reintroducing an equal external item after removal may be a new instance
+      or restoration. Full CRUD requires removal but settles neither identity reuse
+      nor retained hidden state. Restoration is not an accepted product obligation.
+    decision_points:
+    - REMOVAL
+    alternatives:
+    - WORKING-SET
+    - RESTORABLE-MEMBERSHIP
+- axis: relationships
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  decision_points:
+  - id: RELATION-IDENTITY
+    subjects:
+    - Relationship instance continuity
+    alternatives:
+    - id: INSTANCE
+      difference: Individually identifiable editable relationship
+      material_effects:
+        relation-vs-entity: instance identity independent of attributes
+        directionality: separate decision
+        cardinality: separate decision
+    - id: PAIR-ROLE
+      difference: Connection identified by admitted endpoint pair and role
+      material_effects:
+        relation-vs-entity: pair and role identify connection
+        directionality: separate decision
+        cardinality: separate decision
+    counterfactual: Editing the described meaning can preserve an instance identity
+      or replace a pair-role connection. CRUD alone settles neither continuity choice.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  - id: DIRECTION
+    subjects:
+    - Endpoint order of an admitted relationship
+    alternatives:
+    - id: ORDERED
+      difference: Endpoints retain distinct source/target roles
+      material_effects:
+        relation-vs-entity: relationship
+        directionality: ordered roles
+        cardinality: independent of ordering
+    - id: SYMMETRIC
+      difference: Endpoints are interchangeable for a symmetric relationship
+      material_effects:
+        relation-vs-entity: relationship
+        directionality: unordered peers
+        cardinality: independent of ordering
+    counterfactual: 'Reverse a goal/material link: does its meaning reverse or remain
+      unchanged? The answer depends on the admitted meaning, not a graph-library convention.'
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  - id: MULTIPLICITY
+    subjects:
+    - Coexistence of relationships for the same endpoints and meaning
+    alternatives:
+    - id: PARALLEL
+      difference: Independently editable same-meaning relationship instances may coexist
+      material_effects:
+        relation-vs-entity: individual relation instances
+        directionality: separate decision
+        cardinality: many for admitted pair/meaning
+    - id: UNIQUE
+      difference: At most one relationship for the same admitted pair and meaning
+      material_effects:
+        relation-vs-entity: unique connection per pair/meaning
+        directionality: separate decision
+        cardinality: at most one per admitted pair/meaning
+    counterfactual: Two externally loaded records with the same endpoints may represent
+      redundant connections or distinct relationship instances. Bulk loading is mandatory;
+      automatic deduplication is undecided.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  - id: ADMISSIBILITY
+    subjects:
+    - Valid preparation-information relationships
+    alternatives:
+    - id: NAMED-USES
+      difference: Admit explicit goal/material and knowledge/capability use meanings
+        with justified endpoints
+      material_effects:
+        relation-vs-entity: relationships have narrowly admitted domain meanings
+        directionality: defined per admitted meaning
+        cardinality: separate decision
+    - id: DESCRIBED-CONNECTION
+      difference: Admit user-described preparation connections without a prescribed
+        predicate taxonomy
+      material_effects:
+        relation-vs-entity: user-described meaningful connection
+        directionality: explicit or symmetric as admitted
+        cardinality: separate decision
+    counterfactual: A self-link or a knowledge-to-goal connection needs a valid meaning;
+      absence of a product topology mandate proves neither universal permission nor
+      prohibition. These are alternatives, not restored product requirements.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  probes:
+  - strategy: entity-vs-relation
+    challenge: 'Editing the described meaning can preserve an instance identity or
+      replace a pair-role connection. CRUD alone settles neither continuity choice.
+      ; Reverse a goal/material link: does its meaning reverse or remain unchanged?
+      The answer depends on the admitted meaning, not a graph-library convention.
+      ; Two externally loaded records with the same endpoints may represent redundant
+      connections or distinct relationship instances. Bulk loading is mandatory; automatic
+      deduplication is undecided. ; A self-link or a knowledge-to-goal connection
+      needs a valid meaning; absence of a product topology mandate proves neither
+      universal permission nor prohibition. These are alternatives, not restored product
+      requirements.'
+    decision_points:
+    - RELATION-IDENTITY
+    - DIRECTION
+    - MULTIPLICITY
+    - ADMISSIBILITY
+    alternatives:
+    - INSTANCE
+    - PAIR-ROLE
+    - ORDERED
+    - SYMMETRIC
+    - PARALLEL
+    - UNIQUE
+    - NAMED-USES
+    - DESCRIBED-CONNECTION
+  - strategy: reverse-direction
+    challenge: 'Editing the described meaning can preserve an instance identity or
+      replace a pair-role connection. CRUD alone settles neither continuity choice.
+      ; Reverse a goal/material link: does its meaning reverse or remain unchanged?
+      The answer depends on the admitted meaning, not a graph-library convention.
+      ; Two externally loaded records with the same endpoints may represent redundant
+      connections or distinct relationship instances. Bulk loading is mandatory; automatic
+      deduplication is undecided. ; A self-link or a knowledge-to-goal connection
+      needs a valid meaning; absence of a product topology mandate proves neither
+      universal permission nor prohibition. These are alternatives, not restored product
+      requirements.'
+    decision_points:
+    - RELATION-IDENTITY
+    - DIRECTION
+    - MULTIPLICITY
+    - ADMISSIBILITY
+    alternatives:
+    - INSTANCE
+    - PAIR-ROLE
+    - ORDERED
+    - SYMMETRIC
+    - PARALLEL
+    - UNIQUE
+    - NAMED-USES
+    - DESCRIBED-CONNECTION
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  decision_points:
+  - id: OWNER
+    subjects:
+    - Ownership of preparation meaning versus recorded occurrences and application
+      orchestration
+    alternatives:
+    - id: STRATEGIC-HANDOFF
+      difference: Preparation model owns DS-01 meaning and exposes subject identity;
+        occurrence/result meaning remains DS-02 and orchestration remains Application
+      material_effects:
+        semantic-owner: DS-01 Tactical preparation; DS-02 Tactical recorded facts
+        boundary-placement: one language, separate capability responsibility
+        downstream-freedom: application owns bulk execution and selection workflow;
+          data owns representation
+    - id: COLLAPSED-MODEL
+      difference: Preparation model also defines activity/result state, learner mastery
+        and import transaction behavior
+      material_effects:
+        semantic-owner: preparation owns both meanings and inferred mastery
+        boundary-placement: second capability and Application semantics absorbed
+        downstream-freedom: application/history bound to preparation decisions
+    counterfactual: If a result says a task was completed, treating that result as
+      proof of mastery contradicts non-goals. Keeping occurrence semantics with DS-02
+      avoids accepting the second Tactical Capability.
+    canonical_basis:
+    - PRODUCT-CAPABILITIES
+    - CONTEXT-MAP
+  probes:
+  - strategy: move-owner-upstream
+    challenge: If a result says a task was completed, treating that result as proof
+      of mastery contradicts non-goals. Keeping occurrence semantics with DS-02 avoids
+      accepting the second Tactical Capability.
+    decision_points:
+    - OWNER
+    alternatives:
+    - STRATEGIC-HANDOFF
+    - COLLAPSED-MODEL
+  - strategy: move-owner-downstream
+    challenge: If a result says a task was completed, treating that result as proof
+      of mastery contradicts non-goals. Keeping occurrence semantics with DS-02 avoids
+      accepting the second Tactical Capability.
+    decision_points:
+    - OWNER
+    alternatives:
+    - STRATEGIC-HANDOFF
+    - COLLAPSED-MODEL
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - impact-and-reversal-frontier-check
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - IDENTITY
+  - STRUCTURE
+  - INTEGRITY
+  - REMOVAL
+  - RELATION-IDENTITY
+  - DIRECTION
+  - MULTIPLICITY
+  - ADMISSIBILITY
+  - OWNER
+  open_gaps: []
+  rationale: Identity and category structure are separate points. Equality/import
+    duplication, role overlap, endpoint removal, identity restoration and relation
+    multiplicity are material choices, not technical defaults. Existing CRUD, 15 active
+    capabilities and four retirements constrain all alternatives; unsupported mastery/application/history
+    ownership is challenged. No option is selected. All discovered unresolved choices
+    proceed to Core Questions.

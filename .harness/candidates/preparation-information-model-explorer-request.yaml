@@ -1,0 +1,119 @@
+version: 1
+kind: harness-decision-explorer-request
+capability: prep.preparation-information-model
+knowledge_kind: domain-model
+authority: TACTICAL-DOMAIN-DESIGN
+mode: CREATE
+accepted_prerequisites:
+  prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+  prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+canonical_inputs:
+- id: CONTEXT-MAP
+  authority: DOMAIN-STRATEGY
+  path: docs/architecture/context-map.md
+  provides:
+  - prep.domain-strategy
+- id: PRODUCT-CAPABILITIES
+  authority: PRODUCT-REQUIREMENTS
+  path: .harness/knowledge/product-capabilities.yaml
+  provides:
+  - prep.product-capabilities
+- id: PRODUCT-VISION
+  authority: PRODUCT-REQUIREMENTS
+  path: .harness/knowledge/product-intent.yaml
+  provides:
+  - prep.product-intent
+downstream_consumers:
+- kind: production
+  consumer: prep.application-design
+  authority: APPLICATION-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+- kind: production
+  consumer: prep.conceptual-interface-model
+  authority: HUMAN-INTERFACE-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+- kind: production
+  consumer: prep.data-design
+  authority: DATA-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+- kind: production
+  consumer: prep.frontend-performance-capacity
+  authority: QUALITY-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+- kind: production
+  consumer: prep.machine-interfaces
+  authority: MACHINE-INTERFACE-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+- kind: production
+  consumer: prep.task-model
+  authority: APPLICATION-DESIGN
+  capabilities:
+  - prep.preparation-information-model
+axes:
+- axis: semantic-identity
+  exploration: EXPLORE
+  material_dimensions:
+  - identity-basis
+  - continuity
+  - merge-split
+  challenge_strategies:
+  - identity-substitution
+  - merge-vs-split
+  - lifecycle-perturbation
+  minimum_probes: 2
+- axis: invariants
+  exploration: EXPLORE
+  material_dimensions:
+  - valid-state-space
+  - enforcement-owner
+  - exception-policy
+  challenge_strategies:
+  - relax-invariant
+  - strengthen-invariant
+  - move-enforcement-owner
+  minimum_probes: 2
+- axis: lifecycle
+  exploration: EXPLORE
+  material_dimensions:
+  - state-set
+  - transition-ownership
+  - terminality
+  challenge_strategies:
+  - state-split
+  - state-merge
+  - transition-perturbation
+  minimum_probes: 2
+- axis: relationships
+  exploration: EXPLORE
+  material_dimensions:
+  - relation-vs-entity
+  - directionality
+  - cardinality
+  challenge_strategies:
+  - entity-vs-relation
+  - reverse-direction
+  - cardinality-perturbation
+  minimum_probes: 2
+- axis: responsibility-boundaries
+  exploration: EXPLORE
+  material_dimensions:
+  - semantic-owner
+  - boundary-placement
+  - downstream-freedom
+  challenge_strategies:
+  - move-owner-upstream
+  - move-owner-downstream
+  - split-responsibility
+  minimum_probes: 2
+forbidden_inputs:
+- future_candidate
+- decision_review
+- preferred_solution
+- selected_solution
+- write_set
+request_id: sha256:905b6bde1cea68f1c1fc37bcd74f9acf5658e22d2e78eb56de404b5023c1d045

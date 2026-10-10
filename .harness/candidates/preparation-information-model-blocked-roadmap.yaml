@@ -1,0 +1,486 @@
+version: 1
+kind: harness-decision-roadmap
+target: FRONTEND-IMPLEMENTATION
+frontier_status: READY
+ready:
+- capability: prep.recorded-activity-history-model
+  authority: TACTICAL-DOMAIN-DESIGN
+  knowledge_kind: domain-model
+  reason: CREATE_MISSING_PROVIDER
+  decision_governed: true
+  decision_request_mode: CREATE
+  read_set: &id001
+  - id: CONTEXT-MAP
+    authority: DOMAIN-STRATEGY
+    path: docs/architecture/context-map.md
+    provides:
+    - prep.domain-strategy
+  - id: PRODUCT-CAPABILITIES
+    authority: PRODUCT-REQUIREMENTS
+    path: .harness/knowledge/product-capabilities.yaml
+    provides:
+    - prep.product-capabilities
+  - id: PRODUCT-VISION
+    authority: PRODUCT-REQUIREMENTS
+    path: .harness/knowledge/product-intent.yaml
+    provides:
+    - prep.product-intent
+  decision_request:
+    version: 1
+    kind: harness-decision-explorer-request
+    capability: prep.recorded-activity-history-model
+    knowledge_kind: domain-model
+    authority: TACTICAL-DOMAIN-DESIGN
+    mode: CREATE
+    accepted_prerequisites:
+      prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+      prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+    canonical_inputs: *id001
+    downstream_consumers:
+    - kind: production
+      consumer: prep.application-design
+      authority: APPLICATION-DESIGN
+      capabilities:
+      - prep.recorded-activity-history-model
+    - kind: production
+      consumer: prep.conceptual-interface-model
+      authority: HUMAN-INTERFACE-DESIGN
+      capabilities:
+      - prep.recorded-activity-history-model
+    - kind: production
+      consumer: prep.data-design
+      authority: DATA-DESIGN
+      capabilities:
+      - prep.recorded-activity-history-model
+    - kind: production
+      consumer: prep.machine-interfaces
+      authority: MACHINE-INTERFACE-DESIGN
+      capabilities:
+      - prep.recorded-activity-history-model
+    - kind: production
+      consumer: prep.task-model
+      authority: APPLICATION-DESIGN
+      capabilities:
+      - prep.recorded-activity-history-model
+    axes:
+    - axis: semantic-identity
+      exploration: EXPLORE
+      material_dimensions:
+      - identity-basis
+      - continuity
+      - merge-split
+      challenge_strategies:
+      - identity-substitution
+      - merge-vs-split
+      - lifecycle-perturbation
+      minimum_probes: 2
+    - axis: invariants
+      exploration: EXPLORE
+      material_dimensions:
+      - valid-state-space
+      - enforcement-owner
+      - exception-policy
+      challenge_strategies:
+      - relax-invariant
+      - strengthen-invariant
+      - move-enforcement-owner
+      minimum_probes: 2
+    - axis: lifecycle
+      exploration: EXPLORE
+      material_dimensions:
+      - state-set
+      - transition-ownership
+      - terminality
+      challenge_strategies:
+      - state-split
+      - state-merge
+      - transition-perturbation
+      minimum_probes: 2
+    - axis: relationships
+      exploration: EXPLORE
+      material_dimensions:
+      - relation-vs-entity
+      - directionality
+      - cardinality
+      challenge_strategies:
+      - entity-vs-relation
+      - reverse-direction
+      - cardinality-perturbation
+      minimum_probes: 2
+    - axis: responsibility-boundaries
+      exploration: EXPLORE
+      material_dimensions:
+      - semantic-owner
+      - boundary-placement
+      - downstream-freedom
+      challenge_strategies:
+      - move-owner-upstream
+      - move-owner-downstream
+      - split-responsibility
+      minimum_probes: 2
+    forbidden_inputs:
+    - future_candidate
+    - decision_review
+    - preferred_solution
+    - selected_solution
+    - write_set
+    request_id: sha256:cd500fcdcd39f7456b74839ca9d987fda6a2f910c398b5e9a2e8907567f1449c
+  pipeline:
+  - FORM_OPTIONS
+  - REVIEW_OPTIONS
+  - CHOOSE_OR_ESCALATE
+  - PRODUCE_CANDIDATE
+  - SEMANTIC_ADMISSION
+  terminal_outcomes:
+  - CURRENT
+  - BLOCKED
+  - FAILED_VALIDATION
+completed:
+- capability: prep.domain-strategy
+  authority: DOMAIN-STRATEGY
+  state: CURRENT
+- capability: prep.problem-evidence
+  authority: DISCOVERY
+  state: CURRENT
+- capability: prep.product-capabilities
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: prep.product-intent
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: prep.user-needs
+  authority: DISCOVERY
+  state: CURRENT
+blocked:
+- capability: prep.preparation-information-model
+  authority: TACTICAL-DOMAIN-DESIGN
+  state: BLOCKED
+  reason: CORE_QUESTION
+  questions:
+  - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+  - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+  - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream:
+- capability: prep.application-design
+  authority: APPLICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.preparation-information-model
+    state: UNKNOWN
+    questions:
+    - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+    - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+    - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+  - capability: prep.recorded-activity-history-model
+    state: UNKNOWN
+    questions: []
+- capability: prep.application-process.activity-evidence-cycle
+  authority: APPLICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+- capability: prep.application-process.prepare-support
+  authority: APPLICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+- capability: prep.conceptual-interface-model
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.user-journeys
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.preparation-information-model
+    state: UNKNOWN
+    questions:
+    - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+    - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+    - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+  - capability: prep.recorded-activity-history-model
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-component-design
+  authority: COMPONENT-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.frontend-system-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-engineering-policy
+    state: UNKNOWN
+    questions: []
+  - capability: prep.screen-view-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.machine-interfaces
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-engineering-policy
+  authority: ENGINEERING-POLICY
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.frontend-system-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.presentation-system
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-implementation-design
+  authority: IMPLEMENTATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.frontend-component-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-verification
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-test-design
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-performance-capacity
+  authority: QUALITY-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.preparation-information-model
+    state: UNKNOWN
+    questions:
+    - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+    - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+    - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+- capability: prep.frontend-system-architecture
+  authority: SYSTEM-ARCHITECTURE
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.presentation-system
+    state: UNKNOWN
+    questions: []
+  - capability: prep.screen-view-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.machine-interfaces
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-test-design
+  authority: TEST-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.frontend-verification
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interaction-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.screen-view-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.frontend-verification
+  authority: VERIFICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.presentation-verification
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-system-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.machine-interfaces
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.information-architecture
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.conceptual-interface-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.user-journeys
+    state: UNKNOWN
+    questions: []
+- capability: prep.interaction-design
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.conceptual-interface-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.user-journeys
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.machine-interfaces
+    state: UNKNOWN
+    questions: []
+- capability: prep.interface-topology
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.information-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interaction-design
+    state: UNKNOWN
+    questions: []
+- capability: prep.interface-verification
+  authority: VERIFICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.information-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interaction-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interface-topology
+    state: UNKNOWN
+    questions: []
+- capability: prep.machine-interfaces
+  authority: MACHINE-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.preparation-information-model
+    state: UNKNOWN
+    questions:
+    - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+    - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+    - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+  - capability: prep.recorded-activity-history-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-process.activity-evidence-cycle
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-process.prepare-support
+    state: UNKNOWN
+    questions: []
+- capability: prep.presentation-system
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.conceptual-interface-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.information-architecture
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interface-topology
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interaction-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.presentation-verification
+  authority: VERIFICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.interface-verification
+    state: UNKNOWN
+    questions: []
+  - capability: prep.presentation-system
+    state: UNKNOWN
+    questions: []
+  - capability: prep.screen-view-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.screen-view-design
+  authority: HUMAN-INTERFACE-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.interface-topology
+    state: UNKNOWN
+    questions: []
+  - capability: prep.interaction-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.presentation-system
+    state: UNKNOWN
+    questions: []
+  - capability: prep.machine-interfaces
+    state: UNKNOWN
+    questions: []
+  - capability: prep.frontend-performance-capacity
+    state: UNKNOWN
+    questions: []
+- capability: prep.task-model
+  authority: APPLICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.preparation-information-model
+    state: UNKNOWN
+    questions:
+    - Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+    - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+    - Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+  - capability: prep.recorded-activity-history-model
+    state: UNKNOWN
+    questions: []
+- capability: prep.user-journeys
+  authority: APPLICATION-DESIGN
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: prep.application-design
+    state: UNKNOWN
+    questions: []
+  - capability: prep.task-model
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-process.activity-evidence-cycle
+    state: UNKNOWN
+    questions: []
+  - capability: prep.application-process.prepare-support
+    state: UNKNOWN
+    questions: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

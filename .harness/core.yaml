@@ -68,3 +68,49 @@ questions:
     artifact: PRODUCT-VISION
     acceptance_id: PREP-MVP-PRODUCT-INTENT-1
     supersedes_acceptance_id: ABSENT
+- id: Q-PREP-PREPARATION-IDENTITY-STRUCTURE
+  authority: TACTICAL-DOMAIN-DESIGN
+  text: Decide or explicitly delegate the domain identity and concept structure for
+    preparation information. Review IDENTITY (editable instance versus semantic subject
+    continuity) and STRUCTURE (one item with overlapping roles versus independently
+    identified concepts for knowledge, goals, capability descriptions and practice
+    material). Decide whether equal descriptions or repeated supplied records denote
+    the same item, how edits preserve identity, and whether category changes change
+    identity. Accepted Product Capabilities and DS-01 require exploration, perspectives
+    and all-kind CRUD/bulk but do not determine these alternatives; legacy KnowledgeObject/KnowledgeProposition
+    taxonomy is not evidence. No candidate is selected. Selection between viable alternatives
+    needs explicit delegated autonomy under the pinned domain-model axes, or an accepted
+    Authority-owned decision. Do not add mandatory merge/deduplication product behavior
+    or mastery assessment.
+  blocks_capabilities:
+  - prep.preparation-information-model
+- id: Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
+  authority: TACTICAL-DOMAIN-DESIGN
+  text: 'Decide or delegate the reviewed RELATION-IDENTITY, DIRECTION, MULTIPLICITY
+    and ADMISSIBILITY points independently: relation instance versus pair/meaning
+    identity; ordered roles versus symmetric endpoints where meaningful; parallel
+    relations versus uniqueness for equal pair/meaning; narrowly admitted use meanings
+    versus user-described meaningful connections. Explain valid endpoints/self-links
+    and editing continuity from accepted preparation meaning. CRUD and bulk loading
+    apply to every admitted relationship kind. Exploring existing links does not establish
+    arbitrary cross-kind topology or a mandatory predicate taxonomy; four RETIRED
+    proposals and legacy catalog are not sources. Accepted upstream information leaves
+    more than one material alternative viable; no alternative is selected.'
+  blocks_capabilities:
+  - prep.preparation-information-model
+- id: Q-PREP-PREPARATION-REMOVAL-INTEGRITY
+  authority: TACTICAL-DOMAIN-DESIGN
+  text: 'Decide or delegate preparation-information INTEGRITY and REMOVAL semantics
+    when an endpoint is edited/removed: coherently remove affected existing preparation
+    relationships versus explicitly represent an unavailable endpoint; determine whether
+    reintroduction denotes a new instance or continuation and what valid-state constraints
+    follow. Preserve unconditional user-level editing/removal and all-kind bulk loading.
+    Do not require snapshots, immutable history, permanent retained facts, restoration,
+    or refusal of deletion. Any new observable restoration obligation needs Product
+    Requirements ownership; any activity/result history rule remains with the second
+    Tactical Capability and is not accepted here. Current preparation closure must
+    expose a justified subject identity boundary without inventing historical continuity.
+    The reviewed alternatives differ materially and no selection is delegated by the
+    current conservative execution scope.'
+  blocks_capabilities:
+  - prep.preparation-information-model
