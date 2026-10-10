@@ -26,14 +26,16 @@ assessments:
     applicability: REQUIRED
     evidence: [docs/architecture/model-context-map.md]
     rationale: >-
-      Accepted Model Context Strategy currently establishes one coherent Preparation and
-      Activity model language (MC-01), with internal distinctions between preparation
-      information and recorded activity/results (IR-01). Distinct strategic CORE
-      responsibilities do not require independent model languages or cross-context
-      translation. The Authority remains REQUIRED to own applicability and reopening
-      decisions when independently governed languages become materially justified.
+      The published Model Context Strategy currently accepts one coherent model language
+      (MC-01), with distinct preparation-information and recorded-activity meanings
+      inside it (IR-01). Pinned Harness catalogs MODEL-CONTEXT-STRATEGY as conditional:
+      where one coherent model applies without a material independent context-boundary
+      contract, the Authority may be omitted. The pre-existing REQUIRED disposition
+      is preserved solely as a review candidate, not independently justified here.
+      An owning-Authority applicability and graph/consumer reconciliation is required
+      before this assessment is treated as evidence of future downstream readiness.
     depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md, docs/architecture/model-context-map.md]
-    reopening_conditions: [accepted evidence demonstrates independently evolving or incompatible model meanings or required cross-language translation]
+    reopening_conditions: [reassess one-language applicability against pinned Harness conditional Authority catalog and consumer value, independent semantic languages or translation become materially justified, accepted model-context boundaries change]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
     applicability: NOT_APPLICABLE
