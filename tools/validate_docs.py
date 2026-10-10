@@ -28,6 +28,12 @@ HUMAN_PROJECTION_DOCS = {
 PROGRAM_CONTROL_DOCS = {
     "docs/process/harness-first-defect-remediation.md",
 }
+GENERATED_GRAPH_DOCS = {
+    "docs/generated/harness-graphs/capability-requires.dot",
+    "docs/generated/harness-graphs/capability-requires.svg",
+    "docs/generated/harness-graphs/capability-requires-reachability-only.dot",
+    "docs/generated/harness-graphs/capability-requires-reachability-only.svg",
+}
 
 
 def _target_from_markdown(raw: str) -> str:
@@ -60,6 +66,7 @@ def validate_doc_inventory() -> list[str]:
         | {"docs/README.md"}
         | HUMAN_PROJECTION_DOCS
         | PROGRAM_CONTROL_DOCS
+        | GENERATED_GRAPH_DOCS
     )
     actual = {
         path.relative_to(ROOT).as_posix()

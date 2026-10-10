@@ -1,0 +1,170 @@
+// Generated read-only; not a source of truth.
+digraph HarnessProjection {
+  rankdir=TB;
+  graph [compound=true, newrank=true, nodesep=0.3, ranksep=0.65];
+  node [shape=box, style=rounded];
+  label="Reachability only: some direct requires deliberately hidden";
+  labelloc=t;
+  subgraph cluster_0 {
+    label="APPLICATION-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.application-design" [label="application-design"];
+    "prep.application-process.activity-evidence-cycle" [label="application-process.activity-evidence-cycle"];
+    "prep.application-process.prepare-support" [label="application-process.prepare-support"];
+    "prep.task-model" [label="task-model"];
+    "prep.user-journeys" [label="user-journeys"];
+  }
+  subgraph cluster_1 {
+    label="COMPONENT-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-component-design" [label="frontend-component-design"];
+  }
+  subgraph cluster_2 {
+    label="CONCURRENCY-CONSISTENCY-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.import-consistency" [label="import-consistency"];
+  }
+  subgraph cluster_3 {
+    label="DATA-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.data-design" [label="data-design"];
+  }
+  subgraph cluster_4 {
+    label="DISCOVERY";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.problem-evidence" [label="problem-evidence"];
+    "prep.user-needs" [label="user-needs"];
+  }
+  subgraph cluster_5 {
+    label="DOMAIN-STRATEGY";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.domain-strategy" [label="domain-strategy"];
+  }
+  subgraph cluster_6 {
+    label="ENGINEERING-POLICY";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-engineering-policy" [label="frontend-engineering-policy"];
+  }
+  subgraph cluster_7 {
+    label="HUMAN-INTERFACE-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.conceptual-interface-model" [label="conceptual-interface-model"];
+    "prep.information-architecture" [label="information-architecture"];
+    "prep.interaction-design" [label="interaction-design"];
+    "prep.interface-topology" [label="interface-topology"];
+    "prep.presentation-system" [label="presentation-system"];
+    "prep.screen-view-design" [label="screen-view-design"];
+  }
+  subgraph cluster_8 {
+    label="IMPLEMENTATION-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-implementation-design" [label="frontend-implementation-design"];
+  }
+  subgraph cluster_9 {
+    label="MACHINE-INTERFACE-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.machine-interfaces" [label="machine-interfaces"];
+  }
+  subgraph cluster_10 {
+    label="MODEL-CONTEXT-STRATEGY";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.model-context-strategy" [label="model-context-strategy"];
+  }
+  subgraph cluster_11 {
+    label="PRODUCT-REQUIREMENTS";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.product-capabilities" [label="product-capabilities"];
+    "prep.product-intent" [label="product-intent"];
+  }
+  subgraph cluster_12 {
+    label="QUALITY-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-performance-capacity" [label="frontend-performance-capacity"];
+  }
+  subgraph cluster_13 {
+    label="SYSTEM-ARCHITECTURE";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-system-architecture" [label="frontend-system-architecture"];
+    "prep.system-architecture" [label="system-architecture"];
+  }
+  subgraph cluster_14 {
+    label="TACTICAL-DOMAIN-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.knowledge-model" [label="knowledge-model"];
+    "prep.knowledge-relation-classification" [label="knowledge-relation-classification"];
+    "prep.learner-model" [label="learner-model"];
+    "prep.learning-design" [label="learning-design"];
+  }
+  subgraph cluster_15 {
+    label="TEST-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-test-design" [label="frontend-test-design"];
+  }
+  subgraph cluster_16 {
+    label="VERIFICATION-DESIGN";
+    style="rounded";
+    color="#9aa8b7";
+    "prep.frontend-verification" [label="frontend-verification"];
+    "prep.interface-verification" [label="interface-verification"];
+    "prep.presentation-verification" [label="presentation-verification"];
+  }
+  "prep.application-design" -> "prep.application-process.activity-evidence-cycle";
+  "prep.application-design" -> "prep.application-process.prepare-support";
+  "prep.application-process.activity-evidence-cycle" -> "prep.machine-interfaces";
+  "prep.application-process.activity-evidence-cycle" -> "prep.user-journeys";
+  "prep.application-process.prepare-support" -> "prep.machine-interfaces";
+  "prep.application-process.prepare-support" -> "prep.user-journeys";
+  "prep.conceptual-interface-model" -> "prep.information-architecture";
+  "prep.conceptual-interface-model" -> "prep.interaction-design";
+  "prep.domain-strategy" -> "prep.model-context-strategy";
+  "prep.frontend-component-design" -> "prep.frontend-implementation-design";
+  "prep.frontend-engineering-policy" -> "prep.frontend-component-design";
+  "prep.frontend-performance-capacity" -> "prep.presentation-system";
+  "prep.frontend-system-architecture" -> "prep.frontend-engineering-policy";
+  "prep.frontend-system-architecture" -> "prep.frontend-verification";
+  "prep.frontend-test-design" -> "prep.frontend-implementation-design";
+  "prep.frontend-verification" -> "prep.frontend-test-design";
+  "prep.import-consistency" -> "prep.system-architecture";
+  "prep.information-architecture" -> "prep.interface-topology";
+  "prep.interaction-design" -> "prep.interface-topology";
+  "prep.interface-topology" -> "prep.interface-verification";
+  "prep.interface-topology" -> "prep.presentation-system";
+  "prep.interface-topology" -> "prep.system-architecture";
+  "prep.interface-verification" -> "prep.presentation-verification";
+  "prep.knowledge-model" -> "prep.frontend-performance-capacity";
+  "prep.knowledge-model" -> "prep.learner-model";
+  "prep.knowledge-model" -> "prep.learning-design";
+  "prep.knowledge-relation-classification" -> "prep.knowledge-model";
+  "prep.learner-model" -> "prep.task-model";
+  "prep.learning-design" -> "prep.task-model";
+  "prep.machine-interfaces" -> "prep.import-consistency";
+  "prep.machine-interfaces" -> "prep.interaction-design";
+  "prep.model-context-strategy" -> "prep.knowledge-relation-classification";
+  "prep.presentation-system" -> "prep.screen-view-design";
+  "prep.presentation-verification" -> "prep.frontend-verification";
+  "prep.problem-evidence" -> "prep.user-needs";
+  "prep.product-capabilities" -> "prep.domain-strategy";
+  "prep.product-intent" -> "prep.product-capabilities";
+  "prep.screen-view-design" -> "prep.frontend-system-architecture";
+  "prep.screen-view-design" -> "prep.presentation-verification";
+  "prep.system-architecture" -> "prep.data-design";
+  "prep.task-model" -> "prep.application-design";
+  "prep.user-journeys" -> "prep.conceptual-interface-model";
+  "prep.user-needs" -> "prep.product-intent";
+}

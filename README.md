@@ -27,6 +27,26 @@ python -m unittest discover -s experiments/anki_adapter_reference/tests -v
 
 Implementation, tests and experiments may provide evidence, but they do not redefine canonical engineering meaning unless that meaning is admitted through Harness and persisted in a Core artifact.
 
+## Capability dependency diagrams
+
+Two generated top-down diagrams, grouped by **Authority**, are checked in under
+`docs/generated/harness-graphs/` together with their DOT sources.
+
+From a checkout of [Harness](https://github.com/lehater/harness), with
+Python 3.10+, PyYAML and Graphviz (`dot`) available:
+
+```bash
+python -m harness.workspace.capability_graph_export --project /path/to/prep
+```
+
+The command deterministically regenerates exactly four DOT/SVG files and
+does not rewrite unchanged files. The full diagram includes all direct
+Capability `requires`. The reachability-only overview omits redundant-for-
+*reachability* arrows, **not** semantically unnecessary direct inputs.
+Canonical knowledge remains in `.harness/engineering-graph.yaml`.
+For freshness checking without writes, use the same command with `--check`
+in a consistent Graphviz/fonts environment.
+
 ## Maintained reference implementations
 
 Reusable implementation evidence that is intentionally outside current production architecture lives under `experiments/`.
