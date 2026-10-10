@@ -145,4 +145,11 @@ jobs:
           HARNESS_ROOT: .harness-tool
           PYTHONPATH: .harness-tool/src
         run: python tools/verify_harness_authority_registry.py
-
+      - name: Preview conditional Model Context Authority omission (PR 99 only)
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.number == 99 }}
+        env:
+          HARNESS_ROOT: .harness-tool
+          PYTHONPATH: .harness-tool/src
+        run: |
+          python tools/verify_authority_evidence_frontier_review.py
+          python tools/preview_model_context_authority_omission.py
