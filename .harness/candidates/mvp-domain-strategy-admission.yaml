@@ -1,0 +1,391 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: CONTEXT-MAP
+capability: prep.domain-strategy
+path: docs/architecture/context-map.md
+changed_paths:
+- docs/architecture/context-map.md
+canonical_references:
+- referenced_path: .harness/knowledge/product-capabilities.yaml
+semantic_assertions:
+- id: DS-EVIDENCE
+  kind: strategic-evidence-boundary
+  subject: DS-EVIDENCE
+  semantic_value:
+    heading: '## Purpose and evidence boundary'
+    text: '
+
+      Identify the MVP''s strategic domain responsibilities and the areas where their
+
+      different meanings justify separate strategic attention. This is a strategic
+
+      classification, not a bounded-context map, tactical domain model, service
+
+      topology, persistence design, or user-interface design.
+
+
+      **Accepted source:** `prep.product-capabilities`,
+
+      `PREP-MVP-PRODUCT-CAPABILITIES-1`. Its 15 active capabilities are the direct
+
+      product-behavior input. The prior four `RETIRED` capability proposals are not
+
+      accepted requirements and are not admissible justification for this strategy.
+
+
+      The distinction between preparation information and recorded activity/results
+
+      is consistent with accepted Problem Evidence: an item used for preparation is
+
+      not the same thing as a recorded fact that an activity occurred. That
+
+      distinction does not imply uneditable or undeletable history.
+
+
+      '
+  derived_from:
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-EVIDENCE
+- id: DS-LANDSCAPE
+  kind: strategic-landscape
+  subject: DS-LANDSCAPE
+  semantic_value:
+    heading: '## Strategic responsibility landscape'
+    text: '
+
+      '
+  derived_from:
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-LANDSCAPE
+- id: DS-01
+  kind: strategic-responsibility
+  subject: DS-01
+  semantic_value:
+    heading: '### DS-01 — Preparation Information — CORE'
+    text: '
+
+      **Responsibility:** the meaning and relationships of the preparation
+
+      information the user chooses to work with: knowledge, goals, capabilities,
+
+      practice material, and the relevant information relationships in the
+
+      accepted MVP scope. It supplies a coherent subject of exploration and
+
+      different perspectives without determining a fixed taxonomy, permitted
+
+      relationship topology, or representation.
+
+
+      **Accepted product evidence:**
+
+      `REQ-CAP-EXPLORE-INFORMATION`,
+
+      `REQ-CAP-EXPLORE-RELATIONSHIPS`, and
+
+      `REQ-CAP-EXPLORE-PERSPECTIVES`.
+
+
+      **Strategic classification:** CORE for the MVP. Making the user''s growing
+
+      preparation information and in-scope relationships intelligible from different
+
+      perspectives is central to the accepted product promise. This responsibility
+
+      deserves explicit domain attention so future model and application work does
+
+      not reduce it to generic import, storage, or display machinery. This
+
+      classification is an investment/attention judgment, not a declaration of an
+
+      independent model language or technical boundary.
+
+
+      **Boundary:** recorded occurrence/result facts are addressed under DS-02;
+
+      DS-01 does not infer learning achievement from the presence of knowledge or
+
+      capability information. The accepted MVP does **not** mandate distinguishable
+
+      subkinds within Knowledge, a relationship-meaning classification, or arbitrary
+
+      relationships across all information kinds.
+
+
+      '
+  derived_from: &id001
+  - REQ-CAP-EXPLORE-INFORMATION
+  - REQ-CAP-EXPLORE-RELATIONSHIPS
+  - REQ-CAP-EXPLORE-PERSPECTIVES
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-01
+- id: DS-02
+  kind: strategic-responsibility
+  subject: DS-02
+  semantic_value:
+    heading: '### DS-02 — Recorded Activity and Results — CORE'
+    text: '
+
+      **Responsibility:** the meaning of recorded preparation activity and its
+
+      results as records of what took place, including temporal context and their
+
+      relationship to the preparation information concerned. A recorded result is
+      a
+
+      recorded fact, not a conclusion about learner mastery, readiness, competence,
+
+      or possession of a capability.
+
+
+      **Accepted product evidence:**
+
+      `REQ-CAP-RECORD-ACTIVITY`,
+
+      `REQ-CAP-RELATE-ACTIVITY`,
+
+      `REQ-CAP-PRESERVE-TIME`, and
+
+      `REQ-CAP-EXPLORE-HISTORY`.
+
+
+      **Strategic classification:** CORE for the MVP. Understanding activity and
+
+      results in temporal and subject context is an independent, explicit product
+
+      outcome whose meaning must not be collapsed into the current description of
+
+      preparation materials. Distinct strategic attention is justified even if a
+
+      later Model Context Strategy finds that one model language is sufficient.
+
+
+      **Boundary:** recorded activity and results remain within the owner''s
+
+      accepted all-kind CRUD and bulk-load commitments. Their editability and
+
+      removability are required, not exceptions. The strategy does not mandate
+
+      immutable records, snapshots, audit trails, permanent retention of deleted
+
+      facts, or guaranteed historical interpretation after related information has
+
+      been changed or removed. Historical continuity and consistency questions
+
+      belong to the relevant downstream semantic owner.
+
+
+      '
+  derived_from: &id002
+  - REQ-CAP-RECORD-ACTIVITY
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-PRESERVE-TIME
+  - REQ-CAP-EXPLORE-HISTORY
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-02
+- id: DS-RELATION
+  kind: strategic-responsibility-relationship
+  subject: DS-RELATION
+  semantic_value:
+    heading: '## Relationship between the responsibilities'
+    text: "\n- DS-01 describes preparation information; DS-02 describes recorded facts\n\
+      \  about activity and results. Neither redefines the other's meaning.\n- An\
+      \ existing activity/result record must remain understandable in relation\n \
+      \ to the in-scope preparation information it concerns, to the extent required\n\
+      \  by `REQ-CAP-RELATE-ACTIVITY`. This does not prescribe relation identity,\n\
+      \  cardinality, permitted cross-kind links, or a snapshot/version policy.\n\
+      - Temporal examination of existing records is required by\n  `REQ-CAP-PRESERVE-TIME`\
+      \ and `REQ-CAP-EXPLORE-HISTORY`. It does not make\n  those records immutable.\n\
+      - Exploring information can bring both responsibilities into the same\n  experience.\
+      \ Shared user experience does not create a third strategic owner.\n- The accepted\
+      \ universal CRUD and bulk-load product scope applies to every\n  entity and\
+      \ relationship kind in the eventually accepted MVP model,\n  including records\
+      \ of activity and results, regardless of this strategic\n  classification.\n\
+      \n"
+  derived_from:
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-PRESERVE-TIME
+  - REQ-CAP-EXPLORE-HISTORY
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-RELATION
+- id: DS-CROSS-CUTTING
+  kind: strategic-disposition
+  subject: DS-CROSS-CUTTING
+  semantic_value:
+    heading: '## Product behaviors without separate strategic subdomains'
+    text: '
+
+      The following are **accepted product capabilities**, but current evidence
+
+      does not establish independent problem-space semantic ownership for them.
+
+      They may work with information from either strategic responsibility:
+
+
+      | Product behavior | Accepted capability | Strategic disposition |
+
+      | --- | --- | --- |
+
+      | Manual addition | `REQ-CAP-INTRODUCE-INFORMATION` | Cross-cutting user operation
+      |
+
+      | Continued availability for inspection | `REQ-CAP-RETAIN-INFORMATION` | Cross-cutting
+      behavior; no immutable retention rule |
+
+      | Manual editing | `REQ-CAP-CHANGE-INFORMATION` | Cross-cutting user operation
+      |
+
+      | Removal | `REQ-CAP-REMOVE-INFORMATION` | Cross-cutting user operation |
+
+      | Bulk loading external information | `REQ-CAP-BULK-LOAD-INFORMATION` | Cross-cutting
+      user operation |
+
+      | Reading existing information | `REQ-CAP-READ-INFORMATION` | Cross-cutting
+      user operation |
+
+      | Selecting a subset for external use | `REQ-CAP-SELECT-PART` | Cross-cutting
+      product behavior |
+
+      | Making a selected subset available outside Prep | `REQ-CAP-TRANSFER-SELECTION`
+      | Cross-cutting product behavior |
+
+
+      These are **not** excluded from the MVP. Their required scope and
+
+      observability remain binding Product Requirements. Their orchestration,
+
+      formats, interface affordances and technical realization are downstream.
+
+
+      No strategic subdomain for an external study runtime, source verification,
+
+      provenance management, inferred learner state, or mastery assessment is
+
+      established by the accepted product scope.
+
+
+      '
+  derived_from:
+  - REQ-CAP-INTRODUCE-INFORMATION
+  - REQ-CAP-RETAIN-INFORMATION
+  - REQ-CAP-CHANGE-INFORMATION
+  - REQ-CAP-REMOVE-INFORMATION
+  - REQ-CAP-BULK-LOAD-INFORMATION
+  - REQ-CAP-READ-INFORMATION
+  - REQ-CAP-SELECT-PART
+  - REQ-CAP-TRANSFER-SELECTION
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-CROSS-CUTTING
+- id: DS-RETIRED
+  kind: strategic-disposition
+  subject: DS-RETIRED
+  semantic_value:
+    heading: '## Retired product proposals and unresolved downstream meaning'
+    text: "\nThe accepted Product Capabilities artifact records four `RETIRED`, never-\n\
+      admitted proposals. They cannot silently become Domain Strategy mandates:\n\n\
+      - `REQ-CAP-KNOWLEDGE-KINDS`: no product decision requiring an internal\n  taxonomy\
+      \ of kinds of Knowledge.\n- `REQ-CAP-RELATIONSHIP-MEANINGS`: no accepted user-facing\
+      \ classification\n  of relationship meanings.\n- `REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`:\
+      \ no universally permitted\n  cross-kind link topology.\n- `REQ-CAP-PRESERVE-HISTORY-CONTEXT`:\
+      \ no accepted invariant guaranteeing\n  preservation of historical interpretation\
+      \ after related information is\n  edited or deleted.\n\nThese retirement dispositions\
+      \ do not prohibit downstream investigation or\nlater explicit product decisions.\
+      \ In particular, later domain work must\nreconcile editable/removable recorded\
+      \ facts with useful temporal and\nrelational understanding, **without** silently\
+      \ revoking the accepted CRUD\nrights or assuming an immutable history.\n\n"
+  derived_from:
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-RETIRED
+- id: DS-CONSUMERS
+  kind: strategic-consumers
+  subject: DS-CONSUMERS
+  semantic_value:
+    heading: '## Consumers and authority handoff'
+    text: "\n- **Model Context Strategy:** determine whether distinct semantic languages\n\
+      \  and translation contracts are actually justified. The two strategic\n  responsibilities\
+      \ do **not** automatically require two bounded contexts.\n- **Tactical Domain\
+      \ Design:** determine valid concepts, relationships,\n  identity, invariants,\
+      \ and behavior in whichever model contexts are\n  subsequently accepted.\n-\
+      \ **Application Design:** determine how cross-cutting CRUD, bulk loading,\n\
+      \  exploration, selection, external use and recorded-activity intake work\n\
+      \  across accepted domain semantics.\n- **Interface and Data Design:** realize\
+      \ the approved product operations\n  without deciding strategic ownership or\
+      \ changing domain meaning.\n\nThis strategy does not assign tactical domain\
+      \ entities, model-language\napplicability, APIs, services, packages, databases,\
+      \ UI screens, or\nimplementation mechanisms.\n\n"
+  derived_from:
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-CONSUMERS
+- id: DS-REOPEN
+  kind: strategic-reopening
+  subject: DS-REOPEN
+  semantic_value:
+    heading: '## Reopening conditions'
+    text: "\nReassess the classification or responsibility boundary if accepted evidence\n\
+      establishes that:\n\n- a particular kind of preparation information has independently\
+      \ changing\n  domain meaning and warrants its own strategic attention;\n- recorded\
+      \ activity, results, and their interpretation no longer evolve\n  coherently\
+      \ as one strategic responsibility;\n- selection, exchange, or information lifecycle\
+      \ acquires substantive domain\n  semantics rather than merely operating on the\
+      \ accepted responsibilities;\n- a product decision adds obligatory relationship\
+      \ classes, cross-kind\n  connectivity, provenance, immutable history, or source\
+      \ verification; or\n- changed accepted Product Capabilities invalidate the present\
+      \ evidence for\n  either classification.\n"
+  derived_from:
+  - PC-SCOPE
+  decision_authority: DOMAIN-STRATEGY
+  canonical_location: docs/architecture/context-map.md#DS-REOPEN
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - domain-strategy-not-model-context-or-tactical
+  basis:
+    source-discipline: Only the published PREP-MVP-PRODUCT-CAPABILITIES-1 assertion
+      surface is consumed as material prerequisite evidence; fingerprints match. Problem
+      Evidence is contextual consistency, not an undeclared direct semantic prerequisite.
+      No implementation, old strategy, retired requirement or downstream model is
+      used as an accepted decision.
+    authority-boundary: CORE is strategic investment/attention for two distinguishable
+      product outcomes. The artifact explicitly leaves model languages and context
+      count to Model Context Strategy and identity, invariants and valid relationship
+      semantics to Tactical Domain Design. It selects no API, package, persistence,
+      service or UI boundary.
+    no-invention: Exploration/perspectives justify attention to Preparation Information;
+      recorded-activity intake and temporal/relational understanding justify attention
+      to Recorded Activity and Results. Cross-cutting CRUD/bulk/external-use remain
+      binding. No retired differentiation, cross-kind topology or history-after-change
+      guarantee is revived.
+    domain-strategy-not-model-context-or-tactical: Each CORE responsibility has accepted
+      behavior evidence, strategic rationale, concrete consumers and reopening conditions.
+      Distinct attention does not require independently modeled languages or two bounded
+      contexts; current record understanding does not imply immutability or revocation
+      of edit/delete.
+  classification_review:
+  - responsibility: DS-01
+    classification: CORE
+    sources: *id001
+    consumer: Model Context Strategy and subsequent domain/application design
+    rationale: Exploration and perspectives are central product outcomes; strategic
+      domain attention prevents treating preparation meaning as generic display/storage.
+  - responsibility: DS-02
+    classification: CORE
+    sources: *id002
+    consumer: Model Context Strategy and subsequent domain/application design
+    rationale: Temporal and relational understanding of recorded occurrences/results
+      has different strategic concerns from preparation material, even if one language
+      is sufficient.
+  retirement_disposition: All four retired proposals remain non-obligatory, not forbidden.
+    Existing record understanding and universal CRUD remain accepted; history continuity
+    beyond accepted product meaning is downstream.
+  question_required: false
