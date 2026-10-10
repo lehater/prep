@@ -6,42 +6,203 @@ title: Prep Product Intent
 
 content:
   purpose: >-
-    Define the minimum product commitments that let a person work with
-    preparation-related information, use selected parts outside Prep, and
-    understand recorded activity and results in relation to that information.
+    Define the minimum observable product commitments that let a person
+    understand and explore preparation information and relationships,
+    use selected material outside Prep, manage the information in the
+    MVP model, and work with recorded activity and results.
+
+  product_decisions:
+    - id: PD-MVP-DATA-MANAGEMENT-2026-10-10
+      authority: PRODUCT-REQUIREMENTS
+      source: project-owner
+      decision_status: OWNER_CONFIRMED
+      statement: >-
+        The MVP must support bulk loading and full user CRUD (create, read,
+        update, delete) across every entity and relationship kind included
+        in the planned MVP model, including recorded activity and results.
+        Manual addition and editing must be possible independently of
+        bulk loading.
+      boundary: >-
+        The product decision establishes user-observable scope and rights,
+        not the entity taxonomy, format, transport, UI, storage method,
+        deletion implementation, or historical consistency rules.
+    - id: PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10
+      authority: PRODUCT-REQUIREMENTS
+      source: project-owner
+      decision_status: OWNER_CONFIRMED
+      statement: >-
+        The MVP must allow recorded activity and results, including
+        preparation activity performed outside Prep, to be brought
+        into Prep for later understanding and analysis.
+      boundary: >-
+        The means of transfer and representation are downstream decisions.
+        Recorded results do not establish learner mastery or readiness.
 
   requirements:
     - id: REQ-INFORMATION-EXPLORATION
       statement: >-
-        The product shall enable the user to understand and explore knowledge,
-        goals, capabilities, practice material, recorded activity, and the
-        relationships among them from different perspectives.
+        The product shall enable the user to explore information and
+        relationships concerning knowledge, goals, capabilities,
+        practice material, recorded activity, and results.
       status: ACCEPTED
       source_refs: [UN-01]
+      acceptance_examples:
+        - >-
+          Given information and relationships within the MVP scope, a user
+          can inspect both the information and the relationships between it.
+
+    - id: REQ-INFORMATION-PERSPECTIVES
+      statement: >-
+        The product shall enable the user to examine the same preparation
+        information from different perspectives.
+      status: ACCEPTED
+      source_refs: [UN-01]
+      acceptance_examples:
+        - >-
+          A user can inspect the same information through differing
+          perspectives without having to recreate that information.
 
     - id: REQ-EXTERNAL-USE
       statement: >-
-        The product shall enable the user to select part of the available
-        information and material and make it available for use outside Prep
-        in preparation activity.
+        The product shall enable the user to select a subset of the
+        available information and preparation material for use outside Prep.
       status: ACCEPTED
       source_refs: [UN-02]
+      acceptance_examples:
+        - >-
+          Given information and preparation material, a user can select
+          only the portion they intend to use in external preparation.
+
+    - id: REQ-EXTERNAL-USE-AVAILABILITY
+      statement: >-
+        The product shall make the user-selected subset of information and
+        preparation material available for preparation activity outside Prep.
+      status: ACCEPTED
+      source_refs: [UN-02]
+      acceptance_examples:
+        - >-
+          The selected subset can be used outside Prep without requiring
+          all other available information and material to be included.
 
     - id: REQ-RECORDED-HISTORY
       statement: >-
-        The product shall enable recorded activity and results to be brought
-        into Prep and understood over time and in relation to the information
-        they concern.
+        The product shall enable the user to understand recorded activity
+        and results over time.
       status: ACCEPTED
       source_refs: [UN-03]
+      acceptance_examples:
+        - >-
+          Given recorded activity from different times, a user can
+          distinguish and examine those records in their temporal context.
+
+    - id: REQ-RECORDED-HISTORY-CONTEXT
+      statement: >-
+        The product shall enable the user to understand how recorded activity
+        and results relate to the preparation information they concern.
+      status: ACCEPTED
+      source_refs: [UN-03]
+      acceptance_examples:
+        - >-
+          Given recorded activity concerning preparation information, a user
+          can understand which information the record concerns.
+
+    - id: REQ-RECORDED-ACTIVITY-INTAKE
+      statement: >-
+        The product shall allow the user to bring recorded activity and results
+        from preparation activity outside Prep into Prep.
+      status: ACCEPTED
+      source_refs: [PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10, UN-03]
+      acceptance_examples:
+        - >-
+          After an activity is performed outside Prep, its recorded activity
+          and result can be introduced into the user's Prep information.
 
     - id: REQ-INFORMATION-LIFECYCLE
       statement: >-
         The product shall support the lifecycle of the information and
         relationships needed for these product behaviors so they can be
         introduced, retained, changed, and removed.
-      status: ACCEPTED
+      status: RETIRED
       source_refs: [CTX-01, UN-01, UN-03]
+      rationale: >-
+        Previous compound proposal, never separately admitted by Harness.
+        Replaced with independently testable bulk-load and CRUD obligations
+        grounded in the explicit product-owner decision.
+
+    - id: REQ-INFORMATION-BULK-LOAD
+      statement: >-
+        The product shall allow the user to load multiple records in one
+        operation from externally supplied information for every entity
+        and relationship kind included in the MVP model.
+      status: ACCEPTED
+      source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
+      acceptance_examples:
+        - >-
+          The user can load more than one record of an in-scope kind
+          together and then work with the resulting records in Prep.
+
+    - id: REQ-INFORMATION-CREATE
+      statement: >-
+        The product shall allow the user to create an individual instance
+        of every entity and relationship kind included in the MVP model.
+      status: ACCEPTED
+      source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
+      acceptance_examples:
+        - >-
+          An individual information item, relationship, or recorded
+          activity/result entry can be added without bulk loading.
+
+    - id: REQ-INFORMATION-READ
+      statement: >-
+        The product shall allow the user to access and inspect existing
+        instances of every entity and relationship kind included in the
+        MVP model.
+      status: ACCEPTED
+      source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
+      acceptance_examples:
+        - >-
+          A user can retrieve and inspect an existing information item,
+          relationship, or recorded activity/result entry.
+
+    - id: REQ-INFORMATION-UPDATE
+      statement: >-
+        The product shall allow the user to edit an existing instance
+        of every entity and relationship kind included in the MVP model.
+      status: ACCEPTED
+      source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
+      acceptance_examples:
+        - >-
+          A user can change an existing information item, relationship,
+          or recorded activity/result entry and subsequently inspect
+          its updated state.
+
+    - id: REQ-INFORMATION-DELETE
+      statement: >-
+        The product shall allow the user to remove an existing instance
+        of every entity and relationship kind included in the MVP model
+        from the working information set.
+      status: ACCEPTED
+      source_refs: [PD-MVP-DATA-MANAGEMENT-2026-10-10]
+      acceptance_examples:
+        - >-
+          A user can remove an existing information item, relationship,
+          or recorded activity/result entry so it is no longer present
+          in the working information set.
+
+  scope_boundaries:
+    - >-
+      The bulk-load and CRUD commitments apply to all entity and relationship
+      kinds included in the accepted MVP model; downstream design cannot
+      silently exclude recorded activity or results from these operations.
+    - >-
+      Product Requirements do not predefine entity identity, relationship
+      taxonomy, historical invariants, deletion strategy, transfer format,
+      interface or storage technology.
+    - >-
+      Product CRUD includes editing and removing recorded activity/results.
+      Consequences for historical meaning and related information must be
+      resolved by the owning downstream Authority without silently revoking
+      the user's product-level operations.
 
   non_goals:
     - Assess what the user knows or can do.
@@ -50,4 +211,4 @@ content:
     - Require source management, provenance, citations, source versioning, or traceability.
     - Define a fixed taxonomy of knowledge kinds or relationship meanings.
     - Define a required relationship topology or representation technique.
-    - Define a particular import, export, integration, interface, persistence, or implementation mechanism.
+    - Define a particular bulk-load format, import/export transport, interface, persistence, or implementation mechanism.
