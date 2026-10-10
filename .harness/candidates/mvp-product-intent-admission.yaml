@@ -326,10 +326,11 @@ semantic_review:
   - no-downstream-design-promotion
   basis:
     source-discipline: 'User Needs assertions are bound to the current published PREP-MVP-USER-NEEDS-1
-      acceptance. Owner-authored PR #93 at a074ab34bc3e31d1104dd6050b5345e1bf0d47a8
-      supplies two explicit PD decisions and product scope/non-goals. Source record
-      preserves origin. No original chat transcript or independent empirical validation
-      is claimed.'
+      acceptance. PR #93 at a074ab34bc3e31d1104dd6050b5345e1bf0d47a8 records two
+      owner-confirmed product decisions and product scope/non-goals, transcribed by
+      the assistant through the owner's connected GitHub account. The PR itself
+      does not independently prove owner authorship. The source record describes
+      this provenance; no original chat transcript or empirical validation is claimed.'
     authority-boundary: The owner specifies observable operations across every in-scope
       kind, including recorded activity/results. Entity taxonomy, historical consistency,
       format, transport, UI and persistence remain downstream; owner authority is
