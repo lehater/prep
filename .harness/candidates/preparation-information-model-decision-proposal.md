@@ -1,6 +1,6 @@
 # Tactical preparation model: proposed decisions for Authority approval
 
-> NONCANONICAL / NOT SELECTED / NOT ACCEPTED.
+> NONCANONICAL / PARTIALLY USER-APPROVED / NOT HARNESS ACCEPTED.
 > This review responds to the three unresolved Core Questions published in
 > PR #101. It is NOT a domain-model/v1 artifact, a Harness Decision Governance
 > verdict, an Authority decision or a delegation policy. It must never be
@@ -26,7 +26,7 @@ The proposals below are a *reviewable coherent package* chosen as a
 least-commitment hypothesis. Some remain contingent on user/Authority
 judgment and a new strict Decision Governance evaluation.
 
-## User decision recorded — semantic identity only
+## User decision recorded — semantic identity (separate approval)
 
 **USER APPROVED: IDENTITY = INSTANCE (2026-10-10).** Each preparation
 information instance has an independent identity, including two records
@@ -34,14 +34,41 @@ with identical text or externally supplied contents. Ordinary content
 edits preserve the same instance identity. Equal content is not a
 mandated merge, duplicate check, or semantic equality test. This
 approval **does not** decide explicit merge operations, automatic import
-matching, concept STRUCTURE, relationship identity, validity,
-directionality, multiplicity, admissibility, lifecycle, or removal.
+matching, relationship identity, validity, directionality,
+multiplicity, admissibility, lifecycle, or removal.
 
 The decision is recorded as user authority input, **not** a Harness
 semantic acceptance, lifecycle assertion, or a resolved Core Question.
-`Q-PREP-PREPARATION-IDENTITY-STRUCTURE` remains unresolved because its
-STRUCTURE portion has not been approved. Keep `CONSERVATIVE` autonomy,
-five upstream CURRENT and the BLOCKED publication unchanged.
+`Q-PREP-PREPARATION-IDENTITY-STRUCTURE` remains formally unresolved
+in the published Core until the routed decision-governance,
+canonical candidate and semantic-admission procedure integrates both
+approved choices. Keep `CONSERVATIVE` autonomy, five upstream CURRENT
+and the BLOCKED publication unchanged.
+
+## User decision recorded — concept structure (separate approval)
+
+**USER APPROVED: STRUCTURE = DISTINCT-CONCEPTS (2026-10-10).**
+Preparation Knowledge, Goal, CapabilityDescription and PracticeMaterial
+are distinguishable domain concepts with their own instances and meanings,
+not four mutable roles of one universal information item. This approval
+was made **separately** from the previous approval
+`IDENTITY = INSTANCE`; together they mean instances are independently
+identified *within their applicable concept*. A knowledge concept must
+not imply a mandatory taxonomy of knowledge kinds; a capability description
+is not proof of learner mastery; practice material is not a recorded
+performance/result.
+
+The user **did not approve** relationship admissibility, direction,
+relationship identity or multiplicity; removal/endpoint integrity,
+recorded activity semantics, merge, restoration or technical entities.
+This choice does not imply one database table, service, screen, API
+or separately governed model language.
+
+This is user Authority input for the subsequent governed candidate,
+**not** a new acceptance or automatic Core Question resolution. The
+question's two substantive alternatives now have user choices, while
+the three existing published Questions remain unresolved until a
+proper revision-bound Harness transition.
 
 ## Q-PREP-PREPARATION-IDENTITY-STRUCTURE
 
@@ -52,7 +79,7 @@ not silently collapse equal descriptions. Import matching, explicit
 merge, synchronization and deduplication are not required product
 operations and must not be invented here.
 
-**Suggested STRUCTURE: DISTINCT-CONCEPTS, but no internal Knowledge
+**Approved STRUCTURE: DISTINCT-CONCEPTS, but no internal Knowledge
 taxonomy.** Knowledge, Goal, CapabilityDescription and PracticeMaterial
 are distinguishable semantic responsibilities, already named as
 preparation information by accepted scope. A capability *description*
@@ -68,11 +95,12 @@ than forcing one category to change identity. A role-based alternative
 might reduce duplication, but risks making read/edit/delete validity
 depend on mutable role classification.
 
-**Unresolved for Authority:** whether overlapping descriptions should
-ever share one instance identity, and whether this categorical
-distinction must be separate conceptual identities rather than roles.
-An approval must not imply a new global taxonomy or canonicalization
-rule.
+**Approved scope:** the four distinguishable preparation concepts are
+independently identified instances, rather than interchangeable roles
+of one universal item. Overlapping real-world meaning does not force
+identity collapse. Mapping/relations among these instances, link
+validity, taxonomy *within* Knowledge and any explicit merging are
+separate questions, not approved here.
 
 ## Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
 
