@@ -130,6 +130,35 @@ acceptance. The published `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`
 remains unresolved until **all its material choices** have been
 decided and the routed Harness transition has been validated.
 
+## User decision recorded — D1 relation admissibility strategy (separate approval)
+
+**USER APPROVED: D1 = SELECTIVE-ADMISSIBILITY (2026-10-11).**
+Initial Prep relationship kinds are **selected individually on justified
+domain meaning and explicit endpoint roles**. Start with a small, coherent
+set of kinds, extendable through further owner-approved decisions. Do not
+admit arbitrary generic links by default and do not build a comprehensive
+taxonomy in advance. The user approved the *strategy of determining
+admissibility*, **not** a set of admissible relation kinds, fixed cardinalities,
+directionality or lifecycle semantics.
+
+This D1 approval is **separate from the three prior owner decisions**:
+`IDENTITY = INSTANCE`, `STRUCTURE = DISTINCT-CONCEPTS`, and
+`RELATION-IDENTITY = INSTANCE`. It does not select whether
+`Goal requires CapabilityDescription`, `Goal targets
+CapabilityDescription`, `PracticeMaterial is intended to practice
+CapabilityDescription`, or any other particular proposed relation is in
+the MVP. Nor does it approve `MULTIPLICITY`, `DIRECTION`,
+`REMOVAL / INTEGRITY`, self-links or import conflict policy.
+
+**Evidence status:** explicit user Authority approval, held as
+noncanonical decision input pending a routed Harness decision-governance,
+semantic admission and CAS publication. The live Core Question
+`Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS` remains **unresolved**
+because the actual admissible meanings and remaining relationship
+decisions are still open. `CONSERVATIVE` autonomy remains unchanged.
+The five upstream CURRENT acceptances, Graph and Publication remain
+unchanged. No new Tactical acceptance identity was issued.
+
 ## Multiplicity review corrected — meaning before storage (2026-10-10)
 
 **ANALYSIS ONLY — NO USER CHOICE OR HARNESS ACCEPTANCE.** The initial
@@ -283,7 +312,7 @@ by the user, but this does not entail parallel identical propositions.
 
 ### Relation strategy alternatives for owner evaluation
 
-- **S1: Small, explicit, semantically justified relation uses.**
+- **S1: Small, explicit, semantically justified relation uses — D1 STRATEGY APPROVED.**
   Admit a meaning only after a user question and counterexamples
   establish it; define endpoints/direction per meaning. Avoid a global
   exhaustive catalog. Pros: understandable relationships, testable
