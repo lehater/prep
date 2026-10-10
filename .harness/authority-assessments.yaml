@@ -12,22 +12,28 @@ assessments:
     applicability: REQUIRED
     evidence: [core:authority:PRODUCT-REQUIREMENTS]
     rationale: Accepted current product vision and product capabilities are canonical project knowledge.
-    depends_on_evidence: [docs/vision/vision.md, docs/vision/product-capabilities.md]
-    reopening_conditions: [accepted product intent or capabilities change]
+    depends_on_evidence: [.harness/knowledge/product-intent.yaml, .harness/knowledge/product-capabilities.yaml]
+    reopening_conditions: [published Product Intent or Product Capabilities acceptance/currentness changes]
 
   - authority_id: DOMAIN-STRATEGY
     applicability: REQUIRED
     evidence: [docs/architecture/context-map.md]
     rationale: The accepted context map contains material strategic decomposition of Prep domain responsibilities.
-    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/context-map.md]
-    reopening_conditions: [product capability scope or strategic domain decomposition changes]
+    depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md]
+    reopening_conditions: [published Product Capabilities change or strategic domain responsibility classification changes]
 
   - authority_id: MODEL-CONTEXT-STRATEGY
     applicability: REQUIRED
     evidence: [docs/architecture/model-context-map.md]
-    rationale: Knowledge Model, Learning Design and Learner Model have independently modeled languages and explicit semantic information-flow boundaries.
-    depends_on_evidence: [docs/architecture/context-map.md, docs/architecture/model-context-map.md]
-    reopening_conditions: [model-context boundaries or translation relationships cease to be independently material]
+    rationale: >-
+      Accepted Model Context Strategy currently establishes one coherent Preparation and
+      Activity model language (MC-01), with internal distinctions between preparation
+      information and recorded activity/results (IR-01). Distinct strategic CORE
+      responsibilities do not require independent model languages or cross-context
+      translation. The Authority remains REQUIRED to own applicability and reopening
+      decisions when independently governed languages become materially justified.
+    depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md, docs/architecture/model-context-map.md]
+    reopening_conditions: [accepted evidence demonstrates independently evolving or incompatible model meanings or required cross-language translation]
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
     applicability: NOT_APPLICABLE
