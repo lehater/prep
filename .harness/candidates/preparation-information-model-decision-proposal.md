@@ -354,6 +354,119 @@ competency associations) demonstrate that meanings are context-
 specific; they are *analogies only*, not Prep's accepted input or an
 authorization to import a taxonomy.
 
+## D2 candidate semantics: PracticeMaterial to CapabilityDescription (research, 2026-10-11)
+
+**OPEN — NO USER APPROVAL for D2, D3, DIRECTION or MULTIPLICITY.**
+This is an application of user-approved `D1 = SELECTIVE-ADMISSIBILITY`,
+not admission of a new kind.
+
+### Independent meanings that should not be conflated
+
+| Candidate statement about material M and described capability C | Concrete positive scenario | Distinguishing counterexample / limitation |
+| --- | --- | --- |
+| **M is intended for practice of C** | A set of SQL JOIN exercises is expressly intended to practise composing JOIN queries | A descriptive SQL article may support understanding without being intended for hands-on practice |
+| **M is intended to teach/develop C** | A step-by-step guided tutorial is intended to help learn composing JOIN queries | An assessment-only quiz may measure performance without teaching it |
+| **M is intended to assess C** | A task set is prepared to check ability to compose JOIN queries | A worked example with answers may be intended to teach instead of assess |
+| **M concerns the subject of C** | An article describes JOIN syntax | Topical overlap alone does not entail practice, teaching, efficacy, prerequisite or assessment intent |
+| **M supports preparation related to C** | A broad reference may be useful while studying JOINs | Too weak and subjective to substitute for any one of the three purpose-specific statements |
+
+Here `PracticeMaterial` includes material usable in study, practice,
+review and testing under accepted Discovery; it is *not* restricted
+to drill/exercises. Therefore, admitting only "intended for practice"
+would not itself express the semantics of other in-scope material.
+It can still be a valid **optional first relation**, provided no
+claim is made that every material must carry it.
+
+Two purposes can both apply to the same material (e.g., a worked quiz
+can be intended for practice **and** checking). If admitted, these
+would be distinct predicate meanings, *not* proof that identical
+predicate records need to be parallel. Users may disagree about
+purpose without Prep verifying effectiveness or source authority.
+
+### Domain tests for "M is intended for practice of C"
+
+1. **Question answered:** "Which available materials were designated
+   to practise the ability described by C?"
+2. **Assertion made:** a user-represented intended use of M with respect
+   to C, *not* that a person used M, improved, demonstrated C or that
+   Prep independently endorses the purpose.
+3. **Endpoint roles:** PracticeMaterial M and CapabilityDescription C;
+   "intended for practice" goes conceptually from material to the
+   described capability. Reverse **navigation** requires no reverse
+   relation instance.
+4. **Optionality:** a resource used only to explain Knowledge may
+   have no such relation. A Capability may also have no known
+   practice material. The proposed statement makes no existence
+   requirement.
+5. **Truth/validity:** the purpose may be asserted/edited by the user;
+   Prep does not certify instructional efficacy or learner competence.
+   Whether intent belongs to a material generally or to a particular
+   goal/use/context is **open**; do not silently add a Context entity.
+6. **Negative example:** a chemistry reference sheet that discusses
+   reactions is not by that fact intended to practise balancing
+   chemical equations, although it may be useful in external study.
+7. **Multiplicity:** two equal M/C/practice-intent links without
+   a material distinction are usually two records of one purpose.
+   This is a hypothesis, **not** an approved UNIQUE rule; contextual
+   practice purposes may require finer semantics.
+8. **CRUD and bulk:** if admitted, full user create/read/edit/delete and
+   externally supplied bulk loading apply. Do not equate repeated
+   imports with distinct material intentions.
+9. **DS-01/DS-02:** purpose of material is preparation information;
+   an actual practice occurrence and its result are recorded activity.
+   Neither claim supplies a learner-state assessment.
+10. **Scope challenge:** "intended for practice" does not identify
+    knowledge explained by a material or which goals it serves; those
+    are independent semantic choices.
+
+### Options for owner decision D2
+
+- **D2-A — admit only this narrow, optional intended-for-practice
+  meaning** as one initial relationship kind between M and C. Other
+  material uses remain expressible via material information and future
+  independently approved relations, not automatically by this kind.
+- **D2-B — defer this relation** until a concrete primary task shows
+  that users need to navigate/select materials *by capability*.
+  Keeps model smaller but may limit early preparation exploration.
+- **D2-C — explore a minimal family of distinct material-purpose
+  relations** (practice/teach/assess) before admitting any. May serve
+  broader material classes but expands taxonomy and creates more
+  decisions; no automatic product approval for the family.
+- **D2-D — adopt a broad "supports capability" relation** rather
+  than purpose-specific claims. Flexible but too weak for reliable
+  interpretation; *not recommended* without a user-meaning test.
+
+**Analytical recommendation, not owner choice:** D2-A is the
+most sharply testable optional first candidate. However, D2-B is
+appropriate if users do not in fact select or explore materials by
+capability, and D2-C may be relevant if the first MVP scenario needs
+to distinguish study/practice/assessment resources. Do not select
+based solely on a standard library or graph UI.
+
+### Contrast with Goal to CapabilityDescription (D3 still open)
+
+- `Goal G requires C` asserts a **necessary ability for successful
+  goal attainment**; it is stronger than "related to" and not
+  synonymous with a prerequisite to *starting* preparation.
+- `Goal G targets C` asserts that developing/demonstrating C is
+  a **desired goal outcome**, not that C is a prerequisite to
+  attaining some other outcome.
+- A goal "pass SQL exam" may *require* performing JOINs; a goal
+  "learn to perform JOINs" primarily *targets* that ability.
+  Both predicates might eventually apply to the same G/C pair,
+  but each requires an independent meaning and justification.
+- No accepted requirement authorizes a mandatory Goal-Capability
+  edge, inference of learner proficiency, or an automatic
+  `Goal -> Capability -> Knowledge -> Material` chain.
+
+**External analogy, not project authority:** Schema.org `LearningResource`
+distinguishes `teaches`, `assesses` and `competencyRequired`
+(https://schema.org/LearningResource). 1EdTech CASE similarly models
+competency associations rather than asserting all conceivable
+connections (https://www.1edtech.org/standards/case/about). These are
+comparative examples, not admissible canonical inputs or relation
+types selected for Prep.
+
 ## Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
 
 **Approved RELATION-IDENTITY: INSTANCE.** Explicit relation instances
