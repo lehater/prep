@@ -93,3 +93,7 @@ questions:
     tactical/technical realization.
   blocks_capabilities:
   - prep.model-context-strategy
+  resolution:
+    artifact: MODEL-CONTEXT-MAP
+    acceptance_id: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+    supersedes_acceptance_id: ABSENT

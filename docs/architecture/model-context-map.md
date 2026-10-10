@@ -21,7 +21,7 @@ strategic investment classification or tactical entity design.
 
 ## Decision MC-01 — One coherent preparation and activity language
 
-**Proposed MVP decision:** one coherent model context, `MC-01 Preparation
+**MVP decision:** one coherent model context, `MC-01 Preparation
 and Activity`, covers both preparation information (`DS-01`) and recorded
 activity/results (`DS-02`). Within this context these are **distinct
 meanings**, not interchangeable concepts.
@@ -53,7 +53,7 @@ language governance and a translation obligation without a demonstrated
 need. It is **not** admitted merely because there are two CORE
 responsibilities or two different kinds of information.
 
-**Decision limit:** the single-context proposal is a Model Context
+**Decision limit:** the single-context decision is a Model Context
 Strategy judgment about *current evidence*, not a claim that future
 accepted tactical modeling cannot discover a material boundary. If
 independent language evidence emerges, route reconsideration through

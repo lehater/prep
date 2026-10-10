@@ -1,0 +1,450 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: MODEL-CONTEXT-MAP
+capability: prep.model-context-strategy
+path: docs/architecture/model-context-map.md
+changed_paths:
+- docs/architecture/model-context-map.md
+canonical_references:
+- referenced_path: .harness/knowledge/product-capabilities.yaml
+- referenced_path: docs/architecture/context-map.md
+semantic_assertions:
+- id: MC-EVIDENCE
+  kind: model-context-evidence
+  subject: MC-EVIDENCE
+  semantic_value:
+    heading: '## Purpose and accepted evidence'
+    text: "\nDecide how the Prep MVP's accepted domain meanings should be modeled\n\
+      coherently, where a separately governed semantic language would be justified,\n\
+      and whether translation between such languages is required. A model context\n\
+      is a **semantic applicability boundary**, not a code package, service,\ndatabase,\
+      \ team, API, screen, UI visualization or deployment unit.\n\n**Accepted prerequisites:**\n\
+      \n- `prep.product-capabilities` — `PREP-MVP-PRODUCT-CAPABILITIES-1`\n  (15 active\
+      \ product capabilities and four explicitly RETIRED proposals).\n- `prep.domain-strategy`\
+      \ — `PREP-MVP-DOMAIN-STRATEGY-1`\n  (two strategically distinct CORE responsibilities,\
+      \ `DS-01` and `DS-02`).\n\nTwo separate strategic responsibilities do not, by\
+      \ themselves, establish\ntwo model languages. This artifact owns language **applicability**,\
+      \ not\nstrategic investment classification or tactical entity design.\n\n"
+  derived_from:
+  - PC-SCOPE
+  - DS-EVIDENCE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-EVIDENCE
+- id: MC-DECISION
+  kind: model-language-decision
+  subject: MC-DECISION
+  semantic_value:
+    heading: '## Decision MC-01 — One coherent preparation and activity language'
+    text: "\n**MVP decision:** one coherent model context, `MC-01 Preparation\nand\
+      \ Activity`, covers both preparation information (`DS-01`) and recorded\nactivity/results\
+      \ (`DS-02`). Within this context these are **distinct\nmeanings**, not interchangeable\
+      \ concepts.\n\n**Why this is currently sufficient:**\n\n1. The accepted requirements\
+      \ ask the user to understand information,\n   relationships, recorded occurrences,\
+      \ reported results and temporal\n   context; none establishes incompatible interpretations\
+      \ of a shared\n   concept that would require independent semantic governance.\n\
+      2. An activity/result record can refer to the preparation information\n   it\
+      \ concerns without changing that information's meaning or requiring\n   translation\
+      \ between distinct domain languages.\n3. Temporal context, joint exploration,\
+      \ manual CRUD, external bulk\n   loading, selection and outside use can all\
+      \ be represented as one\n   coherent language. None by itself warrants a new\
+      \ model-language owner.\n4. Accepted `DS-01` and `DS-02` remain valuable strategic\
+      \ distinctions\n   because preparation meanings and recorded occurrences require\
+      \ separate\n   **attention**, not necessarily different vocabularies or contexts.\n\
+      5. No accepted evidence establishes independently evolving consumers,\n   conflicting\
+      \ term meanings, or an interpretation boundary that cannot\n   be expressed\
+      \ coherently within this single scope.\n\n**Alternative examined:** separate\
+      \ `MC-01 Preparation Information` and\n`MC-02 Recorded Activity and Results`\
+      \ languages, joined by `TR-01`.\nThat option could become justified by future\
+      \ independently evolving\nsemantic rules or incompatible terminology. At present\
+      \ it adds separate\nlanguage governance and a translation obligation without\
+      \ a demonstrated\nneed. It is **not** admitted merely because there are two\
+      \ CORE\nresponsibilities or two different kinds of information.\n\n**Decision\
+      \ limit:** the single-context decision is a Model Context\nStrategy judgment\
+      \ about *current evidence*, not a claim that future\naccepted tactical modeling\
+      \ cannot discover a material boundary. If\nindependent language evidence emerges,\
+      \ route reconsideration through\nthis Authority and revalidate dependent Capabilities.\n\
+      \n"
+  derived_from:
+  - REQ-CAP-INTRODUCE-INFORMATION
+  - REQ-CAP-RETAIN-INFORMATION
+  - REQ-CAP-CHANGE-INFORMATION
+  - REQ-CAP-REMOVE-INFORMATION
+  - REQ-CAP-EXPLORE-PERSPECTIVES
+  - REQ-CAP-SELECT-PART
+  - REQ-CAP-TRANSFER-SELECTION
+  - REQ-CAP-RECORD-ACTIVITY
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-PRESERVE-TIME
+  - REQ-CAP-EXPLORE-HISTORY
+  - REQ-CAP-BULK-LOAD-INFORMATION
+  - REQ-CAP-READ-INFORMATION
+  - REQ-CAP-EXPLORE-INFORMATION
+  - REQ-CAP-EXPLORE-RELATIONSHIPS
+  - DS-01
+  - DS-02
+  - DS-RELATION
+  - DS-CONSUMERS
+  - DS-REOPEN
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-DECISION
+- id: MC-01
+  kind: model-applicability
+  subject: MC-01
+  semantic_value:
+    heading: '## MC-01 — Applicability and internal semantic distinctions'
+    text: '
+
+      '
+  derived_from:
+  - DS-01
+  - DS-02
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-01
+- id: MC-PREPARATION
+  kind: model-semantic-applicability
+  subject: MC-PREPARATION
+  semantic_value:
+    heading: '### Preparation information'
+    text: '
+
+      **Meaning:** information the user works with when preparing for goals:
+
+      knowledge, goals, capabilities, practice material and their in-scope
+
+      relationships. The accepted product requires understanding, exploration,
+
+      and multiple perspectives, but not a fixed taxonomy of knowledge
+
+      subkinds, relationship meanings, topology, or cardinality.
+
+
+      **Accepted evidence:** `DS-01`,
+
+      `REQ-CAP-EXPLORE-INFORMATION`,
+
+      `REQ-CAP-EXPLORE-RELATIONSHIPS`, and
+
+      `REQ-CAP-EXPLORE-PERSPECTIVES`.
+
+
+      **Interpretation boundary:** describing a capability or knowledge
+
+      item does not assert that the user possesses or has mastered it.
+
+      The specific identity, vocabulary and validity of relationships
+
+      belong to Tactical Domain Design.
+
+
+      '
+  derived_from:
+  - DS-01
+  - REQ-CAP-EXPLORE-INFORMATION
+  - REQ-CAP-EXPLORE-RELATIONSHIPS
+  - REQ-CAP-EXPLORE-PERSPECTIVES
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-PREPARATION
+- id: MC-ACTIVITY
+  kind: model-semantic-applicability
+  subject: MC-ACTIVITY
+  semantic_value:
+    heading: '### Recorded activity and results'
+    text: '
+
+      **Meaning:** information that describes a recorded occurrence of
+
+      preparation activity and, when present, its recorded result, including
+
+      temporal and subject context. A reported result is not an inference
+
+      about the user''s mastery, competence or readiness.
+
+
+      **Accepted evidence:** `DS-02`,
+
+      `REQ-CAP-RECORD-ACTIVITY`,
+
+      `REQ-CAP-RELATE-ACTIVITY`,
+
+      `REQ-CAP-PRESERVE-TIME`, and
+
+      `REQ-CAP-EXPLORE-HISTORY`.
+
+
+      **Interpretation boundary:** a recorded occurrence or result is
+
+      not preparation information''s definition, and preparation information
+
+      does not become an activity record merely because an activity involved
+
+      it. Both kinds are represented in the same coherent language without
+
+      conflating their meanings.
+
+
+      **Change boundary:** recorded activity and results are subject to the
+
+      product owner''s all-kind CRUD and bulk-loading commitments. Nothing
+
+      in this model-context decision implies immutable events, permanent
+
+      audit histories, append-only records, undeletable results or snapshots.
+
+
+      '
+  derived_from:
+  - DS-02
+  - REQ-CAP-RECORD-ACTIVITY
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-PRESERVE-TIME
+  - REQ-CAP-EXPLORE-HISTORY
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-ACTIVITY
+- id: IR-01
+  kind: internal-semantic-relationship
+  subject: IR-01
+  semantic_value:
+    heading: '### IR-01 — Internal subject-of-activity interpretation'
+    text: "\nAn existing record of activity/result may concern existing in-scope\n\
+      preparation information. When a consumer explores this relationship,\nthe model\
+      \ must permit understanding of **which** preparation\ninformation the record\
+      \ concerns while preserving the distinction\nbetween the occurrence/result and\
+      \ its subject.\n\n**Accepted evidence:** `REQ-CAP-RELATE-ACTIVITY`,\n`REQ-CAP-EXPLORE-RELATIONSHIPS`,\
+      \ `DS-01`, and `DS-02`.\n\n- Treat the subject as preparation information; interpreting\
+      \ an\n  activity/result does not redefine the subject or infer proficiency.\n\
+      - Keep enough temporal context to distinguish existing recorded\n  activities/results\
+      \ over time.\n- Permit consumers to examine related information and recorded\n\
+      \  activity without treating the relation as proof of mastery.\n- Do not prescribe\
+      \ a domain entity, link type, identifier scheme,\n  relationship cardinality,\
+      \ data duplication, or storage structure.\n\nThis is a **semantic interpretation\
+      \ inside MC-01**, not a cross-context\ntranslation contract. The earlier candidate\
+      \ `TR-01` is **not required**\nfor the chosen one-language topology. Its useful\
+      \ interpretation\nconstraints are captured here without inventing a separate\
+      \ language.\n\n**Changes and removal:** accepted CRUD includes editing and removal\
+      \ of\npreparation information, recorded activity/results, and relationships.\n\
+      Current-product interpretation requirements apply to records and\nrelationships\
+      \ still in scope. A guarantee of historical\nintelligibility after their former\
+      \ subject is edited or deleted was\nnot admitted by Product Requirements. Tactical\
+      \ Domain Design and\nlater owning Authorities must resolve relation consistency\
+      \ and\nlifecycle consequences without silently revoking CRUD or inventing\n\
+      mandatory historical preservation.\n\n"
+  derived_from:
+  - DS-01
+  - DS-02
+  - DS-RELATION
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-EXPLORE-RELATIONSHIPS
+  - REQ-CAP-PRESERVE-TIME
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#IR-01
+- id: MC-PRODUCT-COVERAGE
+  kind: model-behavior-applicability
+  subject: MC-PRODUCT-COVERAGE
+  semantic_value:
+    heading: '## Complete product capability applicability'
+    text: '
+
+      All 15 accepted capabilities remain required within this single
+
+      language''s scope; their application orchestration may span different
+
+      meanings without introducing additional model-language owners.
+
+
+      | Accepted capability | Applicable meaning / consumer consequence |
+
+      | --- | --- |
+
+      | `REQ-CAP-INTRODUCE-INFORMATION` | Manual creation of every in-scope entity
+      and relationship kind, including activity/results |
+
+      | `REQ-CAP-RETAIN-INFORMATION` | Existing in-scope information remains inspectable
+      while present in the working set |
+
+      | `REQ-CAP-CHANGE-INFORMATION` | Manual edits of every in-scope kind, including
+      activity/results and links |
+
+      | `REQ-CAP-REMOVE-INFORMATION` | Removal of every in-scope kind from the working
+      set |
+
+      | `REQ-CAP-BULK-LOAD-INFORMATION` | Externally supplied bulk loading for every
+      in-scope kind |
+
+      | `REQ-CAP-READ-INFORMATION` | Inspection of every in-scope entity and relationship
+      kind |
+
+      | `REQ-CAP-EXPLORE-INFORMATION` | Explore preparation information and recorded
+      activity/results |
+
+      | `REQ-CAP-EXPLORE-RELATIONSHIPS` | Examine available in-scope relationships
+      without inferring arbitrary cross-kind links |
+
+      | `REQ-CAP-EXPLORE-PERSPECTIVES` | Examine the same information from differing
+      perspectives |
+
+      | `REQ-CAP-SELECT-PART` | Select a subset for preparation outside Prep |
+
+      | `REQ-CAP-TRANSFER-SELECTION` | Make the selected subset available for external
+      use |
+
+      | `REQ-CAP-RECORD-ACTIVITY` | Bring recorded external preparation activity/results
+      into the working set |
+
+      | `REQ-CAP-RELATE-ACTIVITY` | Understand existing record-to-subject relationships
+      using IR-01 |
+
+      | `REQ-CAP-PRESERVE-TIME` | Retain enough temporal context for existing records
+      |
+
+      | `REQ-CAP-EXPLORE-HISTORY` | Explore existing activity and result records over
+      time |
+
+
+      Manual creation/editing must remain available independently of
+
+      bulk loading. No modeled kind can be silently exempted from read,
+
+      create, update, delete or externally supplied bulk loading.
+
+
+      '
+  derived_from:
+  - REQ-CAP-INTRODUCE-INFORMATION
+  - REQ-CAP-RETAIN-INFORMATION
+  - REQ-CAP-CHANGE-INFORMATION
+  - REQ-CAP-REMOVE-INFORMATION
+  - REQ-CAP-EXPLORE-PERSPECTIVES
+  - REQ-CAP-SELECT-PART
+  - REQ-CAP-TRANSFER-SELECTION
+  - REQ-CAP-RECORD-ACTIVITY
+  - REQ-CAP-RELATE-ACTIVITY
+  - REQ-CAP-PRESERVE-TIME
+  - REQ-CAP-EXPLORE-HISTORY
+  - REQ-CAP-BULK-LOAD-INFORMATION
+  - REQ-CAP-READ-INFORMATION
+  - REQ-CAP-EXPLORE-INFORMATION
+  - REQ-CAP-EXPLORE-RELATIONSHIPS
+  - DS-CROSS-CUTTING
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-PRODUCT-COVERAGE
+- id: MC-NO-TRANSLATION
+  kind: model-translation-disposition
+  subject: MC-NO-TRANSLATION
+  semantic_value:
+    heading: '## No separate contexts or translations currently justified'
+    text: "\nNo additional model-language boundary is established merely for:\n\n\
+      - `DS-01` versus `DS-02` as strategic investment categories;\n- Goal, Capability,\
+      \ Knowledge, Practice Material or their in-scope\n  distinctions;\n- recorded\
+      \ occurrence versus recorded result within the same\n  preparation and activity\
+      \ language;\n- relationship classes, knowledge taxonomies or arbitrary cross-kind\n\
+      \  connection patterns;\n- manually creating/editing, deletion, bulk loading,\
+      \ retention or reading;\n- selection and external availability of a subset;\n\
+      - inferred learner state, assessment, source management or verification;\n-\
+      \ particular 2D/3D views, APIs, storage, services or integrations.\n\nThe accepted\
+      \ Product Capabilities record four `RETIRED`, never-admitted\nproposals: `REQ-CAP-KNOWLEDGE-KINDS`,\n\
+      `REQ-CAP-RELATIONSHIP-MEANINGS`,\n`REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`,\
+      \ and\n`REQ-CAP-PRESERVE-HISTORY-CONTEXT`. They cannot be used to\nmanufacture\
+      \ an independent language or a historical-preservation\ninvariant, but their\
+      \ retirement does not forbid future justified work.\n\nThere is **no cross-language\
+      \ translation contract required by the\ncurrent one-context decision**. The\
+      \ internal interpretation of\nexisting subject-of-activity relationships is\
+      \ captured by `IR-01`.\nIf future evidence justifies independent model languages,\
+      \ define a\nspecific translation obligation then, based on actual consumers\
+      \ and\ndifferent semantics, not on the mere existence of multiple concepts.\n\
+      \n"
+  derived_from:
+  - DS-RETIRED
+  - DS-RELATION
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-NO-TRANSLATION
+- id: MC-CONSUMERS
+  kind: model-consumers
+  subject: MC-CONSUMERS
+  semantic_value:
+    heading: '## Consumers and authority handoff'
+    text: "\n- **Tactical Domain Design** decides domain concepts, invariants,\n \
+      \ identity, valid relationships and lifecycle/consistency behavior\n  within\
+      \ the accepted applicability boundary. This is not an\n  instruction to put\
+      \ all concepts in one aggregate or schema.\n- **Application Design** coordinates\
+      \ product-level CRUD, bulk intake,\n  examination, subset selection, external\
+      \ use and activity recording.\n- **Interface Design** may offer different views\
+      \ of the same information\n  without turning screen/view boundaries into model\
+      \ contexts.\n- **Data and System Architecture** chooses implementation, persistence\n\
+      \  and runtime boundaries independently of this language boundary.\n\nThis decision\
+      \ does **not** select entities, value objects, aggregates,\nrepositories, APIs,\
+      \ packages, services, datastores, screen layouts or\ndeployment topology.\n\n"
+  derived_from:
+  - DS-CONSUMERS
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-CONSUMERS
+- id: MC-REOPEN
+  kind: model-reopening
+  subject: MC-REOPEN
+  semantic_value:
+    heading: '## Reopening conditions'
+    text: "\nReconsider one versus multiple model languages through Harness if\naccepted\
+      \ evidence demonstrates:\n\n- a shared domain term has materially different\
+      \ meanings for\n  preparation information and recorded activity consumers;\n\
+      - the rules and interpretation of the two strategic responsibilities\n  must\
+      \ evolve independently, creating conflict within one language;\n- a real consumer\
+      \ requires semantic translation between independently\n  governed concepts,\
+      \ beyond using a normal in-scope relationship;\n- new accepted product behavior\
+      \ introduces independently coherent\n  semantic language requirements; or\n\
+      - tactical findings establish a material model-language question that\n  must\
+      \ be answered at the proper Authority boundary.\n\nUntil then, preserve the\
+      \ simpler coherent single-language boundary,\nthe two distinct strategic responsibilities,\
+      \ and all accepted product\noperations.\n"
+  derived_from:
+  - DS-REOPEN
+  - PC-SCOPE
+  decision_authority: MODEL-CONTEXT-STRATEGY
+  canonical_location: docs/architecture/model-context-map.md#MC-REOPEN
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - model-context-not-domain-investment-or-tactical
+  basis:
+    source-discipline: Material evidence consists only of current accepted Product
+      Capabilities and Domain Strategy assertions with matching published fingerprints.
+      The prior two-language candidate/review is historical failure evidence, never
+      current semantic authority.
+    authority-boundary: One coherent applicability boundary preserves DS-01/DS-02
+      investment classifications. IR-01 is an internal interpretation relationship,
+      not entity identity, link cardinality, a translation protocol or data duplication.
+      Tactical concepts/invariants and technical topology remain downstream.
+    no-invention: All fifteen accepted product capabilities are mapped into one language
+      without weakening universal CRUD, manual create/edit independence or externally
+      supplied bulk loading. Four retired proposals remain nonbinding. No historical
+      preservation after changes/removal, immutable records or proficiency inference
+      is introduced.
+    model-context-not-domain-investment-or-tactical: The shared language keeps preparation
+      descriptions distinct from recorded occurrences/results without independent
+      terminology or translation. Two-language governance has no evidenced extra consumer
+      value today. Consumer handoff and explicit reopening conditions keep later language-splitting
+      evidence addressable without prescribing one aggregate, schema or deployment.
+  alternative_review:
+    selected: one coherent language MC-01
+    rejected_for_current_evidence: two independently governed languages and TR-01
+    rationale: All required human interpretations can use distinct concepts and an
+      internal subject relationship in one language. No accepted conflicting term
+      meaning or independent language evolution requires additional governance; strategic
+      CORE count and technical organization are insufficient evidence.
+    limit: This is an applicability decision for accepted scope, not a guarantee about
+      all future tactical discoveries.
+  relationship_review:
+    id: IR-01
+    status: ACCEPTED
+    basis: Record-to-subject interpretation and temporal understanding preserve the
+      required meanings within MC-01. No cross-language mapping is required.
+  question_resolution_basis: The coherent one-language decision answers Q-PREP-MODEL-CONTEXT-INDEPENDENT-LANGUAGES
+    without assuming independent languages or inventing translation evidence.

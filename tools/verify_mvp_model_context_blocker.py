@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the unresolved model-language decision and unchanged acceptances."""
+"""Verify the historical BLOCKED attempt, never current project status."""
 from __future__ import annotations
 
 import copy
@@ -31,13 +31,14 @@ def load(path: Path) -> dict:
 
 def main() -> None:
     graph = load(ROOT / ".harness/engineering-graph.yaml")
-    core = load(ROOT / ".harness/core.yaml")
-    publication = read_project_publication(ROOT / ".harness/project-publication.yaml", graph=graph)
+    publication = read_project_publication(ROOT / ".harness/candidates/mvp-model-context-blocked-publication.yaml", graph=graph)
     state = publication["state"]
+    core = state["core_model"]
     review = load(ROOT / ".harness/candidates/mvp-model-context-strategy-review.yaml")
     assert review["status"] == "BLOCKED" and review["admission_attempted"] is False
     assert review["new_acceptances"] == []
-    assert hashlib.sha256((ROOT / "docs/architecture/model-context-map.md").read_bytes()).hexdigest() == review["candidate_sha256"]
+    assert hashlib.sha256((ROOT / ".harness/candidates/mvp-model-context-blocked-candidate.md").read_bytes()).hexdigest() == review["candidate_sha256"]
+    assert publication["revision"] == review["publication_revision"]
     assert state["core_model"] == core
     question = review["question"]
     assert question in core["questions"] and question.get("resolution") is None
@@ -91,7 +92,7 @@ def main() -> None:
             pass
         else:
             raise AssertionError("Publication accepted stale CAS")
-    print("PASS: candidate/review binding, routed unresolved Question, exact BLOCKED CAS, five upstream policy-bound CURRENT and unchanged acceptances; unsupported CURRENT/BLOCKED and stale CAS rejected")
+    print("HISTORICAL BLOCKED CHECK PASS (not current status): candidate/review binding, unresolved Question, exact BLOCKED CAS, unchanged upstream; unsupported CURRENT/BLOCKED and stale CAS rejected")
 
 
 if __name__ == "__main__":
