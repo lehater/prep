@@ -1,0 +1,95 @@
+version: 1
+kind: harness-authority-omission-transition
+status: APPLIED
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+authority: MODEL-CONTEXT-STRATEGY
+applicability: NOT_APPLICABLE
+decision_basis:
+  catalog: catalogs/software-authorities-v0.yaml#MODEL-CONTEXT-STRATEGY
+  contract: docs/design/software-authority-catalog-v0.md
+  reason: One coherent model and internal IR-01 provide no independently material
+    context-boundary/translation contract. Product distinctions and strategic CORE
+    responsibilities do not imply independently governed languages. Semantic responsibility
+    remains within Tactical Domain Design using the accepted five-capability prerequisite
+    frontier.
+atomicity:
+  contract: docs/design/project-publication-v0.md#adapter-projection
+  boundary: 'One immutable repository commit publishes Graph, Core, registry, historical
+    evidence and CAS-linked Publication together; uncommitted workspace preparation
+    is not project truth. Runtime CAS atomically replaces the complete Publication
+    envelope, and old/new graph compatibility is verified before publication. Git
+    push updates only PR #99 branch with fast-forward CAS semantics.'
+  old_revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+  new_revision: sha256:c87fdc8295a5a94a955215772c00967b5465983f12c642ac8c417d15be7330a8
+  parent_revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+historical_project: .harness/candidates/history/model-context-authority-omission/project
+historical_files_sha256:
+  .harness/engineering-graph.yaml: 25830094e9d8c94ac32eaf17aac002d715e2eb3901966bb454fae55a970f9618
+  .harness/core.yaml: 6b6d6cd0d201bb4d27e6f477311176eafeebb42b7b709f2430700c1972b895b3
+  .harness/project-publication.yaml: 77d40bf8b77b4aab91e2bd1b9f1e760a76c014f2a0e557939f78d3cd8919474d
+  .harness/authority-assessments.yaml: 9a189bff0b89795717e0706964237d7b41e3bd7ab5656db49fb6dc1c12b4e008
+  docs/architecture/model-context-map.md: e4e2c09540e019c702af9dd5a3baeff3744eb276655a56b2eb93ecbee151e8b7
+historical_acceptance: PREP-MVP-MODEL-CONTEXT-STRATEGY-1
+historical_question: Q-PREP-MODEL-CONTEXT-INDEPENDENT-LANGUAGES
+current_capabilities:
+- prep.problem-evidence
+- prep.user-needs
+- prep.product-intent
+- prep.product-capabilities
+- prep.domain-strategy
+current_acceptance_ids:
+  prep.problem-evidence: PREP-MVP-PROBLEM-EVIDENCE-1
+  prep.user-needs: PREP-MVP-USER-NEEDS-1
+  prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+  prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+  prep.domain-strategy: PREP-MVP-DOMAIN-STRATEGY-1
+new_acceptances: []
+downstream_accepted: false
+graph_change: Remove conditional producer; rewire both Tactical requirements to prep.domain-strategy
+  plus prep.product-capabilities; replace obsolete cross-context/model-boundary assertions
+  with one language/internal IR-01 and accepted strategic responsibilities. Two tactical
+  subject artifacts do not establish two model contexts.
+source_commit: 927f40e31a8898be06735e27d4baf95f9f17cf19
+unchanged_files_sha256:
+  docs/discovery/problem-evidence.yaml: d80efc14f55e29a72b900d0df112842b4b0220d3fc01c4e0bbd8db605bdc484b
+  docs/discovery/user-needs.yaml: fcfd7743e8c6eec5f7b547a26d2c19ac08145d707e7cb28e4a556ca6a696fa0d
+  .harness/knowledge/product-intent.yaml: e069c5a36d44df94c67f3a2398d895dbfadfe5b1d0265efbd342c012a5e9ca81
+  .harness/knowledge/product-capabilities.yaml: 30a4cb348cb1844d75287e63440306495650bb4f8d44087cade601cf7e8b9da9
+  docs/architecture/context-map.md: d988c86392dcfb2ef230b79a23e61bbf227fc9a7523aeee5ab041ee675d4d710
+  .harness/semantic-baseline.yaml: 464762afc5b626b31510053f5afb576601a71eb27b88b3d0eba76b0ecddbae94
+  .harness/candidates/mvp-model-context-strategy-review.yaml: 1a10ec27b716f222aede14c15426673960f369b7c48e83931d3a3c3fb7cdfc00
+  .harness/candidates/mvp-model-context-blocked-candidate.md: 11ff1d2497dde3c3d52757cf2ddf88be7a51343febe9cfd00c3ae23cad301a5c
+  .harness/candidates/mvp-model-context-blocked-publication.yaml: 5ac32114c04c75d3a25bba8d17dece5120aa9edf0273eafc91565d2161e82620
+  .harness/candidates/authority-evidence-frontier-review.yaml: 296bcdd7ca3439901ee2764b432bd850c9236bbe6afd3cf6608f0e09e03c2436
+semantic_consequences:
+  product: All 15 accepted Product Capabilities, complete CRUD/bulk and four RETIRED
+    dispositions remain unchanged. No new product or tactical requirement is inferred.
+  authority: One language accommodates preparation information and recorded activity/results;
+    IR-01 identifies activity subjects internally, with no independent owner of a
+    conflicting interpretation or translation contract. Separate investment responsibilities
+    are not separate model languages.
+  model_history: MC-01/IR-01, resolved Question and prior acceptance substantiate
+    the past comparison only; tactical artifacts must independently admit their own
+    semantics. Archived references in other registry rows remain historical, not downstream
+    acceptance.
+  downstream: Both tactical productions still require accepted Product Capabilities
+    and now accepted Domain Strategy. They have no accepted providers, so their consumers
+    cannot claim CURRENT. No downstream artifact is admitted.
+  reopening: Reassess conditional Authority if incompatible term meanings, independently
+    governed languages or material applicability/translation contracts emerge.
+checks:
+  pinned_workflow: 'PASS: genesis and parent-linked unaccepted candidates, graph/Core,
+    five-capability frontier, policy currentness and registry'
+  cas: 'PASS: exact child reproduction and stale expected revision rejection'
+  negative: 'PASS: stale CAS/policy, dangling Question, unrewired graph, acceptance
+    transfer, partial CRUD and RETIRED reactivation rejected'
+  history: 'PASS: former six CURRENT, earlier BLOCKED, bounded applicability review
+    and isolated omission replay on archived project only'
+  docs_inventory: 'Existing FAIL unchanged: exactly 28 unclassified legacy documents;
+    no migration or allowlist'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_model_context_authority_omission.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_model_context_omission_history.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_published_frontier.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_harness_authority_registry.py
+- 'python tools/validate_docs.py  # expected existing 28-file inventory failure'

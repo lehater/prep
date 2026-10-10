@@ -1,0 +1,175 @@
+version: 1
+kind: harness-project-authority-assessments
+assessments:
+  - authority_id: DISCOVERY
+    applicability: REQUIRED
+    evidence: [core:authority:DISCOVERY]
+    rationale: Accepted current problem evidence and user needs are canonical project knowledge.
+    depends_on_evidence: [docs/discovery/problem-evidence.yaml, docs/discovery/user-needs.yaml]
+    reopening_conditions: [accepted problem evidence or user needs change]
+
+  - authority_id: PRODUCT-REQUIREMENTS
+    applicability: REQUIRED
+    evidence: [core:authority:PRODUCT-REQUIREMENTS]
+    rationale: Accepted current product vision and product capabilities are canonical project knowledge.
+    depends_on_evidence: [.harness/knowledge/product-intent.yaml, .harness/knowledge/product-capabilities.yaml]
+    reopening_conditions: [published Product Intent or Product Capabilities acceptance/currentness changes]
+
+  - authority_id: DOMAIN-STRATEGY
+    applicability: REQUIRED
+    evidence: [docs/architecture/context-map.md]
+    rationale: The accepted context map contains material strategic decomposition of Prep domain responsibilities.
+    depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md]
+    reopening_conditions: [published Product Capabilities change or strategic domain responsibility classification changes]
+
+  - authority_id: MODEL-CONTEXT-STRATEGY
+    applicability: UNRESOLVED
+    evidence: [docs/architecture/model-context-map.md]
+    rationale: >-
+      Accepted MC-01 uses one coherent language and IR-01 is internal interpretation,
+      not an independently modeled context relationship or translation. No currently
+      material independent context-boundary contract is evidenced beyond distinctions
+      already preserved by Product Capabilities and Domain Strategy. REQUIRED is not
+      justified by the pinned conditional catalog or by the existing acceptance alone.
+      UNRESOLVED records the applicability/topology reconciliation conflict, not a
+      revocation of accepted semantics. Before selecting NOT_APPLICABLE or a justified
+      project-specific boundary, decide where the accepted applicability knowledge is
+      owned, revise affected graph prerequisites and legacy downstream assertions,
+      and prepare one coherent revision-bound publication transition. Do not infer
+      two contexts from two CORE responsibilities or delete the current provider alone.
+    depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md, docs/architecture/model-context-map.md]
+    reopening_conditions: [coordinated Authority and graph ownership reconciliation establishes the retained or omitted boundary, independently modeled languages or a material context-boundary/translation contract are evidenced, accepted model applicability changes]
+
+  - authority_id: DOMAIN-USE-CASE-DESIGN
+    applicability: NOT_APPLICABLE
+    evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    rationale: Current observable behavior does not require an independently versioned domain-use-case contract between Product Requirements and Tactical Domain Design; product capabilities, model semantics and application orchestration provide the accepted boundaries without a missing intermediate owner.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    reopening_conditions: [a domain-focused behavioral contract must remain stable while tactical modeling or application orchestration changes independently]
+
+  - authority_id: TACTICAL-DOMAIN-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
+    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [accepted context boundaries or tactical domain semantics change]
+
+  - authority_id: APPLICATION-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/application/application-design.md, docs/application/user-journeys.md]
+    rationale: Current canonical knowledge defines the target-relative assessment/gap/learning/evidence loop, corpus bootstrap/curation orchestration, compatibility Study Set behavior and task-oriented user journeys.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [application orchestration or accepted journeys change materially]
+
+  - authority_id: SYSTEM-ARCHITECTURE
+    applicability: REQUIRED
+    evidence: [docs/architecture/system-architecture.md, docs/architecture/frontend-system-architecture.md]
+    rationale: Current canonical knowledge contains material runtime boundaries, deployment topology and frontend module/dependency/state-ownership decisions.
+    depends_on_evidence: [docs/application/application-design.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/import-consistency.md]
+    reopening_conditions: [runtime boundaries, frontend module/dependency topology, deployment constraints or technical topology change materially]
+
+  - authority_id: CONCURRENCY-CONSISTENCY-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/architecture/import-consistency.md]
+    rationale: Bulk import and external-runtime interaction require explicit atomicity, partial-result and retry/consistency semantics.
+    depends_on_evidence: [docs/application/application-design.md, docs/interface/machine-interface.md]
+    reopening_conditions: [import atomicity, concurrency, retry or external synchronization semantics change]
+
+  - authority_id: SECURITY-ARCHITECTURE
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    rationale: The current single-user local trust boundary has no independently owned identity, session, authorization or security-enforcement architecture; its accepted trust and external-runtime constraints remain part of System Architecture and Machine Interface Design.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md]
+    reopening_conditions: [multi-user identity or authorization is accepted, deployment exposes a materially new trust boundary, credentials/session protection gain independent lifecycle, or security enforcement needs separate consumers]
+
+  - authority_id: MACHINE-INTERFACE-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/interface/machine-interface.md]
+    rationale: Prep exposes independently owned browser/backend and external-study-runtime machine interaction contracts.
+    depends_on_evidence: [docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [supported machine interactions or external runtime contracts change materially]
+
+  - authority_id: HUMAN-INTERFACE-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/interface/conceptual-interface-model.yaml, docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md]
+    rationale: Prep requires independently owned human interaction, information architecture and presentation/view composition. Presentation and screen/view contracts remain subject to the current revalidation.
+    depends_on_evidence: [docs/application/user-journeys.md, docs/application/application-design.md, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    reopening_conditions: [accepted journeys, interaction model, information architecture or presentation/view contracts change materially]
+
+  - authority_id: DATA-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/architecture/data-design.md]
+    rationale: Current canonical knowledge contains independent durable-storage representation and persistence constraints.
+    depends_on_evidence: [docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md, docs/architecture/import-consistency.md, docs/architecture/system-architecture.md]
+    reopening_conditions: [persistence ownership, schema constraints or durable representation change materially]
+
+  - authority_id: QUALITY-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/architecture/performance-capacity.md]
+    rationale: Interactive Knowledge exploration has architecture-significant measurable workload, responsiveness, idle-resource and graceful-degradation constraints; spatial graph counts are conditional presentation workload measures rather than product or domain semantics.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/domain/knowledge-model.md, docs/architecture/performance-capacity.md]
+    reopening_conditions: [active-workload scale, responsiveness targets, degradation semantics or measured presentation-workload assumptions change materially]
+
+  - authority_id: SECURITY-ANALYSIS
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    rationale: The accepted v1 scope is a single-user local deployment inside one trusted user/data boundary. Canonical design already keeps credentials/deployment secrets out of browser product state, keeps Anki behind the backend adapter boundary, and explicitly treats broader network exposure, multi-user identity/authorization and stronger trust boundaries as reopening conditions. No independent threat/control coverage contract is required for the current implementation consumer.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/architecture/data-design.md]
+    reopening_conditions: [remote or untrusted deployment becomes accepted scope, multiple users or authorization are introduced, credential/session lifecycle becomes product-owned, sensitive-data protection or disclosure rules become material, or a security review/control framework becomes a required release input]
+
+  - authority_id: OBLIGATION-ANALYSIS
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, frontend/package.json, frontend/package-lock.json]
+    rationale: The FI-00 dependency set has been reassessed after bootstrap. The browser runtime closure currently contains only react, react-dom and scheduler, all MIT-licensed. Development-only dependencies additionally contain MIT OR Apache-2.0, Apache-2.0, MPL-2.0, ISC and BSD-3-Clause packages, but they are not part of the browser runtime closure. No law, regulation, contract, organizational policy or accepted external/public distribution requirement currently creates an independent engineering obligation. Runtime license metadata is checked from the committed lockfile and vulnerability audit is part of heavy validation; any external distribution/release must reopen this assessment for required license/notice packaging.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/implementation/frontend-implementation-design.md, frontend/package.json, frontend/package-lock.json]
+    reopening_conditions: [Prep frontend artifacts are distributed externally, the runtime dependency closure changes, a third-party license introduces material copyleft/notice/source obligations into shipped artifacts, a legal/regulatory/privacy/contractual requirement becomes applicable, or an organization/platform policy must be traced into engineering decisions]
+
+  - authority_id: CHANGE-TRANSITION-DESIGN
+    applicability: NOT_APPLICABLE
+    evidence: [docs/implementation/frontend-implementation-design.md]
+    rationale: Current frontend release/rollback is whole-artifact replacement with no accepted data migration, coexistence window, irreversible intermediate state or independent transition semantics.
+    depends_on_evidence: [docs/implementation/frontend-implementation-design.md]
+    reopening_conditions: [a release requires mixed-version coexistence, data/schema migration, staged irreversible rollout, compatibility window or transition-specific recovery]
+
+  - authority_id: OPERABILITY-DESIGN
+    applicability: NOT_APPLICABLE
+    evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    rationale: Current runtime reachability/error visibility is fully owned by Machine Interface, System Architecture and Verification; no independently valuable diagnosability/telemetry contract is required for the selected frontend scope.
+    depends_on_evidence: [docs/architecture/system-architecture.md, docs/interface/machine-interface.md, docs/verification/frontend-verification.md]
+    reopening_conditions: [runtime diagnosis, correlation, health or operational evidence becomes a separately consumed pre-code contract]
+
+  - authority_id: ENGINEERING-POLICY
+    applicability: REQUIRED
+    evidence: [docs/engineering/frontend-engineering-policy.md]
+    rationale: Frontend realization must apply consistent cross-cutting rules for provider isolation, dependency direction, reuse, composition, state ownership and representation boundaries across multiple feature/implementation slices.
+    depends_on_evidence: [docs/architecture/frontend-system-architecture.md, docs/interface/presentation-system.md, docs/engineering/frontend-engineering-policy.md]
+    reopening_conditions: [frontend architecture, provider strategy or project-wide engineering discipline changes materially]
+
+  - authority_id: COMPONENT-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/implementation/frontend-component-design.md]
+    rationale: The selected frontend prototype and production consumers require explicit code-facing module/component, renderer, mapping, adapter and dependency boundaries so implementation does not promote experimental structure into architecture by accident.
+    depends_on_evidence: [docs/interface/screen-view-design.md, docs/interface/machine-interface.md, docs/architecture/frontend-system-architecture.md, docs/implementation/frontend-component-design.md]
+    reopening_conditions: [frontend architecture, screen/view responsibilities or machine-interface contracts change materially]
+
+  - authority_id: TEST-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/verification/frontend-verification.md, docs/verification/frontend-test-design.yaml]
+    rationale: The production frontend consumer requires executable observable contracts refining accepted frontend Verification Design before concrete production test code is treated as evidence.
+    depends_on_evidence: [docs/verification/frontend-verification.md, docs/interface/interaction-design.yaml, docs/interface/screen-view-design.md]
+    reopening_conditions: [frontend verification obligations or production frontend scope change materially]
+
+  - authority_id: IMPLEMENTATION-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/implementation/frontend-implementation-design.md]
+    rationale: The frontend consumer requires bounded implementation slices, concrete repository realization, tool/provider placement and reproducible completion/release criteria derived from accepted frontend design. The production source baseline is intentionally empty before the first new implementation.
+    depends_on_evidence: [docs/implementation/frontend-component-design.md, docs/verification/frontend-verification.md, docs/verification/frontend-test-design.yaml, docs/engineering/frontend-engineering-policy.md]
+    reopening_conditions: [selected production frontend scope, repository realization strategy or accepted implementation-facing boundaries change materially]
+
+  - authority_id: VERIFICATION-DESIGN
+    applicability: REQUIRED
+    evidence: [docs/verification/interface-verification.md, docs/verification/presentation-verification.md, docs/verification/frontend-verification.md]
+    rationale: Current canonical frontend knowledge has independent interface, presentation and production architecture/machine-contract verification obligations before test design.
+    depends_on_evidence: [docs/vision/product-capabilities.md, docs/interface/machine-interface.md, docs/interface/interface-topology.yaml, docs/interface/presentation-system.md, docs/interface/screen-view-design.md, docs/architecture/frontend-system-architecture.md]
+    reopening_conditions: [accepted frontend interaction, topology, presentation, screen/view or architecture knowledge changes materially]
+

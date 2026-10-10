@@ -1,0 +1,1409 @@
+version: 1
+kind: harness-authority-applicability-review
+status: BLOCKED_COORDINATED_TRANSITION
+authority: MODEL-CONTEXT-STRATEGY
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+catalog_evidence:
+  path: catalogs/software-authorities-v0.yaml
+  applies_when: Multiple model languages or independently modeled semantic contexts
+    require explicit applicability, relationship or translation decisions.
+  merge_guidance: Omit when one coherent model applies and no independent context-boundary
+    contract is material.
+  ownership_contract: docs/design/software-authority-catalog-v0.md
+assessment:
+  disposition: UNRESOLVED
+  REQUIRED_supported: false
+  NOT_APPLICABLE_applied: false
+  reason: One coherent MC-01 and internal IR-01 do not establish multiple independently
+    governed languages or an independently material context-boundary contract. Explicit
+    one-language choice has consumer documentation value, but supplied evidence does
+    not distinguish its governance from coherent tactical/domain ownership enough
+    to justify retaining this conditional Authority. Six acceptances are preservation
+    evidence, not applicability proof.
+source_review:
+  canonical_sources:
+  - .harness/knowledge/product-intent.yaml
+  - .harness/knowledge/product-capabilities.yaml
+  - docs/architecture/context-map.md
+  - docs/architecture/model-context-map.md
+  prepared_product_and_domain_citations: Verified against published Core realization
+  semantic_baseline: Historical only; existing review entries preserved, never used
+    for currentness or new admission
+  registry: Shape/reconciliation PASS; MODEL-CONTEXT marked UNRESOLVED instead of
+    machine-visible unsupported REQUIRED
+  catalog_vs_bootstrap: bootstrap_registry preserves explicit assessments and infers
+    REQUIRED from existing artifacts only when absent. Its idempotent result is not
+    a conditional-applicability semantic verdict.
+  historical_reviews_unchanged_from_PR_base: true
+preserved_snapshot:
+  publication_revision: sha256:e89eb664cb36910e083631559576febaf49f499e2f8f0ee848fcbc7f9085501c
+  core_equals_publication: true
+  accepted_capabilities:
+  - prep.problem-evidence
+  - prep.user-needs
+  - prep.product-intent
+  - prep.product-capabilities
+  - prep.domain-strategy
+  - prep.model-context-strategy
+  unchanged_file_sha256:
+    .harness/engineering-graph.yaml: 25830094e9d8c94ac32eaf17aac002d715e2eb3901966bb454fae55a970f9618
+    .harness/core.yaml: 6b6d6cd0d201bb4d27e6f477311176eafeebb42b7b709f2430700c1972b895b3
+    .harness/project-publication.yaml: 77d40bf8b77b4aab91e2bd1b9f1e760a76c014f2a0e557939f78d3cd8919474d
+impact:
+  direct_downstream_capabilities:
+  - prep.preparation-information-model
+  - prep.recorded-activity-history-model
+  transitive_downstream_capabilities:
+  - prep.application-design
+  - prep.application-process.activity-evidence-cycle
+  - prep.application-process.prepare-support
+  - prep.conceptual-interface-model
+  - prep.data-design
+  - prep.frontend-component-design
+  - prep.frontend-engineering-policy
+  - prep.frontend-implementation-design
+  - prep.frontend-performance-capacity
+  - prep.frontend-system-architecture
+  - prep.frontend-test-design
+  - prep.frontend-verification
+  - prep.import-consistency
+  - prep.information-architecture
+  - prep.interaction-design
+  - prep.interface-topology
+  - prep.interface-verification
+  - prep.machine-interfaces
+  - prep.preparation-information-model
+  - prep.presentation-system
+  - prep.presentation-verification
+  - prep.recorded-activity-history-model
+  - prep.screen-view-design
+  - prep.system-architecture
+  - prep.task-model
+  - prep.user-journeys
+  consumer_targets:
+  - CURRENT-REVALIDATION
+  - FRONTEND-PROTOTYPE
+  - FRONTEND-IMPLEMENTATION
+  existing_graph_conflict: TACTICAL-DOMAIN-DESIGN.semantic_cohesion claims an accepted
+    cross-context relationship although accepted IR-01 is internal to one language.
+    Two tactical artifact outputs may cover two responsibility subjects inside one
+    language; their number is not evidence of two contexts.
+  legacy_assessment_conflicts: Downstream Tactical/Application/Interface/Data registry
+    evidence names unregistered legacy learner-model, learning-design and assessment-loop
+    semantics. These require separate owning-Authority reconciliation, not admission
+    from the old ledger.
+  naive_graph_removal_validation:
+    type: CoreError
+    message: 'production prep.preparation-information-model requires capability with
+      no producer Authority: prep.model-context-strategy'
+  currentness: Six published capabilities still policy-bound CURRENT with existing
+    IDs under current Graph/policy. Applicability remains unresolved independently.
+    Omitting/merging MODEL-CONTEXT would alter the existing producer/provider/currentness
+    surface; six unchanged CURRENT cannot then be promised automatically. No downstream
+    Capability has a new acceptance.
+required_transition:
+  entry: project-bootstrap-reconcile
+  knowledge_scope_review: 'design-profile: establish whether model applicability knowledge
+    is absent or coherently owned in another atomic boundary; select target topology/prerequisites
+    through project Authority judgment, not reference names'
+  semantic_work: Preserve MC-01/IR-01, Product Capabilities, CRUD, retirement dispositions
+    and DS CORE classifications in the target owning CanonicalArtifact. Any changed
+    ownership/Capability identities need explicit semantic admission and acceptance
+    mapping; no automatic copy/rename of acceptances.
+  graph_work: Reconcile target Engineering Graph, Core realization and affected production
+    prerequisites together. Correct obsolete cross-context descriptions; decide tactical
+    subject coverage without assuming two languages. Do not inventory or bulk-admit
+    the 28 legacy documents.
+  publication: Prepare a complete graph-compatible CAS-linked transition preserving
+    revision history, accepted-evidence history and policy/currentness semantics.
+    A graph change needs compatibility handling for reading/validating the previous
+    publication; do not merely delete the old provider.
+  runtime_limit: project-reconcile stops when provider selection/topology must change
+    or Authority judgment is needed; it cannot decide this migration. Use it only
+    after its usable-publication/topology prerequisites are met. If target old/new
+    publication compatibility is not supported by the pinned boundary, report that
+    technical blocker before any durable change.
+  closure: Re-evaluate affected consumers and policies; regenerate Authority registry/status
+    and frontier. No new downstream acceptances are authorized by this review.
+project_engineering_status:
+  version: 1
+  kind: harness-project-engineering-status
+  rows:
+  - authority: DISCOVERY
+    applicability: REQUIRED
+    operational_status: IN_PROGRESS
+    artifacts:
+    - PROBLEM-EVIDENCE
+    - USER-NEEDS
+    blocking: []
+  - authority: PRODUCT-REQUIREMENTS
+    applicability: REQUIRED
+    operational_status: IN_PROGRESS
+    artifacts:
+    - PRODUCT-VISION
+    - PRODUCT-CAPABILITIES
+    blocking: []
+  - authority: DOMAIN-STRATEGY
+    applicability: REQUIRED
+    operational_status: IN_PROGRESS
+    artifacts:
+    - CONTEXT-MAP
+    blocking: []
+  - authority: MODEL-CONTEXT-STRATEGY
+    applicability: UNRESOLVED
+    operational_status: null
+    artifacts:
+    - MODEL-CONTEXT-MAP
+    blocking: []
+  - authority: DOMAIN-USE-CASE-DESIGN
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: TACTICAL-DOMAIN-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: APPLICATION-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: SYSTEM-ARCHITECTURE
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: CONCURRENCY-CONSISTENCY-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: SECURITY-ARCHITECTURE
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: MACHINE-INTERFACE-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: HUMAN-INTERFACE-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: DATA-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: QUALITY-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: SECURITY-ANALYSIS
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: OBLIGATION-ANALYSIS
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: CHANGE-TRANSITION-DESIGN
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: OPERABILITY-DESIGN
+    applicability: NOT_APPLICABLE
+    operational_status: null
+    artifacts: []
+    blocking: []
+  - authority: ENGINEERING-POLICY
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: COMPONENT-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: TEST-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: IMPLEMENTATION-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+  - authority: VERIFICATION-DESIGN
+    applicability: REQUIRED
+    operational_status: NOT_STARTED
+    artifacts: []
+    blocking: []
+coverage_diagnostics:
+  CURRENT-REVALIDATION:
+    completion_ready: false
+    remaining_work_count: 47
+    question_frontier_count: 0
+    work_items:
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.failures
+      blocked_productions:
+      - capability: prep.application-design
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.process
+      blocked_productions:
+      - capability: prep.application-process.activity-evidence-cycle
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+      - capability: prep.application-process.prepare-support
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.boundaries
+      blocked_productions:
+      - capability: prep.system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.import-consistency
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.machine-interfaces
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.structure
+      blocked_productions:
+      - capability: prep.system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.import-consistency
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.machine-interfaces
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: data.classification
+      candidate_authorities:
+      - DATA-DESIGN
+      accepted_semantic_claims:
+      - engineering.data.classification
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: data.integrity
+      candidate_authorities:
+      - DATA-DESIGN
+      accepted_semantic_claims:
+      - engineering.data.integrity
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: data.lifecycle
+      candidate_authorities:
+      - DATA-DESIGN
+      accepted_semantic_claims:
+      - engineering.data.lifecycle
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: data.model
+      candidate_authorities:
+      - DATA-DESIGN
+      accepted_semantic_claims:
+      - engineering.data.model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: delivery.migration
+      candidate_authorities:
+      - IMPLEMENTATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.delivery.migration
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: engineering.error-handling
+      candidate_authorities:
+      - COMPONENT-DESIGN
+      - ENGINEERING-POLICY
+      accepted_semantic_claims:
+      - engineering.engineering.error-handling
+    - action: ASSIGN_AUTHORITY
+      concern: governance.external-obligations
+      accepted_semantic_claims:
+      - engineering.governance.external-obligations
+    - action: ASSIGN_AUTHORITY
+      concern: governance.privacy
+      accepted_semantic_claims:
+      - engineering.governance.privacy
+    - action: WAIT_FOR_PREREQUISITES
+      concern: intent.quality-targets
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.accessibility
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.conceptual-model
+      blocked_productions:
+      - capability: prep.conceptual-interface-model
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: interface.human.i18n
+      candidate_authorities:
+      - HUMAN-INTERFACE-DESIGN
+      - MACHINE-INTERFACE-DESIGN
+      accepted_semantic_claims:
+      - engineering.interface.human.i18n
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.information-architecture
+      blocked_productions:
+      - capability: prep.information-architecture
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.interaction
+      blocked_productions:
+      - capability: prep.interaction-design
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.conceptual-interface-model
+        - prep.machine-interfaces
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.journeys
+      blocked_productions:
+      - capability: prep.user-journeys
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.navigation-topology
+      blocked_productions:
+      - capability: prep.interface-topology
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.responsiveness
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.usability
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.compatibility
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.contract
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.errors
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.maintainability.analysability
+      candidate_authorities:
+      - COMPONENT-DESIGN
+      - ENGINEERING-POLICY
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.maintainability.analysability
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.maintainability.modifiability
+      candidate_authorities:
+      - COMPONENT-DESIGN
+      - ENGINEERING-POLICY
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.maintainability.modifiability
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.maintainability.modularity
+      candidate_authorities:
+      - COMPONENT-DESIGN
+      - ENGINEERING-POLICY
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.maintainability.modularity
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.maintainability.testability
+      candidate_authorities:
+      - COMPONENT-DESIGN
+      - ENGINEERING-POLICY
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.maintainability.testability
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.capacity
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.latency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.resource-efficiency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.performance.throughput
+      candidate_authorities:
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.performance.throughput
+    - action: WAIT_FOR_PREREQUISITES
+      concern: reliability.consistency
+      blocked_productions:
+      - capability: prep.import-consistency
+        authority: CONCURRENCY-CONSISTENCY-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.machine-interfaces
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: reliability.durability
+      candidate_authorities:
+      - DATA-DESIGN
+      accepted_semantic_claims:
+      - engineering.reliability.durability
+    - action: WAIT_FOR_PREREQUISITES
+      concern: reliability.retry-idempotency
+      blocked_productions:
+      - capability: prep.import-consistency
+        authority: CONCURRENCY-CONSISTENCY-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.machine-interfaces
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.ai
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.regulated
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.safety
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.architecture
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.architecture
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.data
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.data
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.functional
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.functional
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.human
+      blocked_productions:
+      - capability: prep.interface-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.task-model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.interface.machine
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.interface.machine
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.quality
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.quality
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.requirement-traceability
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.requirement-traceability
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.strategy
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.strategy
+  FRONTEND-PROTOTYPE:
+    completion_ready: false
+    remaining_work_count: 44
+    question_frontier_count: 0
+    work_items:
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.failures
+      blocked_productions:
+      - capability: prep.application-design
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.process
+      blocked_productions:
+      - capability: prep.application-process.activity-evidence-cycle
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+      - capability: prep.application-process.prepare-support
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.boundaries
+      blocked_productions:
+      - capability: prep.frontend-system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.frontend-performance-capacity
+        - prep.machine-interfaces
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.structure
+      blocked_productions:
+      - capability: prep.frontend-system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.frontend-performance-capacity
+        - prep.machine-interfaces
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.code-quality
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.components
+      blocked_productions:
+      - capability: prep.frontend-component-design
+        authority: COMPONENT-DESIGN
+        missing_prerequisites:
+        - prep.frontend-engineering-policy
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.error-handling
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.principles
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: ASSIGN_AUTHORITY
+      concern: governance.external-obligations
+      accepted_semantic_claims:
+      - engineering.governance.external-obligations
+    - action: ASSIGN_AUTHORITY
+      concern: governance.privacy
+      accepted_semantic_claims:
+      - engineering.governance.privacy
+    - action: WAIT_FOR_PREREQUISITES
+      concern: intent.quality-targets
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.accessibility
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.conceptual-model
+      blocked_productions:
+      - capability: prep.conceptual-interface-model
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: interface.human.i18n
+      candidate_authorities:
+      - HUMAN-INTERFACE-DESIGN
+      - MACHINE-INTERFACE-DESIGN
+      accepted_semantic_claims:
+      - engineering.interface.human.i18n
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.information-architecture
+      blocked_productions:
+      - capability: prep.information-architecture
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.interaction
+      blocked_productions:
+      - capability: prep.interaction-design
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.conceptual-interface-model
+        - prep.machine-interfaces
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.journeys
+      blocked_productions:
+      - capability: prep.user-journeys
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.navigation-topology
+      blocked_productions:
+      - capability: prep.interface-topology
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.presentation-system
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.responsiveness
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.screen-composition
+      blocked_productions:
+      - capability: prep.screen-view-design
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.machine-interfaces
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.usability
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.compatibility
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.contract
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.errors
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.analysability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.modifiability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.modularity
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.testability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.capacity
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.latency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.resource-efficiency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: quality.performance.throughput
+      candidate_authorities:
+      - QUALITY-DESIGN
+      accepted_semantic_claims:
+      - engineering.quality.performance.throughput
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.ai
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.regulated
+    - action: MODEL_PROOF_CONTRACT
+      concern: specialized.safety
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.architecture
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.architecture
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.functional
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.functional
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.human
+      blocked_productions:
+      - capability: prep.interface-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.task-model
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.interface.machine
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.interface.machine
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.presentation
+      blocked_productions:
+      - capability: prep.presentation-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.interface-verification
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.quality
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.quality
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.requirement-traceability
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.requirement-traceability
+    - action: MODEL_PRODUCTION_CONTRACT
+      concern: verification.strategy
+      candidate_authorities:
+      - TEST-DESIGN
+      - VERIFICATION-DESIGN
+      accepted_semantic_claims:
+      - engineering.verification.strategy
+  FRONTEND-IMPLEMENTATION:
+    completion_ready: false
+    remaining_work_count: 40
+    question_frontier_count: 0
+    work_items:
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.failures
+      blocked_productions:
+      - capability: prep.application-design
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: application.process
+      blocked_productions:
+      - capability: prep.application-process.activity-evidence-cycle
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+      - capability: prep.application-process.prepare-support
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.boundaries
+      blocked_productions:
+      - capability: prep.frontend-system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.frontend-performance-capacity
+        - prep.machine-interfaces
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: architecture.structure
+      blocked_productions:
+      - capability: prep.frontend-system-architecture
+        authority: SYSTEM-ARCHITECTURE
+        missing_prerequisites:
+        - prep.application-design
+        - prep.frontend-performance-capacity
+        - prep.machine-interfaces
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: delivery.release
+      blocked_productions:
+      - capability: prep.frontend-implementation-design
+        authority: IMPLEMENTATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-component-design
+        - prep.frontend-test-design
+        - prep.frontend-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: delivery.rollback
+      blocked_productions:
+      - capability: prep.frontend-implementation-design
+        authority: IMPLEMENTATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-component-design
+        - prep.frontend-test-design
+        - prep.frontend-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.code-quality
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.components
+      blocked_productions:
+      - capability: prep.frontend-component-design
+        authority: COMPONENT-DESIGN
+        missing_prerequisites:
+        - prep.frontend-engineering-policy
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.error-handling
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: engineering.principles
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: intent.quality-targets
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.accessibility
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.conceptual-model
+      blocked_productions:
+      - capability: prep.conceptual-interface-model
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.information-architecture
+      blocked_productions:
+      - capability: prep.information-architecture
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.interaction
+      blocked_productions:
+      - capability: prep.interaction-design
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.conceptual-interface-model
+        - prep.machine-interfaces
+        - prep.task-model
+        - prep.user-journeys
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.journeys
+      blocked_productions:
+      - capability: prep.user-journeys
+        authority: APPLICATION-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.navigation-topology
+      blocked_productions:
+      - capability: prep.interface-topology
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.presentation-system
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.responsiveness
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.screen-composition
+      blocked_productions:
+      - capability: prep.screen-view-design
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.machine-interfaces
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.human.usability
+      blocked_productions:
+      - capability: prep.presentation-system
+        authority: HUMAN-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.conceptual-interface-model
+        - prep.frontend-performance-capacity
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.compatibility
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.contract
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: interface.machine.errors
+      blocked_productions:
+      - capability: prep.machine-interfaces
+        authority: MACHINE-INTERFACE-DESIGN
+        missing_prerequisites:
+        - prep.application-design
+        - prep.application-process.activity-evidence-cycle
+        - prep.application-process.prepare-support
+        - prep.preparation-information-model
+        - prep.recorded-activity-history-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.analysability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.modifiability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.modularity
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.maintainability.testability
+      blocked_productions:
+      - capability: prep.frontend-engineering-policy
+        authority: ENGINEERING-POLICY
+        missing_prerequisites:
+        - prep.frontend-system-architecture
+        - prep.presentation-system
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.capacity
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.latency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: quality.performance.resource-efficiency
+      blocked_productions:
+      - capability: prep.frontend-performance-capacity
+        authority: QUALITY-DESIGN
+        missing_prerequisites:
+        - prep.preparation-information-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: transition.revalidation
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.architecture
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.functional
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.human
+      blocked_productions:
+      - capability: prep.interface-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.information-architecture
+        - prep.interaction-design
+        - prep.interface-topology
+        - prep.task-model
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.machine
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.interface.presentation
+      blocked_productions:
+      - capability: prep.presentation-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.interface-verification
+        - prep.presentation-system
+        - prep.screen-view-design
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.quality
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.requirement-traceability
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+    - action: WAIT_FOR_PREREQUISITES
+      concern: verification.strategy
+      blocked_productions:
+      - capability: prep.frontend-verification
+        authority: VERIFICATION-DESIGN
+        missing_prerequisites:
+        - prep.frontend-performance-capacity
+        - prep.frontend-system-architecture
+        - prep.machine-interfaces
+        - prep.presentation-verification
+docs_inventory:
+  status: FAIL
+  unclassified_docs: 28
+  errors:
+  - 'docs/ contains unclassified files outside Harness Core, research, or human projections:
+    docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+    docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+    docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+    docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+    docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+    docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+    docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+    docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+    docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+    docs/interface/interface-topology.yaml, docs/interface/machine-interface.md, docs/interface/presentation-system.md,
+    docs/interface/screen-view-design.md, docs/verification/frontend-test-design.yaml,
+    docs/verification/frontend-verification.md, docs/verification/interface-verification.md,
+    docs/verification/presentation-verification.md'
+  mass_migration_or_allowlist: false
+checks:
+  registry: PASS
+  published_frontier: 'PASS: six policy-bound CURRENT'
+  semantic_baseline: 'PASS: six evaluations/providers'
+  naive_omission: REJECTED by Harness graph validator
+  applicability: UNRESOLVED; no acceptance inferred from structural checks
+  bounded_review_verifier: 'PASS: UNRESOLVED disposition, unchanged snapshot hashes,
+    same acceptances, naive removal rejected'
+  scope_preservation: 'PASS: Graph/Core/Publication identical to PR base; historical
+    ledger reviews unchanged; 28 legacy documents remain unclassified'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_authority_evidence_frontier_review.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_harness_authority_registry.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_published_frontier.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py

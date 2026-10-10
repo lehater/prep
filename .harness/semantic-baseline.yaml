@@ -2,10 +2,14 @@ version: 1
 kind: prep-strict-semantic-baseline
 baseline_id: prep-strict-semantic-baseline-v1
 purpose: >-
-  Record explicit capability-level semantic revalidation decisions for the
-  current accepted Prep Core. The revision number is human-controlled semantic
-  acceptance identity, not a file timestamp or content hash. Bump only the
-  affected capability when its accepted semantics are revalidated or replaced.
+  Historical, pre-publication capability revision ledger. The review entries
+  below document former decisions and may contradict current MVP product and
+  model-context semantics. They are not Harness semantic acceptances, are not
+  the published Core, must not be interpreted as CURRENT, and must not be used
+  as provenance for new Capability admission. Resolve current acceptance and
+  policy-bound lifecycle exclusively through .harness/project-publication.yaml,
+  .harness/core.yaml, .harness/engineering-graph.yaml and the pinned Harness.
+  Retain the old revision numbers and review text as historical evidence only.
 
 reviews:
   - capability: prep.problem-evidence

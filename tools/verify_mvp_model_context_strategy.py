@@ -148,4 +148,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    from verify_model_context_omission_history import run_scenario
+    run_scenario("verify_mvp_model_context_strategy")
