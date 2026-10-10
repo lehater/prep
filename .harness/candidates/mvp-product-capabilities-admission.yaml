@@ -1,0 +1,494 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: PRODUCT-CAPABILITIES
+capability: prep.product-capabilities
+path: .harness/knowledge/product-capabilities.yaml
+changed_paths:
+- .harness/knowledge/product-capabilities.yaml
+canonical_references:
+- referenced_path: .harness/knowledge/product-intent.yaml
+semantic_assertions:
+- id: REQ-CAP-INTRODUCE-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-INTRODUCE-INFORMATION
+  semantic_value:
+    id: REQ-CAP-INTRODUCE-INFORMATION
+    statement: The product shall allow the user to manually create one instance of
+      every entity and relationship kind included in the accepted MVP model, including
+      recorded activity and results, without bulk loading.
+    status: ACCEPTED
+    source_refs: &id001
+    - REQ-INFORMATION-CREATE
+    acceptance_examples:
+    - An individual in-scope information item, relationship, or activity result can
+      be added manually and then inspected.
+  derived_from: *id001
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-INTRODUCE-INFORMATION
+- id: REQ-CAP-RETAIN-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-RETAIN-INFORMATION
+  semantic_value:
+    id: REQ-CAP-RETAIN-INFORMATION
+    statement: The product shall keep an existing in-scope information item or relationship
+      available for subsequent user inspection while it remains in the user's working
+      information set.
+    status: ACCEPTED
+    source_refs: &id002
+    - REQ-INFORMATION-READ
+    - REQ-INFORMATION-CREATE
+    acceptance_examples:
+    - After adding an in-scope item, the user can subsequently access that existing
+      item unless it has been removed from the working set.
+  derived_from: *id002
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-RETAIN-INFORMATION
+- id: REQ-CAP-CHANGE-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-CHANGE-INFORMATION
+  semantic_value:
+    id: REQ-CAP-CHANGE-INFORMATION
+    statement: The product shall allow the user to manually edit an existing instance
+      of every entity and relationship kind included in the accepted MVP model, including
+      recorded activity and results, without bulk loading.
+    status: ACCEPTED
+    source_refs: &id003
+    - REQ-INFORMATION-UPDATE
+    acceptance_examples:
+    - Without bulk loading, the user can change an existing relationship or recorded
+      result and inspect its updated state.
+  derived_from: *id003
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-CHANGE-INFORMATION
+- id: REQ-CAP-REMOVE-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-REMOVE-INFORMATION
+  semantic_value:
+    id: REQ-CAP-REMOVE-INFORMATION
+    statement: The product shall allow the user to remove an existing instance of
+      every entity and relationship kind included in the accepted MVP model, including
+      recorded activity and results, from the working information set.
+    status: ACCEPTED
+    source_refs: &id004
+    - REQ-INFORMATION-DELETE
+    acceptance_examples:
+    - After the user removes an in-scope relationship or recorded result, it is no
+      longer present in their working information set.
+  derived_from: *id004
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-REMOVE-INFORMATION
+- id: REQ-CAP-EXPLORE-PERSPECTIVES
+  kind: product-capability
+  subject: REQ-CAP-EXPLORE-PERSPECTIVES
+  semantic_value:
+    id: REQ-CAP-EXPLORE-PERSPECTIVES
+    statement: The product shall allow the user to examine the same in-scope preparation
+      information from different perspectives.
+    status: ACCEPTED
+    source_refs: &id005
+    - REQ-INFORMATION-PERSPECTIVES
+    acceptance_examples:
+    - The user can inspect the same preparation information from differing perspectives
+      without recreating that information.
+  derived_from: *id005
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-EXPLORE-PERSPECTIVES
+- id: REQ-CAP-SELECT-PART
+  kind: product-capability
+  subject: REQ-CAP-SELECT-PART
+  semantic_value:
+    id: REQ-CAP-SELECT-PART
+    statement: The product shall allow the user to select only a subset of the available
+      information and preparation material for use outside Prep.
+    status: ACCEPTED
+    source_refs: &id006
+    - REQ-EXTERNAL-USE
+    acceptance_examples:
+    - A user can select some items for an external preparation activity without selecting
+      everything in their available information set.
+  derived_from: *id006
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-SELECT-PART
+- id: REQ-CAP-TRANSFER-SELECTION
+  kind: product-capability
+  subject: REQ-CAP-TRANSFER-SELECTION
+  semantic_value:
+    id: REQ-CAP-TRANSFER-SELECTION
+    statement: The product shall make the user-selected subset of information and
+      preparation material available for use outside Prep.
+    status: ACCEPTED
+    source_refs: &id007
+    - REQ-EXTERNAL-USE-AVAILABILITY
+    acceptance_examples:
+    - The user-selected subset can be used in preparation activity outside Prep without
+      requiring unrelated information to accompany it.
+  derived_from: *id007
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-TRANSFER-SELECTION
+- id: REQ-CAP-RECORD-ACTIVITY
+  kind: product-capability
+  subject: REQ-CAP-RECORD-ACTIVITY
+  semantic_value:
+    id: REQ-CAP-RECORD-ACTIVITY
+    statement: The product shall allow the user to bring a record of preparation activity
+      performed outside Prep, and its result when present, into Prep.
+    status: ACCEPTED
+    source_refs: &id008
+    - REQ-RECORDED-ACTIVITY-INTAKE
+    acceptance_examples:
+    - After an activity outside Prep, the user can introduce its recorded occurrence
+      and any recorded result into Prep.
+  derived_from: *id008
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-RECORD-ACTIVITY
+- id: REQ-CAP-RELATE-ACTIVITY
+  kind: product-capability
+  subject: REQ-CAP-RELATE-ACTIVITY
+  semantic_value:
+    id: REQ-CAP-RELATE-ACTIVITY
+    statement: The product shall allow the user to understand which in-scope preparation
+      information a recorded activity or result concerns.
+    status: ACCEPTED
+    source_refs: &id009
+    - REQ-RECORDED-HISTORY-CONTEXT
+    acceptance_examples:
+    - When examining a recorded result, the user can identify the preparation information
+      that the result concerns.
+  derived_from: *id009
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-RELATE-ACTIVITY
+- id: REQ-CAP-PRESERVE-TIME
+  kind: product-capability
+  subject: REQ-CAP-PRESERVE-TIME
+  semantic_value:
+    id: REQ-CAP-PRESERVE-TIME
+    statement: The product shall retain sufficient temporal context for the user to
+      distinguish recorded activity and results over time.
+    status: ACCEPTED
+    source_refs: &id010
+    - REQ-RECORDED-HISTORY
+    acceptance_examples:
+    - The user can distinguish activity recorded for different times when examining
+      those records over time.
+  derived_from: *id010
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-PRESERVE-TIME
+- id: REQ-CAP-EXPLORE-HISTORY
+  kind: product-capability
+  subject: REQ-CAP-EXPLORE-HISTORY
+  semantic_value:
+    id: REQ-CAP-EXPLORE-HISTORY
+    statement: The product shall allow the user to examine recorded activity and results
+      over time.
+    status: ACCEPTED
+    source_refs: &id011
+    - REQ-RECORDED-HISTORY
+    acceptance_examples:
+    - The user can examine several existing activity records in temporal context rather
+      than only one isolated record.
+  derived_from: *id011
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-EXPLORE-HISTORY
+- id: REQ-CAP-BULK-LOAD-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-BULK-LOAD-INFORMATION
+  semantic_value:
+    id: REQ-CAP-BULK-LOAD-INFORMATION
+    statement: The product shall allow the user to introduce multiple records from
+      externally supplied information in one bulk-loading operation for every entity
+      and relationship kind included in the accepted MVP model, including recorded
+      activity and results.
+    status: ACCEPTED
+    source_refs: &id012
+    - REQ-INFORMATION-BULK-LOAD
+    acceptance_examples:
+    - From externally supplied information, the user can load more than one record
+      of an in-scope kind together and inspect the resulting records in Prep.
+  derived_from: *id012
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-BULK-LOAD-INFORMATION
+- id: REQ-CAP-READ-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-READ-INFORMATION
+  semantic_value:
+    id: REQ-CAP-READ-INFORMATION
+    statement: The product shall allow the user to inspect existing instances of every
+      entity and relationship kind included in the accepted MVP model, including recorded
+      activity and results.
+    status: ACCEPTED
+    source_refs: &id013
+    - REQ-INFORMATION-READ
+    acceptance_examples:
+    - The user can inspect an existing relationship, activity record or result, as
+      well as any other in-scope information instance.
+  derived_from: *id013
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-READ-INFORMATION
+- id: REQ-CAP-EXPLORE-INFORMATION
+  kind: product-capability
+  subject: REQ-CAP-EXPLORE-INFORMATION
+  semantic_value:
+    id: REQ-CAP-EXPLORE-INFORMATION
+    statement: The product shall allow the user to explore available knowledge, goals,
+      capabilities, practice material, recorded activity, and results.
+    status: ACCEPTED
+    source_refs: &id014
+    - REQ-INFORMATION-EXPLORATION
+    acceptance_examples:
+    - The user can inspect available preparation information covering the in-scope
+      categories, not only recorded activity or materials.
+  derived_from: *id014
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-EXPLORE-INFORMATION
+- id: REQ-CAP-EXPLORE-RELATIONSHIPS
+  kind: product-capability
+  subject: REQ-CAP-EXPLORE-RELATIONSHIPS
+  semantic_value:
+    id: REQ-CAP-EXPLORE-RELATIONSHIPS
+    statement: The product shall allow the user to examine relationships among available
+      in-scope preparation information.
+    status: ACCEPTED
+    source_refs: &id015
+    - REQ-INFORMATION-EXPLORATION
+    acceptance_examples:
+    - When an in-scope relationship exists, the user can inspect the relationship
+      and the information it connects.
+  derived_from: *id015
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content/requirements/REQ-CAP-EXPLORE-RELATIONSHIPS
+- id: PC-SCOPE
+  kind: product-capability-scope
+  subject: mvp-scope
+  semantic_value:
+    purpose: Specify externally observable MVP product capabilities that realize the
+      accepted Product Intent. These requirements do not decide Domain, Application,
+      Interface, Data, or implementation designs.
+    scope_boundaries:
+    - The accepted MVP model determines which entity and relationship kinds exist.
+      All those kinds, including recorded activity/results, must have bulk-loading
+      and complete CRUD support; no kind can be silently excluded.
+    - The product shall not require a particular information import/export format,
+      UI design, API, storage model, 2D/3D representation or technology.
+    - Product-level editing and removal of recorded activity/results are mandatory.
+      The meaning of historical continuity following changes and deletions is a downstream
+      modeling issue, not permission to restrict those product operations.
+    - The retired proposal IDs were not previously admitted as CURRENT requirements.
+      Retirement here removes unsupported or duplicate candidate commitments, not
+      accepted upstream behavior.
+    intent_coverage:
+    - intent: REQ-INFORMATION-EXPLORATION
+      capabilities: &id016
+      - REQ-CAP-EXPLORE-INFORMATION
+      - REQ-CAP-EXPLORE-RELATIONSHIPS
+    - intent: REQ-INFORMATION-PERSPECTIVES
+      capabilities: &id017
+      - REQ-CAP-EXPLORE-PERSPECTIVES
+    - intent: REQ-EXTERNAL-USE
+      capabilities: &id018
+      - REQ-CAP-SELECT-PART
+    - intent: REQ-EXTERNAL-USE-AVAILABILITY
+      capabilities: &id019
+      - REQ-CAP-TRANSFER-SELECTION
+    - intent: REQ-RECORDED-HISTORY
+      capabilities: &id020
+      - REQ-CAP-PRESERVE-TIME
+      - REQ-CAP-EXPLORE-HISTORY
+    - intent: REQ-RECORDED-HISTORY-CONTEXT
+      capabilities: &id021
+      - REQ-CAP-RELATE-ACTIVITY
+    - intent: REQ-RECORDED-ACTIVITY-INTAKE
+      capabilities: &id022
+      - REQ-CAP-RECORD-ACTIVITY
+    - intent: REQ-INFORMATION-BULK-LOAD
+      capabilities: &id023
+      - REQ-CAP-BULK-LOAD-INFORMATION
+    - intent: REQ-INFORMATION-CREATE
+      capabilities: &id024
+      - REQ-CAP-INTRODUCE-INFORMATION
+    - intent: REQ-INFORMATION-READ
+      capabilities: &id025
+      - REQ-CAP-READ-INFORMATION
+      - REQ-CAP-RETAIN-INFORMATION
+    - intent: REQ-INFORMATION-UPDATE
+      capabilities: &id026
+      - REQ-CAP-CHANGE-INFORMATION
+    - intent: REQ-INFORMATION-DELETE
+      capabilities: &id027
+      - REQ-CAP-REMOVE-INFORMATION
+    non_goals:
+    - Assess what the user knows or can do, or estimate mastery, readiness, or competence.
+    - Verify the truth, quality, authorship, reliability, or authority of information.
+    - Require source management, provenance, citations, source versioning, or traceability.
+    - Define a fixed taxonomy of knowledge kinds or relationship meanings.
+    - Define required cross-kind relationship topology or connection cardinalities.
+    - Require immutable activity history or prescribe a deletion or versioning strategy.
+    - Require a particular visualization, import/export format, API, integration,
+      persistence model, or implementation technology.
+    - Require particular statistics or derived assessments from recorded facts.
+    retired_requirements:
+    - id: REQ-CAP-KNOWLEDGE-KINDS
+      statement: The product shall support distinguishable kinds of knowledge.
+      status: RETIRED
+      source_refs:
+      - REQ-INFORMATION-EXPLORATION
+      rationale: Previous unadmitted proposal requires a distinct product choice about
+        differentiating kinds within knowledge. Accepted Product Intent lists information
+        categories but does not commit to a knowledge-kind taxonomy or its user-visible
+        management. No such obligation is inferred.
+    - id: REQ-CAP-RELATIONSHIP-MEANINGS
+      statement: The product shall preserve distinguishable meanings of relationships.
+      status: RETIRED
+      source_refs:
+      - REQ-INFORMATION-EXPLORATION
+      rationale: Previous unadmitted proposal makes an additional commitment about
+        relationship meanings. Accepted Product Intent requires relationship exploration,
+        but leaves taxonomy and relationship semantics to future explicit decisions
+        and their owning Authorities.
+    - id: REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS
+      statement: The product shall allow relationships to connect different kinds
+        of information.
+      status: RETIRED
+      source_refs:
+      - REQ-INFORMATION-EXPLORATION
+      rationale: Previous unadmitted proposal could prescribe cross-kind relationship
+        topology. The accepted requirement is to explore in-scope relationships; which
+        links are valid belongs to downstream modeling, without silently assuming
+        arbitrary cross-kind connections.
+    - id: REQ-CAP-PRESERVE-HISTORY-CONTEXT
+      statement: The product shall preserve enough context for recorded activity and
+        results to remain understandable in relation to the information they concerned
+        when that information is later changed or removed.
+      status: RETIRED
+      source_refs:
+      - REQ-RECORDED-HISTORY-CONTEXT
+      - REQ-INFORMATION-UPDATE
+      - REQ-INFORMATION-DELETE
+      rationale: Previous unadmitted proposal imposes a historical-preservation invariant
+        not settled by accepted Product Intent. Recorded activity and results remain
+        editable and removable under the owner's CRUD decision; the domain/history
+        consistency consequence must be decided downstream, not silently imposed by
+        Product Capabilities.
+  derived_from:
+  - PI-SCOPE
+  decision_authority: PRODUCT-REQUIREMENTS
+  canonical_location: .harness/knowledge/product-capabilities.yaml#content
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - observable-product-level
+  - no-downstream-design-promotion
+  basis:
+    source-discipline: Only current accepted PRODUCT-VISION assertions matching published
+      PREP-MVP-PRODUCT-INTENT-1 fingerprints are used. No Discovery, legacy candidate
+      or downstream design is substituted as a direct prerequisite. The upstream review-text
+      YAML escaping repair does not change its semantic assertions or acceptance.
+    authority-boundary: Capabilities preserve observable operations and scope without
+      choosing domain taxonomy, cross-kind topology, historical consistency, UI, transport,
+      storage, deletion strategy or implementation.
+    no-invention: Fifteen active requirements cover all twelve accepted intent requirements.
+      Four previously unadmitted candidates stay RETIRED with independent dispositions,
+      not new NOT_REQUIRED owner decisions or feature prohibitions. Retain-information
+      means continued availability while the item exists in the working set, not crash/restart
+      retention or immutable history.
+    observable-product-level: Active requirements are independently identified and
+      have observable examples. Manual create/update, all-kind CRUD, externally supplied
+      bulk load, record intake, selection/availability, exploration and temporal/relational
+      understanding are preserved.
+    no-downstream-design-promotion: Only accepted intent defines obligations. Historical
+      context after change/removal and validity of cross-kind relations remain downstream;
+      neither is inferred as mandatory product behavior.
+  source_classification:
+  - source: REQ-INFORMATION-EXPLORATION
+    classification: requirement-bearing
+    capabilities: *id016
+    basis: null
+  - source: REQ-INFORMATION-PERSPECTIVES
+    classification: requirement-bearing
+    capabilities: *id017
+    basis: null
+  - source: REQ-EXTERNAL-USE
+    classification: requirement-bearing
+    capabilities: *id018
+    basis: null
+  - source: REQ-EXTERNAL-USE-AVAILABILITY
+    classification: requirement-bearing
+    capabilities: *id019
+    basis: null
+  - source: REQ-RECORDED-HISTORY
+    classification: requirement-bearing
+    capabilities: *id020
+    basis: null
+  - source: REQ-RECORDED-HISTORY-CONTEXT
+    classification: requirement-bearing
+    capabilities: *id021
+    basis: null
+  - source: REQ-RECORDED-ACTIVITY-INTAKE
+    classification: requirement-bearing
+    capabilities: *id022
+    basis: null
+  - source: REQ-INFORMATION-LIFECYCLE
+    classification: out-of-scope
+    capabilities: []
+    basis: RETIRED intent proposal is not a current obligation
+  - source: REQ-INFORMATION-BULK-LOAD
+    classification: requirement-bearing
+    capabilities: *id023
+    basis: null
+  - source: REQ-INFORMATION-CREATE
+    classification: requirement-bearing
+    capabilities: *id024
+    basis: null
+  - source: REQ-INFORMATION-READ
+    classification: requirement-bearing
+    capabilities: *id025
+    basis: null
+  - source: REQ-INFORMATION-UPDATE
+    classification: requirement-bearing
+    capabilities: *id026
+    basis: null
+  - source: REQ-INFORMATION-DELETE
+    classification: requirement-bearing
+    capabilities: *id027
+    basis: null
+  - source: PD-MVP-DATA-MANAGEMENT-2026-10-10
+    classification: rationale/context
+    basis: Owner decision is already realized in accepted intent requirements; consumed
+      through those requirements, not independently expanded.
+  - source: PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10
+    classification: rationale/context
+    basis: Owner decision is already realized in accepted intent requirements; consumed
+      through those requirements, not independently expanded.
+  - source: PI-SCOPE
+    classification: requirement-bearing
+    capabilities:
+    - PC-SCOPE
+    basis: Preserve scope, non-goals and no downstream mechanism constraints.
+  retirement_review:
+  - requirement: REQ-CAP-KNOWLEDGE-KINDS
+    status: RETIRED
+    basis: Current intent requires exploration of in-scope information; it does not
+      commit to differentiating kinds within knowledge or a user-visible taxonomy.
+      Retirement adds no prohibition; all modeled kinds retain mandatory CRUD and
+      bulk load.
+  - requirement: REQ-CAP-RELATIONSHIP-MEANINGS
+    status: RETIRED
+    basis: Relationship exploration remains active; an additional user-visible meaning-differentiation
+      obligation is not accepted in intent. No new taxonomy or prohibition is decided.
+  - requirement: REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS
+    status: RETIRED
+    basis: Every accepted in-scope relationship remains explorable and manageable.
+      Arbitrary cross-kind connectivity is not required by intent; valid link semantics
+      remain downstream.
+  - requirement: REQ-CAP-PRESERVE-HISTORY-CONTEXT
+    status: RETIRED
+    basis: Temporal understanding and identifying related in-scope information remain
+      active. A guarantee after related data changes/removal is not accepted in intent,
+      which explicitly leaves historical consistency downstream while preserving owner
+      CRUD. Retirement is not permission to violate current understanding requirements
+      or to forbid historical support.
+  coverage_review: Every active intent requirement is mapped to active capability
+    requirements; all source_refs resolve to accepted intent assertions. No additional
+    product-owner choice is needed to admit this bounded surface.

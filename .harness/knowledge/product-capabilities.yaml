@@ -6,118 +6,284 @@ title: Prep Product Capabilities
 
 content:
   purpose: >-
-    Define the minimum observable product behaviors required to realize
-    the accepted Prep product intent.
+    Specify externally observable MVP product capabilities that realize
+    the accepted Product Intent. These requirements do not decide Domain,
+    Application, Interface, Data, or implementation designs.
 
   requirements:
     - id: REQ-CAP-INTRODUCE-INFORMATION
       statement: >-
-        The product shall allow information and relationships to be introduced
-        for use in Prep.
+        The product shall allow the user to manually create one instance of
+        every entity and relationship kind included in the accepted MVP model,
+        including recorded activity and results, without bulk loading.
       status: ACCEPTED
-      source_refs: [REQ-INFORMATION-LIFECYCLE]
+      source_refs: [REQ-INFORMATION-CREATE]
+      acceptance_examples:
+        - >-
+          An individual in-scope information item, relationship, or activity
+          result can be added manually and then inspected.
 
     - id: REQ-CAP-RETAIN-INFORMATION
       statement: >-
-        The product shall retain information and relationships so they remain
-        available until changed or removed.
+        The product shall keep an existing in-scope information item or
+        relationship available for subsequent user inspection while it
+        remains in the user's working information set.
       status: ACCEPTED
-      source_refs: [REQ-INFORMATION-LIFECYCLE]
+      source_refs: [REQ-INFORMATION-READ, REQ-INFORMATION-CREATE]
+      acceptance_examples:
+        - >-
+          After adding an in-scope item, the user can subsequently access
+          that existing item unless it has been removed from the working set.
 
     - id: REQ-CAP-CHANGE-INFORMATION
       statement: >-
-        The product shall allow information and relationships available in Prep
-        to be changed.
+        The product shall allow the user to manually edit an existing instance
+        of every entity and relationship kind included in the accepted MVP
+        model, including recorded activity and results, without bulk loading.
       status: ACCEPTED
-      source_refs: [REQ-INFORMATION-LIFECYCLE]
+      source_refs: [REQ-INFORMATION-UPDATE]
+      acceptance_examples:
+        - >-
+          Without bulk loading, the user can change an existing relationship
+          or recorded result and inspect its updated state.
 
     - id: REQ-CAP-REMOVE-INFORMATION
       statement: >-
-        The product shall allow information and relationships to be removed
-        from Prep.
+        The product shall allow the user to remove an existing instance
+        of every entity and relationship kind included in the accepted MVP
+        model, including recorded activity and results, from the working
+        information set.
       status: ACCEPTED
-      source_refs: [REQ-INFORMATION-LIFECYCLE]
+      source_refs: [REQ-INFORMATION-DELETE]
+      acceptance_examples:
+        - >-
+          After the user removes an in-scope relationship or recorded
+          result, it is no longer present in their working information set.
 
     - id: REQ-CAP-KNOWLEDGE-KINDS
       statement: >-
         The product shall support distinguishable kinds of knowledge.
-      status: ACCEPTED
+      status: RETIRED
       source_refs: [REQ-INFORMATION-EXPLORATION]
+      rationale: >-
+        Previous unadmitted proposal requires a distinct product choice about
+        differentiating kinds within knowledge. Accepted Product Intent lists
+        information categories but does not commit to a knowledge-kind taxonomy
+        or its user-visible management. No such obligation is inferred.
 
     - id: REQ-CAP-RELATIONSHIP-MEANINGS
       statement: >-
         The product shall preserve distinguishable meanings of relationships.
-      status: ACCEPTED
+      status: RETIRED
       source_refs: [REQ-INFORMATION-EXPLORATION]
+      rationale: >-
+        Previous unadmitted proposal makes an additional commitment about
+        relationship meanings. Accepted Product Intent requires relationship
+        exploration, but leaves taxonomy and relationship semantics to
+        future explicit decisions and their owning Authorities.
 
     - id: REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS
       statement: >-
-        The product shall allow relationships to connect different kinds of
-        information.
-      status: ACCEPTED
+        The product shall allow relationships to connect different kinds
+        of information.
+      status: RETIRED
       source_refs: [REQ-INFORMATION-EXPLORATION]
+      rationale: >-
+        Previous unadmitted proposal could prescribe cross-kind relationship
+        topology. The accepted requirement is to explore in-scope relationships;
+        which links are valid belongs to downstream modeling, without
+        silently assuming arbitrary cross-kind connections.
 
     - id: REQ-CAP-EXPLORE-PERSPECTIVES
       statement: >-
-        The product shall let the user examine available information and
-        relationships from different perspectives.
+        The product shall allow the user to examine the same in-scope
+        preparation information from different perspectives.
       status: ACCEPTED
-      source_refs: [REQ-INFORMATION-EXPLORATION]
+      source_refs: [REQ-INFORMATION-PERSPECTIVES]
+      acceptance_examples:
+        - >-
+          The user can inspect the same preparation information from
+          differing perspectives without recreating that information.
 
     - id: REQ-CAP-SELECT-PART
       statement: >-
-        The product shall let the user select part of the available information
-        and material for external use.
+        The product shall allow the user to select only a subset of the
+        available information and preparation material for use outside Prep.
       status: ACCEPTED
       source_refs: [REQ-EXTERNAL-USE]
+      acceptance_examples:
+        - >-
+          A user can select some items for an external preparation activity
+          without selecting everything in their available information set.
 
     - id: REQ-CAP-TRANSFER-SELECTION
       statement: >-
-        The product shall make the selected information and material available
-        outside Prep in a form usable for preparation activity.
+        The product shall make the user-selected subset of information and
+        preparation material available for use outside Prep.
       status: ACCEPTED
-      source_refs: [REQ-EXTERNAL-USE]
+      source_refs: [REQ-EXTERNAL-USE-AVAILABILITY]
+      acceptance_examples:
+        - >-
+          The user-selected subset can be used in preparation activity
+          outside Prep without requiring unrelated information to accompany it.
 
     - id: REQ-CAP-RECORD-ACTIVITY
       statement: >-
-        The product shall accept recorded activity, including a recorded result
-        when one exists.
+        The product shall allow the user to bring a record of preparation
+        activity performed outside Prep, and its result when present, into Prep.
       status: ACCEPTED
-      source_refs: [REQ-RECORDED-HISTORY]
+      source_refs: [REQ-RECORDED-ACTIVITY-INTAKE]
+      acceptance_examples:
+        - >-
+          After an activity outside Prep, the user can introduce its
+          recorded occurrence and any recorded result into Prep.
 
     - id: REQ-CAP-RELATE-ACTIVITY
       statement: >-
-        The product shall keep recorded activity and results associated with
-        the information they concern.
+        The product shall allow the user to understand which in-scope
+        preparation information a recorded activity or result concerns.
       status: ACCEPTED
-      source_refs: [REQ-RECORDED-HISTORY]
+      source_refs: [REQ-RECORDED-HISTORY-CONTEXT]
+      acceptance_examples:
+        - >-
+          When examining a recorded result, the user can identify the
+          preparation information that the result concerns.
 
     - id: REQ-CAP-PRESERVE-TIME
       statement: >-
-        The product shall retain enough temporal context for recorded activity
-        and results to distinguish when they took place.
+        The product shall retain sufficient temporal context for the
+        user to distinguish recorded activity and results over time.
       status: ACCEPTED
       source_refs: [REQ-RECORDED-HISTORY]
+      acceptance_examples:
+        - >-
+          The user can distinguish activity recorded for different times
+          when examining those records over time.
 
     - id: REQ-CAP-PRESERVE-HISTORY-CONTEXT
       statement: >-
         The product shall preserve enough context for recorded activity and
         results to remain understandable in relation to the information they
         concerned when that information is later changed or removed.
-      status: ACCEPTED
-      source_refs: [REQ-RECORDED-HISTORY, REQ-INFORMATION-LIFECYCLE]
+      status: RETIRED
+      source_refs: [REQ-RECORDED-HISTORY-CONTEXT, REQ-INFORMATION-UPDATE, REQ-INFORMATION-DELETE]
+      rationale: >-
+        Previous unadmitted proposal imposes a historical-preservation
+        invariant not settled by accepted Product Intent. Recorded activity
+        and results remain editable and removable under the owner's CRUD
+        decision; the domain/history consistency consequence must be decided
+        downstream, not silently imposed by Product Capabilities.
 
     - id: REQ-CAP-EXPLORE-HISTORY
       statement: >-
-        The product shall let the user examine recorded activity and results
-        over time and in relation to the information they concern.
+        The product shall allow the user to examine recorded activity
+        and results over time.
       status: ACCEPTED
-      source_refs: [REQ-RECORDED-HISTORY, REQ-INFORMATION-EXPLORATION]
+      source_refs: [REQ-RECORDED-HISTORY]
+      acceptance_examples:
+        - >-
+          The user can examine several existing activity records in
+          temporal context rather than only one isolated record.
+
+    - id: REQ-CAP-BULK-LOAD-INFORMATION
+      statement: >-
+        The product shall allow the user to introduce multiple records
+        from externally supplied information in one bulk-loading operation
+        for every entity and relationship
+        kind included in the accepted MVP model, including recorded
+        activity and results.
+      status: ACCEPTED
+      source_refs: [REQ-INFORMATION-BULK-LOAD]
+      acceptance_examples:
+        - >-
+          From externally supplied information, the user can load more than
+          one record of an in-scope kind together and inspect the resulting
+          records in Prep.
+
+    - id: REQ-CAP-READ-INFORMATION
+      statement: >-
+        The product shall allow the user to inspect existing instances
+        of every entity and relationship kind included in the accepted
+        MVP model, including recorded activity and results.
+      status: ACCEPTED
+      source_refs: [REQ-INFORMATION-READ]
+      acceptance_examples:
+        - >-
+          The user can inspect an existing relationship, activity record
+          or result, as well as any other in-scope information instance.
+
+    - id: REQ-CAP-EXPLORE-INFORMATION
+      statement: >-
+        The product shall allow the user to explore available knowledge,
+        goals, capabilities, practice material, recorded activity, and results.
+      status: ACCEPTED
+      source_refs: [REQ-INFORMATION-EXPLORATION]
+      acceptance_examples:
+        - >-
+          The user can inspect available preparation information covering
+          the in-scope categories, not only recorded activity or materials.
+
+    - id: REQ-CAP-EXPLORE-RELATIONSHIPS
+      statement: >-
+        The product shall allow the user to examine relationships among
+        available in-scope preparation information.
+      status: ACCEPTED
+      source_refs: [REQ-INFORMATION-EXPLORATION]
+      acceptance_examples:
+        - >-
+          When an in-scope relationship exists, the user can inspect
+          the relationship and the information it connects.
+
+  scope_boundaries:
+    - >-
+      The accepted MVP model determines which entity and relationship kinds
+      exist. All those kinds, including recorded activity/results, must have
+      bulk-loading and complete CRUD support; no kind can be silently excluded.
+    - >-
+      The product shall not require a particular information import/export
+      format, UI design, API, storage model, 2D/3D representation or technology.
+    - >-
+      Product-level editing and removal of recorded activity/results are
+      mandatory. The meaning of historical continuity following changes
+      and deletions is a downstream modeling issue, not permission to
+      restrict those product operations.
+    - >-
+      The retired proposal IDs were not previously admitted as CURRENT
+      requirements. Retirement here removes unsupported or duplicate
+      candidate commitments, not accepted upstream behavior.
+
+  intent_coverage:
+    - intent: REQ-INFORMATION-EXPLORATION
+      capabilities: [REQ-CAP-EXPLORE-INFORMATION, REQ-CAP-EXPLORE-RELATIONSHIPS]
+    - intent: REQ-INFORMATION-PERSPECTIVES
+      capabilities: [REQ-CAP-EXPLORE-PERSPECTIVES]
+    - intent: REQ-EXTERNAL-USE
+      capabilities: [REQ-CAP-SELECT-PART]
+    - intent: REQ-EXTERNAL-USE-AVAILABILITY
+      capabilities: [REQ-CAP-TRANSFER-SELECTION]
+    - intent: REQ-RECORDED-HISTORY
+      capabilities: [REQ-CAP-PRESERVE-TIME, REQ-CAP-EXPLORE-HISTORY]
+    - intent: REQ-RECORDED-HISTORY-CONTEXT
+      capabilities: [REQ-CAP-RELATE-ACTIVITY]
+    - intent: REQ-RECORDED-ACTIVITY-INTAKE
+      capabilities: [REQ-CAP-RECORD-ACTIVITY]
+    - intent: REQ-INFORMATION-BULK-LOAD
+      capabilities: [REQ-CAP-BULK-LOAD-INFORMATION]
+    - intent: REQ-INFORMATION-CREATE
+      capabilities: [REQ-CAP-INTRODUCE-INFORMATION]
+    - intent: REQ-INFORMATION-READ
+      capabilities: [REQ-CAP-READ-INFORMATION, REQ-CAP-RETAIN-INFORMATION]
+    - intent: REQ-INFORMATION-UPDATE
+      capabilities: [REQ-CAP-CHANGE-INFORMATION]
+    - intent: REQ-INFORMATION-DELETE
+      capabilities: [REQ-CAP-REMOVE-INFORMATION]
 
   non_goals:
-    - Infer or maintain learner state.
-    - Estimate mastery, readiness, or competence.
+    - Assess what the user knows or can do, or estimate mastery, readiness, or competence.
+    - Verify the truth, quality, authorship, reliability, or authority of information.
+    - Require source management, provenance, citations, source versioning, or traceability.
     - Define a fixed taxonomy of knowledge kinds or relationship meanings.
-    - Define a required relationship topology.
-    - Require a particular visualization, import or export format, API, integration, persistence model, or implementation technology.
+    - Define required cross-kind relationship topology or connection cardinalities.
+    - Require immutable activity history or prescribe a deletion or versioning strategy.
+    - Require a particular visualization, import/export format, API, integration, persistence model, or implementation technology.
     - Require particular statistics or derived assessments from recorded facts.
