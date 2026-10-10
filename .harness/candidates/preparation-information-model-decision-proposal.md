@@ -130,6 +130,71 @@ acceptance. The published `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`
 remains unresolved until **all its material choices** have been
 decided and the routed Harness transition has been validated.
 
+## Multiplicity review corrected — meaning before storage (2026-10-10)
+
+**ANALYSIS ONLY — NO USER CHOICE OR HARNESS ACCEPTANCE.** The initial
+recommendation `MULTIPLICITY = PARALLEL` relied excessively on operational
+freedom, independent instance identity and import convenience. These are
+secondary engineering effects, not evidence of *two meaningful domain
+relationships*. The multiplicity choice is **OPEN / NOT USER-APPROVED**;
+neither PARALLEL, UNIQUE nor a per-meaning rule has been selected.
+
+Semantic-first protocol for each prospective relationship use:
+
+1. State a concrete user question answered by the relation in the
+   language of Knowledge, Goal, CapabilityDescription and PracticeMaterial.
+2. Specify its intended meaning, valid endpoint roles, context/conditions
+   and whether the asserted fact persists independently of recorded
+   activity/results.
+3. Construct two records with the same endpoints and stated meaning.
+   Ask what additional *domain truth* the second asserts, excluding merely
+   a new ID, duplicated import, separate source, justification, timestamp
+   of entry or UI line.
+4. If it is the same truth with two supporting sources/reasons, review
+   separate source/evidence/justification semantics rather than
+   automatically requiring two domain links. Such a source/evidence
+   capability is **not** currently accepted or implied.
+5. If two relations genuinely differ, identify the discriminating
+   semantic condition: meaning, context, independent occurrence or
+   qualification. If that difference belongs to a distinct relation type,
+   context-qualified fact, or DS-02 recorded activity, model it in its
+   proper owner rather than calling identical links parallel.
+6. Only after validating the relationship uses, determine which
+   multiplicity invariant, if any, is justified per kind; then derive
+   mutation collisions, bulk import behavior, provenance and graph
+   presentation. Do not choose uniqueness/deduplication rules from
+   tooling convenience.
+
+### Nonbinding semantic examples
+
+| Hypothetical claim for the same Knowledge K and Goal G | Classification to investigate |
+| --- | --- |
+| K is needed to achieve G, asserted twice with no material difference | One proposition with duplicate entry; a second link adds no new meaning |
+| Two references independently support "K is needed for G" | One possible proposition with two sources, not automatically two propositions |
+| K is a prerequisite for G, and K is the subject of G | Two *different* relation meanings, not equal-meaning parallel links |
+| K is applicable to G under condition C1 vs condition C2 | Two conditional claims if the conditions materially change their meaning; requires an authorized context model |
+| An external practice activity uses K for G on two dates | Two recorded occurrences under DS-02, not automatically two DS-01 preparation links |
+| Two independent explanations connect K and G in the same general way | Determine whether explanations qualify one fact, two independent uses or separate modeled entities before counting relations |
+
+The phrases "needed for", "prerequisite", "subject of" and "applicable
+under conditions" above are **illustrative candidates**, not admitted
+relation types. The existing RETIRED product proposals remain RETIRED.
+Previously approved `RELATION-IDENTITY = INSTANCE` concerns individual
+record identity and does not entail multiplicity, provenance tracking,
+unbounded duplicate truth or a graph multiedge requirement.
+
+**Working hypothesis, not a decision:** for a relation interpreted as a
+simple binary domain proposition with fixed endpoints, predicate and
+material conditions, an identical repetition ordinarily adds no new
+proposition. If valid distinct occurrences/claims exist, the difference
+must first be specified as domain semantics. `UNIQUE` also cannot be
+asserted globally before deciding relation meaning and admissibility.
+
+**Next decision stage:** determine concrete admissible relationship
+meanings and endpoint scope before returning to DIRECTION and
+MULTIPLICITY. This preserves `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`
+as unresolved; no policy/autonomy increase or Core/Publication change.
+
 ## Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS
 
 **Approved RELATION-IDENTITY: INSTANCE.** Explicit relation instances
@@ -137,10 +202,13 @@ can be individually created, read, edited, removed and bulk loaded,
 consistent with accepted all-kind CRUD. A pair/meaning compound
 identity risks accidental replacement when links are edited.
 
-**Suggested MULTIPLICITY: PARALLEL.** Equal endpoints and descriptions
-alone do not prove two externally supplied records are the same
-instance. A distinct relation may be retained until the user removes
-it. No mandatory automatic deduplication.
+**MULTIPLICITY: UNDECIDED.** The prior PARALLEL recommendation is
+withdrawn as insufficiently domain-grounded. Equal endpoint/meaning
+links must be tested for genuinely distinct domain assertions before
+selecting PARALLEL, UNIQUE or a relationship-specific constraint. The
+approved instance identity does not settle this question. Bulk-load
+conflict/deduplication policies remain downstream decisions informed
+by accepted semantics, not grounds for inventing them.
 
 **Suggested DIRECTION: MEANING-SPECIFIC.** Endpoint roles and whether
 reversal changes meaning must be defined by an *admitted relation use*.
