@@ -26,9 +26,26 @@ The proposals below are a *reviewable coherent package* chosen as a
 least-commitment hypothesis. Some remain contingent on user/Authority
 judgment and a new strict Decision Governance evaluation.
 
+## User decision recorded — semantic identity only
+
+**USER APPROVED: IDENTITY = INSTANCE (2026-10-10).** Each preparation
+information instance has an independent identity, including two records
+with identical text or externally supplied contents. Ordinary content
+edits preserve the same instance identity. Equal content is not a
+mandated merge, duplicate check, or semantic equality test. This
+approval **does not** decide explicit merge operations, automatic import
+matching, concept STRUCTURE, relationship identity, validity,
+directionality, multiplicity, admissibility, lifecycle, or removal.
+
+The decision is recorded as user authority input, **not** a Harness
+semantic acceptance, lifecycle assertion, or a resolved Core Question.
+`Q-PREP-PREPARATION-IDENTITY-STRUCTURE` remains unresolved because its
+STRUCTURE portion has not been approved. Keep `CONSERVATIVE` autonomy,
+five upstream CURRENT and the BLOCKED publication unchanged.
+
 ## Q-PREP-PREPARATION-IDENTITY-STRUCTURE
 
-**Suggested IDENTITY: INSTANCE.** An item has an independent identity
+**Approved IDENTITY: INSTANCE.** An item has an independent identity
 through description edits. Two items with the same text may remain
 different because they serve different user contexts. Bulk loading does
 not silently collapse equal descriptions. Import matching, explicit
