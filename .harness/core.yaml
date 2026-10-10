@@ -77,3 +77,19 @@ questions:
     artifact: PRODUCT-VISION
     acceptance_id: PREP-MVP-PRODUCT-INTENT-1
     supersedes_acceptance_id: ABSENT
+- id: Q-PREP-MODEL-CONTEXT-INDEPENDENT-LANGUAGES
+  authority: MODEL-CONTEXT-STRATEGY
+  text: Establish whether MC-01 and MC-02 require independently governed model languages
+    rather than distinguishable concepts in one coherent language. Accepted Product
+    Capabilities and Domain Strategy justify preparation-information versus activity/result
+    meanings, but do not evidence incompatible interpretations of a shared concept,
+    independent language evolution or a consumer translation that cannot be satisfied
+    within a shared model. Compare an explicit coherent one-language alternative with
+    concrete independent semantic evidence and consumer consequences; substantiate
+    a cross-language interpretation mapping for TR-01 if two contexts are selected.
+    Separate CORE responsibilities, temporal facts and different consumer tasks alone
+    are insufficient. Preserve full CRUD and bulk loading across every in-scope kind;
+    do not revive retired product proposals, introduce historical invariants or choose
+    tactical/technical realization.
+  blocks_capabilities:
+  - prep.model-context-strategy
