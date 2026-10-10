@@ -1,0 +1,67 @@
+version: 1
+kind: harness-mvp-admission-verification
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+capability: prep.user-needs
+acceptance_id: PREP-MVP-USER-NEEDS-1
+publication_revision: sha256:d699943faacfff7b5488911f57db8b17c1a34ececcb76923e01ca1122f2545b7
+parent_revision: sha256:ab9d6c1d909fad6b1f677f1e468929f7e4649ac7e1c42b3fbbe109a3ad959722
+publication_core_equals_working: true
+realized_capability_states:
+  prep.problem-evidence:
+    state: CURRENT
+    capability: prep.problem-evidence
+    artifact: PROBLEM-EVIDENCE
+    acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+  prep.user-needs:
+    state: CURRENT
+    capability: prep.user-needs
+    artifact: USER-NEEDS
+    acceptance_id: PREP-MVP-USER-NEEDS-1
+  prep.product-intent:
+    state: UNKNOWN
+    capability: prep.product-intent
+    reason: lifecycle coverage unavailable
+  prep.product-capabilities:
+    state: UNKNOWN
+    capability: prep.product-capabilities
+    reason: lifecycle coverage unavailable
+  prep.domain-strategy:
+    state: UNKNOWN
+    capability: prep.domain-strategy
+    reason: lifecycle coverage unavailable
+  prep.model-context-strategy:
+    state: UNKNOWN
+    capability: prep.model-context-strategy
+    reason: lifecycle coverage unavailable
+checks:
+  user_needs_verification: PASS
+  problem_evidence_verification: PASS
+  published_semantic_baseline: 'PASS: two evaluations and two lifecycle providers'
+  negative_admission: 'PASS: each missing need-evidence is rejected; UNKNOWN dependency
+    is rejected'
+  negative_publication: 'PASS: stale CAS revision rejected'
+  sufficiency_review: 'ACCEPTED: scoped MVP goal and three independently traceable
+    needs; stakeholder evidence only, no observational task study'
+  docs_inventory:
+    status: FAIL
+    unchanged_from_prior_verification: true
+    errors:
+    - 'docs/ contains unclassified files outside Harness Core, research, or human
+      projections: docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+      docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+      docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+      docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+      docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+      docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+      docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+      docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+      docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+      docs/interface/interface-topology.yaml, docs/interface/machine-interface.md,
+      docs/interface/presentation-system.md, docs/interface/screen-view-design.md,
+      docs/verification/frontend-test-design.yaml, docs/verification/frontend-verification.md,
+      docs/verification/interface-verification.md, docs/verification/presentation-verification.md'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_user_needs.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_problem_evidence.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py
+- python tools/validate_docs.py

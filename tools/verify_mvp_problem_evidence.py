@@ -14,6 +14,7 @@ PACK = Path(os.environ["HARNESS_ROOT"])
 sys.path.insert(0, str(PACK / "src"))
 
 from harness.application.project_publication import (
+    build_project_publication,
     prepare_capability_transition,
     read_project_publication,
     validate_project_publication,
@@ -41,17 +42,23 @@ def main() -> None:
     migration = load(ROOT / ".harness/candidates/mvp-publication-unaccepted.yaml")
     validate_project_publication(graph, migration)
     assert migration["parent_revision"] is not None
-    assert publication["parent_revision"] == migration["revision"]
     state = publication["state"]
     assert state["core_model"] == migration["state"]["core_model"] == core
     assert migration["state"]["lifecycle"]["providers"] == []
     assert migration["state"]["semantic_evaluations"]["semantic_evaluations"] == []
     assert migration["state"]["semantic_evaluations"]["derivation_evaluations"] == []
-    evaluations = state["semantic_evaluations"]["semantic_evaluations"]
-    providers = state["lifecycle"]["providers"]
+    evaluations = [row for row in state["semantic_evaluations"]["semantic_evaluations"] if row["capability"] == capability]
+    providers = [row for row in state["lifecycle"]["providers"] if row["capability"] == capability]
     assert len(evaluations) == len(providers) == 1
     assert providers[0]["capability"] == capability
-    assert state["semantic_evaluations"]["derivation_evaluations"] == []
+    initial = build_project_publication(
+        graph=graph, core_model=core,
+        semantic_evaluations=dict(migration["state"]["semantic_evaluations"], semantic_evaluations=evaluations),
+        lifecycle=dict(migration["state"]["lifecycle"], providers=providers),
+        parent_revision=migration["revision"],
+    )
+    recorded = load(ROOT / ".harness/candidates/mvp-problem-evidence-verification.yaml")
+    assert initial["revision"] == recorded["publication_revision"]
     candidate = load(ROOT / ".harness/candidates/mvp-problem-evidence-admission.yaml")
     doc = load(ROOT / "docs/discovery/problem-evidence.yaml")
     ev03 = next(row for row in doc["evidence"] if row["id"] == "EV-03")
@@ -84,14 +91,13 @@ def main() -> None:
         current_acceptance_policy_fingerprints=policies,
     )
     assert states[capability]["state"] == "CURRENT"
-    assert {cap for cap, row in states.items() if row["state"] == "CURRENT"} == {capability}
     assert prepare_capability_transition(
         graph=graph, current_publication=publication,
         expected_revision=publication["revision"], capability=capability,
         outcome="CURRENT", core_model=core,
         semantic_evaluations=state["semantic_evaluations"], lifecycle=state["lifecycle"],
     ) == publication
-    print("PASS: CAS history, MVP Core equality, reproducible ACCEPTED admission, EV-03 boundary, policy-bound CURRENT, sole acceptance, idempotent CURRENT transition, missing-review rejection")
+    print("PASS: initial CAS history and sole acceptance, MVP Core equality, reproducible ACCEPTED admission, EV-03 boundary, policy-bound CURRENT, idempotent CURRENT transition, missing-review rejection")
 
 
 if __name__ == "__main__":

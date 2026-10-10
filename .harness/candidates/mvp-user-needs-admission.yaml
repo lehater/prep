@@ -1,0 +1,249 @@
+version: 1
+kind: harness-artifact-admission-candidate
+id: USER-NEEDS
+capability: prep.user-needs
+path: docs/discovery/user-needs.yaml
+changed_paths:
+- docs/discovery/user-needs.yaml
+canonical_references:
+- referenced_path: docs/discovery/problem-evidence.yaml
+semantic_assertions:
+- id: USER
+  kind: user-actor
+  subject: USER
+  semantic_value:
+    id: USER
+    description: Person preparing for one or more goals.
+    evidence:
+    - PROBLEM-EVIDENCE/actors
+  derived_from:
+  - PE-ACTOR
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#actors/USER
+- id: CTX-01
+  kind: context-of-use
+  subject: CTX-01
+  semantic_value:
+    context:
+      id: CTX-01
+      actor: USER
+      description: The person works with knowledge, goals, capabilities, practice
+        material, recorded activity, and relationships among them. The information
+        may already exist before it is used in Prep, may change over time, and some
+        preparation activity may take place outside Prep.
+      evidence:
+      - PROBLEM-EVIDENCE/context
+      - PE-02
+      - EV-02
+    scope:
+    - The information the person works with may be supplied from outside Prep and
+      may change over time.
+    - Activity outside Prep may include study, practice, review, testing, or other
+      forms of preparation.
+    - Recorded activity and results are recorded facts available for interpretation.
+      They do not establish the person's knowledge, capability, mastery, readiness,
+      or competence.
+    observed_tasks: []
+    observed_task_evidence: The accepted evidence consists of stakeholder statements
+      and problem observations, not an observational study of current tasks. No future
+      task structure is inferred from this absence.
+    unresolved_downstream_decisions:
+    - how information is added, imported, edited, or removed
+    - which knowledge kinds and relationship meanings are supported
+    - how different perspectives are represented
+    - how a selected part is represented and transferred outside Prep
+    - how recorded activity and results are returned
+    - which statistics or other derived representations are provided
+    - product behavior, domain semantics, user interface, and technical realization
+  derived_from:
+  - PE-CONTEXT
+  - PE-PROBLEM
+  - PE-02
+  - EV-02
+  - PE-BOUNDARY-5
+  - PE-NON-GOALS
+  - PE-DOWNSTREAM
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#context_of_use/CTX-01
+- id: UG-01
+  kind: user-goal
+  subject: UG-01
+  semantic_value:
+    goal:
+      id: UG-01
+      actor: USER
+      context: CTX-01
+      outcome: Understand preparation information and its relationships, select information
+        or material for external preparation activity, and understand the related
+        recorded activity and results over time.
+      evidence:
+      - PROBLEM-EVIDENCE/desired_outcome
+      - PE-01
+      - PE-02
+      - PE-03
+    sufficiency_review: &id004
+      goal: UG-01
+      status: covered
+      needs:
+      - UN-01
+      - UN-02
+      - UN-03
+      rationale: UN-01 covers understanding information and relationships (PE-01/EV-01),
+        UN-02 covers selecting information for external activity (PE-02/EV-02), and
+        UN-03 covers understanding recorded activity and results (PE-03/EV-03). These
+        needs cover the stated MVP goal only; they do not establish all prerequisites
+        for preparation success. EV-03 supports the understanding need without accepting
+        storage or relationship behavior as a requirement.
+  derived_from:
+  - PE-OUTCOME
+  - PE-01
+  - PE-02
+  - PE-03
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#goals/UG-01
+- id: UN-01
+  kind: user-need
+  subject: UN-01
+  semantic_value:
+    id: UN-01
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: Understand and explore knowledge, goals, capabilities, practice material,
+      recorded activity, and the relationships among them from different perspectives.
+    evidence: &id001
+    - PE-01
+    - EV-01
+  derived_from: *id001
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-01
+- id: UN-01-EVIDENCE
+  kind: need-evidence
+  subject: UN-01
+  semantic_value:
+    need: UN-01
+    evidence: *id001
+  derived_from: *id001
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-01/evidence
+- id: UN-02
+  kind: user-need
+  subject: UN-02
+  semantic_value:
+    id: UN-02
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: Select a part of the available information and material for use outside
+      Prep in study, practice, review, testing, or other preparation activity.
+    evidence: &id002
+    - PE-02
+    - EV-02
+  derived_from: *id002
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-02
+- id: UN-02-EVIDENCE
+  kind: need-evidence
+  subject: UN-02
+  semantic_value:
+    need: UN-02
+    evidence: *id002
+  derived_from: *id002
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-02/evidence
+- id: UN-03
+  kind: user-need
+  subject: UN-03
+  semantic_value:
+    id: UN-03
+    actor: USER
+    goal: UG-01
+    context: CTX-01
+    need: Understand recorded activity and results over time and in relation to the
+      knowledge, goals, capabilities, practice material, and other information they
+      concern.
+    evidence: &id003
+    - PE-03
+    - EV-03
+  derived_from: *id003
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-03
+- id: UN-03-EVIDENCE
+  kind: need-evidence
+  subject: UN-03
+  semantic_value:
+    need: UN-03
+    evidence: *id003
+  derived_from: *id003
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#needs/UN-03/evidence
+- id: UG-01-NEED-COVERAGE
+  kind: user-need
+  subject: UG-01
+  semantic_value:
+    goal: UG-01
+    needs:
+    - UN-01
+    - UN-02
+    - UN-03
+  derived_from:
+  - PE-OUTCOME
+  - PE-01
+  - PE-02
+  - PE-03
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#sufficiency_review/UG-01
+- id: UG-01-NEED-COVERAGE-EVIDENCE
+  kind: need-evidence
+  subject: UG-01-NEED-COVERAGE
+  semantic_value:
+    goal: UG-01
+    evidence:
+    - PE-OUTCOME
+    - PE-01
+    - PE-02
+    - PE-03
+  derived_from:
+  - PE-OUTCOME
+  - PE-01
+  - PE-02
+  - PE-03
+  decision_authority: DISCOVERY
+  canonical_location: docs/discovery/user-needs.yaml#goals/UG-01/evidence
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - need-not-normative-solution
+  basis:
+    source-discipline: Only the current published PROBLEM-EVIDENCE and this User Needs
+      artifact were reviewed. Source assertions match accepted upstream atom fingerprints.
+      No legacy or downstream evidence is consumed.
+    authority-boundary: Needs describe intended human outcomes independently of UI,
+      APIs, storage, imports, statistics or task orchestration. EV-03 is consumed
+      under its accepted interpretation boundary.
+    no-invention: The formerly unbounded preparation goal is narrowed to the three
+      accepted MVP outcomes. No observed tasks, preparation-success claim or learner-state
+      inference is invented.
+    need-not-normative-solution: UN-01/02/03 express understanding, selection and
+      historical understanding; product behavior remains a separate Product Requirements
+      decision.
+  sufficiency_review:
+  - *id004
+  need_derivations:
+  - need: UN-01
+    sources: *id001
+    rationale: PE-01 establishes information/relationship opacity and EV-01 supports
+      the desired perspectives; UN-01 states the human understanding outcome without
+      choosing a representation.
+  - need: UN-02
+    sources: *id002
+    rationale: PE-02 and EV-02 establish the need to select part for external preparation;
+      UN-02 chooses no transfer format, runtime or workflow.
+  - need: UN-03
+    sources: *id003
+    rationale: PE-03 establishes opacity of recorded activity and EV-03 supports temporal
+      interpretation; UN-03 preserves the accepted evidence boundary and accepts no
+      storage requirement.

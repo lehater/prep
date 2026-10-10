@@ -5,6 +5,7 @@ id: PREP-USER-NEEDS
 actors:
   - id: USER
     description: Person preparing for one or more goals.
+    evidence: [PROBLEM-EVIDENCE/actors]
 
 context_of_use:
   - id: CTX-01
@@ -14,13 +15,23 @@ context_of_use:
       recorded activity, and relationships among them. The information may
       already exist before it is used in Prep, may change over time, and some
       preparation activity may take place outside Prep.
+    evidence: [PROBLEM-EVIDENCE/context, PE-02, EV-02]
 
 goals:
   - id: UG-01
     actor: USER
     context: CTX-01
     outcome: >-
-      Prepare for one or more goals.
+      Understand preparation information and its relationships, select
+      information or material for external preparation activity, and understand
+      the related recorded activity and results over time.
+    evidence: [PROBLEM-EVIDENCE/desired_outcome, PE-01, PE-02, PE-03]
+
+observed_tasks: []
+observed_task_evidence: >-
+  The accepted evidence consists of stakeholder statements and problem
+  observations, not an observational study of current tasks. No future task
+  structure is inferred from this absence.
 
 needs:
   - id: UN-01
@@ -79,3 +90,10 @@ sufficiency_review:
   - goal: UG-01
     status: covered
     needs: [UN-01, UN-02, UN-03]
+    rationale: >-
+      UN-01 covers understanding information and relationships (PE-01/EV-01),
+      UN-02 covers selecting information for external activity (PE-02/EV-02),
+      and UN-03 covers understanding recorded activity and results (PE-03/EV-03).
+      These needs cover the stated MVP goal only; they do not establish all
+      prerequisites for preparation success. EV-03 supports the understanding
+      need without accepting storage or relationship behavior as a requirement.
