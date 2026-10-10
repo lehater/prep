@@ -53,6 +53,27 @@ jobs:
           PY
         env:
           PYTHONPATH: .harness-tool/src
+      - name: Validate CAS-linked unaccepted MVP candidate
+        env:
+          PYTHONPATH: .harness-tool/src
+        run: |
+          python tools/prepare_mvp_publication.py --parent-publication .harness/project-publication.yaml --output .harness/diagnostics/mvp-publication-child-candidate.yaml
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+          from harness.application.project_publication import read_project_publication, validate_project_publication
+          root = Path(".harness")
+          graph = yaml.safe_load((root / "engineering-graph.yaml").read_text())
+          core = yaml.safe_load((root / "core.yaml").read_text())
+          previous = read_project_publication(root / "project-publication.yaml", graph=graph)
+          candidate = yaml.safe_load((root / "diagnostics/mvp-publication-child-candidate.yaml").read_text())
+          validate_project_publication(graph, candidate)
+          assert candidate["parent_revision"] == previous["revision"]
+          assert candidate["state"]["core_model"] == core
+          assert candidate["state"]["semantic_evaluations"]["semantic_evaluations"] == []
+          assert candidate["state"]["lifecycle"]["providers"] == []
+          print("CAS-linked MVP candidate PASS: previous revision linked, no legacy acceptance inherited")
+          PY
       - name: Validate MVP Engineering Graph and Core independently of readiness
         env:
           PYTHONPATH: .harness-tool/src
