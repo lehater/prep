@@ -1,0 +1,79 @@
+version: 1
+kind: harness-mvp-admission-verification
+harness_revision: 8a52bb841658a5257c55837634690ef5ab90f4d6
+capability: prep.domain-strategy
+acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+publication_revision: sha256:e9c258602e6cabf1ddf433dcb75e6bf5a90643b65cd3d539eeb4aea7a040d779
+parent_revision: sha256:baecceac6cc0171c63ce1970c38505ab2dd637bba6ab4a0a7c6c91ce7b82f9c4
+publication_core_equals_working: true
+realized_capability_states:
+  prep.problem-evidence:
+    state: CURRENT
+    capability: prep.problem-evidence
+    artifact: PROBLEM-EVIDENCE
+    acceptance_id: PREP-MVP-PROBLEM-EVIDENCE-1
+  prep.user-needs:
+    state: CURRENT
+    capability: prep.user-needs
+    artifact: USER-NEEDS
+    acceptance_id: PREP-MVP-USER-NEEDS-1
+  prep.product-intent:
+    state: CURRENT
+    capability: prep.product-intent
+    artifact: PRODUCT-VISION
+    acceptance_id: PREP-MVP-PRODUCT-INTENT-1
+  prep.product-capabilities:
+    state: CURRENT
+    capability: prep.product-capabilities
+    artifact: PRODUCT-CAPABILITIES
+    acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+  prep.domain-strategy:
+    state: CURRENT
+    capability: prep.domain-strategy
+    artifact: CONTEXT-MAP
+    acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+  prep.model-context-strategy:
+    state: UNKNOWN
+    capability: prep.model-context-strategy
+    reason: lifecycle coverage unavailable
+semantic_review:
+  status: ACCEPTED
+  strategic_classifications: 2
+  source_acceptance: PREP-MVP-PRODUCT-CAPABILITIES-1
+  review_evidence: .harness/candidates/mvp-domain-strategy-admission.yaml#semantic_review
+  question_required: false
+  candidate_semantics_changed: false
+  retired_requirements_reactivated: false
+  CRUD_restricted: false
+  model_context_or_tactical_decisions_admitted: false
+checks:
+  strategy_projection: 'PASS: all nine sections bound to reviewed semantic assertions'
+  strict_admission: ACCEPTED; no findings
+  currentness: 'PASS: Domain Strategy and four unchanged upstream evaluations/lifecycle
+    assertions'
+  CAS_publication: PASS
+  negative_checks: 'PASS: all four retired sources, wrong Model Context/Tactical authority,
+    missing boundary review, UNKNOWN prerequisite and stale policy/CAS'
+  published_semantic_baseline: 'PASS: five evaluations/providers only'
+  docs_inventory:
+    status: FAIL
+    unchanged_from_previous_verification: true
+    errors:
+    - 'docs/ contains unclassified files outside Harness Core, research, or human
+      projections: docs/application/application-design.md, docs/application/process-activity-evidence-cycle.md,
+      docs/application/process-prepare-support.md, docs/application/task-model.yaml,
+      docs/application/user-journeys.md, docs/architecture/data-design.md, docs/architecture/frontend-system-architecture.md,
+      docs/architecture/import-consistency.md, docs/architecture/performance-capacity.md,
+      docs/architecture/system-architecture.md, docs/domain/knowledge-model.md, docs/domain/learner-model.md,
+      docs/domain/learning-design.md, docs/domain/relation-classification-catalog.yaml,
+      docs/engineering/frontend-engineering-policy.md, docs/implementation/frontend-component-design.md,
+      docs/implementation/frontend-implementation-design.md, docs/interface/conceptual-interface-model.yaml,
+      docs/interface/information-architecture.yaml, docs/interface/interaction-design.yaml,
+      docs/interface/interface-topology.yaml, docs/interface/machine-interface.md,
+      docs/interface/presentation-system.md, docs/interface/screen-view-design.md,
+      docs/verification/frontend-test-design.yaml, docs/verification/frontend-verification.md,
+      docs/verification/interface-verification.md, docs/verification/presentation-verification.md'
+reproduce:
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/verify_mvp_domain_strategy.py
+- HARNESS_ROOT="$(python .harness/harnessw.py sync)" python tools/semantic_baseline.py
+- python tools/validate_docs.py

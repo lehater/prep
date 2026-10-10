@@ -1,0 +1,57 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: CONTEXT-MAP
+capability: prep.domain-strategy
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: domain-strategy
+  skill: skills/artifacts/domain-strategy/SKILL.md
+  acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+  authority: DOMAIN-STRATEGY
+  allowed_source_authorities:
+  - DOMAIN-STRATEGY
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - docs/architecture/context-map.md
+  canonical_references:
+  - referenced_path: .harness/knowledge/product-capabilities.yaml
+  accepted_prerequisites: &id001
+    prep.product-capabilities: PREP-MVP-PRODUCT-CAPABILITIES-1
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+  acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: CONTEXT-MAP
+  capability: prep.domain-strategy
+  acceptance_id: PREP-MVP-DOMAIN-STRATEGY-1
+  acceptance_policy_fingerprint: sha256:f1fb28505aae9ce7492da27f3772d4862e1ea051901574930d06393a41bcf7ab
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    DS-EVIDENCE: SAF-078efcd1340af0e27f6feb61dbbc6a6242c46db042a02e9bdb86f5ce6f557adc
+    DS-LANDSCAPE: SAF-438e7c1fc2391cc36e7d218576b722245f5900cea69337fd3e746335aa6b5ea3
+    DS-01: SAF-d29f003170cea6f6706cee79ece128c2f610a23c8ceea3be7045fa4c6ed15968
+    DS-02: SAF-27309d37504685cf3967d721af991b785fea143cdbcbcc235c5b0215b55c1dcb
+    DS-RELATION: SAF-a74dc9732258a952e228589d6f60fa85238d83ef962bfe92995d4d9abd589729
+    DS-CROSS-CUTTING: SAF-c34c30373f31aa7648b7dce0a4cafce2c76a8021ab5ad1cc1efc95e80e4e6fb1
+    DS-RETIRED: SAF-dcc6bd1e2c229d58887c6c1ea7aa409b837750c1cf8f817173bbf80d03447684
+    DS-CONSUMERS: SAF-6f44623a56b1834f125f29906533ca959491a8d1830d26c247f3fe17ffe92d50
+    DS-REOPEN: SAF-a3646a01712b7a7e968ec16578b2d12f729ab16f0de9c000702dc8b126223df6
