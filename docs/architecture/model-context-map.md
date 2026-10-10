@@ -2,225 +2,234 @@
 
 ## Purpose and accepted evidence
 
-Decide where independently coherent domain-model languages apply in the Prep
-MVP, how those languages relate, and what semantic translation is required
-for their consumers. A model context is a **language/applicability boundary**,
-not necessarily a code module, service, database, team, API, UI view, or
-deployment unit.
+Decide how the Prep MVP's accepted domain meanings should be modeled
+coherently, where a separately governed semantic language would be justified,
+and whether translation between such languages is required. A model context
+is a **semantic applicability boundary**, not a code package, service,
+database, team, API, screen, UI visualization or deployment unit.
 
-**Accepted sources:**
+**Accepted prerequisites:**
 
-- `prep.product-capabilities` — `PREP-MVP-PRODUCT-CAPABILITIES-1`;
-  fifteen accepted, active product capabilities define the observable
-  behaviors that any model-context strategy must preserve.
-- `prep.domain-strategy` — `PREP-MVP-DOMAIN-STRATEGY-1`;
-  `DS-01` and `DS-02` distinguish strategic responsibilities, but neither
-  their separate CORE classifications nor their names alone establish
-  separate model languages.
+- `prep.product-capabilities` — `PREP-MVP-PRODUCT-CAPABILITIES-1`
+  (15 active product capabilities and four explicitly RETIRED proposals).
+- `prep.domain-strategy` — `PREP-MVP-DOMAIN-STRATEGY-1`
+  (two strategically distinct CORE responsibilities, `DS-01` and `DS-02`).
 
-This document decides semantic applicability only. It does not revive four
-previously `RETIRED` product-capability proposals, assign tactical entities
-or invariants, or claim independent historical persistence.
+Two separate strategic responsibilities do not, by themselves, establish
+two model languages. This artifact owns language **applicability**, not
+strategic investment classification or tactical entity design.
 
-## Model-language boundary decision
+## Decision MC-01 — One coherent preparation and activity language
 
-**Candidate decision:** use two cooperating model contexts for the current
-scope, subject to semantic admission based on independent language evidence:
+**Proposed MVP decision:** one coherent model context, `MC-01 Preparation
+and Activity`, covers both preparation information (`DS-01`) and recorded
+activity/results (`DS-02`). Within this context these are **distinct
+meanings**, not interchangeable concepts.
 
-- `MC-01` — Preparation Information;
-- `MC-02` — Recorded Activity and Results.
+**Why this is currently sufficient:**
 
-**Why a distinction may be necessary:** preparation information describes
-what the user is preparing with or toward; recorded activity describes
-occurrences of activity and their reported results, with temporal context.
-Their meanings answer different questions. A preparation goal or piece of
-material does not become a recorded activity merely because it is used, and
-a recorded result cannot automatically be interpreted as a claim of
-knowledge, capability, mastery or readiness.
+1. The accepted requirements ask the user to understand information,
+   relationships, recorded occurrences, reported results and temporal
+   context; none establishes incompatible interpretations of a shared
+   concept that would require independent semantic governance.
+2. An activity/result record can refer to the preparation information
+   it concerns without changing that information's meaning or requiring
+   translation between distinct domain languages.
+3. Temporal context, joint exploration, manual CRUD, external bulk
+   loading, selection and outside use can all be represented as one
+   coherent language. None by itself warrants a new model-language owner.
+4. Accepted `DS-01` and `DS-02` remain valuable strategic distinctions
+   because preparation meanings and recorded occurrences require separate
+   **attention**, not necessarily different vocabularies or contexts.
+5. No accepted evidence establishes independently evolving consumers,
+   conflicting term meanings, or an interpretation boundary that cannot
+   be expressed coherently within this single scope.
 
-**Why not split further:** accepted requirements do not establish separate
-model languages for Goal, Capability, Knowledge, Practice Material,
-individual relation kinds, history versus result, information CRUD, bulk
-loading, or external-use selection. Distinguishable information categories
-and product operations alone do not require independent semantic contexts.
+**Alternative examined:** separate `MC-01 Preparation Information` and
+`MC-02 Recorded Activity and Results` languages, joined by `TR-01`.
+That option could become justified by future independently evolving
+semantic rules or incompatible terminology. At present it adds separate
+language governance and a translation obligation without a demonstrated
+need. It is **not** admitted merely because there are two CORE
+responsibilities or two different kinds of information.
 
-**Alternative to challenge:** one shared model language could represent
-both information and recorded activity while retaining these distinctions.
-The proposed two-context choice is justified **only if** separate fact/time
-versus preparation-information language provides materially clearer
-applicability and consumer boundaries. It is not justified by two CORE
-classifications or by technical organization. If independent model-language
-evidence is inadequate, Harness review must stop or select the coherent
-one-context alternative through the proper Model Context Strategy decision;
-it must not mechanically accept two contexts.
+**Decision limit:** the single-context proposal is a Model Context
+Strategy judgment about *current evidence*, not a claim that future
+accepted tactical modeling cannot discover a material boundary. If
+independent language evidence emerges, route reconsideration through
+this Authority and revalidate dependent Capabilities.
 
-## MC-01 — Preparation Information
+## MC-01 — Applicability and internal semantic distinctions
 
-**Applicability:** interpretations of preparation-related information and
-its in-scope relationships, including knowledge, goals, capabilities and
-practice material. Consumers use this language to understand the
-information being worked with and to examine it from different perspectives.
+### Preparation information
 
-**Evidence:** `DS-01`; `REQ-CAP-EXPLORE-INFORMATION`,
+**Meaning:** information the user works with when preparing for goals:
+knowledge, goals, capabilities, practice material and their in-scope
+relationships. The accepted product requires understanding, exploration,
+and multiple perspectives, but not a fixed taxonomy of knowledge
+subkinds, relationship meanings, topology, or cardinality.
+
+**Accepted evidence:** `DS-01`,
+`REQ-CAP-EXPLORE-INFORMATION`,
 `REQ-CAP-EXPLORE-RELATIONSHIPS`, and
 `REQ-CAP-EXPLORE-PERSPECTIVES`.
 
-**Language boundary:** descriptions of goals, knowledge, capabilities and
-material do not by themselves state what the person has learned, achieved
-or mastered. Existing in-scope relationships are understood in their
-preparation-information meaning; this strategy does not establish a
-taxonomy of kinds of Knowledge, mandatory relationship categories, fixed
-cardinalities, or universal cross-kind connectivity.
+**Interpretation boundary:** describing a capability or knowledge
+item does not assert that the user possesses or has mastered it.
+The specific identity, vocabulary and validity of relationships
+belong to Tactical Domain Design.
 
-**Consumer value:** tactical modeling of preparation information and
-applications that explore, edit, select or make such information available.
-Information used as the subject of a recorded activity remains interpretable
-in this language rather than being redefined by its use in activity.
+### Recorded activity and results
 
-**Not decided:** precise domain concepts/identities, valid relationship
-types, lifecycle invariants, and rendering or persistence structure.
+**Meaning:** information that describes a recorded occurrence of
+preparation activity and, when present, its recorded result, including
+temporal and subject context. A reported result is not an inference
+about the user's mastery, competence or readiness.
 
-## MC-02 — Recorded Activity and Results
+**Accepted evidence:** `DS-02`,
+`REQ-CAP-RECORD-ACTIVITY`,
+`REQ-CAP-RELATE-ACTIVITY`,
+`REQ-CAP-PRESERVE-TIME`, and
+`REQ-CAP-EXPLORE-HISTORY`.
 
-**Applicability:** interpretations of recorded preparation activity,
-recorded results when present, when the reported activity took place,
-and which preparation information the activity/result concerns.
+**Interpretation boundary:** a recorded occurrence or result is
+not preparation information's definition, and preparation information
+does not become an activity record merely because an activity involved
+it. Both kinds are represented in the same coherent language without
+conflating their meanings.
 
-**Evidence:** `DS-02`; `REQ-CAP-RECORD-ACTIVITY`,
-`REQ-CAP-RELATE-ACTIVITY`, `REQ-CAP-PRESERVE-TIME`,
-and `REQ-CAP-EXPLORE-HISTORY`.
+**Change boundary:** recorded activity and results are subject to the
+product owner's all-kind CRUD and bulk-loading commitments. Nothing
+in this model-context decision implies immutable events, permanent
+audit histories, append-only records, undeletable results or snapshots.
 
-**Language boundary:** a recorded occurrence/result describes reported
-activity and its reported outcome; it is not the definition of the
-underlying preparation material or a conclusion about learner state,
-mastery, readiness, competence or possession of a capability. Existing
-records must support temporal and subject-context understanding.
+### IR-01 — Internal subject-of-activity interpretation
 
-**Consumer value:** tactical modeling of recorded activity/results,
-applications that accept external activity records, and consumers that
-examine those records by time and in relation to the information concerned.
+An existing record of activity/result may concern existing in-scope
+preparation information. When a consumer explores this relationship,
+the model must permit understanding of **which** preparation
+information the record concerns while preserving the distinction
+between the occurrence/result and its subject.
 
-**Editability:** activity/result entries are covered by the accepted
-all-kind CRUD and bulk-loading commitments. `MC-02` does not establish
-immutable event facts, append-only storage, permanent retention,
-snapshots, audit history, or guaranteed intelligibility after their
-associated information has been edited or removed.
+**Accepted evidence:** `REQ-CAP-RELATE-ACTIVITY`,
+`REQ-CAP-EXPLORE-RELATIONSHIPS`, `DS-01`, and `DS-02`.
 
-**Not decided:** recorded-activity identity, time representation,
-result structures, the validity of relationships, or historical
-consistency and repair rules. These belong to downstream design.
+- Treat the subject as preparation information; interpreting an
+  activity/result does not redefine the subject or infer proficiency.
+- Keep enough temporal context to distinguish existing recorded
+  activities/results over time.
+- Permit consumers to examine related information and recorded
+  activity without treating the relation as proof of mastery.
+- Do not prescribe a domain entity, link type, identifier scheme,
+  relationship cardinality, data duplication, or storage structure.
 
-## TR-01 — Cross-context subject interpretation
+This is a **semantic interpretation inside MC-01**, not a cross-context
+translation contract. The earlier candidate `TR-01` is **not required**
+for the chosen one-language topology. Its useful interpretation
+constraints are captured here without inventing a separate language.
 
-**Relationship:** an existing record of activity/result in `MC-02`
-may concern preparation information whose meaning falls under `MC-01`.
-The semantic link permits the user to understand which in-scope
-preparation information that record concerns.
+**Changes and removal:** accepted CRUD includes editing and removal of
+preparation information, recorded activity/results, and relationships.
+Current-product interpretation requirements apply to records and
+relationships still in scope. A guarantee of historical
+intelligibility after their former subject is edited or deleted was
+not admitted by Product Requirements. Tactical Domain Design and
+later owning Authorities must resolve relation consistency and
+lifecycle consequences without silently revoking CRUD or inventing
+mandatory historical preservation.
 
-**Accepted evidence:** `DS-01`, `DS-02`,
-`REQ-CAP-RELATE-ACTIVITY`, and
-`REQ-CAP-EXPLORE-RELATIONSHIPS`.
+## Complete product capability applicability
 
-**Minimum semantic translation contract for consumers:**
+All 15 accepted capabilities remain required within this single
+language's scope; their application orchestration may span different
+meanings without introducing additional model-language owners.
 
-1. When relating an existing activity/result to an existing in-scope
-   preparation-information subject, preserve the distinction between
-   the **record of an occurrence/result** and the **information it concerns**.
-2. Interpret the preparation-information subject according to `MC-01`
-   meaning; a recorded result must not redefine that meaning or infer
-   learner proficiency.
-3. Preserve available temporal context of existing recorded activity
-   when presenting it alongside the related preparation information.
-4. Allow joint exploration across the languages without conflating their
-   distinct meanings or requiring a third model-language owner.
+| Accepted capability | Applicable meaning / consumer consequence |
+| --- | --- |
+| `REQ-CAP-INTRODUCE-INFORMATION` | Manual creation of every in-scope entity and relationship kind, including activity/results |
+| `REQ-CAP-RETAIN-INFORMATION` | Existing in-scope information remains inspectable while present in the working set |
+| `REQ-CAP-CHANGE-INFORMATION` | Manual edits of every in-scope kind, including activity/results and links |
+| `REQ-CAP-REMOVE-INFORMATION` | Removal of every in-scope kind from the working set |
+| `REQ-CAP-BULK-LOAD-INFORMATION` | Externally supplied bulk loading for every in-scope kind |
+| `REQ-CAP-READ-INFORMATION` | Inspection of every in-scope entity and relationship kind |
+| `REQ-CAP-EXPLORE-INFORMATION` | Explore preparation information and recorded activity/results |
+| `REQ-CAP-EXPLORE-RELATIONSHIPS` | Examine available in-scope relationships without inferring arbitrary cross-kind links |
+| `REQ-CAP-EXPLORE-PERSPECTIVES` | Examine the same information from differing perspectives |
+| `REQ-CAP-SELECT-PART` | Select a subset for preparation outside Prep |
+| `REQ-CAP-TRANSFER-SELECTION` | Make the selected subset available for external use |
+| `REQ-CAP-RECORD-ACTIVITY` | Bring recorded external preparation activity/results into the working set |
+| `REQ-CAP-RELATE-ACTIVITY` | Understand existing record-to-subject relationships using IR-01 |
+| `REQ-CAP-PRESERVE-TIME` | Retain enough temporal context for existing records |
+| `REQ-CAP-EXPLORE-HISTORY` | Explore existing activity and result records over time |
 
-These points are semantic interpretation needs, **not** an obligation to
-make two services communicate, to copy/snapshot the subject, or to
-translate every possible cross-kind relationship.
+Manual creation/editing must remain available independently of
+bulk loading. No modeled kind can be silently exempted from read,
+create, update, delete or externally supplied bulk loading.
 
-**Boundary on change/removal:** accepted product behavior requires CRUD
-for all in-scope information, activity/results, and relationships. It does
-not guarantee recovery of the former meaning of deleted or changed
-information. Whether and how an existing relationship remains meaningful
-after changes or removals, and the associated consistency/error rules,
-must be resolved in Tactical Domain Design and appropriate downstream
-design. This strategy neither imposes immutable history nor weakens the
-currently accepted exploration obligations for information that remains
-in scope.
+## No separate contexts or translations currently justified
 
-## Product behavior applicability without extra contexts
+No additional model-language boundary is established merely for:
 
-The contexts describe meanings; they do **not** claim exclusive control
-of product-level operations.
+- `DS-01` versus `DS-02` as strategic investment categories;
+- Goal, Capability, Knowledge, Practice Material or their in-scope
+  distinctions;
+- recorded occurrence versus recorded result within the same
+  preparation and activity language;
+- relationship classes, knowledge taxonomies or arbitrary cross-kind
+  connection patterns;
+- manually creating/editing, deletion, bulk loading, retention or reading;
+- selection and external availability of a subset;
+- inferred learner state, assessment, source management or verification;
+- particular 2D/3D views, APIs, storage, services or integrations.
 
-| Accepted product behavior | Applicability | Model-language consequence |
-| --- | --- | --- |
-| `REQ-CAP-INTRODUCE-INFORMATION` | Every modeled kind, including activity/results and links | No separate Create model context |
-| `REQ-CAP-READ-INFORMATION`, `REQ-CAP-RETAIN-INFORMATION` | Every modeled kind | No separate Read or Retention context |
-| `REQ-CAP-CHANGE-INFORMATION`, `REQ-CAP-REMOVE-INFORMATION` | Every modeled kind | Edits/removals must not be prohibited by context boundaries |
-| `REQ-CAP-BULK-LOAD-INFORMATION` | Every modeled kind from external information | No Import model context mandated |
-| `REQ-CAP-EXPLORE-PERSPECTIVES`, `REQ-CAP-EXPLORE-INFORMATION`, `REQ-CAP-EXPLORE-RELATIONSHIPS` | In-scope preparation information and existing links | No presentation-specific model context |
-| `REQ-CAP-RECORD-ACTIVITY`, `REQ-CAP-PRESERVE-TIME`, `REQ-CAP-EXPLORE-HISTORY` | Recorded occurrences/results | Temporal meaning belongs to recorded-activity language |
-| `REQ-CAP-RELATE-ACTIVITY` | Existing activity records and subjects they concern | Use `TR-01` when context-crossing interpretation is necessary |
-| `REQ-CAP-SELECT-PART`, `REQ-CAP-TRANSFER-SELECTION` | In-scope available information and material | No independent External-Use model context |
+The accepted Product Capabilities record four `RETIRED`, never-admitted
+proposals: `REQ-CAP-KNOWLEDGE-KINDS`,
+`REQ-CAP-RELATIONSHIP-MEANINGS`,
+`REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS`, and
+`REQ-CAP-PRESERVE-HISTORY-CONTEXT`. They cannot be used to
+manufacture an independent language or a historical-preservation
+invariant, but their retirement does not forbid future justified work.
 
-These requirements remain binding regardless of whether a behavior touches
-one or more semantic contexts. Operational coordination belongs downstream.
-
-## Unsupported splits and retired proposals
-
-The four never-admitted `RETIRED` requirements do not supply a basis for
-model-context boundaries:
-
-- `REQ-CAP-KNOWLEDGE-KINDS` — no required subtypes of Knowledge.
-- `REQ-CAP-RELATIONSHIP-MEANINGS` — no mandatory taxonomy of meanings.
-- `REQ-CAP-CROSS-INFORMATION-RELATIONSHIPS` — no universal cross-kind
-  relationship topology.
-- `REQ-CAP-PRESERVE-HISTORY-CONTEXT` — no guarantee of historical
-  interpretation following changes or deletions.
-
-The fact that these proposals are not currently accepted does not forbid
-a future supported decision or a valid downstream domain model.
-
-No independently modeled contexts are currently justified for inferred
-learner state, mastery assessments, information provenance/verification,
-separate Goal, Capability, Knowledge or Practice Material languages,
-source/import machinery, a particular visualization, or an external study
-runtime.
+There is **no cross-language translation contract required by the
+current one-context decision**. The internal interpretation of
+existing subject-of-activity relationships is captured by `IR-01`.
+If future evidence justifies independent model languages, define a
+specific translation obligation then, based on actual consumers and
+different semantics, not on the mere existence of multiple concepts.
 
 ## Consumers and authority handoff
 
-- **Tactical Domain Design:** independently assess concepts, identity,
-  links, invariants and consistency within the accepted applicability
-  boundaries. In particular, resolve edit/delete versus continued
-  temporal/subject understanding without inventing an immutable-history
-  commitment.
-- **Application Design:** coordinate manual CRUD, externally supplied
-  bulk loading, selection, outside use, activity intake and exploration,
-  including interpretation across `TR-01` where necessary.
-- **Interface Design:** let users understand the same in-scope information
-  and existing activity/results without choosing context boundaries
-  according to screen or visualization layouts.
-- **Data and System Architecture:** decide storage and deployment,
-  without equating either model context with a database, service or
-  distributed integration protocol.
+- **Tactical Domain Design** decides domain concepts, invariants,
+  identity, valid relationships and lifecycle/consistency behavior
+  within the accepted applicability boundary. This is not an
+  instruction to put all concepts in one aggregate or schema.
+- **Application Design** coordinates product-level CRUD, bulk intake,
+  examination, subset selection, external use and activity recording.
+- **Interface Design** may offer different views of the same information
+  without turning screen/view boundaries into model contexts.
+- **Data and System Architecture** chooses implementation, persistence
+  and runtime boundaries independently of this language boundary.
 
-The CORE classification of the two strategic responsibilities remains
-owned by Domain Strategy. The exact model concepts and operational
-policies are not decided here.
+This decision does **not** select entities, value objects, aggregates,
+repositories, APIs, packages, services, datastores, screen layouts or
+deployment topology.
 
 ## Reopening conditions
 
-Re-evaluate this choice if:
+Reconsider one versus multiple model languages through Harness if
+accepted evidence demonstrates:
 
-- a single language demonstrably provides equal consumer clarity with
-  fewer independently governed semantic boundaries;
-- current preparation information and recorded activity acquire
-  incompatible concepts or independently evolving consumers requiring
-  a different split;
-- new accepted Product Requirements require relationship-meaning
-  classifications, subtype taxonomies or additional interpretation rules;
-- later decisions about edit/delete and historical meaning reveal an
-  unresolved product choice that must be routed upstream; or
-- new accepted capabilities create another independently modeled
-  semantic language that cannot remain coherent in these contexts.
+- a shared domain term has materially different meanings for
+  preparation information and recorded activity consumers;
+- the rules and interpretation of the two strategic responsibilities
+  must evolve independently, creating conflict within one language;
+- a real consumer requires semantic translation between independently
+  governed concepts, beyond using a normal in-scope relationship;
+- new accepted product behavior introduces independently coherent
+  semantic language requirements; or
+- tactical findings establish a material model-language question that
+  must be answered at the proper Authority boundary.
+
+Until then, preserve the simpler coherent single-language boundary,
+the two distinct strategic responsibilities, and all accepted product
+operations.
