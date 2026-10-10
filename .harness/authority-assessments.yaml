@@ -23,35 +23,38 @@ assessments:
     reopening_conditions: [published Product Capabilities change or strategic domain responsibility classification changes]
 
   - authority_id: MODEL-CONTEXT-STRATEGY
-    applicability: UNRESOLVED
-    evidence: [docs/architecture/model-context-map.md]
-    rationale: >-
-      Accepted MC-01 uses one coherent language and IR-01 is internal interpretation,
-      not an independently modeled context relationship or translation. No currently
-      material independent context-boundary contract is evidenced beyond distinctions
-      already preserved by Product Capabilities and Domain Strategy. REQUIRED is not
-      justified by the pinned conditional catalog or by the existing acceptance alone.
-      UNRESOLVED records the applicability/topology reconciliation conflict, not a
-      revocation of accepted semantics. Before selecting NOT_APPLICABLE or a justified
-      project-specific boundary, decide where the accepted applicability knowledge is
-      owned, revise affected graph prerequisites and legacy downstream assertions,
-      and prepare one coherent revision-bound publication transition. Do not infer
-      two contexts from two CORE responsibilities or delete the current provider alone.
-    depends_on_evidence: [.harness/knowledge/product-capabilities.yaml, docs/architecture/context-map.md, docs/architecture/model-context-map.md]
-    reopening_conditions: [coordinated Authority and graph ownership reconciliation establishes the retained or omitted boundary, independently modeled languages or a material context-boundary/translation contract are evidenced, accepted model applicability changes]
+    applicability: NOT_APPLICABLE
+    evidence:
+    - .harness/knowledge/product-capabilities.yaml
+    - docs/architecture/context-map.md
+    - .harness/candidates/history/model-context-authority-omission/project/docs/architecture/model-context-map.md
+    rationale: Accepted product behavior is coherent in one language; IR-01 is internal subject interpretation,
+      not an independently governed context-boundary or translation contract. The conditional catalog omission
+      criterion is met. Preparation versus recorded-activity meanings retain strategic attention and are
+      modeled within Tactical Domain Design, directly consuming accepted Domain Strategy and Product Capabilities.
+      No independently valuable Model Context Authority is required. The removed provider, resolved Question,
+      MC-01/IR-01 document and sixth acceptance are historical only, not transferred or re-admitted.
+    depends_on_evidence:
+    - .harness/knowledge/product-capabilities.yaml
+    - docs/architecture/context-map.md
+    - .harness/candidates/history/model-context-authority-omission/project/docs/architecture/model-context-map.md
+    reopening_conditions:
+    - independently governed model languages or a material applicability/translation contract become evidenced
+    - accepted product semantics or tactical findings demonstrate incompatible term meanings requiring explicit
+      context boundaries
 
   - authority_id: DOMAIN-USE-CASE-DESIGN
     applicability: NOT_APPLICABLE
-    evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    evidence: [docs/vision/product-capabilities.md, .harness/candidates/history/model-context-authority-omission/project/docs/architecture/model-context-map.md, docs/application/application-design.md]
     rationale: Current observable behavior does not require an independently versioned domain-use-case contract between Product Requirements and Tactical Domain Design; product capabilities, model semantics and application orchestration provide the accepted boundaries without a missing intermediate owner.
-    depends_on_evidence: [docs/vision/product-capabilities.md, docs/architecture/model-context-map.md, docs/application/application-design.md]
+    depends_on_evidence: [docs/vision/product-capabilities.md, .harness/candidates/history/model-context-authority-omission/project/docs/architecture/model-context-map.md, docs/application/application-design.md]
     reopening_conditions: [a domain-focused behavioral contract must remain stable while tactical modeling or application orchestration changes independently]
 
   - authority_id: TACTICAL-DOMAIN-DESIGN
     applicability: REQUIRED
     evidence: [docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     rationale: Accepted project knowledge contains material domain concepts, ownership boundaries and invariants requiring tactical semantic ownership.
-    depends_on_evidence: [docs/architecture/model-context-map.md, docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
+    depends_on_evidence: [docs/architecture/context-map.md, docs/domain/relation-classification-catalog.yaml, docs/domain/knowledge-model.md, docs/domain/learning-design.md, docs/domain/learner-model.md]
     reopening_conditions: [accepted context boundaries or tactical domain semantics change]
 
   - authority_id: APPLICATION-DESIGN

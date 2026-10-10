@@ -55,40 +55,28 @@ authorities:
     knowledge_kind: domain-strategy
     requires:
     - capability: prep.product-capabilities
-- id: MODEL-CONTEXT-STRATEGY
-  responsibility: Own applicability and relationships of independently modeled semantic
-    contexts.
-  boundary:
-    semantic_cohesion: Model-language applicability and context relationships.
-    independent_change: Context relationships can change without redefining strategic
-      investment classification.
-    public_contract: Provides accepted model-context boundaries to tactical modeling.
-  produces:
-  - capability: prep.model-context-strategy
-    knowledge_kind: model-context-strategy
-    requires:
-    - capability: prep.product-capabilities
-    - capability: prep.domain-strategy
 - id: TACTICAL-DOMAIN-DESIGN
   responsibility: Own accepted domain concepts, semantic relationships and invariants
-    inside the selected Prep model contexts.
+    inside the coherent Prep model language.
   boundary:
-    semantic_cohesion: Preparation Information semantics and Recorded Activity History
-      semantics, including the accepted cross-context relationship boundary.
+    semantic_cohesion: Preparation information and recorded activity/result meanings
+      in one coherent model language, including the internal IR-01 subject-of-activity
+      interpretation.
     independent_change: Tactical semantics can evolve behind accepted product and
-      model-context boundaries without selecting persistence, UI or runtime technology.
+      strategic responsibility boundaries without selecting persistence, UI or runtime
+      technology.
     public_contract: Provides accepted Preparation Information and Recorded Activity
       History domain models to later design.
   produces:
   - capability: prep.preparation-information-model
     knowledge_kind: domain-model
     requires:
-    - capability: prep.model-context-strategy
+    - capability: prep.domain-strategy
     - capability: prep.product-capabilities
   - capability: prep.recorded-activity-history-model
     knowledge_kind: domain-model
     requires:
-    - capability: prep.model-context-strategy
+    - capability: prep.domain-strategy
     - capability: prep.product-capabilities
 - id: APPLICATION-DESIGN
   responsibility: Own application operations, bounded application-process coordination,

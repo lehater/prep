@@ -44,7 +44,6 @@ def main() -> None:
         "DISCOVERY": ("PROBLEM-EVIDENCE", "USER-NEEDS"),
         "PRODUCT-REQUIREMENTS": ("PRODUCT-VISION", "PRODUCT-CAPABILITIES"),
         "DOMAIN-STRATEGY": ("CONTEXT-MAP",),
-        "MODEL-CONTEXT-STRATEGY": ("MODEL-CONTEXT-MAP",),
     }.items():
         assessment = assessments[authority]
         assert assessment["applicability"] != "UNASSESSED"
@@ -57,6 +56,12 @@ def main() -> None:
         assert not any(path.startswith("docs/vision/") for path in sources), (
             f"{authority} uses an obsolete human projection as evidence"
         )
+
+    omitted = assessments["MODEL-CONTEXT-STRATEGY"]
+    assert omitted["applicability"] == "NOT_APPLICABLE"
+    assert "MODEL-CONTEXT-MAP" not in canonical
+    assert "MODEL-CONTEXT-STRATEGY" not in {row["id"] for row in core["authorities"]}
+    assert all((ROOT / path).is_file() for path in omitted["depends_on_evidence"])
 
     baseline = read_yaml(ROOT / ".harness/semantic-baseline.yaml")
     assert baseline["kind"] == "prep-strict-semantic-baseline"

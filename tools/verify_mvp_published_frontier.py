@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Guard the original MVP semantic frontier without blocking future accepted capabilities.
 
-The six frontier capabilities must remain policy-bound CURRENT. The project may
+The five applicable frontier capabilities must remain policy-bound CURRENT. The project may
 accept additional downstream capabilities without modifying this verifier.
 """
 from __future__ import annotations
@@ -31,7 +31,6 @@ FRONTIER = {
     "prep.product-intent": ("PRODUCT-VISION", ".harness/knowledge/product-intent.yaml"),
     "prep.product-capabilities": ("PRODUCT-CAPABILITIES", ".harness/knowledge/product-capabilities.yaml"),
     "prep.domain-strategy": ("CONTEXT-MAP", "docs/architecture/context-map.md"),
-    "prep.model-context-strategy": ("MODEL-CONTEXT-MAP", "docs/architecture/model-context-map.md"),
 }
 
 
@@ -67,6 +66,9 @@ def main() -> None:
         graph, core, state["lifecycle"],
         current_acceptance_policy_fingerprints=policies,
     )
+    assert "prep.model-context-strategy" not in states
+    assert "prep.model-context-strategy" not in by_provider
+    assert "prep.model-context-strategy" not in by_evaluation
     core_artifacts = {artifact["id"]: artifact for artifact in core["artifacts"]}
     for capability, (artifact_id, path) in FRONTIER.items():
         assert capability in states, f"Capability not realized: {capability}"
