@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:b2d84bb328332d2d18c52ac70271b21126b7ca2f37319958c8d3a96660f88e73
-parent_revision: sha256:0d8e0b4f35b08e3d9e785e24931a1f9ff731c5903dffb0ea05fca8b92ebf3487
+revision: sha256:baecceac6cc0171c63ce1970c38505ab2dd637bba6ab4a0a7c6c91ce7b82f9c4
+parent_revision: sha256:b2d84bb328332d2d18c52ac70271b21126b7ca2f37319958c8d3a96660f88e73
 state:
   core_model:
     authorities:
@@ -250,7 +250,7 @@ state:
         - .harness/knowledge/product-intent.yaml
         canonical_references:
         - referenced_path: docs/discovery/user-needs.yaml
-        accepted_prerequisites: &id001
+        accepted_prerequisites:
           prep.user-needs: PREP-MVP-USER-NEEDS-1
         accepted_prerequisite_semantics: {}
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -270,7 +270,8 @@ state:
         capability: prep.product-intent
         acceptance_id: PREP-MVP-PRODUCT-INTENT-1
         acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
-        accepted_prerequisites: *id001
+        accepted_prerequisites:
+          prep.user-needs: PREP-MVP-USER-NEEDS-1
         semantic_atom_fingerprints: &id004
           PD-MVP-DATA-MANAGEMENT-2026-10-10: SAF-8159d41aa7d6ae759bf1acb5b3224869bcb5437f695168957e2b658328a765a9
           PD-MVP-RECORDED-ACTIVITY-INTAKE-2026-10-10: SAF-7a09ba26e36088d337ca3bce55fdf26988a3a0891415ab075f7eeb1688fb20b6
@@ -287,6 +288,70 @@ state:
           REQ-INFORMATION-UPDATE: SAF-8031588112914bae0f4e659f490f7b4fa6070f8b227bc2edb518fd7614be9057
           REQ-INFORMATION-DELETE: SAF-5717cbfdf1e1c298f721ff62404de8a05222a8f9019a0d7747b4cf95c9243d1c
           PI-SCOPE: SAF-fd252c69cf8e2716450c0cb363efd6e6851a84d3244233214a03e5f0a5f79de9
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: PRODUCT-CAPABILITIES
+      capability: prep.product-capabilities
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.intent.behavior
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: product-requirements
+        skill: skills/artifacts/product-requirements/SKILL.md
+        acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+        authority: PRODUCT-REQUIREMENTS
+        allowed_source_authorities:
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - .harness/knowledge/product-capabilities.yaml
+        canonical_references:
+        - referenced_path: .harness/knowledge/product-intent.yaml
+        accepted_prerequisites: &id001
+          prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: PRODUCT-CAPABILITIES
+        capability: prep.product-capabilities
+        acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        accepted_prerequisites: *id001
+        semantic_atom_fingerprints: &id005
+          REQ-CAP-INTRODUCE-INFORMATION: SAF-7a34e305eeb57f3038f28294fbc0a1582c2daa62e39b26bc71a8826b29f0bf83
+          REQ-CAP-RETAIN-INFORMATION: SAF-1eef843e29d73feccd97e0219c18db7d535593ab50d62eaa180efda50829a4f0
+          REQ-CAP-CHANGE-INFORMATION: SAF-3f2803629fd946fd3baf22fe120c7dab6ed480cee93dc8c0b60503ff68a5cc08
+          REQ-CAP-REMOVE-INFORMATION: SAF-633fe554c93e53ef9b200840baa332c51ebd4ce4e7beccbcdf6cead0583a1783
+          REQ-CAP-EXPLORE-PERSPECTIVES: SAF-4e4fa6b4f6d7e6f6273685a86b47d97a8b3edfc15c4afae747a83b204a47a8f0
+          REQ-CAP-SELECT-PART: SAF-f093d3b7c6c2593677ec526acb884e95104bd6290f13ac408342fde7e821f85c
+          REQ-CAP-TRANSFER-SELECTION: SAF-9cca1a797e2ce426038e49addbb50880944f57035b0ee445f5520879a910d1d8
+          REQ-CAP-RECORD-ACTIVITY: SAF-52399585c2329bee8298c4ddc607070e2a5630859758ea4dca75269b0d51caa2
+          REQ-CAP-RELATE-ACTIVITY: SAF-196122301e576d0c94e4b889e1fc2f32f3bd1bdfa0642793dae83b9686f82028
+          REQ-CAP-PRESERVE-TIME: SAF-f8fbd47d48adc45e4f839672c3ca4e53be0fc407c960738736e4c040d4434e9f
+          REQ-CAP-EXPLORE-HISTORY: SAF-17ea08045e58489dfd79f240ad3a8a29b2b88acdad61e91cb4e78bfc00ccbbed
+          REQ-CAP-BULK-LOAD-INFORMATION: SAF-71a9d736f0c7a8a7801c62058c73860f330c877d50ef278f074193e8adc7896f
+          REQ-CAP-READ-INFORMATION: SAF-d21b1acb453bb79981e3c15ddd58ef1dde163e7b4fb67d1b91388969cf0b7f83
+          REQ-CAP-EXPLORE-INFORMATION: SAF-5d36f8ce9461dd1022028b896c3b44137749561b0f062088a1e3644a9dcdd4fc
+          REQ-CAP-EXPLORE-RELATIONSHIPS: SAF-ce335467136bb07f7cda3868868e159c3f4869796f394fdcbcc7e6b8694e33fc
+          PC-SCOPE: SAF-1d91c714205139d3bd59481bdbf4e8861be9f81c52a1805141ca08b4519fa828
     derivation_evaluations: []
   lifecycle:
     version: 1
@@ -312,6 +377,13 @@ state:
       accepted_prerequisites:
         prep.user-needs: PREP-MVP-USER-NEEDS-1
       semantic_atom_fingerprints: *id004
+    - artifact: PRODUCT-CAPABILITIES
+      capability: prep.product-capabilities
+      acceptance_id: PREP-MVP-PRODUCT-CAPABILITIES-1
+      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      accepted_prerequisites:
+        prep.product-intent: PREP-MVP-PRODUCT-INTENT-1
+      semantic_atom_fingerprints: *id005
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

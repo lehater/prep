@@ -188,15 +188,17 @@ content:
     - id: REQ-CAP-BULK-LOAD-INFORMATION
       statement: >-
         The product shall allow the user to introduce multiple records
-        in one bulk-loading operation for every entity and relationship
+        from externally supplied information in one bulk-loading operation
+        for every entity and relationship
         kind included in the accepted MVP model, including recorded
         activity and results.
       status: ACCEPTED
       source_refs: [REQ-INFORMATION-BULK-LOAD]
       acceptance_examples:
         - >-
-          The user can load more than one record of an in-scope kind
-          together and then inspect the resulting records in Prep.
+          From externally supplied information, the user can load more than
+          one record of an in-scope kind together and inspect the resulting
+          records in Prep.
 
     - id: REQ-CAP-READ-INFORMATION
       statement: >-
@@ -277,7 +279,9 @@ content:
       capabilities: [REQ-CAP-REMOVE-INFORMATION]
 
   non_goals:
-    - Infer or maintain learner state or estimate mastery, readiness, or competence.
+    - Assess what the user knows or can do, or estimate mastery, readiness, or competence.
+    - Verify the truth, quality, authorship, reliability, or authority of information.
+    - Require source management, provenance, citations, source versioning, or traceability.
     - Define a fixed taxonomy of knowledge kinds or relationship meanings.
     - Define required cross-kind relationship topology or connection cardinalities.
     - Require immutable activity history or prescribe a deletion or versioning strategy.
