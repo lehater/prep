@@ -7,6 +7,90 @@
 > counted toward CURRENT. No Core or Publication change is authorized by
 > this file.
 
+## Owner-confirmed goal-first MVP entry scenario (2026-10-11)
+
+**USER DECISION / PRODUCT-DIRECTION INPUT — GOAL-FIRST PRIMARY MVP SCENARIO.**
+The owner confirmed that the MVP's first and most important user
+scenario **begins with a specific preparation Goal** and must let the
+user actually *move toward that goal*, not merely store or browse
+Knowledge independently. The Goal is the initial reference point from
+which the user investigates **what attaining it involves**, relevant
+capability descriptions, knowledge and preparation materials, and
+discovers deficiencies in the model through actual preparation and
+feedback. Knowledge without reference to a preparation Goal is not the
+primary feedback-generating MVP entry scenario.
+
+This is a **scenario priority and product direction**, not the owner's
+approval of a particular `Goal -> CapabilityDescription` predicate,
+goal decomposition, required list of capabilities, mastery estimate,
+automated plan, fixed learning path, progress percentage, assessment,
+UI entry screen or technical graph architecture. Such mechanics need
+separate domain/product decisions.
+
+### Proposed smallest end-to-end scenario for evaluation (NOT APPROVED)
+
+1. The user can identify/create a specific Goal and inspect its
+   description, as covered by accepted all-kind CRUD.
+2. The user can investigate the *meaning* of attaining it: outcome,
+   scope and any required abilities or subgoals **if justified**. The
+   precise goal-success criterion, decomposition semantics and
+   `requires` vs `targets` meaning are **open**.
+3. The user can explore information/material relevant to the goal
+   through accepted information exploration and available
+   admitted relationships; no automatic `Goal -> Capability ->
+   Knowledge -> Material` chain is assumed.
+4. The user can select relevant information/material for actual
+   preparation outside Prep through the already accepted selection
+   and external-use capabilities.
+5. The user can bring back activity/result records, examine their
+   time and subject connections and use them as information for
+   deciding how to proceed; the product must not infer mastery,
+   readiness or automatically claim goal completion.
+6. The user can revisit the same Goal with the additional records
+   and choose a further preparation action. How "progress" and
+   completion are determined requires separate **Product
+   Requirements** authority if it introduces new observable
+   commitments.
+
+This proposed walkthrough is a *test hypothesis* for minimum viable
+goal-centred preparation, not a normative workflow or accepted
+application process. The key closure test is whether the user can
+make a meaningful next preparation decision from goal context using
+information and recorded results, rather than merely view a catalog.
+
+### Upstream reconciliation required before semantic admission
+
+Current accepted `PRODUCT-VISION` and
+`PRODUCT-CAPABILITIES` support exploration, CRUD,
+external selection/use and recorded activity/result understanding,
+but they do **not** explicitly bind these to a
+**goal-first primary scenario** or require a plan/goal attainment
+tracker. This owner direction belongs first to
+`PRODUCT-REQUIREMENTS` for review, acceptance criteria and a
+Harness-routed revision if it changes observable product scope.
+Then reassess affected `DOMAIN-STRATEGY` currentness if needed,
+and resume `prep.preparation-information-model` on the accepted
+baseline. Do not retrofit the accepted upstream artifacts through
+this noncanonical candidate or transfer old semantic acceptance.
+
+**Decision order recommended for next owner review**:
+- Define what a Goal asserts: intended outcome and how the person
+  describes reaching it; distinguish success **criteria** from
+  automatic status inference.
+- Determine whether a Goal comprises *subgoals*, *required
+  capabilities*, or both, and what each relation asserts.
+- Test how the user goes from selected knowledge/material to external
+  preparation and back to recorded facts **in the goal's context**.
+- Only then admit specific relation meanings, directions,
+  multiplicities and lifecycle rules.
+
+Previously approved four decisions (`IDENTITY=INSTANCE`,
+`STRUCTURE=DISTINCT-CONCEPTS`, `RELATION-IDENTITY=INSTANCE`,
+`D1=SELECTIVE-ADMISSIBILITY`) remain unchanged.
+All D2–D10 relation and lifecycle decisions remain **unapproved**.
+The three Core Questions, `CONSERVATIVE` decision policy and
+BLOCKED Project Publication stay unchanged.
+
 ## Evidence and decision ownership
 
 - Accepted requirements: `.harness/knowledge/product-capabilities.yaml`,
