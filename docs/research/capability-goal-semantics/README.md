@@ -57,7 +57,13 @@ These are four distinct approvals, not approval of an entire domain schema.
 
 > Continue the Prep Capability/Goal semantics investigation from this noncanonical research handoff: https://github.com/lehater/prep/tree/research/prep-capability-goal-semantics/docs/research/capability-goal-semantics . Read its research baseline and open-questions queue. First check AGENTS.md and fresh canonical GitHub/Harness state on the task branch; reconcile any drift with PR #101. Work through unresolved questions in the prescribed semantic-first order, starting from the three research iterations and the **still-open** owner GD-00..05 and CD-01..05 decision gates. Review the controlled Goal-return/flat-vs-composed experiment before recommending further admission. Distinguish external precedents, hypotheses, owner approvals, and Harness acceptance. Do not choose material alternatives on the owner's behalf, silently modify Core/Publication, merge branches, or declare CURRENT. Update the handoff on the research branch when a meaningful group of results is complete; prefer one coherent commit.
 
-## Update cadence
+## Owner question captured after Iteration 03 (2026-10-12)
+
+Owner selected **Capability-oriented Goal-first preparation (GF-01 option A)** with initially incomplete Goals, as Product Requirements input only. Owner also proposes optional progressive recursive Capability decomposition and asks whether an ordered composition would become an instruction. Existing desk research distinguishes Capability composition, prerequisite and Procedure but did not close ordering.
+
+[Open questions](open-questions.md) now include **CD-06 (P1): composition versus execution order, prerequisite, and learning sequence**, referencing existing PR-01/02. Next narrow research pass: architecture, communication, strict-protocol and learning-order counterexamples; preserve Iterations 01–03 and still-open P0 owner gates. No new canonical or approved model decisions.
+
+## Update cadence## Update cadence
 
 No mechanical commit per conversation turn. Update after a meaningful change in conclusions, a new materially discriminating counterexample, or 2–4 substantive investigation iterations, whichever comes first. Record the new checkpoint date, what changed, what remains open, and evidence. One cohesive commit for related updates; avoid repeated duplicate files and unsupported claims of currentness. On migration/admission, reference the corresponding canonical artifact, then clearly mark superseded research claims as historical rather than silently overwriting their status.
 

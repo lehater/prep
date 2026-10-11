@@ -12,6 +12,10 @@ This file records *what to examine next*. The actual Core Questions and decision
 - D1 = SELECTIVE-ADMISSIBILITY;
 - primary MVP entry = Goal-first preparation (Product Requirements input).
 
+**Additional owner decision (conversation 2026-10-11, Product Requirements input, NOT Harness-accepted):** GF-01 option A — organize Goal-first preparation primarily through CapabilityDescriptions while allowing a Goal to start incomplete with zero listed Capabilities. This does not select requires/targets/focus or any C–C composition relation.
+
+**Additional owner hypothesis/question (conversation 2026-10-11, NOT a formal relation approval):** allow optional progressively disclosed, recursively structured Capabilities without assuming completeness. Does a composite Capability define the order of executing child abilities, or would this constitute an instruction/Procedure? Research required before deciding order, predicate or MVP scope.
+
 **No owner choice:** Goal-relation predicate, Capability composition predicate, whether composition enters MVP, direction/multiplicity per relation, endpoint rules/self-links, global vs Goal-specific decomposition, deletion integrity and reintroduction, automatic inferences (not proposed as MVP), target/focus distinction.
 
 **Research pass update (2026-10-12):** [Iteration 01](iteration-01-goal-capability-predicates.md) evaluates GD-00, GD-01 and GD-02 with four concrete Goals and a cheap A/B acceptance experiment. **Analysis complete for this pass; owner decisions remain OPEN.** A universal `requires` is analytically falsified; R/T may overlap for an ability-as-outcome Goal; interview preparation can justify a user-chosen F even when R is unknown. No GD-03/04/05 decision is made. See the iteration's three owner decision cards before advancing the catalog.
@@ -97,10 +101,21 @@ Closure: choose relation semantics first, then valid-state invariants and mutati
 Default hypothesis: compose capabilities in the meaning of their own descriptions; Goal-specific navigation/filtering does not alter the truth of C–C. Need context-qualified relation only upon concrete counterexample.
 Closure: a real case where same pair is properly included for one Goal but not for another *without changing the parent capability's meaning*; otherwise defer.
 
+### CD-06 — Composition versus execution order and Procedure (NEW, P1)
+**Owner question:** If a Capability contains smaller Capabilities, must they be performed in an order? Does recording that order turn a description of ability into a Procedure or instruction? Iteration 03 distinguishes composition and Procedure in principle; it does not settle the semantics and representation of order.
+
+Test four distinct claims: (1) a set of constitutive abilities; (2) prerequisite between abilities; (3) ordered/conditional steps of a performance protocol; (4) sequence chosen for learning or displaying children. Do not conflate these. A procedure step is not automatically a Capability, and needing ability B for A does not automatically prescribe an executable A/B sequence.
+
+Alternatives to compare (not selected): A — composition has no inherent order; B — additional meaning-specific prerequisite/order relation, if independently needed; C — procedure described within suitable existing Knowledge or PracticeMaterial meanings; D — new Procedure/Task domain concept only after a concrete product-use failure of existing distinctions.
+
+Falsifying cases: scalable-system design with iteration/rework, communication (listen/ask/respond with flexible timing), strict measurement/safety protocol where changing step order invalidates the performed task, and learner-selected practice order independent of protocol order. Compare ability meaning, required outcomes/criteria, action execution and learning preference; clarify where a normative external procedure is referenced without incorporating its ordered steps into C–C.
+
+Closure: a matrix of user question, positive case, counterexample, owner Authority, smallest MVP consequence, and user-visible need. Show one composite ability without a required sequence, and one strict procedure for which ordering matters **without** implying that Capability composition orders children. Test consequences for CRUD/bulk if any new admitted kind is proposed. No universal sequence numbers, mastery inference, plan engine or Procedure entity by default. Owner decision remains OPEN.
+
 ## 3. P2 — defer until triggered by user evidence
 
-- PR-01: prerequisites/ordered learning paths separate from capability composition and execution procedures.
-- PR-02: standalone Procedure/Task model only if existing Knowledge/PracticeMaterial/Activity distinction proves insufficient.
+- PR-01: now covered by P1 research CD-06 (prerequisites, procedure order, learning order, presentation order); not an approved MVP feature.
+- PR-02: now covered by P1 research CD-06; a standalone Procedure/Task remains an unapproved option only if existing Knowledge/PracticeMaterial/Activity semantics cannot express a required user case.
 - PR-03: proficiency levels, detailed capability equivalence engine, automatic dedup/semantic hashing, mastery inference: not in accepted MVP.
 - PR-04: metadata such as assertion source, confidence, provenance, versions: no accepted product promise; do not sneak in via relation semantics.
 - PR-05: import/export via CASE/CaSS/ESCO/O*NET: interoperability option, not requirement; check licenses and schema fidelity.
