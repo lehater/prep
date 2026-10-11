@@ -16,6 +16,8 @@ This file records *what to examine next*. The actual Core Questions and decision
 
 **Research pass update (2026-10-12):** [Iteration 01](iteration-01-goal-capability-predicates.md) evaluates GD-00, GD-01 and GD-02 with four concrete Goals and a cheap A/B acceptance experiment. **Analysis complete for this pass; owner decisions remain OPEN.** A universal `requires` is analytically falsified; R/T may overlap for an ability-as-outcome Goal; interview preparation can justify a user-chosen F even when R is unknown. No GD-03/04/05 decision is made. See the iteration's three owner decision cards before advancing the catalog.
 
+**Research pass update (2026-10-12, Iteration 02):** [Conditional GD-03/04/05 investigation](iteration-02-conditional-relation-catalogue-and-mutation-tests.md) produces concrete relation-kind admission tests, multiplicity/direction counterexamples, and endpoint/bulk/delete mutation fixtures. This is **analysis, not a decision**. New explicit blockers: material 'intended for practice' lacks a decided intentional actor (designer vs learner); deletion of a preparation endpoint must not silently determine fate of DS-02 recorded activity/results. **All GD-00..05 owner gates stay OPEN**. Flat experiment with no G–C edge is not proof a relationless MVP meets accepted relationship-exploration obligations.
+
 **GitHub state distinction:** base mvp-vertical-slice Core has only a legacy Product Requirements Question at checkpoint; the three Tactical blocking Questions below exist in the Draft PR #101 candidate Core, not yet in the mvp base:
 - Q-PREP-PREPARATION-IDENTITY-STRUCTURE;
 - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS;
@@ -47,16 +49,19 @@ Candidate invariants: a Goal can have zero links; absent G–C means unknown, no
 Closure: one consistent acceptance walkthrough for learning goal, external outcome and strict protocol; no new task/plan entities merely to support examples.
 
 ### GD-03 — Minimal typed relation catalogue (TACTICAL, P0)
+**Research note:** Iteration 02 has a provisional semantic/falsification table; no admitted relation catalogue. Decide material intended purpose vs learner designation before proposing M–C.
 Question: Which *specific* relation kinds are justified by the smallest Goal-first E2E? Candidate relationships include Goal requires C; Goal targets C; material intended-to-practice C; material covers Knowledge; Capability uses Knowledge. The only owner-approved choice so far is D1 SELECTIVE-ADMISSIBILITY, not these kinds.
 Closure: semantic meaning, valid endpoint roles, counterexample, necessity for E2E, no accidental source verification/mastery implication, and full CRUD/bulk cost for every admitted kind.
 Priority: begin with G–C; then examine knowledge/material link *only if the walkthrough demonstrably needs it*.
 
 ### GD-04 — Relation direction and multiplicity (TACTICAL, P0)
+**Research note:** Iteration 02 distinguishes semantic roles, reverse navigation, proposition equality, record identity, and edit retargeting; multiplicity/constraints remain unapproved.
 Question: Does a specific admitted predicate use asymmetric roles? Are duplicate endpoint+predicate instances meaningful?
 Constraints: relation identity is instance-based; this does **not** imply multiple equivalent propositions. Direction and multiplicity must be decided per admitted semantic kind, not generically.
 Closure: two semantically identical records tested for an additional domain fact; explicit valid endpoint and self-link policies; user-edit continuity and import implications considered only after semantic meaning.
 
 ### GD-05 — Removal and endpoint integrity (TACTICAL, P0)
+**Research note:** Iteration 02 exercises Goal/Capability/Material/Knowledge deletion, recreation and bulk refs; recorded Activity/Result continuity is a separate DS-02 issue requiring coordinated design. No cascade/unavailable-endpoint policy selected.
 Question: On deletion/edit of an item, what happens to its incident preparation relations? Does re-introduction denote the same instance? How is dangling information prevented or explicitly represented?
 Alternatives recorded in PR #101: remove affected relations coherently, or represent unavailable endpoint; no blanket owner choice yet.
 Constraints: preserve unconditional user-facing CRUD and bulk; do not invent immutable history, tombstone/provenance retention, forbidden delete or mastery. Recorded Activity/Result integrity belongs to its separate tactical capability.
@@ -107,11 +112,11 @@ Closure: a real case where same pair is properly included for one Goal but not f
 
 ## 5. Recommended next research action
 
-**Iteration 01 performed the desk-based GD-01/GD-02 analysis** in [the iteration note](iteration-01-goal-capability-predicates.md), including the following originally requested cases. The next *unperformed* work is obtaining GD-00/01/02 owner decisions and testing the Goal-return acceptance experiment. The original experiment inputs were:
+**Iterations 01 and 02 performed desk-based GD-00..05 conditional analysis** in [the iteration note](iteration-01-goal-capability-predicates.md), including the following originally requested cases. The next *unperformed* work is obtaining GD-00/01/02 owner decisions, testing the Goal-return acceptance experiment, and running the CD-01..05 flat-vs-recursive capability comparison. The original experiment inputs were:
 1. «Learn to argue architecture decisions» — target developmental outcome.
 2. «Pass a system design interview» — partial, uncertain alleged requirements.
 3. «Personally perform protocol X» vs «receive a valid certificate» — necessary skill versus alternative external path.
 
-Iteration 01 records exact Goal wording, R/T/F assessments, counterfactuals, user data/actions, and decision cards. These are **research results, not field validation**. Only after owner choice examine GD-03 relation catalogue and GD-04/GD-05 operational invariants. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
+Iteration 01 records exact Goal wording and R/T/F counterfactuals; Iteration 02 investigates the relation catalogue and operational rules **conditionally**, without choosing them. These are **research results, not field validation**. Only after owner choice may GD-03/04/05 be governed and canonicalized. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
 
 **Research checkpoint closure is not Harness closure.** Update this file's status after actual owner input, and make the canonical transition only via routed Harness. Do not mark a Core Question resolved because a researcher selected a recommendation.
