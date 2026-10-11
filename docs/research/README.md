@@ -11,6 +11,12 @@ Research notes are **not** approved product/domain decisions, Harness Core Quest
 - Prefer a topic `README.md` for a short handoff, `open-questions.md` for outstanding questions, and one or more research notes for substantial findings. These are convenient names, **not a mandatory format**. Existing topic layouts can remain as they are.
 - In the topic README, point readers to the latest useful findings and the next unresolved question. Record the branch/revision when findings depend on repository state.
 
+## Bounded experimental checks (optional)
+
+A research topic may keep `open-experiments.md` alongside `open-questions.md` when several bounded hypotheses need reproducible checks. Keep the list local to its topic: question IDs link to experimental checks; experiment records link to their fixture/conditions, falsification criteria, results, limitations and owner decision needed. Do not use this as a parallel task tracker, engineering decision registry or Harness acceptance record.
+
+An experiment may be performed with counterexample tables or structured fixtures and **does not require code or a UI**. Use `experiments/<name>/` for an independent runnable experiment only when execution materially improves validity or reproducibility. Do not create an empty scaffold or shared framework in advance. No universal scheduling order is required, but record prerequisites explicitly. Closing a test means the check has been run and documented, **not** that its linked Core/Authority Questions have been approved.
+
 ## Work on a topic
 
 1. **Read:** inspect the topic's handoff, open questions and relevant findings. Look for previous answers and conflicting evidence before starting new work.

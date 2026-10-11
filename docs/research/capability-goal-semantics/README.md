@@ -18,6 +18,7 @@ This research branch is isolated from mvp-vertical-slice, the PR #101 head, main
 2. [Iteration 01: Goal–Capability and incompleteness](iteration-01-goal-capability-predicates.md): completed research pass on GD-00/01/02, explicit counterexamples, smallest Goal-first walkthrough and owner decision cards; **no decisions approved**.
 3. [Iteration 02: Conditional relation catalogue, direction/duplicates, and removal](iteration-02-conditional-relation-catalogue-and-mutation-tests.md): research-only GD-03/04/05 test cases and candidate scope, **no admitted types or rules**.
 4. [Iteration 03: Capability meaning, recursion and context](iteration-03-capability-description-composition-and-context.md): CD-01..05 desk investigation, controlled comparison design, owner cards, no admitted composition.
+5. [Open experiments](open-experiments.md): bounded hypothesis checks, conditions, owner questions and result links. Unlike the canonical Core Questions or an implementation task tracker, these are research instruments.
 5. [Open questions and closure sequence](open-questions.md): owner decision queue, priorities, alternatives, and next experiment.
 6. Read AGENTS.md from the current **task branch**; follow its pinned Harness consumer procedure when performing Harness-controlled engineering work.
 7. Independently inspect the current .harness/core.yaml, .harness/engineering-graph.yaml, .harness/project-publication.yaml, and affected canonical source artifacts at the CURRENT working revision.
@@ -63,7 +64,11 @@ Owner selected **Capability-oriented Goal-first preparation (GF-01 option A)** w
 
 [Open questions](open-questions.md) now include **CD-06 (P1): composition versus execution order, prerequisite, and learning sequence**, referencing existing PR-01/02. Next narrow research pass: architecture, communication, strict-protocol and learning-order counterexamples; preserve Iterations 01–03 and still-open P0 owner gates. No new canonical or approved model decisions.
 
-## Update cadence## Update cadence
+## Experiment evidence queue (2026-10-12)
+
+A small [open-experiments list](open-experiments.md) has been added beside the questions. Its first proposed check is **EX-GF-01**, a non-UI Goal-first domain-model stress test using fixed semantic fixtures. **EX-GF-02** is a separate, deferred user-workflow comparison; it cannot be reported as validated until observed user evidence exists. Neither has been executed by merely adding the record. Each may be taken up independently when its prerequisites are available; decisions and Harness acceptance remain with the owning authorities.
+
+## Update cadence
 
 No mechanical commit per conversation turn. Update after a meaningful change in conclusions, a new materially discriminating counterexample, or 2–4 substantive investigation iterations, whichever comes first. Record the new checkpoint date, what changed, what remains open, and evidence. One cohesive commit for related updates; avoid repeated duplicate files and unsupported claims of currentness. On migration/admission, reference the corresponding canonical artifact, then clearly mark superseded research claims as historical rather than silently overwriting their status.
 
