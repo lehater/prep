@@ -1,6 +1,6 @@
 # Open experiments — Capability / Goal semantics
 
-**Classification:** NONCANONICAL RESEARCH CHECKS ONLY (2026-10-12). This is not an engineering backlog, an alternative Core Question register, a Product Requirements artifact, a Harness acceptance/currentness claim, or an authority decision. See [open questions](open-questions.md) for the actual research questions and [topic handoff](README.md) for the current project context.
+**Classification:** NONCANONICAL RESEARCH CHECKS ONLY (2026-10-12). This is not an engineering backlog, an alternative Core Question register, a Product Requirements artifact, a Harness acceptance/currentness claim, or an authority decision. See [open questions](open-questions.md) for the actual research questions and [topic handoff](HANDOFF.md) for the current project context.
 
 ## How to use this list
 
