@@ -6,7 +6,7 @@ This file records a **research handoff**, not authoritative product/domain statu
 
 ## Where to resume
 
-**Suggested next bounded check:** [EX-GF-01](open-experiments.md#ex-gf-01--goal-first-domain-model-stress-test), a Goal-first **semantic model stress test without frontend**. First freeze its S1–S4 fixture facts, alternative interpretations and falsification criteria; perform the same checks against the competing candidate models; then link the actual observations and limitations to the question/experiment lists. Do not report it as complete until the check has been carried out.
+**Current next action:** [EX-GF-01 results](experiment-01-goal-first-model-stress-test.md) are recorded as a **completed desk-based semantic check**, not Owner approval or an engineering test. The immediate task is a bounded P0/P1 owner review of [open questions](open-questions.md), especially GD-00/01/02, DS-02 Goal-specific Activity context and GD-05 removal. [EX-GF-02](open-experiments.md#ex-gf-02--goal-return-and-flat-versus-composed-user-workflow) remains **DEFERRED / NOT RUN** until a user-value observation is warranted.
 
 [EX-GF-02](open-experiments.md#ex-gf-02--goal-return-and-flat-versus-composed-user-workflow) concerns observed user behaviour and is separate; it is not implied by a semantic desk test. This suggested starting point does not impose a global order on unrelated questions.
 
@@ -49,6 +49,10 @@ These are four distinct approvals, not approval of an entire domain schema.
 Owner selected **Capability-oriented Goal-first preparation (GF-01 option A)** with initially incomplete Goals, as Product Requirements input only. Owner also proposes optional progressive recursive Capability decomposition and asks whether an ordered composition would become an instruction. Existing desk research distinguishes Capability composition, prerequisite and Procedure but did not close ordering.
 
 [Open questions](open-questions.md) now include **CD-06 (P1): composition versus execution order, prerequisite, and learning sequence**, referencing existing PR-01/02. Next narrow research pass: architecture, communication, strict-protocol and learning-order counterexamples; preserve Iterations 01–03 and still-open P0 owner gates. No new canonical or approved model decisions.
+
+## EX-GF-01 checkpoint (2026-10-12)
+
+The frozen S1–S4 flat-versus-composed model comparison, two mechanical fixture probes (12 base expectations and eight adversarial checks), interpretation of result statuses, and five narrow Owner cards are in [the experiment note](experiment-01-goal-first-model-stress-test.md). This research confirms a critical conditional DS-02 requirement: when a Capability is reused across Goals, an Activity's Capability subject alone cannot restore the unique Goal context. It also demonstrates why child Capability order cannot represent repeated/conditional protocol steps. No ontology, relation, deletion rule, procedure engine, or automatic mastery inference was accepted. See the experiment list for current status and limits.
 
 ## Previous research checkpoints (historical; not current work instructions)
 

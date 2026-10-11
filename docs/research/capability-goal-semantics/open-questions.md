@@ -28,6 +28,8 @@ This file records *what to examine next*. The actual Core Questions and decision
 - Q-PREP-PREPARATION-REMOVAL-INTEGRITY.
 Their published/candidate statuses must be freshly checked before action.
 
+**EX-GF-01 research result (2026-10-12):** [Executed S1–S4 stress test](experiment-01-goal-first-model-stress-test.md) found both flat and optional-composed models can represent a human-driven Goal-first cycle *under explicit DS-02 subject and selection assumptions*. The flat model cannot represent a **typed C–C structural assertion**; this is not a failure of its ability to support the minimum user loop. Shared Capability C2 linked to two Goals exposes a P0 context loss when Activity records only C2: composition cannot disambiguate historical Goal. Ordered child abilities fail as a representation of conditional repeated procedure steps. All Owner/Authority decisions remain OPEN.
+
 ## 1. P0 — semantic decisions needed for the first Goal-first vertical slice
 
 ### GD-00 — Product meaning of Goal-first (PRODUCT-REQUIREMENTS)
@@ -102,6 +104,7 @@ Default hypothesis: compose capabilities in the meaning of their own description
 Closure: a real case where same pair is properly included for one Goal but not for another *without changing the parent capability's meaning*; otherwise defer.
 
 ### CD-06 — Composition versus execution order and Procedure (NEW, P1)
+**EX-GF-01 research result:** S4 demonstrates strict protocol step occurrences (including conditional repeats) cannot be faithfully modeled by assigning one execution rank to each child Capability; architecture and communication may legitimately reorder and revisit subactivities. This rejects a **universal ordered-C–C-as-Procedure shortcut**, not all future procedural modeling. Product need for machine-readable execution/compliance remains unproven; Owner decision OPEN.
 **Owner question:** If a Capability contains smaller Capabilities, must they be performed in an order? Does recording that order turn a description of ability into a Procedure or instruction? Iteration 03 distinguishes composition and Procedure in principle; it does not settle the semantics and representation of order.
 
 Test four distinct claims: (1) a set of constitutive abilities; (2) prerequisite between abilities; (3) ordered/conditional steps of a performance protocol; (4) sequence chosen for learning or displaying children. Do not conflate these. A procedure step is not automatically a Capability, and needing ability B for A does not automatically prescribe an executable A/B sequence.

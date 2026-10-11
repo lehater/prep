@@ -10,7 +10,7 @@ Use a dedicated note for meaningful results; use `experiments/<name>/` only for 
 
 ## EX-GF-01 — Goal-first domain-model stress test
 
-- **Status:** PROPOSED / NOT RUN. Contract and concrete scenario assertions to be frozen immediately before execution.
+- **Status:** **EXECUTED — BOUNDED DESK SEMANTIC CHECK; OWNER DECISIONS OPEN** (2026-10-12). See [frozen S1–S4 contract, observations and limitations](experiment-01-goal-first-model-stress-test.md). No human observation, executable product validation, canonical relation admission or Harness acceptance.
 - **Priority / scope:** P0 semantic feasibility, with bounded P1 composition cases.
 - **Related open questions:** [GD-00..05, CD-01..06](open-questions.md). This test informs them but cannot select owner-governed predicates.
 - **Decision being informed:** What is the smallest consistent set of product-visible behaviours and domain assertions needed to represent a complete Goal-first preparation cycle through Capabilities, without inventing a workflow/Procedure or learner-mastery tracker?
@@ -20,7 +20,7 @@ Use a dedicated note for meaningful results; use `experiments/<name>/` only for 
 - **Potential falsifiers:** A model requires a fictional mandatory competence when Goal is incomplete; silently treats same-text records as the same identity; cannot retain Goal-specific recorded history without false fact conflation; implies all child skills mastered or a child execution order without grounds; represents required protocol step order only by falsely treating steps as ordered Capability components.
 - **Out of scope:** UX preferences, click metrics, full UI/frontend, backend, production storage, complete ontology, mandatory ordered learning path, auto mastery/readiness/goal completion, selecting new accepted relation kinds.
 - **Stop condition / evidence:** Record each S1–S4 as REPRESENTABLE, COUNTEREXAMPLE or INCONCLUSIVE, with a trace of assumptions and evidence; list minimal needed semantic assertions and a compact P0/P1 owner-decision packet. Unresolved meaning is an explicit result, not permission to extend scope automatically.
-- **Next artifact:** a linked `experiment-01-goal-first-model-stress-test.md` with frozen input/alternatives, findings and limitations. **No results exist yet.**
+- **Evidence:** [EX-GF-01 results](experiment-01-goal-first-model-stress-test.md). S1 representable under stated subject assumptions; S2 flat model lacks typed decomposition while B can express it conditionally; S3 both require Goal-specific Activity context for unambiguous history; S4 readable protocol text works in either, but ordering child abilities cannot encode conditional repeated steps. Structured execution validation inconclusive, outside accepted MVP. Desk experiment complete; Owner choice remains open.
 
 ## EX-GF-02 — Goal-return and flat-versus-composed user workflow
 
@@ -38,4 +38,4 @@ Use a dedicated note for meaningful results; use `experiments/<name>/` only for 
 
 **Research status** describes whether a bounded test has been performed. **Owner decision status** is separate. **Harness currentness/acceptance** is managed only through the routed authoritative process. Do not infer approval of a new relation, CRUD rule or product promise from either a fixture or a successful prototype.
 
-Current starting point: review [Iterations 01–03](README.md), freeze EX-GF-01 conditions, then perform the scenario stress test. Work on other independent research questions in any useful order and link them to results where relevant.
+Current starting point: review [EX-GF-01 results](experiment-01-goal-first-model-stress-test.md) and the [open owner questions](open-questions.md). Do not rerun the completed desk test without a material new falsifier. Work on other independent research questions in any useful order and link them to results where relevant.

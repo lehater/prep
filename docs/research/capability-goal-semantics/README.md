@@ -10,6 +10,7 @@ The main domain question is how a person can start with an incomplete Goal, exam
 - [Iteration 01: Goal–Capability predicates](iteration-01-goal-capability-predicates.md) — necessity, targets and preparation focus.
 - [Iteration 02: Conditional relation catalogue](iteration-02-conditional-relation-catalogue-and-mutation-tests.md) — relation meaning, direction/multiplicity and change/removal cases.
 - [Iteration 03: Capability composition and context](iteration-03-capability-description-composition-and-context.md) — capability definition, recursive composition, reuse, and Procedure boundaries.
+- [EX-GF-01 semantic stress-test results](experiment-01-goal-first-model-stress-test.md) — frozen S1–S4 fixture, model A/B comparison, counterexamples and limitations (research only).
 - [Open questions](open-questions.md) — the questions and possible owner decisions.
 - [Open experiments](open-experiments.md) — bounded checks of hypotheses.
 - [Working handoff](HANDOFF.md) — changing branch context, research checkpoints and next useful activity.
