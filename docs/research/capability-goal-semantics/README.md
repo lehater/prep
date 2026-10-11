@@ -15,10 +15,11 @@ This research branch is isolated from mvp-vertical-slice, the PR #101 head, main
 ## Read in this order
 
 1. [Research baseline](research-baseline-2026-10-12.md): the substantive findings, proposed concepts, test cases, primary references, evidence boundaries.
-2. [Open questions and closure sequence](open-questions.md): owner decision queue, priorities, alternatives, and next experiment.
-3. Read AGENTS.md from the current **task branch**; follow its pinned Harness consumer procedure when performing Harness-controlled engineering work.
-4. Independently inspect the current .harness/core.yaml, .harness/engineering-graph.yaml, .harness/project-publication.yaml, and affected canonical source artifacts at the CURRENT working revision.
-5. Separately read [PR #101](https://github.com/lehater/prep/pull/101) and [.harness/candidates/preparation-information-model-decision-proposal.md in the candidate branch](https://github.com/lehater/prep/blob/prep/preparation-information-model-candidate/.harness/candidates/preparation-information-model-decision-proposal.md). Candidate material is not accepted authority.
+2. [Iteration 01: Goal–Capability and incompleteness](iteration-01-goal-capability-predicates.md): completed research pass on GD-00/01/02, explicit counterexamples, smallest Goal-first walkthrough and owner decision cards; **no decisions approved**.
+3. [Open questions and closure sequence](open-questions.md): owner decision queue, priorities, alternatives, and next experiment.
+4. Read AGENTS.md from the current **task branch**; follow its pinned Harness consumer procedure when performing Harness-controlled engineering work.
+5. Independently inspect the current .harness/core.yaml, .harness/engineering-graph.yaml, .harness/project-publication.yaml, and affected canonical source artifacts at the CURRENT working revision.
+6. Separately read [PR #101](https://github.com/lehater/prep/pull/101) and [.harness/candidates/preparation-information-model-decision-proposal.md in the candidate branch](https://github.com/lehater/prep/blob/prep/preparation-information-model-candidate/.harness/candidates/preparation-information-model-decision-proposal.md). Candidate material is not accepted authority.
 
 **Critical branch difference at this checkpoint:** mvp-vertical-slice Core contains a legacy PRODUCT-REQUIREMENTS information-lifecycle Question and does not yet contain the three Tactical Questions; the Draft PR branch Core additionally has Q-PREP-PREPARATION-IDENTITY-STRUCTURE, Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS and Q-PREP-PREPARATION-REMOVAL-INTEGRITY. Do not describe those three as published in the base branch. PR #101 remains OPEN, DRAFT, BLOCKED by its own candidate review; no claim of independently verified Harness currentness is made here.
 
@@ -57,3 +58,7 @@ These are four distinct approvals, not approval of an entire domain schema.
 ## Update cadence
 
 No mechanical commit per conversation turn. Update after a meaningful change in conclusions, a new materially discriminating counterexample, or 2–4 substantive investigation iterations, whichever comes first. Record the new checkpoint date, what changed, what remains open, and evidence. One cohesive commit for related updates; avoid repeated duplicate files and unsupported claims of currentness. On migration/admission, reference the corresponding canonical artifact, then clearly mark superseded research claims as historical rather than silently overwriting their status.
+
+## Iteration 01 checkpoint (2026-10-12)
+
+[Iteration 01](iteration-01-goal-capability-predicates.md) advances GD-00/GD-01/GD-02 by testing targeted outcomes, necessary conditions and user-selected current focus against learning, interviewing, personally performed protocol and outsourced certification Goals. It highlights the *overlap* of R/T for ability-outcome Goals, **unknown** necessity for underspecified interview criteria, and a Product Requirements gate for saved Goal-relative return/focus. No link type, scope invariant, relation catalogue or Core Question is approved or resolved; GD-03/04/05 and CD series remain open. Next owner decision: GD-00, then scoped GD-01/02.

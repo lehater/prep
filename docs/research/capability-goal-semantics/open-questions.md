@@ -14,6 +14,8 @@ This file records *what to examine next*. The actual Core Questions and decision
 
 **No owner choice:** Goal-relation predicate, Capability composition predicate, whether composition enters MVP, direction/multiplicity per relation, endpoint rules/self-links, global vs Goal-specific decomposition, deletion integrity and reintroduction, automatic inferences (not proposed as MVP), target/focus distinction.
 
+**Research pass update (2026-10-12):** [Iteration 01](iteration-01-goal-capability-predicates.md) evaluates GD-00, GD-01 and GD-02 with four concrete Goals and a cheap A/B acceptance experiment. **Analysis complete for this pass; owner decisions remain OPEN.** A universal `requires` is analytically falsified; R/T may overlap for an ability-as-outcome Goal; interview preparation can justify a user-chosen F even when R is unknown. No GD-03/04/05 decision is made. See the iteration's three owner decision cards before advancing the catalog.
+
 **GitHub state distinction:** base mvp-vertical-slice Core has only a legacy Product Requirements Question at checkpoint; the three Tactical blocking Questions below exist in the Draft PR #101 candidate Core, not yet in the mvp base:
 - Q-PREP-PREPARATION-IDENTITY-STRUCTURE;
 - Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS;
@@ -105,11 +107,11 @@ Closure: a real case where same pair is properly included for one Goal but not f
 
 ## 5. Recommended next research action
 
-Analyze GD-01 and GD-02 **together** using three short counterexample-driven walkthroughs:
+**Iteration 01 performed the desk-based GD-01/GD-02 analysis** in [the iteration note](iteration-01-goal-capability-predicates.md), including the following originally requested cases. The next *unperformed* work is obtaining GD-00/01/02 owner decisions and testing the Goal-return acceptance experiment. The original experiment inputs were:
 1. «Learn to argue architecture decisions» — target developmental outcome.
 2. «Pass a system design interview» — partial, uncertain alleged requirements.
 3. «Personally perform protocol X» vs «receive a valid certificate» — necessary skill versus alternative external path.
 
-For each: exact Goal wording, candidate Capability, whether R/T/F is true/false/unknown, what the user must record to make the next preparation decision, whether one relation suffices, and what would make the answer different. Conclude with an owner decision card, not an unapproved model change. Only after owner choice examine GD-03 relation catalogue and GD-04/GD-05 operational invariants. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
+Iteration 01 records exact Goal wording, R/T/F assessments, counterfactuals, user data/actions, and decision cards. These are **research results, not field validation**. Only after owner choice examine GD-03 relation catalogue and GD-04/GD-05 operational invariants. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
 
 **Research checkpoint closure is not Harness closure.** Update this file's status after actual owner input, and make the canonical transition only via routed Harness. Do not mark a Core Question resolved because a researcher selected a recommendation.
