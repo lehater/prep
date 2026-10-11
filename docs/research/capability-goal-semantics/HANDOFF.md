@@ -14,7 +14,7 @@ Reference [baseline](research-baseline-2026-10-12.md), [Iterations 01–03](READ
 
 ## Repository evidence boundary at this checkpoint
 
-`mvp-vertical-slice` and Draft/BLOCKED [PR #101](https://github.com/lehater/prep/pull/101) have different candidate/canonical Core contents in the recorded snapshot. The candidate branch `prep/preparation-information-model-candidate` (head at snapshot `336b97969e964b30640f2367fcd2cb8488ff6e67`) was NOT the basis of the research branch. The three Tactical Questions in PR #101 were **candidate** questions; do not describe them as accepted or as published on the integration base without fresh verification.
+`mvp-vertical-slice` and Draft/BLOCKED [PR #101](https://github.com/lehater/prep/pull/101) have different candidate/canonical Core contents in the recorded snapshot. The candidate branch `prep/preparation-information-model-candidate` (head at snapshot `336b97969e964b30640f2367fcd2cb8488ff6e67`) was NOT the basis of the research branch. The three Tactical Questions in PR #101 — `Q-PREP-PREPARATION-IDENTITY-STRUCTURE`, `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`, and `Q-PREP-PREPARATION-REMOVAL-INTEGRITY` — were **candidate** questions; do not describe them as accepted or as published on the integration base without fresh verification.
 
 ## Canonical sources to recheck
 
@@ -62,7 +62,7 @@ Owner selected **Capability-oriented Goal-first preparation (GF-01 option A)** w
 
 ## Iteration 03 checkpoint (2026-10-12)
 
-[Iteration 03](iteration-03-capability-description-composition-and-context.md) tests CD-01..05 concept boundaries, performance-aspect vs weak semantic inclusion, specialization/prerequisite/procedure confusions, flat-versus-recursive Goal-first using identical records, conditional DAG/shared-child/reachability invariants, and global composition versus Goal-specific focus. No empirical A/B user data, Owner admission, relation meaning, graph constraint or Harness acceptance. Immediate next is a cheap observed Goal-return/next-practice experiment and P0 owner decisions; optional C–C should be driven by demonstrated benefit.
+[Iteration 03](iteration-03-capability-description-composition-and-context.md) tests CD-01..05 concept boundaries, performance-aspect vs weak semantic inclusion, specialization/prerequisite/procedure confusions, flat-versus-recursive Goal-first using identical records, conditional DAG/shared-child/reachability invariants, and global composition versus Goal-specific focus. No empirical A/B user data, Owner admission, relation meaning, graph constraint or Harness acceptance. At this historical checkpoint an observed Goal-return/next-practice comparison was proposed; it was subsequently separated into the deferred EX-GF-02. The current semantic check is EX-GF-01; optional C–C remains unapproved.
 
 ## Transfer boundary
 
