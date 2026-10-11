@@ -69,24 +69,31 @@ Closure: complete mutation examples for linked Goal, Capability, Knowledge and P
 
 ## 2. P1 — capability structure only if needed for useful preparation
 
+**Research pass 2026-10-12:** [Iteration 03](iteration-03-capability-description-composition-and-context.md) investigates CD-01..05 on architecture/communication/protocol counterexamples, includes a controlled flat/composed test design and conditional mutation fixtures. **Analysis only; no empirical user test and no Owner selection. CD-01..05 all OPEN.** CTDL-ASN's broad semantic inclusion is *not* guaranteed to be a strict DAG of necessary performance steps.
+
 ### CD-01 — Capability description meaning and internal attributes
+**Desk result:** repeatable ability/action-object-outcome, optional context/criteria; not mastery or Procedure. Owner confirmation open.
 Candidate: ability class (Action, Object, Outcome; optional Context/Criteria), not observed execution or proof of attainment; no compulsory five-column schema.
 Closure: examples across three domains and a demonstrated failure of a weaker definition.
 
 ### CD-02 — Does composition enter the first MVP?
+**Desk result:** flat and composed variants can both logically solve the same next-practice scenario; actual usability advantage remains unmeasured. A/B observation pending.
 Alternatives: (A) no composition, flat Goal–Capability can already reach next practice; (B) optional semantic composition included with all-kind CRUD/bulk; (C) fuller nested/context-based structures.
 Recommendation: compare A/B on identical activity results and materials; favor B only on observed decision-making/navigation benefit. **No user test completed**.
 
 ### CD-03 — What exactly counts as a constitutive child?
+**Desk result:** separate weak meaning inclusion, substantive performance aspect and universally necessary subability; none approved. Avoid treating CTDL-ASN comprisedOf as an executable step specification.
 Candidate: child is a specific aspect of performing the parent's ability; NOT merely useful, prerequisite, procedural step or specialization. CTDL-ASN comprisedOf is a precedent, not a ready-made implementation contract.
 Closure: examples/counterexamples (peak load, distributed-systems specialization, Git, active listening, protocol operations).
 
 ### CD-04 — Recursion, cycles, reachability and reuse
+**Desk result:** DAG only conditional on strict proper-part meaning; sharing/partial structure/path-vs-assertion, deletion and bulk test fixtures available. Formal invariants open.
 Question: multiple parents? self-links? strict acyclicity vs weaker inclusion? does path entail transitive domain assertion?
 Candidate: reuse permitted; no mandatory complete tree/order; prohibit self and cycles if selecting strict structural decomposition; graph reachability does not automatically write inferred relation instances.
 Closure: choose relation semantics first, then valid-state invariants and mutation tests.
 
 ### CD-05 — Global meaning vs Goal-specific composition
+**Desk result:** changing Goal emphasis is not proof that C–C structural truth changes. No decisive same-pair/same-meaning context falsifier established; defer qualified relations.
 Default hypothesis: compose capabilities in the meaning of their own descriptions; Goal-specific navigation/filtering does not alter the truth of C–C. Need context-qualified relation only upon concrete counterexample.
 Closure: a real case where same pair is properly included for one Goal but not for another *without changing the parent capability's meaning*; otherwise defer.
 
@@ -112,11 +119,11 @@ Closure: a real case where same pair is properly included for one Goal but not f
 
 ## 5. Recommended next research action
 
-**Iterations 01 and 02 performed desk-based GD-00..05 conditional analysis** in [the iteration note](iteration-01-goal-capability-predicates.md), including the following originally requested cases. The next *unperformed* work is obtaining GD-00/01/02 owner decisions, testing the Goal-return acceptance experiment, and running the CD-01..05 flat-vs-recursive capability comparison. The original experiment inputs were:
+**Iterations 01 and 02 performed desk-based GD-00..05 conditional analysis** in [the iteration note](iteration-01-goal-capability-predicates.md), including the following originally requested cases. The next *unperformed* work is obtaining GD-00/01/02 owner decisions, testing the Goal-return acceptance experiment, and performing a real-user or prototype CD-01..05 flat-vs-recursive capability comparison (desk comparison in Iteration 03). The original experiment inputs were:
 1. «Learn to argue architecture decisions» — target developmental outcome.
 2. «Pass a system design interview» — partial, uncertain alleged requirements.
 3. «Personally perform protocol X» vs «receive a valid certificate» — necessary skill versus alternative external path.
 
-Iteration 01 records exact Goal wording and R/T/F counterfactuals; Iteration 02 investigates the relation catalogue and operational rules **conditionally**, without choosing them. These are **research results, not field validation**. Only after owner choice may GD-03/04/05 be governed and canonicalized. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
+Iteration 01 records exact Goal wording and R/T/F counterfactuals; Iteration 02 investigates the relation catalogue and operational rules conditionally; Iteration 03 investigates Capability composition without deciding its inclusion. None of these is an empirical UX test or an Owner decision. These are **research results, not field validation**. Only after owner choice may GD-03/04/05 be governed and canonicalized. Recheck GD-00 upstream whenever a new user-visible promise is proposed.
 
 **Research checkpoint closure is not Harness closure.** Update this file's status after actual owner input, and make the canonical transition only via routed Harness. Do not mark a Core Question resolved because a researcher selected a recommendation.
