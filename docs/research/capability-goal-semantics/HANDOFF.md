@@ -12,6 +12,10 @@ This file records a **research handoff**, not authoritative product/domain statu
 
 Reference [baseline](research-baseline-2026-10-12.md), [Iterations 01–03](README.md), [research workflow](../WORKFLOW.md), [local AGENTS index](../AGENTS.md), and the current [question](open-questions.md) and [experiment](open-experiments.md) lists.
 
+## MVP priority audit (2026-10-12)
+
+The [cross-project Prep MVP focus audit](../mvp-focus-audit-2026-10-12.md) recommends stopping speculative GD/CD desk investigations until a specific user task is blocked, and validating one concrete Goal-first loop using a lightweight mock. This is a **recommendation only**, not a Product Requirements update or a change to EX-GF-02's deferred status; use the question/experiment lists for authoritative *research-list* states and Harness for engineering authority.
+
 ## Repository evidence boundary at this checkpoint
 
 `mvp-vertical-slice` and Draft/BLOCKED [PR #101](https://github.com/lehater/prep/pull/101) have different candidate/canonical Core contents in the recorded snapshot. The candidate branch `prep/preparation-information-model-candidate` (head at snapshot `336b97969e964b30640f2367fcd2cb8488ff6e67`) was NOT the basis of the research branch. The three Tactical Questions in PR #101 — `Q-PREP-PREPARATION-IDENTITY-STRUCTURE`, `Q-PREP-PREPARATION-RELATIONSHIP-SEMANTICS`, and `Q-PREP-PREPARATION-REMOVAL-INTEGRITY` — were **candidate** questions; do not describe them as accepted or as published on the integration base without fresh verification.
