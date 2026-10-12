@@ -74,4 +74,4 @@ No production frontend/backend, storage selection, exact styling, automated corp
 
 ## Handoff for a new chat
 
-Read [AGENTS](../../AGENTS.md), [research workflow](../WORKFLOW.md), [current framing](research-framing.md), [Q-PLD-17](open-questions.md), [EX-PLD-10](open-experiments.md), the [Capability–Goal register](../capability-goal-semantics/open-questions.md), then **begin at step 1** with a simple neutral conceptual diagram and model alternatives. Do not re-run the entire UI discussion. Question/experiment status is not owned by this protocol; update only the existing registers and a dated result document when evidence warrants.
+Read [AGENTS](../../../AGENTS.md), [research workflow](../WORKFLOW.md), [current framing](research-framing.md), [Q-PLD-17](open-questions.md), [EX-PLD-10](open-experiments.md), the [Capability–Goal register](../capability-goal-semantics/open-questions.md), then **begin at step 1** with a simple neutral conceptual diagram and model alternatives. Do not re-run the entire UI discussion. Question/experiment status is not owned by this protocol; update only the existing registers and a dated result document when evidence warrants.
