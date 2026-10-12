@@ -1,0 +1,11 @@
+import { cp, mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { loadPublicData, makeHandout } from '../data.mjs';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+await mkdir(dist, { recursive: true });
+for (const file of ['index.html', 'style.css', 'app.mjs', 'model.mjs']) await cp(root + file, dist + file);
+const data = await loadPublicData();
+await writeFile(dist + 'participant.json', JSON.stringify(data, null, 2) + '\n');
+await writeFile(dist + 'handout.html', makeHandout(data));
+console.log('Built static prototype: dist/ (participant data only; no answer keys)');
