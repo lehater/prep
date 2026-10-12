@@ -86,6 +86,15 @@ Explore whether (a) depth of **presented subject content**, (b) **required prepa
 
 The [Iteration 02 literature and counterexample review](iteration-02-knowledge-skill-capability-reducibility.md) distinguishes **subject Knowledge information**, **learner-specific knowledge**, **knowledge-how/skill** and **Capability performance specification/evidence**. Both intellectualist and anti-intellectualist positions about knowing-how are live; empirical and instructional research does not justify inferring proven C from studied K. Close neither Q-PLD-11 nor Q-PLD-12 on this basis. The narrow remaining user-value question is whether navigating a named C separately from K coverage helps the learner choose what to study/practise without false mastery claims. Existing [EX-PLD-05](open-experiments.md) covers that check.
 
+## Q-PLD-13 (P0) — Does scope-to-external-study close an independent Prep learning loop?
+
+**Owner-proposed hypothesis, OPEN (2026-10-12), not approved scope.** An IT learner could choose Goal → Capability Description → scoped Knowledge and *target learning depth* → selected review material → Anki or another external training tool. Review history could return optionally, without inferred competence. Does this deliver valuable "orient, choose, start targeted learning" outcome, rather than merely an attractive knowledge map?
+
+- Alternatives: P-A map/selection only; P-B map plus validated exportable review items; P-C plus optional linked external review history.
+- Blockers: available quality training items at intended depth; whether scope means relevant/required under Goal context; uncertain/incomplete vacancy demands; card-level identifiers and external import capability; distinction between recall and applied design competence.
+- Evidence / closure: [Iteration 03 scenario](iteration-03-goal-capability-knowledge-external-retrieval-loop.md), [EX-PLD-06 proposal](open-experiments.md); demonstrate an actual learner's useful choice and external practice rather than inferring value from a file export. Preserve missing personal review data as UNKNOWN.
+- Do not infer that card repetition automatically proves Knowledge mastery, that a Capability is person-specific, or that Anki export / automatic stats import is already accepted Product Requirement.
+
 ## Research pause rule (not a product directive)
 
 Do not spend more iterations refining implementation semantics in this topic unless there is a specific question with a falsifiable comparison. Bring a bounded alternatives/impact packet to the Owner rather than letting the research README turn into an implementation decision.

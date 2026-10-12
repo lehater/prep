@@ -48,6 +48,16 @@
 
 **EX-PLD-05 research input (2026-10-12):** [Iteration 02](iteration-02-knowledge-skill-capability-reducibility.md) adds checked references for philosophical knowing-how, ACT/procedural learning, 4C/ID, EQF, competence-based knowledge spaces and evidence-centered assessment. It completes a **desk literature / synthetic-case check only**, **not** EX-PLD-05; retain **PROPOSED / NOT RUN**. In the later comparison explicitly distinguish a K topic's explanatory depth from a person's demonstrated performance on task conditions, and allow alternative K-support bundles for the same outcome.
 
+## EX-PLD-06 — Goal → Capability → Knowledge → external study loop
+
+- **Status:** PROPOSED / NOT RUN; depends on credible curated materials and a real learner's task. [Scenario and alternatives](iteration-03-goal-capability-knowledge-external-retrieval-loop.md).
+- **Question:** Does a scoped Knowledge map plus target-depth-based *selection and ready-to-use questions* enable a person to move from unfamiliar job requirements into useful preparation, independently of automatic competence assessment?
+- **Frozen fixture before test:** one concrete vacancy, two Capability descriptions, 8–12 Knowledge topics with explicit conditional relevance, target-depth descriptions and 8–16 **reviewed, usable prompts**, including at least one deliberately unsuitable card to test detection. Include a knowledge item appearing in two Capability scopes and incomplete requirements.
+- **Compare increments:** A map+links, B map+one-way importable external review items, C B+clearly labeled optional review outcomes (synthetic unless actual user authorized exchange). Keep underlying subject facts and requirements the same.
+- **Observe:** can the learner explain the domain/scope, identify what is and is not known about the vacancy, select and export meaningful practice rather than a random pile of cards, import into an existing tool, and distinguish activity statistics from mastery/real performance? Track friction, errors and time to a sensible first study action; do not equate satisfaction with retention.
+- **Falsifiers:** no useful question coverage; target depth and question depth mismatch; selection overwhelming; external app workflow faster without Prep; review records cannot be traced back to original selected items; user infers K mastered or C attained from counts.
+- **Stop:** technical import demonstrated, specific user value/limitations recorded, Owner alternatives packet prepared. Does **not** prescribe Anki integration, two-way sync or a universal level model. Distinguish desk demo from actual user observation.
+
 ## Boundary
 
 The current [landscape scan](landscape-scan-2026-10-12.md) is a **literature and product-feature review**, not a completed controlled experiment. Product pages are evidence that a feature is described, *not* independent evidence of product efficacy. Keep research observation distinct from an Owner decision and from Harness accepted scope.
