@@ -12,6 +12,10 @@ Work branch: `research/prep-capability-goal-semantics`. This folder is a **separ
 4. Do not run EX-PLD-02 as a user study or select A/B/C product direction without observations and an Owner-reviewed decision packet. New UI or app scaffolding is unnecessary until the research question specifically depends on interaction.
 5. Preserve alternate explanations, negative cases and assumptions. Keep status in the relevant question/experiment lists. Research outputs cannot silently modify README into a decision policy or alter previous topic handoffs.
 
+## New bounded inquiry — 2026-10-12
+
+The [Knowledge-space / applied-Capability desk analysis](iteration-01-knowledge-space-and-applied-capability.md) records an owner hypothesis that several independent Knowledge items may be used jointly to perform a task. It compares a fixed-K-bundle, an action/outcome Capability linked to K under conditions, and an extra scalar K-application level. Constructed cases show why isolated Knowledge coverage need not imply coordinated performance. **No alternative was selected or approved**. New questions Q-PLD-11/12 remain OPEN; [EX-PLD-05](open-experiments.md) is PROPOSED / NOT RUN. The earlier recommended next user-episode study is still an option, not a mandatory roadmap. Do not automatically overwrite existing Goal-first or Capability–Goal research findings with this hypothesis.
+
 ## Key distinction at handoff
 
 Prep's **current accepted product focus** is exploring preparation information and relations, selecting it for external use, and understanding recorded Activity/Results over time. It does **not** presently require automated learning assessment/mastery/readiness, an integrated flashcard trainer, adaptive tutor or prescribed learning path. Such features can be investigated without pretending they are accepted. A distinct Owner-confirmed Goal-first product-direction input exists in [Capability / Goal handoff](../capability-goal-semantics/HANDOFF.md), not yet Product Requirements admission for new observable promises.

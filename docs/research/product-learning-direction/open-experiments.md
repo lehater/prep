@@ -36,6 +36,16 @@
 - **Potential falsifier:** repeated high performance on a familiar item fails to generalize to novel task; absence of a node in system falsely treated as inability; wrong answer caused by ambiguous prompt rather than lack of knowledge.
 - **Stop/evidence:** bounded product-claim contract; **no new mastery model** without explicit product authority and valid assessment design.
 
+## EX-PLD-05 — Does integrated Capability need its own semantics beyond a Knowledge-depth overlay?
+
+- **Status:** PROPOSED / NOT RUN. [Desk alternatives and counterexamples](iteration-01-knowledge-space-and-applied-capability.md) are **not** user experiments or a selected model.
+- **Question:** Can a user distinguish "I have enough coverage/depth on all listed topics" from "I have demonstrated their coordinated application for this particular professional task"?
+- **Freeze before execution:** build one small stable Knowledge set (e.g. API, transactions, idempotency, retries), two distinct applied Capabilities (e.g. implement payment intent; explain distributed failure tradeoffs), and two Goals with different constraints. Include a user who can describe individual K's but has failed an integrated task, and a separate unobserved K (unknown, not zero). Describe one technically valid alternative approach with a different K-support set.
+- **Compare:** H-A fixed K bundle-depth projection; H-B action/outcome/conditions with conditional K role relations; H-C independent scalar 'K application' depth. Same facts and task prompt; no exclusive hints.
+- **Falsifiers:** required K lists imply universal necessity despite alternatives; full individual K coverage incorrectly predicts successful C; an unobserved K is shown as inability; a C assertion loses what activity was actually performed for which Goal; model merely renames execution step ordering as C parts.
+- **Measure:** for each case, can one (i) identify the intended C performance, (ii) explain why these K's are selected *under these conditions*, (iii) distinguish what has been observed from what remains unknown, (iv) select a specific next learning or integrative-practice action? Mark logical representability separately from usefulness observed with people.
+- **Stop:** compare outputs/counterexamples and report insufficient evidence honestly; do **not** write Harness Domain Model, grant relation authority, infer personal competence, or implement UI before needed.
+
 ## Boundary
 
 The current [landscape scan](landscape-scan-2026-10-12.md) is a **literature and product-feature review**, not a completed controlled experiment. Product pages are evidence that a feature is described, *not* independent evidence of product efficacy. Keep research observation distinct from an Owner decision and from Harness accepted scope.
