@@ -8,7 +8,8 @@ When a person says "I want to have competency C," which actual situation are the
 
 - Competing hypotheses: knowledge-retention bottleneck; goal-to-next-action navigation bottleneck; lack of practice/feedback; assessment/uncertainty bottleneck.
 - Counterexample: passing an exam may be an outcome even when task-relevant personal ability is only partially required.
-- Evidence to close research: recent concrete preparation episodes, observed choices/tradeoffs, what tools people actually use, why existing tools fail. **Owner decision** required for target segment/priority; no answer inferred.
+- **Public internet proxy completed 2026-10-12:** [EX-PLD-01 16-episode forum review](experiment-01-public-forum-episode-review.md) codes first-person learning/career/interview/CKA/Anki reports: actual scope/depth confusion exists, but practical feedback, review authoring, time, external interview uncertainty and successful existing solutions compete. This is **self-reported public evidence**, not observed decisions, representative prevalence, measured product value, or Owner segment selection. **Status remains OPEN.**
+- Evidence still needed to close for product choice: real matched existing-tool task comparison and ideally later direct learner interaction; **Owner decision** required for target segment/priority.
 
 ## Q-PLD-02 (P0) — What *changes* for the learner?
 
