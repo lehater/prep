@@ -4,7 +4,7 @@
 
 ## Decision being prepared
 
-Before elaborating the full UI, reach an intelligible **logical/conceptual representation** of a user-owned Prep corpus: Goal, CapabilityDescription (description of an ability, not observed ability), reusable Knowledge, and Practice/StudyMaterial, plus only justified links and contextual scopes. The model must be expressive enough for realistic multi-type Knowledge–Knowledge relations, potentially typed Capabilities, and varying material associations. This is **not** a request to name or approve a complete professional ontology.
+Before building integrated UI journeys, reach an intelligible **logical/conceptual representation** of a user-owned Prep corpus: Goal, CapabilityDescription (description of an ability, not observed ability), reusable Knowledge, and Practice/StudyMaterial, plus only justified links and contextual scopes. The model must be expressive enough for realistic multi-type Knowledge–Knowledge relations, potentially typed Capabilities, and varying material associations. This is **not** a request to name or approve a complete professional ontology.
 
 **Design order is deliberately iterative:** first draw a small candidate concept/association map, then construct counterexample-rich *synthetic fixture(s)*, then refine the model and repeat. Neither a data-free UML diagram nor a fixture designed solely to make a preconceived schema pass is sufficient. The **logical model is distinct** from (i) the eventual persisted JSON/SQL/graph schema, (ii) a graph renderer's nodes/edges and (iii) workspace UI selection/filter state.
 
@@ -64,9 +64,9 @@ Record in a dated research finding: **works / fails / requires Owner choice / ou
 
 **Concept exit gate:** one coherent candidate model and fixture covering all four sections, plus a short unresolved-decision packet. Every example fact is representable or explicitly marked as a gap; every admitted-*candidate* relation has a user-understandable meaning and roles. This is a **research concept gate**, not Harness semantic acceptance and not a complete production schema.
 
-### 4. P1 — UX from the model, then prototype, then comparison
+### 4. P1 — Reconcile with parallel universal-view research, then integrated UX
 
-Feed the reviewed model + fixture into [EX-PLD-09](open-experiments.md) for a connected end-to-end UI across the four sections: semantic filtering, table/graph selection, relation traversal, material inspection/selection and restoring context. Fix conceptual UX problems before writing new frontend. Build a browser prototype **after** the interactive concept is coherent. Run comparative **EX-PLD-06** with existing tools only after the prototype passes internal user-task readiness. The separate [EX-PLD-08](open-experiments.md) 2D-vs-3D question is optional; renderer FPS and deep graph visual tuning are not P0.
+Develop this **subject-model track in parallel** with [EX-PLD-11 Universal Entity Workspace](open-experiments.md) on a neutral presentation fixture. Once model facts and the generic view contract are compatible, feed the reviewed model + fixture into [EX-PLD-09](open-experiments.md) for a connected end-to-end UI across the four sections: semantic filtering, table/graph selection, relation traversal, material inspection/selection and restoring context. Fix conceptual UX problems before writing new frontend. Build a browser prototype **after** the interactive concept is coherent. Run comparative **EX-PLD-06** with existing tools only after the prototype passes internal user-task readiness. The separate [EX-PLD-08](open-experiments.md) 2D-vs-3D question is optional; renderer FPS and deep graph visual tuning are not P0.
 
 ## Explicit non-goals of the present investigation
 
@@ -74,4 +74,4 @@ No production frontend/backend, storage selection, exact styling, automated corp
 
 ## Handoff for a new chat
 
-Read [AGENTS](../../../AGENTS.md), [research workflow](../WORKFLOW.md), [current framing](research-framing.md), [Q-PLD-17](open-questions.md), [EX-PLD-10](open-experiments.md), the [Capability–Goal register](../capability-goal-semantics/open-questions.md), then **begin at step 1** with a simple neutral conceptual diagram and model alternatives. Do not re-run the entire UI discussion. Question/experiment status is not owned by this protocol; update only the existing registers and a dated result document when evidence warrants.
+Read [AGENTS](../../../AGENTS.md), [research workflow](../WORKFLOW.md), [current framing](research-framing.md), [Q-PLD-17](open-questions.md), [EX-PLD-10](open-experiments.md), the [Capability–Goal register](../capability-goal-semantics/open-questions.md), then **begin at step 1** with a simple neutral conceptual diagram and model alternatives. A separate agent/chat may simultaneously pursue [EX-PLD-11](open-experiments.md) using [Universal Entity Workspace hypothesis](universal-entity-workspace-hypothesis-2026-10-13.md); coordinate only at the shared view-contract/fixture compatibility checkpoint before EX-PLD-09. Do not re-run the entire UI discussion. Question/experiment status is not owned by this protocol; update only the existing registers and a dated result document when evidence warrants.
