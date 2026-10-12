@@ -20,6 +20,7 @@ This question deliberately remains open about:
 - [Iteration 02: Can an applied Capability be reduced to Knowledge?](iteration-02-knowledge-skill-capability-reducibility.md)
 - [Iteration 03: Goal/Capability Knowledge scope → external retrieval](iteration-03-goal-capability-knowledge-external-retrieval-loop.md) — a proposed full user journey, with Anki as an example; **not accepted scope**.
 - [Iteration 04: Goal-to-useful-action, competition and real-source desk cases](iteration-04-goal-to-useful-action-market-and-scenarios.md) — critical competitive comparison, three real-source preparation contexts, falsifiers and a decision packet; **no user or Owner validation**.
+- [EX-PLD-01 public forum episode review](experiment-01-public-forum-episode-review.md) — pre-registered internet-only proxy with 16 linked first-person reports, falsifiers and limitations; **no human interviews or product validation**.
 - [Open product research questions](open-questions.md) — inquiries requiring evidence or Owner choices, **not** accepted Product Requirements.
 - [Open experiments](open-experiments.md) — bounded proposed checks with conditions and falsifiers; no observed user tests yet.
 - [Working handoff](HANDOFF.md) — a current researcher entry point, not a decision ledger.
