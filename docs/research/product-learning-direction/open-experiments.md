@@ -1,15 +1,16 @@
 # Open experiments — product learning direction
 
-**RESEARCH PROPOSALS ONLY (2026-10-12).** No human interviews, usability observations or learning-outcome measurements have yet been performed. These are not Harness tests, implementation tasks, approved UX scope or release gates. Perform only a check that addresses a live uncertainty; no required global execution order.
+**NONCANONICAL RESEARCH / PROPOSALS (2026-10-12).** An adapted **EX-PLD-01 public-forum self-report proxy** has been completed; **no recruited human interviews, observed user tasks, usability observations, measured learning outcomes or product-comparison tests** have been performed. These are not Harness tests, implementation tasks, approved UX scope or release gates. Perform only a check that addresses a live uncertainty; no required global execution order.
 
 ## EX-PLD-01 — Reconstruct actual recent preparation episodes
 
-- **Status:** PROPOSED / NOT RUN.
+- **Status:** ADAPTED ONLINE PUBLIC-TRACE PROXY COMPLETED (2026-10-12; 16 coded first-person forum reports, 7 full-thread / 9 indexed-excerpt); ORIGINAL INTERVIEW / OBSERVED-ACTION VARIANT NOT RUN. [Protocol, source-by-source findings, counterexamples and methodological limits](experiment-01-public-forum-episode-review.md).
 - **Question:** What do people actually do and struggle with when moving from a learning outcome to the next useful action? Is the main bottleneck missing content, poor retention, lack of practice/feedback, uncertainty about gaps, or coordination across tools?
 - **Sample (not quota):** purposively seek 3–5 contrasting recent episodes, ideally at least one recall-intensive and one application/performance-intensive scenario; preserve non-user availability as a limitation.
 - **Freeze before interview:** same prompt ("Walk through a real recent preparation goal: what did you use, how did you decide what was necessary, what did you do, how did you tell whether it worked, what happened next?"), observable artifacts/timestamps where voluntarily available, coding categories for confusion and tool-switching. Do not ask leading questions about desired Prep features.
 - **Potential falsifiers:** users already have a reliable next-action process; lack of content or expert feedback dominates instead of organization; a learning action does not start with Capability; goal may be externally determined.
-- **Stop/evidence:** anonymized episode traces, counterexamples and explicit uncertainty; no automatic Owner scope decision.
+- **Public-trace outcome (not an interview replacement of equal strength):** NAV scope/depth issues appear in concrete reports, but practice/feedback, unreliable interview criteria, card authoring burden, time and usable existing-tool solutions also appear. Categories are purposely sampled, NOT population rates. No Prep-specific demand, observed switching benefit or product success established. Existing Q-PLD-01 remains OPEN and EX-PLD-06 NOT RUN.
+- **Stop/evidence for any later interviews:** anonymized episode traces, counterexamples and explicit uncertainty; no automatic Owner scope decision.
 
 ## EX-PLD-02 — Same-goal contrast of Prep roles
 
