@@ -2,6 +2,8 @@
 
 **2026-10-12 | NONCANONICAL PRODUCT RESEARCH | OWNER-PROPOSED USER JOURNEY / TECHNICAL DESK CHECK | NOT AN OWNER PRODUCT DECISION, EXPERIMENT RESULT OR ADMITTED DOMAIN MODEL**
 
+> **Variant-label clarification (2026-10-12; does not revise this dated analysis):** In this historical iteration, **P-C** meant *B plus return of review statistics*. The current [EX-PLD-06 protocol](open-experiments.md#ex-pld-06--goal--capability--knowledge--external-theoretical-study-loop) instead uses **D** existing tools, **C** material preparation only, **A** orientation, **B** orientation + material. Automatic review-statistics sync is a separate possible follow-up, not one of those four arms. The current [research framing](research-framing.md) and experiment register govern further work.
+
 ## 1. Owner-proposed value hypothesis
 
 Prep's **first distinctive user value** might be the combination of:

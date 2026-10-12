@@ -4,6 +4,8 @@
 
 Related: [handoff](HANDOFF.md), [questions](open-questions.md), [experiments](open-experiments.md), [Iteration 03](iteration-03-goal-capability-knowledge-external-retrieval-loop.md), [prior landscape](landscape-scan-2026-10-12.md). This iteration expands the **user-value** inquiry, not C–K or Goal–C domain semantics.
 
+> **Variant-label clarification (2026-10-12; this remains a dated desk report):** The Z/A/B/C/D labels below were local to this exploratory report: **Z** meant existing-tools baseline, **C** meant optional review-history return, and **D** meant integrated tutor. In the active [EX-PLD-06 protocol](open-experiments.md#ex-pld-06--goal--capability--knowledge--external-theoretical-study-loop), **D** means existing tools, **C** material preparation only, **A** orientation, **B** orientation + materials; returned review statistics are a separate deferred question. Do not read historical recommendations as current experiment status or current [research framing](research-framing.md).
+
 ## 1. Research proposition and evidence discipline
 
 **Owner-proposed hypothesis:** Prep helps people explore a knowledge space for a concrete Goal, consider an applied Capability as a **scope** (not as a measurement of their competence), select intended study depth/material, and use that material in external tools such as Anki. Optional activity/review data is recorded as history, not proof of readiness.
