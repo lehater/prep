@@ -93,6 +93,22 @@ Explore whether (a) depth of **presented subject content**, (b) **required prepa
 - Evidence / closure: [Iteration 03 historical scenario](iteration-03-goal-capability-knowledge-external-retrieval-loop.md), [Iteration 05 historical alternatives](iteration-05-owner-knowledge-scope-to-study-material-boundary.md), the [current EX-PLD-06 comparison](open-experiments.md#ex-pld-06--goal--capability--knowledge--external-theoretical-study-loop), and [optional EX-PLD-07 editorial economics](open-experiments.md#ex-pld-07--editorial-feasibility-of-a-trustworthy-goal--knowledge-scope--practice-packet). Demonstrate **observed** orientation and material-selection/transfer value against D/C on the same fixture, not merely a file export.
 - Do not infer that card repetition automatically proves Knowledge mastery, that a Capability is person-specific, or that Anki export / automatic stats import is already accepted Product Requirement.
 
+## Q-PLD-14 (P1, OPEN) — Does a typed Knowledge–Knowledge graph add task value beyond a good relation table?
+
+The Owner has **confirmed a candidate graph interaction mechanism**, not its usefulness or selection as the default UI. Different Knowledge types, typed/directed K–K relations, search/focus, and synchronized table ↔ graph selection are relevant design inputs; the supplied EX-PLD-06 fixture has **no authored K–K relations** and cannot establish their value.
+
+- Compare credible nonspatial Knowledge list + readable typed relation rows + details with 2D graph and, only if justified, 3D. Hold the same *meaningful* subject assertions and navigation information accessible in each condition; do not grade mere aesthetic preference.
+- Distinguish finding a node, interpreting relation direction/type, tracing a local path, understanding scope and recovering orientation. Dense global overview and local task focus need not have the same preferred medium.
+- Evidence / next step: [2026-10-13 UI checkpoint](interface-exploration-checkpoint-2026-10-13.md), [technical donor](https://github.com/lehater/prep/tree/main/experiments/knowledge_representation), optional [EX-PLD-08](open-experiments.md#ex-pld-08--knowledge-graph-representation-added-value-and-density). **Status: OPEN**; not a prerequisite to finding out if EX-PLD-06's basic orientation/export job has user value.
+
+## Q-PLD-15 (P2, OPEN) — Which entity graphs and cross-type relationships deserve visual representation?
+
+Knowledge–Knowledge is the richest candidate and **only graph family currently prioritized for exploration**. The existence of Goal, Capability, Knowledge and Materials and their semantic links does not prove that C–C, M–M or Goal–C–K mixed visual graphs help any task.
+
+- Decide from observable navigation/sensemaking jobs and valid typed relationships, rather than automatically connecting every model entity. Keep tabular inspection of inter-entity relations first-class.
+- Open sub-questions (later): clicking a graph node of a different class (navigation vs inspection), selected-edge details and relation labels, visual encoding when types grow, preservation of focus/history, 2D/3D and bounded working sets, persistence of layout state. Do **not** turn these into prerequisite micro-design tasks.
+- Evidence: [2026-10-13 UI checkpoint](interface-exploration-checkpoint-2026-10-13.md). **Status: OPEN / DEFERRED** until a concrete user task demands it.
+
 ## Evidence pointers for open questions (not status copies)
 
 - [Iteration 02](iteration-02-knowledge-skill-capability-reducibility.md) provides counterexamples for Q-PLD-11/12.
