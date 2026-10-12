@@ -18,7 +18,8 @@ This question deliberately remains open about:
 - [Learning science and product landscape scan](landscape-scan-2026-10-12.md)
 - [Iteration 01: Knowledge space and applied Capability](iteration-01-knowledge-space-and-applied-capability.md)
 - [Iteration 02: Can an applied Capability be reduced to Knowledge?](iteration-02-knowledge-skill-capability-reducibility.md)
-- [Iteration 03: Goal/Capability Knowledge scope → external retrieval](iteration-03-goal-capability-knowledge-external-retrieval-loop.md) — a proposed full user journey with Anki as an example, review-data caveats and three testable product increments; **not accepted scope**. — philosophy, learning science, qualifications, competence-space formalism and four counterexample checks; no selected product model. — conditional integration of several independent Knowledge items, alternative models and counterexamples; **no chosen axis/schema**. — externally sourced learning mechanisms, existing product approaches, and implications/limitations for Prep.
+- [Iteration 03: Goal/Capability Knowledge scope → external retrieval](iteration-03-goal-capability-knowledge-external-retrieval-loop.md) — a proposed full user journey, with Anki as an example; **not accepted scope**.
+- [Iteration 04: Goal-to-useful-action, competition and real-source desk cases](iteration-04-goal-to-useful-action-market-and-scenarios.md) — critical competitive comparison, three real-source preparation contexts, falsifiers and a decision packet; **no user or Owner validation**.
 - [Open product research questions](open-questions.md) — inquiries requiring evidence or Owner choices, **not** accepted Product Requirements.
 - [Open experiments](open-experiments.md) — bounded proposed checks with conditions and falsifiers; no observed user tests yet.
 - [Working handoff](HANDOFF.md) — a current researcher entry point, not a decision ledger.
