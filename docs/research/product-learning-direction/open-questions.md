@@ -83,10 +83,6 @@ Explore whether (a) depth of **presented subject content**, (b) **required prepa
 - Closure: an intelligible user comparison across two Goals and a learner, documenting unknowns and non-comparable profiles, **without** making an assessment promise.
 - Evidence: [Iteration 01](iteration-01-knowledge-space-and-applied-capability.md). **Status: OPEN.**
 
-## Q-PLD-11/12 — new evidence checkpoint (2026-10-12; no status change)
-
-The [Iteration 02 literature and counterexample review](iteration-02-knowledge-skill-capability-reducibility.md) distinguishes **subject Knowledge information**, **learner-specific knowledge**, **knowledge-how/skill** and **Capability performance specification/evidence**. Both intellectualist and anti-intellectualist positions about knowing-how are live; empirical and instructional research does not justify inferring proven C from studied K. Close neither Q-PLD-11 nor Q-PLD-12 on this basis. The narrow remaining user-value question is whether navigating a named C separately from K coverage helps the learner choose what to study/practise without false mastery claims. Existing [EX-PLD-05](open-experiments.md) covers that check.
-
 ## Q-PLD-13 (P0) — Does scope-to-external-study close an independent Prep learning loop?
 
 **Owner-proposed hypothesis, OPEN (2026-10-12), not approved scope.** An IT learner could choose Goal → Capability Description → scoped Knowledge and *target learning depth* → selected review material → Anki or another external training tool. Review history could return optionally, without inferred competence. Does this deliver valuable "orient, choose, start targeted learning" outcome, rather than merely an attractive knowledge map?
@@ -96,13 +92,12 @@ The [Iteration 02 literature and counterexample review](iteration-02-knowledge-s
 - Evidence / closure: [Iteration 03 scenario](iteration-03-goal-capability-knowledge-external-retrieval-loop.md), [EX-PLD-06 proposal](open-experiments.md); demonstrate an actual learner's useful choice and external practice rather than inferring value from a file export. Preserve missing personal review data as UNKNOWN.
 - Do not infer that card repetition automatically proves Knowledge mastery, that a Capability is person-specific, or that Anki export / automatic stats import is already accepted Product Requirement.
 
-## Market / real-source desk evidence checkpoint (2026-10-12; OPEN status retained)
+## Evidence pointers for open questions (not status copies)
 
-[Iteration 04](iteration-04-goal-to-useful-action-market-and-scenarios.md) challenges **Q-PLD-01/04/08/13** with current substitutes (roadmap.sh, professional skill frameworks, LinkedIn Learning, RemNote/Anki, NotebookLM and AI Study Mode). Real descriptions of three external goals (backend role roadmap, SQUIRE payments-backend job posting, performance-based CKA) yield *constructed* variations in suitability of C navigation and flashcard export. A universal C-required or Anki-primary path is not established. **New material P0 uncertainty within existing Q-PLD-08/13:** can a learner reach a higher-quality next preparation action with Prep than with **the actual tools they already use**, keeping task/content/expert assistance equal? **Within Q-PLD-07:** how expensive is expert verification of vacancy→K→practice prompts and how will unknown interview requirements remain explicit? These are refinements of existing questions, not a new state/decision system. EX-PLD-01 and EX-PLD-06 remain NOT RUN; EX-PLD-07 is separately proposed for editorial feasibility. Nothing is closed or approved.
-
-## Owner's clarified scope-to-material hypothesis checkpoint (2026-10-12; OPEN status retained)
-
-[Iteration 05](iteration-05-owner-knowledge-scope-to-study-material-boundary.md) captures an Owner **product-direction hypothesis**, not accepted Product Requirements: Prep prepares a Goal/Capability-conditioned Knowledge scope, provides orientation across relations and intended depth, and creates/selects external-review-ready material; it does not promise to teach, coach professional execution or assess competence. Reinterpret [EX-PLD-01 online reports](experiment-01-public-forum-episode-review.md) accordingly: NAV (scope/depth) and RET (card creation) are **direct pain signals**, FEED (applied practice/feedback) is an **out-of-scope competing job** rather than a directive to widen Prep. Existing RemNote/NotebookLM already select portions/sources, generate cards and offer detail/difficulty controls; the *extra value of goal-conditioned scopes and explanatory relations* is still unproven. This refines **Q-PLD-01, 04, 07, 08, 12, 13** without closing them. For owner review, distinguish an incomplete vacancy's **plausible relevant scope** from universally **necessary complete scope**, target depth in Goal/Capability context from person attainment, and primary value from still-accepted Activity/Result product obligations. No owner decision promoted, no additional state ledger created.
+- [Iteration 02](iteration-02-knowledge-skill-capability-reducibility.md) provides counterexamples for Q-PLD-11/12.
+- [Iteration 04](iteration-04-goal-to-useful-action-market-and-scenarios.md) contains a broader, **dated** product/job analysis; assess it against the [current research framing](research-framing.md) rather than importing its old direction.
+- [Public-episode proxy](experiment-01-public-forum-episode-review.md) is evidence with sampling limitations; the status of EX-PLD-01 resides in [open experiments](open-experiments.md).
+- [Iteration 05](iteration-05-owner-knowledge-scope-to-study-material-boundary.md) records the Owner's narrowed theoretical-Knowledge hypothesis and reinterpretation of previous evidence; the **current research framing** is maintained only in [research-framing.md](research-framing.md).
 
 ## Research pause rule (not a product directive)
 

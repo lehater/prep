@@ -8,6 +8,7 @@ This file is a **local index** for agents working under `docs/research/`. It doe
 
 For the **product learning direction** research topic:
 - [Topic overview](product-learning-direction/README.md) — research purpose and evidence links.
+- [Current research framing](product-learning-direction/research-framing.md) — Owner research scope and boundaries; read before interpreting dated reports.
 - [Working handoff](product-learning-direction/HANDOFF.md) — resumable research context.
 - [Open questions](product-learning-direction/open-questions.md) — unsettled product inquiries.
 - [Open experiments](product-learning-direction/open-experiments.md) — proposals, not completed user checks.
