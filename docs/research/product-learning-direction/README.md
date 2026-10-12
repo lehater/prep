@@ -20,6 +20,7 @@ Noncanonical research workspace for the Prep product-learning concept. This READ
 - [EX-PLD-01: Public forum episode review](experiment-01-public-forum-episode-review.md)
 - [Iteration 05: Owner clarification and evidence reinterpretation](iteration-05-owner-knowledge-scope-to-study-material-boundary.md)
 - [EX-PLD-06: Synthetic HTTP caching user-data and export preflight (no human trial)](experiment-06-external-study-loop-preflight.md)
+- [2026-10-13: Owner UI layout / graph exploration checkpoint (not user evidence)](interface-exploration-checkpoint-2026-10-13.md)
 - [EX-PLD-07: SQUIRE vacancy editorial preflight (no independent reviewers)](experiment-07-squire-editorial-feasibility-preflight.md)
 
 These files preserve dated evidence and interpretations, including **superseded research framings**. Read the [current framing](research-framing.md) before adopting any earlier proposed direction. Canonical product truth remains under Harness, not research notes.
