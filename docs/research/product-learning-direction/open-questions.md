@@ -95,6 +95,10 @@ The [Iteration 02 literature and counterexample review](iteration-02-knowledge-s
 - Evidence / closure: [Iteration 03 scenario](iteration-03-goal-capability-knowledge-external-retrieval-loop.md), [EX-PLD-06 proposal](open-experiments.md); demonstrate an actual learner's useful choice and external practice rather than inferring value from a file export. Preserve missing personal review data as UNKNOWN.
 - Do not infer that card repetition automatically proves Knowledge mastery, that a Capability is person-specific, or that Anki export / automatic stats import is already accepted Product Requirement.
 
+## Market / real-source desk evidence checkpoint (2026-10-12; OPEN status retained)
+
+[Iteration 04](iteration-04-goal-to-useful-action-market-and-scenarios.md) challenges **Q-PLD-01/04/08/13** with current substitutes (roadmap.sh, professional skill frameworks, LinkedIn Learning, RemNote/Anki, NotebookLM and AI Study Mode). Real descriptions of three external goals (backend role roadmap, SQUIRE payments-backend job posting, performance-based CKA) yield *constructed* variations in suitability of C navigation and flashcard export. A universal C-required or Anki-primary path is not established. **New material P0 uncertainty within existing Q-PLD-08/13:** can a learner reach a higher-quality next preparation action with Prep than with **the actual tools they already use**, keeping task/content/expert assistance equal? **Within Q-PLD-07:** how expensive is expert verification of vacancy→K→practice prompts and how will unknown interview requirements remain explicit? These are refinements of existing questions, not a new state/decision system. EX-PLD-01 and EX-PLD-06 remain NOT RUN; EX-PLD-07 is separately proposed for editorial feasibility. Nothing is closed or approved.
+
 ## Research pause rule (not a product directive)
 
 Do not spend more iterations refining implementation semantics in this topic unless there is a specific question with a falsifiable comparison. Bring a bounded alternatives/impact packet to the Owner rather than letting the research README turn into an implementation decision.
