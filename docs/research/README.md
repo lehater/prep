@@ -10,6 +10,7 @@ Research evidence is distinct from Prep's canonical engineering knowledge. Decis
 
 ## Topics
 
+- [Product learning direction](product-learning-direction/README.md) — research on learner actions, Knowledge, competence development, learning science and external product patterns; **no product direction selected**.
 - [Capability / Goal semantics](capability-goal-semantics/README.md) — Goal-first preparation, Capability descriptions and decomposition, relation meanings, and activity/result context.
 
 ## Navigation
