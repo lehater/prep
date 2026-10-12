@@ -50,6 +50,12 @@ Additional corroborating naturally occurring cases retrieved 2026-10-12:
 
 **Updated research synthesis:** earlier “we should possibly build an applied-practice coach” was an unjustified scope expansion from observed problems outside the Owner's narrow job. The evidence is consistent with a smaller **orientation + preparation-material pipeline**. The evidence does NOT yet validate adoption, trust, competitive superiority, learning outcomes or market size.
 
+## 3a. Competitive check: this is a complete pipeline, not just card generation
+
+Officially documented as of 2026-10-12: [RemNote AI Cards](https://help.remnote.com/en/articles/10102901-generating-flashcards-with-ai) allows **selecting a source section**, configuring the **level of detail**, generating card types and excluding bad cards before saving; [NotebookLM flashcards](https://blog.google/innovation-and-ai/models-and-research/google-labs/notebooklm-app-quizzes-flashcards/) allows **temporarily selecting input sources**, adjusting difficulty and number of cards. [Anki](https://docs.ankiweb.net/importing/text-files.html) supports ordinary delimited-file import. These are vendor-documented product capabilities, not user efficacy tests.
+
+**Important updated competitive risk:** Prep cannot differentiate by “select a subset + choose detail + generate flashcards + import” alone; close substitutes already cover much of that sequence. Its *candidate* distinctive problem to test is whether a **Goal-conditioned, Capability-readable, connected subject scope** adds independent trust/selection value *before* content-to-card transformation, including reusable K across goals and explaining why an item is in scope. The user may still prefer a simple RemNote/NotebookLM source-selection workflow, so baseline D should include them, not only manual writing. “Exhaustive detail” in a source-to-card generator is not proof of depth required for a professional task.
+
 ## 4. Internal tensions to resolve before promising “all necessary Knowledge”
 
 ### P0 — 'Necessary' vs 'plausibly relevant'
