@@ -16,7 +16,8 @@ This question deliberately remains open about:
 ## Research artifacts
 
 - [Learning science and product landscape scan](landscape-scan-2026-10-12.md)
-- [Iteration 01: Knowledge space and applied Capability](iteration-01-knowledge-space-and-applied-capability.md) — conditional integration of several independent Knowledge items, alternative models and counterexamples; **no chosen axis/schema**. — externally sourced learning mechanisms, existing product approaches, and implications/limitations for Prep.
+- [Iteration 01: Knowledge space and applied Capability](iteration-01-knowledge-space-and-applied-capability.md)
+- [Iteration 02: Can an applied Capability be reduced to Knowledge?](iteration-02-knowledge-skill-capability-reducibility.md) — philosophy, learning science, qualifications, competence-space formalism and four counterexample checks; no selected product model. — conditional integration of several independent Knowledge items, alternative models and counterexamples; **no chosen axis/schema**. — externally sourced learning mechanisms, existing product approaches, and implications/limitations for Prep.
 - [Open product research questions](open-questions.md) — inquiries requiring evidence or Owner choices, **not** accepted Product Requirements.
 - [Open experiments](open-experiments.md) — bounded proposed checks with conditions and falsifiers; no observed user tests yet.
 - [Working handoff](HANDOFF.md) — a current researcher entry point, not a decision ledger.

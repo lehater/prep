@@ -46,6 +46,8 @@
 - **Measure:** for each case, can one (i) identify the intended C performance, (ii) explain why these K's are selected *under these conditions*, (iii) distinguish what has been observed from what remains unknown, (iv) select a specific next learning or integrative-practice action? Mark logical representability separately from usefulness observed with people.
 - **Stop:** compare outputs/counterexamples and report insufficient evidence honestly; do **not** write Harness Domain Model, grant relation authority, infer personal competence, or implement UI before needed.
 
+**EX-PLD-05 research input (2026-10-12):** [Iteration 02](iteration-02-knowledge-skill-capability-reducibility.md) adds checked references for philosophical knowing-how, ACT/procedural learning, 4C/ID, EQF, competence-based knowledge spaces and evidence-centered assessment. It completes a **desk literature / synthetic-case check only**, **not** EX-PLD-05; retain **PROPOSED / NOT RUN**. In the later comparison explicitly distinguish a K topic's explanatory depth from a person's demonstrated performance on task conditions, and allow alternative K-support bundles for the same outcome.
+
 ## Boundary
 
 The current [landscape scan](landscape-scan-2026-10-12.md) is a **literature and product-feature review**, not a completed controlled experiment. Product pages are evidence that a feature is described, *not* independent evidence of product efficacy. Keep research observation distinct from an Owner decision and from Harness accepted scope.

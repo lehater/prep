@@ -82,6 +82,10 @@ Explore whether (a) depth of **presented subject content**, (b) **required prepa
 - Closure: an intelligible user comparison across two Goals and a learner, documenting unknowns and non-comparable profiles, **without** making an assessment promise.
 - Evidence: [Iteration 01](iteration-01-knowledge-space-and-applied-capability.md). **Status: OPEN.**
 
+## Q-PLD-11/12 — new evidence checkpoint (2026-10-12; no status change)
+
+The [Iteration 02 literature and counterexample review](iteration-02-knowledge-skill-capability-reducibility.md) distinguishes **subject Knowledge information**, **learner-specific knowledge**, **knowledge-how/skill** and **Capability performance specification/evidence**. Both intellectualist and anti-intellectualist positions about knowing-how are live; empirical and instructional research does not justify inferring proven C from studied K. Close neither Q-PLD-11 nor Q-PLD-12 on this basis. The narrow remaining user-value question is whether navigating a named C separately from K coverage helps the learner choose what to study/practise without false mastery claims. Existing [EX-PLD-05](open-experiments.md) covers that check.
+
 ## Research pause rule (not a product directive)
 
 Do not spend more iterations refining implementation semantics in this topic unless there is a specific question with a falsifiable comparison. Bring a bounded alternatives/impact packet to the Owner rather than letting the research README turn into an implementation decision.
