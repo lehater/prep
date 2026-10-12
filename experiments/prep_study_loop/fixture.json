@@ -1,0 +1,337 @@
+{
+  "id": "EX-PLD-06-CACHE-V1",
+  "status": "synthetic user-supplied fixture; not real participant data",
+  "goal": {
+    "id": "G01",
+    "title": "Подготовить теоретическое объяснение HTTP-кэширования для API",
+    "context": "Сконструированный пример без вакансии; цель — выбрать материал для объяснения revalidation и сохранить контекст в обучении.",
+    "scope_claim": "Набор неполный. Содержимое предоставлено исследователем как контролируемые пользовательские данные."
+  },
+  "source_reference": "https://www.rfc-editor.org/rfc/rfc9111.html",
+  "capabilities": [
+    {
+      "id": "C01",
+      "title": "Объяснить условия хранения и повторного использования HTTP-ответа",
+      "boundary": "Теоретическое понимание, не оценка работы инженера"
+    },
+    {
+      "id": "C02",
+      "title": "Объяснить повторную валидацию и обновление сохранённого ответа",
+      "boundary": "Теоретическое понимание, не реализация production cache"
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "K01",
+      "title": "Shared и private cache",
+      "summary": "Shared cache повторно использует ответы между пользователями; private cache выделен одному пользователю.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K02",
+      "title": "Response no-store",
+      "summary": "Запрещает сохранять ответ для последующего повторного использования в рамках обычных правил RFC 9111.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K03",
+      "title": "max-age и s-maxage",
+      "summary": "Указывают срок свежести; s-maxage имеет приоритет для shared cache, когда применимо.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K04",
+      "title": "Response no-cache",
+      "summary": "Сохранённый ответ нельзя повторно использовать без успешной валидации.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K05",
+      "title": "Vary и выбор представления",
+      "summary": "Vary указывает заголовки исходного запроса, которые необходимо сопоставить для повторного использования.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K06",
+      "title": "Age и свежесть",
+      "summary": "Возраст ответа участвует в решении о свежести; время хранения само по себе не гарантирует повторного использования.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K07",
+      "title": "ETag как валидатор",
+      "summary": "ETag обозначает валидатор выбранного представления; его можно использовать в условных запросах.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K08",
+      "title": "If-None-Match",
+      "summary": "Условное обращение проверяет представление по указанным entity tags.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K09",
+      "title": "304 Not Modified",
+      "summary": "Ответ на условный запрос позволяет обновить метаданные и повторно использовать соответствующий сохранённый ответ.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    },
+    {
+      "id": "K10",
+      "title": "Небезопасные методы и инвалидация",
+      "summary": "Некоторые успешные небезопасные запросы приводят к инвалидации сохранённых ответов по правилам спецификации.",
+      "reference": "https://www.rfc-editor.org/rfc/rfc9111.html"
+    }
+  ],
+  "scopes": [
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K01",
+      "study_objective": "Различить общую и индивидуальную область повторного использования",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K02",
+      "study_objective": "Объяснить запрет хранения",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K03",
+      "study_objective": "Пояснить границу свежести",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K04",
+      "study_objective": "Объяснить, почему повторное использование может требовать валидации",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K05",
+      "study_objective": "Объяснить зависимость повторного использования от заголовков запроса",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K06",
+      "study_objective": "Учитывать возраст при рассуждении о свежести",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C01",
+      "knowledge_id": "K07",
+      "study_objective": "Указать роль валидатора в возможности повторного использования",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K03",
+      "study_objective": "Указать, когда ответ стал кандидатом на валидацию",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K04",
+      "study_objective": "Объяснить последовательность действий при обязательной повторной валидации",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K05",
+      "study_objective": "Определить корректный вариант сохранённого представления перед валидацией",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K07",
+      "study_objective": "Выбрать валидатор для условного запроса",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K08",
+      "study_objective": "Объяснить механизм условного запроса",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K09",
+      "study_objective": "Объяснить эффект ответа 304 на сохранённое представление",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    },
+    {
+      "capability_id": "C02",
+      "knowledge_id": "K10",
+      "study_objective": "Объяснить ограничения повторного использования после небезопасного запроса",
+      "necessity": "user-selected contextual relevance, not universal requirement"
+    }
+  ],
+  "materials": [
+    {
+      "id": "M01",
+      "kind": "card",
+      "knowledge_ids": [
+        "K01"
+      ],
+      "front": "Чем shared cache отличается от private cache?",
+      "back": "Shared cache предназначен для повторного использования ответа более чем одним пользователем, private — одним.",
+      "relevance": "within"
+    },
+    {
+      "id": "M02",
+      "kind": "card",
+      "knowledge_ids": [
+        "K02"
+      ],
+      "front": "Что обычно означает Cache-Control: no-store в ответе?",
+      "back": "Кэш не должен сохранять такой ответ для последующего повторного использования (с учётом специальных правил RFC 9111).",
+      "relevance": "within"
+    },
+    {
+      "id": "M03",
+      "kind": "card",
+      "knowledge_ids": [
+        "K03"
+      ],
+      "front": "Что обозначает max-age в HTTP-ответе?",
+      "back": "Срок свежести в секундах; по истечении этого срока ответ считается stale, если применимы обычные правила.",
+      "relevance": "within"
+    },
+    {
+      "id": "M04",
+      "kind": "card",
+      "knowledge_ids": [
+        "K04",
+        "K02"
+      ],
+      "front": "Чем response no-cache отличается от response no-store?",
+      "back": "no-cache допускает хранение, но требует успешной валидации перед повторным использованием; no-store обычно запрещает хранение.",
+      "relevance": "within"
+    },
+    {
+      "id": "M05",
+      "kind": "card",
+      "knowledge_ids": [
+        "K05"
+      ],
+      "front": "Для чего нужен Vary: Accept-Language?",
+      "back": "Чтобы кэш не использовал сохранённый вариант без валидации для запроса с отличающимся значением Accept-Language.",
+      "relevance": "within"
+    },
+    {
+      "id": "M06",
+      "kind": "card",
+      "knowledge_ids": [
+        "K06"
+      ],
+      "front": "Что показывает заголовок Age?",
+      "back": "Возраст ответа в секундах по представлению кэша; он используется при оценке свежести.",
+      "relevance": "within"
+    },
+    {
+      "id": "M07",
+      "kind": "card",
+      "knowledge_ids": [
+        "K07",
+        "K08"
+      ],
+      "front": "Как ETag связан с If-None-Match?",
+      "back": "Клиент или кэш может передать ETag в If-None-Match, чтобы сервер проверил условие для текущего представления.",
+      "relevance": "within"
+    },
+    {
+      "id": "M08",
+      "kind": "card",
+      "knowledge_ids": [
+        "K09"
+      ],
+      "front": "Для чего служит 304 Not Modified?",
+      "back": "В ответ на условный запрос позволяет обновить сведения о соответствующем сохранённом представлении и повторно использовать его.",
+      "relevance": "within"
+    },
+    {
+      "id": "M09",
+      "kind": "card",
+      "knowledge_ids": [
+        "K10"
+      ],
+      "front": "Почему небезопасный запрос способен инвалидировать сохранённый ответ?",
+      "back": "Согласно правилам HTTP-кэширования, успешный небезопасный запрос может требовать инвалидации затронутых сохранённых ответов.",
+      "relevance": "within"
+    },
+    {
+      "id": "M10",
+      "kind": "scenario",
+      "knowledge_ids": [
+        "K04",
+        "K05",
+        "K07",
+        "K08",
+        "K09"
+      ],
+      "front": "В кэше есть два варианта ответа для разных Accept-Language, у одного истекла свежесть. Опиши выбор сохранённого варианта, условный запрос с валидатором и возможную обработку 304.",
+      "back": "Открытая проверка: корректный выбор варианта по Vary; необходимость повторной валидации; валидатор; обработка 304; оговорка о зависимости от заголовков и состояния.",
+      "relevance": "within"
+    },
+    {
+      "id": "M11",
+      "kind": "card",
+      "knowledge_ids": [],
+      "front": "Сколько сообщений в классическом TCP three-way handshake?",
+      "back": "Три: SYN, SYN-ACK, ACK.",
+      "relevance": "off-goal"
+    },
+    {
+      "id": "M12",
+      "kind": "card",
+      "knowledge_ids": [],
+      "front": "Что описывает CSS specificity?",
+      "back": "Приоритет селекторов CSS при разрешении конкурирующих объявлений в рамках каскада.",
+      "relevance": "off-goal"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T1",
+      "brief": "Объяснить C02: как из уже сохранённого ответа перейти к условной проверке и корректно обработать 304.",
+      "expected_knowledge": [
+        "K04",
+        "K05",
+        "K07",
+        "K08",
+        "K09"
+      ],
+      "expected_cards": [
+        "M04",
+        "M05",
+        "M07",
+        "M08"
+      ],
+      "expected_external_scenarios": [
+        "M10"
+      ],
+      "exclude": [
+        "M01",
+        "M02",
+        "M03",
+        "M06",
+        "M09",
+        "M11",
+        "M12"
+      ]
+    },
+    {
+      "id": "T2",
+      "brief": "Показать одно общее Knowledge с разными учебными целями в C01 и C02.",
+      "expected_shared_knowledge": "K04",
+      "expected_study_objectives_differ": true
+    }
+  ],
+  "assumptions": [
+    "Темы и ответы принимаются пригодными для учебного прогона; это не сертифицированный учебник.",
+    "Неизвестна индивидуальная база знаний и цель реального пользователя.",
+    "Экспорт не доказывает импорт в Anki, изучение или профессиональные навыки."
+  ]
+}
