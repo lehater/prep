@@ -1,6 +1,6 @@
 # Product learning direction — handoff / pointers
 
-**Work area:** `docs/research/product-learning-direction/` on research branch `research/prep-capability-goal-semantics`. **Research only.** Read the current branch and Harness state before engineering work; this file is not a product status ledger.
+**Work area:** `docs/research/product-learning-direction/` on the explicitly selected task/research branch. **Research only.** Check current branch, evidence and Harness state before engineering work; this file is not a product status ledger.
 
 ## Mandatory context before selecting a next study
 
