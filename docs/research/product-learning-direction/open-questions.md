@@ -63,7 +63,7 @@ Owner supplied capability-oriented Goal-first input, but is a knowledge-oriented
 
 ## Q-PLD-10 (boundary) — What would change current Product Requirements?
 
-Existing accepted Prep obligations include information/relationship exploration, external selection/use and recorded Activity/Results, plus all-kind CRUD/bulk. Built-in flashcards, automatic remediation, evidence-based mastery estimation and fixed learning paths are **not** automatically part of that acceptance. Only a deliberate Owner/Product Requirements revision and Harness governance may add/reduce them.
+Existing accepted Prep obligations include information/relationship exploration, external selection/use and recorded Activity/Results, plus all-kind CRUD/bulk. Built-in flashcards, automatic remediation, evidence-based mastery estimation and fixed learning paths are **not** automatically part of that acceptance. This question is about **eventual research-to-engineering transfer**, not a current research gate. Scope changes can be reviewed for engineering acceptance after the owner selects and tests the research direction.
 
 ## Q-PLD-11 (P0) — Is Capability a set of Knowledge, a knowledge-application relation, or a separate performance claim?
 
@@ -113,7 +113,7 @@ Knowledge–Knowledge is the richest candidate and **only graph family currently
 
 **Research question:** Once the two independent research outputs are compatible, can one understandable workflow cover Goal → Capability Description → Knowledge/typed relations → Study Materials → selected external-study subset, with recoverable context and no invented prerequisite, content-completeness or learner-competence claims?
 
-- **Prerequisites:** model and adversarial fixture from [Q-PLD-17](#q-pld-17-p0-open--subject-model-track--which-unified-conceptual-data-model-can-faithfully-represent-preps-heterogeneous-entities-and-typed-relations) / EX-PLD-10 and presentation contract from [Q-PLD-18](#q-pld-18-p0-open--parallel-presentation-track--can-one-metadata-driven-four-pane-workspace-display-any-admissible-prep-entity-kind-and-its-typed-relationships) / EX-PLD-11, reconciled without modifying subject facts to suit a screen.
+- **Prerequisites:** model and adversarial fixture from Q-PLD-17 / EX-PLD-10 and presentation contract from Q-PLD-18 / EX-PLD-11, reconciled without modifying subject facts to suit a screen.
 - **Still unknown:** cross-section navigation, context/selection persistence, ambiguous relation interpretation, recovering from wrong scope, material selection, and whether the whole flow remains legible on the same coherent data.
 - **Closure criterion:** one reviewed connected conceptual walkthrough with normal and adversarial cases and explicit unresolved choices; see [EX-PLD-09](open-experiments.md). Only then build/verify a usable integrated browser prototype before the human EX-PLD-06 comparison.
 
