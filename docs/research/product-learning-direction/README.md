@@ -34,5 +34,6 @@ The two upstream studies can proceed **in parallel** using independent provision
 - [EX-PLD-06: Synthetic data and export preflight, no user trial](experiment-06-external-study-loop-preflight.md)
 - [EX-PLD-07: Vacancy editorial preflight, no independent reviewers](experiment-07-squire-editorial-feasibility-preflight.md)
 - [2026-10-13: UI exploration and sequence correction](interface-exploration-checkpoint-2026-10-13.md)
+- [2026-10-13: Research-document ownership/duplicate audit](documentation-audit-2026-10-13.md)
 
 Dated reports can preserve earlier, superseded hypotheses. For current scope and statuses, use the sources listed above rather than interpreting historical reports as live instructions.
