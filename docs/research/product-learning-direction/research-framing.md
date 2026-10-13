@@ -48,18 +48,19 @@ Examine independently:
 
 **Do not substitute** "time to first *professional practical task*", "ability to perform C", or exam/job success for these outcomes. A well-executed applied-task scenario may still test a *different* product.
 
-## Authority and where changing facts live
+## Ownership of the research and later transfer
 
-| What you need | Single responsible source / interface |
+| Information | Single research source |
 | --- | --- |
-| Canonical accepted product obligations | [Product Intent](https://github.com/lehater/prep/blob/mvp-vertical-slice/.harness/knowledge/product-intent.yaml), [Product Capabilities](https://github.com/lehater/prep/blob/mvp-vertical-slice/.harness/knowledge/product-capabilities.yaml) and routed Harness acceptance/currentness (recheck on relevant branch) |
-| Existing domain responsibility classification | [Domain Strategy](https://github.com/lehater/prep/blob/mvp-vertical-slice/docs/architecture/context-map.md) (strategic responsibilities are not automatically bounded contexts) |
-| Current **research** question and Owner-stated boundary | **This file**, with Owner-source links above; **not** README, HANDOFF or an auditor's recommendation |
-| Questions and whether they are open | [Open questions](open-questions.md) |
-| Experiment hypotheses, criteria and execution status | [Open experiments](open-experiments.md) |
-| Evidence, methods, counterexamples, results and dated proposals | The relevant [dated iterations and experiment reports](README.md); results are **not** automatically accepted conclusions or new framing |
-| Entry-point navigation / current reading order | [Research AGENTS](../AGENTS.md) and [topic HANDOFF](HANDOFF.md); neither restates the scope or statuses |
+| Current owner-supplied product hypothesis, subject-knowledge study boundary and data-responsibility assumption | **This framing** |
+| Research questions, priority and closure | [Open questions](open-questions.md) |
+| Experiments, hypotheses, conditions, falsifiers and status | [Open experiments](open-experiments.md) |
+| Independent conceptual **subject-model** investigation | [EX-PLD-10 protocol](model-fixture-investigation-brief-2026-10-13.md) |
+| Independent **universal presentation** hypothesis and its view contract | [EX-PLD-11 contract](universal-entity-workspace-hypothesis-2026-10-13.md) |
+| Panel-layout and interaction geometry | [Workspace layout candidate](../../../experiments/prep_study_loop/prototype/WORKSPACE_LAYOUT_CANDIDATE.md) |
+| Dated findings, limitations and prior alternatives | [Dated research records](README.md) |
+| Entry-point and handoff | [Research AGENTS](../AGENTS.md), [WORKFLOW](../WORKFLOW.md), [HANDOFF](HANDOFF.md) |
 
-**Critical accepted-scope nuance:** The current [Product Intent](https://github.com/lehater/prep/blob/mvp-vertical-slice/.harness/knowledge/product-intent.yaml) includes external selection/use and recorded Activity/Result intake, and [Product Capabilities](https://github.com/lehater/prep/blob/mvp-vertical-slice/.harness/knowledge/product-capabilities.yaml) include examination of history and all-kind CRUD/bulk. Saying that return of automatic Anki *statistics* is optional does **not** revoke the accepted general Activity/Result behaviors. If the intended released-MVP scope changes, the Owner/Product Requirements/Harness process must explicitly handle it.
+**Research sequence:** develop the subject/data model and the generic presentation contract in **parallel** using independent examples; test their compatibility against one shared meaningful fixture; only then validate integrated Goal/Capability/Knowledge/Material journeys and build a usable comparative prototype. Exact experiment states and gates are owned by [EX-PLD-10/11/09/06](open-experiments.md), not this framing.
 
-**Promotion boundary:** dated research or an experiment finding → a packet of alternatives and limitations → explicit Owner product decision → Product Requirements Authority and routed Harness. Audits do not get to promote hypotheses to product truth by editing this file.
+**Separation from engineering:** this research does not run Harness and does not modify its canonical Product Requirements, Domain Model, interface contracts or architecture. The previous accepted engineering scope on `main` and other branches is a separate baseline, not the authority for choosing the **current research hypothesis**. Once the researched model, interface and product direction have been tested and selected by the Owner, prepare an evidence/decision transfer for a **separate** Harness-based engineering phase. Historical reports are not silently rewritten or promoted by that transfer.
