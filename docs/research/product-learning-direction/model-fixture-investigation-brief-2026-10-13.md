@@ -11,10 +11,10 @@ Before building integrated UI journeys, reach an intelligible **logical/conceptu
 ## Existing research constraints to reuse, not silently re-decide
 
 1. See [current product-learning research framing](research-framing.md) for user-supplied, potentially incomplete/uncertain content, Goal as context, study preparation/export, no completeness/truth/mastery guarantee.
-2. See [Capability–Goal research questions](../capability-goal-semantics/open-questions.md), [baseline](../capability-goal-semantics/research-baseline-2026-10-12.md) and [EX-GF-01](../capability-goal-semantics/experiment-01-goal-first-model-stress-test.md): distinguish entity **instance identities**; different subject concepts; relation-instance identity; **selective admissibility** per relation meaning and endpoint roles. These are Owner research inputs and checks, not automatically Harness-admitted semantic decisions.
+2. See [Capability–Goal research questions](../capability-goal-semantics/open-questions.md), [baseline](../capability-goal-semantics/research-baseline-2026-10-12.md) and [EX-GF-01](../capability-goal-semantics/experiment-01-goal-first-model-stress-test.md): distinguish entity **instance identities**; different subject concepts; relation-instance identity; **selective admissibility** per relation meaning and endpoint roles. These are Owner inputs and hypotheses to check, not a completed research model.
 3. A Goal may initially have no linked Capabilities. Shared Knowledge and Capability may appear under multiple contexts. Absence of a relation is **unknown / not specified**, not proof of falsehood. C–C composition, Goal–Capability predicate, material-purpose relation, relation direction/multiplicity, deletion and contextual activity/result semantics remain open.
 4. Capability decomposition is not automatically a Procedure, a dependency, an execution order, or personal proficiency. Knowledge content depth, a desired learning objective, and measured personal attainment must not be conflated.
-5. Accepted product research references include Recorded Activity/Results; acknowledge their relation to chosen Goal/context and selection/export **as a boundary question**, not a fifth mandatory graph family or inferred competence feature. Recheck the relevant Harness branch before canonical claims.
+5. Accepted product research references include Recorded Activity/Results; acknowledge their relation to chosen Goal/context and selection/export **as a boundary question**, not a fifth mandatory graph family or inferred competence feature. Treat canonical product/engineering scope as a separate future transfer, not a constraint on the current research exploration.
 
 ## Candidate conceptual dimensions to inspect (not adopted type definitions)
 
@@ -33,7 +33,7 @@ Types of nodes and relations are **independent, extensible axes** for modelling 
 
 ### 1. P0 — Inventory and conceptual options (no code)
 
-Review the existing research and current accepted branch constraints; create a compact **candidate class-and-relationship diagram** and short definitions/invariants table:
+Review the existing research inputs on the selected research branch; create a compact **candidate class-and-relationship diagram** and short definitions/invariants table:
 - distinct Goal, CapabilityDescription, Knowledge, StudyMaterial identities and boundaries;
 - which links are represented as first-class *candidate* assertions, which are context-relative claims or view selections, and which remain undecided;
 - directional relation semantics vs bidirectional UI navigation; reusability and shared instances;
@@ -62,7 +62,7 @@ For every fixture fact, check that the candidate model faithfully expresses it; 
 
 Record in a dated research finding: **works / fails / requires Owner choice / out of scope**, counterexamples, exact trade-offs and smallest useful revisions. Do not fix problems by silently inventing new entity or relation kinds; bring material alternatives to Owner and leave undecided claims visibly undecided.
 
-**Concept exit gate:** one coherent candidate model and fixture covering all four sections, plus a short unresolved-decision packet. Every example fact is representable or explicitly marked as a gap; every admitted-*candidate* relation has a user-understandable meaning and roles. This is a **research concept gate**, not Harness semantic acceptance and not a complete production schema.
+**Concept exit gate:** one coherent candidate model and fixture covering all four sections, plus a short unresolved-decision packet. Every example fact is representable or explicitly marked as a gap; every admitted-*candidate* relation has a user-understandable meaning and roles. This is a **research concept checkpoint**, not a complete production schema or engineering acceptance.
 
 ### 4. P1 — Reconcile with parallel universal-view research, then integrated UX
 
