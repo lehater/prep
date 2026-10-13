@@ -4,61 +4,51 @@
 | --- | --- | --- |
 | Goal/Capability semantics (EX-GF-01) | Bounded desk semantic check supports incomplete Goals, reusable CapabilityDescription identity, and separation of structural C–C assertions from procedures or ordering. | Does not admit specific G–C, C–K or C–C predicates. No actual-user evaluation. |
 | Knowledge orientation / external material | Synthetic study-loop transport and selection checks show a feasible *mechanism*; public-user proxy examined 16 reported episodes (7 full threads, 9 excerpts). | No comparative measured user value, human understanding or source-quality proof. |
-| Subject model (EX-PLD-10) | The accepted **input constraints** are distinct G/C/K/M instance identities, instance-identified relations, selective relation admissibility, no direct G–K fact, Capability-mediated Goal scope, and explicit K–K types. | **Open**: a coherent corrected fixture, exact predicates, depth, material relationships, mutations and owner model choice. No accepted subject schema. |
+| Subject model (EX-PLD-10) | Owner research direction now selects ordinary G–C M:N and context-independent, unambiguous C; C–C composition deferred. C–K and K–M M:N desk hypotheses exercised on an 11/11 synthetic G–C–K–M path. | Not an accepted ontology. K–M reachability is topical, not proof of ability-specific suitability. Full corrected fixture, K–K semantics and model/lifecycle choices remain open. |
 | Universal workspace (EX-PLD-11) | Independent read-only four-pane concept and final self-contained state/projection test: **25/25 synthetic assertions**. A generic collection/related-records/details/optional-graph shell worked for tested cases with typed role-aware related entries and extension points. | Unlimited descriptor-only universality **does not work**; unknown media/behavior requires extensions. No validated production UI or human usability result. |
 | Graph representation | Can show eligible typed binary assertions without changing source meaning. | The case for a default 2D/3D graph versus a good relation table is **not established**. |
 | Cross-track integration | A projection must preserve source record identity, named roles, predicate, direction/conditions and explicit absence. Multi-role records must not create invented binary source relations. | Subject-model → workspace compatibility with a **corrected** EX-PLD-10 corpus remains **unrun**. |
 
-## EX-PLD-10 — G → CapabilityDescription semantic desk review (2026-10-13)
+## EX-PLD-10 — current G–C–K–M MVP research slice (2026-10-13)
 
-**Evidence level:** primary-standard desk comparison plus synthetic counterexamples. **Disposition:** competing hypothesis check; **no established need for individually typed G–C predicates**, not an owner decision or completed EX-PLD-10 model experiment. Scoped strictly to G–C; no C–K, K–K, material or implementation decision.
+**Evidence level:** owner-confirmed research directions plus bounded **synthetic desk checks**; not a Harness admission, user study or approved complete ontology. The scope is subject semantics and navigation; no persistence/UI schema was specified.
 
-### Existing approaches and limits
+### Owner-confirmed research direction
 
-| Primary source | Observed semantics | Boundary for Prep |
-| --- | --- | --- |
-| [CTDL-ASN, Credential Engine](https://www.credreg.org/ctdl/handbook) ([term definitions](https://www.credreg.org/ctdlasn/terms)) | Framework membership (`isPartOf`) is distinct from competency alignments and `prerequisiteAlignment`. | A user Goal is not inherently a competency framework, structural part-whole, or a prerequisite claim. |
-| [1EdTech CASE 1.1](https://www.imsglobal.org/sites/default/files/spec/case/v1p1/information_model/caseservicev1p1_infomodelv1p0.html) ([guide](https://www.imsglobal.org/node/218298)) | `isPartOf` indicates containment; `isRelatedTo` is generic; extensible associations are allowed. | Neither establishes what it means for a personal Goal to select a C for preparation. |
-| [ESCO, European Commission](https://esco.ec.europa.eu/en/about-esco/escopedia/escopedia/two-pillar-structure-esco) | Occupation–skill links expressly distinguish `essential` from `optional`. | Occupational requirement judgments cannot be inherited by user-authored Goal scope; optional capabilities must remain representable. |
-| [CTDL targetCompetency usage](https://www.credreg.org/quickstart/ctdlexplorer) | In credential/learning-opportunity condition profiles, referenced competencies may be **required** for completion or attainment. | This is stronger than Prep's selection of a preparation target. |
-| [Schema.org / LRMI AlignmentObject](https://schema.org/AlignmentObject) | `requires` is an alignment type between a learning resource/program context and a framework node. | Its domain is not Goal–C; prerequisite semantics should not transfer merely because the word matches. |
+- **Goal ↔ CapabilityDescription:** one ordinary **M:N** association for the MVP. The domain intent is membership of a capability description in the Goal's recorded preparation scope. No need for *per-link typed predicates* has been shown; reconsider only against a concrete use case. A Goal may have zero C.
+- **CapabilityDescription:** one unambiguous, independently identified description of an ability to perform a task. It retains its meaning across Goals; if ambiguous, refine or separate descriptions.
+- **C–C composition:** potentially useful for complex abilities, explicitly **deferred from the initial MVP slice**.
+- **Knowledge:** heterogeneous subject information; includes concepts, models, procedures, strategies and ways of combining them. Describing how to perform a task (K) and describing the ability to perform it (C) retain distinct responsibilities; not separated by arbitrary complexity.
+- The MVP research still does **not** infer a person's competence, knowledge attainment, an exhaustive curriculum, or data completeness.
 
-### First decision: does G–C need per-link relation kinds at all?
+**Evidence retained from G–C standards review:** [CTDL-ASN](https://www.credreg.org/ctdlasn/terms), [1EdTech CASE](https://www.imsglobal.org/sites/default/files/spec/case/v1p1/information_model/caseservicev1p1_infomodelv1p0.html) and [ESCO](https://esco.ec.europa.eu/en/about-esco/escopedia/escopedia/two-pillar-structure-esco) show that other domains distinguish inclusion, alignment and necessity. Their vocabularies do not establish a need for multiple G–C predicates in Prep. `targets`, `requires` and `focusesOn` remain **non-selected** candidates, not approved link types.
 
-**Current hypothesis H0 (minimal):** a single reusable Goal–CapabilityDescription association with many-to-many cardinality is sufficient. Its *domain meaning* is that C belongs to the currently recorded preparation scope of G. G may refer to zero or more C; a C may participate in zero or more G. The association does **not** claim necessity, exhaustiveness, real-world competency, attainment or assessment. Absence means that no scope membership has been recorded; it is not evidence of irrelevance.
+### Working hypotheses (not yet owner-admitted)
 
-**Clarification:** M:N specifies cardinality, not predicate meaning. The endpoint roles already establish a domain-specific *kind* of association; the unresolved question is whether separate **predicate variants on individual G–C links** have justified value. A single domain association with one inherent meaning is not equivalent to a free-form, semantically meaningless edge.
+- **C ↔ K: M:N.** K contributes subject content relevant to the task described by C. Its meaning does not change by Goal. C and K remain independently reusable; a knowledge link does not prove a complete or sufficient foundation.
+- **K ↔ StudyMaterial: M:N.** M covers or works with identifiable K. Multiple K may appear in one material, and a K may have several materials. The absence of a link is not an assertion of irrelevance.
+- **Direct C–M: deferred**, pending demonstrated need to assert a material's purpose or suitability for a particular ability. A C→K→M path identifies **topic-related candidates**, not certified material suitability.
 
-**Competing hypothesis H1:** G–C has multiple independently meaningful relation kinds (or context qualifiers) that a single association cannot faithfully express. The burden of proof is a real scenario with two necessary, different interpretations, preferably changing meaningful user understanding or behavior. Being able to name `targets`, `requires`, `focusesOn` is not such evidence. An obligation/priority/status distinction, if justified, might instead be an association attribute or separately scoped state: do not assume it must be a new relation type.
+### Bounded synthetic end-to-end check: 11/11 PASS
 
-### Adversarial scenarios for H0
+**Fixture (research-only, simplified):**
+- Goals: G1 *architecture interview*, G2 *architecture review*, G3 *empty draft*.
+- Abilities: C1 *explain replication properties*, C2 *choose a consistency model for requirements*, C3 *justify architecture trade-offs*, C4 *unassigned ability*.
+- Knowledge: K1 *consistency models*, K2 *replication properties*, K3 *method of trade-off analysis*, K4 *operational risk analysis*, K5 *TCP handshake (off-scope)*.
+- Materials: M1 *definitions card* (K1); M2 *consistency-choice case* (K1,K3); M3 *replication cards* (K2); M4 *architecture-review case* (K3,K4); M5 *risk notes* (K4); M6 *TCP card* (K5); M7 *unlinked draft*.
+- **G–C:** G1→{C1,C2}; G2→{C2,C3}; G3→∅.
+- **C–K:** C1→{K1,K2}; C2→{K1,K3}; C3→{K3,K4}.
+- **K–M:** K1→{M1,M2}; K2→{M3}; K3→{M2,M4}; K4→{M4,M5}; K5→{M6}.
 
-| Scenario | Does one M:N association preserve the needed meaning? |
-| --- | --- |
-| Interview Goal links “explain consistency trade-offs” and “design an API” | **Yes:** one G may include many C; no exhaustive syllabus implied. |
-| Interview and architecture-review Goals link the same “explain consistency trade-offs” | **Yes:** C has one independent identity, can be selected by multiple G. |
-| Newly drafted Goal has zero C | **Yes:** incomplete Goal allowed; absence is not a negative fact. |
-| Optional “explain CQRS” is linked to an interview Goal | **Yes:** selection does not make C mandatory for success. |
-| An author removes a CQRS link and adds “evaluate caching choices” | **Yes:** scope membership changes without redefining C. |
-| A job posting merely mentions CQRS, without an accepted association in the recorded preparation scope | **No link inferred:** mere relevance does not establish membership. |
-| A reader concludes a linked C is mandatory, attained or exhaustively covering G | **Invalid inference:** H0 does not entail these claims. |
+**Expected reachability:** G1→{C1,C2}→{K1,K2,K3}→{M1,M2,M3,M4}; G2→{C2,C3}→{K1,K3,K4}→{M1,M2,M4,M5}; G3→empty. M6 and M7 do not appear for G1/G2. C2 is shared between G1/G2, and K1 between C1/C2. Removing G1→C2 preserves C2 in G2; removing material M2 does not change C/K identities.
 
-**Current desk result:** none of the above cases falsifies H0. There is **no evidenced requirement for per-link G–C typing**. This is a **qualified research hypothesis**, not owner approval of an implementation or final subject model.
+**Executed checks (11/11):** endpoint integrity; shared C across Goals; shared K across C; multi-K material; exact reachability for G1, G2 and empty G3; off-scope/draft exclusion; no inference of C-specific material suitability; change to G1 scope without changing G2 or C2; deletion of M2 without changing C/K.
 
-### Predicate names: deferred unless H1 survives
+**Semantic counterexample:** a definitions card (M1) is reachable from C2 *choose a consistency model* through K1 but does not thereby become an appropriate exercise for choosing a model. **Outcome:** the candidate-discovery journey works, but an automatic claim that the material trains a specific C is unsupported.
 
-- `targets` may be an English label for the **single association's meaning**; calling the link `targets` does *not* establish a need for per-link predicate variants.
-- `requires` adds necessity not warranted by optional selections.
-- `focusesOn` adds emphasis/priority absent from an ordinary inclusion.
-- `includes` / `contains` may overstate structural part–whole containment; use a precise scope-membership definition instead.
-- `addresses` / `alignsWith` / `relatesTo` can express broader relevance than recorded goal scope.
-- `covers` / `achieves` / `assesses` risk unsupported completeness, outcome or evaluation implications.
+**Limits:** no user validation, completeness or semantic-quality certification; no direct C–M decision; no full versioned EX-PLD-10 fixture for typed K–K, relationship identity/conditions, material association alternatives or all mutation/deletion cases. Older G–K bypass prototypes remain inadmissible evidence for this topology.
 
-**Existing standards (above):** prove that various domains *can* distinguish relation meanings; they do **not** prove Prep *needs* per-link G–C predicate typing. ESCO's essential/optional distinction is an external occupation–skill judgment, not necessarily part of Prep's Goal–C scope association.
-
-**Falsifier for H0:** identify a concrete and valid Prep scenario where the *same Goal–C association* must represent more than one independent semantic role and where omitting that role loses essential subject meaning. Test whether an attribute or another existing domain fact suffices **before** introducing types.
-
-**Open for owner decision:** (1) is simple scope membership the intended G–C meaning? (2) do candidate/relevant C need to be represented as links before being selected? (3) does any actual Goal scenario require necessity, priority or another distinct G–C claim? Only after such evidence should individual predicate variants be evaluated. EX-PLD-10's broader corrected fixture and owner admission remain pending.
+**Next decision gate:** is presenting topic-related materials for **manual** inspection and selection sufficient for the MVP? If yes, keep K–M minimal and advance to the remaining EX-PLD-10 consistency cases rather than inventing C–M or typed G–C links.
 
 ## Universal-workspace candidate, not a product decision
 
