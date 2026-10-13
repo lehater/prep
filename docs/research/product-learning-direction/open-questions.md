@@ -132,6 +132,7 @@ Knowledge–Knowledge is the richest candidate and **only graph family currently
 - **Unknowns:** minimum type/relation/view descriptors and mapping boundary, synchronization of selection distinct from focus/filter, truthful empty graph, cross-kind navigation and exceptional detail/action views. Relation meaning remains outside renderer responsibility.
 - **Closure criterion:** one understandable provisional view contract and contrasting cases; show which changes need only data/descriptor, a mapping adapter, a specialized extension or a redesigned mechanism.
 - **Experiment/contract owner:** [EX-PLD-11](open-experiments.md), [Universal Entity Workspace hypothesis](universal-entity-workspace-hypothesis-2026-10-13.md) and separately [layout candidate](../../../experiments/prep_study_loop/prototype/WORKSPACE_LAYOUT_CANDIDATE.md). The shared fixture-to-view compatibility check is required before Q-PLD-16 / EX-PLD-09.
+- **Partial evidence (2026-10-13):** [EX-PLD-11 neutral presentation check](experiment-11-neutral-workspace-check-2026-10-13.md) exercises four static states and 11 passing projection assertions; exposes out-of-view selection, relation-instance/context inspection, cross-kind filter conflict, and multi-role relationship limitations. **Question remains OPEN** until compatibility and Owner review.
 
 ## Evidence pointers for open questions (not status copies)
 

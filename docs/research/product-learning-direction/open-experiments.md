@@ -107,7 +107,7 @@
 
 ## EX-PLD-11 — Universal Entity Workspace multi-kind presentation check
 
-- **Status:** PROPOSED / NOT RUN; **P0 PRESENTATION TRACK**, parallel with EX-PLD-10 (Owner direction, 2026-10-13).
+- **Status:** IN PROGRESS — initial neutral-fixture/wireframe and projection-invariant check completed 2026-10-13; **NOT CLOSED** pending counterexample review, Owner decision and shared EX-PLD-10 compatibility check. **P0 PRESENTATION TRACK**, independent/parallel with EX-PLD-10. Evidence: [dated EX-PLD-11 check](experiment-11-neutral-workspace-check-2026-10-13.md). No clickable UI or user study.
 - **Question:** Does one reusable collection / related objects / own details / optional graph interface accommodate distinct object/relation types, including sparse categories, without changing the base mechanics or inventing meaning?
 - **Method and input owner:** [Universal Entity Workspace hypothesis](universal-entity-workspace-hypothesis-2026-10-13.md) owns the candidate view contract; [workspace layout candidate](../../../experiments/prep_study_loop/prototype/WORKSPACE_LAYOUT_CANDIDATE.md) owns pane geometry and common interactions. Begin with neutral examples **independent of the subject fixture**.
 - **Falsifiers:** ordinary new types force base-interface changes; relationships lose direction/context or cross-kind navigation; an empty graph fabricates edges; specialized content cannot be accommodated through an explicit extension.
