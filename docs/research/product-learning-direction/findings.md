@@ -81,3 +81,78 @@ Reproduction: `node experiments/universal_entity_workspace/ex-pld-11-interaction
 ## Modeling stop condition
 
 Do not reintroduce a direct Goal–Knowledge study-intent shortcut or declare material/depth relationships merely because they simplify an export, view, or fixture. Close EX-PLD-10 only after a revised versioned test corpus represents valid owner-chosen semantics faithfully, includes counterexamples, and the owner reviews unresolved alternatives.
+
+## EX-PLD-10 — K–K semantic relation review (2026-10-13)
+
+**Evidence level:** standards comparison and synthetic examples/counterexamples only. This is **noncanonical research**: no Harness acceptance, approved complete predicate vocabulary, production tests, actual-user validation, or completed EX-PLD-10. No engineering model/authority artifacts are changed.
+
+### Boundary and proposed minimal model
+
+The owner-confirmed research invariant is: **every asserted K–K subject relation has an explicit meaningful type**, not “every pair of Knowledge objects must be linked.” A predicate means a domain assertion about reusable subject referents, not a graph shortcut, tag, display filter, study plan, material source or a capability requirement. Goal–CapabilityDescription, CapabilityDescription–Knowledge and Knowledge–StudyMaterial remain the previously chosen simple M:N research links (C–K/K–M still qualified hypotheses): adding K–K predicates does **not** retaxonomize them or imply G–K/C–M facts.
+
+Conceptual assertion (not a persistence/API schema):
+
+    assertion identity | source K role | predicate | target K role
+    optional: conditions, subject scope, claim evidence/support
+
+Assertion instance identity is owner-confirmed research input; **predicate vocabulary** and **proposition equality** are different concerns. The same independently identified record need not be a different subject fact. Unsupported propositions should remain unknown/candidates, not untyped or defaulted to `related_to`. Inverse navigation renders the **same** assertion from the other endpoint; it does not store an additional subject fact. Conditional or multi-role propositions must preserve their conditions and roles rather than create fictitious binary edges.
+
+### Standards comparison
+
+| Source | Useful distinction | Limit for Prep |
+| --- | --- | --- |
+| [ISO 704:2022](https://www.iso.org/standard/79077.html) | Generic/kind, partitive and associative/causal relations reflect different concept structures. | Term-system methodology does not determine K–K learning order or a domain ontology. |
+| [W3C SKOS Reference](https://www.w3.org/TR/skos-reference/) | `broader/narrower` versus symmetric `related`; directly asserted `broader` is **not** transitive while `broaderTransitive` is. Direct source facts and inferred closure differ. | SKOS `broader` can reflect broad topic hierarchy, not necessarily strict subclass `is_a`; `related` is semantically too generic for authored K–K truth. |
+| [W3C OWL 2 Primer](https://www.w3.org/TR/owl-primer/) | Inverses, symmetry, asymmetry, irreflexivity, transitivity are **predicate-specific** characteristics. | A full logical ontology/reasoner is not prerequisite to Prep's first subject-navigation slice. |
+| [1EdTech CASE 1.1](https://www.imsglobal.org/sites/default/files/spec/case/v1p1/information_model/caseservicev1p1_infomodelv1p0.html) and [implementation guide](https://www.imsglobal.org/spec/CASE/v1p1/impl) | `isChildOf`, `isPartOf`, `precedes`, `exactMatchOf` and extensible vocabulary are distinct. | Framework associations, including its default `isRelatedTo`, are not automatically reusable subject K–K truth. |
+| [CTDL-ASN prerequisiteAlignment](https://www.credreg.org/ctdlasn/terms) | Explicit prerequisite alignment; the **referenced** resource is prerequisite of the source competency. | Competency/educational prerequisites may vary with curriculum, target and learner: not automatically intrinsic Knowledge dependence, nor the same canonical arrow convention. |
+| [W3C PROV-O](https://www.w3.org/TR/prov-o/) | Qualification/provenance of assertions, derivation/lineage. | Provenance `wasDerivedFrom` is not synonymous with subject `causes` or `part_of`. |
+
+**Existing Prep comparison evidence:** `.harness/candidates/knowledge-relation-classification.yaml` already sketches `specializes`, `part_of`, `realizes`, `requires`, `causes`, `addresses` and other families. Reuse its precise conceptual distinctions rather than recreate a competing registry. Its internal “preferred” flags are **candidate-document status only** here: `.harness/core.yaml` does not publish that Tactical classifier/model in the examined branch.
+
+### Proposed predicate boundaries
+
+Arrow means stored **subject roles** from source to target, not visual navigation. Transitivity refers to entailment only, never generic multi-hop reachability.
+
+| Family / possible leaf | A -> B semantics | Symmetric? | Transitive? | Priority |
+| --- | --- | --- | --- | --- |
+| Kind / `specializes` (strict version of ambiguous `is_a`) | A is a narrower **kind** of B; every instance of A-kind is an instance of B-kind. Distinguish **instance-of** from **subclass-of**. | No; directional/asymmetric in consistent taxonomy | Yes for kind-level subclass semantics; inferred indirect links must be marked derived, not authored | First-slice test |
+| Composition / `part_of` | A is a genuine constituent part of the defined whole B, not merely in the same topic or collection. | No | Conditional: only homogeneous parthood with compatible granularity; never arbitrary nesting | First-slice test |
+| Abstraction / `realizes` | Concrete A embodies or implements an independently defined abstraction/specification B. | No | No general closure | First-slice test |
+| Strict dependency / `requires` | Subject behavior or validity A is impossible without B **under stated conditions**. | No | No default closure across varying conditions | Conditional candidate |
+| Causal / `causes` | Event/mechanism A causally produces B in specified circumstances, with supporting evidence. | No | No default closure | Conditional candidate |
+| Representation / `represents` | Description/model/symbol A stands for referent B; does not necessarily implement B. | No | No | Deferred |
+| Problem/response / `addresses` | Solution A solves or mitigates problem B, not merely discusses it. | No | No | Deferred |
+| Ordering / `precedes` | Stage/event A occurs earlier than B **in the modeled process**. | No | Only in one consistent ordering domain, not automatically across different processes | Deferred |
+| Contrast/equivalence | `contrasts_with` = competing or opposed in a specified comparison; `equivalent_to` = strict same meaning, not mere similarity. | Yes | Contrast no; strict equivalence yes only if identity criterion supports it | Deferred; consider aliases instead of duplicate K |
+| Generic association | `related_to`, `uses`, `depends_on`, `enables`: ambiguous without the mechanism and roles. | Not safely prescribed | Not safely prescribed | **Not** a default subject K–K predicate; “related” can be a UI grouping |
+
+### Example/counterexample corpus — semantic desk check
+
+1. **`specializes`/`is_a`:** “Raft consensus algorithm” is a kind of “consensus algorithm”; Raft is not a *part* of the class of all consensus algorithms. Calling a particular protocol an *instance* of the algorithm kind versus a *subkind* requires referent disambiguation.
+2. **`part_of`:** “leader-election subprotocol of Raft” is a part of “Raft protocol”. But “consistency models” is not a constituent part of “distributed systems” just because the former is a topic under the latter; that is classification/navigation, not strict mereology.
+3. **`realizes`:** “Raft protocol” realizes an explicitly stated “distributed-consensus specification” **under the protocol's assumptions and obligations**. But “Raft uses leader election” does not mean Raft *realizes* leader election: use/containment is not implementation of that as the target abstraction. `realizes` is also not a synonym for `specializes`.
+4. **`prerequisite` versus `requires`:** “Quorum-based write acknowledgement” strictly requires “a sufficient voting quorum” in that configuration; “distributed consensus requires Raft” is false because alternative protocols exist. “Learn matrix multiplication before eigenvectors” is a contingent pedagogy recommendation, **not** a universal subject fact; a learning prerequisite would need its own explicit context/predicate, outside unqualified K–K.
+5. **`causes`:** “Loss of write quorum” causes “write unavailability” in the specified quorum-based configuration without an alternative quorum. “Network partition causes all reads to become unavailable” is too strong: it ignores consistency policy, read path and available replicas. A mere `precedes` statement cannot imply `causes`.
+6. **`represents` versus `realizes`:** A diagram of the Raft state machine *represents* the protocol; the diagram does not implement the protocol. Document-to-K source provenance is likewise not intrinsically a K–K causal edge.
+7. **Independent predicates on one pair:** An event A may both `precedes` B and `causes` B given **independent support**. It is valid to have multiple predicates for the same two K referents; the pair is not a one-to-one single-edge slot.
+8. **Multiple records for the same claim:** Two authors may each support identical (A, predicate, B, conditions), creating two evidence items, not automatically two semantic facts; different conditions, contrary claims and semantic changes must remain distinguishable. Relation-instance identity does **not** settle semantic deduplication.
+9. **Direction and absence:** `has_part(B,A)` is an inverse *view* of `part_of(A,B)`, never an independent assertion. No K–K record means *unknown/not asserted*, not “false”; K–K traversal never constructs C–K, G–C, Goal–K or certifies C-specific material suitability.
+10. **Cycle/identity guard:** Taxonomic A -> B -> A or `part_of(A,A)` signals sense mismatch, mistaken identity or invalid strict hierarchy; flag for review rather than silently adding/merging/deleting Knowledge records.
+
+**Inference:** Only predicate-specific entailment may be computed, labeled **derived** and kept distinct from authored assertion identity. For the smallest slice, the source of truth can contain only direct K–K assertions, with **no inference engine**. Test conditional transitivity/cycles in a later, justified iteration.
+
+### Options, risks, pending owner choices
+
+- **R1 recommended as research fixture strategy:** selective typed predicates; initially discriminate `specializes`, `part_of` and `realizes`; conditionally test `requires` and `causes` on evidence-backed cases; keep the vocabulary open to new *justified* leaves. This offers explainable navigation without a large ontology. Risk: uncategorized statements must stay candidate/unknown instead of being forced into `related_to`.
+- **R2 small SKOS/CASE-like generic graph:** easy import/visualization, but `broader/related` may collapse kind, part, implementation and strict dependency. Useful interoperability vocabulary, weak subject-semantics contract.
+- **R3 full OWL/rich registry:** formal inference, but too much semantic/authoring/governance cost before Prep user-value evidence.
+- **R4 untyped links:** acceptable UI grouping only; fails owner input for asserted subject K–K predicates.
+
+**Decisions needed from owner before model-fixture promotion (not answered by this review):**
+- Confirm/adjust the **research-only** minimal semantic slice `specializes` (strict kind-of), `part_of` and `realizes`; this is **not** Tactical admission.
+- Determine whether `requires` must denote only strict, context-qualified **subject dependency**, while learner/curriculum prerequisites remain separate; demand a counterexample if an intrinsic K–K learning prerequisite is proposed.
+- Decide whether `causes` is needed in the corrected first fixture or can remain a qualified candidate.
+- Determine semantic-equality/deduplication and contrary-claim handling independently of already owner-confirmed relation-instance identity; deletion/condition mutation still unresolved.
+
+**Falsifier/stop:** If concrete K referents cannot be distinguished, or the proposed three leaves cannot be reliably discriminated in realistic subject cases, do not promote the selected vocabulary. Next gate remains the corrected versioned EX-PLD-10 fixture, then the independent EX-PLD-11 view compatibility check; do not mix engineering approval with research.
