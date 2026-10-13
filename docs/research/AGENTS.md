@@ -2,9 +2,11 @@
 
 This file is a **local index** for agents working under `docs/research/`. It does not duplicate operating rules or hold topic status.
 
-- [Repository instructions](../../AGENTS.md) — repository authority, Harness, branches and validation.
+- [Repository instructions](../../AGENTS.md) — repository-wide branch and file discipline; its Harness procedure applies only to a **separately initiated engineering task**, not to these independent research studies.
 - [Research workflow](WORKFLOW.md) — how to record questions, perform bounded checks, write results, and distinguish research evidence from approval.
 - [Research overview](README.md) — human-readable purpose and topic navigation.
+
+For **product learning direction**, start with the two independent research tracks in the experiment/question registers (EX-PLD-10 subject/data model and EX-PLD-11 universal presentation). They join at a model-to-view compatibility check before EX-PLD-09 integrated journeys. This index supplies links, not experiment status.
 
 For the **product learning direction** research topic:
 - [Topic overview](product-learning-direction/README.md) — research purpose and evidence links.
