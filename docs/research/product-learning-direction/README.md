@@ -1,16 +1,28 @@
 # Product learning direction — research index
 
-Noncanonical research workspace for the Prep product-learning concept. This README is **navigation only**: it does not own the current product hypothesis, question status, experiment status, approved decisions or recommended next action.
+This is the **navigation index** for independent Prep product/model/interface research. It is neither a current-state register nor production design; Harness is reserved for a later, separate engineering phase.
 
 ## Start here
 
-- [Current research framing](research-framing.md) — **sole current source for this topic's Owner-supplied research focus and boundaries**; not canonical Product Requirements.
-- [Open questions](open-questions.md) — research questions and their states.
-- [Open experiments](open-experiments.md) — proposed/executed checks and their states.
-- [Handoff](HANDOFF.md) — reading pointers for resuming work.
-- [Local agent instructions](../AGENTS.md) and [research workflow](../WORKFLOW.md).
+- [Local agent index](../AGENTS.md) and [research workflow](../WORKFLOW.md) — where the research instructions live.
+- [Current research framing](research-framing.md) — owner-supplied product hypothesis and boundary.
+- [Open questions](open-questions.md) — question ownership, priority and state.
+- [Open experiments](open-experiments.md) — experiment conditions and execution state.
+- [Handoff](HANDOFF.md) — compact resume pointers, including the two parallel tracks.
 
-## Dated evidence and alternative analyses
+## Current investigation documents
+
+| Responsibility | Document |
+| --- | --- |
+| Conceptual **data/subject model and adversarial fixture** (EX-PLD-10) | [Model/fixture investigation protocol](model-fixture-investigation-brief-2026-10-13.md) |
+| **Universal four-pane view mechanism** and model-to-view contract (EX-PLD-11) | [Universal Entity Workspace hypothesis](universal-entity-workspace-hypothesis-2026-10-13.md) |
+| Layout geometry, resizing and panel-selection behavior | [Workspace layout candidate](../../../experiments/prep_study_loop/prototype/WORKSPACE_LAYOUT_CANDIDATE.md) |
+| Integrated cross-section journeys **after compatibility** (EX-PLD-09) | [EX-PLD-09 experiment entry](open-experiments.md#ex-pld-09--integrated-prep-concept-and-end-to-end-interaction-check) |
+| Comparative user-value study **after a usable integrated prototype** (EX-PLD-06) | [EX-PLD-06 experiment entry](open-experiments.md#ex-pld-06--goal--capability--knowledge--external-theoretical-study-loop) |
+
+The two upstream studies can proceed **in parallel** using independent provisional examples. Their outputs must meet at a shared fixture-to-view compatibility check before integrated UX research. Their results are evidence, not adopted domain or UI semantics.
+
+## Dated evidence and background
 
 - [Initial learning science and market scan](landscape-scan-2026-10-12.md)
 - [Iteration 01: Knowledge space and applied Capability](iteration-01-knowledge-space-and-applied-capability.md)
@@ -19,10 +31,8 @@ Noncanonical research workspace for the Prep product-learning concept. This READ
 - [Iteration 04: Broad goal-to-action market and scenarios](iteration-04-goal-to-useful-action-market-and-scenarios.md)
 - [EX-PLD-01: Public forum episode review](experiment-01-public-forum-episode-review.md)
 - [Iteration 05: Owner clarification and evidence reinterpretation](iteration-05-owner-knowledge-scope-to-study-material-boundary.md)
-- [EX-PLD-06: Synthetic HTTP caching user-data and export preflight (no human trial)](experiment-06-external-study-loop-preflight.md)
-- [2026-10-13: Owner UI layout / graph exploration checkpoint (not user evidence)](interface-exploration-checkpoint-2026-10-13.md)
-- [2026-10-13: Integrated conceptual model and fixture — research investigation protocol](model-fixture-investigation-brief-2026-10-13.md)
-- [2026-10-13: Universal Entity Workspace — presentation hypothesis and parallel research interface](universal-entity-workspace-hypothesis-2026-10-13.md)
-- [EX-PLD-07: SQUIRE vacancy editorial preflight (no independent reviewers)](experiment-07-squire-editorial-feasibility-preflight.md)
+- [EX-PLD-06: Synthetic data and export preflight, no user trial](experiment-06-external-study-loop-preflight.md)
+- [EX-PLD-07: Vacancy editorial preflight, no independent reviewers](experiment-07-squire-editorial-feasibility-preflight.md)
+- [2026-10-13: UI exploration and sequence correction](interface-exploration-checkpoint-2026-10-13.md)
 
-These files preserve dated evidence and interpretations, including **superseded research framings**. Read the [current framing](research-framing.md) before adopting any earlier proposed direction. Canonical product truth remains under Harness, not research notes.
+Dated reports can preserve earlier, superseded hypotheses. For current scope and statuses, use the sources listed above rather than interpreting historical reports as live instructions.
