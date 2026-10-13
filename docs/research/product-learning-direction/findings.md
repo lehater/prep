@@ -66,6 +66,10 @@
 
 **Stage disposition:** preserve the G–C M:N owner decision and C–K/K–M qualified simple-association hypotheses as the **initial MVP research baseline**. EX-PLD-10 is **not complete**. Advance to a corrected *versioned* corpus, then check its fidelity under the separate EX-PLD-11 read-only presentation contract. Do not infer the UI projection's edges are new subject facts.
 
+## Owner layout reference recovered (2026-10-13)
+
+The owner provided **two prior interactive-layout screenshots** showing an adjustable persistent L0 sidebar and an L1 workspace whose **specified pane positions** are 1 collection (upper left), 3 details (upper right), 2 related entities (lower left), 4 graph (lower right), plus heading/search/context bars and footer. **This exact layout had not been recorded in research notes or verified in the later standalone prototype.** The previous 25/25 independent interface assertions and 31/31 compatibility assertions therefore say nothing about matching that physical arrangement. A later assistant-drafted 2×2 interpretation that ignored the owner-provided placement was wrong. Restore fidelity before UX review; see [owner layout reference](interface-layout.md). No subject relation, Harness contract, or owner-approved product UI is inferred from a screenshot.
+
 ## Universal-workspace candidate, not a product decision
 
 The bounded read-only shell has four surfaces: **[1] collection**, **[2] related records with named roles and an inspectable source assertion**, **[3] own details and optional type-specific extension**, **[4] optional bounded graph of eligible *actual* binary assertions**.
