@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | Goal/Capability semantics (EX-GF-01) | Bounded desk semantic check supports incomplete Goals, reusable CapabilityDescription identity, and separation of structural C–C assertions from procedures or ordering. | Does not admit specific G–C, C–K or C–C predicates. No actual-user evaluation. |
 | Knowledge orientation / external material | Synthetic study-loop transport and selection checks show a feasible *mechanism*; public-user proxy examined 16 reported episodes (7 full threads, 9 excerpts). | No comparative measured user value, human understanding or source-quality proof. |
-| Subject model (EX-PLD-10) | Owner research direction now selects ordinary G–C M:N and context-independent, unambiguous C; C–C composition deferred. C–K and K–M M:N desk hypotheses exercised on an 11/11 synthetic G–C–K–M path. | Not an accepted ontology. K–M reachability is topical, not proof of ability-specific suitability. Full corrected fixture, K–K semantics and model/lifecycle choices remain open. |
+| Subject model (EX-PLD-10) | Owner research direction: G–C M:N, context-independent/unambiguous C, C–C deferred. Qualified C–K and K–M M:N hypotheses: 11/11 initial synthetic path checks, 20/20 subsequent bounded integrity/lifecycle desk checks. | Not an accepted ontology or reusable complete fixture. K–M reachability is topical, not proof of C-specific material suitability. K–K vocabulary, relation equivalence/lifecycle and several semantic choices remain open. |
 | Universal workspace (EX-PLD-11) | Independent read-only four-pane concept and final self-contained state/projection test: **25/25 synthetic assertions**. A generic collection/related-records/details/optional-graph shell worked for tested cases with typed role-aware related entries and extension points. | Unlimited descriptor-only universality **does not work**; unknown media/behavior requires extensions. No validated production UI or human usability result. |
 | Graph representation | Can show eligible typed binary assertions without changing source meaning. | The case for a default 2D/3D graph versus a good relation table is **not established**. |
 | Cross-track integration | A projection must preserve source record identity, named roles, predicate, direction/conditions and explicit absence. Multi-role records must not create invented binary source relations. | Subject-model → workspace compatibility with a **corrected** EX-PLD-10 corpus remains **unrun**. |
@@ -48,7 +48,23 @@
 
 **Limits:** no user validation, completeness or semantic-quality certification; no direct C–M decision; no full versioned EX-PLD-10 fixture for typed K–K, relationship identity/conditions, material association alternatives or all mutation/deletion cases. Older G–K bypass prototypes remain inadmissible evidence for this topology.
 
-**Next decision gate:** is presenting topic-related materials for **manual** inspection and selection sufficient for the MVP? If yes, keep K–M minimal and advance to the remaining EX-PLD-10 consistency cases rather than inventing C–M or typed G–C links.
+**Current scope boundary:** K–M supplies topic-related candidates for **manual** inspection and selection. A direct C–M relation remains an open alternative only if a concrete user workflow requires asserting C-specific study purpose. Do not invent C–M or new G–C kinds from graph reachability.
+
+### Integrity and lifecycle follow-up — bounded synthetic check (2026-10-13)
+
+**Evidence:** 20/20 **in-session, in-memory desk assertions** passed on a deliberately limited extension of the above corpus; the checking script is **not persisted as a reproducible experiment artifact**. Treat as reasoning support, not production validation or closure of the lifecycle question.
+
+- Validated endpoint role/kind consistency; stable, independently reusable C and K; multi-K material; exact navigation for two nonempty Goals and an empty Goal; off-scope and unlinked material exclusion; and absence of a direct G–K fact.
+- Verified that removing one G–C link leaves C reusable in another Goal; removing one C–K link preserves other uses of K; late material linking changes discovery without reidentifying M; deleting M with its links does not delete C or K.
+- Negative cases detect dangling endpoint references, inverted endpoint roles, duplicated relation-instance IDs, missing type on an asserted K–K edge, and unsupported direct G–K relation.
+- A typed and directed **sample K–K assertion** was included only for a minimal constraint check; its chosen illustrative predicate is **not** an adopted vocabulary. K–K links must not silently materialize extra G–C, C–K, or Goal–Knowledge assertions.
+- Two separately identified relation instances can assert the *same* G–C proposition: distinct **record identities** do not automatically imply distinct **subject facts**. Duplicate import and proposition equality still require an explicit lifecycle policy.
+- Renaming C without changing its task meaning may preserve identity; substantively changing the ability's meaning needs a domain identity policy, not automatic treatment as a cosmetic rename.
+- Removing a K still referenced by C or M creates dangling relations. The desk check detected the problem; it **did not** select a cascade/reject/detach behavior. No storage/API mechanism is implied.
+
+**Boundary cases still unresolved (P1 unless needed earlier):** equivalence/deduplication of repeated assertions; how material changes in a CapabilityDescription affect its identity and existing links; semantics of removing shared objects; whether any actual MVP use case needs to distinguish an author's intended C-specific material from learner-selected topical material. These do not warrant adding new entity kinds by default.
+
+**Stage disposition:** preserve the G–C M:N owner decision and C–K/K–M qualified simple-association hypotheses as the **initial MVP research baseline**. EX-PLD-10 is **not complete**. Advance to a corrected *versioned* corpus, then check its fidelity under the separate EX-PLD-11 read-only presentation contract. Do not infer the UI projection's edges are new subject facts.
 
 ## Universal-workspace candidate, not a product decision
 

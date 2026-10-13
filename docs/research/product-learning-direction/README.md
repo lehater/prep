@@ -8,6 +8,6 @@ Read in this order:
 4. [Experiments](open-experiments.md) — completed, partial, deferred and next checks.
 5. [Engineering reconciliation](engineering-reconciliation.md) — comparison with accepted `mvp-vertical-slice` obligations.
 
-**Next research work:** finish EX-PLD-10 with a corrected Goal → CapabilityDescription → Knowledge fixture and only justified relationship kinds. Then check it against the completed *independent* EX-PLD-11 view contract; proceed to EX-PLD-09 integrated journey and only later to a genuine EX-PLD-06 user comparison.
+**Research checkpoint (2026-10-13):** the initial G–C–K–M MVP model slice and bounded desk checks are consolidated in [findings](findings.md); EX-PLD-10 remains **open**, and the material/capability and relation-lifecycle distinctions are explicitly qualified. **Next research work:** produce a corrected, versioned EX-PLD-10 subject fixture and decide only material semantics that block meaningful presentation; then perform the EX-PLD-10 ↔ completed *independent* EX-PLD-11 view-contract compatibility check. After that, proceed to EX-PLD-09 integrated journey and finally a genuine EX-PLD-06 human comparison. Do not promote desk hypotheses into engineering decisions.
 
 Current engineering meanings are owned by the MVP's registered Harness artifacts, **not** by these notes.
