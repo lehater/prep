@@ -11,7 +11,7 @@
 
 ## EX-PLD-10 — G → CapabilityDescription semantic desk review (2026-10-13)
 
-**Evidence level:** primary-standard desk comparison plus synthetic counterexamples. **Disposition:** qualified research **recommendation**, **not** owner approval, an admitted domain predicate, or a completed EX-PLD-10 model experiment. Scoped strictly to G–C; no C–K, K–K, material or implementation decision.
+**Evidence level:** primary-standard desk comparison plus synthetic counterexamples. **Disposition:** competing hypothesis check; **no established need for individually typed G–C predicates**, not an owner decision or completed EX-PLD-10 model experiment. Scoped strictly to G–C; no C–K, K–K, material or implementation decision.
 
 ### Existing approaches and limits
 
@@ -23,32 +23,42 @@
 | [CTDL targetCompetency usage](https://www.credreg.org/quickstart/ctdlexplorer) | In credential/learning-opportunity condition profiles, referenced competencies may be **required** for completion or attainment. | This is stronger than Prep's selection of a preparation target. |
 | [Schema.org / LRMI AlignmentObject](https://schema.org/AlignmentObject) | `requires` is an alignment type between a learning resource/program context and a framework node. | Its domain is not Goal–C; prerequisite semantics should not transfer merely because the word matches. |
 
-### Candidate predicate, contrasted with alternatives
+### First decision: does G–C need per-link relation kinds at all?
 
-**Candidate:** `Goal G targets CapabilityDescription C` iff an author explicitly designates C as an **intended subject/ability-description target of preparation within G's current scope**. This is a directional, contextual assertion; C keeps its independent identity and may be selected by other Goals. It does **not** assert necessity for external success, exhaustiveness of the scope, expected attainment, actual learner ability, or evaluation. Absence of the assertion means *unknown/not selected in this recorded scope*, not proven irrelevance.
+**Current hypothesis H0 (minimal):** a single reusable Goal–CapabilityDescription association with many-to-many cardinality is sufficient. Its *domain meaning* is that C belongs to the currently recorded preparation scope of G. G may refer to zero or more C; a C may participate in zero or more G. The association does **not** claim necessity, exhaustiveness, real-world competency, attainment or assessment. Absence means that no scope membership has been recorded; it is not evidence of irrelevance.
 
-- `requires`: entails necessity; false for elective or exploratory C. Reserve only if a genuine requirement meaning is separately established.
-- `includes` / `contains` / `comprises`: ambiguous structural membership or part-whole; risk mistaking Goal for a complete competency framework.
-- `focusesOn`: suggests emphasis/priority; not all selected C must be central.
-- `addresses`: possible but weak: merely discussing a C need not mean selecting it as a preparation target.
-- `alignsWith` / `relatesTo`: compatibility or generic relevance, not positive preparation intent.
-- `covers` / `achieves` / `assesses`: imply coverage, achievement, or assessment absent from Prep's research contract.
+**Clarification:** M:N specifies cardinality, not predicate meaning. The endpoint roles already establish a domain-specific *kind* of association; the unresolved question is whether separate **predicate variants on individual G–C links** have justified value. A single domain association with one inherent meaning is not equivalent to a free-form, semantically meaningless edge.
 
-### Desk scenarios and counterexamples
+**Competing hypothesis H1:** G–C has multiple independently meaningful relation kinds (or context qualifiers) that a single association cannot faithfully express. The burden of proof is a real scenario with two necessary, different interpretations, preferably changing meaningful user understanding or behavior. Being able to name `targets`, `requires`, `focusesOn` is not such evidence. An obligation/priority/status distinction, if justified, might instead be an association attribute or separately scoped state: do not assume it must be a new relation type.
 
-| Scenario | Correct G–C reading |
+### Adversarial scenarios for H0
+
+| Scenario | Does one M:N association preserve the needed meaning? |
 | --- | --- |
-| Interview Goal targets “explain consistency trade-offs” and “design an API” | Multiple distinct selected C; no implied complete interview syllabus. |
-| Interview Goal and architecture-review Goal both target “explain consistency trade-offs” | One reusable C identity, distinct contextual selections. |
-| New Goal has zero associated C | Valid incomplete Goal; no negative knowledge inferred. |
-| Interview Goal targets elective “explain CQRS” | Valid if deliberately selected; no claim CQRS is essential to the job or mandatory for Goal completion. |
-| Author removes “explain CQRS” from scope, adds “evaluate caching choices” | G–C selection changes; reusable C meanings and identities need not change. |
-| Vacancy merely mentions CQRS, or a topic seems generally relevant | **Do not assert** `targets` without deliberate inclusion in the Goal's preparation scope. |
-| `G requires C` asserted from an optional target, or `G achieves C` inferred from selection | **Invalid inference**: neither necessity nor personal mastery follows. |
+| Interview Goal links “explain consistency trade-offs” and “design an API” | **Yes:** one G may include many C; no exhaustive syllabus implied. |
+| Interview and architecture-review Goals link the same “explain consistency trade-offs” | **Yes:** C has one independent identity, can be selected by multiple G. |
+| Newly drafted Goal has zero C | **Yes:** incomplete Goal allowed; absence is not a negative fact. |
+| Optional “explain CQRS” is linked to an interview Goal | **Yes:** selection does not make C mandatory for success. |
+| An author removes a CQRS link and adds “evaluate caching choices” | **Yes:** scope membership changes without redefining C. |
+| A job posting merely mentions CQRS, without an accepted association in the recorded preparation scope | **No link inferred:** mere relevance does not establish membership. |
+| A reader concludes a linked C is mandatory, attained or exhaustively covering G | **Invalid inference:** H0 does not entail these claims. |
 
-**Falsifier:** a legitimate Prep G–C use case where C is intentionally associated with G but *is not a selected preparation target*, or where selection has to encode mandatory status. Then `targets` alone is insufficient; capture the smallest additional semantic distinction only after such evidence.
+**Current desk result:** none of the above cases falsifies H0. There is **no evidenced requirement for per-link G–C typing**. This is a **qualified research hypothesis**, not owner approval of an implementation or final subject model.
 
-**Still open for the owner:** (1) confirm/reject `targets` and its deliberate-selection criterion; (2) determine whether merely *candidate/relevant* C needs a separately assertable relation or can remain unasserted; (3) determine whether obligation/priority distinction is necessary for a concrete Goal use case. No predicate is admitted and the broader EX-PLD-10 corrected fixture remains undone.
+### Predicate names: deferred unless H1 survives
+
+- `targets` may be an English label for the **single association's meaning**; calling the link `targets` does *not* establish a need for per-link predicate variants.
+- `requires` adds necessity not warranted by optional selections.
+- `focusesOn` adds emphasis/priority absent from an ordinary inclusion.
+- `includes` / `contains` may overstate structural part–whole containment; use a precise scope-membership definition instead.
+- `addresses` / `alignsWith` / `relatesTo` can express broader relevance than recorded goal scope.
+- `covers` / `achieves` / `assesses` risk unsupported completeness, outcome or evaluation implications.
+
+**Existing standards (above):** prove that various domains *can* distinguish relation meanings; they do **not** prove Prep *needs* per-link G–C predicate typing. ESCO's essential/optional distinction is an external occupation–skill judgment, not necessarily part of Prep's Goal–C scope association.
+
+**Falsifier for H0:** identify a concrete and valid Prep scenario where the *same Goal–C association* must represent more than one independent semantic role and where omitting that role loses essential subject meaning. Test whether an attribute or another existing domain fact suffices **before** introducing types.
+
+**Open for owner decision:** (1) is simple scope membership the intended G–C meaning? (2) do candidate/relevant C need to be represented as links before being selected? (3) does any actual Goal scenario require necessity, priority or another distinct G–C claim? Only after such evidence should individual predicate variants be evaluated. EX-PLD-10's broader corrected fixture and owner admission remain pending.
 
 ## Universal-workspace candidate, not a product decision
 
