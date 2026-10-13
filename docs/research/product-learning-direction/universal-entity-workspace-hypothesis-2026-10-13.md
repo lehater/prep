@@ -55,6 +55,17 @@ Owner-supplied conceptual semantics
 
 **Default behavior candidates:** [1] selects one object -> [2]/[3] update, [4] highlights the corresponding node if present; [4] selects a same-kind node -> [1]/[2]/[3] update; selection itself does **not** silently filter/recenter; hover only emphasizes; focus/pan/graph subset are explicit operations. Clicking a different-kind node is an **open cross-section navigation choice**, not a forced default. Link inspection should preserve direction, context and relation identity. Shared Goal context remains visible and removable. These are high-level design candidates, with same-kind synchronization already Owner-confirmed in the workbench exploration.
 
+## Research-test refinement of the presentation candidate (2026-10-13)
+
+The original four-pane shell remains a **candidate**, but the initial binary-only interpretation of the related-record contract is **too narrow**. For the evidence and explicit limitations, see [independent EX-PLD-11 conclusion](experiment-11-independent-closure-2026-10-13.md). The **minimal amendment to evaluate** is:
+
+- **[2] Related records:** each displayed entry has its own stable ID, record kind, **named endpoint roles** (two for a binary assertion, more or optional roles for a contextual record), meaning, context/conditions and any authored objective. A relationship/intent inspector exposes the complete record. Navigating to a role does not create a new assertion or reverse an existing predicate.
+- **[4] Graph:** only explicitly eligible **binary** assertion IDs among a chosen bounded node set are drawn; overlapping edges remain distinct through the inspector. Multi-role records remain inspectable via [2] instead of being decomposed into invented edges.
+- **Workspace state:** selection is logically shared, while filters, graph scope, focus, hover, explicit context, navigation origin/history and layout are separate. Selecting an object absent from a filtered projection presents an **out-of-view** state; a user-initiated reveal can adjust the filter.
+- **[3] Own details:** standard fields are metadata-driven; unsupported specialized content is explicitly labelled as requiring a reader/extension. The base shell does not imply generic editing or arbitrary behavior support.
+
+This is a tested **read-only presentation candidate** with known exceptions, not Owner approval, a runtime API, a domain predicate admission or a new frontend implementation. Earlier statements of the unqualified hypothesis should be read as the proposal tested, not an established universal guarantee.
+
 ## Parallel research instead of a waterfall
 
 ```text
@@ -95,4 +106,4 @@ Owner-supplied conceptual semantics
 
 ## Next agent entrypoint
 
-For the **UI track**, read [research instructions](../AGENTS.md), [WORKFLOW](../WORKFLOW.md), this note, [Q-PLD-18](open-questions.md), [EX-PLD-11](open-experiments.md), [workbench candidate](../../../experiments/prep_study_loop/prototype/WORKSPACE_LAYOUT_CANDIDATE.md) and the [model/fixture protocol](model-fixture-investigation-brief-2026-10-13.md). Begin with **one high-level contract and three contrasting data/view scenarios**, not a frontend implementation. For the **model track**, retain the [EX-PLD-10](open-experiments.md) starting point. Status belongs in the registers; research findings belong in dated result reports.
+For the **UI track**, start with the [completed independent EX-PLD-11 research conclusion](experiment-11-independent-closure-2026-10-13.md) and the [experiment register](open-experiments.md); do not rerun the original candidate's initial three-case instructions as if the research were still unstarted. For the **model track**, retain the [EX-PLD-10](open-experiments.md) starting point. Status belongs in the registers; research findings belong in dated result reports.
