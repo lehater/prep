@@ -20,7 +20,7 @@ The study deliberately assumes a coherent supplied dataset to test the **utility
 
 For Goal-specific navigation, the **subject path is Goal → CapabilityDescription → Knowledge**. There is **no direct Goal–Knowledge semantic link**. The semantics of Goal–CapabilityDescription and CapabilityDescription–Knowledge links are not yet fixed. Knowledge–Knowledge assertions, **when present**, must have an explicit meaningful type. The absence of an assertion is unknown, not a denial.
 
-Information instances have separate identity; asserted relation instances have separate identity; permitted relation kinds require justified endpoint roles and meanings. These are owner inputs for research, **not** a completed subject ontology. Description-of-ability, study objective/depth, Knowledge content detail, and observed human attainment must remain distinct.
+Information **entities** have independent identity. **Relations do not require independent instance identity, a relation ID, or a standalone relation entity** (owner decision, 2026-10-13; supersedes the earlier relation-instance assumption). A simple unqualified association is stated by its endpoint roles; an asserted K–K relation additionally has an explicit meaningful predicate and direction. Manual creation, inspection, change and removal of relations remain in scope without separate relation IDs. Relation conditions, claim provenance, and competing contextual assertions must be justified independently before adding further modeling complexity. These are owner inputs for research, **not** a completed subject ontology or a Harness-admitted model. Description-of-ability, study objective/depth, Knowledge content detail, and observed human attainment must remain distinct.
 
 ## Scope and external history
 

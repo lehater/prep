@@ -14,6 +14,8 @@
 | Direct Goal–Knowledge, direct Material–Knowledge/Capability, fixed depth, C–C process order | No such accepted mandatory topology or classification is established by MVP | **NO CANONICAL ASSERTION**; keep open in research |
 | Current Tactical Domain Design PR #101 | Draft/blocking; individual owner research decisions do not establish a published accepted model | **DO NOT MERGE** until Authority/Harness admission |
 
+**Relation-identity research update (2026-10-13):** the owner rejected independent relationship-instance identity and relation IDs. This does **not** weaken accepted MVP CRUD/bulk-load obligations for relationships: ordinary associations can be introduced, inspected, changed and removed without relation entities. It is a noncanonical research input until routed Tactical Domain Design admission, not an automatic change to accepted engineering artifacts.
+
 **Conclusion:** The accepted MVP is substantially closer to the current research than the unrelated `main` baseline. No immediate canonical Product/Discovery/Strategy rewrite is justified by the consolidation alone. Remaining candidate model/relationship choices belong to EX-PLD-10 and later routed engineering acceptance.
 
 **Next gated transfer:** after owner decisions and model/view compatibility, route only genuinely changed requirements, DS-02 scope/classification or tactical semantics through the pinned Harness process; revalidate dependent capabilities. Do not mix research document promotion with automatic engineering currentness.

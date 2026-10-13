@@ -7,7 +7,7 @@
 | Subject model (EX-PLD-10) | Owner research direction: G–C M:N, context-independent/unambiguous C, C–C deferred. Qualified C–K and K–M M:N hypotheses: 11/11 initial synthetic path checks, 20/20 subsequent bounded integrity/lifecycle desk checks. | Not an accepted ontology or reusable complete fixture. K–M reachability is topical, not proof of C-specific material suitability. K–K vocabulary, relation equivalence/lifecycle and several semantic choices remain open. |
 | Universal workspace (EX-PLD-11) | Independent read-only four-pane concept and final self-contained state/projection test: **25/25 synthetic assertions**. A generic collection/related-records/details/optional-graph shell worked for tested cases with typed role-aware related entries and extension points. | Unlimited descriptor-only universality **does not work**; unknown media/behavior requires extensions. No validated production UI or human usability result. |
 | Graph representation | Can show eligible typed binary assertions without changing source meaning. | The case for a default 2D/3D graph versus a good relation table is **not established**. |
-| Cross-track integration | A projection must preserve source record identity, named roles, predicate, direction/conditions and explicit absence. Multi-role records must not create invented binary source relations. | Subject-model → workspace compatibility with a **corrected** EX-PLD-10 corpus remains **unrun**. |
+| Cross-track integration | A projection must preserve source **entity** identity, endpoint roles, predicate, direction/conditions when present, and explicit absence. View/graph edge keys are a UI concern, not domain relation-instance IDs. Multi-role content must not create invented binary subject relations. | Subject-model → workspace compatibility with a **corrected** EX-PLD-10 corpus remains **unrun**. |
 
 ## EX-PLD-10 — current G–C–K–M MVP research slice (2026-10-13)
 
@@ -46,23 +46,23 @@
 
 **Semantic counterexample:** a definitions card (M1) is reachable from C2 *choose a consistency model* through K1 but does not thereby become an appropriate exercise for choosing a model. **Outcome:** the candidate-discovery journey works, but an automatic claim that the material trains a specific C is unsupported.
 
-**Limits:** no user validation, completeness or semantic-quality certification; no direct C–M decision; no full versioned EX-PLD-10 fixture for typed K–K, relationship identity/conditions, material association alternatives or all mutation/deletion cases. Older G–K bypass prototypes remain inadmissible evidence for this topology.
+**Limits:** no user validation, completeness or semantic-quality certification; no direct C–M decision; no full versioned EX-PLD-10 fixture for typed K–K, qualified-claim semantics if needed, material association alternatives or all mutation/deletion cases. Older G–K bypass prototypes remain inadmissible evidence for this topology.
 
 **Current scope boundary:** K–M supplies topic-related candidates for **manual** inspection and selection. A direct C–M relation remains an open alternative only if a concrete user workflow requires asserting C-specific study purpose. Do not invent C–M or new G–C kinds from graph reachability.
 
 ### Integrity and lifecycle follow-up — bounded synthetic check (2026-10-13)
 
-**Evidence:** 20/20 **in-session, in-memory desk assertions** passed on a deliberately limited extension of the above corpus; the checking script is **not persisted as a reproducible experiment artifact**. Treat as reasoning support, not production validation or closure of the lifecycle question.
+**Evidence:** 20/20 **in-session, in-memory desk assertions** passed on a deliberately limited extension of the above corpus; the checking script is **not persisted as a reproducible experiment artifact**. This was a historical fixture using relation-instance IDs; the later owner decision rejects that requirement. The count remains historical evidence, **not** validation of a corrected ID-free model, production behavior or lifecycle closure.
 
 - Validated endpoint role/kind consistency; stable, independently reusable C and K; multi-K material; exact navigation for two nonempty Goals and an empty Goal; off-scope and unlinked material exclusion; and absence of a direct G–K fact.
 - Verified that removing one G–C link leaves C reusable in another Goal; removing one C–K link preserves other uses of K; late material linking changes discovery without reidentifying M; deleting M with its links does not delete C or K.
-- Negative cases detect dangling endpoint references, inverted endpoint roles, duplicated relation-instance IDs, missing type on an asserted K–K edge, and unsupported direct G–K relation.
+- Negative cases detected dangling endpoint references, inverted endpoint roles, missing type on an asserted K–K edge and unsupported direct G–K relation. One historical relation-ID collision test relied on the now-rejected instance-identity assumption and is not a requirement for the revised model.
 - A typed and directed **sample K–K assertion** was included only for a minimal constraint check; its chosen illustrative predicate is **not** an adopted vocabulary. K–K links must not silently materialize extra G–C, C–K, or Goal–Knowledge assertions.
-- Two separately identified relation instances can assert the *same* G–C proposition: distinct **record identities** do not automatically imply distinct **subject facts**. Duplicate import and proposition equality still require an explicit lifecycle policy.
+- In the revised simple-association model, repeated input of the same unqualified G–C endpoint pair does not create multiple independently identified subject links. Import reconciliation remains an open operational policy; contextual or contradictory claims need separate justification rather than automatic relation-instance IDs.
 - Renaming C without changing its task meaning may preserve identity; substantively changing the ability's meaning needs a domain identity policy, not automatic treatment as a cosmetic rename.
 - Removing a K still referenced by C or M creates dangling relations. The desk check detected the problem; it **did not** select a cascade/reject/detach behavior. No storage/API mechanism is implied.
 
-**Boundary cases still unresolved (P1 unless needed earlier):** equivalence/deduplication of repeated assertions; how material changes in a CapabilityDescription affect its identity and existing links; semantics of removing shared objects; whether any actual MVP use case needs to distinguish an author's intended C-specific material from learner-selected topical material. These do not warrant adding new entity kinds by default.
+**Boundary cases still unresolved (P1 unless needed earlier):** handling duplicate inputs for the same unqualified link; how material changes in a CapabilityDescription affect its identity and existing links; semantics of removing shared objects; whether any actual MVP use case needs to distinguish an author's intended C-specific material from learner-selected topical material. These do not warrant adding relation entities or new entity kinds by default.
 
 **Stage disposition:** preserve the G–C M:N owner decision and C–K/K–M qualified simple-association hypotheses as the **initial MVP research baseline**. EX-PLD-10 is **not complete**. Advance to a corrected *versioned* corpus, then check its fidelity under the separate EX-PLD-11 read-only presentation contract. Do not infer the UI projection's edges are new subject facts.
 
@@ -90,12 +90,11 @@ Do not reintroduce a direct Goal–Knowledge study-intent shortcut or declare ma
 
 The owner-confirmed research invariant is: **every asserted K–K subject relation has an explicit meaningful type**, not “every pair of Knowledge objects must be linked.” A predicate means a domain assertion about reusable subject referents, not a graph shortcut, tag, display filter, study plan, material source or a capability requirement. Goal–CapabilityDescription, CapabilityDescription–Knowledge and Knowledge–StudyMaterial remain the previously chosen simple M:N research links (C–K/K–M still qualified hypotheses): adding K–K predicates does **not** retaxonomize them or imply G–K/C–M facts.
 
-Conceptual assertion (not a persistence/API schema):
+Minimal conceptual K–K relation (not a persistence/API schema):
 
-    assertion identity | source K role | predicate | target K role
-    optional: conditions, subject scope, claim evidence/support
+    source Knowledge | meaningful predicate | target Knowledge
 
-Assertion instance identity is owner-confirmed research input; **predicate vocabulary** and **proposition equality** are different concerns. The same independently identified record need not be a different subject fact. Unsupported propositions should remain unknown/candidates, not untyped or defaulted to `related_to`. Inverse navigation renders the **same** assertion from the other endpoint; it does not store an additional subject fact. Conditional or multi-role propositions must preserve their conditions and roles rather than create fictitious binary edges.
+**Owner decision (2026-10-13): relation-instance identity is not required and must not be implemented without demonstrated need.** A simple unqualified link is expressed by its endpoint roles, and for K–K also its predicate. Repeating the same unqualified statement does not create additional relationship objects; different predicates may hold between the same two Knowledge entities. This is not a general equality rule for condition-qualified claims, which are deferred pending evidence. Unsupported propositions remain unknown/candidates, not untyped or defaulted to `related_to`. Inverse navigation displays the **same** relation from the other endpoint; it does not create another subject fact. If contextual or multi-role claims are justified later, preserve their meaning without inventing binary edges or assuming relation IDs.
 
 ### Standards comparison
 
@@ -136,11 +135,11 @@ Arrow means stored **subject roles** from source to target, not visual navigatio
 5. **`causes`:** “Loss of write quorum” causes “write unavailability” in the specified quorum-based configuration without an alternative quorum. “Network partition causes all reads to become unavailable” is too strong: it ignores consistency policy, read path and available replicas. A mere `precedes` statement cannot imply `causes`.
 6. **`represents` versus `realizes`:** A diagram of the Raft state machine *represents* the protocol; the diagram does not implement the protocol. Document-to-K source provenance is likewise not intrinsically a K–K causal edge.
 7. **Independent predicates on one pair:** An event A may both `precedes` B and `causes` B given **independent support**. It is valid to have multiple predicates for the same two K referents; the pair is not a one-to-one single-edge slot.
-8. **Multiple records for the same claim:** Two authors may each support identical (A, predicate, B, conditions), creating two evidence items, not automatically two semantic facts; different conditions, contrary claims and semantic changes must remain distinguishable. Relation-instance identity does **not** settle semantic deduplication.
+8. **Repeated or supported claims:** Two sources can support the same unqualified (A, predicate, B) relation without creating two Prep relation instances. Different conditions or contrary claims, if needed, would require an explicitly justified claim/evidence model rather than mandatory IDs for ordinary links.
 9. **Direction and absence:** `has_part(B,A)` is an inverse *view* of `part_of(A,B)`, never an independent assertion. No K–K record means *unknown/not asserted*, not “false”; K–K traversal never constructs C–K, G–C, Goal–K or certifies C-specific material suitability.
 10. **Cycle/identity guard:** Taxonomic A -> B -> A or `part_of(A,A)` signals sense mismatch, mistaken identity or invalid strict hierarchy; flag for review rather than silently adding/merging/deleting Knowledge records.
 
-**Inference:** Only predicate-specific entailment may be computed, labeled **derived** and kept distinct from authored assertion identity. For the smallest slice, the source of truth can contain only direct K–K assertions, with **no inference engine**. Test conditional transitivity/cycles in a later, justified iteration.
+**Inference:** Only predicate-specific entailment may be computed, labeled **derived** and kept distinct from directly authored subject assertions. For the smallest slice, the source of truth can contain only direct K–K assertions, with **no inference engine**. Test conditional transitivity/cycles in a later, justified iteration.
 
 ### Options, risks, pending owner choices
 
@@ -153,6 +152,6 @@ Arrow means stored **subject roles** from source to target, not visual navigatio
 - Confirm/adjust the **research-only** minimal semantic slice `specializes` (strict kind-of), `part_of` and `realizes`; this is **not** Tactical admission.
 - Determine whether `requires` must denote only strict, context-qualified **subject dependency**, while learner/curriculum prerequisites remain separate; demand a counterexample if an intrinsic K–K learning prerequisite is proposed.
 - Decide whether `causes` is needed in the corrected first fixture or can remain a qualified candidate.
-- Determine semantic-equality/deduplication and contrary-claim handling independently of already owner-confirmed relation-instance identity; deletion/condition mutation still unresolved.
+- Specify duplicate-import, unlink and referenced-entity deletion behavior for ordinary ID-free links. Investigate qualified/contrary claims only if a concrete workflow requires them; do not reintroduce relation-instance identity by default.
 
 **Falsifier/stop:** If concrete K referents cannot be distinguished, or the proposed three leaves cannot be reliably discriminated in realistic subject cases, do not promote the selected vocabulary. Next gate remains the corrected versioned EX-PLD-10 fixture, then the independent EX-PLD-11 view compatibility check; do not mix engineering approval with research.
